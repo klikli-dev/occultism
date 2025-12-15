@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.MaridModel;
+import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -41,6 +42,7 @@ public class MaridRenderer extends GeoEntityRenderer<MaridEntity> {
     public MaridRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridModel());
 
+        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
             if (Objects.equals(bone.getName(), "bone")) //left hand
                 return animatable.getItemInHand(InteractionHand.MAIN_HAND);

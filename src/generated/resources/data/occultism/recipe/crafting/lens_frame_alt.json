@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "occultism:otherrock"
+    },
+    "s": {
+      "tag": "c:ingots/silver"
+    },
+    "w": {
+      "tag": "c:dyes/white"
+    }
+  },
+  "pattern": [
+    "ooo",
+    "sws",
+    "ooo"
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:lens_frame"
+  }
+}

@@ -31,6 +31,29 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:storage_controller_base_dark"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.spotlight_dark.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_storage_controller_base_dark",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

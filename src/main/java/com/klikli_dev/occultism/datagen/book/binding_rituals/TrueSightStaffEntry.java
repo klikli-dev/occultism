@@ -32,7 +32,7 @@ public class TrueSightStaffEntry extends EntryProvider {
                          
                         """,
                 this.color("Marid", ChatFormatting.DARK_PURPLE),
-                this.color("Djinni", ChatFormatting.DARK_PURPLE)
+                this.color("Foliot", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

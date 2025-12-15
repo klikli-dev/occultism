@@ -40,6 +40,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
         stonecutterRecipes(pRecipeOutput);
         otherflowerRecipes(pRecipeOutput);
         grayPasteRecipes(pRecipeOutput);
+
+        //TODO: remove in next major version, now is for players that already make void can return to rainbow
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_RAINBOW, 1)
+                .requires(OccultismItems.CHALK_VOID)
+                .unlockedBy("has_chalk_void", has(OccultismItems.CHALK_VOID))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/change_rainbow_to_void"));
     }
 
     private void ritualRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
@@ -512,7 +518,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("xy")
                 .pattern("xy")
                 .pattern("xy")
-                .define('x', OccultismTags.Items.OTHERSTONE_DUST)
+                .define('x', OccultismTags.Items.CHALK_BASE_DUST)
                 .define('y', OccultismTags.Items.OTHERWORLD_WOOD_DUST)
                 .unlockedBy("has_ashes", has(OccultismItems.OTHERWORLD_ASHES.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_white_impure"));
@@ -520,7 +526,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("xy")
                 .pattern("xy")
                 .pattern("xy")
-                .define('y', OccultismTags.Items.OTHERSTONE_DUST)
+                .define('y', OccultismTags.Items.CHALK_BASE_DUST)
                 .define('x', OccultismTags.Items.OTHERWORLD_WOOD_DUST)
                 .unlockedBy("has_ashes", has(OccultismItems.OTHERWORLD_ASHES.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_white_impure2"));
@@ -599,6 +605,15 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('s', OccultismTags.Items.SILVER_INGOT)
                 .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/lens_frame"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.LENS_FRAME.get())
+                .pattern("ooo")
+                .pattern("sws")
+                .pattern("ooo")
+                .define('o', OccultismBlocks.OTHERROCK.get())
+                .define('s', OccultismTags.Items.SILVER_INGOT)
+                .define('w', Tags.Items.DYES_WHITE)
+                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/lens_frame_alt"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.LENSES.get())
                 .pattern("ppp")
                 .pattern("pgp")
@@ -613,8 +628,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("sis")
                 .pattern(" ss")
                 .define('s', OccultismTags.Items.SILVER_INGOT)
-                .define('i', OccultismTags.Items.IESNIUM_INGOT)
-                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .define('i', OccultismItems.SPIRIT_ATTUNED_GEM)
+                .unlockedBy("has_spirit_attuned_gem", has(OccultismItems.SPIRIT_ATTUNED_GEM))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/magic_lamp_empty"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.OTHERSTONE_FRAME.get())
@@ -624,6 +639,13 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('o', OccultismBlocks.OTHERSTONE.get())
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_frame"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.OTHERROCK_FRAME.get())
+                .pattern("ooo")
+                .pattern("o o")
+                .pattern("ooo")
+                .define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_frame"));
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERSTONE_PEDESTAL.get())
                 .pattern("s s")
                 .pattern(" o ")
@@ -632,15 +654,22 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('o', OccultismBlocks.OTHERSTONE.get())
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_pedestal"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER.get())
-                .requires(OccultismTags.Items.SILVER_INGOT)
-                .requires(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
-                .unlockedBy("has_otherstone_pedestal", has(OccultismBlocks.OTHERSTONE_PEDESTAL.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_pedestal_silver"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERROCK_PEDESTAL.get())
+                .pattern("s s")
+                .pattern(" o ")
+                .pattern("sss")
+                .define('s', OccultismBlocks.OTHERROCK_SLAB.get())
+                .define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_pedestal"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.STORAGE_STABILIZER_TIER0.get())
                 .requires(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
                 .unlockedBy("has_otherstone_pedestal", has(OccultismBlocks.OTHERSTONE_PEDESTAL.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_stabilizer_tier0"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get())
+                .requires(OccultismBlocks.OTHERROCK_PEDESTAL.get())
+                .unlockedBy("has_otherrock_pedestal", has(OccultismBlocks.OTHERROCK_PEDESTAL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_stabilizer_tier0_dark"));
 
         stairBuilder(OccultismBlocks.OTHERSTONE_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERSTONE.asItem()))
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_stairs"));
@@ -768,7 +797,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherrock_bricks_slab", has(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chiseled_otherrock_bricks"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.OTHERSTONE_TABLET.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.OTHERWORLDLY_TABLET.get())
                 .pattern("aga")
                 .pattern("gsg")
                 .pattern("aga")
@@ -778,7 +807,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_tablet"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.OTHERSTONE_TABLET.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.OTHERWORLDLY_TABLET.get())
                 .pattern("aga")
                 .pattern("gsg")
                 .pattern("aga")
@@ -870,16 +899,23 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('b', OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
                 .unlockedBy("has_dimensional_matrix", has(OccultismItems.DIMENSIONAL_MATRIX.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_controller"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.STORAGE_CONTROLLER_DARK.get())
+                .pattern("d")
+                .pattern("b")
+                .define('d', OccultismItems.DIMENSIONAL_MATRIX.get())
+                .define('b', OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get())
+                .unlockedBy("has_dimensional_matrix", has(OccultismItems.DIMENSIONAL_MATRIX.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_controller_dark"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.STORAGE_REMOTE_INERT.get())
                 .pattern("iai")
                 .pattern("iti")
                 .pattern("isi")
-                .define('t', OccultismItems.OTHERSTONE_TABLET.get())
+                .define('t', OccultismItems.OTHERWORLDLY_TABLET.get())
                 .define('i', OccultismTags.Items.IESNIUM_NUGGET)
                 .define('a', OccultismItems.SPIRIT_ATTUNED_GEM)
                 .define('s', OccultismTags.Items.SILVER_INGOT)
-                .unlockedBy("has_otherstone_tablet", has(OccultismItems.OTHERSTONE_TABLET.get()))
+                .unlockedBy("has_otherstone_tablet", has(OccultismItems.OTHERWORLDLY_TABLET.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_remote_inert"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.OTHERGLASS_NATURAL.get())
@@ -963,6 +999,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLESTONE.asItem(), OccultismBlocks.OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.OTHERSTONE.asItem(), OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.POLISHED_OTHERSTONE.asItem(), OccultismItems.BURNT_OTHERSTONE.asItem(), 0.15f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.POLISHED_OTHERROCK.asItem(), OccultismItems.BURNT_OTHERROCK.asItem(), 0.15f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.OTHERSTONE_BRICKS.asItem(), OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.asItem(), 0.3f, pRecipeOutput);
 
         autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLEROCK.asItem(), OccultismBlocks.OTHERROCK.asItem(), 0.5f, pRecipeOutput);
@@ -1128,6 +1165,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         grayPasting(OccultismTags.Items.CALCITE_DUST, Items.CALCITE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
         grayPasting(OccultismTags.Items.BLACKSTONE_DUST, Items.BLACKSTONE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
         grayPasting(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.OTHERROCK_DUST, OccultismBlocks.OTHERROCK.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
     }
 
     protected static void grayPasting(TagKey<Item> input, Item output, RecipeCategory category, RecipeOutput pRecipeOutput) {

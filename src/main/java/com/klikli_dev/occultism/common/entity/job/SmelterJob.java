@@ -57,6 +57,7 @@ public class SmelterJob extends SpiritJob {
     protected Supplier<Float> smeltingTimeMultiplier;
 
     protected Supplier<Integer> tier;
+    protected Supplier<Integer> operationCount;
 
     protected Optional<RecipeHolder<SmeltingRecipe>> currentRecipe = Optional.empty();
     protected Optional<RecipeHolder<BlastingRecipe>> currentRecipeBlast = Optional.empty();
@@ -67,9 +68,10 @@ public class SmelterJob extends SpiritJob {
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
 
 
-    public SmelterJob(SpiritEntity entity, Supplier<Float> smeltingTimeMultiplier) {
+    public SmelterJob(SpiritEntity entity, Supplier<Float> smeltingTimeMultiplier, Supplier<Integer> operationCount) {
         super(entity);
         this.smeltingTimeMultiplier = smeltingTimeMultiplier;
+        this.operationCount = operationCount;
     }
 
     @Override
@@ -208,10 +210,11 @@ public class SmelterJob extends SpiritJob {
     }
 
     private void commonFinish(ItemStack handHeld, ItemStack result){
-        result.setCount((result.getCount()));
+        int a = Math.min(this.operationCount.get(), handHeld.getCount());
+        result.setCount((result.getCount() * a));
         ItemStack inputCopy = handHeld.copy();
-        inputCopy.setCount(1);
-        handHeld.shrink(1);
+        inputCopy.setCount(a);
+        handHeld.shrink(a);
 
         this.onSmelt(inputCopy, result);
         var event = new SmelterJobEvent(this.entity, inputCopy, result);

@@ -80,6 +80,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".message.set_storage_controller", "Linked the stable wormhole to this storage actuator.");
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".message.not_loaded", "Chunk for storage actuator not loaded!");
+        this.add(OccultismItems.STABLE_WORMHOLE_DARK.get().getDescriptionId() + ".message.set_storage_controller", "Linked the stable wormhole to this storage actuator.");
+        this.add(OccultismItems.STABLE_WORMHOLE_DARK.get().getDescriptionId() + ".message.not_loaded", "Chunk for storage actuator not loaded!");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".message.not_loaded", "Chunk for storage actuator not loaded!");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".message.linked", "Linked storage remote to actuator.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".message.no_linked_block", "The divination rod is not attuned to any material.");
@@ -128,8 +130,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".tooltip.linked", "Linked to storage actuator at %s.");
+        this.add(OccultismItems.STABLE_WORMHOLE_DARK.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
+        this.add(OccultismItems.STABLE_WORMHOLE_DARK.get().getDescriptionId() + ".tooltip.linked", "Linked to storage actuator at %s.");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip", "Access a storage network remotely.");
-        this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.linked", "Bound to %s.");
+        this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.spirit", "%s is bound to this accessor.");
+        this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.linked", "Linked to storage actuator at %s.");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
         this.add("block.occultism.otherglass.auto_tooltip", "Wear Otherworld Goggles to see it once placed");
 
@@ -145,6 +150,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s will mine random ores and deepslate ores in the mining dimension.");
         this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s will mine random ores, deepslate ores and rare ores in the mining dimension.");
         this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine random raw ores blocks, gems blocks and rare ores in the mining dimension.");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_filled", "%s is bound to this lamp.\n %s: %s");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_empty", "Use on a spirit worker to capture it.");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_0", "<%s> Release me immediately!");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_1", "<%s> It's so cramped in here.");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_2", "<%s> I'm going to escape from here.");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_3", "<%s> You should have more empathy.");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_4", "<%s> Where are we going?");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_5", "<%s> All spirits matter!");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_6", "<%s> I'm settling into this prison.");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_7", "<%s> Could you grant me some otherworld essences?");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_8", "<%s> You will regret it if you don't release me now!");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_9", "<%s> What is your greatest wish?");
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.\n" + ChatFormatting.RED + "Will break when release the creature!");
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_empty", "Use on a creature to capture it.\n" + ChatFormatting.RED + "Break after one use.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.");
@@ -152,6 +169,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.");
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + ".tooltip_empty", "Use on a creature to capture it.\n" + ChatFormatting.GRAY + "Can capture bosses.");
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
+        this.add(OccultismItems.ENDER_SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
+        this.add(OccultismItems.ENDER_SATCHEL.get().getDescriptionId() + ".tooltip_linked", "Liked player: %s");
+        this.add(OccultismItems.ENDER_SATCHEL.get().getDescriptionId() + ".chest_menu", "%s's Ender Chest");
         this.add(OccultismItems.RITUAL_SATCHEL_T1.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T2.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.KNOWLEDGE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.\n Stored XP: %s");
@@ -244,9 +264,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
         this.addItem(OccultismItems.CHALK_RAINBOW, "Rainbow Chalk");
-        this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Shift + Right Click in a glyph to erase");
+        this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any colored glyph.");
         this.addItem(OccultismItems.CHALK_VOID, "Void Chalk");
-        this.addAutoTooltip(OccultismItems.CHALK_VOID, "Shift + Right Click in a glyph to erase");
+        this.addAutoTooltip(OccultismItems.CHALK_VOID, "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any foundation glyph.");
         this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
@@ -302,10 +322,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
         this.addItem(OccultismItems.OTHERWORLD_ASHES, "Otherworld Ashes");
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
+        this.addItem(OccultismItems.BURNT_OTHERROCK, "Burnt Otherrock");
         this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
-        this.addItem(OccultismItems.OTHERSTONE_TABLET, "Otherworldly Tablet");
+        this.addItem(OccultismItems.OTHERROCK_FRAME, "Otherrock Frame");
+        this.addItem(OccultismItems.OTHERWORLDLY_TABLET, "Otherworldly Tablet");
         this.addItem(OccultismItems.IRON_DUST, "Iron Dust");
         this.addItem(OccultismItems.OBSIDIAN_DUST, "Obsidian Dust");
         this.addItem(OccultismItems.CRUSHED_END_STONE, "Crushed End Stone");
@@ -326,6 +348,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.INFUSED_PICKAXE, "Infused Pickaxe");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD, "Spirit Attuned Pickaxe Head");
         this.addItem(OccultismItems.IESNIUM_PICKAXE, "Iesnium Pickaxe");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId().replace("empty","filled"), "Magic Lamp");
         this.addItem(OccultismItems.MAGIC_LAMP_EMPTY, "Empty Magic Lamp");
         this.addItem(OccultismItems.MINER_FOLIOT_UNSPECIALIZED, "Miner Foliot");
         this.addItem(OccultismItems.MINER_DJINNI_ORES, "Ore Miner Djinni");
@@ -344,6 +367,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
         this.addAutoTooltip(OccultismItems.SATCHEL, "Some people call it a backpack");
+        this.addItem(OccultismItems.ENDER_SATCHEL, "Ender Satchel");
         this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
         this.addItem(OccultismItems.VITALITY_COMPASS, "Vitality Compass");
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
@@ -387,7 +411,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_FAIRY_FAMILIAR, "Fairy Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR, "Mummy Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_BEAVER_FAMILIAR, "Beaver Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Parrot Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Demonic Wife Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_IESNIUM_GOLEM, "Iesnium Golem Spawn Egg");
@@ -453,7 +476,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.CHISELED_OTHERSTONE_BRICKS, "Chiseled Otherstone Bricks");
         this.addBlock(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS, "Cracked Otherstone Bricks");
         this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Otherstone Pedestal");
-        this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER, "Silver Otherstone Pedestal");
+        this.addBlock(OccultismBlocks.OTHERROCK_PEDESTAL, "Otherrock Pedestal");
         this.addBlock(OccultismBlocks.OTHERROCK, "Otherrock");
         this.addBlock(OccultismBlocks.OTHERROCK_STAIRS, "Otherrock Stairs");
         this.addBlock(OccultismBlocks.OTHERROCK_SLAB, "Otherrock Slab");
@@ -514,8 +537,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2, "Tier 2 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Tier 3 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Tier 4 Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER5, "Tier 5 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
         this.addBlock(OccultismBlocks.ENTITY_WORMHOLE, "Entity Wormhole");
+        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_DARK, "Dark Dimensional Storage Actuator");
+        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK, "Dark Stabilized Dimensional Storage Actuator");
+        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK, "Dark Storage Actuator Base");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK, "Dark Dimensional Storage Stabilizer Base");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK, "Tier 1 Dark Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK, "Tier 2 Dark Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK, "Tier 3 Dark Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK, "Tier 4 Dark Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK, "Tier 5 Dark Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.STABLE_WORMHOLE_DARK, "Dark Stable Wormhole");
+        this.addBlock(OccultismBlocks.ENTITY_WORMHOLE_DARK, "Dark Entity Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
         this.addBlock(OccultismBlocks.OTHERFLOWER, "Otherflower");
         this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING, "Otherworld Sapling");
@@ -571,7 +606,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SPIRIT_CAMPFIRE, "Spirit Campfire");
         this.addBlock(OccultismBlocks.SPIRIT_TORCH, "Spirit Torch"); //spirit wall torch automatically uses the same translation
         this.addBlock(OccultismBlocks.ELDRITCH_CHALICE, "Eldritch Chalice");
+        this.addAutoTooltip(OccultismBlocks.ELDRITCH_CHALICE.asItem(), ChatFormatting.RED + "This block is a central bowl, use exactly one in the pentacle.");
         this.addBlock(OccultismBlocks.CELESTIAL_CHALICE, "Celestial Chalice");
+        this.addAutoTooltip(OccultismBlocks.CELESTIAL_CHALICE.asItem(), ChatFormatting.RED + "This block is a central bowl, use exactly one in the pentacle.");
     }
 
     private void addEntities() {
@@ -649,7 +686,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //this.add\("\1", "\2"\);
 
         this.add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
-        this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacle: %s");
+        this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacles:");
 
         this.add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "This container is already opened by another player, wait until they close it.");
 
@@ -735,6 +772,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.allay", "Allay");
         this.add("ritual.occultism.sacrifice.warden", "Warden");
         this.add("ritual.occultism.sacrifice.ravager", "Ravager");
+        this.add("ritual.occultism.sacrifice.endermen", "Enderman");
+        this.add("ritual.occultism.sacrifice.shulker", "Shulker");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -747,6 +786,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("effect.occultism.bat_lifesteal", "Lifesteal");
         this.add("effect.occultism.beaver_harvest", "Beaver Harvest");
         this.add("effect.occultism.step_height", "Step Height");
+        this.add("effect.occultism.pumpkin_head", "Pumpkin Head");
 
         //Potions
         this.add("item.minecraft.potion.effect.third_eye_potion", "Potion of Third Eye");
@@ -791,6 +831,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.spirit.transporter.tag_filter", "Enter the tags to filter for separated by \";\".\nE.g.: \"c:ores;*logs*\".\nUse \"*\" to match any character, e.g. \"*ore*\" to match ore tags from any mod. To filter for items, prefix the item id with \"item:\", E.g.: \"item:minecraft:chest\".");
 
         // Storage Controller GUI
+        this.add("gui.occultism.storage_controller.display.rows", "Change rows quantity.");
         this.add("gui.occultism.storage_controller.space_info_label", "%d/%d");
         this.add("gui.occultism.storage_controller.space_info_label_new", "%s%% filled");
         this.add("gui.occultism.storage_controller.space_info_label_types", "%s%% of types");
@@ -1418,6 +1459,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.page("spotlight_dark");
+        this.add(helper.pageText(),
+                """
+                        All inventory system blocks have a dark version, they function exactly like their counterpart.
+                        """);
+
         helper.entry("craft_stabilizer_tier1");
         this.add(helper.entryName(), "Storage Stabilizer Tier 1");
 
@@ -1826,6 +1873,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by [#](%1$s)right-clicking[#]() it.
                         \\
+                        When the blacksmith upgrades a familiar, a message appears in the action bar, an anvil sound is emitted, and a star appears at the end of the familiar's name.
                         \\
                         Upgraded familiars provide additional effects.
                            """.formatted(COLOR_PURPLE));
@@ -2415,6 +2463,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addKeybinds() {
         this.add("key.occultism.category", "Occultism");
         this.add("key.occultism.backpack", "Open Satchel");
+        this.add("key.occultism.ender_bag", "Open Ender Satchel");
         this.add("key.occultism.storage_remote", "Open Storage Accessor");
         this.add("key.occultism.familiar.otherworld_bird", "Toggle Ring Effect: Drikwing");
         this.add("key.occultism.familiar.greedy_familiar", "Toggle Ring Effect: Greedy");
@@ -2483,6 +2532,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addFamiliarSettingsMessages() {
+        this.add("message.occultism.familiar.upgraded", "%s receive an upgrade!");
         this.add("message.occultism.familiar.otherworld_bird.enabled", "Ring Effect - Drikwing: Enabled");
         this.add("message.occultism.familiar.otherworld_bird.disabled", "Ring Effect - Drikwing: Disabled");
         this.add("message.occultism.familiar.greedy_familiar.enabled", "Ring Effect - Greedy: Enabled");
@@ -2639,6 +2689,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LENSES, "Craft Infused Lenses", "Foliot", "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE, "Craft Infused Pickaxe", "Djinni", "Infuse a Pickaxe to mine otherworld ores.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "Craft Surprisingly Substantial Satchel", "Foliot", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENDER_SATCHEL, "Craft Ender Satchel", "Djinni", "This satchel allows you to open your ender chest without placing a block in the world, and also allows inventory sharing.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "Craft Apprentice Ritual Satchel", "Foliot", "Binds a Foliot into a satchel to build pentacles step-by-step for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "Craft Artisanal Ritual Satchel", "Afrit", "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL, "Craft Artisanal Ritual Satchel", "Afrit", "An Afrit will upgrade the apprentice ritual satchel to build pentacles all at once for the summoner. This recipe keep the items inside the satchel.");
@@ -2656,12 +2707,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER, "Infuse Marid Master Miner", "Marid", "Summon Marid Master Miner into a magic lamp.");
             //Storage
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE, "Craft Storage Actuator Base", "Foliot", "The Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK, "Craft Dark Storage Actuator Base", "Foliot", "The Dark Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX, "Craft Dimensional Matrix", "Djinni", "The Dimensional Matrix is the entry point to a small dimension used for storing items.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1, "Craft Storage Stabilizer Tier 1", "Foliot", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER2, "Craft Storage Stabilizer Tier 2", "Djinni", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER3, "Craft Storage Stabilizer Tier 3", "Afrit", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER4, "Craft Storage Stabilizer Tier 4", "Marid", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1_DARK, "Craft Dark Storage Stabilizer Tier 1", "Foliot", "The Dark Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER2_DARK, "Craft Dark Storage Stabilizer Tier 2", "Djinni", "The Dark Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER3_DARK, "Craft Dark Storage Stabilizer Tier 3", "Afrit", "The Dark Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER4_DARK, "Craft Dark Storage Stabilizer Tier 4", "Marid", "The Dark Storage Stabilizer allows to store more items in the dimensional storage accessor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE, "Craft Stable Wormhole", "Foliot", "The Stable Wormhole allows access to a dimensional matrix from a remote destination.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE_DARK, "Craft Dark Stable Wormhole", "Foliot", "The Dark Stable Wormhole allows access to a dimensional matrix from a remote destination.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_REMOTE, "Craft Storage Accessor", "Djinni", "The Storage Accessor can be linked to a Storage Actuator to remotely access items.");
             //Materials
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST, "Craft Research Fragment Dust", "Foliot", "A Foliot will infuse experience in the emerald dust.");
@@ -2671,6 +2728,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
             //Blocks
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK, "Craft Dark Entity Wormhole", "Djinni", "The Dark Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Ritual Bowl", "Afrit", "The Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Ritual Bowl", "Afrit", "The Dark Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
@@ -2707,11 +2765,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE, "Forge Celestial Chalice", "Eldritch", "Eldritch Spirits will forge an Celestial Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any colored chalk.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a void chalk, substitute any chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "Forge Trinity Gem", "Eldritch", "Eldritch Spirits will forge a trinity gem, upgrading a soul gem.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "Forge Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK, "Forge Dark Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Dark Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH, "Infuse Eldritch Ancient Miner", "Eldritch", "Summon Eldritch Ancient Miner into a magic lamp.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER5, "Forge Storage Stabilizer Tier 5", "Eldritch", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER5_DARK, "Forge Dark Storage Stabilizer Tier 5", "Eldritch", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
     }
 
     public void autoDummyFactory(DeferredItem<Item> dummy, String name, String tier, String description) {
@@ -2840,6 +2901,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.RESEARCH_DUST,"Research Dust");
         this.addItemTag(OccultismTags.Items.WITHERITE_DUST,"Witherite Dust");
         this.addItemTag(OccultismTags.Items.OTHERSTONE_DUST,"Otherstone Dust");
+        this.addItemTag(OccultismTags.Items.OTHERROCK_DUST,"Otherrock Dust");
+        this.addItemTag(OccultismTags.Items.CHALK_BASE_DUST,"Chalk Base Dust");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_WOOD_DUST,"Otherworld Wood Dust");
         this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES,"Occultism Candles");
         this.addItemTag(OccultismTags.Items.Miners.MINERS,"Dimensional Miners");
@@ -2913,7 +2976,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("emi.category.occultism.crystallize", "Crystallize");
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
         this.add("emi.category.occultism.ritual", "Rituals");
-        this.add("emi.occultism.item_to_use", "Item to use: %s");
+        this.add("emi.occultism.item_to_use", "Item to use after ritual start");
         this.add("emi.occultism.ritual_duration", "%s seconds");
     }
 
@@ -2983,9 +3046,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");
+        this.addConfig("enableEMISync", "Sync EMI Search");
+        this.addConfig("storageRows", "Number of rows in the storage system");
         this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
         this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
         this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
+        this.addConfig("pentagramInBowlInfoCount", "Max pentacles names per page");
+        this.addConfig("pentagramInBowlInfoTicks", "Ticks to change current pentacles");
 
         this.addConfig("storage", "Storage Settings");
         this.addConfig("stabilizerTier1AdditionalMaxItemTypes", "Stabilizer Tier 1 Additional Max Item Types");
@@ -2996,6 +3063,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("stabilizerTier3AdditionalMaxTotalItemCount", "Stabilizer Tier 3 Additional Max Total Item Count");
         this.addConfig("stabilizerTier4AdditionalMaxItemTypes", "Stabilizer Tier 4 Additional Max Item Types");
         this.addConfig("stabilizerTier4AdditionalMaxTotalItemCount", "Stabilizer Tier 4 Additional Max Total Item Count");
+        this.addConfig("stabilizerTier5AdditionalMaxItemTypes", "Stabilizer Tier 5 Additional Max Item Types");
+        this.addConfig("stabilizerTier5AdditionalMaxTotalItemCount", "Stabilizer Tier 5 Additional Max Total Item Count");
         this.addConfig("controllerMaxItemTypes", "Controller Max Item Types");
         this.addConfig("controllerMaxTotalItemCount", "Controller Max Total Item Count");
         this.addConfig("stabilizedControllerStabilizers", "Stabilized Controller Built-in Stabilizers");
@@ -3010,6 +3079,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
         this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
         this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
+        this.addConfig("tier1CrusherOperationCount", "Recipes done per operations for Tier 1 Crusher.");
+        this.addConfig("tier2CrusherOperationCount", "Recipes done per operations for Tier 2 Crusher.");
+        this.addConfig("tier3CrusherOperationCount", "Recipes done per operations for Tier 3 Crusher.");
+        this.addConfig("tier4CrusherOperationCount", "Recipes done per operations for Tier 4 Crusher.");
         this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
         this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
@@ -3020,17 +3093,30 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier2CrystallizerOutputMultiplier", "Output multiplier for Tier 2 Crystallizer operations.");
         this.addConfig("tier3CrystallizerOutputMultiplier", "Output multiplier for Tier 3 Crystallizer operations.");
         this.addConfig("tier4CrystallizerOutputMultiplier", "Output multiplier for Tier 4 Crystallizer operations.");
+        this.addConfig("tier1CrystallizerOperationCount", "Recipes done per operations for Tier 1 Crystallizer.");
+        this.addConfig("tier2CrystallizerOperationCount", "Recipes done per operations for Tier 2 Crystallizer.");
+        this.addConfig("tier3CrystallizerOperationCount", "Recipes done per operations for Tier 3 Crystallizer.");
+        this.addConfig("tier4CrystallizerOperationCount", "Recipes done per operations for Tier 4 Crystallizer.");
         this.addConfig("crystallizerResultPickupDelay", "Delay before items from crystallizer operations can be picked up.");
         this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
         this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
         this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");
         this.addConfig("tier4SmelterTimeMultiplier", "Time multiplier for Tier 4 Smelter operations.");
+        this.addConfig("tier1SmelterOperationCount", "Recipes done per operations for Tier 1 Smelter.");
+        this.addConfig("tier2SmelterOperationCount", "Recipes done per operations for Tier 2 Smelter.");
+        this.addConfig("tier3SmelterOperationCount", "Recipes done per operations for Tier 3 Smelter.");
+        this.addConfig("tier4SmelterOperationCount", "Recipes done per operations for Tier 4 Smelter.");
         this.addConfig("smelterResultPickupDelay", "Delay before items from smelter operations can be picked up.");
         this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
         this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
         this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");
         this.addConfig("greedySearchRange", "Upgraded Greedy familiar horizontal search range");
         this.addConfig("greedyVerticalSearchRange", "Upgraded Greedy familiar vertical search range");
+        this.addConfig("dayTimeToCast", "Time to cast: Day");
+        this.addConfig("nightTimeToCast", "Time to cast: Night");
+        this.addConfig("rainTimeToCast", "Time to cast: Rain");
+        this.addConfig("thunderTimeToCast", "Time to cast: Thunder");
+        this.addConfig("clearWeatherTimeToCast", "Time to cast: Clear Weather");
 
         this.addConfig("rituals", "Rituals Settings");
         this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");
@@ -3041,6 +3127,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("enableRemainingIngredientCountMatching", "Enable matching of remaining ingredients in ritual recipes.");
         this.addConfig("ritualDurationMultiplier", "Multiplier to adjust the duration of all rituals.");
         this.addConfig("possibleSpiritNames", "Possible Spirit Names");
+        this.addConfig("usePossibleSpiritNamesChance", "Chance of choosing Possible Spirit Names List");
 
         this.addConfig("dimensional_mineshaft", "Dimensional Mineshaft Settings");
         this.addConfig("miner_foliot_unspecialized", "Foliot Miner Unspectialized");

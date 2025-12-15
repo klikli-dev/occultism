@@ -86,7 +86,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {
-        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
         this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
         this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
         this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
@@ -403,6 +403,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.RESEARCH_DUST).add(OccultismItems.RESEARCH_FRAGMENT_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.WITHERITE_DUST).add(OccultismItems.WITHERITE_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.OTHERSTONE_DUST).add(OccultismItems.BURNT_OTHERSTONE.get()).replace(false);
+        this.tag(OccultismTags.Items.OTHERROCK_DUST).add(OccultismItems.BURNT_OTHERROCK.get()).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_WOOD_DUST).add(OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
         this.tag(Tags.Items.DUSTS).addTags(
                         OccultismTags.Items.COPPER_DUST,
@@ -427,7 +428,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                         OccultismTags.Items.RESEARCH_DUST,
                         OccultismTags.Items.WITHERITE_DUST,
                         OccultismTags.Items.OTHERSTONE_DUST,
+                        OccultismTags.Items.OTHERROCK_DUST,
                         OccultismTags.Items.OTHERWORLD_WOOD_DUST);
+        this.tag(OccultismTags.Items.CHALK_BASE_DUST)
+                .addTag(OccultismTags.Items.OTHERSTONE_DUST)
+                .addTag(OccultismTags.Items.OTHERROCK_DUST);
     }
 
     private void addMobLoot(HolderLookup.Provider provider) {

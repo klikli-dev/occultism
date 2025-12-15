@@ -150,8 +150,8 @@ public class OccultismBlocks {
     public static final DeferredBlock<RainbowGlyphBlock> CHALK_GLYPH_RAINBOW = register("chalk_glyph_rainbow",
             () -> new RainbowGlyphBlock(GLYPH_PROPERTIES, true, OccultismItems.CHALK_RAINBOW),
             false, LootTableType.EMPTY);
-    public static final DeferredBlock<RainbowGlyphBlock> CHALK_GLYPH_VOID = register("chalk_glyph_void",
-            () -> new RainbowGlyphBlock(GLYPH_PROPERTIES, false, OccultismItems.CHALK_VOID),
+    public static final DeferredBlock<VoidGlyphBlock> CHALK_GLYPH_VOID = register("chalk_glyph_void",
+            () -> new VoidGlyphBlock(GLYPH_PROPERTIES, true, OccultismItems.CHALK_VOID),
             false, LootTableType.EMPTY);
 
     //Resources
@@ -301,14 +301,17 @@ public class OccultismBlocks {
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .sound(SoundType.GRASS)
-                            .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
+                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
+                            .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
+                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                            .isRedstoneConductor((state, level, pos) -> false)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
                     Block.Properties.of()
-                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS)
-                            .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
+                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
+                            .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
+                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                            .isRedstoneConductor((state, level, pos) -> false)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f), OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL), true, LootTableType.OTHERWORLD_BLOCK);
@@ -533,9 +536,6 @@ public class OccultismBlocks {
             () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion()));
     public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
             () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion()));
-    public static final DeferredBlock<Block> OTHERSTONE_PEDESTAL_SILVER = register("otherstone_pedestal_silver",
-            () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion()));
-
     public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
                     Block.Properties.of()
@@ -543,6 +543,24 @@ public class OccultismBlocks {
                             .sound(SoundType.STONE)
                             .strength(5f, 100).noOcclusion()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER_STABILIZED = register("storage_controller_stabilized",
+            () -> new StorageControllerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE)
+                            .strength(5f, 100).noOcclusion()), true, Rarity.EPIC, LootTableType.CUSTOM);
+
+    //TODO: change id in next major version, keep actual to avoid bugs
+    public static final DeferredBlock<Block> OTHERROCK_PEDESTAL = register("otherstone_pedestal_silver",
+            () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion()));
+    public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE_DARK = register("storage_controller_base_dark",
+            () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERROCK.get()).noOcclusion()));
+    public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER_DARK = register("storage_controller_dark",
+            () -> new StorageControllerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE)
+                            .strength(5f, 100).noOcclusion()), true, LootTableType.CUSTOM);
+    public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER_STABILIZED_DARK = register("storage_controller_stabilized_dark",
             () -> new StorageControllerBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
@@ -579,6 +597,49 @@ public class OccultismBlocks {
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
                             .noOcclusion()), Rarity.RARE);
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER5 = register(
+            "storage_stabilizer_tier5", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()), Rarity.EPIC);
+
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER0_DARK = register(
+            "storage_stabilizer_tier0_dark", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1_DARK = register(
+            "storage_stabilizer_tier1_dark", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER2_DARK = register(
+            "storage_stabilizer_tier2_dark", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER3_DARK = register(
+            "storage_stabilizer_tier3_dark", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()), Rarity.UNCOMMON);
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER4_DARK = register(
+            "storage_stabilizer_tier4_dark", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()), Rarity.RARE);
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER5_DARK = register(
+            "storage_stabilizer_tier5_dark", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()), Rarity.EPIC);
 
     public static final DeferredBlock<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
             () -> new StableWormholeBlock(
@@ -587,8 +648,21 @@ public class OccultismBlocks {
                             .sound(SoundType.STONE).noCollission()
                             .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
 
+    public static final DeferredBlock<StableWormholeBlock> STABLE_WORMHOLE_DARK = register("stable_wormhole_dark",
+            () -> new StableWormholeBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).noCollission()
+                            .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
+
     public static final DeferredBlock<EntityWormholeBlock> ENTITY_WORMHOLE =
             register("entity_wormhole", () -> new EntityWormholeBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<EntityWormholeBlock> ENTITY_WORMHOLE_DARK =
+            register("entity_wormhole_dark", () -> new EntityWormholeBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_silver_ingot": {
+    "has_spirit_attuned_gem": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/silver"
+            "items": "occultism:spirit_attuned_gem"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_silver_ingot"
+      "has_spirit_attuned_gem"
     ]
   ],
   "rewards": {

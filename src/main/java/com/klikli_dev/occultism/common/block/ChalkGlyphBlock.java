@@ -50,8 +50,8 @@ public class ChalkGlyphBlock extends Block {
     /**
      * The glyph sign (the typeface)
      */
-    public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
-    public static final int MAX_SIGN = 12;
+    public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 13);
+    public static final int MAX_SIGN = 13;
 
     private static final VoxelShape SHAPE = Block.box(1.5, 0, 1.5, 14.5, 0.04, 14.5);
 

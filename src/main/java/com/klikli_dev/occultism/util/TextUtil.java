@@ -44,7 +44,7 @@ import java.util.Random;
 
 public class TextUtil {
 
-    public static final String SPIRIT_NAME_NOT_YET_KNOWN = "(Not yet known)";
+    public static final String SPIRIT_NAME_NOT_YET_KNOWN = ChatFormatting.OBFUSCATED + "(NotYetKnown)";
     private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<>();
 
     //KliKli: Obvious :)
@@ -116,6 +116,16 @@ public class TextUtil {
      */
     public static String formatDemonName(String name) {
         return ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + name + ChatFormatting.RESET;
+    }
+
+    /**
+     * Formats the given spirit name in bold and dark purple.
+     *
+     * @param name the name to format.
+     * @return the formatted name.
+     */
+    public static String formatPlayerName(String name) {
+        return ChatFormatting.DARK_PURPLE.toString() + ChatFormatting.BOLD + name + ChatFormatting.RESET;
     }
 
     /**

@@ -34,10 +34,12 @@ import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
+import com.klikli_dev.occultism.client.keybindings.EnderBagKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.blockentity.EntityWormholeRenderer;
+import com.klikli_dev.occultism.client.render.blockentity.GoldenSacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
@@ -84,13 +86,15 @@ import org.lwjgl.glfw.GLFW;
 import java.util.HashMap;
 import java.util.Map;
 
-@EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class ClientSetupEventHandler {
 
     public static final KeyMapping KEY_BACKPACK =
             new KeyMapping("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_B), "key.occultism.category");
-
+    public static final KeyMapping KEY_ENDER_BAG =
+            new KeyMapping("key.occultism.ender_bag", EnderBagKeyConflictContext.INSTANCE,
+                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_V), "key.occultism.category");
     public static final KeyMapping KEY_STORAGE_REMOTE =
             new KeyMapping("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_N), "key.occultism.category");
@@ -199,6 +203,7 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(KEY_BACKPACK);
+        event.register(KEY_ENDER_BAG);
         event.register(KEY_STORAGE_REMOTE);
 
         keysFamiliars = new HashMap<>();
@@ -222,7 +227,7 @@ public class ClientSetupEventHandler {
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-        BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), GoldenSacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
@@ -293,6 +298,8 @@ public class ClientSetupEventHandler {
             ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
             ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+            ItemProperties.register(OccultismItems.STABLE_WORMHOLE_DARK.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());

@@ -23,16 +23,16 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.AfritWildModel;
+import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity> {
 
     public AfritWildRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AfritWildModel());
 
-        this.addRenderLayer(new AutoGlowingGeoLayer<>(this));
+        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
     }
 }

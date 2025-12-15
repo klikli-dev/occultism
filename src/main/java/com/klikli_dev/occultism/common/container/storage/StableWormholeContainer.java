@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.container.storage;
 
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
@@ -68,14 +67,6 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         return this.stableWormhole;
     }
     //endregion Getter / Setter
-
-    @Override
-    protected void setupPlayerHotbar() {
-        int hotbarTop = 232;
-        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        for (int i = 0; i < 9; i++)
-            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
-    }
 
     @Override
     public StorageControllerBlockEntity getStorageController() {

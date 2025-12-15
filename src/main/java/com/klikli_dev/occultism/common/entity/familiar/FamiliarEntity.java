@@ -22,10 +22,12 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -154,6 +156,10 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     public void blacksmithUpgrade() {
+        if (this.getOwner() instanceof Player player)
+            player.displayClientMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()), true);
+        if (!(this.getFamiliarEntity() instanceof GuardianFamiliarEntity))
+            this.setCustomName(Component.empty().append(this.getName()).append(" ⛤"));
         this.setBlacksmithUpgrade(true);
     }
 

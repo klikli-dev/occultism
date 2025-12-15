@@ -87,6 +87,18 @@
       "condition": {
         "type": "modonomicon:none"
       },
+      "recipe_id_1": "occultism:crafting/lens_frame",
+      "recipe_id_2": "occultism:crafting/lens_frame_alt",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/goggles",
       "text": "",
       "title1": "",
@@ -102,7 +114,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 18,
+  "sort_number": 19,
   "x": -6,
   "y": 2
 }

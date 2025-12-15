@@ -35,6 +35,10 @@ public abstract class MinerRecipes extends RecipeProvider {
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand"));
+        MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERROCK.get(), 200)
+                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand_2"));
     }
 
     public static void ores(RecipeOutput recipeOutput) {
@@ -98,6 +102,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("opal", 200, recipeOutput);
         makeOreRecipe("osmium", 203, recipeOutput);
         makeVanillaItemRecipe(OccultismBlocks.OTHERSTONE.get().asItem(), 50, recipeOutput);
+        makeVanillaItemRecipe(OccultismBlocks.OTHERROCK.get().asItem(), 50, recipeOutput);
         makeOreRecipe("peridot", 200, recipeOutput);
         makeOreRecipe("platinum", 150, recipeOutput);
         makeOreRecipe("prosperity", 155, recipeOutput);

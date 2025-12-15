@@ -181,7 +181,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 174;
+        int playerInventoryTop = 18*3 + 7;
         int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++)
@@ -190,9 +190,15 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         playerInventoryTop + i * 18));
     }
 
-    protected void setupCraftingGrid() {
+    protected void setupPlayerHotbar() {
+        int hotbarTop = 18*3 + 7 + 18*3 + 4;
+        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
+        for (int i = 0; i < 9; i++)
+            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+    };
 
-        int craftingGridTop = 113;
+    protected void setupCraftingGrid() {
+        int craftingGridTop = 0;
         int craftingGridLeft = 37 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         int index = 0;
         //3x3 crafting grid
@@ -205,7 +211,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupCraftingOutput() {
-        int craftingOutputTop = 131;
+        int craftingOutputTop = 18;
         int craftingOutputLeft = 130 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         StorageControllerSlot slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
                 this.result, this, 0, craftingOutputLeft, craftingOutputTop);
@@ -213,12 +219,10 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupOrderInventorySlot() {
-        int orderSlotTop = 36;
+        int orderSlotTop = 18;
         int orderSlotLeft = 13;
         this.addSlot(new Slot(this.orderInventory, 0, orderSlotLeft, orderSlotTop));
     }
-
-    protected abstract void setupPlayerHotbar();
 
     protected void findRecipeForMatrixClient() {
         var optional =

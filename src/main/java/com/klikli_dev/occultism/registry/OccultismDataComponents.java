@@ -115,6 +115,12 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SPIRIT_JOB = DATA_COMPONENTS.registerComponentType("spirit_job", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ITEM_MODE = DATA_COMPONENTS.registerComponentType("item_mode", builder -> builder
             .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.INT)
@@ -227,6 +233,18 @@ public class OccultismDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> COMPASS_ANGLE = DATA_COMPONENTS.registerComponentType("angle", builder -> builder
             .persistent(Codec.FLOAT)
             .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> LINKED_PLAYER_UUID = DATA_COMPONENTS.registerComponentType("linked_player_uuid", builder -> builder
+            .persistent(OccultismExtraCodecs.UUID)
+            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> LINKED_PLAYER_NAME = DATA_COMPONENTS.registerComponentType("linked_player_name", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
             .cacheEncoding()
     );
 }

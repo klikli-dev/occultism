@@ -27,5 +27,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_storage_remote"
   },
-  "ritual_type": "occultism:craft"
+  "ritual_type": "occultism:craft_with_spirit_name"
 }

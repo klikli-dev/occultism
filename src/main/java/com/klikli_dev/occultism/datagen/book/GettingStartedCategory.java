@@ -44,9 +44,9 @@ public class GettingStartedCategory extends CategoryProvider {
                 "__________________________________",
                 "__________________________________",
                 "__________________________________",
-                "__________________________P___D___",
+                "__________________________P_D_____",
                 "__________________________________",
-                "______ŕ___t___B_______g_I_O_l_M___",
+                "______ŕ___t___B_____l_g_I_O_M_____",
                 "__________________________________",
                 "______i___r___ç_b_______s_________",
                 "__________________________________",
@@ -150,10 +150,10 @@ public class GettingStartedCategory extends CategoryProvider {
         iesniumPickaxe.withParent(BookEntryParentModel.create(iesnium.getId()));
 
         var magicLampsEntry = this.add(this.makeMagicLampsEntry(this.entryMap, 'l'));
-        magicLampsEntry.withParent(BookEntryParentModel.create(iesnium.getId()));
+        magicLampsEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
         var spiritMinersEntry = this.add(this.makeSpiritMinersEntry(this.entryMap, 'M'));
-        spiritMinersEntry.withParent(BookEntryParentModel.create(magicLampsEntry.getId()));
+        spiritMinersEntry.withParent(BookEntryParentModel.create(iesnium.getId()));
 
         var mineshaftEntry = this.add(this.makeMineshaftEntry(this.entryMap, 'D'));
         mineshaftEntry.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
@@ -1821,13 +1821,12 @@ public class GettingStartedCategory extends CategoryProvider {
         this.lang().add(this.context().pageTitle(), "Magic Lamps");
         this.lang().add(this.context().pageText(),
                 """
-                        Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
+                        Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#]() (if the spirit has decay), while still having access to some of their powers. Right-Click on one of your workers to store and transport it as desired.
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
         var crafting = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"));
-        //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1852,7 +1851,8 @@ public class GettingStartedCategory extends CategoryProvider {
         this.lang().add(this.context().pageTitle(), "Spirit Miners");
         this.lang().add(this.context().pageText(),
                 """
-                        By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
+                        Lamps are commonly used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
+                         This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
@@ -1862,6 +1862,7 @@ public class GettingStartedCategory extends CategoryProvider {
         this.lang().add(this.context().pageTitle(), "Crafting");
         this.lang().add(this.context().pageText(),
                 """
+                        By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#]().
                         See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
                              """.formatted(COLOR_PURPLE));
 

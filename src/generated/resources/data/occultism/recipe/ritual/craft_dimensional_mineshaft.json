@@ -6,16 +6,48 @@
   "duration": 150,
   "ingredients": [
     {
-      "item": "occultism:otherstone"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:otherstone"
+        },
+        {
+          "item": "occultism:otherrock"
+        }
+      ]
     },
     {
-      "item": "occultism:otherstone"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:otherstone"
+        },
+        {
+          "item": "occultism:otherrock"
+        }
+      ]
     },
     {
-      "item": "occultism:otherstone"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:otherstone"
+        },
+        {
+          "item": "occultism:otherrock"
+        }
+      ]
     },
     {
-      "item": "occultism:otherstone"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:otherstone"
+        },
+        {
+          "item": "occultism:otherrock"
+        }
+      ]
     },
     {
       "tag": "c:ingots/gold"

@@ -256,4 +256,47 @@ public class ItemNBTUtil {
     public static void setStoredXP(ItemStack stack, int value) {
         stack.set(OccultismDataComponents.STORED_XP, value);
     }
+
+    public static void setSpiritJob(ItemStack stack, String name) {
+        stack.set(OccultismDataComponents.SPIRIT_JOB, name);
+    }
+
+    public static String getSpiritJob(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.SPIRIT_JOB))
+            setSpiritJob(stack, "");
+        return stack.get(OccultismDataComponents.SPIRIT_JOB);
+    }
+
+    public static void setOccupied(ItemStack stack, boolean bool) {
+        stack.set(OccultismDataComponents.OCCUPIED, bool);
+    }
+
+    public static boolean getOccupied(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.OCCUPIED))
+            return false;
+
+        return Boolean.TRUE.equals(stack.get(OccultismDataComponents.OCCUPIED));
+    }
+
+    public static UUID getLinkedPlayerUUID(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.LINKED_PLAYER_UUID))
+            return null;
+
+        return stack.get(OccultismDataComponents.LINKED_PLAYER_UUID);
+    }
+
+    public static void setLinkedPlayerUUID(ItemStack stack, UUID id) {
+        stack.set(OccultismDataComponents.LINKED_PLAYER_UUID, id);
+    }
+
+    public static void setLikedPlayerName(ItemStack stack, String name) {
+        stack.set(OccultismDataComponents.LINKED_PLAYER_NAME, name);
+    }
+
+    public static String getLikedPlayerName(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.LINKED_PLAYER_NAME))
+            return null;
+
+        return stack.get(OccultismDataComponents.LINKED_PLAYER_NAME);
+    }
 }

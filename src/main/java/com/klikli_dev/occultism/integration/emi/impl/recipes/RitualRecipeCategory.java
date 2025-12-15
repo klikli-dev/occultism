@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.integration.emi.impl.recipes;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.client.render.MultiblockPreviewRenderer;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
@@ -68,6 +69,11 @@ public class RitualRecipeCategory implements EmiRecipe {
         List<EmiIngredient> inputs = recipe.getIngredients().stream().map(EmiIngredient::of).collect(Collectors.toCollection(ArrayList::new));
         inputs.add(EmiIngredient.of(recipe.getActivationItem()));
         return inputs;
+    }
+
+    @Override
+    public List<EmiIngredient> getCatalysts() {
+        return List.of(EmiIngredient.of(recipe.getItemToUse()));
     }
 
     @Override
@@ -200,7 +206,14 @@ public class RitualRecipeCategory implements EmiRecipe {
 
         if (pentacle != null) {
             var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
-
+            widgetHolder.addButton(this.getDisplayWidth() + 5, 2, 12, 12, 244, 0,
+                    OccultismEmiPlugin.EMI_WIDGETS, () -> true,
+                    (mouseX, mouseY, button) -> {
+                        Minecraft.getInstance().setScreen(null);
+                        MultiblockPreviewRenderer.setMultiblock(pentacle,
+                                Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), true);
+                    }
+            );
             for (var line : pentacleName) {
                 widgetHolder.addText(line, getDisplayWidth() / 2, infotextY, -1, true).horizontalAlign(TextWidget.Alignment.CENTER);
                 infotextY += Minecraft.getInstance().font.lineHeight;
@@ -223,12 +236,13 @@ public class RitualRecipeCategory implements EmiRecipe {
 
         if(recipe.requiresItemUse()) {
             var infoSlot = this.infoTextSlots.get(infoTextIndex++);
-            ItemWidget itemToUse = new ItemWidget(EmiStack.of(recipe.getItemToUse().getItems()[0]),infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
-            itemToUse.tooltip((mouseX, mouseY) ->
+            SlotWidget itemToUse = new SlotWidget(EmiIngredient.of(Ingredient.of(recipe.getItemToUse().getItems())),infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
+            itemToUse.drawBack(false);
+            itemToUse.appendTooltip(t ->
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
-                tooltip.add(new ClientTextTooltip(Component.translatable("emi.occultism.item_to_use", Component.translatable(recipe.getItemToUse().getItems()[0].getDescriptionId())).getVisualOrderText()));
-                return tooltip;
+                tooltip.add(new ClientTextTooltip(Component.translatable("emi.occultism.item_to_use").getVisualOrderText()));
+                return tooltip.getFirst();
             });
 
             widgetHolder.add(itemToUse);

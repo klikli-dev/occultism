@@ -28,10 +28,7 @@ import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
-import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -45,6 +42,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -54,11 +52,11 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = Occultism.MODID)
 public class PlayerEventHandler {
@@ -143,27 +141,18 @@ public class PlayerEventHandler {
         if (!(blockEntity instanceof ChiseledBookShelfBlockEntity bookShelf))
             return;
 
-        boolean creative = !event.getEntity().isCreative();
         for (int i = 0; i < 6; i++) {
             if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
                 if (book.equals(OccultismItems.BOOK_OF_BINDING_EMPTY.get())) {
                     ItemStack dye = event.getEntity().getOffhandItem();
                     if (dye.getCount() > 3) {
-                        if (dye.is(Tags.Items.DYES_BLUE)){
-                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_FOLIOT.toStack(), event.getItemStack()));
-                            if (creative)
-                                dye.shrink(4);
-                        } else if (dye.is(Tags.Items.DYES_PURPLE)) {
-                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_DJINNI.toStack(), event.getItemStack()));
-                            if (creative)
-                                dye.shrink(4);
-                        } else if (dye.is(Tags.Items.DYES_YELLOW)) {
-                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_AFRIT.toStack(), event.getItemStack()));
-                            if (creative)
-                                dye.shrink(4);
-                        } else if (dye.is(Tags.Items.DYES_GREEN)) {
-                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_MARID.toStack(), event.getItemStack()));
-                            if (creative)
+                        List<ItemStack> ingredients = List.of(ItemStack.EMPTY, dye, ItemStack.EMPTY, dye, bookShelf.getItem(i), dye,ItemStack.EMPTY, dye, ItemStack.EMPTY);
+                        CraftingInput input = CraftingInput.of(3, 3, ingredients);
+                        Optional<RecipeHolder<CraftingRecipe>> optional = event.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, event.getLevel());
+                        if (optional.isPresent()){
+                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(
+                                    optional.get().value().getResultItem(event.getLevel().registryAccess()).copy(), event.getItemStack()));
+                            if (!event.getEntity().isCreative())
                                 dye.shrink(4);
                         }
                     }

@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageHeadlessDie;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.component.DataComponents;
@@ -185,7 +186,9 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+        return hasBlacksmithUpgrade() ?
+                ImmutableList.of(new MobEffectInstance(OccultismEffects.PUMPKIN_HEAD, 300, 0, false, false)) :
+                ImmutableList.of();
     }
 
     @Override

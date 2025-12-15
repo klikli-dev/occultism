@@ -22,16 +22,28 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -90,6 +102,27 @@ public class EntityUtil {
     public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
         ResourceLocation typeId = ResourceLocation.parse(nbtTagCompound.getString("id"));
         return BuiltInRegistries.ENTITY_TYPE.get(typeId);
+    }
+
+    public static EntityType<?> getEntityInTag(Level level, TagKey<EntityType<?>> tag) {
+        HolderLookup<EntityType<?>> lookup = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
+        HolderSet<EntityType<?>> set = lookup.getOrThrow(tag);
+        List<? extends EntityType<?>> list = set.stream().map(Holder::value)
+                .filter(type -> type != EntityType.PLAYER).filter(type -> type.create(level) != null).toList();
+        return list.get(list.size() == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % list.size()));
+    }
+
+    public static void renderEntity(PoseStack matrix, LivingEntity pLivingEntity, MultiBufferSource pBuffer, float partialTicks) {
+        matrix.pushPose();
+        pLivingEntity.setYRot(0);
+        pLivingEntity.yBodyRot = pLivingEntity.getYRot();
+        pLivingEntity.yHeadRot = pLivingEntity.getYRot();
+        pLivingEntity.yHeadRotO = pLivingEntity.getYRot();
+        EntityRenderDispatcher erd = Minecraft.getInstance().getEntityRenderDispatcher();
+        erd.setRenderShadow(false);
+        erd.render(pLivingEntity, 0, 0, 0, 0, partialTicks, matrix, pBuffer, 15728880);
+        erd.setRenderShadow(true);
+        matrix.popPose();
     }
     //endregion Static Methods
 

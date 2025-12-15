@@ -5,30 +5,78 @@
   },
   "duration": 780,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.humans",
-    "tag": "occultism:humans"
+    "display_name": "ritual.occultism.sacrifice.shulker",
+    "tag": "c:shulkers"
   },
   "ingredients": [
     {
       "item": "occultism:storage_controller"
     },
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:storage_stabilizer_tier5"
+        },
+        {
+          "item": "occultism:storage_stabilizer_tier5_dark"
+        }
+      ]
     },
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:storage_stabilizer_tier5"
+        },
+        {
+          "item": "occultism:storage_stabilizer_tier5_dark"
+        }
+      ]
     },
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:storage_stabilizer_tier5"
+        },
+        {
+          "item": "occultism:storage_stabilizer_tier5_dark"
+        }
+      ]
     },
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:storage_stabilizer_tier5"
+        },
+        {
+          "item": "occultism:storage_stabilizer_tier5_dark"
+        }
+      ]
     },
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:storage_stabilizer_tier5"
+        },
+        {
+          "item": "occultism:storage_stabilizer_tier5_dark"
+        }
+      ]
     },
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "occultism:storage_stabilizer_tier5"
+        },
+        {
+          "item": "occultism:storage_stabilizer_tier5_dark"
+        }
+      ]
     },
     {
       "tag": "c:dusts/echo"

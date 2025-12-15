@@ -1,0 +1,145 @@
+/*
+ * MIT License
+ *
+ * Copyright 2020 klikli-dev
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package com.klikli_dev.occultism.common.block;
+
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.EnumUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
+
+public class VoidGlyphBlock extends ChalkGlyphBlock {
+    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 3);
+    public static final BooleanProperty CYCLE = BooleanProperty.create("cycle");
+
+    protected Supplier<Item> chalk;
+    protected Supplier<Integer> color;
+    protected Boolean cycle;
+
+    public VoidGlyphBlock(Properties properties, Boolean cycle, Supplier<Item> chalk) {
+        super(properties, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, chalk);
+        this.chalk = chalk;
+        this.cycle = cycle;
+        this.registerDefaultState(
+                this.stateDefinition
+                        .any()
+                        .setValue(CYCLE, cycle)
+        );
+    }
+
+    public int getColor(BlockState state) {
+        return EnumUtil.getConfiguredColor(state.getValue(COLOR));
+    }
+
+    public Item getChalk() {
+        return this.chalk.get();
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockPos pos = context.getClickedPos();
+        int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
+        int cor = RandomSource.create().nextIntBetweenInclusive(0,3);
+        boolean cc = this.cycle;
+        BlockState current = context.getLevel().getBlockState(pos);
+        if (current.getBlock() == this) {
+            sign = (current.getValue(SIGN) + 1) % (MAX_SIGN + 1);
+            cor = current.getValue(COLOR);
+            cc = current.getValue(CYCLE);
+        }
+        Player player = context.getPlayer();
+        if (player != null) {
+            ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
+                    player.getItemInHand(InteractionHand.OFF_HAND) :
+                    player.getItemInHand(InteractionHand.MAIN_HAND) ;
+            if (stack.is(Tags.Items.DYES_WHITE)) {cor = 0; cc = false;}
+            else if (stack.is(Tags.Items.DYES_LIGHT_GRAY)) {cor = 1; cc = false;}
+            else if (stack.is(Tags.Items.DYES_GRAY)) {cor = 2; cc = false;}
+            else if (stack.is(Tags.Items.DYES_BLACK)) {cor = 3; cc = false;}
+            else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {cc = false;}
+        }
+        return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
+                .setValue(BlockStateProperties.HORIZONTAL_FACING,
+                        context.getHorizontalDirection().getOpposite());
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(COLOR, CYCLE);
+        super.createBlockStateDefinition(builder);
+    }
+
+    @Override
+    protected @NotNull ItemInteractionResult useItemOn(
+            @NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
+            Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
+        if (player.getAbilities().mayBuild) {
+            if (stack.getItem().equals(OccultismItems.SPIRIT_ATTUNED_GEM.get())) {
+                if (state.getValue(CYCLE)) {
+                    level.setBlockAndUpdate(pos, state.setValue(CYCLE, false));
+                } else {
+                    level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
+                }
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_WHITE)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 0));
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_LIGHT_GRAY)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 1));
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_GRAY)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 2));
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_BLACK)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 3));
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            }
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    public void animateTick(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource rand) {
+        if (state.getValue(CYCLE)) {
+            int nextColor = state.getValue(COLOR) == 3 ? 0 : state.getValue(COLOR) + 1;
+            level.setBlockAndUpdate(pos, state.setValue(COLOR, nextColor));
+        }
+    }
+
+}

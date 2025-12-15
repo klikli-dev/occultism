@@ -108,7 +108,12 @@ public class OccultismServerConfig {
         public final DoubleValue tier2CrusherOutputMultiplier;
         public final DoubleValue tier3CrusherOutputMultiplier;
         public final DoubleValue tier4CrusherOutputMultiplier;
+        public final IntValue tier1CrusherOperationCount;
+        public final IntValue tier2CrusherOperationCount;
+        public final IntValue tier3CrusherOperationCount;
+        public final IntValue tier4CrusherOperationCount;
         public final IntValue crusherResultPickupDelay;
+
         public final DoubleValue tier1CrystallizerTimeMultiplier;
         public final DoubleValue tier2CrystallizerTimeMultiplier;
         public final DoubleValue tier3CrystallizerTimeMultiplier;
@@ -117,18 +122,29 @@ public class OccultismServerConfig {
         public final DoubleValue tier2CrystallizerOutputMultiplier;
         public final DoubleValue tier3CrystallizerOutputMultiplier;
         public final DoubleValue tier4CrystallizerOutputMultiplier;
+        public final IntValue tier1CrystallizerOperationCount;
+        public final IntValue tier2CrystallizerOperationCount;
+        public final IntValue tier3CrystallizerOperationCount;
+        public final IntValue tier4CrystallizerOperationCount;
         public final IntValue crystallizerResultPickupDelay;
+
         public final DoubleValue tier1SmelterTimeMultiplier;
         public final DoubleValue tier2SmelterTimeMultiplier;
         public final DoubleValue tier3SmelterTimeMultiplier;
         public final DoubleValue tier4SmelterTimeMultiplier;
+        public final IntValue tier1SmelterOperationCount;
+        public final IntValue tier2SmelterOperationCount;
+        public final IntValue tier3SmelterOperationCount;
+        public final IntValue tier4SmelterOperationCount;
         public final IntValue smelterResultPickupDelay;
+
         public final IntValue drikwingFamiliarSlowFallingSeconds;
         public final IntValue blacksmithFamiliarUpgradeCost;
         public final IntValue blacksmithFamiliarUpgradeCooldown;
         public final DoubleValue blacksmithFamiliarRepairChance;
         public final IntValue greedySearchRange;
         public final IntValue greedyVerticalSearchRange;
+
         public final IntValue dayTimeToCast;
         public final IntValue nightTimeToCast;
         public final IntValue rainTimeToCast;
@@ -175,6 +191,22 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
                             .defineInRange("tier4CrusherOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
+            this.tier1CrusherOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 1 (Foliot) Crusher Spirits make per operation.")
+                            .defineInRange("tier1CrusherOperationCount", 1, 1, 64);
+            this.tier2CrusherOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 2 (Djinni) Crusher Spirits make per operation.")
+                            .defineInRange("tier2CrusherOperationCount", 1, 1, 64);
+            this.tier3CrusherOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 3 (Afrit) Crusher Spirits make per operation.")
+                            .defineInRange("tier3CrusherOperationCount", 1, 1, 64);
+            this.tier4CrusherOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 4 (Marid) Crusher Spirits make per operation.")
+                            .defineInRange("tier4CrusherOperationCount", 1, 1, 64);
             this.crusherResultPickupDelay =
                     builder.comment(
                                     "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
@@ -213,6 +245,22 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "The multiplier to each crystallize recipe's output count for Tier 4 (Marid) Crystallizer Spirits.")
                             .defineInRange("tier4CrystallizerOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
+            this.tier1CrystallizerOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 1 (Foliot) Crystallizer Spirits make per operation.")
+                            .defineInRange("tier1CrystallizerOperationCount", 1, 1, 64);
+            this.tier2CrystallizerOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 2 (Djinni) Crystallizer Spirits make per operation.")
+                            .defineInRange("tier2CrystallizerOperationCount", 1, 1, 64);
+            this.tier3CrystallizerOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 3 (Afrit) Crystallizer Spirits make per operation.")
+                            .defineInRange("tier3CrystallizerOperationCount", 1, 1, 64);
+            this.tier4CrystallizerOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 4 (Marid) Crystallizer Spirits make per operation.")
+                            .defineInRange("tier4CrystallizerOperationCount", 1, 1, 64);
             this.crystallizerResultPickupDelay =
                     builder.comment(
                                     "The minimum ticks before a crystallizer can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
@@ -234,6 +282,22 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "The multiplier to each smelting recipe's cooking_time for Tier 4 (Marid) Smelter Spirits.")
                             .defineInRange("tier4SmelterTimeMultiplier", 0.01, 0.0, Double.MAX_VALUE);
+            this.tier1SmelterOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 1 (Foliot) Smelter Spirits make per operation.")
+                            .defineInRange("tier1SmelterOperationCount", 1, 1, 64);
+            this.tier2SmelterOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 2 (Djinni) Smelter Spirits make per operation.")
+                            .defineInRange("tier2SmelterOperationCount", 1, 1, 64);
+            this.tier3SmelterOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 3 (Afrit) Smelter Spirits make per operation.")
+                            .defineInRange("tier3SmelterOperationCount", 1, 1, 64);
+            this.tier4SmelterOperationCount =
+                    builder.comment(
+                                    "Max number of recipes that Tier 4 (Marid) Smelter Spirits make per operation.")
+                            .defineInRange("tier4SmelterOperationCount", 1, 1, 64);
             this.smelterResultPickupDelay =
                     builder.comment(
                                     "The minimum ticks before a smelter can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
@@ -336,14 +400,13 @@ public class OccultismServerConfig {
         public final IntValue stabilizerTier1AdditionalMaxItemTypes;
         public final LongValue stabilizerTier1AdditionalMaxTotalItemCount;
         public final IntValue stabilizerTier2AdditionalMaxItemTypes;
-
         public final LongValue stabilizerTier2AdditionalMaxTotalItemCount;
         public final IntValue stabilizerTier3AdditionalMaxItemTypes;
-
         public final LongValue stabilizerTier3AdditionalMaxTotalItemCount;
         public final IntValue stabilizerTier4AdditionalMaxItemTypes;
-
         public final LongValue stabilizerTier4AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier5AdditionalMaxItemTypes;
+        public final LongValue stabilizerTier5AdditionalMaxTotalItemCount;
         public final IntValue controllerMaxItemTypes;
         public final LongValue controllerMaxTotalItemCount;
         public final IntValue stabilizedControllerStabilizers;
@@ -375,6 +438,12 @@ public class OccultismServerConfig {
             this.stabilizerTier4AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
                             .defineInRange("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L, 0, Long.MAX_VALUE);
+            this.stabilizerTier5AdditionalMaxItemTypes =
+                    builder.comment("The amount of slots the storage stabilizer tier 5 provides.")
+                            .defineInRange("stabilizerTier5AdditionalMaxItemTypes", 1024, 0, Integer.MAX_VALUE);
+            this.stabilizerTier5AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .defineInRange("stabilizerTier5AdditionalMaxTotalItemCount", 8192 * 1000L, 0, Long.MAX_VALUE);
             this.controllerMaxItemTypes =
                     builder.comment("The amount of slots the storage actuator provides.")
                             .defineInRange("controllerMaxItemTypes", 128, 0, Integer.MAX_VALUE);
@@ -382,13 +451,11 @@ public class OccultismServerConfig {
                     builder.comment("The stack size the storage actuator uses.")
                             .defineInRange("controllerMaxTotalItemCount", 256 * 1000L, 0, Long.MAX_VALUE);
             this.stabilizedControllerStabilizers =
-                    builder.comment("The amount of stabilizers tier 4 in the stabilized storage actuator. (Don't auto change the recipe)")
-                            .defineInRange("stabilizedControllerStabilizers", 7, 0, Integer.MAX_VALUE);
+                    builder.comment("The amount of stabilizers tier 5 in the stabilized storage actuator. (Don't auto change the recipe)")
+                            .defineInRange("stabilizedControllerStabilizers", 8, 0, Integer.MAX_VALUE);
             this.unlinkWormholeOnBreak =
                     builder.comment(
-                                    "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
-                                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
-                                            "false may have a negative impact on performance.")
+                                    "True to unlink the wormhole when break (so it doesn't function as a cheaper Storage Accessor).")
                             .define("unlinkWormholeOnBreak", false);
             builder.pop();
         }

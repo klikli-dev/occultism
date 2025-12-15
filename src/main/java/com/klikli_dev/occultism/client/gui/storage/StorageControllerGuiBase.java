@@ -76,8 +76,12 @@ import java.util.stream.Collectors;
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
 
     public static final int ORDER_AREA_OFFSET = 48;
-    protected static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/storage_controller_droparea.png");
+    protected static final ResourceLocation TEXTURE_TOP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+            "textures/gui/storage_controller_top.png");
+    protected static final ResourceLocation TEXTURE_ROW = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+            "textures/gui/storage_controller_row.png");
+    protected static final ResourceLocation TEXTURE_BOTTOM = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+            "textures/gui/storage_controller_bottom.png");
     protected static final ResourceLocation BUTTONS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     public int lastStacksCount;
@@ -98,10 +102,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected Button sortTypeButton;
     protected Button sortDirectionButton;
     protected Button jeiSyncButton;
+    protected Button rowCountButton;
     protected Button autocraftingModeButton;
     protected Button inventoryModeButton;
     protected LabelWidget storageSpaceLabel;
     protected LabelWidget storageTypesLabel;
+    protected LabelWidget rowLabel;
+    protected LabelWidget filledLabel;
+    protected LabelWidget typesLabel;
     protected int rows;
     protected int columns;
 
@@ -116,6 +124,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     private List<ItemStack> cachedStacksToDisplay;
     private String cachedSearchString;
+    protected int realTopPos;
 
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
         super(container, playerInventory, name);
@@ -126,7 +135,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.imageWidth = 224;
         this.imageHeight = 256;
 
-        this.rows = 4;
+        this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = 9;
 
         this.currentPage = 1;
@@ -244,8 +253,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public void init() {
         super.init();
+        this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.leftPos = (this.width - this.imageWidth) / 2 - ORDER_AREA_OFFSET;
-        this.topPos = Math.max(0, (this.height - this.imageHeight) / 2);
+        this.realTopPos = Math.max(0, (this.height - (175 + 18*this.rows)) / 2);
+        this.topPos = realTopPos + 24 + 9 + 18*this.rows;
 
         this.clearWidgets();
 
@@ -263,7 +274,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
         this.searchBar = new EditBox(this.font, this.leftPos + searchBarLeft,
-                this.topPos + searchBarTop, 90, this.font.lineHeight, Component.literal("search"));
+                this.realTopPos + searchBarTop, 90, this.font.lineHeight, Component.literal("search"));
         this.searchBar.setMaxLength(30);
 
         this.searchBar.setBordered(false);
@@ -279,9 +290,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         int storageSpaceInfoLabelLeft = 186;
-        int storageSpaceInfoLabelTop = 115;
+        int storageSpaceInfoLabelTop = 35 + 18*this.rows;
         this.storageSpaceLabel =
-                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.topPos + storageSpaceInfoLabelTop, true,
+                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.realTopPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
                 .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
@@ -291,12 +302,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.storageSpaceLabel);
 
         this.storageTypesLabel =
-                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft - 7, this.topPos + storageSpaceInfoLabelTop + 40, true,
+                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft - 7, this.realTopPos + storageSpaceInfoLabelTop + 40, true,
                         -1, 2, 0x404040);
         this.storageTypesLabel
                 .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double) this.usedItemTypes / (double) this.maxItemTypes * 100)), false);
         this.addRenderableWidget(this.storageTypesLabel);
+
         this.initButtons();
+
+        this.rowLabel =
+                new LabelWidget(this.leftPos + 213, this.realTopPos + 7, true,
+                        -1, 2, 0x404040);
+        this.rowLabel
+                .addLine(String.valueOf(Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt()), false);
+        this.addRenderableWidget(this.rowLabel);
     }
 
     @Override
@@ -476,9 +495,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int controlButtonSize = 12;
 
         int clearRecipeButtonLeft = 93 + ORDER_AREA_OFFSET;
-        int clearRecipeButtonTop = 112;
+        int clearRecipeButtonTop = 32 + 18*this.rows;
         this.clearRecipeButton = new SizedImageButton(this.leftPos + clearRecipeButtonLeft,
-                this.topPos + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
+                this.realTopPos + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
             Networking.sendToServer(new MessageClearCraftingMatrix());
             Networking.sendToServer(new MessageRequestStacks());
@@ -490,7 +509,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int clearTextButtonLeft = 99 + ORDER_AREA_OFFSET;
         this.clearTextButton = new SizedImageButton(this.leftPos + clearTextButtonLeft,
-                this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
+                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
             this.clearSearch();
             this.forceFocus = true;
@@ -501,7 +520,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int sortTypeOffset = this.getSortType().ordinal() * 28;
         this.sortTypeButton = new SizedImageButton(this.leftPos + clearTextButtonLeft + controlButtonSize + 3,
-                this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
+                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
             this.setSortType(this.getSortType().next());
             Networking.sendToServer(
@@ -513,7 +532,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int sortDirectionOffset = 84 + (1 - this.getSortDirection().ordinal()) * 28;
         this.sortDirectionButton = new SizedImageButton(
                 this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
-                this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
+                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
                 28, 256, 256, BUTTONS, (button) -> {
             this.setSortDirection(this.getSortDirection().next());
             Networking.sendToServer(
@@ -525,8 +544,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (OccultismEmiIntegration.get().isLoaded() || OccultismJeiIntegration.get().isLoaded()) {
             int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
             this.jeiSyncButton = new SizedImageButton(
-                    this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
-                            3, this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
+                    this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
+                    this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
                     256, 256, BUTTONS, (button) -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
@@ -535,7 +554,21 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.addRenderableWidget(this.jeiSyncButton);
         }
 
-        int guiModeButtonTop = 112;
+        int rowsCountOffset = 224;
+        this.rowCountButton = new SizedImageButton(
+            this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
+            this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, rowsCountOffset, 28, 28, 28,
+            256, 256, BUTTONS, (button) -> {
+                    if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
+                        Occultism.CLIENT_CONFIG.misc.storageRows.set(1);
+                    } else {
+                        Occultism.CLIENT_CONFIG.misc.storageRows.set((Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() + 1));
+                    }
+        });
+
+        this.addRenderableWidget(this.rowCountButton);
+
+        int guiModeButtonTop = 18*4;
         int guiModeButtonLeft = 27;
         int guiModeButtonHeight = 29;
         int guiModeButtonWidth = 24;
@@ -544,7 +577,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             case INVENTORY:
                 //active tab button for inventory
                 this.inventoryModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
+                        this.topPos + guiModeButtonTop , guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
@@ -561,7 +594,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             case AUTOCRAFTING:
                 //inactive tab button for inventory
                 this.inventoryModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
+                        this.topPos + guiModeButtonTop , guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
@@ -614,17 +647,27 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isHovering(this.searchBar.getX() - this.leftPos, this.searchBar.getY() - this.topPos,
-                this.searchBar.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
+        return this.isHovering(this.searchBar.getX() - this.leftPos, this.searchBar.getY() - this.topPos - 3,
+                this.searchBar.getWidth() - 5, this.font.lineHeight + 4, mouseX, mouseY);
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
-        int itemAreaHeight = 82;
+        int itemAreaHeight = 4 + 18*this.rows;
         int itemAreaWidth = 160;
         int itemAreaTop = 24;
         int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
         return mouseX > (this.leftPos + itemAreaLeft) && mouseX < (this.leftPos + itemAreaWidth + itemAreaLeft) &&
-                mouseY > (this.topPos + itemAreaTop) && mouseY < (this.topPos + itemAreaTop + itemAreaHeight);
+                mouseY > (this.realTopPos + itemAreaTop) && mouseY < (this.realTopPos + itemAreaTop + itemAreaHeight);
+    }
+
+    protected boolean isPointInSpaceText(double mouseX, double mouseY) {
+        return this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32, this.storageSpaceLabel.getY() - this.topPos -2,
+                64, this.font.lineHeight + 2, mouseX, mouseY);
+    }
+
+    protected boolean isPointInTypesText(double mouseX, double mouseY) {
+        return this.isHovering(this.storageTypesLabel.getX() - this.leftPos - 32, this.storageTypesLabel.getY() - this.topPos -2,
+                64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
     protected void drawTooltips(GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -694,14 +737,29 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
+        if (this.rowCountButton != null && this.rowCountButton.isMouseOver(mouseX, mouseY)) {
+            guiGraphics.renderTooltip(this.font, Component.translatable(
+                            TRANSLATION_KEY_BASE + ".display.rows"),
+                    mouseX, mouseY);
+        }
+
+        if (this.isPointInSpaceText(mouseX, mouseY)) {
+            guiGraphics.renderTooltip(this.font, Component.literal(
+                    this.usedTotalItemCount + " / " + this.maxTotalItemCount), mouseX, mouseY);
+        }
+        if (this.isPointInTypesText(mouseX, mouseY)) {
+            guiGraphics.renderTooltip(this.font, Component.literal(
+                    this.usedItemTypes + " / " + this.maxItemTypes), mouseX, mouseY);
+        }
     }
 
     protected void drawBackgroundTexture(GuiGraphics guiGraphics) {
-        int i = (this.width - this.imageWidth) / 2;
-        int j = (this.height - this.imageHeight) / 2;
-
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(TEXTURE_TOP, this.leftPos, this.realTopPos, 0, 0, this.imageWidth, this.imageHeight);
+        for (int i =0; i < this.rows; i++) {
+            guiGraphics.blit(TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0, 0, this.imageWidth, this.imageHeight);
+        }
+        guiGraphics.blit(TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     protected void drawItemSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -734,7 +792,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.itemSlots
                         .add(new ItemSlotWidget(this, stacksToDisplay.get(index),
                                 this.leftPos + itemAreaLeft + col * 18,
-                                this.topPos + itemAreaTop + row * 18, stacksToDisplay.get(index).getCount(),
+                                this.realTopPos + itemAreaTop + row * 18, stacksToDisplay.get(index).getCount(),
                                 this.leftPos, this.topPos, true));
                 index++;
             }
@@ -909,7 +967,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     break;
                 }
                 this.machineSlots.add(new MachineSlotWidget(this, machinesToDisplay.get(index),
-                        this.leftPos + itemAreaLeft + col * 18, this.topPos + itemAreaTop + row * 18, this.leftPos,
+                        this.leftPos + itemAreaLeft + col * 18, this.realTopPos + itemAreaTop + row * 18, this.leftPos,
                         this.topPos));
                 index++;
             }

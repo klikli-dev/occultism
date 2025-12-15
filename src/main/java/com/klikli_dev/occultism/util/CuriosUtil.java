@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.util;
 
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
+import com.klikli_dev.occultism.common.item.storage.EnderSatchelItem;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -136,6 +137,8 @@ public class CuriosUtil {
     public static ItemStack getStorageRemoteCurio(Player player) {
         ICuriosItemHandler curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
         ItemStack hasStorageRemote = ItemStack.EMPTY;
+        if (curiosHandler == null)
+            return hasStorageRemote;
         for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
             IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
             for (int i = 0; i < stackHandler.getSlots(); i++) {
@@ -169,6 +172,47 @@ public class CuriosUtil {
         }
         return -1;
     }
+
+    public static ItemStack getEnderSatchel(Player player) {
+        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+        if (curiosHandler == null)
+            return ItemStack.EMPTY;
+
+        for (var curio : curiosHandler.getCurios().keySet()) {
+            var stack = getEnderSatchelItemFromSlot(curiosHandler, curio);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    protected static ItemStack getEnderSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+        if (slotHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        IDynamicStackHandler stackHandler = slotHandler.getStacks();
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if (stack.getItem() instanceof EnderSatchelItem) {
+                return stack;
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    public static int getFirstEnderSatchelSlot(Player player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.getItem() instanceof EnderSatchelItem)
+                return slot;
+        }
+        return -1;
+    }
+
 
     public static class SelectedCurio {
         public ItemStack itemStack;

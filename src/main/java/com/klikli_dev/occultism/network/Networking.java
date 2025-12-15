@@ -41,6 +41,7 @@ public class Networking {
         registrar.playToServer(MessageDoubleJump.TYPE, MessageDoubleJump.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageInsertMouseHeldItem.TYPE, MessageInsertMouseHeldItem.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageOpenSatchel.TYPE, MessageOpenSatchel.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageOpenEnderSatchel.TYPE, MessageOpenEnderSatchel.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageOpenStorageRemote.TYPE, MessageOpenStorageRemote.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageRequestOrder.TYPE, MessageRequestOrder.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageRequestStacks.TYPE, MessageRequestStacks.STREAM_CODEC, MessageHandler::handle);

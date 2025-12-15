@@ -64,6 +64,7 @@ public class CrusherJob extends SpiritJob {
     protected Supplier<Float> crushingTimeMultiplier;
     protected Supplier<Float> outputMultiplier;
     protected Supplier<Integer> tier;
+    protected Supplier<Integer> operationCount;
 
     protected Optional<RecipeHolder<CrushingRecipe>> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
@@ -71,11 +72,12 @@ public class CrusherJob extends SpiritJob {
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
 
 
-    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> tier) {
+    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> operationCount, Supplier<Integer> tier) {
         super(entity);
         this.crushingTimeMultiplier = crushingTimeMultiplier;
         this.outputMultiplier = outputMultiplier;
         this.tier = tier;
+        this.operationCount = operationCount;
     }
 
     @Override
@@ -156,10 +158,11 @@ public class CrusherJob extends SpiritJob {
                     float outputMultiplier = this.outputMultiplier.get();
                     if (this.currentRecipe.get().value().getIgnoreCrushingMultiplier())
                         outputMultiplier = 1;
-                    result.setCount((int) (result.getCount() * outputMultiplier));
+                    int a = Math.min(this.operationCount.get(), handHeld.getCount());
+                    result.setCount((int) (result.getCount() * a * outputMultiplier));
                     ItemStack inputCopy = handHeld.copy();
-                    inputCopy.setCount(1);
-                    handHeld.shrink(1);
+                    inputCopy.setCount(a);
+                    handHeld.shrink(a);
 
                     this.onCrush(inputCopy, result);
                     var event = new CrusherJobEvent(this.entity, inputCopy, result);

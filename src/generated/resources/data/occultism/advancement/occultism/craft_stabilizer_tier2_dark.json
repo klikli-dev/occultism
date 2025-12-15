@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_stabilizer_tier2_dark": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_stabilizer_tier2_dark"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_stabilizer_tier2_dark.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_stabilizer_tier2_dark.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_stabilizer_tier2_dark"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

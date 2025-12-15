@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "i": {
-      "tag": "c:ingots/iesnium"
+      "item": "occultism:spirit_attuned_gem"
     },
     "s": {
       "tag": "c:ingots/silver"

@@ -49,11 +49,22 @@ public class CraftDjinniEntry extends EntryProvider {
                 - [Infused Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
                 - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
                 - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
+                - [Entity Wormhole](entry://crafting_rituals/entity_wormhole)
+                - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
+                - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
+                """
+        );
+
+        this.page("uses2", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Uses");
+        this.pageText("""
+                - [Ender Satchel](entry://crafting_rituals/ender_satchel)
                 - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
                 - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
                 - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
-                - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
-                - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
                 - [Repair Chalks](entry://crafting_rituals/repair)
                 - [Gray Paste](entry://pentacles/gray_chalk)
                 """

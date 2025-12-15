@@ -30,6 +30,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -227,6 +229,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                 if (this.target.canBlacksmithUpgrade()) {
                     this.target.blacksmithUpgrade();
                     this.blacksmith.changeIronCount(-UPGRADE_COST.get());
+                    this.blacksmith.level().playSound(this.blacksmith, this.blacksmith.getOnPos(),
+                            SoundEvents.ANVIL_USE, SoundSource.NEUTRAL, 0.5F, 1F);
                     OccultismAdvancements.FAMILIAR.get().trigger(this.blacksmith.getFamiliarOwner(),
                             FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
                 }

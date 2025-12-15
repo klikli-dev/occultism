@@ -94,6 +94,12 @@ public class SoulGemItem extends Item {
                 Entity entity = type.create(level);
                 entity.load(entityData);
                 entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                float yaw = player.getYHeadRot() + 180;
+                entity.setYRot(yaw);
+                entity.setYBodyRot(yaw);
+                entity.setYHeadRot(yaw);
+                entity.setYRot(yaw);
+                entity.setYRot(yaw);
                 level.addFreshEntity(entity);
 
                 // old spawn cde:

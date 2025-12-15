@@ -179,6 +179,7 @@ public class OccultismClientConfig {
     public static class MiscSettings {
         public final BooleanValue syncJeiSearch;
         public final BooleanValue enableEMISync;
+        public final IntValue storageRows;
         public final BooleanValue divinationRodHighlightAllResults;
         public final IntValue divinationRodScanRange;
         public final BooleanValue disableSpiritFireSuccessSound;
@@ -192,6 +193,9 @@ public class OccultismClientConfig {
                     .define("syncJeiSearch", false);
             this.enableEMISync = builder.comment("Enables EMI sync for the storage actuator.")
                     .define("enableEMISync", true);
+            this.storageRows = builder.comment(
+                    "How many rows show at one time on storage controller"
+            ).defineInRange("storageRows", 4, 1, 9);
             this.divinationRodHighlightAllResults = builder.comment(
                             "If true, divination rod will render all matching blocks with an outline. Disable if it causes lag.",
                             "This setting will be unused, if Theurgy is installed alongside, as Occultism will use Theurgy's divination rod result rendering instead.")

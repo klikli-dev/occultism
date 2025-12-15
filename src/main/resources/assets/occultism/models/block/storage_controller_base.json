@@ -1,6 +1,6 @@
 {
   "parent": "occultism:block/storage_controller",
   "textures": {
-    "2": "occultism:block/sacrificial_bowl_copper"
+    "2": "occultism:block/actuator_top_inert"
   }
 }

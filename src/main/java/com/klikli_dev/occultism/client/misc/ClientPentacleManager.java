@@ -54,7 +54,7 @@ public class ClientPentacleManager {
                                 (existing, replacement) -> existing
                         ))
                         .values().stream()
-                        .map(r -> Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND,Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE)))
+                        .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
                         .collect(Collectors.toList());
                 currentPage = 0;
                 calculateTotalPages();
@@ -70,7 +70,7 @@ public class ClientPentacleManager {
     }
 
     private static void calculateTotalPages() {
-        totalPages = (int) Math.ceil((double) allPentacles.size() / ITEMS_PER_PAGE);
+        totalPages = allPentacles.size() == ITEMS_PER_PAGE + 1 ? 1 : (int) Math.ceil((double) allPentacles.size() / ITEMS_PER_PAGE);
         if (totalPages == 0) totalPages = 1; // At least one page even if empty
     }
 
@@ -88,8 +88,11 @@ public class ClientPentacleManager {
             pageIndicator = null;
             return;
         }
-        int startIdx = currentPage * ITEMS_PER_PAGE;
-        int endIdx = Math.min(startIdx + ITEMS_PER_PAGE, allPentacles.size());
+
+        int startIdx = ITEMS_PER_PAGE + 1 == allPentacles.size() ?
+                currentPage * (ITEMS_PER_PAGE+1) : currentPage * ITEMS_PER_PAGE;
+        int endIdx = ITEMS_PER_PAGE + 1 == allPentacles.size() ?
+                Math.min(startIdx + ITEMS_PER_PAGE+1, allPentacles.size()) : Math.min(startIdx + ITEMS_PER_PAGE, allPentacles.size());
         if (totalPages > 1) {
             pageIndicator = Component.literal("Page ")
                     .withStyle(ChatFormatting.GRAY)

@@ -31,6 +31,17 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier2_dark",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

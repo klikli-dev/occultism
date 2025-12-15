@@ -1,0 +1,13 @@
+{
+  "type": "occultism:crystallize",
+  "ignore_crystallize_multiplier": true,
+  "ingredient": {
+    "tag": "c:dusts/otherrock"
+  },
+  "min_tier": 3,
+  "result": {
+    "type": "occultism:item",
+    "count": 1,
+    "id": "occultism:otherrock"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherrock_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:dusts/otherrock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crystallize/otherrock"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherrock_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crystallize/otherrock"
+    ]
+  }
+}
