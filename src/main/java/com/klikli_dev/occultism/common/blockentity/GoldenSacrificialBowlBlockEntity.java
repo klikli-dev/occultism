@@ -92,6 +92,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     public Consumer<RightClickItem> rightClickItemListener;
     public Consumer<LivingDeathEvent> livingDeathEventListener;
+    private boolean pendingSync;
 
 
     public GoldenSacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
@@ -475,6 +476,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             if (recipe.value().getDuration() >= 0 && this.currentTime >= recipe.value().getDuration())
                 this.stopRitual(true);
+        } else if (this.pendingSync) {
+            this.markNetworkDirty();
+            this.pendingSync = false;
         }
     }
 
@@ -705,13 +709,13 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public void notifySacrifice(LivingEntity entityLivingBase) {
         this.sacrificeProvided = true;
         this.setChanged();
-        this.markNetworkDirty();
+        this.pendingSync = true;
     }
 
     public void notifyItemUse(PlayerInteractEvent.RightClickItem event) {
         this.itemUseProvided = true;
         this.setChanged();
-        this.markNetworkDirty();
+        this.pendingSync = true;
     }
 
     public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
