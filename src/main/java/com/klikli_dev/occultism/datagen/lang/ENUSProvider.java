@@ -3079,11 +3079,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
         this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
         this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
+        this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("tier1CrusherOperationCount", "Recipes done per operations for Tier 1 Crusher.");
         this.addConfig("tier2CrusherOperationCount", "Recipes done per operations for Tier 2 Crusher.");
         this.addConfig("tier3CrusherOperationCount", "Recipes done per operations for Tier 3 Crusher.");
         this.addConfig("tier4CrusherOperationCount", "Recipes done per operations for Tier 4 Crusher.");
-        this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
         this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
         this.addConfig("tier2CrystallizerTimeMultiplier", "Time multiplier for Tier 2 Crystallizer operations.");
@@ -3145,6 +3145,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerOutputBeforeBreak", "Save miners before breaking");
         this.addConfig("minerEfficiency", "Efficient miners");
         this.addConfig("minerFortune", "Fortune miners");
+        this.addConfig("minerSilk", "Silk miners");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
         this.addConfig("maxDistanceRTP", "Max Distance RTP");
         this.addConfig("maxTryRTP", "Max Attempts to RTP");

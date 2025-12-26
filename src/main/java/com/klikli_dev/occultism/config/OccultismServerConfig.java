@@ -51,6 +51,7 @@ public class OccultismServerConfig {
         public final BooleanValue minerOutputBeforeBreak;
         public final BooleanValue minerEfficiency;
         public final BooleanValue minerFortune;
+        public final BooleanValue minerSilk;
         public final BooleanValue unbreakableChalks;
         public final IntValue maxDistanceRTP;
         public final IntValue maxTryRTP;
@@ -60,8 +61,8 @@ public class OccultismServerConfig {
 
             this.anyOreDivinationRod =
                     builder.comment(
-                            "Allow the Divining Rod to attune to any ore"
-                    )
+                                    "Allow the Divining Rod to attune to any ore"
+                            )
                             .define("anyOreDivinationRod", false);
             this.minerOutputBeforeBreak =
                     builder.comment(
@@ -78,6 +79,11 @@ public class OccultismServerConfig {
                                     "Allow miners enchanted with fortune to has a chance of mine extra results each operation"
                             )
                             .define("minerFortune", true);
+            this.minerSilk =
+                    builder.comment(
+                                    "Allow miners enchanted with silk touch to has a chance of multiply results each operation"
+                            )
+                            .define("minerSilk", true);
             this.unbreakableChalks =
                     builder.comment(
                                     "Don't damage chalks on use"
