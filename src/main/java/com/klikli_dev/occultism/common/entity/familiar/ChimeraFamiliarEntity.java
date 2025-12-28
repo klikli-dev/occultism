@@ -590,13 +590,15 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         protected void checkAndPerformAttack(LivingEntity target) {
             if (!this.canPerformAttack(target))
                 return;
+            var owner = this.chimera.getFamiliarOwner();
+            if (owner == target)
+                return;
 
             this.resetAttackCooldown();
 
             byte attacker = this.randomAttacker();
             this.chimera.setAttacker(attacker);
 
-            var owner = this.chimera.getFamiliarOwner();
             if(owner instanceof Player player){
                 target.hurt(this.chimera.damageSources().playerAttack(player), (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
             } else {
