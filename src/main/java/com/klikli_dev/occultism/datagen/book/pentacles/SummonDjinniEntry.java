@@ -54,6 +54,7 @@ public class SummonDjinniEntry extends EntryProvider {
                 - [Djinni Smelter](entry://summoning_rituals/summon_smelter_t2)
                 - [Djinni Crystallizer](entry://summoning_rituals/summon_crystallizer_t2)
                 - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
+                - [Gem Gambler](entry://summoning_rituals/summon_gambler)
                 - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
                 - [Time Magic](entry://summoning_rituals/time_magic)
                 - [Demonic Partner](entry://familiar_rituals/demonic_partner)

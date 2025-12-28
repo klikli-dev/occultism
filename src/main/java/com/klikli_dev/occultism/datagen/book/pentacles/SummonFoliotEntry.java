@@ -56,6 +56,7 @@ public class SummonFoliotEntry extends EntryProvider {
                 - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
                 - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
                 - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
+                - [Otherrock Trader](entry://summoning_rituals/summon_otherrock_trader)
                 - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
                 """
         );

@@ -281,6 +281,21 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.DJINNI.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_manage_machine"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DJINNI.get(), "item.occultism.ritual_dummy.summon_djinni_gambler"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER.get()),
+                        120,
+                        RITUAL_SUMMON_JOB,
+                        PENTACLE_SUMMON_DJINNI,
+                        Ingredient.of(Tags.Items.GEMS_EMERALD),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_DIAMOND),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_SILVER))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .spiritMaxAge(1800)
+                .spiritJobType(OccultismSpiritJobs.TRADE_GAMBLER.getId())
+                .entityToSummon(OccultismEntities.DJINNI.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_gambler"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DJINNI.get(), "item.occultism.ritual_dummy.summon_djinni_clear_weather"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER.get()),
                         60,
@@ -435,9 +450,24 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Blocks.ANDESITE))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .spiritMaxAge(3600)
-                .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "trade_otherstone_t1"))
+                .spiritJobType(OccultismSpiritJobs.TRADE_OTHERSTONE.getId())
                 .entityToSummon(OccultismEntities.FOLIOT.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_otherstone_trader"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_FOLIOT.get(), "item.occultism.ritual_dummy.summon_foliot_otherrock_trader"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.get()),
+                        60,
+                        RITUAL_SUMMON_JOB,
+                        PENTACLE_SUMMON_FOLIOT,
+                        Ingredient.of(Blocks.DEEPSLATE),
+                        Ingredient.of(Blocks.DRIPSTONE_BLOCK),
+                        Ingredient.of(Blocks.CALCITE),
+                        Ingredient.of(Blocks.MAGMA_BLOCK))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .spiritMaxAge(3600)
+                .spiritJobType(OccultismSpiritJobs.TRADE_OTHERROCK.getId())
+                .entityToSummon(OccultismEntities.FOLIOT.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_otherrock_trader"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_FOLIOT.get(), "item.occultism.ritual_dummy.summon_foliot_sapling_trader"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.get()),
@@ -450,7 +480,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.JUNGLE_SAPLING))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .spiritMaxAge(3600)
-                .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "trade_otherworld_saplings_t1"))
+                .spiritJobType(OccultismSpiritJobs.TRADE_OTHERWORLD_SAPLINGS.getId())
                 .entityToSummon(OccultismEntities.FOLIOT.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_sapling_trader"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),

@@ -625,7 +625,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "______________________",
                 "_______2_6_í_f_g_m____",
                 "______________________",
-                "_______3_7_ì__________",
+                "_______3_7_ì_p_n______",
                 "______________________",
                 "_______4_8_î__________"
         );
@@ -703,9 +703,17 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         tradeSpirits.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(entryMap, 'f');
-        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true));
+        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(entryMap, 'g');
-        summonOtherstoneTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true));
+        summonOtherstoneTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        var summonOtherrockTrader = this.makeSummonOtherrockTraderEntry(entryMap, 'n');
+        summonOtherrockTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        var summonGambler = this.makeSummonGamblerEntry(entryMap, 'p');
+        summonGambler.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
 
         var weatherMagic = this.makeWeatherMagicEntry(entryMap, 'k');
         weatherMagic.withParent(BookEntryParentModel.create(overview.getId()))
@@ -748,7 +756,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         summonTransportItems,
                         tradeSpirits,
                         summonOtherstoneTrader,
+                        summonOtherrockTrader,
                         summonOtherworldSaplingTrader,
+                        summonGambler,
                         timeMagic,
                         weatherMagic,
                         maridEssence
@@ -1609,6 +1619,53 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withPages(
                         intro,
                         trade,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonOtherrockTraderEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_otherrock_trader");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.context().page("trade");
+        var trade = BookSpiritTradeRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_trade/stone_to_otherrock"));
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_otherrock_trader"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismBlocks.OTHERROCK.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        trade,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonGamblerEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_gambler");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_gambler"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.SPIRIT_ATTUNED_GEM.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
                         ritual
                 );
     }

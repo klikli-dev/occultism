@@ -708,8 +708,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("job.occultism.manage_machine", "Machine Operator");
         this.add("job.occultism.transport_items", "Transporter");
         this.add("job.occultism.cleaner", "Janitor");
-        this.add("job.occultism.trade_otherstone_t1", "Otherstone Trader");
-        this.add("job.occultism.trade_otherworld_saplings_t1", "Otherworld Sapling Trader");
+        this.add("job.occultism.trader_otherstone", "Otherstone Trader");
+        this.add("job.occultism.trader_otherrock", "Otherrock Trader");
+        this.add("job.occultism.trader_otherworld_saplings", "Otherworld Sapling Trader");
+        this.add("job.occultism.gambler", "Gambler");
         this.add("job.occultism.clear_weather", "Sunshine Spirit");
         this.add("job.occultism.rain_weather", "Rainy Weather Spirit");
         this.add("job.occultism.thunder_weather", "Thunderstorm Spirit");
@@ -1147,6 +1149,39 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         helper.page("trade");
         //no text
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_otherrock_trader");
+        this.add(helper.entryName(), "Summon Otherrock Trader");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherrock Trader");
+        this.add(helper.pageText(),
+                """
+                        The Otherrock Trader spirit allows to get more [](item://occultism:otherrock) than using [](item://occultism:spirit_fire). Thus it is especially efficient if you want to use Otherrock as a building material.
+                           """);
+
+        helper.page("trade");
+        //no text
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_gambler");
+        this.add(helper.entryName(), "Summon Gem Gambler");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Djinni Gambler");
+        this.add(helper.pageText(),
+                """
+                        Betting is a type of trade, right? Maybe random exchanger.
+                        \\
+                        The Gambler spirit allows you to wager some gems to receive another random gem or a nugget, including the rare [](item://occultism:iesnium_nugget).
+                        \\
+                        Be careful not to leave the resulting gems on the ground. Collect them quickly because he is cunning and never stops playing...
+                           """);
 
         helper.page("ritual");
         //no text
@@ -2486,6 +2521,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addJeiTranslations() {
         this.add("occultism.jei.spirit_fire", "Spiritfire");
+        this.add("occultism.jei.spirit_trader", "Trader Spirit");
+        this.add("occultism.jei.spirit_trader.chance", "Chance: %s%%");
         this.add("occultism.jei.crushing", "Crusher Spirit");
         this.add("occultism.jei.crystallize", "Crystallizer Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
@@ -2627,10 +2664,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK, "Summon Foliot Lumberjack", "Foliot", "The Lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_FARMER, "Summon Foliot Farmer", "Foliot", "The Farmer will harvest crops in it's working area and deposit the dropped items into the specified chest.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER, "Summon Otherstone Trader", "Foliot", "The Otherstone Trader trades normal stone for otherstone.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER, "Summon Otherrock Trader", "Foliot", "The Otherrock Trader trades normal stone for otherrock.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER, "Summon Otherworld Sapling Trader", "Foliot", "The Otherworld Sapling Trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS, "Summon Foliot Transporter", "Foliot", "The Transporter will move all items it can access from one inventory to another, including machines.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER, "Summon Foliot Janitor", "Foliot", "The Janitor will pick up dropped items and deposit them into a target inventory.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "Summon Djinni Machine Operator", "Djinni", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER, "Summon Djinni Gambler", "Djinni", "The Gambler bets any gem for some other gems and nuggets, a trader with a taste of randomness");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "Summoning of Dawn", "Djinni", "Summons a Djinni that sets the time to high noon.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "Summoning of Dusk", "Djinni", "Summons a Djinni that sets the time to midnight.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "Summoning of Clear Sky", "Djinni", "Summons a Djinni that clears the weather.");
@@ -2972,6 +3011,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addEmiTranslations() {
         this.add("emi.category.occultism.spirit_fire", "Spirit Fire");
+        this.add("emi.category.occultism.spirit_trader", "Spirit Trader");
         this.add("emi.category.occultism.crushing", "Crushing");
         this.add("emi.category.occultism.crystallize", "Crystallize");
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
@@ -3071,52 +3111,44 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("unlinkWormholeOnBreak", "Unlink Wormhole on Break");
 
         this.addConfig("spirit_job", "Spirit Job Settings");
-        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Duration of slow falling effect given by Drikwing Familiar in seconds.");
-        this.addConfig("tier1CrusherTimeMultiplier", "Time multiplier for Tier 1 Crusher operations.");
-        this.addConfig("tier2CrusherTimeMultiplier", "Time multiplier for Tier 2 Crusher operations.");
-        this.addConfig("tier3CrusherTimeMultiplier", "Time multiplier for Tier 3 Crusher operations.");
-        this.addConfig("tier4CrusherTimeMultiplier", "Time multiplier for Tier 4 Crusher operations.");
-        this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
-        this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
-        this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
-        this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
-        this.addConfig("tier1CrusherOperationCount", "Recipes done per operations for Tier 1 Crusher.");
-        this.addConfig("tier2CrusherOperationCount", "Recipes done per operations for Tier 2 Crusher.");
-        this.addConfig("tier3CrusherOperationCount", "Recipes done per operations for Tier 3 Crusher.");
-        this.addConfig("tier4CrusherOperationCount", "Recipes done per operations for Tier 4 Crusher.");
-        this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
-        this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
-        this.addConfig("tier2CrystallizerTimeMultiplier", "Time multiplier for Tier 2 Crystallizer operations.");
-        this.addConfig("tier3CrystallizerTimeMultiplier", "Time multiplier for Tier 3 Crystallizer operations.");
-        this.addConfig("tier4CrystallizerTimeMultiplier", "Time multiplier for Tier 4 Crystallizer operations.");
-        this.addConfig("tier1CrystallizerOutputMultiplier", "Output multiplier for Tier 1 Crystallizer operations.");
-        this.addConfig("tier2CrystallizerOutputMultiplier", "Output multiplier for Tier 2 Crystallizer operations.");
-        this.addConfig("tier3CrystallizerOutputMultiplier", "Output multiplier for Tier 3 Crystallizer operations.");
-        this.addConfig("tier4CrystallizerOutputMultiplier", "Output multiplier for Tier 4 Crystallizer operations.");
-        this.addConfig("tier1CrystallizerOperationCount", "Recipes done per operations for Tier 1 Crystallizer.");
-        this.addConfig("tier2CrystallizerOperationCount", "Recipes done per operations for Tier 2 Crystallizer.");
-        this.addConfig("tier3CrystallizerOperationCount", "Recipes done per operations for Tier 3 Crystallizer.");
-        this.addConfig("tier4CrystallizerOperationCount", "Recipes done per operations for Tier 4 Crystallizer.");
-        this.addConfig("crystallizerResultPickupDelay", "Delay before items from crystallizer operations can be picked up.");
-        this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
-        this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
-        this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");
-        this.addConfig("tier4SmelterTimeMultiplier", "Time multiplier for Tier 4 Smelter operations.");
-        this.addConfig("tier1SmelterOperationCount", "Recipes done per operations for Tier 1 Smelter.");
-        this.addConfig("tier2SmelterOperationCount", "Recipes done per operations for Tier 2 Smelter.");
-        this.addConfig("tier3SmelterOperationCount", "Recipes done per operations for Tier 3 Smelter.");
-        this.addConfig("tier4SmelterOperationCount", "Recipes done per operations for Tier 4 Smelter.");
-        this.addConfig("smelterResultPickupDelay", "Delay before items from smelter operations can be picked up.");
-        this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
-        this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
-        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");
-        this.addConfig("greedySearchRange", "Upgraded Greedy familiar horizontal search range");
-        this.addConfig("greedyVerticalSearchRange", "Upgraded Greedy familiar vertical search range");
+        this.addConfig("tier", "Tier");
+        this.addConfig("timeMultiplier", "Time multiplier");
+        this.addConfig("outputMultiplier", "Output multiplier");
+        this.addConfig("operationCount", "Recipes done per operations");
+        this.addConfig("operationTimer", "Time to each operation");
+        this.addConfig("crusher_tier1", "Foliot Crusher");
+        this.addConfig("crusher_tier2", "Djinni Crusher");
+        this.addConfig("crusher_tier3", "Afrit Crusher");
+        this.addConfig("crusher_tier4", "Marid Crusher");
+        this.addConfig("crusherResultPickupDelay", "Crusher Pickup Delay");
+        this.addConfig("crystal_tier1", "Foliot Crystallizer");
+        this.addConfig("crystal_tier2", "Djinni Crystallizer");
+        this.addConfig("crystal_tier3", "Afrit Crystallizer");
+        this.addConfig("crystal_tier4", "Marid Crystallizer");
+        this.addConfig("crystallizerResultPickupDelay", "Crystallizer Pickup Delay");
+        this.addConfig("smelter_tier1", "Foliot Smelter");
+        this.addConfig("smelter_tier2", "Djinni Smelter");
+        this.addConfig("smelter_tier3", "Afrit Smelter");
+        this.addConfig("smelter_tier4", "Marid Smelter");
+        this.addConfig("smelterResultPickupDelay", "Smelter Pickup Delay");
+        this.addConfig("trader_sapling", "Otherworld Sapling Trader");
+        this.addConfig("trader_otherstone", "Otherstone Trader");
+        this.addConfig("trader_otherrock", "Otherrock Trader");
+        this.addConfig("trader_gem", "Gambler");
+        this.addConfig("traderResultPickupDelay", "Trader Pickup Delay");
         this.addConfig("dayTimeToCast", "Time to cast: Day");
         this.addConfig("nightTimeToCast", "Time to cast: Night");
         this.addConfig("rainTimeToCast", "Time to cast: Rain");
         this.addConfig("thunderTimeToCast", "Time to cast: Thunder");
         this.addConfig("clearWeatherTimeToCast", "Time to cast: Clear Weather");
+
+        this.addConfig("familiar", "Familiar Settings");
+        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Drikwing slow falling duration");
+        this.addConfig("blacksmithFamiliarRepairChance", "Blacksmith repair chance");
+        this.addConfig("blacksmithFamiliarUpgradeCost", "Blacksmith upgrading iron cost");
+        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Blacksmith upgrading cooldown");
+        this.addConfig("greedySearchRange", "Greedy horizontal search range");
+        this.addConfig("greedyVerticalSearchRange", "Greedy vertical search range");
 
         this.addConfig("rituals", "Rituals Settings");
         this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");

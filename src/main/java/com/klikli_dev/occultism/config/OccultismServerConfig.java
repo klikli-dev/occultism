@@ -32,6 +32,7 @@ public class OccultismServerConfig {
 
     public final StorageSettings storage;
     public final SpiritJobSettings spiritJobs;
+    public final FamiliarSettings familiar;
 
     public final RitualSettings rituals;
     public final ItemSettings itemSettings;
@@ -41,6 +42,7 @@ public class OccultismServerConfig {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.storage = new StorageSettings(builder);
         this.spiritJobs = new SpiritJobSettings(builder);
+        this.familiar = new FamiliarSettings(builder);
         this.rituals = new RitualSettings(builder);
         this.itemSettings = new ItemSettings(builder);
         this.spec = builder.build();
@@ -106,50 +108,30 @@ public class OccultismServerConfig {
     }
 
     public static class SpiritJobSettings {
-        public final DoubleValue tier1CrusherTimeMultiplier;
-        public final DoubleValue tier2CrusherTimeMultiplier;
-        public final DoubleValue tier3CrusherTimeMultiplier;
-        public final DoubleValue tier4CrusherTimeMultiplier;
-        public final DoubleValue tier1CrusherOutputMultiplier;
-        public final DoubleValue tier2CrusherOutputMultiplier;
-        public final DoubleValue tier3CrusherOutputMultiplier;
-        public final DoubleValue tier4CrusherOutputMultiplier;
-        public final IntValue tier1CrusherOperationCount;
-        public final IntValue tier2CrusherOperationCount;
-        public final IntValue tier3CrusherOperationCount;
-        public final IntValue tier4CrusherOperationCount;
+        public final TierSpiritSettings crusherFoliot;
+        public final TierSpiritSettings crusherDjinni;
+        public final TierSpiritSettings crusherAfrit;
+        public final TierSpiritSettings crusherMarid;
         public final IntValue crusherResultPickupDelay;
 
-        public final DoubleValue tier1CrystallizerTimeMultiplier;
-        public final DoubleValue tier2CrystallizerTimeMultiplier;
-        public final DoubleValue tier3CrystallizerTimeMultiplier;
-        public final DoubleValue tier4CrystallizerTimeMultiplier;
-        public final DoubleValue tier1CrystallizerOutputMultiplier;
-        public final DoubleValue tier2CrystallizerOutputMultiplier;
-        public final DoubleValue tier3CrystallizerOutputMultiplier;
-        public final DoubleValue tier4CrystallizerOutputMultiplier;
-        public final IntValue tier1CrystallizerOperationCount;
-        public final IntValue tier2CrystallizerOperationCount;
-        public final IntValue tier3CrystallizerOperationCount;
-        public final IntValue tier4CrystallizerOperationCount;
+        public final TierSpiritSettings crystallizerFoliot;
+        public final TierSpiritSettings crystallizerDjinni;
+        public final TierSpiritSettings crystallizerAfrit;
+        public final TierSpiritSettings crystallizerMarid;
         public final IntValue crystallizerResultPickupDelay;
 
-        public final DoubleValue tier1SmelterTimeMultiplier;
-        public final DoubleValue tier2SmelterTimeMultiplier;
-        public final DoubleValue tier3SmelterTimeMultiplier;
-        public final DoubleValue tier4SmelterTimeMultiplier;
-        public final IntValue tier1SmelterOperationCount;
-        public final IntValue tier2SmelterOperationCount;
-        public final IntValue tier3SmelterOperationCount;
-        public final IntValue tier4SmelterOperationCount;
+
+        public final SimpleWorkerSpiritSettings smelterFoliot;
+        public final SimpleWorkerSpiritSettings smelterDjinni;
+        public final SimpleWorkerSpiritSettings smelterAfrit;
+        public final SimpleWorkerSpiritSettings smelterMarid;
         public final IntValue smelterResultPickupDelay;
 
-        public final IntValue drikwingFamiliarSlowFallingSeconds;
-        public final IntValue blacksmithFamiliarUpgradeCost;
-        public final IntValue blacksmithFamiliarUpgradeCooldown;
-        public final DoubleValue blacksmithFamiliarRepairChance;
-        public final IntValue greedySearchRange;
-        public final IntValue greedyVerticalSearchRange;
+        public final TraderSpiritSettings traderSapling;
+        public final TraderSpiritSettings traderOtherstone;
+        public final TraderSpiritSettings traderOtherrock;
+        public final TraderSpiritSettings traderGem;
+        public final IntValue traderResultPickupDelay;
 
         public final IntValue dayTimeToCast;
         public final IntValue nightTimeToCast;
@@ -159,203 +141,169 @@ public class OccultismServerConfig {
 
         public SpiritJobSettings(ModConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
-            this.drikwingFamiliarSlowFallingSeconds =
-                    builder.comment(
-                                    "The duration for the slow falling effect applied by a drikwing.")
-                            .defineInRange("drikwingFamiliarSlowFallingSeconds", 15, 0, Integer.MAX_VALUE);
 
-            this.tier1CrusherTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's crushing_time for Tier 1 (Foliot) Crusher Spirits.")
-                            .defineInRange("tier1CrusherTimeMultiplier", 2.0, 0.0, Double.MAX_VALUE);
-            this.tier2CrusherTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's crushing_time for Tier 2 (Djinni) Crusher Spirits.")
-                            .defineInRange("tier2CrusherTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
-            this.tier3CrusherTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
-                            .defineInRange("tier3CrusherTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
-            this.tier4CrusherTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
-                            .defineInRange("tier4CrusherTimeMultiplier", 0.2, 0.0, Double.MAX_VALUE);
+            this.crusherFoliot = new TierSpiritSettings(builder, "Foliot Crusher", "crusher_tier1",
+                    1, 2.0, 1.0, 1);
+            this.crusherDjinni = new TierSpiritSettings(builder, "Djinni Crusher", "crusher_tier2",
+                    2, 1.0, 1.5, 1);
+            this.crusherAfrit = new TierSpiritSettings(builder, "Afrit Crusher", "crusher_tier3",
+                    3, 0.5, 2.0, 1);
+            this.crusherMarid = new TierSpiritSettings(builder, "Marid Crusher", "crusher_tier4",
+                    4, 0.3, 3.0, 1);
+            this.crusherResultPickupDelay = builder.comment(
+                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                    .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
-            this.tier1CrusherOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's output count for Tier 1 (Foliot) Crusher Spirits.")
-                            .defineInRange("tier1CrusherOutputMultiplier", 1.0, 0.0, Double.MAX_VALUE);
-            this.tier2CrusherOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's output count for Tier 2 (Djinni) Crusher Spirits.")
-                            .defineInRange("tier2CrusherOutputMultiplier", 1.5, 0.0, Double.MAX_VALUE);
-            this.tier3CrusherOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's output count for Tier 3 (Afrit) Crusher Spirits.")
-                            .defineInRange("tier3CrusherOutputMultiplier", 2.0, 0.0, Double.MAX_VALUE);
-            this.tier4CrusherOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
-                            .defineInRange("tier4CrusherOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
-            this.tier1CrusherOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 1 (Foliot) Crusher Spirits make per operation.")
-                            .defineInRange("tier1CrusherOperationCount", 1, 1, 64);
-            this.tier2CrusherOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 2 (Djinni) Crusher Spirits make per operation.")
-                            .defineInRange("tier2CrusherOperationCount", 1, 1, 64);
-            this.tier3CrusherOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 3 (Afrit) Crusher Spirits make per operation.")
-                            .defineInRange("tier3CrusherOperationCount", 1, 1, 64);
-            this.tier4CrusherOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 4 (Marid) Crusher Spirits make per operation.")
-                            .defineInRange("tier4CrusherOperationCount", 1, 1, 64);
-            this.crusherResultPickupDelay =
-                    builder.comment(
-                                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
+            this.crystallizerFoliot = new TierSpiritSettings(builder, "Foliot Crystallizer", "crystal_tier1",
+                    1, 1.0, 1.0, 1);
+            this.crystallizerDjinni = new TierSpiritSettings(builder, "Djinni Crystallizer", "crystal_tier2",
+                    2, 0.5, 1.5, 1);
+            this.crystallizerAfrit = new TierSpiritSettings(builder, "Afrit Crystallizer", "crystal_tier3",
+                    3, 0.3, 2.0, 1);
+            this.crystallizerMarid = new TierSpiritSettings(builder, "Marid Crystallizer", "crystal_tier4",
+                    4, 0.1, 3.0, 1);
+            this.crystallizerResultPickupDelay = builder.comment(
+                    "The minimum ticks before a crystallizer can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                    .defineInRange("crystallizerResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
-            this.tier1CrystallizerTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 1 (Foliot) Crystallizer Spirits.")
-                            .defineInRange("tier1CrystallizerTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
-            this.tier2CrystallizerTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 2 (Djinni) Crystallizer Spirits.")
-                            .defineInRange("tier2CrystallizerTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
-            this.tier3CrystallizerTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 3 (Afrit) Crystallizer Spirits.")
-                            .defineInRange("tier3CrystallizerTimeMultiplier", 0.3, 0.0, Double.MAX_VALUE);
-            this.tier4CrystallizerTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 4 (Marid) Crystallizer Spirits.")
-                            .defineInRange("tier4CrystallizerTimeMultiplier", 0.1, 0.0, Double.MAX_VALUE);
+            this.smelterFoliot = new SimpleWorkerSpiritSettings(builder, "Foliot Smelter",
+                    "smelter_tier1", 1.0, 1);
+            this.smelterDjinni = new SimpleWorkerSpiritSettings(builder, "Djinni Smelter",
+                    "smelter_tier2", 0.5, 1);
+            this.smelterAfrit = new SimpleWorkerSpiritSettings(builder, "Afrit Smelter",
+                    "smelter_tier3", 0.1, 1);
+            this.smelterMarid = new SimpleWorkerSpiritSettings(builder, "Marid Smelter",
+                    "smelter_tier4", 0.01, 1);
+            this.smelterResultPickupDelay = builder.comment(
+                    "The minimum ticks before a smelter can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                    .defineInRange("smelterResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
-            this.tier1CrystallizerOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's output count for Tier 1 (Foliot) Crystallizer Spirits.")
-                            .defineInRange("tier1CrystallizerOutputMultiplier", 1.0, 0.0, Double.MAX_VALUE);
-            this.tier2CrystallizerOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's output count for Tier 2 (Djinni) Crystallizer Spirits.")
-                            .defineInRange("tier2CrystallizerOutputMultiplier", 1.5, 0.0, Double.MAX_VALUE);
-            this.tier3CrystallizerOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's output count for Tier 3 (Afrit) Crystallizer Spirits.")
-                            .defineInRange("tier3CrystallizerOutputMultiplier", 2.0, 0.0, Double.MAX_VALUE);
-            this.tier4CrystallizerOutputMultiplier =
-                    builder.comment(
-                                    "The multiplier to each crystallize recipe's output count for Tier 4 (Marid) Crystallizer Spirits.")
-                            .defineInRange("tier4CrystallizerOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
-            this.tier1CrystallizerOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 1 (Foliot) Crystallizer Spirits make per operation.")
-                            .defineInRange("tier1CrystallizerOperationCount", 1, 1, 64);
-            this.tier2CrystallizerOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 2 (Djinni) Crystallizer Spirits make per operation.")
-                            .defineInRange("tier2CrystallizerOperationCount", 1, 1, 64);
-            this.tier3CrystallizerOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 3 (Afrit) Crystallizer Spirits make per operation.")
-                            .defineInRange("tier3CrystallizerOperationCount", 1, 1, 64);
-            this.tier4CrystallizerOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 4 (Marid) Crystallizer Spirits make per operation.")
-                            .defineInRange("tier4CrystallizerOperationCount", 1, 1, 64);
-            this.crystallizerResultPickupDelay =
-                    builder.comment(
-                                    "The minimum ticks before a crystallizer can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .defineInRange("crystallizerResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
+            this.traderSapling = new TraderSpiritSettings(builder, "Otherworld Sapling Trader",
+                    "trader_sapling", 20, 1);
+            this.traderOtherstone = new TraderSpiritSettings(builder, "Otherstone Trader",
+                    "trader_otherstone", 10, 4);
+            this.traderOtherrock = new TraderSpiritSettings(builder, "Otherrock Trader",
+                    "trader_otherrock", 10, 4);
+            this.traderGem = new TraderSpiritSettings(builder, "Gambler",
+                    "trader_gem", 200, 16);
+            this.traderResultPickupDelay = builder.comment(
+                    "The minimum ticks before a trader can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                    .defineInRange("traderResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
-            this.tier1SmelterTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each smelting recipe's cooking_time for Tier 1 (Foliot) Smelter Spirits.")
-                            .defineInRange("tier1SmelterTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
-            this.tier2SmelterTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each smelting recipe's cooking_time for Tier 2 (Djinni) Smelter Spirits.")
-                            .defineInRange("tier2SmelterTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
-            this.tier3SmelterTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each smelting recipe's cooking_time for Tier 3 (Afrit) Smelter Spirits.")
-                            .defineInRange("tier3SmelterTimeMultiplier", 0.1, 0.0, Double.MAX_VALUE);
-            this.tier4SmelterTimeMultiplier =
-                    builder.comment(
-                                    "The multiplier to each smelting recipe's cooking_time for Tier 4 (Marid) Smelter Spirits.")
-                            .defineInRange("tier4SmelterTimeMultiplier", 0.01, 0.0, Double.MAX_VALUE);
-            this.tier1SmelterOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 1 (Foliot) Smelter Spirits make per operation.")
-                            .defineInRange("tier1SmelterOperationCount", 1, 1, 64);
-            this.tier2SmelterOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 2 (Djinni) Smelter Spirits make per operation.")
-                            .defineInRange("tier2SmelterOperationCount", 1, 1, 64);
-            this.tier3SmelterOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 3 (Afrit) Smelter Spirits make per operation.")
-                            .defineInRange("tier3SmelterOperationCount", 1, 1, 64);
-            this.tier4SmelterOperationCount =
-                    builder.comment(
-                                    "Max number of recipes that Tier 4 (Marid) Smelter Spirits make per operation.")
-                            .defineInRange("tier4SmelterOperationCount", 1, 1, 64);
-            this.smelterResultPickupDelay =
-                    builder.comment(
-                                    "The minimum ticks before a smelter can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .defineInRange("smelterResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
+            this.dayTimeToCast = builder.comment(
+                    "The time in ticks it takes to cast the day time ritual.")
+                    .defineInRange("dayTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+            this.nightTimeToCast = builder.comment(
+                    "The time in ticks it takes to cast the night time ritual.")
+                    .defineInRange("nightTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+            this.rainTimeToCast = builder.comment(
+                    "The time in ticks it takes to cast the rain ritual.")
+                    .defineInRange("rainTimeToCast", 20 * 10, 0, Integer.MAX_VALUE);
+            this.thunderTimeToCast = builder.comment(
+                    "The time in ticks it takes to cast the thunder ritual.")
+                    .defineInRange("thunderTimeToCast", 20 * 15, 0, Integer.MAX_VALUE);
+            this.clearWeatherTimeToCast = builder.comment(
+                    "The time in ticks it takes to cast the clear weather ritual.")
+                    .defineInRange("clearWeatherTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
 
-            this.blacksmithFamiliarRepairChance =
-                    builder.comment(
-                                    "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
-                            .defineInRange("blacksmithFamiliarRepairChance", 0.33, 0.0, Double.MAX_VALUE);
-            this.blacksmithFamiliarUpgradeCost =
-                    builder.comment(
-                                    "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
-                            .defineInRange("blacksmithFamiliarUpgradeCost", 18, 0, Integer.MAX_VALUE);
-            this.blacksmithFamiliarUpgradeCooldown =
-                    builder.comment(
-                                    "The cooldown for a blacksmith familiar to upgrade another familiar.")
-                            .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
+            builder.pop();
+        }
 
-            this.greedySearchRange =
-                    builder.comment(
-                                    "The horizontal value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
-                            .defineInRange("greedySearchRange", 32, 0, Integer.MAX_VALUE);
+        public static class TierSpiritSettings {
+            public final ModConfigSpec.IntValue tier;
+            public final ModConfigSpec.DoubleValue timeMultiplier;
+            public final ModConfigSpec.DoubleValue outputMultiplier;
+            public final ModConfigSpec.IntValue operationCount;
 
-            this.greedyVerticalSearchRange =
-                    builder.comment(
-                                    "The vertical value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
-                            .defineInRange("greedyVerticalSearchRange", 16, 0, Integer.MAX_VALUE);
+            public TierSpiritSettings(ModConfigSpec.Builder builder, String spirit, String spiritJobName,
+                                       int tier, double timeMultiplier, double outputMultiplier, int operationCount) {
+                builder.comment("Worker Spirit Settings").push(spiritJobName);
 
-            this.dayTimeToCast =
-                    builder.comment(
-                                    "The time in ticks it takes to cast the day time ritual.")
-                            .defineInRange("dayTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+                this.tier =
+                        builder.comment("The tier of " + spirit)
+                                .defineInRange("tier", tier, 0, Integer.MAX_VALUE);
+                this.timeMultiplier =
+                        builder.comment("The multiplier to each recipe's time for " + spirit)
+                                .defineInRange("timeMultiplier", timeMultiplier, 0.0, Integer.MAX_VALUE);
+                this.outputMultiplier =
+                        builder.comment("The multiplier to each recipe's output count for " + spirit)
+                                .defineInRange("outputMultiplier", outputMultiplier, 0.0, Integer.MAX_VALUE);
+                this.operationCount =
+                        builder.comment("Max number of recipes that " + spirit + " make per operation.")
+                                .defineInRange("operationCount", operationCount, 0, 64);
 
-            this.nightTimeToCast =
-                    builder.comment(
-                                    "The time in ticks it takes to cast the night time ritual.")
-                            .defineInRange("nightTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+                builder.pop();
+            }
+        }
+        public static class SimpleWorkerSpiritSettings {
+            public final ModConfigSpec.DoubleValue timeMultiplier;
+            public final ModConfigSpec.IntValue operationCount;
 
-            this.rainTimeToCast =
-                    builder.comment(
-                                    "The time in ticks it takes to cast the rain ritual.")
-                            .defineInRange("rainTimeToCast", 20 * 10, 0, Integer.MAX_VALUE);
+            public SimpleWorkerSpiritSettings(ModConfigSpec.Builder builder, String spirit, String spiritJobName,
+                                      double timeMultiplier, int operationCount) {
+                builder.comment("Worker Spirit Settings").push(spiritJobName);
 
-            this.thunderTimeToCast =
-                    builder.comment(
-                                    "The time in ticks it takes to cast the thunder ritual.")
-                            .defineInRange("thunderTimeToCast", 20 * 15, 0, Integer.MAX_VALUE);
+                this.timeMultiplier =
+                        builder.comment("The multiplier to each recipe's time for " + spirit)
+                                .defineInRange("timeMultiplier", timeMultiplier, 0.0, Integer.MAX_VALUE);
+                this.operationCount =
+                        builder.comment("Max number of recipes that " + spirit + " make per operation.")
+                                .defineInRange("operationCount", operationCount, 0, 64);
 
-            this.clearWeatherTimeToCast =
-                    builder.comment(
-                                    "The time in ticks it takes to cast the clear weather ritual.")
-                            .defineInRange("clearWeatherTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+                builder.pop();
+            }
+        }
+        public static class TraderSpiritSettings {
+            public final ModConfigSpec.IntValue operationTimer;
+            public final ModConfigSpec.IntValue operationCount;
+
+            public TraderSpiritSettings(ModConfigSpec.Builder builder, String spirit, String spiritJobName,
+                                              int operationTimer, int operationCount) {
+                builder.comment("Trader Spirit Settings").push(spiritJobName);
+
+                this.operationTimer =
+                        builder.comment("The time to each operation for " + spirit)
+                                .defineInRange("operationTimer", operationTimer, 0, Integer.MAX_VALUE);
+                this.operationCount =
+                        builder.comment("Max number of recipes that" + spirit + "make per operation.")
+                                .defineInRange("operationCount", operationCount, 0, 64);
+
+                builder.pop();
+            }
+        }
+    }
+
+    public static class FamiliarSettings {
+        public final IntValue drikwingFamiliarSlowFallingSeconds;
+        public final DoubleValue blacksmithFamiliarRepairChance;
+        public final IntValue blacksmithFamiliarUpgradeCost;
+        public final IntValue blacksmithFamiliarUpgradeCooldown;
+        public final IntValue greedySearchRange;
+        public final IntValue greedyVerticalSearchRange;
+
+        public FamiliarSettings(ModConfigSpec.Builder builder) {
+            builder.comment("Familiar Settings").push("familiar");
+
+            this.drikwingFamiliarSlowFallingSeconds = builder.comment(
+                            "The duration of slow falling effect given by Drikwing Familiar in seconds.")
+                    .defineInRange("drikwingFamiliarSlowFallingSeconds", 15, 0, Integer.MAX_VALUE);
+            this.blacksmithFamiliarRepairChance = builder.comment(
+                            "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
+                    .defineInRange("blacksmithFamiliarRepairChance", 0.33, 0.0, Double.MAX_VALUE);
+            this.blacksmithFamiliarUpgradeCost = builder.comment(
+                            "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
+                    .defineInRange("blacksmithFamiliarUpgradeCost", 18, 0, Integer.MAX_VALUE);
+            this.blacksmithFamiliarUpgradeCooldown = builder.comment(
+                            "The cooldown for a blacksmith familiar to upgrade another familiar.")
+                    .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
+
+            this.greedySearchRange = builder.comment(
+                            "The horizontal value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
+                    .defineInRange("greedySearchRange", 32, 0, Integer.MAX_VALUE);
+
+            this.greedyVerticalSearchRange = builder.comment(
+                            "The vertical value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
+                    .defineInRange("greedyVerticalSearchRange", 16, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }

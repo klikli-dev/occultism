@@ -22,39 +22,55 @@
 
 package com.klikli_dev.occultism.common.entity.job;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
+import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityEvent;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class TraderJob extends SpiritJob {
+    public static final String DROPPED_BY_TRADER = "occultism:dropped_by_trader";
 
     /**
      * The current ticks in the conversion, will convert once it reaches timeToConvert
      */
     protected int conversionTimer;
-    protected int timeToConvert = 20;
+    protected int timeToConvert;
+    protected int maxTradesPerRound;
 
     protected PickupItemsGoal pickupItemsGoal;
 
-    protected RecipeHolder<SpiritTradeRecipe> trade;
-    protected int maxTradesPerRound = 4;
+    protected List<Ingredient> itemsToPickUp = new ArrayList<>();
+    protected List<RecipeHolder<SpiritTradeRecipe>> currentRecipe = List.of();
+    protected List<WeightedRecipeResult> possibleResults;
 
-    public TraderJob(SpiritEntity entity, ResourceLocation recipeId) {
+    public TraderJob(SpiritEntity entity, Supplier<Integer> timeToConvert, Supplier<Integer> maxTradesPerRound) {
         super(entity);
-        this.setTradeRecipeId(recipeId);
+        this.timeToConvert = timeToConvert.get();
+        this.maxTradesPerRound = maxTradesPerRound.get();
     }
 
     //region Getter / Setter
@@ -71,18 +87,6 @@ public class TraderJob extends SpiritJob {
     }
 
     /**
-     * Sets the id of the trading recipe. Recipe needs to be instanceof SpiritTrade
-     *
-     * @param recipeId the resource location for the recipe.
-     */
-    public void setTradeRecipeId(ResourceLocation recipeId) {
-        var recipe = this.entity.level().getRecipeManager().byKey(recipeId);
-        //noinspection unchecked
-        this.trade = (RecipeHolder<SpiritTradeRecipe>) recipe
-                .filter(r -> r.value() instanceof SpiritTradeRecipe).orElse(null);
-    }
-
-    /**
      * The max amount of trades to perform before the time to convert has to elapse again.
      *
      * @param trades the amount of trades to perform.
@@ -95,6 +99,15 @@ public class TraderJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        this.itemsToPickUp = this.entity.level().getRecipeManager().getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get()).stream()
+                .filter(
+                        recipe -> {
+                            //we filter by trader id
+                            String recipeTrader = recipe.value().getTrader();
+                            return recipeTrader.equals(this.getFactoryID().toString());
+                        }
+                )
+                .flatMap(recipe -> recipe.value().getIngredients().stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -105,44 +118,79 @@ public class TraderJob extends SpiritJob {
     @Override
     public void update() {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
-        if (this.trade != null && this.trade.value().isValid(handHeld)) {
-            if (this.entity.level().getGameTime() % 10 == 0) {
-                //show particle effect while converting
-                Vec3 pos = this.entity.position();
-                ((ServerLevel) this.entity.level())
-                        .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level().random.nextGaussian() / 3,
-                                pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
-                                0.0);
-            }
-            if (this.entity.level().getGameTime() % 20 == 0) {
-                this.conversionTimer++;
-            }
-            if (this.conversionTimer >= this.getTimeToConvert()) {
-                this.conversionTimer = 0;
-
-                List<ItemStack> input = Collections.singletonList(handHeld);
-                int resultCount = 0;
-                while (this.trade.value().isValid(input) && resultCount < this.maxTradesPerRound) {
-                    input = this.trade.value().consume(input);
-                    resultCount++;
-                }
-
-                if (input.isEmpty()) {
-                    this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                } else {
-                    this.entity.setItemInHand(InteractionHand.MAIN_HAND, input.get(0));
-                }
-
-                ItemStack converted = this.trade.value().getResultItem(this.entity.level().registryAccess()).copy();
-                converted.setCount(converted.getCount() * resultCount);
-
-                if (resultCount > 0) {
-                    this.entity.spawnAtLocation(converted, 0.0f);
-                    this.onConvert(resultCount);
-                }
-            }
-        } else {
+        var recipeInput = new TraderRecipeInput(handHeld, this.getFactoryID().toString());
+        if (this.currentRecipe.isEmpty() && !handHeld.isEmpty()) {
+            this.currentRecipe = this.entity.level().getRecipeManager().getRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
+                    recipeInput, this.entity.level());
             this.conversionTimer = 0;
+
+            if (!this.currentRecipe.isEmpty()) {
+                //play crushing sound
+                this.entity.level()
+                        .playSound(null, this.entity.blockPosition(), OccultismSounds.START_RITUAL.get(), SoundSource.NEUTRAL, 1f,
+                                1 + 0.5f * this.entity.getRandom().nextFloat());
+                    this.possibleResults = currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
+            } else {
+                //if no recipe is found, drop hand held item as we can't process it
+                this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
+                if (droppedItem != null) {
+                    droppedItem.addTag(DROPPED_BY_TRADER);
+                }
+            }
+        }
+        if (!this.currentRecipe.isEmpty()) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get(0).value().matches(recipeInput, this.entity.level())) {
+                //Reset cached recipe if it no longer matches
+                this.currentRecipe = List.of();
+            } else {
+                //advance conversion
+                this.conversionTimer++;
+
+                //show particle effect while crushing
+                if (this.entity.level().getGameTime() % 10 == 0) {
+                    Vec3 pos = this.entity.position();
+                    ((ServerLevel) this.entity.level())
+                            .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level().random.nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                                    0.0);
+                }
+
+                //every two seconds, play another crushing sound
+                if (this.conversionTimer % 40 == 0) {
+                    this.entity.level().playSound(null, this.entity.blockPosition(), OccultismSounds.POOF.get(),
+                            SoundSource.NEUTRAL, 1f,
+                            1 + 0.5f * this.entity.getRandom().nextFloat());
+                }
+
+                if (this.conversionTimer >= this.timeToConvert) {
+                    this.conversionTimer = 0;
+
+                    int a = Math.min(this.maxTradesPerRound, handHeld.getCount());
+                    for (int i = 0; i<a ; i++) {
+                        var result = WeightedRandom.getRandomItem(this.entity.getRandom(), this.possibleResults);
+                        //Important: copy the result, don't use it raw!
+                        result.ifPresent(r -> {
+                            ItemStack finalResult = r.getStack().copy();
+                            finalResult.setCount(finalResult.getCount());
+                            ItemStack inputCopy = handHeld.copy();
+                            handHeld.shrink(1);
+
+                            this.onConvert(inputCopy, finalResult);
+                            var event = new TraderJob.TraderJobEvent(this.entity, inputCopy, finalResult);
+                            NeoForge.EVENT_BUS.post(event);
+                            if(!event.getResult().isEmpty()) {
+                                ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                                if (droppedItem != null) {
+                                    droppedItem.addTag(DROPPED_BY_TRADER);
+                                }
+                            }
+                        });
+                    }
+
+                    //Don't reset recipe here, keep it cached
+                }
+            }
         }
         super.update();
     }
@@ -152,8 +200,6 @@ public class TraderJob extends SpiritJob {
         compound.putInt("timeToConvert", this.timeToConvert);
         compound.putInt("conversionTimer", this.conversionTimer);
         compound.putInt("maxTradesPerRound", this.maxTradesPerRound);
-        if (this.trade != null)
-            compound.putString("spiritTradeId", this.trade.id().toString());
         return super.writeJobToNBT(compound, provider);
     }
 
@@ -163,24 +209,55 @@ public class TraderJob extends SpiritJob {
         this.timeToConvert = compound.getInt("timeToConvert");
         this.conversionTimer = compound.getInt("conversionTimer");
         this.maxTradesPerRound = compound.getInt("maxTradesPerRound");
-        if (compound.contains("spiritTradeId")) {
-            this.setTradeRecipeId(ResourceLocation.parse(compound.getString("spiritTradeId")));
-        }
     }
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
+        if (entity.getTags().contains(DROPPED_BY_TRADER)
+                && entity.getAge() < Occultism.SERVER_CONFIG.spiritJobs.traderResultPickupDelay.get())
+            return false; //cannot pick up items a trader (most likely *this* one) dropped util delay elapsed.
+
         ItemStack stack = entity.getItem();
-        return !stack.isEmpty() && this.trade.value().isValid(stack);
+        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+    }
+
+    @Override
+    public List<Ingredient> getItemsToPickUp() {
+        return this.itemsToPickUp;
     }
 
     /**
      * Called when a conversion trade was successful.
      *
-     * @param count the amount of items converted.
+     * @param input  the input item.
+     * @param output the output item.
      */
-    public void onConvert(int count) {
+    public void onConvert(ItemStack input, ItemStack output) {
 
     }
+    public static class TraderJobEvent extends EntityEvent {
+        private ItemStack input;
+        private ItemStack result;
+        public TraderJobEvent(Entity entity, ItemStack input, ItemStack result) {
+            super(entity);
+            this.input = input;
+            this.result = result;
+        }
 
+        public ItemStack getInput() {
+            return input;
+        }
+
+        public void setInput(ItemStack input) {
+            this.input = input;
+        }
+
+        public ItemStack getResult() {
+            return result;
+        }
+
+        public void setResult(ItemStack result) {
+            this.result = result;
+        }
+    }
 }

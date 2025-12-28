@@ -76,7 +76,7 @@ public class LootEventHandler {
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
-        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarRepairChance.get() * stack.getCount())
+        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * stack.getCount())
             repairEquipment(player);
 
         event.setCanPickup(TriState.FALSE);

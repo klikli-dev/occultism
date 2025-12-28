@@ -45,6 +45,7 @@ public class OccultismEmiPlugin implements EmiPlugin {
     public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
     public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
     public static final EmiRecipeCategory CRYSTALLIZE_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystallize"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
+    public static final EmiRecipeCategory TRADER_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trader"), new EmiTexture(EMI_WIDGETS, 0, 32, 16, 16), new EmiTexture(EMI_WIDGETS, 80, 0, 16, 16));
     public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
     public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
 
@@ -72,6 +73,12 @@ public class OccultismEmiPlugin implements EmiPlugin {
         emiRegistry.addWorkstation(CRYSTALLIZE_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER.getId())))));
         emiRegistry.addWorkstation(CRYSTALLIZE_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER.getId())))));
         emiRegistry.addWorkstation(CRYSTALLIZE_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER.getId())))));
+
+        emiRegistry.addCategory(TRADER_CATEGORY);
+        emiRegistry.addWorkstation(TRADER_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.getId())))));
+        emiRegistry.addWorkstation(TRADER_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.getId())))));
+        emiRegistry.addWorkstation(TRADER_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.getId())))));
+        emiRegistry.addWorkstation(TRADER_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER.getId())))));
 
         emiRegistry.addCategory(MINER_CATEGORY);
         emiRegistry.addWorkstation(MINER_CATEGORY, EmiStack.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()));
@@ -110,6 +117,9 @@ public class OccultismEmiPlugin implements EmiPlugin {
         }
         for(RecipeHolder<CrystallizeRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.CRYSTALLIZE_TYPE.get())){
             emiRegistry.addRecipe(new CrystallizeRecipeCategory(recipe));
+        }
+        for(RecipeHolder<SpiritTradeRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get())){
+            emiRegistry.addRecipe(new SpiritTraderRecipeCategory(recipe));
         }
 
         for(RecipeHolder<MinerRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){

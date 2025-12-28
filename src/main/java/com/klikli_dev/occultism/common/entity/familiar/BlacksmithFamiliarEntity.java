@@ -55,7 +55,7 @@ import java.util.EnumSet;
 
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
-    private static final ConfigValue<Integer> UPGRADE_COST = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCost;
+    private static final ConfigValue<Integer> UPGRADE_COST = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarUpgradeCost;
     private static final EntityDataAccessor<Byte> BARS = SynchedEntityData.defineId(BlacksmithFamiliarEntity.class,
             EntityDataSerializers.BYTE);
     private int ironCount;
@@ -185,7 +185,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     private static class UpgradeGoal extends Goal {
 
-        private static final ConfigValue<Integer> MAX_COOLDOWN = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCooldown;
+        private static final ConfigValue<Integer> MAX_COOLDOWN = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarUpgradeCooldown;
 
         private final BlacksmithFamiliarEntity blacksmith;
         private IFamiliar target;

@@ -1,6 +1,8 @@
 package com.klikli_dev.occultism.datagen.recipe.builders;
 
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import com.klikli_dev.occultism.crafting.recipe.result.WeightedItemRecipeResult;
+import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -22,15 +24,18 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     @Nullable
     private final Ingredient ingredient;
-    private final ItemStack output;
+    private WeightedRecipeResult output;
+    //private final ItemStack output;
+    private final String trader;
 
-    public SpiritTradeRecipeBuilder(@Nullable Ingredient ingredient, ItemStack output) {
+    public SpiritTradeRecipeBuilder(@Nullable Ingredient ingredient, WeightedRecipeResult output, String trader) {
         this.ingredient = ingredient;
         this.output = output;
+        this.trader = trader;
     }
 
-    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStack output) {
-        return new SpiritTradeRecipeBuilder(ingredient, output);
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStack output, int weight, String trader) {
+        return new SpiritTradeRecipeBuilder(ingredient, WeightedItemRecipeResult.of(output, weight), trader);
     }
 
     @Override
@@ -45,8 +50,9 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public @NotNull Item getResult() {
-        return this.output.getItem();
+    public Item getResult() {
+//        return this.output.getItem();
+        return null;
     }
 
     @Override
@@ -56,7 +62,7 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        SpiritTradeRecipe recipe = new SpiritTradeRecipe(this.ingredient, this.output);
+        SpiritTradeRecipe recipe = new SpiritTradeRecipe(this.ingredient, this.output, this.trader);
 
         pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/spirit_trade/")));
 
