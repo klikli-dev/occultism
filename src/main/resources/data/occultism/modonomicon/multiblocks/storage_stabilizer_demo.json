@@ -1,5 +1,6 @@
 {
   "type": "modonomicon:dense",
+  "symmetrical": true,
   "mapping": {
     "0": {
       "type": "modonomicon:block",
@@ -11,8 +12,8 @@
     },
     "1": {
       "type": "modonomicon:tag",
-      "display": "occultism:storage_stabilizer_tier1[facing=west]",
-      "tag": "#occultism:storage_stabilizer[facing=west]"
+      "display": "occultism:storage_stabilizer_tier1[facing=east]",
+      "tag": "#occultism:storage_stabilizer[facing=east]"
     },
     "2": {
       "type": "modonomicon:tag",
@@ -21,8 +22,8 @@
     },
     "3": {
       "type": "modonomicon:tag",
-      "display": "occultism:storage_stabilizer_tier1[facing=east]",
-      "tag": "#occultism:storage_stabilizer[facing=east]"
+      "display": "occultism:storage_stabilizer_tier1[facing=west]",
+      "tag": "#occultism:storage_stabilizer[facing=west]"
     },
     "4": {
       "type": "modonomicon:tag",
