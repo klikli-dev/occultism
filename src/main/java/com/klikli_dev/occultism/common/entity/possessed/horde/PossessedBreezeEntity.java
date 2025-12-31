@@ -115,13 +115,6 @@ public class PossessedBreezeEntity extends Breeze implements PossessedMob {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (isInvulnerable()) {
-            minionsA.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
-            minionsB.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
-            minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
-            return true;
-        }
-
         TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
 
         Entity trueSource = source.getEntity();
@@ -141,8 +134,18 @@ public class PossessedBreezeEntity extends Breeze implements PossessedMob {
     }
 
     @Override
-    public boolean isInvulnerable() {
-        return !this.minionsA.isEmpty() || !this.minionsB.isEmpty() || !this.minionsC.isEmpty() || super.isInvulnerable();
+    public boolean hurt(DamageSource source, float amount) {
+        if (!minionsA.isEmpty()) {
+            minionsA.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        }
+        if (!minionsB.isEmpty()) {
+            minionsB.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        }
+        if (!minionsC.isEmpty()) {
+            minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        }
+
+        return super.hurt(source, (float) (amount * (1 - (minionsA.size() + minionsB.size() + minionsC.size())/16.0) ) );
     }
 
     public void notifyMinionDeath(WildSpiderEntity minion) {

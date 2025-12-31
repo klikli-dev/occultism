@@ -79,7 +79,7 @@ public class OccultismSpiritJobs {
             () -> new SpiritJobFactory((entity) -> {
                 TraderJob job = new TraderJob(entity,
                         Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationTimer::getAsInt,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationCount::getAsInt);;
+                        Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationCount::getAsInt);
                 job.setMaxTradesPerRound(16);
                 return job;
             }, SpiritJobClient.create("gambler")));

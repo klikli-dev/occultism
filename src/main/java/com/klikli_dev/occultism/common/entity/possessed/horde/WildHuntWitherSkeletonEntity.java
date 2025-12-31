@@ -20,8 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.entity.spirit;
+package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -46,7 +47,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
+public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements PossessedMob {
 
     List<WildHuntSkeletonEntity> minions = new ArrayList<>();
 
@@ -97,11 +98,6 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (isInvulnerable()) {
-            minions.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
-            return true;
-        }
-
         TagKey<EntityType<?>> wildHuntTag = OccultismTags.Entities.WILD_HUNT;
 
         Entity trueSource = source.getEntity();
@@ -116,13 +112,20 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
     }
 
     @Override
-    public boolean isInvulnerable() {
-        return !this.minions.isEmpty() || super.isInvulnerable();
+    public boolean hurt(DamageSource source, float amount) {
+        if (!minions.isEmpty()) {
+            minions.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        }
+
+        return super.hurt(source, (float) (amount * (1 - minions.size()/10.0)));
     }
-    //endregion Static Methods
 
     public void notifyMinionDeath(WildHuntSkeletonEntity minion) {
         this.minions.remove(minion);
     }
 
+    @Override
+    public EntityType basedMob(){
+        return EntityType.WITHER_SKELETON;
+    }
 }

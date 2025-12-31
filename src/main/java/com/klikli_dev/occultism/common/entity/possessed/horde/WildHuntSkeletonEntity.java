@@ -20,8 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.entity.spirit;
+package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class WildHuntSkeletonEntity extends Skeleton {
+public class WildHuntSkeletonEntity extends Skeleton implements PossessedMob {
 
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
 
@@ -100,5 +101,10 @@ public class WildHuntSkeletonEntity extends Skeleton {
             return true;
 
         return super.isInvulnerableTo(source);
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.SKELETON;
     }
 }
