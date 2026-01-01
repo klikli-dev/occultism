@@ -12,68 +12,65 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class FragileSoulGemEntry extends EntryProvider {
+public class SoulGemEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "fragile_soul_gem";
+    public static final String ENTRY_ID = "craft_soul_gem";
 
-
-    public FragileSoulGemEntry(CategoryProvider parent) {
+    public SoulGemEntry(CategoryProvider parent) {
         super(parent);
+    }
+
+    @Override
+    protected BookIconModel entryIcon() {
+        return BookIconModel.create(OccultismItems.SOUL_GEM_ITEM);
+    }
+
+    @Override
+    protected String entryName() {
+        return "Soul Gem";
+    }
+
+    @Override
+    protected String entryDescription() {
+        return "Magic mob imprisonment tool";
     }
 
     @Override
     protected void generatePages() {
         this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.FRAGILE_SOUL_GEM_ITEM))
+                .withItem(Ingredient.of(OccultismItems.SOUL_GEM_ITEM))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Fragile Soul gems are eggs infused by a {0}. The spirit creates a small dimension
-                         that allows the temporary entrapment of living beings.
-                         Beings of great power or size cannot be stored, however. \\
-                         Be careful, this item will break after transporting a creature.
+                        Soul gems are diamonds set in precious metals, which are then infused with a {0}.
+                         The spirit creates a small dimension that allows the temporary entrapment of living beings.
+                         Beings of great power or size cannot be stored, however.
                         """,
-                this.color("Foliot", ChatFormatting.DARK_PURPLE)
+                this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_fragile_soul_gem"))
+                .withRecipeId1(this.modLoc("ritual/craft_soul_gem"))
         );
         //no text
 
-        this.page("use", () -> BookTextPageModel.create()
-                .withTitle(this.context.pageTitle())
+        this.page("usage", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
                         To capture an entity, {0} it with the soul gem. \\
-                        {1} again to release the entity.
+                        {0} again to release the entity.
                         \\
                         \\
                         Bosses cannot be captured.
                         """,
-                this.color("right-click", ChatFormatting.GREEN),
-                this.color("Right-click", ChatFormatting.GREEN)
+                this.color("right-click", ChatFormatting.DARK_PURPLE)
         );
-    }
-
-    @Override
-    protected String entryName() {
-        return "Fragile Soul Gem";
-    }
-
-    @Override
-    protected String entryDescription() {
-        return "Who needs boats?";
     }
 
     @Override
     protected Pair<Integer, Integer> entryBackground() {
         return EntryBackground.DEFAULT;
-    }
-
-    @Override
-    protected BookIconModel entryIcon() {
-        return BookIconModel.create(OccultismItems.FRAGILE_SOUL_GEM_ITEM);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     @Nullable
     private final Ingredient ingredient;
-    private WeightedRecipeResult output;
+    private final WeightedRecipeResult output;
     //private final ItemStack output;
     private final String trader;
 
