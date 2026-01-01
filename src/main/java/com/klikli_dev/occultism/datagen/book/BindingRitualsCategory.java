@@ -216,9 +216,9 @@ public class BindingRitualsCategory extends CategoryProvider {
 
     private BookEntryModel makeReturnToRitualsEntry(CategoryEntryMap entryMap) {
         this.context().entry("return_to_rituals");
+        this.lang().add(this.context().entryName(), "Return to Rituals Category");
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withName("Return to Rituals Category")
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withCategoryToOpen(this.modLoc("rituals"))
                 .withEntryBackground(1, 2)

@@ -108,9 +108,9 @@ public class StorageCategory extends CategoryProvider {
 
     private BookEntryModel makeReturnToCraftingEntry(CategoryEntryMap entryMap) {
         this.context().entry("return_to_crafting");
+        this.lang().add(this.context().entryName(), "Return to Binding Rituals Category");
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withName("Return to Binding Rituals Category")
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
                 .withCategoryToOpen(this.modLoc("crafting_rituals"))
                 .withEntryBackground(1, 2)
