@@ -100,8 +100,7 @@ public class LootEventHandler {
 
         event.getState().getTags().forEach(blockTagKey -> {
             if (blockTagKey.equals(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
-                if (player.getItemInHand(InteractionHand.OFF_HAND).is(OccultismItems.TRUE_SIGHT_STAFF)
-                        || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
+                if (player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
                         || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
                         || CuriosUtil.hasStaff(player)) {
                     Level level = (Level) event.getLevel();

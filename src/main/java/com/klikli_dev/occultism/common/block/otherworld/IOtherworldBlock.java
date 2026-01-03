@@ -53,7 +53,7 @@ public interface IOtherworldBlock {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
         OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE) ?
                 OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
-        OtherworldBlockTier staffTier = player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF) || CuriosUtil.hasStaff(player) ?
+        OtherworldBlockTier staffTier = CuriosUtil.hasStaff(player) ?
                 OtherworldBlockTier.TWO : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);

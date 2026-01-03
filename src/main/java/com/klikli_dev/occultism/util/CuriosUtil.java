@@ -61,6 +61,9 @@ public class CuriosUtil {
     }
 
     public static boolean hasStaff(Player player) {
+        if (player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF))
+            return true;
+
         var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
         if (curiosHandler == null)
             return false;

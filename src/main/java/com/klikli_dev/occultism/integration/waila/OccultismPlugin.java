@@ -19,9 +19,10 @@ public class OccultismPlugin implements IWailaPlugin {
         registration.addRayTraceCallback((hitResult, accessor, originalAccessor) -> {
             if(accessor!=null) {
                 boolean hasGoggles = CuriosUtil.hasGoggles(accessor.getPlayer());
+                boolean hasStaff = CuriosUtil.hasStaff(accessor.getPlayer());
                 if (accessor instanceof BlockAccessor blockAccessor) {
                     if (blockAccessor.getBlock() instanceof IOtherworldBlock otherworldBlock) {
-                        if (otherworldBlock.getTier() == OtherworldBlockTier.ONE || hasGoggles) {
+                        if (otherworldBlock.getTier() == OtherworldBlockTier.ONE || hasGoggles || hasStaff) {
                             if (blockAccessor.getBlockState().getValue(IOtherworldBlock.UNCOVERED)) {
                                 return registration.blockAccessor().from(blockAccessor).blockState(otherworldBlock.getUncoveredBlock().defaultBlockState()).build();
                             } else {

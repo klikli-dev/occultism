@@ -193,8 +193,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onStaffTick(PlayerTickEvent.Post event) {
-        boolean hasStaff = event.getEntity().getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF) || CuriosUtil.hasStaff(event.getEntity());
-        if (hasStaff) {
+        if (CuriosUtil.hasStaff(event.getEntity())) {
             this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
         } else {
             //only cover blocks if third eye is not active and still needs them visible.
