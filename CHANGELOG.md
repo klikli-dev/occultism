@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.201.0] - 2026-01-03
+### :sparkles: New Features
+- [`92f2ace`](https://github.com/klikli-dev/occultism/commit/92f2aceb1f61ab5ced3d414615f4450d31356864) - New translations en_us.json (Portuguese, Brazilian) *(PR [#1462](https://github.com/klikli-dev/occultism/pull/1462) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.200.0] - 2025-12-23
 ### :sparkles: New Features
 - [`77262ad`](https://github.com/klikli-dev/occultism/commit/77262adee0a5c6e7eb7b59b49cdbaddb6b79275f) - Update GoldenSacrificialBowlBlockEntity.java *(PR [#1460](https://github.com/klikli-dev/occultism/pull/1460) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2246,3 +2251,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.198.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.197.0...release/v1.21.1-1.198.0
 [release/v1.21.1-1.199.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.198.0...release/v1.21.1-1.199.0
 [release/v1.21.1-1.200.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.199.0...release/v1.21.1-1.200.0
+[release/v1.21.1-1.201.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.200.0...release/v1.21.1-1.201.0
