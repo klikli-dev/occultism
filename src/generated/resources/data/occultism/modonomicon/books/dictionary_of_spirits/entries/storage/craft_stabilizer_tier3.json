@@ -2,12 +2,16 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "storage",
-  "description": "",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_afrit"
+  },
+  "description": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier3.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_stabilizer_tier2"
+    "item": "occultism:storage_stabilizer_tier3"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier2.name",
+  "name": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier3.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -16,9 +20,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:storage_stabilizer_tier2"
+        "item": "occultism:storage_stabilizer_tier3"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier2.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier3.spotlight.text",
       "title": ""
     },
     {
@@ -27,7 +31,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier2",
+      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier3",
       "text": "",
       "title1": "",
       "title2": ""
@@ -38,7 +42,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier2_dark",
+      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier3_dark",
       "text": "",
       "title1": "",
       "title2": ""
@@ -47,13 +51,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "storage/crafting_rituals/craft_stabilizer_tier1",
+      "entry": "storage/craft_stabilizer_tier2",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": 2,
-  "y": 0
+  "sort_number": 11,
+  "x": 4,
+  "y": 1
 }

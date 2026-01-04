@@ -9,11 +9,15 @@
     "children": [
       {
         "type": "modonomicon:entry_read",
-        "entry_id": "crafting_rituals/craft_storage_system"
+        "entry_id": "crafting_rituals/craft_dimensional_matrix"
       },
       {
         "type": "modonomicon:entry_read",
         "entry_id": "getting_started/storage"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "storage/overview"
       }
     ]
   },

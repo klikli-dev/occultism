@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:villager_spawn_egg",
-    "minecraft:wandering_trader_spawn_egg"
+    "minecraft:wandering_trader_spawn_egg",
+    "occultism:spawn_egg/wondering_trader"
   ]
 }

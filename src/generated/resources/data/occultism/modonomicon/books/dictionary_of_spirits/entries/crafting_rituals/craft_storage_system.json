@@ -4,9 +4,9 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_djinni"
+    "entry_id": "pentacles/craft_foliot"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:chest"
@@ -18,6 +18,19 @@
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:satchel"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.satchels.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/craft_djinni"
       },
       "item": {
         "item": "occultism:storage_controller"
@@ -35,7 +48,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 9,
-  "x": -4,
+  "sort_number": 10,
+  "x": -8,
   "y": 2
 }

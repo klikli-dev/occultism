@@ -40,13 +40,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/overview",
+      "entry": "crafting_rituals/craft_wild_trim",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 37,
-  "x": 4,
-  "y": 2
+  "sort_number": 38,
+  "x": 2,
+  "y": 6
 }

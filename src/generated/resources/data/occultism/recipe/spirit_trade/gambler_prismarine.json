@@ -1,0 +1,15 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredient": {
+    "tag": "c:gems"
+  },
+  "result": {
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 1,
+      "id": "minecraft:prismarine_crystals"
+    },
+    "weight": 4
+  },
+  "trader_id": "occultism:gambler"
+}

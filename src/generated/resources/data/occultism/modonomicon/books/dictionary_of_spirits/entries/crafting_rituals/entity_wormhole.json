@@ -4,7 +4,7 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "crafting_rituals/craft_infused_pickaxe"
+    "entry_id": "pentacles/craft_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.description",
   "hide_while_locked": false,
@@ -110,6 +110,7 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "count": 1,
         "item": "minecraft:fishing_rod"
       },
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.text",
@@ -125,7 +126,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 30,
-  "x": -8,
-  "y": -4
+  "sort_number": 31,
+  "x": -4,
+  "y": -6
 }

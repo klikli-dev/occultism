@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gems": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:gems"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:spirit_trade/gambler_iron"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gems"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:spirit_trade/gambler_iron"
+    ]
+  }
+}

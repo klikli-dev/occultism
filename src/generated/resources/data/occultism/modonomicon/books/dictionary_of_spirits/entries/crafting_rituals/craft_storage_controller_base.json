@@ -2,7 +2,11 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "crafting_rituals",
-  "description": "",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:storage_controller_base"
@@ -61,11 +65,11 @@
       "draw_arrow": true,
       "entry": "crafting_rituals/craft_dimensional_matrix",
       "line_enabled": true,
-      "line_reversed": false
+      "line_reversed": true
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 11,
-  "x": -4,
-  "y": 6
+  "sort_number": 12,
+  "x": -6,
+  "y": 8
 }

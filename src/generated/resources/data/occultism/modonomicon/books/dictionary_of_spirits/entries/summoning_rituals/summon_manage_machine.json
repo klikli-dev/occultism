@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/summon_djinni"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:lever"
@@ -89,7 +89,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 18,
   "x": 1,
-  "y": -5
+  "y": -6
 }

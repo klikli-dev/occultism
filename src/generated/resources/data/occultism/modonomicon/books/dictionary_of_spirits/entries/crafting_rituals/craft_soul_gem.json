@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/craft_djinni"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_soul_gem.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:soul_gem"
@@ -57,7 +57,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 25,
-  "x": 4,
-  "y": -4
+  "sort_number": 26,
+  "x": 8,
+  "y": -6
 }

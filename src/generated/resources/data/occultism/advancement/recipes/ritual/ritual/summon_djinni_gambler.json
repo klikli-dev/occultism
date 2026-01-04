@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_stone": {
+    "has_bound_djinni": {
       "conditions": {
         "items": [
           {
-            "items": "#c:stones"
+            "items": "occultism:book_of_binding_bound_djinni"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_trade/test"
+        "recipe": "occultism:ritual/summon_djinni_gambler"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_stone"
+      "has_bound_djinni"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:spirit_trade/test"
+      "occultism:ritual/summon_djinni_gambler"
     ]
   }
 }

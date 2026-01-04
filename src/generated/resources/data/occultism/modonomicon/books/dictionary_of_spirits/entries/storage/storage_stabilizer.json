@@ -2,10 +2,10 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "storage",
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_controller"
+    "item": "occultism:storage_stabilizer_tier0"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.name",
   "pages": [
@@ -16,10 +16,46 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:storage_stabilizer_tier1"
+        "count": 1,
+        "item": "occultism:storage_stabilizer_tier0"
       },
       "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.spotlight.text",
       "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.crafting.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.crafting.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/otherstone_pedestal",
+      "recipe_id_2": "occultism:crafting/storage_stabilizer_tier0",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/otherrock_pedestal",
+      "recipe_id_2": "occultism:crafting/storage_stabilizer_tier0_dark",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
       "type": "modonomicon:text",
@@ -50,9 +86,9 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "storage_stabilizer_demo",
-      "multiblock_name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.title",
+      "multiblock_name": "Storage Stabilizer Setup",
       "show_visualize_button": true,
-      "text": ""
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.text"
     }
   ],
   "parents": [
@@ -64,7 +100,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": -2,
-  "y": 0
+  "sort_number": 8,
+  "x": 2,
+  "y": 1
 }

@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/contact_wild_spirit"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:wild_armor_trim_smithing_template"
@@ -46,7 +46,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 34,
-  "x": -2,
-  "y": 2
+  "sort_number": 35,
+  "x": 8,
+  "y": 4
 }

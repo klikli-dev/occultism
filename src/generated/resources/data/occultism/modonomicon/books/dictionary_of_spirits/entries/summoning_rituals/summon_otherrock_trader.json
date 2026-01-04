@@ -1,0 +1,62 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "summoning_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
+  },
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:otherrock"
+  },
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:spirit_trade_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:spirit_trade/stone_to_otherrock",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.trade.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/summon_foliot_otherrock_trader",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "summoning_rituals/trade_spirits",
+      "line_enabled": true,
+      "line_reversed": true
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 22,
+  "x": 4,
+  "y": 3
+}

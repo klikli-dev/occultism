@@ -4,7 +4,12 @@
     "tag": "occultism:saplings/otherworld_natural"
   },
   "result": {
-    "count": 1,
-    "id": "occultism:otherworld_sapling"
-  }
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 1,
+      "id": "occultism:otherworld_sapling"
+    },
+    "weight": 1
+  },
+  "trader_id": "occultism:trader_otherworld_saplings"
 }
