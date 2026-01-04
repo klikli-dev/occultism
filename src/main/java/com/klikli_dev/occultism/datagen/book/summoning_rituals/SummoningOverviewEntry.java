@@ -27,7 +27,7 @@ public class SummoningOverviewEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Don't confuse with Possessing";
+        return "Workers of the world, unite!";
     }
 
     @Override

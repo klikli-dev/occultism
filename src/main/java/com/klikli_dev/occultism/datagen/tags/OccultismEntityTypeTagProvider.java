@@ -72,6 +72,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.AFRIT_WILD_TYPE.get())
                 .add(OccultismEntities.MARID_TYPE.get())
                 .add(OccultismEntities.MARID_UNBOUND_TYPE.get())
+                .add(OccultismEntities.WONDERING_TRADER_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get())
@@ -225,7 +226,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.SHEEP).add(EntityType.SHEEP).replace(false);
         this.tag(OccultismTags.Entities.SPIDERS).add(EntityType.SPIDER).add(EntityType.CAVE_SPIDER).replace(false);
         this.tag(OccultismTags.Entities.SQUID).add(EntityType.SQUID).add(EntityType.GLOW_SQUID).replace(false);
-        this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).replace(false);
+        this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).add(OccultismEntities.WONDERING_TRADER_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
         this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);

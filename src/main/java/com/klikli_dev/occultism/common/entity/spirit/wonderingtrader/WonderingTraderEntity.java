@@ -1,0 +1,332 @@
+/*
+ * MIT License
+ *
+ * Copyright 2020 klikli-dev
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package com.klikli_dev.occultism.common.entity.spirit.wonderingtrader;
+
+import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismParticles;
+import com.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.horse.TraderLlama;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+import javax.annotation.Nullable;
+
+public class WonderingTraderEntity extends WanderingTrader implements GeoEntity {
+    AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
+
+    @Nullable
+    protected MerchantOffers otherOffers;
+    @Nullable
+    protected MerchantOffers commonOffers;
+
+    public WonderingTraderEntity(EntityType<? extends WonderingTraderEntity> type, Level level) {
+        super(type, level);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (player.hasEffect(OccultismEffects.THIRD_EYE) || CuriosUtil.hasGoggles(player) || CuriosUtil.hasStaff(player)) {
+            this.offers = this.otherOffers;
+        } else {
+            this.offers = this.commonOffers;
+        }
+        if (!itemstack.is(Items.VILLAGER_SPAWN_EGG) && this.isAlive() && !this.isTrading() && !this.isBaby()) {
+            if (hand == InteractionHand.MAIN_HAND) {
+                player.awardStat(Stats.TALKED_TO_VILLAGER);
+            }
+
+            if (!this.level().isClientSide) {
+                if (this.getOffers().isEmpty()) {
+                    return InteractionResult.CONSUME;
+                }
+
+                this.setTradingPlayer(player);
+                Component name = this.getDisplayName() == null ? this.getName() : this.getDisplayName();
+                this.openTradingScreen(player, name, 1);
+            }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        } else {
+            return super.mobInteract(player, hand);
+        }
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty,
+                                        @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (spawnType == MobSpawnType.EVENT) {
+            System.out.println("EVENT");
+            for (int t = 0; t < 2; t++) {
+                BlockPos blockpos = null;
+                SpawnPlacementType spawnplacementtype = SpawnPlacements.getPlacementType(EntityType.WANDERING_TRADER);
+                for (int i = 0; i < 10; i++) {
+                    int j = this.blockPosition().getX() + level.getRandom().nextInt(8) - 4;
+                    int k = this.blockPosition().getZ() + level.getRandom().nextInt(8) - 4;
+                    int l = level.getHeight(Heightmap.Types.WORLD_SURFACE, j, k);
+                    BlockPos blockpos1 = new BlockPos(j, l, k);
+                    if (spawnplacementtype.isSpawnPositionOk(level, blockpos1, EntityType.WANDERING_TRADER)) {
+                        blockpos = blockpos1;
+                        break;
+                    }
+                }
+                if (blockpos != null) {
+                    TraderLlama traderllama = EntityType.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, MobSpawnType.EVENT);
+                    if (traderllama != null) {
+                        traderllama.setLeashedTo(this, true);
+                        traderllama.setPersistenceRequired();
+                    }
+                }
+            }
+        }
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level().isClientSide())
+            if (this.level().getGameTime() % 20 == 0) {
+                Vec3 pos = this.position();
+                ((ServerLevel) this.level())
+                        .sendParticles(ParticleTypes.ENCHANT, pos.x + this.level().random.nextGaussian() / 3,
+                                pos.y + 0.5, pos.z + this.level().random.nextGaussian() / 3,
+                                this.level().random.nextInt(4), 0.0, 0.0, 0.0, 0.0);
+            }
+    }
+
+    @Override
+    public void die(@NotNull DamageSource damageSource) {
+        super.die(damageSource);
+        if (!this.level().isClientSide() && !this.isAlive()) {
+            Vec3 pos = this.position();
+            for (int i = 0; i < 30; i++)
+                ((ServerLevel) this.level())
+                    .sendParticles(OccultismParticles.RITUAL_WAITING.get(), pos.x + this.level().random.nextGaussian() / 3,
+                            pos.y + 0.2, pos.z + this.level().random.nextGaussian() / 3,
+                            1, 0.0, 0.0, 0.0, 0.0);
+        }
+    }
+
+    @Override
+    public @NotNull MerchantOffers getOffers() {
+        if (this.level().isClientSide) {
+            throw new IllegalStateException("Cannot load Villager offers on the client");
+        } else {
+            if (this.offers == null) {
+                this.offers = new MerchantOffers();
+                this.updateTrades();
+                if (this.commonOffers == null) {
+                    this.commonOffers = this.offers;
+                } else if (this.otherOffers == null) {
+                    this.otherOffers = this.offers;
+                }
+            }
+            if (this.otherOffers == null) {
+                this.otherOffers = new MerchantOffers();
+                this.updateOtherTrades();
+            }
+
+            return this.offers;
+        }
+    }
+
+    public MerchantOffers getCommonOffers() {
+        if (this.level().isClientSide) {
+            throw new IllegalStateException("Cannot load Villager offers on the client");
+        } else {
+            if (this.commonOffers == null) {
+                if (this.offers == null) {
+                    this.offers = new MerchantOffers();
+                    this.updateTrades();
+                }
+                this.commonOffers = this.offers;
+            }
+
+            return this.commonOffers;
+        }
+    }
+
+    public MerchantOffers getOtherOffers() {
+        if (this.level().isClientSide) {
+            throw new IllegalStateException("Cannot load Villager offers on the client");
+        } else {
+            if (this.otherOffers == null) {
+                this.otherOffers = new MerchantOffers();
+                this.updateOtherTrades();
+            }
+
+            return this.otherOffers;
+        }
+    }
+
+    @Override
+    protected void updateTrades() {
+        if (this.level().enabledFeatures().contains(FeatureFlags.TRADE_REBALANCE)) {
+            super.updateTrades();
+        } else {
+            VillagerTrades.ItemListing[] hint = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.HINT);
+            VillagerTrades.ItemListing[] listing = VillagerTrades.WANDERING_TRADER_TRADES.get(1);
+            VillagerTrades.ItemListing[] listing1 = VillagerTrades.WANDERING_TRADER_TRADES.get(2);
+            if (listing != null && listing1 != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                if (hint != null)
+                    this.addOffersFromItemListings(merchantoffers, hint, 1);
+                this.addOffersFromItemListings(merchantoffers, listing, 5);
+                int i = this.random.nextInt(listing1.length);
+                VillagerTrades.ItemListing villagertrades$itemlisting = listing1[i];
+                MerchantOffer merchantoffer = villagertrades$itemlisting.getOffer(this, this.random);
+                if (merchantoffer != null) {
+                    merchantoffers.add(merchantoffer);
+                }
+            }
+        }
+
+    }
+
+    protected void updateOtherTrades() {
+            VillagerTrades.ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
+            VillagerTrades.ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
+            VillagerTrades.ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
+            VillagerTrades.ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
+            VillagerTrades.ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
+            VillagerTrades.ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
+            VillagerTrades.ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
+            VillagerTrades.ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
+            if (list1 != null && list2 != null && list3 != null && list4 != null
+                    && list5 != null && list6 != null && list7 != null && list8 != null) {
+                MerchantOffers merchantoffers = this.getOtherOffers();
+                this.addOffersFromItemListings(merchantoffers, list1, 1);
+                this.addOffersFromItemListings(merchantoffers, list2, this.random.nextIntBetweenInclusive(1,3));
+                this.addOffersFromItemListings(merchantoffers, list3, this.random.nextIntBetweenInclusive(1,2));
+                this.addOffersFromItemListings(merchantoffers, list4, 1);
+                this.addOffersFromItemListings(merchantoffers, list5, this.random.nextIntBetweenInclusive(1,3));
+                this.addOffersFromItemListings(merchantoffers, list6, 1);
+                if (this.random.nextBoolean()) {
+                    this.addOffersFromItemListings(merchantoffers, list7, 1);
+                } else if (this.random.nextBoolean()) {
+                    this.addOffersFromItemListings(merchantoffers, list8, 1);
+                }
+            }
+
+
+    }
+
+    @Override
+    public int getCurrentSwingDuration() {
+        return 11; //to match our attack animation speed + 1 tick
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        var mainController = new AnimationController<>(this, "mainController", 5, this::animPredicate);
+        controllers.add(mainController);
+    }
+
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+
+        if (this.swinging) {
+            return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
+        }
+
+        if (tAnimationState.isMoving()) {
+            return tAnimationState.setAndContinue(
+                    RawAnimation.begin().thenLoop("walk")
+            );
+        }
+
+        return tAnimationState.setAndContinue(
+                RawAnimation.begin().thenLoop("idle")
+        );
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (!this.level().isClientSide) {
+            MerchantOffers common = this.getCommonOffers();
+            if (!common.isEmpty()) {
+                compound.put(
+                        "CommonOffers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), common).getOrThrow()
+                );
+            }
+            MerchantOffers other = this.getOtherOffers();
+            if (!other.isEmpty()) {
+                compound.put(
+                        "OtherOffers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), other).getOrThrow()
+                );
+            }
+        }
+
+        this.writeInventoryToTag(compound, this.registryAccess());
+    }
+
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("CommonOffers")) {
+            MerchantOffers.CODEC
+                    .parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("CommonOffers"))
+                    .result().ifPresent(p_323775_ -> this.commonOffers = p_323775_);
+        }
+        if (compound.contains("OtherOffers")) {
+            MerchantOffers.CODEC
+                    .parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("OtherOffers"))
+                    .result().ifPresent(p_323775_ -> this.otherOffers = p_323775_);
+        }
+
+        this.readInventoryFromTag(compound, this.registryAccess());
+    }
+}

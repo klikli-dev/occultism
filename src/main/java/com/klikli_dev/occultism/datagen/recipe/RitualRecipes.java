@@ -338,6 +338,19 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "night_time"))
                 .entityToSummon(OccultismEntities.DJINNI.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_night_time"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_WONDERING_TRADER.get(), "item.occultism.ritual_dummy.summon_wondering_trader"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_WONDERING_TRADER.get()),
+                        120,
+                        RITUAL_SUMMON,
+                        PENTACLE_SUMMON_DJINNI,
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
+                        Ingredient.of(Tags.Items.GEMS_EMERALD),
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
+                        Ingredient.of(Tags.Items.GEMS_EMERALD))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .entityToSummon(OccultismEntities.WONDERING_TRADER.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wondering_trader"));
 
         //Foliot
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),

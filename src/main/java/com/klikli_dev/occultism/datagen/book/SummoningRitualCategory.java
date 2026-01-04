@@ -48,7 +48,8 @@ public class SummoningRitualCategory extends CategoryProvider {
                 "______________________",
                 "_______3_7_ì_p_n______",
                 "______________________",
-                "_______4_8_î__________"
+                "_______4_8_î__w_______",
+                "______________________"
         };
     }
 
@@ -138,6 +139,9 @@ public class SummoningRitualCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonGambler = this.add(new TraderGemsEntry(this).generate('p'));
         summonGambler.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        var summonWondering = this.add(new TraderWonderingEntry(this).generate('w'));
+        summonWondering.withParent(BookEntryParentModel.create(tradeSpirits.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
 
         var weatherMagic = this.add(new MagicWeatherEntry(this).generate('k'));

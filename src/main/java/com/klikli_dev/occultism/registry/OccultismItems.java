@@ -444,6 +444,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE, 0x396265, 0x57c786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID_UNBOUND = ITEMS.register("spawn_egg/marid_unbound",
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_UNBOUND_TYPE, 0x394245, 0x57a766, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WONDERING_TRADER = ITEMS.register("spawn_egg/wondering_trader",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WONDERING_TRADER_TYPE, 0x375482, 0xbf886d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ENDERMITE = ITEMS.register("spawn_egg/possessed_endermite",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE, 0x161616, 0x6E6E6E, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
@@ -568,6 +570,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER = ITEMS.register("ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE = ITEMS.register("ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER = ITEMS.register("ritual_dummy/summon_djinni_gambler", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_WONDERING_TRADER = ITEMS.register("ritual_dummy/summon_wondering_trader", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME = ITEMS.register("ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME = ITEMS.register("ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER = ITEMS.register("ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));

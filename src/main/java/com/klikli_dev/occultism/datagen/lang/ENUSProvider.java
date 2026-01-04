@@ -376,6 +376,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT_UNBOUND, "Unbound Afrit Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID, "Marid Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID_UNBOUND, "Unbound Marid Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WONDERING_TRADER, "Wondering Trader Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Possessed Endermite Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
@@ -621,6 +622,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
         this.addEntityType(OccultismEntities.MARID, "Marid");
         this.addEntityType(OccultismEntities.MARID_UNBOUND, "Unbound Marid");
+        this.addEntityType(OccultismEntities.WONDERING_TRADER, "Wondering Trader");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMITE, "Possessed Endermite");
         this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Possessed Skeleton");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
@@ -1866,6 +1868,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER, "Summon Foliot Janitor", "Foliot", "The Janitor will pick up dropped items and deposit them into a target inventory.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "Summon Djinni Machine Operator", "Djinni", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER, "Summon Djinni Gambler", "Djinni", "The Gambler bets any gem for some other gems and nuggets, a trader with a taste of randomness");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_WONDERING_TRADER, "Summon Wondering Trader", "Djinni", "Summons a Wondering Trader who offers special occult items when you see the otherworld.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "Summoning of Dawn", "Djinni", "Summons a Djinni that sets the time to high noon.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "Summoning of Dusk", "Djinni", "Summons a Djinni that sets the time to midnight.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "Summoning of Clear Sky", "Djinni", "Summons a Djinni that clears the weather.");
@@ -2332,6 +2335,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("trader_otherrock", "Otherrock Trader");
         this.addConfig("trader_gem", "Gambler");
         this.addConfig("traderResultPickupDelay", "Trader Pickup Delay");
+        this.addConfig("traderWonderingChance", "Wondering Chance");
         this.addConfig("dayTimeToCast", "Time to cast: Day");
         this.addConfig("nightTimeToCast", "Time to cast: Night");
         this.addConfig("rainTimeToCast", "Time to cast: Rain");

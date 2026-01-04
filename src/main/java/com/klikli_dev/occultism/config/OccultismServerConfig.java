@@ -132,6 +132,7 @@ public class OccultismServerConfig {
         public final TraderSpiritSettings traderOtherrock;
         public final TraderSpiritSettings traderGem;
         public final IntValue traderResultPickupDelay;
+        public final IntValue traderWonderingChance;
 
         public final IntValue dayTimeToCast;
         public final IntValue nightTimeToCast;
@@ -189,6 +190,9 @@ public class OccultismServerConfig {
             this.traderResultPickupDelay = builder.comment(
                     "The minimum ticks before a trader can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                     .defineInRange("traderResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
+            this.traderWonderingChance = builder.comment(
+                            "The percentage of Wondering Trader replace the Wandering Trader when spawn.")
+                    .defineInRange("traderWonderingChance", 5, 0, 100);
 
             this.dayTimeToCast = builder.comment(
                     "The time in ticks it takes to cast the day time ritual.")

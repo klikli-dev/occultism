@@ -23,18 +23,28 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
 import com.klikli_dev.occultism.registry.OccultismCommands;
+import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismPotions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.horse.TraderLlama;
+import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 
-@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
+
+@EventBusSubscriber(modid = Occultism.MODID)
 public class ForgeEventHandler {
 
     //region Static Methods
@@ -52,6 +62,36 @@ public class ForgeEventHandler {
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
         OccultismCommands.register(event.getDispatcher());
+    }
+
+    @SubscribeEvent
+    public static void onTraderSpawn(FinalizeSpawnEvent event) {
+        if (event.isSpawnCancelled() || event.isCanceled())
+            return;
+        if (event.getSpawnType() != MobSpawnType.EVENT)
+            return;
+        if (!(event.getEntity() instanceof WanderingTrader trader) || (event.getEntity() instanceof WonderingTraderEntity))
+            return;
+        if (RandomSource.create().nextInt(100) > Occultism.SERVER_CONFIG.spiritJobs.traderWonderingChance.getAsInt())
+            return;
+        Level level = trader.level();
+        if (level.isClientSide)
+            return;
+        if (trader.getPersistentData().getBoolean("replaced"))
+            return;
+        trader.getPersistentData().putBoolean("replaced", true);
+
+        for (TraderLlama llama : level.getEntitiesOfClass(TraderLlama.class, trader.getBoundingBox().inflate(8), Entity::isAlive)) {
+            if (llama.getLeashHolder() != null && llama.getLeashHolder().is(trader))
+                llama.remove(Entity.RemovalReason.DISCARDED);
+        }
+        trader.discard();
+
+        WonderingTraderEntity wondering = OccultismEntities.WONDERING_TRADER.get().spawn((ServerLevel) level, trader.blockPosition(), MobSpawnType.EVENT);;
+        if (wondering == null)
+            return;
+        wondering.setDespawnDelay(48000);
+        wondering.setPersistenceRequired();
     }
     //endregion Static Methods
 }
