@@ -26,7 +26,6 @@ import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;

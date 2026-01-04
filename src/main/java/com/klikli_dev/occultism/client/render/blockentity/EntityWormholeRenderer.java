@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.client.render.blockentity;
 
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
-import com.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.klikli_dev.occultism.common.blockentity.EntityWormholeBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -35,7 +34,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
