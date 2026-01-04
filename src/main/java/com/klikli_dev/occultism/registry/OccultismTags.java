@@ -257,6 +257,8 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> RAVAGER = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "ravagers"));
         public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "vex"));
         public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "allay"));
+        public static final TagKey<EntityType<?>> ARMADILLOS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "armadillos"));
+
         public static final TagKey<EntityType<?>> ENDERMEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "endermen"));
         public static final TagKey<EntityType<?>> SHULKER = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "shulkers"));
         public static final TagKey<EntityType<?>> FRAGILE_SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "fragile_soul_gem_deny_list"));

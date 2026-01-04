@@ -69,6 +69,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - [Reinforced Deepslate](entry://crafting_rituals/craft_reinforced_deepslate)
                 - [Bee Nest](entry://crafting_rituals/bee_nest)
                 - [Bell](entry://crafting_rituals/bell)
+                - [Horse Armors](entry://crafting_rituals/horse_armor)
                 """
         );
     }

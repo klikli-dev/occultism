@@ -4,14 +4,14 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_eldritch_spirit"
+    "entry_id": "pentacles/contact_wild_spirit"
   },
-  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.description",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_rainbow"
+    "item": "minecraft:diamond_horse_armor"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -20,9 +20,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:chalk_rainbow"
+        "item": "minecraft:leather_horse_armor"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.spotlight.text",
       "title": ""
     },
     {
@@ -31,22 +31,21 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_chalk_rainbow",
+      "recipe_id_1": "occultism:ritual/misc_iron_horse_armor",
       "text": "",
       "title1": "",
       "title2": ""
     },
     {
-      "type": "modonomicon:spotlight",
+      "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_void"
-      },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight2.text",
-      "title": ""
+      "recipe_id_1": "occultism:ritual/misc_golden_horse_armor",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
       "type": "occultism:ritual_recipe",
@@ -54,7 +53,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_chalk_void",
+      "recipe_id_1": "occultism:ritual/misc_diamond_horse_armor",
       "text": "",
       "title1": "",
       "title2": ""
@@ -63,13 +62,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/overview",
+      "entry": "crafting_rituals/craft_wild_trim",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 42,
-  "x": 6,
-  "y": 2
+  "sort_number": 40,
+  "x": -2,
+  "y": 6
 }

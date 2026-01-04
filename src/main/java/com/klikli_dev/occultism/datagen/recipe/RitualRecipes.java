@@ -37,7 +37,6 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final ResourceLocation RITUAL_CRAFT = OccultismRituals.CRAFT.getId();
     private static final ResourceLocation RITUAL_CRAFT_MINER_SPIRIT = OccultismRituals.CRAFT_MINER_SPIRIT.getId();
     private static final ResourceLocation RITUAL_REPAIR = OccultismRituals.REPAIR.getId();
-    private static final ResourceLocation RITUAL_UNBREAKABLE = OccultismRituals.UNBREAKABLE.getId();
     private static final ResourceLocation RITUAL_UPGRADE = OccultismRituals.UPGRADE.getId();
     // Pentacle IDs
     private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
@@ -88,7 +87,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     }
 
     public static void ritualRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
-        summonRituals(recipeOutput, registries);
+        summonRituals(recipeOutput);
         possessRituals(recipeOutput);
         familiarRituals(recipeOutput);
         craftingRituals(recipeOutput);
@@ -101,7 +100,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         upgradeRituals(recipeOutput);
     }
 
-    private static void summonRituals(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void summonRituals(RecipeOutput recipeOutput) {
         //Duration 60 * tier (half if time or weather job)
         //Afrit
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
@@ -2178,6 +2177,51 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.goats")
                 .entityToSacrifice(OccultismTags.Entities.GOATS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_bell"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.LEATHER_HORSE_ARMOR),
+                        new ItemStack(Items.IRON_HORSE_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR.get()),
+                        180,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.INGOTS_IRON),
+                        Ingredient.of(Tags.Items.INGOTS_IRON),
+                        Ingredient.of(Tags.Items.INGOTS_IRON),
+                        Ingredient.of(Tags.Items.INGOTS_IRON)
+                )
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
+                .entityToSacrifice(OccultismTags.Entities.ARMADILLOS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_iron_horse_armor"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.LEATHER_HORSE_ARMOR),
+                        new ItemStack(Items.GOLDEN_HORSE_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR.get()),
+                        180,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD)
+                )
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
+                .entityToSacrifice(OccultismTags.Entities.ARMADILLOS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_golden_horse_armor"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.LEATHER_HORSE_ARMOR),
+                        new ItemStack(Items.DIAMOND_HORSE_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR.get()),
+                        180,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.GEMS_DIAMOND),
+                        Ingredient.of(Tags.Items.GEMS_DIAMOND),
+                        Ingredient.of(Tags.Items.GEMS_DIAMOND),
+                        Ingredient.of(Tags.Items.GEMS_DIAMOND)
+                )
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
+                .entityToSacrifice(OccultismTags.Entities.ARMADILLOS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_diamond_horse_armor"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()),
                         new ItemStack(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get()),
