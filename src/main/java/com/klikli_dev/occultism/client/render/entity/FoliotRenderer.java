@@ -25,6 +25,8 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.FoliotModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
+import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -45,8 +47,15 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
 
         this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
-            if (Objects.equals(bone.getName(), "arm_right")) //right hand
-                return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            if (animatable.getEntity() instanceof SpiritEntity spirit) {
+                if (Objects.equals(spirit.getJobID(), OccultismSpiritJobs.FARMER.getId().toString())
+                        || Objects.equals(spirit.getJobID(), OccultismSpiritJobs.LUMBERJACK.getId().toString())
+                        || Objects.equals(spirit.getJobID(), OccultismSpiritJobs.CLEANER.getId().toString())) {
+                    if (Objects.equals(bone.getName(), "arm_left")) //left hand
+                        return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+                } else if (Objects.equals(bone.getName(), "arm_right")) //right hand
+                    return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            }
             return null;
         }, (bone, animatable) -> null) {
             @Override
@@ -59,6 +68,10 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
                 poseStack.pushPose();
 
                 poseStack.translate(0, -0.65, 0);
+                if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.CLEANER.getId().toString())) {
+                    poseStack.translate(-0.3, 0.35, 0.85);
+                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                }
                 poseStack.mulPose(Axis.XN.rotationDegrees(90));
 
                 super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
