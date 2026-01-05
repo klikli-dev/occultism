@@ -24,15 +24,11 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
-import com.klikli_dev.occultism.registry.OccultismCommands;
-import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismPotions;
+import com.klikli_dev.occultism.registry.*;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.animal.horse.TraderLlama;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -82,16 +78,12 @@ public class ForgeEventHandler {
             return;
         trader.getPersistentData().putBoolean("replaced", true);
 
-        for (TraderLlama llama : level.getEntitiesOfClass(TraderLlama.class, trader.getBoundingBox().inflate(8), Entity::isAlive)) {
-            if (llama.getLeashHolder() != null && llama.getLeashHolder().is(trader))
-                llama.remove(Entity.RemovalReason.DISCARDED);
-        }
-        trader.discard();
-
+        level.playSound(null, trader.blockPosition(), OccultismSounds.START_RITUAL.get(), SoundSource.AMBIENT, 2, 3);
         WonderingTraderEntity wondering = OccultismEntities.WONDERING_TRADER.get().spawn((ServerLevel) level, trader.blockPosition(), MobSpawnType.EVENT);
         if (wondering == null)
             return;
         wondering.setDespawnDelay(48000);
+        wondering.setReplacedTrader(trader);
         wondering.setPersistenceRequired();
     }
     //endregion Static Methods

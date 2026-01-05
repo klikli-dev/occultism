@@ -68,6 +68,8 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     @Nullable
     protected MerchantOffers commonOffers;
 
+    protected WanderingTrader replacedTrader = null;
+
     public WonderingTraderEntity(EntityType<? extends WonderingTraderEntity> type, Level level) {
         super(type, level);
     }
@@ -105,7 +107,6 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty,
                                         @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         if (spawnType == MobSpawnType.EVENT) {
-            System.out.println("EVENT");
             for (int t = 0; t < 2; t++) {
                 BlockPos blockpos = null;
                 SpawnPlacementType spawnplacementtype = SpawnPlacements.getPlacementType(EntityType.WANDERING_TRADER);
@@ -134,7 +135,17 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide())
+        if (!this.level().isClientSide()) {
+            if (this.replacedTrader != null) {
+                WanderingTrader wanderingTrader = this.replacedTrader;
+                for (TraderLlama llama : this.level().getEntitiesOfClass(TraderLlama.class,
+                        wanderingTrader.getBoundingBox().inflate(8), Entity::isAlive)) {
+                    if (llama.getLeashHolder() != null && llama.getLeashHolder().is(wanderingTrader))
+                        llama.remove(Entity.RemovalReason.DISCARDED);
+                }
+                wanderingTrader.discard();
+                this.replacedTrader = null;
+            }
             if (this.level().getGameTime() % 20 == 0) {
                 Vec3 pos = this.position();
                 ((ServerLevel) this.level())
@@ -142,6 +153,11 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                                 pos.y + 0.5, pos.z + this.level().random.nextGaussian() / 3,
                                 this.level().random.nextInt(4), 0.0, 0.0, 0.0, 0.0);
             }
+        }
+    }
+
+    public void setReplacedTrader(WanderingTrader wanderingTrader){
+        this.replacedTrader = wanderingTrader;
     }
 
     @Override
