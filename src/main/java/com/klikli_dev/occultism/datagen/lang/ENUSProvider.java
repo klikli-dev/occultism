@@ -994,6 +994,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         As such these rituals are used to obtain rare items without having to venture into dangerous places.
+                        \\
+                        \\
+                        Possessed Mobs count as their vanilla counterparts for the ritual sacrifices purposes.
                            """);
 
         helper.entry("possess_enderman");
