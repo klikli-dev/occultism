@@ -6,9 +6,14 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.GeckoLibCache;
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,5 +80,23 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     @Override
     public ResourceLocation getAnimationResource(T animatable) {
         return this.getModelData(animatable).animation();
+    }
+
+    @Override
+    public void setCustomAnimations(T entity, long instanceId, AnimationState<T> animationState) {
+        super.setCustomAnimations(entity, instanceId, animationState);
+
+        GeoBone head = getAnimationProcessor().getBone("head");
+        if (head != null) {
+            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+        }
+        GeoBone Head = getAnimationProcessor().getBone("Head");
+        if (Head != null) {
+            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+            Head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+            Head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+        }
     }
 }

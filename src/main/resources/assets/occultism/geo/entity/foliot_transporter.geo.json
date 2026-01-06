@@ -49,7 +49,7 @@
 				{
 					"name": "Head",
 					"parent": "Torso",
-					"pivot": [0, 11.4, -2],
+					"pivot": [0, 10, 0],
 					"cubes": [
 						{"origin": [-2, 9, -2], "size": [4, 4, 4], "uv": [11, 13]},
 						{

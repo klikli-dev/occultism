@@ -465,6 +465,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             }
             if (!this.dead)
                 this.getJob().ifPresent(SpiritJob::update);
+            if (this.getOwner() != null && this.getOwner().distanceTo(this.getEntity()) < 10
+                    &&  this.getDeltaMovement().x() == 0 && this.getDeltaMovement().z() == 0)
+                this.getLookControl().setLookAt(this.getOwner(), 10, this.getMaxHeadXRot());
         }
         this.updateSwingTime();
         super.aiStep();
