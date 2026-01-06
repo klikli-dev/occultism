@@ -98,8 +98,9 @@ public class StabilizerEntry extends EntryProvider {
 
         this.page("demo", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(this.modLoc("storage_stabilizer_demo"))
-                .withMultiblockName("Storage Stabilizer Setup")
+                .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
+        this.pageTitle("Storage Stabilizer Setup");
         this.pageText("""
                    **Note:** You do not need all 4 stabilizers, even one will increase your storage.
                     In addition, the up and down directions also work.

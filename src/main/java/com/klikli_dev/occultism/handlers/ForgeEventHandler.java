@@ -69,7 +69,7 @@ public class ForgeEventHandler {
             return;
         if (!(event.getEntity() instanceof WanderingTrader trader) || (event.getEntity() instanceof WonderingTraderEntity))
             return;
-        if (RandomSource.create().nextInt(100) > Occultism.SERVER_CONFIG.spiritJobs.traderWonderingChance.getAsInt())
+        if (RandomSource.create().nextInt(100) >= Occultism.SERVER_CONFIG.spiritJobs.traderWonderingChance.getAsInt())
             return;
         Level level = trader.level();
         if (level.isClientSide)

@@ -86,7 +86,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "storage_stabilizer_demo",
-      "multiblock_name": "Storage Stabilizer Setup",
+      "multiblock_name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.title",
       "show_visualize_button": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.text"
     }

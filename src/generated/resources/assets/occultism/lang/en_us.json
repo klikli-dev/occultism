@@ -1257,6 +1257,7 @@
   "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.crafting.text": "The stabilizer system works by tier, starting from 0 (which does not add space) up to 5.\n\\\n\\\nTo get started, see the recipes and instructions on the following pages.\n",
   "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.crafting.title": "Crafting",
   "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.text": "**Note:** You do not need all 4 stabilizers, even one will increase your storage.\n In addition, the up and down directions also work.\n",
+  "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.title": "Storage Stabilizer Setup",
   "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.description": "External disk",
   "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.name": "Extending Storage",
   "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.spotlight.text": "Storage Stabilizers increase the storage space in the storage dimension of the storage actuator.\n The higher the tier of the stabilizer, the more additional storage it provides.\n The following entries will show you how to craft each tier.\n",
