@@ -49,8 +49,8 @@ public class KnowledgeTabletEntry extends EntryProvider {
                         \\
                         NOTE: Sometimes, with big values, you can lost a small quantity of point due numerical approximations.
                         """,
-                this.color("Right-Click", ChatFormatting.DARK_PURPLE),
-                this.color("Shift-Right-Click", ChatFormatting.DARK_PURPLE)
+                this.color("Right-Click", ChatFormatting.GREEN),
+                this.color("Shift-Right-Click", ChatFormatting.GREEN)
         );
     }
 

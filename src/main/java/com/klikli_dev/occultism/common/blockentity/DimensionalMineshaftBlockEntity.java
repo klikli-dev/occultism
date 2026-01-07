@@ -268,12 +268,17 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 fortune = Math.min(extra1, Math.min(extra2, extra3));
             }
         }
+        int silk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean() && input.isEnchanted() ?
+                input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.SILK_TOUCH)) : 0;
 
         for (int i = 0; i < this.rollsPerOperation + fortune; i++) {
             var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
+            int finalSilk = silk > 0 ? 1 + this.level.random.nextIntBetweenInclusive(0, silk) : 1;
             //Important: copy the result, don't use it raw!
             result.ifPresent(r -> {
-                ItemHandlerHelper.insertItemStacked(this.outputHandler, r.getStack().copy(), false);
+                ItemStack finalResult = r.getStack().copy();
+                finalResult.setCount(finalResult.getCount() * finalSilk);
+                ItemHandlerHelper.insertItemStacked(this.outputHandler, finalResult, false);
             });
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
             // but the miner block entity simply discards the results

@@ -66,14 +66,40 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                        """
         );
 
+
+        this.page("enchantment", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Enchantments");
+        this.pageText("""
+                       You've noticed that your miner can be enchanted? Here's how effective it is!\\
+                        **Efficiency:** Increase the progress bar by the smaller of two RNB;\\
+                        **Fortune:** Mine a number of extra results equals smaller of three RNB;\\
+                        **Silk touch:** Multiply the count of mined result by 1 plus a RNB;\\
+                        RNB = random number between 0 and the enchantment level.
+                       """
+        );
+
+        this.page("enchantment2", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Durability");
+        this.pageText("""
+                       The **Unbreaking** and **Mending** enchantments function as vanilla.
+                       \\
+                        With other methods (mods) you can make your miner unusable (**unusing**)
+                        when it's close to breaking, or even truly unbreakable (**eternal**).
+                       """
+        );
+
         this.page("config", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Config");
         this.pageText("""
                        If you want to save your miners before they break, check "Server Configuration > Items".
-                        By setting the "Save miners before breaking" option to "on", a miner will go to the output 
-                        of the dimensional mineshaft when it reaches 1 durability.
+                        By setting the "Save miners before breaking" option to "on", a miner will go to the output
+                        of the dimensional mineshaft when it reaches 1 durability. The effects of enchantments can also be turned off.
                        """
         );
     }

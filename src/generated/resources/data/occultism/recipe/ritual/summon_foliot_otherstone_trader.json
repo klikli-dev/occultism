@@ -35,6 +35,6 @@
     "id": "occultism:ritual_dummy/summon_foliot_otherstone_trader"
   },
   "ritual_type": "occultism:summon_spirit_with_job",
-  "spirit_job_type": "occultism:trade_otherstone_t1",
+  "spirit_job_type": "occultism:trader_otherstone",
   "spirit_max_age": 3600
 }

@@ -26,7 +26,6 @@ import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -53,7 +52,7 @@ public interface IOtherworldBlock {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
         OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE) ?
                 OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
-        OtherworldBlockTier staffTier = player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF) || CuriosUtil.hasStaff(player) ?
+        OtherworldBlockTier staffTier = CuriosUtil.hasStaff(player) ?
                 OtherworldBlockTier.TWO : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);

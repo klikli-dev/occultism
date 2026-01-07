@@ -32,6 +32,7 @@ import com.klikli_dev.occultism.common.entity.possessed.horde.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
+import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
@@ -145,6 +146,7 @@ public class Occultism {
         event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.createAttributes().build());
         event.put(OccultismEntities.MARID_TYPE.get(), MaridEntity.createAttributes().build());
         event.put(OccultismEntities.MARID_UNBOUND_TYPE.get(), MaridUnboundEntity.createAttributes().build());
+        event.put(OccultismEntities.WONDERING_TRADER_TYPE.get(), WonderingTraderEntity.createMobAttributes().build());
         event.put(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.createAttributes().build());

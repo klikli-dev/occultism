@@ -444,6 +444,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE, 0x396265, 0x57c786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID_UNBOUND = ITEMS.register("spawn_egg/marid_unbound",
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_UNBOUND_TYPE, 0x394245, 0x57a766, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WONDERING_TRADER = ITEMS.register("spawn_egg/wondering_trader",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WONDERING_TRADER_TYPE, 0x375482, 0xbf886d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ENDERMITE = ITEMS.register("spawn_egg/possessed_endermite",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE, 0x161616, 0x6E6E6E, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
@@ -562,10 +564,13 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK = ITEMS.register("ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_FARMER = ITEMS.register("ritual_dummy/summon_foliot_farmer", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER = ITEMS.register("ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER = ITEMS.register("ritual_dummy/summon_foliot_otherrock_trader", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER = ITEMS.register("ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS = ITEMS.register("ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER = ITEMS.register("ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE = ITEMS.register("ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER = ITEMS.register("ritual_dummy/summon_djinni_gambler", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_WONDERING_TRADER = ITEMS.register("ritual_dummy/summon_wondering_trader", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME = ITEMS.register("ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME = ITEMS.register("ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER = ITEMS.register("ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));
@@ -698,6 +703,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/misc_budding_amethyst", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.register("ritual_dummy/misc_reinforced_deepslate", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.register("ritual_dummy/misc_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR = ITEMS.register("ritual_dummy/misc_iron_horse_armor", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.register("ritual_dummy/misc_golden_horse_armor", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.register("ritual_dummy/misc_diamond_horse_armor", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.register("ritual_dummy/misc_eldritch_chalice", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.register("ritual_dummy/misc_celestial_chalice", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.register("ritual_dummy/misc_chalk_rainbow", () -> new DummyTooltipItem(defaultProperties()));

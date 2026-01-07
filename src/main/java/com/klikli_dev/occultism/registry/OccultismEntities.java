@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.common.entity.possessed.horde.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
+import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -46,7 +47,7 @@ public class OccultismEntities {
 
     public static final Lazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
             Lazy.of(() -> EntityType.Builder.of(FoliotEntity::new, MobCategory.CREATURE)
-                    .sized(0.5f, 1.2f)
+                    .sized(0.5f, 1.4f)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foliot").toString()));
     public static final Lazy<EntityType<DjinniEntity>> DJINNI_TYPE =
@@ -61,7 +62,7 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit").toString()));
     public static final Lazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
-            Lazy.of(() -> EntityType.Builder.of((EntityType<AfritWildEntity> t, Level l) -> new AfritWildEntity(t, l), MobCategory.CREATURE)
+            Lazy.of(() -> EntityType.Builder.of(AfritWildEntity::new, MobCategory.CREATURE)
                     .fireImmune()
                     .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
@@ -73,10 +74,16 @@ public class OccultismEntities {
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid").toString()));
 
     public static final Lazy<EntityType<MaridUnboundEntity>> MARID_UNBOUND_TYPE =
-            Lazy.of(() -> EntityType.Builder.of((EntityType<MaridUnboundEntity> t, Level l) -> new MaridUnboundEntity(t, l), MobCategory.CREATURE)
+            Lazy.of(() -> EntityType.Builder.of(MaridUnboundEntity::new, MobCategory.CREATURE)
                     .sized(1.0f, 2.4f)
                     .clientTrackingRange(16)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid_unbound").toString()));
+
+    public static final Lazy<EntityType<WonderingTraderEntity>> WONDERING_TRADER_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WonderingTraderEntity::new, MobCategory.CREATURE)
+                    .sized(0.6f, 1.9f)
+                    .clientTrackingRange(16)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wondering_trader").toString()));
 
     public static final Lazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedEndermiteEntity::new, MobCategory.MONSTER)
@@ -387,6 +394,7 @@ public class OccultismEntities {
     public static final Supplier<EntityType<AfritWildEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
     public static final Supplier<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
     public static final Supplier<EntityType<MaridUnboundEntity>> MARID_UNBOUND = ENTITIES.register("marid_unbound", MARID_UNBOUND_TYPE::get);
+    public static final Supplier<EntityType<WonderingTraderEntity>> WONDERING_TRADER = ENTITIES.register("wondering_trader", WONDERING_TRADER_TYPE::get);
 
 
     public static final Supplier<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =

@@ -2,6 +2,10 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "pentacles",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/pentacle_overview"
+  },
   "description": "book.occultism.dictionary_of_spirits.pentacles.didactics.description",
   "hide_while_locked": false,
   "icon": {

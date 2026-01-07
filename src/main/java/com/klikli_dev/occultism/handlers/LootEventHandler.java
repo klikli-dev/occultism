@@ -30,7 +30,6 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -76,7 +75,7 @@ public class LootEventHandler {
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
-        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarRepairChance.get() * stack.getCount())
+        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * stack.getCount())
             repairEquipment(player);
 
         event.setCanPickup(TriState.FALSE);
@@ -100,8 +99,7 @@ public class LootEventHandler {
 
         event.getState().getTags().forEach(blockTagKey -> {
             if (blockTagKey.equals(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
-                if (player.getItemInHand(InteractionHand.OFF_HAND).is(OccultismItems.TRUE_SIGHT_STAFF)
-                        || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
+                if (player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
                         || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
                         || CuriosUtil.hasStaff(player)) {
                     Level level = (Level) event.getLevel();

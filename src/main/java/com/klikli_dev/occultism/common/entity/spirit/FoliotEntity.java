@@ -44,7 +44,7 @@ import java.util.Objects;
 public class FoliotEntity extends SpiritEntity implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> SIZE_STATE = SynchedEntityData.defineId(FoliotEntity.class, EntityDataSerializers.INT);
-    protected EntityDimensions lumberJackDimensions = EntityDimensions.scalable(0.8f, 0.8f);
+    protected EntityDimensions alternativeDimensions = EntityDimensions.scalable(0.8f, 0.8f);
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public FoliotEntity(EntityType<? extends SpiritEntity> type, Level level) {
@@ -80,7 +80,7 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
         }
 
         if (JOB_ID.equals(pKey)) {
-            if (Objects.equals(this.getJobID(), OccultismSpiritJobs.LUMBERJACK.getId().toString()) && this.getSizeState() != 1) {
+            if (Objects.equals(this.getJobID(), OccultismSpiritJobs.TRANSPORT_ITEMS.getId().toString()) && this.getSizeState() != 1) {
                 this.setSizeState(1);
             }
         }
@@ -91,7 +91,7 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
     @Override
     public EntityDimensions getDefaultDimensions(Pose pPose) {
         if (this.getSizeState() == 1)
-            return this.lumberJackDimensions;
+            return this.alternativeDimensions;
 
         return super.getDefaultDimensions(pPose);
     }

@@ -6,7 +6,7 @@
     "type": "modonomicon:mod_loaded",
     "mod_id": "theurgy"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.description",
   "hide_while_locked": false,
   "icon": {
     "item": "theurgy:list_filter"
@@ -45,7 +45,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": -6,
-  "y": -4
+  "sort_number": 4,
+  "x": -2,
+  "y": -3
 }

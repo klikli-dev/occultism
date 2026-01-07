@@ -2,7 +2,11 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "crafting_rituals",
-  "description": "",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier1.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:storage_stabilizer_tier1"
@@ -53,7 +57,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 12,
-  "x": 0,
-  "y": 4
+  "sort_number": 13,
+  "x": -2,
+  "y": 8
 }

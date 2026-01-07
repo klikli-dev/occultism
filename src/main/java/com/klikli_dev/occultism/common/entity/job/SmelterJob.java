@@ -137,7 +137,7 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             } else {
-                commomTick();
+                commonTick();
                 if (this.smeltingTimer >= this.currentRecipe.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipe.get().value().assemble(recipeInput, this.entity.level().registryAccess());
@@ -150,7 +150,7 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipeBlast = Optional.empty();
             } else {
-                commomTick();
+                commonTick();
                 if (this.smeltingTimer >= this.currentRecipeBlast.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeBlast.get().value().assemble(recipeInput, this.entity.level().registryAccess());
@@ -163,7 +163,7 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipeSmoke = Optional.empty();
             } else {
-                commomTick();
+                commonTick();
                 if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeSmoke.get().value().assemble(recipeInput, this.entity.level().registryAccess());
@@ -176,7 +176,7 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipeCamp = Optional.empty();
             } else {
-                commomTick();
+                commonTick();
                 if (this.smeltingTimer >= this.currentRecipeCamp.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeCamp.get().value().assemble(recipeInput, this.entity.level().registryAccess());
@@ -188,7 +188,7 @@ public class SmelterJob extends SpiritJob {
         super.update();
     }
 
-    private void commomTick(){
+    private void commonTick(){
         //advance conversion
         this.smeltingTimer++;
 

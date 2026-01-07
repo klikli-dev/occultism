@@ -51,8 +51,8 @@ public class FragileSoulGemEntry extends EntryProvider {
                         \\
                         Bosses cannot be captured.
                         """,
-                this.color("right-click", ChatFormatting.DARK_PURPLE),
-                this.color("Right-click", ChatFormatting.DARK_PURPLE)
+                this.color("right-click", ChatFormatting.GREEN),
+                this.color("Right-click", ChatFormatting.GREEN)
         );
     }
 

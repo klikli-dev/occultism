@@ -530,7 +530,7 @@
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.entity.text": "**Provides**: Allay\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.name": "Purify Vex to Allay",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description": "どのように死者から身近なものを取り戻すために。",
-  "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.text": "復活は比較的単純なプロセスです。 魂のかけらは[](item://occultissm:otherworld_essence) によって強化されており、おなじみの人が死の世界に戻り、それ自体のために新しい体を作るのに十分な強さがある。\n\\\n\\\n悪魔の夢の植物を成長させることによって本質を得ます。\n",
+  "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.text": "復活は比較的単純なプロセスです。 魂のかけらは[](item://occultism:otherworld_essence) によって強化されており、おなじみの人が死の世界に戻り、それ自体のために新しい体を作るのに十分な強さがある。\n\\\n\\\n悪魔の夢の植物を成長させることによって本質を得ます。\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.title": "Resurrection",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.name": "復活中の<unk>",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.recipe_essence.text": "Fruit and seeds can be mixed freely to create the essence.\n",

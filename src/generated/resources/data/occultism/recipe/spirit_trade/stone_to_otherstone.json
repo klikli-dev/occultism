@@ -4,7 +4,12 @@
     "tag": "c:stones"
   },
   "result": {
-    "count": 2,
-    "id": "occultism:otherstone"
-  }
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 2,
+      "id": "occultism:otherstone"
+    },
+    "weight": 1
+  },
+  "trader_id": "occultism:trader_otherstone"
 }

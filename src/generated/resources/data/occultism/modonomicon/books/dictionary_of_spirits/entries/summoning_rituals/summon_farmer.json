@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/summon_foliot"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:iron_hoe"
@@ -78,7 +78,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 15,
   "x": -4,
-  "y": -4
+  "y": -5
 }

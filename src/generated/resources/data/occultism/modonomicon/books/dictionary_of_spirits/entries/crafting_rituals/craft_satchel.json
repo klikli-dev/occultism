@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/craft_foliot"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_satchel.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:satchel"
@@ -40,13 +40,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/overview",
+      "entry": "crafting_rituals/craft_storage_system",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 20,
-  "x": 0,
-  "y": -2
+  "sort_number": 21,
+  "x": -6,
+  "y": 2
 }

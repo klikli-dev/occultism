@@ -2,7 +2,11 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "storage",
-  "description": "",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
+  },
+  "description": "book.occultism.dictionary_of_spirits.storage.storage_controller.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:storage_controller"
@@ -16,10 +20,11 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "count": 1,
         "item": "occultism:storage_controller"
       },
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.text",
-      "title": ""
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.title"
     },
     {
       "type": "modonomicon:text",
@@ -116,7 +121,7 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/storage_controller",
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.recipe.text",
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.base_ritual.text",
       "title1": "",
       "title2": ""
     }
@@ -130,7 +135,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": -6,
-  "y": 0
+  "sort_number": 2,
+  "x": -2,
+  "y": 1
 }

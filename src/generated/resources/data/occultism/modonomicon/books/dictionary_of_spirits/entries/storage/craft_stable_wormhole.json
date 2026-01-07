@@ -1,0 +1,59 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "storage",
+  "description": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:stable_wormhole"
+  },
+  "name": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:stable_wormhole"
+      },
+      "text": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_stable_wormhole",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_stable_wormhole_dark",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "storage/storage_controller",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 6,
+  "x": 0,
+  "y": -1
+}

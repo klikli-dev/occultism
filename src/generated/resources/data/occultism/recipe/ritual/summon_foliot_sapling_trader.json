@@ -35,6 +35,6 @@
     "id": "occultism:ritual_dummy/summon_foliot_sapling_trader"
   },
   "ritual_type": "occultism:summon_spirit_with_job",
-  "spirit_job_type": "occultism:trade_otherworld_saplings_t1",
+  "spirit_job_type": "occultism:trader_otherworld_saplings",
   "spirit_max_age": 3600
 }

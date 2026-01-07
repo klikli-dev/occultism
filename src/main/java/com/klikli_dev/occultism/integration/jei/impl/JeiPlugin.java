@@ -69,6 +69,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new SpiritFireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new CrushingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new CrystallizeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new SpiritTradeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MinerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
@@ -88,6 +89,9 @@ public class JeiPlugin implements IModPlugin {
 
         var crystallizeRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRYSTALLIZE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.CRYSTALLIZE, crystallizeRecipes);
+
+        var traderRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get());
+        registration.addRecipes(JeiRecipeTypes.SPIRIT_TRADE, traderRecipes);
 
         var minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.MINER, minerRecipes);
@@ -152,6 +156,14 @@ public class JeiPlugin implements IModPlugin {
                 JeiRecipeTypes.CRYSTALLIZE);
         registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER.getId())),
                 JeiRecipeTypes.CRYSTALLIZE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.getId())),
+                JeiRecipeTypes.SPIRIT_TRADE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.getId())),
+                JeiRecipeTypes.SPIRIT_TRADE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.getId())),
+                JeiRecipeTypes.SPIRIT_TRADE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER.getId())),
+                JeiRecipeTypes.SPIRIT_TRADE);
 
         registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())),
                 RecipeTypes.SMELTING);

@@ -22,14 +22,12 @@
 
 package com.klikli_dev.occultism.common.item.debug;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.TraderJob;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -56,9 +54,8 @@ public class SummonFoliotTraderItem extends Item {
             spirit.setCustomName(Component.literal("Testspirit Trader"));
 
             //set up the job
-            TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE_T1.get().create(spirit);
+            TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(spirit);
             trader.init();
-            trader.setTradeRecipeId(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/test"));
             spirit.setJob(trader);
 
             //notify players nearby and spawn

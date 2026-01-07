@@ -2,7 +2,11 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "summoning_rituals",
-  "description": "",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
+  },
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:otherworld_sapling"
@@ -52,7 +56,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 20,
   "x": 2,
-  "y": 2
+  "y": 1
 }

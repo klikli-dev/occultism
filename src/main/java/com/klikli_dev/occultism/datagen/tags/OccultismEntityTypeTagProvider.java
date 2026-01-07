@@ -11,6 +11,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,14 +22,14 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider pProvider) {
+    protected void addTags(@NotNull HolderLookup.Provider pProvider) {
         this.addCommonTags();
         this.addVanillaTags();
-        this.addOccultismTags(pProvider);
-        this.addPerViamInvenireTags(pProvider);
+        this.addOccultismTags();
+        this.addPerViamInvenireTags();
     }
 
-    private void addPerViamInvenireTags(HolderLookup.Provider provider) {
+    private void addPerViamInvenireTags() {
         this.tag(OccultismTags.makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("per_viam_invenire", "replace_vanilla_navigator")))
                 .add(OccultismEntities.FOLIOT_TYPE.get())
                 .add(OccultismEntities.DJINNI_TYPE.get())
@@ -49,7 +50,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.BEAVER_FAMILIAR_TYPE.get()).replace(false);
     }
 
-    private void addOccultismTags(HolderLookup.Provider pProvider) {
+    private void addOccultismTags() {
         this.tag(OccultismTags.Entities.AFRIT_ALLIES)
                 .add(EntityType.BLAZE)
                 .replace(false);
@@ -72,6 +73,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.AFRIT_WILD_TYPE.get())
                 .add(OccultismEntities.MARID_TYPE.get())
                 .add(OccultismEntities.MARID_UNBOUND_TYPE.get())
+                .add(OccultismEntities.WONDERING_TRADER_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get())
@@ -124,7 +126,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.DEMONIC_HUSBAND.get()).replace(false);
 
         this.tag(OccultismTags.Entities.HUMANS)
-                .addTags(OccultismTags.Entities.VILLAGERS)
+                .addTag(OccultismTags.Entities.VILLAGERS)
                 .add(EntityType.PLAYER)
                 .replace(false);
 
@@ -225,7 +227,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.SHEEP).add(EntityType.SHEEP).replace(false);
         this.tag(OccultismTags.Entities.SPIDERS).add(EntityType.SPIDER).add(EntityType.CAVE_SPIDER).replace(false);
         this.tag(OccultismTags.Entities.SQUID).add(EntityType.SQUID).add(EntityType.GLOW_SQUID).replace(false);
-        this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).replace(false);
+        this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).add(OccultismEntities.WONDERING_TRADER_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
         this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);
@@ -234,6 +236,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.VEX).add(EntityType.VEX).replace(false);
         this.tag(OccultismTags.Entities.TADPOLES).add(EntityType.TADPOLE).replace(false);
         this.tag(OccultismTags.Entities.ALLAY).add(EntityType.ALLAY).replace(false);
+        this.tag(OccultismTags.Entities.ARMADILLOS).add(EntityType.ARMADILLO).replace(false);
         this.tag(OccultismTags.Entities.WARDEN).add(EntityType.WARDEN).add(OccultismEntities.POSSESSED_WARDEN_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.RAVAGER).add(EntityType.RAVAGER).replace(false);
         this.tag(OccultismTags.Entities.ENDERMEN).add(EntityType.ENDERMAN).add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get()).replace(false);

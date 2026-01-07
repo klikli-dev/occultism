@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/craft_djinni"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:repair_icon"
@@ -20,6 +20,7 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "count": 1,
         "item": "minecraft:anvil"
       },
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.text",
@@ -40,7 +41,8 @@
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {
-        "type": "modonomicon:none"
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/summon_afrit"
       },
       "recipe_id_1": "occultism:ritual/repair_miners",
       "text": "",
@@ -51,7 +53,8 @@
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {
-        "type": "modonomicon:none"
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/summon_afrit"
       },
       "recipe_id_1": "occultism:ritual/repair_tools",
       "text": "",
@@ -62,7 +65,8 @@
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {
-        "type": "modonomicon:none"
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/summon_afrit"
       },
       "recipe_id_1": "occultism:ritual/repair_armors",
       "text": "",
@@ -79,7 +83,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 42,
-  "x": 9,
+  "sort_number": 43,
+  "x": 10,
   "y": 0
 }

@@ -705,10 +705,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.SNOW_GOLEM_SPAWN_EGG)
                 .add(Items.GLOW_SQUID_SPAWN_EGG)
                 .add(Items.TADPOLE_SPAWN_EGG)
-                .add(Items.TURTLE_SPAWN_EGG);;
+                .add(Items.TURTLE_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER)
                 .add(Items.VILLAGER_SPAWN_EGG)
-                .add(Items.WANDERING_TRADER_SPAWN_EGG);
+                .add(Items.WANDERING_TRADER_SPAWN_EGG)
+                .add(OccultismItems.SPAWN_EGG_WONDERING_TRADER.get());
     }
 
     private TagKey<Item> cTag(String path) {

@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/craft_afrit"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier3.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:storage_stabilizer_tier3"
@@ -57,7 +57,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 14,
-  "x": 4,
-  "y": 4
+  "sort_number": 15,
+  "x": 2,
+  "y": 8
 }

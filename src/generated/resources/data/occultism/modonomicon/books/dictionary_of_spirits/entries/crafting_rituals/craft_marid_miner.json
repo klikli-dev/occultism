@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/craft_marid"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_marid_miner.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:miner_marid_master"
@@ -46,7 +46,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 7,
+  "sort_number": 8,
   "x": 0,
-  "y": -6
+  "y": -8
 }

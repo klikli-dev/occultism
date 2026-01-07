@@ -26,7 +26,6 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Window;
@@ -193,8 +192,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onStaffTick(PlayerTickEvent.Post event) {
-        boolean hasStaff = event.getEntity().getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF) || CuriosUtil.hasStaff(event.getEntity());
-        if (hasStaff) {
+        if (CuriosUtil.hasStaff(event.getEntity())) {
             this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
         } else {
             //only cover blocks if third eye is not active and still needs them visible.

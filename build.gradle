@@ -121,16 +121,9 @@ repositories {
             includeGroup "com.almostreliable.mods"
         }
     }
-//    maven { //used to be curios
-//        name = "Curios Maven"
-//        url = "https://maven.theillusivec4.top/"
-//        content {
-//            includeGroup "top.theillusivec4.curios"
-//        }
-//    }
-    maven {
-        name = "OctoStudios (Curios Api Contiunation)"
-        url = uri("https://maven.octo-studios.com/releases")
+    maven { //used to be curios
+        name = "Curios Maven"
+        url = "https://maven.theillusivec4.top/"
         content {
             includeGroup "top.theillusivec4.curios"
         }
@@ -202,8 +195,8 @@ dependencies {
     //localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
-    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}:api") {transitive=false}
-    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}") {transitive=false}
+    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
+    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
 
     //geckolib
     implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}

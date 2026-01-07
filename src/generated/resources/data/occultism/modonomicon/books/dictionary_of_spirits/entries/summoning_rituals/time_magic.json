@@ -6,7 +6,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "pentacles/summon_djinni"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:clock"
@@ -56,7 +56,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 26,
   "x": 6,
-  "y": -4
+  "y": -5
 }

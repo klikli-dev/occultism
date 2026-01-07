@@ -65,12 +65,6 @@
       "entry": "pentacles/didactics",
       "line_enabled": true,
       "line_reversed": false
-    },
-    {
-      "draw_arrow": true,
-      "entry": "pentacles/white_chalk",
-      "line_enabled": false,
-      "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,

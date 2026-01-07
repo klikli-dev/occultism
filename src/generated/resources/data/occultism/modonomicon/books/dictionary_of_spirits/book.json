@@ -62,5 +62,6 @@
     "texture": "modonomicon:textures/gui/book_frame_top_overlay.png",
     "texture_height": 256,
     "texture_width": 256
-  }
+  },
+  "turn_page_sound": "modonomicon:turn_page"
 }

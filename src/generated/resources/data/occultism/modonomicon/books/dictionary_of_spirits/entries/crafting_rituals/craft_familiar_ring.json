@@ -2,7 +2,11 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "crafting_rituals",
-  "description": "",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:familiar_ring"
@@ -22,17 +26,6 @@
       "title": ""
     },
     {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.title",
-      "use_markdown_in_title": false
-    },
-    {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {
@@ -42,6 +35,17 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -53,7 +57,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 26,
+  "sort_number": 27,
   "x": 6,
-  "y": -4
+  "y": -6
 }

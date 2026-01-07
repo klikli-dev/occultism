@@ -25,7 +25,9 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.DjinniModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
+import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.InteractionHand;
@@ -44,7 +46,14 @@ public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity> {
 
         this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
-            if (Objects.equals(bone.getName(), "bone2")) //right hand
+
+            if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
+                if (Objects.equals(bone.getName(), "RARM")) //right hand
+                    return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            } else if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
+                if (Objects.equals(bone.getName(), "LARM")) //right hand
+                    return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            } else if (Objects.equals(bone.getName(), "bone2")) //right hand
                 return animatable.getItemInHand(InteractionHand.MAIN_HAND);
             return null;
         }, (bone, animatable) -> null) {
@@ -57,6 +66,16 @@ public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity> {
             protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, DjinniEntity animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
+                if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
+                    poseStack.translate(-0.09, 0.13, 0);
+                    poseStack.scale(0.25F, 0.25F, 0.25F);
+                    poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                }
+                if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
+                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                    poseStack.translate(0.15, 0.42, 0.52);
+                    poseStack.mulPose(Axis.XN.rotationDegrees(55));
+                }
 
                 super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
                 poseStack.popPose();

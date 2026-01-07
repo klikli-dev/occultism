@@ -376,6 +376,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT_UNBOUND, "Unbound Afrit Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID, "Marid Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID_UNBOUND, "Unbound Marid Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WONDERING_TRADER, "Wondering Trader Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Possessed Endermite Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
@@ -621,6 +622,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
         this.addEntityType(OccultismEntities.MARID, "Marid");
         this.addEntityType(OccultismEntities.MARID_UNBOUND, "Unbound Marid");
+        this.addEntityType(OccultismEntities.WONDERING_TRADER, "Wondering Trader");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMITE, "Possessed Endermite");
         this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Possessed Skeleton");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
@@ -708,8 +710,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("job.occultism.manage_machine", "Machine Operator");
         this.add("job.occultism.transport_items", "Transporter");
         this.add("job.occultism.cleaner", "Janitor");
-        this.add("job.occultism.trade_otherstone_t1", "Otherstone Trader");
-        this.add("job.occultism.trade_otherworld_saplings_t1", "Otherworld Sapling Trader");
+        this.add("job.occultism.trader_otherstone", "Otherstone Trader");
+        this.add("job.occultism.trader_otherrock", "Otherrock Trader");
+        this.add("job.occultism.trader_otherworld_saplings", "Otherworld Sapling Trader");
+        this.add("job.occultism.gambler", "Gambler");
         this.add("job.occultism.clear_weather", "Sunshine Spirit");
         this.add("job.occultism.rain_weather", "Rainy Weather Spirit");
         this.add("job.occultism.thunder_weather", "Thunderstorm Spirit");
@@ -770,6 +774,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.vex", "Vex");
         this.add("ritual.occultism.sacrifice.tadpoles", "Tadpole");
         this.add("ritual.occultism.sacrifice.allay", "Allay");
+        this.add("ritual.occultism.sacrifice.armadillos", "Armadillo");
         this.add("ritual.occultism.sacrifice.warden", "Warden");
         this.add("ritual.occultism.sacrifice.ravager", "Ravager");
         this.add("ritual.occultism.sacrifice.endermen", "Enderman");
@@ -897,11 +902,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.book("dictionary_of_spirits");
 
         this.addRitualsCategory(helper);
-        this.addSummoningRitualsCategory(helper);
-        this.addCraftingRitualsCategory(helper);
         this.addPossessionRitualsCategory(helper);
         this.addFamiliarRitualsCategory(helper);
-        this.addStorageCategory(helper);
     }
 
     private void addRitualsCategory(BookContextHelper helper) {
@@ -974,251 +976,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.entryName(), "Familiar Rituals");
     }
 
-    private void addSummoningRitualsCategory(BookContextHelper helper) {
-        helper.category("summoning_rituals");
-        this.add(helper.categoryName(), "Summoning Rituals");
-
-        helper.entry("overview");
-        this.add(helper.entryName(), "Summoning Rituals");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Summoning Rituals");
-        this.add(helper.pageText(),
-                """
-                        Summon rituals force spirits to enter this world in their chosen shape, leading to little restrictions on their power. Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
-                         """);
-
-        helper.entry("return_to_rituals");
-        this.add(helper.entryName(), "Return to Rituals Category");
-
-        helper.entry("summon_crusher_t1");
-        //Moved to OccultismBookProvider#makeSummonCrusherT1Entry
-
-        helper.entry("summon_crusher_t2");
-        this.add(helper.entryName(), "Summon Djinni Crusher");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Djinni Crusher");
-        this.add(helper.pageText(),
-                """
-                        The djinni crusher is faster, more efficient and proficient than the foliot crusher.
-                        Allowing ice to be crushed without melting.
-                        \\
-                        It will crush **one** ore into **three** corresponding dusts.
-                         """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("summon_crusher_t3");
-        this.add(helper.entryName(), "Summon Afrit Crusher");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Afrit Crusher");
-        this.add(helper.pageText(),
-                """
-                        The afrit crusher is faster and more efficient than the djinni crusher.
-                        \\
-                        \\
-                        It will crush **one** ore into **four** corresponding dusts.
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("summon_crusher_t4");
-        this.add(helper.entryName(), "Summon Marid Crusher");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Marid Crusher");
-        this.add(helper.pageText(),
-                """
-                        The marid crusher is faster, more efficient and proficient than the afrit crusher.
-                        Allowing crushing the echo shard while maintaining its properties.
-                        \\
-                        It will crush **one** ore into **six** corresponding dusts.
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-
-        helper.entry("summon_lumberjack");
-        //Moved to OccultismBookProvider#makeSummonLumberjackEntry
-
-        helper.entry("summon_transport_items");
-        //Moved to OccultismBookProvider#makeSummonTransportItemsEntry
-
-
-        helper.entry("summon_cleaner");
-        //Moved to OccultismBookProvider#makeSummonCleanerEntry
-
-        helper.entry("summon_manage_machine");
-        this.add(helper.entryName(), "Summon Djinni Machine Operator");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Djinni Machine Operator");
-        this.add(helper.pageText(),
-                """
-                        The machine operator transfers items specified in the dimensional storage actuator GUI, to it's managed machine, and returns crafting results to the storage system. It can also be used to automatically empty a chest into the storage actuator.
-                        \\
-                        Basically, on-demand crafting!
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("tutorial");
-        this.add(helper.pageText(),
-                """
-                        To use the machine operator use the book of calling to link a Storage Actuator, the machine and optionally a separate extract location (the face you click on will be extracted from!). For the machine you can additionally set a custom name and the insert/extract facings.
-                          """);
-
-        helper.page("tutorial2");
-        this.add(helper.pageText(),
-                """
-                        Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
-                        \\
-                        \\
-                        For an easy start, make sure to view the short [Tutorial Video](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
-                          """);
-
-        helper.page("book_of_calling");
-        this.add(helper.pageText(),
-                """
-                        If you lose the book of calling, you can craft a new one.
-                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("usage");
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
-                """
-                        Use the book of calling to set the actuator, managed machine and extract locations of the machine operator.
-                        \\
-                        \\
-                        See [Books of Calling](entry://getting_started/books_of_calling) for more information.
-                           """);
-
-        helper.entry("trade_spirits");
-        this.add(helper.entryName(), "Trade Spirits");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Trade Spirits");
-        this.add(helper.pageText(),
-                """
-                        Trade spirits pick up appropriate items and throw trade results on the ground. The spirit is only actively exchanging items if purple particles spawn around it.
-                        \\
-                        \\
-                        **If you do not see any particles**, ensure that you gave the proper item and amount.
-                           """);
-
-        helper.page("intro2");
-        this.add(helper.pageText(),
-                """
-                        Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.entry("summon_otherworld_sapling_trader");
-        this.add(helper.entryName(), "Summon Otherworld Sapling Trader");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Otherworld Sapling Trader");
-        this.add(helper.pageText(),
-                """
-                        Otherworld Trees grown from natural Otherworld Saplings can only be harvested when under the effect of [#](%1$s)Third Eye[#](). To make life easier, the Otherworld Sapling Trader will exchange such natural saplings for a stable variant that can be harvested by anyone, and will drop the same stable saplings when harvested.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("trade");
-        //no text
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("summon_otherstone_trader");
-        this.add(helper.entryName(), "Summon Otherstone Trader");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Otherstone Trader");
-        this.add(helper.pageText(),
-                """
-                        The Otherstone Trader spirit allows to get more [](item://occultism:otherstone) than using [](item://occultism:spirit_fire). Thus it is especially efficient if you want to use Otherstone as a building material.
-                           """);
-
-        helper.page("trade");
-        //no text
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("weather_magic");
-        this.add(helper.entryName(), "Weather Magic");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Weather Magic");
-        this.add(helper.pageText(),
-                """
-                        Weather magic is especially useful for farmers and others depending on specific weather. Summons spirits to modify the weather. Different types of weather modification require different spirits.
-                        \\
-                        \\
-                        Weather spirits will only modify the weather once and then vanish.
-                           """);
-
-        helper.page("ritual_clear");
-        //no text
-
-        helper.page("ritual_rain");
-        //no text
-
-        helper.page("ritual_thunder");
-        //no text
-
-        helper.entry("time_magic");
-        this.add(helper.entryName(), "Time Magic");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Time Magic");
-        this.add(helper.pageText(),
-                """
-                        Time magic is limited in scope, it cannot send the magician back or forth in time, but rather allows to change time time of day. This is especially useful for rituals or other tasks requiring day- or nighttime specifically.
-                        \\
-                        \\
-                        Time spirits will only modify the time once and then vanish.
-                           """);
-
-        helper.page("ritual_day");
-        //no text
-
-        helper.page("ritual_night");
-        //no text
-
-        helper.entry("afrit_essence");
-        this.add(helper.entryName(), "Afrit Essence");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Afrit Essence");
-        this.add(helper.pageText(),
-                """
-                        [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("marid_essence");
-        this.add(helper.entryName(), "Marid Essence");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Marid Essence");
-        this.add(helper.pageText(),
-                """
-                        [](item://occultism:marid_essence) is required to safely control the most powerful spirits, commonly used in the form of blue chalk. To obtain the essence, an [#](%1$s)Marid[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-    }
-
     private void addPossessionRitualsCategory(BookContextHelper helper) {
         helper.category("possession_rituals");
         this.add(helper.categoryName(), "Possession Rituals");
@@ -1237,6 +994,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         As such these rituals are used to obtain rare items without having to venture into dangerous places.
+                        \\
+                        \\
+                        Possessed Mobs count as their vanilla counterparts for the ritual sacrifices purposes.
                            """);
 
         helper.entry("possess_enderman");
@@ -1355,394 +1115,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
                           """);
-    }
-
-    private void addCraftingRitualsCategory(BookContextHelper helper) {
-        helper.category("crafting_rituals");
-//        this.add(helper.categoryName(), "Binding Rituals"); //done via the category provider for the rituals category
-
-        helper.entry("return_to_rituals");
-        this.add(helper.entryName(), "Return to Rituals Category");
-
-        helper.entry("overview");
-        this.add(helper.entryName(), "Binding Rituals");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Binding Rituals");
-        this.add(helper.pageText(),
-                """
-                        Binding rituals infuse spirits into items, where their powers are used for one specific purpose. The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
-                           """);
-
-        helper.entry("craft_storage_system");
-        this.add(helper.entryName(), "Magic Storage");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The following entries show only the rituals related to the Magic Storage system. For full step-by-step instructions on building the storage system, see the [Magic Storage](category://storage) category.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.entry("craft_dimensional_matrix");
-        this.add(helper.entryName(), "Dimensional Matrix");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The dimensional matrix is the entry point to a small dimension used for storing items. A [#](%1$s)Djinni[#]() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_infused_pickaxe");
-        this.add(helper.entryName(), "Infused Pickaxe");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Otherworld ores usually can only be mined with Otherworld metal tools. The [](item://occultism:infused_pickaxe) is a makeshift solution to this Chicken-and-Egg problem. Brittle spirit attuned gems house a [#](%1$s)Djinni[#]() that allows harvesting the ores, but the durability is extremely low. A more durable version is the [Iesnium Pickaxe](entry://getting_started/iesnium_pickaxe).
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_otherworld_goggles");
-        this.add(helper.entryName(), "Craft Otherworld Goggles");
-
-        helper.page("goggles_spotlight");
-        this.add(helper.pageText(),
-                """
-                        The [](item://occultism:otherworld_goggles) give the wearer permanent [#](%1$s)Third Eye[#](), allowing to view even blocks hidden from those partaking of [Demon's Dream](entry://occultism:dictionary_of_spirits/getting_started/demons_dream).
-                        \\
-                        \\
-                        This elegantly solves the general issue of summoners being in a drugged haze, causing all sorts of havoc.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("goggles_more");
-        this.add(helper.pageText(),
-                """
-                        The Goggles will, however, not give the ability to harvest otherworld materials. That means when wearing goggles, an [Infused Pick](entry://getting_started/infused_pickaxe), or even better, an [Iesnium Pick](entry://getting_started/iesnium_pickaxe) needs to be used to break blocks in order to obtain their Otherworld variants.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("lenses_spotlight");
-        this.add(helper.pageText(),
-                """
-                        Otherworld Goggles make use of a [#](%1$s)Foliot[#]() bound into the lenses. The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see Otherworld materials.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("lenses_more");
-        this.add(helper.pageTitle(), "Crafting Lenses");
-        this.add(helper.pageText(),
-                """
-                        Summoning a spirit into the lenses used to craft goggles is one of the first of the more complex rituals apprentice summoners usually attempt, showing that their skills are progressing beyond the basics.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("lenses_recipe");
-        //no text
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("goggles_recipe");
-        //no text
-
-        helper.entry("craft_storage_controller_base");
-        this.add(helper.entryName(), "Storage Actuator Base");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The storage actuator base imprisons a [#](%1$s)Foliot[#]() responsible for interacting with items in a dimensional storage matrix.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("spotlight_dark");
-        this.add(helper.pageText(),
-                """
-                        All inventory system blocks have a dark version, they function exactly like their counterpart.
-                        """);
-
-        helper.entry("craft_stabilizer_tier1");
-        this.add(helper.entryName(), "Storage Stabilizer Tier 1");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        This simple storage stabilizer is inhabited by a [#](%1$s)Foliot[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store more items.
-                        \\
-                        \\
-                        By default each Tier 1 Stabilizer adds **64** item types and 512000 items storage capacity.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_stabilizer_tier2");
-        this.add(helper.entryName(), "Storage Stabilizer Tier 2");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        This improved stabilizer is inhabited by a [#](%1$s)Djinni[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
-                        \\
-                        \\
-                        By default each Tier 2 Stabilizer adds **128** item types and 1024000 items storage capacity.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_stabilizer_tier3");
-        this.add(helper.entryName(), "Storage Stabilizer Tier 3");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        This advanced stabilizer is inhabited by an [#](%1$s)Afrit[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
-                        \\
-                        \\
-                        By default each Tier 3 Stabilizer adds **256** item types and 2048000 items storage capacity.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_stabilizer_tier4");
-        this.add(helper.entryName(), "Storage Stabilizer Tier 4");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        This highly advanced stabilizer is inhabited by a [#](%1$s)Marid[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
-                        \\
-                        \\
-                        By default each Tier 4 Stabilizer adds **512** item types and 4098000 items storage capacity.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_stable_wormhole");
-        this.add(helper.entryName(), "Stable Wormhole");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The stable wormhole allows access to a dimensional matrix from a remote destination.
-                        \\
-                        \\
-                        Shift-click a [](item://occultism:storage_controller) to link it, then place the wormhole in the world to use it as a remote access point.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_storage_remote");
-        this.add(helper.entryName(), "Remote Storage Accessor");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The [](item://occultism:storage_remote) can be linked to a [](item://occultism:storage_controller) by shift-clicking. The [#](%1$s)Djinni[#]() bound to the accessor will then be able to access items from the actuator even from across dimensions.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_foliot_miner");
-        this.add(helper.entryName(), "Foliot Miner");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Foliot Miner");
-        this.add(helper.pageText(),
-                """
-                        Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. They are summoned and bound into magic lamps, which they can leave only through the mineshaft. The magic lamp degrades over time, once it breaks the spirit is released back to [#](%1$s)The Other Place[#]().
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("magic_lamp");
-        this.add(helper.pageTitle(), "Magic Lamp");
-        this.add(helper.pageText(),
-                """
-                        To summon miner spirits, you first need to craft a [Magic Lamp](entry://getting_started/magic_lamps) to hold them. The key ingredient for that is [Iesnium](entry://getting_started/iesnium).
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("magic_lamp_recipe");
-        //no text
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The [#](%1$s)Foliot[#]() miner harvests block without much aim and returns anything it finds. The mining process is quite slow, due to this the Foliot expends only minor amounts of energy, damaging the lamp it is housed in slowly over time.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_djinni_miner");
-        this.add(helper.entryName(), "Djinni Miner");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The [#](%1$s)Djinni[#]() miner harvests ores specifically. By discarding other blocks it is able to mine faster and more efficiently. The greater power of the djinni it damages the magic lamp relatively quickly.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_afrit_miner");
-        this.add(helper.entryName(), "Afrit Miner");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The [#](%1$s)Afrit[#]() miner harvests ores, like djinni miners, and additionally mines deepslate ores. This miner is faster and more efficient than the djinnis, thus damaging the magic lamp even more slowly.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_marid_miner");
-        this.add(helper.entryName(), "Marid Miner");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The [#](%1$s)Marid[#]() miner is the most powerful miner spirit, it has the fasted mining speed and best magic lamp preservation. Unlike other miner spirits they also can mine the rarest ores, such as [](item://minecraft:ancient_debris) and [](item://occultism:iesnium_ore).
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_ancient_miner");
-        this.add(helper.entryName(), "Ancient Miner");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        By compressing MMM you get an extremely powerful miner, but something starts watching you. [](item://occultism:mining_dim_core) are a extremely rarely mined by a Marid.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_satchel");
-        this.add(helper.entryName(), "Surprisingly Substantial Satchel");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        A [#](%1$s)Foliot[#]() is bound to the satchel, tasked with **slightly** warping reality. This allows to store more items in the satchel than it's size would indicate, making it a practical traveller's companion.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_soul_gem");
-        this.add(helper.entryName(), "Soul Gem");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Soul gems are diamonds set in precious metals, which are then infused with a [#](%1$s)Djinni[#](). The spirit creates a small dimension that allows the temporary entrapment of living beings. Beings of great power or size cannot be stored, however.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("usage");
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
-                """
-                        To capture an entity, [#](%1$s)right-click[#]() it with the soul gem. \\
-                        [#](%1$s)Right-click[#]() again to release the entity.
-                        \\
-                        \\
-                        Bosses cannot be captured.
-                               """.formatted(COLOR_PURPLE));
-
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_familiar_ring");
-        this.add(helper.entryName(), "Familiar Ring");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Familiar Rings consist of a [](item://occultism:soul_gem), that contains a [#](%1$s)Djinni[#](), mounted on a ring. The [#](%1$s)Djinni[#]() in the ring allows the familiar captured in the soul gem to apply effects to the wearer."
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("usage");
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
-                """
-                        To use a [](item://occultism:familiar_ring), simply capture a summoned (and tamed) familiar by [#](%1$s)right-clicking[#]() it, and then wear the ring as [#](%1$s)Curio[#]() to make use of the effects the familiar provides.
-                        \\
-                        \\
-                        When released from a familiar ring, the spirit will recognize the person releasing them as their new master.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_wild_trim");
-        this.add(helper.entryName(), "Forge Wild Trim");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Unlike other rituals, creating a [](item://minecraft:wild_armor_trim_smithing_template) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_budding_amethyst");
-        this.add(helper.entryName(), "Forge Budding Amethyst");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Unlike other rituals, creating a [](item://minecraft:budding_amethyst) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("craft_reinforced_deepslate");
-        this.add(helper.entryName(), "Forge Reinforced Deepslate");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Unlike other rituals, creating a [](item://minecraft:reinforced_deepslate) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.\\
-                        \\
-                        These blocks can be collected with a infused or iesnium pickaxe.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.entry("repair");
-        this.add(helper.entryName(), "Repair Rituals");
-
-        helper.page("spotlight");
-        this.add(helper.pageTitle(), "Repairing");
-        this.add(helper.pageText(),
-                """
-                        With simple materials, a Djinni can repair any chalk for you. By evolving in the occult path, an Afrit can repair miners, tools and armors. Any item repaired in this way retains its properties.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual_chalks");
-        //no text
-        helper.page("ritual_miners");
-        //no text
-        helper.page("ritual_tools");
-        //no text
-        helper.page("ritual_armors");
-        //no text
     }
 
     private void addFamiliarRitualsCategory(BookContextHelper helper) {
@@ -2224,141 +1596,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     }
 
-    private void addStorageCategory(BookContextHelper helper) {
-        helper.category("storage");
-        this.add(helper.categoryName(), "Magic Storage");
-
-        helper.entry("overview");
-        this.add(helper.entryName(), "Magic Storage");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Magic Storage");
-        this.add(helper.pageText(),
-                """
-                        Every summoner knows the problem: There are just too many occult paraphernalia lying around. The solution is simple, yet elegant: Magic Storage!
-                        \\
-                        \\
-                        Using Spirits able to access storage dimensions it is possible to create almost unlimited storage space.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("intro2");
-        this.add(helper.pageText(),
-                """
-                        Follow the steps shown in this category to get your own storage system!
-                        The steps related to storage in [Binding Rituals](category://crafting_rituals/) show only the rituals, while here **all required steps** including crafting are shown.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("storage_controller");
-        this.add(helper.entryName(), "Storage Actuator");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Storage Actuator");
-        this.add(helper.pageText(),
-                """
-                        The [](item://occultism:storage_controller) consists of a [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix) inhabited by a [#](%1$s)Djinni[#]() that creates and manages a storage dimension, and a [Base](entry://crafting_rituals/craft_storage_controller_base) infused with a [#](%1$s)Foliot[#]() that moves items in and out of the storage dimension.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("usage");
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
-                """
-                        After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and [#](%1$s)right-click[#]() it with an empty hand. This will open the GUI of the storage controller, from there on it will work much like a very big shulker box.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("safety");
-        this.add(helper.pageTitle(), "Safety first!");
-        this.add(helper.pageText(),
-                """
-                        Breaking the storage controller will store all contained items in the dropped item, you will not lose anything.
-                        The same applies to breaking or replacing Storage Stabilizers (you will learn about these later). 
-                        \\
-                        \\
-                        Like in a shulker box, your items are safe!
-                        """.formatted(COLOR_PURPLE));
-
-
-        helper.page("size");
-        this.add(helper.pageTitle(), "So much storage!");
-        this.add(helper.pageText(),
-                """
-                        The storage controller holds up to **128** different types of items (_You will learn later how to increase that_). Additionally it is limited to 256000 items in total. It does not matter if you have 256000 different items or 256000 of one item, or any mix.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("unique_items");
-        this.add(helper.pageTitle(), "Unique Items");
-        this.add(helper.pageText(),
-                """
-                        Items with unique properties ("NBT data"), such as damaged or enchanted equipment will take up one item type for each variation. For example two wooden swords with two different damage values take up two item types. Two wooden swords with the same (or no) damage take up one item type.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("config");
-        this.add(helper.pageTitle(), "Configurablity");
-        this.add(helper.pageText(),
-                """
-                        The item type amount and storage size can be configured in the "[#](%1$s)occultism-server.toml[#]()" config file in the save directory of your world.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("mods");
-        this.add(helper.pageTitle(), "Interaction with Mods");
-        this.add(helper.pageText(),
-                """
-                        For other mods the storage controller behaves like a shulker box, anything that can interact with vanilla chests and shulker boxes can interact with the storage controller.
-                        Devices that count storage contents may have trouble with the stack sizes.
-                        """.formatted(COLOR_PURPLE));
-
-
-        helper.page("matrix_ritual");
-        //no text
-
-        helper.page("base_ritual");
-        //no text
-
-        helper.page("recipe");
-        this.add(helper.pageText(),
-                """
-                        This is the actual block that works as a storage, make sure to craft it!
-                        Placing just the [](item://occultism:storage_controller_base) from the previous step won't work.
-                        """.formatted(COLOR_PURPLE));
-        //no text
-
-
-        helper.entry("storage_stabilizer");
-        this.add(helper.entryName(), "Extending Storage");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Storage Stabilizers increase the storage space in the storage dimension of the storage actuator. The higher the tier of the stabilizer, the more additional storage it provides. The following entries will show you how to craft each tier.
-                        \\
-                        \\
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("upgrade");
-        this.add(helper.pageTitle(), "Upgrading");
-        this.add(helper.pageText(),
-                """
-                        It is **safe to destroy a storage stabilizer** to upgrade it. The items in the [Storage Actuator](entry://storage/storage_controller) will not be lost or dropped - you simply cannot add new items until you add enough storage stabilizers to have free slots again.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("build_instructions");
-        this.add(helper.pageTitle(), "Build Instructions");
-        this.add(helper.pageText(),
-                """
-                        Storage controllers need to point at the [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix), that means **one block above the [Storage Actuator](entry://storage/storage_controller)**.
-                        \\
-                        \\
-                        They can be **up to 5 blocks away** from the Dimensional Matrix, and need to be in a straight line of sight. See the next page for a possible very simple setup.
-                        """.formatted(COLOR_PURPLE));
-
-
-        helper.page("demo");
-        this.add(helper.pageTitle(), "Storage Stabilizer Setup");
-        this.add(helper.pageText(),
-                """
-                        **Note:** You do not need all 4 stabilizers, even one will increase your storage.
-                        """.formatted(COLOR_PURPLE));
-    }
-
     private void addAdvancements() {
         //"advancements\.occultism\.(.*?)\.title": "(.*)",
         //this.advancementTitle\("\1", "\2"\);
@@ -2486,6 +1723,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addJeiTranslations() {
         this.add("occultism.jei.spirit_fire", "Spiritfire");
+        this.add("occultism.jei.spirit_trader", "Trader Spirit");
+        this.add("occultism.jei.spirit_trader.chance", "Chance: %s%%");
         this.add("occultism.jei.crushing", "Crusher Spirit");
         this.add("occultism.jei.crystallize", "Crystallizer Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
@@ -2627,10 +1866,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK, "Summon Foliot Lumberjack", "Foliot", "The Lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_FARMER, "Summon Foliot Farmer", "Foliot", "The Farmer will harvest crops in it's working area and deposit the dropped items into the specified chest.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER, "Summon Otherstone Trader", "Foliot", "The Otherstone Trader trades normal stone for otherstone.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER, "Summon Otherrock Trader", "Foliot", "The Otherrock Trader trades normal stone for otherrock.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER, "Summon Otherworld Sapling Trader", "Foliot", "The Otherworld Sapling Trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS, "Summon Foliot Transporter", "Foliot", "The Transporter will move all items it can access from one inventory to another, including machines.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER, "Summon Foliot Janitor", "Foliot", "The Janitor will pick up dropped items and deposit them into a target inventory.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "Summon Djinni Machine Operator", "Djinni", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER, "Summon Djinni Gambler", "Djinni", "The Gambler bets any gem for some other gems and nuggets, a trader with a taste of randomness");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_WONDERING_TRADER, "Summon Wondering Trader", "Djinni", "Summons a Wondering Trader who offers special occult items when you see the otherworld.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "Summoning of Dawn", "Djinni", "Summons a Djinni that sets the time to high noon.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "Summoning of Dusk", "Djinni", "Summons a Djinni that sets the time to midnight.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "Summoning of Clear Sky", "Djinni", "Summons a Djinni that clears the weather.");
@@ -2762,6 +2004,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "Forge Bell", "Wild", "Wild Spirits will forge a bell.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "Forge Budding Amethyst", "Wild", "Wild Spirits will forge a Budding Amethyst.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM, "Forge Wild Armor Trim Smithing Template", "Wild", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR, "Forge Iron Horse Armor", "Wild", "Wild Spirits will forge a Iron Horse Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR, "Forge Golden Horse Armor", "Wild", "Wild Spirits will forge a Golden Horse Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR, "Forge Diamond Horse Armor", "Wild", "Wild Spirits will forge a Diamond Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE, "Forge Celestial Chalice", "Eldritch", "Eldritch Spirits will forge an Celestial Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
@@ -2972,6 +2217,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addEmiTranslations() {
         this.add("emi.category.occultism.spirit_fire", "Spirit Fire");
+        this.add("emi.category.occultism.spirit_trader", "Spirit Trader");
         this.add("emi.category.occultism.crushing", "Crushing");
         this.add("emi.category.occultism.crystallize", "Crystallize");
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
@@ -3071,52 +2317,45 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("unlinkWormholeOnBreak", "Unlink Wormhole on Break");
 
         this.addConfig("spirit_job", "Spirit Job Settings");
-        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Duration of slow falling effect given by Drikwing Familiar in seconds.");
-        this.addConfig("tier1CrusherTimeMultiplier", "Time multiplier for Tier 1 Crusher operations.");
-        this.addConfig("tier2CrusherTimeMultiplier", "Time multiplier for Tier 2 Crusher operations.");
-        this.addConfig("tier3CrusherTimeMultiplier", "Time multiplier for Tier 3 Crusher operations.");
-        this.addConfig("tier4CrusherTimeMultiplier", "Time multiplier for Tier 4 Crusher operations.");
-        this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
-        this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
-        this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
-        this.addConfig("tier1CrusherOperationCount", "Recipes done per operations for Tier 1 Crusher.");
-        this.addConfig("tier2CrusherOperationCount", "Recipes done per operations for Tier 2 Crusher.");
-        this.addConfig("tier3CrusherOperationCount", "Recipes done per operations for Tier 3 Crusher.");
-        this.addConfig("tier4CrusherOperationCount", "Recipes done per operations for Tier 4 Crusher.");
-        this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
-        this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
-        this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
-        this.addConfig("tier2CrystallizerTimeMultiplier", "Time multiplier for Tier 2 Crystallizer operations.");
-        this.addConfig("tier3CrystallizerTimeMultiplier", "Time multiplier for Tier 3 Crystallizer operations.");
-        this.addConfig("tier4CrystallizerTimeMultiplier", "Time multiplier for Tier 4 Crystallizer operations.");
-        this.addConfig("tier1CrystallizerOutputMultiplier", "Output multiplier for Tier 1 Crystallizer operations.");
-        this.addConfig("tier2CrystallizerOutputMultiplier", "Output multiplier for Tier 2 Crystallizer operations.");
-        this.addConfig("tier3CrystallizerOutputMultiplier", "Output multiplier for Tier 3 Crystallizer operations.");
-        this.addConfig("tier4CrystallizerOutputMultiplier", "Output multiplier for Tier 4 Crystallizer operations.");
-        this.addConfig("tier1CrystallizerOperationCount", "Recipes done per operations for Tier 1 Crystallizer.");
-        this.addConfig("tier2CrystallizerOperationCount", "Recipes done per operations for Tier 2 Crystallizer.");
-        this.addConfig("tier3CrystallizerOperationCount", "Recipes done per operations for Tier 3 Crystallizer.");
-        this.addConfig("tier4CrystallizerOperationCount", "Recipes done per operations for Tier 4 Crystallizer.");
-        this.addConfig("crystallizerResultPickupDelay", "Delay before items from crystallizer operations can be picked up.");
-        this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
-        this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
-        this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");
-        this.addConfig("tier4SmelterTimeMultiplier", "Time multiplier for Tier 4 Smelter operations.");
-        this.addConfig("tier1SmelterOperationCount", "Recipes done per operations for Tier 1 Smelter.");
-        this.addConfig("tier2SmelterOperationCount", "Recipes done per operations for Tier 2 Smelter.");
-        this.addConfig("tier3SmelterOperationCount", "Recipes done per operations for Tier 3 Smelter.");
-        this.addConfig("tier4SmelterOperationCount", "Recipes done per operations for Tier 4 Smelter.");
-        this.addConfig("smelterResultPickupDelay", "Delay before items from smelter operations can be picked up.");
-        this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
-        this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
-        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");
-        this.addConfig("greedySearchRange", "Upgraded Greedy familiar horizontal search range");
-        this.addConfig("greedyVerticalSearchRange", "Upgraded Greedy familiar vertical search range");
+        this.addConfig("tier", "Tier");
+        this.addConfig("timeMultiplier", "Time multiplier");
+        this.addConfig("outputMultiplier", "Output multiplier");
+        this.addConfig("operationCount", "Recipes done per operations");
+        this.addConfig("operationTimer", "Time to each operation");
+        this.addConfig("crusher_tier1", "Foliot Crusher");
+        this.addConfig("crusher_tier2", "Djinni Crusher");
+        this.addConfig("crusher_tier3", "Afrit Crusher");
+        this.addConfig("crusher_tier4", "Marid Crusher");
+        this.addConfig("crusherResultPickupDelay", "Crusher Pickup Delay");
+        this.addConfig("crystal_tier1", "Foliot Crystallizer");
+        this.addConfig("crystal_tier2", "Djinni Crystallizer");
+        this.addConfig("crystal_tier3", "Afrit Crystallizer");
+        this.addConfig("crystal_tier4", "Marid Crystallizer");
+        this.addConfig("crystallizerResultPickupDelay", "Crystallizer Pickup Delay");
+        this.addConfig("smelter_tier1", "Foliot Smelter");
+        this.addConfig("smelter_tier2", "Djinni Smelter");
+        this.addConfig("smelter_tier3", "Afrit Smelter");
+        this.addConfig("smelter_tier4", "Marid Smelter");
+        this.addConfig("smelterResultPickupDelay", "Smelter Pickup Delay");
+        this.addConfig("trader_sapling", "Otherworld Sapling Trader");
+        this.addConfig("trader_otherstone", "Otherstone Trader");
+        this.addConfig("trader_otherrock", "Otherrock Trader");
+        this.addConfig("trader_gem", "Gambler");
+        this.addConfig("traderResultPickupDelay", "Trader Pickup Delay");
+        this.addConfig("traderWonderingChance", "Wondering Chance");
         this.addConfig("dayTimeToCast", "Time to cast: Day");
         this.addConfig("nightTimeToCast", "Time to cast: Night");
         this.addConfig("rainTimeToCast", "Time to cast: Rain");
         this.addConfig("thunderTimeToCast", "Time to cast: Thunder");
         this.addConfig("clearWeatherTimeToCast", "Time to cast: Clear Weather");
+
+        this.addConfig("familiar", "Familiar Settings");
+        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Drikwing slow falling duration");
+        this.addConfig("blacksmithFamiliarRepairChance", "Blacksmith repair chance");
+        this.addConfig("blacksmithFamiliarUpgradeCost", "Blacksmith upgrading iron cost");
+        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Blacksmith upgrading cooldown");
+        this.addConfig("greedySearchRange", "Greedy horizontal search range");
+        this.addConfig("greedyVerticalSearchRange", "Greedy vertical search range");
 
         this.addConfig("rituals", "Rituals Settings");
         this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");
@@ -3145,6 +2384,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerOutputBeforeBreak", "Save miners before breaking");
         this.addConfig("minerEfficiency", "Efficient miners");
         this.addConfig("minerFortune", "Fortune miners");
+        this.addConfig("minerSilk", "Silk miners");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
         this.addConfig("maxDistanceRTP", "Max Distance RTP");
         this.addConfig("maxTryRTP", "Max Attempts to RTP");

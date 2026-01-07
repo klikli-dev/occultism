@@ -337,7 +337,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         GreedyFamiliarEntity greedy;
 
         public FindBlockGoal(GreedyFamiliarEntity greedy) {
-            super(greedy, 1, Occultism.SERVER_CONFIG.spiritJobs.greedySearchRange.getAsInt(), Occultism.SERVER_CONFIG.spiritJobs.greedyVerticalSearchRange.getAsInt());
+            super(greedy, 1, Occultism.SERVER_CONFIG.familiar.greedySearchRange.getAsInt(), Occultism.SERVER_CONFIG.familiar.greedyVerticalSearchRange.getAsInt());
             this.greedy = greedy;
         }
 
