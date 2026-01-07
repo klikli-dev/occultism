@@ -755,7 +755,7 @@
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.name": "Summon Djinni Machine Operator",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial.text": "マシンオペレータを使用するには、呼び出し本を使用してストレージアクチュエータをリンクします。 マシンと必要に応じて別の抽出場所(クリックした顔は!から抽出されます)。 マシンの場合、追加でカスタム名とインサート/抽出ファクションを設定できます。\n",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial2.text": "新しい機械を設定する際（または召喚の書で設定する際）は、抽出設定がリセットされることに注意してください。\n\\\n\\\n簡単に始めるために、[チュートリアルビデオ](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)をご覧になることをお勧めします！\n",
-  "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.intro.text": "Otherstone のトレーダーの精神は[](item://occultism:otherstone)を使うより多くの[](item://occultissm:spirit_fire)を得ることができます。 したがって、建材としてOtherstoneを使用する場合は特に効率的です。\n",
+  "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.intro.text": "Otherstone のトレーダーの精神は[](item://occultism:otherstone)を使うより多くの[](item://occultism:spirit_fire)を得ることができます。 したがって、建材としてOtherstoneを使用する場合は特に効率的です。\n",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.intro.title": "Otherstoneトレーダー",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.name": "Otherstoneトレーダーを召喚する",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.intro.text": "他国の自然から育てられた異国の木 [#](ad03fc)第3の目[#]の効果でのみ苗木を収穫できます。 他国の苗木トレーダーは、生活を楽にするために、このような天然苗木を誰でも収穫できる安定した種類に交換します。 収穫時に同じ安定した苗木を落とします\n",
