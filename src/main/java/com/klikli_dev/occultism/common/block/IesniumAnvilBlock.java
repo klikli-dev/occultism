@@ -12,10 +12,12 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
@@ -92,21 +94,29 @@ public class IesniumAnvilBlock extends FallingBlock {
     @Override
     protected void falling(FallingBlockEntity fallingEntity) {
         fallingEntity.setHurtsEntities(FALL_DAMAGE_PER_DISTANCE, FALL_DAMAGE_MAX);
-    }
-
-    @Override
-    public void onLand(Level level, BlockPos pos, BlockState state, BlockState replaceableState, FallingBlockEntity fallingBlock) {
-        if (!fallingBlock.isSilent()) {
-            level.levelEvent(1031, pos, 0);
-        }
+        fallingEntity.disableDrop();
     }
 
     @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
-        if (!fallingBlock.isSilent()) {
-            level.levelEvent(1029, pos, 0);
+        if (level.getBlockState(pos).canBeReplaced()) {
+            level.destroyBlock(pos, true);
+            level.setBlockAndUpdate(pos, fallingBlock.getBlockState());
+            if (!fallingBlock.isSilent())
+                level.levelEvent(1031, pos, 0);
+        } else {
+            if (level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+                ItemEntity item = new ItemEntity(
+                        level, fallingBlock.getX(), fallingBlock.getY(), fallingBlock.getZ(),
+                        fallingBlock.getBlockState().getBlock().asItem().getDefaultInstance()
+                );
+                level.addFreshEntity(item);
+            }
+            if (!fallingBlock.isSilent()) {
+                level.levelEvent(1029, pos, 0);
+            }
         }
-        level.setBlockAndUpdate(pos, fallingBlock.getBlockState());
+
     }
 
     @Override
