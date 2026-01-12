@@ -310,7 +310,7 @@
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.spotlight.text": " The dimensional mineshaft houses a [#](AA00AA)Djinni[#]() which opens up a stable connection into an\n  uninhabited dimension, perfectly suited for mining. While the portal is too small\n   to transfer humans, other spirits can use it to enter the mining dimension and bring back resources.\n\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_djinni_miner.description": "鉱石と鉱石",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_djinni_miner.name": "ジンニ鉱夫",
-  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_djinni_miner.spotlight.text": "The [#](AA00AA)Djinni[#]() miner harvests ores specifically. By discarding other blocks it is able to mine faster and\n more efficiently. The greater power of the djinni it damages the magic lamp relatively quickly.\n",
+  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_djinni_miner.spotlight.text": "[#](AA00AA)ジンニ[#]() 鉱夫は特に鉱石を採掘します。他のブロックを捨てることで、より速く効率的に採掘できます。ジンニの強大な力は魔法のランプを比較的早く損傷させます。\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.description": "Is it fast enough now?",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.name": "Eldritch Chalice",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight.text": "Forging an [](item://occultism:eldritch_chalice) is one service provide by [#](AA00AA)Eldritch Spirits[#](), this block will\n helps occult masters twist time, performing any ritual instantly.\\\n All other things will works like the Golden or Iesnium Ritual Bowl.\n",
