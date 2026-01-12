@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -19,7 +20,7 @@ import net.tslat.smartbrainlib.util.BrainUtils;
 import java.util.List;
 
 public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
-    public static final double REPLANT_RANGE_SQUARE = Math.pow(2.5, 2);
+    public static final double REPLANT_RANGE_SQUARE = Math.pow(3.5, 2);
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(OccultismMemoryTypes.LAST_FELLED_TREE.get(), MemoryStatus.VALUE_PRESENT)
@@ -27,27 +28,34 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get()).getFirst();
         var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
         return StorageUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1
                 && dist <= ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE;
     }
 
     protected void start(E entity) {
-        var lastFelledTree = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        var lastFelledTreeList = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        var lastFelledTree = lastFelledTreeList.getFirst();
 
         if (entity.level().isEmptyBlock(lastFelledTree)) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(lastFelledTree));
 
-            var handler = entity.inventory;
-            ItemStack sapling = handler.getStackInSlot(StorageUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS));
-            if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
-                entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
-                sapling.shrink(1);
+            if (entity.level().getBlockState(lastFelledTree.below()).is(BlockTags.DIRT)) {
+                var handler = entity.inventory;
+                ItemStack sapling = handler.getStackInSlot(StorageUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS));
+                if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
+                    entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
+                    sapling.shrink(1);
+                }
             }
         }
-
-        BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        lastFelledTreeList.removeFirst();
+        if (lastFelledTreeList.isEmpty()) {
+            BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        } else {
+            BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), lastFelledTreeList);
+        }
     }
 
     @Override

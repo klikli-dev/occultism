@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
-    public static final double PICKUP_XZ_RANGE_SQUARE = 2.5;
+    public static final double PICKUP_XZ_RANGE_SQUARE = 3.5;
     public static final double PICKUP_Y_RANGE = 16;
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
