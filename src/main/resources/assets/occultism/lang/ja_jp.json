@@ -317,7 +317,7 @@
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight2.text": "Also in the Celestial version.\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.description": "My precious",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.name": "使い魔のリング",
-  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.spotlight.text": "Familiar Rings consist of a [](item://occultism:soul_gem), that contains a [#](AA00AA)Djinni[#](), mounted on a ring.\n The [#](AA00AA)Djinni[#]() in the ring allows the familiar captured in the soul gem to apply effects to the wearer.\n",
+  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.spotlight.text": "使い魔のリングは、リングに取り付けられた[](item://occultism:soul_gem), that contains a [#](AA00AA)Djinni[#]()によって制御されています。リング内の[#](AA00AA)Djinni[#]()により、ソウルジェムに捕らえられた使い魔が着用者に効果を与えます。\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.text": "[](item://occultism:familiar_ring)を使用するには、[#](AA00AA)右クリック[#]()で召喚された（そして手懐けられた）使い魔を捕らえ、その後、リングを[#](AA00AA)キュリオ[#]()として着用し、使い魔の供給効果を得ます。使い魔のリングから解放された精霊は、彼らを解放した人を新しい主として認識します。",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.title": "使用法",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.description": "Stone, stone and ores",
