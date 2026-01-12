@@ -1,5 +1,5 @@
 {
-"_comment": "Дата обновления: 13.01.2026 02:29",
+"_comment": "Дата обновления: 13.01.2026 04:25",
 "_comment": "Не редактировать! Заметили ошибку? Буду благодарен, если сообщите о ней через Telegram или Boosty — ссылка в профиле.",
 "_comment": "Финансовая поддержка: https://boosty.to/heimdallr-1",
 "_comment": "Контакты: heimdallr196@gmail.com",
@@ -1509,6 +1509,7 @@
 "effect.occultism.dragon_greed": "Алчность дракона",
 "effect.occultism.mummy_dodge": "Уклонение",
 "effect.occultism.pumpkin_head": "Тыквенная голова",
+"effect.occultism.step_blocked": "Остановка шага",
 "effect.occultism.step_height": "Высокий шаг",
 "effect.occultism.third_eye": "Третий глаз",
 "emi.category.occultism.crushing": "Измельчение",
