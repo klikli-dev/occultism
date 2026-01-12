@@ -795,6 +795,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("effect.occultism.bat_lifesteal", "Похищение жизни");
         this.lang("ru_ru").add("effect.occultism.beaver_harvest", "Лесоруб");
         this.lang("ru_ru").add("effect.occultism.step_height", "Высокий шаг");
+		this.lang("ru_ru").add("effect.occultism.step_blocked", "Остановка шага");
 		this.lang("ru_ru").add("effect.occultism.pumpkin_head", "Тыквенная голова");
 
         //Potions
