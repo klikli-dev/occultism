@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -17,7 +18,7 @@ public class OccultismMemoryTypes {
     public static DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(BuiltInRegistries.MEMORY_MODULE_TYPE, Occultism.MODID);
     public static final Supplier<MemoryModuleType<BlockPos>> NEAREST_TREE = MEMORY_MODULE_TYPES.register("nearest_tree", () -> new MemoryModuleType<>(Optional.empty()));
 
-    public static final Supplier<MemoryModuleType<BlockPos>> LAST_FELLED_TREE = MEMORY_MODULE_TYPES.register("last_felled_tree", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<List<BlockPos>>> LAST_FELLED_TREE = MEMORY_MODULE_TYPES.register("last_felled_tree", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<WalkTarget>> LAST_TREE_WALK_TARGET = MEMORY_MODULE_TYPES.register("last_tree_walk_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Boolean>> NO_TREE_IN_WORK_AREA = MEMORY_MODULE_TYPES.register("no_tree_in_work_area", () -> new MemoryModuleType<>(Optional.empty()));

@@ -66,6 +66,8 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
         if (progress > 0 && miningTime > 0) {
             guiGraphics.blit(TEXTURE, this.leftPos + 61, this.topPos + 41, 176, 0, progress + 1, 4);
         }
+        if (this.otherworldMiner.inputHandler.getStackInSlot(0).isEmpty())
+            guiGraphics.blit(TEXTURE, this.leftPos + 26, this.topPos + 35, 176, 4, 16, 16);
     }
 
 }

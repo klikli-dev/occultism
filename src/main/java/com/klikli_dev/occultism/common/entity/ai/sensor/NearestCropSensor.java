@@ -119,7 +119,7 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                     var isReachable = false;
                     for (Direction facing : Direction.Plane.HORIZONTAL) {
                         BlockPos pos = potentialRoot.relative(facing);
-                        if (level.isEmptyBlock(pos) || level.getBlockState(pos).getBlock() instanceof CropBlock) {
+                        if (level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
                             isReachable = true;
                             break;
                         }

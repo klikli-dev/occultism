@@ -50,7 +50,7 @@ public class SetWalkTargetToCropBehaviour<E extends SpiritEntity> extends Extend
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = cropPos.relative(facing);
-                if (entity.level().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
+                if (entity.level().getBlockState(pos).getCollisionShape(entity.level(), pos).isEmpty() && !unreachableWalkTargets.contains(pos)) {
                     walkPos = pos;
                     break;
                 }
