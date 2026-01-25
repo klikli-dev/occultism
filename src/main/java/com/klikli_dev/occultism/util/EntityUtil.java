@@ -108,7 +108,7 @@ public class EntityUtil {
         HolderLookup<EntityType<?>> lookup = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
         HolderSet<EntityType<?>> set = lookup.getOrThrow(tag);
         List<? extends EntityType<?>> list = set.stream().map(Holder::value)
-                .filter(type -> type != EntityType.PLAYER).filter(type -> type.create(level) != null).toList();
+                .filter(type -> type != EntityType.PLAYER).filter(type -> type.create(level) instanceof LivingEntity).toList();
         return list.get(list.size() == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % list.size()));
     }
 
