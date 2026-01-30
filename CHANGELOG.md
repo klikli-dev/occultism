@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.204.0] - 2026-01-30
+### :sparkles: New Features
+- [`fbbd236`](https://github.com/klikli-dev/occultism/commit/fbbd23699eaf24543692331d085b8d80b8975927) - New translations en_us.json (Chinese Simplified) *(PR [#1481](https://github.com/klikli-dev/occultism/pull/1481) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5cc8051`](https://github.com/klikli-dev/occultism/commit/5cc8051af492a186bc03738f0a59da924f426ee3) - Update EntityUtil.java *(PR [#1478](https://github.com/klikli-dev/occultism/pull/1478) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *addresses issue [#1477](https://github.com/klikli-dev/occultism/issues/1477) opened by [@MuteTiefling](https://github.com/MuteTiefling)*
+
+
 ## [release/v1.21.1-1.203.0] - 2026-01-13
 ### :sparkles: New Features
 - [`297ca2e`](https://github.com/klikli-dev/occultism/commit/297ca2e6ea63d68186833d80683d94437cd41588) - New Crowdin updates *(PR [#1470](https://github.com/klikli-dev/occultism/pull/1470) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2267,3 +2274,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.201.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.200.0...release/v1.21.1-1.201.0
 [release/v1.21.1-1.202.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.201.0...release/v1.21.1-1.202.0
 [release/v1.21.1-1.203.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.202.0...release/v1.21.1-1.203.0
+[release/v1.21.1-1.204.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.203.0...release/v1.21.1-1.204.0
