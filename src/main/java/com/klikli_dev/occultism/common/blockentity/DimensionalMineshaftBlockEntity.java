@@ -60,6 +60,9 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,16 +70,55 @@ import java.util.stream.Collectors;
 
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
-    public static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTEMENT = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
+    public static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTEMENT = ResourceKey
+            .create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
     public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
-    public ItemStackHandler inputHandler = new ItemStackHandler(1) {
+
+    // Internal handlers (mirrored behavior)
+    public MineshaftInventory inputHandler = new MineshaftInventory(1, true);
+    public MineshaftInventory outputHandler = new MineshaftInventory(9, false);
+
+    // External capability-exposed handler (buffered/cached writes)
+    public BufferedOutputHandler bufferedOutputHandler = new BufferedOutputHandler(outputHandler);
+
+    // Combined handler now uses the buffered output to propagate safety
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+
+    public boolean outputDirty = false;
+    public int miningTime;
+    public int maxMiningTime = 0;
+    public int rollsPerOperation = 0;
+
+    // Sync tracking
+    public int lastSyncedMiningTime = -1;
+    public int lastSyncedMaxMiningTime = -1;
+
+    protected Item currentInputType;
+    protected List<WeightedRecipeResult> possibleResults;
+
+    public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
+    }
+
+    // region Inner Classes
+    public class MineshaftInventory extends ItemStackHandler {
+        private boolean isInput;
+        public boolean suppressWrites = false;
+
+        public MineshaftInventory(int size, boolean isInput) {
+            super(size);
+            this.isInput = isInput;
+        }
 
         @Override
         public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            return mayPlace(stack) ? super.insertItem(slot, stack, simulate) : stack;
+            if (this.isInput) {
+                return mayPlace(stack) ? super.insertItem(slot, stack, simulate) : stack;
+            }
+            return super.insertItem(slot, stack, simulate);
         }
 
         public boolean mayPlace(ItemStack stack) {
@@ -86,32 +128,86 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         @Override
         protected void onContentsChanged(int slot) {
-            DimensionalMineshaftBlockEntity.this.setChanged();
+            if (!this.suppressWrites) {
+                DimensionalMineshaftBlockEntity.this.setChanged();
+            }
         }
 
-    };
-
-    public ItemStackHandler outputHandler = new ItemStackHandler(9) {
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            DimensionalMineshaftBlockEntity.this.setChanged();
+        public void setStackInSlotDirect(int slot, ItemStack stack) {
+            this.stacks.set(slot, stack);
         }
-
-    };
-
-    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.outputHandler);
-    public int miningTime;
-    public int maxMiningTime = 0;
-    public int rollsPerOperation = 0;
-    protected Item currentInputType;
-    protected List<WeightedRecipeResult> possibleResults;
-
-    public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
 
-    //region Static Methods
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+        private final MineshaftInventory internal;
+
+        public BufferedOutputHandler(MineshaftInventory internal) {
+            this.internal = internal;
+        }
+
+        @Override
+        public int getSlots() {
+            return internal.getSlots();
+        }
+
+        @Override
+        public @NotNull ItemStack getStackInSlot(int slot) {
+            return internal.getStackInSlot(slot);
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            internal.suppressWrites = true;
+            try {
+                ItemStack result = internal.insertItem(slot, stack, simulate);
+                // If items were accepted (result count < stack count), mark dirty
+                if (!simulate && (result.isEmpty() || result.getCount() < stack.getCount())) {
+                    DimensionalMineshaftBlockEntity.this.outputDirty = true;
+                }
+                return result;
+            } finally {
+                internal.suppressWrites = false;
+            }
+        }
+
+        @Override
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+            internal.suppressWrites = true;
+            try {
+                ItemStack result = internal.extractItem(slot, amount, simulate);
+                if (!simulate && !result.isEmpty()) {
+                    DimensionalMineshaftBlockEntity.this.outputDirty = true;
+                }
+                return result;
+            } finally {
+                internal.suppressWrites = false;
+            }
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return internal.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return internal.isItemValid(slot, stack);
+        }
+
+        @Override
+        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            internal.suppressWrites = true;
+            try {
+                internal.setStackInSlot(slot, stack);
+                DimensionalMineshaftBlockEntity.this.outputDirty = true;
+            } finally {
+                internal.suppressWrites = false;
+            }
+        }
+    }
+    // endregion Inner Classes
+
+    // region Static Methods
     public static void forceInitStackNBT(ItemStack stack, ServerLevel level) {
         stack.getItem().onCraftedBy(stack, level, FakePlayerFactory.getMinecraft(level));
     }
@@ -128,7 +224,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public Component getDisplayName() {
         return Component.literal(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).getPath());
     }
-
 
     @Override
     public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
@@ -153,35 +248,41 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+        this.lastSyncedMiningTime = this.miningTime;
+        this.lastSyncedMaxMiningTime = this.maxMiningTime;
         compound.putInt("miningTime", this.miningTime);
         compound.putInt("maxMiningTime", this.maxMiningTime);
         return super.saveNetwork(compound, provider);
     }
 
-
     public void tick() {
-        if(this.level.hasNeighborSignal(this.getBlockPos())){
+        if (this.level.hasNeighborSignal(this.getBlockPos())) {
             this.miningTime = 0;
             return;
         }
         if (!this.level.isClientSide) {
             ItemStack input = this.inputHandler.getStackInSlot(0);
 
-            //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
+            // handle unusing enchantment from evilcraft, see
+            // https://github.com/klikli-dev/occultism/issues/909
             if (input.getMaxDamage() - input.getDamageValue() < 6 &&
                     input.isEnchanted() &&
-                    this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(EVILCRAFT_UNUSING_ENCHANTEMENT).isPresent() &&
-                    input.getEnchantmentLevel(this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(EVILCRAFT_UNUSING_ENCHANTEMENT).get()) > 0) {
+                    this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                            .get(EVILCRAFT_UNUSING_ENCHANTEMENT).isPresent()
+                    &&
+                    input.getEnchantmentLevel(this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                            .get(EVILCRAFT_UNUSING_ENCHANTEMENT).get()) > 0) {
                 this.miningTime = 0;
                 return;
             }
 
-            boolean dirty = false;
             if (this.miningTime > 0) {
 
                 int efficiency = 0;
                 if (Occultism.SERVER_CONFIG.itemSettings.minerEfficiency.getAsBoolean()) {
-                    efficiency = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.EFFICIENCY)) : 0;
+                    efficiency = input.isEnchanted()
+                            ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.EFFICIENCY))
+                            : 0;
 
                     if (efficiency > 0) {
                         int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
@@ -199,28 +300,50 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 }
 
                 if (input.getItem() != this.currentInputType) {
-                    //If the item was removed manually or consumed, set mining time to 0, which prevents further processing
-                    //and sets up for starting the next operation in the next tick
                     this.miningTime = 0;
 
-                    //if the item was used up or switched, we also delete our result cache
                     this.possibleResults = null;
                 }
-                if (this.miningTime % 10 == 0)
-                    dirty = true;
+
+                // handled by delta check
             } else if (!input.isEmpty()) {
-                //if we're done with the last mining job, and we have valid input, start the next one.
+
                 this.currentInputType = input.getItem();
-                //ensure nbt is initialized, fixes issues with spawned miner spirits
+
                 forceInitStackNBT(input, (ServerLevel) this.level);
                 this.maxMiningTime = getMaxMiningTime(input);
                 this.rollsPerOperation = getRollsPerOperation(input);
                 this.miningTime = this.maxMiningTime;
-                dirty = true;
             }
 
-            if (dirty) {
+            // Sync Logic
+            boolean needsSync = false;
+
+            // Sync if max mining time changed (e.g. new item with different stats)
+            if (this.maxMiningTime != this.lastSyncedMaxMiningTime) {
+                needsSync = true;
+            }
+
+            // Sync if mining active state changes (0 <-> >0)
+            boolean wasActive = this.lastSyncedMiningTime > 0;
+            boolean isActive = this.miningTime > 0;
+            if (wasActive != isActive) {
+                needsSync = true;
+            }
+
+            // Syncs if progress drifts by 10
+            if (Math.abs(this.miningTime - this.lastSyncedMiningTime) >= 10) {
+                needsSync = true;
+            }
+            // Also sync if we just finished (already covered by 0 check above? sorta).
+
+            if (needsSync) {
                 this.markNetworkDirty();
+            }
+
+            if (this.outputDirty) {
+                this.setChanged();
+                this.outputDirty = false;
             }
         } else {
             if (this.miningTime > 0 && this.level.getGameTime() % 10 == 0) {
@@ -235,7 +358,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new DimensionalMineshaftContainer(id, playerInventory, this);
     }
-    //endregion Static Methods
+    // endregion Static Methods
 
     public void mine() {
         if (this.level == null)
@@ -248,7 +371,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
             } else {
-                this.possibleResults = recipes.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
+                this.possibleResults = recipes.stream().map(r -> r.value().getWeightedResult())
+                        .collect(Collectors.toList());
             }
         }
 
@@ -259,7 +383,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         int fortune = 0;
         if (Occultism.SERVER_CONFIG.itemSettings.minerFortune.getAsBoolean()) {
-            fortune = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.FORTUNE)) : 0;
+            fortune = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.FORTUNE))
+                    : 0;
 
             if (fortune > 0) {
                 int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
@@ -268,28 +393,49 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 fortune = Math.min(extra1, Math.min(extra2, extra3));
             }
         }
-        int silk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean() && input.isEnchanted() ?
-                input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.SILK_TOUCH)) : 0;
+        int silk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean() && input.isEnchanted()
+                ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.SILK_TOUCH))
+                : 0;
+
+        List<ItemStack> batchedDrops = new ArrayList<>();
 
         for (int i = 0; i < this.rollsPerOperation + fortune; i++) {
             var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             int finalSilk = silk > 0 ? 1 + this.level.random.nextIntBetweenInclusive(0, silk) : 1;
-            //Important: copy the result, don't use it raw!
+
             result.ifPresent(r -> {
                 ItemStack finalResult = r.getStack().copy();
                 finalResult.setCount(finalResult.getCount() * finalSilk);
-                ItemHandlerHelper.insertItemStacked(this.outputHandler, finalResult, false);
+
+                // Batching Logic: Check if we can merge with existing drop
+                boolean merged = false;
+                for (ItemStack existing : batchedDrops) {
+                    if (ItemStack.isSameItemSameComponents(existing, finalResult)) {
+                        existing.grow(finalResult.getCount());
+                        merged = true;
+                        break;
+                    }
+                }
+                if (!merged) {
+                    batchedDrops.add(finalResult);
+                }
             });
-            //If there is no space, we simply continue. The otherworld miner spirit keeps working,
-            // but the miner block entity simply discards the results
         }
 
-        //damage the item and move to output before breaking
-        input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
-        if (Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean() && input.getMaxDamage()-1 == input.getDamageValue()){
+        // Insert batched drops
+        for (ItemStack drop : batchedDrops) {
+            ItemHandlerHelper.insertItemStacked(this.outputHandler, drop, false);
+        }
+
+        // damage the item and move to output before breaking
+        input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
+        });
+        if (Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean()
+                && input.getMaxDamage() - 1 == input.getDamageValue()) {
             var minerCopy = input.copy();
-            input.hurtAndBreak(100, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
-            ItemHandlerHelper.insertItemStacked(this.outputHandler, minerCopy,false);
+            input.hurtAndBreak(100, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
+            });
+            ItemHandlerHelper.insertItemStacked(this.outputHandler, minerCopy, false);
         }
     }
 

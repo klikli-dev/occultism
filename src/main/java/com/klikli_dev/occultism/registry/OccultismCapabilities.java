@@ -38,40 +38,36 @@ public class OccultismCapabilities {
                 (itemStack, context) -> {
                     return new FamiliarRingItem.Curio(itemStack);
                 },
-            // items to register for
-            OccultismItems.FAMILIAR_RING.get()
-        );
+                // items to register for
+                OccultismItems.FAMILIAR_RING.get());
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 OccultismBlockEntities.SACRIFICIAL_BOWL.get(),
                 (blockEntity, side) -> {
                     return blockEntity.itemStackHandler;
-                }
-        );
+                });
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(),
                 (blockEntity, side) -> {
                     return blockEntity.itemStackHandler;
-                }
-        );
+                });
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 OccultismBlockEntities.ENTITY_WORMHOLE.get(),
                 (blockEntity, side) -> {
                     return blockEntity.itemStackHandler;
-                }
-        );
+                });
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(),
                 (blockEntity, side) -> {
                     if (side == Direction.DOWN)
-                        return blockEntity.outputHandler;
+                        return blockEntity.bufferedOutputHandler;
                     else if (side == Direction.UP)
                         return blockEntity.inputHandler;
                     else
@@ -88,48 +84,42 @@ public class OccultismCapabilities {
                         return controller.itemStackHandler;
                     }
                     return null;
-                }
-        );
+                });
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 OccultismBlockEntities.STORAGE_CONTROLLER.get(),
                 (blockEntity, side) -> {
                     return blockEntity.itemStackHandler;
-                }
-        );
+                });
 
         event.registerEntity(
                 Capabilities.ItemHandler.ENTITY,
                 OccultismEntities.FOLIOT.get(),
                 (entity, side) -> {
                     return entity.inventory;
-                }
-        );
+                });
 
         event.registerEntity(
                 Capabilities.ItemHandler.ENTITY,
                 OccultismEntities.DJINNI.get(),
                 (entity, side) -> {
                     return entity.inventory;
-                }
-        );
+                });
 
         event.registerEntity(
                 Capabilities.ItemHandler.ENTITY,
                 OccultismEntities.AFRIT.get(),
                 (entity, side) -> {
                     return entity.inventory;
-                }
-        );
+                });
 
         event.registerEntity(
                 Capabilities.ItemHandler.ENTITY,
                 OccultismEntities.MARID.get(),
                 (entity, side) -> {
                     return entity.inventory;
-                }
-        );
+                });
 
     }
 
