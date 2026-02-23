@@ -137,8 +137,8 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
     protected static final int DAY_LENGTH = 24000;
 
-    protected long getNearestDayTime(long current_time, int daytime_shift) {
-        return ((current_time - daytime_shift) / DAY_LENGTH + 1) * DAY_LENGTH + daytime_shift;
+    protected long getNearestDayTime(long currentTime, int daytimeShift) {
+        return (Math.floorDiv(currentTime - daytimeShift, DAY_LENGTH) + 1) * DAY_LENGTH + daytimeShift;
     }
 
     protected abstract long getNewTime();
