@@ -135,7 +135,13 @@ public abstract class ChangeTimeJob extends SpiritJob {
         this.entity.remove(Entity.RemovalReason.DISCARDED);
     }
 
-    public abstract long getNewTime();
+    protected static final int DAY_LENGTH = 24000;
+
+    protected long getNearestDayTime(long current_time, int daytime_shift) {
+        return ((current_time - daytime_shift) / DAY_LENGTH + 1) * DAY_LENGTH + daytime_shift;
+    }
+
+    protected abstract long getNewTime();
 
     public abstract Component getDisabledMessage();
 

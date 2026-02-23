@@ -47,6 +47,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         this.requiredChangeTicks = requiredChangeTicks;
     }
 
+    @Deprecated
     protected static int getDuration(RandomSource randomSource, int time, IntProvider timeProvider) {
         return time == -1 ? timeProvider.sample(randomSource) : time;
     }

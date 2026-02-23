@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
+import com.klikli_dev.occultism.common.entity.job.event.ItemProcessingJobEvent;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TieredSingleRecipeInput;
@@ -42,7 +43,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -217,29 +217,9 @@ public class CrusherJob extends SpiritJob {
 
     }
 
-    public static class CrusherJobEvent extends EntityEvent {
-        private ItemStack input;
-        private ItemStack result;
+    public static class CrusherJobEvent extends ItemProcessingJobEvent {
         public CrusherJobEvent(Entity entity, ItemStack input, ItemStack result) {
-            super(entity);
-            this.input = input;
-            this.result = result;
-        }
-
-        public ItemStack getInput() {
-            return input;
-        }
-
-        public void setInput(ItemStack input) {
-            this.input = input;
-        }
-
-        public ItemStack getResult() {
-            return result;
-        }
-
-        public void setResult(ItemStack result) {
-            this.result = result;
+            super(entity, input, result);
         }
     }
 }
