@@ -138,6 +138,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
         this.add("block.occultism.otherglass.auto_tooltip", "Wear Otherworld Goggles to see it once placed");
 
+        this.add(OccultismItems.OTHERWORLD_GOGGLES.get().getDescriptionId() + ".auto_tooltip", "Allows you to VIEW advanced resources of otherworld (iesnium).");
+        this.add(OccultismItems.INFUSED_PICKAXE.get().getDescriptionId() + ".auto_tooltip", "Allows you to COLLECT advanced resources of otherworld (iesnium).");
+        this.add(OccultismItems.IESNIUM_PICKAXE.get().getDescriptionId() + ".auto_tooltip", "Allows you to COLLECT advanced resources of otherworld (iesnium).");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".auto_tooltip", "Allows you to VIEW and COLLECT advanced resources of otherworld (iesnium).");
+
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
         this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
