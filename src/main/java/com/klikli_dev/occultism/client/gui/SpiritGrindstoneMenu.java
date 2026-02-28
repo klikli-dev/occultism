@@ -53,7 +53,7 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
             }
 
             public void onTake(@NotNull Player player, @NotNull ItemStack stack) {
-                CommonHooks.onGrindstoneTake(SpiritGrindstoneMenu.this.repairSlots, access, this::getExperienceAmount);
+                CommonHooks.onGrindstoneTake(SpiritGrindstoneMenu.this.repairSlots, access, player, this::getExperienceAmount);
             }
 
             private int getExperienceAmount(Level level) {
