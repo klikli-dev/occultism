@@ -225,7 +225,7 @@ public class OccultismDataComponents {
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP =  DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder
-            .persistent(ExtraCodecs.POSITIVE_INT)
+            .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.VAR_INT)
             .cacheEncoding()
     );

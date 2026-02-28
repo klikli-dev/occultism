@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -23,22 +24,38 @@ public class KnowledgeTabletItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             //here we use main hand item as selected slot
-            if (player.isShiftKeyDown()) {
-                player.giveExperiencePoints(ItemNBTUtil.getStoredXP(stack));
+            if (serverPlayer.isShiftKeyDown()) {
+                serverPlayer.giveExperiencePoints(ItemNBTUtil.getStoredXP(stack));
                 ItemNBTUtil.setStoredXP(stack, 0);
             } else {
-                //Apothic class just hold the function, dont need mod loaded to use this
-                ItemNBTUtil.setStoredXP(stack,
-                        ItemNBTUtil.getStoredXP(stack)
-                                + ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(player.experienceLevel)
-                                + (int)(serverPlayer.experienceProgress * serverPlayer.getXpNeededForNextLevel()));
-                serverPlayer.setExperiencePoints(0);
-                serverPlayer.setExperienceLevels(0);
+                int storeXP = ItemNBTUtil.getStoredXP(stack);
+                float xpProgress = serverPlayer.experienceProgress * serverPlayer.getXpNeededForNextLevel();
+                if (storeXP + xpProgress >= 0) {
+                    serverPlayer.setExperiencePoints(0);
+                    storeXP += (int) xpProgress;
+                    boolean flag = true;
+                    while (serverPlayer.experienceLevel > 0 && flag) {
+                        //Apothic class just hold the function, don't need mod loaded to use this
+                        int xpByLvl = ApothicEnchantingIntegration.getExperienceForLevel(serverPlayer.experienceLevel);
+                        if (storeXP + xpByLvl > 0) {
+                            storeXP += xpByLvl;
+                            serverPlayer.experienceLevel -= 1;
+                        } else {
+                            ItemNBTUtil.setStoredXP(stack, Integer.MAX_VALUE);
+                            serverPlayer.giveExperiencePoints(storeXP - Integer.MAX_VALUE);
+                            flag = false;
+                        }
+                    }
+                    ItemNBTUtil.setStoredXP(stack, storeXP);
+                } else {
+                    ItemNBTUtil.setStoredXP(stack, Integer.MAX_VALUE);
+                    serverPlayer.giveExperiencePoints(storeXP - Integer.MAX_VALUE);
+                }
             }
         }
 
@@ -46,7 +63,8 @@ public class KnowledgeTabletItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext,
+                                @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
         pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",

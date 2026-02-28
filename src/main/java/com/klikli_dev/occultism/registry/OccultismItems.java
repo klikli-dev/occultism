@@ -90,7 +90,7 @@ public class OccultismItems {
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
             ));
     public static final DeferredItem<KnowledgeTabletItem> KNOWLEDGE_TABLET = ITEMS.register("knowledge_tablet",
-            () -> new KnowledgeTabletItem(defaultProperties()
+            () -> new KnowledgeTabletItem(defaultProperties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .component(OccultismDataComponents.STORED_XP, 0)
             ));
