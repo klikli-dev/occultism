@@ -1269,6 +1269,19 @@ public abstract class RitualRecipes extends RecipeProvider {
                 )
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_witherite_dust"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        new ItemStack(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE.get()),
+                        300,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismItems.BUTCHER_KNIFE),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT),
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT),
+                        Ingredient.of(OccultismTags.Items.NETHERITE_DUST))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_iesnium_butcher_knife"));
 
         //Djinni
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),

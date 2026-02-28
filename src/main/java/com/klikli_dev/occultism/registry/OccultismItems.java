@@ -58,6 +58,10 @@ public class OccultismItems {
             () -> new DivinationRodItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
+    public static final DeferredItem<SwordItem> IESNIUM_BUTCHER_KNIFE = ITEMS.register("iesnium_butcher_knife",
+            () -> new SwordItem(OccultismTiers.IESNIUM, defaultProperties().rarity(Rarity.UNCOMMON)
+                    .attributes(SwordItem.createAttributes(OccultismTiers.IESNIUM, 10, -1.8F))
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
             () -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED, defaultProperties()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
@@ -638,6 +642,8 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.register("ritual_dummy/craft_fragile_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.register("ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.register("ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE = ITEMS.register("ritual_dummy/craft_iesnium_butcher_knife", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF = ITEMS.register("ritual_dummy/craft_true_sight_staff", () -> new DummyTooltipItem(defaultProperties()));
             //Miners
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT = ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
@@ -836,6 +842,7 @@ public class OccultismItems {
                 || item == FAMILIAR_RING.get()
                 || item == VITALITY_COMPASS.get()
                 || item == INFUSED_PICKAXE.get()
+                || item == IESNIUM_BUTCHER_KNIFE.get()
                 || item == MAGIC_LAMP_EMPTY.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()
                 || item == MINER_DJINNI_ORES.get()

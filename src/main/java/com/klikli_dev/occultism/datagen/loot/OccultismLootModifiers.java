@@ -10,6 +10,9 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.*;
@@ -43,6 +46,20 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 }, OccultismItems.TALLOW.get(), count);
     }
 
+    private AddItemModifier head(EntityType<?> entityType, Item head, float chance) {
+        return new AddItemModifier(
+                new LootItemCondition[]{
+                        LootItemEntityPropertyCondition
+                                .hasProperties(LootContext.EntityTarget.ATTACKER,
+                                        EntityPredicate.Builder.entity()
+                                                .equipment(this.mainHand(ItemPredicate.Builder.item().of(
+                                                        OccultismTags.Items.TOOLS_KNIFE_IESNIUM)))).build(),
+                        LootItemRandomChanceCondition.randomChance(chance).build(),
+                        LootItemEntityPropertyCondition
+                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType)).build()
+                }, head, 1);
+    }
+
     @Override
     protected void start() {
         this.add("datura_seed_from_grass", new AddItemModifier(new LootItemCondition[]{
@@ -70,5 +87,12 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         this.add("tallow_from_pandas", this.tallow("pandas", 3));
         this.add("tallow_from_pigs", this.tallow("pigs", 2));
         this.add("tallow_from_sheep", this.tallow("sheep", 2));
+
+        this.add("head_from_zombie", this.head(EntityType.ZOMBIE, Items.ZOMBIE_HEAD, 0.25F));
+        this.add("head_from_creeper", this.head(EntityType.CREEPER, Items.CREEPER_HEAD, 0.25F));
+        this.add("head_from_piglin", this.head(EntityType.PIGLIN, Items.PIGLIN_HEAD, 0.25F));
+        this.add("head_from_skeleton", this.head(EntityType.SKELETON, Items.SKELETON_SKULL, 0.25F));
+        this.add("head_from_wither_skeleton", this.head(EntityType.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, 0.15F));
+        this.add("head_from_dragon", this.head(EntityType.ENDER_DRAGON, Items.DRAGON_HEAD, 0.9F));
     }
 }

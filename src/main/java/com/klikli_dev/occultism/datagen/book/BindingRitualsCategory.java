@@ -182,6 +182,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftIesniumAnvil = this.add(new IesniumAnvilEntry(this).generate('A'));
         craftIesniumAnvil.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
+        var craftIesniumButcherKnife = this.add(new IesniumButcherKnifeEntry(this).generate('K'));
+        craftIesniumButcherKnife.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
         var trueSightStaff = this.add(new TrueSightStaffEntry(this).generate('F'));
         trueSightStaff.withParent(craftOtherworldGoggles).withParent(craftInfusedPickaxe)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));

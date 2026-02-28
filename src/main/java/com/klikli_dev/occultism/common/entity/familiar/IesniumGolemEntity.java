@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,7 +45,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 
-public class IesniumGolemEntity extends IronGolem{
+public class IesniumGolemEntity extends IronGolem {
 
     public IesniumGolemEntity(EntityType<? extends IronGolem> type,
                               Level worldIn) {
@@ -91,40 +92,47 @@ public class IesniumGolemEntity extends IronGolem{
                 this.teleportRelative(0, 1, 0);
         }
 
+        if (source.getWeaponItem() != null && source.getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM))
+            return false;
+
         if (source.getEntity() == null || !source.getEntity().isCrouching())
             return true;
 
         return super.isInvulnerableTo(source);
     }
 
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
         } else {
-            var shard = new ItemStack(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get());
-
-            var health = this.getHealth();
-            this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-            this.resetFallDistance();
-            this.removeAllEffects();
-            this.remove(RemovalReason.DISCARDED);
-
-            var entityData = new CompoundTag();
-            var id = this.getEncodeId();
-            if (id != null)
-                entityData.putString("id", id);
-            entityData = this.saveWithoutId(entityData);
-
-            shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
-            this.setHealth(health);
-
-            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
-            entityitem.setPickUpDelay(5);
-            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
-
-            this.level().addFreshEntity(entityitem);
-
+            this.createShard();
             return super.hurt(source, amount);
         }
+    }
+
+    public void createShard() {
+        var shard = new ItemStack(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get());
+
+        var health = this.getHealth();
+        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        this.resetFallDistance();
+        this.removeAllEffects();
+        this.remove(RemovalReason.DISCARDED);
+
+        var entityData = new CompoundTag();
+        var id = this.getEncodeId();
+        if (id != null)
+            entityData.putString("id", id);
+        entityData = this.saveWithoutId(entityData);
+
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        this.setHealth(health);
+
+        ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+        entityitem.setPickUpDelay(5);
+        entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+        this.level().addFreshEntity(entityitem);
     }
 }

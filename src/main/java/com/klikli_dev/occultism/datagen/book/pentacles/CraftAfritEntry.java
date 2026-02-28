@@ -47,6 +47,7 @@ public class CraftAfritEntry extends EntryProvider {
         this.pageTitle("Uses");
         this.pageText("""
                 - [Iesnium Ritual Bowl](entry://crafting_rituals/craft_iesnium_sacrificial_bowl)
+                - [Iesnium Butcher Knife](entry://crafting_rituals/iesnium_butcher_knife)
                 - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
                 - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
                 - [Artisanal Ritual Satchel](entry://crafting_rituals/artisanal_ritual_satchel)

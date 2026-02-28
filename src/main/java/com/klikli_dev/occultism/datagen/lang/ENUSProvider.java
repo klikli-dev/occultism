@@ -329,6 +329,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
         this.addItem(OccultismItems.BURNT_OTHERROCK, "Burnt Otherrock");
         this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
+        this.addItem(OccultismItems.IESNIUM_BUTCHER_KNIFE, "Iesnium Butcher Knife");
+        this.addAutoTooltip(OccultismItems.IESNIUM_BUTCHER_KNIFE, "This butcher knife has an inherent Beheading and deals extra damage to spirits.");
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
         this.addItem(OccultismItems.OTHERROCK_FRAME, "Otherrock Frame");
@@ -1946,6 +1948,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "Craft Fragile Soul Gem", "Foliot", "The Fragile Soul Gem allows the temporary storage of living beings. It can only be used once.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE, "Craft Iesnium Butcher Knife", "Afrit", "The Iesnium butcher knife is perfect for cutting heads and skulls, and continues to perform the functions of a regular butcher knife.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "Craft True Sight Staff", "Marid", "The true sight staff give abilities to find, see and interact with the otherworld.");
             //Miners
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT, "Craft Dimensional Mineshaft", "Djinni", "Allows miner spirits to enter the mining dimension and bring back resources.");
@@ -2161,6 +2164,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.BLAZE_DUST, "Blaze Dust");
         this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
+        this.addItemTag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM, "Iesnium Knives");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/knife"), "Knives");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");

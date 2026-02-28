@@ -212,6 +212,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     private void registerItemHandheld() {
         String[] items = {
                 this.name(OccultismItems.BUTCHER_KNIFE.get()),
+                this.name(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()),
                 this.name(OccultismItems.IESNIUM_PICKAXE.get()),
                 this.name(OccultismItems.INFUSED_PICKAXE.get())
         };

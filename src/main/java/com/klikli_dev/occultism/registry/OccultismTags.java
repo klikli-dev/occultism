@@ -159,6 +159,7 @@ public class OccultismTags {
 
         //Item Tags
         public static final TagKey<Item> TOOLS_KNIFE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/knife"));
+        public static final TagKey<Item> TOOLS_KNIFE_IESNIUM = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/knife/iesnium"));
 
         public static final TagKey<Item> OTHERWORLD_GOGGLES = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_goggles"));
         public static final TagKey<Item> ELYTRA = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "elytra"));

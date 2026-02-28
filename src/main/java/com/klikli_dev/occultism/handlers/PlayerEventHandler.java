@@ -35,6 +35,7 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -59,6 +60,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
@@ -191,6 +193,19 @@ public class PlayerEventHandler {
                         livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void spiritIesniumDamage(LivingIncomingDamageEvent event) {
+        if (event.getEntity().getType().is(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+                && event.getSource().getWeaponItem() != null
+                && event.getSource().getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)) {
+            event.setAmount(event.getAmount() * 3);
+            if (event.getEntity().getName().contains(Component.literal("EqisEdu"))) //You found an Easter Egg
+                event.setAmount(250918); //Instantly kill any spirit with this collaborator name
+            //Release date (YY/MM/DD) of a video sacrificing EqisEdu with powerful butcher knife for a ritual
         }
     }
     //endregion Static Methods

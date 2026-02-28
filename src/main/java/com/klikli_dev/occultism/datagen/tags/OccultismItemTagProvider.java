@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -188,7 +189,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.START_SPIRIT_FIRE).add(OccultismItems.DATURA.get());
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
-        this.tag(OccultismTags.Items.TOOLS_KNIFE).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(OccultismTags.Items.TOOLS_KNIFE)
+                .add(OccultismItems.BUTCHER_KNIFE.get())
+                .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
+        this.tag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)
+                .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
         this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE).replace(false); //Don't place chalks
         this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
@@ -269,7 +274,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
-        this.tag(this.cTag("tools/knife")).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(this.cTag("tools/knife")).add(OccultismItems.BUTCHER_KNIFE.get()).add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
 
         this.tag(ItemTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.asItem()).add(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()).replace(false);
         this.tag(ItemTags.COMPASSES).add(OccultismItems.VITALITY_COMPASS.asItem());

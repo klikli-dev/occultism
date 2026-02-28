@@ -4,14 +4,14 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_wild_spirit"
+    "entry_id": "pentacles/craft_afrit"
   },
-  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_reinforced_deepslate.description",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:reinforced_deepslate"
+    "item": "occultism:iesnium_butcher_knife"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_reinforced_deepslate.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -20,9 +20,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "minecraft:reinforced_deepslate"
+        "item": "occultism:iesnium_butcher_knife"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_reinforced_deepslate.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.spotlight.text",
       "title": ""
     },
     {
@@ -31,7 +31,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_reinforced_deepslate",
+      "recipe_id_1": "occultism:ritual/craft_iesnium_butcher_knife",
       "text": "",
       "title1": "",
       "title2": ""
@@ -40,13 +40,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/craft_wild_trim",
+      "entry": "crafting_rituals/craft_infused_pickaxe",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 38,
-  "x": 6,
-  "y": 6
+  "sort_number": 34,
+  "x": 0,
+  "y": -2
 }
