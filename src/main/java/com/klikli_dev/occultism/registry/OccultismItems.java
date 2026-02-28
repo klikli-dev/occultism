@@ -675,6 +675,8 @@ public class OccultismItems {
             //Blocks
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.register("ritual_dummy/craft_entity_wormhole", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK = ITEMS.register("ritual_dummy/craft_entity_wormhole_dark", () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE = ITEMS.register("ritual_dummy/craft_spirit_grindstone", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.register("ritual_dummy/craft_iesnium_anvil", () -> new DummyTooltipItem(defaultProperties()));

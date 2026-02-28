@@ -4,14 +4,14 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_wild_spirit"
+    "entry_id": "pentacles/craft_djinni"
   },
-  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_reinforced_deepslate.description",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.spirit_grindstone.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:reinforced_deepslate"
+    "item": "occultism:spirit_grindstone"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_reinforced_deepslate.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.spirit_grindstone.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -20,9 +20,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "minecraft:reinforced_deepslate"
+        "item": "occultism:spirit_grindstone"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_reinforced_deepslate.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.spirit_grindstone.spotlight.text",
       "title": ""
     },
     {
@@ -31,7 +31,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_reinforced_deepslate",
+      "recipe_id_1": "occultism:ritual/craft_spirit_grindstone",
       "text": "",
       "title1": "",
       "title2": ""
@@ -40,13 +40,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/craft_wild_trim",
+      "entry": "crafting_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 39,
+  "sort_number": 32,
   "x": 6,
-  "y": 6
+  "y": -2
 }

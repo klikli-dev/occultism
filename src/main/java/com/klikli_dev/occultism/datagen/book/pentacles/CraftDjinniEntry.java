@@ -65,6 +65,7 @@ public class CraftDjinniEntry extends EntryProvider {
                 - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
                 - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
                 - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
+                - [Spirit Grindstone](entry://crafting_rituals/spirit_grindstone)
                 - [Repair Chalks](entry://crafting_rituals/repair)
                 - [Gray Paste](entry://pentacles/gray_chalk)
                 """

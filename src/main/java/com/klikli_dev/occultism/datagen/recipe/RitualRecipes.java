@@ -1402,6 +1402,18 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_entity_wormhole_dark"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStack(OccultismBlocks.SPIRIT_GRINDSTONE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE.get()),
+                        150,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_DJINNI,
+                        Ingredient.of(Items.GRINDSTONE),
+                        Ingredient.of(Tags.Items.GLASS_BLOCKS),
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL),
+                        Ingredient.of(Tags.Items.GEMS_PRISMARINE))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_spirit_grindstone"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStack(OccultismItems.ENDER_SATCHEL.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_ENDER_SATCHEL.get()),
                         150,

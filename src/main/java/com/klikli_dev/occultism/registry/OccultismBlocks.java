@@ -675,6 +675,13 @@ public class OccultismBlocks {
                             .noOcclusion()
             ));
 
+    public static final DeferredBlock<SpiritGrindstoneBlock> SPIRIT_GRINDSTONE =
+            register("spirit_grindstone", () -> new SpiritGrindstoneBlock(
+                    BlockBehaviour.Properties.of()
+                            .sound(SoundType.GLASS)
+                            .strength(5,1200)
+                            .pushReaction(PushReaction.BLOCK)
+            ));
     public static final DeferredBlock<IesniumAnvilBlock> IESNIUM_ANVIL =
             register("iesnium_anvil", () -> new IesniumAnvilBlock(
                     BlockBehaviour.Properties.of()

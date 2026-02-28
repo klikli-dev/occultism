@@ -600,6 +600,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.LARGE_CANDLE_PURPLE, "Large Purple Candle");
         this.addBlock(OccultismBlocks.SILVER_ORE, "Silver Ore");
         this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Deepslate Silver Ore");
+        this.addBlock(OccultismBlocks.SPIRIT_GRINDSTONE, "Spirit Grindstone");
         this.addBlock(OccultismBlocks.IESNIUM_ANVIL, "Iesnium Anvil");
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
         this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
@@ -866,6 +867,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_name", "Sort by machine name.");
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod", "Sort by mod name.");
 
+        // Others
+        this.add("gui.occultism.spirit_grindstone.container", "Repair & Uncurse");
     }
 
     private void addRitualMessages() {
@@ -1980,6 +1983,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
             //Blocks
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK, "Craft Dark Entity Wormhole", "Djinni", "The Dark Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE, "Craft Spirit Grindstone", "Djinni", "The spirit grindstone is an improvement on the common grindstone, which removes curses (keeping others enchantments) and repairs items more efficiently.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Ritual Bowl", "Afrit", "The Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Ritual Bowl", "Afrit", "The Dark Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");

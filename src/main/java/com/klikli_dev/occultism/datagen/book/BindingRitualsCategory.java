@@ -175,6 +175,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftEntityWormhole = this.add(new EntityWormholeEntry(this).generate('ᑬ'));
         craftEntityWormhole.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        var craftSpiritGrindStone = this.add(new SpiritGrindstoneEntry(this).generate('G'));
+        craftSpiritGrindStone.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
 
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))

@@ -285,6 +285,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.SILVER_ORE_DEEPSLATE.asItem()),
                 this.name(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.asItem()),
                 this.name(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                this.name(OccultismBlocks.SPIRIT_GRINDSTONE.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER0.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER1.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER2.asItem()),
