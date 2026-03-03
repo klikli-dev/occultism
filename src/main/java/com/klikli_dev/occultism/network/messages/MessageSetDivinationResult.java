@@ -63,6 +63,15 @@ public class MessageSetDivinationResult implements IMessage {
                 stack.set(OccultismDataComponents.DIVINATION_POS, this.pos);
             }
             player.inventoryMenu.broadcastChanges();
+        } else {
+            ItemStack stackOff = player.getItemInHand(InteractionHand.OFF_HAND);
+            if (stackOff.getItem() instanceof DivinationRodItem) {
+                stackOff.set(OccultismDataComponents.DIVINATION_DISTANCE, (float) this.distance);
+                if (this.pos != null) {
+                    stackOff.set(OccultismDataComponents.DIVINATION_POS, this.pos);
+                }
+                player.inventoryMenu.broadcastChanges();
+            }
         }
     }
 
