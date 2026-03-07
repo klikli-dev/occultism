@@ -105,6 +105,10 @@ public class MagicLampItem extends Item {
         if (hand != InteractionHand.MAIN_HAND || !target.isAlive() || target.level().isClientSide)
             return InteractionResult.PASS;
 
+        //Only one spirit at a time
+        if (stack.has(DataComponents.ENTITY_DATA))
+            return InteractionResult.FAIL;
+
         //Only allow spirit with job owned by the player.
         if (!(target instanceof SpiritEntity spirit && spirit.getJob().isPresent() && spirit.isOwnedBy(player)))
             return InteractionResult.FAIL;
