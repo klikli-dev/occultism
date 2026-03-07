@@ -57,6 +57,7 @@ public class NaturePasteItem extends Item {
                     .hurtAndBreak(8, player, player.getEquipmentSlotForItem(player.getItemInHand(InteractionHand.OFF_HAND)));
             ParticleUtils.spawnParticles(level, blockpos, 15 * 5, 0.9, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
             level.levelEvent(1505, blockpos, 15);
+            player.getCooldowns().addCooldown(OccultismItems.NATURE_PASTE.get(), 50);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
