@@ -56,6 +56,7 @@ public class OccultismServerConfig {
         public final BooleanValue minerSilk;
         public final DoubleValue butcherHurtChance;
         public final IntValue butcherLifeMultiplier;
+        public final DoubleValue shatteredSoulChance;
         public final BooleanValue unbreakableChalks;
         public final IntValue maxDistanceRTP;
         public final IntValue maxTryRTP;
@@ -98,6 +99,11 @@ public class OccultismServerConfig {
                                     "Entity life multiplier when calculating processing time in the dimensional battlefield."
                             )
                             .defineInRange("butcherLifeMultiplier", 20, 1, Integer.MAX_VALUE);
+            this.shatteredSoulChance =
+                    builder.comment(
+                                    "Chance per level of the Fracture Soul enchantment to drop a Shattered Soul."
+                            )
+                            .defineInRange("shatteredSoulChance", 0.17F, 0.0F, 1.0F);
             this.unbreakableChalks =
                     builder.comment(
                                     "Don't damage chalks on use"

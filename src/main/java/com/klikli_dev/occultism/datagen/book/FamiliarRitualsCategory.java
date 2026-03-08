@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.DemonicPartnerEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.GreatResurrectionEntry;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.IesniumGolemEntry;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectionEntry;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
@@ -26,7 +27,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
     @Override
     public String[] generateEntryMap() {
         return new String[]{
-                "________J_O__Y__G__________",
+                "_____e__J_O__Y__G__________",
                 "___________________________",
                 "_____a_X_S_L_M_T___________",
                 "___________________________",
@@ -58,6 +59,9 @@ public class FamiliarRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(resurrectionID));
         var resurrectAllay = this.add(this.makeResurrectAllayEntry(this.entryMap, 'H'));
         resurrectAllay.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(resurrectionID));
+        var resurrectionGreat = new GreatResurrectionEntry(this).generate('e');
+        resurrectionGreat.withParent(BookEntryParentModel.create(resurrection.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(resurrectionID));
 
         var familiarBat = this.add(this.makeFamiliarBatEntry(this.entryMap, 'I'));

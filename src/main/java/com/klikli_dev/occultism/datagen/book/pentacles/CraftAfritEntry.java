@@ -46,6 +46,7 @@ public class CraftAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
+                - [Dimensional Battlefield](entry://crafting_rituals/dimensional_battlefield)
                 - [Iesnium Ritual Bowl](entry://crafting_rituals/craft_iesnium_sacrificial_bowl)
                 - [Iesnium Butcher Knife](entry://crafting_rituals/iesnium_butcher_knife)
                 - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)

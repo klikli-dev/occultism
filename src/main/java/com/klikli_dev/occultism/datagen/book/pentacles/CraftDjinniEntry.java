@@ -50,6 +50,7 @@ public class CraftDjinniEntry extends EntryProvider {
                 - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
                 - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
                 - [Entity Wormhole](entry://crafting_rituals/entity_wormhole)
+                - [Dimensional Extractor](entry://crafting_rituals/dimensional_extractor)
                 - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
                 - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
                 """
