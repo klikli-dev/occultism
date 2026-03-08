@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.occultism.fracture_soul"
+  },
+  "max_cost": {
+    "base": 18,
+    "per_level_above_first": 3
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 2
+  },
+  "primary_items": "#minecraft:enchantable/sharp_weapon",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/weapon",
+  "weight": 1
+}
