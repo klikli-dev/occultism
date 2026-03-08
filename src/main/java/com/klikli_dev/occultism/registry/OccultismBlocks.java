@@ -674,6 +674,15 @@ public class OccultismBlocks {
                             .strength(1.5f, 30)
                             .noOcclusion()
             ));
+    public static final DeferredBlock<DimensionalBattlefieldBlock> DIMENSIONAL_BATTLEFIELD =
+            register("dimensional_battlefield", () -> new DimensionalBattlefieldBlock(
+                    Block.Properties.of().sound(SoundType.STONE)
+                            .strength(1.5f, 30)
+                            .noOcclusion()
+            ));
+
+    public static final DeferredBlock<Block> DIMENSIONAL_EXTRACTOR = register("dimensional_extractor",
+            () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion(), true));
 
     public static final DeferredBlock<SpiritGrindstoneBlock> SPIRIT_GRINDSTONE =
             register("spirit_grindstone", () -> new SpiritGrindstoneBlock(

@@ -28,10 +28,13 @@ import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.RecipeUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -54,6 +57,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
@@ -69,7 +73,7 @@ import java.util.stream.Collectors;
 
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
-    public static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTEMENT = ResourceKey
+    private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
             .create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
@@ -97,6 +101,19 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     protected Item currentInputType;
     protected List<WeightedRecipeResult> possibleResults;
+
+    //Enchantment cache
+    private Holder<Enchantment> UNUSING;
+    private Holder<Enchantment> EFFICIENCY;
+    private Holder<Enchantment> FORTUNE;
+    private Holder<Enchantment> SILK_TOUCH;
+    private boolean cachedEnchantment = false;
+    private final boolean bonusEfficiency = Occultism.SERVER_CONFIG.itemSettings.minerEfficiency.getAsBoolean();
+    private final boolean bonusFortune = Occultism.SERVER_CONFIG.itemSettings.minerFortune.getAsBoolean();
+    private final boolean bonusSilk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean();
+    private final boolean saveMiner = Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean();
+    private IItemHandler handlerBelow = null;
+    private BlockState cachedStateBelow = null;
 
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
@@ -229,6 +246,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         super.loadAdditional(compound, provider);
         this.inputHandler.deserializeNBT(provider, compound.getCompound("inputHandler"));
         this.outputHandler.deserializeNBT(provider, compound.getCompound("outputHandler"));
+        this.updateBelowBlock();
     }
 
     @Override
@@ -262,37 +280,29 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (!this.level.isClientSide) {
             ItemStack input = this.inputHandler.getStackInSlot(0);
 
+            if (!cachedEnchantment) {
+                this.setCachedEnchantment();
+                this.cachedEnchantment = true;
+            }
+
             // handle unusing enchantment from evilcraft, see
             // https://github.com/klikli-dev/occultism/issues/909
-            if (input.getMaxDamage() - input.getDamageValue() < 6 &&
-                    input.isEnchanted() &&
-                    this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-                            .get(EVILCRAFT_UNUSING_ENCHANTEMENT).isPresent()
-                    &&
-                    input.getEnchantmentLevel(this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-                            .get(EVILCRAFT_UNUSING_ENCHANTEMENT).get()) > 0) {
+            if (input.isEnchanted() && input.getMaxDamage() - input.getDamageValue() < 6 &&
+                    UNUSING != null && input.getEnchantmentLevel(UNUSING) > 0) {
                 this.miningTime = 0;
                 return;
             }
 
             if (this.miningTime > 0) {
 
-                int efficiency = 0;
-                if (Occultism.SERVER_CONFIG.itemSettings.minerEfficiency.getAsBoolean()) {
-                    efficiency = input.isEnchanted()
-                            ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.EFFICIENCY))
-                            : 0;
-
-                    if (efficiency > 0) {
-                        int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
-                        int extra2 = this.level.random.nextIntBetweenInclusive(0, efficiency);
-                        efficiency = Math.min(extra1, extra2);
-                    }
+                int efficiency = bonusEfficiency && input.isEnchanted() ? input.getEnchantmentLevel(EFFICIENCY) : 0;
+                if (efficiency > 0) {
+                    int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                    int extra2 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                    efficiency = Math.min(extra1, extra2);
                 }
 
-                for (int i = 0; i < 1 + efficiency; i++) {
-                    this.miningTime--;
-                }
+                this.miningTime -= 1+efficiency;
 
                 if (this.miningTime <= 0 && !this.level.isClientSide) {
                     this.mine();
@@ -300,7 +310,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
                 if (input.getItem() != this.currentInputType) {
                     this.miningTime = 0;
-
                     this.possibleResults = null;
                 }
 
@@ -380,21 +389,14 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         ItemStack input = this.inputHandler.getStackInSlot(0);
 
-        int fortune = 0;
-        if (Occultism.SERVER_CONFIG.itemSettings.minerFortune.getAsBoolean()) {
-            fortune = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.FORTUNE))
-                    : 0;
-
-            if (fortune > 0) {
-                int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
-                int extra2 = this.level.random.nextIntBetweenInclusive(0, fortune);
-                int extra3 = this.level.random.nextIntBetweenInclusive(0, fortune);
-                fortune = Math.min(extra1, Math.min(extra2, extra3));
-            }
+        int fortune = bonusFortune && input.isEnchanted() ? input.getEnchantmentLevel(FORTUNE) : 0;
+        if (fortune > 0) {
+            int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            int extra2 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            int extra3 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            fortune = Math.min(extra1, Math.min(extra2, extra3));
         }
-        int silk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean() && input.isEnchanted()
-                ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.SILK_TOUCH))
-                : 0;
+        int silk = bonusSilk && input.isEnchanted() ? input.getEnchantmentLevel(SILK_TOUCH) : 0;
 
         List<ItemStack> batchedDrops = new ArrayList<>();
 
@@ -422,19 +424,18 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         // Insert batched drops
+        IItemHandler currentHandler = this.getCurrentHandler();
         for (ItemStack drop : batchedDrops) {
-            ItemHandlerHelper.insertItemStacked(this.outputHandler, drop, false);
+            ItemHandlerHelper.insertItemStacked(currentHandler, drop, false);
         }
 
         // damage the item and move to output before breaking
         input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
         });
-        if (Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean()
-                && input.getMaxDamage() - 1 == input.getDamageValue()) {
+        if (saveMiner && input.getMaxDamage() - 1 == input.getDamageValue()) {
             var minerCopy = input.copy();
-            input.hurtAndBreak(100, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
-            });
-            ItemHandlerHelper.insertItemStacked(this.outputHandler, minerCopy, false);
+            input.shrink(1);
+            ItemHandlerHelper.insertItemStacked(currentHandler, minerCopy, false);
         }
     }
 
@@ -451,5 +452,36 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 signalO++;
         }
         return Math.max(signalI, signalO);
+    }
+
+    private void setCachedEnchantment() {
+        if (this.level != null) {
+            UNUSING = this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(EVILCRAFT_UNUSING_ENCHANTMENT).orElse(null);
+            EFFICIENCY = this.level.holderOrThrow(Enchantments.EFFICIENCY);
+            FORTUNE = this.level.holderOrThrow(Enchantments.FORTUNE);
+            SILK_TOUCH = this.level.holderOrThrow(Enchantments.SILK_TOUCH);
+            cachedEnchantment = true;
+        }
+    }
+
+    public void updateBelowBlock() {
+        if (this.level != null) {
+            this.cachedStateBelow = this.level.getBlockState(this.getBlockPos().below(2));
+            this.handlerBelow = this.level.getCapability(Capabilities.ItemHandler.BLOCK,
+                    this.getBlockPos().below(2), this.cachedStateBelow, null, Direction.UP);
+        }
+    }
+
+    private IItemHandler getCurrentHandler() {
+        if (this.level == null)
+            return null;
+
+        if (this.level.getBlockState(this.getBlockPos().below()).is(OccultismBlocks.DIMENSIONAL_EXTRACTOR)) {
+            if (this.cachedStateBelow != this.level.getBlockState(this.getBlockPos().below(2)))
+                this.updateBelowBlock();
+            return this.handlerBelow == null ? this.outputHandler : this.handlerBelow;
+        }
+
+        return this.outputHandler;
     }
 }

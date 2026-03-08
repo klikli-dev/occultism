@@ -82,6 +82,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.STABLE_WORMHOLE_DARK.get())
                 .add(OccultismBlocks.ENTITY_WORMHOLE_DARK.get())
                 .add(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())
+                .add(OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get())
+                .add(OccultismBlocks.DIMENSIONAL_EXTRACTOR.get())
                 .add(OccultismBlocks.SILVER_ORE.get())
                 .add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get())
                 .add(OccultismBlocks.IESNIUM_ORE.get())

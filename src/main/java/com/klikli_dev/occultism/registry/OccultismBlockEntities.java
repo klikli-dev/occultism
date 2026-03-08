@@ -64,6 +64,11 @@ public class OccultismBlockEntities {
                     "dimensional_mineshaft", () -> BlockEntityType.Builder.of(DimensionalMineshaftBlockEntity::new,
                             OccultismBlocks.DIMENSIONAL_MINESHAFT.get()).build(null));
 
+    public static final Supplier<BlockEntityType<DimensionalBattlefieldBlockEntity>> DIMENSIONAL_BATTLEFIELD =
+            BLOCK_ENTITIES.register(
+                    "dimensional_battlefield", () -> BlockEntityType.Builder.of(DimensionalBattlefieldBlockEntity::new,
+                            OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get()).build(null));
+
     public static final Supplier<BlockEntityType<OtherSignBlockEntity>> OTHERPLANKS_SIGN =
             BLOCK_ENTITIES.register("otheplanks_sign", () ->
                     BlockEntityType.Builder.of(OtherSignBlockEntity::new,

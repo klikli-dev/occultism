@@ -27,8 +27,10 @@ import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TieredSingleRecipeInput;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -40,9 +42,14 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityEvent;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +77,8 @@ public class CrusherJob extends SpiritJob {
     protected PickupItemsGoal pickupItemsGoal;
 
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
-
+    private IItemHandler handlerBelow = null;
+    private BlockState cachedStateBelow = null;
 
     public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> operationCount, Supplier<Integer> tier) {
         super(entity);
@@ -105,15 +113,16 @@ public class CrusherJob extends SpiritJob {
     public void update() {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
         var recipeInput = new TieredSingleRecipeInput(handHeld, this.tier.get());
+        Level level = this.entity.level();
 
         if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
-            this.currentRecipe = this.entity.level().getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
-                    recipeInput, this.entity.level());
+            this.currentRecipe = level.getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
+                    recipeInput, level);
             this.crushingTimer = 0;
 
             if (this.currentRecipe.isPresent()) {
                 //play crushing sound
-                this.entity.level()
+                level
                         .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 1f,
                                 1 + 0.5f * this.entity.getRandom().nextFloat());
             } else {
@@ -126,7 +135,7 @@ public class CrusherJob extends SpiritJob {
             }
         }
         if (this.currentRecipe.isPresent()) {
-            if (handHeld.isEmpty() || !this.currentRecipe.get().value().matches(recipeInput, this.entity.level())) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get().value().matches(recipeInput, level)) {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             } else {
@@ -134,17 +143,17 @@ public class CrusherJob extends SpiritJob {
                 this.crushingTimer++;
 
                 //show particle effect while crushing
-                if (this.entity.level().getGameTime() % 10 == 0) {
+                if (level.getGameTime() % 10 == 0) {
                     Vec3 pos = this.entity.position();
-                    ((ServerLevel) this.entity.level())
-                            .sendParticles(ParticleTypes.CRIT, pos.x + this.entity.level().random.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                    ((ServerLevel) level)
+                            .sendParticles(ParticleTypes.CRIT, pos.x + level.random.nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
                 //every two seconds, play another crushing sound
                 if (this.crushingTimer % 40 == 0) {
-                    this.entity.level().playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
+                    level.playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
                             SoundSource.NEUTRAL, 1f,
                             1 + 0.5f * this.entity.getRandom().nextFloat());
                 }
@@ -152,7 +161,7 @@ public class CrusherJob extends SpiritJob {
                 if (this.crushingTimer >= this.currentRecipe.get().value().getCrushingTime() * this.crushingTimeMultiplier.get()) {
                     this.crushingTimer = 0;
 
-                    ItemStack result = this.currentRecipe.get().value().assemble(recipeInput, this.entity.level().registryAccess());
+                    ItemStack result = this.currentRecipe.get().value().assemble(recipeInput, level.registryAccess());
                     //make sure to ignore output multiplier on recipes that set that flag.
                     //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
                     float outputMultiplier = this.outputMultiplier.get();
@@ -168,9 +177,20 @@ public class CrusherJob extends SpiritJob {
                     var event = new CrusherJobEvent(this.entity, inputCopy, result);
                     NeoForge.EVENT_BUS.post(event);
                     if(!event.getResult().isEmpty()) {
-                        ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
-                        if (droppedItem != null) {
-                            droppedItem.addTag(DROPPED_BY_CRUSHER);
+                        boolean flag = true;
+                        if (level.getBlockState(this.entity.blockPosition().below()).is(OccultismBlocks.DIMENSIONAL_EXTRACTOR)) {
+                            if (this.cachedStateBelow != level.getBlockState(this.entity.blockPosition().below(2)))
+                                this.updateBelowBlock();
+                            if (this.handlerBelow != null) {
+                                ItemHandlerHelper.insertItemStacked(this.handlerBelow, event.getResult(), false);
+                                flag = false;
+                            }
+                        }
+                        if (flag) {
+                            ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                            if (droppedItem != null) {
+                                droppedItem.addTag(DROPPED_BY_CRUSHER);
+                            }
                         }
                     }
                     //Don't reset recipe here, keep it cached
@@ -215,6 +235,12 @@ public class CrusherJob extends SpiritJob {
      */
     public void onCrush(ItemStack input, ItemStack output) {
 
+    }
+
+    public void updateBelowBlock() {
+        this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
+        this.handlerBelow = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK,
+                this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
     }
 
     public static class CrusherJobEvent extends EntityEvent {

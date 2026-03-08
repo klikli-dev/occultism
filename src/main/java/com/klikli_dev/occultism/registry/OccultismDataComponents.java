@@ -246,4 +246,28 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.STRING_UTF8)
             .cacheEncoding()
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SOUL_VALUE = DATA_COMPONENTS.registerComponentType("soul_value", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LUCK_VALUE = DATA_COMPONENTS.registerComponentType("luck_value", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FAIL_CHANCE = DATA_COMPONENTS.registerComponentType("fail_chance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> CONSUME_CHANCE = DATA_COMPONENTS.registerComponentType("consume_chance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "resurrect_mob": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/resurrect_mob"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.resurrect_mob.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.resurrect_mob.title"
+    }
+  },
+  "requirements": [
+    [
+      "resurrect_mob"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

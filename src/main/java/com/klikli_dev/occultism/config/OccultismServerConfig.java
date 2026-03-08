@@ -54,6 +54,8 @@ public class OccultismServerConfig {
         public final BooleanValue minerEfficiency;
         public final BooleanValue minerFortune;
         public final BooleanValue minerSilk;
+        public final DoubleValue butcherHurtChance;
+        public final IntValue butcherLifeMultiplier;
         public final BooleanValue unbreakableChalks;
         public final IntValue maxDistanceRTP;
         public final IntValue maxTryRTP;
@@ -86,6 +88,16 @@ public class OccultismServerConfig {
                                     "Allow miners enchanted with silk touch to has a chance of multiply results each operation"
                             )
                             .define("minerSilk", true);
+            this.butcherHurtChance =
+                    builder.comment(
+                                    "Chance of damaging the weapon with each advance on the dimensional battlefield."
+                            )
+                            .defineInRange("butcherHurtChance", 0.04F, 0.0F, 1.0F);
+            this.butcherLifeMultiplier =
+                    builder.comment(
+                                    "Entity life multiplier when calculating processing time in the dimensional battlefield."
+                            )
+                            .defineInRange("butcherLifeMultiplier", 20, 1, Integer.MAX_VALUE);
             this.unbreakableChalks =
                     builder.comment(
                                     "Don't damage chalks on use"

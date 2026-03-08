@@ -38,7 +38,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______e_x_p_q_r_t_Ť_______",
                 "___________________________",
-                "_____b___ᑬ_______u_c_h_____",
+                "_____b_M_X_ᑬ_____u_c_h_____",
                 "___________________________",
                 "_____d_______________é_____",
                 "___________________________",
@@ -100,6 +100,14 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftAncientMiner = this.add(new MinerAncientEntry(this).generate('r'));
         craftAncientMiner.withParent(BookEntryParentModel.create(craftMaridMiner.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        //Dimensional Battlefield
+        var craftDimensionalBattlefield = this.add(new DimensionalBattlefieldEntry(this).generate('M'));
+        craftDimensionalBattlefield.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
+        //Dimensional Extractor
+        var craftDimensionalExtractor = this.add(new DimensionalExtractorEntry(this).generate('X'));
+        craftDimensionalExtractor.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
 
         //Storage Entries
             //Start
