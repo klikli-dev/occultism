@@ -30,22 +30,17 @@ import net.minecraft.world.level.storage.ServerLevelData;
 import java.util.function.Supplier;
 
 public class DayTimeJob extends ChangeTimeJob {
+    
+    protected static final int TIME_DAWN = 0;
 
     public DayTimeJob(SpiritEntity entity, Supplier<Integer> ticksToClear) {
         super(entity, ticksToClear);
     }
 
     @Override
-    public long getNewTime() {
-        //dawn is 0, 24000, 48000, etc
-        //noon is 6000
-        //nightfall is 13000, 37000, 61000, etc
-        //midnight is 18000
-
+    protected long getNewTime() {
         ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
-
-        //time of next dawn
-        long newTime = ((level.getDayTime() + 24000) / 24000) * 24000;
+        long newTime = getNearestDayTime(level.getDayTime(), TIME_DAWN);
 
         return newTime;
     }
