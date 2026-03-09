@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
+import com.klikli_dev.occultism.common.entity.job.event.ItemProcessingJobEvent;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
@@ -38,7 +39,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -264,29 +264,9 @@ public class SmelterJob extends SpiritJob {
 
     }
 
-    public static class SmelterJobEvent extends EntityEvent {
-        private ItemStack input;
-        private ItemStack result;
+    public static class SmelterJobEvent extends ItemProcessingJobEvent {
         public SmelterJobEvent(Entity entity, ItemStack input, ItemStack result) {
-            super(entity);
-            this.input = input;
-            this.result = result;
-        }
-
-        public ItemStack getInput() {
-            return input;
-        }
-
-        public void setInput(ItemStack input) {
-            this.input = input;
-        }
-
-        public ItemStack getResult() {
-            return result;
-        }
-
-        public void setResult(ItemStack result) {
-            this.result = result;
+            super(entity, input, result);
         }
     }
 }

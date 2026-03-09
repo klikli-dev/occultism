@@ -40,7 +40,7 @@ public class RainWeatherJob extends ChangeWeatherJob {
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableRainWeatherRitual.get()) {
             var level = (ServerLevel) this.entity.level();
-            level.setWeatherParameters(0, getDuration(level.getRandom(), RAIN_DURATION, ServerLevel.RAIN_DURATION), true, false);
+            level.setWeatherParameters(0, RAIN_DURATION, true, false);
         } else {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }

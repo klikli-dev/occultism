@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.common.entity.job;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.storage.ServerLevelData;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.function.Supplier;
 
@@ -37,13 +37,8 @@ public class ClearWeatherJob extends ChangeWeatherJob {
 
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
-            //taken from weathercommand#clear
-            ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
-            level.setClearWeatherTime(0);
-            level.setRainTime(0);
-            level.setThunderTime(0);
-            level.setRaining(false);
-            level.setThundering(false);
+            var level = (ServerLevel) this.entity.level();
+            level.setWeatherParameters(0, 0, false, false);
         } else {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
