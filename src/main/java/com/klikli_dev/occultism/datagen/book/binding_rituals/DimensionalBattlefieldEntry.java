@@ -64,7 +64,7 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                           Using a {1} comes with a chance of failure.
                           Finally, use the {2} improves efficiency, allowing the farming of
                           possessed mobs and bosses, and triples the loot from other mobs.
-                          The {3} don't need spiritual fuel, but can be consumed after the process.
+                          The {3} doesn''t need spiritual fuel, but can be consumed after the process.
                         """,
                 this.itemLink(OccultismItems.SOUL_GEM_ITEM),
                 this.itemLink(OccultismItems.FRAGILE_SOUL_GEM_ITEM),

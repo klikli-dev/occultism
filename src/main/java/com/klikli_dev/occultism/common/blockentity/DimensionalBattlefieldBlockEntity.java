@@ -25,10 +25,7 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
-import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.util.EntityUtil;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
@@ -92,6 +89,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     private final float BUTCHER_HURT_CHANCE = (float) Occultism.SERVER_CONFIG.itemSettings.butcherHurtChance.getAsDouble();
     private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
+    private static final int DEFAULT_MAX_LUCK = 16;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey.create(
                             Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
     private Holder<Enchantment> UNUSING;
@@ -111,6 +109,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public int maxHitTimer;
     public int soulValue;
     private int xpStored;
+    private boolean wait;
     private IItemHandler handlerBelow = null;
     private BlockState cachedStateBelow = null;
     public Consumer<EntityJoinLevelEvent> entityJoinLevelEventListener;
@@ -241,6 +240,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (soul.isEmpty() || weapon.isEmpty()) {
             this.mobHealth = 0;
+            this.wait = true;
             return;
         }
 
@@ -250,14 +250,15 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (weapon.getDamageValue() >= weapon.getMaxDamage() - 6 &&
                 UNUSING != null && weapon.getEnchantmentLevel(UNUSING) > 0) {
             this.mobHealth = 0;
+            this.wait = true;
             return;
         }
 
         if (storedLivingEntity == null || this.cachedSoul != soul || this.cachedWeapon != weapon) {
-                setStoredLivingEntity(soul, (ServerLevel) level);
-                setMaxMobLife();
-                this.cachedSoul = soul;
-                this.cachedWeapon = weapon;
+            setStoredLivingEntity(soul, (ServerLevel) level);
+            setMaxMobLife();
+            this.cachedSoul = soul;
+            this.cachedWeapon = weapon;
         }
 
         int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
@@ -265,6 +266,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if ((fuel.isEmpty() && !soul.has(OccultismDataComponents.SOUL_VALUE))
                 || fuelValue * fuel.getCount() < this.soulValue) {
             this.mobHealth = 0;
+            this.wait = true;
+            return;
+        }
+
+        if (wait) { //Reset the process, start from zero in next tick
+            this.wait = false;
+            this.mobHealth = maxMobLife;
             return;
         }
 
@@ -289,6 +297,11 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         this.markNetworkDirty();
+
+        if (this.outputDirty) {
+            this.setChanged();
+            this.outputDirty = false;
+        }
     }
 
     @Nullable
@@ -318,6 +331,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (entity == null)
             return;
 
+        luck = Math.min(rolls, DEFAULT_MAX_LUCK); //Cap luck
+
         rolls = rolls + (int) (luck*luck/100F);
         if (RandomSource.create().nextIntBetweenInclusive(0, 99) < (luck*luck) % 100)
             rolls++;
@@ -332,6 +347,10 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             ItemStack bottleStack = new ItemStack(Items.EXPERIENCE_BOTTLE, bottles);
             ItemHandlerHelper.insertItemStacked(currentHandler, bottleStack, false);
         }
+
+        //TODO: Custom drops with json recipes (planned for mc 26.1)
+        if (entity.getType().equals(EntityType.ENDER_DRAGON))
+            ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
 
         FakePlayer fakePlayer = this.getFakePlayer();
         if (entity.getType().is(OccultismTags.Entities.FORCE_KILL_SIMULATION)) {
@@ -378,13 +397,21 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     }
 
     public void setStoredLivingEntity(ItemStack stack, ServerLevel level) {
+        this.storedLivingEntity = null;
         if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA) && this.level != null) {
             CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTag();
-            this.storedLivingEntity = (LivingEntity) EntityUtil.entityTypeFromNbt(entityData).create(this.level);
-        } else {
-            this.storedLivingEntity = null;
+            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(this.level);
+            if (tempEntity instanceof LivingEntity livingEntity)
+                this.storedLivingEntity = livingEntity;
         }
         if (this.storedLivingEntity != null) {
+            if (this.storedLivingEntity instanceof PossessedMob possessed && !stack.is(OccultismItems.TRINITY_GEM_ITEM)) {
+                EntityType<?> baseMob = possessed.basedMob();
+                if (baseMob != null && baseMob.create(level) instanceof LivingEntity entity) {
+                    this.storedLootTable = level.getServer().reloadableRegistries().getLootTable(entity.getLootTable());
+                    return;
+                }
+            }
             this.storedLootTable = level.getServer().reloadableRegistries().getLootTable(this.storedLivingEntity.getLootTable());
         } else {
             this.storedLootTable = null;

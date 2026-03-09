@@ -60,11 +60,12 @@ public class DimensionalBattlefieldScreen extends AbstractContainerScreen<Dimens
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); //It is not necessary, keeping this for future reference if needed
         guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
         int mobHealth = this.otherworldButcher.mobHealth;
-        int progress = (int) (34 * (1.0F - (float) mobHealth / this.otherworldButcher.maxMobLife));
+        int progress = this.otherworldButcher.maxMobLife > 0 ?
+                (int) (34 * (1.0F - (float) mobHealth / this.otherworldButcher.maxMobLife)) : 0;
         if (progress > 0 && mobHealth > 0) {
             guiGraphics.blit(TEXTURE, this.leftPos + 18, this.topPos + 81, 176, 0, progress + 1, 4);
         }

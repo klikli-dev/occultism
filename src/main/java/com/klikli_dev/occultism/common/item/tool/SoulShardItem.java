@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -73,7 +74,8 @@ public class SoulShardItem extends Item {
 
         if (level instanceof ServerLevel serverLevel) {
             CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTag();
-            LivingEntity mob = (LivingEntity) EntityUtil.entityTypeFromNbt(entityData).create(level);
+            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(level);
+            LivingEntity mob = tempEntity instanceof LivingEntity living ? living : null;
 
             if (mob != null) {
                 LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(mob.getLootTable());
@@ -87,7 +89,7 @@ public class SoulShardItem extends Item {
                         .create(LootContextParamSets.ENTITY);
 
                 player.getCooldowns().addCooldown(stack.getItem(), 10);
-                for (int i = 0; i < Math.min(player.getLuck() + 1, 1); i++)
+                for (int i = 0; i < 1 + (int)Math.max(0, player.getLuck()); i++)
                     lootTable.getRandomItems(lootParams, player.getLootTableSeed(), player::spawnAtLocation);
                 if (!player.hasInfiniteMaterials())
                     stack.shrink(1);

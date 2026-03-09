@@ -20,6 +20,7 @@ import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class SpiritGrindstoneMenu extends AbstractContainerMenu {
+    private final float DURABILITY_MULTIPLIER_ON_REPAIR = 1.2F;
 
     private final Container resultSlots;
     final Container repairSlots;
@@ -133,7 +134,9 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
             if (itemstack.isDamageableItem()) {
                 itemstack.set(DataComponents.MAX_DAMAGE, i);
                 itemstack.setDamageValue((int) Math.max(0,
-                    i -(inputItem.getMaxDamage()-inputItem.getDamageValue() + additionalItem.getMaxDamage()-additionalItem.getDamageValue())*1.2));
+                    i - (inputItem.getMaxDamage()-inputItem.getDamageValue()
+                    + additionalItem.getMaxDamage()-additionalItem.getDamageValue())
+                    * DURABILITY_MULTIPLIER_ON_REPAIR));
                 if (!additionalItem.isRepairable())
                     itemstack.setDamageValue(inputItem.getDamageValue());
             }

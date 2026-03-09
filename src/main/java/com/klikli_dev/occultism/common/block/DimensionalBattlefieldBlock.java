@@ -61,7 +61,7 @@ public class DimensionalBattlefieldBlock extends Block implements EntityBlock {
 
     public DimensionalBattlefieldBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, Integer.valueOf(0)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
     }
 
     @Override
