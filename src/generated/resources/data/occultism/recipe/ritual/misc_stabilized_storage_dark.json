@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": {
-    "tag": "c:dusts/echo"
+    "item": "minecraft:calibrated_sculk_sensor"
   },
   "duration": 780,
   "entity_to_sacrifice": {

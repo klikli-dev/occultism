@@ -2625,7 +2625,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.ENDER_PEARLS))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_upgrade_ritual_satchel"));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.ECHO_DUST),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.CALIBRATED_SCULK_SENSOR),
                         new ItemStack(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get()),
                         780,
@@ -2644,7 +2644,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.shulker")
                 .entityToSacrifice(OccultismTags.Entities.SHULKER)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_stabilized_storage"));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.ECHO_DUST),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.CALIBRATED_SCULK_SENSOR),
                         new ItemStack(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK.get()),
                         780,
