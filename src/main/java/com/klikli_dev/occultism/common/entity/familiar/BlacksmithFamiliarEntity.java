@@ -44,7 +44,6 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
@@ -158,6 +157,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         return ImmutableList.of();
     }
 
+    /*
+    Disabled due resurrection ritual
     @Override
     protected void dropEquipment() {
         int blockCount = this.ironCount / 9;
@@ -165,6 +166,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.spawnAtLocation(new ItemStack(Items.IRON_INGOT, barCount));
         this.spawnAtLocation(new ItemStack(Items.IRON_BLOCK, blockCount));
     }
+    */
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {

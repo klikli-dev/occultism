@@ -29,8 +29,10 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -43,8 +45,14 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityEvent;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +74,8 @@ public class TraderJob extends SpiritJob {
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
     protected List<RecipeHolder<SpiritTradeRecipe>> currentRecipe = List.of();
     protected List<WeightedRecipeResult> possibleResults;
+    private IItemHandler handlerBelow = null;
+    private BlockState cachedStateBelow = null;
 
     public TraderJob(SpiritEntity entity, Supplier<Integer> timeToConvert, Supplier<Integer> maxTradesPerRound) {
         super(entity);
@@ -119,16 +129,16 @@ public class TraderJob extends SpiritJob {
     public void update() {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
         var recipeInput = new TraderRecipeInput(handHeld, this.getFactoryID().toString());
+        Level level = this.entity.level();
         if (this.currentRecipe.isEmpty() && !handHeld.isEmpty()) {
-            this.currentRecipe = this.entity.level().getRecipeManager().getRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
-                    recipeInput, this.entity.level());
+            this.currentRecipe = level.getRecipeManager().getRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
+                    recipeInput, level);
             this.conversionTimer = 0;
 
             if (!this.currentRecipe.isEmpty()) {
                 //play crushing sound
-                this.entity.level()
-                        .playSound(null, this.entity.blockPosition(), OccultismSounds.START_RITUAL.get(), SoundSource.NEUTRAL, 1f,
-                                1 + 0.5f * this.entity.getRandom().nextFloat());
+                level.playSound(null, this.entity.blockPosition(), OccultismSounds.START_RITUAL.get(),
+                        SoundSource.NEUTRAL, 1f, 1 + 0.5f * this.entity.getRandom().nextFloat());
                     this.possibleResults = currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
@@ -140,7 +150,7 @@ public class TraderJob extends SpiritJob {
             }
         }
         if (!this.currentRecipe.isEmpty()) {
-            if (handHeld.isEmpty() || !this.currentRecipe.get(0).value().matches(recipeInput, this.entity.level())) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get(0).value().matches(recipeInput, level)) {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = List.of();
             } else {
@@ -148,17 +158,17 @@ public class TraderJob extends SpiritJob {
                 this.conversionTimer++;
 
                 //show particle effect while crushing
-                if (this.entity.level().getGameTime() % 10 == 0) {
+                if (level.getGameTime() % 10 == 0) {
                     Vec3 pos = this.entity.position();
-                    ((ServerLevel) this.entity.level())
-                            .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level().random.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                    ((ServerLevel) level)
+                            .sendParticles(ParticleTypes.PORTAL, pos.x + level.random.nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
                 //every two seconds, play another crushing sound
                 if (this.conversionTimer % 40 == 0) {
-                    this.entity.level().playSound(null, this.entity.blockPosition(), OccultismSounds.POOF.get(),
+                    level.playSound(null, this.entity.blockPosition(), OccultismSounds.POOF.get(),
                             SoundSource.NEUTRAL, 1f,
                             1 + 0.5f * this.entity.getRandom().nextFloat());
                 }
@@ -180,9 +190,20 @@ public class TraderJob extends SpiritJob {
                             var event = new TraderJob.TraderJobEvent(this.entity, inputCopy, finalResult);
                             NeoForge.EVENT_BUS.post(event);
                             if(!event.getResult().isEmpty()) {
-                                ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
-                                if (droppedItem != null) {
-                                    droppedItem.addTag(DROPPED_BY_TRADER);
+                                boolean flag = true;
+                                if (level.getBlockState(this.entity.blockPosition().below()).is(OccultismBlocks.DIMENSIONAL_EXTRACTOR)) {
+                                    if (this.cachedStateBelow != level.getBlockState(this.entity.blockPosition().below(2)))
+                                        this.updateBelowBlock();
+                                    if (this.handlerBelow != null) {
+                                        ItemHandlerHelper.insertItemStacked(this.handlerBelow, event.getResult(), false);
+                                        flag = false;
+                                    }
+                                }
+                                if (flag) {
+                                    ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                                    if (droppedItem != null) {
+                                        droppedItem.addTag(DROPPED_BY_TRADER);
+                                    }
                                 }
                             }
                         });
@@ -235,6 +256,13 @@ public class TraderJob extends SpiritJob {
     public void onConvert(ItemStack input, ItemStack output) {
 
     }
+
+    public void updateBelowBlock() {
+        this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
+        this.handlerBelow = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK,
+                this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
+    }
+
     public static class TraderJobEvent extends ItemProcessingJobEvent {
         public TraderJobEvent(Entity entity, ItemStack input, ItemStack result) {
             super(entity, input, result);

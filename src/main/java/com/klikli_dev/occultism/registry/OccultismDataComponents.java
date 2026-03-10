@@ -13,7 +13,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -225,7 +224,7 @@ public class OccultismDataComponents {
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP =  DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder
-            .persistent(ExtraCodecs.POSITIVE_INT)
+            .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.VAR_INT)
             .cacheEncoding()
     );
@@ -245,6 +244,30 @@ public class OccultismDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> LINKED_PLAYER_NAME = DATA_COMPONENTS.registerComponentType("linked_player_name", builder -> builder
             .persistent(Codec.STRING)
             .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SOUL_VALUE = DATA_COMPONENTS.registerComponentType("soul_value", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LUCK_VALUE = DATA_COMPONENTS.registerComponentType("luck_value", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FAIL_CHANCE = DATA_COMPONENTS.registerComponentType("fail_chance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> CONSUME_CHANCE = DATA_COMPONENTS.registerComponentType("consume_chance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
             .cacheEncoding()
     );
 }

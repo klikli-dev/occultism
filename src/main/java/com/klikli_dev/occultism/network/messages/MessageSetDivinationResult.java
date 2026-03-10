@@ -56,22 +56,14 @@ public class MessageSetDivinationResult implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DivinationRodItem ?
+                player.getItemInHand(InteractionHand.MAIN_HAND) : player.getItemInHand(InteractionHand.OFF_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
             stack.set(OccultismDataComponents.DIVINATION_DISTANCE, (float) this.distance);
             if (this.pos != null) {
                 stack.set(OccultismDataComponents.DIVINATION_POS, this.pos);
             }
             player.inventoryMenu.broadcastChanges();
-        } else {
-            ItemStack stackOff = player.getItemInHand(InteractionHand.OFF_HAND);
-            if (stackOff.getItem() instanceof DivinationRodItem) {
-                stackOff.set(OccultismDataComponents.DIVINATION_DISTANCE, (float) this.distance);
-                if (this.pos != null) {
-                    stackOff.set(OccultismDataComponents.DIVINATION_POS, this.pos);
-                }
-                player.inventoryMenu.broadcastChanges();
-            }
         }
     }
 

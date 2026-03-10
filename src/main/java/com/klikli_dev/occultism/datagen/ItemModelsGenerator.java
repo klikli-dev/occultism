@@ -194,6 +194,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.SILVER_INGOT.get()),
                 this.name(OccultismItems.SILVER_NUGGET.get()),
                 this.name(OccultismItems.SOUL_SHARD_ITEM.get()),
+                this.name(OccultismItems.SOUL_SHATTERED_ITEM.get()),
                 this.name(OccultismItems.SPIRIT_ATTUNED_GEM.get()),
                 this.name(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD.get()),
                 this.name(OccultismBlocks.SPIRIT_CAMPFIRE.asItem()),
@@ -212,6 +213,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     private void registerItemHandheld() {
         String[] items = {
                 this.name(OccultismItems.BUTCHER_KNIFE.get()),
+                this.name(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()),
                 this.name(OccultismItems.IESNIUM_PICKAXE.get()),
                 this.name(OccultismItems.INFUSED_PICKAXE.get())
         };
@@ -234,6 +236,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.CELESTIAL_CHALICE.asItem()),
                 this.name(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                 this.name(OccultismBlocks.DIMENSIONAL_MINESHAFT.asItem()),
+                this.name(OccultismBlocks.DIMENSIONAL_BATTLEFIELD.asItem()),
+                this.name(OccultismBlocks.DIMENSIONAL_EXTRACTOR.asItem()),
                 this.name(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.asItem()),
                 this.name(OccultismBlocks.IESNIUM_BLOCK.asItem()),
                 this.name(OccultismBlocks.IESNIUM_ORE.asItem()),
@@ -284,6 +288,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.SILVER_ORE_DEEPSLATE.asItem()),
                 this.name(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.asItem()),
                 this.name(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                this.name(OccultismBlocks.SPIRIT_GRINDSTONE.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER0.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER1.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER2.asItem()),

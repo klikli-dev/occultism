@@ -46,6 +46,7 @@ public class ResurrectSpiritEntry extends EntryProvider {
         this.pageText("""
                 - [Resurrect Familiar](entry://familiar_rituals/resurrection)
                 - [Purify Vex to Allay](entry://familiar_rituals/resurrect_allay)
+                - [Resurrect Mobs](entry://familiar_rituals/great_resurrection)
                 """
         );
 

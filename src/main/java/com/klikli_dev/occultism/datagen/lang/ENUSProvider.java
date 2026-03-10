@@ -138,6 +138,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
         this.add("block.occultism.otherglass.auto_tooltip", "Wear Otherworld Goggles to see it once placed");
 
+        this.add(OccultismItems.OTHERWORLD_GOGGLES.get().getDescriptionId() + ".auto_tooltip", "Allows you to VIEW advanced resources of otherworld (iesnium).");
+        this.add(OccultismItems.INFUSED_PICKAXE.get().getDescriptionId() + ".auto_tooltip", "Allows you to COLLECT advanced resources of otherworld (iesnium).");
+        this.add(OccultismItems.IESNIUM_PICKAXE.get().getDescriptionId() + ".auto_tooltip", "Allows you to COLLECT advanced resources of otherworld (iesnium).");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".auto_tooltip", "Allows you to VIEW and COLLECT advanced resources of otherworld (iesnium).");
+
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
         this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
@@ -178,6 +183,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used to resurrect it.");
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_empty", "Dropped by a Familiar after their untimely death. Can be used to resurrect it.");
+
+        this.add(OccultismItems.SOUL_SHATTERED_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used in a ritual to resurrect it.");
+        this.add(OccultismItems.SOUL_SHATTERED_ITEM.get().getDescriptionId() + ".tooltip_empty", "Obtain this by killing mobs with a weapon enchanted with fracture soul.\nCan be used to resurrect the mob.");
+        this.addAutoTooltip(OccultismItems.SOUL_SHATTERED_ITEM.get(), "Alternatively, you can use the right-click or the dimensional battlefield to obtain extra loot.");
     }
 
     private void addItems() {
@@ -324,6 +333,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
         this.addItem(OccultismItems.BURNT_OTHERROCK, "Burnt Otherrock");
         this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
+        this.addItem(OccultismItems.IESNIUM_BUTCHER_KNIFE, "Iesnium Butcher Knife");
+        this.addAutoTooltip(OccultismItems.IESNIUM_BUTCHER_KNIFE, "This butcher knife has an inherent Beheading and deals extra damage to spirits.");
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
         this.addItem(OccultismItems.OTHERROCK_FRAME, "Otherrock Frame");
@@ -365,6 +376,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.TRINITY_GEM_ITEM, "Trinity Gem");
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Trinity Gem");
         this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
+        this.addItem(OccultismItems.SOUL_SHATTERED_ITEM, "Shattered Soul Shard");
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
         this.addAutoTooltip(OccultismItems.SATCHEL, "Some people call it a backpack");
         this.addItem(OccultismItems.ENDER_SATCHEL, "Ender Satchel");
@@ -593,6 +605,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.LARGE_CANDLE_PURPLE, "Large Purple Candle");
         this.addBlock(OccultismBlocks.SILVER_ORE, "Silver Ore");
         this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Deepslate Silver Ore");
+        this.addBlock(OccultismBlocks.SPIRIT_GRINDSTONE, "Spirit Grindstone");
         this.addBlock(OccultismBlocks.IESNIUM_ANVIL, "Iesnium Anvil");
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
         this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
@@ -600,6 +613,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
         this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
         this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Dimensional Mineshaft");
+        this.addBlock(OccultismBlocks.DIMENSIONAL_BATTLEFIELD, "Dimensional Battlefield");
+        this.addBlock(OccultismBlocks.DIMENSIONAL_EXTRACTOR, "Dimensional Extractor");
         this.addBlock(OccultismBlocks.SKELETON_SKULL_DUMMY, "Skeleton Skull");
         this.addBlock(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY, "Wither Skeleton Skull");
         this.addBlock(OccultismBlocks.LIGHTED_AIR, "Lighted Air");
@@ -783,6 +798,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
 
+        //Enchantment
+        this.add("enchantment.occultism.fracture_soul", "Fracture Soul");
+        this.add("enchantment.occultism.fracture_soul.desc", "Makes mobs have a chance to drop a shattered soul shard.");
+
         //Effects
         this.add("effect.occultism.third_eye", "Third Eye");
         this.add("effect.occultism.double_jump", "Multi Jump");
@@ -859,6 +878,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_name", "Sort by machine name.");
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod", "Sort by mod name.");
 
+        // Others
+        this.add("gui.occultism.spirit_grindstone.container", "Repair & Uncurse");
     }
 
     private void addRitualMessages() {
@@ -1941,9 +1962,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "Craft Fragile Soul Gem", "Foliot", "The Fragile Soul Gem allows the temporary storage of living beings. It can only be used once.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE, "Craft Iesnium Butcher Knife", "Afrit", "The Iesnium butcher knife is perfect for cutting heads and skulls, and continues to perform the functions of a regular butcher knife.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "Craft True Sight Staff", "Marid", "The true sight staff give abilities to find, see and interact with the otherworld.");
             //Miners
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_EXTRACTOR, "Craft Dimensional Extractor", "Djinni", "Place a dimensional mineshaft/battlefield or a spirit worker above it to enable depositing results directly into an inventory below that block.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT, "Craft Dimensional Mineshaft", "Djinni", "Allows miner spirits to enter the mining dimension and bring back resources.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_BATTLEFIELD, "Craft Dimensional Battlefield", "Afrit", "Allows the imprisoned Afrit to simulate spiritual battles to generate resources from mobs.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED, "Infuse Foliot Miner", "Foliot", "Summon Foliot Miner into a magic lamp.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES, "Infuse Djinni Ore Miner", "Djinni", "Summon Djinni Ore Miner into a magic lamp.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS, "Infuse Afrit Deep Ore Miner", "Afrit", "Summon Afrit Deep Ore Miner into a magic lamp.");
@@ -1972,8 +1996,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
             //Blocks
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK, "Craft Dark Entity Wormhole", "Djinni", "The Dark Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Ritual Bowl", "Afrit", "The Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Ritual Bowl.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Ritual Bowl", "Afrit", "The Dark Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Ritual Bowl.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE, "Craft Spirit Grindstone", "Djinni", "The spirit grindstone is an improvement on the common grindstone, which removes curses (keeping other enchantments) and repairs items more efficiently.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Ritual Bowl", "Afrit", "The Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will work like the Golden Ritual Bowl.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Ritual Bowl", "Afrit", "The Dark Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will work like the Dark Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
             //Repair
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Repair Chalk", "Djinni", "Fully repair chalk by infusing it with a Djinni.");
@@ -1984,6 +2009,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
             //Resurrect
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR, "Resurrect Familiar", "Familiar", "Resurrects a Familiar from a Soul Shard.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY, "Purify Vex to Allay", "Familiar", "Purifies a Vex into an Allay through resurrection.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_MOB, "Resurrect Mob", "Familiar", "Resurrects a Mob from a Shattered Soul Shard.");
             //Wild
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUNT, "Invoke The Wild Hunt", "Wild", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "Invoke a Horde of Creeper", "Wild", "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
@@ -2156,6 +2182,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.BLAZE_DUST, "Blaze Dust");
         this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
+        this.addItemTag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM, "Iesnium Knives");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/knife"), "Knives");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
@@ -2386,6 +2413,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerEfficiency", "Efficient miners");
         this.addConfig("minerFortune", "Fortune miners");
         this.addConfig("minerSilk", "Silk miners");
+        this.addConfig("butcherHurtChance", "Battlefield weapon breaking chance");
+        this.addConfig("butcherLifeMultiplier", "Battlefield time multiplier");
+        this.addConfig("shatteredSoulChance", "Shattered soul drop chance");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
         this.addConfig("maxDistanceRTP", "Max Distance RTP");
         this.addConfig("maxTryRTP", "Max Attempts to RTP");

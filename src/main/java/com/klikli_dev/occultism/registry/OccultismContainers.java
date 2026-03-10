@@ -23,9 +23,11 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
@@ -89,6 +91,13 @@ public class OccultismContainers {
                     () -> IMenuTypeExtension
                             .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
                                     (DimensionalMineshaftBlockEntity) inv.player.level().getBlockEntity(
+                                            data.readBlockPos()))));
+
+    public static final Supplier<MenuType<DimensionalBattlefieldContainer>> OTHERWORLD_BUTCHER =
+            CONTAINERS.register("otherworld_butcher",
+                    () -> IMenuTypeExtension
+                            .create((windowId, inv, data) -> new DimensionalBattlefieldContainer(windowId, inv,
+                                    (DimensionalBattlefieldBlockEntity) inv.player.level().getBlockEntity(
                                             data.readBlockPos()))));
 
     public static final Supplier<MenuType<AbstractSatchelContainer>> SATCHEL =

@@ -58,6 +58,10 @@ public class OccultismItems {
             () -> new DivinationRodItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
+    public static final DeferredItem<SwordItem> IESNIUM_BUTCHER_KNIFE = ITEMS.register("iesnium_butcher_knife",
+            () -> new SwordItem(OccultismTiers.IESNIUM, defaultProperties().rarity(Rarity.UNCOMMON)
+                    .attributes(SwordItem.createAttributes(OccultismTiers.IESNIUM, 10, -1.8F))
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
             () -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED, defaultProperties()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
@@ -90,7 +94,7 @@ public class OccultismItems {
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
             ));
     public static final DeferredItem<KnowledgeTabletItem> KNOWLEDGE_TABLET = ITEMS.register("knowledge_tablet",
-            () -> new KnowledgeTabletItem(defaultProperties()
+            () -> new KnowledgeTabletItem(defaultProperties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .component(OccultismDataComponents.STORED_XP, 0)
             ));
@@ -98,11 +102,12 @@ public class OccultismItems {
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<SoulGemItem> FRAGILE_SOUL_GEM_ITEM = ITEMS.register("fragile_soul_gem",
-            () -> new SoulGemItem(defaultProperties().stacksTo(1)));
+            () -> new SoulGemItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.FAIL_CHANCE, 0.8F)));
     public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SoulGemItem> TRINITY_GEM_ITEM = ITEMS.register("trinity_gem",
-            () -> new SoulGemItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+            () -> new SoulGemItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()
+                    .component(OccultismDataComponents.ROLLS_PER_OPERATION, 3)));
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<Item> VITALITY_COMPASS = ITEMS.register("vitality_compass",
@@ -283,15 +288,19 @@ public class OccultismItems {
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.durability));
 
     //Crops and food
-    public static final DeferredItem<Item> DATURA_SEEDS =
-            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()));
+    public static final DeferredItem<Item> DATURA_SEEDS = ITEMS.register("datura_seeds",
+            () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()
+                    .component(OccultismDataComponents.SOUL_VALUE, 1)));
     public static final DeferredItem<Item> DATURA = ITEMS.register("datura",
-            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())));
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())
+                    .component(OccultismDataComponents.SOUL_VALUE, 2)));
     public static final DeferredItem<Item> DEMONS_DREAM_ESSENCE = ITEMS.register("demons_dream_essence",
-            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())));
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())
+                    .component(OccultismDataComponents.SOUL_VALUE, 20)));
 
     public static final DeferredItem<Item> OTHERWORLD_ESSENCE = ITEMS.register("otherworld_essence",
-            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())));
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())
+                    .component(OccultismDataComponents.SOUL_VALUE, 32).component(OccultismDataComponents.LUCK_VALUE, 2)));
     public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.register("beaver_nugget",
             () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
     public static final DeferredItem<Item> CURSED_HONEY = ITEMS.register("cursed_honey",
@@ -413,6 +422,9 @@ public class OccultismItems {
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.register("soul_shard",
             () -> new SoulShardItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<SoulShardItem> SOUL_SHATTERED_ITEM = ITEMS.register("soul_shattered",
+            () -> new SoulShardItem(defaultProperties().stacksTo(1)
+                    .component(OccultismDataComponents.SOUL_VALUE, 1).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F)));
 
     //Machines
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
@@ -638,9 +650,13 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.register("ritual_dummy/craft_fragile_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.register("ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.register("ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE = ITEMS.register("ritual_dummy/craft_iesnium_butcher_knife", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF = ITEMS.register("ritual_dummy/craft_true_sight_staff", () -> new DummyTooltipItem(defaultProperties()));
             //Miners
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_EXTRACTOR = ITEMS.register("ritual_dummy/craft_dimensional_extractor", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT = ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_BATTLEFIELD = ITEMS.register("ritual_dummy/craft_dimensional_battlefield", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("ritual_dummy/craft_miner_foliot_unspecialized", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES = ITEMS.register("ritual_dummy/craft_miner_djinni_ores", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS = ITEMS.register("ritual_dummy/craft_miner_afrit_deeps", () -> new DummyTooltipItem(defaultProperties()));
@@ -669,6 +685,8 @@ public class OccultismItems {
             //Blocks
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.register("ritual_dummy/craft_entity_wormhole", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK = ITEMS.register("ritual_dummy/craft_entity_wormhole_dark", () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE = ITEMS.register("ritual_dummy/craft_spirit_grindstone", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.register("ritual_dummy/craft_iesnium_anvil", () -> new DummyTooltipItem(defaultProperties()));
@@ -681,6 +699,7 @@ public class OccultismItems {
         //Resurrect
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ALLAY = ITEMS.register("ritual_dummy/resurrect_allay", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_MOB = ITEMS.register("ritual_dummy/resurrect_mob", () -> new DummyTooltipItem(defaultProperties()));
         //Wild (group possess)
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUNT = ITEMS.register("ritual_dummy/wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_CREEPER = ITEMS.register("ritual_dummy/wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
@@ -836,6 +855,7 @@ public class OccultismItems {
                 || item == FAMILIAR_RING.get()
                 || item == VITALITY_COMPASS.get()
                 || item == INFUSED_PICKAXE.get()
+                || item == IESNIUM_BUTCHER_KNIFE.get()
                 || item == MAGIC_LAMP_EMPTY.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()
                 || item == MINER_DJINNI_ORES.get()

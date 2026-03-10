@@ -50,6 +50,7 @@ public class CraftDjinniEntry extends EntryProvider {
                 - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
                 - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
                 - [Entity Wormhole](entry://crafting_rituals/entity_wormhole)
+                - [Dimensional Extractor](entry://crafting_rituals/dimensional_extractor)
                 - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
                 - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
                 """
@@ -65,6 +66,7 @@ public class CraftDjinniEntry extends EntryProvider {
                 - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
                 - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
                 - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
+                - [Spirit Grindstone](entry://crafting_rituals/spirit_grindstone)
                 - [Repair Chalks](entry://crafting_rituals/repair)
                 - [Gray Paste](entry://pentacles/gray_chalk)
                 """

@@ -30,13 +30,10 @@ import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootTableProvider;
 import com.klikli_dev.occultism.datagen.recipe.OccultismRecipeProvider;
-import com.klikli_dev.occultism.datagen.tags.OccultismBiomeTagProvider;
-import com.klikli_dev.occultism.datagen.tags.OccultismBlockTagProvider;
-import com.klikli_dev.occultism.datagen.tags.OccultismEntityTypeTagProvider;
-import com.klikli_dev.occultism.datagen.tags.OccultismItemTagProvider;
+import com.klikli_dev.occultism.datagen.tags.*;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -47,13 +44,25 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber()
 public class DataGenerators {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+
+        //Used for enchantment
+        DatapackBuiltinEntriesProvider datapackProvider =
+                new DatapackBuiltinEntriesProvider(
+                        generator.getPackOutput(),
+                        event.getLookupProvider(),
+                        OccultismRegistries.BUILDER,
+                        Set.of(Occultism.MODID)
+                );
+        generator.addProvider(event.includeServer(), datapackProvider);
+        CompletableFuture<HolderLookup.Provider> lookup = datapackProvider.getRegistryProvider();
 
         generator.addProvider(event.includeServer(),
                 new OccultismLootTableProvider(generator.getPackOutput(), Set.of(), List.of(
@@ -74,6 +83,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new OccultismEntityTypeTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new OccultismItemTagProvider(generator.getPackOutput(), event.getLookupProvider(), forgeBlockProvider.contentsGetter(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new OccultismEnchantmentTagProvider(generator.getPackOutput(), lookup, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
@@ -86,9 +96,10 @@ public class DataGenerators {
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);
 
-        event.getGenerator().addProvider(event.includeServer(),
-                (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
-                        new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), OccultismRegistries.BUILDER, Set.of(Occultism.MODID)));
+        //Disabled because it's duplicated above for use in the enchantment provider
+        //event.getGenerator().addProvider(event.includeServer(),
+        //        (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
+        //                new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), OccultismRegistries.BUILDER, Set.of(Occultism.MODID)));
     }
 
 }

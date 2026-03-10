@@ -73,7 +73,21 @@ public class OccultismCapabilities {
                     else
                         return blockEntity.combinedHandler;
                 }
+        );
 
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.DIMENSIONAL_BATTLEFIELD.get(),
+                (blockEntity, side) -> {
+                    if (side == Direction.DOWN)
+                        return blockEntity.bufferedOutputHandler;
+                    else if (side == Direction.UP)
+                        return blockEntity.inputHandler;
+                    else if (side != null)
+                        return blockEntity.combinedHandler;
+                    else
+                        return blockEntity.jadeWrapper;
+                }
         );
 
         event.registerBlockEntity(

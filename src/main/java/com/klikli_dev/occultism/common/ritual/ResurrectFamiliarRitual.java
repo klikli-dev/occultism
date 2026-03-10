@@ -42,6 +42,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class ResurrectFamiliarRitual extends SummonRitual {
@@ -84,11 +85,8 @@ public class ResurrectFamiliarRitual extends SummonRitual {
 
             Entity entity = type.create(level);
             entity.load(entityData);
-            if (blockEntity.getTier(blockEntity.getBlockState()) == 3) {
-                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
-            } else {
-                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
-            }
+            entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
+            entity.setDeltaMovement(Vec3.ZERO);
             level.addFreshEntity(entity);
 
             if (entity instanceof FamiliarEntity familiar && castingPlayer != null)

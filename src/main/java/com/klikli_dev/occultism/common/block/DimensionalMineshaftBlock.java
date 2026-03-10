@@ -85,6 +85,14 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+        if (worldIn.getBlockEntity(pos) instanceof DimensionalMineshaftBlockEntity mineshaft) {
+            mineshaft.updateBelowBlock();
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = worldIn.getBlockEntity(pos);

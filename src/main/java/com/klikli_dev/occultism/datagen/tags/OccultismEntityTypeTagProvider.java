@@ -201,6 +201,9 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.TRADER_LLAMA)
                 .add(EntityType.MULE)
                 .add(EntityType.STRIDER);
+
+        this.tag(OccultismTags.Entities.FORCE_KILL_SIMULATION)
+                .add(EntityType.WITHER);
     }
 
     private void addCommonTags() {

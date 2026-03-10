@@ -47,6 +47,8 @@
     "occultism:stable_wormhole_dark",
     "occultism:entity_wormhole_dark",
     "occultism:dimensional_mineshaft",
+    "occultism:dimensional_battlefield",
+    "occultism:dimensional_extractor",
     "occultism:silver_ore",
     "occultism:silver_ore_deepslate",
     "occultism:iesnium_ore",
@@ -80,6 +82,7 @@
     "occultism:otherrock_bricks_slab",
     "occultism:chiseled_otherrock_bricks",
     "occultism:cracked_otherrock_bricks",
-    "occultism:iesnium_anvil"
+    "occultism:iesnium_anvil",
+    "occultism:spirit_grindstone"
   ]
 }
