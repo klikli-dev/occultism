@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.206.0] - 2026-03-10
+### :sparkles: New Features
+- [`4fd210c`](https://github.com/klikli-dev/occultism/commit/4fd210c2c332b773a30c5db2d34704d043e510e9) - New Crowdin updates *(PR [#1484](https://github.com/klikli-dev/occultism/pull/1484) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bb251f1`](https://github.com/klikli-dev/occultism/commit/bb251f1c4758464f38df9e489169fd42c9999f3d) - Dimensional Battlefield and Extractor, Spirit Grindstone and more *(PR [#1491](https://github.com/klikli-dev/occultism/pull/1491) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+### :bug: Bug Fixes
+- [`da223b1`](https://github.com/klikli-dev/occultism/commit/da223b19dd553f409a7ae76e5b0288c9caa3c3b6) - Update MessageSetDivinationResult.java *(PR [#1486](https://github.com/klikli-dev/occultism/pull/1486) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *fixes issue [#1485](https://github.com/klikli-dev/occultism/issues/1485) opened by [@AaronPena1](https://github.com/AaronPena1)*
+
+### :recycle: Refactors
+- [`8fe9f43`](https://github.com/klikli-dev/occultism/commit/8fe9f432367e7fe52f1c7e3804df2df4022ce336) - made jobs code more consistent, added ItemProcessingJobEvent for external usage *(PR [#1490](https://github.com/klikli-dev/occultism/pull/1490) by [@antessial](https://github.com/antessial))*
+
+
 ## [release/v1.21.1-1.205.0] - 2026-01-31
 ### :sparkles: New Features
 - [`4633cf3`](https://github.com/klikli-dev/occultism/commit/4633cf36091873b0dc8b82a7e359e2ac68123117) - optimisation patches *(PR [#1483](https://github.com/klikli-dev/occultism/pull/1483) by [@AlmanaX-21](https://github.com/AlmanaX-21))*
@@ -2282,3 +2295,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.203.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.202.0...release/v1.21.1-1.203.0
 [release/v1.21.1-1.204.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.203.0...release/v1.21.1-1.204.0
 [release/v1.21.1-1.205.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.204.0...release/v1.21.1-1.205.0
+[release/v1.21.1-1.206.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.205.0...release/v1.21.1-1.206.0
