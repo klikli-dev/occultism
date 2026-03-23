@@ -26,14 +26,13 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.ShubNiggurathFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class ShubNiggurathFamiliarRenderer
-        extends MobRenderer<ShubNiggurathFamiliarEntity, ShubNiggurathFamiliarModel> {
+        extends MobRenderer<ShubNiggurathFamiliarEntity, LivingEntityRenderState, ShubNiggurathFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_familiar.png");
@@ -43,19 +42,18 @@ public class ShubNiggurathFamiliarRenderer
     }
 
     @Override
-    public void render(ShubNiggurathFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        pMatrixStack.pushPose();
-        if (pEntity.isPartying())
-            pMatrixStack.translate(0, 0.07, 0);
-        else if (pEntity.isSitting())
-            pMatrixStack.translate(0, -0.19, 0);
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-        pMatrixStack.popPose();
-
-    }
-
-    @Override
-    public Identifier getTextureLocation(ShubNiggurathFamiliarEntity entity) {
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
+
+    // Old render method preserved for reference - TODO: Port to 26.1 rendering API
+    // public void render(ShubNiggurathFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    //     pMatrixStack.pushPose();
+    //     if (pEntity.isPartying())
+    //         pMatrixStack.translate(0, 0.07, 0);
+    //     else if (pEntity.isSitting())
+    //         pMatrixStack.translate(0, -0.19, 0);
+    //     super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+    //     pMatrixStack.popPose();
+    // }
 }
