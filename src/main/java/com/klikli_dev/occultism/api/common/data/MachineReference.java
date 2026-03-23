@@ -45,7 +45,7 @@ import net.neoforged.neoforge.common.util.INBTSerializable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class MachineReference implements INBTSerializable<CompoundTag> {
+public class MachineReference {
     public static final Codec<MachineReference> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             GlobalBlockPos.CODEC.optionalFieldOf("extractGlobalPos").forGetter(m -> Optional.ofNullable(m.extractGlobalPos)),
             ResourceLocation.CODEC.optionalFieldOf("extractRegistryName").forGetter(m -> Optional.ofNullable(m.extractRegistryName)),
