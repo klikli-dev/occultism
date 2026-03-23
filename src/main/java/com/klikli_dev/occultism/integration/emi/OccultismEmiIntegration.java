@@ -6,11 +6,9 @@
 
 package com.klikli_dev.occultism.integration.emi;
 
-import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiIntegrationImpl;
-
 public interface OccultismEmiIntegration {
 
-    OccultismEmiIntegration instance = new OccultismEmiIntegrationImpl();
+    OccultismEmiIntegration instance = new OccultismEmiIntegrationDummy();
 
     static OccultismEmiIntegration get() {
         return instance;

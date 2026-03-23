@@ -26,8 +26,9 @@ sourceSets {
     main {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
-//            exclude '**/emi/**/*.java'
-//            exclude '**/jei/impl/**/*.java'
+            exclude '**/emi/**/*.java'
+            exclude '**/waila/**/*.java'
+            exclude '**/jei/impl/**/*.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
@@ -184,19 +185,20 @@ repositories {
 
 dependencies {
     //Jei
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     //localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
-    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
-    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
+//    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
+//    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
 
     //geckolib
     implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
 
     //smartbrainlib
-    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version}:${smartbrainlib_version}") {transitive=false}
+    //TODO: use minecraft version variable once sbl is on 26.1
+    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-1.21.11:${smartbrainlib_version}") {transitive=false}
 
     //TODO: enable once available
     //almostunified
@@ -206,12 +208,12 @@ dependencies {
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //theurgy
-    compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
-    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
+//    compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
+//    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
-    compileOnly ("dev.emi:emi-neoforge:${emi_version}:api") {transitive=false}
-    localRuntime ("dev.emi:emi-neoforge:${emi_version}") {transitive=false}
+//    compileOnly ("dev.emi:emi-neoforge:${emi_version}:api") {transitive=false}
+//    localRuntime ("dev.emi:emi-neoforge:${emi_version}") {transitive=false}
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //localRuntime "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
@@ -219,14 +221,14 @@ dependencies {
     //alltheores - for recipe testing
     //enable once available for 1.20
     //localRuntime "curse.maven:alltheores-405593:xyz" //
-    implementation "curse.maven:jade-324717:${jade_id}"
+//    implementation "curse.maven:jade-324717:${jade_id}"
     //PerViamInvenire - for AI integration testing
     //localRuntime "curse.maven:perviaminvenire-449945:xyz" //
     //enable once available for 1.20
     //localRuntime "com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal"
 
     //Apothic Enchanting
-    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
+//    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
 
     // TODO: enable when need compacts testing
 
