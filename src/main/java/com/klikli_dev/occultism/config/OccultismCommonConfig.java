@@ -25,10 +25,16 @@ package com.klikli_dev.occultism.config;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class OccultismCommonConfig {
+    private static final OccultismCommonConfig instance = new OccultismCommonConfig();
+
     public final ModConfigSpec spec;
 
-    public OccultismCommonConfig() {
+    private OccultismCommonConfig() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.spec = builder.build();
+    }
+
+    public static OccultismCommonConfig get() {
+        return instance;
     }
 }

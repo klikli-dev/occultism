@@ -63,10 +63,10 @@ public class Occultism {
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
-    public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
-    public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
-    public static final OccultismStartupConfig STARTUP_CONFIG = new OccultismStartupConfig();
+    public static final OccultismServerConfig SERVER_CONFIG = OccultismServerConfig.get();
+    public static final OccultismCommonConfig COMMON_CONFIG = OccultismCommonConfig.get();
+    public static final OccultismClientConfig CLIENT_CONFIG = OccultismClientConfig.get();
+    public static final OccultismStartupConfig STARTUP_CONFIG = OccultismStartupConfig.get();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static final DebugHelper DEBUG = new DebugHelper();

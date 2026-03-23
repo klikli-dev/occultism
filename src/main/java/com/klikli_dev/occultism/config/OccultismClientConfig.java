@@ -28,15 +28,21 @@ import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 public class OccultismClientConfig {
 
+    private static final OccultismClientConfig instance = new OccultismClientConfig();
+
     public final VisualSettings visuals;
     public final MiscSettings misc;
     public final ModConfigSpec spec;
 
-    public OccultismClientConfig() {
+    private OccultismClientConfig() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.visuals = new VisualSettings(builder);
         this.misc = new MiscSettings(builder);
         this.spec = builder.build();
+    }
+
+    public static OccultismClientConfig get() {
+        return instance;
     }
 
     public static class VisualSettings {

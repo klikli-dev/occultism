@@ -30,6 +30,8 @@ import net.neoforged.neoforge.common.ModConfigSpec.LongValue;
 
 public class OccultismServerConfig {
 
+    private static final OccultismServerConfig instance = new OccultismServerConfig();
+
     public final StorageSettings storage;
     public final SpiritJobSettings spiritJobs;
     public final FamiliarSettings familiar;
@@ -38,7 +40,7 @@ public class OccultismServerConfig {
     public final ItemSettings itemSettings;
     public final ModConfigSpec spec;
 
-    public OccultismServerConfig() {
+    private OccultismServerConfig() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.storage = new StorageSettings(builder);
         this.spiritJobs = new SpiritJobSettings(builder);
@@ -46,6 +48,10 @@ public class OccultismServerConfig {
         this.rituals = new RitualSettings(builder);
         this.itemSettings = new ItemSettings(builder);
         this.spec = builder.build();
+    }
+
+    public static OccultismServerConfig get() {
+        return instance;
     }
 
     public static class ItemSettings {
