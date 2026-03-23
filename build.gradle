@@ -45,10 +45,10 @@ java.withSourcesJar()
 neoForge {
     version = project.neo_version
 
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
+//    parchment {
+//        mappingsVersion = project.parchment_mappings_version
+//        minecraftVersion = project.parchment_minecraft_version
+//    }
 
     if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
        accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
