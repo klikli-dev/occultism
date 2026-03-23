@@ -3,10 +3,7 @@
 # The overall format is standard TOML format, v0.5.0.
 # Note that there are a couple of TOML lists in this file.
 # Find more information on toml format here:  https://github.com/toml-lang/toml
-# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-modLoader = "javafml" #mandatory
-# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion = "${neo_loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "${mod_license}"
@@ -33,80 +30,74 @@ authors="${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''${mod_description}'''
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange = "${neo_version_range}"
+versionRange = "[${neo_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "modonomicon"
 type = "required"
-versionRange = "${modonomicon_version_range}"
+versionRange = "[${modonomicon_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "theurgy"
 type = "optional"
-versionRange = "${theurgy_version_range}"
+versionRange = "[${theurgy_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "curios"
 type = "required"
-versionRange = "${curios_version_range}"
+versionRange = "[${curios_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "geckolib"
 type = "required"
-versionRange = "${geckolib_version_range}"
+versionRange = "[${geckolib_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "smartbrainlib"
 type = "required"
-versionRange = "${smartbrainlib_version_range}"
+versionRange = "[${smartbrainlib_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "almostunified"
 type = "optional"
-versionRange = "${almost_unified_version_range}"
+versionRange = "[${almost_unified_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
-modId = "per_viam_invenire"
-type = "optional"
-versionRange = "${per_viam_invenire_version_range}"
-side = "BOTH"
-
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "jei"
 type = "optional"
-versionRange = "${jei_version_range}"
+versionRange = "[${jei_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "emi"
 type = "optional"
-versionRange = "${emi_version_range}"
+versionRange = "[${emi_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "apothic_enchanting"
 type = "optional"
-versionRange = "${apothic_enchanting_version_range}"
+versionRange = "[${apothic_enchanting_version},)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "create"
 type = "optional"
-versionRange = "${create_version_range}"
+versionRange = "[6.0.0,)"
 side = "BOTH"
 
-[[dependencies.occultism]]
+[[dependencies.${mod_id}]]
 modId = "immersiveengineering"
 type = "optional"
-versionRange = "${ie_version_range}"
+versionRange = "[12.1.0-185,)"
 side = "BOTH"
