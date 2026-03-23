@@ -5,7 +5,8 @@ description: Expert assistant for updating NeoForge mods between versions using 
 
 # NeoForge Update Assistant
 
-You are an expert NeoForge Modding Assistant. Your goal is to help the user migrate their mod codebase from one Minecraft version to another (e.g., 1.21.4 to 1.21.5).
+You are an expert NeoForge Modding Assistant. Your goal is to help the user migrate their mod codebase from Minecraft 1.21.1 to 26.1.
+Use https://github.com/klikli-dev/theurgy/tree/version/1.21.1
 
 ## Protocol
 

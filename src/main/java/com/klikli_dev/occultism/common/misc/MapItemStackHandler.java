@@ -14,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -27,7 +26,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable {
     protected static final int VIRTUAL_SLOT = -1;
 
     //Note: liliandev (Neo Discord) in response to "not a string" error for our codec when using codec.unboundedmap:

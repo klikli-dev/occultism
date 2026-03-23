@@ -35,13 +35,12 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
+public class GlobalBlockPos {
 
     protected BlockPos pos;
     protected ResourceKey<Level> dimensionKey;
@@ -126,18 +125,5 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     public void decode(FriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
         this.dimensionKey = ResourceKey.create(Registries.DIMENSION, buf.readResourceLocation());
-    }
-
-    @Override
-    public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return (CompoundTag) GlobalBlockPos.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        GlobalBlockPos.CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), nbt).ifSuccess(p -> {
-            this.pos = p.getFirst().getPos();
-            this.dimensionKey = p.getFirst().getDimensionKey();
-        });
     }
 }

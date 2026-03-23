@@ -34,14 +34,13 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
 import java.util.List;
 
-public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
+public abstract class SpiritJob {
     public SpiritEntity entity;
     public ResourceLocation factoryId;
 
@@ -53,7 +52,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
                 .get(ResourceLocation.parse(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
-        job.deserializeNBT(entity.level().registryAccess(), nbt);
+        job.readJobFromNBT(nbt, entity.level().registryAccess());
         return job;
     }
 
@@ -63,16 +62,6 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
 
     public void setFactoryId(ResourceLocation factoryId) {
         this.factoryId = factoryId;
-    }
-
-    @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return this.writeJobToNBT(new CompoundTag(), provider);
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        this.readJobFromNBT(nbt, provider);
     }
 
 
