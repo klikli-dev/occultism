@@ -30,14 +30,14 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public class MessageFairySupport implements IMessage {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "fairy_support");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "fairy_support");
     public static final Type<MessageFairySupport> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageFairySupport> STREAM_CODEC = CustomPacketPayload.codec(MessageFairySupport::encode, MessageFairySupport::new);
     private int fairyId;

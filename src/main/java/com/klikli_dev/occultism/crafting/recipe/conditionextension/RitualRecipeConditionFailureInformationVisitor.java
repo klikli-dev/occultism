@@ -6,7 +6,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsI
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionTypeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper.*;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 

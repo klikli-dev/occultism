@@ -187,7 +187,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setColor();
         this.setBeard(this.getRandom().nextBoolean());
         this.setSpikes(this.getRandom().nextBoolean());

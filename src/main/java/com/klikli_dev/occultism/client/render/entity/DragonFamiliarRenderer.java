@@ -32,7 +32,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -41,7 +41,7 @@ import net.neoforged.neoforge.client.event.RenderLivingEvent;
 
 public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, DragonFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/dragon_familiar.png");
 
     public DragonFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -52,7 +52,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
 
 
     @Override
-    public ResourceLocation getTextureLocation(DragonFamiliarEntity entity) {
+    public Identifier getTextureLocation(DragonFamiliarEntity entity) {
         return TEXTURES;
     }
 

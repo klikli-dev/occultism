@@ -23,11 +23,11 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband;
 
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.model.DefaultedGeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
+import com.geckolib.animation.AnimationState;
+import com.geckolib.cache.object.GeoBone;
+import com.geckolib.constant.DataTickets;
+import com.geckolib.model.DefaultedGeoModel;
+import com.geckolib.model.data.EntityModelData;
 
 
 public class DemonicHusbandModel extends DefaultedGeoModel<DemonicHusband> {

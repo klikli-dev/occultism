@@ -29,14 +29,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class DimensionalBattlefieldScreen extends AbstractContainerScreen<DimensionalBattlefieldContainer> {
 
-    public static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_butcher.png");
+    public static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_butcher.png");
 
     public DimensionalBattlefieldBlockEntity otherworldButcher;
 

@@ -38,7 +38,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -46,14 +46,14 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
-import software.bernie.geckolib.util.Color;
+import com.geckolib.util.Color;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/mummy_familiar.png");
 
     public MummyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -63,13 +63,13 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MummyFamiliarEntity entity) {
+    public Identifier getTextureLocation(MummyFamiliarEntity entity) {
         return TEXTURES;
     }
 
     private static class EyesLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-        private static final ResourceLocation EYES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier EYES = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/mummy_familiar_eyes.png");
 
         public EyesLayer(RenderLayerParent<MummyFamiliarEntity, MummyFamiliarModel> parent) {
@@ -93,7 +93,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
     private static class KapowLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-        private static final ResourceLocation KAPOW_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier KAPOW_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/kapow.png");
         private static final Component KAPOW_TEXT = Component.translatable(
                 "dialog.occultism.mummy.kapow");

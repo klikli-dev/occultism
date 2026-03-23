@@ -37,7 +37,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -73,7 +73,7 @@ public class FamiliarRitual extends SummonRitual {
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof FamiliarEntity familiar) {
-                EventHooks.finalizeMobSpawn(familiar, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
+                EventHooks.finalizeMobSpawn(familiar, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), EntitySpawnReason.MOB_SUMMONED, null);
 
                 this.applyEntityNbt(familiar);
 

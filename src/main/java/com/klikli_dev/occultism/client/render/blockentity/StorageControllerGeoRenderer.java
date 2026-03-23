@@ -29,16 +29,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
-import software.bernie.geckolib.util.Color;
+import net.minecraft.resources.Identifier;
+import com.geckolib.animation.AnimationState;
+import com.geckolib.cache.object.BakedGeoModel;
+import com.geckolib.cache.object.GeoBone;
+import com.geckolib.constant.DataTickets;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.GeoBlockRenderer;
+import com.geckolib.util.Color;
 
 public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity> {
 
@@ -96,7 +96,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     }
 
     @Override
-    public RenderType getRenderType(StorageControllerBlockEntity animatable, ResourceLocation texture, @org.jetbrains.annotations.Nullable MultiBufferSource bufferSource, float partialTick) {
+    public RenderType getRenderType(StorageControllerBlockEntity animatable, Identifier texture, @org.jetbrains.annotations.Nullable MultiBufferSource bufferSource, float partialTick) {
         return RenderType.entityTranslucentCull(this.modelProvider.getTextureResource(animatable));
     }
 

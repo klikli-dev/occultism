@@ -65,7 +65,7 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
@@ -287,25 +287,25 @@ public class ClientSetupEventHandler {
         event.enqueueWork(() -> {
             //Register item model properties
             ItemProperties.register(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.TRINITY_GEM_ITEM.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
             ItemProperties.register(OccultismItems.TRUE_SIGHT_STAFF.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
             //ItemProperties.register(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(),
-            //        ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
+            //        Identifier.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
             ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.STABLE_WORMHOLE_DARK.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());
 
             Occultism.LOGGER.debug("Registered Item Properties");
         });
@@ -313,7 +313,7 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
+        event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
             if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
 //                gui.setupOverlayRenderState(true, false);
                 //copied from 1.20.4 to:
@@ -326,6 +326,6 @@ public class ClientSetupEventHandler {
             }
         });
 
-        event.registerAbove(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
+        event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
     }
 }

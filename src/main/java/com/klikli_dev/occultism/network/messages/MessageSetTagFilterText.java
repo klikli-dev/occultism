@@ -28,14 +28,14 @@ import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 
 public class MessageSetTagFilterText implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_tag_filter_text");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "set_tag_filter_text");
     public static final Type<MessageSetTagFilterText> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetTagFilterText> STREAM_CODEC = CustomPacketPayload.codec(MessageSetTagFilterText::encode, MessageSetTagFilterText::new);
 

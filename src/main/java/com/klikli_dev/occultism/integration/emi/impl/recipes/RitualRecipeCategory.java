@@ -21,13 +21,13 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.TextWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -41,7 +41,7 @@ import java.util.stream.Stream;
 
 public class RitualRecipeCategory implements EmiRecipe {
     private final RitualRecipe recipe;
-    private final ResourceLocation id;
+    private final Identifier id;
     private final List<Pair<Integer, Integer>> infoTextSlots = new ArrayList<>();
 
     public RitualRecipeCategory(RecipeHolder<RitualRecipe> recipe) {
@@ -60,7 +60,7 @@ public class RitualRecipeCategory implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return id;
     }
 
@@ -286,7 +286,7 @@ public class RitualRecipeCategory implements EmiRecipe {
 
         if(recipe.getCondition() != null){
             var infoSlot = this.infoTextSlots.get(infoTextIndex++);
-            widgetHolder.addTexture(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/checklist.png"), infoSlot.getFirst(), infoSlot.getSecond() + infotextY, 16, 16, 0, 0, 64, 64, 64, 64).tooltip((mouseX, mouseY) ->
+            widgetHolder.addTexture(Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/checklist.png"), infoSlot.getFirst(), infoSlot.getSecond() + infotextY, 16, 16, 0, 0, 64, 64, 64, 64).tooltip((mouseX, mouseY) ->
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
                 var visitor = new RitualRecipeConditionDescriptionVisitor();

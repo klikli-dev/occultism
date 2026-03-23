@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.klikli_dev.occultism.common.effect.StepHeightEffect;
 import com.klikli_dev.occultism.common.effect.ThirdEyeEffect;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -47,7 +47,7 @@ public class OccultismEffects {
     public static final DeferredHolder<MobEffect, MobEffect> PUMPKIN_HEAD = EFFECTS.register("pumpkin_head", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xfc9102));
     public static final DeferredHolder<MobEffect, StepHeightEffect> STEP_HEIGHT = EFFECTS.register("step_height", StepHeightEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> STEP_BLOCKED = EFFECTS.register("step_blocked", () -> new ModEffect(MobEffectCategory.HARMFUL, 3402751)
-            .addAttributeModifier(Attributes.STEP_HEIGHT, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "step_blocked"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            .addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_blocked"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
     public static class ModEffect extends MobEffect {
 

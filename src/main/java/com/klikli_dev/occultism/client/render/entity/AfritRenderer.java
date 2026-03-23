@@ -31,9 +31,9 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
+import com.geckolib.cache.object.GeoBone;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.layer.BlockAndItemGeoLayer;
 
 import java.util.Objects;
 

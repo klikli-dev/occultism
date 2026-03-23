@@ -23,13 +23,13 @@
 package com.klikli_dev.occultism.common.effect;
 
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 public class ThirdEyeEffect extends MobEffect {
 
-    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    public static final Identifier ICON = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/mob_effect/third_eye.png");
 
     public ThirdEyeEffect() {

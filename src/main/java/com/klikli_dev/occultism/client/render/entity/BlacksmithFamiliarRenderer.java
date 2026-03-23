@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +41,7 @@ import org.joml.Quaternionf;
 
 public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/blacksmith_familiar.png");
 
     public BlacksmithFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -50,7 +50,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BlacksmithFamiliarEntity entity) {
+    public Identifier getTextureLocation(BlacksmithFamiliarEntity entity) {
         return TEXTURES;
     }
 

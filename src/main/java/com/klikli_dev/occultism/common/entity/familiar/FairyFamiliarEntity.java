@@ -178,7 +178,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         var data = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
         this.setTeeth(this.getRandom().nextBoolean());
         this.setLeftHanded(this.getRandom().nextBoolean());

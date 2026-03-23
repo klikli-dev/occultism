@@ -24,13 +24,13 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class MaridModel extends DefaultedJobEntityModel<MaridEntity> {
     public final static String ASSET_SUBPATH = "marid";
     public MaridModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
     }
 }
 

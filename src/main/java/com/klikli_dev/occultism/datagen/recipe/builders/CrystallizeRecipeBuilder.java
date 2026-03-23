@@ -12,7 +12,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -146,7 +146,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
 
 
     @Override
-    public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceLocation pId) {
+    public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull Identifier pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
@@ -186,7 +186,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         return null;
     }
 
-    private void ensureValid(ResourceLocation pId) {
+    private void ensureValid(Identifier pId) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + pId);
         }

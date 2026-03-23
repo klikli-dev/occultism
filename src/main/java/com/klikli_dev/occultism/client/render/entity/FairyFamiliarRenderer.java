@@ -29,13 +29,13 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -43,7 +43,7 @@ import org.joml.Quaternionf;
 
 public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, FairyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/fairy_familiar.png");
 
     public FairyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -75,13 +75,13 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FairyFamiliarEntity entity) {
+    public Identifier getTextureLocation(FairyFamiliarEntity entity) {
         return TEXTURES;
     }
 
     private static class SleepLayer extends RenderLayer<FairyFamiliarEntity, FairyFamiliarModel> {
 
-        private static final ResourceLocation SLEEP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier SLEEP = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/fairy_familiar_sleep.png");
 
         public SleepLayer(RenderLayerParent<FairyFamiliarEntity, FairyFamiliarModel> parent) {

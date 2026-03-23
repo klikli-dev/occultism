@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
@@ -42,7 +42,7 @@ import java.util.List;
 
 public abstract class SpiritJob {
     public SpiritEntity entity;
-    public ResourceLocation factoryId;
+    public Identifier factoryId;
 
     public SpiritJob(SpiritEntity entity) {
         this.entity = entity;
@@ -50,17 +50,17 @@ public abstract class SpiritJob {
 
     public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                .get(ResourceLocation.parse(nbt.getString("factoryId")));
+                .get(Identifier.parse(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
         job.readJobFromNBT(nbt, entity.level().registryAccess());
         return job;
     }
 
-    public ResourceLocation getFactoryID() {
+    public Identifier getFactoryID() {
         return this.factoryId;
     }
 
-    public void setFactoryId(ResourceLocation factoryId) {
+    public void setFactoryId(Identifier factoryId) {
         this.factoryId = factoryId;
     }
 

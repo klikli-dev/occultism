@@ -29,18 +29,18 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity, BeholderFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/beholder_familiar.png");
 
     public BeholderFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -63,13 +63,13 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BeholderFamiliarEntity entity) {
+    public Identifier getTextureLocation(BeholderFamiliarEntity entity) {
         return TEXTURES;
     }
 
     private static class SleepLayer extends RenderLayer<BeholderFamiliarEntity, BeholderFamiliarModel> {
 
-        private static final ResourceLocation SLEEP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier SLEEP = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/beholder_familiar_sleep.png");
 
         public SleepLayer(RenderLayerParent<BeholderFamiliarEntity, BeholderFamiliarModel> parent) {

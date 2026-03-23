@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -69,7 +69,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     }
 
     @Override
-    public void clicked(int id, int dragType, ClickType clickType, Player player) {
+    public void clicked(int id, int dragType, ContainerInput clickType, Player player) {
         Slot slot = id >= 0 ? this.getSlot(id) : null;
 
         ItemStack holding = player.containerMenu.getCarried();

@@ -36,7 +36,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +48,7 @@ import java.util.List;
 
 public class GuideBookItem extends ModonomiconItem {
 
-    public static final ResourceLocation DICTIONARY_OF_SPIRITS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dictionary_of_spirits");
+    public static final Identifier DICTIONARY_OF_SPIRITS = Identifier.fromNamespaceAndPath(Occultism.MODID, "dictionary_of_spirits");
 
     public GuideBookItem(Properties properties) {
         super(properties);

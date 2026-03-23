@@ -40,7 +40,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class CrystallizeRecipeCategory implements IRecipeCategory<RecipeHolder<CrystallizeRecipe>> {
@@ -53,7 +53,7 @@ public class CrystallizeRecipeCategory implements IRecipeCategory<RecipeHolder<C
         this.background = guiHelper.createBlankDrawable(168, 56); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.crystallize");
         this.overlay = guiHelper.createDrawable(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
 
     protected void drawStringCentered(GuiGraphics guiGraphics, Font font, Component text, int x, int y) {

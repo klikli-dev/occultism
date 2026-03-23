@@ -34,7 +34,7 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -44,7 +44,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -79,7 +79,7 @@ import static com.klikli_dev.occultism.common.ritual.Ritual.SACRIFICIAL_BOWL_RAN
 public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity {
 
     public RecipeHolder<RitualRecipe> currentRitualRecipe;
-    public ResourceLocation currentRitualRecipeId;
+    public Identifier currentRitualRecipeId;
     public UUID castingPlayerId;
     public ServerPlayer castingPlayer;
     public List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
@@ -800,7 +800,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         super.loadNetwork(compound, provider);
         if (compound.contains("currentRitual")) {
-            this.currentRitualRecipeId = ResourceLocation.parse(compound.getString("currentRitual"));
+            this.currentRitualRecipeId = Identifier.parse(compound.getString("currentRitual"));
         }
 
         if (compound.contains("castingPlayerId")) {

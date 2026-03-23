@@ -83,7 +83,7 @@ public class SummonWildRitual extends SummonRitual {
                     living.setCustomName(Component.literal(TextUtil.generateName()));
 
                     if (living instanceof Mob mob) {
-                        EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
+                        EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), EntitySpawnReason.MOB_SUMMONED, null);
                     }
 
                     this.applyEntityNbt(living);

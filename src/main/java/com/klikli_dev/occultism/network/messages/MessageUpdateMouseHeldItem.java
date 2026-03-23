@@ -28,7 +28,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -37,7 +37,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class MessageUpdateMouseHeldItem implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_mouse_held_item");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "update_mouse_held_item");
     public static final Type<MessageUpdateMouseHeldItem> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateMouseHeldItem> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateMouseHeldItem::encode, MessageUpdateMouseHeldItem::new);
 

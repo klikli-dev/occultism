@@ -41,7 +41,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
@@ -91,7 +91,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
     private static final int DEFAULT_MAX_LUCK = 16;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey.create(
-                            Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
+                            Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
     private Holder<Enchantment> UNUSING;
     private Holder<Enchantment> SHARPNESS;
     private Holder<Enchantment> SMITE;

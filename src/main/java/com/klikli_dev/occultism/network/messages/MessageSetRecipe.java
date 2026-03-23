@@ -34,7 +34,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -49,7 +49,7 @@ import java.util.Map;
  */
 public class MessageSetRecipe implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_recipe");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "set_recipe");
     public static final Type<MessageSetRecipe> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipe> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipe::encode, MessageSetRecipe::new);
     private CompoundTag nbt;

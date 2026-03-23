@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
-import software.bernie.geckolib.util.Color;
+import com.geckolib.util.Color;
 
 import java.util.Collections;
 import java.util.stream.Stream;

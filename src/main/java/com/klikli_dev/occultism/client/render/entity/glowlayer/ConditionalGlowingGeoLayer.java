@@ -7,16 +7,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.cache.texture.AutoGlowingTexture;
-import software.bernie.geckolib.renderer.GeoRenderer;
-import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
-import software.bernie.geckolib.util.ClientUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.cache.object.BakedGeoModel;
+import com.geckolib.cache.texture.AutoGlowingTexture;
+import com.geckolib.renderer.GeoRenderer;
+import com.geckolib.renderer.layer.GeoRenderLayer;
+import com.geckolib.util.ClientUtil;
 
 public class ConditionalGlowingGeoLayer <T extends GeoAnimatable> extends GeoRenderLayer<T> {
     public ConditionalGlowingGeoLayer(GeoRenderer<T> renderer) {
@@ -29,7 +29,7 @@ public class ConditionalGlowingGeoLayer <T extends GeoAnimatable> extends GeoRen
             return AutoGlowingTexture.getRenderType(getTextureResource(animatable));
 
         boolean invisible = entity.isInvisible();
-        ResourceLocation texture = AutoGlowingTexture.getEmissiveResource(getTextureResource(animatable));
+        Identifier texture = AutoGlowingTexture.getEmissiveResource(getTextureResource(animatable));
 
         if (Minecraft.getInstance().getResourceManager().getResource(texture).isEmpty())
             return null;

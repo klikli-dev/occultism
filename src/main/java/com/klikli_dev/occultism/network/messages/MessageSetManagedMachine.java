@@ -31,14 +31,14 @@ import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 public class MessageSetManagedMachine implements IMessage {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_managed_machine");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "set_managed_machine");
     public static final Type<MessageSetManagedMachine> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetManagedMachine> STREAM_CODEC = CustomPacketPayload.codec(MessageSetManagedMachine::encode, MessageSetManagedMachine::new);
 

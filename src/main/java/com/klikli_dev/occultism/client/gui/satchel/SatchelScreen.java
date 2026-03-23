@@ -28,11 +28,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class SatchelScreen extends AbstractContainerScreen<AbstractSatchelContainer> {
-    protected static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_satchel.png");
 
     public SatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv,

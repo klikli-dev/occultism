@@ -32,13 +32,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -46,7 +46,7 @@ import org.joml.Quaternionf;
 
 public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/greedy_familiar.png");
 
     public GreedyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -56,7 +56,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GreedyFamiliarEntity entity) {
+    public Identifier getTextureLocation(GreedyFamiliarEntity entity) {
         return TEXTURES;
     }
 
@@ -71,9 +71,9 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     }
 
     private static class GreedyFamiliarChest extends RenderLayer<GreedyFamiliarEntity, GreedyFamiliarModel> {
-        private static final ResourceLocation CHEST = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier CHEST = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_chest.png");
-        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier CHRISTMAS = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_christmas.png");
 
         public GreedyFamiliarChest(RenderLayerParent<GreedyFamiliarEntity, GreedyFamiliarModel> parent) {

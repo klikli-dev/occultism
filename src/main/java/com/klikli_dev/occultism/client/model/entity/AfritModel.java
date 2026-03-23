@@ -24,12 +24,12 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class AfritModel extends DefaultedJobEntityModel<AfritEntity> {
     public final static String ASSET_SUBPATH = "afrit";
     public AfritModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit"), true,ASSET_SUBPATH);
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit"), true,ASSET_SUBPATH);
     }
 }

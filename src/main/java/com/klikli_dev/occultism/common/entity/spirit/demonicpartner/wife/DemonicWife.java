@@ -2,21 +2,21 @@ package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.DemonicPartner;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.Lazy;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animation.*;
+import com.geckolib.util.GeckoLibUtil;
 
 public class DemonicWife extends DemonicPartner implements GeoEntity {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "demonic_wife");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "demonic_wife");
     public static final Lazy<EntityType<DemonicWife>> ENTITY_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DemonicWife::new, MobCategory.CREATURE)
                     .sized(0.6F, 2)

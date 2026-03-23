@@ -160,7 +160,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setHat(this.getRandom().nextDouble() < 0.1);
         this.setTrunk(this.getRandom().nextDouble() < 0.5);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);

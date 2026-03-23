@@ -30,7 +30,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
@@ -48,19 +48,19 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerI
     }
 
     public record TriggerInstance(Optional<ContextAwarePredicate> player,
-                                  Optional<ResourceLocation> ritualId,
-                                  Optional<ResourceLocation> ritualFactoryId) implements SimpleCriterionTrigger.SimpleInstance {
+                                  Optional<Identifier> ritualId,
+                                  Optional<Identifier> ritualFactoryId) implements SimpleCriterionTrigger.SimpleInstance {
 
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
                                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-                                ResourceLocation.CODEC.optionalFieldOf("ritual_id").forGetter(TriggerInstance::ritualId),
-                                ResourceLocation.CODEC.optionalFieldOf("ritual_factory_id").forGetter(TriggerInstance::ritualFactoryId)
+                                Identifier.CODEC.optionalFieldOf("ritual_id").forGetter(TriggerInstance::ritualId),
+                                Identifier.CODEC.optionalFieldOf("ritual_factory_id").forGetter(TriggerInstance::ritualFactoryId)
                         )
                         .apply(instance, TriggerInstance::new)
         );
 
-        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(ResourceLocation ritualFactoryId) {
+        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(Identifier ritualFactoryId) {
             return OccultismAdvancements.RITUAL.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(ritualFactoryId)));
         }
 

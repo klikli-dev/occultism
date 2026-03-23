@@ -46,7 +46,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -105,7 +105,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return result;
     }
 
-    public static void performTransfer(StorageControllerContainerBase menu, @Nullable ResourceLocation recipeId, Recipe<?> recipe, int amount) {
+    public static void performTransfer(StorageControllerContainerBase menu, @Nullable Identifier recipeId, Recipe<?> recipe, int amount) {
 
         // We send the items in the recipe in any case to serve as a fallback in case the recipe is transient
         var templateItems = findGoodTemplateItems(recipe, menu);

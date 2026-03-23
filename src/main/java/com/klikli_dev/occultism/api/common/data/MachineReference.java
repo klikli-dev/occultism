@@ -34,7 +34,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -46,11 +46,11 @@ import java.util.Optional;
 public class MachineReference {
     public static final Codec<MachineReference> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             GlobalBlockPos.CODEC.optionalFieldOf("extractGlobalPos").forGetter(m -> Optional.ofNullable(m.extractGlobalPos)),
-            ResourceLocation.CODEC.optionalFieldOf("extractRegistryName").forGetter(m -> Optional.ofNullable(m.extractRegistryName)),
+            Identifier.CODEC.optionalFieldOf("extractRegistryName").forGetter(m -> Optional.ofNullable(m.extractRegistryName)),
             Codec.BOOL.fieldOf("extractChunkLoaded").forGetter(m -> m.extractChunkLoaded),
             Direction.CODEC.fieldOf("extractFacing").forGetter(m -> m.extractFacing),
             GlobalBlockPos.CODEC.optionalFieldOf("insertGlobalPos").forGetter(m -> Optional.ofNullable(m.insertGlobalPos)),
-            ResourceLocation.CODEC.optionalFieldOf("insertRegistryName").forGetter(m -> Optional.ofNullable(m.insertRegistryName)),
+            Identifier.CODEC.optionalFieldOf("insertRegistryName").forGetter(m -> Optional.ofNullable(m.insertRegistryName)),
             Codec.BOOL.fieldOf("insertChunkLoaded").forGetter(m -> m.insertChunkLoaded),
             Direction.CODEC.fieldOf("insertFacing").forGetter(m -> m.insertFacing),
             Codec.STRING.fieldOf("customName").forGetter(m -> m.customName)
@@ -59,7 +59,7 @@ public class MachineReference {
     public static final StreamCodec<RegistryFriendlyByteBuf, MachineReference> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
             ByteBufCodecs.optional(GlobalBlockPos.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.extractGlobalPos),
-            ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+            ByteBufCodecs.optional(Identifier.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.extractRegistryName),
             ByteBufCodecs.BOOL,
             (m) -> m.extractChunkLoaded,
@@ -67,7 +67,7 @@ public class MachineReference {
             (m) -> m.extractFacing,
             ByteBufCodecs.optional(GlobalBlockPos.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.insertGlobalPos),
-            ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+            ByteBufCodecs.optional(Identifier.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.insertRegistryName),
             ByteBufCodecs.BOOL,
             (m) -> m.insertChunkLoaded,
@@ -80,12 +80,12 @@ public class MachineReference {
 
     //extract is a potentially separate output block entity
     public GlobalBlockPos extractGlobalPos;
-    public ResourceLocation extractRegistryName;
+    public Identifier extractRegistryName;
     public boolean extractChunkLoaded;
     public Direction extractFacing = Direction.DOWN;
     //insert is the managed machine itself
     public GlobalBlockPos insertGlobalPos;
-    public ResourceLocation insertRegistryName;
+    public Identifier insertRegistryName;
     public boolean insertChunkLoaded;
     public Direction insertFacing = Direction.UP;
     public String customName = "";
@@ -98,24 +98,24 @@ public class MachineReference {
 
     }
 
-    public MachineReference(GlobalBlockPos extractGlobalPos, ResourceLocation extractRegistryName, boolean extractChunkLoaded,
+    public MachineReference(GlobalBlockPos extractGlobalPos, Identifier extractRegistryName, boolean extractChunkLoaded,
                             Direction extractFacing,
-                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded,
+                            GlobalBlockPos insertGlobalPos, Identifier insertRegistryName, boolean insertChunkLoaded,
                             Direction insertFacing) {
         this(extractGlobalPos, extractRegistryName, extractChunkLoaded, extractFacing, insertGlobalPos, insertRegistryName, insertChunkLoaded, insertFacing, "");
     }
 
-    public MachineReference(Optional<GlobalBlockPos> extractGlobalPos, Optional<ResourceLocation> extractRegistryName, boolean extractChunkLoaded,
+    public MachineReference(Optional<GlobalBlockPos> extractGlobalPos, Optional<Identifier> extractRegistryName, boolean extractChunkLoaded,
                             Direction extractFacing,
-                            Optional<GlobalBlockPos> insertGlobalPos, Optional<ResourceLocation> insertRegistryName, boolean insertChunkLoaded,
+                            Optional<GlobalBlockPos> insertGlobalPos, Optional<Identifier> insertRegistryName, boolean insertChunkLoaded,
                             Direction insertFacing,
                             String customName) {
         this(extractGlobalPos.orElse(null), extractRegistryName.orElse(null), extractChunkLoaded, extractFacing, insertGlobalPos.orElse(null), insertRegistryName.orElse(null), insertChunkLoaded, insertFacing, customName);
     }
 
-    public MachineReference(GlobalBlockPos extractGlobalPos, ResourceLocation extractRegistryName, boolean extractChunkLoaded,
+    public MachineReference(GlobalBlockPos extractGlobalPos, Identifier extractRegistryName, boolean extractChunkLoaded,
                             Direction extractFacing,
-                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded,
+                            GlobalBlockPos insertGlobalPos, Identifier insertRegistryName, boolean insertChunkLoaded,
                             Direction insertFacing,
                             String customName) {
         this.extractGlobalPos = extractGlobalPos;

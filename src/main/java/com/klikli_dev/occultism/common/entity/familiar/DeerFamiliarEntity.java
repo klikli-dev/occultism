@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -48,7 +48,7 @@ import java.util.List;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
-    private static final ResourceLocation SPEED_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "deer_speed_bonus");
+    private static final Identifier SPEED_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "deer_speed_bonus");
 
     private static final byte START_EATING = 10;
 
@@ -139,7 +139,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);

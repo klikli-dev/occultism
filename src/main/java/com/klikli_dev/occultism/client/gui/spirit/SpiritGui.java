@@ -37,7 +37,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +45,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
 
-    protected static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected SpiritEntity spirit;

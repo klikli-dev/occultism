@@ -38,7 +38,7 @@ import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.util.OtherWoodType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
@@ -65,7 +65,7 @@ import java.util.function.ToIntFunction;
 public class OccultismBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Occultism.MODID);
-    public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
+    public static final Map<Identifier, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
 
     //Blocks without item
     public static final DeferredBlock<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",

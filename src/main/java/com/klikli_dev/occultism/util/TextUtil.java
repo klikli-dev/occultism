@@ -27,7 +27,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
@@ -90,7 +90,7 @@ public class TextUtil {
         if (modNamesInitialized)
             initializeModNames();
 
-        ResourceLocation key;
+        Identifier key;
         if (object instanceof Item) {
             key = BuiltInRegistries.ITEM.getKey((Item) object);
         } else if (object instanceof Block) {

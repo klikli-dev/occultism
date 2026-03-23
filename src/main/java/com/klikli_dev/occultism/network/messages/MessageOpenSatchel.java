@@ -30,7 +30,7 @@ import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
@@ -38,7 +38,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class MessageOpenSatchel implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "open_satchel");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "open_satchel");
     public static final Type<MessageOpenSatchel> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageOpenSatchel> STREAM_CODEC = CustomPacketPayload.codec(MessageOpenSatchel::encode, MessageOpenSatchel::new);
 

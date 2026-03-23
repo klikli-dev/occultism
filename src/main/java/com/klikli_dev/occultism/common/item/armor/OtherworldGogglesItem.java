@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
@@ -35,7 +35,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class OtherworldGogglesItem extends ArmorItem {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
 
     public OtherworldGogglesItem(Holder<ArmorMaterial> materialIn,
                                  ArmorItem.Type type,
@@ -55,7 +55,7 @@ public class OtherworldGogglesItem extends ArmorItem {
     }
 
     @Override
-    public @org.jetbrains.annotations.Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+    public @org.jetbrains.annotations.Nullable Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         return TEXTURE;
     }
 }

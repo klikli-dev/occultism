@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Rotation;
@@ -16,11 +16,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class MessageSendPreviewedPentacle implements IMessage {
 
-    public static final Type<MessageSendPreviewedPentacle> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "send_previewed_pentacle"));
+    public static final Type<MessageSendPreviewedPentacle> TYPE = new Type<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "send_previewed_pentacle"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSendPreviewedPentacle> STREAM_CODEC =
             StreamCodec.composite(
-                    ResourceLocation.STREAM_CODEC,
+                    Identifier.STREAM_CODEC,
                     m -> m.multiblock,
                     BlockPos.STREAM_CODEC,
                     m -> m.anchor,
@@ -31,12 +31,12 @@ public class MessageSendPreviewedPentacle implements IMessage {
                     MessageSendPreviewedPentacle::new
             );
 
-    public ResourceLocation multiblock;
+    public Identifier multiblock;
     public BlockPos anchor;
     public Rotation facing;
     public BlockPos target;
 
-    public MessageSendPreviewedPentacle(ResourceLocation multiblock, BlockPos anchor, Rotation facing, BlockPos target) {
+    public MessageSendPreviewedPentacle(Identifier multiblock, BlockPos anchor, Rotation facing, BlockPos target) {
         this.multiblock = multiblock;
         this.anchor = anchor;
         this.facing = facing;

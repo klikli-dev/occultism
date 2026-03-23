@@ -57,7 +57,7 @@ public class DebugWandItem extends Item {
 //                    context.getLevel().random.nextInt(360), 0);
 //            spirit.setCustomName(Component.literal("Testguy"));
 //            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(target),
-//                    MobSpawnType.MOB_SUMMONED, null,
+//                    EntitySpawnReason.MOB_SUMMONED, null,
 //                    null);
 //            spirit.tame(context.getPlayer());
 //            //set up the job

@@ -14,7 +14,7 @@ import dev.emi.emi.api.widget.TextWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SpiritTraderRecipeCategory implements EmiRecipe {
-    private final ResourceLocation id;
+    private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
     private final float chances;
@@ -51,7 +51,7 @@ public class SpiritTraderRecipeCategory implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return this.id;
     }
 

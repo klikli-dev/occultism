@@ -149,7 +149,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
                 //old spawn code
                 //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerLevel)world, wrapper, customName, null, spawnPos,
-                //                        MobSpawnType.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                //                        EntitySpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 //                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                 //                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
                 //                }

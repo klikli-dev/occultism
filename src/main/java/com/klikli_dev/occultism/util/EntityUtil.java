@@ -32,7 +32,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -100,7 +100,7 @@ public class EntityUtil {
      * @return the entity type if successful or null otherwise.
      */
     public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
-        ResourceLocation typeId = ResourceLocation.parse(nbtTagCompound.getString("id"));
+        Identifier typeId = Identifier.parse(nbtTagCompound.getString("id"));
         return BuiltInRegistries.ENTITY_TYPE.get(typeId);
     }
 

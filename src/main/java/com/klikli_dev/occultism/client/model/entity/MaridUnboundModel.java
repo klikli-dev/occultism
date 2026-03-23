@@ -24,14 +24,14 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.MaridUnboundEntity;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.DefaultedGeoModel;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
+import com.geckolib.model.DefaultedGeoModel;
 
 public class MaridUnboundModel extends DefaultedGeoModel<MaridUnboundEntity> {
 
     public MaridUnboundModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid"));
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "marid"));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MaridUnboundModel extends DefaultedGeoModel<MaridUnboundEntity> {
     }
 
     @Override
-    public RenderType getRenderType(MaridUnboundEntity animatable, ResourceLocation texture) {
+    public RenderType getRenderType(MaridUnboundEntity animatable, Identifier texture) {
         return RenderType.entityTranslucent(this.getTextureResource(animatable));
     }
 }

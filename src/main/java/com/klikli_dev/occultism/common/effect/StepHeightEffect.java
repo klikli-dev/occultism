@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.common.effect;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -36,7 +36,7 @@ public class StepHeightEffect extends MobEffect {
 
     public StepHeightEffect() {
         super(MobEffectCategory.BENEFICIAL, 3402751);
-        this.addAttributeModifier(Attributes.STEP_HEIGHT, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, AttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, AttributeModifier.Operation.ADD_VALUE);
     }
 
     @Override

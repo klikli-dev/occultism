@@ -29,18 +29,18 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.util.Color;
+import net.minecraft.resources.Identifier;
+import com.geckolib.util.Color;
 
 public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/goat_familiar.png");
 
     public GoatFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -63,7 +63,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFa
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GoatFamiliarEntity entity) {
+    public Identifier getTextureLocation(GoatFamiliarEntity entity) {
         return TEXTURES;
     }
 

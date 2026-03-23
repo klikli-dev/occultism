@@ -7,7 +7,7 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -86,10 +86,10 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {
-        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
@@ -194,7 +194,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)
                 .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
         this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE).replace(false); //Don't place chalks
-        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
+        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(Identifier.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
         this.tag(OccultismTags.Items.OTHERSTONE).add(OccultismBlocks.OTHERSTONE.asItem());
         this.tag(OccultismTags.Items.OTHERCOBBLESTONE).add(OccultismBlocks.OTHERCOBBLESTONE.asItem());
@@ -720,12 +720,12 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         return ItemTags.create(this.cLoc(path));
     }
 
-    private ResourceLocation cLoc(String path) {
-        return ResourceLocation.fromNamespaceAndPath("c", path);
+    private Identifier cLoc(String path) {
+        return Identifier.fromNamespaceAndPath("c", path);
     }
 
-    private ResourceLocation loc(String namespaceAndPath) {
-        return ResourceLocation.tryParse(namespaceAndPath);
+    private Identifier loc(String namespaceAndPath) {
+        return Identifier.tryParse(namespaceAndPath);
     }
 
 }

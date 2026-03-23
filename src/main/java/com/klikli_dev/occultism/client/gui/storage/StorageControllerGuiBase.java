@@ -56,9 +56,9 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerListener;
+import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -76,13 +76,13 @@ import java.util.stream.Collectors;
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
 
     public static final int ORDER_AREA_OFFSET = 48;
-    protected static final ResourceLocation TEXTURE_TOP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE_TOP = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_top.png");
-    protected static final ResourceLocation TEXTURE_ROW = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE_ROW = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_row.png");
-    protected static final ResourceLocation TEXTURE_BOTTOM = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE_BOTTOM = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_bottom.png");
-    protected static final ResourceLocation BUTTONS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
+    protected static final Identifier BUTTONS = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     public int lastStacksCount;
     public ClientStorageCache clientStorageCache;

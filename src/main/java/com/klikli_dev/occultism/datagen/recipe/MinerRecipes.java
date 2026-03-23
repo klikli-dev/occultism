@@ -10,7 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -34,11 +34,11 @@ public abstract class MinerRecipes extends RecipeProvider {
         MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERSTONE.get(), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand"));
+                .save(pRecipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand"));
         MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERROCK.get(), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand_2"));
+                .save(pRecipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand_2"));
     }
 
     public static void ores(RecipeOutput recipeOutput) {
@@ -54,9 +54,9 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("antimony", 80, recipeOutput);
         makeOreRecipe("aquamarine", 200, recipeOutput);
         makeOreRecipe("ardite", 159, recipeOutput);
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + "arcane_crystal")), 200)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/" + "arcane_crystal")), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + "arcane_crystal"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + "arcane_crystal"));
         makeOreRecipe("bauxite", 168, recipeOutput);
         makeOreRecipe("beryl", 200, recipeOutput);
         makeOreRecipe("boron", 199, recipeOutput);
@@ -152,13 +152,13 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("yellow_gemstone", 300, recipeOutput);
         makeOreRecipe("black_quartz", 360, recipeOutput);
 
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + "xpetrified_ore")), 200)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/" + "xpetrified_ore")), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + "xpetrified_ore"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + "xpetrified_ore"));
         makeOreRecipe("zinc", 186, recipeOutput);
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, tag("forbidden_arcanus:runic_stones"), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/runic_stone"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/runic_stone"));
 
     }
 
@@ -277,98 +277,98 @@ public abstract class MinerRecipes extends RecipeProvider {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, Tags.Items.ORES_NETHERITE_SCRAP, 90, 9)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/ancient_debris"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/ancient_debris"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, Tags.Items.DUSTS_GLOWSTONE, 90, 9)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/glowstone_dust"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/glowstone_dust"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.Items.CLAY, 90, 9)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/clay"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/clay"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismItems.MINING_DIMENSION_CORE_PIECE, 1)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/mining_dim_core"));
+                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/mining_dim_core"));
     }
 
     //  Item-based recipes where the item is not available in our dev env are not great because they would need a separate handling
     //  instead use a tag - we can pre-fill it with an optional content!
-//    public static void makeModOreItemRecipe(ResourceLocation item, int weight, RecipeOutput consumer) {
+//    public static void makeModOreItemRecipe(Identifier item, int weight, RecipeOutput consumer) {
 //        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES), item, weight)
 //                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
 //                .itemExists()
-//                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + item.getPath()));
+//                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + item.getPath()));
 //    }
 
     public static void makeVanillaItemRecipe(Item type, int weight, RecipeOutput consumer) {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, type, weight)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + getItemName(type)));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + getItemName(type)));
     }
 
     public static void makeVanillaOreRecipe(String type, int weight, RecipeOutput consumer) {
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + type)), weight)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/" + type)), weight)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + type + "_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + type + "_ore"));
     }
 
     public static void makeOreRecipe(String type, int weight, RecipeOutput consumer) {
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + type)), weight)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/" + type)), weight)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + type + "_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + type + "_ore"));
     }
 
     public static void makeStorageRecipe(String type, int weight, RecipeOutput consumer) {
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/" + type)), weight)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/" + type)), weight)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type));
     }
     public static void makeGemEldritchOutputRecipe(String type, int weight, int amount, RecipeOutput consumer) {
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/" + type)), weight, amount)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/" + type)), weight, amount)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type));
     }
 
     public static void deeps(RecipeOutput consumer) {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_COAL_ORE, 1000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_coal_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_coal_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_COPPER_ORE, 584)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_copper_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_copper_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_DIAMOND_ORE, 218)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_diamond_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_diamond_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_EMERALD_ORE, 156)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_emerald_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_emerald_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_GOLD_ORE, 311)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_gold_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_gold_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_IRON_ORE, 750)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_iron_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_iron_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_LAPIS_ORE, 343)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_lapis_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_lapis_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, Items.DEEPSLATE_REDSTONE_ORE, 515)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_redstone_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_redstone_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.DEEPS, OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), 381)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_silver_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/deeps/deepslate_silver_ore"));
 
 
     }
@@ -377,21 +377,21 @@ public abstract class MinerRecipes extends RecipeProvider {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, Items.ANCIENT_DEBRIS, 100)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/ancient_debris"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/master/ancient_debris"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismBlocks.IESNIUM_ORE.get(), 100)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/iesnium_ore"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/master/iesnium_ore"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismItems.MINING_DIMENSION_CORE_PIECE, 1)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/mining_dim_core"));
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stellarite")), 50)
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/master/mining_dim_core"));
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/stellarite")), 50)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stellarite"));
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stella_arcanum")), 100)
-                .unlockedBy("has_stella_arcanum_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stella_arcanum"))))
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stella_arcanum"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/master/stellarite"));
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/stella_arcanum")), 100)
+                .unlockedBy("has_stella_arcanum_ore", has(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/stella_arcanum"))))
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/master/stella_arcanum"));
     }
 
     public static void basic_resources(RecipeOutput consumer) {
@@ -399,51 +399,51 @@ public abstract class MinerRecipes extends RecipeProvider {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.STONE, 10000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/stone"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/stone"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.ANDESITE, 7000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/andesite"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/andesite"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.DIORITE, 7000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/diorite"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/diorite"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.GRANITE, 7000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/granite"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/granite"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.DEEPSLATE, 5000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/deepslate"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/deepslate"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.MOSSY_COBBLESTONE, 3000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/mossy_cobblestone"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/mossy_cobblestone"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.MOSSY_STONE_BRICKS, 3000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/mossy_stone_bricks"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/mossy_stone_bricks"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.NETHERRACK, 1000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/netherrack"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/netherrack"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.BASALT, 1000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/basalt"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/basalt"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.BLACKSTONE, 1000)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/blackstone"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/blackstone"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.BASIC_RESOURCES, Items.END_STONE, 30)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
-                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/end_stone"));
+                .save(consumer, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/basic_resources/end_stone"));
     }
 
     public static TagKey<Item> tag(String tag) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.parse(tag));
+        return TagKey.create(Registries.ITEM, Identifier.parse(tag));
     }
 
     @Override

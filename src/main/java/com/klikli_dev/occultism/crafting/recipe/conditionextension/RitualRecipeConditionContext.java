@@ -4,7 +4,7 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagManager;
 import net.minecraft.world.level.Level;
@@ -53,7 +53,7 @@ public class RitualRecipeConditionContext implements OccultismConditionContext {
     }
 
     @Override
-    public <T> @NotNull Map<ResourceLocation, Collection<Holder<T>>> getAllTags(@NotNull ResourceKey<? extends Registry<T>> registry) {
+    public <T> @NotNull Map<Identifier, Collection<Holder<T>>> getAllTags(@NotNull ResourceKey<? extends Registry<T>> registry) {
         return this.neoConditionContext.getAllTags(registry);
     }
 }

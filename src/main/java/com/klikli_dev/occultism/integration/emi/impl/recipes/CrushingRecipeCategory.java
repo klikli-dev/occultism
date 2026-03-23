@@ -16,7 +16,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrushingRecipeCategory implements EmiRecipe {
-    private final ResourceLocation id;
+    private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
@@ -50,7 +50,7 @@ public class CrushingRecipeCategory implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return id;
     }
 
@@ -129,13 +129,13 @@ public class CrushingRecipeCategory implements EmiRecipe {
 
     private static final List<EmiIngredient> tiers = List.of(
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
     );
 
     @Override

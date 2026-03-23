@@ -51,12 +51,12 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animation.AnimationState;
+import com.geckolib.animation.*;
+import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
@@ -105,8 +105,8 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
 
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty,
-                                        @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        if (spawnType == MobSpawnType.EVENT) {
+                                        @NotNull EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (spawnType == EntitySpawnReason.EVENT) {
             for (int t = 0; t < 2; t++) {
                 BlockPos blockpos = null;
                 SpawnPlacementType spawnplacementtype = SpawnPlacements.getPlacementType(EntityType.WANDERING_TRADER);
@@ -121,7 +121,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                     }
                 }
                 if (blockpos != null) {
-                    TraderLlama traderllama = EntityType.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, MobSpawnType.EVENT);
+                    TraderLlama traderllama = EntityType.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, EntitySpawnReason.EVENT);
                     if (traderllama != null) {
                         traderllama.setLeashedTo(this, true);
                         traderllama.setPersistenceRequired();

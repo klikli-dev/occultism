@@ -22,7 +22,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -41,13 +41,13 @@ public class OccultismEmiPlugin implements EmiPlugin {
     public static final EmiStack DARK_IESNIUM_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get());
     public static final EmiStack CELESTIAL_CHALICE = EmiStack.of(OccultismBlocks.CELESTIAL_CHALICE.get());
     public static final EmiStack ELDRITCH_CHALICE = EmiStack.of(OccultismBlocks.ELDRITCH_CHALICE.get());
-    public static final ResourceLocation EMI_WIDGETS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/emi/widgets.png");
-    public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
-    public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
-    public static final EmiRecipeCategory CRYSTALLIZE_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystallize"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
-    public static final EmiRecipeCategory TRADER_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trader"), new EmiTexture(EMI_WIDGETS, 0, 32, 16, 16), new EmiTexture(EMI_WIDGETS, 80, 0, 16, 16));
-    public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
-    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
+    public static final Identifier EMI_WIDGETS = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/emi/widgets.png");
+    public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
+    public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
+    public static final EmiRecipeCategory CRYSTALLIZE_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
+    public static final EmiRecipeCategory TRADER_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trader"), new EmiTexture(EMI_WIDGETS, 0, 32, 16, 16), new EmiTexture(EMI_WIDGETS, 80, 0, 16, 16));
+    public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
+    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
 
     @Override
     public void initialize(EmiInitRegistry registry) {

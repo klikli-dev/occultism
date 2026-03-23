@@ -29,13 +29,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class DimensionalMineshaftScreen extends AbstractContainerScreen<DimensionalMineshaftContainer> {
 
-    public static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_miner.png");
+    public static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_miner.png");
 
     public DimensionalMineshaftBlockEntity otherworldMiner;
 

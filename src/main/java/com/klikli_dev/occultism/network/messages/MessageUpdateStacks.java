@@ -33,7 +33,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -47,7 +47,7 @@ import java.util.zip.Inflater;
  */
 public class MessageUpdateStacks implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_stacks");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "update_stacks");
     public static final Type<MessageUpdateStacks> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateStacks> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateStacks::encode, MessageUpdateStacks::new);
 

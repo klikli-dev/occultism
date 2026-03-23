@@ -104,7 +104,7 @@ public class SoulGemItem extends Item {
 
                 // old spawn cde:
                 //                Entity entity = type.spawn((ServerLevel) level, wrapper, customName, null, spawnPos,
-                //                        MobSpawnType.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                //                        EntitySpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 //                if (entity instanceof TamableAnimal && entityData.contains("OwnerUUID") &&
                 //                    !entityData.getString("OwnerUUID").isEmpty()) {
                 //                    TamableAnimal tameableEntity = (TamableAnimal) entity;

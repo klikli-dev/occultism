@@ -9,7 +9,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -42,7 +42,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                                                 .equipment(this.mainHand(ItemPredicate.Builder.item().of(
                                                         OccultismTags.Items.TOOLS_KNIFE)))).build(),
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", entityType)))).build()
+                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", entityType)))).build()
                 }, OccultismItems.TALLOW.get(), count);
     }
 

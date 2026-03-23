@@ -16,7 +16,7 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconCons
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -27,13 +27,13 @@ import net.minecraft.world.level.Level;
 public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
     ItemStack unboundBook;
 
-    public BookBindingCraftingRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor, BookCondition condition, ItemStack unboundBook) {
+    public BookBindingCraftingRecipePage(BookTextHolder title1, Identifier recipeId1, BookTextHolder title2, Identifier recipeId2, BookTextHolder text, String anchor, BookCondition condition, ItemStack unboundBook) {
         super(RecipeType.CRAFTING, title1, recipeId1, title2, recipeId2, text, anchor, condition);
 
         this.unboundBook = unboundBook;
     }
 
-    public static BookBindingCraftingRecipePage fromJson(ResourceLocation conditionParentId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookBindingCraftingRecipePage fromJson(Identifier conditionParentId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
@@ -60,7 +60,7 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE;
     }
 

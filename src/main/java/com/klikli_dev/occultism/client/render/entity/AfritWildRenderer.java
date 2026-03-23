@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.client.model.entity.AfritWildModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.GeoEntityRenderer;
 
 public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity> {
 

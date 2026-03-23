@@ -27,20 +27,20 @@ import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTr
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.model.DefaultedGeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
+import com.geckolib.animation.AnimationState;
+import com.geckolib.cache.object.GeoBone;
+import com.geckolib.constant.DataTickets;
+import com.geckolib.model.DefaultedGeoModel;
+import com.geckolib.model.data.EntityModelData;
 
 public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntity> {
 
     public WonderingTraderModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wondering_trader"));
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "wondering_trader"));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntit
     }
 
     @Override
-    public RenderType getRenderType(WonderingTraderEntity animatable, ResourceLocation texture) {
+    public RenderType getRenderType(WonderingTraderEntity animatable, Identifier texture) {
         return RenderType.entityTranslucent(this.getTextureResource(animatable));
     }
 

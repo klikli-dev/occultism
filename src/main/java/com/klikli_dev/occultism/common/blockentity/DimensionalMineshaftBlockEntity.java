@@ -42,7 +42,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.MenuProvider;
@@ -74,7 +74,7 @@ import java.util.stream.Collectors;
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
-            .create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
+            .create(Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;

@@ -33,7 +33,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -47,9 +47,9 @@ import java.util.Set;
 public class ThirdEyeEffectRenderer {
 
     public static final int MAX_THIRD_EYE_DISTANCE = 10;
-    public static final ResourceLocation THIRD_EYE_SHADER = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    public static final Identifier THIRD_EYE_SHADER = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "shaders/post/third_eye.json");
-    public static final ResourceLocation THIRD_EYE_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    public static final Identifier THIRD_EYE_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/overlay/third_eye.png");
     public boolean thirdEyeActiveLastTick = false;
     public boolean gogglesActiveLastTick = false;

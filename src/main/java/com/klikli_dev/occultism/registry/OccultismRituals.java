@@ -26,13 +26,13 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.ritual.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class OccultismRituals {
 
-    public static final ResourceKey<Registry<RitualFactory>> RITUAL_FACTORIES_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_factories"));
+    public static final ResourceKey<Registry<RitualFactory>> RITUAL_FACTORIES_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_factories"));
 
     public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RITUAL_FACTORIES_KEY, Occultism.MODID);
 

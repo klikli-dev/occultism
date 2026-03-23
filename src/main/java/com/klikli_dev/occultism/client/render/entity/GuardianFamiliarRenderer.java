@@ -32,23 +32,23 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
-import software.bernie.geckolib.util.Color;
+import com.geckolib.util.Color;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/guardian_familiar.png");
 
     public GuardianFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -70,12 +70,12 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GuardianFamiliarEntity entity) {
+    public Identifier getTextureLocation(GuardianFamiliarEntity entity) {
         return TEXTURES;
     }
 
     private static class GuardianFamiliarOverlay extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
-        private static final ResourceLocation OVERLAY = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier OVERLAY = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_overlay.png");
 
         private final GuardianFamiliarModel model;
@@ -150,9 +150,9 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     private static class GuardianFamiliarTree extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
-        private static final ResourceLocation TREE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier TREE = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_tree.png");
-        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier CHRISTMAS = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_christmas.png");
 
         public GuardianFamiliarTree(RenderLayerParent<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {

@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class DjinniModel extends DefaultedJobEntityModel<DjinniEntity> {
@@ -32,7 +32,7 @@ public class DjinniModel extends DefaultedJobEntityModel<DjinniEntity> {
     public final static String ASSET_SUBPATH = "djinni";
 
     public DjinniModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, ASSET_SUBPATH), false,ASSET_SUBPATH);
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, ASSET_SUBPATH), false,ASSET_SUBPATH);
     }
 
 }

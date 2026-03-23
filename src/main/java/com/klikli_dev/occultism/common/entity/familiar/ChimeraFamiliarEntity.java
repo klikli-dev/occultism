@@ -35,7 +35,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -72,8 +72,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     public static final byte LION_ATTACKER = 1;
     public static final byte GOAT_ATTACKER = 2;
     public static final byte SNAKE_ATTACKER = 3;
-    private static final ResourceLocation DAMAGE_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_damage_bonus");
-    private static final ResourceLocation SPEED_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_speed_bonus");
+    private static final Identifier DAMAGE_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_damage_bonus");
+    private static final Identifier SPEED_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_speed_bonus");
     private static final byte RIDING_SIZE = 80;
     private static final double SHRINK_CHANCE = 0.0001;
     private static final int ATTACK_TIME = 10;
@@ -153,7 +153,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setGoat(true);
         this.setSize((byte) 0);
         this.setFlaps(this.getRandom().nextBoolean());

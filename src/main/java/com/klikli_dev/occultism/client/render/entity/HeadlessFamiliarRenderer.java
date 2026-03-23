@@ -40,7 +40,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -48,7 +48,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -61,7 +61,7 @@ import java.util.Map;
 
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/headless_familiar.png");
 
     public HeadlessFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -73,7 +73,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     @Override
-    public ResourceLocation getTextureLocation(HeadlessFamiliarEntity entity) {
+    public Identifier getTextureLocation(HeadlessFamiliarEntity entity) {
         return TEXTURE;
     }
 
@@ -194,9 +194,9 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     private static class PumpkinLayer extends RenderLayer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
-        private static final ResourceLocation PUMPKIN = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier PUMPKIN = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_pumpkin.png");
-        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier CHRISTMAS = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_christmas.png");
 
         public PumpkinLayer(RenderLayerParent<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
@@ -234,43 +234,43 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     public static class HeadLayer extends RenderLayer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
-        private static Map<EntityType<?>, ResourceLocation> textures;
+        private static Map<EntityType<?>, Identifier> textures;
         private static Map<EntityType<?>, SkullModelBase> skulls;
 
         public HeadLayer(RenderLayerParent<HeadlessFamiliarEntity, HeadlessFamiliarModel> parent) {
             super(parent);
         }
 
-        private static ResourceLocation getTexture(EntityType<?> type) {
+        private static Identifier getTexture(EntityType<?> type) {
             if (textures == null) {
-                ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
+                ImmutableMap.Builder<EntityType<?>, Identifier> builder = new ImmutableMap.Builder<>();
                 builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultTexture());
-                builder.put(EntityType.SKELETON, ResourceLocation.parse("textures/entity/skeleton/skeleton.png"));
-                builder.put(EntityType.WITHER_SKELETON, ResourceLocation.parse("textures/entity/skeleton/wither_skeleton.png"));
-                builder.put(EntityType.STRAY, ResourceLocation.parse("textures/entity/skeleton/stray.png"));
-                builder.put(EntityType.BOGGED, ResourceLocation.parse("textures/entity/skeleton/bogged_overlay.png"));
-                builder.put(EntityType.ZOMBIE, ResourceLocation.parse("textures/entity/zombie/zombie.png"));
-                builder.put(EntityType.HUSK, ResourceLocation.parse("textures/entity/zombie/husk.png"));
-                builder.put(EntityType.DROWNED, ResourceLocation.parse("textures/entity/zombie/drowned_outer_layer.png"));
-                builder.put(EntityType.CREEPER, ResourceLocation.parse("textures/entity/creeper/creeper.png"));
-                builder.put(EntityType.SPIDER, ResourceLocation.parse("textures/entity/spider/spider.png"));
-                builder.put(EntityType.CAVE_SPIDER, ResourceLocation.parse("textures/entity/spider/cave_spider.png"));
-                builder.put(EntityType.PIGLIN, ResourceLocation.parse("textures/entity/piglin/piglin.png"));
-                builder.put(EntityType.PIGLIN_BRUTE, ResourceLocation.parse("textures/entity/piglin/piglin_brute.png"));
-                builder.put(EntityType.ZOMBIFIED_PIGLIN, ResourceLocation.parse("textures/entity/piglin/zombified_piglin.png"));
-                builder.put(EntityType.BLAZE, ResourceLocation.parse("textures/entity/blaze.png"));
-                builder.put(EntityType.BREEZE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/breeze_blaze_size.png"));
-                builder.put(EntityType.ENDERMAN, ResourceLocation.parse("textures/entity/enderman/enderman.png"));
-                builder.put(EntityType.ENDER_DRAGON, ResourceLocation.parse("textures/entity/enderdragon/dragon.png"));
+                builder.put(EntityType.SKELETON, Identifier.parse("textures/entity/skeleton/skeleton.png"));
+                builder.put(EntityType.WITHER_SKELETON, Identifier.parse("textures/entity/skeleton/wither_skeleton.png"));
+                builder.put(EntityType.STRAY, Identifier.parse("textures/entity/skeleton/stray.png"));
+                builder.put(EntityType.BOGGED, Identifier.parse("textures/entity/skeleton/bogged_overlay.png"));
+                builder.put(EntityType.ZOMBIE, Identifier.parse("textures/entity/zombie/zombie.png"));
+                builder.put(EntityType.HUSK, Identifier.parse("textures/entity/zombie/husk.png"));
+                builder.put(EntityType.DROWNED, Identifier.parse("textures/entity/zombie/drowned_outer_layer.png"));
+                builder.put(EntityType.CREEPER, Identifier.parse("textures/entity/creeper/creeper.png"));
+                builder.put(EntityType.SPIDER, Identifier.parse("textures/entity/spider/spider.png"));
+                builder.put(EntityType.CAVE_SPIDER, Identifier.parse("textures/entity/spider/cave_spider.png"));
+                builder.put(EntityType.PIGLIN, Identifier.parse("textures/entity/piglin/piglin.png"));
+                builder.put(EntityType.PIGLIN_BRUTE, Identifier.parse("textures/entity/piglin/piglin_brute.png"));
+                builder.put(EntityType.ZOMBIFIED_PIGLIN, Identifier.parse("textures/entity/piglin/zombified_piglin.png"));
+                builder.put(EntityType.BLAZE, Identifier.parse("textures/entity/blaze.png"));
+                builder.put(EntityType.BREEZE, Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/breeze_blaze_size.png"));
+                builder.put(EntityType.ENDERMAN, Identifier.parse("textures/entity/enderman/enderman.png"));
+                builder.put(EntityType.ENDER_DRAGON, Identifier.parse("textures/entity/enderdragon/dragon.png"));
                 builder.put(OccultismEntities.CTHULHU_FAMILIAR.get(),
-                        ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
-                builder.put(EntityType.VILLAGER, ResourceLocation.parse("textures/entity/villager/villager.png"));
-                builder.put(EntityType.WANDERING_TRADER, ResourceLocation.parse("textures/entity/wandering_trader.png"));
-                builder.put(EntityType.ZOMBIE_VILLAGER, ResourceLocation.parse("textures/entity/zombie_villager/zombie_villager.png"));
-                builder.put(EntityType.WITCH, ResourceLocation.parse("textures/entity/witch.png"));
-                builder.put(EntityType.PILLAGER, ResourceLocation.parse("textures/entity/illager/pillager.png"));
-                builder.put(EntityType.VINDICATOR, ResourceLocation.parse("textures/entity/illager/vindicator.png"));
-                builder.put(EntityType.EVOKER, ResourceLocation.parse("textures/entity/illager/evoker.png"));
+                        Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
+                builder.put(EntityType.VILLAGER, Identifier.parse("textures/entity/villager/villager.png"));
+                builder.put(EntityType.WANDERING_TRADER, Identifier.parse("textures/entity/wandering_trader.png"));
+                builder.put(EntityType.ZOMBIE_VILLAGER, Identifier.parse("textures/entity/zombie_villager/zombie_villager.png"));
+                builder.put(EntityType.WITCH, Identifier.parse("textures/entity/witch.png"));
+                builder.put(EntityType.PILLAGER, Identifier.parse("textures/entity/illager/pillager.png"));
+                builder.put(EntityType.VINDICATOR, Identifier.parse("textures/entity/illager/vindicator.png"));
+                builder.put(EntityType.EVOKER, Identifier.parse("textures/entity/illager/evoker.png"));
                 textures = builder.build();
             }
             return textures.get(type);
@@ -335,7 +335,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             pMatrixStack.translate(0.15, 0.5, -0.12);
             pMatrixStack.mulPose(new Quaternionf().rotateXYZ(90 * ((float) Math.PI / 180F), 0, 0));
 
-            ResourceLocation texture = getTexture(headType);
+            Identifier texture = getTexture(headType);
 
             if (texture != null) {
                 VertexConsumer builder = pBuffer.getBuffer(RenderType.entityCutoutNoCull(texture));

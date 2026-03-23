@@ -35,10 +35,10 @@ import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -1851,7 +1851,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addPentacle(String id, String name) {
-        this.add(Util.makeDescriptionId("multiblock", ResourceLocation.fromNamespaceAndPath(Occultism.MODID, id)), name);
+        this.add(Util.makeDescriptionId("multiblock", Identifier.fromNamespaceAndPath(Occultism.MODID, id)), name);
     }
 
     private void addRitualDummies() {
@@ -2183,11 +2183,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM, "Iesnium Knives");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/knife"), "Knives");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "head"), "Head");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "ring"), "Ring");
+        this.addItemTag(Identifier.fromNamespaceAndPath("c", "tools/knife"), "Knives");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "belt"), "Belts");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "hands"), "Hands");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "head"), "Head");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "ring"), "Ring");
         this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD, "Demonic Partner Food");
         this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE, "Other Cobblestone");
         this.addItemTag(OccultismTags.Items.OTHERSTONE, "Otherstone");
@@ -2227,7 +2227,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER, "Can spawn as Random Villager");
     }
 
-    private void addItemTag(ResourceLocation resourceLocation, String string) {
+    private void addItemTag(Identifier resourceLocation, String string) {
         this.add("tag.item." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 
@@ -2239,7 +2239,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(item.location(), string);
     }
 
-    private void addBlockTag(ResourceLocation resourceLocation, String string) {
+    private void addBlockTag(Identifier resourceLocation, String string) {
         this.add("tag.block." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 

@@ -31,7 +31,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -46,16 +46,16 @@ import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
  */
 public class MessageSetRecipeByID implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("occultism", "set_recipe_by_id");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath("occultism", "set_recipe_by_id");
     public static final Type<MessageSetRecipeByID> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipeByID> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipeByID::encode, MessageSetRecipeByID::new);
-    private ResourceLocation id;
+    private Identifier id;
 
     public MessageSetRecipeByID(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetRecipeByID(ResourceLocation id) {
+    public MessageSetRecipeByID(Identifier id) {
         this.id = id;
     }
 
@@ -105,12 +105,12 @@ public class MessageSetRecipeByID implements IMessage {
 
     @Override
     public void encode(RegistryFriendlyByteBuf buf) {
-        buf.writeResourceLocation(this.id);
+        buf.writeIdentifier(this.id);
     }
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
-        this.id = buf.readResourceLocation();
+        this.id = buf.readIdentifier();
     }
 
     private NonNullList<Ingredient> getIngredientsForRecipe(Recipe<?> recipe) {

@@ -41,7 +41,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Locale;
@@ -57,7 +57,7 @@ public class SpiritTradeRecipeCategory implements IRecipeCategory<RecipeHolder<S
         this.background = guiHelper.createBlankDrawable(168, 44); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.spirit_trader");
         this.overlay = guiHelper.createDrawable(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
 
     protected void drawStringCentered(GuiGraphics guiGraphics, Font font, Component text, int x, int y) {

@@ -39,7 +39,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -84,7 +84,7 @@ public abstract class Ritual {
 
     public RitualRecipe recipe;
 
-    public ResourceLocation factoryId;
+    public Identifier factoryId;
     Supplier<RecipeHolder<RitualRecipe>> recipeHolderSupplier;
 
     //region Getter / Setter
@@ -121,11 +121,11 @@ public abstract class Ritual {
         return remainingAdditionalIngredients;
     }
 
-    public ResourceLocation getFactoryID() {
+    public Identifier getFactoryID() {
         return this.factoryId;
     }
 
-    public void setFactoryId(ResourceLocation factoryId) {
+    public void setFactoryId(Identifier factoryId) {
         this.factoryId = factoryId;
     }
 
@@ -147,7 +147,7 @@ public abstract class Ritual {
         var holder = this.getRecipeHolder(player.level());
         if(holder == null)
             return "unknown";
-        ResourceLocation recipeId = holder.id();
+        Identifier recipeId = holder.id();
         String path = recipeId.getPath();
         if (path.contains("/"))
             path = path.substring(path.indexOf("/") + 1);

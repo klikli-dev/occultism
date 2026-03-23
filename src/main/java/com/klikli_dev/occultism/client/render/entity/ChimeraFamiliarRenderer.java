@@ -30,11 +30,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, ChimeraFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/chimera_familiar.png");
 
     public ChimeraFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -58,7 +58,7 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ChimeraFamiliarEntity entity) {
+    public Identifier getTextureLocation(ChimeraFamiliarEntity entity) {
         return TEXTURES;
     }
 }

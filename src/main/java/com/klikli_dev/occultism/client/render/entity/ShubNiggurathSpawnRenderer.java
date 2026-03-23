@@ -30,17 +30,17 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_spawn.png");
 
     public ShubNiggurathSpawnRenderer(EntityRendererProvider.Context context) {
@@ -49,13 +49,13 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ShubNiggurathSpawnEntity entity) {
+    public Identifier getTextureLocation(ShubNiggurathSpawnEntity entity) {
         return TEXTURES;
     }
 
     private static class BlinkingEyesLayer extends RenderLayer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> {
 
-        private static final ResourceLocation BLINKING = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier BLINKING = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/shub_niggurath_spawn_blinking.png");
 
         private final ShubNiggurathSpawnModel model;

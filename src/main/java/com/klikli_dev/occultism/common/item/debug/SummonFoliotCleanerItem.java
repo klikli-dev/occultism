@@ -31,7 +31,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.neoforged.neoforge.event.EventHooks;
@@ -47,7 +47,7 @@ public class SummonFoliotCleanerItem extends Item {
         if (!context.getLevel().isClientSide) {
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
 
-            EventHooks.finalizeMobSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), MobSpawnType.SPAWN_EGG, null);
+            EventHooks.finalizeMobSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), EntitySpawnReason.SPAWN_EGG, null);
 
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());

@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.GeoEntityRenderer;
 
 public class DemonicWifeRenderer extends GeoEntityRenderer<DemonicWife> {
 

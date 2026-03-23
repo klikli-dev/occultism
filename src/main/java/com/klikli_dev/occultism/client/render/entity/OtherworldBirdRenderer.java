@@ -27,19 +27,19 @@ import net.minecraft.client.model.ParrotModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Parrot;
 
 public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotModel> {
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
 
     public OtherworldBirdRenderer(EntityRendererProvider.Context context) {
         super(context, new ParrotModel(context.bakeLayer(ModelLayers.PARROT)), 0.3F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Parrot pEntity) {
+    public Identifier getTextureLocation(Parrot pEntity) {
         return TEXTURE;
     }
 

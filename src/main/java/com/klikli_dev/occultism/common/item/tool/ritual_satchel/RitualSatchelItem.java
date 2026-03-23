@@ -18,7 +18,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -49,7 +49,7 @@ public abstract class RitualSatchelItem extends Item {
         return this.targetPentacles;
     }
 
-    public void setTargetPentacle(UUID player, ResourceLocation multiblock, BlockPos anchor, Rotation facing, BlockPos target, long timeWhenAdded) {
+    public void setTargetPentacle(UUID player, Identifier multiblock, BlockPos anchor, Rotation facing, BlockPos target, long timeWhenAdded) {
         this.targetPentacles.put(player, new PentacleData(multiblock, anchor, facing, target, timeWhenAdded));
     }
 

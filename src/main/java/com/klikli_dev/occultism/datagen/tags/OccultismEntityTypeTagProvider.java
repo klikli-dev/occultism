@@ -6,7 +6,7 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.Tags;
@@ -30,7 +30,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     }
 
     private void addPerViamInvenireTags() {
-        this.tag(OccultismTags.makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("per_viam_invenire", "replace_vanilla_navigator")))
+        this.tag(OccultismTags.makeEntityTypeTag(Identifier.fromNamespaceAndPath("per_viam_invenire", "replace_vanilla_navigator")))
                 .add(OccultismEntities.FOLIOT_TYPE.get())
                 .add(OccultismEntities.DJINNI_TYPE.get())
                 .add(OccultismEntities.AFRIT_TYPE.get())

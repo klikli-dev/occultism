@@ -24,14 +24,14 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.DefaultedGeoModel;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
+import com.geckolib.model.DefaultedGeoModel;
 
 public class AfritWildModel extends DefaultedGeoModel<AfritWildEntity> {
 
     public AfritWildModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit"));
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit"));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AfritWildModel extends DefaultedGeoModel<AfritWildEntity> {
     }
 
     @Override
-    public RenderType getRenderType(AfritWildEntity animatable, ResourceLocation texture) {
+    public RenderType getRenderType(AfritWildEntity animatable, Identifier texture) {
         return RenderType.entityTranslucent(this.getTextureResource(animatable));
     }
 }

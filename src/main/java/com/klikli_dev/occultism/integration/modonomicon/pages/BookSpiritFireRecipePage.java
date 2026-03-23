@@ -17,15 +17,15 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconCons
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 
 public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFireRecipe> {
-    public BookSpiritFireRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
+    public BookSpiritFireRecipePage(BookTextHolder title1, Identifier recipeId1, BookTextHolder title2, Identifier recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
         super(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
-    public static BookSpiritFireRecipePage fromJson(ResourceLocation conditionParentId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookSpiritFireRecipePage fromJson(Identifier conditionParentId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
@@ -42,7 +42,7 @@ public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFir
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return OccultismModonomiconConstants.Page.SPIRIT_FIRE_RECIPE;
     }
 }

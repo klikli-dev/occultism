@@ -87,7 +87,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setFez(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextDouble() < 0.5);
         this.setArms(this.getRandom().nextDouble() < 0.5);
