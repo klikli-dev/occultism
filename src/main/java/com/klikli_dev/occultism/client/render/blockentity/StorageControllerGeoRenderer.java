@@ -31,16 +31,17 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.resources.Identifier;
-import com.geckolib.animation.AnimationState;
-import com.geckolib.cache.object.BakedGeoModel;
-import com.geckolib.cache.object.GeoBone;
+import net.minecraft.util.ARGB;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.cache.model.BakedGeoModel;
+import com.geckolib.cache.model.GeoBone;
 import com.geckolib.constant.DataTickets;
 import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.GeoBlockRenderer;
-import com.geckolib.util.Color;
 
-public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity> {
+public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity, BlockEntityRenderState> {
 
     private final GeoModel<StorageControllerBlockEntity> modelProvider;
 
@@ -73,7 +74,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
 
 
         if (!isReRender) {
-            var animationState = new AnimationState<>(animatable, 0, 0, partialTicks, false);
+            var animationState = new AnimationTest<>(animatable, 0, 0, partialTicks, false);
             long instanceId = this.getInstanceId(animatable);
 
             animationState.setData(DataTickets.TICK, animatable.getTick(animatable));
@@ -101,13 +102,15 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     }
 
     @Override
-    public Color getRenderColor(StorageControllerBlockEntity animatable, float partialTick, int packedLight) {
+    public int getRenderColor(StorageControllerBlockEntity animatable, float partialTick, int packedLight) {
         long systemTime = System.currentTimeMillis();
         double systemTimeRadSin8 = Math.sin(Math.toRadians((float) systemTime / 8));
         //get colors from hue over time
         long colorScale = 100L - Math.abs(systemTime / 16 / 2 % 160L - 80L);
         //make saturation smoothly go from 0.0-1.0
         float saturation = (float) systemTimeRadSin8 * 0.5f + 0.5f;
-        return Color.ofHSB(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale);
+        // Convert HSB to RGB int
+        int rgb = java.awt.Color.HSBtoRGB(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale);
+        return ARGB.color(255, ARGB.red(rgb), ARGB.green(rgb), ARGB.blue(rgb));
     }
 }

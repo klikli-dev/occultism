@@ -34,13 +34,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import com.geckolib.cache.object.GeoBone;
+import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.GeoEntityRenderer;
-import com.geckolib.renderer.layer.BlockAndItemGeoLayer;
+import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 import java.util.Objects;
 
-public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
+public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity, EntityRenderState> {
 
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel());

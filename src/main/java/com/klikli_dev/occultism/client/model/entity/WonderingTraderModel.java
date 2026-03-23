@@ -31,11 +31,9 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import com.geckolib.animation.AnimationState;
-import com.geckolib.cache.object.GeoBone;
-import com.geckolib.constant.DataTickets;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.cache.model.GeoBone;
 import com.geckolib.model.DefaultedGeoModel;
-import com.geckolib.model.data.EntityModelData;
 
 public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntity> {
 
@@ -54,7 +52,7 @@ public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntit
     }
 
     @Override
-    public void setCustomAnimations(WonderingTraderEntity entity, long instanceId, AnimationState<WonderingTraderEntity> animationState) {
+    public void setCustomAnimations(WonderingTraderEntity entity, long instanceId, AnimationTest<WonderingTraderEntity> animationState) {
         super.setCustomAnimations(entity, instanceId, animationState);
 
         Player player = Minecraft.getInstance().player;
@@ -70,15 +68,13 @@ public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntit
 
         GeoBone head = getAnimationProcessor().getBone("head");
         if (head != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            head.setRotX(- entityData.headPitch() * Mth.DEG_TO_RAD);
+            head.setRotY(entity.getYHeadRot() * Mth.DEG_TO_RAD);
+            head.setRotX(entity.getXRot() * Mth.DEG_TO_RAD);
         }
         GeoBone head3 = getAnimationProcessor().getBone("head3");
         if (head3 != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            head3.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            head3.setRotX(- entityData.headPitch() * Mth.DEG_TO_RAD);
+            head3.setRotY(entity.getYHeadRot() * Mth.DEG_TO_RAD);
+            head3.setRotX(entity.getXRot() * Mth.DEG_TO_RAD);
         }
 
 

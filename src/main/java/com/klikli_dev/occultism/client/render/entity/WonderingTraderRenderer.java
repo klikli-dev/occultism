@@ -35,10 +35,11 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
-import com.geckolib.cache.object.BakedGeoModel;
+import com.geckolib.cache.model.BakedGeoModel;
 import com.geckolib.renderer.GeoEntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
-public class WonderingTraderRenderer extends GeoEntityRenderer<WonderingTraderEntity> {
+public class WonderingTraderRenderer extends GeoEntityRenderer<WonderingTraderEntity, EntityRenderState> {
 
     public WonderingTraderRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new WonderingTraderModel());

@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
-import com.geckolib.util.Color;
+import net.minecraft.util.ARGB;
 
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -304,8 +304,9 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
     public static class ColorModelPartProxy extends ModelPart {
 
-        Color color;
+        int color;
         ModelPart proxied;
+
 
         public ColorModelPartProxy(ModelPart modelPart) {
             super(Collections.emptyList(), Collections.emptyMap());
@@ -318,17 +319,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         public void setColor(float r, float g, float b, float a) {
-            this.color =        Color.ofRGBA(r, g, b, a);
+            this.color = ARGB.color((int)(a * 255), (int)(r * 255), (int)(g * 255), (int)(b * 255));
         }
 
         @Override
         public void render(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, int pColor) {
             //prevent actual render
-            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color.getColor());
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color);
         }
 
         public void proxyRender(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, int pColor) {
-            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color.getColor());
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color);
         }
 
         @Override
