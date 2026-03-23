@@ -10,16 +10,13 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.random.Weight;
-import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * A recipe result for recipes that need a random weight (eg miner recipes)
  */
-public abstract class WeightedRecipeResult extends RecipeResult implements WeightedEntry {
+public abstract class WeightedRecipeResult extends RecipeResult {
 
     public static final Codec<WeightedRecipeResult> CODEC = RecipeResult.CODEC.validate(r -> {
         if (!(r instanceof WeightedRecipeResult))
@@ -28,10 +25,10 @@ public abstract class WeightedRecipeResult extends RecipeResult implements Weigh
     }).xmap(r -> (WeightedRecipeResult) r, r -> r);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, WeightedRecipeResult> STREAM_CODEC = RecipeResult.STREAM_CODEC.map(r -> (WeightedRecipeResult) r, r -> r);
-    protected final Weight weight;
+    protected final int weight;
 
     public WeightedRecipeResult(int weight) {
-        this.weight = Weight.of(weight);
+        this.weight = weight;
     }
 
     public static WeightedRecipeResult of(ItemStack stack, int weight) {
@@ -51,16 +48,11 @@ public abstract class WeightedRecipeResult extends RecipeResult implements Weigh
     }
 
     public int weight() {
-        return this.weight.asInt();
+        return this.weight;
     }
 
     @Override
     public abstract WeightedRecipeResult copyWithCount(int count);
 
     public abstract WeightedRecipeResult copyWithWeight(int weight);
-
-    @Override
-    public @NotNull Weight getWeight() {
-        return this.weight;
-    }
 }

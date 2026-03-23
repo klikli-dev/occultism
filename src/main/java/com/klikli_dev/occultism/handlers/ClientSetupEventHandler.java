@@ -63,7 +63,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.item.ItemProperties;
+// TODO: Port to 26.1 item property system - ItemProperties was removed
+// import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -282,33 +283,35 @@ public class ClientSetupEventHandler {
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
-
-        //Not safe to call during parallel load, so register to run threadsafe
-        event.enqueueWork(() -> {
-            //Register item model properties
-            ItemProperties.register(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-            ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-            ItemProperties.register(OccultismItems.TRINITY_GEM_ITEM.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-            ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
-            ItemProperties.register(OccultismItems.TRUE_SIGHT_STAFF.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
-            //ItemProperties.register(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(),
-            //        Identifier.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
-            ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
-            ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
-            ItemProperties.register(OccultismItems.STABLE_WORMHOLE_DARK.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
-            ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());
-
-            Occultism.LOGGER.debug("Registered Item Properties");
-        });
+        // TODO: Port to 26.1 item property system
+        // ItemProperties and ItemPropertyFunction were removed in Minecraft 26.1.
+        // The item model property registration below is disabled until the new system is implemented.
+        // See client/itemproperties/ for the individual getter stubs with their original logic documented.
+        //
+        // event.enqueueWork(() -> {
+        //     ItemProperties.register(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.TRINITY_GEM_ITEM.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.TRUE_SIGHT_STAFF.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
+        //     //ItemProperties.register(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(),
+        //     //        Identifier.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.STABLE_WORMHOLE_DARK.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+        //     ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
+        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());
+        //
+        //     Occultism.LOGGER.debug("Registered Item Properties");
+        // });
     }
 
     @SubscribeEvent

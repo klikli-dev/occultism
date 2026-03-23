@@ -46,6 +46,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.Identifier;
@@ -59,7 +60,7 @@ import org.joml.Quaternionf;
 
 import java.util.Map;
 
-public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
+public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, LivingEntityRenderState, HeadlessFamiliarModel> {
 
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/headless_familiar.png");

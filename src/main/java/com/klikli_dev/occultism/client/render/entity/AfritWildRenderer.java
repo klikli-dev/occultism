@@ -27,8 +27,9 @@ import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowin
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import com.geckolib.renderer.GeoEntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
-public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity> {
+public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity, EntityRenderState> {
 
     public AfritWildRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AfritWildModel());

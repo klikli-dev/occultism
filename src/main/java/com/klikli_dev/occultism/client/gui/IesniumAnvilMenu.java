@@ -19,7 +19,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
-import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+// import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent; // Removed in NeoForge 26.1
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -49,7 +49,8 @@ public class IesniumAnvilMenu extends AnvilMenu {
             }
         }
 
-        NeoForge.EVENT_BUS.post(new AnvilRepairEvent(player, inputSlots.getItem(0), inputSlots.getItem(1), stack));
+        // AnvilRepairEvent was removed in NeoForge 26.1 - disabled until replacement is available
+        // NeoForge.EVENT_BUS.post(new AnvilRepairEvent(player, inputSlots.getItem(0), inputSlots.getItem(1), stack));
         this.inputSlots.setItem(0, ItemStack.EMPTY);
         if (this.repairItemCountCost > 0) {
             ItemStack itemstack = this.inputSlots.getItem(1);

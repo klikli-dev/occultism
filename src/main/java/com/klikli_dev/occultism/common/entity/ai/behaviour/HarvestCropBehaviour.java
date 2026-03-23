@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
 
     @Override
     protected boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull E entity) {
-        var cropPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+        var cropPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
         var dist = cropPos != null ? entity.distanceToSqr(Vec3.atCenterOf(cropPos)) : 0;
         return dist <= HarvestCropBehaviour.HARVEST_CROP_RANGE_SQUARE;
     }
@@ -46,16 +46,16 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
     }
 
     protected boolean shouldKeepRunning(E entity) {
-        return BrainUtils.hasMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+        return BrainUtil.hasMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
     }
 
     @Override
     protected void tick(E entity) {
-        var cropPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+        var cropPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
         if (cropPos == null)
             return;
         if (NearestCropSensor.isGrowthCrop(entity.level(), cropPos)) {
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(cropPos));
+            BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(cropPos));
             entity.swing(InteractionHand.MAIN_HAND, true);
             for (int x = -2 ; x <= 2 ; x++) {
                 for (int z = -2 ; z <= 2 ; z++) {
@@ -77,7 +77,7 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
     }
 
     protected void stop(E entity) {
-        BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+        BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
     }
 
 }

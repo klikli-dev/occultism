@@ -36,7 +36,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -70,10 +70,10 @@ public abstract class SpiritJob {
      */
     public final void init() {
         this.entity.remakeBrain();
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.entity.getDepositFacing());
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.entity.getDepositFacing());
         this.onInit();
     }
 

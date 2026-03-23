@@ -12,7 +12,7 @@ import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -29,16 +29,16 @@ public class HandleUnreachableTreeBehaviour<E extends SpiritEntity> extends Exte
 
     @Override
     protected void start(E entity) {
-        if (BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get(), () -> false)) {
-            var unreachableWalkTargets = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
-            var walkTarget = BrainUtils.getMemory(entity, MemoryModuleType.WALK_TARGET);
+        if (BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get(), () -> false)) {
+            var unreachableWalkTargets = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
+            var walkTarget = BrainUtil.getMemory(entity, MemoryModuleType.WALK_TARGET);
             if (walkTarget != null && walkTarget.getTarget() instanceof BlockPosTracker) {
                 unreachableWalkTargets.add(walkTarget.getTarget().currentBlockPosition());
 
-                BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), unreachableWalkTargets, FORGET_UNREACHABLE_WALK_TARGETS_AFTER_TICKS);
+                BrainUtil.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), unreachableWalkTargets, FORGET_UNREACHABLE_WALK_TARGETS_AFTER_TICKS);
 
-                BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
-                BrainUtils.clearMemory(entity, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get());
+                BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtil.clearMemory(entity, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get());
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, OccultismConstants.Color.RED));

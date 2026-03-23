@@ -37,9 +37,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.horse.TraderLlama;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.animal.equine.TraderLlama;
+import net.minecraft.world.item.trading.VillagerTrades;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ItemStack;
@@ -54,8 +54,10 @@ import org.jetbrains.annotations.NotNull;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animation.AnimationState;
+import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
 import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -288,7 +290,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         controllers.add(mainController);
     }
 
-    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationTest<T> tAnimationState) {
 
         if (this.swinging) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));

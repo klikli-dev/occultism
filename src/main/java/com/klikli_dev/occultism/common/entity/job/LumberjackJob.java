@@ -41,7 +41,7 @@ import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,9 +134,9 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void onChangeWorkArea() {
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get());
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get());
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_TREES.get());
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.NON_TREE_LOGS.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_TREES.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.NON_TREE_LOGS.get());
     }
 }

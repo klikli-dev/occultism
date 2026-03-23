@@ -28,7 +28,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 import javax.annotation.Nullable;
 
-public class RitualWaitingParticle extends TextureSheetParticle {
+public class RitualWaitingParticle extends SingleQuadParticle {
 
     private final double portalPosX;
     private final double portalPosY;

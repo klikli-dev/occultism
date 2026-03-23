@@ -22,23 +22,17 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
+// TODO: Port to 26.1 item property system
+// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
+// to the new item model property system once the API is available.
+//
+// Original logic: returns 1.0f if the ItemStack has a DataComponents.ENTITY_DATA
+// component (i.e. contains a captured entity), otherwise returns 0.0f.
+
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-
 @OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
-public class SoulGemItemPropertyGetter implements ItemPropertyFunction {
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        return stack.has(DataComponents.ENTITY_DATA) ? 1.0f : 0.0f;
-    }
+public class SoulGemItemPropertyGetter {
+    // Empty stub - see TODO above
 }

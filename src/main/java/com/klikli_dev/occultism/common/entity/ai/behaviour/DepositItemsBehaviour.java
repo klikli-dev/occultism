@@ -15,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -41,19 +41,19 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
+        var depositPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(depositPos));
         return StorageUtil.getFirstFilledSlot(entity.inventory) != -1
                 && dist <= DepositItemsBehaviour.DEPOSIT_ITEM_RANGE_SQUARE;
     }
 
     protected void start(E entity) {
-        var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
-        var depositFacing = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_FACING.get());
+        var depositPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
+        var depositFacing = BrainUtil.getMemory(entity, OccultismMemoryTypes.DEPOSIT_FACING.get());
 
         var blockEntity = entity.level().getBlockEntity(depositPos);
         if (blockEntity != null) {
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
+            BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
             var depositItemHandler = entity.level().getCapability(Capabilities.ItemHandler.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
 
@@ -85,7 +85,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
     protected void stop(E entity) {
         //after inserting, close container
         //we use stop with a runtimeprovider to create the delay.
-        var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
+        var depositPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
 
         var blockEntity = entity.level().getBlockEntity(depositPos);
         if (blockEntity != null) {

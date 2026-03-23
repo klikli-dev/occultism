@@ -401,7 +401,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         List<ItemStack> batchedDrops = new ArrayList<>();
 
         for (int i = 0; i < this.rollsPerOperation + fortune; i++) {
-            var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
+            var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults, WeightedRecipeResult::weight);
             int finalSilk = silk > 0 ? 1 + this.level.random.nextIntBetweenInclusive(0, silk) : 1;
 
             result.ifPresent(r -> {

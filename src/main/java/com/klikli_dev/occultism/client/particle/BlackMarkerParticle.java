@@ -5,7 +5,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 
-public class BlackMarkerParticle extends TextureSheetParticle {
+public class BlackMarkerParticle extends SingleQuadParticle {
 
     private final SpriteSet sprites;
 

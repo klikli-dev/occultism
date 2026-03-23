@@ -22,25 +22,17 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
+// TODO: Port to 26.1 item property system
+// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
+// to the new item model property system once the API is available.
+//
+// Original logic: returns 1.0f if IS_INVENTORY_ITEM component is true or player has
+// THIRD_EYE effect, otherwise returns 0.0f.
+
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-
 @OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
-public class OtherworldBlockItemPropertyGetter implements ItemPropertyFunction {
-
-    @Override
-    public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
-        return itemStack.getOrDefault(OccultismDataComponents.IS_INVENTORY_ITEM, false) || thirdEye ? 1.0f : 0.0f;
-    }
+public class OtherworldBlockItemPropertyGetter {
+    // Empty stub - see TODO above
 }

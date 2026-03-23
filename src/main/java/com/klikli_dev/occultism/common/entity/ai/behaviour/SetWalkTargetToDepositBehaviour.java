@@ -18,7 +18,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -42,14 +42,14 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
     @Override
     protected void start(E entity) {
-        var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
+        var depositPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
 
         if (entity.distanceToSqr(Vec3.atCenterOf(depositPos)) < DepositItemsBehaviour.DEPOSIT_ITEM_RANGE_SQUARE) {
-            BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+            BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
         } else {
             BlockPos walkPos = null;
 
-            var unreachableWalkTargets = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
+            var unreachableWalkTargets = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = depositPos.relative(facing);
@@ -60,8 +60,8 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
             }
 
             if (walkPos != null) {
-                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
-                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
+                BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
+                BrainUtil.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
 
@@ -72,7 +72,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
             } else {
                 //If deposit is fully blocked -> that is on the player.
 
-                BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, OccultismConstants.Color.RED));

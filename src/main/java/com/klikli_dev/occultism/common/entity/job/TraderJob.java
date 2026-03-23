@@ -178,7 +178,7 @@ public class TraderJob extends SpiritJob {
 
                     int a = Math.min(this.maxTradesPerRound, handHeld.getCount());
                     for (int i = 0; i<a ; i++) {
-                        var result = WeightedRandom.getRandomItem(this.entity.getRandom(), this.possibleResults);
+                        var result = WeightedRandom.getRandomItem(this.entity.getRandom(), this.possibleResults, WeightedRecipeResult::weight);
                         //Important: copy the result, don't use it raw!
                         result.ifPresent(r -> {
                             ItemStack finalResult = r.getStack().copy();

@@ -22,25 +22,17 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-import com.klikli_dev.occultism.common.item.tool.VitalityCompassItem;
-import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
+// TODO: Port to 26.1 item property system
+// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
+// to the new item model property system once the API is available.
+//
+// Original logic: returns VitalityCompassItem.NOT_FOUND if COMPASS_ANGLE component
+// is absent or negative, otherwise returns the compass angle value.
+
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-
 @OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
-public class VitalityCompassItemPropertyGetter implements ItemPropertyFunction {
-
-    @Override
-    public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-        if (!itemStack.has(OccultismDataComponents.COMPASS_ANGLE) || itemStack.get(OccultismDataComponents.COMPASS_ANGLE) < 0)
-            return VitalityCompassItem.NOT_FOUND;
-        return itemStack.getOrDefault(OccultismDataComponents.COMPASS_ANGLE, VitalityCompassItem.NOT_FOUND);
-    }
+public class VitalityCompassItemPropertyGetter {
+    // Empty stub - see TODO above
 }

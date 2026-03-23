@@ -50,6 +50,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -71,7 +72,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
 import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
@@ -207,7 +211,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 .map(entry -> (Predicate<ItemStack>) stack -> stack.getItem() == entry.getKey()).toList();
     }
 
-    private <E extends GeoBlockEntity> PlayState predicate(AnimationState<E> event) {
+    private <E extends GeoBlockEntity> PlayState predicate(AnimationTest<E> event) {
         event.getController().setAnimation(RawAnimation.begin()
                 .thenLoop("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
@@ -604,7 +608,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+    protected void applyImplicitComponents(DataComponentGetter pComponentInput) {
         super.applyImplicitComponents(pComponentInput);
 
         if (pComponentInput.get(OccultismDataComponents.SORT_DIRECTION) != null)

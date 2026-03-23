@@ -35,7 +35,7 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.integration.emi.OccultismEmiIntegration;
+// import com.klikli_dev.occultism.integration.emi.OccultismEmiIntegration; // EMI integration excluded from build
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.network.Networking;
@@ -283,9 +283,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.setFocused(focus);
 
         this.searchBar.setValue(searchBarText);
-        if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            this.searchBar.setValue(OccultismEmiIntegration.get().getFilterText());
-        } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
         }
 
@@ -440,9 +439,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (nothandled)
             return super.keyPressed(keyCode, scanCode, modifiers);
 
-        if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            OccultismEmiIntegration.get().setFilterText(this.searchBar.getValue());
-        } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
         }
         return true;
@@ -481,9 +479,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
             Networking.sendToServer(new MessageRequestStacks());
-            if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-                OccultismEmiIntegration.get().setFilterText(this.searchBar.getValue());
-            } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+            // OccultismEmiIntegration excluded from build - EMI sync disabled
+            if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
                 OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
             }
         }
@@ -541,7 +538,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addRenderableWidget(this.sortDirectionButton);
 
-        if (OccultismEmiIntegration.get().isLoaded() || OccultismJeiIntegration.get().isLoaded()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled; show button if JEI is loaded
+        if (OccultismJeiIntegration.get().isLoaded()) {
             int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
             this.jeiSyncButton = new SizedImageButton(
                     this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
@@ -982,9 +980,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void clearSearch() {
         this.searchBar.setValue("");
-        if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            OccultismEmiIntegration.get().setFilterText("");
-        } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             OccultismJeiIntegration.get().setFilterText("");
         }
     }

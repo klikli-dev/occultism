@@ -8,12 +8,10 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animation.AnimationState;
-import com.geckolib.cache.GeckoLibCache;
-import com.geckolib.cache.object.GeoBone;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.cache.model.GeoBone;
 import com.geckolib.constant.DataTickets;
 import com.geckolib.model.DefaultedEntityGeoModel;
-import com.geckolib.model.data.EntityModelData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +35,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     public ModelData getModelData(T animatable) {
         var job = animatable.getJobID();
         var model = jobModels.getOrDefault(job, this.worker);
-        if(!GeckoLibCache.getBakedModels().containsKey(model.model()))
-            model=this.worker;
+        // GeckoLibCache removed in GeckoLib 5.5 - skip cache check and always use resolved model
         return model;
     }
     public ModelData buildModelData(String job) {
@@ -83,20 +80,9 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     }
 
     @Override
-    public void setCustomAnimations(T entity, long instanceId, AnimationState<T> animationState) {
+    public void setCustomAnimations(T entity, long instanceId, AnimationTest<T> animationState) {
         super.setCustomAnimations(entity, instanceId, animationState);
 
-        GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-        }
-        GeoBone Head = getAnimationProcessor().getBone("Head");
-        if (Head != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            Head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            Head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-        }
+        // EntityModelData removed in GeckoLib 5.5 - head rotation handled by turnsHead parameter in super
     }
 }

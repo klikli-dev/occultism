@@ -18,7 +18,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.*;
 
@@ -41,7 +41,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+        var treePos = BrainUtil.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
         return dist <= FellTreeBehaviour.FELL_TREE_RANGE_SQUARE;
     }
@@ -53,14 +53,14 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     }
 
     protected boolean shouldKeepRunning(E entity) {
-        return BrainUtils.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+        return BrainUtil.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
     }
 
     @Override
     protected void tick(E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+        var treePos = BrainUtil.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         if (NearestTreeSensor.isLog(entity.level(), treePos)) {
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
+            BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             this.breakingTime++;
             entity.swing(InteractionHand.MAIN_HAND, true);
             int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);
@@ -77,13 +77,13 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
                 List<BlockPos> stump = new ArrayList<>(List.of());
                 this.addAllStump(treePos, entity.level(), stump);
                 this.fellTree(entity, treePos);
-                var felled = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+                var felled = BrainUtil.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
                 if (felled != null) {
                     felled.addAll(stump);
                 } else {
                     felled = stump;
                 }
-                BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), felled);
+                BrainUtil.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), felled);
                 this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
                 //we stop here (even though the above condition would save us) because sensor might reset last felled tree meanwhile
             }
@@ -100,7 +100,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     }
 
     protected void stop(E entity) {
-        BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+        BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
     }
 
     private void fellTree(E entity, BlockPos treePos) {

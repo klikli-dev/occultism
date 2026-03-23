@@ -19,7 +19,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -70,17 +70,17 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         //if we currently have a tree, exit
         //Will be removed by the fell tree behaviour
-        if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get()))
+        if (BrainUtil.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get()))
             return;
 
         //if work area is empty, exit. This memory expires on its own to allow rescan
-        if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get()))
+        if (BrainUtil.hasMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get()))
             return;
 
-        var nonTreeLogs = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), HashSet::new);
-        var unreachableTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), HashSet::new);
-        var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
-        var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
+        var nonTreeLogs = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), HashSet::new);
+        var unreachableTrees = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), HashSet::new);
+        var workAreaCenter = BrainUtil.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
+        var workAreaSize = BrainUtil.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
 
         if (Occultism.DEBUG.debugAI) {
             for (var tree : unreachableTrees) {
@@ -135,14 +135,14 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                             Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0x800080));
                         }
 
-                        BrainUtils.setMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump);
+                        BrainUtil.setMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump);
                         foundTree = true;
                         break;
                     }
                 } else {
                     //we have a stump, but it is not a tree, add it to the list of ignored stumps
                     nonTreeLogs.add(potentialStump);
-                    BrainUtils.setMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), nonTreeLogs);
+                    BrainUtil.setMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), nonTreeLogs);
 
                     if (Occultism.DEBUG.debugAI) {
                         Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0xffff00));
@@ -152,8 +152,8 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         }
 
         if (!foundTree) {
-            BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
-            BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get(), true, RESCAN_EMPTY_WORK_AREA_AFTER_TICKS);
+            BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+            BrainUtil.setForgettableMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get(), true, RESCAN_EMPTY_WORK_AREA_AFTER_TICKS);
         }
     }
 

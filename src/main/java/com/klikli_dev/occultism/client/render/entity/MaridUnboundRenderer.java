@@ -27,8 +27,9 @@ import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowin
 import com.klikli_dev.occultism.common.entity.spirit.MaridUnboundEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import com.geckolib.renderer.GeoEntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
-public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity> {
+public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity, EntityRenderState> {
 
     public MaridUnboundRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridUnboundModel());

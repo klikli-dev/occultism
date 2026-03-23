@@ -69,7 +69,7 @@ import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrain;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -224,7 +224,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         if (position != null)
             this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.empty());
 
-        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_POSITION.get(), position);
+        BrainUtil.setMemory(this, OccultismMemoryTypes.DEPOSIT_POSITION.get(), position);
     }
 
     public Optional<UUID> getDepositEntityUUID() {
@@ -251,7 +251,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaPosition(BlockPos position) {
         this.entityData.set(WORK_AREA_POSITION, Optional.ofNullable(position));
-        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
+        BrainUtil.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
 
         this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
@@ -262,7 +262,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaSize(WorkAreaSize workAreaSize) {
         this.entityData.set(WORK_AREA_SIZE, workAreaSize.ordinal()); //for the entity data set the
-        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+        BrainUtil.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
 
         this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
@@ -277,7 +277,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setDepositFacing(Direction depositFacing) {
         this.entityData.set(DEPOSIT_FACING, depositFacing);
-        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_FACING.get(), depositFacing);
+        BrainUtil.setMemory(this, OccultismMemoryTypes.DEPOSIT_FACING.get(), depositFacing);
     }
 
     public Direction getExtractFacing() {

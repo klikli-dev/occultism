@@ -30,9 +30,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
-public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamiliarModel> {
+public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, LivingEntityRenderState, BatFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/bat_familiar.png");

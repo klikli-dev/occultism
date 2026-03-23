@@ -116,7 +116,7 @@ public class WeightedTagRecipeResult extends WeightedRecipeResult {
 
     @Override
     public WeightedTagRecipeResult copyWithCount(int count) {
-        return new WeightedTagRecipeResult(this.tag, count, this.patch, this.weight.asInt());
+        return new WeightedTagRecipeResult(this.tag, count, this.patch, this.weight);
     }
 
     @Override

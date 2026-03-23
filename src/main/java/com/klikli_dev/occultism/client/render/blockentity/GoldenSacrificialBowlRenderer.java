@@ -32,8 +32,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.CrumblingOverlay;
+import net.minecraft.client.renderer.blockentity.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.CameraRenderState;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
@@ -41,8 +44,9 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
-public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity> {
+public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity, BlockEntityRenderState> {
 
     public GoldenSacrificialBowlRenderer(BlockEntityRendererProvider.Context context) {
 
@@ -57,6 +61,24 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
     }
 
     @Override
+    public BlockEntityRenderState createRenderState() {
+        return new BlockEntityRenderState();
+    }
+
+    @Override
+    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, CrumblingOverlay crumbling) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
+    }
+
+    @Override
+    public void submit(BlockEntityRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitCollector, CameraRenderState cameraRenderState) {
+        // TODO: Port to 26.1 rendering API
+        // Original render logic displayed a floating, rotating item above the bowl with bobbing animation.
+        // For GoldenSacrificialBowl, also showed items-to-use and entity-to-sacrifice indicators.
+        // This needs to be ported to the new submit/extractRenderState pattern.
+    }
+
+    // Legacy render logic preserved as reference:
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         var handler = blockEntity.itemStackHandler;
@@ -94,6 +116,8 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         float scale = getScale(stack) * 0.5f;
         poseStack.scale(scale, scale, scale);
 
+        // TODO: Port to 26.1 rendering API - BakedModel removed
+        /*
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         Level level = blockEntity.getLevel();
         BakedModel model = itemRenderer.getModel(stack, level, null, 0);
@@ -124,6 +148,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                 EntityUtil.renderEntity(poseStack, pLivingEntity, buffer, partialTicks);
             }
         }
+        */
 
         poseStack.popPose();
 
