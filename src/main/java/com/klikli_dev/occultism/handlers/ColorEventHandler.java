@@ -114,6 +114,9 @@ public class ColorEventHandler {
         Occultism.LOGGER.info("Block color registration complete.");
     }
 
+    // TODO: Port to 26.1 data-driven item tint system (ItemTintSource)
+    // RegisterColorHandlersEvent.Item was removed in 26.1. Item colors are now data-driven.
+    /*
     @SubscribeEvent
     public static void onRegisterItemColorHandlers(RegisterColorHandlersEvent.Item event) {
         BlockColors blockColors = event.getBlockColors();
@@ -193,5 +196,6 @@ public class ColorEventHandler {
 
         Occultism.LOGGER.info("Item color registration complete.");
     }
+    */
     //endregion Static Methods
 }

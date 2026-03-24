@@ -43,17 +43,15 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomModelData;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class OccultismAdvancementSubProvider implements AdvancementProvider.AdvancementGenerator {
+public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
 
     protected Consumer<AdvancementHolder> saver;
     protected HolderLookup.Provider registries;
-    protected ExistingFileHelper existingFileHelper;
 
     private static MutableComponent text(String name, String type) {
         return Component.translatable("advancements." + Occultism.MODID + "." + name + "." + type);
@@ -80,10 +78,9 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
     }
 
     @Override
-    public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
+    public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver) {
         this.registries = registries;
         this.saver = saver;
-        this.existingFileHelper = existingFileHelper;
         this.start();
     }
 

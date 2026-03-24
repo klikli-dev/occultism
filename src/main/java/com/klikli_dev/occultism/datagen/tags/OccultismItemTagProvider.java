@@ -5,25 +5,55 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
+
 //import top.theillusivec4.curios.api.CuriosApi; // TODO: re-enable when Curios is available for 26.1
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public class OccultismItemTagProvider extends ItemTagsProvider {
-    public OccultismItemTagProvider(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_, CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_275343_, p_275729_, p_275322_, Occultism.MODID, existingFileHelper);
+public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
+
+    private final CompletableFuture<TagsProvider.TagLookup<Block>> blockTags;
+    private final Map<TagKey<Block>, TagKey<Item>> tagsToCopy = new HashMap<>();
+
+    public OccultismItemTagProvider(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_, CompletableFuture<TagsProvider.TagLookup<Block>> p_275322_) {
+        super(p_275343_, Registries.ITEM, p_275729_, item -> item.builtInRegistryHolder().key(), Occultism.MODID);
+        this.blockTags = p_275322_;
+    }
+
+    /**
+     * Copies entries from a block tag into an item tag (mirrors the removed ItemTagsProvider.copy method).
+     */
+    protected void copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
+        this.tagsToCopy.put(blockTag, itemTag);
+    }
+
+    @Override
+    protected CompletableFuture<HolderLookup.Provider> createContentsProvider() {
+        return super.createContentsProvider().thenCombine(this.blockTags, (provider, lookup) -> {
+            this.tagsToCopy.forEach((blockTag, itemTag) -> {
+                TagBuilder tagBuilder = this.getOrCreateRawBuilder(itemTag);
+                Optional<TagBuilder> optional = lookup.apply(blockTag);
+                TagBuilder fromBuilder = optional.orElseThrow(() -> new IllegalStateException("Missing block tag " + blockTag.location()));
+                fromBuilder.build().forEach(tagBuilder::add);
+            });
+            return provider;
+        });
     }
 
     @Override

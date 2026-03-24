@@ -6,14 +6,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.tags.BiomeTags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
+
 
 import java.util.concurrent.CompletableFuture;
 
 public class OccultismBiomeTagProvider extends BiomeTagsProvider {
-    public OccultismBiomeTagProvider(PackOutput p_255800_, CompletableFuture<HolderLookup.Provider> p_256205_, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_255800_, p_256205_, Occultism.MODID, existingFileHelper);
+    public OccultismBiomeTagProvider(PackOutput p_255800_, CompletableFuture<HolderLookup.Provider> p_256205_) {
+        super(p_255800_, p_256205_, Occultism.MODID);
     }
 
     @Override

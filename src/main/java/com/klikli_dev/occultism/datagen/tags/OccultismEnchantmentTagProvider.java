@@ -7,14 +7,12 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.tags.EnchantmentTags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class OccultismEnchantmentTagProvider extends EnchantmentTagsProvider {
-    public OccultismEnchantmentTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, Occultism.MODID, existingFileHelper);
+    public OccultismEnchantmentTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider) {
+        super(output, lookupProvider, Occultism.MODID);
     }
 
     @Override
