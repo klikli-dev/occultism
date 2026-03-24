@@ -41,6 +41,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class MachineReference {
@@ -137,13 +138,13 @@ public class MachineReference {
     public static MachineReference from(BlockEntity extractBlockEntity, BlockEntity insertBlockEntity) {
         var extractPos = GlobalBlockPos.from(extractBlockEntity);
         BlockState extractState = extractBlockEntity.getLevel().getBlockState(extractPos.getPos());
-        ItemStack extractItem = extractState.getBlock().getCloneItemStack(extractBlockEntity.getLevel(), extractPos.getPos(), extractState);
+        ItemStack extractItem = extractState.getCloneItemStack(extractBlockEntity.getLevel(), extractPos.getPos(), false);
         boolean extractIsLoaded = extractBlockEntity.getLevel().isLoaded(extractPos.getPos());
 
 
         var insertPos = GlobalBlockPos.from(insertBlockEntity);
         BlockState insertState = extractBlockEntity.getLevel().getBlockState(insertPos.getPos());
-        ItemStack insertItem = insertState.getBlock().getCloneItemStack(extractBlockEntity.getLevel(), insertPos.getPos(), insertState);
+        ItemStack insertItem = insertState.getCloneItemStack(extractBlockEntity.getLevel(), insertPos.getPos(), false);
         boolean insertIsLoaded = insertBlockEntity.getLevel().isLoaded(insertPos.getPos());
 
         return new MachineReference(extractPos,
@@ -157,7 +158,7 @@ public class MachineReference {
 
     public Item getExtractItem() {
         if (this.cachedExtractItem == null)
-            this.cachedExtractItem = BuiltInRegistries.ITEM.get(this.extractRegistryName);
+            this.cachedExtractItem = BuiltInRegistries.ITEM.getValue(this.extractRegistryName);
         return this.cachedExtractItem;
     }
 
@@ -169,7 +170,7 @@ public class MachineReference {
 
     public Item getInsertItem() {
         if (this.cachedInsertItem == null)
-            this.cachedInsertItem = BuiltInRegistries.ITEM.get(this.insertRegistryName);
+            this.cachedInsertItem = BuiltInRegistries.ITEM.getValue(this.insertRegistryName);
         return this.cachedInsertItem;
     }
 
@@ -179,12 +180,10 @@ public class MachineReference {
         return this.cachedInsertItemStack;
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         var ref = CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).getOrThrow();
         this.extractGlobalPos = ref.extractGlobalPos;

@@ -32,7 +32,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Occultism.MODID)
 public class CapabilityEventHandler {
     @SubscribeEvent
     public static void onPlayerTick(final PlayerTickEvent.Post evt) {

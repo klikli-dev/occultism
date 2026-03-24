@@ -37,7 +37,7 @@ public class RecipeUtil {
         if (stack.isEmpty())
             return false;
 
-        var recipes = recipeManager.getAllRecipesFor(recipeType);
+        var recipes = recipeManager.recipeMap().byType(recipeType);
         for (var recipe : recipes) {
             if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
                 return true;

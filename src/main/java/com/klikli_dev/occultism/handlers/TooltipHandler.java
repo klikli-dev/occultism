@@ -40,7 +40,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class TooltipHandler {
 
     private static final List<String> namespacesToListenFor = new ArrayList<>();

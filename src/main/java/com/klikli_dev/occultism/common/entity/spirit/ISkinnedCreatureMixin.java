@@ -60,7 +60,7 @@ public interface ISkinnedCreatureMixin {
 
     default void readSkinFromNBT(CompoundTag tag) {
         SynchedEntityData entityData = this.getEntity().getEntityData();
-        entityData.set(this.getDataParameterSkin(), tag.getInt("skin"));
+        entityData.set(this.getDataParameterSkin(), tag.getIntOr("skin", 0));
     }
 
     /**

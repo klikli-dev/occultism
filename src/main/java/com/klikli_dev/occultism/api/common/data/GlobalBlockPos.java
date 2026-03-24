@@ -112,18 +112,18 @@ public class GlobalBlockPos {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.location().toString())
+        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.identifier().toString())
                 .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
                 .add("z=" + this.pos.getZ()).toString();
     }
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeBlockPos(this.pos);
-        buf.writeResourceLocation(this.dimensionKey.location());
+        buf.writeIdentifier(this.dimensionKey.identifier());
     }
 
     public void decode(FriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
-        this.dimensionKey = ResourceKey.create(Registries.DIMENSION, buf.readResourceLocation());
+        this.dimensionKey = ResourceKey.create(Registries.DIMENSION, buf.readIdentifier());
     }
 }

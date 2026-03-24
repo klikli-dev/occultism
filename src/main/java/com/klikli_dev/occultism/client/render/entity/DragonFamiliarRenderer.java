@@ -75,7 +75,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
         return TEXTURES;
     }
 
-    @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = Occultism.MODID, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
     private static class RenderText {
 
         @SubscribeEvent
