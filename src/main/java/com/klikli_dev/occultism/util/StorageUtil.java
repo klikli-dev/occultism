@@ -35,6 +35,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -286,5 +290,38 @@ public class StorageUtil {
                 return i;
         }
         return -1;
+    }
+
+    /**
+     * Ensures that a recipe's ingredients are mapped to a 3x3 crafting matrix.
+     * Shaped recipes smaller than 3x3 are expanded to fill the correct positions.
+     * Originally from EmiHelper, moved here to avoid integration dependency.
+     */
+    public static NonNullList<Ingredient> ensure3by3CraftingMatrix(Recipe<?> recipe) {
+        var ingredients = recipe.getIngredients();
+        var expandedIngredients = NonNullList.withSize(9, Ingredient.EMPTY);
+
+        com.google.common.base.Preconditions.checkArgument(ingredients.size() <= 9);
+
+        if (recipe instanceof ShapedRecipe shapedRecipe) {
+            var width = shapedRecipe.getWidth();
+            var height = shapedRecipe.getHeight();
+            com.google.common.base.Preconditions.checkArgument(width <= 3 && height <= 3);
+
+            for (var h = 0; h < height; h++) {
+                for (var w = 0; w < width; w++) {
+                    var source = w + h * width;
+                    var target = w + h * 3;
+                    var i = ingredients.get(source);
+                    expandedIngredients.set(target, i);
+                }
+            }
+        } else {
+            for (var i = 0; i < ingredients.size(); i++) {
+                expandedIngredients.set(i, ingredients.get(i));
+            }
+        }
+
+        return expandedIngredients;
     }
 }

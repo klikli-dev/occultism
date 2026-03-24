@@ -56,9 +56,9 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+//import top.theillusivec4.curios.api.CuriosApi;
+//import top.theillusivec4.curios.api.SlotResult;
+//import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.List;
 
@@ -212,31 +212,8 @@ public class FamiliarEventHandler {
         if (!guardian.sacrifice())
             return;
 
-        ICuriosItemHandler handler = CuriosApi.getCuriosInventory(event.getEntity()).orElse(null);
-        if (handler == null)
-            return;
-
-        List<SlotResult> equipped = handler.findCurios(itemStack -> itemStack.getItem() instanceof FamiliarRingItem);
-        if (equipped != null) {
-            equipped.forEach(ring -> {
-                    if (FamiliarRingItem.getFamiliar(ring.stack(), event.getEntity().level()) instanceof GuardianFamiliarEntity) {
-                        var familiarTag = new CompoundTag();
-                        FamiliarRingItem.getFamiliar(ring.stack(), event.getEntity().level()).getFamiliarEntity().saveAsPassenger(familiarTag);
-                        EntityType.loadEntityRecursive(familiarTag, event.getEntity().level(), e -> {
-                            e.setPos(player.getX(), player.getY(), player.getZ());
-                            ((IFamiliar) e).setFamiliarOwner(player);
-                            var name = ItemNBTUtil.getBoundSpiritName(ring.stack());
-                            e.setCustomName(Component.literal(name));
-                            event.getEntity().level().addFreshEntity(e);
-                            ((GuardianFamiliarEntity) e).sacrifice();
-                            ring.stack().shrink(1);
-                            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(OccultismItems.FAMILIAR_RING.get()));
-                            return e;
-                        });
-                    }
-                }
-            );
-        }
+        // TODO: re-enable when Curios is available for 26.1
+        // Curios integration disabled - guardian sacrifice with familiar ring from curio slots not available
 
         event.setCanceled(true);
         player.setHealth(1);
