@@ -29,11 +29,15 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import com.geckolib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
+import com.geckolib.renderer.layer.GeoRenderLayer;
+
 public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity, EntityRenderState> {
 
     public AfritWildRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AfritWildModel());
 
-        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer layer = new ConditionalGlowingGeoLayer<AfritWildEntity, Void, EntityRenderState>(this);
+        this.withRenderLayer(layer);
     }
 }

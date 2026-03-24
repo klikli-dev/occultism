@@ -25,43 +25,62 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.MaridModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
+import com.geckolib.cache.model.GeoBone;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.layer.GeoRenderLayer;
+import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
+import com.geckolib.util.RenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import com.geckolib.cache.model.GeoBone;
-import com.geckolib.renderer.GeoEntityRenderer;
-import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import org.jspecify.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.Collections;
+import java.util.List;
 
 public class MaridRenderer extends GeoEntityRenderer<MaridEntity, EntityRenderState> {
 
     public MaridRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridModel());
 
-        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
-        this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
-            if (Objects.equals(bone.getName(), "bone")) //left hand
-                return animatable.getItemInHand(InteractionHand.MAIN_HAND);
-            return null;
-        }, (bone, animatable) -> null) {
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer<MaridEntity, Void, EntityRenderState>(this);
+        this.withRenderLayer(glowLayer);
+
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer<MaridEntity, Void, EntityRenderState>(renderManager, this) {
             @Override
-            protected ItemDisplayContext getTransformTypeForStack(GeoBone bone, ItemStack stack, MaridEntity animatable) {
-                return ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
+            protected List<RenderData> getRelevantBones(MaridEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
+                if (Objects.equals("bone", null)) return Collections.emptyList(); // placeholder check
+                ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
+                if (!mainHandStack.isEmpty()) {
+                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, animatable);
+                    return Collections.singletonList(RenderData.item("bone", ItemDisplayContext.THIRD_PERSON_LEFT_HAND, stackState));
+                }
+                return Collections.emptyList();
             }
 
             @Override
-            protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, MaridEntity animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
+            public void addRenderData(MaridEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
+                List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+                if (!bones.isEmpty()) {
+                    renderState.addGeckolibData(CONTENTS, bones);
+                }
+            }
+
+            @Override
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, EntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
-
-                super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
+                super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();
             }
-        });
+        };
+        this.withRenderLayer(itemLayer);
     }
 }

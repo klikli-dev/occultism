@@ -22,9 +22,6 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -32,12 +29,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.util.Mth;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
+public class GreedyFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -60,6 +57,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
 
 
     public GreedyFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.rightArm = this.body.getChild("rightArm");
         this.chest1 = this.body.getChild("chest1");
@@ -100,75 +98,70 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         return LayerDefinition.create(mesh, 32, 32);
     }
 
-    @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
-
     private float toRad(float deg) {
         return (float) Math.toRadians(deg);
     }
 
-    @Override
-    public void prepareMobModel(GreedyFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
-                                float pPartialTick) {
-        this.leftEar.zRot = -pEntity.getEarRotZ(pPartialTick);
-        this.rightEar.zRot = pEntity.getEarRotZ(pPartialTick);
-        this.leftEar.xRot = pEntity.getEarRotX(pPartialTick);
-        this.rightEar.xRot = pEntity.getEarRotX(pPartialTick);
-
-        float ageInTicks = pEntity.tickCount + pPartialTick;
-
-        if (!pEntity.isPartying()) {
-            this.chest2.xRot = pEntity.getLidRot(pPartialTick);
-            this.monster.y = -0.2f - pEntity.getLidRot(pPartialTick) * 3;
-            this.monster.yRot = pEntity.getMonsterRot(pPartialTick);
-            this.monster.xRot = 0;
-        } else {
-            this.chest2.xRot = this.toRad(40);
-            this.monster.y = -2.5f;
-            this.monster.yRot = 0;
-            this.monster.xRot = Mth.cos(ageInTicks) * this.toRad(15);
-        }
-    }
+    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
+    // prepareMobModel set:
+    //   this.leftEar.zRot = -pEntity.getEarRotZ(pPartialTick);
+    //   this.rightEar.zRot = pEntity.getEarRotZ(pPartialTick);
+    //   this.leftEar.xRot = pEntity.getEarRotX(pPartialTick);
+    //   this.rightEar.xRot = pEntity.getEarRotX(pPartialTick);
+    //   float ageInTicks = pEntity.tickCount + pPartialTick;
+    //   if (!pEntity.isPartying()) {
+    //       this.chest2.xRot = pEntity.getLidRot(pPartialTick);
+    //       this.monster.y = -0.2f - pEntity.getLidRot(pPartialTick) * 3;
+    //       this.monster.yRot = pEntity.getMonsterRot(pPartialTick);
+    //       this.monster.xRot = 0;
+    //   } else {
+    //       this.chest2.xRot = this.toRad(40);
+    //       this.monster.y = -2.5f;
+    //       this.monster.yRot = 0;
+    //       this.monster.xRot = Mth.cos(ageInTicks) * this.toRad(15);
+    //   }
 
     @Override
-    public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                          float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yRot = netHeadYaw * (PI / 180f);
-        this.head.xRot = headPitch * (PI / 180f);
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState
+        // this.head.yRot = netHeadYaw * (PI / 180f);
+        // this.head.xRot = headPitch * (PI / 180f);
         this.head.zRot = 0;
         this.rightArm.zRot = 0;
         this.leftArm.zRot = 0;
 
-        if (entityIn.isPartying()) {
-            this.rightArm.xRot = Mth.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
-            this.leftArm.xRot = Mth.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
-            this.rightArm.zRot = -this.toRad(20);
-            this.leftArm.zRot = this.toRad(20);
-            this.head.zRot = Mth.sin(ageInTicks) * this.toRad(20);
-            if (entityIn.getVehicle() == null) {
-                this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-                this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
-            } else {
-                this.rightLeg.xRot = -PI / 2;
-                this.leftLeg.xRot = -PI / 2;
-            }
-        } else if (entityIn.isSitting() || entityIn.getVehicle() != null) {
-            this.rightArm.xRot = 0;
-            this.leftArm.xRot = 0;
-            this.rightLeg.xRot = -PI / 2;
-            this.leftLeg.xRot = -PI / 2;
-        } else {
-            this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
-            this.leftArm.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
-            this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-            this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
-        }
+        // TODO: needs custom RenderState
+        // if (entityIn.isPartying()) {
+        //     this.rightArm.xRot = Mth.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
+        //     this.leftArm.xRot = Mth.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
+        //     this.rightArm.zRot = -this.toRad(20);
+        //     this.leftArm.zRot = this.toRad(20);
+        //     this.head.zRot = Mth.sin(ageInTicks) * this.toRad(20);
+        //     if (entityIn.getVehicle() == null) {
+        //         this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+        //         this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+        //     } else {
+        //         this.rightLeg.xRot = -PI / 2;
+        //         this.leftLeg.xRot = -PI / 2;
+        //     }
+        // } else if (entityIn.isSitting() || entityIn.getVehicle() != null) {
+        //     this.rightArm.xRot = 0;
+        //     this.leftArm.xRot = 0;
+        //     this.rightLeg.xRot = -PI / 2;
+        //     this.leftLeg.xRot = -PI / 2;
+        // } else {
+        //     this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+        //     this.leftArm.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
+        //     this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+        //     this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+        // }
 
-        this.chest1.zRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
+        // TODO: needs custom RenderState
+        // this.chest1.zRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
 
-        if (entityIn.getTargetBlock().isPresent())
-            this.rightArm.xRot = -this.toRad(100) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+        // TODO: needs custom RenderState
+        // if (entityIn.getTargetBlock().isPresent())
+        //     this.rightArm.xRot = -this.toRad(100) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
     }
 }

@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import java.awt.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -38,8 +39,8 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
 
-import java.awt.*;
-import java.util.List;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Use StorageControllerGeoRenderer instead
@@ -60,7 +61,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
     }
 
     @Override
-    public void extractRenderState(StorageControllerBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick) {
+    public void extractRenderState(StorageControllerBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
     }
 
     @Override

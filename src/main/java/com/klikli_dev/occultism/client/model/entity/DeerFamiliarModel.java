@@ -22,9 +22,6 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.DeerFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -32,13 +29,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
+public class DeerFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -75,6 +72,7 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     public ModelPart rightBackLeg2;
 
     public DeerFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.leftFrontLeg1 = this.body.getChild("leftFrontLeg1");
         this.tail = this.body.getChild("tail");
@@ -149,94 +147,81 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
         return (float) Math.toRadians(deg);
     }
 
-    @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
+    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
+    // this.neck.xRot = entityIn.getNeckRot(partialTick);
+    // this.hammerHandle.visible = entityIn.hasBlacksmithUpgrade();
 
     @Override
-    public void prepareMobModel(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                                float partialTick) {
-        this.neck.xRot = entityIn.getNeckRot(partialTick);
-        this.hammerHandle.visible = entityIn.hasBlacksmithUpgrade();
-    }
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState
+        // if (entityIn.isEating()) {
+        //     this.head.xRot = Mth.cos(ageInTicks * 0.8f) * 0.2f;
+        //     this.head.yRot = 0;
+        // } else {
+        //     this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
+        //     this.head.xRot = headPitch * (PI / 180f) * 0.5f;
+        // }
 
-    @Override
-    public void setupAnim(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-                          float netHeadYaw, float headPitch) {
-        if (entityIn.isEating()) {
-            this.head.xRot = Mth.cos(ageInTicks * 0.8f) * 0.2f;
-            this.head.yRot = 0;
-        } else {
-            this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
-            this.head.xRot = headPitch * (PI / 180f) * 0.5f;
-        }
+        // TODO: attackTime no longer in EntityModel
+        // if (this.attackTime > 0.01) {
+        //     this.head.yRot = Mth.sin(this.attackTime * PI) * toRad(50);
+        //     this.head.zRot = Mth.sin(this.attackTime * PI) * toRad(-40);
+        //     this.nose.yRot = Mth.sin(this.attackTime * PI) * toRad(18);
+        //     this.nose.zRot = Mth.sin(this.attackTime * PI) * toRad(-18);
+        // } else {
+        //     this.head.zRot = 0;
+        //     this.nose.yRot = 0;
+        //     this.nose.zRot = 0;
+        // }
 
-        if (this.attackTime > 0.01) {
-            this.head.yRot = Mth.sin(this.attackTime * PI) * toRad(50);
-            this.head.zRot = Mth.sin(this.attackTime * PI) * toRad(-40);
-            this.nose.yRot = Mth.sin(this.attackTime * PI) * toRad(18);
-            this.nose.zRot = Mth.sin(this.attackTime * PI) * toRad(-18);
-        } else {
-            this.head.zRot = 0;
-            this.nose.yRot = 0;
-            this.nose.zRot = 0;
-        }
+        // this.tail.xRot = Mth.cos(limbSwing * 0.7f) * 0.4f * limbSwingAmount - 0.3f;
+        // this.body.xRot = 0;
 
-        this.tail.xRot = Mth.cos(limbSwing * 0.7f) * 0.4f * limbSwingAmount - 0.3f;
-        this.body.xRot = 0;
-
-        if (entityIn.isPartying()) {
-            this.body.xRot = toRad(-20);
-            this.setRotateAngle(this.rightBackLeg1, Mth.cos(ageInTicks / 2 + PI) * toRad(5) + toRad(20), 0, 0);
-            this.setRotateAngle(this.leftBackLeg1, Mth.cos(ageInTicks / 2) * toRad(5) + toRad(20), 0, 0);
-            this.setRotateAngle(this.rightFrontLeg1, Mth.cos(ageInTicks / 2) * toRad(30) - toRad(40), 0, 0);
-            this.setRotateAngle(this.leftFrontLeg1, Mth.cos(ageInTicks / 2 + PI) * toRad(30) - toRad(40), 0, 0);
-
-            this.rightBackLeg2.z = 0;
-            this.leftBackLeg2.z = 0;
-            this.rightFrontLeg2.z = 0;
-            this.leftFrontLeg2.z = 0;
-
-            this.rightBackLeg2.xRot = -0.1f;
-            this.leftBackLeg2.xRot = -0.1f;
-            this.rightFrontLeg2.xRot = 0.1f;
-            this.leftFrontLeg2.xRot = 0.1f;
-        } else if (entityIn.isSitting()) {
-            this.setRotateAngle(this.rightBackLeg1, toRad(80), toRad(10), -toRad(40));
-            this.setRotateAngle(this.leftBackLeg1, toRad(80), toRad(10), -toRad(40));
-            this.setRotateAngle(this.rightFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
-            this.setRotateAngle(this.leftFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
-
-            this.rightBackLeg2.z = -0.5f;
-            this.leftBackLeg2.z = -0.5f;
-            this.rightFrontLeg2.z = 0.5f;
-            this.leftFrontLeg2.z = 0.5f;
-
-            this.rightBackLeg2.xRot = -toRad(150);
-            this.leftBackLeg2.xRot = -toRad(150);
-            this.rightFrontLeg2.xRot = toRad(150);
-            this.leftFrontLeg2.xRot = toRad(150);
-        } else {
-            boolean fast = entityIn.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.4;
-            this.setRotateAngle(this.rightBackLeg1,
-                    Mth.cos(limbSwing * 0.7f + (fast ? PI : 0)) * 1.4f * limbSwingAmount, 0, 0);
-            this.setRotateAngle(this.leftBackLeg1, Mth.cos(limbSwing * 0.7f + PI) * 1.4f * limbSwingAmount, 0,
-                    0);
-            this.setRotateAngle(this.rightFrontLeg1,
-                    Mth.cos(limbSwing * 0.7f + (fast ? 0 : PI)) * 1.4f * limbSwingAmount, 0, 0);
-            this.setRotateAngle(this.leftFrontLeg1, Mth.cos(limbSwing * 0.7f) * 1.4f * limbSwingAmount, 0, 0);
-
-            this.rightBackLeg2.z = 0;
-            this.leftBackLeg2.z = 0;
-            this.rightFrontLeg2.z = 0;
-            this.leftFrontLeg2.z = 0;
-
-            this.rightBackLeg2.xRot = -0.1f;
-            this.leftBackLeg2.xRot = -0.1f;
-            this.rightFrontLeg2.xRot = 0.1f;
-            this.leftFrontLeg2.xRot = 0.1f;
-        }
+        // if (entityIn.isPartying()) {
+        //     this.body.xRot = toRad(-20);
+        //     this.setRotateAngle(this.rightBackLeg1, Mth.cos(ageInTicks / 2 + PI) * toRad(5) + toRad(20), 0, 0);
+        //     this.setRotateAngle(this.leftBackLeg1, Mth.cos(ageInTicks / 2) * toRad(5) + toRad(20), 0, 0);
+        //     this.setRotateAngle(this.rightFrontLeg1, Mth.cos(ageInTicks / 2) * toRad(30) - toRad(40), 0, 0);
+        //     this.setRotateAngle(this.leftFrontLeg1, Mth.cos(ageInTicks / 2 + PI) * toRad(30) - toRad(40), 0, 0);
+        //     this.rightBackLeg2.z = 0;
+        //     this.leftBackLeg2.z = 0;
+        //     this.rightFrontLeg2.z = 0;
+        //     this.leftFrontLeg2.z = 0;
+        //     this.rightBackLeg2.xRot = -0.1f;
+        //     this.leftBackLeg2.xRot = -0.1f;
+        //     this.rightFrontLeg2.xRot = 0.1f;
+        //     this.leftFrontLeg2.xRot = 0.1f;
+        // } else if (entityIn.isSitting()) {
+        //     this.setRotateAngle(this.rightBackLeg1, toRad(80), toRad(10), -toRad(40));
+        //     this.setRotateAngle(this.leftBackLeg1, toRad(80), toRad(10), -toRad(40));
+        //     this.setRotateAngle(this.rightFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
+        //     this.setRotateAngle(this.leftFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
+        //     this.rightBackLeg2.z = -0.5f;
+        //     this.leftBackLeg2.z = -0.5f;
+        //     this.rightFrontLeg2.z = 0.5f;
+        //     this.leftFrontLeg2.z = 0.5f;
+        //     this.rightBackLeg2.xRot = -toRad(150);
+        //     this.leftBackLeg2.xRot = -toRad(150);
+        //     this.rightFrontLeg2.xRot = toRad(150);
+        //     this.leftFrontLeg2.xRot = toRad(150);
+        // } else {
+        //     boolean fast = entityIn.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.4;
+        //     this.setRotateAngle(this.rightBackLeg1,
+        //             Mth.cos(limbSwing * 0.7f + (fast ? PI : 0)) * 1.4f * limbSwingAmount, 0, 0);
+        //     this.setRotateAngle(this.leftBackLeg1, Mth.cos(limbSwing * 0.7f + PI) * 1.4f * limbSwingAmount, 0, 0);
+        //     this.setRotateAngle(this.rightFrontLeg1,
+        //             Mth.cos(limbSwing * 0.7f + (fast ? 0 : PI)) * 1.4f * limbSwingAmount, 0, 0);
+        //     this.setRotateAngle(this.leftFrontLeg1, Mth.cos(limbSwing * 0.7f) * 1.4f * limbSwingAmount, 0, 0);
+        //     this.rightBackLeg2.z = 0;
+        //     this.leftBackLeg2.z = 0;
+        //     this.rightFrontLeg2.z = 0;
+        //     this.leftFrontLeg2.z = 0;
+        //     this.rightBackLeg2.xRot = -0.1f;
+        //     this.leftBackLeg2.xRot = -0.1f;
+        //     this.rightFrontLeg2.xRot = 0.1f;
+        //     this.leftFrontLeg2.xRot = 0.1f;
+        // }
     }
 
     /**

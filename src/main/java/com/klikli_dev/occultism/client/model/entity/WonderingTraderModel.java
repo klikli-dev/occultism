@@ -24,15 +24,7 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
-import com.klikli_dev.occultism.registry.OccultismEffects;
-import com.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.cache.model.GeoBone;
 import com.geckolib.model.DefaultedGeoModel;
 
 public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntity> {
@@ -46,48 +38,8 @@ public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntit
         return "entity";
     }
 
-    @Override
-    public RenderType getRenderType(WonderingTraderEntity animatable, Identifier texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
-    }
-
-    @Override
-    public void setCustomAnimations(WonderingTraderEntity entity, long instanceId, AnimationTest<WonderingTraderEntity> animationState) {
-        super.setCustomAnimations(entity, instanceId, animationState);
-
-        Player player = Minecraft.getInstance().player;
-        if (player == null)
-            return;
-
-        GeoBone common = getAnimationProcessor().getBone("common");
-        if (common == null)
-            return;
-        GeoBone other = getAnimationProcessor().getBone("other");
-        if (other == null)
-            return;
-
-        GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null) {
-            head.setRotY(entity.getYHeadRot() * Mth.DEG_TO_RAD);
-            head.setRotX(entity.getXRot() * Mth.DEG_TO_RAD);
-        }
-        GeoBone head3 = getAnimationProcessor().getBone("head3");
-        if (head3 != null) {
-            head3.setRotY(entity.getYHeadRot() * Mth.DEG_TO_RAD);
-            head3.setRotX(entity.getXRot() * Mth.DEG_TO_RAD);
-        }
-
-
-        boolean hidden = player.hasEffect(OccultismEffects.THIRD_EYE) || CuriosUtil.hasGoggles(player) || CuriosUtil.hasStaff(player);
-        hideChildrenRecursive(common, hidden);
-        hideChildrenRecursive(other, !hidden);
-    }
-
-    private void hideChildrenRecursive(GeoBone bone, boolean hide) {
-        for (GeoBone child : bone.getChildBones()) {
-            child.setHidden(hide);
-            hideChildrenRecursive(child, hide);
-        }
-    }
+    // TODO: Implement bone animations (head rotation, common/other bone visibility)
+    //       via the renderer's addRenderData or a GeckoLib 26.1-compatible override point.
+    //       The previous setCustomAnimations approach is no longer supported in GeckoLib 26.1.
 }
 

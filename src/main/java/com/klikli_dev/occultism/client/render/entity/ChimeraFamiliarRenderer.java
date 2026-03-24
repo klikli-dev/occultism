@@ -27,39 +27,60 @@ import com.klikli_dev.occultism.client.model.entity.ChimeraFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.ChimeraFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.context.ContextKey;
 
 public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, LivingEntityRenderState, ChimeraFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/chimera_familiar.png");
 
+    private static final ContextKey<Float> SCALE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_scale"));
+    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_is_sitting"));
+
     public ChimeraFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new ChimeraFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CHIMERA)), 0.3f);
-
     }
 
     @Override
-    public void render(ChimeraFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        pMatrixStack.pushPose();
-        if (pEntity.isSitting())
-            pMatrixStack.translate(0, -0.14 * pEntity.getScale(), 0);
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-        pMatrixStack.popPose();
+    public void extractRenderState(ChimeraFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.setRenderData(SCALE, entity.getScale());
+        reusedState.setRenderData(IS_SITTING, entity.isSitting());
     }
 
     @Override
-    protected void scale(ChimeraFamiliarEntity livingEntity, PoseStack poseStack, float partialTickTime) {
-        float size = livingEntity.getScale() * 0.5f;
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        poseStack.pushPose();
+        Boolean sitting = state.getRenderData(IS_SITTING);
+        Float entityScale = state.getRenderData(SCALE);
+        boolean isSitting = sitting != null && sitting;
+        float scale = entityScale != null ? entityScale : 1f;
+        if (isSitting)
+            poseStack.translate(0, -0.14 * scale, 0);
+        super.submit(state, poseStack, submitNodeCollector, camera);
+        poseStack.popPose();
+    }
+
+    @Override
+    protected void scale(LivingEntityRenderState state, PoseStack poseStack) {
+        Float entityScale = state.getRenderData(SCALE);
+        float size = (entityScale != null ? entityScale : 1f) * 0.5f;
         poseStack.scale(size, size, size);
     }
 
     @Override
-    public Identifier getTextureLocation(ChimeraFamiliarEntity entity) {
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 }

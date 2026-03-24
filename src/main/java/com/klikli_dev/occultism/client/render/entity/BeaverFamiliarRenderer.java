@@ -42,7 +42,12 @@ public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, Li
     }
 
     @Override
-    public Identifier getTextureLocation(BeaverFamiliarEntity entity) {
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 }

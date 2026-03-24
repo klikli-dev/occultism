@@ -22,20 +22,21 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarEntity> {
+public class BeaverFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -62,6 +63,7 @@ public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarEntity> {
     public ModelPart rightArm2;
 
     public BeaverFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.tail = this.body.getChild("tail");
         this.leftLeg1 = this.body.getChild("leftLeg1");
@@ -114,14 +116,10 @@ public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
-
-    @Override
-    public void setupAnim(BeaverFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
-                          float netHeadYaw, float headPitch) {
-        this.showModels(pEntity);
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState
+        // this.showModels(pEntity);
 
         this.rightLeg1.zRot = 0;
         this.leftLeg1.zRot = 0;
@@ -135,63 +133,24 @@ public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarEntity> {
         this.leftArm2.xRot = 0;
         this.rightArm2.xRot = 0;
 
+        // TODO: needs custom RenderState
+        // this.head.xRot = this.toRads(headPitch);
+        // this.head.yRot = this.toRads(netHeadYaw);
 
-        this.head.xRot = this.toRads(headPitch);
-        this.head.yRot = this.toRads(netHeadYaw);
+        // TODO: needs custom RenderState
+        // this.rightLeg1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
+        // this.leftLeg1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
+        // this.rightArm1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
+        // this.leftArm1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
 
-        this.rightLeg1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
-        this.leftLeg1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
-        this.rightArm1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
-        this.leftArm1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
+        // TODO: needs custom RenderState
+        // this.tail.xRot = 0.51f + Mth.cos(pAgeInTicks * 0.1f) * this.toRads(20);
+        // this.tail2.xRot = 0.51f + Mth.cos(pAgeInTicks * 0.1f) * this.toRads(20);
 
-        this.tail.xRot = 0.51f + Mth.cos(pAgeInTicks * 0.1f) * this.toRads(20);
-        this.tail2.xRot = 0.51f + Mth.cos(pAgeInTicks * 0.1f) * this.toRads(20);
-
-        if (!pEntity.isSitting() && pEntity.isInWater()) {
-            this.rightLeg1.zRot = this.toRads(40);
-            this.leftLeg1.zRot = -this.toRads(40);
-            this.rightArm1.zRot = this.toRads(40);
-            this.leftArm1.zRot = -this.toRads(40);
-
-            this.rightLeg1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.3f) * 0.4f;
-            this.leftLeg1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.3f) * 0.4f;
-            this.rightArm1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.3f + PI) * 0.4f;
-            this.leftArm1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.3f + PI) * 0.4f;
-        }
-
-        if (pEntity.isSitting()) {
-            this.body.xRot = this.toRads(-40);
-            this.head.xRot = this.toRads(25);
-            this.head.yRot = 0;
-            this.tail.xRot = this.toRads(70);
-            this.tail2.xRot = this.toRads(70);
-
-            this.leftLeg1.xRot = this.toRads(-20);
-            this.leftLeg2.xRot = this.toRads(50);
-            this.rightLeg1.xRot = this.toRads(-20);
-            this.rightLeg2.xRot = this.toRads(50);
-
-            this.leftArm1.xRot = this.toRads(10);
-            this.leftArm2.xRot = this.toRads(40);
-            this.rightArm1.xRot = this.toRads(10);
-            this.rightArm2.xRot = this.toRads(40);
-        }
-
-        if (pEntity.isPartying()) {
-            this.body.xRot = this.toRads(90);
-            this.body.yRot = pAgeInTicks * 0.5f;
-            this.body.y = 12.5f;
-            this.head.xRot = 0;
-            this.head.yRot = 0;
-
-            this.tail.xRot = Mth.cos(pAgeInTicks * 0.8f) * this.toRads(50);
-            this.tail2.xRot = Mth.cos(pAgeInTicks * 0.8f) * this.toRads(50);
-
-            this.rightLeg1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.7f) * this.toRads(40);
-            this.leftLeg1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.7f + PI) * this.toRads(40);
-            this.rightArm1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.7f + PI) * this.toRads(40);
-            this.leftArm1.xRot = -0.07f + Mth.cos(pAgeInTicks * 0.7f) * this.toRads(40);
-        }
+        // TODO: needs custom RenderState
+        // if (!pEntity.isSitting() && pEntity.isInWater()) { ... }
+        // if (pEntity.isSitting()) { ... }
+        // if (pEntity.isPartying()) { ... }
     }
 
     private float toRads(float deg) {

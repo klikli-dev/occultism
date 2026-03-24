@@ -27,10 +27,13 @@ import com.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -53,8 +56,17 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
     static final ContextKey<DragonFamiliarEntity> DRAGON_KEY =
             new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "dragon_familiar_entity"));
 
+    /**
+     * ContextKey used to pass the ItemModelResolver to the item render layers.
+     */
+    static final ContextKey<ItemModelResolver> ITEM_MODEL_RESOLVER_KEY =
+            new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "dragon_item_model_resolver"));
+
+    private final ItemModelResolver itemModelResolver;
+
     public DragonFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new DragonFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DRAGON)), 0.3f);
+        this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new DragonRendering.StickLayer(this));
         this.addLayer(new DragonRendering.SwordLayer(this));
     }
@@ -63,6 +75,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
     public void extractRenderState(DragonFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.setRenderData(DRAGON_KEY, entity);
+        reusedState.setRenderData(ITEM_MODEL_RESOLVER_KEY, this.itemModelResolver);
     }
 
     @Override
@@ -95,7 +108,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
             matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);
 
-            matrixStackIn.mulPose(net.minecraft.client.Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+            matrixStackIn.mulPose(net.minecraft.client.Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
             matrixStackIn.translate(Mth.sin(textTimer / 2) * 0.5, 0, 0);
             float size = (1 - textTimer / DragonFamiliarEntity.MAX_PET_TIMER) * 0.025f;
             matrixStackIn.scale(-size, -size, size);

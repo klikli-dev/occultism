@@ -60,7 +60,7 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
                 int slot) {
 
             Level level = EntityWormholeBlockEntity.this.level;
-            if (level != null && !level.isClientSide) {
+            if (level != null && !level.isClientSide()) {
                 EntityWormholeBlockEntity.this.lastChangeTime = level.getGameTime();
                 EntityWormholeBlockEntity.this.setChanged();
                 EntityWormholeBlockEntity.this.markNetworkDirty();
@@ -87,7 +87,7 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
             @Override
             protected void onContentsChanged(
                     int slot) {
-                if (EntityWormholeBlockEntity.this.level != null && !EntityWormholeBlockEntity.this.level.isClientSide) {
+                if (EntityWormholeBlockEntity.this.level != null && !EntityWormholeBlockEntity.this.level.isClientSide()) {
                     EntityWormholeBlockEntity.this.lastChangeTime = EntityWormholeBlockEntity.this.level
                             .getGameTime();
                     EntityWormholeBlockEntity.this.markNetworkDirty();

@@ -176,7 +176,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        var mainController = new AnimationController<DevilFamiliarEntity>(this, "mainController", 0, this::animPredicate);
+        var mainController = new AnimationController<DevilFamiliarEntity>("mainController", 0, this::animPredicate);
         controllerRegistrar.add(mainController);
     }
 
@@ -192,7 +192,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         }
 
         if (this.isSitting()) {
-            tAnimationState.getController().setAnimation(RawAnimation.begin().thenPlay("sitting"));
+            tAnimationState.setAnimation(RawAnimation.begin().thenPlay("sitting"));
             return PlayState.CONTINUE;
         }
 

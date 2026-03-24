@@ -31,13 +31,16 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -59,17 +62,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import org.joml.Vector3f;
+import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private static final int HEAD_TIME = 20 * 60;
 
@@ -146,7 +154,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
 
             if (this.headTimer-- == 0)
                 this.setHead(NO_HEAD);
@@ -169,7 +177,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
             if (this.headlessDieTimer-- > 7)
                 for (int i = 0; i < 2; i++) {
-                    this.level().addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getX() + this.randPos(0.3),
+                    this.level().addParticle(new DustParticleOptions(ARGB.color(255, 127, 0, 0), 1), this.getX() + this.randPos(0.3),
                             this.getY() + 1 + this.randPos(0.3), this.getZ() + this.randPos(0.3), 0, 0, 0);
                 }
         }
@@ -235,7 +243,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                 if (this.isFullyRebuilt())
                     OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
-                return InteractionResult.sidedSuccess(!this.level().isClientSide);
+                return InteractionResult.sidedSuccess();
             }
         }
         return super.mobInteract(playerIn, hand);
@@ -250,31 +258,26 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setHead(compound.getByte("head"));
-        this.headTimer = compound.getInt("headTimer");
-        if (!compound.contains("variants")) {
-            this.setHairy(compound.getBoolean("isHairy"));
-            this.setGlasses(compound.getBoolean("hasGlasses"));
-            this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
-        }
-        this.setWeapon(compound.getByte("getWeapon"));
-        this.setRebuilt(compound.getByte("getRebuilt"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setHead(input.getByteOr("head", (byte) 0));
+        this.headTimer = input.getIntOr("headTimer", 0);
+        this.setWeapon(input.getByteOr("getWeapon", (byte) 0));
+        this.setRebuilt(input.getByteOr("getRebuilt", (byte) 0));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("head", this.getHead());
-        compound.putInt("headTimer", this.headTimer);
-        compound.putByte("getWeapon", this.getWeapon());
-        compound.putByte("getRebuilt", this.getRebuilt());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putByte("head", this.getHead());
+        output.putInt("headTimer", this.headTimer);
+        output.putByte("getWeapon", this.getWeapon());
+        output.putByte("getRebuilt", this.getRebuilt());
     }
 
     @Override
-    protected void actuallyHurt(DamageSource pDamageSrc, float pDamageAmount) {
-        super.actuallyHurt(pDamageSrc, pDamageAmount);
+    protected void actuallyHurt(ServerLevel serverLevel, DamageSource pDamageSrc, float pDamageAmount) {
+        super.actuallyHurt(serverLevel, pDamageSrc, pDamageAmount);
         if (this.getHealth() / this.getMaxHealth() < 0.5 && !this.isHeadlessDead()) {
             this.setHeadlessDead(true);
             Networking.sendToTracking(this, new MessageHeadlessDie(this.getId()));
@@ -393,8 +396,8 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
-        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+    protected void dropFromLootTable(ServerLevel level, DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(level, pDamageSource, pAttackedRecently);
 
         var owner = this.getFamiliarOwner();
 
@@ -407,13 +410,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.setHeadlessDead(false);
         this.entityData.set(REBUILT, (byte) 0);
 
-        var entityData = new CompoundTag();
-        var id = this.getEncodeId();
-        if(id != null)
-            entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
-
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), LOGGER)) {
+            TagValueOutput output = TagValueOutput.createWithContext(reporter, this.registryAccess());
+            this.saveWithoutId(output);
+            shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), output.buildResult()));
+        }
 
         this.setHealth(health);
 

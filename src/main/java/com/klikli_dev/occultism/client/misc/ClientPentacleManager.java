@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.client.misc;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Util;
@@ -9,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,9 @@ public class ClientPentacleManager {
                 lastHovered = pos;
                 var server = mc.level.getServer();
                 if (server != null) {
-                    allPentacles = server.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream()
+                    allPentacles = server.getRecipeManager().getRecipes().stream()
+                            .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
+                            .map(r -> (RecipeHolder<RitualRecipe>) r)
                             .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
                             .collect(Collectors.toMap(
                                     r -> r.value().getPentacle().getId(),

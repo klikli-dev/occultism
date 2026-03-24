@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -54,12 +55,12 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
                 int slot) {
 
             Level level = SacrificialBowlBlockEntity.this.level;
-            if (level != null && !level.isClientSide) {
+            if (level != null && !level.isClientSide()) {
                 Block blockBellow = level.getBlockState(getBlockPos().below()).getBlock();
                 if (!(SacrificialBowlBlockEntity.this instanceof GoldenSacrificialBowlBlockEntity)
                         && (blockBellow instanceof SpiritFireBlock || blockBellow == OccultismBlocks.SPIRIT_CAMPFIRE.get())) {
                     var recipeInput = new SingleRecipeInput(this.getStackInSlot(0));
-                    var recipe = level.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, level);
+                    var recipe = ((ServerLevel) level).recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, (ServerLevel) level);
                     if (recipe.isPresent() && !recipeInput.item().is(OccultismBlocks.OTHERFLOWER.asItem())) {
                         super.extractItem(0, 1, false);
                         ItemStack result = recipe.get().value().assemble(recipeInput, level.registryAccess());

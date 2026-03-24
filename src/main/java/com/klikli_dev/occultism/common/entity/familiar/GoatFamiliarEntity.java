@@ -44,6 +44,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
@@ -93,8 +94,8 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
-    public void hurt(DamageSource pSource, float pAmount) {
-        super.hurt(pSource, pAmount);
+    public void actuallyHurt(ServerLevel serverLevel, DamageSource pSource, float pAmount) {
+        super.actuallyHurt(serverLevel, pSource, pAmount);
         if (pSource.getEntity() != null) {
             ringBell(this);
         }
@@ -173,7 +174,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                     this.transform();
                 }
 
-                if (!this.level().isClientSide) //do this down here because shrink will erase item info and cause checks to fail
+                if (!this.level().isClientSide()) //do this down here because shrink will erase item info and cause checks to fail
                     stack.shrink(1);
 
                 return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;

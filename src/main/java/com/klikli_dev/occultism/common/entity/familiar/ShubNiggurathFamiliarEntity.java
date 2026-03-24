@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -74,7 +75,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.rotateTowardsFriend();
 
             this.createSpawn(this, new Vector3d(this.getRandomX(2), this.getRandomY(), this.getRandomZ(2)));
@@ -118,17 +119,14 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public void actuallyHurt(ServerLevel serverLevel, DamageSource pSource, float pAmount) {
         if (this.getVehicle() != null && this.immuneWhileHoldingHand(pSource))
-            return false;
+            return;
 
-        if (super.hurt(pSource, pAmount)) {
-            if (pSource.getEntity() != null) {
-                GoatFamiliarEntity.ringBell(this);
-            }
-            return true;
+        super.actuallyHurt(serverLevel, pSource, pAmount);
+        if (pSource.getEntity() != null) {
+            GoatFamiliarEntity.ringBell(this);
         }
-        return false;
     }
 
     private boolean immuneWhileHoldingHand(DamageSource s) {

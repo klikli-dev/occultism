@@ -383,7 +383,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             boolean noCollision = this.entity.level().noCollision(this.entity,
                     this.entity.getBoundingBox().move(pos.subtract(this.entity.blockPosition())));
             if (walkable && noCollision) {
-                this.entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                this.entity.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
                         this.entity.yRotO, this.entity.xRotO);
                 this.entity.navigation.stop();
                 return true;
@@ -409,7 +409,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         @Override
         public boolean canUse() {
-            return !this.entity.isInWaterOrBubble() && this.entity.getFamiliarOwner() != null
+            return !this.entity.isInWater() && this.entity.getFamiliarOwner() != null
                     && this.entity.isSitting();
         }
 

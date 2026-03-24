@@ -23,11 +23,6 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
-import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -35,6 +30,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 import java.util.List;
@@ -42,7 +38,7 @@ import java.util.List;
 /**
  * Created using Tabula 8.0.0
  */
-public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamiliarEntity> {
+public class ShubNiggurathFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -99,6 +95,7 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
     public ModelPart rightArm3;
 
     public ShubNiggurathFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.neck = this.body.getChild("neck");
         this.leftLeg1 = this.body.getChild("leftLeg1");
@@ -219,16 +216,9 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
-
-    @Override
-    public void setupAnim(ShubNiggurathFamiliarEntity pEntity, float limbSwing, float limbSwingAmount,
-                          float pAgeInTicks, float netHeadYaw, float headPitch) {
-        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        this.showModels(pEntity);
-        CthulhuFamiliarEntity friend = pEntity.getCthulhuFriend();
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState to restore entity-specific animation
 
         this.body.xRot = 0.59f;
         this.body.yRot = 0;
@@ -236,56 +226,19 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
         this.leftLeg2.xRot = 1.99f;
         this.rightLeg2.xRot = 1.99f;
 
-        if (friend != null) {
-            limbSwing = friend.riderLimbSwing;
-            limbSwingAmount = friend.riderLimbSwingAmount;
-        }
-
-        this.head.yRot = this.toRads(netHeadYaw) * 0.7f;
-        this.head.xRot = this.toRads(headPitch) * 0.7f;
-
-        rotateTentacles(ImmutableList.of(this.tentacleBottom1, this.tentacleBottom2, this.tentacleBottom3), pAgeInTicks, 0);
-        rotateTentacles(ImmutableList.of(this.tentacleMiddle1, this.tentacleMiddle2, this.tentacleMiddle3), pAgeInTicks, 0.5f);
-        rotateTentacles(ImmutableList.of(this.tentacleTop1, this.tentacleTop2, this.tentacleTop3), pAgeInTicks, 1);
-
-        this.rightArm1.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 1.21f;
-        this.leftArm1.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 1.21f;
-        this.leftLeg1.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 2.53f;
-        this.rightLeg1.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 2.53f;
-        this.body.y = 18.6f - Math.abs(Mth.cos(limbSwing * 0.5f + PI)) * limbSwingAmount * 1.5f;
-
-        if (friend != null) {
-            this.leftArm1.xRot = this.toRads(
-                    -143 - 5 * friend.getAnimationHeight(partialTicks) - 10 * (this.body.y - 18.6f));
-        }
-
-        if (pEntity.isPartying()) {
-            this.body.xRot = this.toRads(-90) + Mth.cos(pAgeInTicks * 0.3f) * this.toRads(5);
-            this.body.yRot = Mth.cos(pAgeInTicks * 0.3f + PI * 1.5f) * this.toRads(5);
-            this.body.zRot = Mth.cos(pAgeInTicks * 0.3f + PI) * this.toRads(5);
-            this.leftArm1.xRot = Mth.cos(pAgeInTicks * 0.3f) * this.toRads(30) - this.toRads(90);
-            this.rightArm1.xRot = Mth.cos(pAgeInTicks * 0.3f + PI) * this.toRads(30) - this.toRads(90);
-            this.leftLeg1.xRot = Mth.cos(pAgeInTicks * 0.3f + PI) * this.toRads(30) - this.toRads(90);
-            this.rightLeg1.xRot = Mth.cos(pAgeInTicks * 0.3f + PI) * this.toRads(30) - this.toRads(90);
-        } else if (pEntity.isSitting()) {
-            this.body.xRot = this.toRads(100);
-            this.leftLeg1.xRot = -this.toRads(60);
-            this.rightLeg1.xRot = -this.toRads(60);
-            this.leftLeg2.xRot = this.toRads(75);
-            this.rightLeg2.xRot = this.toRads(75);
-            this.rightArm1.xRot = -this.toRads(170);
-            this.leftArm1.xRot = -this.toRads(170);
-            this.head.yRot = this.toRads(115);
-        }
-    }
-
-    private void showModels(ShubNiggurathFamiliarEntity entityIn) {
-        this.ring.visible = entityIn.hasRing();
-        this.beard.visible = entityIn.hasBeard();
-        this.bell1.visible = entityIn.hasBlacksmithUpgrade();
+        // TODO: needs custom RenderState for limbSwing, limbSwingAmount, netHeadYaw, headPitch,
+        //       getCthulhuFriend(), riderLimbSwing, riderLimbSwingAmount, getAnimationHeight(),
+        //       isPartying(), isSitting(), hasRing(), hasBeard(), hasBlacksmithUpgrade()
+        // float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+        // this.showModels(pEntity);
+        // CthulhuFamiliarEntity friend = pEntity.getCthulhuFriend();
+        // ...
     }
 
     private float toRads(float deg) {
         return (float) Math.toRadians(deg);
     }
+
+    // TODO: needs custom RenderState — showModels cannot be called until EntityRenderState subclass is created
+    // private void showModels(ShubNiggurathFamiliarEntity entityIn) { ... }
 }

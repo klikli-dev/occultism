@@ -24,85 +24,48 @@ package com.klikli_dev.occultism.client.render.blockentity;
 
 import com.klikli_dev.occultism.client.model.tile.DimensionalMatrixModel;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.cache.model.BakedGeoModel;
-import com.geckolib.cache.model.GeoBone;
-import com.geckolib.constant.DataTickets;
 import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.GeoBlockRenderer;
+import com.geckolib.renderer.base.RenderPassInfo;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity, BlockEntityRenderState> {
-
-    private final GeoModel<StorageControllerBlockEntity> modelProvider;
 
     public StorageControllerGeoRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn) {
         this(rendererDispatcherIn, new DimensionalMatrixModel());
     }
 
     public StorageControllerGeoRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn, GeoModel<StorageControllerBlockEntity> modelProvider) {
-        super(modelProvider);
-        this.modelProvider = modelProvider;
+        super(rendererDispatcherIn, modelProvider);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void actuallyRender(PoseStack poseStack, StorageControllerBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTicks, int packedLightIn, int packedOverlay, int colour) {
+    public void adjustRenderPose(RenderPassInfo renderPassInfo) {
+        super.adjustRenderPose(renderPassInfo);
 
-        poseStack.pushPose();
+        // move above block
+        renderPassInfo.poseStack().translate(0.0, 1.25, 0.0);
 
-        //poseStack.translate(0, 0.01f, 0); //we don't need this
-        //move above block
-        poseStack.translate(0.0, 1.25, 0.0);
-
-        //this.rotateBlock(this.getFacing(tile), poseStack); //our block does not use directions
-
-        //rotate item slowly around y axis
+        // rotate item slowly around y axis
         long systemTime = System.currentTimeMillis();
-
-        //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
         float angle = (systemTime / 16) % 360;
-        poseStack.mulPose(Axis.YP.rotationDegrees(angle));
-
-
-        if (!isReRender) {
-            var animationState = new AnimationTest<>(animatable, 0, 0, partialTicks, false);
-            long instanceId = this.getInstanceId(animatable);
-
-            animationState.setData(DataTickets.TICK, animatable.getTick(animatable));
-            animationState.setData(DataTickets.BLOCK_ENTITY, animatable);
-            this.model.addAdditionalStateData(animatable, instanceId, animationState::setData);
-//            poseStack.translate(0, 0.01f, 0);
-//            poseStack.translate(0.5, 0, 0.5);
-//           rotateBlock(getFacing(animatable), poseStack);
-            this.model.handleAnimations(animatable, instanceId, animationState, partialTicks);
-        }
-
-        RenderSystem.setShaderTexture(0, this.getTextureLocation(animatable));
-
-        for (GeoBone group : model.topLevelBones()) {
-            this.renderRecursively(poseStack, animatable, group, renderType, bufferSource, bufferIn, isReRender, partialTicks, packedLightIn,
-                    packedOverlay, colour);
-        }
-
-        poseStack.popPose();
+        renderPassInfo.poseStack().mulPose(Axis.YP.rotationDegrees(angle));
     }
 
     @Override
-    public RenderType getRenderType(StorageControllerBlockEntity animatable, Identifier texture, @org.jetbrains.annotations.Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucentCull(this.modelProvider.getTextureResource(animatable));
+    public RenderType getRenderType(BlockEntityRenderState renderState, Identifier texture) {
+        return RenderTypes.entityTranslucent(texture);
     }
 
     @Override
-    public int getRenderColor(StorageControllerBlockEntity animatable, float partialTick, int packedLight) {
+    public int getRenderColor(StorageControllerBlockEntity animatable, Void relatedObject, float partialTick) {
         long systemTime = System.currentTimeMillis();
         double systemTimeRadSin8 = Math.sin(Math.toRadians((float) systemTime / 8));
         //get colors from hue over time

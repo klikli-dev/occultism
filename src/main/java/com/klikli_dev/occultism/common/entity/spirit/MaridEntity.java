@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.spirit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -69,7 +70,7 @@ public class MaridEntity extends SpiritEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+    var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }
 
@@ -93,7 +94,7 @@ public class MaridEntity extends SpiritEntity implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (source.is(DamageTypeTags.IS_FIRE)
                 || source.is(DamageTypeTags.IS_DROWNING)
                 || source.is(DamageTypeTags.IS_FREEZING)
@@ -101,6 +102,6 @@ public class MaridEntity extends SpiritEntity implements GeoEntity {
                 || source.is(DamageTypeTags.WITCH_RESISTANT_TO))
             return true;
 
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 }

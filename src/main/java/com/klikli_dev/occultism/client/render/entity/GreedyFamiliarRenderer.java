@@ -28,18 +28,19 @@ import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -50,83 +51,104 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Li
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/greedy_familiar.png");
 
+    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_is_sitting"));
+    private static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_is_partying"));
+    private static final ContextKey<Boolean> HAS_BLACKSMITH = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_has_blacksmith"));
+    private static final ContextKey<ItemStack> OFFHAND_ITEM = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_offhand_item"));
+
+    private final ItemModelResolver itemModelResolver;
+
     public GreedyFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new GreedyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GREEDY)), 0.3f);
-        this.addLayer(new ItemLayer(this));
+        this.itemModelResolver = context.getItemModelResolver();
+        this.addLayer(new ItemLayer(this, this.itemModelResolver));
         this.addLayer(new GreedyFamiliarChest(this));
     }
 
     @Override
-    public Identifier getTextureLocation(GreedyFamiliarEntity entity) {
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public void extractRenderState(GreedyFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.setRenderData(IS_PARTYING, entity.isPartying());
+        reusedState.setRenderData(HAS_BLACKSMITH, entity.hasBlacksmithUpgrade());
+        reusedState.setRenderData(OFFHAND_ITEM, entity.getOffhandItem().copy());
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 
     @Override
-    public void render(GreedyFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack pMatrixStack,
-                       MultiBufferSource bufferIn, int packedLightIn) {
-        pMatrixStack.pushPose();
-        if (entityIn.isSitting() && !entityIn.isPartying())
-            pMatrixStack.translate(0, -0.25, 0);
-        super.render(entityIn, entityYaw, partialTicks, pMatrixStack, bufferIn, packedLightIn);
-        pMatrixStack.popPose();
+    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        poseStack.pushPose();
+        Boolean sitting = state.getRenderData(IS_SITTING);
+        Boolean partying = state.getRenderData(IS_PARTYING);
+        if (Boolean.TRUE.equals(sitting) && !Boolean.TRUE.equals(partying))
+            poseStack.translate(0, -0.25, 0);
+        super.submit(state, poseStack, submitNodeCollector, camera);
+        poseStack.popPose();
     }
 
-    private static class GreedyFamiliarChest extends RenderLayer<GreedyFamiliarEntity, GreedyFamiliarModel> {
+    private static class GreedyFamiliarChest extends RenderLayer<LivingEntityRenderState, GreedyFamiliarModel> {
         private static final Identifier CHEST = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_chest.png");
         private static final Identifier CHRISTMAS = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_christmas.png");
 
-        public GreedyFamiliarChest(RenderLayerParent<GreedyFamiliarEntity, GreedyFamiliarModel> parent) {
+        public GreedyFamiliarChest(RenderLayerParent<LivingEntityRenderState, GreedyFamiliarModel> parent) {
             super(parent);
         }
 
         @Override
-        public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn,
-                           GreedyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                           float ageInTicks, float netHeadYaw, float headPitch) {
-            if (entitylivingbaseIn.isInvisible())
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+            if (state.isInvisible)
                 return;
-
-            VertexConsumer ivertexbuilder = bufferIn
-                    .getBuffer(RenderType.entityTranslucent(FamiliarUtil.isChristmas() ? CHRISTMAS : CHEST));
             GreedyFamiliarModel model = this.getParentModel();
-            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
+            Identifier tex = FamiliarUtil.isChristmas() ? CHRISTMAS : CHEST;
+            RenderLayer.renderColoredCutoutModel(model, tex, pMatrixStack, submitNodeCollector, lightCoords, state, -1, 0);
         }
     }
 
-    private static class ItemLayer extends RenderLayer<GreedyFamiliarEntity, GreedyFamiliarModel> {
-        public ItemLayer(RenderLayerParent<GreedyFamiliarEntity, GreedyFamiliarModel> parent) {
+    private static class ItemLayer extends RenderLayer<LivingEntityRenderState, GreedyFamiliarModel> {
+
+        private final ItemModelResolver itemModelResolver;
+
+        public ItemLayer(RenderLayerParent<LivingEntityRenderState, GreedyFamiliarModel> parent, ItemModelResolver itemModelResolver) {
             super(parent);
+            this.itemModelResolver = itemModelResolver;
         }
 
         @Override
-        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, GreedyFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-            boolean hasBlacksmithUpgrade = pLivingEntity.hasBlacksmithUpgrade();
-            ItemStack offhand = pLivingEntity.getOffhandItem();
-            if (!hasBlacksmithUpgrade && offhand.isEmpty())
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+            Boolean hasBlacksmith = state.getRenderData(GreedyFamiliarRenderer.HAS_BLACKSMITH);
+            ItemStack offhand = state.getRenderData(GreedyFamiliarRenderer.OFFHAND_ITEM);
+
+            if (!Boolean.TRUE.equals(hasBlacksmith) && (offhand == null || offhand.isEmpty()))
                 return;
 
             GreedyFamiliarModel model = this.getParentModel();
-            ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
-            pMatrixStack.pushPose();
 
-
-            if (hasBlacksmithUpgrade) {
+            if (Boolean.TRUE.equals(hasBlacksmith)) {
+                pMatrixStack.pushPose();
                 model.body.translateAndRotate(pMatrixStack);
                 model.rightArm.translateAndRotate(pMatrixStack);
 
                 pMatrixStack.translate(-0.06, 0.2, -0.1);
                 pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -45 * ((float) Math.PI / 180F)));
 
-                renderer.renderItem(pLivingEntity,
-                        new ItemStack(Items.IRON_PICKAXE), ItemDisplayContext.GROUND, false,
-                        pMatrixStack, pBuffer, pPackedLight);
+                ItemStackRenderState stackState = new ItemStackRenderState();
+                this.itemModelResolver.updateForTopItem(stackState, new ItemStack(Items.IRON_PICKAXE), ItemDisplayContext.GROUND, null, null, 0);
+                stackState.submit(pMatrixStack, submitNodeCollector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
                 pMatrixStack.popPose();
             }
 
-            if (!offhand.isEmpty()) {
+            if (offhand != null && !offhand.isEmpty()) {
                 pMatrixStack.pushPose();
                 model.body.translateAndRotate(pMatrixStack);
                 model.leftArm.translateAndRotate(pMatrixStack);
@@ -136,8 +158,9 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Li
                 float size = 0.75f;
                 pMatrixStack.scale(size, size, size);
 
-                renderer.renderItem(pLivingEntity, offhand,
-                        ItemDisplayContext.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
+                ItemStackRenderState stackState = new ItemStackRenderState();
+                this.itemModelResolver.updateForTopItem(stackState, offhand, ItemDisplayContext.GROUND, null, null, 0);
+                stackState.submit(pMatrixStack, submitNodeCollector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
                 pMatrixStack.popPose();
             }
         }

@@ -55,6 +55,7 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -129,14 +130,14 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide && this.getRandom().nextDouble() < SHRINK_CHANCE)
+        if (!this.level().isClientSide() && this.getRandom().nextDouble() < SHRINK_CHANCE)
             this.setSize((byte) (this.getSize() - 1));
 
         this.attackTimer--;
         if (this.attackTimer == 0)
             this.setAttacker(NO_ATTACKER);
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             this.goatNoseTimer++;
 
             if (this.attackTimer > 0 && this.getAttacker() == LION_ATTACKER) {
@@ -293,9 +294,9 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        FoodProperties food = stack.getItem().getFoodProperties(stack, this);
+        FoodProperties food = stack.get(DataComponents.FOOD);
         if (this.hasGoat() && stack.getItem() == Items.GOLDEN_APPLE && playerIn == this.getFamiliarOwner()) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 stack.shrink(1);
                 this.setGoat(false);
                 GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level(), this.hasRing(), this.hasBeard(),
@@ -343,7 +344,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
         this.boost.tickBoost();
 
-        if (this.isControlledByLocalInstance()) {
+        if (this.isPassenger()) { // TODO: was isControlledByLocalInstance(), removed in 26.1
 //            if (travelVec.z <= 0.0) {
 //                this.gallopSoundCounter = 0;
 //            }
@@ -421,7 +422,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
 
     @Override
-    protected int calculateFallDamage(float pDistance, float pDamageMultiplier) {
+    protected int calculateFallDamage(double pDistance, float pDamageMultiplier) {
         return super.calculateFallDamage(pDistance - 3, pDamageMultiplier);
     }
 

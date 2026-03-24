@@ -160,10 +160,10 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         this.partyParticle();
 
-        if (!this.level().isClientSide && this.getTarget() == null)
+        if (!this.level().isClientSide() && this.getTarget() == null)
             this.setMagicTarget(null);
 
-        if (this.level().isClientSide && this.hasMagicTarget()) {
+        if (this.level().isClientSide() && this.hasMagicTarget()) {
             this.yBodyRot = 0;
             this.yBodyRotO = 0;
 
@@ -254,7 +254,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     private void partyParticle() {
-        if (!this.level().isClientSide || !this.isPartying() || this.tickCount % 2 != 0)
+        if (!this.level().isClientSide() || !this.isPartying() || this.tickCount % 2 != 0)
             return;
 
         Vec3 right = Vec3.directionFromRotation(0, this.yBodyRot).yRot(FamiliarUtil.toRads(-90));
@@ -335,7 +335,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
             return false;
 
         this.saveCooldown = 20 * 20;
-        if (!familiar.getFamiliarEntity().level().isClientSide)
+        if (!familiar.getFamiliarEntity().level().isClientSide())
             Networking.sendToTracking(this,
                     new MessageFairySupport(this.getId(), familiar.getFamiliarEntity().getId()));
         return true;
@@ -346,15 +346,15 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    public void hurt(DamageSource pSource, float pAmount) {
+    public void actuallyHurt(ServerLevel serverLevel, DamageSource pSource, float pAmount) {
         if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && this.getMagicTarget() != null)
             return;
 
-        super.hurt(pSource, pAmount);
+        super.actuallyHurt(serverLevel, pSource, pAmount);
     }
 
     @Override
-    protected AABB getAttackBoundingBox() {
+    protected AABB getAttackBoundingBox(double horizontalExpansion) {
         //copied from parent and set reach * 3
         Entity entity = this.getVehicle();
         AABB aabb;
@@ -377,7 +377,8 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    public void causeFallDamage(double fallDistance, float damageMultiplier, DamageSource p_147189_) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource p_147189_) {
+        return false;
     }
 
     @Override
@@ -459,10 +460,10 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                         gaveSupport = true;
                     if (familiar.getNavigation().isInProgress()
                             && familiar.getNavigation().getTargetPos().distSqr(familiar.blockPosition()) > 100
-                            && familiar.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, DURATION)))
+                            && familiar.addEffect(new MobEffectInstance(MobEffects.SPEED, DURATION)))
                         gaveSupport = true;
                     if (familiar.getLastHurtByMob() != null
-                            && familiar.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION)))
+                            && familiar.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, DURATION)))
                         gaveSupport = true;
                     if (gaveSupport) {
                         Networking.sendToTracking(this.fairy,
@@ -513,7 +514,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                     LivingEntity owner = this.fairy.getFamiliarOwner();
                     if (owner != null) {
                         pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), 3);
-                        pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
+                        pEnemy.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
                         List<LivingEntity> allies = this.fairy.level().getEntitiesOfClass(LivingEntity.class,
                                 this.fairy.getBoundingBox().inflate(7), e -> e != this.fairy && e instanceof IFamiliar
                                         && ((IFamiliar) e).getFamiliarOwner() == owner);

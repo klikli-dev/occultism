@@ -27,16 +27,16 @@ import com.klikli_dev.occultism.client.model.entity.GoatFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.GoatFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.context.ContextKey;
 
 
 public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, LivingEntityRenderState, GoatFamiliarModel> {
@@ -44,52 +44,69 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, Living
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/goat_familiar.png");
 
+    private static final ContextKey<Float> SCALE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "goat_scale"));
+    private static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "goat_is_partying"));
+    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "goat_is_sitting"));
+    private static final ContextKey<Boolean> IS_BLACK = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "goat_is_black"));
+
     public GoatFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new GoatFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GOAT)), 0.3f);
         this.addLayer(new BlackLayer(this, context));
     }
 
     @Override
-    public void render(GoatFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        pMatrixStack.pushPose();
-        float size = pEntity.getScale();
-        pMatrixStack.scale(size, size, size);
-        if (pEntity.isPartying())
-            pMatrixStack.translate(0, -0.25, 0);
-        else if (pEntity.isSitting())
-            pMatrixStack.translate(0, -0.3, 0);
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-        pMatrixStack.popPose();
-
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
     }
 
     @Override
-    public Identifier getTextureLocation(GoatFamiliarEntity entity) {
+    public void extractRenderState(GoatFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.setRenderData(SCALE, entity.getScale());
+        reusedState.setRenderData(IS_PARTYING, entity.isPartying());
+        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.setRenderData(IS_BLACK, entity.isBlack());
+    }
+
+    @Override
+    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        poseStack.pushPose();
+        Float scale = state.getRenderData(SCALE);
+        Boolean partying = state.getRenderData(IS_PARTYING);
+        Boolean sitting = state.getRenderData(IS_SITTING);
+        float s = scale != null ? scale : 1f;
+        poseStack.scale(s, s, s);
+        if (Boolean.TRUE.equals(partying))
+            poseStack.translate(0, -0.25, 0);
+        else if (Boolean.TRUE.equals(sitting))
+            poseStack.translate(0, -0.3, 0);
+        super.submit(state, poseStack, submitNodeCollector, camera);
+        poseStack.popPose();
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 
-    private class BlackLayer extends RenderLayer<GoatFamiliarEntity, GoatFamiliarModel> {
+    private static class BlackLayer extends RenderLayer<LivingEntityRenderState, GoatFamiliarModel> {
 
-        private final GoatFamiliarModel model;
+        private static final Identifier BLACK_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
+                "textures/entity/goat_familiar.png");
 
-        public BlackLayer(RenderLayerParent<GoatFamiliarEntity, GoatFamiliarModel> parent, EntityRendererProvider.Context context) {
+        public BlackLayer(RenderLayerParent<LivingEntityRenderState, GoatFamiliarModel> parent, EntityRendererProvider.Context context) {
             super(parent);
-            this.model = new GoatFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GOAT));
         }
 
         @Override
-        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, GoatFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-            if (!pLivingEntity.isInvisible() && pLivingEntity.isBlack()) {
-                this.getParentModel().copyPropertiesTo(this.model);
-                this.model.prepareMobModel(pLivingEntity, pLimbSwing, pLimbSwingAmount, pPartialTicks);
-                this.model.setupAnim(pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-                VertexConsumer ivertexbuilder = pBuffer
-                        .getBuffer(RenderType.entityTranslucent(this.getTextureLocation(pLivingEntity)));
-                this.model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0),
-                        0x7F000000);
-            }
-        }
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+            Boolean isBlack = state.getRenderData(GoatFamiliarRenderer.IS_BLACK);
+            if (state.isInvisible || !Boolean.TRUE.equals(isBlack))
+                return;
 
+            GoatFamiliarModel model = this.getParentModel();
+            // Render with a dark translucent overlay to indicate "black" goat variant
+            RenderLayer.renderColoredCutoutModel(model, BLACK_TEXTURE, pMatrixStack, submitNodeCollector, lightCoords, state, 0x7F000000, 0);
+        }
     }
 }

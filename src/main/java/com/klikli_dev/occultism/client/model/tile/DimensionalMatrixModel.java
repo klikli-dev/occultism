@@ -26,15 +26,16 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import net.minecraft.resources.Identifier;
 import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntity> {
     @Override
-    public Identifier getModelResource(StorageControllerBlockEntity object) {
+    public Identifier getModelResource(GeoRenderState state) {
         return Identifier.fromNamespaceAndPath(Occultism.MODID, "geo/dimensional_matrix.geo.json");
     }
 
     @Override
-    public Identifier getTextureResource(StorageControllerBlockEntity object) {
+    public Identifier getTextureResource(GeoRenderState state) {
         return Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/block/dimensional_matrix.png");
     }
 

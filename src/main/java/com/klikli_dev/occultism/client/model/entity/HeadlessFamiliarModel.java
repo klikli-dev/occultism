@@ -22,9 +22,6 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -32,12 +29,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
+public class HeadlessFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -88,6 +86,7 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
     public ModelPart ratBackRightLeg3;
 
     public HeadlessFamiliarModel(ModelPart part) {
+        super(part);
         this.ratBody1 = part.getChild("ratBody1");
         this.ratBody2 = this.ratBody1.getChild("ratBody2");
         this.ratBackLeftLeg1 = this.ratBody1.getChild("ratBackLeftLeg1");
@@ -189,9 +188,10 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
 
 
     @Override
-    public void setupAnim(HeadlessFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
-                          float pNetHeadYaw, float pHeadPitch) {
-        this.showModels(pEntity);
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState to restore entity-specific animation
+        // this.showModels(pEntity);
 
         this.ratBody1.xRot = -0.078f;
         this.ratTail1.xRot = -0.195f;
@@ -201,58 +201,27 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.pumpkin1.z = -3.51f;
         this.pumpkin1.yRot = 0;
 
-        this.ratHead.xRot = this.toRads(pHeadPitch) * 0.4f;
-        this.ratHead.yRot = this.toRads(pNetHeadYaw) * 0.4f;
+        // TODO: needs custom RenderState for head pitch/yaw, limb swing, attack time
+        // this.ratHead.xRot = this.toRads(pHeadPitch) * 0.4f;
+        // this.ratHead.yRot = this.toRads(pNetHeadYaw) * 0.4f;
+        // this.ratTail1.yRot = Mth.sin(pAgeInTicks * 0.2f) * this.toRads(15);
+        // this.ratTail2.yRot = Mth.sin(pAgeInTicks * 0.2f) * this.toRads(15);
+        // this.ratBackLeftLeg1.xRot = 0.31f + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+        // this.ratBackRightLeg1.xRot = 0.31f + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+        // this.ratFrontLeftLeg1.xRot = -0.20f + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+        // this.ratFrontRightLeg1.xRot = -0.20f + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+        // this.rightArm.xRot = -1.57f + Mth.cos(limbSwing * 0.4f) * limbSwingAmount * 0.2f;
+        // if (attackTime > 0) this.rightArm.xRot = -1.57f + Mth.sin(attackTime * toRads(180)) * toRads(90);
 
-        this.ratTail1.yRot = Mth.sin(pAgeInTicks * 0.2f) * this.toRads(15);
-        this.ratTail2.yRot = Mth.sin(pAgeInTicks * 0.2f) * this.toRads(15);
-
-        this.ratBackLeftLeg1.xRot = 0.31f + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
-        this.ratBackRightLeg1.xRot = 0.31f + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
-        this.ratFrontLeftLeg1.xRot = -0.20f + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
-        this.ratFrontRightLeg1.xRot = -0.20f + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
-        this.rightArm.xRot = -1.57f + Mth.cos(limbSwing * 0.4f) * limbSwingAmount * 0.2f;
-
-        if (this.attackTime > 0)
-            this.rightArm.xRot = -1.57f + Mth.sin(this.attackTime * this.toRads(180)) * this.toRads(90);
-
-        if (pEntity.isSitting()) {
-            this.ratBody1.xRot = -this.toRads(40);
-            this.ratHead.xRot += this.toRads(20);
-            this.ratBackLeftLeg1.xRot = -this.toRads(10);
-            this.ratBackRightLeg1.xRot = -this.toRads(10);
-            this.ratFrontLeftLeg1.xRot = this.toRads(25);
-            this.ratFrontRightLeg1.xRot = this.toRads(25);
-            this.ratTail1.xRot = this.toRads(35);
-            this.body.xRot = this.toRads(20);
-        }
-
-        if (pEntity.isPartying()) {
-            this.ratHead.zRot = Mth.cos(pAgeInTicks * 0.5f) * this.toRads(40);
-            this.ratTail1.zRot = Mth.cos(pAgeInTicks * 0.5f) * this.toRads(40);
-            this.pumpkin1.z = -7f + Mth.cos(pAgeInTicks * 0.25f) * 2;
-            this.pumpkin1.yRot = pAgeInTicks * this.toRads(10);
-        }
+        // TODO: needs custom RenderState for isSitting, isPartying
+        // if (pEntity.isSitting()) { ... }
+        // if (pEntity.isPartying()) { ... }
     }
 
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
 
-    private void showModels(HeadlessFamiliarEntity entityIn) {
-        boolean isHairy = entityIn.isHairy();
-
-        this.pumpkin1.visible = !entityIn.hasHead();
-        this.ratGlasses.visible = entityIn.hasGlasses();
-        this.helmet.visible = entityIn.hasBlacksmithUpgrade();
-        this.body.visible = !entityIn.isHeadlessDead();
-        this.ratHair1.visible = isHairy;
-        this.ratHair2.visible = isHairy;
-        this.ratHair3.visible = isHairy;
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.ratBody1.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
+    // TODO: needs custom RenderState — showModels cannot be called until EntityRenderState subclass is created
+    // private void showModels(HeadlessFamiliarEntity entityIn) { ... }
 }

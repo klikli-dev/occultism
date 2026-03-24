@@ -23,8 +23,6 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -33,12 +31,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
+public class CthulhuFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -70,6 +69,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     public DragonFamiliarModel.ColorModelPartProxy lantern4;
 
     public CthulhuFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.head = this.body.getChild("head");
         this.leftLeg = this.body.getChild("leftLeg");
@@ -131,109 +131,98 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-        this.lantern4.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState
+        // entityIn.riderLimbSwing = limbSwing;
+        // entityIn.riderLimbSwingAmount = limbSwingAmount;
+
+        // this.showModels(entityIn);
+        // this.lantern4.setColor(1, 1, 1, (Mth.cos(ageInTicks * 0.2f) + 1) * 0.5f);
+
+        // this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
+        // this.head.xRot = headPitch * (PI / 180f) * 0.7f - 0.26f;
+
+        // if (entityIn.isPartying()) {
+        //     this.body.xRot = -this.toRads(90);
+        //     this.rightLeg.xRot = this.toRads(15);
+        //     this.leftLeg.xRot = this.toRads(15);
+        //     this.head.yRot = 0;
+        //     this.head.xRot = 0;
+        // } else if (entityIn.isSitting()) {
+        //     this.rightArm.xRot = 0;
+        //     this.leftArm.xRot = 0;
+        //     this.rightLeg.xRot = -PI / 2;
+        //     this.leftLeg.xRot = -PI / 2;
+        //     this.body.xRot = 0;
+        // } else {
+        //     this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
+        //     this.leftArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
+        //     this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
+        //     this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
+        //     this.body.xRot = entityIn.isInWater() ? 1 : 0.44f;
+        // }
+
+        // if (entityIn.isAngry()) {
+        //     this.leftEye.zRot = -this.toRads(45);
+        //     this.rightEye.zRot = -this.toRads(45);
+        //     this.leftEar.zRot = this.toRads(20);
+        //     this.rightEar.zRot = -this.toRads(20);
+        // } else {
+        //     this.leftEye.zRot = 0;
+        //     this.rightEye.zRot = 0;
+        //     this.leftEar.zRot = 0;
+        //     this.rightEar.zRot = 0;
+        // }
+
+        // if (entityIn.isGiving()) {
+        //     this.leftArm.yRot = this.toRads(40);
+        //     this.rightArm.yRot = -this.toRads(40);
+        //     this.leftArm.xRot -= this.toRads(40);
+        //     this.rightArm.xRot -= this.toRads(40);
+        // } else {
+        //     this.leftArm.yRot = 0;
+        //     this.rightArm.yRot = 0;
+        // }
+
+        // this.trunk1.xRot = -0.86f + Mth.cos(ageInTicks / 10) * 0.15f;
+        // this.trunk2.xRot = -0.47f + Mth.cos(ageInTicks / 10) * 0.15f;
+        // this.trunk3.xRot = 0.39f + Mth.cos(ageInTicks / 10) * 0.15f;
+        // this.tentacle1.zRot = 0.58f + Mth.cos(ageInTicks / 10) * 0.07f;
+        // this.tentacle3.zRot = -0.58f - Mth.cos(ageInTicks / 10) * 0.07f;
+
+        // if (entityIn.hasBlacksmithUpgrade()) {
+        //     if (entityIn.isSitting()) {
+        //         this.lantern1.xRot = this.toRads(0);
+        //         this.lantern1.y = -1.6f;
+        //         this.lantern1.x = 3f;
+        //         this.lantern1.z = -5f;
+        //     } else {
+        //         this.leftArm.xRot = Mth.cos(limbSwing * 0.4f + PI) * limbSwingAmount * 0.2f + this.toRads(-100);
+        //         this.lantern1.yRot = Mth.cos(ageInTicks * 0.2f) * this.toRads(5);
+        //         this.lantern1.zRot = -Mth.cos(ageInTicks * 0.2f) * this.toRads(5);
+        //         this.lantern1.xRot = this.toRads(74);
+        //         this.lantern1.y = 3.5f;
+        //         this.lantern1.x = 1f;
+        //         this.lantern1.z = -0.5f;
+        //     }
+        // }
+
+        // if (entityIn.isVehicle()) {
+        //     float animHeight = entityIn.getAnimationHeight(partialTicks);
+        //     this.rightArm.xRot = this.toRads(40 - animHeight * 15);
+        // }
     }
 
-
-    @Override
-    public void setupAnim(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-                          float netHeadYaw, float headPitch) {
-        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-
-        entityIn.riderLimbSwing = limbSwing;
-        entityIn.riderLimbSwingAmount = limbSwingAmount;
-
-        this.showModels(entityIn);
-        this.lantern4.setColor(1, 1, 1, (Mth.cos(ageInTicks * 0.2f) + 1) * 0.5f);
-
-        this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
-        this.head.xRot = headPitch * (PI / 180f) * 0.7f - 0.26f;
-
-        if (entityIn.isPartying()) {
-            this.body.xRot = -this.toRads(90);
-            this.rightLeg.xRot = this.toRads(15);
-            this.leftLeg.xRot = this.toRads(15);
-            this.head.yRot = 0;
-            this.head.xRot = 0;
-        } else if (entityIn.isSitting()) {
-            this.rightArm.xRot = 0;
-            this.leftArm.xRot = 0;
-            this.rightLeg.xRot = -PI / 2;
-            this.leftLeg.xRot = -PI / 2;
-            this.body.xRot = 0;
-        } else {
-            this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
-            this.leftArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
-            this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
-            this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
-            this.body.xRot = entityIn.isInWater() ? 1 : 0.44f;
-        }
-
-        if (entityIn.isAngry()) {
-            this.leftEye.zRot = -this.toRads(45);
-            this.rightEye.zRot = -this.toRads(45);
-            this.leftEar.zRot = this.toRads(20);
-            this.rightEar.zRot = -this.toRads(20);
-        } else {
-            this.leftEye.zRot = 0;
-            this.rightEye.zRot = 0;
-            this.leftEar.zRot = 0;
-            this.rightEar.zRot = 0;
-        }
-
-        if (entityIn.isGiving()) {
-            this.leftArm.yRot = this.toRads(40);
-            this.rightArm.yRot = -this.toRads(40);
-            this.leftArm.xRot -= this.toRads(40);
-            this.rightArm.xRot -= this.toRads(40);
-        } else {
-            this.leftArm.yRot = 0;
-            this.rightArm.yRot = 0;
-        }
-
-        this.trunk1.xRot = -0.86f + Mth.cos(ageInTicks / 10) * 0.15f;
-        this.trunk2.xRot = -0.47f + Mth.cos(ageInTicks / 10) * 0.15f;
-        this.trunk3.xRot = 0.39f + Mth.cos(ageInTicks / 10) * 0.15f;
-        this.tentacle1.zRot = 0.58f + Mth.cos(ageInTicks / 10) * 0.07f;
-        this.tentacle3.zRot = -0.58f - Mth.cos(ageInTicks / 10) * 0.07f;
-
-        if (entityIn.hasBlacksmithUpgrade()) {
-            if (entityIn.isSitting()) {
-                this.lantern1.xRot = this.toRads(0);
-                this.lantern1.y = -1.6f;
-                this.lantern1.x = 3f;
-                this.lantern1.z = -5f;
-            } else {
-                this.leftArm.xRot = Mth.cos(limbSwing * 0.4f + PI) * limbSwingAmount * 0.2f + this.toRads(-100);
-                this.lantern1.yRot = Mth.cos(ageInTicks * 0.2f) * this.toRads(5);
-                this.lantern1.zRot = -Mth.cos(ageInTicks * 0.2f) * this.toRads(5);
-                this.lantern1.xRot = this.toRads(74);
-                this.lantern1.y = 3.5f;
-                this.lantern1.x = 1f;
-                this.lantern1.z = -0.5f;
-            }
-        }
-
-        if (entityIn.isVehicle()) {
-            float animHeight = entityIn.getAnimationHeight(partialTicks);
-            this.rightArm.xRot = this.toRads(40 - animHeight * 15);
-        }
-    }
-
-    @Override
-    public void prepareMobModel(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                                float partialTick) {
-        if (entityIn.isSitting() && !entityIn.isPartying()) {
-            this.leftWing.yRot = -0.43f;
-            this.rightWing.yRot = 0.43f;
-        } else {
-            float animationHeight = entityIn.getAnimationHeight(partialTick);
-            this.leftWing.yRot = animationHeight * this.toRads(20) - 0.43f;
-            this.rightWing.yRot = -animationHeight * this.toRads(20) + 0.43f;
-        }
-    }
+    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
+    // if (entityIn.isSitting() && !entityIn.isPartying()) {
+    //     this.leftWing.yRot = -0.43f;
+    //     this.rightWing.yRot = 0.43f;
+    // } else {
+    //     float animationHeight = entityIn.getAnimationHeight(partialTick);
+    //     this.leftWing.yRot = animationHeight * this.toRads(20) - 0.43f;
+    //     this.rightWing.yRot = -animationHeight * this.toRads(20) + 0.43f;
+    // }
 
     private float toRads(float deg) {
         return PI / 180f * deg;

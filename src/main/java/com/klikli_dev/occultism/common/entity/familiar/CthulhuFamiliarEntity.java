@@ -147,7 +147,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.riderRot0 = this.riderRot;
         this.riderRot = Mth.approachDegrees(this.riderRot, this.yRotO, 10);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.lightTimer--;
             if (this.lightTimer < 0) {
                 this.lightTimer = 10;
@@ -204,7 +204,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     private void removeLight(BlockPos pos) {
-        if (!this.level().isClientSide && pos != null
+        if (!this.level().isClientSide() && pos != null
                 && this.level().getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
             this.level().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
@@ -224,7 +224,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.isInWater()) {
                 this.navigation = this.waterNavigator;
                 this.setSwimming(true);
@@ -255,8 +255,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void hurt(DamageSource source, float amount) {
-        super.hurt(source, amount);
+    public void actuallyHurt(ServerLevel serverLevel, DamageSource source, float amount) {
+        super.actuallyHurt(serverLevel, source, amount);
         if (source.getEntity() == this.getFamiliarOwner()) {
             this.setAngry(true);
             this.setSitting(true);
@@ -264,7 +264,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         } else if (source.getEntity() != null) {
             Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
             if (tp != null) {
-                this.absMoveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRotO,
+                this.snapTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRotO,
                         this.xRotO);
             }
             this.navigation.stop();

@@ -22,11 +22,10 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.geckolib.model.DefaultedGeoModel;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.MaridUnboundEntity;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
-import com.geckolib.model.DefaultedGeoModel;
 
 public class MaridUnboundModel extends DefaultedGeoModel<MaridUnboundEntity> {
 
@@ -37,11 +36,6 @@ public class MaridUnboundModel extends DefaultedGeoModel<MaridUnboundEntity> {
     @Override
     protected String subtype() {
         return "entity";
-    }
-
-    @Override
-    public RenderType getRenderType(MaridUnboundEntity animatable, Identifier texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
     }
 }
 

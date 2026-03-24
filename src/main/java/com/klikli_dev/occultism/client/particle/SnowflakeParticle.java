@@ -24,12 +24,14 @@ package com.klikli_dev.occultism.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
 public class SnowflakeParticle extends SingleQuadParticle {
     private SnowflakeParticle(ClientLevel worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
-                              double ySpeedIn, double zSpeedIn) {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn);
+                              double ySpeedIn, double zSpeedIn, TextureAtlasSprite sprite) {
+        super(worldIn, xCoordIn, yCoordIn, zCoordIn, sprite);
         this.xd = xSpeedIn;
         this.yd = -0.05;
         this.zd = zSpeedIn;
@@ -52,8 +54,8 @@ public class SnowflakeParticle extends SingleQuadParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    protected SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
     public static class Factory implements ParticleProvider<SimpleParticleType> {
@@ -65,10 +67,8 @@ public class SnowflakeParticle extends SingleQuadParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z,
-                                       double xSpeed, double ySpeed, double zSpeed) {
-            SnowflakeParticle particle = new SnowflakeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.pickSprite(this.sprite);
-            return particle;
+                                       double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
+            return new SnowflakeParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite.get(random));
         }
     }
 }

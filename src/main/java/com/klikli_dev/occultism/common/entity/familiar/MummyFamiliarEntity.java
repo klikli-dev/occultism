@@ -86,7 +86,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.level().isClientSide && this.fightPose != -1) {
+        if (this.level().isClientSide() && this.fightPose != -1) {
             this.capowOffset0 = this.capowOffset;
             if (this.fightTimer++ == MAX_FIGHT_TIMER) {
                 this.fightTimer = 0;
