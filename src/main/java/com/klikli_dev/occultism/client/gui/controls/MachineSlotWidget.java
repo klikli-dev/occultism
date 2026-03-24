@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.client.gui.controls;
 
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -74,7 +73,7 @@ public class MachineSlotWidget {
     }
 
     public void drawSlot(GuiGraphics guiGraphics, int mx, int my) {
-        guiGraphics.pose().pushPose();
+        guiGraphics.pose().pushMatrix();
         //render item
         //RenderHelper.setupGuiFlatDiffuseLighting();
 
@@ -86,12 +85,10 @@ public class MachineSlotWidget {
             guiGraphics.renderItem(this.machine.getInsertItemStack(), this.x, this.y);
 
         if (isMouseOverSlot) {
-            RenderSystem.colorMask(true, true, true, false);
             this.parent.drawGradientRect(guiGraphics, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                     this.slotHighlightColor);
-            RenderSystem.colorMask(true, true, true, true);
         }
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
     public void drawTooltip(GuiGraphics guiGraphics, int mx, int my) {

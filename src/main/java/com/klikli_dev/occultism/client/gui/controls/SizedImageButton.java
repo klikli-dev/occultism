@@ -22,9 +22,9 @@
 
 package com.klikli_dev.occultism.client.gui.controls;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
@@ -76,15 +76,14 @@ public class SizedImageButton extends Button {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             int i = this.xTexStart;
             int j = this.yTexStart;
             if (this.isHoveredOrFocused()) {
                 i += this.xDiffOffset;
             }
-            RenderSystem.enableDepthTest();
-            guiGraphics.blit(this.resourceLocation, this.getX(), this.getY(), this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.resourceLocation, this.getX(), this.getY(), (float) i, (float) j, this.width, this.height, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
         }
     }
 }

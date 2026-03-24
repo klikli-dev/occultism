@@ -24,9 +24,9 @@ package com.klikli_dev.occultism.client.gui.satchel;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,9 +38,6 @@ public class RitualSatchelScreen extends AbstractContainerScreen<AbstractSatchel
     public RitualSatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv,
                                Component titleIn) {
         super(screenContainer, inv, titleIn);
-
-        this.imageWidth = 176;
-        this.imageHeight = 166;
     }
 
     @Override
@@ -65,8 +62,7 @@ public class RitualSatchelScreen extends AbstractContainerScreen<AbstractSatchel
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX,
                             int mouseY) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(BACKGROUND, this.leftPos, this.topPos, 0, 0, this.imageWidth,
-                this.imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth,
+                this.imageHeight, 256, 256);
     }
 }

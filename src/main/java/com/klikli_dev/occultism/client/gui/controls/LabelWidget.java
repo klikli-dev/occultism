@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.client.gui.controls;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -74,9 +73,6 @@ public class LabelWidget extends AbstractWidget {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             Font fontrenderer = minecraft.font;
-            RenderSystem.clearColor(1.0F, 1.0F, 1.0F, this.alpha);
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
 
             if (this.centered && this.width <= 0 && this.lines.size() > 0)
                 this.width = fontrenderer.width(this.lines.get(0));
@@ -97,9 +93,9 @@ public class LabelWidget extends AbstractWidget {
 
     public void drawCenteredLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text) / 2), (float) y, color, true);
+            guiGraphics.drawString(font, text, (int) (x - font.width(text) / 2), y, color, true);
         } else {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text) / 2), (float) y, color, false);
+            guiGraphics.drawString(font, text, (int) (x - font.width(text) / 2), y, color, false);
         }
     }
 
@@ -107,9 +103,9 @@ public class LabelWidget extends AbstractWidget {
                                             int x, int y,
                                             int color) {
         if (this.shadow) {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text)), (float) y, color, true);
+            guiGraphics.drawString(font, text, (int) (x - font.width(text)), y, color, true);
         } else {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text)), (float) y, color, false);
+            guiGraphics.drawString(font, text, (int) (x - font.width(text)), y, color, false);
         }
 
     }

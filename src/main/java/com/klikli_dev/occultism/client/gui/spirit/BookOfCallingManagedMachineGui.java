@@ -33,6 +33,9 @@ import com.klikli_dev.occultism.util.EnumUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
@@ -149,26 +152,26 @@ public class BookOfCallingManagedMachineGui extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        if (this.text.mouseClicked(mouseX, mouseY, mouseButton))
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        if (this.text.mouseClicked(event, doubleClick))
             return true;
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(event, doubleClick);
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
-        if (this.text.keyPressed(keyCode, scanCode, p_keyPressed_3_))
+    public boolean keyPressed(KeyEvent event) {
+        if (this.text.keyPressed(event))
             return true;
-        return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
+        return super.keyPressed(event);
     }
 
     @Override
-    public boolean charTyped(char typedChar, int keyCode) {
-        if (this.text.charTyped(typedChar, keyCode)) {
+    public boolean charTyped(CharacterEvent event) {
+        if (this.text.charTyped(event)) {
             this.customName = this.text.getValue();
             return true;
         } else {
-            return super.charTyped(typedChar, keyCode);
+            return super.charTyped(event);
         }
     }
 

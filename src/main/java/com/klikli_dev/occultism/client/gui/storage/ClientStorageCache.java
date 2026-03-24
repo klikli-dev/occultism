@@ -22,19 +22,14 @@
 
 package com.klikli_dev.occultism.client.gui.storage;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ClientStorageCache {
-    private final Int2ObjectOpenHashMap<List<ItemStack>> entriesByItemId = new Int2ObjectOpenHashMap<>();
     private List<ItemStack> stacks = new ArrayList<>();
-    private boolean entriesByItemIdNeedsUpdate = true;
 
     public List<ItemStack> stacks() {
         return this.stacks;
@@ -42,49 +37,15 @@ public class ClientStorageCache {
 
     public void update(List<ItemStack> stacks) {
         this.stacks = stacks;
-
-        this.entriesByItemIdNeedsUpdate = true;
     }
 
     public List<ItemStack> getByIngredient(Ingredient ingredient) {
         var entries = new ArrayList<ItemStack>();
-        for (int i = 0; i < ingredient.getStackingIds().size(); i++) {
-            var itemId = ingredient.getStackingIds().getInt(i);
-            for (var entry : this.getByItemId(itemId)) {
-                if (ingredient.test(entry)) {
-                    entries.add(entry);
-                }
+        for (var entry : this.stacks) {
+            if (ingredient.test(entry)) {
+                entries.add(entry);
             }
         }
         return entries;
-    }
-
-    private Collection<ItemStack> getByItemId(int itemId) {
-        if (this.entriesByItemIdNeedsUpdate) {
-            this.rebuildItemIdToEntries();
-            this.entriesByItemIdNeedsUpdate = false;
-        }
-        return this.entriesByItemId.getOrDefault(itemId, List.of());
-    }
-
-    private void rebuildItemIdToEntries() {
-        this.entriesByItemId.clear();
-        for (var entry : this.stacks()) {
-            var itemId = BuiltInRegistries.ITEM.getId(entry.getItem());
-            var currentList = this.entriesByItemId.get(itemId);
-            if (currentList == null) {
-                // For many items without NBT, this list will only ever have one entry
-                this.entriesByItemId.put(itemId, List.of(entry));
-            } else if (currentList.size() == 1) {
-                // Convert the list from an immutable single-entry list to a mutable normal arraylist
-                var mutableList = new ArrayList<ItemStack>(10);
-                mutableList.addAll(currentList);
-                mutableList.add(entry);
-                this.entriesByItemId.put(itemId, mutableList);
-            } else {
-                // If it had more than 1 item, it must have been mutable already
-                currentList.add(entry);
-            }
-        }
     }
 }
