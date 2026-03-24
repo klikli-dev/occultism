@@ -134,7 +134,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        if (player.level().isClientSide)
+        if (player.level().isClientSide())
             return ItemStack.EMPTY;
 
         ItemStack result = ItemStack.EMPTY;
@@ -226,7 +226,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     protected void findRecipeForMatrixClient() {
         var optional =
-                this.player.level().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                this.player.level().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
                         CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()), this.player.level());
         optional.ifPresentOrElse(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe, () -> this.currentRecipe = null);
     }
@@ -234,7 +234,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected void findRecipeForMatrix() {
         //NOTE: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
         //      and call it onCraftingMatrixChanged(). Send slot packet!
-        if (!this.player.level().isClientSide) {
+        if (!this.player.level().isClientSide()) {
             this.currentRecipe = null;
             ServerPlayer serverplayerentity = (ServerPlayer) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
@@ -243,8 +243,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                             this.player.level());
             if (optional.isPresent()) {
                 var icraftingrecipe = optional.get();
-                if (this.result.setRecipeUsed(this.player.level(), serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.value().assemble(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()), serverplayerentity.level().registryAccess());
+                if (this.result.setRecipeUsed(serverplayerentity, icraftingrecipe)) {
+                    itemstack = icraftingrecipe.value().assemble(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()));
                     this.currentRecipe = icraftingrecipe;
                 }
             }
@@ -274,7 +274,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = this.currentRecipe.value().assemble(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()), player.level().registryAccess());
+        ItemStack result = this.currentRecipe.value().assemble(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()));
         if (result.isEmpty()) {
             return;
         }
@@ -290,7 +290,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-            ItemStack newResult = this.currentRecipe.value().assemble(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()), player.level().registryAccess()).copy();
+            ItemStack newResult = this.currentRecipe.value().assemble(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems())).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 
@@ -336,8 +336,9 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     }
 
                     //handle container item refunding
-                    if (!stackInSlot.getItem().getCraftingRemainingItem(stackInSlot).isEmpty()) {
-                        ItemStack container = stackInSlot.getItem().getCraftingRemainingItem(stackInSlot);
+                    var remainder = stackInSlot.getItem().getCraftingRemainder();
+                    if (remainder != null) {
+                        ItemStack container = remainder.create();
                         if (!stackInSlot.isStackable()) {
                             stackInSlot = container;
                             this.matrix.setItem(currentSlot, stackInSlot);
@@ -461,22 +462,22 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         // Otherwise recipes that need 4x<item> will not correctly show missing items if at least 1 of <item> is in
         // the grid.
         var reservedGridAmounts = new Object2IntOpenHashMap<>();
-        var playerItems = this.playerInventory.items;
-        var reservedPlayerItems = new int[playerItems.size()];
+        int playerInvSize = this.playerInventory.getContainerSize();
+        var reservedPlayerItems = new int[playerInvSize];
 
         for (var entry : ingredients.entrySet()) {
             var ingredient = entry.getValue();
 
             boolean found = false;
             // Player inventory is cheaper to check
-            for (int i = 0; i < playerItems.size(); i++) {
+            for (int i = 0; i < playerInvSize; i++) {
                 // Do not consider locked slots
                 //TODO: check if we need to check for locked slot ( = the storage remote slot) here.
 //                if (isPlayerInventorySlotLocked(i)) {
 //                    continue;
 //                }
 
-                var stack = playerItems.get(i);
+                var stack = this.playerInventory.getItem(i);
                 if (stack.getCount() - reservedPlayerItems[i] > 0 && ingredient.test(stack)) {
                     reservedPlayerItems[i]++;
                     found = true;

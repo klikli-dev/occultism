@@ -26,7 +26,6 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -46,6 +45,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.Tags;
 
@@ -93,11 +94,11 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         Item item = stack.getItem();
         if (playerIn == this.getFamiliarOwner() && this.ironCount < getMaxIron()
                 && (stack.is(Tags.Items.INGOTS_IRON) || stack.is(Tags.Items.STORAGE_BLOCKS_IRON))) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 stack.shrink(1);
                 this.changeIronCount(stack.is(Tags.Items.INGOTS_IRON) ? 1 : 9);
             }
-            return InteractionResult.sidedSuccess(!this.level().isClientSide);
+            return !this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return super.mobInteract(playerIn, hand);
     }
@@ -169,20 +170,15 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     */
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("ironCount", this.ironCount);
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("ironCount", this.ironCount);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants")) {
-            this.setEarring(compound.getBoolean("hasEarring"));
-            this.setMarioMoustache(compound.getBoolean("hasMarioMoustache"));
-            this.setSquareHair(compound.getBoolean("hasSquareHair"));
-        }
-        this.setIronCount(compound.getInt("ironCount"));
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setIronCount(input.getIntOr("ironCount", 0));
     }
 
     private static class UpgradeGoal extends Goal {

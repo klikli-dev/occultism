@@ -46,16 +46,19 @@ public class ClientPentacleManager {
             if(!(allPentacles.isEmpty() && mc.level.getGameTime() - lastPentacleQueryTime < 20)) {
                 lastPentacleQueryTime = mc.level.getGameTime();
                 lastHovered = pos;
-                allPentacles = mc.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream()
-                        .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
-                        .collect(Collectors.toMap(
-                                r -> r.value().getPentacle().getId(),
-                                Function.identity(),
-                                (existing, replacement) -> existing
-                        ))
-                        .values().stream()
-                        .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
-                        .collect(Collectors.toList());
+                var server = mc.level.getServer();
+                if (server != null) {
+                    allPentacles = server.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream()
+                            .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
+                            .collect(Collectors.toMap(
+                                    r -> r.value().getPentacle().getId(),
+                                    Function.identity(),
+                                    (existing, replacement) -> existing
+                            ))
+                            .values().stream()
+                            .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
+                            .collect(Collectors.toList());
+                }
                 currentPage = 0;
                 calculateTotalPages();
                 updateDisplayedPentacles();

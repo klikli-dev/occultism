@@ -58,12 +58,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.CharacterEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.apache.commons.lang3.StringUtils;
 
@@ -207,7 +211,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         if (this.minecraft.player.level().dimension() != machine.insertGlobalPos.getDimensionKey())
             tooltip.add(Component.translatable(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
-                    machine.insertGlobalPos.getDimensionKey().id() +
+                    machine.insertGlobalPos.getDimensionKey().identifier() +
                     ChatFormatting.RESET));
 
         guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, x, y);
@@ -318,6 +322,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 //        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks); //called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
+        // Poll order slot to detect autocrafting mode change (replaces removed Container.addListener)
+        this.containerChanged(this.storageControllerContainer.getOrderSlot());
+
         this.renderTooltip(guiGraphics, mouseX, mouseY);
         if (!this.isGuiValid()) {
             this.minecraft.player.closeContainer();
@@ -367,8 +374,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int mouseButton = event.button();
+        super.mouseClicked(event, doubleClick);
 
         this.searchBar.setFocused(false);
 
@@ -426,14 +436,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == InputConstants.KEY_ESCAPE) {
+    public boolean keyPressed(KeyEvent event) {
+        if (event.key() == InputConstants.KEY_ESCAPE) {
             this.minecraft.player.closeContainer();
         }
 
-        var nothandled = !this.searchBar.keyPressed(keyCode, scanCode, modifiers) && !this.searchBar.canConsumeInput();
+        var nothandled = !this.searchBar.keyPressed(event) && !this.searchBar.canConsumeInput();
         if (nothandled)
-            return super.keyPressed(keyCode, scanCode, modifiers);
+            return super.keyPressed(event);
 
         // OccultismEmiIntegration excluded from build - EMI sync disabled
         if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
@@ -447,12 +457,22 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         return true;
     }
 
-    @Override
+    // SimpleContainer.addListener was removed in 26.1; poll the order slot each frame instead
     public void containerChanged(Container inventory) {
         if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getItem(0).isEmpty()) {
             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
             this.init();
         }
+    }
+
+    @Override
+    public void slotChanged(AbstractContainerMenu menu, int slotIndex, ItemStack itemStack) {
+        // No slot change handling needed
+    }
+
+    @Override
+    public void dataChanged(AbstractContainerMenu menu, int dataSlotIndex, int value) {
+        // No data slots to track
     }
 
     @Override
@@ -472,8 +492,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean charTyped(char typedChar, int keyCode) {
-        if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
+    public boolean charTyped(CharacterEvent event) {
+        if (this.searchBar.isFocused() && this.searchBar.charTyped(event)) {
             Networking.sendToServer(new MessageRequestStacks());
             // OccultismEmiIntegration excluded from build - EMI sync disabled
             if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
@@ -888,7 +908,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("$")) {
             StringBuilder tagStringBuilder = new StringBuilder();
-            stack.getItemHolder().tags().forEach(
+            stack.getItem().builtInRegistryHolder().tags().forEach(
                     tag -> tagStringBuilder.append(tag.location()).append(" ")
             );
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));

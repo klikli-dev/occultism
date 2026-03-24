@@ -102,7 +102,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
             return false;
 
         //send stack updates on a slow tick while interacting
-        if (!level.isClientSide && level.getGameTime() % 40 == 0) {
+        if (!level.isClientSide() && level.getGameTime() % 40 == 0) {
             Networking.sendTo((ServerPlayer) player, this.storageController.getMessageUpdateStacks());
             Networking.sendTo((ServerPlayer) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));

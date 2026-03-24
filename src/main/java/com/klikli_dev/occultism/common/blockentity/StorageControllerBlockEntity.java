@@ -54,6 +54,7 @@ import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -212,8 +213,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 .map(entry -> (Predicate<ItemStack>) stack -> stack.getItem() == entry.getKey()).toList();
     }
 
-    private <E extends GeoBlockEntity> PlayState predicate(AnimationTest<E> event) {
-        event.getController().setAnimation(RawAnimation.begin()
+    private PlayState predicate(AnimationTest<StorageControllerBlockEntity> event) {
+        event.setAnimation(RawAnimation.begin()
                 .thenLoop("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
     }
@@ -225,7 +226,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             if (matrix.get(i) != null && !matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                stackTag.put("stack", matrix.get(i).save(provider));
+                stackTag.put("stack", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), matrix.get(i)).getOrThrow());
                 matrixNbt.add(stackTag);
             }
         }
@@ -240,7 +241,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompoundOrEmpty(i);
                 int slot = stackTag.getByteOr("slot", (byte) 0);
-                ItemStack s = ItemStack.parseOptional(provider, stackTag.getCompoundOrEmpty("stack"));
+                ItemStack s = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), stackTag.getCompoundOrEmpty("stack")).result().orElse(ItemStack.EMPTY);
                 matrix.put(slot, s);
             }
         }
@@ -545,17 +546,17 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //linked machines are not saved, they self-register.
 
         //read stored items
-        if (input.child("items").isPresent()) {
-            this.itemStackHandler.deserialize(input.childOrEmpty("items"));
+        input.read("items", CompoundTag.CODEC).ifPresent(tag -> {
+            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), tag);
             this.cachedMessageUpdateStacks = null;
-        }
+        });
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         //linked machines are not saved, they self-register.
-        this.itemStackHandler.serialize(output.child("items"));
+        output.store("items", CompoundTag.CODEC, this.itemStackHandler.serializeNBT(this.level.registryAccess()));
     }
 
     @Override
@@ -610,13 +611,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             this.sortType = pComponentInput.get(OccultismDataComponents.SORT_TYPE);
 
         if (pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX) != null) {
-            this.matrix = loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe(), this.level.registryAccess());
+            this.matrix = loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).copyTag(), this.level.registryAccess());
         }
         if (pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
-            this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
+            this.orderStack = ItemStack.OPTIONAL_CODEC.parse(this.level.registryAccess().createSerializationContext(NbtOps.INSTANCE), pComponentInput.get(OccultismDataComponents.ORDER_STACK).copyTag()).result().orElse(ItemStack.EMPTY);
 
         if (pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()) != null) {
-            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).getUnsafe());
+            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).copyTag());
         }
     }
 
@@ -629,12 +630,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         pComponents.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(saveMatrix(this.matrix, this.level.registryAccess())));
 
-        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) this.orderStack.saveOptional(this.level.registryAccess())));
+        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(this.level.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.orderStack).getOrThrow()));
 
         pComponents.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS, CustomData.of(this.itemStackHandler.serializeNBT(this.level.registryAccess())));
     }
 
-    @Override
     public void removeComponentsFromTag(CompoundTag pTag) {
         //this causes stuff to get lost. Not sure why / how it is used in vanilla shulker boxes
 //        pTag.remove("items");
@@ -653,7 +653,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::predicate));
+        controllers.add(new AnimationController<StorageControllerBlockEntity>("controller", 0, this::predicate));
     }
 
     @Override

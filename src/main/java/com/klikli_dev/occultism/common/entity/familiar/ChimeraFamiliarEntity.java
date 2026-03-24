@@ -30,7 +30,6 @@ import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtTargetGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -61,6 +60,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -139,7 +140,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
             this.goatNoseTimer++;
 
             if (this.attackTimer > 0 && this.getAttacker() == LION_ATTACKER) {
-                Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(this.getScale());
+                Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(this.getFamiliarScale());
                 for (int i = 0; i < 5; i++) {
                     Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
                             1 + (this.getRandom().nextFloat() - 0.5f) * 0.7,
@@ -186,26 +187,13 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants")) {
-            this.setFlaps(compound.getBoolean("hasFlaps"));
-            this.setRing(compound.getBoolean("hasRing"));
-            if (compound.contains("hasBeard"))
-                this.setBeard(compound.getBoolean("hasBeard"));
-            this.setHat(compound.getBoolean("hasHat"));
-            this.setGoat(compound.getBoolean("hasGoat"));
-        }
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasFlaps", this.hasFlaps());
-        compound.putBoolean("hasRing", this.hasRing());
-        compound.putBoolean("hasBeard", this.hasBeard());
-        compound.putBoolean("hasHat", this.hasHat());
-        compound.putBoolean("hasGoat", this.hasGoat());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
     }
 
     @Override
@@ -317,20 +305,20 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 this.level().addFreshEntity(goat);
                 OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         if (this.getSize() < MAX_SIZE && food != null && stack.is(ItemTags.MEAT)) {
             stack.shrink(1);
             this.setSize((byte) (this.getSize() + food.nutrition()));
             this.heal(4);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (!this.isSitting() && !this.isVehicle() && !playerIn.isSecondaryUseActive()
                 && this.getFamiliarOwner() == playerIn && this.getSize() > RIDING_SIZE) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 playerIn.startRiding(this);
                 OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.CHIMERA_RIDE);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
 
         return super.mobInteract(playerIn, hand);
@@ -382,7 +370,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, d1, vec3.z);
         this.setIsJumping(true);
-        this.hasImpulse = true;
         net.neoforged.neoforge.common.CommonHooks.onLivingJump(this);
         if (pTravelVector.z > 0.0) {
             float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));
@@ -483,7 +470,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+    public boolean causeFallDamage(double pFallDistance, float pMultiplier, DamageSource pSource) {
         return false;
     }
 
@@ -506,7 +493,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     private static class DummyBoostHelper extends ItemBasedSteering {
 
         public DummyBoostHelper() {
-            super(null, null, null);
+            super(null, null);
         }
 
         @Override
@@ -518,20 +505,16 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
             return false;
         }
 
-        @Override
-        public void addAdditionalSaveData(CompoundTag pNbt) {
+        private void addAdditionalSaveData() {
         }
 
-        @Override
-        public void readAdditionalSaveData(CompoundTag pNbt) {
+        private void readAdditionalSaveData() {
         }
 
-        @Override
-        public void setSaddle(boolean pSaddled) {
+        private void setSaddle() {
         }
 
-        @Override
-        public boolean hasSaddle() {
+        private boolean hasSaddle() {
             return false;
         }
 

@@ -38,6 +38,7 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -194,10 +195,10 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
             this.sortType = pComponentInput.get(OccultismDataComponents.SORT_TYPE);
 
         if (pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX) != null) {
-            this.matrix = StorageControllerBlockEntity.loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe(), this.level.registryAccess());
+            this.matrix = StorageControllerBlockEntity.loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).copyTag(), this.level.registryAccess());
         }
         if (pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
-            this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
+            this.orderStack = ItemStack.OPTIONAL_CODEC.parse(this.level.registryAccess().createSerializationContext(NbtOps.INSTANCE), pComponentInput.get(OccultismDataComponents.ORDER_STACK).copyTag()).result().orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -211,10 +212,9 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
 
         pComponents.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(StorageControllerBlockEntity.saveMatrix(this.matrix, this.level.registryAccess())));
 
-        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) this.orderStack.saveOptional(this.level.registryAccess())));
+        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(this.level.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.orderStack).getOrThrow()));
     }
 
-    @Override
     public void removeComponentsFromTag(CompoundTag pTag) {
         //this causes stuff to get lost. Not sure why / how it is used in vanilla shulker boxes
 //        pTag.remove("items");

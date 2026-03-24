@@ -38,6 +38,9 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.CharacterEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -163,7 +166,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int mouseButton = event.button();
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
@@ -172,31 +178,31 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             }
         }
 
-        if (this.tagFilterTextField.mouseClicked(mouseX, mouseY, mouseButton)) {
+        if (this.tagFilterTextField.mouseClicked(event, doubleClick)) {
             return true;
         }
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(event, doubleClick);
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent event) {
         //prevent exiting without saving
         this.setTagFilterText(this.tagFilterTextField.getValue());
 
         if (this.tagFilterTextField.isFocused() &&
-                this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
+                this.tagFilterTextField.keyPressed(event)) {
             return true;
         }
 
         //Handle inventory key down in search bar:
         if (this.tagFilterTextField.isFocused()) {
-            InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
+            InputConstants.Key mouseKey = InputConstants.getKey(event);
             if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)) {
                 return true;
             }
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(event);
     }
 
     @Override
@@ -210,8 +216,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    public boolean charTyped(char codePoint, int modifiers) {
-        if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(codePoint, modifiers)) {
+    public boolean charTyped(CharacterEvent event) {
+        if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(event)) {
             this.setTagFilterText(this.tagFilterTextField.getValue());
         }
 

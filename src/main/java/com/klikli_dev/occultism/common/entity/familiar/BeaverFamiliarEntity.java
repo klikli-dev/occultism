@@ -82,7 +82,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.isInWater()) {
                 this.navigation = this.waterNavigator;
                 this.setSwimming(true);
@@ -132,15 +132,15 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
             if (!pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"));
                 } else if (this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL) {
                     this.lastSnackTime = this.level().getGameTime();
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
                 } else {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"));
                 }
                 //even if we don't give a snack we return success, otherwise we make the familiar change sitting position
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
 
         }

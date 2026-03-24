@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import com.geckolib.model.DefaultedGeoModel;
 
@@ -37,11 +36,6 @@ public class AfritWildModel extends DefaultedGeoModel<AfritWildEntity> {
     @Override
     protected String subtype() {
         return "entity";
-    }
-
-    @Override
-    public RenderType getRenderType(AfritWildEntity animatable, Identifier texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
     }
 }
 

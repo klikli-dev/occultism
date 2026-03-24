@@ -121,7 +121,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 

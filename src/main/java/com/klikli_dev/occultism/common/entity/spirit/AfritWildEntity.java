@@ -43,6 +43,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.event.EventHooks;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.animatable.GeoEntity;
@@ -80,13 +81,13 @@ public class AfritWildEntity extends Monster implements GeoEntity {
         int maxBlazes = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
-            Blaze entity = EntityType.BLAZE.create(level.getLevel());
+            Blaze entity = EntityType.BLAZE.create(level.getLevel(), net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
 
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             level.addFreshEntity(entity);
         }
@@ -112,7 +113,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (source.is(DamageTypeTags.IS_FIRE))
             return true;
         TagKey<EntityType<?>> alliesTags = OccultismTags.Entities.AFRIT_ALLIES;
@@ -120,15 +121,15 @@ public class AfritWildEntity extends Monster implements GeoEntity {
         //alliesTags should never be null - should in fact be impossible - but somehow for some people sometimes is.
         if (alliesTags != null) {
             Entity trueSource = source.getEntity();
-            if (trueSource != null && trueSource.getType().is(alliesTags))
+            if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(alliesTags))
                 return true;
 
             Entity immediateSource = source.getDirectEntity();
-            if (immediateSource != null && immediateSource.getType().is(alliesTags))
+            if (immediateSource != null && immediateSource.getType().builtInRegistryHolder().is(alliesTags))
                 return true;
         }
 
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
@@ -138,7 +139,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }
 

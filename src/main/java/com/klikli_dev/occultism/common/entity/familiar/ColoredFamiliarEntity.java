@@ -22,13 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class ColoredFamiliarEntity extends FamiliarEntity {
 
@@ -52,19 +53,19 @@ public abstract class ColoredFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setRed(compound.getFloat("red"));
-        this.setGreen(compound.getFloat("green"));
-        this.setBlue(compound.getFloat("blue"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setRed(input.getFloatOr("red", 0f));
+        this.setGreen(input.getFloatOr("green", 0f));
+        this.setBlue(input.getFloatOr("blue", 0f));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putFloat("red", this.getRed());
-        compound.putFloat("green", this.getGreen());
-        compound.putFloat("blue", this.getBlue());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putFloat("red", this.getRed());
+        output.putFloat("green", this.getGreen());
+        output.putFloat("blue", this.getBlue());
     }
 
     public float getRed() {

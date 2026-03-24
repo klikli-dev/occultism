@@ -23,9 +23,6 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.common.entity.familiar.BatFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -33,12 +30,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
+public class BatFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -87,6 +85,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     public ModelPart rightChain3;
 
     public BatFamiliarModel(ModelPart part) {
+        super(part);
         this.body1 = part.getChild("body1");
         this.head = this.body1.getChild("head");
         this.body2 = this.body1.getChild("body2");
@@ -182,64 +181,20 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body1.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
-
-    @Override
-    public void setupAnim(BatFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float ageInTicks,
-                          float netHeadYaw, float headPitch) {
-        this.showModels(pEntity);
-
-        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: Entity-specific animation data needs to be passed via a custom render state
+        // For now, set default pose
         this.body1.yRot = 0;
         this.body1.zRot = 0;
-        this.head.xRot = this.toRads(headPitch);
-        this.head.yRot = this.toRads(netHeadYaw);
+        this.head.xRot = 0;
+        this.head.yRot = 0;
         this.head.zRot = 0;
         this.leftEar1.xRot = 0;
         this.rightEar1.xRot = 0;
-
-        float animationHeight = pEntity.getAnimationHeight(partialTicks);
-        this.leftWing1.xRot = animationHeight * this.toRads(20) - 0.15f;
-        this.rightWing1.xRot = animationHeight * this.toRads(20) - 0.15f;
-        this.leftWing1.yRot = animationHeight * this.toRads(20) - 0.15f;
-        this.rightWing1.yRot = -animationHeight * this.toRads(20) + 0.15f;
-        this.leftWing2.xRot = animationHeight * this.toRads(20) + this.toRads(15);
-        this.rightWing2.xRot = animationHeight * this.toRads(20) + this.toRads(15);
-        this.body1.xRot = this.toRads(20) + limbSwingAmount * this.toRads(30);
-        this.leftLeg.xRot = 0.24f + Mth.cos(ageInTicks * 0.1f) * this.toRads(20);
-        this.rightLeg.xRot = 0.24f + Mth.cos(ageInTicks * 0.1f) * this.toRads(20);
-
-        if (pEntity.isPartying()) {
-            float headRot = Mth.sin(ageInTicks / 3) * this.toRads(10);
-            float wingRot = Mth.sin(ageInTicks / 3) * this.toRads(40);
-            this.head.xRot = headRot;
-            this.head.yRot = headRot;
-            this.head.zRot = headRot;
-            this.leftWing1.xRot = wingRot;
-            this.rightWing1.xRot = wingRot;
-            this.leftWing1.yRot = wingRot;
-            this.rightWing1.yRot = wingRot;
-            this.leftWing2.xRot = wingRot;
-            this.rightWing2.xRot = wingRot;
-            this.body1.xRot = this.toRads(20) + limbSwingAmount * this.toRads(70);
-            this.leftEar1.xRot = Mth.cos(ageInTicks / 3 + PI) * this.toRads(25);
-            this.rightEar1.xRot = Mth.cos(ageInTicks / 3) * this.toRads(25);
-        } else if (pEntity.isSitting()) {
-            this.leftWing1.xRot = this.toRads(0);
-            this.rightWing1.xRot = this.toRads(0);
-            this.leftWing1.yRot = this.toRads(80);
-            this.rightWing1.yRot = -this.toRads(80);
-            this.leftWing2.xRot = this.toRads(15);
-            this.rightWing2.xRot = this.toRads(15);
-            this.head.xRot = 0.2f;
-            this.body1.xRot = this.toRads(180);
-            this.body1.yRot = this.toRads(180);
-            this.leftLeg.xRot = 0.24f;
-            this.rightLeg.xRot = 0.24f;
-        }
+        this.body1.xRot = this.toRads(20);
+        this.leftLeg.xRot = 0.24f;
+        this.rightLeg.xRot = 0.24f;
     }
 
     private float toRads(float deg) {

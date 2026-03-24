@@ -111,7 +111,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 ItemStack stack = e.getItem();
 
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
+                boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if (!isStackDemagnetized && !isEntityDemagnetized) {
                     e.playerTouch((Player) wearer);
@@ -126,7 +126,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         // Ears point to target block pos
         this.earRotX0 = this.earRotX;
         this.earRotZ0 = this.earRotZ;
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             Optional<BlockPos> targetBlock = this.getTargetBlock();
             if (targetBlock.isPresent()) {
                 Vec3 p = Vec3.atCenterOf(targetBlock.get());
@@ -200,11 +200,11 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, this.getOffhandItem());
             this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
             this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(stack.getItem()));
             stack.shrink(1);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
 
         return super.mobInteract(playerIn, hand);
@@ -259,7 +259,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 ItemStack stack = item.getItem();
 
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
+                boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if ((!isStackDemagnetized && !isEntityDemagnetized)
                         && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())

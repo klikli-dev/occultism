@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -44,6 +43,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
 import net.neoforged.neoforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
@@ -88,19 +88,16 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.level().isClientSide)
+        if (this.level().isClientSide())
             this.shakeHeadTimer--;
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (super.hurt(pSource, pAmount)) {
-            if (pSource.getEntity() != null) {
-                ringBell(this);
-            }
-            return true;
+    public void hurt(DamageSource pSource, float pAmount) {
+        super.hurt(pSource, pAmount);
+        if (pSource.getEntity() != null) {
+            ringBell(this);
         }
-        return false;
     }
 
     @Override
@@ -114,10 +111,8 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants"))
-            this.setRing(compound.getBoolean("hasRing"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
     }
 
     public boolean hasRing() {
@@ -181,7 +176,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                 if (!this.level().isClientSide) //do this down here because shrink will erase item info and cause checks to fail
                     stack.shrink(1);
 
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             } else {
                 this.shakeHeadTimer = 20;
                 return InteractionResult.CONSUME;
@@ -191,8 +186,8 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     private void transform() {
-        if (this.level().isClientSide) {
-            float scale = this.getScale();
+        if (this.level().isClientSide()) {
+            float scale = this.getFamiliarScale();
             for (int i = 0; i < 30; i++)
                 this.level().addParticle(ParticleTypes.SMOKE, this.getRandomX(scale), this.getRandomY() * scale, this.getRandomZ(scale), 0, 0,
                         0);

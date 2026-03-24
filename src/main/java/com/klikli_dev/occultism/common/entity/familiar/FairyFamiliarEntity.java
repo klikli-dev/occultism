@@ -32,6 +32,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.ARGB;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -65,8 +66,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import org.joml.Vector3f;
-
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
@@ -87,7 +86,6 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         super(type, level);
         this.setPathfindingMalus(PathType.WALKABLE, -1);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.noCulling = true;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -193,16 +191,16 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
             if (itemstack.is(Items.GLASS_BOTTLE)) {
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.fairy.no_upgrade"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.fairy.no_upgrade"));
                 } else if (this.level().getGameTime() > this.lastBreathTime + BREATH_INTERVAL) {
                     this.lastBreathTime = this.level().getGameTime();
                     itemstack.shrink(1);
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.DRAGON_BREATH));
                 } else {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.fairy.breath_on_cooldown"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.fairy.breath_on_cooldown"));
                 }
                 //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
 
         }
@@ -247,7 +245,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     private ParticleOptions createParticle() {
         return FamiliarUtil.isChristmas() ? OccultismParticles.SNOWFLAKE.get()
-                : new DustParticleOptions(new Vector3f(0.9f, 0.9f, 0.5f), 1);
+                : new DustParticleOptions(ARGB.color(255, 229, 229, 127), 1);
     }
 
     private void magicParticle() {
@@ -348,11 +346,11 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public void hurt(DamageSource pSource, float pAmount) {
         if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && this.getMagicTarget() != null)
-            return false;
+            return;
 
-        return super.hurt(pSource, pAmount);
+        super.hurt(pSource, pAmount);
     }
 
     @Override
@@ -379,8 +377,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource p_147189_) {
-        return false;
+    public void causeFallDamage(double fallDistance, float damageMultiplier, DamageSource p_147189_) {
     }
 
     @Override
