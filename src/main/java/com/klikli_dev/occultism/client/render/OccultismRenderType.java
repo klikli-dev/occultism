@@ -25,14 +25,13 @@ package com.klikli_dev.occultism.client.render;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.rendertype.RenderType;
-
-import java.util.OptionalDouble;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 public class OccultismRenderType extends RenderType {
     public static final RenderType OVERLAY_LINES_ALTERNATIVE = create("overlay_lines_alternative", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES,
             256, false, false, RenderType.CompositeState.builder()
                     .setShaderState(RENDERTYPE_LINES_SHADER)
-                    .setLineState(new LineStateShard(OptionalDouble.empty()))
+                    // LineStateShard removed in 26.1 — using default line state
                     .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                     .setDepthTestState(NO_DEPTH_TEST)
@@ -40,20 +39,9 @@ public class OccultismRenderType extends RenderType {
                     .setCullState(NO_CULL)
                     .setWriteMaskState(COLOR_DEPTH_WRITE)
                     .createCompositeState(false));
-    private static final LineStateShard THICK_LINES = new LineStateShard(OptionalDouble.of(4.0D));
-    private static final RenderType OVERLAY_LINES = create("overlay_lines",
-            DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 256, false, false,
-            CompositeState.builder().setLineState(THICK_LINES)
-                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
-                    .setShaderState(RENDERTYPE_LINES_SHADER)
-                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                    .setTextureState(NO_TEXTURE)
-                    .setDepthTestState(NO_DEPTH_TEST)
-                    .setCullState(NO_CULL)
-                    .setLightmapState(NO_LIGHTMAP)
-                    .setWriteMaskState(COLOR_WRITE)
-                    .setOutputState(PARTICLES_TARGET)
-                    .createCompositeState(false));
+    // LineStateShard removed in 26.1; OVERLAY_LINES now delegates to RenderTypes.LINES
+    // private static final LineStateShard THICK_LINES = new LineStateShard(OptionalDouble.of(4.0D));
+    // private static final RenderType OVERLAY_LINES = create("overlay_lines", ...);
 
 
     public OccultismRenderType(String name, VertexFormat vertexFormat, VertexFormat.Mode drawMode, int bufferSize,
@@ -63,7 +51,7 @@ public class OccultismRenderType extends RenderType {
     }
 
     public static RenderType overlayLines() {
-        return OVERLAY_LINES;
+        return RenderTypes.LINES;
     }
 
     public static RenderType overlayLinesAlternative() {

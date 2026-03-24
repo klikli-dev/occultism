@@ -34,7 +34,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -90,7 +90,7 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (!pLevel.isClientSide) {
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) pLevel.getBlockEntity(pPos);
@@ -115,7 +115,7 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
                 bowl.setChanged();
             }
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

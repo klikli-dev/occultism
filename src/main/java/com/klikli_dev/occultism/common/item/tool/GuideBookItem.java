@@ -38,8 +38,9 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -56,7 +57,7 @@ public class GuideBookItem extends ModonomiconItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         //Copied from parent but statically gets DICTIONARY_OF_SPIRITS instead of from nbt
         var itemInHand = pPlayer.getItemInHand(pUsedHand);
         if (!itemInHand.has(DataComponentRegistry.BOOK_ID))
@@ -67,7 +68,7 @@ public class GuideBookItem extends ModonomiconItem {
             BookGuiManager.get().openBook(BookAddress.defaultFor(book));
         }
 
-        return InteractionResultHolder.sidedSuccess(itemInHand, pLevel.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

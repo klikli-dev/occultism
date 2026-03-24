@@ -36,7 +36,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -106,7 +105,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (level.isClientSide || !stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
@@ -124,7 +123,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         //then access it and if it fits, open UI
         if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController && player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(this, buffer -> buffer.writeVarInt(player.getInventory().selected));
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+            return InteractionResult.SUCCESS;
         }
         return super.use(level, player, hand);
     }

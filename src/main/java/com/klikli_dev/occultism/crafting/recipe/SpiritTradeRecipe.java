@@ -63,7 +63,7 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
             (r) -> r.trader,
             SpiritTradeRecipe::new
     );
-    public static Serializer SERIALIZER = new Serializer();
+    public static RecipeSerializer<SpiritTradeRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     public SpiritTradeRecipe(Ingredient input, WeightedRecipeResult result, String trader) {
         super(input, ItemStack.EMPTY);
@@ -157,16 +157,4 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
         return this.trader;
     }
 
-    public static class Serializer implements RecipeSerializer<SpiritTradeRecipe> {
-
-        @Override
-        public @NotNull MapCodec<SpiritTradeRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, SpiritTradeRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

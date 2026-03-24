@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.zombie.Drowned;
 import net.minecraft.world.level.Level;
 
 public class WildHordeDrownedEntity extends Drowned implements PossessedMob {

@@ -36,7 +36,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -50,7 +49,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
-import com.geckolib.util.Color;
+
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, LivingEntityRenderState, MummyFamiliarModel> {
 
@@ -86,7 +85,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
 
             MummyFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(EYES));
-            model.renderToBuffer(pMatrixStack, ivertexbuilder, LightTexture.pack(light, light),
+            model.renderToBuffer(pMatrixStack, ivertexbuilder, (light & 0xFFFF) << 16 | (light & 0xFFFF),
                     LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
         }
 
@@ -124,7 +123,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
             pMatrixStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
             model.renderToBuffer(pMatrixStack, pBuffer.getBuffer(model.renderType(KAPOW_TEXTURE)), pPackedLight,
                     OverlayTexture.NO_OVERLAY,
-                    Color.ofRGBA(1, 1, 1, alpha).getColor());
+                    ((int) (alpha * 255) << 24) | 0x00FFFFFF);
 
             pMatrixStack.pushPose();
             pMatrixStack.scale(0.07f, 0.07f, 0.07f);

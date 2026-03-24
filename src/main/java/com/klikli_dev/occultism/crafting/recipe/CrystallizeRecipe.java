@@ -65,7 +65,7 @@ public class CrystallizeRecipe extends SingleInputRecipe<TieredSingleRecipeInput
             Codec.BOOL.optionalFieldOf("ignore_crystallize_multiplier", false).forGetter(r -> r.ignoreCrystallizeMultiplier)
     ).apply(instance, CrystallizeRecipe::new));
 
-    public static Serializer SERIALIZER = new Serializer();
+    public static RecipeSerializer<CrystallizeRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final int crystallizeTime;
     protected final int minTier;
@@ -133,17 +133,4 @@ public class CrystallizeRecipe extends SingleInputRecipe<TieredSingleRecipeInput
         return OccultismRecipes.CRYSTALLIZE_TYPE.get();
     }
 
-
-    public static class Serializer implements RecipeSerializer<CrystallizeRecipe> {
-
-        @Override
-        public MapCodec<CrystallizeRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CrystallizeRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

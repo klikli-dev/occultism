@@ -35,7 +35,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -116,41 +116,41 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(
+    protected InteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
     ) {
         if (player.getAbilities().mayBuild) {
             if (stack.isEmpty() && state.getValue(LIT)){
                 extinguish(player, state, level, pos);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.TORCH.asItem()) {
                 if (canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES,1), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 1), 11);
                 }
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.SOUL_TORCH.asItem()) {
                 if (canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 2), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 2), 11);
                 }
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.REDSTONE_TORCH.asItem()) {
                 if (canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 3), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 3), 11);
                 }
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (stack.getItem() == OccultismItems.SPIRIT_TORCH.asItem()) {
                 if (canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 4), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 4), 11);
                 }
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
                 return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
             }

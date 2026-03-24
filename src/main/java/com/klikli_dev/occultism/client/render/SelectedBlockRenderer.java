@@ -33,7 +33,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent.Stage;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -84,10 +83,10 @@ public class SelectedBlockRenderer {
     protected void renderSelectedBlocks(RenderLevelStageEvent event) {
         var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
 
-        if (!useAltRenderer && event.getStage() != Stage.AFTER_PARTICLES)
+        if (!useAltRenderer && event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES)
             return;
 
-        if (useAltRenderer && event.getStage() != Stage.AFTER_TRANSLUCENT_BLOCKS)
+        if (useAltRenderer && event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS)
             return;
 
         if (!this.selectedBlocks.isEmpty()) {

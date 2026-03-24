@@ -49,11 +49,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLLoader;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.List;
 import java.util.function.Function;
@@ -65,10 +61,7 @@ public class FamiliarRingItem extends Item {
     }
 
     private static Curio getCurio(ItemStack stack) {
-        ICurio icurio = stack.getCapability(CuriosCapability.ITEM);
-        if (icurio != null && icurio instanceof Curio curio) {
-            return curio;
-        }
+        // TODO: Curios integration disabled for 26.1
         return null;
     }
 
@@ -141,19 +134,19 @@ public class FamiliarRingItem extends Item {
 
     public void handleFamiliarTypeTag(ItemStack pStack) {
         var server = ServerLifecycleHooks.getCurrentServer();
-        var icurio = pStack.getCapability(CuriosCapability.ITEM);
 
         //if we have a familiar type, that means we got a ring from e.g. a loot table.
         //  it has no actual familiar nbt data, just the type to spawn, so we need to create a new familiar.
         // Test with: /give @p occultism:familiar_ring{familiarType:"occultism:greedy_familiar"}
-        if (pStack.has(OccultismDataComponents.FAMILIAR_TYPE) && icurio instanceof Curio curio && server != null) {
+        if (pStack.has(OccultismDataComponents.FAMILIAR_TYPE) && server != null) {
             try {
                 EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getOptional(pStack.get(OccultismDataComponents.FAMILIAR_TYPE)).orElse(null);
                 if (type != null) {
                     var level = ServerLifecycleHooks.getCurrentServer().getLevel(Level.OVERWORLD);
                     var entity = type.create(level);
                     var familiar = (IFamiliar) entity;
-                    if (familiar != null) {
+                    var curio = getCurio(pStack);
+                    if (familiar != null && curio != null) {
                         curio.setFamiliar(familiar, server.registryAccess());
 
                         pStack.set(OccultismDataComponents.OCCUPIED, true);
@@ -169,7 +162,7 @@ public class FamiliarRingItem extends Item {
         }
     }
 
-    public static class Curio implements ICurio, INBTSerializable<CompoundTag> {
+    public static class Curio {
         private final ItemStack stack;
         private IFamiliar familiar;
         private CompoundTag cachedNbt;
@@ -215,35 +208,25 @@ public class FamiliarRingItem extends Item {
             return false;
         }
 
-        @Override
         public ItemStack getStack() {
             return this.stack;
         }
 
-        @Override
-        public void curioTick(SlotContext slotContext) {
-            Level level = slotContext.entity().level();
+        public void curioTick(LivingEntity entity) {
+            Level level = entity.level();
             IFamiliar familiar = this.getFamiliar(level);
-
             if (familiar != null) {
-                // after portal use the level is still the pre-teleport level, the familiar owner is not found on the next check
-                // hence, we update the level, if the familiar is in a ring
                 if (!familiar.getFamiliarEntity().isAddedToLevel())
                     familiar.getFamiliarEntity().setLevel(level);
-
-                if (familiar.getFamiliarOwner() != slotContext.entity())
+                if (familiar.getFamiliarOwner() != entity)
                     return;
-                // Apply effects
-                if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0 && familiar.isEffectEnabled(slotContext.entity()))
+                if (!level.isClientSide && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
                     for (MobEffectInstance effect : familiar.getFamiliarEffects())
                         familiar.getFamiliarOwner().addEffect(effect);
-
-                // Tick
-                familiar.curioTick(slotContext.entity());
+                familiar.curioTick(entity);
             }
         }
 
-        @Override
         public CompoundTag serializeNBT(HolderLookup.Provider provider) {
             CompoundTag compound = new CompoundTag();
             compound.putBoolean("hasFamiliar", this.familiar != null || this.cachedNbt != null);
@@ -257,7 +240,6 @@ public class FamiliarRingItem extends Item {
             return compound;
         }
 
-        @Override
         public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compound) {
             if (compound.getBoolean("hasFamiliar"))
                 this.cachedNbt = compound.getCompound("familiar");

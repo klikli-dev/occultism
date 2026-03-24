@@ -37,7 +37,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
-import com.geckolib.util.Color;
+
 
 public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, LivingEntityRenderState, GoatFamiliarModel> {
 
@@ -87,7 +87,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, Living
                         .getBuffer(RenderType.entityTranslucent(this.getTextureLocation(pLivingEntity)));
                 this.model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
                         LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0),
-                        Color.ofRGBA(0, 0, 0, 0.5f).getColor());
+                        0x7F000000);
             }
         }
 

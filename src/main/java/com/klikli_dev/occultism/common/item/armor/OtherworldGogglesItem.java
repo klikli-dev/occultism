@@ -25,22 +25,16 @@ package com.klikli_dev.occultism.common.item.armor;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class OtherworldGogglesItem extends ArmorItem {
+public class OtherworldGogglesItem extends Item {
 
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
 
-    public OtherworldGogglesItem(Holder<ArmorMaterial> materialIn,
-                                 ArmorItem.Type type,
-                                 Properties builder) {
-        super(materialIn, type, builder);
+    public OtherworldGogglesItem(Properties builder) {
+        super(builder);
     }
 
     public static boolean isGogglesItem(ItemStack stack) {
@@ -52,10 +46,5 @@ public class OtherworldGogglesItem extends ArmorItem {
     @Override
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
         return false;
-    }
-
-    @Override
-    public @org.jetbrains.annotations.Nullable Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return TEXTURE;
     }
 }

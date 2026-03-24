@@ -65,7 +65,7 @@ public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
             Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
     ).apply(instance, CrushingRecipe::new));
 
-    public static Serializer SERIALIZER = new Serializer();
+    public static RecipeSerializer<CrushingRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final int crushingTime;
     protected final int minTier;
@@ -133,17 +133,4 @@ public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
         return OccultismRecipes.CRUSHING_TYPE.get();
     }
 
-
-    public static class Serializer implements RecipeSerializer<CrushingRecipe> {
-
-        @Override
-        public MapCodec<CrushingRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

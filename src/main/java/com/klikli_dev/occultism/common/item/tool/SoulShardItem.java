@@ -30,7 +30,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -67,10 +66,10 @@ public class SoulShardItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
+    public @NotNull InteractionResult use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!stack.has(DataComponents.ENTITY_DATA) || !stack.has(OccultismDataComponents.SOUL_VALUE))
-            return new InteractionResultHolder<>(InteractionResult.PASS, stack);
+            return InteractionResult.PASS;
 
         if (level instanceof ServerLevel serverLevel) {
             CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTag();
@@ -93,11 +92,11 @@ public class SoulShardItem extends Item {
                     lootTable.getRandomItems(lootParams, player.getLootTableSeed(), player::spawnAtLocation);
                 if (!player.hasInfiniteMaterials())
                     stack.shrink(1);
-                return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+        return InteractionResult.FAIL;
     }
 
 }

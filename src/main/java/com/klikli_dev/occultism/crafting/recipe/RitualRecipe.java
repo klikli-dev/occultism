@@ -89,7 +89,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                     new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command.orElse(null))
     );
 
-    public static Serializer SERIALIZER = new Serializer();
+    public static final RecipeSerializer<RitualRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     private final Identifier ritualType;
     private final RitualRequirementSettings ritualRequirementSettings;
     private final RitualStartSettings ritualStartSettings;
@@ -391,16 +391,4 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         );
     }
 
-    public static class Serializer implements RecipeSerializer<RitualRecipe> {
-
-        @Override
-        public @NotNull MapCodec<RitualRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.zombie.Husk;
 import net.minecraft.world.level.Level;
 
 public class WildHordeHuskEntity extends Husk implements PossessedMob {

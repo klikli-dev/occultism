@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +42,7 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     }
 
     public static boolean isCropSoil(Level level, BlockPos pos) {
-        return level.getBlockState(pos).getBlock() instanceof FarmBlock;
+        return level.getBlockState(pos).getBlock() instanceof FarmlandBlock;
     }
 
     public static boolean isGrowthCrop(Level level, BlockPos pos) {

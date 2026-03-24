@@ -32,10 +32,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.CrumblingOverlay;
-import net.minecraft.client.renderer.blockentity.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
-import net.minecraft.client.renderer.CameraRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -66,7 +66,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
     }
 
     @Override
-    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, CrumblingOverlay crumbling) {
+    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.CrumblingOverlay crumbling) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
     }
 
