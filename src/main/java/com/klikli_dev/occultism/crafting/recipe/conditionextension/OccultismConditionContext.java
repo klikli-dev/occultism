@@ -1,18 +1,12 @@
 package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.common.conditions.ICondition;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
-import java.util.Map;
 
 public interface OccultismConditionContext extends ICondition.IContext {
     ServerLevel level();
@@ -45,8 +39,9 @@ public interface OccultismConditionContext extends ICondition.IContext {
         }
 
         @Override
-        public <T> @NotNull Map<Identifier, Collection<Holder<T>>> getAllTags(@NotNull ResourceKey<? extends Registry<T>> registry) {
+        public <T> boolean isTagLoaded(net.minecraft.tags.TagKey<T> key) {
             throw new UnsupportedOperationException("This context does not support accessing information on the context.");
         }
     };
 }
+

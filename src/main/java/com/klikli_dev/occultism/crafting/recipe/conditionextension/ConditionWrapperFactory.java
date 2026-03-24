@@ -16,20 +16,20 @@ public class ConditionWrapperFactory {
             return new OrConditionWrapper(orCondition);
         }
 
-        if (condition instanceof TrueCondition trueCondition) {
-            return new TrueConditionWrapper(trueCondition);
+        if (condition instanceof AlwaysCondition alwaysCondition) {
+            return new TrueConditionWrapper(alwaysCondition);
         }
 
-        if (condition instanceof FalseCondition falseCondition) {
-            return new FalseConditionWrapper(falseCondition);
+        if (condition instanceof NeverCondition neverCondition) {
+            return new FalseConditionWrapper(neverCondition);
         }
 
         if (condition instanceof NotCondition notCondition) {
             return new NotConditionWrapper(notCondition);
         }
 
-        if (condition instanceof ItemExistsCondition itemExistsCondition) {
-            return new ItemExistsConditionWrapper(itemExistsCondition);
+        if (condition instanceof RegisteredCondition<?> registeredCondition) {
+            return new ItemExistsConditionWrapper(registeredCondition);
         }
 
         if (condition instanceof ModLoadedCondition modLoadedCondition) {

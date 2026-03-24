@@ -147,6 +147,7 @@ public class OccultismTags {
         public static final TagKey<Item> DATURA_CROP = makeItemTag(Identifier.fromNamespaceAndPath("c", "crops/datura"));
 
         // Ingots
+        public static final TagKey<Item> SPIRIT_ATTUNED_GEM_MATERIALS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_attuned_gem_materials"));
         public static final TagKey<Item> IESNIUM_INGOT = makeItemTag(Identifier.fromNamespaceAndPath("c", "ingots/iesnium"));
         public static final TagKey<Item> SILVER_INGOT = makeItemTag(Identifier.fromNamespaceAndPath("c", "ingots/silver"));
 

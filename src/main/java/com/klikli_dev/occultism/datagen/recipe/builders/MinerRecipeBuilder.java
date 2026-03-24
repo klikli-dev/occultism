@@ -8,17 +8,19 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.RegisteredCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.Nullable;
 
@@ -150,10 +152,10 @@ public class MinerRecipeBuilder implements RecipeBuilder {
 
     protected ICondition getItemExistsCondition(RecipeResult ingredient) {
         if(ingredient instanceof ItemRecipeResult itemResult) {
-            return new ItemExistsCondition(BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem()));
+            return new RegisteredCondition<>(ResourceKey.create(Registries.ITEM, BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem())));
         }
         if(ingredient instanceof WeightedItemRecipeResult itemResult) {
-            return new ItemExistsCondition(BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem()));
+            return new RegisteredCondition<>(ResourceKey.create(Registries.ITEM, BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem())));
         }
         return null;
     }
