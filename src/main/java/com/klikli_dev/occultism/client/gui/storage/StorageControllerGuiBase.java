@@ -43,15 +43,15 @@ import com.klikli_dev.occultism.network.messages.*;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -127,13 +127,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected int realTopPos;
 
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
-        super(container, playerInventory, name);
+        super(container, playerInventory, name, 224, 256);
         this.storageControllerContainer = container;
-        this.storageControllerContainer.getOrderSlot().addListener(this);
-
-        //size of the gui texture
-        this.imageWidth = 224;
-        this.imageHeight = 256;
+        // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = 9;
@@ -196,7 +192,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void renderToolTip(GuiGraphics guiGraphics, ItemStack stack, int x, int y) {
-        guiGraphics.renderTooltip(this.font, this.getTooltipFromContainerItem(stack), stack.getTooltipImage(), x, y);
+        guiGraphics.setTooltipForNextFrame(this.font, this.getTooltipFromContainerItem(stack), stack.getTooltipImage(), x, y);
     }
 
     @Override
@@ -211,10 +207,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         if (this.minecraft.player.level().dimension() != machine.insertGlobalPos.getDimensionKey())
             tooltip.add(Component.translatable(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
-                    machine.insertGlobalPos.getDimensionKey().location() +
+                    machine.insertGlobalPos.getDimensionKey().id() +
                     ChatFormatting.RESET));
 
-        guiGraphics.renderComponentTooltip(this.font, tooltip, x, y);
+        guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, x, y);
     }
 
     @Override
@@ -390,8 +386,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
                 Networking.sendToServer(
-                        new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
-                                Screen.hasControlDown()));
+                        new MessageTakeItem(this.stackUnderMouse, mouseButton, Minecraft.getInstance().hasShiftDown(),
+                                Minecraft.getInstance().hasControlDown()));
                 this.lastClick = System.currentTimeMillis();
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
@@ -403,7 +399,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 if (slot.isMouseOverSlot(mouseX, mouseY)) {
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                         ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
-                        if (Screen.hasShiftDown()) {
+                        if (Minecraft.getInstance().hasShiftDown()) {
                             long time = System.currentTimeMillis() + 5000;
                             Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().insertGlobalPos.getPos(), time, Color.GREEN);
                             Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().extractGlobalPos.getPos(), time, Color.YELLOW);
@@ -688,7 +684,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             List<Component> tooltip = new ArrayList<>();
-            if (!Screen.hasShiftDown()) {
+            if (!Minecraft.getInstance().hasShiftDown()) {
                 tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".shift"));
             } else {
                 switch (this.guiMode) {
@@ -703,10 +699,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            guiGraphics.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderComponentTooltip(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+            guiGraphics.setComponentTooltipForNextFrame(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY);
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
@@ -722,48 +718,46 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                     this.getSortType().getSerializedName();
                     break;
             }
-            guiGraphics.renderTooltip(this.font, Component.translatable(translationKey), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
         if (this.rowCountButton != null && this.rowCountButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".display.rows"),
                     mouseX, mouseY);
         }
 
         if (this.isPointInSpaceText(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.literal(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
                     this.usedTotalItemCount + " / " + this.maxTotalItemCount), mouseX, mouseY);
         }
         if (this.isPointInTypesText(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.literal(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
                     this.usedItemTypes + " / " + this.maxItemTypes), mouseX, mouseY);
         }
     }
 
     protected void drawBackgroundTexture(GuiGraphics guiGraphics) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(TEXTURE_TOP, this.leftPos, this.realTopPos, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_TOP, this.leftPos, this.realTopPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         for (int i =0; i < this.rows; i++) {
-            guiGraphics.blit(TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0, 0, this.imageWidth, this.imageHeight);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         }
-        guiGraphics.blit(TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     }
 
     protected void drawItemSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             slot.drawSlot(guiGraphics, mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
@@ -894,7 +888,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("$")) {
             StringBuilder tagStringBuilder = new StringBuilder();
-            stack.getTags().forEach(
+            stack.getItemHolder().tags().forEach(
                     tag -> tagStringBuilder.append(tag.location()).append(" ")
             );
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));

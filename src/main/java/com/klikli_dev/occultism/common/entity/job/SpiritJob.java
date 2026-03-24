@@ -50,7 +50,7 @@ public abstract class SpiritJob {
 
     public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                .get(Identifier.parse(nbt.getStringOr("factoryId", ""))).orElseThrow();
+                .get(Identifier.parse(nbt.getStringOr("factoryId", ""))).orElseThrow().value();
         SpiritJob job = factory.create(entity);
         job.readJobFromNBT(nbt, entity.level().registryAccess());
         return job;

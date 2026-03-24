@@ -54,6 +54,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.spirit = this.container.spirit;
     }
 
+    public SpiritGui(T container, Inventory playerInventory, Component titleIn, int imageWidth, int imageHeight) {
+        super(container, playerInventory, titleIn, imageWidth, imageHeight);
+        this.container = container;
+        this.spirit = this.container.spirit;
+    }
+
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(guiGraphics, mouseX, mouseY);

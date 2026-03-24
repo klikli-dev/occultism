@@ -31,8 +31,8 @@ import com.klikli_dev.occultism.network.messages.MessageSetFilterMode;
 import com.klikli_dev.occultism.network.messages.MessageSetTagFilterText;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
@@ -60,12 +60,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
                                 Component titleIn) {
-        super(container, playerInventory, titleIn);
-
+        super(container, playerInventory, titleIn, 176, 220);
         this.container = container;
-
-        this.imageWidth = 176;
-        this.imageHeight = 220;
     }
 
     //region Getter / Setter
@@ -131,14 +127,13 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
-        guiGraphics.pose().pushPose();
+        guiGraphics.pose().pushMatrix();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit);
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
     protected void renderFg(GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -157,7 +152,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty())
-            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
     }
 
     @Override

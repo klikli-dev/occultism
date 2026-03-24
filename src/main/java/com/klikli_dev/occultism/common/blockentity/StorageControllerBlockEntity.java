@@ -236,11 +236,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, HolderLookup.Provider provider) {
         Map<Integer, ItemStack> matrix = new HashMap<>();
         if (matrixCompound.contains("matrix")) {
-            ListTag matrixNbt = matrixCompound.getList("matrix", Tag.TAG_COMPOUND);
+            ListTag matrixNbt = matrixCompound.getListOrEmpty("matrix");
             for (int i = 0; i < matrixNbt.size(); i++) {
-                CompoundTag stackTag = matrixNbt.getCompound(i);
-                int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.parseOptional(provider, stackTag.getCompound("stack"));
+                CompoundTag stackTag = matrixNbt.getCompoundOrEmpty(i);
+                int slot = stackTag.getByteOr("slot", (byte) 0);
+                ItemStack s = ItemStack.parseOptional(provider, stackTag.getCompoundOrEmpty("stack"));
                 matrix.put(slot, s);
             }
         }

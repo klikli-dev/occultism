@@ -69,7 +69,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
     }
 
     @Override
-    public void createResult() {
+    protected void createResultInternal() {
         ItemStack itemstack = this.inputSlots.getItem(0);
         this.cost.set(1);
         int i = 0;
