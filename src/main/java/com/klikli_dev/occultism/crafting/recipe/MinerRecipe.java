@@ -54,7 +54,7 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
             MinerRecipe::new
     );
 
-    public static Serializer SERIALIZER = new Serializer();
+    public static final RecipeSerializer<MinerRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     protected final Ingredient input;
     protected final WeightedRecipeResult result;
 
@@ -108,17 +108,4 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
         return OccultismRecipes.MINER_TYPE.get();
     }
 
-
-    public static class Serializer implements RecipeSerializer<MinerRecipe> {
-
-        @Override
-        public MapCodec<MinerRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, MinerRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

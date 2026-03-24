@@ -185,12 +185,12 @@ public abstract class RitualSatchelItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+    public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND)
-            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+            return InteractionResult.PASS;
 
         if (!player.isShiftKeyDown())
-            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+            return InteractionResult.PASS;
 
         final ItemStack stack = player.getItemInHand(hand);
 
@@ -198,7 +198,7 @@ public abstract class RitualSatchelItem extends Item {
             this.openMenu(serverPlayer, stack);
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

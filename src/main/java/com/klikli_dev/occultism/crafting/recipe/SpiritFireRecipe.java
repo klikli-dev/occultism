@@ -51,7 +51,7 @@ public class SpiritFireRecipe extends SingleInputRecipe<SingleRecipeInput> {
             (r) -> r.output,
             SpiritFireRecipe::new
     );
-    public static Serializer SERIALIZER = new Serializer();
+    public static final RecipeSerializer<SpiritFireRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     public SpiritFireRecipe(Ingredient input, ItemStack output) {
         super(input, output);
@@ -105,16 +105,4 @@ public class SpiritFireRecipe extends SingleInputRecipe<SingleRecipeInput> {
         return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
     }
 
-    public static class Serializer implements RecipeSerializer<SpiritFireRecipe> {
-
-        @Override
-        public MapCodec<SpiritFireRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, SpiritFireRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }
