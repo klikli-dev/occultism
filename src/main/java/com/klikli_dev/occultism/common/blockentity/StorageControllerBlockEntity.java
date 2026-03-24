@@ -54,8 +54,9 @@ import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -117,7 +118,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     public void tick() {
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             if (!this.stabilizersInitialized) {
                 this.stabilizersInitialized = true;
                 this.updateStabilizers();
@@ -539,72 +540,64 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.loadAdditional(compound, provider);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        //linked machines are not saved, they self-register.
 
         //read stored items
-        if (compound.contains("items")) {
-            this.itemStackHandler.deserializeNBT(provider, compound.getCompound("items"));
+        if (input.child("items").isPresent()) {
+            this.itemStackHandler.deserialize(input.childOrEmpty("items"));
             this.cachedMessageUpdateStacks = null;
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        super.saveAdditional(compound, provider);
-        compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        compound.put("items", this.itemStackHandler.serializeNBT(provider));
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        //linked machines are not saved, they self-register.
+        this.itemStackHandler.serialize(output.child("items"));
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
-        this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));
-        if (compound.contains("maxItemTypes") && compound.contains("maxTotalItemCount")) {
-            this.setStorageLimits(compound.getInt("maxItemTypes"), compound.getLong("maxTotalItemCount"));
+    public void loadNetwork(ValueInput input) {
+        this.setSortDirection(SortDirection.BY_ID.apply(input.getIntOr("sortDirection", 0)));
+        this.setSortType(SortType.BY_ID.apply(input.getIntOr("sortType", 0)));
+        if (input.getInt("maxItemTypes").isPresent() && input.getLong("maxTotalItemCount").isPresent()) {
+            this.setStorageLimits(input.getIntOr("maxItemTypes", 0), input.getLongOr("maxTotalItemCount", 0L));
         }
 
         //read stored crafting matrix
-        if (compound.contains("matrix")) {
-            this.matrix = loadMatrix(compound.getCompound("matrix"), provider);
-        }
+        input.read("matrix", CompoundTag.CODEC).ifPresent(tag -> this.matrix = loadMatrix(tag, input.lookup()));
 
-        if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.parseOptional(provider, compound.getCompound("orderStack"));
+        this.orderStack = input.read("orderStack", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
         //read the linked machines
         this.linkedMachines = new HashMap<>();
-        if (compound.contains("linkedMachines")) {
-            ListTag machinesNbt = compound.getList("linkedMachines", Tag.TAG_COMPOUND);
-            for (int i = 0; i < machinesNbt.size(); i++) {
-                MachineReference reference = MachineReference.CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), machinesNbt.getCompound(i)).getOrThrow();
-                this.linkedMachines.put(reference.insertGlobalPos, reference);
-            }
-        }
+        input.listOrEmpty("linkedMachines", MachineReference.CODEC).forEach(reference -> {
+            this.linkedMachines.put(reference.insertGlobalPos, reference);
+        });
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.putInt("sortDirection", this.getSortDirection().ordinal());
-        compound.putInt("sortType", this.getSortType().ordinal());
-        compound.putInt("maxItemTypes", this.maxItemTypes);
-        compound.putLong("maxTotalItemCount", this.maxTotalItemCount);
+    public void saveNetwork(ValueOutput output) {
+        output.putInt("sortDirection", this.getSortDirection().ordinal());
+        output.putInt("sortType", this.getSortType().ordinal());
+        output.putInt("maxItemTypes", this.maxItemTypes);
+        output.putLong("maxTotalItemCount", this.maxTotalItemCount);
 
         //write stored crafting matrix
-        compound.put("matrix", saveMatrix(this.matrix, provider));
+        if (this.level != null) {
+            output.store("matrix", CompoundTag.CODEC, saveMatrix(this.matrix, this.level.registryAccess()));
+        }
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.saveOptional(provider));
+            output.store("orderStack", ItemStack.OPTIONAL_CODEC, this.orderStack);
 
         //write linked machines
-        ListTag machinesNbt = new ListTag();
+        var machinesList = output.list("linkedMachines", MachineReference.CODEC);
         for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
-            machinesNbt.add(entry.getValue().serializeNBT(provider));
+            machinesList.add(entry.getValue());
         }
-        compound.put("linkedMachines", machinesNbt);
-
-        return compound;
     }
 
     @Override

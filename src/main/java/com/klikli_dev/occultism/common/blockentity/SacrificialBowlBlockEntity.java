@@ -28,9 +28,9 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
@@ -87,15 +87,14 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.itemStackHandler.deserializeNBT(provider, compound.getCompound("inventory"));
-        this.lastChangeTime = compound.getLong("lastChangeTime");
+    public void loadNetwork(ValueInput input) {
+        this.itemStackHandler.deserialize(input.childOrEmpty("inventory"));
+        this.lastChangeTime = input.getLongOr("lastChangeTime", 0L);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
-        compound.putLong("lastChangeTime", this.lastChangeTime);
-        return compound;
+    public void saveNetwork(ValueOutput output) {
+        this.itemStackHandler.serialize(output.child("inventory"));
+        output.putLong("lastChangeTime", this.lastChangeTime);
     }
 }

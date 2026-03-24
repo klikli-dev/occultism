@@ -26,9 +26,9 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -101,16 +101,15 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.itemStackHandler.deserializeNBT(provider, compound.getCompound("inventory"));
-        this.lastChangeTime = compound.getLong("lastChangeTime");
+    public void loadNetwork(ValueInput input) {
+        this.itemStackHandler.deserialize(input.childOrEmpty("inventory"));
+        this.lastChangeTime = input.getLongOr("lastChangeTime", 0L);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
-        compound.putLong("lastChangeTime", this.lastChangeTime);
-        return compound;
+    public void saveNetwork(ValueOutput output) {
+        this.itemStackHandler.serialize(output.child("inventory"));
+        output.putLong("lastChangeTime", this.lastChangeTime);
     }
 
     @SubscribeEvent

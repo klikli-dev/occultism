@@ -34,12 +34,13 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -125,7 +126,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
                     this.linkedStorageControllerPosition);
             if (blockEntity instanceof IStorageController controller)
                 return controller;
-            else if (!this.level.isClientSide) {
+            else if (!this.level.isClientSide()) {
                 //only reset the storage controller position if we are on logical server -> that means the position is not accessible.
                 //if we are on logical client it simply means we are out of render range, so we do not reset the pos
                 //resetting it would cause issues with e.g. stable wormhole
@@ -147,39 +148,37 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        if (compound.contains("linkedStorageControllerPosition"))
-            this.linkedStorageControllerPosition = GlobalBlockPos.from(provider, compound.getCompound("linkedStorageControllerPosition"));
+    public void loadNetwork(ValueInput input) {
+        this.linkedStorageControllerPosition = input.read("linkedStorageControllerPosition", GlobalBlockPos.CODEC).orElse(null);
 
-        this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
-        this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));
+        this.setSortDirection(SortDirection.BY_ID.apply(input.getIntOr("sortDirection", 0)));
+        this.setSortType(SortType.BY_ID.apply(input.getIntOr("sortType", 0)));
 
         //read stored crafting matrix
-        if (compound.contains("matrix")) {
-            this.matrix = StorageControllerBlockEntity.loadMatrix(compound.getCompound("matrix"), provider);
-        }
+        input.read("matrix", CompoundTag.CODEC).ifPresent(tag -> this.matrix = StorageControllerBlockEntity.loadMatrix(tag, input.lookup()));
 
-        if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.parseOptional(provider, compound.getCompound("orderStack"));
+        this.orderStack = input.read("orderStack", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
-        super.loadNetwork(compound, provider);
+        super.loadNetwork(input);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+    public void saveNetwork(ValueOutput output) {
         if (this.linkedStorageControllerPosition != null)
-            compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT(provider));
+            output.store("linkedStorageControllerPosition", GlobalBlockPos.CODEC, this.linkedStorageControllerPosition);
 
-        compound.putInt("sortDirection", this.getSortDirection().ordinal());
-        compound.putInt("sortType", this.getSortType().ordinal());
+        output.putInt("sortDirection", this.getSortDirection().ordinal());
+        output.putInt("sortType", this.getSortType().ordinal());
 
         //write stored crafting matrix
-        compound.put("matrix", StorageControllerBlockEntity.saveMatrix(this.matrix, provider));
+        if (this.level != null) {
+            output.store("matrix", CompoundTag.CODEC, StorageControllerBlockEntity.saveMatrix(this.matrix, this.level.registryAccess()));
+        }
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.saveOptional(provider));
+            output.store("orderStack", ItemStack.OPTIONAL_CODEC, this.orderStack);
 
-        return super.saveNetwork(compound, provider);
+        super.saveNetwork(output);
     }
 
     @Override

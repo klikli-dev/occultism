@@ -37,11 +37,10 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
@@ -150,7 +149,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             @Override
             protected void onContentsChanged(
                     int slot) {
-                if (!GoldenSacrificialBowlBlockEntity.this.level.isClientSide) {
+                if (!GoldenSacrificialBowlBlockEntity.this.level.isClientSide()) {
                     GoldenSacrificialBowlBlockEntity.this.lastChangeTime = GoldenSacrificialBowlBlockEntity.this.level
                             .getGameTime();
                     GoldenSacrificialBowlBlockEntity.this.markNetworkDirty();
@@ -356,7 +355,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     public void tick() {
         RecipeHolder<RitualRecipe> recipe = this.getCurrentRitualRecipe();
-        if (!this.level.isClientSide && recipe != null) {
+        if (!this.level.isClientSide() && recipe != null) {
             this.restoreCastingPlayer();
 
             if (this.remainingAdditionalIngredients == null) {
@@ -381,25 +380,25 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 if(this.level.getGameTime() % 20 == 0)
                     this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
 
-                if (this.level.random.nextInt(16) == 0) {
+                if (this.level.getRandom().nextInt(16) == 0) {
                     ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
-                                    this.getBlockPos().getX() + this.level.random.nextGaussian(),
-                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.random.nextGaussian(),
+                                    this.getBlockPos().getX() + this.level.getRandom().nextGaussian(),
+                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.getRandom().nextGaussian(),
                                     3,
                                     0.0, 0.0, 0.0,
                                     0.0);
                     ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
-                                    this.getBlockPos().getX() + this.level.random.nextGaussian(),
-                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.random.nextGaussian(),
+                                    this.getBlockPos().getX() + this.level.getRandom().nextGaussian(),
+                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.getRandom().nextGaussian(),
                                     3,
                                     0.0, 0.0, 0.0,
                                     0.0);
                     ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
-                                    this.getBlockPos().getX() + this.level.random.nextGaussian(),
-                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.random.nextGaussian(),
+                                    this.getBlockPos().getX() + this.level.getRandom().nextGaussian(),
+                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.getRandom().nextGaussian(),
                                     3,
                                     0.0, 0.0, 0.0,
                                     0.0);
@@ -408,10 +407,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
 
             //spawn particles in random intervals
-            if (this.level.random.nextInt(16) == 0) {
+            if (this.level.getRandom().nextInt(16) == 0) {
                 ((ServerLevel) this.level)
-                        .sendParticles(ParticleTypes.PORTAL, this.getBlockPos().getX() + 0.5 + this.level.random.nextGaussian() / 3,
-                                this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + 0.5 + this.level.random.nextGaussian() / 3, 5,
+                        .sendParticles(ParticleTypes.PORTAL, this.getBlockPos().getX() + 0.5 + this.level.getRandom().nextGaussian() / 3,
+                                this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + 0.5 + this.level.getRandom().nextGaussian() / 3, 5,
                                 0.0, 0.0, 0.0,
                                 0.0);
             }
@@ -492,7 +491,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         if(hand == InteractionHand.OFF_HAND)
             return false; //prevent offhand activation which can actually cause interruption due to the second firing of activate
 
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             ItemStack activationItem = player.getItemInHand(hand);
             if (activationItem == ItemStack.EMPTY)
                 return false;
@@ -611,7 +610,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public boolean startRitual(@Nullable ServerPlayer player, ItemStack activationItem, RecipeHolder<RitualRecipe> ritualRecipe) {
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.currentRitualRecipe = ritualRecipe;
             this.castingPlayerId = player == null? null : player.getUUID();
             this.castingPlayer = player;
@@ -655,7 +654,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public void stopRitual(boolean finished, boolean showInterruptedMessage) {
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             var recipe = this.getCurrentRitualRecipe();
             if (recipe != null) {
                 IItemHandler handler = this.itemStackHandler;
@@ -718,7 +717,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
-        if (!player.level().isClientSide && this.getCurrentRitualRecipe() != null) {
+        if (!player.level().isClientSide() && this.getCurrentRitualRecipe() != null) {
 
             if (this.getBlockPos().distSqr(event.getPos()) <= Ritual.ITEM_USE_DETECTION_RANGE_SQUARE) {
                 if (this.getCurrentRitualRecipe().value().getRitual().isValidItemUse(event)) {
@@ -730,7 +729,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     public void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entityLivingBase = event.getEntity();
-        if (!entityLivingBase.level().isClientSide && this.getCurrentRitualRecipe() != null) {
+        if (!entityLivingBase.level().isClientSide() && this.getCurrentRitualRecipe() != null) {
             //Limit to player kills
             if (event.getSource().getEntity() instanceof Player) {
                 if (this.getBlockPos().distSqr(entityLivingBase.blockPosition()) <= Ritual.SACRIFICE_DETECTION_RANGE_SQUARE) {
@@ -758,80 +757,61 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadAdditional(compound, provider);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
         this.consumedIngredients.clear();
         if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
-            if (compound.contains("consumedIngredients")) {
-                ListTag list = compound.getList("consumedIngredients", Tag.TAG_COMPOUND);
-                for (int i = 0; i < list.size(); i++) {
-                    ItemStack stack = ItemStack.parseOptional(provider, list.getCompound(i));
-                    this.consumedIngredients.add(stack);
-                }
-            }
+            input.listOrEmpty("consumedIngredients", ItemStack.OPTIONAL_CODEC).forEach(stack -> {
+                this.consumedIngredients.add(stack);
+            });
             this.restoreRemainingAdditionalIngredients();
         }
-        if (compound.contains("sacrificeProvided")) {
-            this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
-        }
-        if (compound.contains("requiredItemUsed")) {
-            this.itemUseProvided = compound.getBoolean("requiredItemUsed");
-        }
+        this.sacrificeProvided = input.getBooleanOr("sacrificeProvided", false);
+        this.itemUseProvided = input.getBooleanOr("requiredItemUsed", false);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+    protected void saveAdditional(ValueOutput output) {
         if (this.getCurrentRitualRecipe() != null) {
             if (!this.consumedIngredients.isEmpty()) {
-                ListTag list = new ListTag();
+                var list = output.list("consumedIngredients", ItemStack.OPTIONAL_CODEC);
                 for (ItemStack stack : this.consumedIngredients) {
-                    list.add(stack.saveOptional(provider));
+                    list.add(stack);
                 }
-                compound.put("consumedIngredients", list);
             }
-            compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
-            compound.putBoolean("requiredItemUsed", this.itemUseProvided);
+            output.putBoolean("sacrificeProvided", this.sacrificeProvided);
+            output.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
-        super.saveAdditional(compound, provider);
+        super.saveAdditional(output);
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadNetwork(compound, provider);
-        if (compound.contains("currentRitual")) {
-            this.currentRitualRecipeId = Identifier.parse(compound.getString("currentRitual"));
-        }
+    public void loadNetwork(ValueInput input) {
+        super.loadNetwork(input);
+        input.getString("currentRitual").ifPresent(s -> this.currentRitualRecipeId = Identifier.parse(s));
 
-        if (compound.contains("castingPlayerId")) {
-            this.castingPlayerId = compound.getUUID("castingPlayerId");
-        }
+        input.read("castingPlayerId", UUIDUtil.CODEC).ifPresent(uuid -> this.castingPlayerId = uuid);
 
-        this.currentTime = compound.getInt("currentTime");
-        if(compound.contains("ritualActive")) {
-            this.ritualActive = compound.getBoolean("ritualActive");
-        }
-        if (compound.contains("sacrificeProvided")) {
-            this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
-        }
-        if (compound.contains("requiredItemUsed")) {
-            this.itemUseProvided = compound.getBoolean("requiredItemUsed");
-        }
+        this.currentTime = input.getIntOr("currentTime", 0);
+        this.ritualActive = input.getBooleanOr("ritualActive", false);
+        this.sacrificeProvided = input.getBooleanOr("sacrificeProvided", false);
+        this.itemUseProvided = input.getBooleanOr("requiredItemUsed", false);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+    public void saveNetwork(ValueOutput output) {
         var recipe = this.getCurrentRitualRecipe();
         if (recipe != null) {
-            compound.putString("currentRitual", recipe.id().toString());
+            output.putString("currentRitual", recipe.id().toString());
         }
         if (this.castingPlayerId != null) {
-            compound.putUUID("castingPlayerId", this.castingPlayerId);
+            output.store("castingPlayerId", UUIDUtil.CODEC, this.castingPlayerId);
         }
-        compound.putInt("currentTime", this.currentTime);
-        compound.putBoolean("ritualActive", this.ritualActive);
-        compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
-        compound.putBoolean("requiredItemUsed", this.itemUseProvided);
-        return super.saveNetwork(compound, provider);
+        output.putInt("currentTime", this.currentTime);
+        output.putBoolean("ritualActive", this.ritualActive);
+        output.putBoolean("sacrificeProvided", this.sacrificeProvided);
+        output.putBoolean("requiredItemUsed", this.itemUseProvided);
+        super.saveNetwork(output);
     }
 }
