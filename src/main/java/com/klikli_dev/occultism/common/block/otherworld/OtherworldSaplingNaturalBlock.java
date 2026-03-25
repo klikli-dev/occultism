@@ -73,13 +73,7 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
     }
 
     @Override
-    public String getDescriptionId() {
-        return "block.minecraft.oak_sapling";
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
+    protected ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean includeData) {
         return IOtherworldBlock.super.getItem(pLevel, pPos, pState);
     }
 

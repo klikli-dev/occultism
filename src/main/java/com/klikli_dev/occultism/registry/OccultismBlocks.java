@@ -36,6 +36,7 @@ import com.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.util.OtherWoodType;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -249,11 +250,13 @@ public class OccultismBlocks {
     //Components
     public static final DeferredBlock<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
-                            Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)),
+                            Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)
+                                    .overrideDescription("block.minecraft.andesite")),
                     true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<OtherrockNaturalBlock> OTHERROCK_NATURAL =
             register("otherrock_natural", () -> new OtherrockNaturalBlock(
-                            Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)),
+                            Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)
+                                    .overrideDescription("block.minecraft.diorite")),
                     true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<OtherglassNaturalBlock> OTHERGLASS_NATURAL =
             register("otherglass_natural", () -> new OtherglassNaturalBlock(
@@ -262,7 +265,8 @@ public class OccultismBlocks {
                                     .sound(SoundType.GLASS)
                                     .noOcclusion()
                                     .noTerrainParticles()
-                                    .strength(5f, 50)),
+                                    .strength(5f, 50)
+                                    .overrideDescription("block.occultism.otherglass")),
                     true, LootTableType.CUSTOM);
     //For otherglass natural
     public static final DeferredBlock<Block> OTHERGLASS = register("otherglass", () -> new Block(
@@ -281,7 +285,8 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).noCollission().noOcclusion()), true, LootTableType.OTHERWORLD_BLOCK);
+                            .strength(0.0f).noCollission().noOcclusion()
+                            .overrideDescription("block.minecraft.poppy")), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<FlowerPotBlock> POTTED_OTHERFLOWER =
             register("potted_otherflower", () -> new FlowerPotBlock(
                     OccultismBlocks.OTHERFLOWER.get(), Block.Properties.ofFullCopy(Blocks.POTTED_POPPY)), false);
@@ -297,27 +302,53 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).randomTicks().noCollission()), true, LootTableType.OTHERWORLD_BLOCK);
+                            .strength(0.0f).randomTicks().noCollission()
+                            .overrideDescription("block.minecraft.oak_sapling")), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
-            register("otherworld_leaves", () -> new LeavesBlock(
+            register("otherworld_leaves", () -> new LeavesBlock(0.01F,
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
                             .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
                             .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
-                            .isRedstoneConductor((state, level, pos) -> false)), true, LootTableType.CUSTOM);
+                            .isRedstoneConductor((state, level, pos) -> false)) {
+                private static final MapCodec<LeavesBlock> CODEC = simpleCodec(p -> new LeavesBlock(0.01F, p) {
+                    @Override
+                    public MapCodec<? extends LeavesBlock> codec() {
+                        return CODEC;
+                    }
+
+                    @Override
+                    protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
+                        ParticleUtils.spawnParticleBelow(level, pos, random, ParticleTypes.CHERRY_LEAVES);
+                    }
+                });
+
+                @Override
+                public MapCodec<? extends LeavesBlock> codec() {
+                    return CODEC;
+                }
+
+                @Override
+                protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
+                    ParticleUtils.spawnParticleBelow(level, pos, random, ParticleTypes.CHERRY_LEAVES);
+                }
+            }, true, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
                             .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
                             .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
-                            .isRedstoneConductor((state, level, pos) -> false)), true, LootTableType.CUSTOM);
+                            .isRedstoneConductor((state, level, pos) -> false)
+                            .overrideDescription("block.minecraft.oak_leaves")), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
-                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f), OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL), true, LootTableType.OTHERWORLD_BLOCK);
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)
+                    .overrideDescription("block.minecraft.oak_log"), OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG_NATURAL =
             register("stripped_otherworld_log_natural", () -> new OtherworldStrippedLogNaturalBlock(Block.Properties.of()
-                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)
+                    .overrideDescription("block.minecraft.stripped_oak_log")), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> OTHERWORLD_LOG =
             register("otherworld_log", () -> new OtherworldStrippableBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
@@ -372,7 +403,8 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> IESNIUM_ORE = register("iesnium_ore",
             () -> new Block(Block.Properties.ofFullCopy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
-            register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.ofFullCopy(Blocks.IRON_ORE)),
+            register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.ofFullCopy(Blocks.IRON_ORE)
+                            .overrideDescription("block.minecraft.netherrack")),
                     true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> SILVER_BLOCK = register("silver_block", () -> new Block(Block.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
     public static final DeferredBlock<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(Block.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK)));

@@ -24,7 +24,11 @@ package com.klikli_dev.occultism.common.block.otherworld;
 
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -40,11 +44,18 @@ import javax.annotation.Nullable;
 
 public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherworldBlock {
 
+    public static final MapCodec<OtherworldLeavesNaturalBlock> CODEC = simpleCodec(OtherworldLeavesNaturalBlock::new);
+
     public static final int COLOR = 0x760ea2;
 
     public OtherworldLeavesNaturalBlock(Properties properties) {
-        super(properties);
+        super(0.01F, properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
+    }
+
+    @Override
+    public MapCodec<? extends LeavesBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -70,14 +81,13 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     }
 
     @Override
-    public String getDescriptionId() {
-        return "block.minecraft.oak_leaves";
+    protected ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state, boolean includeData) {
+        return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
-        return IOtherworldBlock.super.getItem(worldIn, pos, state);
+    protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
+        ParticleUtils.spawnParticleBelow(level, pos, random, ParticleTypes.CHERRY_LEAVES);
     }
 
     @Override
