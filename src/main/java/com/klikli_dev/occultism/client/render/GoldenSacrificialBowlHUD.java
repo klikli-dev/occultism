@@ -45,7 +45,7 @@ public class GoldenSacrificialBowlHUD {
             int y = pGuiGraphics.guiHeight() / 2 + 9;
 
             if (bowl.ritualActive) {
-                String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().location().getPath().substring(7));
+                String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
                 int i = ritualName.indexOf(":");
                 pGuiGraphics.drawCenteredString(font, Component.translatable("occultism.waila.current_ritual",
@@ -59,11 +59,12 @@ public class GoldenSacrificialBowlHUD {
                 }
                 if (!bowl.itemUseFulfilled()) {
                     pGuiGraphics.drawCenteredString(font, Component.translatable("ritual.occultism.use_item"), x, y, -1);
-                    ItemStack[] stacks = bowl.currentRitualRecipe.value().getItemToUse().items().toArray(ItemStack[]::new);
+                    var itemToUse = bowl.currentRitualRecipe.value().getItemToUse();
+                    ItemStack[] stacks = itemToUse != null ? itemToUse.items().map(holder -> new ItemStack(holder.value())).toArray(ItemStack[]::new) : new ItemStack[0];
                     if (stacks.length > 0) {
                         y += 9;
                         int index = stacks.length == 1 ? 0 : (int) (System.currentTimeMillis() / 1000) % stacks.length;
-                        pGuiGraphics.drawCenteredString(font, Component.translatable(stacks[index].getDescriptionId()), x, y, -1);
+                        pGuiGraphics.drawCenteredString(font, Component.translatable(stacks[index].getItem().getDescriptionId()), x, y, -1);
                     }
                 }
             } else {

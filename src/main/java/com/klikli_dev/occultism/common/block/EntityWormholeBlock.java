@@ -37,7 +37,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -299,21 +298,21 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         //Random direction
         blockpos = entity.blockPosition().offset(RandomSource.create().nextInt(-range, range), level.getMaxY(),RandomSource.create().nextInt(-range,range));
         //Find floor
-        while (level.getBlockState(blockpos.below()).is(BlockTags.AIR) && blockpos.getY() > level.getMinBuildHeight()) {
+        while (level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
             blockpos = blockpos.below();
         }
         //Pass nether (or other dimension) roof
         if (blockpos.getY() > 10 && level.getBlockState(blockpos.below()).is(Blocks.BEDROCK)) {
             blockpos = blockpos.below(5);
-            while (!level.getBlockState(blockpos.below()).is(BlockTags.AIR) && blockpos.getY() > level.getMinBuildHeight()) {
+            while (!level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
                 blockpos = blockpos.below();
             }
-            while (level.getBlockState(blockpos.below()).is(BlockTags.AIR) && blockpos.getY() > level.getMinBuildHeight()) {
+            while (level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
                 blockpos = blockpos.below();
             }
         }
         //Return blockPos if safe, or repeat the process
-        return blockpos.getY() == level.getMinBuildHeight()
+        return blockpos.getY() == level.getMinY()
                 || level.getBlockState(blockpos.below()).is(Blocks.WATER)
                 || level.getBlockState(blockpos.below()).is(Blocks.LAVA) ?
                 findSafeRTP(level, entity, recursionLeft - 1) : blockpos;

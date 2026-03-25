@@ -82,10 +82,10 @@ public class SelectedBlockRenderer {
     protected void renderSelectedBlocks(RenderLevelStageEvent event) {
         var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
 
-        if (!useAltRenderer && event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES)
+        if (!useAltRenderer && !(event instanceof RenderLevelStageEvent.AfterTranslucentParticles))
             return;
 
-        if (useAltRenderer && event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS)
+        if (useAltRenderer && !(event instanceof RenderLevelStageEvent.AfterTranslucentBlocks))
             return;
 
         if (!this.selectedBlocks.isEmpty()) {
@@ -154,7 +154,6 @@ public class SelectedBlockRenderer {
             }
 
             matrixStack.popPose();
-            RenderSystem.disableDepthTest();
             buffer.endBatch(); //call this instead of the rendertype specific end batch to fix wobbling
         }
     }

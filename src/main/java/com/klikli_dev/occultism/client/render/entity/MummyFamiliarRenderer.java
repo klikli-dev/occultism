@@ -186,11 +186,11 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
         }
     }
 
-    public static class KapowModel extends Model {
+    public static class KapowModel extends Model<net.minecraft.util.Unit> {
         public ModelPart kapow;
 
         public KapowModel(ModelPart part) {
-            super(part, (Identifier id) -> RenderTypes.entityTranslucent(id));
+            super(part, RenderTypes::entityTranslucent);
             this.kapow = part.getChild("kapow");
         }
 
