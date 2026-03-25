@@ -154,6 +154,10 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return this.ritualDummy;
     }
 
+    public ItemStack getResult() {
+        return this.result;
+    }
+
     public Ingredient getActivationItem() {
         return this.ritualRequirementSettings.activationItem();
     }

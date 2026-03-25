@@ -4,18 +4,22 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.core.HolderLookup;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class BoundBookOfBindingRecipe extends CustomRecipe {
-    public static RecipeSerializer<BoundBookOfBindingRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(BoundBookOfBindingRecipe::new);
+    public static final MapCodec<BoundBookOfBindingRecipe> MAP_CODEC = MapCodec.unit(new BoundBookOfBindingRecipe());
+    public static final StreamCodec<RegistryFriendlyByteBuf, BoundBookOfBindingRecipe> STREAM_CODEC = StreamCodec.unit(new BoundBookOfBindingRecipe());
+    public static RecipeSerializer<BoundBookOfBindingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
-    public BoundBookOfBindingRecipe(CraftingBookCategory category) {
-        super(category);
+    public BoundBookOfBindingRecipe() {
+        super();
     }
 
     @Override
@@ -50,7 +54,7 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
     }
 
     @Override
-    public @NotNull ItemStack assemble(CraftingInput input, HolderLookup.@NotNull Provider registries) {
+    public @NotNull ItemStack assemble(CraftingInput input) {
         int i = 0;
         ItemStack dictionaryOfSpirits = ItemStack.EMPTY;
         ItemStack bookOfBinding = ItemStack.EMPTY;
@@ -149,12 +153,7 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width >= 2 && height >= 2;
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return OccultismRecipes.BOOK_BINDING.get();
     }
 }
