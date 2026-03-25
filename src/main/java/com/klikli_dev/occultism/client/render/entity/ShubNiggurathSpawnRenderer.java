@@ -46,6 +46,11 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
     }
 
     @Override
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
     public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }

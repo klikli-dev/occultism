@@ -42,6 +42,11 @@ public class ShubNiggurathFamiliarRenderer
     }
 
     @Override
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
     public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }

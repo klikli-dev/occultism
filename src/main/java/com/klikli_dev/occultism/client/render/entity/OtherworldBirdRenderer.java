@@ -27,12 +27,12 @@ import net.minecraft.client.model.animal.parrot.ParrotModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.ParrotRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 
-public class OtherworldBirdRenderer extends MobRenderer<Parrot, LivingEntityRenderState, ParrotModel> {
+public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotRenderState, ParrotModel> {
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
 
     public OtherworldBirdRenderer(EntityRendererProvider.Context context) {
@@ -40,15 +40,12 @@ public class OtherworldBirdRenderer extends MobRenderer<Parrot, LivingEntityRend
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
-        return TEXTURE;
+    public ParrotRenderState createRenderState() {
+        return new ParrotRenderState();
     }
 
-    // Old getBob method preserved for reference - TODO: Port to 26.1 rendering API
-    // @Override
-    // public float getBob(Parrot livingBase, float partialTicks) {
-    //     float f = Mth.lerp(partialTicks, livingBase.oFlap, livingBase.flap);
-    //     float f1 = Mth.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.flapSpeed);
-    //     return (Mth.sin(f) + 1.0F) * f1;
-    // }
+    @Override
+    public Identifier getTextureLocation(ParrotRenderState state) {
+        return TEXTURE;
+    }
 }
