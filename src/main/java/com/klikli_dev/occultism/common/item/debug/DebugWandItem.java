@@ -40,7 +40,7 @@ public class DebugWandItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
 
-        if (!context.getLevel().isClientSide) {
+        if (!context.getLevel().isClientSide()) {
             Player player = context.getPlayer();
 
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
