@@ -65,7 +65,7 @@ public class IesniumGolemEntity extends IronGolem {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new DefendVillageTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<Mob>(this, Mob.class, 5, false, false, p_28879_ -> p_28879_ instanceof Enemy));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, false, (target, level) -> target instanceof Enemy));
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
     }
 

@@ -54,10 +54,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     private static final EntityDataAccessor<Boolean> BLACKSMITH_UPGRADE = SynchedEntityData.defineId(OtherworldBirdEntity.class, EntityDataSerializers.BOOLEAN);
@@ -130,18 +128,13 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     }
 
     @Override
-    public void setOwnerUUID(@Nullable UUID ownerId) {
-        super.setOwnerUUID(ownerId);
-    }
-
-    @Override
     public LivingEntity getFamiliarOwner() {
         return this.getOwner();
     }
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        this.setOwnerUUID(owner.getUUID());
+        this.setOwner(owner);
     }
 
     @Override

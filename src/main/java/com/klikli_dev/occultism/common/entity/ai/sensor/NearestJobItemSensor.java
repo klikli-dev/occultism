@@ -69,7 +69,7 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
         var aabb = new AABB(workAreaCenter.getCenter().add(-workAreaSize / 2f, -workAreaSize / 2f, -workAreaSize / 2f),
                 workAreaCenter.getCenter().add(workAreaSize / 2f, workAreaSize / 2f, workAreaSize / 2f));
 
-        ItemEntity nearestEntity = EntityRetrievalUtil.getNearestEntity(level,
+        ItemEntity nearestEntity = (ItemEntity) EntityRetrievalUtil.getNearestEntity(level,
                 aabb, entity.position(), (obj) -> {
                     if (obj instanceof ItemEntity item) {
                         return this.predicate().test(item, entity);

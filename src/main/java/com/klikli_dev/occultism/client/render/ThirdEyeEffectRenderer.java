@@ -131,8 +131,7 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = false;
 
                 if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
-                    //unload shader
-                    Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.shutdownEffect());
+                    //shader effect system removed in 26.1
                 }
             }
         }

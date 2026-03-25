@@ -83,7 +83,7 @@ public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity, EntityRender
                 }
             }
 
-            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, Object renderState, SubmitNodeCollector renderTasks, int packedLight) {
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, GeoRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
                 // TODO: get jobId from renderState data if needed; using best-effort approach
