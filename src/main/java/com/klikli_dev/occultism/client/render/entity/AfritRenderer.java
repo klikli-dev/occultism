@@ -49,31 +49,29 @@ public class AfritRenderer extends GeoEntityRenderer<AfritEntity, EntityRenderSt
         super(renderManager, new AfritModel());
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer<AfritEntity, Void, EntityRenderState>(this);
+        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
         this.withRenderLayer(glowLayer);
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer<AfritEntity, Void, EntityRenderState>(renderManager, this) {
-            @Override
-            protected List<RenderData> getRelevantBones(AfritEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
+        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(renderManager, this) {
+            protected List getRelevantBones(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+                AfritEntity entity = (AfritEntity) animatable;
+                ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!mainHandStack.isEmpty()) {
-                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, animatable);
+                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, entity);
                     return Collections.singletonList(RenderData.item("bone", ItemDisplayContext.THIRD_PERSON_LEFT_HAND, stackState));
                 }
                 return Collections.emptyList();
             }
 
-            @Override
-            public void addRenderData(AfritEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+            public void addRenderData(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+                List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
-                    renderState.addGeckolibData(CONTENTS, bones);
+                    ((com.geckolib.renderer.base.GeoRenderState)(Object)renderState).addGeckolibData(CONTENTS, bones);
                 }
             }
 
-            @Override
-            protected void submitItemStackRender(PoseStack poseStack, com.geckolib.cache.model.GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, EntityRenderState renderState, net.minecraft.client.renderer.SubmitNodeCollector renderTasks, int packedLight) {
+            protected void submitItemStackRender(PoseStack poseStack, com.geckolib.cache.model.GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, Object renderState, net.minecraft.client.renderer.SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);

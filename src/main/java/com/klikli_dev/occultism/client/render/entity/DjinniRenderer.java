@@ -26,18 +26,24 @@ import com.klikli_dev.occultism.client.model.entity.DjinniModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.geckolib.cache.model.GeoBone;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.layer.GeoRenderLayer;
+import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
+import com.geckolib.util.RenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import com.geckolib.cache.model.GeoBone;
-import com.geckolib.renderer.GeoEntityRenderer;
-import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity, EntityRenderState> {
@@ -45,43 +51,48 @@ public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity, EntityRender
     public DjinniRenderer(EntityRendererProvider.Context context) {
         super(context, new DjinniModel());
 
-        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
-        this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
+        this.withRenderLayer(glowLayer);
 
-            if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
-                if (Objects.equals(bone.getName(), "RARM")) //right hand
-                    return animatable.getItemInHand(InteractionHand.MAIN_HAND);
-            } else if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
-                if (Objects.equals(bone.getName(), "LARM")) //right hand
-                    return animatable.getItemInHand(InteractionHand.MAIN_HAND);
-            } else if (Objects.equals(bone.getName(), "bone2")) //right hand
-                return animatable.getItemInHand(InteractionHand.MAIN_HAND);
-            return null;
-        }, (bone, animatable) -> null) {
-            @Override
-            protected ItemDisplayContext getTransformTypeForStack(GeoBone bone, ItemStack stack, DjinniEntity animatable) {
-                return ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(context, this) {
+            protected List getRelevantBones(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+                DjinniEntity entity = (DjinniEntity) animatable;
+                String jobId = entity.getJobID();
+                ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
+                if (mainHandStack.isEmpty()) return Collections.emptyList();
+
+                String boneName;
+                if (Objects.equals(jobId, OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
+                    boneName = "RARM";
+                } else if (Objects.equals(jobId, OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
+                    boneName = "LARM";
+                } else {
+                    boneName = "bone2";
+                }
+                ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, entity);
+                return Collections.singletonList(RenderData.item(boneName, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, stackState));
             }
 
-            @Override
-            protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, DjinniEntity animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
+            public void addRenderData(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+                List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+                if (!bones.isEmpty()) {
+                    ((com.geckolib.renderer.base.GeoRenderState)(Object)renderState).addGeckolibData(CONTENTS, bones);
+                }
+            }
+
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, Object renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
-                if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
-                    poseStack.translate(-0.09, 0.13, 0);
-                    poseStack.scale(0.25F, 0.25F, 0.25F);
-                    poseStack.mulPose(Axis.XN.rotationDegrees(90));
-                }
-                if (Objects.equals(animatable.getJobID(), OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
-                    poseStack.scale(0.5F, 0.5F, 0.5F);
-                    poseStack.translate(0.15, 0.42, 0.52);
-                    poseStack.mulPose(Axis.XN.rotationDegrees(55));
-                }
-
-                super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
+                // TODO: get jobId from renderState data if needed; using best-effort approach
+                // Djinni MANAGE_MACHINE: scale + rotate for machine part
+                // Djinni TRADE_GAMBLER: scale + translate for gambling item
+                // For now apply the general translate; job-specific transforms require render state data
+                super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();
             }
-        });
+        };
+        this.withRenderLayer(itemLayer);
     }
-
 }

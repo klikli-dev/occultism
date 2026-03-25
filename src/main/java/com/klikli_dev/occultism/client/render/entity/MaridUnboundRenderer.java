@@ -36,7 +36,7 @@ public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity, 
         super(renderManager, new MaridUnboundModel());
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer layer = new ConditionalGlowingGeoLayer<MaridUnboundEntity, Void, EntityRenderState>(this);
+        GeoRenderLayer layer = new ConditionalGlowingGeoLayer(this);
         this.withRenderLayer(layer);
     }
 }

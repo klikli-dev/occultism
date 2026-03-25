@@ -37,7 +37,7 @@ public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity, Entity
         super(renderManager, new AfritWildModel());
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer layer = new ConditionalGlowingGeoLayer<AfritWildEntity, Void, EntityRenderState>(this);
+        GeoRenderLayer layer = new ConditionalGlowingGeoLayer(this);
         this.withRenderLayer(layer);
     }
 }

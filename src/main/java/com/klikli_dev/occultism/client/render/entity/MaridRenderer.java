@@ -49,14 +49,13 @@ public class MaridRenderer extends GeoEntityRenderer<MaridEntity, EntityRenderSt
         super(renderManager, new MaridModel());
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer<MaridEntity, Void, EntityRenderState>(this);
+        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
         this.withRenderLayer(glowLayer);
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer<MaridEntity, Void, EntityRenderState>(renderManager, this) {
+        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(renderManager, this) {
             @Override
             protected List<RenderData> getRelevantBones(MaridEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                if (Objects.equals("bone", null)) return Collections.emptyList(); // placeholder check
                 ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!mainHandStack.isEmpty()) {
                     ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, animatable);
@@ -69,7 +68,7 @@ public class MaridRenderer extends GeoEntityRenderer<MaridEntity, EntityRenderSt
             public void addRenderData(MaridEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
                 List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
-                    renderState.addGeckolibData(CONTENTS, bones);
+                    ((com.geckolib.renderer.base.GeoRenderState) renderState).addGeckolibData(CONTENTS, bones);
                 }
             }
 
