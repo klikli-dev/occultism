@@ -23,17 +23,16 @@
 package com.klikli_dev.occultism.crafting.recipe;
 
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -133,23 +132,17 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
         return true;
     }
 
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public ItemStack getResultItem() {
         return this.result.getStack();
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends Recipe<TraderRecipeInput>> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(OccultismItems.PENTACLE_SUMMON.get());
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<? extends Recipe<TraderRecipeInput>> getType() {
         return OccultismRecipes.SPIRIT_TRADE_TYPE.get();
     }
 
