@@ -35,16 +35,15 @@ public class SetBaseItemMode extends ItemMode {
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                 String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                Component.translatable(blockName)), true);
+                                Component.translatable(blockName)));
                 return true;
             } else {
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"));
             }
         }
         return false;

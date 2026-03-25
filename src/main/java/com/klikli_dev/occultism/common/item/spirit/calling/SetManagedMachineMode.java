@@ -54,17 +54,16 @@ public class SetManagedMachineMode extends ItemMode {
                     //write data into item nbt for client side usage
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
-                    player.displayClientMessage(
+                    player.sendOverlayMessage(
                             Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
-                                    TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
+                                    TextUtil.formatDemonName(boundSpirit.get().getName().getString())));
                     return true;
                 }
             } else {
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"));
             }
         }
         return false;
@@ -73,7 +72,7 @@ public class SetManagedMachineMode extends ItemMode {
     @Override
     public boolean handle(BlockEntity blockEntity, Player player, Level world, BlockPos pos, ItemStack stack, Direction face) {
         if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                Capabilities.ItemHandler.BLOCK)) {
+                Capabilities.Item.BLOCK)) {
             this.setSpiritManagedMachine(player, world, pos, stack, face);
             return true;
         }

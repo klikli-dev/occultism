@@ -58,11 +58,11 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
                                             Direction facing) {
         ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
 
             if(itemMode==ItemModes.SET_EXTRACT) {
                 if (blockEntity != null
-                         && world.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, facing) != null) {
+                         && world.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, facing) != null) {
                     return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
                             facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                 }
@@ -70,7 +70,7 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
         } else {
             if (Objects.requireNonNull(itemMode) == ItemModes.SET_MANAGED_MACHINE) {
                 if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                        Capabilities.ItemHandler.BLOCK)) {
+                        Capabilities.Item.BLOCK)) {
                     MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                     if (machine != null) {
                         GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
@@ -96,10 +96,10 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
                     if (manageMachine.getManagedMachine() != null) {
 
                     } else {
-                        player.displayClientMessage(
+                        player.sendOverlayMessage(
                                 Component.translatable(
                                         TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
-                                        TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
+                                        TextUtil.formatDemonName(boundSpirit.get().getName().getString())));
                         return true;
                     }
 
@@ -121,18 +121,17 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                     String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                    player.displayClientMessage(
+                    player.sendOverlayMessage(
                             Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                    Component.translatable(blockName), face.getSerializedName()), true);
+                                    Component.translatable(blockName), face.getSerializedName()));
                     return true;
                 }
             } else {
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"));
             }
         }
         return false;
