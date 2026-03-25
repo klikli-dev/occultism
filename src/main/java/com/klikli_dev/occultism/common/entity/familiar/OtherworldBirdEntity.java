@@ -31,6 +31,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,8 +47,11 @@ import net.minecraft.world.entity.animal.parrot.Parrot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
@@ -80,14 +85,14 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         builder.define(BLACKSMITH_UPGRADE, false);
     }
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setBlacksmithUpgrade(compound.getBoolean("hasBlacksmithUpgrade"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setBlacksmithUpgrade(input.getBooleanOr("hasBlacksmithUpgrade", false));
     }
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
     }
 
     // endregion Getter / Setter
@@ -112,7 +117,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     @Override
     public void aiStep() {
         // Every 10 ticks, attempt to refresh the owner buff
-        if (!this.level().isClientSide && this.level().getGameTime() % 10 == 0 && this.isTame()) {
+        if (!this.level().isClientSide() && this.level().getGameTime() % 10 == 0 && this.isTame()) {
             LivingEntity owner = this.getOwner();
             if (owner != null && this.distanceTo(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost
@@ -147,7 +152,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.JUMP, 60, 5, false, false));
+        effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 60, 5, false, false));
         if (this.hasBlacksmithUpgrade()){
             effects.add(new MobEffectInstance(OccultismEffects.DOUBLE_JUMP, 120, 9, false, false));
         } else {
@@ -173,7 +178,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     @Override
     public void blacksmithUpgrade() {
         if (this.getOwner() instanceof Player player)
-            player.displayClientMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()), true);
+            player.sendOverlayMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()));
         this.setCustomName(Component.empty().append(this.getName()).append(" ⛤"));
         this.setBlacksmithUpgrade(true);
     }
@@ -189,8 +194,8 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     }
 
     @Override
-    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
-        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+    protected void dropFromLootTable(ServerLevel serverLevel, DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(serverLevel, pDamageSource, pAttackedRecently);
 
         var owner = this.getFamiliarOwner();
 
@@ -201,13 +206,15 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         this.resetFallDistance();
         this.removeAllEffects();
 
-        var entityData = new CompoundTag();
         var id = this.getEncodeId();
+        var entityData = new CompoundTag();
         if(id != null)
             entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
+        var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
+        this.saveWithoutId(valueOutput);
+        entityData.merge(valueOutput.buildResult());
 
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
 
         this.setHealth(health);
 
