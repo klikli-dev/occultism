@@ -107,17 +107,13 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.result.getStack();
     }
 
-    public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.EMPTY, this.input);
-    }
-
     @Override
-    public RecipeSerializer<? extends Recipe<ItemHandlerRecipeInput>> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public RecipeType<? extends Recipe<ItemHandlerRecipeInput>> getType() {
+    public RecipeType<?> getType() {
         return OccultismRecipes.MINER_TYPE.get();
     }
 

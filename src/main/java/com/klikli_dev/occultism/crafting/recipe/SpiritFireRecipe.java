@@ -26,35 +26,41 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
-public class SpiritFireRecipe extends SingleInputRecipe<SingleRecipeInput> {
+public class SpiritFireRecipe implements Recipe<SingleRecipeInput> {
 
     public static final MapCodec<SpiritFireRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
-            ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter(r -> r.output)
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result)
     ).apply(instance, SpiritFireRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpiritFireRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             (r) -> r.input,
-            ItemStack.OPTIONAL_STREAM_CODEC,
-            (r) -> r.output,
+            ItemStackTemplate.STREAM_CODEC,
+            (r) -> r.result,
             SpiritFireRecipe::new
     );
     public static final RecipeSerializer<SpiritFireRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
-    public SpiritFireRecipe(Ingredient input, ItemStack output) {
-        super(input, output);
+    protected final Ingredient input;
+    protected final ItemStackTemplate result;
+
+    public SpiritFireRecipe(Ingredient input, ItemStackTemplate result) {
+        this.input = input;
+        this.result = result;
     }
 
     @Override
@@ -68,40 +74,39 @@ public class SpiritFireRecipe extends SingleInputRecipe<SingleRecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(SingleRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
-        ItemStack result = this.getResultItem(pRegistries).copy();
-        result.setCount(pCraftingContainer.getItem(0).getCount());
-        return result;
+    public ItemStack assemble(SingleRecipeInput input) {
+        ItemStack assembled = this.result.create();
+        assembled.setCount(input.getItem(0).getCount());
+        return assembled;
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        //as we don't have a real inventory so this is ignored.
+    public boolean showNotification() {
         return true;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.output;
+    public String group() {
+        return "";
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.EMPTY, this.input);
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.input);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
+    }
+
+    @Override
+    public RecipeSerializer<SpiritFireRecipe> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(OccultismBlocks.SPIRIT_FIRE.get());
-    }
-
-    @Override
-    public RecipeType<?> getType() {
+    public RecipeType<SpiritFireRecipe> getType() {
         return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
     }
 
