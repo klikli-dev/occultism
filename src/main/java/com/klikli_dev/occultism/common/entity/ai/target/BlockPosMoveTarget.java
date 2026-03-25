@@ -56,6 +56,6 @@ public class BlockPosMoveTarget implements IMoveTarget {
 
     @Override
     public IItemHandler getItemHandler(Direction depositFacing) {
-        return this.level.getCapability(Capabilities.ItemHandler.BLOCK, this.getBlockPos(), depositFacing);
+        return this.level.getCapability(Capabilities.Item.BLOCK, this.getBlockPos(), depositFacing);
     }
 }

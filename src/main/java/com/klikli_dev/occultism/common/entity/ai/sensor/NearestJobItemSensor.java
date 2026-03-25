@@ -75,7 +75,7 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
                         return this.predicate().test(item, entity);
                     }
                     return false;
-                });
+                }).orElse(null);
 
         BrainUtil.setMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, nearestEntity);
 

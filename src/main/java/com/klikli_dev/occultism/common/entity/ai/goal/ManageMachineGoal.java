@@ -127,7 +127,7 @@ public class ManageMachineGoal extends Goal {
                         ItemStack itemToExtract = this.job.getStorageController()
                                 .getItemStack(currentOrder.comparator, currentOrder.amount,
                                         true);
-                        IItemHandler handler = this.entity.getCapability(Capabilities.ItemHandler.ENTITY);
+                        IItemHandler handler = this.entity.getCapability(Capabilities.Item.ENTITY);
                         if (!itemToExtract.isEmpty() &&
                                 ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
@@ -145,13 +145,13 @@ public class ManageMachineGoal extends Goal {
                     } else if (this.targetBlock.equals(machineReference.extractGlobalPos.getPos())) {
                         //if we reached the machine (=extract block entity), we take out the result
 
-                        var machineHandler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+                        var machineHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
                                 blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,
                                 machineReference.extractFacing);
 
                         if (machineHandler != null) {
 
-                            IItemHandler entityHandler = this.entity.getCapability(Capabilities.ItemHandler.ENTITY);
+                            IItemHandler entityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
 
                             boolean movedAnyItems = false;
                             for (int i = 0; i < machineHandler.getSlots(); i++) {
@@ -246,7 +246,7 @@ public class ManageMachineGoal extends Goal {
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
 
-        var machineItemHandler = machine.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+        var machineItemHandler = machine.getLevel().getCapability(Capabilities.Item.BLOCK,
                 machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing);
         if (machineItemHandler == null)
             return false;
@@ -275,7 +275,7 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
                                                      BlockEntity extractBlockEntity, IStorageController storageController) {
-        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
                 extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing);
         if (machineItemHandler == null)
             return false;
@@ -300,9 +300,9 @@ public class ManageMachineGoal extends Goal {
         if (machine != null && extractBlockEntity != null && storageController != null) {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
-            if (machine.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+            if (machine.getLevel().getCapability(Capabilities.Item.BLOCK,
                     machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing) == null ||
-                    extractBlockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing) == null) {
+                    extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing) == null) {
                 this.job.setManagedMachine(null);
                 this.targetBlock = null;
                 return;

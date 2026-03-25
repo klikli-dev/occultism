@@ -55,7 +55,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         if (blockEntity != null) {
             BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
-            var depositItemHandler = entity.level().getCapability(Capabilities.ItemHandler.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
+            var depositItemHandler = entity.level().getCapability(Capabilities.Item.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
 
             this.toggleContainer(blockEntity, true);
 

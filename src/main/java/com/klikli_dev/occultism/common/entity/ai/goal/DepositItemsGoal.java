@@ -192,7 +192,7 @@ public class DepositItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
             this.moveTarget = new BlockPosMoveTarget(this.entity.level(), pos);
-            var handler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
+            var handler = this.entity.level().getCapability(Capabilities.Item.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
             if (handler == null) {
                 //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
                 this.entity.setDepositPosition(null);

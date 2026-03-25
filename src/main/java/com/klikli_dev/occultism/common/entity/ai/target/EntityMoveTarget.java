@@ -53,6 +53,6 @@ public class EntityMoveTarget implements IMoveTarget {
 
     @Override
     public IItemHandler getItemHandler(Direction depositFacing) {
-        return this.target.getCapability(Capabilities.ItemHandler.ENTITY, null);
+        return this.target.getCapability(Capabilities.Item.ENTITY, null);
     }
 }

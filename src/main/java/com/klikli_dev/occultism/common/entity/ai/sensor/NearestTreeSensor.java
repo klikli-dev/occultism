@@ -162,7 +162,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
             //find top of tree
             BlockPos topOfTree = new BlockPos(potentialStump);
-            while (!level.isEmptyBlock(topOfTree.above()) && topOfTree.getY() < level.getMaxBuildHeight()) {
+            while (!level.isEmptyBlock(topOfTree.above()) && topOfTree.getY() < level.getMaxY()) {
                 topOfTree = topOfTree.above();
             }
 
