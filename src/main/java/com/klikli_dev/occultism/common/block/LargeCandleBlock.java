@@ -62,7 +62,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.ticks.ScheduledTickAccess;
+import net.minecraft.world.level.ScheduledTickAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

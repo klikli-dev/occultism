@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.blockentity.EntityWormholeBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -43,6 +44,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -152,7 +154,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     }
 
     @Override
-    protected void entityInside(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+    protected void entityInside(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
         if (!level.isClientSide() && entity.canUsePortal(false)
                 && (Shapes.joinIsNotEmpty(
                 Shapes.create(entity.getBoundingBox().move(-pos.getX(), -pos.getY(), -pos.getZ())),
@@ -295,7 +297,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         //Respect word border
         int range = Math.min((int) level.getWorldBorder().getDistanceToBorder(entity), Occultism.SERVER_CONFIG.itemSettings.maxDistanceRTP.getAsInt());
         //Random direction
-        blockpos = entity.blockPosition().offset(RandomSource.create().nextInt(-range, range), level.getMaxBuildHeight(),RandomSource.create().nextInt(-range,range));
+        blockpos = entity.blockPosition().offset(RandomSource.create().nextInt(-range, range), level.getMaxY(),RandomSource.create().nextInt(-range,range));
         //Find floor
         while (level.getBlockState(blockpos.below()).is(BlockTags.AIR) && blockpos.getY() > level.getMinBuildHeight()) {
             blockpos = blockpos.below();

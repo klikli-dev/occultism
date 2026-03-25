@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.block;
 import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -127,7 +128,7 @@ public class DimensionalBattlefieldBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
         BlockEntity blockentity = level.getBlockEntity(pos);
         return (blockentity instanceof DimensionalBattlefieldBlockEntity battlefield)? battlefield.getRedstoneSignal() : 0;
     }

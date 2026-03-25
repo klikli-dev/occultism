@@ -38,6 +38,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -46,16 +47,16 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.InsideBlockEffectApplier;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.ticks.ScheduledTickAccess;
 
 import java.util.function.Supplier;
 
@@ -90,16 +91,16 @@ public class SpiritFireBlock extends BaseFireBlock {
 
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
-        if (pEntity instanceof ItemEntity item) {
+        if (pLevel instanceof ServerLevel serverLevel && pEntity instanceof ItemEntity item) {
             var recipeInput =
                     new SingleRecipeInput(item.getItem());
             var recipe =
-                    pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, pLevel);
+                    serverLevel.recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, serverLevel);
 
             if (recipe.isPresent() && !item.isRemoved()) {
                 item.remove(RemovalReason.DISCARDED);
 
-                ItemStack result = recipe.get().value().assemble(recipeInput, pLevel.registryAccess());
+                ItemStack result = recipe.get().value().assemble(recipeInput);
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 
