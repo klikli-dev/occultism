@@ -80,7 +80,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     public MutableComponent visit(ItemExistsConditionWrapper condition, OccultismConditionContext context) {
         return Component.translatable(
                 TranslationKeys.Condition.Ritual.ITEM_EXISTS_NOT_FULFILLED,
-                Component.translatable(Util.makeDescriptionId("item", condition.condition().getItem()))
+                Component.translatable(Util.makeDescriptionId("item", condition.condition().registryKey().identifier()))
         );
     }
 

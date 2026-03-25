@@ -64,7 +64,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
                     var recipe = ((ServerLevel) level).recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, (ServerLevel) level);
                     if (recipe.isPresent() && !recipeInput.item().is(OccultismBlocks.OTHERFLOWER.asItem())) {
                         super.extractItem(0, 1, false);
-                        ItemStack result = recipe.get().value().assemble(recipeInput, level.registryAccess());
+                        ItemStack result = recipe.get().value().assemble(recipeInput);
                         super.setStackInSlot(0, result);
                         level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
                     }
