@@ -57,10 +57,10 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         for (int i = -config.maxChunksToRoot/2; i < config.maxChunksToRoot/2; i++) {
             for (int j = -config.maxChunksToRoot/2; j < config.maxChunksToRoot/2; j++) {
 
-                ChunkPos currentChunk = new ChunkPos(generatingChunk.x + i, generatingChunk.z + j);
+                ChunkPos currentChunk = new ChunkPos(generatingChunk.x() + i, generatingChunk.z() + j);
 
                 //Seed random for this chunk, this way we get the same result no matter how often this is called.
-                var seed = getLargeFeatureWithSaltSeed(reader.getSeed(), currentChunk.x, currentChunk.z, config.featureSeedSalt);
+                var seed = getLargeFeatureWithSaltSeed(reader.getSeed(), currentChunk.x(), currentChunk.z(), config.featureSeedSalt);
                 random.setSeed(seed);
 
                 if (random.nextInt(config.chanceToGenerate) == 0) {
@@ -83,7 +83,7 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         BlockPos pos = context.origin();
 
         if (context.level().getChunkSource() instanceof ServerChunkCache chunkSource) {
-            ChunkPos generatingChunk = new ChunkPos(pos);
+            ChunkPos generatingChunk = ChunkPos.containing(pos);
 
             //we create our own random here so that subsequent features are not affected by our custom seed gen.
             //we also hand that to our sub feature so that that also doesn't modify the seed of the world random.

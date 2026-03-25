@@ -24,11 +24,10 @@ package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.common.data.NonNullArrayList;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.world.ItemStackWithSlot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -136,38 +135,35 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     }
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        ListTag nbtTagList = new ListTag();
+    public void serialize(ValueOutput output) {
+        ValueOutput.ValueOutputList itemList = output.childrenList("Items");
         for (int i = 0; i < this.stacks.size(); i++) {
-            if (!this.stacks.get(i).isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                ItemStack stack = this.stacks.get(i);
-                itemTag.putInt("Slot", i);
-                stack.save(provider, itemTag);
-                itemTag.putInt("RealSize", stack.getCount());
-                nbtTagList.add(itemTag);
+            ItemStack stack = this.stacks.get(i);
+            if (!stack.isEmpty()) {
+                ValueOutput child = itemList.addChild();
+                child.putInt("Slot", i);
+                child.putInt("RealSize", stack.getCount());
+                // Store item data using ItemStackWithSlot codec approach - store a copy with count=1 for codec compat, real count stored separately
+                child.store("Item", ItemStack.OPTIONAL_CODEC, stack.copyWithCount(1));
             }
         }
-        CompoundTag nbt = new CompoundTag();
-        nbt.put("Items", nbtTagList);
-        nbt.putInt("Size", this.stacks.size());
-        return nbt;
+        output.putInt("Size", this.stacks.size());
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        this.setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : this.stacks.size());
-        ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
-        for (int i = 0; i < tagList.size(); i++) {
-            CompoundTag itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
-
+    public void deserialize(ValueInput input) {
+        this.setSize(input.getIntOr("Size", this.stacks.size()));
+        input.childrenListOrEmpty("Items").forEach(child -> {
+            int slot = child.getIntOr("Slot", -1);
             if (slot >= 0 && slot < this.stacks.size()) {
-                ItemStack stack = ItemStack.parseOptional(provider, itemTags);
-                stack.setCount(itemTags.getInt("RealSize"));
-                this.stacks.set(slot, stack);
+                ItemStack stack = child.read("Item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+                if (!stack.isEmpty()) {
+                    int realSize = child.getIntOr("RealSize", stack.getCount());
+                    stack.setCount(realSize);
+                    this.stacks.set(slot, stack);
+                }
             }
-        }
+        });
         this.onLoad();
     }
 
