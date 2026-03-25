@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 public class ItemRecipeResult extends RecipeResult {
 
     public static final MapCodec<ItemRecipeResult> INGREDIENT_COMPAT_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-            Item.CODEC.fieldOf("item").forGetter(t -> t.stack.getItemHolder()),
+            Item.CODEC.fieldOf("item").forGetter(t -> t.stack.typeHolder()),
             Codec.INT.fieldOf("count").forGetter(t -> t.stack.getCount()),
             DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(t -> t.stack.getComponentsPatch())
     ).apply(builder, (item, count, components) -> new ItemRecipeResult(new ItemStack(item, count, components))));
