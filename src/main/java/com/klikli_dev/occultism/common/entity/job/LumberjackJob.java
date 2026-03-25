@@ -110,10 +110,10 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void onInit() {
-        this.itemsToPickUp.add(Ingredient.of(ItemTags.LOGS));
-        this.itemsToPickUp.add(Ingredient.of(ItemTags.LEAVES));
-        this.itemsToPickUp.add(Ingredient.of(ItemTags.SAPLINGS));
-        this.itemsToPickUp.add(Ingredient.of(OccultismTags.Items.FRUITS));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(ItemTags.LOGS)));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(ItemTags.LEAVES)));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(ItemTags.SAPLINGS)));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(OccultismTags.Items.FRUITS)));
         this.itemsToPickUp.add(Ingredient.of(Items.STICK));
     }
 

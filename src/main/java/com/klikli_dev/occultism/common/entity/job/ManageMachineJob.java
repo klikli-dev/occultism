@@ -178,7 +178,7 @@ public class ManageMachineJob extends SpiritJob {
     @Override
     public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         if (this.storageControllerPosition != null)
-            compound.put("storageControllerPosition", this.storageControllerPosition.serializeNBT(provider));
+            compound.put("storageControllerPosition", (CompoundTag) GlobalBlockPos.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.storageControllerPosition).getOrThrow());
 
         if (this.managedMachine != null)
             compound.put("managedMachine", this.managedMachine.serializeNBT(provider));

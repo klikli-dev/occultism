@@ -32,8 +32,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.storage.ServerLevelData;
-
 import java.util.function.Supplier;
 
 public abstract class ChangeTimeJob extends SpiritJob {
@@ -53,7 +51,8 @@ public abstract class ChangeTimeJob extends SpiritJob {
         this.newTime = this.getNewTime();
 
         if (!this.isEnabled()) {
-            this.entity.getOwner().sendSystemMessage(this.getDisabledMessage());
+            if (this.entity.getOwner() instanceof net.minecraft.world.entity.player.Player player)
+                player.sendSystemMessage(this.getDisabledMessage());
             this.finishChangeTime();
         }
     }
@@ -114,19 +113,22 @@ public abstract class ChangeTimeJob extends SpiritJob {
     }
 
     public void updateTime() {
-        var level = (ServerLevelData) this.entity.level().getLevelData();
+        var server = this.entity.level().getServer();
+        var clockHolder = server.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.WORLD_CLOCK).getOrThrow(net.minecraft.world.clock.WorldClocks.OVERWORLD);
+        var clockManager = server.clockManager();
+        var currentTime = clockManager.getTotalTicks(clockHolder);
 
-        var remainingTime = this.newTime - level.getDayTime();
+        var remainingTime = this.newTime - currentTime;
         var remainingTicks = Math.max(this.requiredChangeTicks.get() - this.currentChangeTicks, 1);
         var timeChange = remainingTime / remainingTicks;
 
-        var interpolatedTime = level.getDayTime() + timeChange;
+        var interpolatedTime = currentTime + timeChange;
 
         if (interpolatedTime >= this.newTime) {
             interpolatedTime = this.newTime;
         }
 
-        level.setDayTime(interpolatedTime);
+        clockManager.setTotalTicks(clockHolder, interpolatedTime);
     }
 
     public void finishChangeTime() {

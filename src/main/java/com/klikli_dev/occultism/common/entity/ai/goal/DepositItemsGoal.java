@@ -41,7 +41,6 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.EnumSet;
 import java.util.Optional;
-import java.util.UUID;
 
 public class DepositItemsGoal extends PausableGoal {
 
@@ -199,9 +198,9 @@ public class DepositItemsGoal extends PausableGoal {
             }
         });
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
-        Optional<UUID> targetUUID = this.entity.getDepositEntityUUID();
-        targetUUID.ifPresent((uuid) -> {
-            Entity targetEntity = ((ServerLevel) this.entity.level()).getEntity(uuid);
+        Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>> targetRef = this.entity.getDepositEntityUUID();
+        targetRef.ifPresent((ref) -> {
+            var targetEntity = ref.get((ServerLevel) this.entity.level());
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

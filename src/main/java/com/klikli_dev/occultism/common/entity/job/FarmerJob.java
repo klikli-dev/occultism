@@ -106,8 +106,8 @@ public class FarmerJob extends SpiritJob {
 
     @Override
     public void onInit() {
-        this.itemsToPickUp.add(Ingredient.of(Tags.Items.SEEDS));
-        this.itemsToPickUp.add(Ingredient.of(Tags.Items.CROPS));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(Tags.Items.SEEDS)));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(Tags.Items.CROPS)));
     }
 
     @Override
