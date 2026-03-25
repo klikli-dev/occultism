@@ -82,7 +82,6 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
         }
     }
 
-    @Override
     protected float tickHeadTurn(float p_110146_1_, float distance) {
         if (distance > 0.1) {
             this.yBodyRot = this.yRotO;

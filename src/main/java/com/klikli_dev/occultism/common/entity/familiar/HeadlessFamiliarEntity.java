@@ -243,7 +243,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                 if (this.isFullyRebuilt())
                     OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
-                return InteractionResult.sidedSuccess();
+                return InteractionResult.SUCCESS;
             }
         }
         return super.mobInteract(playerIn, hand);
