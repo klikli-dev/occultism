@@ -190,7 +190,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
         public ModelPart kapow;
 
         public KapowModel(ModelPart part) {
-            super(part, id -> RenderTypes.entityTranslucent(id));
+            super(part, (Identifier id) -> RenderTypes.entityTranslucent(id));
             this.kapow = part.getChild("kapow");
         }
 

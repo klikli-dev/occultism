@@ -26,8 +26,10 @@ import com.klikli_dev.occultism.client.model.entity.DjinniModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
@@ -40,7 +42,6 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +58,7 @@ public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity, EntityRender
 
         @SuppressWarnings({"unchecked", "rawtypes"})
         GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(context, this) {
-            protected List getRelevantBones(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+            protected List getRelevantBones(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
                 DjinniEntity entity = (DjinniEntity) animatable;
                 String jobId = entity.getJobID();
                 ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
@@ -75,10 +76,10 @@ public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity, EntityRender
                 return Collections.singletonList(RenderData.item(boneName, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, stackState));
             }
 
-            public void addRenderData(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+            public void addRenderData(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
                 List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
-                    ((com.geckolib.renderer.base.GeoRenderState)(Object)renderState).addGeckolibData(CONTENTS, bones);
+                    renderState.addGeckolibData(CONTENTS, bones);
                 }
             }
 

@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
+import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.renderer.GeoEntityRenderer;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.base.GeoRenderer;
@@ -38,7 +39,6 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,7 +54,7 @@ public class AfritRenderer extends GeoEntityRenderer<AfritEntity, EntityRenderSt
 
         @SuppressWarnings({"unchecked", "rawtypes"})
         GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(renderManager, this) {
-            protected List getRelevantBones(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+            protected List getRelevantBones(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
                 AfritEntity entity = (AfritEntity) animatable;
                 ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!mainHandStack.isEmpty()) {
@@ -64,14 +64,14 @@ public class AfritRenderer extends GeoEntityRenderer<AfritEntity, EntityRenderSt
                 return Collections.emptyList();
             }
 
-            public void addRenderData(Object animatable, Object relatedObject, Object renderState, float partialTick) {
+            public void addRenderData(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
                 List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
-                    ((com.geckolib.renderer.base.GeoRenderState)(Object)renderState).addGeckolibData(CONTENTS, bones);
+                    renderState.addGeckolibData(CONTENTS, bones);
                 }
             }
 
-            protected void submitItemStackRender(PoseStack poseStack, com.geckolib.cache.model.GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, Object renderState, net.minecraft.client.renderer.SubmitNodeCollector renderTasks, int packedLight) {
+            protected void submitItemStackRender(PoseStack poseStack, com.geckolib.cache.model.GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, GeoRenderState renderState, net.minecraft.client.renderer.SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);

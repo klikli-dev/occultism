@@ -25,8 +25,10 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.MaridModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
+import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
@@ -38,7 +40,6 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,26 +55,24 @@ public class MaridRenderer extends GeoEntityRenderer<MaridEntity, EntityRenderSt
 
         @SuppressWarnings({"unchecked", "rawtypes"})
         GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(renderManager, this) {
-            @Override
-            protected List<RenderData> getRelevantBones(MaridEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            protected List getRelevantBones(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
+                MaridEntity entity = (MaridEntity) animatable;
+                ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!mainHandStack.isEmpty()) {
-                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, animatable);
+                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, entity);
                     return Collections.singletonList(RenderData.item("bone", ItemDisplayContext.THIRD_PERSON_LEFT_HAND, stackState));
                 }
                 return Collections.emptyList();
             }
 
-            @Override
-            public void addRenderData(MaridEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+            public void addRenderData(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
+                List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
-                    ((com.geckolib.renderer.base.GeoRenderState) renderState).addGeckolibData(CONTENTS, bones);
+                    renderState.addGeckolibData(CONTENTS, bones);
                 }
             }
 
-            @Override
-            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, EntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, GeoRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);

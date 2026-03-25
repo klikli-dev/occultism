@@ -26,8 +26,10 @@ import com.klikli_dev.occultism.client.model.entity.FoliotModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
@@ -40,7 +42,6 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,10 +58,10 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity, EntityRender
 
         @SuppressWarnings({"unchecked", "rawtypes"})
         GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(context, this) {
-            @Override
-            protected List<RenderData> getRelevantBones(FoliotEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                String jobId = animatable.getJobID();
-                ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            protected List getRelevantBones(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
+                FoliotEntity entity = (FoliotEntity) animatable;
+                String jobId = entity.getJobID();
+                ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
                 if (mainHandStack.isEmpty()) return Collections.emptyList();
 
                 String boneName;
@@ -71,20 +72,18 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity, EntityRender
                 } else {
                     boneName = "arm_right";
                 }
-                ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, animatable);
+                ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, entity);
                 return Collections.singletonList(RenderData.item(boneName, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, stackState));
             }
 
-            @Override
-            public void addRenderData(FoliotEntity animatable, @Nullable Void relatedObject, EntityRenderState renderState, float partialTick) {
-                List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+            public void addRenderData(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
+                List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
-                    ((com.geckolib.renderer.base.GeoRenderState) renderState).addGeckolibData(CONTENTS, bones);
+                    renderState.addGeckolibData(CONTENTS, bones);
                 }
             }
 
-            @Override
-            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, EntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, GeoRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.65, 0);
                 // TODO: job-specific CLEANER offset requires render state data

@@ -4,7 +4,6 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.client.misc.ClientPentacleManager;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 // import com.klikli_dev.occultism.integration.waila.WailaIntegration; // WAILA integration disabled
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -45,11 +44,8 @@ public class GoldenSacrificialBowlHUD {
             int x = pGuiGraphics.guiWidth() / 2;
             int y = pGuiGraphics.guiHeight() / 2 + 9;
 
-            PoseStack pose = pGuiGraphics.pose();
-            pose.pushPose();
-
             if (bowl.ritualActive) {
-                String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().getPath().substring(7));
+                String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().location().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
                 int i = ritualName.indexOf(":");
                 pGuiGraphics.drawCenteredString(font, Component.translatable("occultism.waila.current_ritual",
@@ -63,7 +59,7 @@ public class GoldenSacrificialBowlHUD {
                 }
                 if (!bowl.itemUseFulfilled()) {
                     pGuiGraphics.drawCenteredString(font, Component.translatable("ritual.occultism.use_item"), x, y, -1);
-                    ItemStack[] stacks = bowl.currentRitualRecipe.value().getItemToUse().getItems();
+                    ItemStack[] stacks = bowl.currentRitualRecipe.value().getItemToUse().items().toArray(ItemStack[]::new);
                     if (stacks.length > 0) {
                         y += 9;
                         int index = stacks.length == 1 ? 0 : (int) (System.currentTimeMillis() / 1000) % stacks.length;
@@ -82,8 +78,6 @@ public class GoldenSacrificialBowlHUD {
                     pGuiGraphics.drawCenteredString(font, ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW), x, y, -1);
                 }
             }
-
-            pose.popPose();
         }
     }
 }
