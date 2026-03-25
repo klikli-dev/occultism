@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.blockentity;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
@@ -229,6 +230,16 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new StableWormholeContainer(id, playerInventory, this);
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (Occultism.SERVER_CONFIG.storage.unlinkWormholeOnBreak.get()) {
+            if (this.getLinkedStorageController() != null) {
+                this.setLinkedStorageControllerPosition(null);
+            }
+        }
+        super.preRemoveSideEffects(pos, state);
     }
 
 }
