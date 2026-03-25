@@ -27,7 +27,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -99,7 +98,7 @@ public class SelectedBlockRenderer {
             matrixStack.pushPose();
 
             var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-            Vec3 cameraPosition = camera.getPosition();
+            Vec3 cameraPosition = camera.position();
             matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
@@ -109,19 +108,53 @@ public class SelectedBlockRenderer {
                     //remove expired or invalid selections
                     it.remove();
                 } else {
-                    LevelRenderer.renderLineBox(matrixStack, builder,
-                            info.selectedBlock.getX(), info.selectedBlock.getY(), info.selectedBlock.getZ(),
-                            info.selectedBlock.getX() + 1, info.selectedBlock.getY() + 1, info.selectedBlock.getZ() + 1,
-                            info.color.getRed() / 255.0f,
-                            info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
-                            info.color.getAlpha() / 255.0f
-                    );
+                    // Draw the 12 edges of the AABB box manually as line segments
+                    float x0 = info.selectedBlock.getX();
+                    float y0 = info.selectedBlock.getY();
+                    float z0 = info.selectedBlock.getZ();
+                    float x1 = x0 + 1;
+                    float y1 = y0 + 1;
+                    float z1 = z0 + 1;
+                    float r = info.color.getRed() / 255.0f;
+                    float g = info.color.getGreen() / 255.0f;
+                    float b = info.color.getBlue() / 255.0f;
+                    float a = info.color.getAlpha() / 255.0f;
+                    var last = matrixStack.last();
+
+                    // Bottom face edges
+                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
+                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
+                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
+                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
+                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
+                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
+                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
+                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
+
+                    // Top face edges
+                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
+                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
+                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
+                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
+                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
+                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
+                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
+                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
+
+                    // Vertical edges
+                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
                 }
             }
 
             matrixStack.popPose();
             RenderSystem.disableDepthTest();
-            //buffer.endBatch(renderType);
             buffer.endBatch(); //call this instead of the rendertype specific end batch to fix wobbling
         }
     }
