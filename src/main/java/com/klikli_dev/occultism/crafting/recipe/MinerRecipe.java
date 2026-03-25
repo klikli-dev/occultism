@@ -108,12 +108,12 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<MinerRecipe> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<MinerRecipe> getType() {
         return OccultismRecipes.MINER_TYPE.get();
     }
 

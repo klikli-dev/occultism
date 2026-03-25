@@ -272,7 +272,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     protected CopyComponentsFunction.Builder copyComponents(DataComponentType<?>... pIncludes) {
-        var builder = CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY);
+        var builder = CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY);
         for (var include : pIncludes) {
             builder.include(include);
         }

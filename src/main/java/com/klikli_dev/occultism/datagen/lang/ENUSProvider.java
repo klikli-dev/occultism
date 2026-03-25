@@ -833,9 +833,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         //Dimension types
 
-        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.location()), "Overworld");
-        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.location()), "Nether");
-        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.location()), "The End");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.identifier()), "Overworld");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.identifier()), "Nether");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.identifier()), "The End");
     }
 
     private void addGuiTranslations() {
