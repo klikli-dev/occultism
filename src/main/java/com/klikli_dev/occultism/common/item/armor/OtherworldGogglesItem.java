@@ -42,9 +42,4 @@ public class OtherworldGogglesItem extends Item {
                 stack.is(OccultismTags.Items.OTHERWORLD_GOGGLES) ||
                 stack.getOrDefault(OccultismDataComponents.OTHERWORLD_GOGGLES, false);
     }
-
-    @Override
-    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
-        return false;
-    }
 }
