@@ -47,15 +47,6 @@ public class WildHordeDrownedEntity extends Drowned implements PossessedMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.8);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

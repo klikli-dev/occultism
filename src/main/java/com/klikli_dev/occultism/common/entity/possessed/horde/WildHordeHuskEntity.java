@@ -47,11 +47,6 @@ public class WildHordeHuskEntity extends Husk implements PossessedMob {
     }
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
     protected boolean convertsInWater() {
         return false;
     }

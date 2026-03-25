@@ -36,6 +36,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -71,16 +72,6 @@ public class WildHuntSkeletonEntity extends Skeleton implements PossessedMob {
 
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
-
-    @Override
     public void remove(RemovalReason reason) {
         this.master.ifPresent(boss -> {
             boss.notifyMinionDeath(this);
@@ -89,18 +80,18 @@ public class WildHuntSkeletonEntity extends Skeleton implements PossessedMob {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         TagKey<EntityType<?>> wildHuntTag = OccultismTags.Entities.WILD_HUNT;
 
         Entity trueSource = source.getEntity();
-        if (trueSource != null && trueSource.getType().is(wildHuntTag))
+        if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildHuntTag))
             return true;
 
         Entity immediateSource = source.getDirectEntity();
-        if (immediateSource != null && immediateSource.getType().is(wildHuntTag))
+        if (immediateSource != null && immediateSource.getType().builtInRegistryHolder().is(wildHuntTag))
             return true;
 
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override

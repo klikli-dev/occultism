@@ -38,6 +38,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.monster.breeze.Breeze;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
@@ -67,12 +68,12 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
                                         @Nullable SpawnGroupData spawnDataIn) {
 
         for (int i = 0; i < 3; i++) {
-            WildZombieEntity entity = OccultismEntities.WILD_ZOMBIE.get().create(this.level());
+            WildZombieEntity entity = OccultismEntities.WILD_ZOMBIE.get().create(this.level(), EntitySpawnReason.EVENT);
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
@@ -81,12 +82,12 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
         }
 
         for (int i = 0; i < 3; i++) {
-            WildSkeletonEntity entity = OccultismEntities.WILD_SKELETON.get().create(this.level());
+            WildSkeletonEntity entity = OccultismEntities.WILD_SKELETON.get().create(this.level(), EntitySpawnReason.EVENT);
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
@@ -95,12 +96,12 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
         }
 
         for (int i = 0; i < 3; i++) {
-            WildSilverfishEntity entity = OccultismEntities.WILD_SILVERFISH.get().create(this.level());
+            WildSilverfishEntity entity = OccultismEntities.WILD_SILVERFISH.get().create(this.level(), EntitySpawnReason.EVENT);
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
@@ -112,27 +113,22 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
 
         Entity trueSource = source.getEntity();
-        if (trueSource != null && trueSource.getType().is(wildTrialTag))
+        if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildTrialTag))
             return true;
 
         Entity immediateSource = source.getDirectEntity();
-        if (immediateSource != null && immediateSource.getType().is(wildTrialTag))
+        if (immediateSource != null && immediateSource.getType().builtInRegistryHolder().is(wildTrialTag))
             return true;
 
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
         if (!minionsA.isEmpty()) {
             minionsA.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
@@ -143,7 +139,7 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
             minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
 
-        return super.hurt(source, (float) (amount * (1 - (minionsA.size() + minionsB.size() + minionsC.size())/10.0) ) );
+        super.actuallyHurt(level, source, (float) (amount * (1 - (minionsA.size() + minionsB.size() + minionsC.size())/10.0) ) );
     }
 
     public void notifyMinionDeath(WildZombieEntity minion) {

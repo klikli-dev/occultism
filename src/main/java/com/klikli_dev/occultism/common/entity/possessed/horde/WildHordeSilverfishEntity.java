@@ -42,10 +42,6 @@ public class WildHordeSilverfishEntity extends Silverfish implements PossessedMo
                 .add(Attributes.ATTACK_DAMAGE, 9.0);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override
