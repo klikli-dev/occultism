@@ -68,7 +68,7 @@ public class IesniumAnvilBlock extends FallingBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         } else {
             player.openMenu(state.getMenuProvider(level, pos));
@@ -105,7 +105,7 @@ public class IesniumAnvilBlock extends FallingBlock {
             if (!fallingBlock.isSilent())
                 level.levelEvent(1031, pos, 0);
         } else {
-            if (level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+            if (level.getGameRules().getBoolean(GameRules.ENTITY_DROPS)) {
                 ItemEntity item = new ItemEntity(
                         level, fallingBlock.getX(), fallingBlock.getY(), fallingBlock.getZ(),
                         fallingBlock.getBlockState().getBlock().asItem().getDefaultInstance()

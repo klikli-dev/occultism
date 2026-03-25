@@ -33,6 +33,7 @@ import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.PowerParticleOption;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -54,12 +55,15 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.ticks.ScheduledTickAccess;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.ToIntFunction;
@@ -168,13 +172,13 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
 
     @Override
     protected BlockState updateShape(
-            BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos
+            BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random
     ) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -222,7 +226,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, @Nullable Orientation orientation,
                                 boolean isMoving) {
         if (!this.canSurvive(state, worldIn, pos)) {
             dropResources(state, worldIn, pos);
@@ -272,7 +276,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
                     case 4:
                         level.addParticle(OccultismParticles.SPIRIT_FIRE_FLAME.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         if (f < 0.24F) {
-                            level.addParticle(ParticleTypes.DRAGON_BREATH, d0, d1, d2, 0.0D, 0.02D, 0.0D);
+                            level.addParticle(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), d0, d1, d2, 0.0D, 0.02D, 0.0D);
                         }
                         break;
                 }

@@ -172,6 +172,12 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     }
 
     @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        com.klikli_dev.occultism.util.StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
+    }
+
+    @Override
     public @NotNull Component getDisplayName() {
         return Component.literal(Objects.requireNonNull(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType())).getPath());
     }

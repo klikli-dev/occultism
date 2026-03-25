@@ -118,16 +118,16 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
                     level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
                 }
                 return InteractionResult.SUCCESS;
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_WHITE)) {
+            } else if (stack.is(Tags.Items.DYES_WHITE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 0));
                 return InteractionResult.SUCCESS;
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_LIGHT_GRAY)) {
+            } else if (stack.is(Tags.Items.DYES_LIGHT_GRAY)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 1));
                 return InteractionResult.SUCCESS;
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_GRAY)) {
+            } else if (stack.is(Tags.Items.DYES_GRAY)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 2));
                 return InteractionResult.SUCCESS;
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_BLACK)) {
+            } else if (stack.is(Tags.Items.DYES_BLACK)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 3));
                 return InteractionResult.SUCCESS;
             }

@@ -27,8 +27,6 @@ import com.klikli_dev.occultism.common.blockentity.EntityWormholeBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.util.ItemNBTUtil;
-import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -104,20 +102,11 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         super.createBlockStateDefinition(builder);
     }
 
-    @Override
-    public void onRemove(BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-            if (blockEntity != null) {
-                StorageUtil.dropInventoryItems(blockEntity);
-            }
-            super.onRemove(state, worldIn, pos, newState, isMoving);
-        }
-    }
+    // onRemove logic moved to EntityWormholeBlockEntity.preRemoveSideEffects()
 
     @Override
     protected @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide) {
+        if (!pLevel.isClientSide()) {
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
             if (pStack.is(OccultismItems.SPIRIT_ATTUNED_GEM.get())) {
                 if (pHand.equals(InteractionHand.MAIN_HAND)){
@@ -164,7 +153,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
     @Override
     protected void entityInside(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-        if (!level.isClientSide && entity.canUsePortal(false)
+        if (!level.isClientSide() && entity.canUsePortal(false)
                 && (Shapes.joinIsNotEmpty(
                 Shapes.create(entity.getBoundingBox().move(-pos.getX(), -pos.getY(), -pos.getZ())),
                 state.getShape(level, pos), BooleanOp.AND)
@@ -202,20 +191,22 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                         }
                         if (name.getString().equals("HOME")
                                 && entity instanceof ServerPlayer player) {
-                            ResourceKey<Level> tempKey = player.getRespawnDimension();
+                            ServerPlayer.RespawnConfig respawnConfig = player.getRespawnConfig();
+                            ResourceKey<Level> tempKey = ServerPlayer.RespawnConfig.getDimensionOrDefault(respawnConfig);
                             ServerLevel tempLevel = level.getServer().getLevel(tempKey);
-                            BlockPos tempPos = player.getRespawnPosition();
+                            BlockPos tempPos = respawnConfig != null ? respawnConfig.respawnData().pos() : null;
                             if (tempLevel != null && tempPos != null) {
                                 BlockState blockstate = tempLevel.getBlockState(tempPos);
                                 Block block = blockstate.getBlock();
-                                if (block instanceof RespawnAnchorBlock && (blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0) && RespawnAnchorBlock.canSetSpawn(tempLevel)) {
+                                if (block instanceof RespawnAnchorBlock && (blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0) && RespawnAnchorBlock.canSetSpawn(tempLevel, tempPos)) {
                                     Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos);
                                     if (optional.isPresent()) {
                                         blockpos = new BlockPos((int) optional.get().x(), (int) optional.get().y(), (int) optional.get().z());
                                         resourcekey = tempKey;
                                     }
-                                } else if (block instanceof BedBlock && BedBlock.canSetSpawn(tempLevel)) {
-                                    Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), player.getRespawnAngle());
+                                } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(net.minecraft.world.attribute.EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
+                                    float respawnAngle = respawnConfig.respawnData().yaw();
+                                    Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
                                     if (optional.isPresent()) {
                                         blockpos = new BlockPos((int) optional.get().x(), (int) optional.get().y(), (int) optional.get().z());
                                         resourcekey = tempKey;
@@ -252,7 +243,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                 return null;
             //BlockPos check
             if (blockpos == null)
-                blockpos = serverlevel.getSharedSpawnPos();
+                blockpos = serverlevel.getRespawnData().pos();
             //No exit suffocating
             if (serverlevel.getBlockState(blockpos).isSuffocating(serverlevel, blockpos))
                 return null;
@@ -342,7 +333,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                                 state.getValue(EXIT_ROTATION_X) == 0 ? targetEntity.getXRot() : this.getExitRotX(state),
                                 TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET)
                         );
-                        targetEntity.changeDimension(transition);
+                        targetEntity.teleport(transition);
                         return;
                     }
                 }

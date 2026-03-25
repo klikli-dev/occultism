@@ -50,7 +50,7 @@ public interface IReplantableCrops {
     //endregion Getter / Setter
 
     default InteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (state.getValue(CropBlock.AGE) >= 7) {
                 List<ItemStack> drops = Block.getDrops(state, (ServerLevel) level, pos, null, player,
                         player.getItemInHand(hand));

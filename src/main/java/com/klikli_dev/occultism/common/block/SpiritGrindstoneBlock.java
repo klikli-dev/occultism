@@ -25,7 +25,7 @@ public class SpiritGrindstoneBlock extends GrindstoneBlock {
 
     @Override
     protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         } else {
             player.openMenu(state.getMenuProvider(level, pos));

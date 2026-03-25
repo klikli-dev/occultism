@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -86,6 +87,11 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
         super(BlockEntityTypeIn, worldPos, state);
     }
 
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
+    }
 
     @Override
     public void loadNetwork(ValueInput input) {

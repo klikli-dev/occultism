@@ -68,13 +68,8 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
-        return false;
-    }
-
-    @Override
     protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide) {
+        if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof MenuProvider provider &&
                     StorageControllerContainerBase.canOpen(pPlayer, pPos) &&
@@ -100,7 +95,7 @@ public class StorageControllerBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state, boolean includeData) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 

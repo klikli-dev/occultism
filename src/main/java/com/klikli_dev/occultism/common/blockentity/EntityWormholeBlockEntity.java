@@ -25,6 +25,8 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.util.StorageUtil;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueInput;
@@ -98,6 +100,12 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
 
     public EntityWormholeBlockEntity(BlockEntityType<?> BlockEntityTypeIn, BlockPos worldPos, BlockState state) {
         super(BlockEntityTypeIn, worldPos, state);
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
     }
 
     @Override

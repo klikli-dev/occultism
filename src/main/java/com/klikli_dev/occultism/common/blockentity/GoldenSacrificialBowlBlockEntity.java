@@ -657,6 +657,12 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         this.stopRitual(finished, true);
     }
 
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        this.stopRitual(false);
+        super.preRemoveSideEffects(pos, state);
+    }
+
     public void stopRitual(boolean finished, boolean showInterruptedMessage) {
         if (!this.level.isClientSide()) {
             var recipe = this.getCurrentRitualRecipe();

@@ -119,6 +119,12 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
 
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        com.klikli_dev.occultism.util.StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
+    }
+
     // region Inner Classes
     public class MineshaftInventory extends ItemStackHandler {
         private boolean isInput;
