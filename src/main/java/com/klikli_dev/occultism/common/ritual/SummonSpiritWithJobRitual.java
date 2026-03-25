@@ -45,7 +45,7 @@ public class SummonSpiritWithJobRitual extends SummonRitual {
         super.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 
         if (living instanceof SpiritEntity spirit) {
-            SpiritJob job = OccultismSpiritJobs.REGISTRY.get(this.recipe.getSpiritJobType()).create(spirit);
+            SpiritJob job = OccultismSpiritJobs.REGISTRY.get(this.recipe.getSpiritJobType()).orElseThrow().value().create(spirit);
             job.init();
             spirit.setJob(job);
         }

@@ -49,10 +49,10 @@ public class CraftMinerSpiritRitual extends Ritual {
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = this.recipe.getResultItem(level.registryAccess()).copy();
+        ItemStack result = this.recipe.getResult().copy();
 
         //sets up nbt configuration for miner
-        result.getItem().onCraftedBy(result, level, castingPlayer); //handing over a null player should be fine here
+        result.getItem().onCraftedBy(result, castingPlayer); //handing over a null player should be fine here
 
         //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));

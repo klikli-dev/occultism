@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -39,7 +40,7 @@ public class SummonWithChanceOfChickenRitual extends SummonRitual {
 
     @Override
     public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, @Nullable Player castingPlayer) {
-        return level.random.nextInt(3) == 0 ? entityType.create(level) : EntityType.CHICKEN.create(level);
+        return level.getRandom().nextInt(3) == 0 ? entityType.create(level, EntitySpawnReason.MOB_SUMMONED) : EntityType.CHICKEN.create(level, EntitySpawnReason.MOB_SUMMONED);
     }
 
 }

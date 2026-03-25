@@ -39,9 +39,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,7 +61,7 @@ public class ResurrectFamiliarRitual extends SummonRitual {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
         if(castingPlayer != null){
-            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+            castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger( castingPlayer, this);
         }
 
@@ -83,9 +86,9 @@ public class ResurrectFamiliarRitual extends SummonRitual {
             CompoundTag wrapper = new CompoundTag();
             wrapper.put("EntityTag", entityData);
 
-            Entity entity = type.create(level);
-            entity.load(entityData);
-            entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
+            Entity entity = type.create(level, EntitySpawnReason.MOB_SUMMONED);
+            entity.load(TagValueInput.create(ProblemReporter.DISCARDING, entity.registryAccess(), entityData));
+            entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
             entity.setDeltaMovement(Vec3.ZERO);
             level.addFreshEntity(entity);
 
@@ -93,7 +96,7 @@ public class ResurrectFamiliarRitual extends SummonRitual {
                 familiar.setFamiliarOwner(castingPlayer);
 
             if (entity instanceof DemonicPartner partner && castingPlayer != null)
-                partner.setOwnerUUID(castingPlayer.getUUID());
+                partner.setOwner(castingPlayer);
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,

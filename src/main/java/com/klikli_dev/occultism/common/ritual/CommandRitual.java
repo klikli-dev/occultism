@@ -37,6 +37,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.LevelBasedPermissionSet;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -74,7 +75,7 @@ public class CommandRitual extends Ritual {
         var name = Component.literal("@");
         try {
             CommandSourceStack commandsourcestack = new CommandSourceStack(
-                    CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level, 2, name.getString(), name, minecraftserver, castingPlayer);
+                    CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level, LevelBasedPermissionSet.GAMEMASTER, name.getString(), name, minecraftserver, castingPlayer);
             minecraftserver.getCommands().performPrefixedCommand(commandsourcestack, command);
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.forThrowable(throwable, "Executing command block");
