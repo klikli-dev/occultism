@@ -110,6 +110,6 @@ public class FamiliarSettingsData {
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         for (EntityType<?> familiar : getFamiliars())
             if (nbt.contains(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()))
-                this.familiarEnabled.put(familiar, nbt.getBoolean(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()));
+                this.familiarEnabled.put(familiar, nbt.getBooleanOr(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), false));
     }
 }

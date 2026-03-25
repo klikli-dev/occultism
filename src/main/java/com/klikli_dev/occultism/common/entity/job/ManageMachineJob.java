@@ -35,7 +35,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -198,19 +197,19 @@ public class ManageMachineJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         if (compound.contains("storageControllerPosition"))
-            this.storageControllerPosition = GlobalBlockPos.from(provider, compound.getCompound("storageControllerPosition"));
+            this.storageControllerPosition = GlobalBlockPos.from(provider, compound.getCompoundOrEmpty("storageControllerPosition"));
 
         if (compound.contains("managedMachine"))
             this.managedMachine = MachineReference.CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), compound.get("managedMachine")).getOrThrow().getFirst();
 
         if (compound.contains("currentDepositOrder"))
-            this.setCurrentDepositOrder(DepositOrder.from(compound.getCompound("currentDepositOrder"), provider));
+            this.setCurrentDepositOrder(DepositOrder.from(compound.getCompoundOrEmpty("currentDepositOrder"), provider));
 
         this.depositOrderQueue = new ArrayDeque<>();
         if (compound.contains("depositOrders")) {
-            ListTag nbtOrderList = compound.getList("depositOrders", Tag.TAG_COMPOUND);
+            ListTag nbtOrderList = compound.getList("depositOrders").orElse(new ListTag());
             for (int i = 0; i < nbtOrderList.size(); i++) {
-                DepositOrder depositOrder = DepositOrder.from(nbtOrderList.getCompound(i), provider);
+                DepositOrder depositOrder = DepositOrder.from(nbtOrderList.getCompoundOrEmpty(i), provider);
                 this.depositOrderQueue.add(depositOrder);
             }
         }

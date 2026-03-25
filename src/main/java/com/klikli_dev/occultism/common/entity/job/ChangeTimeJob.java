@@ -107,10 +107,10 @@ public abstract class ChangeTimeJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
-        this.currentChangeTicks = compound.getInt("currentChangeTicks");
-        var requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        this.currentChangeTicks = compound.getIntOr("currentChangeTicks", 0);
+        var requiredChangeTicks = compound.getIntOr("requiredChangeTicks", 0);
         this.requiredChangeTicks = () -> requiredChangeTicks;
-        this.newTime = compound.getLong("newTime");
+        this.newTime = compound.getLongOr("newTime", 0L);
     }
 
     public void updateTime() {

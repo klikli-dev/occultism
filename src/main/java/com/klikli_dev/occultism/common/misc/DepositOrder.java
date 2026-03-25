@@ -54,8 +54,8 @@ public class DepositOrder {
     }
 
     public void readFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
-        this.comparator = ItemStackComparator.from(compound.getCompound("comparator"), provider);
-        this.amount = compound.getInt("amount");
+        this.comparator = ItemStackComparator.from(compound.getCompoundOrEmpty("comparator"), provider);
+        this.amount = compound.getIntOr("amount", 0);
     }
 
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {

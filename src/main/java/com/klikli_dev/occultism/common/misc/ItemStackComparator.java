@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.misc;
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -84,25 +85,23 @@ public class ItemStackComparator implements IItemStackComparator {
         return stack.getItem() == this.filterStack.getItem();
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return this.write(new CompoundTag(), provider);
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.read(nbt, provider);
     }
     //endregion Static Methods
 
     public void read(CompoundTag compound, HolderLookup.Provider provider) {
-        CompoundTag nbt = compound.getCompound("stack");
-        this.filterStack = ItemStack.parseOptional(provider, nbt);
-        this.matchNbt = compound.getBoolean("matchNbt");
+        CompoundTag nbt = compound.getCompoundOrEmpty("stack");
+        this.filterStack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).result().orElse(ItemStack.EMPTY);
+        this.matchNbt = compound.getBooleanOr("matchNbt", false);
     }
 
     public CompoundTag write(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("stack", this.filterStack.saveOptional(provider));
+        compound.put("stack", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.filterStack).result().orElse(new CompoundTag()));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;
     }
