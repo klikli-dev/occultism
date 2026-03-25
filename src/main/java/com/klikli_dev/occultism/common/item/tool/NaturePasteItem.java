@@ -115,7 +115,7 @@ public class NaturePasteItem extends Item {
             return InteractionResult.CONSUME;
         }
 
-        if (blockState.getBlock() instanceof FungusBlock
+        if (blockState.getBlock() instanceof NetherFungusBlock
                 || blockState.getBlock() instanceof MushroomBlock
                 || blockState.getBlock() instanceof AzaleaBlock) {
             //Force growth
@@ -152,7 +152,7 @@ public class NaturePasteItem extends Item {
 
         if (blockState.getBlock() instanceof SugarCaneBlock
             || blockState.getBlock() instanceof CactusBlock) {
-            for (int i = 1; i<(level.getMaxBuildHeight() - blockpos.getY()); i++) {
+            for (int i = 1; i<(level.getMinY() + level.getHeight() - blockpos.getY()); i++) {
                 if (level.getBlockState(blockpos.above(i)).canBeReplaced()) {
                     level.setBlockAndUpdate(blockpos.above(i), blockState.getBlock().defaultBlockState());
                     ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.6, 1.0, true, ParticleTypes.HAPPY_VILLAGER);

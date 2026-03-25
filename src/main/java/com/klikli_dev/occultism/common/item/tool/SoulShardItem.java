@@ -93,7 +93,7 @@ public class SoulShardItem extends Item {
 
                 player.getCooldowns().addCooldown(stack, 10);
                 for (int i = 0; i < 1 + (int)Math.max(0, player.getLuck()); i++)
-                    lootTable.getRandomItems(lootParams, player.getLootTableSeed(), stack2 -> player.spawnAtLocation(stack2));
+                    lootTable.getRandomItems(lootParams, player.getLootTableSeed(), stack2 -> player.spawnAtLocation(serverLevel, stack2));
                 if (!player.hasInfiniteMaterials())
                     stack.shrink(1);
                 return InteractionResult.SUCCESS;
