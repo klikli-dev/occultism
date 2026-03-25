@@ -32,16 +32,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class StableWormholeBlockItem extends BlockItem {
 
@@ -50,41 +51,22 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public void verifyComponentsAfterLoad(ItemStack pStack) {
-        super.verifyComponentsAfterLoad(pStack);
-
-        if(pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
-            pStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
-        else
-            pStack.set(DataComponents.RARITY, Rarity.COMMON);
-    }
-
-    @Override
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
         Player player = context.getPlayer();
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (player.isShiftKeyDown()) {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if (blockEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the block entity.
 
-                    //if we already have block entity data stored, we update the linkedStorageControllerPosition
-                    //we don't do this if we do not have a block entity data, because an incomplete BE data causes a crash on serialization
-                    if(stack.has(DataComponents.BLOCK_ENTITY_DATA)){
-                        CustomData.update(DataComponents.BLOCK_ENTITY_DATA, stack, (data) -> {
-                            data.put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT(level.registryAccess()));
-                        });
-                    }
-
                     stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, GlobalBlockPos.from(blockEntity));
                     stack.set(DataComponents.RARITY, Rarity.RARE);
 
-                    player.displayClientMessage(
-                            Component.translatable(this.getDescriptionId() + ".message.set_storage_controller"),
-                            true);
+                    player.sendOverlayMessage(
+                            Component.translatable(this.getDescriptionId() + ".message.set_storage_controller"));
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -93,17 +75,17 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
 
         if (pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER)) {
             GlobalBlockPos globalPos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
 
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.toString() + ChatFormatting.RESET;
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
+            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         } else {
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
+            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
 
