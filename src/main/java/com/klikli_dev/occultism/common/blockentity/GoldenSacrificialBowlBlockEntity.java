@@ -54,11 +54,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -122,7 +126,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 if (GoldenSacrificialBowlBlockEntity.this.getCurrentRitualRecipe() != null)
                     return stack;
 
-                var ritualRecipe = GoldenSacrificialBowlBlockEntity.this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                var ritualRecipe = getAllRitualRecipes(GoldenSacrificialBowlBlockEntity.this.level).stream().filter(
                         r -> r.value().matches(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), stack)
                 ).findFirst().orElse(null);
 
@@ -165,7 +169,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         Map<BlockPos, Block> bestPentacleDiff = null;
         Boolean hasPentacle = false;
 
-        var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+        var pentacleMultiblocks = getAllRitualRecipes(level)
                 .stream().map(r -> r.value().getPentacleId()).distinct().map(ModonomiconAPI.get()::getMultiblock).toList();
 
         Multiblock bestMatch = null;
@@ -183,15 +187,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
         if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 10) {
             //tell player which pentacle he was probably trying to build
-            player.displayClientMessage(
+            player.sendSystemMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".pentacle_help",
-                            Component.translatable(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)),
-                    false);
+                            Component.translatable(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)));
             return true;
         } else if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && !hasPentacle) {
             //player probably doesn't have a pentacle at all
-            player.displayClientMessage(
-                    Component.translatable("ritual." + Occultism.MODID + ".pentacle_help.no_pentacle"), false);
+            player.sendSystemMessage(
+                    Component.translatable("ritual." + Occultism.MODID + ".pentacle_help.no_pentacle"));
             return true;
         }
         return false;
@@ -216,7 +219,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         List<Ingredient> bestRitualDiff = null;
         RitualRecipe bestRitual = null;
 
-        var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+        var pentacleMultiblocks = getAllRitualRecipes(level)
                 .stream().map(r -> r.value().getPentacleId()).distinct().map(ModonomiconAPI.get()::getMultiblock);
 
         var pentacle = pentacleMultiblocks.filter(p -> p.validate(level, pos) != null).toList();
@@ -224,7 +227,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         if (pentacle.isEmpty())
             return false;
 
-        for (var recipe : level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())) {
+        for (var recipe : getAllRitualRecipes(level)) {
             if (!pentacle.contains(recipe.value().getPentacle()))
                 continue;
 
@@ -232,7 +235,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             List<ItemStack> items = recipe.value().getRitual().getItemsOnSacrificialBowls(level, pos);
 
             if (items.isEmpty()){
-                player.displayClientMessage(Component.translatable("ritual." + Occultism.MODID + ".empty_bowls"), false);
+                player.sendSystemMessage(Component.translatable("ritual." + Occultism.MODID + ".empty_bowls"));
                 return true;
             }
 
@@ -257,9 +260,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         }
 
         if (bestRitualDiff != null && !bestRitualDiff.isEmpty() && bestRitualDiff.size() < 3) {
-            player.displayClientMessage(
-                    Component.translatable("ritual." + Occultism.MODID + ".ritual_help", Component.translatable(bestRitual.getRitual().getStartedMessage(player)), ritualDiffToComponent(bestRitualDiff)),
-                    false);
+            player.sendSystemMessage(
+                    Component.translatable("ritual." + Occultism.MODID + ".ritual_help", Component.translatable(bestRitual.getRitual().getStartedMessage(player)), ritualDiffToComponent(bestRitualDiff)));
 
             return true;
         }
@@ -272,10 +274,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         var text = Component.literal("");
 
         for (Ingredient ingredient : ritualDiff) {
-            if (ingredient.getItems().length == 0)
+            if (ingredient.items().findAny().isEmpty())
                 continue;
 
-            text.append(ingredient.getItems()[rand.nextInt(ingredient.getItems().length)].getDisplayName());
+            var items = ingredient.items().map(holder -> new ItemStack(holder.value())).toList();
+            text.append(items.get(rand.nextInt(items.size())).getDisplayName());
             text.append("\n");
         }
 
@@ -293,7 +296,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             for (SimulateResult result : sim.getSecond()) {
                 if (!result.test(level, rot)) {
-                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
+                    difference.put(result.worldPosition(), result.stateMatcher().getDisplayedState(0).getBlock());
                 }
             }
 
@@ -306,10 +309,12 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         return minDifference;
     }
 
+    @SuppressWarnings("unchecked")
     public RecipeHolder<RitualRecipe> getCurrentRitualRecipe() {
         if (this.currentRitualRecipeId != null) {
-            if (this.level != null) {
-                var recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
+            if (this.level != null && this.level instanceof ServerLevel serverLevel) {
+                var recipeKey = ResourceKey.create(Registries.RECIPE, this.currentRitualRecipeId);
+                var recipe = serverLevel.recipeAccess().byKey(recipeKey);
                 recipe.map(r -> (RecipeHolder<RitualRecipe>) r).ifPresent(r -> this.currentRitualRecipe = r);
 
                 NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
@@ -505,7 +510,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (this.getCurrentRitualRecipe() == null) {
                 //Identify the ritual in the ritual registry.
 
-                var ritualRecipe = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                var ritualRecipe = getAllRitualRecipes(this.level).stream().filter(
                         r -> r.value().matches(level, pos, activationItem)
                 ).findFirst().orElse(null);
 
@@ -524,25 +529,26 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 } else {
                     if (activationItem.getItem() instanceof BookOfBindingItem) {
                         //common error: people use unbound book, so we send a special message for those
-                        player.displayClientMessage(
-                                Component.translatable(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
-                                false);
+                        player.sendSystemMessage(
+                                Component.translatable(String.format("ritual.%s.book_not_bound", Occultism.MODID)));
                     } else {
-                        var otherActivation = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                        var otherActivation = getAllRitualRecipes(this.level).stream().filter(
                                 r -> r.value().getRitual().identifyAnyActivation(level, pos)
                         ).findFirst().orElse(null);
 
                         if (otherActivation != null) {
-                            String s = otherActivation.value().getActivationItem().getItems()[0].getDisplayName().getString();
-                            player.displayClientMessage(
-                                    Component.translatable(String.format("ritual.%s.wrong_activation_item", Occultism.MODID)),
-                                    false);
-                            player.displayClientMessage(
-                                    Component.translatable(s.substring(1, s.length() - 1))
-                                            .withStyle(otherActivation.value().getActivationItem().getItems()[0].getRarity().getStyleModifier()),
-                                    false);
+                            var activationItems = otherActivation.value().getActivationItem().items()
+                                    .map(holder -> new ItemStack(holder.value())).toList();
+                            if (!activationItems.isEmpty()) {
+                                String s = activationItems.getFirst().getDisplayName().getString();
+                                player.sendSystemMessage(
+                                        Component.translatable(String.format("ritual.%s.wrong_activation_item", Occultism.MODID)));
+                                player.sendSystemMessage(
+                                        Component.translatable(s.substring(1, s.length() - 1))
+                                                .withStyle(activationItems.getFirst().getRarity().getStyleModifier()));
+                            }
                         } else {
-                            var firstRecipe = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().findFirst();
+                            var firstRecipe = getAllRitualRecipes(this.level).stream().findFirst();
                             if (firstRecipe.isPresent() && firstRecipe.get().value().getRitual().getSacrificialBowls(level, pos).isEmpty()
                                     && !(activationItem.getItem() instanceof MultiBlockRitualSatchelItem)) {
 
@@ -567,21 +573,18 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                     }
                                 }
 
-                                player.displayClientMessage(
-                                        Component.translatable(String.format("ritual.%s.no_bowls", Occultism.MODID)),
-                                        false);
+                                player.sendSystemMessage(
+                                        Component.translatable(String.format("ritual.%s.no_bowls", Occultism.MODID)));
                             } else if (!helpWithPentacle(level, pos, player)) {
-                                var otherPentacle = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                                var otherPentacle = getAllRitualRecipes(this.level).stream().filter(
                                         r -> r.value().getRitual().identifyAnyPentacle(level, pos, activationItem)
                                 ).findFirst().orElse(null);
 
                                 if (otherPentacle != null) {
-                                    player.displayClientMessage(
-                                            Component.translatable(String.format("ritual.%s.wrong_pentacle", Occultism.MODID)),
-                                            false);
-                                    player.displayClientMessage(
-                                            Component.translatable(Util.makeDescriptionId("multiblock", otherPentacle.value().getPentacleId())),
-                                            false);
+                                    player.sendSystemMessage(
+                                            Component.translatable(String.format("ritual.%s.wrong_pentacle", Occultism.MODID)));
+                                    player.sendSystemMessage(
+                                            Component.translatable(Util.makeDescriptionId("multiblock", otherPentacle.value().getPentacleId())));
                                 } else if (activationItem.getItem() instanceof MultiBlockRitualSatchelItem) {
                                     ((ServerLevel) level)
                                             .sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
@@ -589,13 +592,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
                                     level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.PLAYERS, 1, 3);
 
-                                    player.displayClientMessage(
-                                            Component.translatable(String.format("ritual.%s.put_in_satchel", Occultism.MODID)),
-                                            true);
+                                    player.sendOverlayMessage(
+                                            Component.translatable(String.format("ritual.%s.put_in_satchel", Occultism.MODID)));
                                 } else if (!helpWithRitual(level, pos, serverPlayer, activationItem)) {
-                                    player.displayClientMessage(
-                                            Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
-                                            false);
+                                    player.sendSystemMessage(
+                                            Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)));
                                 }
                             }
                         }
@@ -635,14 +636,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             if (player != null) {
                 if (ritualRecipe.value().requiresSacrifice()) {
-                    player.displayClientMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)), false);
-                    player.displayClientMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())), false);
+                    player.sendSystemMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)));
+                    player.sendSystemMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())));
                 }
 
                 if (ritualRecipe.value().requiresItemUse()) {
-                    player.displayClientMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)), false);
-                    String s = ritualRecipe.value().getItemToUse().getItems()[0].getDisplayName().getString();
-                    player.displayClientMessage(Component.translatable(s.substring(1, s.length() - 1)), false);
+                    player.sendSystemMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)));
+                    var itemToUseItems = ritualRecipe.value().getItemToUse().items().map(holder -> new ItemStack(holder.value())).toList();
+                    if (!itemToUseItems.isEmpty()) {
+                        String s = itemToUseItems.getFirst().getDisplayName().getString();
+                        player.sendSystemMessage(Component.translatable(s.substring(1, s.length() - 1)));
+                    }
                 }
             }
         }
@@ -803,7 +807,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public void saveNetwork(ValueOutput output) {
         var recipe = this.getCurrentRitualRecipe();
         if (recipe != null) {
-            output.putString("currentRitual", recipe.id().toString());
+            output.putString("currentRitual", recipe.id().identifier().toString());
         }
         if (this.castingPlayerId != null) {
             output.store("castingPlayerId", UUIDUtil.CODEC, this.castingPlayerId);
@@ -813,5 +817,20 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         output.putBoolean("sacrificeProvided", this.sacrificeProvided);
         output.putBoolean("requiredItemUsed", this.itemUseProvided);
         super.saveNetwork(output);
+    }
+
+    /**
+     * Gets all ritual recipes from the recipe manager, filtering by type.
+     * In 26.1, getAllRecipesFor was removed; we must use getRecipes() and filter.
+     */
+    @SuppressWarnings("unchecked")
+    private static List<RecipeHolder<RitualRecipe>> getAllRitualRecipes(Level level) {
+        if (level instanceof ServerLevel serverLevel) {
+            return serverLevel.recipeAccess().getRecipes().stream()
+                    .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
+                    .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
+                    .toList();
+        }
+        return List.of();
     }
 }
