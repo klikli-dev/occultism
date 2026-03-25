@@ -15,8 +15,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -25,8 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
 
@@ -34,7 +37,6 @@ public class NaturePasteItem extends Item {
 
     public NaturePasteItem(Properties properties) {
         super(properties);
-        this.craftingRemainingItem = this;
     }
 
     @Override
@@ -57,21 +59,21 @@ public class NaturePasteItem extends Item {
                     .hurtAndBreak(8, player, player.getEquipmentSlotForItem(player.getItemInHand(InteractionHand.OFF_HAND)));
             ParticleUtils.spawnParticles(level, blockpos, 15 * 5, 0.9, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
             level.levelEvent(1505, blockpos, 15);
-            player.getCooldowns().addCooldown(OccultismItems.NATURE_PASTE.get(), 50);
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            player.getCooldowns().addCooldown(item, 50);
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() instanceof CropBlock crop && !crop.isMaxAge(blockState)) {
             item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             level.setBlock(blockpos, crop.getStateForAge(crop.getMaxAge()), 2);
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() instanceof StemBlock) {
             if (blockState.getValue(AGE_7) < 7) {
                 level.setBlock(blockpos, blockState.setValue(AGE_7, 7), 2);
-            } else if (!level.isClientSide) {
+            } else if (!level.isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) level;
                 //Force fruit growth
                 for (int test = 0; test < 100; test++) {
@@ -83,14 +85,14 @@ public class NaturePasteItem extends Item {
             }
             level.levelEvent(1505, blockpos, 15);
             item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() instanceof SweetBerryBushBlock) {
             item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             level.setBlock(blockpos, blockState.setValue(AGE_3, 3), 2);
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() instanceof MangrovePropaguleBlock) {
@@ -98,13 +100,13 @@ public class NaturePasteItem extends Item {
                 item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                 level.levelEvent(1505, blockpos, 15);
                 level.setBlockAndUpdate(blockpos, blockState.setValue(AGE_4, 4));
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             }
             if (blockState.getValue(HANGING))
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
         }
 
-        if (blockState.getBlock() instanceof SaplingBlock sapling && !level.isClientSide) {
+        if (blockState.getBlock() instanceof SaplingBlock sapling && !level.isClientSide()) {
             ServerLevel serverLevel = (ServerLevel) level;
             item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             BlockState blockState1 = blockState.setValue(STAGE, 1);
@@ -122,7 +124,7 @@ public class NaturePasteItem extends Item {
             for (int test = 0; test < 100; test++) {
                 if (!(applyBonemeal(item, level, blockpos, player))) {
                     item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
-                    return InteractionResult.sidedSuccess(level.isClientSide);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -132,20 +134,20 @@ public class NaturePasteItem extends Item {
             level.levelEvent(1505, blockpos, 15);
             level.setBlockAndUpdate(blockpos, blockState.setValue(AGE_3, 3));
             ParticleUtils.spawnParticleInBlock(level, blockpos, 15, ParticleTypes.HAPPY_VILLAGER);
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() instanceof VineBlock) {
             ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.3, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
             item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) level;
                 for (int test = 0; test < 100; test++) {
                     blockState.randomTick(serverLevel, blockpos, RandomSource.create(test));
                 }
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         if (blockState.getBlock() instanceof SugarCaneBlock
@@ -164,26 +166,26 @@ public class NaturePasteItem extends Item {
                     break;
                 }
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         if (applyBonemeal(item, level, blockpos, player)) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                 player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 level.levelEvent(1505, blockpos, 15);
             }
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             BlockState blockstate = level.getBlockState(blockpos);
             boolean flag = blockstate.isFaceSturdy(level, blockpos, context.getClickedFace());
             if (flag && growWaterPlant(item, level, blockpos.relative(context.getClickedFace()), context.getClickedFace())) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                     level.levelEvent(1505, blockpos, 15);
                     item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
                 return InteractionResult.PASS;
             }
@@ -196,8 +198,8 @@ public class NaturePasteItem extends Item {
         if (event.isCanceled()) return event.isSuccessful();
         if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock && bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate)) {
             if (level instanceof ServerLevel) {
-                if (bonemealableblock.isBonemealSuccess(level, level.random, blockPos, blockstate)) {
-                    bonemealableblock.performBonemeal((ServerLevel)level, level.random, blockPos, blockstate);
+                if (bonemealableblock.isBonemealSuccess(level, level.getRandom(), blockPos, blockstate)) {
+                    bonemealableblock.performBonemeal((ServerLevel)level, level.getRandom(), blockPos, blockstate);
                 }
             }
             return true;
@@ -224,7 +226,7 @@ public class NaturePasteItem extends Item {
                     if (holder.is(BiomeTags.PRODUCES_CORALS_FROM_BONEMEAL)) {
                         if (i == 0 && clickedSide != null && clickedSide.getAxis().isHorizontal()) {
                             blockstate = BuiltInRegistries.BLOCK
-                                    .getRandomElementOf(BlockTags.WALL_CORALS, level.random)
+                                    .getRandomElementOf(BlockTags.WALL_CORALS, level.getRandom())
                                     .map(p_204100_ -> p_204100_.value().defaultBlockState())
                                     .orElse(blockstate);
                             if (blockstate.hasProperty(BaseCoralWallFanBlock.FACING)) {
@@ -232,7 +234,7 @@ public class NaturePasteItem extends Item {
                             }
                         } else if (randomsource.nextInt(4) == 0) {
                             blockstate = BuiltInRegistries.BLOCK
-                                    .getRandomElementOf(BlockTags.UNDERWATER_BONEMEALS, level.random)
+                                    .getRandomElementOf(BlockTags.UNDERWATER_BONEMEALS, level.getRandom())
                                     .map(p_204095_ -> p_204095_.value().defaultBlockState())
                                     .orElse(blockstate);
                         }
@@ -259,9 +261,13 @@ public class NaturePasteItem extends Item {
     }
 
     @Override
-    public @NotNull ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-        ItemStack remain = itemStack.copy();
-        remain.setDamageValue(itemStack.getDamageValue() + 1);
-        return remain.getDamageValue() == remain.getMaxDamage() ? ItemStack.EMPTY : remain;
+    public @Nullable ItemStackTemplate getCraftingRemainder(ItemInstance instance) {
+        int currentDamage = instance.getOrDefault(DataComponents.DAMAGE, 0);
+        int maxDamage = instance.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+        int newDamage = currentDamage + 1;
+        if (newDamage >= maxDamage) {
+            return null;
+        }
+        return new ItemStackTemplate(this, DataComponentPatch.builder().set(DataComponents.DAMAGE, newDamage).build());
     }
 }

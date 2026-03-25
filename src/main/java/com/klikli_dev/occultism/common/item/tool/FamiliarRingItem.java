@@ -38,6 +38,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -45,14 +46,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
-import java.util.List;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 public class FamiliarRingItem extends Item {
 
@@ -80,27 +83,27 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack pStack) {
-        if (FMLLoader.getDist() == Dist.CLIENT)
+        if (FMLEnvironment.getDist() == Dist.CLIENT)
             return DistHelper.isFoil(pStack);
         return false;
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
 
-        if (pStack.has(OccultismDataComponents.OCCUPIED) && FMLLoader.getDist() == Dist.CLIENT) {
+        if (pStack.has(OccultismDataComponents.OCCUPIED) && FMLEnvironment.getDist() == Dist.CLIENT) {
             DistHelper.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
         } else {
-            pTooltipComponents.add(Component.translatable(
-                    pStack.getDescriptionId() + ".tooltip.empty"));
+            pTooltipComponents.accept(Component.translatable(
+                    pStack.getItem().getDescriptionId() + ".tooltip.empty"));
         }
     }
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target,
                                                   InteractionHand hand) {
-        if (!playerIn.level().isClientSide && target instanceof IFamiliar familiar) {
+        if (!playerIn.level().isClientSide() && target instanceof IFamiliar familiar) {
             if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level(), familiar)) {
                 OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 stack.set(OccultismDataComponents.OCCUPIED, true);
@@ -116,20 +119,12 @@ public class FamiliarRingItem extends Item {
     public InteractionResult useOn(UseOnContext pContext) {
 
         ItemStack stack = pContext.getPlayer().getItemInHand(pContext.getHand());
-        if (!pContext.getPlayer().level().isClientSide && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
+        if (!pContext.getPlayer().level().isClientSide() && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
             stack.set(OccultismDataComponents.OCCUPIED, false);
-            return InteractionResult.sidedSuccess(pContext.getPlayer().level().isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.CONSUME;
-    }
-
-    @Override
-    public void verifyComponentsAfterLoad(ItemStack pStack) {
-        super.verifyComponentsAfterLoad(pStack);
-
-        this.handleFamiliarTypeTag(pStack);
-
     }
 
     public void handleFamiliarTypeTag(ItemStack pStack) {
@@ -143,7 +138,7 @@ public class FamiliarRingItem extends Item {
                 EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getOptional(pStack.get(OccultismDataComponents.FAMILIAR_TYPE)).orElse(null);
                 if (type != null) {
                     var level = ServerLifecycleHooks.getCurrentServer().getLevel(Level.OVERWORLD);
-                    var entity = type.create(level);
+                    var entity = type.create(level, EntitySpawnReason.SPAWN_ITEM_USE);
                     var familiar = (IFamiliar) entity;
                     var curio = getCurio(pStack);
                     if (familiar != null && curio != null) {
@@ -188,10 +183,11 @@ public class FamiliarRingItem extends Item {
             if (this.getFamiliar(level) != null
                     && !this.getFamiliar(level).getFamiliarEntity().isAddedToLevel()) {
 
-                var familiarTag = new CompoundTag();
-                this.getFamiliar(level).getFamiliarEntity().saveAsPassenger(familiarTag);
+                var familiarTagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                this.getFamiliar(level).getFamiliarEntity().saveAsPassenger(familiarTagOutput);
+                var familiarTag = familiarTagOutput.buildResult();
 
-                EntityType.loadEntityRecursive(familiarTag, level, e -> {
+                EntityType.loadEntityRecursive(familiarTag, level, EntitySpawnReason.LOAD, e -> {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar) e).setFamiliarOwner(player);
@@ -220,7 +216,7 @@ public class FamiliarRingItem extends Item {
                     familiar.getFamiliarEntity().setLevel(level);
                 if (familiar.getFamiliarOwner() != entity)
                     return;
-                if (!level.isClientSide && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
+                if (!level.isClientSide() && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
                     for (MobEffectInstance effect : familiar.getFamiliarEffects())
                         familiar.getFamiliarOwner().addEffect(effect);
                 familiar.curioTick(entity);
@@ -231,9 +227,9 @@ public class FamiliarRingItem extends Item {
             CompoundTag compound = new CompoundTag();
             compound.putBoolean("hasFamiliar", this.familiar != null || this.cachedNbt != null);
             if (this.familiar != null) {
-                var familiarTag = new CompoundTag();
-                this.familiar.getFamiliarEntity().saveAsPassenger(familiarTag);
-                compound.put("familiar", familiarTag);
+                var familiarTagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                this.familiar.getFamiliarEntity().saveAsPassenger(familiarTagOutput);
+                compound.put("familiar", familiarTagOutput.buildResult());
             } else if (this.cachedNbt != null)
                 compound.put("familiar", this.cachedNbt);
 
@@ -241,8 +237,8 @@ public class FamiliarRingItem extends Item {
         }
 
         public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compound) {
-            if (compound.getBoolean("hasFamiliar"))
-                this.cachedNbt = compound.getCompound("familiar");
+            if (compound.getBooleanOr("hasFamiliar", false))
+                this.cachedNbt = compound.getCompoundOrEmpty("familiar");
         }
 
         // Need this because we cannot deserialize the familiar in deserializeNBT()
@@ -252,13 +248,13 @@ public class FamiliarRingItem extends Item {
                 return this.familiar;
 
             var data = this.stack.get(OccultismDataComponents.FAMILIAR_DATA);
-            var tag = data == null ? null : data.getUnsafe();
+            var tag = data == null ? null : data.copyTag();
             if (tag != null && (this.cachedNbt == null || !this.cachedNbt.equals(tag))) {
                 this.deserializeNBT(level.registryAccess(), tag);
             }
 
             if (this.cachedNbt != null) {
-                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.cachedNbt, level, Function.identity());
+                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.cachedNbt, level, EntitySpawnReason.LOAD, e -> e);
                 return this.familiar;
             }
 
@@ -268,9 +264,9 @@ public class FamiliarRingItem extends Item {
         private void setFamiliar(IFamiliar familiar, HolderLookup.Provider provider) {
             this.familiar = familiar;
 
-            CompoundTag compound = new CompoundTag();
             if (this.familiar != null) {
-                this.cachedNbt = this.familiar.getFamiliarEntity().saveAsPassenger(compound) ? compound : null;
+                var compoundOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                this.cachedNbt = this.familiar.getFamiliarEntity().saveAsPassenger(compoundOutput) ? compoundOutput.buildResult() : null;
             } else {
                 this.cachedNbt = null;
             }
@@ -282,18 +278,18 @@ public class FamiliarRingItem extends Item {
 
     public static class DistHelper {
 
-        public static void appendHoverText(ItemStack stack, TooltipContext pContext, List<Component> tooltip,
+        public static void appendHoverText(ItemStack stack, Item.TooltipContext pContext, Consumer<Component> tooltip,
                                            TooltipFlag flagIn) {
             var level = Minecraft.getInstance().level; //we no longer get it handed over from MC, so we get i there
             if (level != null) {
                 var familiar = getFamiliar(stack, level);
                 if (familiar != null) {
                     var type = familiar.getFamiliarEntity().getType();
-                    tooltip.add(Component.translatable(
-                            stack.getDescriptionId() + ".tooltip",
+                    tooltip.accept(Component.translatable(
+                            stack.getItem().getDescriptionId() + ".tooltip",
                             TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack)),
                             Component.translatable(
-                                    stack.getDescriptionId() + ".tooltip.familiar_type",
+                                    stack.getItem().getDescriptionId() + ".tooltip.familiar_type",
                                     TextUtil.formatDemonType(type.getDescription(), type)
                             ).withStyle(ChatFormatting.ITALIC)
                     ));

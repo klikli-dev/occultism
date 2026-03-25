@@ -45,6 +45,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -53,13 +54,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
-    public static Object[] blocktags = null;
 
     public DivinationRodItem(Properties properties) {
         super(properties);
@@ -68,7 +68,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        if (pLivingEntity.level().isClientSide && pLivingEntity instanceof Player player) {
+        if (pLivingEntity.level().isClientSide() && pLivingEntity instanceof Player player) {
             ScanManager.instance.updateScan(player, false);
         }
     }
@@ -85,7 +85,7 @@ public class DivinationRodItem extends Item {
             if (!state.isAir()) {
                 Block block = this.getOtherBlock(state, player.isCreative(), stack);
                 if (block != null) {
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                                         .getDescriptionId() : block.getDescriptionId();
@@ -99,7 +99,7 @@ public class DivinationRodItem extends Item {
                             SoundSource.PLAYERS,
                             1, 1);
                 } else {
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         player.sendSystemMessage(
                                 Component.translatable(this.getDescriptionId() + ".message.no_link_found"));
                     }
@@ -121,10 +121,10 @@ public class DivinationRodItem extends Item {
                 level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(), SoundSource.PLAYERS,
                         1, 1);
 
-                if (level.isClientSide) {
+                if (level.isClientSide()) {
                     ScanManager.instance.beginScan(player, stack.get(OccultismDataComponents.DIVINATION_LINKED_BLOCK).value());
                 }
-            } else if (!level.isClientSide) {
+            } else if (!level.isClientSide()) {
                 player.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.no_linked_block"));
             }
         }
@@ -137,9 +137,9 @@ public class DivinationRodItem extends Item {
         if (!(entityLiving instanceof Player player))
             return stack;
 
-        player.getCooldowns().addCooldown(this, 40);
+        player.getCooldowns().addCooldown(stack, 40);
         stack.set(OccultismDataComponents.DIVINATION_DISTANCE, NOT_FOUND);
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             BlockPos result = ScanManager.instance.finishScan(player);
             float distance = this.getDistance(player.position(), result);
             stack.set(OccultismDataComponents.DIVINATION_DISTANCE, distance);
@@ -167,7 +167,7 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
         if (!stack.has(OccultismDataComponents.DIVINATION_POS))
             //player interrupted, so we can safely set not found on server, if we don't have a previous result
             stack.set(OccultismDataComponents.DIVINATION_DISTANCE, NOT_FOUND);
@@ -181,7 +181,7 @@ public class DivinationRodItem extends Item {
         }
 
 
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             ScanManager.instance.cancelScan();
 
             //re-use old result
@@ -198,21 +198,22 @@ public class DivinationRodItem extends Item {
         }
 
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
+        return false;
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         if (pStack.has(OccultismDataComponents.DIVINATION_LINKED_BLOCK)) {
             Block block = pStack.get(OccultismDataComponents.DIVINATION_LINKED_BLOCK).value();
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                     .getDescriptionId() : block.getDescriptionId();
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked_block",
+            pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip.linked_block",
                     Component.translatable(translationKey)
                             .withStyle(ChatFormatting.BOLD, ChatFormatting.ITALIC)));
         } else {
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.no_linked_block"));
+            pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip.no_linked_block"));
         }
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
     }
 
     public Block getOtherBlock(BlockState state, boolean isCreative, ItemStack stack) {
@@ -257,11 +258,8 @@ public class DivinationRodItem extends Item {
         }
         //check server config to link to any block that have c:ores
         if (Occultism.SERVER_CONFIG.itemSettings.anyOreDivinationRod.getAsBoolean()) {
-            blocktags = state.getTags().toArray();
-            for (Object tag : blocktags) {
-                if (tag.equals(Tags.Blocks.ORES)) {
-                    return state.getBlock();
-                }
+            if (state.is(Tags.Blocks.ORES)) {
+                return state.getBlock();
             }
         }
         //In creative or true sight staff allow to find the clicked block
