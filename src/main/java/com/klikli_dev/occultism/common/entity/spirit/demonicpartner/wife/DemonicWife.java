@@ -3,6 +3,8 @@ package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.DemonicPartner;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.TamableAnimal;
@@ -25,7 +27,7 @@ public class DemonicWife extends DemonicPartner implements GeoEntity {
                     .sized(0.6F, 2)
                     .fireImmune()
                     .clientTrackingRange(8)
-                    .build(ID.toString()));
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, ID)));
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     protected DemonicWife(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
@@ -39,7 +41,7 @@ public class DemonicWife extends DemonicPartner implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }
 
