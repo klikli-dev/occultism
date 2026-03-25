@@ -40,9 +40,12 @@ public class ThunderWeatherJob extends ChangeWeatherJob {
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableThunderWeatherRitual.get()) {
             var level = (ServerLevel) this.entity.level();
-            level.setWeatherParameters(0, THUNDER_DURATION, true, true);
+            level.getServer().setWeatherParameters(0, THUNDER_DURATION, true, true);
         } else {
-            this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
+            var owner = this.entity.getOwner();
+            if (owner instanceof net.minecraft.world.entity.player.Player player) {
+                player.sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
+            }
         }
     }
 

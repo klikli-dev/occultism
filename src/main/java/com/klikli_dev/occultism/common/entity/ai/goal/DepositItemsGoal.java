@@ -200,7 +200,7 @@ public class DepositItemsGoal extends PausableGoal {
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
         Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>> targetRef = this.entity.getDepositEntityUUID();
         targetRef.ifPresent((ref) -> {
-            var targetEntity = ref.get((ServerLevel) this.entity.level());
+            var targetEntity = ref.getEntity(this.entity.level(), net.minecraft.world.entity.LivingEntity.class);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

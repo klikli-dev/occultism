@@ -91,7 +91,7 @@ public class SmelterJob extends SpiritJob {
         var allRecipes = ((ServerLevel) level).recipeAccess().getRecipes();
         for (var holder : allRecipes) {
             if (holder.value() instanceof AbstractCookingRecipe cookingRecipe) {
-                this.itemsToPickUp.add(cookingRecipe.ingredient());
+                this.itemsToPickUp.add(cookingRecipe.input());
             }
         }
     }
@@ -147,7 +147,7 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipe = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipe.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipe.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipe.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
@@ -160,7 +160,7 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipeBlast = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipeBlast.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipeBlast.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeBlast.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
@@ -173,7 +173,7 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipeSmoke = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeSmoke.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
@@ -186,7 +186,7 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipeCamp = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipeCamp.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipeCamp.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeCamp.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
@@ -262,7 +262,7 @@ public class SmelterJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if (entity.getTags().contains(DROPPED_BY_SMELTER) && entity.getAge() <
+        if (entity.entityTags().contains(DROPPED_BY_SMELTER) && entity.getAge() <
                 Occultism.SERVER_CONFIG.spiritJobs.smelterResultPickupDelay.get())
             return false; //cannot pick up items a smelter (most likely *this* one) dropped util delay elapsed.
 

@@ -214,7 +214,7 @@ public class CrystallizerJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if (entity.getTags().contains(DROPPED_BY_CRYSTALLIZER) && entity.getAge() <
+        if (entity.entityTags().contains(DROPPED_BY_CRYSTALLIZER) && entity.getAge() <
                 Occultism.SERVER_CONFIG.spiritJobs.crystallizerResultPickupDelay.get())
             return false; //cannot pick up items a crystallizer (most likely *this* one) dropped util delay elapsed.
 

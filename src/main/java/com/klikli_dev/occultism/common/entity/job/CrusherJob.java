@@ -217,7 +217,7 @@ public class CrusherJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if ((entity.getTags().contains(DROPPED_BY_CRUSHER) || entity.getTags().contains(DROPPED_BY_SMELTER) || entity.getTags().contains(DROPPED_BY_CRYSTALLIZER))
+        if ((entity.entityTags().contains(DROPPED_BY_CRUSHER) || entity.entityTags().contains(DROPPED_BY_SMELTER) || entity.entityTags().contains(DROPPED_BY_CRYSTALLIZER))
                 && entity.getAge() < Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
             return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
 

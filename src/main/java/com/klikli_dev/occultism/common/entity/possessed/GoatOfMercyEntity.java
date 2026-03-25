@@ -44,13 +44,14 @@ public class GoatOfMercyEntity extends Goat implements PossessedMob {
                 .add(Attributes.MAX_HEALTH, 1.0);
     }
     @Override
-    public boolean hurt(DamageSource source, float amount){
-        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(this.level());
-        lightningBolt.setVisualOnly(true);
-        lightningBolt.absMoveTo(this.getX(), this.getY(), this.getZ());
-        this.level().addFreshEntity(lightningBolt);
-        amount = Integer.MAX_VALUE;
-        return super.hurt(source, amount);
+    public void actuallyHurt(net.minecraft.server.level.ServerLevel level, DamageSource source, float amount) {
+        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.EVENT);
+        if (lightningBolt != null) {
+            lightningBolt.setVisualOnly(true);
+            lightningBolt.snapTo(this.getX(), this.getY(), this.getZ());
+            level.addFreshEntity(lightningBolt);
+        }
+        super.actuallyHurt(level, source, Integer.MAX_VALUE);
     }
     @Override
     public EntityType basedMob(){
