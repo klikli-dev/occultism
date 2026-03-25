@@ -14,6 +14,8 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,11 +29,11 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         super(p_248933_, lookupProvider);
     }
 
-    public static void spiritJobRecipes(RecipeOutput pRecipeOutput) {
-        spiritTradeRecipes(pRecipeOutput);
-        mobDropCrushing(pRecipeOutput);
-        oreProcessRecipes(pRecipeOutput);
-        blockProcessRecipes(pRecipeOutput);
+    public static void spiritJobRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+        spiritTradeRecipes(pRecipeOutput, registries);
+        mobDropCrushing(pRecipeOutput, registries);
+        oreProcessRecipes(pRecipeOutput, registries);
+        blockProcessRecipes(pRecipeOutput, registries);
     }
 
     private static void spiritTradeRecipes(RecipeOutput pRecipeOutput) {

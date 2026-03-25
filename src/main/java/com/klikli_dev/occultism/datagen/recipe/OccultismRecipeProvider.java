@@ -32,8 +32,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes() {
         this.ritualRecipes(this.output, this.registries);
-        this.miningRecipes(this.output);
-        this.spiritJobRecipes(this.output);
+        this.miningRecipes(this.output, this.registries);
+        this.spiritJobRecipes(this.output, this.registries);
         this.craftingRecipes(this.output);
         woodRecipes(this.output);
         smeltingRecipes(this.output);
@@ -54,8 +54,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
         RitualRecipes.ritualRecipes(recipeOutput, registries);
     }
 
-    private void miningRecipes(RecipeOutput pRecipeOutput) {
-        MinerRecipes.minerRecipes(pRecipeOutput);
+    private void miningRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+        MinerRecipes.minerRecipes(pRecipeOutput, registries);
     }
 
     private void spiritJobRecipes(RecipeOutput pRecipeOutput) {

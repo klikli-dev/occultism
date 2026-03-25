@@ -34,6 +34,7 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.criterion.PlayerTrigger;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -41,10 +42,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -135,9 +138,10 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/familiar/party")));
         var familiarRingStack = new ItemStack(OccultismItems.FAMILIAR_RING.get());
         familiarRingStack.set(OccultismDataComponents.SPIRIT_NAME, "Gardelldor");
+        var familiarRingTemplate = ItemStackTemplate.fromNonEmptyStack(familiarRingStack);
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
                 .display(new DisplayInfo(
-                        familiarRingStack, familiarTitle("capture"), familiarDescr("capture"), Optional.ofNullable(null), AdvancementType.TASK, true, true, false)
+                        familiarRingTemplate, familiarTitle("capture"), familiarDescr("capture"), Optional.empty(), AdvancementType.TASK, true, true, false)
                 )
                 .addCriterion("capture", FamiliarTrigger.of(FamiliarTrigger.Type.CAPTURE))
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/familiar/capture")));
@@ -257,10 +261,10 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
         return advancement;
     }
 
-    private ItemStack icon(int data) {
+    private ItemStackTemplate icon(int data) {
         ItemStack icon = OccultismItems.ADVANCEMENT_ICON.get().getDefaultInstance();
-        icon.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(data));
-        return icon;
+        icon.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(), List.of(data)));
+        return ItemStackTemplate.fromNonEmptyStack(icon);
     }
 
 }

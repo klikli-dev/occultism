@@ -6,16 +6,20 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,6 +37,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     private final int duration;
     private final NonNullList<Ingredient> ingredients;
     private final Identifier pentacleId;
+    private final HolderLookup.Provider registries;
 
     @Nullable
     private Identifier spiritJobType;
@@ -57,7 +62,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     @Nullable
     private ICondition condition;
 
-    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStack output, ItemStack ritualDummy, int duration, Identifier ritualType, Identifier pentacleId) {
+    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStack output, ItemStack ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries) {
         this.activationIngredient = activationIngredient;
         this.output = output;
         this.ritualDummy = ritualDummy;
@@ -65,12 +70,13 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         this.ritualType = ritualType;
         this.ingredients = ingredients;
         this.pentacleId = pentacleId;
+        this.registries = registries;
     }
 
-    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStack output, ItemStack ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, Ingredient... ingredients) {
+    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStack output, ItemStack ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries, Ingredient... ingredients) {
         NonNullList<Ingredient> ingredientsList = NonNullList.create();
         Collections.addAll(ingredientsList, ingredients);
-        return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, duration, ritualType, pentacleId);
+        return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, duration, ritualType, pentacleId, registries);
     }
 
     @Override
@@ -88,6 +94,11 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     @Override
     public @NotNull Item getResult() {
         return this.output.getItem();
+    }
+
+    @Override
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("crafting"));
     }
 
     public RitualRecipeBuilder spiritJobType(Identifier spiritJobType) {
@@ -149,11 +160,11 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void save(RecipeOutput pRecipeOutput, @NotNull Identifier pId) {
+    public void save(RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
-                .rewards(AdvancementRewards.Builder.recipe(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId.location()))
+                .rewards(AdvancementRewards.Builder.recipe(pId.location()))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
@@ -163,10 +174,10 @@ public class RitualRecipeBuilder implements RecipeBuilder {
                 new RitualRecipe.EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
                 this.ritualDummy, this.output, this.command);
 
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/ritual/")));
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.location().withPrefix("recipes/ritual/")));
     }
 
-    private void ensureValid(Identifier pId) {
+    private void ensureValid(ResourceKey<Recipe<?>> pId) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + pId);
         }

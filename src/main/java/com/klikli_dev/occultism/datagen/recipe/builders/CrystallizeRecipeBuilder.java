@@ -10,14 +10,18 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -44,8 +48,9 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     private int minTier;
     private int maxTier;
     private boolean allowEmpty;
+    private final HolderLookup.Provider registries;
 
-    public CrystallizeRecipeBuilder(Ingredient ingredient, RecipeResult result, int crystallizeTime) {
+    public CrystallizeRecipeBuilder(Ingredient ingredient, RecipeResult result, int crystallizeTime, HolderLookup.Provider registries) {
         this.serializer = OccultismRecipes.CRYSTALLIZE.get();
         this.ingredient = ingredient;
         this.allowEmpty = false;
@@ -53,26 +58,27 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         this.result = result;
         this.minTier = -1;
         this.maxTier = -1;
+        this.registries = registries;
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, ItemLike result, int crystallizeTime) {
-        return crystallizeRecipe(Ingredient.of(ingredient), result, crystallizeTime);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, ItemLike result, int crystallizeTime, HolderLookup.Provider registries) {
+        return crystallizeRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), result, crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(Ingredient ingredient, ItemLike result, int crystallizeTime) {
-        return new CrystallizeRecipeBuilder(ingredient, RecipeResult.of(new ItemStack(result)), crystallizeTime);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(Ingredient ingredient, ItemLike result, int crystallizeTime, HolderLookup.Provider registries) {
+        return new CrystallizeRecipeBuilder(ingredient, RecipeResult.of(new ItemStack(result)), crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, TagKey<Item> result, int crystallizeTime) {
-        return new CrystallizeRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crystallizeTime);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, TagKey<Item> result, int crystallizeTime, HolderLookup.Provider registries) {
+        return new CrystallizeRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, ItemLike result, int crystallizeTime) {
-        return new CrystallizeRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStack(result)), crystallizeTime);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, ItemLike result, int crystallizeTime, HolderLookup.Provider registries) {
+        return new CrystallizeRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStack(result)), crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crystallizeTime) {
-        return new CrystallizeRecipeBuilder(Ingredient.of(ingredient), TagRecipeResult.of(result), crystallizeTime);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crystallizeTime, HolderLookup.Provider registries) {
+        return new CrystallizeRecipeBuilder(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), TagRecipeResult.of(result), crystallizeTime, registries);
     }
 
     @Override
@@ -92,6 +98,11 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         if (this.result.getStacks().length == 1)
             return this.result.getStack().getItem();
         return Items.AIR;
+    }
+
+    @Override
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("crafting"));
     }
 
     public CrystallizeRecipeBuilder allowEmpty() {
@@ -146,17 +157,17 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
 
 
     @Override
-    public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull Identifier pId) {
+    public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
-                .rewards(AdvancementRewards.Builder.recipe(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId.location()))
+                .rewards(AdvancementRewards.Builder.recipe(pId.location()))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
         ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
 
         CrystallizeRecipe recipe = new CrystallizeRecipe(this.ingredient, this.result, this.minTier, this.maxTier, this.crystallizeTime, this.ignoreCrystallizeMultiplier);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crystallize/")), conditions);
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.location().withPrefix("recipes/crystallize/")), conditions);
     }
 
     protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, RecipeResult result) {
@@ -186,7 +197,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         return null;
     }
 
-    private void ensureValid(Identifier pId) {
+    private void ensureValid(ResourceKey<Recipe<?>> pId) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + pId);
         }
