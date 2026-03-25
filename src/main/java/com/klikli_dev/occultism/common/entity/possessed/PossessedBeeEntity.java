@@ -30,6 +30,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -65,9 +66,9 @@ public class PossessedBeeEntity extends Bee implements PossessedMob{
     }
 
     @Override
-    public boolean doHurtTarget(Entity entity) {
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity entity) {
         DamageSource damagesource = this.damageSources().sting(this);
-        boolean flag = entity.hurt(damagesource, (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+        boolean flag = entity.hurtServer(serverLevel, damagesource, (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             if (this.level() instanceof ServerLevel serverlevel) {
                 EnchantmentHelper.doPostAttackEffects(serverlevel, entity, damagesource);
@@ -91,39 +92,35 @@ public class PossessedBeeEntity extends Bee implements PossessedMob{
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        } else {
-            LivingEntity livingentity = this.getTarget();
-            if (livingentity != null
-                    && (double) this.random.nextFloat() < this.getAttributeValue(Attributes.SPAWN_REINFORCEMENTS_CHANCE)
-                    && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+    protected void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
+        LivingEntity livingentity = this.getTarget();
+        if (livingentity != null
+                && (double) this.random.nextFloat() < this.getAttributeValue(Attributes.SPAWN_REINFORCEMENTS_CHANCE)
+                && level.getGameRules().get(GameRules.SPAWN_MOBS)) {
 
-                long currentGameTime = this.level().getGameTime();
+            long currentGameTime = level.getGameTime();
 
-                // Reset the counter if the time window has passed
-                synchronized (PossessedBeeEntity.class) {
-                    if (currentGameTime - lastResetGameTime > TIME_WINDOW_TICKS) {
-                        beeSpawnCounter.set(0);
-                        lastResetGameTime = currentGameTime;
-                    }
-                }
-
-                // Check if the spawn limit has been reached
-                if (beeSpawnCounter.get() < MAX_BEES_PER_TIME) {
-                    Bee bee = OccultismEntities.POSSESSED_BEE.get().create(this.level());
-                    double offsetX = this.level().getRandom().nextGaussian() * (1 + this.level().getRandom().nextInt(4));
-                    double offsetZ = this.level().getRandom().nextGaussian() * (1 + this.level().getRandom().nextInt(4));
-                    bee.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ, this.level().getRandom().nextInt(360), 0);
-                    this.level().addFreshEntity(bee);
-
-                    // Increment the counter
-                    beeSpawnCounter.incrementAndGet();
+            // Reset the counter if the time window has passed
+            synchronized (PossessedBeeEntity.class) {
+                if (currentGameTime - lastResetGameTime > TIME_WINDOW_TICKS) {
+                    beeSpawnCounter.set(0);
+                    lastResetGameTime = currentGameTime;
                 }
             }
-            return super.hurt(source, amount);
+
+            // Check if the spawn limit has been reached
+            if (beeSpawnCounter.get() < MAX_BEES_PER_TIME) {
+                Bee bee = OccultismEntities.POSSESSED_BEE.get().create(level, EntitySpawnReason.REINFORCEMENT);
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                bee.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ, level.getRandom().nextInt(360), 0);
+                level.addFreshEntity(bee);
+
+                // Increment the counter
+                beeSpawnCounter.incrementAndGet();
+            }
         }
+        super.actuallyHurt(level, source, amount);
     }
 
     @Override

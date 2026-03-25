@@ -52,16 +52,6 @@ public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
     }
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
-
-    @Override
     protected boolean convertsInWater() {
         return false;
     }

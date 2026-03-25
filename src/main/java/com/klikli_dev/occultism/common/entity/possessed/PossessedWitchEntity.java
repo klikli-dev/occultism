@@ -42,15 +42,6 @@ public class PossessedWitchEntity extends Witch implements PossessedMob {
                 .add(Attributes.MAX_HEALTH, 35.0);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

@@ -41,10 +41,6 @@ public class PossessedShulkerEntity extends Shulker implements PossessedMob{
                 .add(Attributes.MAX_HEALTH, 40.0);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

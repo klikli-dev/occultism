@@ -43,11 +43,6 @@ public class PossessedGuardianEntity extends Guardian implements PossessedMob{
     }
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
     public EntityType basedMob(){
         return EntityType.GUARDIAN;
     }

@@ -30,7 +30,6 @@ import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -134,8 +133,11 @@ public class TraderJob extends SpiritJob {
         var recipeInput = new TraderRecipeInput(handHeld, this.getFactoryID().toString());
         Level level = this.entity.level();
         if (this.currentRecipe.isEmpty() && !handHeld.isEmpty()) {
-            this.currentRecipe = ((ServerLevel) level).recipeAccess().getRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
-                    recipeInput, level).collect(Collectors.toList());
+            this.currentRecipe = ((ServerLevel) level).recipeAccess().getRecipes().stream()
+                    .filter(r -> r.value() instanceof SpiritTradeRecipe && ((SpiritTradeRecipe) r.value()).matches(recipeInput, level))
+                    .map(r -> (RecipeHolder<SpiritTradeRecipe>) r)
+                    .filter(r -> r.value().getTrader() == null || r.value().getTrader().equals(this.getFactoryID().toString()))
+                    .collect(Collectors.toList());
             this.conversionTimer = 0;
 
             if (!this.currentRecipe.isEmpty()) {

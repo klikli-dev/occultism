@@ -40,15 +40,6 @@ public class PossessedPhantomEntity extends Phantom implements PossessedMob{
         return Zombie.createAttributes();
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override
