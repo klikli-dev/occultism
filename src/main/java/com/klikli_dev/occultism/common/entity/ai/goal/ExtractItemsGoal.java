@@ -120,14 +120,15 @@ public class ExtractItemsGoal extends PausableGoal {
                 //when close enough extract item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    var blockEntityHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
+                    var rawBlockHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
+                    var blockEntityHandler = rawBlockHandler != null ? IItemHandler.of(rawBlockHandler) : null;
                     if (blockEntityHandler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
 
-                    IItemHandler entityHandler =
-                            this.entity.getCapability(Capabilities.Item.ENTITY);
+                    var rawEntityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                    IItemHandler entityHandler = rawEntityHandler != null ? IItemHandler.of(rawEntityHandler) : null;
 
                     if (this.tryPerformStorageActuatorExtraction(blockEntityHandler, entityHandler,
                             this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist())) {
@@ -231,8 +232,8 @@ public class ExtractItemsGoal extends PausableGoal {
         targetPos.ifPresent((pos) -> {
             this.targetBlock = pos;
 
-            var handler = this.entity.level().getCapability(Capabilities.Item.BLOCK, this.targetBlock, this.entity.getExtractFacing());
-            if (handler == null) {
+            var rawHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, this.targetBlock, this.entity.getExtractFacing());
+            if (rawHandler == null) {
                 //the extract block is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
             }

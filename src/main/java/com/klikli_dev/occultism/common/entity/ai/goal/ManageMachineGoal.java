@@ -127,7 +127,8 @@ public class ManageMachineGoal extends Goal {
                         ItemStack itemToExtract = this.job.getStorageController()
                                 .getItemStack(currentOrder.comparator, currentOrder.amount,
                                         true);
-                        IItemHandler handler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                        var rawHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                        IItemHandler handler = rawHandler != null ? IItemHandler.of(rawHandler) : null;
                         if (!itemToExtract.isEmpty() &&
                                 ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
@@ -145,13 +146,15 @@ public class ManageMachineGoal extends Goal {
                     } else if (this.targetBlock.equals(machineReference.extractGlobalPos.getPos())) {
                         //if we reached the machine (=extract block entity), we take out the result
 
-                        var machineHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
+                        var rawMachineHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
                                 blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,
                                 machineReference.extractFacing);
+                        var machineHandler = rawMachineHandler != null ? IItemHandler.of(rawMachineHandler) : null;
 
                         if (machineHandler != null) {
 
-                            IItemHandler entityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                            var rawEntityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                            IItemHandler entityHandler = rawEntityHandler != null ? IItemHandler.of(rawEntityHandler) : null;
 
                             boolean movedAnyItems = false;
                             for (int i = 0; i < machineHandler.getSlots(); i++) {
@@ -246,8 +249,9 @@ public class ManageMachineGoal extends Goal {
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
 
-        var machineItemHandler = machine.getLevel().getCapability(Capabilities.Item.BLOCK,
+        var rawMachineItemHandler = machine.getLevel().getCapability(Capabilities.Item.BLOCK,
                 machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing);
+        var machineItemHandler = rawMachineItemHandler != null ? IItemHandler.of(rawMachineItemHandler) : null;
         if (machineItemHandler == null)
             return false;
 
@@ -275,8 +279,9 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
                                                      BlockEntity extractBlockEntity, IStorageController storageController) {
-        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
+        var rawMachineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
                 extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing);
+        var machineItemHandler = rawMachineItemHandler != null ? IItemHandler.of(rawMachineItemHandler) : null;
         if (machineItemHandler == null)
             return false;
 
