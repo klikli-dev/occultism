@@ -32,7 +32,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -50,19 +49,21 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 public class RitualRecipe implements Recipe<SingleRecipeInput> {
 
     public static final int DEFAULT_DURATION = 30;
+    public static final RecipeBookCategory RECIPE_BOOK_CATEGORY = new RecipeBookCategory();
 
     public static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Identifier.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
             RitualRequirementSettings.CODEC.forGetter((r) -> r.ritualRequirementSettings),
             RitualStartSettings.CODEC.forGetter((r) -> r.ritualStartSettings),
             EntityToSummonSettings.CODEC.forGetter((r) -> r.entityToSummonSettings),
-            ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+            ItemStack.CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
             ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
             Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
             ).apply(instance, (ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command) ->
@@ -110,7 +111,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                 entityToSummonSettings : new EntityToSummonSettings(null, null, null, null, -1, 1);
         this.ritualDummy = ritualDummy;
         this.result = result;
-        this.ritual = () -> OccultismRituals.REGISTRY.get(this.ritualType).create(this);
+        this.ritual = () -> OccultismRituals.REGISTRY.get(this.ritualType).orElseThrow().value().create(this);
         this.command = command;
     }
 
@@ -157,8 +158,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return this.ritualRequirementSettings.activationItem();
     }
 
-    public ItemStack[] getActivationItemStack() {
-        return this.ritualRequirementSettings.activationItem.getItems();
+    public List<ItemStack> getActivationItemStack() {
+        return this.ritualRequirementSettings.activationItem.items().map(holder -> new ItemStack(holder.value())).toList();
     }
 
     public int getDuration() {
@@ -170,7 +171,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends Recipe<SingleRecipeInput>> getSerializer() {
         return SERIALIZER;
     }
 
@@ -181,25 +182,34 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
 
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SingleRecipeInput pCraftingContainer, HolderLookup.@NotNull Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull SingleRecipeInput pCraftingContainer) {
         //as we don't have an inventory this is ignored.
         return ItemStack.EMPTY;
     }
 
 
-    @Override
-    public boolean canCraftInDimensions(int i, int i1) {
-        return true;
-    }
-
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
-        return this.result;
-    }
-
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ritualRequirementSettings.ingredients();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return false;
+    }
+
+    @Override
+    public @NotNull String group() {
+        return "";
+    }
+
+    @Override
+    public @NotNull PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public @NotNull RecipeBookCategory recipeBookCategory() {
+        return RECIPE_BOOK_CATEGORY;
     }
 
     /**
@@ -215,7 +225,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<? extends Recipe<SingleRecipeInput>> getType() {
         return OccultismRecipes.RITUAL_TYPE.get();
     }
 
@@ -347,7 +357,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     ) {
         public static MapCodec<RitualRequirementSettings> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                         Identifier.CODEC.fieldOf("pentacle_id").forGetter(r -> r.pentacleId),
-                        Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter(r -> r.ingredients),
+                         Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
                         Ingredient.CODEC.fieldOf("activation_item").forGetter(r -> r.activationItem),
                         Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(r -> r.duration)
                 ).apply(instance, (pentacleId, ingredients, activationItem, duration) -> new RitualRequirementSettings(pentacleId, NonNullList.copyOf(ingredients), activationItem, duration, -1))
