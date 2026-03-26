@@ -74,7 +74,7 @@ public class ForgeEventHandler {
         Level level = trader.level();
         if (level.isClientSide())
             return;
-        if (trader.getPersistentData().getBoolean("replaced"))
+        if (trader.getPersistentData().getBoolean("replaced").orElse(false))
             return;
         trader.getPersistentData().putBoolean("replaced", true);
 

@@ -36,9 +36,16 @@ sourceSets {
             exclude '**/datagen/OccultismAdvancementSubProvider.java'
             exclude '**/datagen/tags/OccultismItemTagProvider.java'
             exclude '**/datagen/lang/ENUSProvider.java'
+            exclude '**/datagen/book/**/*.java'
+            exclude '**/datagen/OccultismBookProvider.java'
             //TODO: fix client rendering for 26.1
             exclude '**/handlers/ClientSetupEventHandler.java'
             exclude '**/handlers/ClientPlayerEventHandler.java'
+            exclude '**/handlers/LootEventHandler.java'
+            exclude '**/handlers/ColorEventHandler.java'
+            exclude '**/handlers/TooltipHandler.java'
+            exclude '**/integration/BoundBookRecipeMaker.java'
+            exclude '**/integration/modonomicon/**/*.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
