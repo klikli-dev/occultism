@@ -57,17 +57,17 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     private static void spiritTradeRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL, registries),
                         new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING), 1,
-                        "occultism:trader_otherworld_saplings")
+                        "occultism:trader_otherworld_saplings", registries)
                 .unlockedBy("has_otherworld_sapling_natural", hasItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/otherworld_sapling")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.STONES, registries),
                         new ItemStack(OccultismBlocks.OTHERSTONE.get(), 2), 1,
-                        "occultism:trader_otherstone")
+                        "occultism:trader_otherstone", registries)
                 .unlockedBy("has_stone", hasTag(Tags.Items.STONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherstone")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.STONES, registries),
                         new ItemStack(OccultismBlocks.OTHERROCK.get(), 2), 1,
-                        "occultism:trader_otherrock")
+                        "occultism:trader_otherrock", registries)
                 .unlockedBy("has_stone", hasTag(Tags.Items.STONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherrock")));
 
@@ -130,29 +130,29 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     private static void mobDropCrushing(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200, registries)
                 .allowEmpty()
                 .setResultAmount(4)
                 .unlockedBy("has_blaze_rod", hasTag(Tags.Items.RODS_BLAZE, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/blaze_powder_from_rod")));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BREEZE, Items.WIND_CHARGE, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BREEZE, Items.WIND_CHARGE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(4)
                 .unlockedBy("has_breeze_rod", hasTag(Tags.Items.RODS_BREEZE, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/wind_charge_from_rod")));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.BONES, Items.BONE_MEAL, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.BONES, Items.BONE_MEAL, 200, registries)
                 .allowEmpty()
                 .setResultAmount(4)
                 .unlockedBy("has_bone", hasTag(Tags.Items.BONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/bone_meal_from_bone")));
 
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ENDER_PEARLS, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ENDER_PEARLS, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), 200, registries)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .unlockedBy("has_ender_pearl", hasTag(Tags.Items.ENDER_PEARLS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/ender_pearl_dust_from_tag")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), Tags.Items.ENDER_PEARLS, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), Tags.Items.ENDER_PEARLS, 200, registries)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setMinTier(2)
@@ -160,21 +160,21 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .unlockedBy("has_ender_pearl_dust", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/ender_pearl")));
 
-        CrushingRecipeBuilder.crushingRecipe(Items.ECHO_SHARD, OccultismTags.Items.ECHO_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.ECHO_SHARD, OccultismTags.Items.ECHO_DUST, 200, registries)
                 .allowEmpty()
                 .unlockedBy("has_echo_shard", hasItem(Items.ECHO_SHARD))
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .setMinTier(4)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/echo_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.ECHO_DUST, Items.ECHO_SHARD, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.ECHO_DUST, Items.ECHO_SHARD, 200, registries)
                 .unlockedBy("has_echo_dust", hasTag(OccultismTags.Items.ECHO_DUST, registries))
                 .setResultAmount(1)
                 .setMinTier(4)
                 .setAllowEmpty(false)
                 .setIgnoreCrystallizeMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/echo_shard")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_CRYSTALS, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_CRYSTALS, 200, registries)
                 .unlockedBy("has_prismarine_shard", hasItem(Items.PRISMARINE_SHARD))
                 .setResultAmount(1)
                 .setMinTier(2)
@@ -183,120 +183,120 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     private static void blockProcessRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.OTHERSTONE, OccultismTags.Items.OTHERCOBBLESTONE, 20)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.OTHERSTONE, OccultismTags.Items.OTHERCOBBLESTONE, 20, registries)
                 .unlockedBy("has_otherstone", hasTag(OccultismTags.Items.OTHERSTONE, registries))
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/othercobblestone")));
-        CrushingRecipeBuilder.crushingRecipe(OccultismBlocks.OTHERROCK.asItem(), OccultismBlocks.OTHERCOBBLEROCK.asItem(), 20)
+        CrushingRecipeBuilder.crushingRecipe(OccultismBlocks.OTHERROCK.asItem(), OccultismBlocks.OTHERCOBBLEROCK.asItem(), 20, registries)
                 .unlockedBy("has_otherrock", hasItem(OccultismBlocks.OTHERROCK.asItem()))
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/othercobblerock")));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.OBSIDIANS, OccultismTags.Items.OBSIDIAN_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.OBSIDIANS, OccultismTags.Items.OBSIDIAN_DUST, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .unlockedBy("has_obsidian", hasTag(Tags.Items.OBSIDIANS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/obsidian_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OBSIDIAN_DUST, Items.OBSIDIAN, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OBSIDIAN_DUST, Items.OBSIDIAN, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_obsidian_dust", hasTag(OccultismTags.Items.OBSIDIAN_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/obsidian")));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.END_STONES, OccultismTags.Items.END_STONE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.END_STONES, OccultismTags.Items.END_STONE_DUST, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .unlockedBy("has_end_stone", hasTag(Tags.Items.END_STONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/end_stone_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.END_STONE_DUST, Items.END_STONE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.END_STONE_DUST, Items.END_STONE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_end_stone_dust", hasTag(OccultismTags.Items.END_STONE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/end_stone")));
-        CrushingRecipeBuilder.crushingRecipe(Items.CALCITE, OccultismTags.Items.CALCITE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.CALCITE, OccultismTags.Items.CALCITE_DUST, 200, registries)
                 .allowEmpty()
                 .unlockedBy("has_calcite", hasItem(Items.CALCITE))
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/calcite_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.CALCITE_DUST, Items.CALCITE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.CALCITE_DUST, Items.CALCITE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_calcite_dust", hasTag(OccultismTags.Items.CALCITE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/calcite")));
-        CrushingRecipeBuilder.crushingRecipe(Items.BLACKSTONE, OccultismTags.Items.BLACKSTONE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.BLACKSTONE, OccultismTags.Items.BLACKSTONE_DUST, 200, registries)
                 .allowEmpty()
                 .unlockedBy("has_blackstone", hasItem(Items.BLACKSTONE))
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/blackstone_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.BLACKSTONE_DUST, Items.BLACKSTONE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.BLACKSTONE_DUST, Items.BLACKSTONE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_blackstone_dust", hasTag(OccultismTags.Items.BLACKSTONE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/blackstone")));
-        CrushingRecipeBuilder.crushingRecipe(Items.ICE, OccultismTags.Items.ICE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.ICE, OccultismTags.Items.ICE_DUST, 200, registries)
                 .allowEmpty()
                 .unlockedBy("has_ice", hasItem(Items.ICE))
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .setMinTier(2)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/ice_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.ICE_DUST, Items.ICE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.ICE_DUST, Items.ICE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_ice_dust", hasTag(OccultismTags.Items.ICE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/ice")));
-        CrushingRecipeBuilder.crushingRecipe(Items.PACKED_ICE, OccultismTags.Items.PACKED_ICE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.PACKED_ICE, OccultismTags.Items.PACKED_ICE_DUST, 200, registries)
                 .allowEmpty()
                 .unlockedBy("has_packed_ice", hasItem(Items.PACKED_ICE))
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .setMinTier(2)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/packed_ice_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.PACKED_ICE_DUST, Items.PACKED_ICE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.PACKED_ICE_DUST, Items.PACKED_ICE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_packed_ice_dust", hasTag(OccultismTags.Items.PACKED_ICE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/packed_ice")));
-        CrushingRecipeBuilder.crushingRecipe(Items.BLUE_ICE, OccultismTags.Items.BLUE_ICE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.BLUE_ICE, OccultismTags.Items.BLUE_ICE_DUST, 200, registries)
                 .allowEmpty()
                 .unlockedBy("has_blue_ice", hasItem(Items.BLUE_ICE))
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .setMinTier(2)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/blue_ice_dust")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.BLUE_ICE_DUST, Items.BLUE_ICE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.BLUE_ICE_DUST, Items.BLUE_ICE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_blue_ice_dust", hasTag(OccultismTags.Items.BLUE_ICE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/blue_ice")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_otherstone_dust", hasTag(OccultismTags.Items.OTHERSTONE_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/otherstone")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OTHERROCK_DUST, OccultismBlocks.OTHERROCK, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OTHERROCK_DUST, OccultismBlocks.OTHERROCK, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(3)
@@ -304,7 +304,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .unlockedBy("has_otherrock_dust", hasTag(OccultismTags.Items.OTHERROCK_DUST, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/otherrock")));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "sky_stones")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/sky_stone")), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "sky_stones")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/sky_stone")), 200, registries)
                 .unlockedBy("has_sky_stone", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "sky_stones")), registries))
                 .setResultAmount(1)
                 .setAllowEmpty(false)
@@ -313,7 +313,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     private static void oreProcessRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.DATURA_CROP, OccultismTags.Items.DATURA_SEEDS, 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.DATURA_CROP, OccultismTags.Items.DATURA_SEEDS, 200, registries)
                 .unlockedBy("has_datura", hasTag(OccultismTags.Items.DATURA_CROP, registries))
                 .setAllowEmpty(false)
                 .setResultAmount(2)
@@ -325,11 +325,11 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         fullMetalRecipe("silver", OccultismItems.SILVER_INGOT.get(), pRecipeOutput, registries);
         fullMetalRecipe("iesnium", OccultismItems.IESNIUM_INGOT.get(), pRecipeOutput, registries);
         tripleCrushSmeltBlastRecipe("netherite", Items.NETHERITE_INGOT, pRecipeOutput, registries);
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ORES_NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ORES_NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200, registries)
                 .unlockedBy("has_ancient_debris", hasTag(Tags.Items.ORES_NETHERITE_SCRAP, registries))
                 .setResultAmount(2)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/netherite_scrap_dust_from_ore")));
-        CrushingRecipeBuilder.crushingRecipe(Items.NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200, registries)
                 .unlockedBy("has_netherite_scrap", hasItem(Items.NETHERITE_SCRAP))
                 .setIgnoreCrushingMultiplier(true)
                 .setResultAmount(1)
@@ -430,71 +430,71 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         crushingOreRecipe("bauxite", 2, pRecipeOutput, registries);
         crushingOreRecipe("salt", 2, pRecipeOutput, registries);
 
-        CrushingRecipeBuilder.crushingRecipe(Items.COAL, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "coal")), 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.COAL, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "coal")), 200, registries)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .unlockedBy("has_coal", hasItem(Items.COAL))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_dust_from_item")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "coal")), Items.COAL, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "coal")), Items.COAL, 200, registries)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_coal_dust", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "coal")), registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/coal")));
-        CrushingRecipeBuilder.crushingRecipe(Items.CHARCOAL, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "charcoal")), 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.CHARCOAL, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "charcoal")), 200, registries)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .unlockedBy("has_charcoal", hasItem(Items.CHARCOAL))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/charcoal_dust_from_item")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "charcoal")), Items.CHARCOAL, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "charcoal")), Items.CHARCOAL, 200, registries)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_charcoal_dust", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "charcoal")), registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/charcoal")));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "coal_coke")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/coal_coke")), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "coal_coke")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/coal_coke")), 200, registries)
                 .unlockedBy("has_coal_coke", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "coal_coke")), registries))
                 .setResultAmount(1)
                 .setAllowEmpty(false)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_coke_dust")));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "bricks/normal")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/brick")), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "bricks/normal")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/brick")), 200, registries)
                 .unlockedBy("has_brick", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "bricks/normal")), registries))
                 .setResultAmount(1)
                 .setAllowEmpty(false)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/brick_dust")));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "plates/carbon")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/carbon")), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "plates/carbon")), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/carbon")), 200, registries)
                 .unlockedBy("has_carbon_plate", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "plates/carbon")), registries))
                 .setResultAmount(1)
                 .setAllowEmpty(false)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/carbon_dust_from_plate")));
 
-        CrystallizeRecipeBuilder.crystallizeRecipe(Items.AMETHYST_BLOCK, Items.AMETHYST_SHARD, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(Items.AMETHYST_BLOCK, Items.AMETHYST_SHARD, 200, registries)
                 .allowEmpty()
                 .setResultAmount(4)
                 .setMinTier(2)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_amethyst_block", hasItem(Items.AMETHYST_BLOCK))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/amethyst_from_block")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(Items.QUARTZ_BLOCK, Items.QUARTZ, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(Items.QUARTZ_BLOCK, Items.QUARTZ, 200, registries)
                 .allowEmpty()
                 .setResultAmount(4)
                 .setMinTier(2)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_quartz_block", hasItem(Items.QUARTZ_BLOCK))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/quartz_from_block")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(Items.AMETHYST_CLUSTER, Items.BUDDING_AMETHYST, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(Items.AMETHYST_CLUSTER, Items.BUDDING_AMETHYST, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(4)
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_amethyst_cluster", hasItem(Items.AMETHYST_CLUSTER))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/budding_amethyst")));
-        CrystallizeRecipeBuilder.crystallizeRecipe(Items.OBSIDIAN, Items.CRYING_OBSIDIAN, 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(Items.OBSIDIAN, Items.CRYING_OBSIDIAN, 200, registries)
                 .allowEmpty()
                 .setResultAmount(1)
                 .setMinTier(4)
@@ -504,7 +504,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     protected static void crushingGeneralizedRecipe(String input, Integer amount, String from, Boolean mult, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + input)), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + input)), 200, registries)
                 .unlockedBy("has_" + input + "_" + from, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), registries))
                 .setResultAmount(amount)
                 .setAllowEmpty(false)
@@ -525,7 +525,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     protected static void crystallizeGeneralizedRecipe(String input, Integer amount, String from, Boolean mult, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
-        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/" + input)), 200)
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/" + input)), 200, registries)
                 .unlockedBy("has_" + input + "_" + from, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), registries))
                 .setResultAmount(amount)
                 .setAllowEmpty(false)
@@ -571,20 +571,20 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         crushingIngotRecipe(metalName, recipeOutput, registries);
         crushingOreRecipe(metalName, 2, recipeOutput, registries);
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 200, registries)
                 .unlockedBy("has_raw_" + metalName, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/" + metalName)), registries))
                 .setResultAmount(2)
                 .setAllowEmpty(false)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_raw")));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 1600)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 1600, registries)
                 .unlockedBy("has_raw_" + metalName + "_block", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), registries))
                 .setResultAmount(18)
                 .setAllowEmpty(false)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_raw_block")));
 
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "clumps/" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dirty_dusts/" + metalName)), 200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "clumps/" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dirty_dusts/" + metalName)), 200, registries)
                 .unlockedBy("has_clump_" + metalName, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "clumps/" + metalName)), registries))
                 .setResultAmount(2)
                 .setAllowEmpty(false)
