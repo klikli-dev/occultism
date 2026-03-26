@@ -155,7 +155,7 @@ public class FamiliarEventHandler {
         entity.setHealth(2);
         entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
 
-        if (!owner.level().isClientSide)
+        if (!owner.level().isClientSide())
             OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
     }
 

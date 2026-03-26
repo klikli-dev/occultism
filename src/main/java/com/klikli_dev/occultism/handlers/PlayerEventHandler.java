@@ -108,7 +108,7 @@ public class PlayerEventHandler {
                     SoundEvent soundEvent =
                             isFlintAndSteel ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE;
                     level.playSound(event.getEntity(), pos, soundEvent,
-                            SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
+                            SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
 
                     level.setBlock(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
 

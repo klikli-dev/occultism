@@ -29,6 +29,16 @@ sourceSets {
             exclude '**/emi/**/*.java'
             exclude '**/waila/**/*.java'
             exclude '**/jei/impl/**/*.java'
+            //TODO: fix datagen for 26.1
+            exclude '**/datagen/recipe/**/*.java'
+            exclude '**/datagen/DataGenerators.java'
+            exclude '**/datagen/loot/OccultismBlockLoot.java'
+            exclude '**/datagen/OccultismAdvancementSubProvider.java'
+            exclude '**/datagen/tags/OccultismItemTagProvider.java'
+            exclude '**/datagen/lang/ENUSProvider.java'
+            //TODO: fix client rendering for 26.1
+            exclude '**/handlers/ClientSetupEventHandler.java'
+            exclude '**/handlers/ClientPlayerEventHandler.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }

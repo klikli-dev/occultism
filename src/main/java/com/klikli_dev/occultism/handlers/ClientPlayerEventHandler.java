@@ -63,7 +63,7 @@ public class ClientPlayerEventHandler {
     @SubscribeEvent
     public static void onPlaySoundAt(PlayLevelSoundEvent.AtPosition event) {
         //handle spirit fire sound disable config
-        if (event.getLevel().isClientSide &&
+        if (event.getLevel().isClientSide() &&
                 Occultism.CLIENT_CONFIG.misc.disableSpiritFireSuccessSound.get() &&
                 event.getSound() != null &&
                 event.getSound().value() == OccultismSounds.START_RITUAL.get() &&

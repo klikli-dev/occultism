@@ -37,7 +37,7 @@ import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
-import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
+//import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
@@ -117,9 +117,10 @@ public class Occultism {
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
-            modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
-            ClientSetupEventHandler.registerConfigScreen(modContainer);
+            //TODO: fix ClientSetupEventHandler for 26.1
+            //modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
+            //modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
+            //ClientSetupEventHandler.registerConfigScreen(modContainer);
         }
 
     }

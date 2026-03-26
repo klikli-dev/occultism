@@ -72,7 +72,7 @@ public class ForgeEventHandler {
         if (RandomSource.create().nextInt(100) >= Occultism.SERVER_CONFIG.spiritJobs.traderWonderingChance.getAsInt())
             return;
         Level level = trader.level();
-        if (level.isClientSide)
+        if (level.isClientSide())
             return;
         if (trader.getPersistentData().getBoolean("replaced"))
             return;
