@@ -34,6 +34,7 @@ import com.klikli_dev.occultism.datagen.tags.*;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -76,7 +77,7 @@ public class DataGenerators {
                 )));
 
 
-        generator.addProvider(true, new OccultismRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.<OccultismRecipeProvider>addProvider(true, output -> new OccultismRecipeProvider(output, event.getLookupProvider()));
 
         OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider());
         generator.addProvider(true, forgeBlockProvider);

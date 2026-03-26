@@ -62,9 +62,8 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    @Override
     public Item getResult() {
-        return this.output.getItem();
+        return this.output.item().value();
     }
 
     @Override
@@ -76,12 +75,12 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
     public void save(RecipeOutput pRecipeOutput, ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId.location()))
-                .rewards(AdvancementRewards.Builder.recipe(pId.location()))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
         SpiritFireRecipe recipe = new SpiritFireRecipe(ingredient, output);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.location().withPrefix("recipes/spirit_fire/")));
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/spirit_fire/")));
     }
 
     private void ensureValid(ResourceKey<Recipe<?>> pId) {

@@ -93,7 +93,6 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    @Override
     public @NotNull Item getResult() {
         if (this.result.getStacks().length == 1)
             return this.result.getStack().getItem();
@@ -160,14 +159,13 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId.location()))
-                .rewards(AdvancementRewards.Builder.recipe(pId.location()))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
 
         CrystallizeRecipe recipe = new CrystallizeRecipe(this.ingredient, this.result, this.minTier, this.maxTier, this.crystallizeTime, this.ignoreCrystallizeMultiplier);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.location().withPrefix("recipes/crystallize/")), conditions);
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/crystallize/")));
     }
 
     protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, RecipeResult result) {
@@ -184,9 +182,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     }
 
     protected ICondition getNoTagCondition(Ingredient ingredient) {
-        if (ingredient.getValues().length == 1 && ingredient.getValues()[0] instanceof Ingredient.TagValue tagValue) {
-            return new NotCondition(new TagEmptyCondition(tagValue.tag()));
-        }
+        // TagValue no longer exists in 26.1, return null (no condition)
         return null;
     }
 

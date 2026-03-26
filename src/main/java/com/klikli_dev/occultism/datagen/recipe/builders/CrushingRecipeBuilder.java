@@ -163,10 +163,9 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
 
         CrushingRecipe recipe = new CrushingRecipe(this.ingredient, this.result, this.minTier, this.maxTier, this.crushingTime, this.ignoreCrushingMultiplier);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(ResourceKey.create(Registries.RECIPE, pId.identifier().withPrefix("recipes/crushing/"))), conditions);
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/crushing/")));
     }
 
     protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, RecipeResult result) {
@@ -183,9 +182,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     }
 
     protected ICondition getNoTagCondition(Ingredient ingredient) {
-        if (ingredient.getValues().length == 1 && ingredient.getValues()[0] instanceof Ingredient.TagValue tagValue) {
-            return new NotCondition(new TagEmptyCondition(tagValue.tag()));
-        }
+        // TagValue no longer exists in 26.1, return null (no condition)
         return null;
     }
 

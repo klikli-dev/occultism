@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -280,7 +281,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     private LootItemCondition.Builder hasShearsOrSilkTouch() {
-        return HAS_SHEARS.or(this.hasSilkTouch());
+        return this.hasShears().or(this.hasSilkTouch());
     }
 
     private LootItemCondition.Builder doesNotHaveShearsOrSilkTouch() {
