@@ -30,6 +30,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -51,7 +52,7 @@ public class MessageDoubleJump implements IMessage {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
         if (MovementUtil.doubleJump(player)) {
             //Show cloud on jump.
-            player.serverLevel()
+            ((ServerLevel) player.level())
                     .sendParticles(ParticleTypes.CLOUD, player.position().x, player.position().y,
                             player.position().z, 5, 0, 0, 0, 0.01F);
         }

@@ -6,6 +6,7 @@ package com.klikli_dev.occultism.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -23,7 +24,7 @@ public class MessageHandler {
     }
 
     public static <T extends IMessage> void handleServer(T message, IPayloadContext ctx) {
-        MinecraftServer server = ctx.player().getServer();
+        MinecraftServer server = ((ServerLevel) ctx.player().level()).getServer();
         message.onServerReceived(server, (ServerPlayer) ctx.player());
     }
 
