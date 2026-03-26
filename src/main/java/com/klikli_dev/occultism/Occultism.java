@@ -38,7 +38,6 @@ import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
 //import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
-import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
@@ -116,7 +115,7 @@ public class Occultism {
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
 
-        if (FMLEnvironment.dist == Dist.CLIENT) {
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
             //TODO: fix ClientSetupEventHandler for 26.1
             //modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
             //modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
@@ -126,8 +125,6 @@ public class Occultism {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        PageLoaders.onCommonSetup(event);
-
         event.enqueueWork(() -> {
             BlockEntityType.CAMPFIRE.validBlocks = Stream.concat(
                     BlockEntityType.CAMPFIRE.validBlocks.stream(),

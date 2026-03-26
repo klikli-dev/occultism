@@ -42,6 +42,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -114,7 +115,8 @@ public class PlayerEventHandler {
 
                     //now handle used item
                     if (isFlintAndSteel) {
-                        event.getItemStack().hurtAndBreak(1, event.getEntity(), LivingEntity.getSlotForHand(event.getHand()));
+                        EquipmentSlot slot = event.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                        event.getItemStack().hurtAndBreak(1, event.getEntity(), slot);
                     } else if (isFireCharge) {
                         event.getItemStack().shrink(1);
                     }
@@ -156,10 +158,10 @@ public class PlayerEventHandler {
                     if (dye.getCount() > 3) {
                         List<ItemStack> ingredients = List.of(ItemStack.EMPTY, dye, ItemStack.EMPTY, dye, bookShelf.getItem(i), dye,ItemStack.EMPTY, dye, ItemStack.EMPTY);
                         CraftingInput input = CraftingInput.of(3, 3, ingredients);
-                        Optional<RecipeHolder<CraftingRecipe>> optional = event.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, event.getLevel());
+                        Optional<RecipeHolder<CraftingRecipe>> optional = event.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, event.getLevel());
                         if (optional.isPresent()){
                             bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(
-                                    optional.get().value().getResultItem(event.getLevel().registryAccess()).copy(), event.getItemStack()));
+                                    optional.get().value().assemble(input).copy(), event.getItemStack()));
                             if (!event.getEntity().isCreative())
                                 dye.shrink(4);
                         }
@@ -199,7 +201,8 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void spiritIesniumDamage(LivingIncomingDamageEvent event) {
-        if (event.getEntity().getType().is(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+        var entity = event.getEntity();
+        if (entity.getType().builtInRegistryHolder().is(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
                 && event.getSource().getWeaponItem() != null
                 && event.getSource().getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)) {
             event.setAmount(event.getAmount() * 3);
