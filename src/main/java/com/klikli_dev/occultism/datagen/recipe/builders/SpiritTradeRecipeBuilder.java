@@ -61,28 +61,26 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    @Override
     public Item getResult() {
 //        return this.output.getItem();
         return null;
     }
 
-    @Override
     public ResourceKey<Recipe<?>> defaultId() {
         return ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("crafting"));
     }
 
-    @Override
     public void save(RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
+        var advancementId = pId.identifier().withPrefix("recipes/spirit_trade/");
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId.location()))
-                .rewards(AdvancementRewards.Builder.recipe(pId.location()))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
         SpiritTradeRecipe recipe = new SpiritTradeRecipe(this.ingredient, this.output, this.trader);
 
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.location().withPrefix("recipes/spirit_trade/")));
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(advancementId));
     }
 
     private void ensureValid(ResourceKey<Recipe<?>> pId) {

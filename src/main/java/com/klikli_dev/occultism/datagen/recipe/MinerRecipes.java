@@ -9,13 +9,13 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,10 +23,9 @@ import java.util.concurrent.CompletableFuture;
 // This class is now a utility class - no constructor needed
 public abstract class MinerRecipes {
 
-    // Helper method to create has() criterion for tags (requires HolderLookup.Provider)
+    // Helper method to create has() criterion for tags
     protected static Criterion<InventoryChangeTrigger.TriggerInstance> hasTag(TagKey<Item> tag, HolderLookup.Provider registries) {
-        var builder = ItemPredicate.Builder.create();
-        return InventoryChangeTrigger.TriggerInstance.hasItems(registries, tag);
+        return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag));
     }
 
     public static void minerRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
