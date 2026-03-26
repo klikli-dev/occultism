@@ -6,6 +6,8 @@ import com.klikli_dev.occultism.datagen.recipe.builders.SpiritFireRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -46,7 +48,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         //TODO: remove in next major version, now is for players that already make void can return to rainbow
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_RAINBOW, 1)
                 .requires(OccultismItems.CHALK_VOID)
-                .unlockedBy("has_chalk_void", has(OccultismItems.CHALK_VOID))
+                .unlockedBy("has_chalk_void", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismItems.CHALK_VOID))
                 .save(this.output, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/change_rainbow_to_void")));
     }
 
@@ -58,8 +60,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
         MinerRecipes.minerRecipes(pRecipeOutput, registries);
     }
 
-    private void spiritJobRecipes(RecipeOutput pRecipeOutput) {
-        SpiritJobRecipes.spiritJobRecipes(pRecipeOutput);
+    private void spiritJobRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+        SpiritJobRecipes.spiritJobRecipes(pRecipeOutput, registries);
     }
 
     private static void metalRecipes(RecipeOutput pRecipeOutput) {
@@ -69,33 +71,33 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("ppp")
                 .pattern("ppp")
                 .define('p', OccultismTags.Items.IESNIUM_INGOT)
-                .unlockedBy("has_iesnium_ingot", has(OccultismTags.Items.IESNIUM_INGOT))
+                .unlockedBy("has_iesnium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.IESNIUM_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/iesnium_block")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 9)
                 .requires(OccultismTags.Items.STORAGE_BLOCK_IESNIUM)
-                .unlockedBy("has_iesnium_block", has(OccultismTags.Items.STORAGE_BLOCK_IESNIUM))
+                .unlockedBy("has_iesnium_block", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/iesnium_ingot_from_block")));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get())
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
                 .define('p', OccultismTags.Items.IESNIUM_NUGGET)
-                .unlockedBy("has_iesnium_nugget", has(OccultismTags.Items.IESNIUM_NUGGET))
+                .unlockedBy("has_iesnium_nugget", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.IESNIUM_NUGGET)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/iesnium_ingot_from_nuggets")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.IESNIUM_NUGGET.get(), 9)
                 .requires(OccultismTags.Items.IESNIUM_INGOT)
-                .unlockedBy("has_iesnium_ingot", has(OccultismTags.Items.IESNIUM_INGOT))
+                .unlockedBy("has_iesnium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.IESNIUM_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/iesnium_nugget")));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.RAW_IESNIUM_BLOCK.get())
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
                 .define('p', OccultismTags.Items.RAW_IESNIUM)
-                .unlockedBy("has_raw_iesnium", has(OccultismTags.Items.RAW_IESNIUM))
+                .unlockedBy("has_raw_iesnium", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.RAW_IESNIUM)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_iesnium_block")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.RAW_IESNIUM.get(), 9)
                 .requires(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM)
-                .unlockedBy("has_raw_iesnium_block", has(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM))
+                .unlockedBy("has_raw_iesnium_block", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_iesnium_ingot_from_block")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.NETHERITE_DUST.get())
                 .requires(OccultismTags.Items.NETHERITE_SCRAP_DUST)
@@ -106,7 +108,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismTags.Items.GOLD_DUST)
                 .requires(OccultismTags.Items.GOLD_DUST)
                 .requires(OccultismTags.Items.GOLD_DUST)
-                .unlockedBy("has_netherite_scrap_dust", has(OccultismTags.Items.NETHERITE_SCRAP_DUST))
+                .unlockedBy("has_netherite_scrap_dust", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.NETHERITE_SCRAP_DUST)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/netherite_dust")));
 
         // Silver metal
@@ -115,33 +117,33 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("ppp")
                 .pattern("ppp")
                 .define('p', OccultismTags.Items.SILVER_INGOT)
-                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_silver_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.SILVER_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_block")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 9)
                 .requires(OccultismTags.Items.STORAGE_BLOCK_SILVER)
-                .unlockedBy("has_silver_block", has(OccultismTags.Items.STORAGE_BLOCK_SILVER))
+                .unlockedBy("has_silver_block", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.STORAGE_BLOCK_SILVER)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_ingot_from_block")));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get())
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
                 .define('p', OccultismTags.Items.SILVER_NUGGET)
-                .unlockedBy("has_silver_nugget", has(OccultismTags.Items.SILVER_NUGGET))
+                .unlockedBy("has_silver_nugget", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.SILVER_NUGGET)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_ingot_from_nuggets")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.SILVER_NUGGET.get(), 9)
                 .requires(OccultismTags.Items.SILVER_INGOT)
-                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_silver_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.SILVER_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_nugget")));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.RAW_SILVER_BLOCK.get())
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
                 .define('p', OccultismTags.Items.RAW_SILVER)
-                .unlockedBy("has_raw_silver", has(OccultismTags.Items.RAW_SILVER))
+                .unlockedBy("has_raw_silver", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.RAW_SILVER)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_silver_block")));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.RAW_SILVER.get(), 9)
                 .requires(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER)
-                .unlockedBy("has_raw_silver_block", has(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER))
+                .unlockedBy("has_raw_silver_block", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_silver_ingot_from_block")));
     }
 
@@ -596,7 +598,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" s ")
                 .define('i', OccultismTags.Items.IESNIUM_INGOT)
                 .define('s', Tags.Items.RODS_WOODEN)
-                .unlockedBy("has_iesnium_ingot", has(OccultismTags.Items.IESNIUM_INGOT))
+                .unlockedBy("has_iesnium_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.IESNIUM_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/iesnium_pickaxe")));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.LENS_FRAME.get())
@@ -605,7 +607,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("ooo")
                 .define('o', OccultismBlocks.OTHERSTONE.get())
                 .define('s', OccultismTags.Items.SILVER_INGOT)
-                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_silver_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.SILVER_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/lens_frame")));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.LENS_FRAME.get())
                 .pattern("ooo")
@@ -614,7 +616,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('o', OccultismBlocks.OTHERROCK.get())
                 .define('s', OccultismTags.Items.SILVER_INGOT)
                 .define('w', Tags.Items.DYES_WHITE)
-                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_silver_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(OccultismTags.Items.SILVER_INGOT)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/lens_frame_alt")));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.LENSES.get())
                 .pattern("ppp")
@@ -945,46 +947,46 @@ public class OccultismRecipeProvider extends RecipeProvider {
     private static void woodRecipes(RecipeOutput pRecipeOutput) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS.get(), 4)
                 .requires(OccultismTags.Items.OTHERWORLD_LOGS)
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
+                .unlockedBy("has_otherworld_log", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERWORLD_LOG.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks")));
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERWORLD_WOOD.get(), 3)
                 .pattern("oo")
                 .pattern("oo")
                 .define('o', OccultismBlocks.OTHERWORLD_LOG.get())
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
+                .unlockedBy("has_otherworld_log", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERWORLD_LOG.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherworld_wood")));
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get(), 3)
                 .pattern("oo")
                 .pattern("oo")
                 .define('o', OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get())
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
+                .unlockedBy("has_otherworld_log", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/stripped_otherworld_wood")));
         stairBuilder(OccultismBlocks.OTHERPLANKS_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_stairs")));
         slabBuilder(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS_SLAB.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.get()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_slab")));
         pressurePlateBuilder(RecipeCategory.REDSTONE, OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()) )
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.get()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_pressure_plate")));
         buttonBuilder(OccultismBlocks.OTHERPLANKS_BUTTON.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_button")));
         fenceBuilder(OccultismBlocks.OTHERPLANKS_FENCE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_fence")));
         fenceGateBuilder(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_fence_gate")));
         doorBuilder(OccultismBlocks.OTHERPLANKS_DOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_door")));
         trapdoorBuilder(OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_trapdoor")));
         signBuilder(OccultismItems.OTHERPLANKS_SIGN, Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERPLANKS.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_sign")));
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismItems.OTHERPLANKS_HANGING_SIGN, 6)
                 .group("hanging_sign")
@@ -993,7 +995,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("X X")
                 .pattern("###")
                 .pattern("###")
-                .unlockedBy("has_stripped_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
+                .unlockedBy("has_stripped_otherworld_log", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_hanging_sign")));
     }
 
@@ -1012,7 +1014,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
     protected static void autoSmeltingRecipe(Item input, Item output, Float exp, RecipeOutput pRecipeOutput){
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(input), RecipeCategory.MISC, output, exp, 200)
-                .unlockedBy("has_" + input.toString().replace("occultism:",""), has(input))
+                .unlockedBy("has_" + input.toString().replace("occultism:",""), InventoryChangeTrigger.TriggerInstance.hasItems(input))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "smelting/" + output.toString().replace("occultism:",""))));
     }
 
@@ -1029,12 +1031,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
         String condtionString = "has_" + tagInput.toString().substring(26).replace("materials/","").replace("/","_").replace("]","");
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(tagInput), RecipeCategory.MISC, output, 0.7f, 200)
-                .unlockedBy(condtionString, has(tagInput))
+                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tagInput)))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "smelting/" + outputString + "_from_" + simpleInputString)));
 
         SimpleCookingRecipeBuilder
                 .blasting(Ingredient.of(tagInput), RecipeCategory.MISC, output, 0.7f, 100)
-                .unlockedBy(condtionString, has(tagInput))
+                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tagInput)))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "blasting/" + outputString + "_from_" + simpleInputString)));
     }
 
@@ -1070,13 +1072,13 @@ public class OccultismRecipeProvider extends RecipeProvider {
 
     protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput){
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStack(output))
-                .unlockedBy("has_tag_item", has(input))
+                .unlockedBy("has_tag_item", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(input)))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:",""))));
     }
 
     protected static void spiritfireTransmute(Item input, Item output, RecipeOutput pRecipeOutput){
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStack(output))
-                .unlockedBy("has_" + input.toString().replace("minecraft:","").replace("occultism:",""), has(input))
+                .unlockedBy("has_" + input.toString().replace("minecraft:","").replace("occultism:",""), InventoryChangeTrigger.TriggerInstance.hasItems(input))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:",""))));
     }
 
@@ -1118,7 +1120,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
 
     protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount) {
             SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
-                    .unlockedBy(getHasName(material), has(material))
+                    .unlockedBy(getHasName(material), InventoryChangeTrigger.TriggerInstance.hasItems(material))
                     .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result) + "_from_" + getItemName(material))));
     }
 
@@ -1149,7 +1151,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 3)
                 .requires(OccultismBlocks.OTHERFLOWER.asItem())
                 .requires(colorTag)
-                .unlockedBy("has_otherflower", has(OccultismBlocks.OTHERFLOWER.asItem()))
+                .unlockedBy("has_otherflower", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERFLOWER.asItem()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID,
                         "crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]","_")) + "dye"));
     }
@@ -1173,7 +1175,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
     protected static void grayPasting(TagKey<Item> input, Item output, RecipeCategory category, RecipeOutput pRecipeOutput) {
         ShapelessRecipeBuilder.shapeless(category, output)
                 .requires(OccultismItems.GRAY_PASTE).requires(input)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .unlockedBy("has_gray_paste", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismItems.GRAY_PASTE))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/" + output.toString().replace("minecraft:","").replace("occultism:",""))));
     }
 }

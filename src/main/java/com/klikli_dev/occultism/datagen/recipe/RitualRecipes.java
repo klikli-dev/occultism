@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.datagen.recipe;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.recipe.builders.RitualRecipeBuilder;
 import com.klikli_dev.occultism.registry.*;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -11,6 +12,8 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
@@ -28,39 +31,18 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class RitualRecipes extends RecipeProvider {
 
-    // Ritual Types
-    private static final Identifier RITUAL_SUMMON = OccultismRituals.SUMMON.getId();
-    private static final Identifier RITUAL_SUMMON_WILD = OccultismRituals.SUMMON_WILD.getId();
-    private static final Identifier RITUAL_SUMMON_JOB = OccultismRituals.SUMMON_SPIRIT_WITH_JOB.getId();
-    private static final Identifier RITUAL_FAMILIAR = OccultismRituals.SUMMON_TAMED.getId();
-    private static final Identifier RITUAL_CRAFT_WITH_SPIRIT_NAME = OccultismRituals.CRAFT_WITH_SPIRIT_NAME.getId();
-    private static final Identifier RITUAL_CRAFT = OccultismRituals.CRAFT.getId();
-    private static final Identifier RITUAL_CRAFT_MINER_SPIRIT = OccultismRituals.CRAFT_MINER_SPIRIT.getId();
-    private static final Identifier RITUAL_REPAIR = OccultismRituals.REPAIR.getId();
-    private static final Identifier RITUAL_UPGRADE = OccultismRituals.UPGRADE.getId();
-    // Pentacle IDs
-    private static final Identifier PENTACLE_SUMMON_FOLIOT = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
-    private static final Identifier PENTACLE_SUMMON_DJINNI = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
-    private static final Identifier PENTACLE_SUMMON_UNBOUND_AFRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_afrit");
-    private static final Identifier PENTACLE_SUMMON_AFRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_afrit");
-    private static final Identifier PENTACLE_SUMMON_UNBOUND_MARID = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_marid");
-    private static final Identifier PENTACLE_SUMMON_MARID = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_marid");
-    private static final Identifier PENTACLE_POSSESS_FOLIOT = Identifier.fromNamespaceAndPath(Occultism.MODID, "possess_foliot");
-    private static final Identifier PENTACLE_POSSESS_DJINNI = Identifier.fromNamespaceAndPath(Occultism.MODID, "possess_djinni");
-    private static final Identifier PENTACLE_POSSESS_UNBOUND_AFRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "possess_unbound_afrit");
-    private static final Identifier PENTACLE_POSSESS_AFRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "possess_afrit");
-    private static final Identifier PENTACLE_POSSESS_MARID = Identifier.fromNamespaceAndPath(Occultism.MODID, "possess_marid");
-    private static final Identifier PENTACLE_CRAFT_FOLIOT = Identifier.fromNamespaceAndPath(Occultism.MODID, "craft_foliot");
-    private static final Identifier PENTACLE_CRAFT_DJINNI = Identifier.fromNamespaceAndPath(Occultism.MODID, "craft_djinni");
-    private static final Identifier PENTACLE_CRAFT_AFRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "craft_afrit");
-    private static final Identifier PENTACLE_CRAFT_MARID = Identifier.fromNamespaceAndPath(Occultism.MODID, "craft_marid");
-    private static final Identifier PENTACLE_RESURRECT_SPIRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "resurrect_spirit");
-    private static final Identifier PENTACLE_CONTACT_WILD_SPIRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "contact_wild_spirit");
-    private static final Identifier PENTACLE_CONTACT_ELDRITCH_SPIRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "contact_eldritch_spirit");
-
-
     public RitualRecipes(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(p_248933_, lookupProvider);
+    }
+
+    // Helper method to create InventoryChangeTrigger for ItemLike
+    protected static InventoryChangeTrigger.TriggerInstance hasItem(ItemLike item) {
+        return InventoryChangeTrigger.TriggerInstance.hasItems(item);
+    }
+
+    // Helper method to create InventoryChangeTrigger for items using registries
+    protected static InventoryChangeTrigger.TriggerInstance hasItem(HolderLookup.Provider registries, Item item) {
+        return InventoryChangeTrigger.TriggerInstance.hasItems(registries.lookupOrThrow(Registries.ITEM).getOrThrow(item.builtInRegistryHolder().key()));
     }
 
     private static ItemStack makeLoreSpawnEgg(Item item, String key) {
@@ -87,20 +69,20 @@ public abstract class RitualRecipes extends RecipeProvider {
     }
 
     public static void ritualRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
-        summonRituals(recipeOutput);
-        possessRituals(recipeOutput);
-        familiarRituals(recipeOutput);
-        craftingRituals(recipeOutput);
-        stabilizerRecipes(recipeOutput);
-        minerRecipes(recipeOutput);
-        resurrectRituals(recipeOutput);
-        repairRituals(recipeOutput);
-        randomRituals(recipeOutput);
-        contactRituals(recipeOutput);
-        upgradeRituals(recipeOutput);
+        summonRituals(recipeOutput, registries);
+        possessRituals(recipeOutput, registries);
+        familiarRituals(recipeOutput, registries);
+        craftingRituals(recipeOutput, registries);
+        stabilizerRecipes(recipeOutput, registries);
+        minerRecipes(recipeOutput, registries);
+        resurrectRituals(recipeOutput, registries);
+        repairRituals(recipeOutput, registries);
+        randomRituals(recipeOutput, registries);
+        contactRituals(recipeOutput, registries);
+        upgradeRituals(recipeOutput, registries);
     }
 
-    private static void summonRituals(RecipeOutput recipeOutput) {
+    private static void summonRituals(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
         //Duration 60 * tier (half if time or weather job)
         //Afrit
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
@@ -114,11 +96,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismTags.Items.LAPIS_DUST),
                         Ingredient.of(OccultismTags.Items.AMETHYST_DUST),
                         Ingredient.of(OccultismTags.Items.OBSIDIAN_DUST))
-                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .unlockedBy("has_bound_afrit", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .spiritMaxAge(-1)
                 .spiritJobType(Identifier.fromNamespaceAndPath(Occultism.MODID, "crush_tier3"))
                 .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
-                .save(recipeOutput, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_afrit_crusher"));
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_afrit_crusher")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_AFRIT.get(), "item.occultism.ritual_dummy.summon_afrit_smelter"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get()),

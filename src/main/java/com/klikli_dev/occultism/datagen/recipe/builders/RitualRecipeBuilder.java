@@ -92,13 +92,26 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public @NotNull Item getResult() {
-        return this.output.getItem();
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("crafting"));
     }
 
     @Override
-    public ResourceKey<Recipe<?>> defaultId() {
-        return ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("crafting"));
+    public void save(RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
+        this.ensureValid(pId);
+        Advancement.Builder advancement$builder = pRecipeOutput.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .rewards(AdvancementRewards.Builder.recipe(pId))
+                .requirements(AdvancementRequirements.Strategy.OR);
+        this.criteria.forEach(advancement$builder::addCriterion);
+
+        var recipe = new RitualRecipe(this.ritualType,
+                new RitualRecipe.RitualRequirementSettings(this.pentacleId, this.ingredients, this.activationIngredient, this.duration, this.duration / (float) (this.ingredients.size() + 1)),
+                new RitualRecipe.RitualStartSettings(this.entityToSacrifice == null ? null : new RitualRecipe.EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.condition),
+                new RitualRecipe.EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
+                this.ritualDummy, this.output, this.command);
+
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/ritual/")));
     }
 
     public RitualRecipeBuilder spiritJobType(Identifier spiritJobType) {
@@ -157,24 +170,6 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     public RitualRecipeBuilder condition(ICondition condition) {
         this.condition = condition;
         return this;
-    }
-
-    @Override
-    public void save(RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
-        this.ensureValid(pId);
-        Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId.location()))
-                .rewards(AdvancementRewards.Builder.recipe(pId.location()))
-                .requirements(AdvancementRequirements.Strategy.OR);
-        this.criteria.forEach(advancement$builder::addCriterion);
-
-        var recipe = new RitualRecipe(this.ritualType,
-                new RitualRecipe.RitualRequirementSettings(this.pentacleId, this.ingredients, this.activationIngredient, this.duration, this.duration / (float) (this.ingredients.size() + 1)),
-                new RitualRecipe.RitualStartSettings(this.entityToSacrifice == null ? null : new RitualRecipe.EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.condition),
-                new RitualRecipe.EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
-                this.ritualDummy, this.output, this.command);
-
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.location().withPrefix("recipes/ritual/")));
     }
 
     private void ensureValid(ResourceKey<Recipe<?>> pId) {
