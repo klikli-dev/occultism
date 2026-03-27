@@ -70,12 +70,16 @@ public class MessageSetRecipeByID implements IMessage {
             return;
         }
 
-        var recipe = player.level().method_64577().byKey(this.id).orElse(null);
+        // TODO: Port to 26.1 recipe API - getRecipeManager().byKey() and recipe.getIngredients() were changed
+        // For now, skip setting recipe ingredients
+        var recipe = minecraftServer.getRecipeManager().byKey(this.id).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);
         CraftingContainer craftMatrix = container.getCraftMatrix();
-        NonNullList<Ingredient> ingredients = this.getIngredientsForRecipe(recipe.value());
+        // TODO: Fix for 26.1 - getIngredients() was removed from Recipe interface
+        // Need to use recipe display API instead
+        NonNullList<Ingredient> ingredients = NonNullList.withSize(9, Ingredient.of());
 
         for (int slot = 0; slot < 9; slot++) {
             Ingredient ingredient = ingredients.get(slot);

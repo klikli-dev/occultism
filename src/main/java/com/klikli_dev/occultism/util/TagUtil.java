@@ -21,8 +21,8 @@ public class TagUtil {
         var item = AlmostUnifiedIntegration.get().getPreferredItemForTag(tag);
 
         return item != null ? item :
-                BuiltInRegistries.ITEM.getTag(tag)
-                        .flatMap(t -> t.stream().map(Holder::value).findFirst())
+                BuiltInRegistries.ITEM.getOrTag(tag)
+                        .map(t -> t.stream().map(Holder::value).findFirst().orElse(null))
                         .orElse(null);
     }
 
@@ -33,8 +33,8 @@ public class TagUtil {
 
     @Nullable
     public static Block getBlockForTag(TagKey<Block> tag) {
-        return BuiltInRegistries.BLOCK.getTag(tag)
-                        .flatMap(t -> t.stream().map(Holder::value).findFirst())
+        return BuiltInRegistries.BLOCK.getOrTag(tag)
+                        .map(t -> t.stream().map(Holder::value).findFirst().orElse(null))
                         .orElse(null);
     }
 
