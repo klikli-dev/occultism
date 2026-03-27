@@ -35,20 +35,20 @@ public class OccultismFoods {
     // accepted by Item.Properties.food(...). Effects can be migrated to Consumable
     // later if desired.
     public static final Lazy<FoodProperties> DATURA = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
 
     public static final Lazy<FoodProperties> DEMONS_DREAM_ESSENCE = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
 
     public static final Lazy<FoodProperties> OTHERWORLD_ESSENCE = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
 
     public static final Lazy<FoodProperties> BEAVER_NUGGET = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
     public static final Lazy<FoodProperties> CURSED_HONEY = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
     public static final Lazy<FoodProperties> SWEET_HONEY_HEART = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
     public static final Lazy<FoodProperties> DEMONIC_MEAT = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0.0F).build());
 }

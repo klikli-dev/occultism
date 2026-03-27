@@ -274,7 +274,7 @@ public class StorageUtil {
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
         //TODO: switch to loot table
-        var handler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
+        var handler = blockEntity.getLevel().getCapability(Capabilities.BLOCK_ENTITY, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
         if (handler != null) {
             dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), handler);
         }
@@ -305,10 +305,10 @@ public class StorageUtil {
         List<Ingredient> ingredients = new ArrayList<>();
         
         for (var displaySlot : display) {
-            // Try to get ingredients from slot display
-            var ingredientsResult = displaySlot.ingredients();
-            if (ingredientsResult != null) {
-                ingredients.addAll(ingredientsResult);
+            // Try to get ingredients from slot display - use correct method name
+            var ingredientHolder = displaySlot.ingredient();
+            if (ingredientHolder != null) {
+                ingredients.add(ingredientHolder);
             }
         }
         

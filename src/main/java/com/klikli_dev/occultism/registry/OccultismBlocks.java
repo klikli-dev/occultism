@@ -308,7 +308,7 @@ public class OccultismBlocks {
                             .strength(0.0f).randomTicks().noCollision()
                             .overrideDescription("block.minecraft.oak_sapling")), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
-            register("otherworld_leaves", () -> new LeavesBlock(0.01F,
+            register("otherworld_leaves", () -> new UntintedParticleLeavesBlock(0.01F, ParticleTypes.CHERRY_LEAVES,
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
                             .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)

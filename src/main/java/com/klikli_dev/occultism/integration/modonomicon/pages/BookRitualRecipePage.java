@@ -51,13 +51,4 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
     public Identifier getType() {
         return OccultismModonomiconConstants.Page.RITUAL_RECIPE;
     }
-
-    @Override
-    protected ItemStack getRecipeOutput(Level level, RecipeHolder<RitualRecipe> recipe) {
-        if (recipe == null) {
-            return ItemStack.EMPTY;
-        }
-
-        return recipe.value().getRitualDummy();
-    }
 }

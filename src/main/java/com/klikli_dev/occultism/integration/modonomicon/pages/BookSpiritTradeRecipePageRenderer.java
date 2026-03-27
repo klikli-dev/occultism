@@ -9,11 +9,12 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.modonomicon.client.render.page.RecipeDisplayEntry;
+import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
-public class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
-    public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<T> page) {
+public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<SpiritTradeRecipe, BookProcessingRecipePage<SpiritTradeRecipe>> {
+    public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<SpiritTradeRecipe> page) {
         super(page);
     }
 

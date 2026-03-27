@@ -38,7 +38,7 @@ public class OccultismEnchantments {
     }
 
     private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
-        context.register(key, builder.build(key));
+        context.register(key, builder.build(key.identifier()));
     }
 
     public static void register(IEventBus eventBus) {

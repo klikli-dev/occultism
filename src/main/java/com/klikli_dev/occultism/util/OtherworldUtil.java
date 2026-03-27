@@ -29,7 +29,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.util.thread.SidedThreadGroups;
 
 public class OtherworldUtil {
@@ -41,7 +40,8 @@ public class OtherworldUtil {
      * getClientTranslationKey for physical client.
      */
     public static String getTranslationKeyDistAware(OtherworldBlockItem item, ItemStack stack) {
-        if (FMLEnvironment.dist == Dist.CLIENT)
+        // In 26.1, check if we're on the client side using Dist.side()
+        if (Dist.side() == Dist.CLIENT)
             return getClientTranslationKey(item, stack);
         return item.getBlockDescriptionId();
     }

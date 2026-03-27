@@ -142,8 +142,8 @@ public class TextUtil {
      * Formats the given spirit type name in a color based on the type.
      */
     public static MutableComponent formatDemonType(Component name, EntityType<?> type) {
-        var egg = SpawnEggItem.byId(type);
-        var color = egg != null ? egg.getColor(0) : 0xffffff;
+        var egg = SpawnEggItem.forEntityType(type);
+        var color = egg != null ? egg.getPrimaryColor() : 0xffffff;
         color = makeColorLighterForDarkMode(color);
         int finalColor = color;
         return Component.empty().append(name).withStyle(style -> style.withColor(finalColor));

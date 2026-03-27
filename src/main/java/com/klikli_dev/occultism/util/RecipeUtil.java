@@ -27,6 +27,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+
+import java.util.List;
 
 public class RecipeUtil {
 
@@ -39,8 +43,13 @@ public class RecipeUtil {
 
         var recipes = recipeManager.recipeMap().byType(recipeType);
         for (var recipe : recipes) {
-            if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
-                return true;
+            // Use the 26.1 display API to check ingredients
+            var display = recipe.value().display();
+            for (var displayEntry : display) {
+                var ingredient = displayEntry.ingredient();
+                if (ingredient != null && ingredient.test(stack)) {
+                    return true;
+                }
             }
         }
         return false;

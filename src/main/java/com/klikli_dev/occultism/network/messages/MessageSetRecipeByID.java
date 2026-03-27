@@ -40,8 +40,12 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
@@ -71,16 +75,16 @@ public class MessageSetRecipeByID implements IMessage {
             return;
         }
 
-        // Port to 26.1 recipe API - resolve recipe via Registries.RECIPE in the server registry access
-        ResourceKey<? extends Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, this.id);
-        Recipe<?> recipe = minecraftServer.registryAccess().registryOrThrow(Registries.RECIPE).get(recipeKey);
+        // Port to 26.1 recipe API - resolve recipe via RecipeManager
+        ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, this.id);
+        RecipeManager recipeManager = minecraftServer.getRecipeManager();
+        Recipe<?> recipe = recipeManager.method_8130(recipeKey).map(r -> r.comp_1933()).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);
         CraftingContainer craftMatrix = container.getCraftMatrix();
-        // TODO: Fix for 26.1 - getIngredients() was removed from Recipe interface
-        // Need to use recipe display API instead
-        NonNullList<Ingredient> ingredients = NonNullList.withSize(9, Ingredient.of());
+        // Use the new recipe display API to get ingredients
+        NonNullList<Ingredient> ingredients = this.getIngredientsForRecipe(recipe);
 
         for (int slot = 0; slot < 9; slot++) {
             Ingredient ingredient = ingredients.get(slot);
@@ -120,8 +124,18 @@ public class MessageSetRecipeByID implements IMessage {
     }
 
     private NonNullList<Ingredient> getIngredientsForRecipe(Recipe<?> recipe) {
-        NonNullList<Ingredient> ingredients = recipe.getIngredients();
-        NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.EMPTY);
+        // Use the 26.1 recipe display API to get ingredients
+        var display = recipe.display();
+        List<Ingredient> ingredients = new ArrayList<>();
+        
+        for (var displaySlot : display) {
+            var ingredientsResult = displaySlot.ingredients();
+            if (ingredientsResult != null) {
+                ingredients.addAll(ingredientsResult);
+            }
+        }
+        
+        NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.of());
 
         Preconditions.checkArgument(ingredients.size() <= 9);
 

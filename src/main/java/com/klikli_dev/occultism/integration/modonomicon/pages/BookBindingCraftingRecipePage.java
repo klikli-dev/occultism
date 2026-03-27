@@ -71,13 +71,4 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
     public Identifier getType() {
         return OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE;
     }
-
-    @Override
-    protected ItemStack getRecipeOutput(Level level, RecipeHolder<Recipe<?>> recipe) {
-        if (recipe == null) {
-            return ItemStack.EMPTY;
-        }
-
-        return BoundBookOfBindingRecipe.getBoundBookFromBook(this.unboundBook);
-    }
 }

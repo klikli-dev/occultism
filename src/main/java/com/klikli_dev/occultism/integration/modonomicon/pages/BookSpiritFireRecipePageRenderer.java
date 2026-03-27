@@ -7,13 +7,13 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
-import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import net.minecraft.client.gui.GuiGraphics;
-import com.klikli_dev.modonomicon.client.render.page.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
-public class BookSpiritFireRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
-    public BookSpiritFireRecipePageRenderer(BookProcessingRecipePage<T> page) {
+public class BookSpiritFireRecipePageRenderer extends BookRecipePageRenderer<SpiritFireRecipe, BookProcessingRecipePage<SpiritFireRecipe>> {
+    public BookSpiritFireRecipePageRenderer(BookProcessingRecipePage<SpiritFireRecipe> page) {
         super(page);
     }
 
