@@ -12,7 +12,7 @@ import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.modonomicon.client.render.page.RecipeDisplayEntry;
 import net.minecraft.client.gui.GuiGraphics;
 
-public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
+public class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
     public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<T> page) {
         super(page);
     }
