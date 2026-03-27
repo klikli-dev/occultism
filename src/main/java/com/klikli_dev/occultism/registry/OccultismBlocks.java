@@ -73,7 +73,7 @@ public class OccultismBlocks {
             () -> new SpiritFireBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.COLOR_PURPLE)
-                            .noCollission()
+                            .noCollision()
                             .instabreak()
                             .lightLevel((state) -> 12)
                             .sound(SoundType.WOOL)
@@ -82,7 +82,7 @@ public class OccultismBlocks {
 
     public static final DeferredBlock<Block> LIGHTED_AIR = register("lighted_air",
             () -> new AirBlock(
-            Block.Properties.of().noCollission().air().noLootTable().lightLevel(s -> 15).randomTicks()) {
+            Block.Properties.of().noCollision().air().noLootTable().lightLevel(s -> 15).randomTicks()) {
         @Override
         @SuppressWarnings("deprecation")
         public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
@@ -96,7 +96,7 @@ public class OccultismBlocks {
             .sound(SoundType.WOOL)
             .pushReaction(PushReaction.DESTROY)
             .replaceable()
-            .noCollission()
+            .noCollision()
             .noLootTable()
             .strength(5f, 30);
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
@@ -167,7 +167,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<PressurePlateBlock> OTHERSTONE_PRESSURE_PLATE = register("otherstone_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.STONE, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE)));
     public static final DeferredBlock<ButtonBlock> OTHERSTONE_BUTTON = register("otherstone_button",
-            () -> new ButtonBlock(BlockSetType.STONE, 30, BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+            () -> new ButtonBlock(BlockSetType.STONE, 30, BlockBehaviour.Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<WallBlock> OTHERSTONE_WALL = register("otherstone_wall",
             () -> new WallBlock(BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> OTHERCOBBLESTONE = register("othercobblestone", () -> new Block(
@@ -212,7 +212,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<PressurePlateBlock> OTHERROCK_PRESSURE_PLATE = register("otherrock_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.STONE, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE)));
     public static final DeferredBlock<ButtonBlock> OTHERROCK_BUTTON = register("otherrock_button",
-            () -> new ButtonBlock(BlockSetType.STONE, 30, BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+            () -> new ButtonBlock(BlockSetType.STONE, 30, BlockBehaviour.Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<WallBlock> OTHERROCK_WALL = register("otherrock_wall",
             () -> new WallBlock(BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> OTHERCOBBLEROCK = register("othercobblerock", () -> new Block(
@@ -279,13 +279,13 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).noOcclusion().noCollission()));
+                            .strength(0.0f).noOcclusion().noCollision()));
     public static final DeferredBlock<OtherflowerNaturalBlock> OTHERFLOWER_NATURAL =
             register("otherflower_natural", () -> new OtherflowerNaturalBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).noCollission().noOcclusion()
+                            .strength(0.0f).noCollision().noOcclusion()
                             .overrideDescription("block.minecraft.poppy")), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<FlowerPotBlock> POTTED_OTHERFLOWER =
             register("potted_otherflower", () -> new FlowerPotBlock(
@@ -296,13 +296,13 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).randomTicks().noCollission()));
+                            .strength(0.0f).randomTicks().noCollision()));
     public static final DeferredBlock<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
             register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).randomTicks().noCollission()
+                            .strength(0.0f).randomTicks().noCollision()
                             .overrideDescription("block.minecraft.oak_sapling")), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(0.01F,
@@ -383,7 +383,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<PressurePlateBlock> OTHERPLANKS_PRESSURE_PLATE = register("otherplanks_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
     public static final DeferredBlock<ButtonBlock> OTHERPLANKS_BUTTON = register("otherplanks_button",
-            () -> new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+            () -> new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> OTHERPLANKS_SIGN = register("otherplanks_sign",
             () -> new OtherStandingSignBlock(OtherWoodType.OTHERPLANKS, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)),false, LootTableType.CUSTOM);
@@ -416,71 +416,71 @@ public class OccultismBlocks {
             Block.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).sound(SoundType.HONEY_BLOCK).speedFactor(0.8F).jumpFactor(0.8F).strength(0.2f, 3)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE = register("large_candle",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.SAND).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.SAND).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_WHITE = register("large_candle_white",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.WOOL).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.WOOL).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_LIGHT_GRAY = register("large_candle_light_gray",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_GRAY).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_LIGHT_GRAY).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_GRAY = register("large_candle_gray",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_GRAY).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_GRAY).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_BLACK = register("large_candle_black",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_BLACK).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_BLACK).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_BROWN = register("large_candle_brown",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_BROWN).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_BROWN).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_RED = register("large_candle_red",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_RED).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_RED).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_ORANGE = register("large_candle_orange",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_ORANGE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_ORANGE).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_YELLOW = register("large_candle_yellow",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_YELLOW).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_YELLOW).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_LIME = register("large_candle_lime",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_GREEN).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_LIGHT_GREEN).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_GREEN = register("large_candle_green",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_GREEN).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_GREEN).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_CYAN = register("large_candle_cyan",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_CYAN).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_CYAN).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_LIGHT_BLUE = register("large_candle_light_blue",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_BLUE = register("large_candle_blue",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_BLUE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_BLUE).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_PURPLE = register("large_candle_purple",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_PURPLE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_PURPLE).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_MAGENTA = register("large_candle_magenta",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_PINK = register("large_candle_pink",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_PINK).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_PINK).sound(SoundType.CANDLE).noCollision().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
 
     public static final DeferredBlock<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL =
@@ -677,14 +677,14 @@ public class OccultismBlocks {
             () -> new StableWormholeBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
-                            .sound(SoundType.STONE).noCollission()
+                            .sound(SoundType.STONE).noCollision()
                             .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
 
     public static final DeferredBlock<StableWormholeBlock> STABLE_WORMHOLE_DARK = register("stable_wormhole_dark",
             () -> new StableWormholeBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
-                            .sound(SoundType.STONE).noCollission()
+                            .sound(SoundType.STONE).noCollision()
                             .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
 
     public static final DeferredBlock<EntityWormholeBlock> ENTITY_WORMHOLE =
@@ -736,7 +736,7 @@ public class OccultismBlocks {
             () -> new ReplantableCropsBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
-                            .sound(SoundType.CROP).noCollission().randomTicks()
+                            .sound(SoundType.CROP).noCollision().randomTicks()
                             //registry object is wrapped in lambda to account for load order and circular dependencies
                             .strength(0, 0), OccultismItems.DATURA_SEEDS,
                     OccultismItems.DATURA), false, LootTableType.REPLANTABLE_CROP);
@@ -765,13 +765,13 @@ public class OccultismBlocks {
             () -> new SpiritTorchBlock(
                     OccultismParticles.SPIRIT_FIRE_FLAME,//particles are not registered at block construct time, hence the supplier
                     BlockBehaviour.Properties.of()
-                    .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD)), false);
+                    .noCollision().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD)), false);
 
     public static final DeferredBlock<Block> SPIRIT_WALL_TORCH = register("spirit_wall_torch",
             () -> new SpiritWallTorchBlock(
                     OccultismParticles.SPIRIT_FIRE_FLAME, //particles are not registered at block construct time, hence the supplier
                     BlockBehaviour.Properties.of()
-                    .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
+                    .noCollision().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
 
     public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup) {
         return register(name, sup, true);

@@ -29,6 +29,13 @@ sourceSets {
             exclude '**/emi/**/*.java'
             exclude '**/waila/**/*.java'
             exclude '**/jei/impl/**/*.java'
+            //TODO: fix modonomicon integration for 26.1
+            exclude '**/integration/modonomicon/**/*.java'
+            exclude '**/integration/BoundBookRecipeMaker.java'
+            exclude '**/datagen/book/**/*.java'
+            exclude '**/datagen/OccultismBookProvider.java'
+            //TODO: fix client rendering for 26.1
+            exclude '**/handlers/ClientSetupEventHandler.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
