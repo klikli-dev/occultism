@@ -29,10 +29,8 @@ public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<Book
     @Override
     public JsonObject toJson(HolderLookup.Provider provider) {
         var json = super.toJson(provider);
-        json.add("unbound_book", ItemStack.STRICT_CODEC
-                .encodeStart(provider.createSerializationContext(JsonOps.INSTANCE), this.unboundBook)
-                .getOrThrow()
-        );
+        // ItemStack strict codec removed in 26.1 - use MAP_CODEC/CODEC
+        json.add("unbound_book", ItemStack.MAP_CODEC.encodeStart(provider.createSerializationContext(JsonOps.INSTANCE), this.unboundBook).getOrThrow());
         return json;
     }
 

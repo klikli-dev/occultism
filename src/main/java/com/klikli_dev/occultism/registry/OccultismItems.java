@@ -290,7 +290,7 @@ public class OccultismItems {
 
     //Crops and food
     public static final DeferredItem<Item> DATURA_SEEDS = ITEMS.register("datura_seeds",
-            () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()
+            () -> new BlockItem(OccultismBlocks.DATURA.get(), defaultProperties()
                     .component(OccultismDataComponents.SOUL_VALUE, 1)));
     public static final DeferredItem<Item> DATURA = ITEMS.register("datura",
             () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())
@@ -437,7 +437,7 @@ public class OccultismItems {
 
     //Deco Block Items
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
-            () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
+            () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(), Direction.UP,
                     defaultProperties()));
     public static final DeferredItem<Item> OTHERPLANKS_SIGN = ITEMS.register("otherplanks_sign",
             () -> new SignItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), new Item.Properties().stacksTo(16)));
@@ -546,9 +546,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPAWN_EGG_BEAVER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beaver",
             () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.BEAVER_FAMILIAR_TYPE.get())));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife",
-            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_WIFE)));
+            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_WIFE.get())));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband",
-            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_HUSBAND)));
+            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_HUSBAND.get())));
     public static final DeferredItem<Item> SPAWN_EGG_IESNIUM_GOLEM = ITEMS.register("spawn_egg/iesnium_golem",
             () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.IESNIUM_GOLEM_TYPE.get())));
     

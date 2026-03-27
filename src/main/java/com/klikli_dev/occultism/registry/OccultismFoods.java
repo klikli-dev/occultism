@@ -24,30 +24,31 @@ package com.klikli_dev.occultism.registry;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.component.Consumable;
-import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.food.FoodProperties;
 import net.neoforged.neoforge.common.util.Lazy;
 
 import java.util.List;
 
 public class OccultismFoods {
-    // TODO: Port to Consumable component API in 26.1 - FoodProperties.effect() was replaced with Consumable.onConsume()
-    // For now, just return null which will make food have no effects
-    public static final Lazy<Consumable> DATURA = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
+    // NOTE: Minecraft 26.1 moved food effect handling to the Consumable component API.
+    // To keep compilation simple we provide FoodProperties instances here which are
+    // accepted by Item.Properties.food(...). Effects can be migrated to Consumable
+    // later if desired.
+    public static final Lazy<FoodProperties> DATURA = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
 
-    public static final Lazy<Consumable> DEMONS_DREAM_ESSENCE = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
+    public static final Lazy<FoodProperties> DEMONS_DREAM_ESSENCE = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
 
-    public static final Lazy<Consumable> OTHERWORLD_ESSENCE = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
+    public static final Lazy<FoodProperties> OTHERWORLD_ESSENCE = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
 
-    public static final Lazy<Consumable> BEAVER_NUGGET = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
-    public static final Lazy<Consumable> CURSED_HONEY = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
-    public static final Lazy<Consumable> SWEET_HONEY_HEART = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
-    public static final Lazy<Consumable> DEMONIC_MEAT = Lazy.of(
-            () -> Consumable.builder().consumeSeconds(1.6f).build());
+    public static final Lazy<FoodProperties> BEAVER_NUGGET = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+    public static final Lazy<FoodProperties> CURSED_HONEY = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+    public static final Lazy<FoodProperties> SWEET_HONEY_HEART = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
+    public static final Lazy<FoodProperties> DEMONIC_MEAT = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).build());
 }

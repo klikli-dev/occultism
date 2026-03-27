@@ -1,0 +1,1556 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Reusing configuration cache.
+> Task :createMinecraftArtifacts UP-TO-DATE
+
+> Task :compileJava
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:42: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputSoulHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:43: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputWeaponHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:44: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputFuelHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:45: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler outputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:46: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper inputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:129: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler outputHandler = this.otherworldButcher.outputHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:142: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class InputWeaponSlot extends SlotItemHandler {
+                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:144: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputWeaponSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
+                               ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:153: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class InputSoulSlot extends SlotItemHandler {
+                                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:155: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputSoulSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:164: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class InputFuelSlot extends SlotItemHandler {
+                                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:165: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputFuelSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:172: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class OutputSlot extends SlotItemHandler {
+                                           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:173: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:114: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler handlerBelow = null;
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:127: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputSoulHandler = new ItemStackHandler(1) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:127: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputSoulHandler = new ItemStackHandler(1) {
+                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:141: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputWeaponHandler = new ItemStackHandler(1) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:141: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputWeaponHandler = new ItemStackHandler(1) {
+                                                     ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:152: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputFuelHandler = new ItemStackHandler(1) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:152: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputFuelHandler = new ItemStackHandler(1) {
+                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:164: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper inputHandler = new CombinedInvWrapper(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:164: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper inputHandler = new CombinedInvWrapper(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
+                                                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:166: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:166: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+                                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:167: warning: [removal] RangedWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public RangedWrapper jadeWrapper = new RangedWrapper(this.combinedHandler, 0, 8);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:167: warning: [removal] RangedWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public RangedWrapper jadeWrapper = new RangedWrapper(this.combinedHandler, 0, 8);
+                                           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:350: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler currentHandler = this.getCurrentHandler();
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:355: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, bottleStack, false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:355: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, bottleStack, false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:360: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:360: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:382: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    ItemHandlerHelper.insertItemStacked(currentHandler, itemStack, false);
+                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:382: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+                    ItemHandlerHelper.insertItemStacked(currentHandler, itemStack, false);
+                                     ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:527: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+            IItemHandler currentHandler = this.getCurrentHandler();
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:528: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:528: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:563: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler getCurrentHandler() {
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:577: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BattlefieldInventory extends ItemStackHandler {
+                                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:615: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:615: warning: [removal] IItemHandlerModifiable in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:667: warning: [removal] isItemValid(int,ItemStack) in IItemHandler has been deprecated and marked for removal
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:662: warning: [removal] getSlotLimit(int) in IItemHandler has been deprecated and marked for removal
+        public int getSlotLimit(int slot) {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:648: warning: [removal] extractItem(int,int,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:633: warning: [removal] insertItem(int,ItemStack,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:628: warning: [removal] getStackInSlot(int) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack getStackInSlot(int slot) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:623: warning: [removal] getSlots() in IItemHandler has been deprecated and marked for removal
+        public int getSlots() {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:42: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:43: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler outputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:123: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler outputHandler = this.otherworldMiner.outputHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:124: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler inputHandler = this.otherworldMiner.inputHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:136: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class InputSlot extends SlotItemHandler {
+                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:138: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:149: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class OutputSlot extends SlotItemHandler {
+                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:151: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:91: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:91: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+                                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:115: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler handlerBelow = null;
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:129: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class MineshaftInventory extends ItemStackHandler {
+                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:163: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:163: warning: [removal] IItemHandlerModifiable in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:215: warning: [removal] isItemValid(int,ItemStack) in IItemHandler has been deprecated and marked for removal
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:210: warning: [removal] getSlotLimit(int) in IItemHandler has been deprecated and marked for removal
+        public int getSlotLimit(int slot) {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:196: warning: [removal] extractItem(int,int,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:181: warning: [removal] insertItem(int,ItemStack,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:176: warning: [removal] getStackInSlot(int) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack getStackInSlot(int slot) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:171: warning: [removal] getSlots() in IItemHandler has been deprecated and marked for removal
+        public int getSlots() {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:435: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler currentHandler = this.getCurrentHandler();
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:437: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, drop, false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:437: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, drop, false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:446: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, minerCopy, false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:446: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, minerCopy, false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:484: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler getCurrentHandler() {
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritContainer.java:40: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inventory;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritContainer.java:117: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
+                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritContainer.java:117: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
+                                                                     ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:136: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inventory;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:137: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(MAX_FILTER_SLOTS) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:137: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(MAX_FILTER_SLOTS) {
+                                                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:152: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        this(type, worldIn, new ItemStackHandler(1));
+                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:155: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn, ItemStackHandler inventory) {
+                                                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:381: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler getFilterItems() {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritTransporterContainer.java:103: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        ItemStackHandler filterItems = this.spirit.filterItemStackHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritTransporterContainer.java:142: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class FilterSlot extends SlotItemHandler {
+                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritTransporterContainer.java:144: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public FilterSlot(IItemHandler handler, int inventoryIndex, int x, int y) {
+                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:299: warning: [removal] PlayerMainInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+                                                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:299: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:299: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:348: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, container);
+                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:348: warning: [removal] giveItemToPlayer(Player,ItemStack) in ItemHandlerHelper has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, container);
+                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:367: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:367: warning: [removal] giveItemToPlayer(Player,ItemStack) in ItemHandlerHelper has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:402: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+        ItemHandlerHelper.giveItemToPlayer(player, finalResult);
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:402: warning: [removal] giveItemToPlayer(Player,ItemStack) in ItemHandlerHelper has been deprecated and marked for removal
+        ItemHandlerHelper.giveItemToPlayer(player, finalResult);
+                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:30: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable {
+                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:30: warning: [removal] IItemHandlerModifiable in net.neoforged.neoforge.items has been deprecated and marked for removal
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable {
+                                                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:457: warning: [removal] isItemValid(int,ItemStack) in IItemHandler has been deprecated and marked for removal
+    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:452: warning: [removal] getSlotLimit(int) in IItemHandler has been deprecated and marked for removal
+    public int getSlotLimit(int slot) {
+               ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:374: warning: [removal] extractItem(int,int,boolean) in IItemHandler has been deprecated and marked for removal
+    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:304: warning: [removal] insertItem(int,ItemStack,boolean) in IItemHandler has been deprecated and marked for removal
+    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\BoundBookRecipeMaker.java:28: error: cannot find symbol
+        var id = Identifier.create(Occultism.MODID, group + "_" + itemPath);
+                           ^
+  symbol:   method create(String,String)
+  location: class Identifier
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\BoundBookRecipeMaker.java:29: error: incompatible types: String cannot be converted to CommonInfo
+        var recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC,
+                                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:8: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier SPIRIT_FIRE_RECIPE = new Identifier(Occultism.MODID, "spirit_fire_recipe");
+                                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:9: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier SPIRIT_TRADE_RECIPE = new Identifier(Occultism.MODID, "spirit_trade_recipe");
+                                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:10: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier RITUAL_RECIPE = new Identifier(Occultism.MODID, "ritual_recipe");
+                                                       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:11: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier BOOK_BINDING_RECIPE = new Identifier(Occultism.MODID, "book_binding_recipe");
+                                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePageRenderer.java:26: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\PageRenderers.java:12: error: <anonymous com.klikli_dev.occultism.integration.modonomicon.PageRenderers$1> is not abstract and does not override abstract method drawRecipe(GuiGraphics,RecipeDisplayEntry,int,int,int,int,boolean) in BookRecipePageRenderer
+                p -> new BookSpiritFireRecipePageRenderer<>((BookSpiritFireRecipePage) p) {
+                                                                                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePageRenderer.java:27: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\PageRenderers.java:16: error: <anonymous com.klikli_dev.occultism.integration.modonomicon.PageRenderers$2> is not abstract and does not override abstract method drawRecipe(GuiGraphics,RecipeDisplayEntry,int,int,int,int,boolean) in BookRecipePageRenderer
+                p -> new BookSpiritTradeRecipePageRenderer<>((BookSpiritTradeRecipePage) p) {
+                                                                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\PageRenderers.java:20: error: cannot find symbol
+                p -> new BookRitualRecipePageRenderer<>((BookRitualRecipePage) p) {
+                         ^
+  symbol:   class BookRitualRecipePageRenderer
+  location: class PageRenderers
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:17: error: BookBindingCraftingRecipePageRenderer is not abstract and does not override abstract method drawRecipe(GuiGraphics,RecipeDisplayEntry,int,int,int,int,boolean) in BookRecipePageRenderer
+public class BookBindingCraftingRecipePageRenderer extends BookRecipePageRenderer<Recipe<?>, BookBindingCraftingRecipePage> {
+       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:27: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:41: error: cannot find symbol
+        RenderSystem.enableBlend();
+                    ^
+  symbol:   method enableBlend()
+  location: class RenderSystem
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:56: error: cannot find symbol
+        NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(this.page.unboundBook));
+                                                                       ^
+  symbol:   variable EMPTY
+  location: class Ingredient
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:56: error: no suitable method found for of(ItemStack)
+        NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(this.page.unboundBook));
+                                                                                                                                              ^
+    method Ingredient.of(ItemLike) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(ItemLike...) is not applicable
+      (varargs mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(Stream<? extends ItemLike>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to Stream<? extends ItemLike>)
+    method Ingredient.of(HolderSet<Item>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to HolderSet<Item>)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:67: error: cannot find symbol
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 79, recipeY + 41, mouseX, mouseY, recipe.value().getToastSymbol());
+                                                                                                                 ^
+  symbol:   method getToastSymbol()
+  location: interface Recipe<CAP#1>
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends RecipeInput from capture of ?
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:31: error: no suitable constructor found for BookRecipePage(RecipeType<CraftingRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(RecipeType.CRAFTING, title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookRecipePage.BookRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:37: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:43: error: cannot find symbol
+        var unboundBook = ItemStack.STRICT_CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().get();
+                                   ^
+  symbol:   variable STRICT_CODEC
+  location: class ItemStack
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:53: error: cannot find symbol
+        return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
+                                                                        ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:53: error: cannot find symbol
+        return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
+                                                                                                             ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:67: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageModel.java:29: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageModel.java:31: error: method toJson in class BookRecipePageModel<T> cannot be applied to given types;
+        var json = super.toJson(provider);
+                        ^
+  required: Identifier,Provider
+  found:    Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends BookRecipePageModel<T> declared in class BookRecipePageModel
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageModel.java:32: error: cannot find symbol
+        json.add("unbound_book", ItemStack.STRICT_CODEC
+                                          ^
+  symbol:   variable STRICT_CODEC
+  location: class ItemStack
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:27: error: no suitable constructor found for BookRecipePage(RecipeType<RitualRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(OccultismRecipes.RITUAL_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookRecipePage.BookRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:31: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:43: error: cannot find symbol
+        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                               ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:43: error: cannot find symbol
+        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                                                    ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:51: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:25: error: no suitable constructor found for BookProcessingRecipePage(RecipeType<SpiritFireRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:29: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                   ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                                                        ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:25: error: no suitable constructor found for BookProcessingRecipePage(RecipeType<SpiritTradeRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(OccultismRecipes.SPIRIT_TRADE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:29: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritTradeRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                    ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritTradeRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                                                         ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipe.java:93: error: cannot find symbol
+                    s = ItemStack.of(compoundTag);
+                                 ^
+  symbol:   method of(CompoundTag)
+  location: class ItemStack
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByID.java:76: error: cannot find symbol
+        Recipe<?> recipe = minecraftServer.registryAccess().registryOrThrow(Registries.RECIPE).get(recipeKey);
+                                                           ^
+  symbol:   method registryOrThrow(ResourceKey<Registry<Recipe<?>>>)
+  location: interface Frozen
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByID.java:123: error: cannot find symbol
+        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+                                                    ^
+  symbol:   method getIngredients()
+  location: variable recipe of type Recipe<?>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByID.java:124: error: cannot find symbol
+        NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.EMPTY);
+                                                                                          ^
+  symbol:   variable EMPTY
+  location: class Ingredient
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByTemplate.java:151: error: cannot find symbol
+            var recipe = player.level().getRecipeManager().byKey(this.recipeId).orElse(null);
+                                       ^
+  symbol:   method getRecipeManager()
+  location: class Level
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByTemplate.java:158: error: cannot find symbol
+        var ingredients = NonNullList.withSize(9, Ingredient.EMPTY);
+                                                            ^
+  symbol:   variable EMPTY
+  location: class Ingredient
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByTemplate.java:165: error: no suitable method found for of(ItemStack)
+                ingredients.set(i, Ingredient.of(template));
+                                             ^
+    method Ingredient.of(ItemLike) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(ItemLike...) is not applicable
+      (varargs mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(Stream<? extends ItemLike>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to Stream<? extends ItemLike>)
+    method Ingredient.of(HolderSet<Item>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to HolderSet<Item>)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismBlocks.java:311: error: LeavesBlock is abstract; cannot be instantiated
+            register("otherworld_leaves", () -> new LeavesBlock(0.01F,
+                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:46: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:53: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:60: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:67: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:80: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:95: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:105: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:112: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:119: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:126: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:133: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismDataStorage.java:22: error: no suitable method found for serializable(FamiliarSe[...]::new)
+            "familiar_settings", () -> AttachmentType.serializable(FamiliarSettingsData::new).build());
+                                                     ^
+    method AttachmentType.<T#1>serializable(Supplier<T#1>) is not applicable
+      (inference variable T#1 has incompatible bounds
+        upper bounds: ValueIOSerializable
+        lower bounds: FamiliarSettingsData)
+    method AttachmentType.<T#2>serializable(Function<IAttachmentHolder,T#2>) is not applicable
+      (cannot infer type-variable(s) T#2
+        (argument mismatch; invalid constructor reference
+          constructor FamiliarSettingsData in class FamiliarSettingsData cannot be applied to given types
+            required: no arguments
+            found:    IAttachmentHolder
+            reason: actual and formal argument lists differ in length))
+  where T#1,T#2 are type-variables:
+    T#1 extends ValueIOSerializable declared in method <T#1>serializable(Supplier<T#1>)
+    T#2 extends ValueIOSerializable declared in method <T#2>serializable(Function<IAttachmentHolder,T#2>)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismEnchantments.java:41: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Identifier
+        context.register(key, builder.build(key));
+                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:293: error: cannot find symbol
+            () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()
+                      ^
+  symbol:   class ItemNameBlockItem
+  location: class OccultismItems
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:296: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())
+                                                                                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:299: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())
+                                                                                                        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:303: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())
+                                                                                                      ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:306: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
+                                                                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:308: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.CURSED_HONEY.get())));
+                                                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:310: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.SWEET_HONEY_HEART.get())));
+                                                                                        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:312: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.DEMONIC_MEAT.get()).rarity(Rarity.UNCOMMON).fireResistant()));
+                                                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:440: error: constructor StandingAndWallBlockItem in class StandingAndWallBlockItem cannot be applied to given types;
+            () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
+                  ^
+  required: Block,Block,Direction,Properties
+  found:    Block,Block,Properties
+  reason: actual and formal argument lists differ in length
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:549: error: incompatible types: Supplier<EntityType<DemonicWife>> cannot be converted to EntityType<?>
+            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_WIFE)));
+                                                                                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:551: error: incompatible types: Supplier<EntityType<DemonicHusband>> cannot be converted to EntityType<?>
+            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_HUSBAND)));
+                                                                                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\ItemNBTUtil.java:45: error: incompatible types: Optional<EntityReference<LivingEntity>> cannot be converted to Optional<UUID>
+        setDepositEntityUUID(stack, entity.getDepositEntityUUID());
+                                                               ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\ItemNBTUtil.java:238: error: cannot find symbol
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).getUnsafe();
+                                                                    ^
+  symbol:   method getUnsafe()
+  location: class CustomData
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\OtherworldUtil.java:44: error: cannot find symbol
+        if (FMLEnvironment.dist == Dist.CLIENT)
+                          ^
+  symbol:   variable dist
+  location: class FMLEnvironment
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\RecipeUtil.java:42: error: cannot find symbol
+            if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
+                              ^
+  symbol:   method getIngredients()
+  location: interface Recipe<C>
+  where C,T are type-variables:
+    C extends RecipeInput declared in method <C,T>isValidIngredient(RecipeManager,RecipeType<T>,ItemStack)
+    T extends Recipe<C> declared in method <C,T>isValidIngredient(RecipeManager,RecipeType<T>,ItemStack)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\StorageUtil.java:277: error: cannot find symbol
+        var handler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
+                                                                       ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\StorageUtil.java:309: error: cannot find symbol
+            var ingredientsResult = displaySlot.ingredients();
+                                               ^
+  symbol:   method ingredients()
+  location: variable displaySlot of type RecipeDisplay
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\TagUtil.java:24: error: cannot find symbol
+                BuiltInRegistries.ITEM.getOrTag(tag)
+                                      ^
+  symbol:   method getOrTag(TagKey<Item>)
+  location: variable ITEM of type DefaultedRegistry<Item>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\TagUtil.java:36: error: cannot find symbol
+        return BuiltInRegistries.BLOCK.getOrTag(tag)
+                                      ^
+  symbol:   method getOrTag(TagKey<Block>)
+  location: variable BLOCK of type DefaultedRegistry<Block>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\TextUtil.java:146: error: cannot find symbol
+        var color = egg != null ? egg.getColor(0) : 0xffffff;
+                                     ^
+  symbol:   method getColor(int)
+  location: variable egg of type Optional<Holder<Item>>
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files additionally use or override a deprecated API that is marked for removal.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+80 errors
+100 warnings
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///J:/Projects/Minecraft/occultism-1.21/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:42: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+      public ItemStackHandler inputSoulHandler;
+             ^
+  80 errors
+  100 warnings
+
+* Try:
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:146)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:131)
+	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$10(DefaultBuildLifecycleController.java:313)
+	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:177)
+	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:45)
+	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:177)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:304)
+	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withLocksAcquired$0(DefaultWorkerLeaseService.java:269)
+	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:42)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:267)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:259)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
+	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:37: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageModel.java:31: error: method toJson in class BookRecipePageModel<T> cannot be applied to given types;
+        var json = super.toJson(provider);
+                        ^
+  required: Identifier,Provider
+  found:    Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends BookRecipePageModel<T> declared in class BookRecipePageModel
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:31: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:29: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:29: error: method commonFromJson in class BookRecipePage<T> cannot be applied to given types;
+        var common = BookRecipePage.commonFromJson(json, provider);
+                                   ^
+  required: Identifier,JsonObject,Provider
+  found:    JsonObject,Provider
+  reason: actual and formal argument lists differ in length
+  where T is a type-variable:
+    T extends Recipe<?> declared in class BookRecipePage
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:440: error: constructor StandingAndWallBlockItem in class StandingAndWallBlockItem cannot be applied to given types;
+            () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
+                  ^
+  required: Block,Block,Direction,Properties
+  found:    Block,Block,Properties
+  reason: actual and formal argument lists differ in length
+Note: Some input files additionally use or override a deprecated API that is marked for removal.
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:56: error: no suitable method found for of(ItemStack)
+        NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(this.page.unboundBook));
+                                                                                                                                              ^
+    method Ingredient.of(ItemLike) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(ItemLike...) is not applicable
+      (varargs mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(Stream<? extends ItemLike>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to Stream<? extends ItemLike>)
+    method Ingredient.of(HolderSet<Item>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to HolderSet<Item>)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:31: error: no suitable constructor found for BookRecipePage(RecipeType<CraftingRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(RecipeType.CRAFTING, title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookRecipePage.BookRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:27: error: no suitable constructor found for BookRecipePage(RecipeType<RitualRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(OccultismRecipes.RITUAL_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookRecipePage.BookRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,ResourceKey<Recipe<?>>,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookRecipePage.BookRecipePage(BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,ResourceKey<Recipe<?>>,@org.jetbrains.annotations.Nullable RecipeDisplayEntry,BookTextHolder,String,BookCondition) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:25: error: no suitable constructor found for BookProcessingRecipePage(RecipeType<SpiritFireRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:25: error: no suitable constructor found for BookProcessingRecipePage(RecipeType<SpiritTradeRecipe>,BookTextHolder,Identifier,BookTextHolder,Identifier,BookTextHolder,String,BookCondition)
+        super(OccultismRecipes.SPIRIT_TRADE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        ^
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(JsonDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor BookProcessingRecipePage.BookProcessingRecipePage(NetworkDataHolder) is not applicable
+      (actual and formal argument lists differ in length)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByTemplate.java:165: error: no suitable method found for of(ItemStack)
+                ingredients.set(i, Ingredient.of(template));
+                                             ^
+    method Ingredient.of(ItemLike) is not applicable
+      (argument mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(ItemLike...) is not applicable
+      (varargs mismatch; ItemStack cannot be converted to ItemLike)
+    method Ingredient.of(Stream<? extends ItemLike>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to Stream<? extends ItemLike>)
+    method Ingredient.of(HolderSet<Item>) is not applicable
+      (argument mismatch; ItemStack cannot be converted to HolderSet<Item>)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismDataStorage.java:22: error: no suitable method found for serializable(FamiliarSe[...]::new)
+            "familiar_settings", () -> AttachmentType.serializable(FamiliarSettingsData::new).build());
+                                                     ^
+    method AttachmentType.<T#1>serializable(Supplier<T#1>) is not applicable
+      (inference variable T#1 has incompatible bounds
+        upper bounds: ValueIOSerializable
+        lower bounds: FamiliarSettingsData)
+    method AttachmentType.<T#2>serializable(Function<IAttachmentHolder,T#2>) is not applicable
+      (cannot infer type-variable(s) T#2
+        (argument mismatch; invalid constructor reference
+          constructor FamiliarSettingsData in class FamiliarSettingsData cannot be applied to given types
+            required: no arguments
+            found:    IAttachmentHolder
+            reason: actual and formal argument lists differ in length))
+  where T#1,T#2 are type-variables:
+    T#1 extends ValueIOSerializable declared in method <T#1>serializable(Supplier<T#1>)
+    T#2 extends ValueIOSerializable declared in method <T#2>serializable(Function<IAttachmentHolder,T#2>)
+Note: Recompile with -Xlint:deprecation for details.
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\PageRenderers.java:20: error: cannot find symbol
+                p -> new BookRitualRecipePageRenderer<>((BookRitualRecipePage) p) {
+                         ^
+  symbol:   class BookRitualRecipePageRenderer
+  location: class PageRenderers
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:56: error: cannot find symbol
+        NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(this.page.unboundBook));
+                                                                       ^
+  symbol:   variable EMPTY
+  location: class Ingredient
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:43: error: cannot find symbol
+        var unboundBook = ItemStack.STRICT_CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().get();
+                                   ^
+  symbol:   variable STRICT_CODEC
+  location: class ItemStack
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageModel.java:32: error: cannot find symbol
+        json.add("unbound_book", ItemStack.STRICT_CODEC
+                                          ^
+  symbol:   variable STRICT_CODEC
+  location: class ItemStack
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByID.java:124: error: cannot find symbol
+        NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.EMPTY);
+                                                                                          ^
+  symbol:   variable EMPTY
+  location: class Ingredient
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByTemplate.java:158: error: cannot find symbol
+        var ingredients = NonNullList.withSize(9, Ingredient.EMPTY);
+                                                            ^
+  symbol:   variable EMPTY
+  location: class Ingredient
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:46: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:53: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:60: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:67: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:80: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:95: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:105: error: cannot find symbol
+                Capabilities.ItemHandler.BLOCK,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:112: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:119: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:126: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismCapabilities.java:133: error: cannot find symbol
+                Capabilities.ItemHandler.ENTITY,
+                            ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:293: error: cannot find symbol
+            () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()
+                      ^
+  symbol:   class ItemNameBlockItem
+  location: class OccultismItems
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\OtherworldUtil.java:44: error: cannot find symbol
+        if (FMLEnvironment.dist == Dist.CLIENT)
+                          ^
+  symbol:   variable dist
+  location: class FMLEnvironment
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\StorageUtil.java:277: error: cannot find symbol
+        var handler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
+                                                                       ^
+  symbol:   variable ItemHandler
+  location: class Capabilities
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:8: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier SPIRIT_FIRE_RECIPE = new Identifier(Occultism.MODID, "spirit_fire_recipe");
+                                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:9: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier SPIRIT_TRADE_RECIPE = new Identifier(Occultism.MODID, "spirit_trade_recipe");
+                                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:10: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier RITUAL_RECIPE = new Identifier(Occultism.MODID, "ritual_recipe");
+                                                       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\OccultismModonomiconConstants.java:11: error: Identifier(String,String) has private access in Identifier
+        public static final Identifier BOOK_BINDING_RECIPE = new Identifier(Occultism.MODID, "book_binding_recipe");
+                                                             ^
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some input files use or override a deprecated API.
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePageRenderer.java:26: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePageRenderer.java:27: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:27: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:67: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageModel.java:29: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:51: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:42: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputSoulHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:43: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputWeaponHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:44: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputFuelHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:45: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler outputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:46: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper inputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:129: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler outputHandler = this.otherworldButcher.outputHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:142: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class InputWeaponSlot extends SlotItemHandler {
+                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:144: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputWeaponSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
+                               ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:153: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class InputSoulSlot extends SlotItemHandler {
+                                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:155: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputSoulSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:164: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class InputFuelSlot extends SlotItemHandler {
+                                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:165: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputFuelSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:172: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public static class OutputSlot extends SlotItemHandler {
+                                           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalBattlefieldContainer.java:173: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:114: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler handlerBelow = null;
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:127: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputSoulHandler = new ItemStackHandler(1) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:127: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputSoulHandler = new ItemStackHandler(1) {
+                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:141: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputWeaponHandler = new ItemStackHandler(1) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:141: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputWeaponHandler = new ItemStackHandler(1) {
+                                                     ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:152: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputFuelHandler = new ItemStackHandler(1) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:152: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputFuelHandler = new ItemStackHandler(1) {
+                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:164: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper inputHandler = new CombinedInvWrapper(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:164: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper inputHandler = new CombinedInvWrapper(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
+                                                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:166: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:166: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+                                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:167: warning: [removal] RangedWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public RangedWrapper jadeWrapper = new RangedWrapper(this.combinedHandler, 0, 8);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:167: warning: [removal] RangedWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public RangedWrapper jadeWrapper = new RangedWrapper(this.combinedHandler, 0, 8);
+                                           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:350: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler currentHandler = this.getCurrentHandler();
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:355: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, bottleStack, false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:355: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, bottleStack, false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:360: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:360: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:382: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+                    ItemHandlerHelper.insertItemStacked(currentHandler, itemStack, false);
+                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:382: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+                    ItemHandlerHelper.insertItemStacked(currentHandler, itemStack, false);
+                                     ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:527: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+            IItemHandler currentHandler = this.getCurrentHandler();
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:528: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:528: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:563: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler getCurrentHandler() {
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:577: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BattlefieldInventory extends ItemStackHandler {
+                                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:615: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:615: warning: [removal] IItemHandlerModifiable in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:667: warning: [removal] isItemValid(int,ItemStack) in IItemHandler has been deprecated and marked for removal
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:662: warning: [removal] getSlotLimit(int) in IItemHandler has been deprecated and marked for removal
+        public int getSlotLimit(int slot) {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:648: warning: [removal] extractItem(int,int,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:633: warning: [removal] insertItem(int,ItemStack,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:628: warning: [removal] getStackInSlot(int) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack getStackInSlot(int slot) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalBattlefieldBlockEntity.java:623: warning: [removal] getSlots() in IItemHandler has been deprecated and marked for removal
+        public int getSlots() {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:42: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:43: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler outputHandler;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:123: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler outputHandler = this.otherworldMiner.outputHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:124: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler inputHandler = this.otherworldMiner.inputHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:136: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class InputSlot extends SlotItemHandler {
+                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:138: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:149: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class OutputSlot extends SlotItemHandler {
+                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\DimensionalMineshaftContainer.java:151: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:91: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:91: warning: [removal] CombinedInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+                                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:115: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler handlerBelow = null;
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:129: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class MineshaftInventory extends ItemStackHandler {
+                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:163: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:163: warning: [removal] IItemHandlerModifiable in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+                                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:215: warning: [removal] isItemValid(int,ItemStack) in IItemHandler has been deprecated and marked for removal
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:210: warning: [removal] getSlotLimit(int) in IItemHandler has been deprecated and marked for removal
+        public int getSlotLimit(int slot) {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:196: warning: [removal] extractItem(int,int,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:181: warning: [removal] insertItem(int,ItemStack,boolean) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:176: warning: [removal] getStackInSlot(int) in IItemHandler has been deprecated and marked for removal
+        public @NotNull ItemStack getStackInSlot(int slot) {
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:171: warning: [removal] getSlots() in IItemHandler has been deprecated and marked for removal
+        public int getSlots() {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:435: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        IItemHandler currentHandler = this.getCurrentHandler();
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:437: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, drop, false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:437: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, drop, false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:446: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, minerCopy, false);
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:446: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            ItemHandlerHelper.insertItemStacked(currentHandler, minerCopy, false);
+                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\blockentity\DimensionalMineshaftBlockEntity.java:484: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    private IItemHandler getCurrentHandler() {
+            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritContainer.java:40: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inventory;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritContainer.java:117: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
+                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritContainer.java:117: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
+                                                                     ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:136: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler inventory;
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:137: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(MAX_FILTER_SLOTS) {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:137: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(MAX_FILTER_SLOTS) {
+                                                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:152: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        this(type, worldIn, new ItemStackHandler(1));
+                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:155: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn, ItemStackHandler inventory) {
+                                                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\entity\spirit\SpiritEntity.java:381: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public ItemStackHandler getFilterItems() {
+           ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritTransporterContainer.java:103: warning: [removal] ItemStackHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        ItemStackHandler filterItems = this.spirit.filterItemStackHandler;
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritTransporterContainer.java:142: warning: [removal] SlotItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+    public class FilterSlot extends SlotItemHandler {
+                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\spirit\SpiritTransporterContainer.java:144: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+        public FilterSlot(IItemHandler handler, int inventoryIndex, int x, int y) {
+                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:299: warning: [removal] PlayerMainInvWrapper in net.neoforged.neoforge.items.wrapper has been deprecated and marked for removal
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+                                                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:299: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:299: warning: [removal] insertItemStacked(IItemHandler,ItemStack,boolean) in ItemHandlerHelper has been deprecated and marked for removal
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+                                  ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:348: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, container);
+                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:348: warning: [removal] giveItemToPlayer(Player,ItemStack) in ItemHandlerHelper has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, container);
+                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:367: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:367: warning: [removal] giveItemToPlayer(Player,ItemStack) in ItemHandlerHelper has been deprecated and marked for removal
+                            ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                                             ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:402: warning: [removal] ItemHandlerHelper in net.neoforged.neoforge.items has been deprecated and marked for removal
+        ItemHandlerHelper.giveItemToPlayer(player, finalResult);
+        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\container\storage\StorageControllerContainerBase.java:402: warning: [removal] giveItemToPlayer(Player,ItemStack) in ItemHandlerHelper has been deprecated and marked for removal
+        ItemHandlerHelper.giveItemToPlayer(player, finalResult);
+                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:30: warning: [removal] IItemHandler in net.neoforged.neoforge.items has been deprecated and marked for removal
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable {
+                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:30: warning: [removal] IItemHandlerModifiable in net.neoforged.neoforge.items has been deprecated and marked for removal
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable {
+                                                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:457: warning: [removal] isItemValid(int,ItemStack) in IItemHandler has been deprecated and marked for removal
+    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:452: warning: [removal] getSlotLimit(int) in IItemHandler has been deprecated and marked for removal
+    public int getSlotLimit(int slot) {
+               ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:374: warning: [removal] extractItem(int,int,boolean) in IItemHandler has been deprecated and marked for removal
+    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                              ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\common\misc\MapItemStackHandler.java:304: warning: [removal] insertItem(int,ItemStack,boolean) in IItemHandler has been deprecated and marked for removal
+    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                              ^
+Note: Some input files use unchecked or unsafe operations.
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\BoundBookRecipeMaker.java:28: error: cannot find symbol
+        var id = Identifier.create(Occultism.MODID, group + "_" + itemPath);
+                           ^
+  symbol:   method create(String,String)
+  location: class Identifier
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:41: error: cannot find symbol
+        RenderSystem.enableBlend();
+                    ^
+  symbol:   method enableBlend()
+  location: class RenderSystem
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:67: error: cannot find symbol
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 79, recipeY + 41, mouseX, mouseY, recipe.value().getToastSymbol());
+                                                                                                                 ^
+  symbol:   method getToastSymbol()
+  location: interface Recipe<CAP#1>
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends RecipeInput from capture of ?
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:53: error: cannot find symbol
+        return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
+                                                                        ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePage.java:53: error: cannot find symbol
+        return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
+                                                                                                             ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:43: error: cannot find symbol
+        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                               ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookRitualRecipePage.java:43: error: cannot find symbol
+        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                                                    ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                   ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritFireRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                                                        ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritTradeRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                    ^
+  symbol:   method recipeId1()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookSpiritTradeRecipePage.java:41: error: cannot find symbol
+        return new BookSpiritTradeRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+                                                                                                         ^
+  symbol:   method recipeId2()
+  location: variable common of type NetworkDataHolder
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipe.java:93: error: cannot find symbol
+                    s = ItemStack.of(compoundTag);
+                                 ^
+  symbol:   method of(CompoundTag)
+  location: class ItemStack
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByID.java:76: error: cannot find symbol
+        Recipe<?> recipe = minecraftServer.registryAccess().registryOrThrow(Registries.RECIPE).get(recipeKey);
+                                                           ^
+  symbol:   method registryOrThrow(ResourceKey<Registry<Recipe<?>>>)
+  location: interface Frozen
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByID.java:123: error: cannot find symbol
+        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+                                                    ^
+  symbol:   method getIngredients()
+  location: variable recipe of type Recipe<?>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\network\messages\MessageSetRecipeByTemplate.java:151: error: cannot find symbol
+            var recipe = player.level().getRecipeManager().byKey(this.recipeId).orElse(null);
+                                       ^
+  symbol:   method getRecipeManager()
+  location: class Level
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\ItemNBTUtil.java:238: error: cannot find symbol
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).getUnsafe();
+                                                                    ^
+  symbol:   method getUnsafe()
+  location: class CustomData
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\RecipeUtil.java:42: error: cannot find symbol
+            if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
+                              ^
+  symbol:   method getIngredients()
+  location: interface Recipe<C>
+  where C,T are type-variables:
+    C extends RecipeInput declared in method <C,T>isValidIngredient(RecipeManager,RecipeType<T>,ItemStack)
+    T extends Recipe<C> declared in method <C,T>isValidIngredient(RecipeManager,RecipeType<T>,ItemStack)
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\StorageUtil.java:309: error: cannot find symbol
+            var ingredientsResult = displaySlot.ingredients();
+                                               ^
+  symbol:   method ingredients()
+  location: variable displaySlot of type RecipeDisplay
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\TagUtil.java:24: error: cannot find symbol
+                BuiltInRegistries.ITEM.getOrTag(tag)
+                                      ^
+  symbol:   method getOrTag(TagKey<Item>)
+  location: variable ITEM of type DefaultedRegistry<Item>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\TagUtil.java:36: error: cannot find symbol
+        return BuiltInRegistries.BLOCK.getOrTag(tag)
+                                      ^
+  symbol:   method getOrTag(TagKey<Block>)
+  location: variable BLOCK of type DefaultedRegistry<Block>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\TextUtil.java:146: error: cannot find symbol
+        var color = egg != null ? egg.getColor(0) : 0xffffff;
+                                     ^
+  symbol:   method getColor(int)
+  location: variable egg of type Optional<Holder<Item>>
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismBlocks.java:311: error: LeavesBlock is abstract; cannot be instantiated
+            register("otherworld_leaves", () -> new LeavesBlock(0.01F,
+                                                ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\PageRenderers.java:12: error: <anonymous com.klikli_dev.occultism.integration.modonomicon.PageRenderers$1> is not abstract and does not override abstract method drawRecipe(GuiGraphics,RecipeDisplayEntry,int,int,int,int,boolean) in BookRecipePageRenderer
+                p -> new BookSpiritFireRecipePageRenderer<>((BookSpiritFireRecipePage) p) {
+                                                                                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\PageRenderers.java:16: error: <anonymous com.klikli_dev.occultism.integration.modonomicon.PageRenderers$2> is not abstract and does not override abstract method drawRecipe(GuiGraphics,RecipeDisplayEntry,int,int,int,int,boolean) in BookRecipePageRenderer
+                p -> new BookSpiritTradeRecipePageRenderer<>((BookSpiritTradeRecipePage) p) {
+                                                                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\modonomicon\pages\BookBindingCraftingRecipePageRenderer.java:17: error: BookBindingCraftingRecipePageRenderer is not abstract and does not override abstract method drawRecipe(GuiGraphics,RecipeDisplayEntry,int,int,int,int,boolean) in BookRecipePageRenderer
+public class BookBindingCraftingRecipePageRenderer extends BookRecipePageRenderer<Recipe<?>, BookBindingCraftingRecipePage> {
+       ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\integration\BoundBookRecipeMaker.java:29: error: incompatible types: String cannot be converted to CommonInfo
+        var recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC,
+                                         ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismEnchantments.java:41: error: incompatible types: ResourceKey<Enchantment> cannot be converted to Identifier
+        context.register(key, builder.build(key));
+                                            ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:296: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())
+                                                                                          ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:299: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())
+                                                                                                        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:303: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())
+                                                                                                      ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:306: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
+                                                                                    ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:308: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.CURSED_HONEY.get())));
+                                                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:310: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.SWEET_HONEY_HEART.get())));
+                                                                                        ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:312: error: incompatible types: Consumable cannot be converted to FoodProperties
+            () -> new Item(defaultProperties().food(OccultismFoods.DEMONIC_MEAT.get()).rarity(Rarity.UNCOMMON).fireResistant()));
+                                                                                   ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:549: error: incompatible types: Supplier<EntityType<DemonicWife>> cannot be converted to EntityType<?>
+            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_WIFE)));
+                                                                                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\registry\OccultismItems.java:551: error: incompatible types: Supplier<EntityType<DemonicHusband>> cannot be converted to EntityType<?>
+            () -> new SpawnEggItem(defaultProperties().spawnEgg(OccultismEntities.DEMONIC_HUSBAND)));
+                                                                                 ^
+J:\Projects\Minecraft\occultism-1.21\src\main\java\com\klikli_dev\occultism\util\ItemNBTUtil.java:45: error: incompatible types: Optional<EntityReference<LivingEntity>> cannot be converted to Optional<UUID>
+        setDepositEntityUUID(stack, entity.getDepositEntityUUID());
+                                                               ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+80 errors
+100 warnings
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.daemon.AbstractIsolatedCompilerWorkerExecutor$CompilerWorkAction.execute(AbstractIsolatedCompilerWorkerExecutor.java:79)
+	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:54)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:48)
+	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker.executeInClassLoader(AbstractClassLoaderWorker.java:48)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:32)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:22)
+	at org.gradle.workers.internal.WorkerDaemonServer.run(WorkerDaemonServer.java:109)
+	at org.gradle.workers.internal.WorkerDaemonServer.run(WorkerDaemonServer.java:78)
+	at org.gradle.process.internal.worker.request.WorkerAction.lambda$run$1(WorkerAction.java:150)
+	at org.gradle.process.internal.worker.child.WorkerLogEventListener.withWorkerLoggingProtocol(WorkerLogEventListener.java:41)
+	at org.gradle.process.internal.worker.request.WorkerAction.lambda$run$2(WorkerAction.java:150)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.process.internal.worker.request.WorkerAction.run(WorkerAction.java:142)
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+
+
+BUILD FAILED in 16s
+2 actionable tasks: 1 executed, 1 up-to-date
+Configuration cache entry reused.

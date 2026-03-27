@@ -34,13 +34,15 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
     }
 
     public static BookBindingCraftingRecipePage fromJson(Identifier conditionParentId, JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(json, provider);
+        // Modonomicon API changed in 26.1; commonFromJson now requires an Identifier for the parent.
+        var common = BookRecipePage.commonFromJson(conditionParentId, json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
                 ? BookCondition.fromJson(conditionParentId, json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
 
-        var unboundBook = ItemStack.STRICT_CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().get();
+        // ItemStack strict codec was replaced with ItemStack.MAP_CODEC/CODEC in 26.1
+        var unboundBook = ItemStack.MAP_CODEC.decode(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().orElse(ItemStack.EMPTY);
 
         return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
     }
@@ -49,7 +51,7 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
         var condition = BookCondition.fromNetwork(buffer);
-        var unboundBook = ItemStack.STREAM_CODEC.decode(buffer);
+        var unboundBook = net.minecraft.world.item.ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
         return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
     }
 

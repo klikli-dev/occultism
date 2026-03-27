@@ -25,11 +25,20 @@ public class BoundBookRecipeMaker {
     private static RecipeHolder<CraftingRecipe> makeRecipe(ItemStack bookOfBinding) {
         String group = "occultism.bound_book_of_binding";
         var itemPath = BuiltInRegistries.ITEM.getKey(bookOfBinding.getItem()).getPath();
-        var id = Identifier.create(Occultism.MODID, group + "_" + itemPath);
-        var recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC,
-                BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding),
-                NonNullList.of(Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding.getItem())));
-        return new RecipeHolder<>(id, recipe);
+        var id = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, group + "_" + itemPath);
+
+        // Build a ShapelessRecipe using the new constructor signatures in 26.1
+        var commonInfo = new net.minecraft.world.item.crafting.Recipe.CommonInfo(true);
+        var bookInfo = new net.minecraft.world.item.crafting.CraftingRecipe.CraftingBookInfo(net.minecraft.world.item.crafting.CraftingBookCategory.MISC, "");
+        var result = net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding));
+        var ingredients = java.util.List.of(
+                net.minecraft.world.item.crafting.Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
+                net.minecraft.world.item.crafting.Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
+                net.minecraft.world.item.crafting.Ingredient.of(bookOfBinding.getItem())
+        );
+
+        var recipe = new net.minecraft.world.item.crafting.ShapelessRecipe(commonInfo, bookInfo, result, ingredients);
+        return new net.minecraft.world.item.crafting.RecipeHolder<>(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id), recipe);
     }
 
 }
