@@ -39,12 +39,15 @@ import com.klikli_dev.occultism.util.OtherWoodType;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -310,29 +313,8 @@ public class OccultismBlocks {
                             .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
                             .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
                             .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
-                            .isRedstoneConductor((state, level, pos) -> false)) {
-                private static final MapCodec<LeavesBlock> CODEC = simpleCodec(p -> new LeavesBlock(0.01F, p) {
-                    @Override
-                    public MapCodec<? extends LeavesBlock> codec() {
-                        return CODEC;
-                    }
-
-                    @Override
-                    protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
-                        ParticleUtils.spawnParticleBelow(level, pos, random, ParticleTypes.CHERRY_LEAVES);
-                    }
-                });
-
-                @Override
-                public MapCodec<? extends LeavesBlock> codec() {
-                    return CODEC;
-                }
-
-                @Override
-                protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
-                    ParticleUtils.spawnParticleBelow(level, pos, random, ParticleTypes.CHERRY_LEAVES);
-                }
-            }, true, LootTableType.CUSTOM);
+                            .isRedstoneConductor((state, level, pos) -> false))
+            , true, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
                     Block.Properties.of()
@@ -771,7 +753,7 @@ public class OccultismBlocks {
             () -> new SpiritWallTorchBlock(
                     OccultismParticles.SPIRIT_FIRE_FLAME, //particles are not registered at block construct time, hence the supplier
                     BlockBehaviour.Properties.of()
-                    .noCollision().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
+                    .noCollision().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD)), false);
 
     public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup) {
         return register(name, sup, true);

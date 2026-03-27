@@ -80,9 +80,8 @@ public class MessageRequestOrder implements IMessage {
         //then place the order.
         ItemStackComparator comparator = new ItemStackComparator(this.stack, true);
         storageController.addDepositOrder(this.targetMachinePosition, comparator, this.stack.getCount());
-        player.displayClientMessage(
-                Component.translatable("network.messages." + Occultism.MODID + ".request_order.order_received"),
-                true);
+        player.sendSystemMessage(
+                Component.translatable("network.messages." + Occultism.MODID + ".request_order.order_received"));
     }
 
     @Override

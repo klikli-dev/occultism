@@ -7,6 +7,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -27,12 +28,16 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.concurrent.CompletableFuture;
 
 public class OccultismRecipeProvider extends RecipeProvider {
-    public OccultismRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries);
+    public OccultismRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+        super(registries, output);
+    }
+
+    public static OccultismRecipeProvider create(HolderLookup.Provider registries, RecipeOutput output) {
+        return new OccultismRecipeProvider(registries, output);
     }
 
     @Override
-    protected void buildRecipes() {
+    public void buildRecipes() {
         HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
         this.ritualRecipes(this.output, this.registries);
         this.miningRecipes(this.output, this.registries);
@@ -1029,12 +1034,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
         
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(tagHolder), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, 0.7f, 200)
-                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(tagHolder.get()))
+                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, tagInput).build()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "smelting/" + outputString + "_from_" + simpleInputString)));
 
         SimpleCookingRecipeBuilder
                 .blasting(Ingredient.of(tagHolder), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, 0.7f, 100)
-                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(tagHolder.get()))
+                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, tagInput).build()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "blasting/" + outputString + "_from_" + simpleInputString)));
     }
 
@@ -1073,7 +1078,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
     protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, HolderLookup.Provider registries){
         HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(items.getOrThrow(input)), new ItemStack(output))
-                .unlockedBy("has_tag_item", InventoryChangeTrigger.TriggerInstance.hasItems(items.getOrThrow(input).get()))
+                .unlockedBy("has_tag_item", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, input).build()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:",""))));
     }
 
@@ -1155,8 +1160,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismBlocks.OTHERFLOWER.asItem())
                 .requires(colorTag)
                 .unlockedBy("has_otherflower", InventoryChangeTrigger.TriggerInstance.hasItems(OccultismBlocks.OTHERFLOWER.asItem()))
-                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID,
-                        "crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]","_")) + "dye"));
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.parse(
+                        "occultism:crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]", "_") + "dye")));
     }
 
     private static void grayPasteRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {

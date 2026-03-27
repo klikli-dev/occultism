@@ -66,11 +66,11 @@ public class MessageSetWorkAreaSize implements IMessage {
                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
                 player.inventoryMenu.broadcastChanges();
 
-                player.displayClientMessage(Component.translatable(
+                player.sendSystemMessage(Component.translatable(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                                 ".message_set_work_area_size",
                         TextUtil.formatDemonName((MutableComponent) spirit.getName()),
-                        Component.translatable(workAreaSize.getDescriptionId())), true);
+                        Component.translatable(workAreaSize.getDescriptionId())));
             });
         }
     }

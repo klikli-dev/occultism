@@ -5,6 +5,7 @@ import com.klikli_dev.occultism.datagen.recipe.builders.RitualRecipeBuilder;
 import com.klikli_dev.occultism.registry.*;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -76,7 +77,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     // Helper method for has() with registries and TagKey
     protected static Criterion<InventoryChangeTrigger.TriggerInstance> has(HolderLookup.Provider registries, net.minecraft.tags.TagKey<Item> tag) {
         HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
-        return InventoryChangeTrigger.TriggerInstance.hasItems(items.getOrThrow(tag).get());
+        return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, tag).build());
     }
 
     // Overloaded has() for ItemLike - uses registries parameter even though not strictly needed

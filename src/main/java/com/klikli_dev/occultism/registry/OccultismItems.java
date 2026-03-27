@@ -438,9 +438,9 @@ public class OccultismItems {
     //Deco Block Items
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
             () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
-                    defaultProperties(), Direction.DOWN));
+                    defaultProperties()));
     public static final DeferredItem<Item> OTHERPLANKS_SIGN = ITEMS.register("otherplanks_sign",
-            () -> new SignItem(new Item.Properties().stacksTo(16), OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get()));
+            () -> new SignItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), new Item.Properties().stacksTo(16)));
     public static final DeferredItem<Item> OTHERPLANKS_HANGING_SIGN = ITEMS.register("otherplanks_hanging_sign",
             () -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 

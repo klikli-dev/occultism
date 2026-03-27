@@ -62,10 +62,10 @@ public class MessageToggleFamiliarSettings implements IMessage {
         for (Entry<EntityType<?>, Boolean> toggle : this.familiarsPressed.entrySet()) {
             if (toggle.getValue()) {
                 cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
-                player.displayClientMessage(
+                player.sendSystemMessage(
                         Component.translatable(
                                 "message." + Occultism.MODID + ".familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(toggle.getKey()).getPath() +
-                                        (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
+                                        (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")));
             }
         }
         FamiliarSettingsData.syncFor(player);

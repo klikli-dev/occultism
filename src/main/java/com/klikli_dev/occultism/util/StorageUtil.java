@@ -47,6 +47,8 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -251,7 +253,7 @@ public class StorageUtil {
                     filter = filter.substring(4);
                 }
                 final String finalFilter = filter;
-                boolean equals = stack.getTags().anyMatch(tag -> {
+                boolean equals = stack.tags().anyMatch(tag -> {
                     return FilenameUtils.wildcardMatch(tag.location().toString(), finalFilter, IOCase.INSENSITIVE);
                 });
 
@@ -298,8 +300,19 @@ public class StorageUtil {
      * Originally from EmiHelper, moved here to avoid integration dependency.
      */
     public static NonNullList<Ingredient> ensure3by3CraftingMatrix(Recipe<?> recipe) {
-        var ingredients = recipe.getIngredients();
-        var expandedIngredients = NonNullList.withSize(9, Ingredient.EMPTY);
+        // For 26.1, get ingredients from display() API
+        var display = recipe.display();
+        List<Ingredient> ingredients = new ArrayList<>();
+        
+        for (var displaySlot : display) {
+            // Try to get ingredients from slot display
+            var ingredientsResult = displaySlot.ingredients();
+            if (ingredientsResult != null) {
+                ingredients.addAll(ingredientsResult);
+            }
+        }
+        
+        var expandedIngredients = NonNullList.withSize(9, Ingredient.of());
 
         com.google.common.base.Preconditions.checkArgument(ingredients.size() <= 9);
 

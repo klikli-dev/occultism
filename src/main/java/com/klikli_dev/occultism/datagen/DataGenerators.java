@@ -78,9 +78,6 @@ public class DataGenerators {
                 )));
 
 
-        OccultismRecipeProvider recipeProvider = new OccultismRecipeProvider(generator.getPackOutput(), event.getLookupProvider());
-        generator.addProvider(true, recipeProvider);
-
         OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider());
         generator.addProvider(true, forgeBlockProvider);
         generator.addProvider(true, new OccultismEntityTypeTagProvider(generator.getPackOutput(), event.getLookupProvider()));
@@ -93,9 +90,14 @@ public class DataGenerators {
         generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(true, new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(
-                new OccultismBookProvider(enUSProvider)
-        )));
+
+        // Generate recipes using RecipeProvider.Runner - the standard way in 26.1
+        generator.addProvider(true, new OccultismRecipeProvider.Runner(generator.getPackOutput(), event.getLookupProvider()));
+
+        // Temporarily comment out book provider until OccultismBookProvider is fixed for 26.1
+        // generator.addProvider(true, new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(
+        //         new OccultismBookProvider(enUSProvider)
+        // )));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(true, enUSProvider);

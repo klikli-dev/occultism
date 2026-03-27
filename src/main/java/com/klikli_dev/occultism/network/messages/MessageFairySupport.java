@@ -27,6 +27,9 @@ import com.klikli_dev.occultism.common.entity.familiar.FairyFamiliarEntity;
 import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.ARGB;
+import org.joml.Vector3f;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -72,7 +75,7 @@ public class MessageFairySupport implements IMessage {
         if (target != null) {
             for (int i = 0; i < 30; i++) {
                 Vec3 pos = new Vec3(target.getRandomX(1), target.getRandomY(), target.getRandomZ(1));
-                minecraft.level.addParticle(DustParticleOptions.create(new Vector3f(0.9f, 0.9f, 0.5f), 1f), pos.x, pos.y, pos.z, 0, 0,
+                minecraft.level.addParticle(new DustParticleOptions(ARGB.color(229, 229, 128), 1f), pos.x, pos.y, pos.z, 0, 0,
                         0);
             }
         }
