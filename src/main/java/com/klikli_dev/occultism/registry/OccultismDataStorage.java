@@ -16,7 +16,7 @@ public class OccultismDataStorage {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Occultism.MODID);
 
     public static final Supplier<AttachmentType<Integer>> DOUBLE_JUMP = ATTACHMENT_TYPES.register(
-            "double_jump", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());
+            "double_jump", () -> AttachmentType.builder(() -> 0).build());
 
     public static final Supplier<AttachmentType<FamiliarSettingsData>> FAMILIAR_SETTINGS = ATTACHMENT_TYPES.register(
             "familiar_settings", () -> AttachmentType.serializable(FamiliarSettingsData::new).build());

@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -69,7 +70,7 @@ public class MessageSetRecipeByID implements IMessage {
             return;
         }
 
-        var recipe = player.level().getRecipeManager().byKey(this.id).orElse(null);
+        var recipe = player.level().method_64577().byKey(this.id).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);

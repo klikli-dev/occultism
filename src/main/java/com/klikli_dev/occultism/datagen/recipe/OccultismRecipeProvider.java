@@ -27,8 +27,8 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.concurrent.CompletableFuture;
 
 public class OccultismRecipeProvider extends RecipeProvider {
-    public OccultismRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    public OccultismRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries);
     }
 
     @Override
@@ -1024,21 +1024,22 @@ public class OccultismRecipeProvider extends RecipeProvider {
         String outputString = output.toString().replace("minecraft:", "").replace("occultism:", "");
         String simpleInputString = tagInput.toString().contains("c:ores") ? "ore" : "raw";
         String condtionString = "has_" + tagInput.toString().substring(26).replace("materials/","").replace("/","_").replace("]","");
-        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
+        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+        var tagHolder = items.getOrThrow(tagInput);
         
         SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(items.getOrThrow(tagInput)), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, 0.7f, 200)
-                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(items, tagInput))
+                .smelting(Ingredient.of(tagHolder), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, 0.7f, 200)
+                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(tagHolder.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "smelting/" + outputString + "_from_" + simpleInputString)));
 
         SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(items.getOrThrow(tagInput)), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, 0.7f, 100)
-                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(items, tagInput))
+                .blasting(Ingredient.of(tagHolder), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, 0.7f, 100)
+                .unlockedBy(condtionString, InventoryChangeTrigger.TriggerInstance.hasItems(tagHolder.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "blasting/" + outputString + "_from_" + simpleInputString)));
     }
 
     private static void spiritFireRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
-        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
+        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
         
         spiritfireTransmute(OccultismItems.CHALK_WHITE_IMPURE.asItem(), OccultismItems.CHALK_WHITE.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.asItem(), OccultismItems.CHALK_LIGHT_GRAY.asItem(), pRecipeOutput, registries);
@@ -1070,9 +1071,9 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, HolderLookup.Provider registries){
-        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
+        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(items.getOrThrow(input)), new ItemStack(output))
-                .unlockedBy("has_tag_item", InventoryChangeTrigger.TriggerInstance.hasItems(items, input))
+                .unlockedBy("has_tag_item", InventoryChangeTrigger.TriggerInstance.hasItems(items.getOrThrow(input).get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:",""))));
     }
 
@@ -1122,7 +1123,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
 
     protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount, HolderGetter<Item> items) {
             SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
-                    .unlockedBy(getHasName(material), InventoryChangeTrigger.TriggerInstance.hasItems(items, material))
+                    .unlockedBy(getHasName(material), InventoryChangeTrigger.TriggerInstance.hasItems(material))
                     .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result) + "_from_" + getItemName(material))));
     }
 

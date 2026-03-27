@@ -78,7 +78,7 @@ public class DataGenerators {
                 )));
 
 
-        OccultismRecipeProvider recipeProvider = new OccultismRecipeProvider(event.getLookupProvider().join(), null);
+        OccultismRecipeProvider recipeProvider = new OccultismRecipeProvider(generator.getPackOutput(), event.getLookupProvider());
         generator.addProvider(true, recipeProvider);
 
         OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider());

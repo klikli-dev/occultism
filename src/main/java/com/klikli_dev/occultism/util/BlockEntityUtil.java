@@ -44,7 +44,7 @@ public class BlockEntityUtil {
         if (level.dimension() == pos.getDimensionKey()) {
             return level.isLoaded(pos.getPos());
         }
-        if (level.isClientSide) //can only access other dimensions on the server.
+        if (level.isClientSide()) //can only access other dimensions on the server.
             return false;
 
         Level dimensionWorld = ServerLifecycleHooks.getCurrentServer().getLevel(pos.getDimensionKey());
@@ -68,7 +68,7 @@ public class BlockEntityUtil {
         if (level.dimension() == pos.getDimensionKey()) {
             return getWorldTileEntityUnchecked(level, pos.getPos());
         }
-        if (level.isClientSide) //can only access other dimensions on the server.
+        if (level.isClientSide()) //can only access other dimensions on the server.
             return null;
 
         Level dimensionWorld = ServerLifecycleHooks.getCurrentServer().getLevel(pos.getDimensionKey());
@@ -94,7 +94,7 @@ public class BlockEntityUtil {
      * @param pos   the position to update
      */
     public static void updateTile(Level level, BlockPos pos) {
-        if (level == null || level.isClientSide || !level.isLoaded(pos)) {
+        if (level == null || level.isClientSide() || !level.isLoaded(pos)) {
             return;
         }
 
@@ -130,8 +130,13 @@ public class BlockEntityUtil {
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
         if (blockEntity != null) {
-
-            blockEntity.saveToItem(itemStack, level.registryAccess());
+            // Get the block entity data and set it on the item stack
+            var tag = blockEntity.saveWithoutMetadata(level.registryAccess());
+            if (!tag.isEmpty()) {
+                var output = net.minecraft.world.level.storage.TagValueOutput.createWithoutContext(
+                    net.minecraft.util.ProblemReporter.DISCARDING);
+                net.minecraft.world.item.BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), output);
+            }
         } else {
             Occultism.LOGGER.warn("BlockEntity is null for block {} at pos {}, cannot get ItemStack with Components", block, pos);
         }

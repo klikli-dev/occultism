@@ -74,7 +74,7 @@ public class MessageSortItems implements IMessage {
                 }
             } else {
                 //for item remotes, we just set the nbt.
-                ItemStack stack = player.getInventory().getSelected();
+                ItemStack stack = player.getMainHandItem();
                 stack.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
                 stack.set(OccultismDataComponents.SORT_TYPE, this.sortType);
             }

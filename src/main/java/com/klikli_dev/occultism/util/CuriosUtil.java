@@ -65,8 +65,8 @@ public class CuriosUtil {
 
 
     public static SelectedCurio getStorageRemote(Player player) {
-        int selectedSlot = player.getInventory().selected;
-        ItemStack storageRemoteStack = player.getInventory().getSelected();
+        int selectedSlot = player.getInventory().getSelectedSlot();
+        ItemStack storageRemoteStack = player.getInventory().getSelectedItem();
         //if that is not a storage remote, get from curio
         if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = -1;

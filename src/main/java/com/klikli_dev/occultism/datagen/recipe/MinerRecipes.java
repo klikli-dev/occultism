@@ -7,6 +7,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -21,12 +22,12 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.concurrent.CompletableFuture;
 
 // This class is now a utility class - no constructor needed
-public abstract class MinerRecipes {
+public class MinerRecipes {
 
     // Helper method to create has() criterion for tags
     protected static Criterion<InventoryChangeTrigger.TriggerInstance> hasTag(TagKey<Item> tag, HolderLookup.Provider registries) {
-        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
-        return InventoryChangeTrigger.TriggerInstance.hasItems(items, tag);
+        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+        return InventoryChangeTrigger.TriggerInstance.hasItems(items.getOrThrow(tag).get());
     }
 
     public static void minerRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {

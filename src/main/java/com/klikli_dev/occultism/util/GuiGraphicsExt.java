@@ -22,34 +22,33 @@
 
 package com.klikli_dev.occultism.util;
 
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Helper class for GuiGraphics operations.
+ * Note: In 26.1, the rendering API changed significantly. 
+ * For custom rendering, use the native GuiGraphics methods directly.
+ */
 public class GuiGraphicsExt {
 
-
     /**
-     * Copy of {@link GuiGraphics#drawString(Font, String, float, float, int, boolean)} for Component rendering.
+     * Render text using Component - delegates to GuiGraphics.
      */
-    public static int drawString(GuiGraphics guiGraphics, Font font, @Nullable Component component, float x, float y, int color, boolean drawShadow) {
+    public static void drawString(GuiGraphics guiGraphics, Font font, @Nullable Component component, int x, int y, int color, boolean drawShadow) {
         if (component == null) {
-            return 0;
-        } else {
-            int i = font.drawInBatch(component, x, y, color, drawShadow, guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
-            guiGraphics.flushIfUnmanaged();
-            return i;
+            return;
         }
+        guiGraphics.drawString(font, component, x, y, color, drawShadow);
     }
 
     /**
-     * Copy of {@link GuiGraphics#drawString(Font, String, float, float, int, boolean)} for FormattedCharSequence rendering.
+     * Render text using FormattedCharSequence - delegates to GuiGraphics.
      */
-    public static int drawString(GuiGraphics guiGraphics, Font font, FormattedCharSequence text, float x, float y, int color, boolean drawShadow) {
-        int i = font.drawInBatch(text, x, y, color, drawShadow, guiGraphics.pose().last().pose(), guiGraphics.bufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
-        guiGraphics.flushIfUnmanaged();
-        return i;
+    public static void drawString(GuiGraphics guiGraphics, Font font, FormattedCharSequence text, int x, int y, int color, boolean drawShadow) {
+        guiGraphics.drawString(font, text, x, y, color, drawShadow);
     }
 }

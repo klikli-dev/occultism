@@ -9,9 +9,10 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.CookingBookCategory;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -55,8 +56,8 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
 
     // Helper method to create has() criterion for tags (requires HolderLookup.Provider)
     protected static Criterion<InventoryChangeTrigger.TriggerInstance> hasTag(TagKey<Item> tag, HolderLookup.Provider registries) {
-        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
-        return InventoryChangeTrigger.TriggerInstance.hasItems(items, tag);
+        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+        return InventoryChangeTrigger.TriggerInstance.hasItems(items.getOrThrow(tag).get());
     }
 
     // Helper method to create has() criterion for items

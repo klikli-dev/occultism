@@ -29,7 +29,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -2079,11 +2079,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addModonomiconIntegration() {
-        this.add(I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
-        this.add(I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
-        this.add(I18n.RITUAL_RECIPE_JOB, "Job: %s");
-        this.add(I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
-        this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Open Pentacle Page: %s");
+        this.add("occultism.modonomicon.ritual_recipe.item_to_use", "Item to use:");
+        this.add("occultism.modonomicon.ritual_recipe.summon", "Summon: %s");
+        this.add("occultism.modonomicon.ritual_recipe.job", "Job: %s");
+        this.add("occultism.modonomicon.ritual_recipe.sacrifice", "Sacrifice: %s");
+        this.add("occultism.modonomicon.ritual_recipe.go_to_pentacle", "Open Pentacle Page: %s");
     }
 
     private void advancementTitle(String name, String s) {

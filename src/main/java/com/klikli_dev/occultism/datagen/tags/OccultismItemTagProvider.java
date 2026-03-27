@@ -225,7 +225,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)
                 .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
         this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE).replace(false); //Don't place chalks
-        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra"))).replace(false);
+        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
         this.tag(OccultismTags.Items.OTHERSTONE).add(OccultismBlocks.OTHERSTONE.asItem());
         this.tag(OccultismTags.Items.OTHERCOBBLESTONE).add(OccultismBlocks.OTHERCOBBLESTONE.asItem());
@@ -260,7 +260,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.GRAY_PASTE.asItem())
                 .add(OccultismItems.NATURE_PASTE.asItem());
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
-        this.tag(ItemTags.SWORD_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
+        this.tag(ItemTags.WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
 
         this.tag(ItemTags.LOGS_THAT_BURN)
                 .add(OccultismBlocks.OTHERWORLD_LOG.asItem())
