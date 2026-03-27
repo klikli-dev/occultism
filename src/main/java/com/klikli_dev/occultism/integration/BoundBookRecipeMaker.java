@@ -25,10 +25,10 @@ public class BoundBookRecipeMaker {
     private static RecipeHolder<CraftingRecipe> makeRecipe(ItemStack bookOfBinding) {
         String group = "occultism.bound_book_of_binding";
         var itemPath = BuiltInRegistries.ITEM.getKey(bookOfBinding.getItem()).getPath();
-        var id = new Identifier(Occultism.MODID, group + "_" + itemPath);
+        var id = Identifier.create(Occultism.MODID, group + "_" + itemPath);
         var recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC,
                 BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding),
-                NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding.getItem())));
+                NonNullList.of(Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding.getItem())));
         return new RecipeHolder<>(id, recipe);
     }
 

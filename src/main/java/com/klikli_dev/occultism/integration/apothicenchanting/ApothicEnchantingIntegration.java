@@ -13,11 +13,14 @@ public class ApothicEnchantingIntegration {
      * Using a different function to call in iesnium anvil
      */
     public static int getApothicMaxLevel(Enchantment enchantment) {
-//        Holder<Enchantment> holder = MiscUtil.findHolder(Registries.ENCHANTMENT, enchantment);
-//        if (holder != null) {
-//            return ApothicEnchanting.getEnchInfo(holder).getMaxLevel();
-//        }
-//        return enchantment.getMaxLevel();
+        // Fallback implementation until Apothic Enchanting API access is ported
+        try {
+            // original behavior attempted to fetch holder and info from Apothic API
+            // For now return the enchantment's declared max level
+            return enchantment.getMaxLevel();
+        } catch (Exception e) {
+            return 1;
+        }
     }
 
     public static int getTotalExperiencePointsForLevel(int level) {
