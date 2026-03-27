@@ -9,10 +9,8 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.klikli_dev.modonomicon.client.render.page.RecipeDisplayEntry;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
 
 public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
     public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<T> page) {
@@ -25,10 +23,9 @@ public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> ext
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<T> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeDisplayEntry entry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
 
         recipeY += 10;
-        var recipe = recipeHolder.value();
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {

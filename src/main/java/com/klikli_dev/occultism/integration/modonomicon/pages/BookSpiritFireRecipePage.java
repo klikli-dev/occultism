@@ -12,6 +12,8 @@ import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
@@ -21,24 +23,22 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 
 public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFireRecipe> {
-    public BookSpiritFireRecipePage(BookTextHolder title1, Identifier recipeId1, BookTextHolder title2, Identifier recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
-        super(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+    public BookSpiritFireRecipePage(JsonDataHolder data) {
+        super(data);
+    }
+
+    public BookSpiritFireRecipePage(NetworkDataHolder data) {
+        super(data);
     }
 
     public static BookSpiritFireRecipePage fromJson(Identifier conditionParentId, JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(json, provider);
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(conditionParentId, json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        var common = BookRecipePage.commonFromJson(conditionParentId, json, provider);
+        return new BookSpiritFireRecipePage(common);
     }
 
     public static BookSpiritFireRecipePage fromNetwork(RegistryFriendlyByteBuf buffer){
         var common = BookRecipePage.commonFromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        return new BookSpiritFireRecipePage(common);
     }
 
     @Override

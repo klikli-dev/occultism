@@ -11,6 +11,8 @@ import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.mojang.serialization.JsonOps;
@@ -27,8 +29,14 @@ import net.minecraft.world.level.Level;
 public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
     ItemStack unboundBook;
 
-    public BookBindingCraftingRecipePage(BookTextHolder title1, Identifier recipeId1, BookTextHolder title2, Identifier recipeId2, BookTextHolder text, String anchor, BookCondition condition, ItemStack unboundBook) {
-        super(RecipeType.CRAFTING, title1, recipeId1, title2, recipeId2, text, anchor, condition);
+    public BookBindingCraftingRecipePage(JsonDataHolder data, ItemStack unboundBook) {
+        super(data);
+
+        this.unboundBook = unboundBook;
+    }
+
+    public BookBindingCraftingRecipePage(NetworkDataHolder data, ItemStack unboundBook) {
+        super(data);
 
         this.unboundBook = unboundBook;
     }
@@ -42,17 +50,15 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
                 : new BookNoneCondition();
 
         // ItemStack strict codec was replaced with ItemStack.MAP_CODEC/CODEC in 26.1
-        var unboundBook = ItemStack.MAP_CODEC.decode(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().orElse(ItemStack.EMPTY);
+        var unboundBook = ItemStack.CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().orElse(ItemStack.EMPTY);
 
-        return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
+        return new BookBindingCraftingRecipePage(common, unboundBook);
     }
 
     public static BookBindingCraftingRecipePage fromNetwork(RegistryFriendlyByteBuf buffer){
         var common = BookRecipePage.commonFromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
         var unboundBook = net.minecraft.world.item.ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
-        return new BookBindingCraftingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition, unboundBook);
+        return new BookBindingCraftingRecipePage(common, unboundBook);
     }
 
     @Override

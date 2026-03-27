@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -87,11 +88,11 @@ public class MessageSetRecipe implements IMessage {
                 // Older codec-based parsing was removed; use ItemStack.of(CompoundTag) instead.
                 java.util.Optional<CompoundTag> compoundOpt = invList.getCompound(i);
                 ItemStack s = ItemStack.EMPTY;
-                if (compoundOpt.isPresent()) {
-                    CompoundTag compoundTag = compoundOpt.get();
-                    // ItemStack.of(CompoundTag) returns an ItemStack built from the tag (or EMPTY for empty tags)
-                    s = ItemStack.of(compoundTag);
-                }
+                 if (compoundOpt.isPresent()) {
+                     CompoundTag compoundTag = compoundOpt.get();
+                     // ItemStack.of(CompoundTag) was removed in 26.1; use codec parsing via NbtOps
+                     s = ItemStack.CODEC.parse(NbtOps.INSTANCE, compoundTag).result().orElse(ItemStack.EMPTY);
+                 }
                 map.put(i, s);
             }
 

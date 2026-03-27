@@ -159,7 +159,7 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
     public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
         return java.util.List.of(new SpiritTradeRecipeDisplay(
                 this.input,
-                ItemStackTemplate.of(this.result.getStack()),
+                ItemStackTemplate.fromNonEmptyStack(this.result.getStack()),
                 new SlotDisplay.ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
         ));
     }

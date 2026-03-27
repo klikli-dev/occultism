@@ -242,8 +242,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
         return java.util.List.of(new RitualRecipeDisplay(
                 this.getIngredients(),
-                ItemStackTemplate.of(this.result),
-                ItemStackTemplate.of(this.ritualDummy),
+                ItemStackTemplate.fromNonEmptyStack(this.result),
+                ItemStackTemplate.fromNonEmptyStack(this.ritualDummy),
                 new SlotDisplay.ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem())
         ));
     }

@@ -28,9 +28,10 @@ public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<Book
 
     @Override
     public JsonObject toJson(HolderLookup.Provider provider) {
-        var json = super.toJson(provider);
-        // ItemStack strict codec removed in 26.1 - use MAP_CODEC/CODEC
-        json.add("unbound_book", ItemStack.MAP_CODEC.encodeStart(provider.createSerializationContext(JsonOps.INSTANCE), this.unboundBook).getOrThrow());
+        // The BookRecipePageModel#toJson signature changed in Modonomicon 26.1 to include the parent identifier.
+        var json = super.toJson(OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE, provider);
+        // ItemStack strict codec removed in 26.1 - use CODEC
+        json.add("unbound_book", ItemStack.CODEC.encodeStart(provider.createSerializationContext(JsonOps.INSTANCE), this.unboundBook).getOrThrow());
         return json;
     }
 
