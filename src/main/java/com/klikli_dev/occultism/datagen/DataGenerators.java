@@ -92,7 +92,18 @@ public class DataGenerators {
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
 
         // Generate recipes using RecipeProvider.Runner - the standard way in 26.1
-        generator.addProvider(true, new OccultismRecipeProvider.Runner(generator.getPackOutput(), event.getLookupProvider()));
+        // RecipeProvider.Runner is an abstract runner that must be subclassed to provide the concrete provider.
+        generator.addProvider(true, new net.minecraft.data.recipes.RecipeProvider.Runner(generator.getPackOutput(), event.getLookupProvider()) {
+            @Override
+            protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registries, net.minecraft.data.recipes.RecipeOutput output) {
+                return OccultismRecipeProvider.create(registries, output);
+            }
+
+            @Override
+            public String getName() {
+                return "Occultism Recipe Provider Runner";
+            }
+        });
 
         // Temporarily comment out book provider until OccultismBookProvider is fixed for 26.1
         // generator.addProvider(true, new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(

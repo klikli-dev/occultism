@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -70,9 +71,9 @@ public class MessageSetRecipeByID implements IMessage {
             return;
         }
 
-        // TODO: Port to 26.1 recipe API - getRecipeManager().byKey() and recipe.getIngredients() were changed
-        // For now, skip setting recipe ingredients
-        var recipe = minecraftServer.getRecipeManager().byKey(this.id).orElse(null);
+        // Port to 26.1 recipe API - resolve recipe via Registries.RECIPE in the server registry access
+        ResourceKey<? extends Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, this.id);
+        Recipe<?> recipe = minecraftServer.registryAccess().registryOrThrow(Registries.RECIPE).get(recipeKey);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);

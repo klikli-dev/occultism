@@ -83,13 +83,15 @@ public class MessageSetRecipe implements IMessage {
             //parse the slots
             ListTag invList = this.nbt.getListOrEmpty("s" + slot);
             for (int i = 0; i < invList.size(); i++) {
-                CompoundTag compoundTag = invList.getCompound(i);
-                ItemStack s = ItemStack.OPTIONAL_CODEC.parse(
-                    net.minecraft.util.dynamic.Codecs.parseable(
-                        minecraftServer.registryAccess().createSerializationContext(net.minecraft.util.dynamic.NullOps.INSTANCE),
-                        compoundTag
-                    )
-                ).orElse(ItemStack.EMPTY);
+                // In 26.1 ListTag#getCompound returns an Optional<CompoundTag>.
+                // Older codec-based parsing was removed; use ItemStack.of(CompoundTag) instead.
+                java.util.Optional<CompoundTag> compoundOpt = invList.getCompound(i);
+                ItemStack s = ItemStack.EMPTY;
+                if (compoundOpt.isPresent()) {
+                    CompoundTag compoundTag = compoundOpt.get();
+                    // ItemStack.of(CompoundTag) returns an ItemStack built from the tag (or EMPTY for empty tags)
+                    s = ItemStack.of(compoundTag);
+                }
                 map.put(i, s);
             }
 

@@ -61,7 +61,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.AbstractSignRenderer;
+import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
 import net.minecraft.client.renderer.entity.*;
 // TODO: Port to 26.1 item property system - ItemProperties was removed
 // import net.minecraft.client.renderer.item.ItemProperties;
@@ -80,6 +80,7 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
@@ -91,15 +92,12 @@ import java.util.Map;
 @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class ClientSetupEventHandler {
 
-    public static final KeyMapping KEY_BACKPACK =
-            new KeyMapping("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
-                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_B), "key.occultism.category");
-    public static final KeyMapping KEY_ENDER_BAG =
-            new KeyMapping("key.occultism.ender_bag", EnderBagKeyConflictContext.INSTANCE,
-                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_V), "key.occultism.category");
-    public static final KeyMapping KEY_STORAGE_REMOTE =
-            new KeyMapping("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
-                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_N), "key.occultism.category");
+    // Register a custom key category for this mod
+    private static final KeyMapping.Category OCCULTISM_KEY_CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
+
+    public static final KeyMapping KEY_BACKPACK = new KeyMapping("key.occultism.backpack", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_B, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_ENDER_BAG = new KeyMapping("key.occultism.ender_bag", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_STORAGE_REMOTE = new KeyMapping("key.occultism.storage_remote", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, OCCULTISM_KEY_CATEGORY);
 
     public static Map<EntityType<?>, KeyMapping> keysFamiliars;
 
@@ -211,8 +209,7 @@ public class ClientSetupEventHandler {
 
         keysFamiliars = new HashMap<>();
         for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars()) {
-            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), InputConstants.Type.KEYSYM, -1, OCCULTISM_KEY_CATEGORY);
             keysFamiliars.put(familiar, kb);
             event.register(kb);
         }
@@ -231,7 +228,8 @@ public class ClientSetupEventHandler {
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), GoldenSacrificialBowlRenderer::new);
-        BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), AbstractSignRenderer::new);
+        // Use vanilla sign renderers for custom sign types
+        BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), StandingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
 
@@ -248,7 +246,7 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
         event.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
         event.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
-        event.register(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
+        event.register(OccultismContainers.SPIRIT.get(), (SpiritContainer menu, net.minecraft.world.entity.player.Inventory inv, net.minecraft.network.chat.Component title) -> new SpiritGui<>(menu, inv, title));
         event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
         event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
         event.register(OccultismContainers.OTHERWORLD_BUTCHER.get(), DimensionalBattlefieldScreen::new);
@@ -261,7 +259,7 @@ public class ClientSetupEventHandler {
         event.registerMobEffect(new IClientMobEffectExtensions() {
             @Override
             public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blit(ThirdEyeEffect.ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ThirdEyeEffect.ICON, x + 3, y + 3, 0.0F, 0.0F, 18, 18, 256, 256);
                 return true;
             }
 
@@ -270,13 +268,13 @@ public class ClientSetupEventHandler {
         event.registerMobEffect( new IClientMobEffectExtensions() {
             @Override
             public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphics guiGraphics, int x, int y, int blitOffset) {
-                guiGraphics.blit(DoubleJumpEffect.ICON, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DoubleJumpEffect.ICON, x + 6, y + 7, 0.0F, 0.0F, 18, 18, 256, 256);
                 return false;
             }
 
             @Override
             public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blit(DoubleJumpEffect.ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DoubleJumpEffect.ICON, x + 3, y + 3, 0.0F, 0.0F, 18, 18, 256, 256);
                 return false;
             }
         }, OccultismEffects.DOUBLE_JUMP.get());
@@ -316,19 +314,14 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
-            if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
-//                gui.setupOverlayRenderState(true, false);
-                //copied from 1.20.4 to:
-                RenderSystem.enableBlend();
-                RenderSystem.defaultBlendFunc();
-                RenderSystem.disableDepthTest();
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(guiGraphics.pose());
-            }
-        });
-
-        event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
+        // TODO (1.21 -> 26.1): The GUI overlay/render pipeline API changed in Minecraft 26.1.
+        // The original overlay logic using RenderSystem and PoseStack is no longer valid.
+        // Disable the overlays until they are ported to the new GuiGraphics / RenderPipeline system.
+        // event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
+        //     if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
+        //         // Port overlay rendering to GuiGraphics / RenderPipelines
+        //     }
+        // });
+        // event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
     }
 }

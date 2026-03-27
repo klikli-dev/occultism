@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.List;
@@ -23,10 +24,11 @@ public class BoundBookRecipeMaker {
 
     private static RecipeHolder<CraftingRecipe> makeRecipe(ItemStack bookOfBinding) {
         String group = "occultism.bound_book_of_binding";
-        var id = Identifier.fromNamespaceAndPath(Occultism.MODID, group + bookOfBinding.getDescriptionId());
+        var itemPath = BuiltInRegistries.ITEM.getKey(bookOfBinding.getItem()).getPath();
+        var id = new Identifier(Occultism.MODID, group + "_" + itemPath);
         var recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC,
                 BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding),
-                NonNullList.of(Ingredient.of(), Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding)));
+                NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding.getItem())));
         return new RecipeHolder<>(id, recipe);
     }
 
