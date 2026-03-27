@@ -25,7 +25,8 @@ public abstract class MinerRecipes {
 
     // Helper method to create has() criterion for tags
     protected static Criterion<InventoryChangeTrigger.TriggerInstance> hasTag(TagKey<Item> tag, HolderLookup.Provider registries) {
-        return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag));
+        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
+        return InventoryChangeTrigger.TriggerInstance.hasItems(items, tag);
     }
 
     public static void minerRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {

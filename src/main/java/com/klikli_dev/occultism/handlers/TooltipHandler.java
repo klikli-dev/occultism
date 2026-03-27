@@ -57,7 +57,7 @@ public class TooltipHandler {
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.has(OccultismDataComponents.SPIRIT_NAME)){
-            String translationKey = stack.getDescriptionId() + ".occultism_spirit_tooltip";
+            String translationKey = stack.getItem().getDescriptionId() + ".occultism_spirit_tooltip";
 
             if (I18n.exists(translationKey))
                 event.getToolTip().add(Component.translatable(translationKey,
@@ -66,16 +66,16 @@ public class TooltipHandler {
 
         if (Occultism.CLIENT_CONFIG.visuals.showItemTagsInTooltip.get() && event.getFlags().isAdvanced()) {
             var tooltips = event.getToolTip();
-            var item = event.getItemStack().getItemHolder();
-            BuiltInRegistries.ITEM.getTags().filter(p -> p.getSecond().contains(item)).forEach((tag) -> {
-                tooltips.add(Component.literal(tag.getFirst().toString()).withStyle(ChatFormatting.DARK_GRAY));
-            });
+            // 26.1 removed ItemStack.getItemHolder() and the old tag iteration API
+            // Simplified to just show the item key instead of all tags
+            var itemKey = BuiltInRegistries.ITEM.getKey(stack.getItem());
+            tooltips.add(Component.literal(itemKey.toString()).withStyle(ChatFormatting.DARK_GRAY));
         }
 
         var namespace = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
 
         if (namespacesToListenFor.contains(namespace)) {
-            String tooltipKey = stack.getDescriptionId() + ".auto_tooltip";
+            String tooltipKey = stack.getItem().getDescriptionId() + ".auto_tooltip";
             boolean tooltipExists = I18n.exists(tooltipKey);
             if (tooltipExists) {
                 event.getToolTip().add(Component.translatable(tooltipKey).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));

@@ -8,7 +8,6 @@ import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.chat.Component;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public abstract class RitualRecipes extends RecipeProvider {
 
@@ -60,13 +58,24 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final Identifier PENTACLE_CONTACT_WILD_SPIRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "contact_wild_spirit");
     private static final Identifier PENTACLE_CONTACT_ELDRITCH_SPIRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "contact_eldritch_spirit");
 
-    public RitualRecipes(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(p_248933_, lookupProvider);
+    public RitualRecipes(HolderLookup.Provider registries, RecipeOutput output) {
+        super(registries, output);
+    }
+
+    // Need a static create method that returns an instance for recipe generation
+    public static RitualRecipes create(HolderLookup.Provider registries, RecipeOutput output) {
+        return new RitualRecipes(registries, output) {
+            @Override
+            protected void buildRecipes() {
+                // Will be called - but recipes are generated via static method
+            }
+        };
     }
 
     // Helper method for has() with registries and TagKey
     protected static Criterion<InventoryChangeTrigger.TriggerInstance> has(HolderLookup.Provider registries, net.minecraft.tags.TagKey<Item> tag) {
-        return InventoryChangeTrigger.TriggerInstance.hasItems(registries.lookupOrThrow(Registries.ITEM).getOrThrow(tag));
+        HolderLookup.ItemGetter items = registries.lookupOrThrow(Registries.ITEM);
+        return InventoryChangeTrigger.TriggerInstance.hasItems(items, tag);
     }
 
     // Overloaded has() for ItemLike - uses registries parameter even though not strictly needed
@@ -2259,7 +2268,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_WILD_SPIRIT, registries,
                         ofTag(registries, Tags.Items.NUGGETS_GOLD),
-                        Ingredient.of(Items.CHAIN),
+                        Ingredient.of(Items.IRON_CHAIN),
                         ofTag(registries, Tags.Items.STONES),
                         ofTag(registries, Tags.Items.STONES),
                         ofTag(registries, ItemTags.LOGS))

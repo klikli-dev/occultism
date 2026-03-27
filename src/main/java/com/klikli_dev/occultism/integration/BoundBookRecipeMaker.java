@@ -26,7 +26,7 @@ public class BoundBookRecipeMaker {
         var id = Identifier.fromNamespaceAndPath(Occultism.MODID, group + bookOfBinding.getDescriptionId());
         var recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC,
                 BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding),
-                NonNullList.of(Ingredient.EMPTY, Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding)));
+                NonNullList.of(Ingredient.of(), Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS), Ingredient.of(bookOfBinding)));
         return new RecipeHolder<>(id, recipe);
     }
 

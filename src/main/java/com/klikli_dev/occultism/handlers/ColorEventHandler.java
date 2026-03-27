@@ -30,7 +30,7 @@ import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -95,7 +95,7 @@ public class ColorEventHandler {
         event.register(List.of(new BlockTintSource() {
             @Override
             public int color(BlockState state) {
-                return state.getValue(IOtherworldBlock.UNCOVERED) ? 0xFFFFFF : FoliageColor.getDefaultColor();
+                return state.getValue(IOtherworldBlock.UNCOVERED) ? 0xFFFFFF : GrassColor.getDefaultColor();
             }
 
             @Override

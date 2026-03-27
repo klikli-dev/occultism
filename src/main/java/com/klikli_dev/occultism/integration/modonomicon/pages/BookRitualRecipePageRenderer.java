@@ -161,12 +161,12 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         }
 
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 110, mouseX, mouseY, this.goldenSacrificialBowl);
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 105, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 105, mouseX, mouseY, recipe.getResult());
 
         this.parentScreen.renderItemStack(guiGraphics, recipeX - 10, recipeY - 5, mouseX, mouseY, recipe.getRitualDummy());
 
         if (recipe.getEntityToSummon() != null) {
-            String mob = recipe.getEntityToSummon().getDefaultLootTable().location().toString()
+            String mob = recipe.getEntityToSummon().getDefaultLootTable().identifier().toString()
                     .replace("occultism:entities/","")
                     .replace("minecraft:entities/","")
                     .replace("c:entities/","")
@@ -176,7 +176,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         }
 
         if (recipe.getEntityTagToSummon() != null) {
-            String mob = recipe.getEntityTagToSummon().location().toString()
+            String mob = recipe.getEntityTagToSummon().identifier().toString()
                     .replace("random_animals_","")
                     .replace("occultism:","")
                     .replace("minecraft:","")

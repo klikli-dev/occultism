@@ -36,6 +36,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -77,7 +78,7 @@ public class DataGenerators {
                 )));
 
 
-        OccultismRecipeProvider recipeProvider = new OccultismRecipeProvider(event.getLookupProvider(), null);
+        OccultismRecipeProvider recipeProvider = new OccultismRecipeProvider(event.getLookupProvider().join(), null);
         generator.addProvider(true, recipeProvider);
 
         OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider());
