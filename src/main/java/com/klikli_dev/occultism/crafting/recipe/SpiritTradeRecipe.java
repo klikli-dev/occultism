@@ -24,6 +24,11 @@ package com.klikli_dev.occultism.crafting.recipe;
 
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -148,6 +153,15 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
 
     public String getTrader() {
         return this.trader;
+    }
+
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new SpiritTradeRecipeDisplay(
+                this.input,
+                ItemStackTemplate.of(this.result.getStack()),
+                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
+        ));
     }
 
 }

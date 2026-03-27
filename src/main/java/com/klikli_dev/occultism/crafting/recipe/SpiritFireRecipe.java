@@ -24,12 +24,15 @@ package com.klikli_dev.occultism.crafting.recipe;
 
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.crafting.recipe.display.SpiritFireRecipeDisplay;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -108,6 +111,15 @@ public class SpiritFireRecipe implements Recipe<SingleRecipeInput> {
     @Override
     public RecipeType<SpiritFireRecipe> getType() {
         return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
+    }
+
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new SpiritFireRecipeDisplay(
+                this.input,
+                this.result,
+                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
+        ));
     }
 
 }

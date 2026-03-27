@@ -26,6 +26,11 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.crafting.recipe.display.RitualRecipeDisplay;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import com.klikli_dev.occultism.registry.OccultismRituals;
 import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.Codec;
@@ -231,6 +236,16 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     @Override
     public @NotNull RecipeType<? extends Recipe<SingleRecipeInput>> getType() {
         return OccultismRecipes.RITUAL_TYPE.get();
+    }
+
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new RitualRecipeDisplay(
+                this.getIngredients(),
+                ItemStackTemplate.of(this.result),
+                ItemStackTemplate.of(this.ritualDummy),
+                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem())
+        ));
     }
 
     public TagKey<EntityType<?>> getEntityToSacrifice() {
