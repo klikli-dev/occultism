@@ -69,7 +69,7 @@ public class LabelWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(GuiGraphicsExtractor guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             Font fontrenderer = minecraft.font;

@@ -76,7 +76,7 @@ public class SizedImageButton extends Button {
     }
 
     @Override
-    protected void renderContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             int i = this.xTexStart;
             int j = this.yTexStart;
