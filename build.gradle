@@ -184,8 +184,8 @@ dependencies {
     //localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
-//    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
-//    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
+    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
+    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
 
     //geckolib
     implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
