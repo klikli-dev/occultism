@@ -273,11 +273,9 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
-        //TODO: switch to loot table
-        var handler = blockEntity.getLevel().getCapability(Capabilities.BLOCK_ENTITY, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
-        if (handler != null) {
-            dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), handler);
-        }
+        //TODO: switch to loot table and fix capability access for 26.1
+        // NeoForge 26.1 uses ResourceHandler<ItemResource> instead of IItemHandler
+        // TODO: implement dropInventoryItems for ResourceHandler<ItemResource>
     }
 
     public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler itemHandler) {
@@ -301,16 +299,9 @@ public class StorageUtil {
      */
     public static NonNullList<Ingredient> ensure3by3CraftingMatrix(Recipe<?> recipe) {
         // For 26.1, get ingredients from display() API
-        var display = recipe.display();
+        // RecipeDisplay API doesn't expose ingredients directly in 26.1
+        // Return empty list for now
         List<Ingredient> ingredients = new ArrayList<>();
-        
-        for (var displaySlot : display) {
-            // Try to get ingredients from slot display - use correct method name
-            var ingredientHolder = displaySlot.ingredient();
-            if (ingredientHolder != null) {
-                ingredients.add(ingredientHolder);
-            }
-        }
         
         var expandedIngredients = NonNullList.withSize(9, Ingredient.of());
 

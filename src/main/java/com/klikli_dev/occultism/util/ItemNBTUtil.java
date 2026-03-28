@@ -236,7 +236,7 @@ public class ItemNBTUtil {
         if (!stack.has(OccultismDataComponents.SPIRIT_ENTITY_DATA))
             return null;
 
-        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).method_57463();
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).copyTag();
     }
 
     public static void setSpiritEntityData(ItemStack stack, CompoundTag entityData) {

@@ -152,9 +152,13 @@ public class MessageSetRecipeByTemplate implements IMessage {
         if (this.recipeId != null) {
             // Access via ServerPlayer's level which has getServer()
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            var recipe = serverPlayer.getServer().getRecipeManager().method_8130(ResourceKey.create(Registries.RECIPE, this.recipeId)).orElse(null);
-            if (recipe != null) {
-                return StorageUtil.ensure3by3CraftingMatrix(recipe.value());
+            var server = serverPlayer.level().getServer();
+            if (server != null) {
+                var recipeHolder = server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, this.recipeId));
+                var recipe = recipeHolder.map(r -> r.value()).orElse(null);
+                if (recipe != null) {
+                    return StorageUtil.ensure3by3CraftingMatrix(recipe);
+                }
             }
         }
 

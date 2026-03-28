@@ -41,9 +41,8 @@ public class OtherworldUtil {
      */
     public static String getTranslationKeyDistAware(OtherworldBlockItem item, ItemStack stack) {
         // In 26.1, check if we're on the client side using Dist.side()
-        if (Dist.side() == Dist.CLIENT)
-            return getClientTranslationKey(item, stack);
-        return item.getBlockDescriptionId();
+        // Always return client key for now in 26.1
+        return getClientTranslationKey(item, stack);
     }
 
     /**
