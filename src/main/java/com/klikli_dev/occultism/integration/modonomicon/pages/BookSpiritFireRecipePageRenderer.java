@@ -26,6 +26,6 @@ public class BookSpiritFireRecipePageRenderer extends BookRecipePageRenderer<Spi
     protected void drawRecipe(GuiGraphicsExtractor guiGraphics, RecipeDisplayEntry entry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         // Temporarily simplified for 26.1 port: detailed recipe rendering relies on legacy recipe API.
         // TODO: Port detailed rendering to new recipe and GuiGraphicsExtractor APIs.
-        guiGraphics.drawString(this.font, "[Recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
+        guiGraphics.text(this.font, "[Recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
     }
 }

@@ -80,9 +80,9 @@ public class MachineSlotWidget {
         var isMouseOverSlot = this.isMouseOverSlot(mx, my);
 
         if (isMouseOverSlot)
-            guiGraphics.renderItem(this.machine.getExtractItemStack(), this.x, this.y);
+            guiGraphics.fakeItem(this.machine.getExtractItemStack(), this.x, this.y);
         else
-            guiGraphics.renderItem(this.machine.getInsertItemStack(), this.x, this.y);
+            guiGraphics.fakeItem(this.machine.getInsertItemStack(), this.x, this.y);
 
         if (isMouseOverSlot) {
             this.parent.drawGradientRect(guiGraphics, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,

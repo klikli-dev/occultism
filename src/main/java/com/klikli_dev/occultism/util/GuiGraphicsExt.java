@@ -42,13 +42,13 @@ public class GuiGraphicsExt {
         if (component == null) {
             return;
         }
-        guiGraphics.drawString(font, component, x, y, color, drawShadow);
+        guiGraphics.text(font, component, x, y, color, drawShadow);
     }
 
     /**
      * Render text using FormattedCharSequence - delegates to GuiGraphicsExtractor.
      */
     public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, int x, int y, int color, boolean drawShadow) {
-        guiGraphics.drawString(font, text, x, y, color, drawShadow);
+        guiGraphics.text(font, text, x, y, color, drawShadow);
     }
 }

@@ -62,12 +62,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     public static void drawEntityToGui(GuiGraphicsExtractor guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
         // Use the vanilla InventoryScreen method with a bounding box centered around posX, posY
-        InventoryScreen.renderEntityInInventoryFollowsMouse(guiGraphics, posX - 25, posY - 50, posX + 25, posY, scale, 0.0625F, mouseX, mouseY, entity);
+        InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics, posX - 25, posY - 50, posX + 25, posY, scale, 0.0625F, mouseX, mouseY, entity);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     @Override
-    protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
 //        this.renderBackground(guiGraphics); //called by super
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);

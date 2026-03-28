@@ -48,7 +48,7 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         //this.renderBackground(guiGraphics); //called by super
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
     }
 
     @Override
-    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth, this.imageHeight, 256, 256);
 
         int miningTime = this.otherworldMiner.miningTime;

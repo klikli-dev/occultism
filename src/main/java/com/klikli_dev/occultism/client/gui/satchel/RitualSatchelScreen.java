@@ -51,7 +51,7 @@ public class RitualSatchelScreen extends AbstractContainerScreen<AbstractSatchel
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 //        this.renderBackground(guiGraphics); called in super
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class RitualSatchelScreen extends AbstractContainerScreen<AbstractSatchel
     }
 
     @Override
-    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth,
                 this.imageHeight, 256, 256);
     }

@@ -325,7 +325,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         // Poll order slot to detect autocrafting mode change (replaces removed Container.addListener)
         this.containerChanged(this.storageControllerContainer.getOrderSlot());
 
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
         if (!this.isGuiValid()) {
             this.minecraft.player.closeContainer();
             return;
@@ -354,7 +354,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
                             float partialTicks) {
         if (!this.isGuiValid()) {
             return;
@@ -370,7 +370,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.drawMachines(guiGraphics, partialTicks, mouseX, mouseY);
                 break;
         }
-        this.searchBar.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override

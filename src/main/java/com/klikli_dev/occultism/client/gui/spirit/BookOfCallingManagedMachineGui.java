@@ -64,7 +64,6 @@ public class BookOfCallingManagedMachineGui extends Screen {
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 //        this.renderBackground(guiGraphics); called by super
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.text.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override

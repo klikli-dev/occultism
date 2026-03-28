@@ -48,35 +48,35 @@ public class GoldenSacrificialBowlHUD {
                 String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
                 int i = ritualName.indexOf(":");
-                pGuiGraphics.drawCenteredString(font, Component.translatable("occultism.waila.current_ritual",
+                pGuiGraphics.centeredText(font, Component.translatable("occultism.waila.current_ritual",
                         Component.literal(ritualName.substring(i+2))), x, y,
                         bowl.getSignal() == 8 ? ChatFormatting.GREEN.getColor() : ChatFormatting.GRAY.getColor());
                 y += 9;
                 if (!bowl.sacrificeFulfilled()) {
-                    pGuiGraphics.drawCenteredString(font, Component.translatable("occultism.waila.no_sacrifice"), x, y, ChatFormatting.RED.getColor());
+                    pGuiGraphics.centeredText(font, Component.translatable("occultism.waila.no_sacrifice"), x, y, ChatFormatting.RED.getColor());
                     y += 9;
-                    pGuiGraphics.drawCenteredString(font, Component.translatable(bowl.currentRitualRecipe.value().getEntityToSacrificeDisplayName()), x, y, -1);
+                    pGuiGraphics.centeredText(font, Component.translatable(bowl.currentRitualRecipe.value().getEntityToSacrificeDisplayName()), x, y, -1);
                 }
                 if (!bowl.itemUseFulfilled()) {
-                    pGuiGraphics.drawCenteredString(font, Component.translatable("ritual.occultism.use_item"), x, y, -1);
+                    pGuiGraphics.centeredText(font, Component.translatable("ritual.occultism.use_item"), x, y, -1);
                     var itemToUse = bowl.currentRitualRecipe.value().getItemToUse();
                     ItemStack[] stacks = itemToUse != null ? itemToUse.items().map(holder -> new ItemStack(holder.value())).toArray(ItemStack[]::new) : new ItemStack[0];
                     if (stacks.length > 0) {
                         y += 9;
                         int index = stacks.length == 1 ? 0 : (int) (System.currentTimeMillis() / 1000) % stacks.length;
-                        pGuiGraphics.drawCenteredString(font, Component.translatable(stacks[index].getItem().getDescriptionId()), x, y, -1);
+                        pGuiGraphics.centeredText(font, Component.translatable(stacks[index].getItem().getDescriptionId()), x, y, -1);
                     }
                 }
             } else {
                 if (!ClientPentacleManager.lastPentacles.isEmpty()) {
-                    pGuiGraphics.drawCenteredString(font, Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND), x, y, ChatFormatting.GOLD.getColor());
+                    pGuiGraphics.centeredText(font, Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND), x, y, ChatFormatting.GOLD.getColor());
                     y += 9;
                     for (var text : ClientPentacleManager.lastPentacles) {
-                        pGuiGraphics.drawCenteredString(font, text, x, y, -1);
+                        pGuiGraphics.centeredText(font, text, x, y, -1);
                         y += 9;
                     }
                 } else {
-                    pGuiGraphics.drawCenteredString(font, ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW), x, y, -1);
+                    pGuiGraphics.centeredText(font, ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW), x, y, -1);
                 }
             }
         }

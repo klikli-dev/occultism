@@ -15,6 +15,6 @@ public class BookBindingCraftingRecipePageRenderer {
 
     public void drawPlaceholder(GuiGraphicsExtractor guiGraphics, int recipeX, int recipeY) {
         // Simple placeholder - actual rendering is disabled until a proper port is implemented.
-        guiGraphics.drawString(null, "[Modonomicon recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
+        guiGraphics.text(null, "[Modonomicon recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
     }
 }

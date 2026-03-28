@@ -104,14 +104,14 @@ public class ItemSlotWidget {
 
                 guiGraphics.pose().scale(.5f, .5f);
 
-                guiGraphics.renderItemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
+                guiGraphics.itemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
                 guiGraphics.pose().popMatrix();
             }
 
             //this.minecraft.getItemRenderer().blitOffset = -100F;
             guiGraphics.pose().pushMatrix();
             guiGraphics.pose().translate(0, 0);
-            guiGraphics.renderItem(this.getStack(), this.x, this.y);
+            guiGraphics.fakeItem(this.getStack(), this.x, this.y);
             guiGraphics.pose().popMatrix();
 
             if (this.isMouseOverSlot(mx, my)) {

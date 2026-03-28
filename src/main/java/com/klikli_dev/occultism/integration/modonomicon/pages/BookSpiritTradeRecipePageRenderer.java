@@ -40,6 +40,6 @@ public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<Sp
         }
 
         // Simplified for 26.1 port - port rendering later
-        guiGraphics.drawString(this.font, "[Recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
+        guiGraphics.text(this.font, "[Recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
     }
 }
