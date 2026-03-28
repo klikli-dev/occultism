@@ -7,20 +7,15 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.book.BookTextHolder;
-import com.klikli_dev.modonomicon.book.conditions.BookCondition;
-import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.GsonHelper;
 
 public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFireRecipe> {
     public BookSpiritFireRecipePage(JsonDataHolder data) {
