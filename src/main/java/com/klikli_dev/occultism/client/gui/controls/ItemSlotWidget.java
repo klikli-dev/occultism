@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -84,7 +84,7 @@ public class ItemSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(GuiGraphics guiGraphics, int mx, int my) {
+    public void drawSlot(GuiGraphicsExtractor guiGraphics, int mx, int my) {
         guiGraphics.pose().pushMatrix();
         if (!this.getStack().isEmpty()) {
             //RenderHelper.enableGUIStandardItemLighting();
@@ -123,7 +123,7 @@ public class ItemSlotWidget {
         guiGraphics.pose().popMatrix();
     }
 
-    public void drawTooltip(GuiGraphics guiGraphics, int mx, int my) {
+    public void drawTooltip(GuiGraphicsExtractor guiGraphics, int mx, int my) {
         if (this.isMouseOverSlot(mx, my) && !this.getStack().isEmpty()) {
             this.parent.renderToolTip(guiGraphics, this.getStack(), mx, my);
         }

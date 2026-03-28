@@ -46,7 +46,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -183,7 +183,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void drawGradientRect(GuiGraphics guiGraphics, int left, int top, int right, int bottom, int startColor,
+    public void drawGradientRect(GuiGraphicsExtractor guiGraphics, int left, int top, int right, int bottom, int startColor,
                                  int endColor) {
         guiGraphics.fillGradient(left, top, right, bottom, startColor, endColor);
     }
@@ -195,12 +195,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void renderToolTip(GuiGraphics guiGraphics, ItemStack stack, int x, int y) {
+    public void renderToolTip(GuiGraphicsExtractor guiGraphics, ItemStack stack, int x, int y) {
         guiGraphics.setTooltipForNextFrame(this.font, this.getTooltipFromContainerItem(stack), stack.getTooltipImage(), x, y);
     }
 
     @Override
-    public void renderToolTip(GuiGraphics guiGraphics, MachineReference machine, int x, int y) {
+    public void renderToolTip(GuiGraphicsExtractor guiGraphics, MachineReference machine, int x, int y) {
         List<Component> tooltip = new ArrayList<>();
         tooltip.add(machine.getInsertItemStack().getDisplayName());
         if (!StringUtils.isBlank(machine.customName)) {
@@ -318,7 +318,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 //        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks); //called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
@@ -349,12 +349,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int pMouseX, int pMouseY) {
+    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX,
+    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX,
                             int mouseY) {
         if (!this.isGuiValid()) {
             return;
@@ -627,7 +627,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.autocraftingModeButton);
     }
 
-    protected void drawItems(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawItems(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
 
         var changedPage = this.previousPage != this.currentPage;
@@ -648,7 +648,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.drawItemSlots(guiGraphics, mouseX, mouseY);
     }
 
-    protected void drawMachines(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawMachines(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<MachineReference> machinesToDisplay = this.applySearchToMachines();
         this.sortMachines(machinesToDisplay);
         this.buildPage(machinesToDisplay);
@@ -684,7 +684,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
-    protected void drawTooltips(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
                 for (ItemSlotWidget s : this.itemSlots) {
@@ -767,7 +767,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void drawBackgroundTexture(GuiGraphics guiGraphics) {
+    protected void drawBackgroundTexture(GuiGraphicsExtractor guiGraphics) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_TOP, this.leftPos, this.realTopPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         for (int i =0; i < this.rows; i++) {
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
@@ -775,7 +775,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     }
 
-    protected void drawItemSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void drawItemSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
             slot.drawSlot(guiGraphics, mouseX, mouseY);
@@ -986,7 +986,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void drawMachineSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void drawMachineSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         for (MachineSlotWidget slot : this.machineSlots) {
             slot.drawSlot(guiGraphics, mouseX, mouseY);
         }

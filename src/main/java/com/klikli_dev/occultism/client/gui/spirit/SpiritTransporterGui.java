@@ -33,7 +33,7 @@ import com.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -129,7 +129,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
+    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int x, int y) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
         guiGraphics.pose().pushMatrix();
@@ -139,7 +139,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         guiGraphics.pose().popMatrix();
     }
 
-    protected void renderFg(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (this.filterModeButton.isHoveredOrFocused()) {
@@ -159,7 +159,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
         this.tagFilterTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderFg(guiGraphics, mouseX, mouseY);

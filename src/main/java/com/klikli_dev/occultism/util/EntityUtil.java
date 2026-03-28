@@ -115,7 +115,7 @@ public class EntityUtil {
 
     public static void renderEntity(PoseStack matrix, LivingEntity pLivingEntity, MultiBufferSource pBuffer, float partialTicks) {
         // TODO: Update to new 26.1 rendering API - the old EntityRenderDispatcher.render() method no longer exists
-        // New API uses GuiGraphics.entity() with EntityRenderState
+        // New API uses GuiGraphicsExtractor.entity() with EntityRenderState
         // For now, we skip rendering as this is only used in a few places
     }
     //endregion Static Methods

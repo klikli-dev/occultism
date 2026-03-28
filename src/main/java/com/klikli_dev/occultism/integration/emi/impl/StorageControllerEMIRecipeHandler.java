@@ -41,7 +41,7 @@ import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.Widget;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.NonNullList;
@@ -167,7 +167,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
 
     private static void renderMissingAndCraftableSlotOverlays(Map<Integer, SlotWidget> inputSlots,
-                                                              GuiGraphics guiGraphics,
+                                                              GuiGraphicsExtractor guiGraphics,
                                                               Set<Integer> missingSlots, Set<Integer> craftableSlots) {
         for (var entry : inputSlots.entrySet()) {
             boolean missing = missingSlots.contains(entry.getKey());
@@ -364,7 +364,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
     }
 
     @Override
-    public void render(EmiRecipe recipe, EmiCraftContext<T> context, List<Widget> widgets, GuiGraphics draw) {
+    public void render(EmiRecipe recipe, EmiCraftContext<T> context, List<Widget> widgets, GuiGraphicsExtractor draw) {
         this.transferRecipe(recipe, context, false).render(recipe, context, widgets, draw);
     }
 
@@ -421,7 +421,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         abstract boolean canCraft();
 
         void render(EmiRecipe recipe, EmiCraftContext<? extends StorageControllerContainerBase> context, List<Widget> widgets,
-                    GuiGraphics draw) {
+                    GuiGraphicsExtractor draw) {
         }
 
         static final class Success extends Result {
@@ -454,7 +454,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
             @Override
             void render(EmiRecipe recipe, EmiCraftContext<? extends StorageControllerContainerBase> context, List<Widget> widgets,
-                        GuiGraphics guiGraphics) {
+                        GuiGraphicsExtractor guiGraphics) {
                 renderMissingAndCraftableSlotOverlays(getRecipeInputSlots(recipe, widgets), guiGraphics,
                         this.missingSlots.missingSlots(),
                         this.missingSlots.craftableSlots());
@@ -488,7 +488,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
             @Override
             void render(EmiRecipe recipe, EmiCraftContext<? extends StorageControllerContainerBase> context, List<Widget> widgets,
-                        GuiGraphics guiGraphics) {
+                        GuiGraphicsExtractor guiGraphics) {
 
                 renderMissingAndCraftableSlotOverlays(getRecipeInputSlots(recipe, widgets), guiGraphics, this.missingSlots,
                         Set.of());

@@ -1,6 +1,6 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 /**
  * Modonomicon renderer compatibility stub for Minecraft 26.1.
@@ -13,7 +13,7 @@ public class BookBindingCraftingRecipePageRenderer {
     public BookBindingCraftingRecipePageRenderer() {
     }
 
-    public void drawPlaceholder(GuiGraphics guiGraphics, int recipeX, int recipeY) {
+    public void drawPlaceholder(GuiGraphicsExtractor guiGraphics, int recipeX, int recipeY) {
         // Simple placeholder - actual rendering is disabled until a proper port is implemented.
         guiGraphics.drawString(null, "[Modonomicon recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
     }

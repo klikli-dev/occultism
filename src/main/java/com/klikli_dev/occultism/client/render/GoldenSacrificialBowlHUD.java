@@ -8,7 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,7 @@ public class GoldenSacrificialBowlHUD {
         return instance;
     }
 
-    public void render(@NotNull GuiGraphics pGuiGraphics, @NotNull DeltaTracker pDeltaTracker) {
+    public void render(@NotNull GuiGraphicsExtractor pGuiGraphics, @NotNull DeltaTracker pDeltaTracker) {
         var mc = Minecraft.getInstance();
 
         if (!(mc.hitResult instanceof BlockHitResult blockHitResult)) {

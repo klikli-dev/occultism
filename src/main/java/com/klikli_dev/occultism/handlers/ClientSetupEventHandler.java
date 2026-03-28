@@ -56,7 +56,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -258,7 +258,7 @@ public class ClientSetupEventHandler {
     public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
         event.registerMobEffect(new IClientMobEffectExtensions() {
             @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
+            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ThirdEyeEffect.ICON, x + 3, y + 3, 0.0F, 0.0F, 18, 18, 256, 256);
                 return true;
             }
@@ -267,13 +267,13 @@ public class ClientSetupEventHandler {
 
         event.registerMobEffect( new IClientMobEffectExtensions() {
             @Override
-            public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphics guiGraphics, int x, int y, int blitOffset) {
+            public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, int blitOffset) {
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DoubleJumpEffect.ICON, x + 6, y + 7, 0.0F, 0.0F, 18, 18, 256, 256);
                 return false;
             }
 
             @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
+            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DoubleJumpEffect.ICON, x + 3, y + 3, 0.0F, 0.0F, 18, 18, 256, 256);
                 return false;
             }
@@ -316,10 +316,10 @@ public class ClientSetupEventHandler {
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         // TODO (1.21 -> 26.1): The GUI overlay/render pipeline API changed in Minecraft 26.1.
         // The original overlay logic using RenderSystem and PoseStack is no longer valid.
-        // Disable the overlays until they are ported to the new GuiGraphics / RenderPipeline system.
+        // Disable the overlays until they are ported to the new GuiGraphicsExtractor / RenderPipeline system.
         // event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
         //     if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
-        //         // Port overlay rendering to GuiGraphics / RenderPipelines
+        //         // Port overlay rendering to GuiGraphicsExtractor / RenderPipelines
         //     }
         // });
         // event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());

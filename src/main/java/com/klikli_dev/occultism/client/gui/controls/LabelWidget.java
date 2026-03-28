@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.client.gui.controls;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.resources.language.I18n;
@@ -69,7 +69,7 @@ public class LabelWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
+    public void renderWidget(GuiGraphicsExtractor guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             Font fontrenderer = minecraft.font;
@@ -91,7 +91,7 @@ public class LabelWidget extends AbstractWidget {
         }
     }
 
-    public void drawCenteredLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
+    public void drawCenteredLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
             guiGraphics.drawString(font, text, (int) (x - font.width(text) / 2), y, color, true);
         } else {
@@ -99,7 +99,7 @@ public class LabelWidget extends AbstractWidget {
         }
     }
 
-    public void drawRightAlignedLabelString(GuiGraphics guiGraphics, Font font, String text,
+    public void drawRightAlignedLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text,
                                             int x, int y,
                                             int color) {
         if (this.shadow) {
@@ -110,7 +110,7 @@ public class LabelWidget extends AbstractWidget {
 
     }
 
-    public void drawLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
+    public void drawLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
             guiGraphics.drawString(font, text, x, y, color, true);
         } else {
