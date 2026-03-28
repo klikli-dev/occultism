@@ -318,9 +318,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 //        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks); //called by super
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
 
         // Poll order slot to detect autocrafting mode change (replaces removed Container.addListener)
         this.containerChanged(this.storageControllerContainer.getOrderSlot());
@@ -349,13 +349,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX,
-                            int mouseY) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
+                            float partialTicks) {
         if (!this.isGuiValid()) {
             return;
         }

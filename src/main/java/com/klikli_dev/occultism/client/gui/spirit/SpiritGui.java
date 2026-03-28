@@ -60,8 +60,8 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.spirit = this.container.spirit;
     }
 
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
@@ -104,12 +104,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     @Override
-    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int x, int y) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
 //        this.renderBackground(guiGraphics); //called by super
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);

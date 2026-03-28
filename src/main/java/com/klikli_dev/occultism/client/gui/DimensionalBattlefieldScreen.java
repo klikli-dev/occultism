@@ -46,19 +46,19 @@ public class DimensionalBattlefieldScreen extends AbstractContainerScreen<Dimens
         this.otherworldButcher = screenContainer.otherworldButcher;
     }
 
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         //this.renderBackground(guiGraphics); //called by super
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    protected void renderLabels(@NotNull GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
+    protected void extractLabels(@NotNull GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); //It is not necessary, keeping this for future reference if needed
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth, this.imageHeight, 256, 256);
 

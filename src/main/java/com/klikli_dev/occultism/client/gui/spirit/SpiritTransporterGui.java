@@ -129,7 +129,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTicks, int x, int y) {
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
         guiGraphics.pose().pushMatrix();
@@ -159,8 +159,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
         this.tagFilterTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderFg(guiGraphics, mouseX, mouseY);
     }
