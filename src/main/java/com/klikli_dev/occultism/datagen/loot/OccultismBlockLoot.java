@@ -73,6 +73,12 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 .forEach(block -> {
                     OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
                             .get(BuiltInRegistries.BLOCK.getKey(block));
+                    if (settings == null) {
+                        Occultism.LOGGER.warn("No block data-gen settings for block {}. Skipping loot table generation.",
+                                BuiltInRegistries.BLOCK.getKey(block));
+                        return;
+                    }
+
                     if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                         this.registerDropNothingLootTable(block);
                     else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
@@ -84,8 +90,14 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                         this.add(block,
                                 this.createCropDrops(block, cropsBlock.getCropsItem().asItem(),
                                         cropsBlock.getSeedsItem().asItem(), lootCondition));
-                    } else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
-                        this.dropSelf(block);
+                    } else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF) {
+                        if (block.asItem() != Items.AIR) {
+                            this.dropSelf(block);
+                        } else {
+                            Occultism.LOGGER.warn("Block {} has DROP_SELF loot type but its item is AIR. Skipping.",
+                                    BuiltInRegistries.BLOCK.getKey(block));
+                        }
+                    }
                     else if (settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
                         this.registerOtherworldBlockTable(block);
                 });

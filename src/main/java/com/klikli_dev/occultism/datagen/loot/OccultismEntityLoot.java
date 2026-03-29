@@ -9,12 +9,10 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
@@ -253,12 +251,12 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(
-                                        NestedLootTable.lootTableReference(BuiltInLootTables.FISHING_FISH)
-                                                .apply(
-                                                        SmeltItemFunction.smelted().when(this.shouldSmeltLoot())
-                                                )
-                                )
+                                .add(LootItem.lootTableItem(Items.COD).setWeight(2)
+                                        .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))
+                                .add(LootItem.lootTableItem(Items.SALMON).setWeight(2)
+                                        .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))
+                                .add(LootItem.lootTableItem(Items.TROPICAL_FISH))
+                                .add(LootItem.lootTableItem(Items.PUFFERFISH))
                                 .when(LootItemKilledByPlayerCondition.killedByPlayer())
                                 .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.025F, 0.01F))
                 )

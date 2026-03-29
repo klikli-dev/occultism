@@ -96,14 +96,15 @@ public abstract class RitualRecipes extends RecipeProvider {
     }
 
     private static ItemStack makeLoreSpawnEgg(Item item, String key) {
-        ItemStack output = item.getDefaultInstance();
-        output.set(DataComponents.LORE, new ItemLore(List.of(Component.translatable(key + ".tooltip"))));
-        output.set(DataComponents.ITEM_NAME, Component.translatable(key));
-        return output;
+        var patch = DataComponentPatch.builder()
+                .set(DataComponents.LORE, new ItemLore(List.of(Component.translatable(key + ".tooltip"))))
+                .set(DataComponents.ITEM_NAME, Component.translatable(key))
+                .build();
+        return new ItemStack(item.builtInRegistryHolder(), 1, patch);
     }
 
     private static ItemStack makeRitualDummy(ItemLike item) {
-        return item.asItem().getDefaultInstance();
+        return new ItemStack(item.asItem().builtInRegistryHolder(), 1, DataComponentPatch.EMPTY);
     }
 
     private static ItemStack makeRitualDummy(Identifier location) {

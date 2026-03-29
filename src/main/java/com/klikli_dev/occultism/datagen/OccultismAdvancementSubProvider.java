@@ -36,6 +36,7 @@ import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.criterion.PlayerTrigger;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -136,9 +137,11 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
                 .display(Items.JUKEBOX, familiarTitle("party"), familiarDescr("party"), null, AdvancementType.TASK, true, true, false)
                 .addCriterion("party", FamiliarTrigger.of(FamiliarTrigger.Type.PARTY))
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/familiar/party")));
-        var familiarRingStack = new ItemStack(OccultismItems.FAMILIAR_RING.get());
-        familiarRingStack.set(OccultismDataComponents.SPIRIT_NAME, "Gardelldor");
-        var familiarRingTemplate = ItemStackTemplate.fromNonEmptyStack(familiarRingStack);
+        var familiarRingTemplate = new ItemStackTemplate(
+                OccultismItems.FAMILIAR_RING.get().builtInRegistryHolder(), 1,
+                DataComponentPatch.builder()
+                        .set(OccultismDataComponents.SPIRIT_NAME.get(), "Gardelldor")
+                        .build());
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
                 .display(new DisplayInfo(
                         familiarRingTemplate, familiarTitle("capture"), familiarDescr("capture"), Optional.empty(), AdvancementType.TASK, true, true, false)
@@ -262,9 +265,10 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
     }
 
     private ItemStackTemplate icon(int data) {
-        ItemStack icon = OccultismItems.ADVANCEMENT_ICON.get().getDefaultInstance();
-        icon.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(), List.of(data)));
-        return ItemStackTemplate.fromNonEmptyStack(icon);
+        var patch = DataComponentPatch.builder()
+                .set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(), List.of(data)))
+                .build();
+        return new ItemStackTemplate(OccultismItems.ADVANCEMENT_ICON.get().builtInRegistryHolder(), 1, patch);
     }
 
 }
