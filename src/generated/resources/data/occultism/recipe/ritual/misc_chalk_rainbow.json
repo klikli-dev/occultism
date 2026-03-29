@@ -1,58 +1,30 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:brush"
-  },
+  "activation_item": "occultism:brush",
   "duration": 780,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.sheep",
     "tag": "c:sheep"
   },
   "ingredients": [
-    {
-      "item": "occultism:chalk_red"
-    },
-    {
-      "item": "occultism:chalk_brown"
-    },
-    {
-      "item": "occultism:chalk_orange"
-    },
-    {
-      "item": "occultism:chalk_gold"
-    },
-    {
-      "item": "occultism:chalk_lime"
-    },
-    {
-      "item": "occultism:chalk_green"
-    },
-    {
-      "item": "occultism:chalk_cyan"
-    },
-    {
-      "item": "occultism:chalk_blue"
-    },
-    {
-      "item": "occultism:chalk_light_blue"
-    },
-    {
-      "item": "occultism:chalk_pink"
-    },
-    {
-      "item": "occultism:chalk_magenta"
-    },
-    {
-      "item": "occultism:chalk_purple"
-    }
+    "occultism:chalk_red",
+    "occultism:chalk_brown",
+    "occultism:chalk_orange",
+    "occultism:chalk_gold",
+    "occultism:chalk_lime",
+    "occultism:chalk_green",
+    "occultism:chalk_cyan",
+    "occultism:chalk_blue",
+    "occultism:chalk_light_blue",
+    "occultism:chalk_pink",
+    "occultism:chalk_magenta",
+    "occultism:chalk_purple"
   ],
   "pentacle_id": "occultism:contact_eldritch_spirit",
   "result": {
-    "count": 1,
     "id": "occultism:chalk_rainbow"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/misc_chalk_rainbow"
   },
   "ritual_type": "occultism:craft"

@@ -1,30 +1,18 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 150,
   "ingredients": [
-    {
-      "item": "occultism:otherrock_frame"
-    },
-    {
-      "tag": "c:ender_pearls"
-    },
-    {
-      "tag": "c:obsidians/crying"
-    },
-    {
-      "tag": "c:ingots/iesnium"
-    }
+    "occultism:otherrock_frame",
+    "#c:ender_pearls",
+    "#c:obsidians/crying",
+    "#c:ingots/iesnium"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {
-    "count": 1,
     "id": "occultism:entity_wormhole_dark"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/craft_entity_wormhole_dark"
   },
   "ritual_type": "occultism:craft"

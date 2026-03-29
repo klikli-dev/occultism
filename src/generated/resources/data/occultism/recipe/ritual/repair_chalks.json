@@ -1,36 +1,28 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "tag": "occultism:tools/chalk"
-  },
+  "activation_item": "#occultism:tools/chalk",
   "duration": 5,
   "ingredients": [
-    {
-      "item": "occultism:otherworld_essence"
-    },
-    {
-      "item": "occultism:otherworld_essence"
-    },
-    {
-      "item": "occultism:otherworld_essence"
-    },
-    {
-      "item": "occultism:spirit_attuned_gem"
-    }
+    "occultism:otherworld_essence",
+    "occultism:otherworld_essence",
+    "occultism:otherworld_essence",
+    "occultism:spirit_attuned_gem"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.repair_chalks\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.repair_chalks"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.repair_chalks.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.repair_chalks.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:repair_icon"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/repair_chalks"
   },
   "ritual_type": "occultism:repair"

@@ -1,8 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.chicken",
@@ -10,38 +8,28 @@
   },
   "entity_to_summon": "occultism:possessed_blaze",
   "ingredients": [
-    {
-      "item": "minecraft:fire_charge"
-    },
-    {
-      "item": "minecraft:firework_star"
-    },
-    {
-      "item": "minecraft:torch"
-    },
-    {
-      "tag": "minecraft:candles"
-    },
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "tag": "c:ingots/copper"
-    }
+    "minecraft:fire_charge",
+    "minecraft:firework_star",
+    "minecraft:torch",
+    "#minecraft:candles",
+    "#c:ingots/gold",
+    "#c:ingots/copper"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_blaze\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.possess_blaze"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_blaze.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.possess_blaze.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/possessed_blaze"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/possess_blaze"
   },
   "ritual_type": "occultism:summon"

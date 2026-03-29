@@ -50,7 +50,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     }
 
     public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ItemLike output, int weight, HolderLookup.Provider registries) {
-        return new MinerRecipeBuilder(ingredient, WeightedItemRecipeResult.of(new net.minecraft.world.item.ItemStack(output), weight), registries);
+        return new MinerRecipeBuilder(ingredient, WeightedItemRecipeResult.of(new ItemStackTemplate(output.asItem()), weight), registries);
     }
 
     public static MinerRecipeBuilder minerRecipe(ItemLike ingredient, ItemLike output, int weight, HolderLookup.Provider registries) {

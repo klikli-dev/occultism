@@ -18,7 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-// removed ItemStackTemplate usage
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -66,7 +66,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     }
 
     public static CrystallizeRecipeBuilder crystallizeRecipe(Ingredient ingredient, ItemLike result, int crystallizeTime, HolderLookup.Provider registries) {
-        return new CrystallizeRecipeBuilder(ingredient, RecipeResult.of(new net.minecraft.world.item.ItemStack(result)), crystallizeTime, registries);
+        return new CrystallizeRecipeBuilder(ingredient, RecipeResult.of(new ItemStackTemplate(result.asItem())), crystallizeTime, registries);
     }
 
     public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, TagKey<Item> result, int crystallizeTime, HolderLookup.Provider registries) {
@@ -74,8 +74,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     }
 
     public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, ItemLike result, int crystallizeTime, HolderLookup.Provider registries) {
-        return new CrystallizeRecipeBuilder(Ingredient.of(item), RecipeResult.of(new net.minecraft.world.item.ItemStack(result)), crystallizeTime, registrize
-);
+        return new CrystallizeRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStackTemplate(result.asItem())), crystallizeTime, registries);
     }
 
     public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crystallizeTime, HolderLookup.Provider registries) {

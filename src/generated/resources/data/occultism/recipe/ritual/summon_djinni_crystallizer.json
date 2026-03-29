@@ -1,37 +1,29 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 120,
   "entity_to_summon": "occultism:djinni",
   "ingredients": [
-    {
-      "item": "occultism:gray_paste"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:gems/amethyst"
-    },
-    {
-      "tag": "c:gems/emerald"
-    }
+    "occultism:gray_paste",
+    "#c:gems/lapis",
+    "#c:gems/amethyst",
+    "#c:gems/emerald"
   ],
   "pentacle_id": "occultism:summon_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_crystallizer\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.summon_djinni_crystallizer"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_crystallizer.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.summon_djinni_crystallizer.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/djinni"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/summon_djinni_crystallizer"
   },
   "ritual_type": "occultism:summon_spirit_with_job",
