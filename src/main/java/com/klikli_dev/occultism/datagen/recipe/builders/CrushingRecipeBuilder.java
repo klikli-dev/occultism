@@ -18,7 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+// removed ItemStackTemplate usage
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -66,7 +66,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     }
 
     public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, ItemLike result, int crushingTime, HolderLookup.Provider registries) {
-        return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new ItemStack(result)), crushingTime, registries);
+        return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new net.minecraft.world.item.ItemStack(result)), crushingTime, registries);
     }
 
     public static CrushingRecipeBuilder crushingRecipe(Item item, TagKey<Item> result, int crushingTime, HolderLookup.Provider registries) {
@@ -74,7 +74,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     }
 
     public static CrushingRecipeBuilder crushingRecipe(Item item, ItemLike result, int crushingTime, HolderLookup.Provider registries) {
-        return new CrushingRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStack(result)), crushingTime, registries);
+        return new CrushingRecipeBuilder(Ingredient.of(item), RecipeResult.of(new net.minecraft.world.item.ItemStack(result)), crushingTime, registries);
     }
 
     public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crushingTime, HolderLookup.Provider registries) {

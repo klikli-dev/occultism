@@ -13,6 +13,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 
 public abstract class RecipeResult {
@@ -23,6 +24,10 @@ public abstract class RecipeResult {
 
     public static RecipeResult of(ItemStack stack) {
         return new ItemRecipeResult(stack);
+    }
+
+    public static RecipeResult of(ItemStackTemplate template) {
+        return new ItemRecipeResult(template.create());
     }
 
     public static RecipeResult of(TagKey<Item> tag) {

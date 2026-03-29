@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "occultism:otherplanks_sign"
+          "name": "occultism:spirit_torch"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "occultism:blocks/otherplanks_wall_sign"
+  "random_sequence": "occultism:blocks/spirit_wall_torch"
 }

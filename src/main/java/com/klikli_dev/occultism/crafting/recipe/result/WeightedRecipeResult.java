@@ -12,6 +12,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 /**
  * A recipe result for recipes that need a random weight (eg miner recipes)
@@ -33,6 +34,10 @@ public abstract class WeightedRecipeResult extends RecipeResult {
 
     public static WeightedRecipeResult of(ItemStack stack, int weight) {
         return new WeightedItemRecipeResult(stack, weight);
+    }
+
+    public static WeightedRecipeResult of(ItemStackTemplate template, int weight) {
+        return new WeightedItemRecipeResult(template.create(), weight);
     }
 
     public static WeightedRecipeResult of(TagKey<Item> tag, int weight) {

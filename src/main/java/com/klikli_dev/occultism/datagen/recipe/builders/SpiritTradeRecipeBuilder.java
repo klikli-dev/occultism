@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +47,15 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
         return new SpiritTradeRecipeBuilder(ingredient, WeightedItemRecipeResult.of(output, weight), trader, registries);
     }
 
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStackTemplate output, int weight, String trader, HolderLookup.Provider registries) {
+        return new SpiritTradeRecipeBuilder(ingredient, com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult.of(output, weight), trader, registries);
+    }
+
     public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStack output, int weight, String trader, HolderLookup.Provider registries) {
+        return spiritTradeRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, trader, registries);
+    }
+
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStackTemplate output, int weight, String trader, HolderLookup.Provider registries) {
         return spiritTradeRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, trader, registries);
     }
 

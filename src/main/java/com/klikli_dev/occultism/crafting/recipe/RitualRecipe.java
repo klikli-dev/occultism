@@ -68,11 +68,11 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             RitualRequirementSettings.CODEC.forGetter((r) -> r.ritualRequirementSettings),
             RitualStartSettings.CODEC.forGetter((r) -> r.ritualStartSettings),
             EntityToSummonSettings.CODEC.forGetter((r) -> r.entityToSummonSettings),
-            ItemStack.CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
-            ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
+            ItemStackTemplate.CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+            ItemStackTemplate.CODEC.optionalFieldOf("result").forGetter(r -> Optional.ofNullable(r.result)),
             Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
             ).apply(instance, (ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command) ->
-                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command.orElse(null))
+                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result.orElse(null), command.orElse(null))
             )
     );
 
@@ -85,14 +85,14 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             (r) -> r.ritualStartSettings,
             EntityToSummonSettings.STREAM_CODEC,
             (r) -> r.entityToSummonSettings,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             (r) -> r.ritualDummy,
-            ItemStack.OPTIONAL_STREAM_CODEC,
-            (r) -> r.result,
+            ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC),
+            (r) -> Optional.ofNullable(r.result),
             ByteBufCodecs.optional(ByteBufCodecs.STRING_UTF8),
             (r) -> Optional.ofNullable(r.command),
             (ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command) ->
-                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command.orElse(null))
+                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result.orElse(null), command.orElse(null))
     );
 
     public static final RecipeSerializer<RitualRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
@@ -101,14 +101,15 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     private final RitualStartSettings ritualStartSettings;
     @Nullable
     private final EntityToSummonSettings entityToSummonSettings;
-    private final ItemStack ritualDummy;
-    private final ItemStack result;
+    private final ItemStackTemplate ritualDummy;
+    @Nullable
+    private final ItemStackTemplate result;
     @Nullable
     private final Supplier<Ritual> ritual;
     @Nullable
     private final String command;
 
-    public RitualRecipe(Identifier ritualType, RitualRequirementSettings ritualRequirementSettings, RitualStartSettings ritualStartSettings, @Nullable EntityToSummonSettings entityToSummonSettings, ItemStack ritualDummy, ItemStack result, String command) {
+    public RitualRecipe(Identifier ritualType, RitualRequirementSettings ritualRequirementSettings, RitualStartSettings ritualStartSettings, @Nullable EntityToSummonSettings entityToSummonSettings, ItemStackTemplate ritualDummy, @Nullable ItemStackTemplate result, String command) {
         this.ritualType = ritualType;
         this.ritualRequirementSettings = ritualRequirementSettings;
         this.ritualStartSettings = ritualStartSettings;
@@ -120,8 +121,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         this.command = command;
     }
 
-    public RitualRecipe(Identifier pentacleId, Identifier ritualType, ItemStack ritualDummy,
-                        ItemStack result, @Nullable EntityType<?> entityToSummon, @Nullable TagKey<EntityType<?>> entityTagToSummon, @Nullable CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, int summonNumber, @Nullable Identifier spiritJobType, @Nullable EntityToSacrifice entityToSacrifice, @Nullable Ingredient itemToUse, @Nullable String command) {
+    public RitualRecipe(Identifier pentacleId, Identifier ritualType, ItemStackTemplate ritualDummy,
+                        @Nullable ItemStackTemplate result, @Nullable EntityType<?> entityToSummon, @Nullable TagKey<EntityType<?>> entityTagToSummon, @Nullable CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, int summonNumber, @Nullable Identifier spiritJobType, @Nullable EntityToSacrifice entityToSacrifice, @Nullable Ingredient itemToUse, @Nullable String command) {
         this(ritualType,
                 new RitualRequirementSettings(pentacleId, ingredients, activationItem, duration, duration / (float) (ingredients.size() + 1)),
                 new RitualStartSettings(entityToSacrifice, itemToUse, null),
@@ -156,11 +157,11 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     public ItemStack getRitualDummy() {
-        return this.ritualDummy;
+        return this.ritualDummy.create();
     }
 
     public ItemStack getResult() {
-        return this.result;
+        return this.result != null ? this.result.create() : ItemStack.EMPTY;
     }
 
     public Ingredient getActivationItem() {
@@ -242,8 +243,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
         return java.util.List.of(new RitualRecipeDisplay(
                 this.getIngredients(),
-                ItemStackTemplate.fromNonEmptyStack(this.result),
-                ItemStackTemplate.fromNonEmptyStack(this.ritualDummy),
+                this.result != null ? this.result : new ItemStackTemplate(net.minecraft.world.item.Items.STICK),
+                this.ritualDummy,
                 new SlotDisplay.ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem())
         ));
     }

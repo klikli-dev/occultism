@@ -14,9 +14,12 @@
     },
     "icon": {
       "components": {
-        "minecraft:custom_model_data": 15
+        "minecraft:custom_model_data": {
+          "colors": [
+            15
+          ]
+        }
       },
-      "count": 1,
       "id": "occultism:advancement_icon"
     },
     "title": {

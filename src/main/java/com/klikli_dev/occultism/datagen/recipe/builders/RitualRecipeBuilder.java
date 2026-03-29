@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -31,9 +31,9 @@ import java.util.Map;
 public class RitualRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private final Ingredient activationIngredient;
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final Identifier ritualType;
-    private final ItemStack ritualDummy;
+    private final ItemStackTemplate ritualDummy;
     private final int duration;
     private final NonNullList<Ingredient> ingredients;
     private final Identifier pentacleId;
@@ -62,7 +62,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     @Nullable
     private ICondition condition;
 
-    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStack output, ItemStack ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries) {
+    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries) {
         this.activationIngredient = activationIngredient;
         this.output = output;
         this.ritualDummy = ritualDummy;
@@ -73,7 +73,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStack output, ItemStack ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries, Ingredient... ingredients) {
+    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries, Ingredient... ingredients) {
         NonNullList<Ingredient> ingredientsList = NonNullList.create();
         Collections.addAll(ingredientsList, ingredients);
         return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, duration, ritualType, pentacleId, registries);

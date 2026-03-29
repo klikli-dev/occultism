@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "occultism:otherplanks_hanging_sign"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "occultism:blocks/skeleton_skull_dummy"
+  "random_sequence": "minecraft:blocks/oak_hanging_sign"
 }

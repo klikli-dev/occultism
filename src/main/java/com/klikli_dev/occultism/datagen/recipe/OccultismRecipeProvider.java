@@ -1077,7 +1077,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
 
     protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, HolderLookup.Provider registries){
         HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(items.getOrThrow(input)), new ItemStack(output))
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(items.getOrThrow(input)), new ItemStackTemplate(output))
                 .unlockedBy("has_tag_item", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, input).build()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:",""))));
     }

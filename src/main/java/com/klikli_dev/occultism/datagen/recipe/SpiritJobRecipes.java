@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -68,74 +69,74 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
 
     private static void spiritTradeRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL, registries),
-                        new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING), 1,
+                        new ItemStackTemplate(OccultismBlocks.OTHERWORLD_SAPLING.asItem()), 1,
                         "occultism:trader_otherworld_saplings", registries)
                 .unlockedBy("has_otherworld_sapling_natural", hasItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/otherworld_sapling")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.STONES, registries),
-                        new ItemStack(OccultismBlocks.OTHERSTONE.get(), 2), 1,
+                        new ItemStackTemplate(OccultismBlocks.OTHERSTONE.get().asItem(), 2), 1,
                         "occultism:trader_otherstone", registries)
                 .unlockedBy("has_stone", hasTag(Tags.Items.STONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherstone")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.STONES, registries),
-                        new ItemStack(OccultismBlocks.OTHERROCK.get(), 2), 1,
+                        new ItemStackTemplate(OccultismBlocks.OTHERROCK.get().asItem(), 2), 1,
                         "occultism:trader_otherrock", registries)
                 .unlockedBy("has_stone", hasTag(Tags.Items.STONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherrock")));
 
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(OccultismItems.SPIRIT_ATTUNED_GEM.get(), 1), 8,
+                        new ItemStackTemplate(OccultismItems.SPIRIT_ATTUNED_GEM.get(), 1), 8,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_spirit")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.DIAMOND, 1), 1,
+                        new ItemStackTemplate(Items.DIAMOND, 1), 1,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_diamond")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.EMERALD, 1), 1,
+                        new ItemStackTemplate(Items.EMERALD, 1), 1,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_emerald")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.QUARTZ, 1), 2,
+                        new ItemStackTemplate(Items.QUARTZ, 1), 2,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_quartz")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.LAPIS_LAZULI, 1), 2,
+                        new ItemStackTemplate(Items.LAPIS_LAZULI, 1), 2,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_lazuli")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.PRISMARINE_CRYSTALS, 1), 4,
+                        new ItemStackTemplate(Items.PRISMARINE_CRYSTALS, 1), 4,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_prismarine")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.AMETHYST_SHARD, 1), 4,
+                        new ItemStackTemplate(Items.AMETHYST_SHARD, 1), 4,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_amethyst")));
 
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.IRON_NUGGET, 1), 16,
+                        new ItemStackTemplate(Items.IRON_NUGGET, 1), 16,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_iron")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(Items.GOLD_NUGGET, 1), 8,
+                        new ItemStackTemplate(Items.GOLD_NUGGET, 1), 8,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_gold")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(OccultismItems.SILVER_NUGGET.get(), 1), 8,
+                        new ItemStackTemplate(OccultismItems.SILVER_NUGGET.get(), 1), 8,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_silver")));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStack(OccultismItems.IESNIUM_NUGGET.get(), 1), 1,
+                        new ItemStackTemplate(OccultismItems.IESNIUM_NUGGET.get(), 1), 1,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_iesnium")));

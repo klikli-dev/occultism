@@ -22,6 +22,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -96,27 +97,27 @@ public abstract class RitualRecipes extends RecipeProvider {
         return Ingredient.of(item);
     }
 
-    private static ItemStack makeLoreSpawnEgg(Item item, String key) {
+    private static ItemStackTemplate makeLoreSpawnEgg(Item item, String key) {
         var patch = DataComponentPatch.builder()
                 .set(DataComponents.LORE, new ItemLore(List.of(Component.translatable(key + ".tooltip"))))
                 .set(DataComponents.ITEM_NAME, Component.translatable(key))
                 .build();
-        return new ItemStack(item.builtInRegistryHolder(), 1, patch);
+        return new ItemStackTemplate(item.builtInRegistryHolder(), 1, patch);
     }
 
-    private static ItemStack makeRitualDummy(ItemLike item) {
-        return new ItemStack(item.asItem().builtInRegistryHolder(), 1, DataComponentPatch.EMPTY);
+    private static ItemStackTemplate makeRitualDummy(ItemLike item) {
+        return new ItemStackTemplate(item.asItem());
     }
 
-    private static ItemStack makeRitualDummy(Identifier location) {
-        return BuiltInRegistries.ITEM.get(location).orElseThrow().value().getDefaultInstance();
+    private static ItemStackTemplate makeRitualDummy(Identifier location) {
+        return new ItemStackTemplate(BuiltInRegistries.ITEM.get(location).orElseThrow().value());
     }
 
-    private static ItemStack makeJeiDummy(Identifier location) {
-        return BuiltInRegistries.ITEM.get(location).orElseThrow().value().getDefaultInstance();
+    private static ItemStackTemplate makeJeiDummy(Identifier location) {
+        return new ItemStackTemplate(BuiltInRegistries.ITEM.get(location).orElseThrow().value());
     }
 
-    private static ItemStack makeJeiNoneDummy() {
+    private static ItemStackTemplate makeJeiNoneDummy() {
         return makeJeiDummy(Identifier.fromNamespaceAndPath("occultism", "jei_dummy/none"));
     }
 
