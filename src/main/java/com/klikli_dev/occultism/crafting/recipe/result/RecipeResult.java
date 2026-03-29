@@ -23,11 +23,11 @@ public abstract class RecipeResult {
     public static final StreamCodec<RegistryFriendlyByteBuf, RecipeResult> STREAM_CODEC = ByteBufCodecs.registry(OccultismRegistries.Keys.RECIPE_RESULT_TYPES).dispatch(RecipeResult::getType, RecipeResultType::streamCodec);
 
     public static RecipeResult of(ItemStack stack) {
-        return new ItemRecipeResult(stack);
+        return new ItemRecipeResult(ItemStackTemplate.fromNonEmptyStack(stack));
     }
 
     public static RecipeResult of(ItemStackTemplate template) {
-        return new ItemRecipeResult(template.create());
+        return new ItemRecipeResult(template);
     }
 
     public static RecipeResult of(TagKey<Item> tag) {

@@ -12,46 +12,57 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A tag result for recipes that use tags as output.
+ * A weighted recipe result that stores an ItemStackTemplate and lazily creates the ItemStack at runtime.
  */
 public class WeightedItemRecipeResult extends WeightedRecipeResult {
 
     public static final MapCodec<WeightedItemRecipeResult> CODEC =
             RecordCodecBuilder.mapCodec((builder) -> builder.group(
-                    ItemStack.OPTIONAL_CODEC.fieldOf("stack").forGetter(WeightedItemRecipeResult::getStack),
+                    ItemStackTemplate.CODEC.fieldOf("stack").forGetter(r -> r.template),
                     Codec.INT.fieldOf("weight").forGetter(WeightedItemRecipeResult::weight)
             ).apply(builder, WeightedItemRecipeResult::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, WeightedItemRecipeResult> STREAM_CODEC = StreamCodec.composite(
-            ItemStack.OPTIONAL_STREAM_CODEC,
-            WeightedItemRecipeResult::getStack,
+            ItemStackTemplate.STREAM_CODEC,
+            r -> r.template,
             ByteBufCodecs.INT,
             WeightedItemRecipeResult::weight,
             WeightedItemRecipeResult::new
     );
 
-    private final ItemStack stack;
+    private final ItemStackTemplate template;
+
+    @Nullable
+    private ItemStack stack;
 
     @Nullable
     private ItemStack[] cachedStacks;
 
-    public WeightedItemRecipeResult(ItemStack stack, int weight) {
+    public WeightedItemRecipeResult(ItemStackTemplate template, int weight) {
         super(weight);
-        this.stack = stack;
+        this.template = template;
+    }
+
+    public WeightedItemRecipeResult(ItemStack stack, int weight) {
+        this(ItemStackTemplate.fromNonEmptyStack(stack), weight);
     }
 
     @Override
     public ItemStack getStack() {
+        if (this.stack == null) {
+            this.stack = this.template.create();
+        }
         return this.stack;
     }
 
     @Override
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
-            this.cachedStacks = new ItemStack[]{this.stack};
+            this.cachedStacks = new ItemStack[]{this.getStack()};
         }
         return this.cachedStacks;
     }
@@ -63,11 +74,11 @@ public class WeightedItemRecipeResult extends WeightedRecipeResult {
 
     @Override
     public WeightedItemRecipeResult copyWithCount(int count) {
-        return new WeightedItemRecipeResult(this.stack.copyWithCount(count), this.weight);
+        return new WeightedItemRecipeResult(this.template.withCount(count), this.weight);
     }
 
     @Override
     public WeightedItemRecipeResult copyWithWeight(int weight) {
-        return new WeightedItemRecipeResult(this.stack, weight);
+        return new WeightedItemRecipeResult(this.template, weight);
     }
 }

@@ -33,11 +33,11 @@ public abstract class WeightedRecipeResult extends RecipeResult {
     }
 
     public static WeightedRecipeResult of(ItemStack stack, int weight) {
-        return new WeightedItemRecipeResult(stack, weight);
+        return new WeightedItemRecipeResult(ItemStackTemplate.fromNonEmptyStack(stack), weight);
     }
 
     public static WeightedRecipeResult of(ItemStackTemplate template, int weight) {
-        return new WeightedItemRecipeResult(template.create(), weight);
+        return new WeightedItemRecipeResult(template, weight);
     }
 
     public static WeightedRecipeResult of(TagKey<Item> tag, int weight) {

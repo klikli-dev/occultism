@@ -10,24 +10,25 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A tag result for recipes that use tags as output.
+ * A recipe result that stores an ItemStackTemplate and lazily creates the ItemStack at runtime.
  */
 public class ItemRecipeResult extends RecipeResult {
 
     public static final MapCodec<ItemRecipeResult> INGREDIENT_COMPAT_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-            Item.CODEC.fieldOf("item").forGetter(t -> t.stack.typeHolder()),
-            Codec.INT.fieldOf("count").forGetter(t -> t.stack.getCount()),
-            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(t -> t.stack.getComponentsPatch())
-    ).apply(builder, (item, count, components) -> new ItemRecipeResult(new ItemStack(item, count, components))));
+            BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("item").forGetter(t -> t.template.item()),
+            Codec.INT.fieldOf("count").forGetter(t -> t.template.count()),
+            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(t -> t.template.components())
+    ).apply(builder, (item, count, components) -> new ItemRecipeResult(new ItemStackTemplate(item, count, components))));
 
-    public static final MapCodec<ItemRecipeResult> ITEM_STACK_COMPAT_CODEC = MapCodec.assumeMapUnsafe(ItemStack.CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack));
+    public static final MapCodec<ItemRecipeResult> ITEM_STACK_COMPAT_CODEC = MapCodec.assumeMapUnsafe(ItemStackTemplate.CODEC.xmap(ItemRecipeResult::new, (ItemRecipeResult t) -> t.template));
 
     public static final MapCodec<ItemRecipeResult> CODEC = OccultismExtraCodecs.mapWithAlternative(
             ITEM_STACK_COMPAT_CODEC,
@@ -35,29 +36,39 @@ public class ItemRecipeResult extends RecipeResult {
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ItemRecipeResult> STREAM_CODEC = StreamCodec.composite(
-            ItemStack.OPTIONAL_STREAM_CODEC,
-            ItemRecipeResult::getStack,
+            ItemStackTemplate.STREAM_CODEC,
+            (ItemRecipeResult t) -> t.template,
             ItemRecipeResult::new
     );
 
-    private final ItemStack stack;
+    private final ItemStackTemplate template;
+
+    @Nullable
+    private ItemStack stack;
 
     @Nullable
     private ItemStack[] cachedStacks;
 
+    public ItemRecipeResult(ItemStackTemplate template) {
+        this.template = template;
+    }
+
     public ItemRecipeResult(ItemStack stack) {
-        this.stack = stack;
+        this(ItemStackTemplate.fromNonEmptyStack(stack));
     }
 
     @Override
     public ItemStack getStack() {
+        if (this.stack == null) {
+            this.stack = this.template.create();
+        }
         return this.stack;
     }
 
     @Override
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
-            this.cachedStacks = new ItemStack[]{this.stack};
+            this.cachedStacks = new ItemStack[]{this.getStack()};
         }
         return this.cachedStacks;
     }
@@ -69,6 +80,6 @@ public class ItemRecipeResult extends RecipeResult {
 
     @Override
     public ItemRecipeResult copyWithCount(int count) {
-        return new ItemRecipeResult(this.stack.copyWithCount(count));
+        return new ItemRecipeResult(this.template.withCount(count));
     }
 }
