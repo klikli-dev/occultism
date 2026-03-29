@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootTableProvider;
 import com.klikli_dev.occultism.datagen.recipe.OccultismRecipeProvider;
 import com.klikli_dev.occultism.datagen.tags.*;
+import com.klikli_dev.occultism.datagen.model.OccultismModelProvider;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -84,9 +85,7 @@ public class DataGenerators {
         generator.addProvider(true, new OccultismItemTagProvider(generator.getPackOutput(), event.getLookupProvider(), forgeBlockProvider.contentsGetter()));
         generator.addProvider(true, new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider()));
         generator.addProvider(true, new OccultismEnchantmentTagProvider(generator.getPackOutput(), lookup));
-        // TODO: Port to 26.1 model generation system - ItemModelProvider and BlockStateProvider were removed
-        // generator.addProvider(true, new ItemModelsGenerator(generator.getPackOutput()));
-        // generator.addProvider(true, new StandardBlockStateProvider(generator.getPackOutput()));
+        generator.addProvider(true, new OccultismModelProvider(generator.getPackOutput()));
         generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
@@ -105,10 +104,9 @@ public class DataGenerators {
             }
         });
 
-        // Temporarily comment out book provider until OccultismBookProvider is fixed for 26.1
-        // generator.addProvider(true, new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(
-        //         new OccultismBookProvider(enUSProvider)
-        // )));
+        generator.addProvider(true, new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(
+                new OccultismBookProvider(enUSProvider)
+        )));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(true, enUSProvider);
