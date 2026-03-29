@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "p": {
-      "tag": "c:ingots/silver"
-    }
+    "p": "#c:ingots/silver"
   },
   "pattern": [
     "ppp",
@@ -12,7 +10,6 @@
     "ppp"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:silver_block"
   }
 }

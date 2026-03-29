@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/coal"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/coal"
-  },
+  "ingredient": "#c:ores/coal",
   "result": {
     "type": "occultism:tag",
     "count": 2,

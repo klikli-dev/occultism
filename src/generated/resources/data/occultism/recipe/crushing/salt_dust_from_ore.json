@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/salt"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/salt"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/salt"
-  },
+  "ingredient": "#c:ores/salt",
   "result": {
     "type": "occultism:tag",
     "count": 2,

@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/ores"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/ruby"
-      }
-    }
-  ],
   "type": "occultism:miner",
-  "ingredient": {
-    "tag": "occultism:miners/ores"
-  },
+  "ingredient": "#occultism:miners/ores",
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,

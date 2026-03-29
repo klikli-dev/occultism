@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/azure_silver"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/azure_silver"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/azure_silver"
-  },
+  "ingredient": "#c:ores/azure_silver",
   "result": {
     "type": "occultism:tag",
     "count": 2,

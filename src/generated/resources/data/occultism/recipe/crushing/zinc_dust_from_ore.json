@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/zinc"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/zinc"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/zinc"
-  },
+  "ingredient": "#c:ores/zinc",
   "result": {
     "type": "occultism:tag",
     "count": 2,

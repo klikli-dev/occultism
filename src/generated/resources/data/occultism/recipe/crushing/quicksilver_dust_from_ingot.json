@@ -1,25 +1,7 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ingots/quicksilver"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/quicksilver"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/quicksilver"
-  },
+  "ingredient": "#c:ingots/quicksilver",
   "result": {
     "type": "occultism:tag",
     "count": 1,

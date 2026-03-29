@@ -1,25 +1,7 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ingots/osmium"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/osmium"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/osmium"
-  },
+  "ingredient": "#c:ingots/osmium",
   "result": {
     "type": "occultism:tag",
     "count": 1,

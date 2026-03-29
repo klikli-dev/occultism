@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/iesnium"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/iesnium"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/iesnium"
-  },
+  "ingredient": "#c:ores/iesnium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

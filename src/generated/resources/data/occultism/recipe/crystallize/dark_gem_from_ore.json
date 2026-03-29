@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/dark_gem"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:gems/dark_gem"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/dark_gem"
-  },
+  "ingredient": "#c:ores/dark_gem",
   "result": {
     "type": "occultism:tag",
     "count": 2,

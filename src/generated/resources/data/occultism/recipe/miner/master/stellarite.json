@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/master"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/stellarite"
-      }
-    }
-  ],
   "type": "occultism:miner",
-  "ingredient": {
-    "tag": "occultism:miners/master"
-  },
+  "ingredient": "#occultism:miners/master",
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,

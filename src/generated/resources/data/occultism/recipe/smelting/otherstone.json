@@ -3,11 +3,8 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.5,
-  "ingredient": {
-    "item": "occultism:othercobblestone"
-  },
+  "ingredient": "occultism:othercobblestone",
   "result": {
-    "count": 1,
     "id": "occultism:otherstone"
   }
 }

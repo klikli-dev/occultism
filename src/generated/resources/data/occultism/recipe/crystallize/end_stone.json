@@ -1,13 +1,10 @@
 {
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/end_stone"
-  },
+  "ingredient": "#c:dusts/end_stone",
   "min_tier": 3,
   "result": {
     "type": "occultism:item",
-    "count": 1,
     "id": "minecraft:end_stone"
   }
 }

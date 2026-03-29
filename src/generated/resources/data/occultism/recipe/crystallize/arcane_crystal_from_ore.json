@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/arcane_crystal"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:gems/arcane_crystal"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/arcane_crystal"
-  },
+  "ingredient": "#c:ores/arcane_crystal",
   "result": {
     "type": "occultism:tag",
     "count": 2,

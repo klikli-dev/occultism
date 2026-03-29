@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "x": {
-      "tag": "c:glass_blocks"
-    },
-    "y": {
-      "item": "occultism:spirit_attuned_gem"
-    }
+    "g": "#c:ingots/gold",
+    "x": "#c:glass_blocks",
+    "y": "occultism:spirit_attuned_gem"
   },
   "pattern": [
     " g ",
@@ -18,7 +12,6 @@
     " g "
   ],
   "result": {
-    "count": 1,
     "id": "occultism:divination_rod"
   }
 }

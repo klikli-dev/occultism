@@ -1,22 +1,10 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/echo"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/echo"
-  },
+  "ingredient": "#c:dusts/echo",
   "min_tier": 4,
   "result": {
     "type": "occultism:item",
-    "count": 1,
     "id": "minecraft:echo_shard"
   }
 }

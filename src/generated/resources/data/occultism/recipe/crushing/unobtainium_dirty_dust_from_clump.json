@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:clumps/unobtainium"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dirty_dusts/unobtainium"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/unobtainium"
-  },
+  "ingredient": "#c:clumps/unobtainium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

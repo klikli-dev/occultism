@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:clumps/allthemodium"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dirty_dusts/allthemodium"
-      }
-    }
-  ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/allthemodium"
-  },
+  "ingredient": "#c:clumps/allthemodium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

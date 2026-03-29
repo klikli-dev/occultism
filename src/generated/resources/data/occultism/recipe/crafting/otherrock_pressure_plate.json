@@ -2,15 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "o": {
-      "item": "occultism:otherrock"
-    }
+    "o": "occultism:otherrock"
   },
   "pattern": [
     "oo"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherrock_pressure_plate"
   }
 }

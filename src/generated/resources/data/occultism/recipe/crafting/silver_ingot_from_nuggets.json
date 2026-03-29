@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": {
-      "tag": "c:nuggets/silver"
-    }
+    "p": "#c:nuggets/silver"
   },
   "pattern": [
     "ppp",
@@ -12,7 +10,6 @@
     "ppp"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:silver_ingot"
   }
 }

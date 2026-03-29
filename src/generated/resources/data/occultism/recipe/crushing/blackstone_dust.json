@@ -1,9 +1,7 @@
 {
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "item": "minecraft:blackstone"
-  },
+  "ingredient": "minecraft:blackstone",
   "result": {
     "type": "occultism:tag",
     "count": 1,

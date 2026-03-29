@@ -151,7 +151,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, OccultismItems.RAW_SILVER.get(), 9)
                 .requires(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER)
                 .unlockedBy("has_raw_silver_block", has(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER))
-                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_iesnium_ingot_from_block")));
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_silver_ingot_from_block")));
     }
 
     private void craftingRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
@@ -1084,7 +1084,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     protected static void spiritfireTransmute(Item input, Item output, RecipeOutput pRecipeOutput, HolderLookup.Provider registries){
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStack(output))
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStackTemplate(output))
                 .unlockedBy("has_" + input.toString().replace("minecraft:","").replace("occultism:",""), InventoryChangeTrigger.TriggerInstance.hasItems(input))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:",""))));
     }

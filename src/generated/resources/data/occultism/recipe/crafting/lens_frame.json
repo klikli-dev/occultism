@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "o": {
-      "item": "occultism:otherstone"
-    },
-    "s": {
-      "tag": "c:ingots/silver"
-    }
+    "o": "occultism:otherstone",
+    "s": "#c:ingots/silver"
   },
   "pattern": [
     "ooo",
@@ -15,7 +11,6 @@
     "ooo"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:lens_frame"
   }
 }

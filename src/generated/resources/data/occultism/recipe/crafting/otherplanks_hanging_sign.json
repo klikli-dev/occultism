@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "hanging_sign",
   "key": {
-    "#": {
-      "item": "occultism:stripped_otherworld_log"
-    },
-    "X": {
-      "item": "minecraft:chain"
-    }
+    "#": "occultism:stripped_otherworld_log",
+    "X": "minecraft:iron_chain"
   },
   "pattern": [
     "X X",

@@ -1,25 +1,7 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/raw_mithril"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/mithril"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "crushing_time": 1600,
-  "ingredient": {
-    "tag": "c:storage_blocks/raw_mithril"
-  },
+  "ingredient": "#c:storage_blocks/raw_mithril",
   "result": {
     "type": "occultism:tag",
     "count": 18,

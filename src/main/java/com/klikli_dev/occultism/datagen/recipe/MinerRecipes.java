@@ -10,6 +10,7 @@ import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
@@ -453,7 +454,7 @@ public class MinerRecipes {
 
     // Helper method to get item name for recipes
     private static String getItemName(Item item) {
-        return item.toString();
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
     }
 
 }

@@ -1,25 +1,7 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/raw_aluminum"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/aluminum"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "crushing_time": 1600,
-  "ingredient": {
-    "tag": "c:storage_blocks/raw_aluminum"
-  },
+  "ingredient": "#c:storage_blocks/raw_aluminum",
   "result": {
     "type": "occultism:tag",
     "count": 18,

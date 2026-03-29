@@ -2,36 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    },
-    {
-      "tag": "c:tallow"
-    }
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow",
+    "#c:tallow"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:tallow_block"
   }
 }

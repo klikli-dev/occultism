@@ -2,21 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:chalk_white_impure"
-    },
-    {
-      "tag": "c:dusts/research"
-    },
-    {
-      "tag": "c:dusts/emerald"
-    },
-    {
-      "tag": "c:slime_balls"
-    }
+    "occultism:chalk_white_impure",
+    "#c:dusts/research",
+    "#c:dusts/emerald",
+    "#c:slime_balls"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:chalk_lime_impure"
   }
 }

@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "sign",
   "key": {
-    "#": {
-      "item": "occultism:otherplanks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "occultism:otherplanks",
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

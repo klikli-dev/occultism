@@ -1,12 +1,9 @@
 {
   "type": "occultism:spirit_trade",
-  "ingredient": {
-    "tag": "c:gems"
-  },
+  "ingredient": "#c:gems",
   "result": {
     "type": "occultism:weighted_item",
     "stack": {
-      "count": 1,
       "id": "occultism:spirit_attuned_gem"
     },
     "weight": 8

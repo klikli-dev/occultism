@@ -1,25 +1,7 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ingots/unobtainium_allthemodium_alloy"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/unobtainium_allthemodium_alloy"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/unobtainium_allthemodium_alloy"
-  },
+  "ingredient": "#c:ingots/unobtainium_allthemodium_alloy",
   "result": {
     "type": "occultism:tag",
     "count": 1,

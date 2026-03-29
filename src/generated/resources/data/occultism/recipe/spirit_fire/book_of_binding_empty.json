@@ -1,10 +1,7 @@
 {
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "tag": "occultism:books/books_for_empty"
-  },
+  "ingredient": "#occultism:books/books_for_empty",
   "result": {
-    "count": 1,
     "id": "occultism:book_of_binding_empty"
   }
 }

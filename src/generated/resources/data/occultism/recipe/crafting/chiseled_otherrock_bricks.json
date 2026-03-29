@@ -2,16 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "o": {
-      "item": "occultism:otherrock_bricks_slab"
-    }
+    "o": "occultism:otherrock_bricks_slab"
   },
   "pattern": [
     "o",
     "o"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:chiseled_otherrock_bricks"
   }
 }

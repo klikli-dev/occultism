@@ -2,21 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:chalk_white_impure"
-    },
-    {
-      "item": "occultism:afrit_essence"
-    },
-    {
-      "item": "minecraft:torchflower"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    }
+    "occultism:chalk_white_impure",
+    "occultism:afrit_essence",
+    "minecraft:torchflower",
+    "#c:dusts/redstone"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:chalk_red_impure"
   }
 }

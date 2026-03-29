@@ -2,14 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": [
-      {
-        "tag": "c:crops/datura"
-      },
-      {
-        "tag": "c:seeds/datura"
-      }
-    ]
+    "p": "#c:crops/datura"
   },
   "pattern": [
     "ppp",
@@ -17,7 +10,6 @@
     "ppp"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:demons_dream_essence"
   }
 }

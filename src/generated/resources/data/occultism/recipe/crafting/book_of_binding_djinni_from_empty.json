@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": {
-      "item": "occultism:book_of_binding_empty"
-    },
-    "g": {
-      "tag": "c:dyes/purple"
-    }
+    "b": "occultism:book_of_binding_empty",
+    "g": "#c:dyes/purple"
   },
   "pattern": [
     " g ",
@@ -15,7 +11,6 @@
     " g "
   ],
   "result": {
-    "count": 1,
     "id": "occultism:book_of_binding_djinni"
   }
 }

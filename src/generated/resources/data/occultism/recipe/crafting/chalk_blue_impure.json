@@ -2,21 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:chalk_white_impure"
-    },
-    {
-      "item": "occultism:marid_essence"
-    },
-    {
-      "tag": "c:dusts/lapis"
-    },
-    {
-      "tag": "c:tube_corals"
-    }
+    "occultism:chalk_white_impure",
+    "occultism:marid_essence",
+    "#c:dusts/lapis",
+    "#c:tube_corals"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:chalk_blue_impure"
   }
 }

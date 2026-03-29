@@ -1,8 +1,6 @@
 {
   "type": "occultism:spirit_trade",
-  "ingredient": {
-    "tag": "c:stones"
-  },
+  "ingredient": "#c:stones",
   "result": {
     "type": "occultism:weighted_item",
     "stack": {

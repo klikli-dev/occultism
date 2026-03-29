@@ -2,12 +2,9 @@
   "type": "occultism:crushing",
   "crushing_time": 20,
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "item": "occultism:otherrock"
-  },
+  "ingredient": "occultism:otherrock",
   "result": {
     "type": "occultism:item",
-    "count": 1,
     "id": "occultism:othercobblerock"
   }
 }

@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/eldritch"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/raw_lead"
-      }
-    }
-  ],
   "type": "occultism:miner",
-  "ingredient": {
-    "tag": "occultism:miners/eldritch"
-  },
+  "ingredient": "#occultism:miners/eldritch",
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,

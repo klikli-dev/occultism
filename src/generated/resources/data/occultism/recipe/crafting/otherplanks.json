@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "tag": "occultism:otherworld_logs"
-    }
+    "#occultism:otherworld_logs"
   ],
   "result": {
     "count": 4,

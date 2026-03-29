@@ -1,10 +1,7 @@
 {
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "tag": "c:feathers"
-  },
+  "ingredient": "#c:feathers",
   "result": {
-    "count": 1,
     "id": "occultism:awakened_feather"
   }
 }

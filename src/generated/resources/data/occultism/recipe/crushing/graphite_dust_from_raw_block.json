@@ -1,25 +1,7 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/raw_graphite"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/graphite"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "crushing_time": 1600,
-  "ingredient": {
-    "tag": "c:storage_blocks/raw_graphite"
-  },
+  "ingredient": "#c:storage_blocks/raw_graphite",
   "result": {
     "type": "occultism:tag",
     "count": 18,

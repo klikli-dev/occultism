@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "occultism:polished_otherrock"
-  },
+  "ingredient": "occultism:polished_otherrock",
   "result": {
     "count": 2,
     "id": "occultism:polished_otherrock_slab"

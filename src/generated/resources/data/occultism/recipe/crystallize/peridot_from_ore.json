@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/peridot"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:gems/peridot"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/peridot"
-  },
+  "ingredient": "#c:ores/peridot",
   "result": {
     "type": "occultism:tag",
     "count": 2,

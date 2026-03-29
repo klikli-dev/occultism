@@ -1,10 +1,7 @@
 {
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "tag": "occultism:otherworld_logs"
-  },
+  "ingredient": "#occultism:otherworld_logs",
   "result": {
-    "count": 1,
     "id": "occultism:otherworld_ashes"
   }
 }

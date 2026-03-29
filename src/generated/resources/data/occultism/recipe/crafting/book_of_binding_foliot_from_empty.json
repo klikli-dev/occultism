@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": {
-      "item": "occultism:book_of_binding_empty"
-    },
-    "w": {
-      "tag": "c:dyes/blue"
-    }
+    "b": "occultism:book_of_binding_empty",
+    "w": "#c:dyes/blue"
   },
   "pattern": [
     " w ",
@@ -15,7 +11,6 @@
     " w "
   ],
   "result": {
-    "count": 1,
     "id": "occultism:book_of_binding_foliot"
   }
 }

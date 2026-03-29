@@ -2,12 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:otherstone_pedestal"
-    }
+    "occultism:otherstone_pedestal"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:storage_stabilizer_tier0"
   }
 }

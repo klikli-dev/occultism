@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/fluorite"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:gems/fluorite"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/fluorite"
-  },
+  "ingredient": "#c:ores/fluorite",
   "result": {
     "type": "occultism:tag",
     "count": 4,

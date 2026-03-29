@@ -1,24 +1,6 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/black_quartz"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:gems/black_quartz"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/black_quartz"
-  },
+  "ingredient": "#c:ores/black_quartz",
   "result": {
     "type": "occultism:tag",
     "count": 2,

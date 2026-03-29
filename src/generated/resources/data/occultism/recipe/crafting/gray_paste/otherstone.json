@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "item": "occultism:gray_paste"
-    },
-    {
-      "tag": "c:dusts/otherstone"
-    }
+    "occultism:gray_paste",
+    "#c:dusts/otherstone"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherstone"
   }
 }

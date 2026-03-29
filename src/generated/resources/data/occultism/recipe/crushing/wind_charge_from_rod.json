@@ -1,8 +1,6 @@
 {
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:rods/breeze"
-  },
+  "ingredient": "#c:rods/breeze",
   "result": {
     "type": "occultism:item",
     "count": 4,

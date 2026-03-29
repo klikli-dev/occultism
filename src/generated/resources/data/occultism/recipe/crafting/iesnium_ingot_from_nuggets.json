@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": {
-      "tag": "c:nuggets/iesnium"
-    }
+    "p": "#c:nuggets/iesnium"
   },
   "pattern": [
     "ppp",
@@ -12,7 +10,6 @@
     "ppp"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:iesnium_ingot"
   }
 }

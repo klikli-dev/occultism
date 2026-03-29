@@ -1,8 +1,6 @@
 {
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:rods/blaze"
-  },
+  "ingredient": "#c:rods/blaze",
   "result": {
     "type": "occultism:item",
     "count": 4,

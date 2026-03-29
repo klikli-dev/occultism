@@ -2,19 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "s": {
-      "tag": "c:strings"
-    },
-    "t": {
-      "tag": "c:tallow"
-    }
+    "s": "#c:strings",
+    "t": "#c:tallow"
   },
   "pattern": [
     "s",
     "t"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:large_candle"
   }
 }

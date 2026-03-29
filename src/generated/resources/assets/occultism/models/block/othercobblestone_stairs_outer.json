@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "occultism:block/othercobblestone",
-    "side": "occultism:block/othercobblestone",
-    "top": "occultism:block/othercobblestone"
-  }
-}

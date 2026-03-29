@@ -1,13 +1,10 @@
 {
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/ice"
-  },
+  "ingredient": "#c:dusts/ice",
   "min_tier": 3,
   "result": {
     "type": "occultism:item",
-    "count": 1,
     "id": "minecraft:ice"
   }
 }

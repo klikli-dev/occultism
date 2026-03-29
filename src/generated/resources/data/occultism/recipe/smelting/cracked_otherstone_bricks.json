@@ -3,11 +3,8 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.3,
-  "ingredient": {
-    "item": "occultism:otherstone_bricks"
-  },
+  "ingredient": "occultism:otherstone_bricks",
   "result": {
-    "count": 1,
     "id": "occultism:cracked_otherstone_bricks"
   }
 }

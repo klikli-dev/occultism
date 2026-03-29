@@ -1,26 +1,8 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:otherstone"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:othercobblestone"
-      }
-    }
-  ],
   "type": "occultism:crushing",
   "crushing_time": 20,
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "occultism:otherstone"
-  },
+  "ingredient": "#occultism:otherstone",
   "result": {
     "type": "occultism:tag",
     "count": 1,

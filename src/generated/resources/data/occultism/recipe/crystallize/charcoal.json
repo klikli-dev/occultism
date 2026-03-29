@@ -1,21 +1,9 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/charcoal"
-      }
-    }
-  ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/charcoal"
-  },
+  "ingredient": "#c:dusts/charcoal",
   "result": {
     "type": "occultism:item",
-    "count": 1,
     "id": "minecraft:charcoal"
   }
 }
