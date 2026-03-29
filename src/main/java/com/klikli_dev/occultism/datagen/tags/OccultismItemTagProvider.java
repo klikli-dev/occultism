@@ -19,7 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 
-//import top.theillusivec4.curios.api.CuriosApi; // TODO: re-enable when Curios is available for 26.1
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,11 +116,10 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {
-        // TODO: re-enable when Curios is available for 26.1
-        //this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
-        //this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
-        //this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        //this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
