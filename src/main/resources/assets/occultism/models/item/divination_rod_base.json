@@ -1,0 +1,17 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "occultism:item/divination_rod"
+  },
+  "overrides": [
+    {"predicate": {"minecraft:custom_model_data": 0}, "model": "occultism:item/divination_rod_0"},
+    {"predicate": {"minecraft:custom_model_data": 1}, "model": "occultism:item/divination_rod_1"},
+    {"predicate": {"minecraft:custom_model_data": 2}, "model": "occultism:item/divination_rod_2"},
+    {"predicate": {"minecraft:custom_model_data": 3}, "model": "occultism:item/divination_rod_3"},
+    {"predicate": {"minecraft:custom_model_data": 4}, "model": "occultism:item/divination_rod_4"},
+    {"predicate": {"minecraft:custom_model_data": 5}, "model": "occultism:item/divination_rod_5"},
+    {"predicate": {"minecraft:custom_model_data": 6}, "model": "occultism:item/divination_rod_6"},
+    {"predicate": {"minecraft:custom_model_data": 7}, "model": "occultism:item/divination_rod_7"},
+    {"predicate": {"minecraft:custom_model_data": 100}, "model": "occultism:item/divination_rod_searching"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "occultism:block/cross_crop",
+  "render_type": "cutout_mipped",
+  "textures": {
+    "cross_crop": "occultism:block/crop/datura_stage2"
+  }
+}

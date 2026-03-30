@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "occultism:item/fragile_soul_gem_empty"
+  }
+}
