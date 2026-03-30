@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "occultism:block/cracked_otherrock_bricks"
+  }
+}

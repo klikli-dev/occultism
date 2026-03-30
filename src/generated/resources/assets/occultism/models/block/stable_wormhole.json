@@ -1,0 +1,7 @@
+{
+  "parent": "occultism:block/stable_wormhole_template",
+  "textures": {
+    "particle": "occultism:block/stable_wormhole",
+    "texture": "occultism:block/stable_wormhole"
+  }
+}

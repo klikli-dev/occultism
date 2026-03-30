@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_hanging_lantern",
-  "render_type": "cutout_mipped",
-  "textures": {
-    "lantern": "occultism:block/spirit_lantern"
-  }
-}

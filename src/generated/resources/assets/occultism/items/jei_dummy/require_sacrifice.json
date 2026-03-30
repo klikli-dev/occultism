@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "occultism:item/jei_dummy/require_sacrifice"
+  }
+}

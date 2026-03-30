@@ -105,6 +105,9 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.SPIRIT_GRINDSTONE.get(),
                 OccultismBlocks.SPIRIT_CAMPFIRE.get(),
                 OccultismBlocks.SPIRIT_LANTERN.get(),
+                // special / misc
+                OccultismBlocks.SPIRIT_FIRE.get(),
+                OccultismBlocks.LIGHTED_AIR.get(),
                 OccultismBlocks.SACRIFICIAL_BOWL.get(),
                 OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(),
                 OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(),
@@ -130,10 +133,78 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get(),
                 OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get(),
                 OccultismBlocks.OTHERGLASS_NATURAL.get(),
+                // natural / otherworld components
+                OccultismBlocks.OTHERSTONE_NATURAL.get(),
+                OccultismBlocks.OTHERROCK_NATURAL.get(),
+                OccultismBlocks.OTHERGLASS.get(),
+                OccultismBlocks.OTHERFLOWER.get(),
+                OccultismBlocks.OTHERFLOWER_NATURAL.get(),
+                OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
+                OccultismBlocks.IESNIUM_ORE_NATURAL.get(),
+                // saplings
+                OccultismBlocks.OTHERWORLD_SAPLING.get(),
+                OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
+                // fences / doors / buttons / trapdoors (use trivial cube for now)
+                OccultismBlocks.OTHERPLANKS_FENCE.get(),
+                OccultismBlocks.OTHERPLANKS_DOOR.get(),
+                OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(),
+                OccultismBlocks.OTHERPLANKS_BUTTON.get(),
+                OccultismBlocks.OTHERSTONE_BUTTON.get(),
+                OccultismBlocks.OTHERROCK_BUTTON.get(),
+                // walls
+                OccultismBlocks.OTHERSTONE_WALL.get(),
+                OccultismBlocks.OTHERCOBBLESTONE_WALL.get(),
+                OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(),
+                OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(),
+                OccultismBlocks.OTHERROCK_WALL.get(),
+                OccultismBlocks.OTHERCOBBLEROCK_WALL.get(),
+                OccultismBlocks.POLISHED_OTHERROCK_WALL.get(),
+                OccultismBlocks.OTHERROCK_BRICKS_WALL.get(),
+                // otherrock variants
+                OccultismBlocks.CHISELED_OTHERROCK_BRICKS.get(),
+                OccultismBlocks.CRACKED_OTHERROCK_BRICKS.get(),
+                // large candles (all color variants)
+                OccultismBlocks.LARGE_CANDLE_WHITE.get(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
+                OccultismBlocks.LARGE_CANDLE_GRAY.get(),
+                OccultismBlocks.LARGE_CANDLE_BLACK.get(),
+                OccultismBlocks.LARGE_CANDLE_BROWN.get(),
+                OccultismBlocks.LARGE_CANDLE_RED.get(),
+                OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
+                OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
+                OccultismBlocks.LARGE_CANDLE_LIME.get(),
+                OccultismBlocks.LARGE_CANDLE_GREEN.get(),
+                OccultismBlocks.LARGE_CANDLE_CYAN.get(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
+                OccultismBlocks.LARGE_CANDLE_BLUE.get(),
+                OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
+                OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
+                OccultismBlocks.LARGE_CANDLE_PINK.get(),
+                // storage controller variants
+                OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get(),
+                // wormholes / entity wormholes
+                OccultismBlocks.ENTITY_WORMHOLE.get(),
+                OccultismBlocks.ENTITY_WORMHOLE_DARK.get(),
+                // anvil
+                OccultismBlocks.IESNIUM_ANVIL.get(),
+                // torches
+                OccultismBlocks.SPIRIT_TORCH.get(),
+                OccultismBlocks.SPIRIT_WALL_TORCH.get(),
                 OccultismBlocks.LARGE_CANDLE.get(),
                 OccultismBlocks.STORAGE_CONTROLLER.get(),
                 OccultismBlocks.STORAGE_CONTROLLER_DARK.get(),
-                OccultismBlocks.STABLE_WORMHOLE.get(),
+                // potted, signs, crops, skulls
+                OccultismBlocks.POTTED_OTHERFLOWER.get(),
+                OccultismBlocks.OTHERPLANKS_SIGN.get(),
+                OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(),
+                OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(),
+                OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(),
+                OccultismBlocks.DATURA.get(),
+                OccultismBlocks.SKELETON_SKULL_DUMMY.get(),
+                OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(),
         };
         for (Block block : cubeAll) {
             blockModels.createTrivialCube(block);
@@ -145,6 +216,9 @@ public class OccultismBlockModelSubProvider {
         this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.OTHERWORLD_WOOD.get());
         this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get());
         this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get());
+        // natural variants (use pillar models too)
+        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get());
+        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.OTHERWORLD_LOG_NATURAL.get());
     }
 
     private void registerAxisAlignedPillar(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
@@ -188,6 +262,8 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.CHALK_GLYPH_PINK.get(),
                 OccultismBlocks.CHALK_GLYPH_MAGENTA.get(),
                 OccultismBlocks.CHALK_GLYPH_PURPLE.get(),
+                OccultismBlocks.CHALK_GLYPH_RAINBOW.get(),
+                OccultismBlocks.CHALK_GLYPH_VOID.get(),
         };
         for (Block block : glyphBlocks) {
             this.registerGlyphBlock(blockModels, block);
@@ -297,6 +373,7 @@ public class OccultismBlockModelSubProvider {
     private void registerSpecialBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         // Stable Wormhole - has a LINKED property
         this.registerLinkedBlock(blockModels, itemModels, OccultismBlocks.STABLE_WORMHOLE.get());
+        this.registerLinkedBlock(blockModels, itemModels, OccultismBlocks.STABLE_WORMHOLE_DARK.get());
     }
 
     private void registerLinkedBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {

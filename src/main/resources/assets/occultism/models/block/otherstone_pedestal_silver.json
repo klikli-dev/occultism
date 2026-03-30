@@ -1,6 +1,0 @@
-{
-  "parent": "occultism:block/otherstone_pedestal",
-  "textures": {
-    "1": "occultism:block/pedestal_base_dark"
-  }
-}

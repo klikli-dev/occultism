@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "occultism:block/stripped_otherworld_wood_top",
+    "side": "occultism:block/stripped_otherworld_wood"
+  }
+}

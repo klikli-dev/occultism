@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "occultism:block/polished_otherrock",
+    "side": "occultism:block/polished_otherrock",
+    "top": "occultism:block/polished_otherrock"
+  }
+}

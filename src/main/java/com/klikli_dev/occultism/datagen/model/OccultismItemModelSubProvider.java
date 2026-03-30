@@ -115,7 +115,7 @@ public class OccultismItemModelSubProvider {
         this.registerAdvancementItem(itemModels);
         this.registerItemCommon(itemModels);
         this.registerItemHandheldItems(itemModels);
-        this.registerItemFromBlocks(itemModels, blockModels);
+        // Block item models are handled by OccultismBlockModelSubProvider
         this.registerItemMiners(itemModels);
         this.registerItemChalks(itemModels);
         this.registerItemCandles(itemModels, blockModels);
@@ -131,6 +131,29 @@ public class OccultismItemModelSubProvider {
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_POSSESS.get(), "ritual_dummy_possess");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_CRAFT.get(), "ritual_dummy_craft");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_MISC.get(), "ritual_dummy_misc");
+
+        // Items not covered by other methods
+        this.registerItemGenerated(itemModels, OccultismItems.DICTIONARY_OF_SPIRITS.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DIVINATION_ROD.get());
+        this.registerItemGenerated(itemModels, OccultismItems.TRUE_SIGHT_STAFF.get());
+        this.registerItemGenerated(itemModels, OccultismItems.OTHERWORLD_GOGGLES.get());
+        this.registerItemGenerated(itemModels, OccultismItems.STORAGE_REMOTE.get());
+        this.registerItemGenerated(itemModels, OccultismItems.FRAGILE_SOUL_GEM_ITEM.get());
+        this.registerItemGenerated(itemModels, OccultismItems.SOUL_GEM_ITEM.get());
+        this.registerItemGenerated(itemModels, OccultismItems.TRINITY_GEM_ITEM.get());
+        this.registerItemGenerated(itemModels, OccultismItems.VITALITY_COMPASS.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DIMENSIONAL_MATRIX.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_LUMBERJACK.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_FARMER.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_CLEANER.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_TRADER_ITEM.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE.get());
+        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_DJINNI_TEST.get());
+        this.registerItemGenerated(itemModels, OccultismItems.JEI_DUMMY_NONE.get());
+        this.registerItemGenerated(itemModels, OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
+        this.registerItemGenerated(itemModels, OccultismItems.JEI_DUMMY_REQUIRE_ITEM_USE.get());
     }
 
     private void registerAdvancementItem(ItemModelGenerators itemModels) {

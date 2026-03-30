@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "occultism:block/otherrock_slab"
+    },
+    "type=double": {
+      "model": "occultism:block/otherrock"
+    },
+    "type=top": {
+      "model": "occultism:block/otherrock_slab_top"
+    }
+  }
+}

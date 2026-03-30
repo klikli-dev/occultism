@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "linked=false": {
+      "model": "occultism:block/stable_wormhole_dark"
+    },
+    "linked=true": {
+      "model": "occultism:block/stable_wormhole_dark_linked"
+    }
+  }
+}

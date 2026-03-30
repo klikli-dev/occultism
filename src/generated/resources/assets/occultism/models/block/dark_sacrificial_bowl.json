@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "occultism:block/dark_sacrificial_bowl"
+  }
+}
