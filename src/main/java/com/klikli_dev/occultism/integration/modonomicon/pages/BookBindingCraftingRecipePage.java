@@ -13,38 +13,38 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Recipe;
 
 public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
-    ItemStack unboundBook;
+    ItemStackTemplate unboundBook;
 
-    public BookBindingCraftingRecipePage(JsonDataHolder data, ItemStack unboundBook) {
+    public BookBindingCraftingRecipePage(JsonDataHolder data, ItemStackTemplate unboundBook) {
         super(data);
         this.unboundBook = unboundBook;
     }
 
-    public BookBindingCraftingRecipePage(NetworkDataHolder data, ItemStack unboundBook) {
+    public BookBindingCraftingRecipePage(NetworkDataHolder data, ItemStackTemplate unboundBook) {
         super(data);
         this.unboundBook = unboundBook;
     }
 
     public static BookBindingCraftingRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
-        var unboundBook = ItemStack.CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().orElse(ItemStack.EMPTY);
+        var unboundBook = ItemStackTemplate.CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).getOrThrow();
         return new BookBindingCraftingRecipePage(common, unboundBook);
     }
 
     public static BookBindingCraftingRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
-        var unboundBook = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+        var unboundBook = ItemStackTemplate.STREAM_CODEC.decode(buffer);
         return new BookBindingCraftingRecipePage(common, unboundBook);
     }
 
     @Override
     public void toNetwork(RegistryFriendlyByteBuf buffer) {
         super.toNetwork(buffer);
-        ItemStack.STREAM_CODEC.encode(buffer, this.unboundBook);
+        ItemStackTemplate.STREAM_CODEC.encode(buffer, this.unboundBook);
     }
 
     @Override

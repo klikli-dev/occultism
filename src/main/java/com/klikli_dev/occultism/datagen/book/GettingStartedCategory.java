@@ -18,6 +18,7 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireReci
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 //import com.klikli_dev.theurgy.registry.ItemRegistry; // TODO: re-enable when Theurgy is available for 26.1
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -1089,7 +1090,7 @@ public class GettingStartedCategory extends CategoryProvider {
         this.context().page("book_of_binding_bound_foliot_recipe");
         var bookOfBindingBoundFoliotRecipe = BookBindingCraftingRecipePageModel.create()
                 .withRecipeId1()
-                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_FOLIOT.toStack())
+                .withUnboundBook(new ItemStackTemplate(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
@@ -1103,7 +1104,7 @@ public class GettingStartedCategory extends CategoryProvider {
         this.context().page("book_of_binding_bound_djinni_recipe");
         var bookOfBoundBindingDjinniRecipe = BookBindingCraftingRecipePageModel.create()
                 .withRecipeId1()
-                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_DJINNI.toStack());
+                .withUnboundBook(new ItemStackTemplate(OccultismItems.BOOK_OF_BINDING_DJINNI.get()));
         //no text
 
         this.context().page("book_of_binding_afrit_recipe");
@@ -1114,7 +1115,7 @@ public class GettingStartedCategory extends CategoryProvider {
         this.context().page("book_of_binding_bound_afrit_recipe");
         var bookOfBoundBindingAfritRecipe = BookBindingCraftingRecipePageModel.create()
                 .withRecipeId1()
-                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_AFRIT.toStack());
+                .withUnboundBook(new ItemStackTemplate(OccultismItems.BOOK_OF_BINDING_AFRIT.get()));
         //no text
 
         this.context().page("book_of_binding_marid_recipe");
@@ -1125,7 +1126,7 @@ public class GettingStartedCategory extends CategoryProvider {
         this.context().page("book_of_binding_bound_marid_recipe");
         var bookOfBoundBindingMaridRecipe = BookBindingCraftingRecipePageModel.create()
                 .withRecipeId1()
-                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_MARID.toStack());
+                .withUnboundBook(new ItemStackTemplate(OccultismItems.BOOK_OF_BINDING_MARID.get()));
         //no text
 
         this.context().page("book_of_binding_empty");
