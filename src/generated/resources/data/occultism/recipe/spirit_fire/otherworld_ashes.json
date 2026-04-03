@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:otherworld_logs"
+      }
+    }
+  ],
   "type": "occultism:spirit_fire",
   "ingredient": "#occultism:otherworld_logs",
   "result": {

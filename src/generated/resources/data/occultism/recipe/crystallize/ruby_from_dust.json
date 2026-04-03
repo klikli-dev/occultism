@@ -1,4 +1,20 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/ruby"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/ruby"
+      }
+    }
+  ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
   "ingredient": "#c:dusts/ruby",

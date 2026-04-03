@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/charcoal"
+      }
+    }
+  ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
   "ingredient": "#c:dusts/charcoal",

@@ -165,7 +165,9 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         this.criteria.forEach(advancement$builder::addCriterion);
 
         CrystallizeRecipe recipe = new CrystallizeRecipe(this.ingredient, this.result, this.minTier, this.maxTier, this.crystallizeTime, this.ignoreCrystallizeMultiplier);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/crystallize/")));
+        ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
+        RecipeOutput output = conditions.length > 0 ? pRecipeOutput.withConditions(conditions) : pRecipeOutput;
+        output.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/crystallize/")));
     }
 
     protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, RecipeResult result) {
@@ -182,7 +184,9 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     }
 
     protected ICondition getNoTagCondition(Ingredient ingredient) {
-        // TagValue no longer exists in 26.1, return null (no condition)
+        if (!ingredient.isCustom()) {
+            return ingredient.getValues().unwrapKey().<ICondition>map(tag -> new NotCondition(new TagEmptyCondition(tag))).orElse(null);
+        }
         return null;
     }
 

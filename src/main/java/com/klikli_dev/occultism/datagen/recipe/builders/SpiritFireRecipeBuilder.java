@@ -20,6 +20,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
@@ -80,7 +83,21 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
         SpiritFireRecipe recipe = new SpiritFireRecipe(ingredient, output);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/spirit_fire/")));
+        ICondition[] conditions = this.getConditions(this.ingredient);
+        RecipeOutput output = conditions.length > 0 ? pRecipeOutput.withConditions(conditions) : pRecipeOutput;
+        output.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/spirit_fire/")));
+    }
+
+    protected ICondition[] getConditions(Ingredient ingredient) {
+        ICondition condition = this.getNoTagCondition(ingredient);
+        return condition != null ? new ICondition[]{condition} : new ICondition[0];
+    }
+
+    protected ICondition getNoTagCondition(Ingredient ingredient) {
+        if (!ingredient.isCustom()) {
+            return ingredient.getValues().unwrapKey().<ICondition>map(tag -> new NotCondition(new TagEmptyCondition(tag))).orElse(null);
+        }
+        return null;
     }
 
     private void ensureValid(ResourceKey<Recipe<?>> pId) {

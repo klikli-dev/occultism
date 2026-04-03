@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:feathers"
+      }
+    }
+  ],
   "type": "occultism:spirit_fire",
   "ingredient": "#c:feathers",
   "result": {

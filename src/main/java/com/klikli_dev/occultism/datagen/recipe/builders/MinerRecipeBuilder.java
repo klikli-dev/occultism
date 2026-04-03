@@ -120,7 +120,9 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         this.criteria.forEach(advancement$builder::addCriterion);
 
         MinerRecipe recipe = new MinerRecipe(this.ingredient, this.result);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/miner/")));
+        ICondition[] conditions = this.getConditions(this.allowEmpty, this.addResultItemExistsCondition, this.ingredient, this.result);
+        RecipeOutput output = conditions.length > 0 ? pRecipeOutput.withConditions(conditions) : pRecipeOutput;
+        output.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/miner/")));
     }
 
     public void save(RecipeOutput p_176499_) {
@@ -151,7 +153,9 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     }
 
     protected ICondition getNoTagCondition(Ingredient ingredient) {
-        // TagValue no longer exists in 26.1, return null (no condition)
+        if (!ingredient.isCustom()) {
+            return ingredient.getValues().unwrapKey().<ICondition>map(tag -> new NotCondition(new TagEmptyCondition(tag))).orElse(null);
+        }
         return null;
     }
 

@@ -1,4 +1,20 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/hop_graphite"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/hop_graphite"
+      }
+    }
+  ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
   "ingredient": "#c:ingots/hop_graphite",
