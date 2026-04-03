@@ -1,0 +1,62 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "summoning_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_djinni"
+  },
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "minecraft:clock"
+  },
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "day",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/summon_djinni_day_time",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "night",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/summon_djinni_night_time",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "summoning_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 26,
+  "x": 6,
+  "y": -5
+}

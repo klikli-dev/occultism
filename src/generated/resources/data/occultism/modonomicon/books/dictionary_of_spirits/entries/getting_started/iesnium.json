@@ -1,0 +1,90 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.iesnium.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "occultism:iesnium_ore"
+  },
+  "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "occultism:iesnium_ore",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/otherglass",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.otherglass.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "getting_started/infused_pickaxe",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 23,
+  "x": 9,
+  "y": -2
+}

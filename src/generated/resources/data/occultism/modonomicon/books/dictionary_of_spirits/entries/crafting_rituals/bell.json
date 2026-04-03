@@ -1,0 +1,50 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/contact_wild_spirit"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "minecraft:bell"
+  },
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "minecraft:bell",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_bell",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "crafting_rituals/craft_wild_trim",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 43,
+  "x": 0,
+  "y": 6
+}

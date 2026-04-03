@@ -1,0 +1,61 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_foliot"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "occultism:knowledge_tablet"
+  },
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "occultism:knowledge_tablet",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_knowledge_tablet",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.use.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.use.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "crafting_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 31,
+  "x": 0,
+  "y": 2
+}

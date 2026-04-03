@@ -1,0 +1,72 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "occultism:miner_foliot_unspecialized"
+  },
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/magic_lamp_empty",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "occultism:miner_foliot_unspecialized",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_miner_foliot_unspecialized",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "crafting_rituals/craft_dimensional_mineshaft",
+      "line_enabled": true,
+      "line_reversed": true
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 5,
+  "x": -6,
+  "y": -8
+}

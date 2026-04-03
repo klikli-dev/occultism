@@ -1,0 +1,30 @@
+{
+  "background_u_index": 1,
+  "background_v_index": 1,
+  "category": "rituals",
+  "category_to_open": "summoning_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/summoning.png",
+    "width": 16
+  },
+  "name": "book.occultism.dictionary_of_spirits.rituals.summoning_rituals.name",
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/sacrifice",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": 7,
+  "y": -2
+}

@@ -1,0 +1,78 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "familiar_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_marid"
+  },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/iesnium_golem.png",
+    "width": 16
+  },
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.name",
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "occultism:iesnium_golem",
+      "name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.title",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_iesnium_golem",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.familiar.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.familiar.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "familiar_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 23,
+  "x": 3,
+  "y": -4
+}

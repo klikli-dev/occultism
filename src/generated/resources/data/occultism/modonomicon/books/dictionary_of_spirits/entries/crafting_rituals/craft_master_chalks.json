@@ -1,0 +1,71 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/contact_eldritch_spirit"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "occultism:chalk_rainbow"
+  },
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "occultism:chalk_rainbow",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_chalk_rainbow",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "occultism:chalk_void",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight2.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_chalk_void",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "crafting_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 46,
+  "x": 6,
+  "y": 2
+}

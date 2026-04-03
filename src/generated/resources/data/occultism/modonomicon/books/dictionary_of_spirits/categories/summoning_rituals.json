@@ -1,0 +1,24 @@
+{
+  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "background_height": 512,
+  "background_parallax_layers": [],
+  "background_texture_zoom_multiplier": 1.0,
+  "background_width": 512,
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
+  },
+  "description": "",
+  "display_mode": "node",
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/summoning.png",
+    "width": 16
+  },
+  "max_scroll_x": 512,
+  "max_scroll_y": 512,
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.name",
+  "show_category_button": true,
+  "sort_number": 5
+}

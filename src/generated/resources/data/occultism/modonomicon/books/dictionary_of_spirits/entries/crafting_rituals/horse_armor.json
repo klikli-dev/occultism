@@ -1,0 +1,72 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/contact_wild_spirit"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "minecraft:diamond_horse_armor"
+  },
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": "minecraft:leather_horse_armor",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_iron_horse_armor",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_golden_horse_armor",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_diamond_horse_armor",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "crafting_rituals/craft_wild_trim",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 44,
+  "x": -2,
+  "y": 6
+}
