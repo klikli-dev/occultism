@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.resources.model.sprite.Material;
@@ -38,11 +37,175 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Locale;
+import java.util.stream.Stream;
 
 public class OccultismItemModelSubProvider {
 
+    public Stream<Item> getKnownItems() {
+        return Stream.of(
+                OccultismItems.ADVANCEMENT_ICON.get(),
+                OccultismItems.AFRIT_ESSENCE.get(),
+                OccultismItems.AMETHYST_DUST.get(),
+                OccultismItems.AWAKENED_FEATHER.get(),
+                OccultismItems.BEAVER_NUGGET.get(),
+                OccultismItems.BOOK_OF_BINDING_AFRIT.get(),
+                OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get(),
+                OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get(),
+                OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get(),
+                OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get(),
+                OccultismItems.BOOK_OF_BINDING_DJINNI.get(),
+                OccultismItems.BOOK_OF_BINDING_EMPTY.get(),
+                OccultismItems.BOOK_OF_BINDING_FOLIOT.get(),
+                OccultismItems.BOOK_OF_BINDING_MARID.get(),
+                OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get(),
+                OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get(),
+                OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get(),
+                OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get(),
+                OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get(),
+                OccultismItems.BRUSH.get(),
+                OccultismItems.BURNT_OTHERROCK.get(),
+                OccultismItems.BURNT_OTHERSTONE.get(),
+                OccultismItems.BUTCHER_KNIFE.get(),
+                OccultismItems.CHALK_BLACK.get(),
+                OccultismItems.CHALK_BLUE.get(),
+                OccultismItems.CHALK_BROWN.get(),
+                OccultismItems.CHALK_CYAN.get(),
+                OccultismItems.CHALK_YELLOW.get(),
+                OccultismItems.CHALK_GRAY.get(),
+                OccultismItems.CHALK_GREEN.get(),
+                OccultismItems.CHALK_LIGHT_BLUE.get(),
+                OccultismItems.CHALK_LIGHT_GRAY.get(),
+                OccultismItems.CHALK_LIME.get(),
+                OccultismItems.CHALK_MAGENTA.get(),
+                OccultismItems.CHALK_ORANGE.get(),
+                OccultismItems.CHALK_PINK.get(),
+                OccultismItems.CHALK_PURPLE.get(),
+                OccultismItems.CHALK_RED.get(),
+                OccultismItems.CHALK_WHITE.get(),
+                OccultismItems.CHALK_RAINBOW.get(),
+                OccultismItems.CHALK_VOID.get(),
+                OccultismItems.CHALK_BLACK_IMPURE.get(),
+                OccultismItems.CHALK_BLUE_IMPURE.get(),
+                OccultismItems.CHALK_BROWN_IMPURE.get(),
+                OccultismItems.CHALK_CYAN_IMPURE.get(),
+                OccultismItems.CHALK_YELLOW_IMPURE.get(),
+                OccultismItems.CHALK_GRAY_IMPURE.get(),
+                OccultismItems.CHALK_GREEN_IMPURE.get(),
+                OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get(),
+                OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get(),
+                OccultismItems.CHALK_LIME_IMPURE.get(),
+                OccultismItems.CHALK_MAGENTA_IMPURE.get(),
+                OccultismItems.CHALK_ORANGE_IMPURE.get(),
+                OccultismItems.CHALK_PINK_IMPURE.get(),
+                OccultismItems.CHALK_PURPLE_IMPURE.get(),
+                OccultismItems.CHALK_RED_IMPURE.get(),
+                OccultismItems.CHALK_WHITE_IMPURE.get(),
+                OccultismItems.COPPER_DUST.get(),
+                OccultismItems.CRUELTY_ESSENCE.get(),
+                OccultismItems.CRUSHED_BLACKSTONE.get(),
+                OccultismItems.CRUSHED_BLUE_ICE.get(),
+                OccultismItems.CRUSHED_CALCITE.get(),
+                OccultismItems.CRUSHED_END_STONE.get(),
+                OccultismItems.CRUSHED_ICE.get(),
+                OccultismItems.CRUSHED_PACKED_ICE.get(),
+                OccultismItems.CURSED_HONEY.get(),
+                OccultismItems.DATURA.get(),
+                OccultismItems.DATURA_SEEDS.get(),
+                OccultismItems.DEBUG_WAND.get(),
+                OccultismItems.DEMONIC_MEAT.get(),
+                OccultismItems.DEMONS_DREAM_ESSENCE.get(),
+                OccultismItems.DRAGONYST_DUST.get(),
+                OccultismItems.ECHO_DUST.get(),
+                OccultismItems.EMERALD_DUST.get(),
+                OccultismItems.ENDER_SATCHEL.get(),
+                OccultismItems.FAMILIAR_RING.get(),
+                OccultismItems.FLAME_AUTOMATION.get(),
+                OccultismItems.GOLD_DUST.get(),
+                OccultismItems.GRAY_PASTE.get(),
+                OccultismItems.IESNIUM_BUTCHER_KNIFE.get(),
+                OccultismItems.IESNIUM_DUST.get(),
+                OccultismItems.IESNIUM_INGOT.get(),
+                OccultismItems.IESNIUM_NUGGET.get(),
+                OccultismItems.IESNIUM_PICKAXE.get(),
+                OccultismItems.INFUSED_LENSES.get(),
+                OccultismItems.INFUSED_PICKAXE.get(),
+                OccultismItems.IRON_DUST.get(),
+                OccultismItems.KNOWLEDGE_TABLET.get(),
+                OccultismItems.LAPIS_DUST.get(),
+                OccultismItems.LENS_FRAME.get(),
+                OccultismItems.LENSES.get(),
+                OccultismItems.MAGIC_LAMP_EMPTY.get(),
+                OccultismItems.MARID_ESSENCE.get(),
+                OccultismItems.MINER_AFRIT_DEEPS.get(),
+                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(),
+                OccultismItems.MINER_DJINNI_ORES.get(),
+                OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
+                OccultismItems.MINER_MARID_MASTER.get(),
+                OccultismItems.MINER_ANCIENT_ELDRITCH.get(),
+                OccultismItems.MINING_DIMENSION_CORE_PIECE.get(),
+                OccultismItems.MYSTERIOUS_EGG_ICON.get(),
+                OccultismItems.NATURE_PASTE.get(),
+                OccultismItems.NETHERITE_DUST.get(),
+                OccultismItems.NETHERITE_SCRAP_DUST.get(),
+                OccultismItems.OBSIDIAN_DUST.get(),
+                OccultismItems.OTHERROCK_FRAME.get(),
+                OccultismItems.OTHERSTONE_FRAME.get(),
+                OccultismItems.OTHERWORLDLY_TABLET.get(),
+                OccultismItems.OTHERWORLD_ASHES.get(),
+                OccultismItems.OTHERWORLD_ESSENCE.get(),
+                OccultismItems.PENTACLE_SUMMON.get(),
+                OccultismItems.PENTACLE_POSSESS.get(),
+                OccultismItems.PENTACLE_CRAFT.get(),
+                OccultismItems.PENTACLE_MISC.get(),
+                OccultismItems.PURIFIED_INK.get(),
+                OccultismItems.RAW_IESNIUM.get(),
+                OccultismItems.RAW_SILVER.get(),
+                OccultismItems.REPAIR_ICON.get(),
+                OccultismItems.RESEARCH_FRAGMENT_DUST.get(),
+                OccultismItems.RESURRECT_ICON.get(),
+                OccultismItems.RITUAL_SATCHEL_T1.get(),
+                OccultismItems.RITUAL_SATCHEL_T2.get(),
+                OccultismItems.SATCHEL.get(),
+                OccultismItems.SILVER_DUST.get(),
+                OccultismItems.SILVER_INGOT.get(),
+                OccultismItems.SILVER_NUGGET.get(),
+                OccultismItems.SOUL_SHARD_ITEM.get(),
+                OccultismItems.SOUL_SHATTERED_ITEM.get(),
+                OccultismItems.SPIRIT_ATTUNED_GEM.get(),
+                OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD.get(),
+                OccultismItems.STORAGE_REMOTE_INERT.get(),
+                OccultismItems.SWEET_HONEY_HEART.get(),
+                OccultismItems.TABOO_BOOK.get(),
+                OccultismItems.TALLOW.get(),
+                OccultismItems.WITHERITE_DUST.get(),
+                OccultismItems.WORMHOLE_PORTAL.get(),
+                OccultismBlocks.SPIRIT_CAMPFIRE.asItem(),
+                OccultismBlocks.SPIRIT_LANTERN.asItem(),
+                OccultismBlocks.LARGE_CANDLE_WHITE.asItem(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.asItem(),
+                OccultismBlocks.LARGE_CANDLE_GRAY.asItem(),
+                OccultismBlocks.LARGE_CANDLE_BLACK.asItem(),
+                OccultismBlocks.LARGE_CANDLE_BROWN.asItem(),
+                OccultismBlocks.LARGE_CANDLE_RED.asItem(),
+                OccultismBlocks.LARGE_CANDLE_ORANGE.asItem(),
+                OccultismBlocks.LARGE_CANDLE_YELLOW.asItem(),
+                OccultismBlocks.LARGE_CANDLE_LIME.asItem(),
+                OccultismBlocks.LARGE_CANDLE_GREEN.asItem(),
+                OccultismBlocks.LARGE_CANDLE_CYAN.asItem(),
+                OccultismBlocks.LARGE_CANDLE_BLUE.asItem(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.asItem(),
+                OccultismBlocks.LARGE_CANDLE_PINK.asItem(),
+                OccultismBlocks.LARGE_CANDLE_MAGENTA.asItem(),
+                OccultismBlocks.LARGE_CANDLE_PURPLE.asItem()
+        );
+    }
+
     protected String name(Item item) {
         return BuiltInRegistries.ITEM.getKey(item).getPath();
+    }
+
+    private Identifier modLoc(String path) {
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, path);
     }
 
     private void registerItemGenerated(ItemModelGenerators itemModels, Item item) {
@@ -52,8 +215,8 @@ public class OccultismItemModelSubProvider {
     private void registerItemGenerated(ItemModelGenerators itemModels, Item item, String texture) {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(
                 ModelTemplates.FLAT_ITEM.create(
-                        ModelLocationUtils.getModelLocation(item),
-                        TextureMapping.layer0(new Material(Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + texture))),
+                        this.modLoc("item/" + this.name(item)),
+                        TextureMapping.layer0(new Material(this.modLoc("item/" + texture))),
                         itemModels.modelOutput
                 )
         ));
@@ -64,14 +227,11 @@ public class OccultismItemModelSubProvider {
     }
 
     private void registerItemFromBlock(ItemModelGenerators itemModels, Block block) {
-        Identifier blockModel = Identifier.fromNamespaceAndPath(Occultism.MODID, "block/" + this.name(block.asItem()));
-        Identifier itemModel = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + this.name(block.asItem()));
-        itemModels.modelOutput.accept(itemModel, () -> {
-            var json = new com.google.gson.JsonObject();
-            json.addProperty("parent", blockModel.toString());
-            return json;
-        });
-        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(itemModel));
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.modLoc("block/" + this.name(block.asItem()))));
+    }
+
+    private void registerItemExistingModel(ItemModelGenerators itemModels, Item item) {
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(this.modLoc("item/" + this.name(item))));
     }
 
     private void registerRitualDummy(ItemModelGenerators itemModels, Item item) {
@@ -120,6 +280,7 @@ public class OccultismItemModelSubProvider {
         this.registerItemChalks(itemModels);
         this.registerItemCandles(itemModels, blockModels);
         this.registerVitalityCompass(itemModels);
+        this.registerManualItemModels(itemModels);
 
         this.registerItemGenerated(itemModels, OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get(), "book_of_calling_manage_machine");
         this.registerItemGenerated(itemModels, OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get(), "book_of_calling_cleaner");
@@ -131,29 +292,37 @@ public class OccultismItemModelSubProvider {
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_POSSESS.get(), "ritual_dummy_possess");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_CRAFT.get(), "ritual_dummy_craft");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_MISC.get(), "ritual_dummy_misc");
+    }
 
-        // Items not covered by other methods
-        this.registerItemGenerated(itemModels, OccultismItems.DICTIONARY_OF_SPIRITS.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DIVINATION_ROD.get());
-        this.registerItemGenerated(itemModels, OccultismItems.TRUE_SIGHT_STAFF.get());
-        this.registerItemGenerated(itemModels, OccultismItems.OTHERWORLD_GOGGLES.get());
-        this.registerItemGenerated(itemModels, OccultismItems.STORAGE_REMOTE.get());
-        this.registerItemGenerated(itemModels, OccultismItems.FRAGILE_SOUL_GEM_ITEM.get());
-        this.registerItemGenerated(itemModels, OccultismItems.SOUL_GEM_ITEM.get());
-        this.registerItemGenerated(itemModels, OccultismItems.TRINITY_GEM_ITEM.get());
-        this.registerItemGenerated(itemModels, OccultismItems.VITALITY_COMPASS.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DIMENSIONAL_MATRIX.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_LUMBERJACK.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_FARMER.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_CLEANER.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_FOLIOT_TRADER_ITEM.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE.get());
-        this.registerItemGenerated(itemModels, OccultismItems.DEBUG_DJINNI_TEST.get());
-        this.registerItemGenerated(itemModels, OccultismItems.JEI_DUMMY_NONE.get());
-        this.registerItemGenerated(itemModels, OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
-        this.registerItemGenerated(itemModels, OccultismItems.JEI_DUMMY_REQUIRE_ITEM_USE.get());
+    private void registerManualItemModels(ItemModelGenerators itemModels) {
+        Item[] manualItems = {
+                OccultismItems.DICTIONARY_OF_SPIRITS.get(),
+                OccultismItems.DIVINATION_ROD.get(),
+                OccultismItems.TRUE_SIGHT_STAFF.get(),
+                OccultismItems.OTHERWORLD_GOGGLES.get(),
+                OccultismItems.STORAGE_REMOTE.get(),
+                OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
+                OccultismItems.SOUL_GEM_ITEM.get(),
+                OccultismItems.TRINITY_GEM_ITEM.get(),
+                OccultismItems.VITALITY_COMPASS.get(),
+                OccultismItems.DIMENSIONAL_MATRIX.get(),
+                OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get(),
+                OccultismItems.DEBUG_FOLIOT_LUMBERJACK.get(),
+                OccultismItems.DEBUG_FOLIOT_FARMER.get(),
+                OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS.get(),
+                OccultismItems.DEBUG_FOLIOT_CLEANER.get(),
+                OccultismItems.DEBUG_FOLIOT_TRADER_ITEM.get(),
+                OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE.get(),
+                OccultismItems.DEBUG_DJINNI_TEST.get(),
+                OccultismItems.JEI_DUMMY_NONE.get(),
+                OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get(),
+                OccultismItems.JEI_DUMMY_REQUIRE_ITEM_USE.get(),
+                OccultismItems.OTHERPLANKS_SIGN.get(),
+                OccultismItems.OTHERPLANKS_HANGING_SIGN.get()
+        };
+        for (Item item : manualItems) {
+            this.registerItemExistingModel(itemModels, item);
+        }
     }
 
     private void registerAdvancementItem(ItemModelGenerators itemModels) {
@@ -305,93 +474,6 @@ public class OccultismItemModelSubProvider {
         }
     }
 
-    private void registerItemFromBlocks(ItemModelGenerators itemModels, BlockModelGenerators blockModels) {
-        Block[] blocks = {
-                OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get(),
-                OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get(),
-                OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.CELESTIAL_CHALICE.get(),
-                OccultismBlocks.ELDRITCH_CHALICE.get(),
-                OccultismBlocks.DIMENSIONAL_MINESHAFT.get(),
-                OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get(),
-                OccultismBlocks.DIMENSIONAL_EXTRACTOR.get(),
-                OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.IESNIUM_BLOCK.get(),
-                OccultismBlocks.IESNIUM_ORE.get(),
-                OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.LARGE_CANDLE.get(),
-                OccultismBlocks.OTHERCOBBLESTONE.get(),
-                OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(),
-                OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get(),
-                OccultismBlocks.OTHERCOBBLEROCK.get(),
-                OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(),
-                OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(),
-                OccultismBlocks.OTHERGLASS_NATURAL.get(),
-                OccultismBlocks.OTHERPLANKS.get(),
-                OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(),
-                OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get(),
-                OccultismBlocks.OTHERPLANKS_SLAB.get(),
-                OccultismBlocks.OTHERPLANKS_STAIRS.get(),
-                OccultismBlocks.OTHERSTONE.get(),
-                OccultismBlocks.OTHERSTONE_BRICKS.get(),
-                OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(),
-                OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get(),
-                OccultismBlocks.OTHERSTONE_PEDESTAL.get(),
-                OccultismBlocks.OTHERROCK_PEDESTAL.get(),
-                OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get(),
-                OccultismBlocks.OTHERSTONE_SLAB.get(),
-                OccultismBlocks.OTHERSTONE_STAIRS.get(),
-                OccultismBlocks.OTHERROCK.get(),
-                OccultismBlocks.OTHERROCK_BRICKS.get(),
-                OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(),
-                OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get(),
-                OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get(),
-                OccultismBlocks.OTHERROCK_SLAB.get(),
-                OccultismBlocks.OTHERROCK_STAIRS.get(),
-                OccultismBlocks.OTHERWORLD_LEAVES.get(),
-                OccultismBlocks.OTHERWORLD_LOG.get(),
-                OccultismBlocks.OTHERWORLD_WOOD.get(),
-                OccultismBlocks.POLISHED_OTHERSTONE.get(),
-                OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(),
-                OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get(),
-                OccultismBlocks.POLISHED_OTHERROCK.get(),
-                OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(),
-                OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get(),
-                OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
-                OccultismBlocks.RAW_SILVER_BLOCK.get(),
-                OccultismBlocks.SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.SILVER_BLOCK.get(),
-                OccultismBlocks.SILVER_ORE.get(),
-                OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
-                OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(),
-                OccultismBlocks.SPIRIT_GRINDSTONE.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER0.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER2.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER3.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER5.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get(),
-                OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get(),
-                OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get(),
-                OccultismBlocks.TALLOW_BLOCK.get()
-        };
-        for (Block block : blocks) {
-            this.registerItemFromBlock(itemModels, block);
-        }
-    }
-
     private void registerItemMiners(ItemModelGenerators itemModels) {
         Item[] items = {
                 OccultismItems.MINER_AFRIT_DEEPS.get(),
@@ -491,13 +573,13 @@ public class OccultismItemModelSubProvider {
     private void registerVitalityCompass(ItemModelGenerators itemModels) {
         for (int i = 0; i < 32; i++) {
             String suffix = String.format(Locale.ROOT, "_%02d", i);
-            Identifier modelId = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/vitality_compass/compass" + suffix);
+            Identifier modelId = this.modLoc("item/vitality_compass/compass" + suffix);
             itemModels.modelOutput.accept(modelId, () -> {
                 var json = new com.google.gson.JsonObject();
                 json.addProperty("parent", "item/generated");
                 var texturesJson = new com.google.gson.JsonObject();
-                texturesJson.addProperty("layer0", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/vitality_compass/compass_base").toString());
-                texturesJson.addProperty("layer1", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/vitality_compass/compass" + suffix).toString());
+                texturesJson.addProperty("layer0", this.modLoc("item/vitality_compass/compass_base").toString());
+                texturesJson.addProperty("layer1", this.modLoc("item/vitality_compass/compass" + suffix).toString());
                 json.add("textures", texturesJson);
                 return json;
             });

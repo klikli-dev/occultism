@@ -1,0 +1,6 @@
+{
+  "parent": "occultism:block/storage_stabilizer_tier1",
+  "textures": {
+    "1": "occultism:block/otherstone"
+  }
+}

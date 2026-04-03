@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "occultism:block/stripped_otherworld_wood"
+    },
+    "axis=z": {
+      "model": "occultism:block/stripped_otherworld_wood",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "occultism:block/stripped_otherworld_wood",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

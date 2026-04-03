@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:block/otherrock_button"
+    "model": "occultism:item/otherrock_button"
   }
 }

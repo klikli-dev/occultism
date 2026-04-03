@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "color": "white"
+      },
+      "apply": {
+        "model": "occultism:block/spirit_fire"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "color": "light_gray"
+          },
+          {
+            "color": "gray"
+          },
+          {
+            "color": "black"
+          },
+          {
+            "color": "brown"
+          },
+          {
+            "color": "red"
+          },
+          {
+            "color": "orange"
+          },
+          {
+            "color": "yellow"
+          },
+          {
+            "color": "lime"
+          },
+          {
+            "color": "green"
+          },
+          {
+            "color": "cyan"
+          },
+          {
+            "color": "light_blue"
+          },
+          {
+            "color": "blue"
+          },
+          {
+            "color": "purple"
+          },
+          {
+            "color": "magenta"
+          },
+          {
+            "color": "pink"
+          }
+        ]
+      },
+      "apply": [
+        {
+          "model": "occultism:block/spirit_fire_color"
+        }
+      ]
+    },
+    {
+      "when": {
+        "color": "rainbow"
+      },
+      "apply": {
+        "model": "occultism:block/spirit_fire_rainbow"
+      }
+    },
+    {
+      "when": {
+        "color": "void"
+      },
+      "apply": {
+        "model": "occultism:block/spirit_fire_void"
+      }
+    }
+  ]
+}

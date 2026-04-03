@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "occultism:item/divination_rod_base",
   "textures": {
-    "layer0": "occultism:item/divination_rod_3"
+    "1": "occultism:item/divination_rod/divination_rod_3"
   }
 }

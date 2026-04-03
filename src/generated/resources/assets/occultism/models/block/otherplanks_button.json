@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/button",
   "textures": {
-    "all": "occultism:block/otherplanks_button"
+    "texture": "occultism:block/otherplanks"
   }
 }

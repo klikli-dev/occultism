@@ -1,0 +1,7 @@
+{
+  "parent": "occultism:block/eldritch_chalice",
+  "textures": {
+    "1": "occultism:block/celestial_chalice",
+    "particle": "occultism:block/celestial_chalice"
+  }
+}

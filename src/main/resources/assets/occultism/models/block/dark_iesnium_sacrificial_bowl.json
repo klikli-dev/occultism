@@ -1,0 +1,7 @@
+{
+  "parent": "occultism:block/sacrificial_bowl",
+  "textures": {
+    "1": "occultism:block/dark_sacrificial_bowl_iesnium",
+    "particle": "occultism:block/dark_sacrificial_bowl"
+  }
+}

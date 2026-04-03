@@ -1,0 +1,7 @@
+{
+  "parent": "occultism:block/storage_controller",
+  "textures": {
+    "0": "occultism:block/pedestal_base_dark",
+	"2": "occultism:block/actuator_top_iesnium_dark"
+  }
+}

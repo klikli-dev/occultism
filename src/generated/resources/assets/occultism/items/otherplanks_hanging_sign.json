@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:block/otherplanks_hanging_sign"
+    "model": "occultism:item/otherplanks_hanging_sign"
   }
 }

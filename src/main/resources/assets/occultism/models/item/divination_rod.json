@@ -1,0 +1,68 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "__comment": "distance >= 0.0",
+      "predicate": {
+        "occultism:distance": 0.0
+      },
+      "model": "occultism:item/divination_rod_7"
+    },
+    {
+      "__comment": "distance >= 1.0",
+      "predicate": {
+        "occultism:distance": 1.0
+      },
+      "model": "occultism:item/divination_rod_6"
+    },
+    {
+      "__comment": "distance >= 2.0",
+      "predicate": {
+        "occultism:distance": 2.0
+      },
+      "model": "occultism:item/divination_rod_5"
+    },
+    {
+      "__comment": "distance >= 3.0",
+      "predicate": {
+        "occultism:distance": 3.0
+      },
+      "model": "occultism:item/divination_rod_4"
+    },
+    {
+      "__comment": "distance >= 4.0",
+      "predicate": {
+        "occultism:distance": 4.0
+      },
+      "model": "occultism:item/divination_rod_3"
+    },
+    {
+      "__comment": "distance >= 5.0",
+      "predicate": {
+        "occultism:distance": 5.0
+      },
+      "model": "occultism:item/divination_rod_2"
+    },
+    {
+      "__comment": "distance >= 6.0",
+      "predicate": {
+        "occultism:distance": 6.0
+      },
+      "model": "occultism:item/divination_rod_1"
+    },
+    {
+      "__comment": "distance >= 7.0",
+      "predicate": {
+        "occultism:distance": 7.0
+      },
+      "model": "occultism:item/divination_rod_0"
+    },
+    {
+      "__comment": "distance >= 8.0",
+      "predicate": {
+        "occultism:distance": 8.0
+      },
+      "model": "occultism:item/divination_rod_searching"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "occultism:block/stable_wormhole",
   "textures": {
-    "all": "occultism:block/stable_wormhole_dark"
+    "0": "occultism:block/stable_wormhole_frame_dark",
+    "1": "occultism:block/stable_wormhole_center_unlinked"
   }
 }

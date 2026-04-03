@@ -1,0 +1,68 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "__comment": "distance >= 0.0",
+      "predicate": {
+        "occultism:distance": 0.0
+      },
+      "model": "occultism:item/true_sight_staff_7"
+    },
+    {
+      "__comment": "distance >= 1.0",
+      "predicate": {
+        "occultism:distance": 1.0
+      },
+      "model": "occultism:item/true_sight_staff_6"
+    },
+    {
+      "__comment": "distance >= 2.0",
+      "predicate": {
+        "occultism:distance": 2.0
+      },
+      "model": "occultism:item/true_sight_staff_5"
+    },
+    {
+      "__comment": "distance >= 3.0",
+      "predicate": {
+        "occultism:distance": 3.0
+      },
+      "model": "occultism:item/true_sight_staff_4"
+    },
+    {
+      "__comment": "distance >= 4.0",
+      "predicate": {
+        "occultism:distance": 4.0
+      },
+      "model": "occultism:item/true_sight_staff_3"
+    },
+    {
+      "__comment": "distance >= 5.0",
+      "predicate": {
+        "occultism:distance": 5.0
+      },
+      "model": "occultism:item/true_sight_staff_2"
+    },
+    {
+      "__comment": "distance >= 6.0",
+      "predicate": {
+        "occultism:distance": 6.0
+      },
+      "model": "occultism:item/true_sight_staff_1"
+    },
+    {
+      "__comment": "distance >= 7.0",
+      "predicate": {
+        "occultism:distance": 7.0
+      },
+      "model": "occultism:item/true_sight_staff_0"
+    },
+    {
+      "__comment": "distance >= 8.0",
+      "predicate": {
+        "occultism:distance": 8.0
+      },
+      "model": "occultism:item/true_sight_staff_searching"
+    }
+  ]
+}

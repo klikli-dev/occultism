@@ -1,0 +1,7 @@
+{
+  "parent": "occultism:block/skeleton_skull_dummy",
+  "textures": {
+    "0": "occultism:block/wither_skeleton_skull",
+    "particle": "occultism:block/wither_skeleton_skull"
+  }
+}

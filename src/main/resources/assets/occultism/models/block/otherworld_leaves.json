@@ -1,0 +1,7 @@
+{
+  "parent": "block/leaves",
+  "render_type": "cutout_mipped",
+  "textures": {
+    "all": "occultism:block/otherworld_leaves"
+  }
+}

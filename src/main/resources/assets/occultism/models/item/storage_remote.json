@@ -1,0 +1,22 @@
+{
+  "parent": "occultism:item/storage_remote_linked",
+  "textures": {
+    "layer0": "occultism:item/storage_remote"
+  },
+  "overrides": [
+    {
+      "__comment": "linked >= 0.0",
+      "predicate": {
+        "occultism:linked": 0.0
+      },
+      "model": "occultism:item/storage_remote_unlinked"
+    },
+    {
+      "__comment": "linked >= 1.0",
+      "predicate": {
+        "occultism:linked": 1.0
+      },
+      "model": "occultism:item/storage_remote_linked"
+    }
+  ]
+}

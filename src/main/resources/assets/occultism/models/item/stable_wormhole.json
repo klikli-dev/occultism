@@ -1,0 +1,24 @@
+{
+  "parent": "occultism:item/stable_wormhole_linked",
+  "textures": {
+    "0": "occultism:block/stable_wormhole_frame",
+    "1": "occultism:block/dimensional_mineshaft_portal",
+    "particle": "occultism:block/stable_wormhole_frame"
+  },
+  "overrides": [
+    {
+      "__comment": "linked >= 0.0",
+      "predicate": {
+        "occultism:linked": 0.0
+      },
+      "model": "occultism:item/stable_wormhole_unlinked"
+    },
+    {
+      "__comment": "linked >= 1.0",
+      "predicate": {
+        "occultism:linked": 1.0
+      },
+      "model": "occultism:item/stable_wormhole_linked"
+    }
+  ]
+}

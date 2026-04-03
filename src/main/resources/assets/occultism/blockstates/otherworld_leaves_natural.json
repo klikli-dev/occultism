@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "uncovered": "false"
+      },
+      "apply": {
+        "model": "block/oak_leaves"
+      }
+    },
+    {
+      "when": {
+        "uncovered": "true"
+      },
+      "apply": {
+        "model": "occultism:block/otherworld_leaves"
+      }
+    }
+  ]
+}

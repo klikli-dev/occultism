@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "occultism:block/otherworld_log"
+    },
+    "axis=z": {
+      "model": "occultism:block/otherworld_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "occultism:block/otherworld_log",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

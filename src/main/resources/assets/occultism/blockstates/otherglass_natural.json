@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "uncovered": "false"
+      },
+      "apply": {
+        "model": "block/barrier"
+      }
+    },
+    {
+      "when": {
+        "uncovered": "true"
+      },
+      "apply": {
+        "model": "block/end_stone"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=y,uncovered=true": {
+      "model": "occultism:block/otherworld_log"
+    },
+    "axis=z,uncovered=true": {
+      "model": "occultism:block/otherworld_log",
+      "x": 90
+    },
+    "axis=x,uncovered=true": {
+      "model": "occultism:block/otherworld_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,uncovered=false": {
+      "model": "block/oak_log"
+    },
+    "axis=z,uncovered=false": {
+      "model": "block/oak_log",
+      "x": 90
+    },
+    "axis=x,uncovered=false": {
+      "model": "block/oak_log",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

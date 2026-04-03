@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "occultism:block/crop/datura_stage0"
+    },
+    "age=1": {
+      "model": "occultism:block/crop/datura_stage1"
+    },
+    "age=2": {
+      "model": "occultism:block/crop/datura_stage2"
+    },
+    "age=3": {
+      "model": "occultism:block/crop/datura_stage3"
+    },
+    "age=4": {
+      "model": "occultism:block/crop/datura_stage3"
+    },
+    "age=5": {
+      "model": "occultism:block/crop/datura_stage4"
+    },
+    "age=6": {
+      "model": "occultism:block/crop/datura_stage4"
+    },
+    "age=7": {
+      "model": "occultism:block/crop/datura_stage5"
+    }
+  }
+}

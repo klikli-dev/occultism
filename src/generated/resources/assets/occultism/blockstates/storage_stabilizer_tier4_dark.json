@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
+    "facing=down": {
+      "model": "occultism:block/storage_stabilizer_tier4_dark",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "occultism:block/storage_stabilizer_tier4_dark",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "occultism:block/storage_stabilizer_tier4_dark",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "occultism:block/storage_stabilizer_tier4_dark",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
       "model": "occultism:block/storage_stabilizer_tier4_dark"
+    },
+    "facing=west": {
+      "model": "occultism:block/storage_stabilizer_tier4_dark",
+      "x": 90,
+      "y": 270
     }
   }
 }

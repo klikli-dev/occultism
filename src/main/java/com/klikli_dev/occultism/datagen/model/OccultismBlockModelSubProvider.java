@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.datagen.model;
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -35,18 +36,130 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import java.util.stream.Stream;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class OccultismBlockModelSubProvider {
+
+    public Stream<Block> getKnownBlocks() {
+        return Stream.of(
+                Stream.of(
+                        OccultismBlocks.CHISELED_OTHERROCK_BRICKS.get(),
+                        OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get(),
+                        OccultismBlocks.CRACKED_OTHERROCK_BRICKS.get(),
+                        OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get(),
+                        OccultismBlocks.IESNIUM_BLOCK.get(),
+                        OccultismBlocks.IESNIUM_ORE.get(),
+                        OccultismBlocks.OTHERSTONE.get(),
+                        OccultismBlocks.OTHERSTONE_BRICKS.get(),
+                        OccultismBlocks.OTHERROCK.get(),
+                        OccultismBlocks.OTHERROCK_BRICKS.get(),
+                        OccultismBlocks.OTHERCOBBLESTONE.get(),
+                        OccultismBlocks.OTHERCOBBLEROCK.get(),
+                        OccultismBlocks.POLISHED_OTHERSTONE.get(),
+                        OccultismBlocks.POLISHED_OTHERROCK.get(),
+                        OccultismBlocks.OTHERPLANKS.get(),
+                        OccultismBlocks.SILVER_BLOCK.get(),
+                        OccultismBlocks.RAW_SILVER_BLOCK.get(),
+                        OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
+                        OccultismBlocks.SILVER_ORE.get(),
+                        OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
+                        OccultismBlocks.TALLOW_BLOCK.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.CHALK_GLYPH_WHITE.get(),
+                        OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get(),
+                        OccultismBlocks.CHALK_GLYPH_GRAY.get(),
+                        OccultismBlocks.CHALK_GLYPH_BLACK.get(),
+                        OccultismBlocks.CHALK_GLYPH_BROWN.get(),
+                        OccultismBlocks.CHALK_GLYPH_RED.get(),
+                        OccultismBlocks.CHALK_GLYPH_ORANGE.get(),
+                        OccultismBlocks.CHALK_GLYPH_YELLOW.get(),
+                        OccultismBlocks.CHALK_GLYPH_LIME.get(),
+                        OccultismBlocks.CHALK_GLYPH_GREEN.get(),
+                        OccultismBlocks.CHALK_GLYPH_CYAN.get(),
+                        OccultismBlocks.CHALK_GLYPH_BLUE.get(),
+                        OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get(),
+                        OccultismBlocks.CHALK_GLYPH_PINK.get(),
+                        OccultismBlocks.CHALK_GLYPH_MAGENTA.get(),
+                        OccultismBlocks.CHALK_GLYPH_PURPLE.get(),
+                        OccultismBlocks.CHALK_GLYPH_RAINBOW.get(),
+                        OccultismBlocks.CHALK_GLYPH_VOID.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.OTHERSTONE_STAIRS.get(),
+                        OccultismBlocks.OTHERSTONE_SLAB.get(),
+                        OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get(),
+                        OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(),
+                        OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get(),
+                        OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(),
+                        OccultismBlocks.OTHERROCK_STAIRS.get(),
+                        OccultismBlocks.OTHERROCK_SLAB.get(),
+                        OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get(),
+                        OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(),
+                        OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get(),
+                        OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(),
+                        OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get(),
+                        OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(),
+                        OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(),
+                        OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(),
+                        OccultismBlocks.OTHERPLANKS_STAIRS.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.OTHERPLANKS_FENCE.get(),
+                        OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(),
+                        OccultismBlocks.OTHERPLANKS_DOOR.get(),
+                        OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(),
+                        OccultismBlocks.OTHERPLANKS_BUTTON.get(),
+                        OccultismBlocks.OTHERSTONE_BUTTON.get(),
+                        OccultismBlocks.OTHERROCK_BUTTON.get(),
+                        OccultismBlocks.OTHERSTONE_WALL.get(),
+                        OccultismBlocks.OTHERCOBBLESTONE_WALL.get(),
+                        OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(),
+                        OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(),
+                        OccultismBlocks.OTHERROCK_WALL.get(),
+                        OccultismBlocks.OTHERCOBBLEROCK_WALL.get(),
+                        OccultismBlocks.POLISHED_OTHERROCK_WALL.get(),
+                        OccultismBlocks.OTHERROCK_BRICKS_WALL.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get(),
+                        OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get(),
+                        OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(),
+                        OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(),
+                        OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get(),
+                        OccultismBlocks.SACRIFICIAL_BOWL.get(),
+                        OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(),
+                        OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER0.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER2.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER3.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER5.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get(),
+                        OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get(),
+                        OccultismBlocks.ENTITY_WORMHOLE.get(),
+                        OccultismBlocks.ENTITY_WORMHOLE_DARK.get(),
+                        OccultismBlocks.STABLE_WORMHOLE.get(),
+                        OccultismBlocks.STABLE_WORMHOLE_DARK.get()
+                )
+        ).flatMap(stream -> stream);
+    }
 
     private Identifier modLoc(String path) {
         return Identifier.fromNamespaceAndPath(Occultism.MODID, path);
@@ -66,188 +179,52 @@ public class OccultismBlockModelSubProvider {
 
     public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerSimpleBlocks(blockModels, itemModels);
-        this.registerDirectionalBlocks(blockModels, itemModels);
         this.registerGlyphBlocks(blockModels, itemModels);
         this.registerStairsAndSlabs(blockModels, itemModels);
         this.registerFencesAndGates(blockModels, itemModels);
         this.registerPressurePlates(blockModels, itemModels);
         this.registerSpecialBlocks(blockModels, itemModels);
-        this.registerCustomModelBlocks(blockModels, itemModels);
     }
 
     private void registerSimpleBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        // NOTE: Blocks with custom model JSON (in src/main/resources) are excluded from this list.
-        // Custom models include: DATURA (cross crop), SPIRIT_FIRE (custom fire elements),
-        // SPIRIT_FIRE_COLOR/RAINBOW/VOID (fire variants), CHALK_GLYPH_* (flat plane with tint).
         Block[] cubeAll = {
+                OccultismBlocks.CHISELED_OTHERROCK_BRICKS.get(),
+                OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get(),
+                OccultismBlocks.CRACKED_OTHERROCK_BRICKS.get(),
+                OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get(),
+                OccultismBlocks.IESNIUM_BLOCK.get(),
+                OccultismBlocks.IESNIUM_ORE.get(),
                 OccultismBlocks.OTHERSTONE.get(),
                 OccultismBlocks.OTHERSTONE_BRICKS.get(),
-                OccultismBlocks.OTHERSTONE_PEDESTAL.get(),
                 OccultismBlocks.OTHERROCK.get(),
                 OccultismBlocks.OTHERROCK_BRICKS.get(),
-                OccultismBlocks.OTHERROCK_PEDESTAL.get(),
                 OccultismBlocks.OTHERCOBBLESTONE.get(),
                 OccultismBlocks.OTHERCOBBLEROCK.get(),
                 OccultismBlocks.POLISHED_OTHERSTONE.get(),
                 OccultismBlocks.POLISHED_OTHERROCK.get(),
-                OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get(),
-                OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get(),
                 OccultismBlocks.OTHERPLANKS.get(),
-                OccultismBlocks.OTHERWORLD_LEAVES.get(),
                 OccultismBlocks.SILVER_BLOCK.get(),
                 OccultismBlocks.RAW_SILVER_BLOCK.get(),
-                OccultismBlocks.IESNIUM_BLOCK.get(),
                 OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
                 OccultismBlocks.SILVER_ORE.get(),
                 OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
-                OccultismBlocks.IESNIUM_ORE.get(),
-                OccultismBlocks.TALLOW_BLOCK.get(),
-                OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(),
-                OccultismBlocks.DIMENSIONAL_MINESHAFT.get(),
-                OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get(),
-                OccultismBlocks.DIMENSIONAL_EXTRACTOR.get(),
-                OccultismBlocks.SPIRIT_GRINDSTONE.get(),
-                OccultismBlocks.SPIRIT_CAMPFIRE.get(),
-                OccultismBlocks.SPIRIT_LANTERN.get(),
-                // NOTE: SPIRIT_FIRE uses custom model JSON (src/main/resources)
-                OccultismBlocks.LIGHTED_AIR.get(),
-                OccultismBlocks.SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get(),
-                OccultismBlocks.CELESTIAL_CHALICE.get(),
-                OccultismBlocks.ELDRITCH_CHALICE.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER0.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER2.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER3.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER5.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get(),
-                OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get(),
-                OccultismBlocks.OTHERGLASS_NATURAL.get(),
-                // natural / otherworld components
-                OccultismBlocks.OTHERSTONE_NATURAL.get(),
-                OccultismBlocks.OTHERROCK_NATURAL.get(),
-                OccultismBlocks.OTHERGLASS.get(),
-                OccultismBlocks.OTHERFLOWER.get(),
-                OccultismBlocks.OTHERFLOWER_NATURAL.get(),
-                OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
-                OccultismBlocks.IESNIUM_ORE_NATURAL.get(),
-                // saplings
-                OccultismBlocks.OTHERWORLD_SAPLING.get(),
-                OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
-                // fences / doors / buttons / trapdoors (use trivial cube for now)
-                OccultismBlocks.OTHERPLANKS_FENCE.get(),
-                OccultismBlocks.OTHERPLANKS_DOOR.get(),
-                OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(),
-                OccultismBlocks.OTHERPLANKS_BUTTON.get(),
-                OccultismBlocks.OTHERSTONE_BUTTON.get(),
-                OccultismBlocks.OTHERROCK_BUTTON.get(),
-                // walls
-                OccultismBlocks.OTHERSTONE_WALL.get(),
-                OccultismBlocks.OTHERCOBBLESTONE_WALL.get(),
-                OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(),
-                OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(),
-                OccultismBlocks.OTHERROCK_WALL.get(),
-                OccultismBlocks.OTHERCOBBLEROCK_WALL.get(),
-                OccultismBlocks.POLISHED_OTHERROCK_WALL.get(),
-                OccultismBlocks.OTHERROCK_BRICKS_WALL.get(),
-                // otherrock variants
-                OccultismBlocks.CHISELED_OTHERROCK_BRICKS.get(),
-                OccultismBlocks.CRACKED_OTHERROCK_BRICKS.get(),
-                // large candles (all color variants)
-                OccultismBlocks.LARGE_CANDLE_WHITE.get(),
-                OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
-                OccultismBlocks.LARGE_CANDLE_GRAY.get(),
-                OccultismBlocks.LARGE_CANDLE_BLACK.get(),
-                OccultismBlocks.LARGE_CANDLE_BROWN.get(),
-                OccultismBlocks.LARGE_CANDLE_RED.get(),
-                OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
-                OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
-                OccultismBlocks.LARGE_CANDLE_LIME.get(),
-                OccultismBlocks.LARGE_CANDLE_GREEN.get(),
-                OccultismBlocks.LARGE_CANDLE_CYAN.get(),
-                OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
-                OccultismBlocks.LARGE_CANDLE_BLUE.get(),
-                OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
-                OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
-                OccultismBlocks.LARGE_CANDLE_PINK.get(),
-                // storage controller variants
-                OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
-                OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
-                OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get(),
-                OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get(),
-                // wormholes / entity wormholes
-                OccultismBlocks.ENTITY_WORMHOLE.get(),
-                OccultismBlocks.ENTITY_WORMHOLE_DARK.get(),
-                // anvil
-                OccultismBlocks.IESNIUM_ANVIL.get(),
-                // torches
-                OccultismBlocks.SPIRIT_TORCH.get(),
-                OccultismBlocks.SPIRIT_WALL_TORCH.get(),
-                OccultismBlocks.LARGE_CANDLE.get(),
-                OccultismBlocks.STORAGE_CONTROLLER.get(),
-                OccultismBlocks.STORAGE_CONTROLLER_DARK.get(),
-                // potted, signs, skulls
-                OccultismBlocks.POTTED_OTHERFLOWER.get(),
-                OccultismBlocks.OTHERPLANKS_SIGN.get(),
-                OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(),
-                OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(),
-                OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(),
-                // NOTE: DATURA uses cross crop model JSON (src/main/resources)
-                OccultismBlocks.SKELETON_SKULL_DUMMY.get(),
-                OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(),
+                OccultismBlocks.TALLOW_BLOCK.get()
         };
         for (Block block : cubeAll) {
             blockModels.createTrivialCube(block);
         }
     }
 
-    private void registerDirectionalBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.OTHERWORLD_LOG.get());
-        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.OTHERWORLD_WOOD.get());
-        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get());
-        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get());
-        // natural variants (use pillar models too)
-        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get());
-        this.registerAxisAlignedPillar(blockModels, itemModels, OccultismBlocks.OTHERWORLD_LOG_NATURAL.get());
-    }
-
-    private void registerAxisAlignedPillar(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
-        if (block instanceof RotatedPillarBlock) {
-            Material sideTexture = new Material(modLoc("block/" + this.name(block)));
-            Material endTexture = new Material(modLoc("block/" + this.name(block) + "_top"));
-            Identifier model = ModelTemplates.CUBE_COLUMN.create(
-                    block,
-                    TextureMapping.column(sideTexture, endTexture),
-                    blockModels.modelOutput
-            );
-            blockModels.blockStateOutput.accept(
-                    MultiVariantGenerator.dispatch(block, blockModels.plainVariant(model))
-                            .with(PropertyDispatch.modify(BlockStateProperties.AXIS)
-                                    .select(Direction.Axis.Y, BlockModelGenerators.NOP)
-                                    .select(Direction.Axis.Z, BlockModelGenerators.X_ROT_90)
-                                    .select(Direction.Axis.X, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
-                            )
-            );
-            this.registerParentedItemModel(blockModels, itemModels, block, model);
-        } else {
-            blockModels.createTrivialCube(block);
-        }
-    }
-
     private void registerGlyphBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        for (int sign = 0; sign <= ChalkGlyphBlock.MAX_SIGN; sign++) {
+            this.emitParentModel(
+                    blockModels.modelOutput,
+                    modLoc("block/chalk_glyph/" + sign),
+                    modLoc("block/chalk_glyph/chalk_glyph"),
+                    Map.of("texture", modLoc("block/chalk_glyph/" + sign))
+            );
+        }
+
         Block[] glyphBlocks = {
                 OccultismBlocks.CHALK_GLYPH_WHITE.get(),
                 OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get(),
@@ -274,14 +251,17 @@ public class OccultismBlockModelSubProvider {
     }
 
     private void registerGlyphBlock(BlockModelGenerators blockModels, Block block) {
-        // Glyph blocks have a SIGN property with 14 variants (0-13)
-        // For now, use a simple model for all variants
-        Identifier model = blockModel(block);
-        this.emitParticleModel(blockModels.modelOutput, model, modLoc("block/chalk_glyph"));
-
-        // Create blockstate - use same model for all SIGN variants
         blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(block, blockModels.plainVariant(model))
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, ChalkGlyphBlock.SIGN)
+                                .generate((facing, sign) -> blockModels.plainVariant(modLoc("block/chalk_glyph/" + sign))
+                                        .with(switch (facing) {
+                                            case SOUTH -> BlockModelGenerators.NOP;
+                                            case WEST -> BlockModelGenerators.Y_ROT_90;
+                                            case NORTH -> BlockModelGenerators.Y_ROT_180;
+                                            case EAST -> BlockModelGenerators.Y_ROT_270;
+                                            default -> BlockModelGenerators.NOP;
+                                        })))
         );
     }
 
@@ -303,7 +283,6 @@ public class OccultismBlockModelSubProvider {
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_STAIRS.get(), OccultismBlocks.OTHERPLANKS.get());
-        this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_SLAB.get(), OccultismBlocks.OTHERPLANKS.get());
     }
 
     private void registerStairs(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block stairs, Block parent) {
@@ -335,7 +314,31 @@ public class OccultismBlockModelSubProvider {
     }
 
     private void registerFencesAndGates(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        this.registerFence(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_FENCE.get(), OccultismBlocks.OTHERPLANKS.get());
         this.registerFenceGate(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(), OccultismBlocks.OTHERPLANKS.get());
+        this.registerDoor(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_DOOR.get());
+        this.registerTrapdoor(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_TRAPDOOR.get());
+        this.registerButton(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_BUTTON.get(), OccultismBlocks.OTHERPLANKS.get());
+        this.registerButton(blockModels, itemModels, OccultismBlocks.OTHERSTONE_BUTTON.get(), OccultismBlocks.OTHERSTONE.get());
+        this.registerButton(blockModels, itemModels, OccultismBlocks.OTHERROCK_BUTTON.get(), OccultismBlocks.OTHERROCK.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERSTONE_WALL.get(), OccultismBlocks.OTHERSTONE.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERCOBBLESTONE_WALL.get(), OccultismBlocks.OTHERCOBBLESTONE.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(), OccultismBlocks.POLISHED_OTHERSTONE.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(), OccultismBlocks.OTHERSTONE_BRICKS.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERROCK_WALL.get(), OccultismBlocks.OTHERROCK.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_WALL.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERROCK_WALL.get(), OccultismBlocks.POLISHED_OTHERROCK.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERROCK_BRICKS_WALL.get(), OccultismBlocks.OTHERROCK_BRICKS.get());
+    }
+
+    private void registerFence(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block fence, Block parent) {
+        TextureMapping textures = TextureMapping.cube(parent);
+        Identifier postModel = ModelTemplates.FENCE_POST.create(fence, textures, blockModels.modelOutput);
+        Identifier sideModel = ModelTemplates.FENCE_SIDE.create(fence, textures, blockModels.modelOutput);
+        blockModels.blockStateOutput.accept(
+                BlockModelGenerators.createFence(fence, blockModels.plainVariant(postModel), blockModels.plainVariant(sideModel))
+        );
+        this.registerExistingItemModel(itemModels, fence.asItem(), itemModel(fence));
     }
 
     private void registerFenceGate(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block fenceGate, Block parent) {
@@ -353,6 +356,70 @@ public class OccultismBlockModelSubProvider {
                         false)
         );
         this.registerParentedItemModel(blockModels, itemModels, fenceGate, closedModel);
+    }
+
+    private void registerDoor(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block door) {
+        TextureMapping textures = TextureMapping.door(door);
+        blockModels.blockStateOutput.accept(
+                BlockModelGenerators.createDoor(
+                        door,
+                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, textures, blockModels.modelOutput)),
+                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, textures, blockModels.modelOutput))
+                )
+        );
+        this.registerExistingItemModel(itemModels, door.asItem(), itemModel(door));
+    }
+
+    private void registerTrapdoor(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block trapdoor) {
+        TextureMapping textures = TextureMapping.defaultTexture(trapdoor);
+        Identifier topModel = ModelTemplates.TRAPDOOR_TOP.create(trapdoor, textures, blockModels.modelOutput);
+        Identifier bottomModel = ModelTemplates.TRAPDOOR_BOTTOM.create(trapdoor, textures, blockModels.modelOutput);
+        Identifier openModel = ModelTemplates.TRAPDOOR_OPEN.create(trapdoor, textures, blockModels.modelOutput);
+        blockModels.blockStateOutput.accept(
+                BlockModelGenerators.createTrapdoor(
+                        trapdoor,
+                        blockModels.plainVariant(topModel),
+                        blockModels.plainVariant(bottomModel),
+                        blockModels.plainVariant(openModel)
+                )
+        );
+        this.registerExistingItemModel(itemModels, trapdoor.asItem(), itemModel(trapdoor));
+    }
+
+    private void registerButton(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block button, Block parent) {
+        TextureMapping textures = TextureMapping.cube(parent);
+        Identifier unpoweredModel = ModelTemplates.BUTTON.create(button, textures, blockModels.modelOutput);
+        Identifier poweredModel = ModelTemplates.BUTTON_PRESSED.create(button, textures, blockModels.modelOutput);
+        blockModels.blockStateOutput.accept(
+                BlockModelGenerators.createButton(
+                        button,
+                        blockModels.plainVariant(unpoweredModel),
+                        blockModels.plainVariant(poweredModel)
+                )
+        );
+        this.registerExistingItemModel(itemModels, button.asItem(), itemModel(button));
+    }
+
+    private void registerWall(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block wall, Block parent) {
+        TextureMapping textures = TextureMapping.cube(parent);
+        Identifier postModel = ModelTemplates.WALL_POST.create(wall, textures, blockModels.modelOutput);
+        Identifier lowSideModel = ModelTemplates.WALL_LOW_SIDE.create(wall, textures, blockModels.modelOutput);
+        Identifier tallSideModel = ModelTemplates.WALL_TALL_SIDE.create(wall, textures, blockModels.modelOutput);
+        blockModels.blockStateOutput.accept(
+                BlockModelGenerators.createWall(
+                        wall,
+                        blockModels.plainVariant(postModel),
+                        blockModels.plainVariant(lowSideModel),
+                        blockModels.plainVariant(tallSideModel)
+                )
+        );
+        this.registerExistingItemModel(itemModels, wall.asItem(), itemModel(wall));
     }
 
     private void registerPressurePlates(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -374,72 +441,98 @@ public class OccultismBlockModelSubProvider {
     }
 
     private void registerSpecialBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        // Stable Wormhole - has a LINKED property
+        Block[] directionalBlocks = {
+                OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER0.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER2.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER3.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER5.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get(),
+                OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get()
+        };
+        for (Block block : directionalBlocks) {
+            this.registerFacingBlock(blockModels, itemModels, block);
+        }
+
+        this.registerEntityWormholeBlock(blockModels, itemModels, OccultismBlocks.ENTITY_WORMHOLE.get());
+        this.registerEntityWormholeBlock(blockModels, itemModels, OccultismBlocks.ENTITY_WORMHOLE_DARK.get());
         this.registerLinkedBlock(blockModels, itemModels, OccultismBlocks.STABLE_WORMHOLE.get());
         this.registerLinkedBlock(blockModels, itemModels, OccultismBlocks.STABLE_WORMHOLE_DARK.get());
     }
 
-    private void registerLinkedBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
-        Identifier unlinkedModel = blockModel(block);
-        Identifier linkedModel = modLoc("block/" + this.name(block) + "_linked");
+    private void registerFacingBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
+        Identifier model = blockModel(block);
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block, blockModels.plainVariant(model))
+                        .with(PropertyDispatch.modify(BlockStateProperties.FACING)
+                                .select(Direction.UP, BlockModelGenerators.NOP)
+                                .select(Direction.DOWN, BlockModelGenerators.X_ROT_180)
+                                .select(Direction.NORTH, BlockModelGenerators.X_ROT_90)
+                                .select(Direction.SOUTH, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180))
+                                .select(Direction.WEST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270))
+                                .select(Direction.EAST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
+                        )
+        );
+        this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+    }
 
-        this.emitParentModel(blockModels.modelOutput, unlinkedModel, modLoc("block/" + this.name(block) + "_template"), Map.of(
-                "texture", modLoc("block/" + this.name(block)),
-                "particle", modLoc("block/" + this.name(block))
-        ));
-        this.emitParentModel(blockModels.modelOutput, linkedModel, modLoc("block/" + this.name(block) + "_linked_template"), Map.of(
-                "texture", modLoc("block/" + this.name(block) + "_linked"),
-                "particle", modLoc("block/" + this.name(block) + "_linked")
-        ));
+    private void registerEntityWormholeBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
+        Identifier model = blockModel(block);
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(EntityWormholeBlock.EXIT_ROTATION_X, EntityWormholeBlock.EXIT_ROTATION_Y, BlockStateProperties.FACING)
+                                .generate((rotationX, rotationY, facing) -> blockModels.plainVariant(model).with(switch (facing) {
+                                    case UP -> BlockModelGenerators.NOP;
+                                    case DOWN -> BlockModelGenerators.X_ROT_180;
+                                    case NORTH -> BlockModelGenerators.X_ROT_90;
+                                    case SOUTH -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180);
+                                    case WEST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
+                                    case EAST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
+                                })))
+        );
+        this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+    }
+
+    private void registerLinkedBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
+        Identifier linkedModel = blockModel(block);
+        Identifier unlinkedModel = modLoc("block/" + this.name(block) + "_unlinked");
 
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
-                        .with(PropertyDispatch.initial(StableWormholeBlock.LINKED)
-                                .select(false, blockModels.plainVariant(unlinkedModel))
-                                .select(true, blockModels.plainVariant(linkedModel))
-                        )
+                        .with(PropertyDispatch.initial(BlockStateProperties.FACING, StableWormholeBlock.LINKED)
+                                .generate((facing, linked) -> blockModels.plainVariant(linked ? linkedModel : unlinkedModel)
+                                        .with(switch (facing) {
+                                            case UP -> BlockModelGenerators.NOP;
+                                            case DOWN -> BlockModelGenerators.X_ROT_180;
+                                            case NORTH -> BlockModelGenerators.X_ROT_90;
+                                            case SOUTH -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180);
+                                            case WEST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
+                                            case EAST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
+                                        })))
         );
 
-        this.registerParentedItemModel(blockModels, itemModels, block, unlinkedModel);
-    }
-
-    /**
-     * Registers blockstates for blocks that have custom model JSON files
-     * in src/main/resources (not generated by datagen).
-     * These blocks were removed from createTrivialCube to avoid overriding the custom models.
-     * Item references are handled by OccultismItemModelSubProvider or createTrivialCube elsewhere.
-     */
-    private void registerCustomModelBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        // Blocks with custom model JSON that need blockstate generation only.
-        // Item models are handled by OccultismItemModelSubProvider (datura) or
-        // need block-parented item models (spirit_fire).
-        Block[] blockstateOnly = {
-                OccultismBlocks.DATURA.get(),
-        };
-        for (Block block : blockstateOnly) {
-            Identifier model = blockModel(block);
-            blockModels.blockStateOutput.accept(
-                    MultiVariantGenerator.dispatch(block, blockModels.plainVariant(model))
-            );
-        }
-
-        // Blocks with custom model JSON that also need item reference (block-parented)
-        Block[] withItemModel = {
-                OccultismBlocks.SPIRIT_FIRE.get(),
-        };
-        for (Block block : withItemModel) {
-            Identifier model = blockModel(block);
-            blockModels.blockStateOutput.accept(
-                    MultiVariantGenerator.dispatch(block, blockModels.plainVariant(model))
-            );
-            this.registerParentedItemModel(blockModels, itemModels, block, model);
-        }
+        this.registerExistingItemModel(itemModels, block.asItem(), itemModel(block));
     }
 
     private void registerParentedItemModel(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier parentModel) {
         Identifier itemModelId = itemModel(block);
         this.emitParentModel(itemModels.modelOutput, itemModelId, parentModel, Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(itemModelId));
+    }
+
+    private void registerExistingItemModel(ItemModelGenerators itemModels, net.minecraft.world.item.Item item, Identifier modelLocation) {
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
     }
 
     private void emitParticleModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier particleTexture) {

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "uncovered=true": {
+      "model": "occultism:block/iesnium_ore"
+    },
+    "uncovered=false": {
+      "model": "minecraft:block/netherrack"
+    }
+  }
+}

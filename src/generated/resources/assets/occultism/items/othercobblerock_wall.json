@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:block/othercobblerock_wall"
+    "model": "occultism:item/othercobblerock_wall"
   }
 }
