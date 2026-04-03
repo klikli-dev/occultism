@@ -173,6 +173,8 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.POTTED_OTHERFLOWER.get(), createPotFlowerItemTable(OccultismBlocks.OTHERFLOWER.get()));
         this.add(OccultismBlocks.OTHERSTONE.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLESTONE.asItem()));
         this.add(OccultismBlocks.OTHERROCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLEROCK.asItem()));
+        this.add(OccultismBlocks.SKELETON_SKULL_DUMMY.get(), block -> noDrop());
+        this.add(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(), block -> noDrop());
     }
 
     protected void registerOtherworldBlockTable(Block block) {
