@@ -75,18 +75,12 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void RenderLevelLastEvent(RenderLevelStageEvent event) {
+    public void RenderLevelLastEvent(RenderLevelStageEvent.AfterLevel event) {
         this.renderSelectedBlocks(event);
     }
 
-    protected void renderSelectedBlocks(RenderLevelStageEvent event) {
+    protected void renderSelectedBlocks(RenderLevelStageEvent.AfterLevel event) {
         var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
-
-        if (!useAltRenderer && !(event instanceof RenderLevelStageEvent.AfterTranslucentParticles))
-            return;
-
-        if (useAltRenderer && !(event instanceof RenderLevelStageEvent.AfterTranslucentBlocks))
-            return;
 
         if (!this.selectedBlocks.isEmpty()) {
             long time = System.currentTimeMillis();
