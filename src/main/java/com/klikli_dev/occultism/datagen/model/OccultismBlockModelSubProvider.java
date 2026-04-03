@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.datagen.model;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.itemproperties.StableWormholeBlockItemPropertyGetter;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
@@ -36,15 +37,17 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ConditionalItemModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import java.util.stream.Stream;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 public class OccultismBlockModelSubProvider {
 
@@ -522,7 +525,12 @@ public class OccultismBlockModelSubProvider {
                                         })))
         );
 
-        this.registerExistingItemModel(itemModels, block.asItem(), itemModel(block));
+        itemModels.itemModelOutput.accept(block.asItem(), new ConditionalItemModel.Unbaked(
+                Optional.empty(),
+                new StableWormholeBlockItemPropertyGetter(),
+                ItemModelUtils.plainModel(modLoc("item/" + this.name(block) + "_linked")),
+                ItemModelUtils.plainModel(modLoc("item/" + this.name(block) + "_unlinked"))
+        ));
     }
 
     private void registerParentedItemModel(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier parentModel) {

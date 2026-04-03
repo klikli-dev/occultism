@@ -22,17 +22,28 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-// TODO: Port to 26.1 item property system
-// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
-// to the new item model property system once the API is available.
-//
-// Original logic: returns 1.0f if the ItemStack has a LINKED_STORAGE_CONTROLLER
-// component, otherwise returns 0.0f.
-
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class StorageRemoteItemPropertyGetter {
-    // Empty stub - see TODO above
+public class StorageRemoteItemPropertyGetter implements ConditionalItemModelProperty {
+    public static final MapCodec<StorageRemoteItemPropertyGetter> MAP_CODEC = MapCodec.unit(new StorageRemoteItemPropertyGetter());
+
+    @Override
+    public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+        return stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
+    }
+
+    @Override
+    public MapCodec<? extends ConditionalItemModelProperty> type() {
+        return MAP_CODEC;
+    }
 }

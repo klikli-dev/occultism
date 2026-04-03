@@ -22,17 +22,9 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-// TODO: Port to 26.1 item property system
-// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
-// to the new item model property system once the API is available.
-//
-// Original logic: returns 1.0f if the ItemStack has a LINKED_STORAGE_CONTROLLER
-// component, otherwise returns 0.0f.
-
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class StableWormholeBlockItemPropertyGetter {
-    // Empty stub - see TODO above
+public class StableWormholeBlockItemPropertyGetter extends StorageRemoteItemPropertyGetter {
 }

@@ -23,6 +23,8 @@
 package com.klikli_dev.occultism.datagen.model;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.itemproperties.SoulGemItemPropertyGetter;
+import com.klikli_dev.occultism.client.itemproperties.StorageRemoteItemPropertyGetter;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -31,12 +33,15 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.renderer.item.ConditionalItemModel;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class OccultismItemModelSubProvider {
@@ -234,6 +239,17 @@ public class OccultismItemModelSubProvider {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(this.modLoc("item/" + this.name(item))));
     }
 
+    private void registerConditionalItemDefinition(ItemModelGenerators itemModels, Item item,
+                                                   ConditionalItemModelProperty property,
+                                                   String onTrueModelPath, String onFalseModelPath) {
+        itemModels.itemModelOutput.accept(item, new ConditionalItemModel.Unbaked(
+                Optional.empty(),
+                property,
+                ItemModelUtils.plainModel(this.modLoc(onTrueModelPath)),
+                ItemModelUtils.plainModel(this.modLoc(onFalseModelPath))
+        ));
+    }
+
     private void registerRitualDummy(ItemModelGenerators itemModels, Item item) {
         String path = BuiltInRegistries.ITEM.getKey(item).getPath();
         String parent;
@@ -280,6 +296,7 @@ public class OccultismItemModelSubProvider {
         this.registerItemChalks(itemModels);
         this.registerItemCandles(itemModels, blockModels);
         this.registerVitalityCompass(itemModels);
+        this.registerConditionalItemDefinitions(itemModels);
         this.registerManualItemModels(itemModels);
 
         this.registerItemGenerated(itemModels, OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get(), "book_of_calling_manage_machine");
@@ -300,10 +317,6 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.DIVINATION_ROD.get(),
                 OccultismItems.TRUE_SIGHT_STAFF.get(),
                 OccultismItems.OTHERWORLD_GOGGLES.get(),
-                OccultismItems.STORAGE_REMOTE.get(),
-                OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
-                OccultismItems.SOUL_GEM_ITEM.get(),
-                OccultismItems.TRINITY_GEM_ITEM.get(),
                 OccultismItems.VITALITY_COMPASS.get(),
                 OccultismItems.DIMENSIONAL_MATRIX.get(),
                 OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get(),
@@ -323,6 +336,25 @@ public class OccultismItemModelSubProvider {
         for (Item item : manualItems) {
             this.registerItemExistingModel(itemModels, item);
         }
+    }
+
+    private void registerConditionalItemDefinitions(ItemModelGenerators itemModels) {
+        this.registerConditionalItemDefinition(itemModels, OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
+                new SoulGemItemPropertyGetter(),
+                "item/fragile_soul_gem_filled",
+                "item/fragile_soul_gem_empty");
+        this.registerConditionalItemDefinition(itemModels, OccultismItems.SOUL_GEM_ITEM.get(),
+                new SoulGemItemPropertyGetter(),
+                "item/soul_gem_filled",
+                "item/soul_gem_empty");
+        this.registerConditionalItemDefinition(itemModels, OccultismItems.TRINITY_GEM_ITEM.get(),
+                new SoulGemItemPropertyGetter(),
+                "item/trinity_gem_filled",
+                "item/trinity_gem_empty");
+        this.registerConditionalItemDefinition(itemModels, OccultismItems.STORAGE_REMOTE.get(),
+                new StorageRemoteItemPropertyGetter(),
+                "item/storage_remote_linked",
+                "item/storage_remote_unlinked");
     }
 
     private void registerAdvancementItem(ItemModelGenerators itemModels) {

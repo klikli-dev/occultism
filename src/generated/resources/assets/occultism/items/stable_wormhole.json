@@ -1,6 +1,14 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "occultism:item/stable_wormhole"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "occultism:item/stable_wormhole_unlinked"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "occultism:item/stable_wormhole_linked"
+    },
+    "property": "occultism:linked"
   }
 }

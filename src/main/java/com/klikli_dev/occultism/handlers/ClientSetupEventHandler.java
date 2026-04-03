@@ -91,6 +91,8 @@ import java.util.Map;
 
 @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class ClientSetupEventHandler {
+    private static final Identifier HAS_ENTITY_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity");
+    private static final Identifier LINKED_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "linked");
 
     // Register a custom key category for this mod
     private static final KeyMapping.Category OCCULTISM_KEY_CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
@@ -233,8 +235,6 @@ public class ClientSetupEventHandler {
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
 
-        registerItemModelProperties(event);
-
         PageRenderers.onClientSetup(event);
 
         Occultism.LOGGER.debug("Registered Overlays");
@@ -280,11 +280,15 @@ public class ClientSetupEventHandler {
         }, OccultismEffects.DOUBLE_JUMP.get());
     }
 
+    public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
+        event.register(HAS_ENTITY_ITEM_MODEL_PROPERTY, SoulGemItemPropertyGetter.MAP_CODEC);
+        event.register(LINKED_ITEM_MODEL_PROPERTY, StorageRemoteItemPropertyGetter.MAP_CODEC);
+    }
+
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
-        // TODO: Port to 26.1 item property system
-        // ItemProperties and ItemPropertyFunction were removed in Minecraft 26.1.
-        // The item model property registration below is disabled until the new system is implemented.
-        // See client/itemproperties/ for the individual getter stubs with their original logic documented.
+        // TODO: Port remaining 26.1 item model properties.
+        // Boolean item properties now use RegisterConditionalItemModelPropertyEvent.
+        // Range/select properties for divination rod, true sight staff, and vitality compass still need migration.
         //
         // event.enqueueWork(() -> {
         //     ItemProperties.register(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),

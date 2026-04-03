@@ -1,6 +1,14 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "occultism:item/fragile_soul_gem"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "occultism:item/fragile_soul_gem_empty"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "occultism:item/fragile_soul_gem_filled"
+    },
+    "property": "occultism:has_entity"
   }
 }

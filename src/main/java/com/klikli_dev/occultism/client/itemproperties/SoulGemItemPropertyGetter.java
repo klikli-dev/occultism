@@ -22,17 +22,28 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-// TODO: Port to 26.1 item property system
-// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
-// to the new item model property system once the API is available.
-//
-// Original logic: returns 1.0f if the ItemStack has a DataComponents.ENTITY_DATA
-// component (i.e. contains a captured entity), otherwise returns 0.0f.
-
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class SoulGemItemPropertyGetter {
-    // Empty stub - see TODO above
+public class SoulGemItemPropertyGetter implements ConditionalItemModelProperty {
+    public static final MapCodec<SoulGemItemPropertyGetter> MAP_CODEC = MapCodec.unit(new SoulGemItemPropertyGetter());
+
+    @Override
+    public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+        return stack.has(DataComponents.ENTITY_DATA);
+    }
+
+    @Override
+    public MapCodec<? extends ConditionalItemModelProperty> type() {
+        return MAP_CODEC;
+    }
 }
