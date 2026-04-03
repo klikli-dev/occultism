@@ -34,12 +34,9 @@ import net.neoforged.neoforge.items.IItemHandler;
 
 public class OccultismCapabilities {
 
-    // Capability instances - using explicit BlockCapability and EntityCapability
-    private static final BlockCapability<IItemHandler, Direction> ITEM_HANDLER_BLOCK = 
+    private static final BlockCapability<IItemHandler, Direction> ITEM_HANDLER_BLOCK =
             BlockCapability.createSided(Identifier.fromNamespaceAndPath("neoforge", "item_handler"), IItemHandler.class);
-    private static final EntityCapability<IItemHandler, Direction> ITEM_HANDLER_ENTITY = 
-            EntityCapability.createSided(Identifier.fromNamespaceAndPath("neoforge", "item_handler"), IItemHandler.class);
-    private static final EntityCapability<IItemHandler, Void> ITEM_HANDLER_ENTITY_VOID = 
+    private static final EntityCapability<IItemHandler, Void> ITEM_HANDLER_ENTITY_VOID =
             EntityCapability.createVoid(Identifier.fromNamespaceAndPath("neoforge", "item_handler"), IItemHandler.class);
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
