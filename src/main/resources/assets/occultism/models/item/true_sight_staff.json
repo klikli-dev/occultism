@@ -1,5 +1,8 @@
 {
   "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "occultism:item/true_sight_staff/true_sight_staff_0"
+  },
   "overrides": [
     {
       "__comment": "distance >= 0.0",
