@@ -113,7 +113,8 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(),
                         OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(),
                         OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(),
-                        OccultismBlocks.OTHERPLANKS_STAIRS.get()
+                        OccultismBlocks.OTHERPLANKS_STAIRS.get(),
+                        OccultismBlocks.OTHERPLANKS_SLAB.get()
                 ),
                 Stream.of(
                         OccultismBlocks.OTHERPLANKS_FENCE.get(),
@@ -160,6 +161,31 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.ENTITY_WORMHOLE_DARK.get(),
                         OccultismBlocks.STABLE_WORMHOLE.get(),
                         OccultismBlocks.STABLE_WORMHOLE_DARK.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.LARGE_CANDLE.get(),
+                        OccultismBlocks.LARGE_CANDLE_WHITE.get(),
+                        OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
+                        OccultismBlocks.LARGE_CANDLE_GRAY.get(),
+                        OccultismBlocks.LARGE_CANDLE_BLACK.get(),
+                        OccultismBlocks.LARGE_CANDLE_BROWN.get(),
+                        OccultismBlocks.LARGE_CANDLE_RED.get(),
+                        OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
+                        OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
+                        OccultismBlocks.LARGE_CANDLE_LIME.get(),
+                        OccultismBlocks.LARGE_CANDLE_GREEN.get(),
+                        OccultismBlocks.LARGE_CANDLE_CYAN.get(),
+                        OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
+                        OccultismBlocks.LARGE_CANDLE_BLUE.get(),
+                        OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
+                        OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
+                        OccultismBlocks.LARGE_CANDLE_PINK.get(),
+                        OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
+                        OccultismBlocks.STORAGE_CONTROLLER.get(),
+                        OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
+                        OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get(),
+                        OccultismBlocks.STORAGE_CONTROLLER_DARK.get(),
+                        OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get()
                 )
         ).flatMap(stream -> stream);
     }
@@ -187,6 +213,9 @@ public class OccultismBlockModelSubProvider {
         this.registerFencesAndGates(blockModels, itemModels);
         this.registerPressurePlates(blockModels, itemModels);
         this.registerSpecialBlocks(blockModels, itemModels);
+        this.registerCandleBlocks(blockModels);
+        this.registerStorageControllerBlocks(blockModels, itemModels);
+        this.registerManualBlockItemDefinitions(itemModels);
     }
 
     private void registerSimpleBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -215,6 +244,75 @@ public class OccultismBlockModelSubProvider {
         };
         for (Block block : cubeAll) {
             blockModels.createTrivialCube(block);
+            this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+        }
+    }
+
+    private void registerCandleBlocks(BlockModelGenerators blockModels) {
+        Block[] candles = {
+                OccultismBlocks.LARGE_CANDLE.get(),
+                OccultismBlocks.LARGE_CANDLE_WHITE.get(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
+                OccultismBlocks.LARGE_CANDLE_GRAY.get(),
+                OccultismBlocks.LARGE_CANDLE_BLACK.get(),
+                OccultismBlocks.LARGE_CANDLE_BROWN.get(),
+                OccultismBlocks.LARGE_CANDLE_RED.get(),
+                OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
+                OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
+                OccultismBlocks.LARGE_CANDLE_LIME.get(),
+                OccultismBlocks.LARGE_CANDLE_GREEN.get(),
+                OccultismBlocks.LARGE_CANDLE_CYAN.get(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
+                OccultismBlocks.LARGE_CANDLE_BLUE.get(),
+                OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
+                OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
+                OccultismBlocks.LARGE_CANDLE_PINK.get()
+        };
+        for (Block block : candles) {
+            this.registerSimpleModelBlock(blockModels, block);
+        }
+    }
+
+    private void registerStorageControllerBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        Block[] blocks = {
+                OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
+                OccultismBlocks.STORAGE_CONTROLLER.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_DARK.get(),
+                OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get()
+        };
+        for (Block block : blocks) {
+            this.registerSimpleModelBlock(blockModels, itemModels, block);
+        }
+
+        this.registerExistingItemModel(itemModels, OccultismBlocks.LARGE_CANDLE.asItem(), blockModel(OccultismBlocks.LARGE_CANDLE.get()));
+    }
+
+    private void registerManualBlockItemDefinitions(ItemModelGenerators itemModels) {
+        Block[] blocks = {
+                OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(),
+                OccultismBlocks.CELESTIAL_CHALICE.get(),
+                OccultismBlocks.ELDRITCH_CHALICE.get(),
+                OccultismBlocks.DIMENSIONAL_MINESHAFT.get(),
+                OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get(),
+                OccultismBlocks.DIMENSIONAL_EXTRACTOR.get(),
+                OccultismBlocks.OTHERGLASS_NATURAL.get(),
+                OccultismBlocks.OTHERSTONE_PEDESTAL.get(),
+                OccultismBlocks.OTHERROCK_PEDESTAL.get(),
+                OccultismBlocks.OTHERWORLD_LEAVES.get(),
+                OccultismBlocks.OTHERWORLD_LOG.get(),
+                OccultismBlocks.OTHERWORLD_WOOD.get(),
+                OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get(),
+                OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get(),
+                OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(),
+                OccultismBlocks.SPIRIT_GRINDSTONE.get()
+        };
+        for (Block block : blocks) {
+            this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
         }
     }
 
@@ -286,6 +384,7 @@ public class OccultismBlockModelSubProvider {
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_STAIRS.get(), OccultismBlocks.OTHERPLANKS.get());
+        this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_SLAB.get(), OccultismBlocks.OTHERPLANKS.get());
     }
 
     private void registerStairs(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block stairs, Block parent) {
@@ -531,6 +630,15 @@ public class OccultismBlockModelSubProvider {
                 ItemModelUtils.plainModel(modLoc("item/" + this.name(block) + "_linked")),
                 ItemModelUtils.plainModel(modLoc("item/" + this.name(block) + "_unlinked"))
         ));
+    }
+
+    private void registerSimpleModelBlock(BlockModelGenerators blockModels, Block block) {
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, blockModels.plainVariant(blockModel(block))));
+    }
+
+    private void registerSimpleModelBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
+        this.registerSimpleModelBlock(blockModels, block);
+        this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
     }
 
     private void registerParentedItemModel(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier parentModel) {
