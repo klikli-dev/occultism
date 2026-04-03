@@ -1,5 +1,8 @@
 {
   "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "occultism:item/divination_rod/texture"
+  },
   "overrides": [
     {
       "__comment": "distance >= 0.0",
