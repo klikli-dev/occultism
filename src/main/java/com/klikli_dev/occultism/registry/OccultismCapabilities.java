@@ -22,11 +22,56 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.common.misc.MapItemStackHandler;
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 //import top.theillusivec4.curios.api.CuriosCapability; // TODO: re-enable when Curios is available for 26.1
 
 public class OccultismCapabilities {
+
+    private static class LegacyItemHandlerResourceHandler extends ItemStacksResourceHandler {
+        private final IItemHandlerModifiable delegate;
+
+        public LegacyItemHandlerResourceHandler(IItemHandlerModifiable delegate) {
+            super(copyStacks(delegate));
+            this.delegate = delegate;
+        }
+
+        private static NonNullList<ItemStack> copyStacks(IItemHandlerModifiable delegate) {
+            NonNullList<ItemStack> stacks = NonNullList.withSize(delegate.getSlots(), ItemStack.EMPTY);
+            for (int slot = 0; slot < delegate.getSlots(); slot++) {
+                stacks.set(slot, delegate.getStackInSlot(slot).copy());
+            }
+            return stacks;
+        }
+
+        @Override
+        public boolean isValid(int index, ItemResource resource) {
+            return delegate.isItemValid(index, resource.toStack());
+        }
+
+        @Override
+        protected int getCapacity(int index, ItemResource resource) {
+            int slotLimit = delegate.getSlotLimit(index);
+            if (resource.isEmpty() || delegate instanceof MapItemStackHandler) {
+                return slotLimit;
+            }
+            return Math.min(slotLimit, resource.getMaxStackSize());
+        }
+
+        @Override
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            delegate.setStackInSlot(index, stacks.get(index).copy());
+        }
+    }
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
 
@@ -39,10 +84,83 @@ public class OccultismCapabilities {
         //        // items to register for
         //        OccultismItems.FAMILIAR_RING.get());
 
-        // NeoForge 26.1 moved `neoforge:item_handler` to the transfer API using
-        // ResourceHandler<ItemResource>. These legacy IItemHandler capability
-        // registrations must stay disabled until the affected inventories are
-        // migrated to Capabilities.Item.BLOCK / ENTITY providers.
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.SACRIFICIAL_BOWL.get(),
+                (blockEntity, side) -> new LegacyItemHandlerResourceHandler(blockEntity.itemStackHandler));
+
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(),
+                (blockEntity, side) -> new LegacyItemHandlerResourceHandler(blockEntity.itemStackHandler));
+
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.ENTITY_WORMHOLE.get(),
+                (blockEntity, side) -> new LegacyItemHandlerResourceHandler(blockEntity.itemStackHandler));
+
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(),
+                (blockEntity, side) -> {
+                    if (side == Direction.DOWN) {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.bufferedOutputHandler);
+                    } else if (side == Direction.UP) {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.inputHandler);
+                    } else {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.combinedHandler);
+                    }
+                });
+
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.DIMENSIONAL_BATTLEFIELD.get(),
+                (blockEntity, side) -> {
+                    if (side == Direction.DOWN) {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.bufferedOutputHandler);
+                    } else if (side == Direction.UP) {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.inputHandler);
+                    } else if (side != null) {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.combinedHandler);
+                    } else {
+                        return new LegacyItemHandlerResourceHandler(blockEntity.jadeWrapper);
+                    }
+                });
+
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.STABLE_WORMHOLE.get(),
+                (blockEntity, side) -> {
+                    if (blockEntity.getLinkedStorageController() instanceof StorageControllerBlockEntity controller) {
+                        return new LegacyItemHandlerResourceHandler(controller.itemStackHandler);
+                    }
+                    return null;
+                });
+
+        event.registerBlockEntity(
+                Capabilities.Item.BLOCK,
+                OccultismBlockEntities.STORAGE_CONTROLLER.get(),
+                (blockEntity, side) -> new LegacyItemHandlerResourceHandler(blockEntity.itemStackHandler));
+
+        event.registerEntity(
+                Capabilities.Item.ENTITY,
+                OccultismEntities.FOLIOT.get(),
+                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+
+        event.registerEntity(
+                Capabilities.Item.ENTITY,
+                OccultismEntities.DJINNI.get(),
+                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+
+        event.registerEntity(
+                Capabilities.Item.ENTITY,
+                OccultismEntities.AFRIT.get(),
+                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+
+        event.registerEntity(
+                Capabilities.Item.ENTITY,
+                OccultismEntities.MARID.get(),
+                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
 
     }
 
