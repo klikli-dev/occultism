@@ -1,0 +1,25 @@
+{
+  "type": "occultism:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "attacker",
+      "predicate": {
+        "equipment": {
+          "mainhand": {
+            "items": "#occultism:tools/knife"
+          }
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "#c:pandas"
+      }
+    }
+  ],
+  "count": 3,
+  "item": "occultism:tallow"
+}
