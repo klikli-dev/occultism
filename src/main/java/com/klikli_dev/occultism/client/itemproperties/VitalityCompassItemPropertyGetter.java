@@ -29,10 +29,6 @@ package com.klikli_dev.occultism.client.itemproperties;
 // Original logic: returns VitalityCompassItem.NOT_FOUND if COMPASS_ANGLE component
 // is absent or negative, otherwise returns the compass angle value.
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-
-@OnlyIn(Dist.CLIENT)
 public class VitalityCompassItemPropertyGetter {
     // Empty stub - see TODO above
 }

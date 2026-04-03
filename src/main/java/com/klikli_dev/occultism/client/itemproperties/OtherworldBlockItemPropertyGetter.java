@@ -29,10 +29,6 @@ package com.klikli_dev.occultism.client.itemproperties;
 // Original logic: returns 1.0f if IS_INVENTORY_ITEM component is true or player has
 // THIRD_EYE effect, otherwise returns 0.0f.
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-
-@OnlyIn(Dist.CLIENT)
 public class OtherworldBlockItemPropertyGetter {
     // Empty stub - see TODO above
 }

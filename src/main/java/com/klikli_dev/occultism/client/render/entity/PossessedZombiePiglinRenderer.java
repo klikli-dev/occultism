@@ -7,10 +7,7 @@ import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class PossessedZombiePiglinRenderer extends ZombieRenderer {
     private static final Identifier ZOMBIE_PIGLIN_LOCATION = Identifier.fromNamespaceAndPath(Occultism.MODID,"textures/entity/old_zombie_piglin.png");
 

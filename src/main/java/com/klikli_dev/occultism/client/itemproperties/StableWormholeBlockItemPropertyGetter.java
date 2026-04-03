@@ -22,9 +22,5 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-
-@OnlyIn(Dist.CLIENT)
 public class StableWormholeBlockItemPropertyGetter extends StorageRemoteItemPropertyGetter {
 }

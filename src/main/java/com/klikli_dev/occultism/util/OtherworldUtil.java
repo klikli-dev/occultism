@@ -27,8 +27,6 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.util.thread.SidedThreadGroups;
 
 public class OtherworldUtil {
@@ -49,7 +47,6 @@ public class OtherworldUtil {
      * Runs on physical client. Returns default translation for logical server or if third eye is not present. Returns
      * otherworld translation for logical client if third eye is present.
      */
-    @OnlyIn(Dist.CLIENT)
     public static String getClientTranslationKey(OtherworldBlockItem item, ItemStack stack) {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
             return item.getBlockDescriptionId();

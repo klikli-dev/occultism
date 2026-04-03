@@ -29,11 +29,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-@OnlyIn(Dist.CLIENT)
 public class SoulGemItemPropertyGetter implements ConditionalItemModelProperty {
     public static final MapCodec<SoulGemItemPropertyGetter> MAP_CODEC = MapCodec.unit(new SoulGemItemPropertyGetter());
 

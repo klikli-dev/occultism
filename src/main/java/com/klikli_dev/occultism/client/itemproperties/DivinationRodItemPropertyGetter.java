@@ -29,10 +29,6 @@ package com.klikli_dev.occultism.client.itemproperties;
 // Original logic: returns DivinationRodItem.NOT_FOUND if DIVINATION_DISTANCE component
 // is absent or negative, otherwise returns the distance value.
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-
-@OnlyIn(Dist.CLIENT)
 public class DivinationRodItemPropertyGetter {
     // Empty stub - see TODO above
 }

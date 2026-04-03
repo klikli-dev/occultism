@@ -5,10 +5,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.IronGolemRenderer;
 import net.minecraft.client.renderer.entity.state.IronGolemRenderState;
 import net.minecraft.resources.Identifier;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class IesniumGolemRenderer extends IronGolemRenderer {
     private static final Identifier IESNIUM_GOLEM_LOCATION = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/iesnium_golem.png");
 
