@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/spawn_egg/wild_strong_breeze"
+    "model": "occultism:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -8230481
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -12770705
+      }
+    ]
   }
 }

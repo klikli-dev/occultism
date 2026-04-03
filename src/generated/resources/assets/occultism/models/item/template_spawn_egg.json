@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "occultism:item/template_spawn_egg",
+    "layer1": "occultism:item/template_spawn_egg_overlay"
+  }
+}

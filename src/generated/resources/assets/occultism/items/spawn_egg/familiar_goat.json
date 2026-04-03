@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/spawn_egg/familiar_goat"
+    "model": "occultism:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -1907998
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -15790322
+      }
+    ]
   }
 }

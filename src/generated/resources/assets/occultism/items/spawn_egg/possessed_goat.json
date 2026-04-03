@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/spawn_egg/possessed_goat"
+    "model": "occultism:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -6250336
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -8170446
+      }
+    ]
   }
 }

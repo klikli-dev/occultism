@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/spawn_egg/familiar_fairy"
+    "model": "occultism:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -4364468
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -3364714
+      }
+    ]
   }
 }

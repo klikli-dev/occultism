@@ -1,6 +1,16 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/spawn_egg/djinni"
+    "model": "occultism:item/template_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -16302212
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -3549647
+      }
+    ]
   }
 }
