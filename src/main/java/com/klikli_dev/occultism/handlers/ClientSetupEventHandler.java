@@ -93,6 +93,7 @@ import java.util.Map;
 public class ClientSetupEventHandler {
     private static final Identifier HAS_ENTITY_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity");
     private static final Identifier LINKED_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "linked");
+    private static final Identifier DISTANCE_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "distance");
 
     // Register a custom key category for this mod
     private static final KeyMapping.Category OCCULTISM_KEY_CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
@@ -283,6 +284,11 @@ public class ClientSetupEventHandler {
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
         event.register(HAS_ENTITY_ITEM_MODEL_PROPERTY, SoulGemItemPropertyGetter.MAP_CODEC);
         event.register(LINKED_ITEM_MODEL_PROPERTY, StorageRemoteItemPropertyGetter.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
+        event.register(DISTANCE_ITEM_MODEL_PROPERTY, DivinationDistanceItemPropertyGetter.MAP_CODEC);
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {

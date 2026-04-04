@@ -1,5 +1,5 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "occultism:item/true_sight_staff/true_sight_staff_animation"
   }

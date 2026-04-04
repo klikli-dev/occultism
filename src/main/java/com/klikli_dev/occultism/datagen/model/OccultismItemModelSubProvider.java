@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.datagen.model;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.itemproperties.DivinationDistanceItemPropertyGetter;
 import com.klikli_dev.occultism.client.itemproperties.SoulGemItemPropertyGetter;
 import com.klikli_dev.occultism.client.itemproperties.StorageRemoteItemPropertyGetter;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -375,6 +376,7 @@ public class OccultismItemModelSubProvider {
         this.registerItemCandles(itemModels, blockModels);
         this.registerVitalityCompass(itemModels);
         this.registerConditionalItemDefinitions(itemModels);
+        this.registerTrueSightStaff(itemModels);
         this.registerManualItemModels(itemModels);
 
         this.registerItemGenerated(itemModels, OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get(), "book_of_calling_manage_machine");
@@ -393,7 +395,6 @@ public class OccultismItemModelSubProvider {
         Item[] manualItems = {
                 OccultismItems.DICTIONARY_OF_SPIRITS.get(),
                 OccultismItems.DIVINATION_ROD.get(),
-                OccultismItems.TRUE_SIGHT_STAFF.get(),
                 OccultismItems.OTHERWORLD_GOGGLES.get(),
                 OccultismItems.VITALITY_COMPASS.get(),
                 OccultismItems.DIMENSIONAL_MATRIX.get(),
@@ -433,6 +434,22 @@ public class OccultismItemModelSubProvider {
                 new StorageRemoteItemPropertyGetter(),
                 "item/storage_remote_linked",
                 "item/storage_remote_unlinked");
+    }
+
+    private void registerTrueSightStaff(ItemModelGenerators itemModels) {
+        itemModels.itemModelOutput.accept(OccultismItems.TRUE_SIGHT_STAFF.get(), ItemModelUtils.rangeSelect(
+                new DivinationDistanceItemPropertyGetter(),
+                ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_0")),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_7")), 0.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_6")), 1.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_5")), 2.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_4")), 3.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_3")), 4.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_2")), 5.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_1")), 6.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_0")), 7.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_searching")), 8.0F)
+        ));
     }
 
     private void registerAdvancementItem(ItemModelGenerators itemModels) {
