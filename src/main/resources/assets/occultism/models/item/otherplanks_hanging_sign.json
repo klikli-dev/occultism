@@ -1,3 +1,6 @@
 {
-  "parent": "occultism:block/otherplanks_hanging_sign"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "occultism:item/otherplanks_hanging_sign"
+  }
 }
