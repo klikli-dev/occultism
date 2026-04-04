@@ -1,3 +1,6 @@
 {
-  "parent": "occultism:block/otherstone_bricks_wall"
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "occultism:block/otherstone_bricks"
+  }
 }
