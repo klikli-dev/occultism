@@ -113,37 +113,38 @@ public class SelectedBlockRenderer {
                     float g = info.color.getGreen() / 255.0f;
                     float b = info.color.getBlue() / 255.0f;
                     float a = info.color.getAlpha() / 255.0f;
+                    float lineWidth = useAltRenderer ? 4.0f : 2.0f;
                     var last = matrixStack.last();
 
                     // Bottom face edges
-                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
-                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
-                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
-                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
-                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
-                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
-                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
-                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
+                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
 
                     // Top face edges
-                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
-                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0);
-                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
-                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1);
-                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
-                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0);
-                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
-                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1);
+                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
 
                     // Vertical edges
-                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
-                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0);
+                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
                 }
             }
 
