@@ -286,7 +286,6 @@ public class ClientSetupEventHandler {
         event.register(LINKED_ITEM_MODEL_PROPERTY, StorageRemoteItemPropertyGetter.MAP_CODEC);
     }
 
-    @SubscribeEvent
     public static void onRegisterRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(DISTANCE_ITEM_MODEL_PROPERTY, DivinationDistanceItemPropertyGetter.MAP_CODEC);
     }
