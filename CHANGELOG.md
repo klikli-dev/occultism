@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.207.0] - 2026-04-05
+### :sparkles: New Features
+- [`ab857b0`](https://github.com/klikli-dev/occultism/commit/ab857b0d0f615b7f5ac3622159e214ca0e35bbaa) - New Crowdin updates *(PR [#1492](https://github.com/klikli-dev/occultism/pull/1492) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`773a8b9`](https://github.com/klikli-dev/occultism/commit/773a8b97eada5e3edb9f135b4afb6526c3cc69ff) - New translations en_us.json (Chinese Simplified) *(PR [#1494](https://github.com/klikli-dev/occultism/pull/1494) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7a0d25a`](https://github.com/klikli-dev/occultism/commit/7a0d25acee3f5ff7950c28bea911186b6cb49bf8) - New Crowdin updates *(PR [#1501](https://github.com/klikli-dev/occultism/pull/1501) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`3edf42b`](https://github.com/klikli-dev/occultism/commit/3edf42bd77d8c8c106f5f9c7a8963087d556ac7c) - fix time mentioned in tooltips This fixes [#1499](https://github.com/klikli-dev/occultism/pull/1499) *(PR [#1500](https://github.com/klikli-dev/occultism/pull/1500) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
 ## [release/v1.21.1-1.206.0] - 2026-03-10
 ### :sparkles: New Features
 - [`4fd210c`](https://github.com/klikli-dev/occultism/commit/4fd210c2c332b773a30c5db2d34704d043e510e9) - New Crowdin updates *(PR [#1484](https://github.com/klikli-dev/occultism/pull/1484) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2296,3 +2306,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.204.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.203.0...release/v1.21.1-1.204.0
 [release/v1.21.1-1.205.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.204.0...release/v1.21.1-1.205.0
 [release/v1.21.1-1.206.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.205.0...release/v1.21.1-1.206.0
+[release/v1.21.1-1.207.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.206.0...release/v1.21.1-1.207.0
