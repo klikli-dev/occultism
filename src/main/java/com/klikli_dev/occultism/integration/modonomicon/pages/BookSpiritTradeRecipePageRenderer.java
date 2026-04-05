@@ -9,8 +9,12 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
 public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<SpiritTradeRecipe, BookProcessingRecipePage<SpiritTradeRecipe>> {
@@ -39,7 +43,22 @@ public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<Sp
             }
         }
 
-        // Simplified for 26.1 port - port rendering later
-        guiGraphics.text(this.font, "[Recipe rendering disabled for 26.1]", recipeX, recipeY, 0x000000, false);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX, recipeY,
+                11.0F, 71.0F, 24, 24, 128, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 36, recipeY + 7,
+                0.0F, 246.0F, 18, 10, 128, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY,
+                72.0F, 71.0F, 36, 24, 128, 256);
+
+        if (!(entry.display() instanceof SpiritTradeRecipeDisplay display) || Minecraft.getInstance().level == null) {
+            guiGraphics.text(this.font, "[Spirit trade recipe unavailable]", recipeX, recipeY, 0x000000, false);
+            return;
+        }
+
+        var context = SlotDisplayContext.fromLevel(Minecraft.getInstance().level);
+
+        this.parentScreen.renderIngredient(guiGraphics, recipeX + 4, recipeY + 4, mouseX, mouseY, display.ingredient());
+        this.parentScreen.renderItemStacks(guiGraphics, recipeX + 76, recipeY + 4, mouseX, mouseY,
+                display.result().resolveForStacks(context));
     }
 }
