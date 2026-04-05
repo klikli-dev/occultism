@@ -39,6 +39,7 @@ import com.klikli_dev.occultism.client.keybindings.EnderBagKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
+import com.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.klikli_dev.occultism.client.render.blockentity.EntityWormholeRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.GoldenSacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
@@ -284,6 +285,11 @@ public class ClientSetupEventHandler {
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
         event.register(HAS_ENTITY_ITEM_MODEL_PROPERTY, SoulGemItemPropertyGetter.MAP_CODEC);
         event.register(LINKED_ITEM_MODEL_PROPERTY, StorageRemoteItemPropertyGetter.MAP_CODEC);
+    }
+
+    public static void onRegisterRenderPipelines(RegisterRenderPipelinesEvent event) {
+        event.registerPipeline(OccultismRenderType.OVERLAY_LINES_NO_DEPTH_PIPELINE);
+        event.registerPipeline(OccultismRenderType.OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE);
     }
 
     public static void onRegisterRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {

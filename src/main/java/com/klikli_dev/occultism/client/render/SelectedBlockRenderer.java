@@ -26,12 +26,13 @@ import com.klikli_dev.occultism.Occultism;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -39,7 +40,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class SelectedBlockRenderer {
-
     protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
 
     /**
@@ -75,33 +75,42 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void RenderLevelLastEvent(RenderLevelStageEvent.AfterLevel event) {
-        this.renderSelectedBlocks(event);
+    public void onExtractBlockOutlineRenderState(ExtractBlockOutlineRenderStateEvent event) {
+        if (this.selectedBlocks.isEmpty())
+            return;
+
+        long time = System.currentTimeMillis();
+        this.selectedBlocks.removeIf(info -> time > info.selectionExpireTime || info.selectedBlock == null);
+        if (this.selectedBlocks.isEmpty())
+            return;
+
+        Camera camera = event.getCamera();
+        boolean translucentPass = event.isInTranslucentPass();
+        event.addCustomRenderer((renderState, buffer, poseStack, currentPass, levelRenderState) -> {
+            if (currentPass != translucentPass) {
+                return false;
+            }
+
+            this.renderSelectedBlocks(poseStack, buffer, camera);
+            return false;
+        });
     }
 
-    protected void renderSelectedBlocks(RenderLevelStageEvent.AfterLevel event) {
+    protected void renderSelectedBlocks(PoseStack matrixStack, MultiBufferSource.BufferSource buffer, Camera camera) {
         var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
 
         if (!this.selectedBlocks.isEmpty()) {
-            long time = System.currentTimeMillis();
-
-            PoseStack matrixStack = event.getPoseStack();
-            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
             var renderType = useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines();
             VertexConsumer builder = buffer.getBuffer(renderType);
             matrixStack.pushPose();
 
-            var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
             Vec3 cameraPosition = camera.position();
             matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
 
-                if (time > info.selectionExpireTime || info.selectedBlock == null) {
-                    //remove expired or invalid selections
-                    it.remove();
-                } else {
+                if (info.selectedBlock != null) {
                     // Draw the 12 edges of the AABB box manually as line segments
                     float x0 = info.selectedBlock.getX();
                     float y0 = info.selectedBlock.getY();
@@ -149,7 +158,6 @@ public class SelectedBlockRenderer {
             }
 
             matrixStack.popPose();
-            buffer.endBatch(); //call this instead of the rendertype specific end batch to fix wobbling
         }
     }
 
