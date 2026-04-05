@@ -8,11 +8,13 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -34,9 +36,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualRecipe, BookRitualRecipePage> {
     public static final int RITUAL_DUMMY_OFFSET = 10;
+    private static final AtomicBoolean LOGGED_CLIENT_RENDER_DIAGNOSTICS = new AtomicBoolean(false);
 
     private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
@@ -52,6 +56,8 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
 
     @Override
     public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float ticks) {
+        this.logClientDiagnostics();
+
         RitualRecipe recipe = this.getRecipe();
         if (recipe != null) {
             this.drawRitualRecipe(guiGraphics, recipe, X, Y, mouseX, mouseY, false);
@@ -117,14 +123,31 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
 
     @Nullable
     private RitualRecipe getRecipe() {
-        if (this.parentScreen == null || this.page.getRecipeKey1() == null || Minecraft.getInstance().level == null) {
+        if (this.parentScreen == null) {
             return null;
         }
 
-        var holder = Minecraft.getInstance().level.getServer() != null
-                ? Minecraft.getInstance().level.getServer().getRecipeManager().byKey(this.page.getRecipeKey1()).orElse(null)
-                : null;
-        return holder != null && holder.value() instanceof RitualRecipe ritualRecipe ? ritualRecipe : null;
+        if (this.page.getRitualRecipe() != null) {
+            return this.page.getRitualRecipe();
+        }
+
+        return null;
+    }
+
+    private void logClientDiagnostics() {
+        if (!LOGGED_CLIENT_RENDER_DIAGNOSTICS.compareAndSet(false, true)) {
+            return;
+        }
+
+        var requested = this.page.getRecipeKey1() != null ? this.page.getRecipeKey1().identifier().toString() : "<null>";
+        var display = this.page.getRecipeDisplayEntry1() != null ? this.page.getRecipeDisplayEntry1().display() : null;
+
+        Occultism.LOGGER.info("[Modonomicon Ritual Diagnostics][Client] requestedRecipe={}, pageDisplayEntryPresent={}, pageDisplayType={}, pageSyncedRecipePresent={}, clientRecipeLookupAvailable={}",
+                requested,
+                this.page.getRecipeDisplayEntry1() != null,
+                display != null ? display.type() : "<null>",
+                this.page.getRitualRecipe() != null,
+                false);
     }
 
     private void drawRitualRecipe(GuiGraphicsExtractor guiGraphics, RitualRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
@@ -165,13 +188,13 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
         this.parentScreen.renderItemStack(guiGraphics, recipeX - 10, recipeY - 5, mouseX, mouseY, recipe.getRitualDummy());
 
         if (recipe.getEntityToSummon() != null) {
-            String mob = recipe.getEntityToSummon().getDefaultLootTable().map(Object::toString).orElse("")
+            String mob = recipe.getEntityToSummon().getDefaultLootTable().map(key -> key.identifier().toString()).orElse("")
                     .replace("occultism:entities/", "")
                     .replace("minecraft:entities/", "")
                     .replace("c:entities/", "")
                     .replace(":entities/", "_");
             Ingredient ingredient = ingredientFromTag(OccultismTags.makeItemTag("occultism:drop_from/" + mob));
-            if (!ingredient.isEmpty()) {
+            if (ingredient != null && !ingredient.isEmpty()) {
                 this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 90, mouseX, mouseY, ingredient);
             }
         }
@@ -184,7 +207,7 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
                     .replace("c:", "")
                     .replace(":", "_");
             Ingredient ingredient = ingredientFromTag(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob));
-            if (!ingredient.isEmpty()) {
+            if (ingredient != null && !ingredient.isEmpty()) {
                 this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 90, mouseX, mouseY, ingredient);
             }
         }
@@ -299,9 +322,11 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
         guiGraphics.text(this.font, text.getVisualOrderText(), x, (int) (y + (this.font.lineHeight * (1 - scale))), color, false);
     }
 
+    @Nullable
     private Ingredient ingredientFromTag(net.minecraft.tags.TagKey<net.minecraft.world.item.Item> tag) {
         return BuiltInRegistries.ITEM.get(tag)
+                .filter(holderSet -> holderSet.size() > 0)
                 .map(Ingredient::of)
-                .orElseGet(() -> Ingredient.of(HolderSet.empty()));
+                .orElse(null);
     }
 }
