@@ -1,75 +1,75 @@
 {
   "model": {
     "type": "minecraft:range_dispatch",
-    "property": "occultism:distance",
     "entries": [
       {
-        "threshold": 0.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_7"
-        }
+        },
+        "threshold": 0.0
       },
       {
-        "threshold": 1.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_6"
-        }
+        },
+        "threshold": 1.0
       },
       {
-        "threshold": 2.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_5"
-        }
+        },
+        "threshold": 2.0
       },
       {
-        "threshold": 3.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_4"
-        }
+        },
+        "threshold": 3.0
       },
       {
-        "threshold": 4.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_3"
-        }
+        },
+        "threshold": 4.0
       },
       {
-        "threshold": 5.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_2"
-        }
+        },
+        "threshold": 5.0
       },
       {
-        "threshold": 6.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_1"
-        }
+        },
+        "threshold": 6.0
       },
       {
-        "threshold": 7.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_0"
-        }
+        },
+        "threshold": 7.0
       },
       {
-        "threshold": 8.0,
         "model": {
           "type": "minecraft:model",
           "model": "occultism:item/true_sight_staff_searching"
-        }
+        },
+        "threshold": 8.0
       }
     ],
     "fallback": {
       "type": "minecraft:model",
       "model": "occultism:item/true_sight_staff_0"
-    }
+    },
+    "property": "occultism:distance"
   }
 }
