@@ -290,7 +290,7 @@ public class OccultismBlockModelSubProvider {
     }
 
     private void registerManualBlockItemDefinitions(ItemModelGenerators itemModels) {
-        Block[] blocks = {
+        Block[] blocksUsingBlockModels = {
                 OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(),
                 OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
                 OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(),
@@ -311,8 +311,27 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(),
                 OccultismBlocks.SPIRIT_GRINDSTONE.get()
         };
-        for (Block block : blocks) {
+        for (Block block : blocksUsingBlockModels) {
             this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+        }
+
+        Block[] blocksUsingItemModels = {
+                OccultismBlocks.SPIRIT_FIRE.get(),
+                OccultismBlocks.SPIRIT_TORCH.get(),
+                OccultismBlocks.OTHERSTONE_NATURAL.get(),
+                OccultismBlocks.OTHERROCK_NATURAL.get(),
+                OccultismBlocks.OTHERFLOWER.get(),
+                OccultismBlocks.OTHERFLOWER_NATURAL.get(),
+                OccultismBlocks.OTHERWORLD_SAPLING.get(),
+                OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
+                OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
+                OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get(),
+                OccultismBlocks.OTHERWORLD_LOG_NATURAL.get(),
+                OccultismBlocks.IESNIUM_ORE_NATURAL.get(),
+                OccultismBlocks.IESNIUM_ANVIL.get()
+        };
+        for (Block block : blocksUsingItemModels) {
+            this.registerExistingItemModel(itemModels, block.asItem(), itemModel(block));
         }
     }
 
