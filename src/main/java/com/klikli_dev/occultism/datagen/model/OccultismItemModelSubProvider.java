@@ -376,6 +376,7 @@ public class OccultismItemModelSubProvider {
         this.registerItemCandles(itemModels, blockModels);
         this.registerVitalityCompass(itemModels);
         this.registerConditionalItemDefinitions(itemModels);
+        this.registerDivinationRod(itemModels);
         this.registerTrueSightStaff(itemModels);
         this.registerManualItemModels(itemModels);
 
@@ -394,7 +395,6 @@ public class OccultismItemModelSubProvider {
     private void registerManualItemModels(ItemModelGenerators itemModels) {
         Item[] manualItems = {
                 OccultismItems.DICTIONARY_OF_SPIRITS.get(),
-                OccultismItems.DIVINATION_ROD.get(),
                 OccultismItems.OTHERWORLD_GOGGLES.get(),
                 OccultismItems.VITALITY_COMPASS.get(),
                 OccultismItems.DIMENSIONAL_MATRIX.get(),
@@ -449,6 +449,22 @@ public class OccultismItemModelSubProvider {
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_1")), 6.0F),
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_0")), 7.0F),
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/true_sight_staff_searching")), 8.0F)
+        ));
+    }
+
+    private void registerDivinationRod(ItemModelGenerators itemModels) {
+        itemModels.itemModelOutput.accept(OccultismItems.DIVINATION_ROD.get(), ItemModelUtils.rangeSelect(
+                new DivinationDistanceItemPropertyGetter(),
+                ItemModelUtils.plainModel(this.modLoc("item/divination_rod_0")),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_7")), 0.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_6")), 1.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_5")), 2.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_4")), 3.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_3")), 4.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_2")), 5.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_1")), 6.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_0")), 7.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/divination_rod_searching")), 8.0F)
         ));
     }
 

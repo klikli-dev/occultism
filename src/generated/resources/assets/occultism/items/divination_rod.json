@@ -1,6 +1,75 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "occultism:item/divination_rod"
+    "type": "minecraft:range_dispatch",
+    "property": "occultism:distance",
+    "entries": [
+      {
+        "threshold": 0.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_7"
+        }
+      },
+      {
+        "threshold": 1.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_6"
+        }
+      },
+      {
+        "threshold": 2.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_5"
+        }
+      },
+      {
+        "threshold": 3.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_4"
+        }
+      },
+      {
+        "threshold": 4.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_3"
+        }
+      },
+      {
+        "threshold": 5.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_2"
+        }
+      },
+      {
+        "threshold": 6.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_1"
+        }
+      },
+      {
+        "threshold": 7.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_0"
+        }
+      },
+      {
+        "threshold": 8.0,
+        "model": {
+          "type": "minecraft:model",
+          "model": "occultism:item/divination_rod_searching"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "occultism:item/divination_rod_0"
+    }
   }
 }
