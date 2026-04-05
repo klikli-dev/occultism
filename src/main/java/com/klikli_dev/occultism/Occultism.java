@@ -37,8 +37,8 @@ import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
-//import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
+import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
@@ -128,6 +128,8 @@ public class Occultism {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        PageLoaders.onCommonSetup(event);
+
         event.enqueueWork(() -> {
             BlockEntityType.CAMPFIRE.validBlocks = Stream.concat(
                     BlockEntityType.CAMPFIRE.validBlocks.stream(),
