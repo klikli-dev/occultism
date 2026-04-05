@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
+import com.klikli_dev.occultism.handlers.ColorEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
@@ -100,6 +101,7 @@ public class Occultism {
         OccultismDataComponents.DATA_COMPONENTS.register(modEventBus);
         OccultismRecipeResults.RECIPE_RESULT_TYPES.register(modEventBus);
         OccultismConditionCodecs.CONDITION_CODECS.register(modEventBus);
+        OccultismRecipeDisplays.RECIPE_DISPLAYS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
@@ -122,6 +124,7 @@ public class Occultism {
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRenderPipelines);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterConditionalItemModelProperties);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRangeSelectItemModelProperties);
+            modEventBus.addListener(ColorEventHandler::onRegisterBlockColorHandlers);
             ClientSetupEventHandler.registerConfigScreen(modContainer);
         }
 

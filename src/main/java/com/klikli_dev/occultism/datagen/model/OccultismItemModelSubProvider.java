@@ -42,10 +42,31 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public class OccultismItemModelSubProvider {
+
+    private static final Map<String, Integer> CHALK_COLORS = Map.ofEntries(
+            Map.entry("chalk_white", 0xFFFFFF),
+            Map.entry("chalk_light_gray", 0x9D9D97),
+            Map.entry("chalk_gray", 0x474F52),
+            Map.entry("chalk_black", 0x1D1D21),
+            Map.entry("chalk_brown", 0x835432),
+            Map.entry("chalk_red", 0xB02E26),
+            Map.entry("chalk_orange", 0xF9801D),
+            Map.entry("chalk_gold", 0xFED83D),
+            Map.entry("chalk_yellow", 0xFED83D),
+            Map.entry("chalk_lime", 0x80C71F),
+            Map.entry("chalk_green", 0x5E7C16),
+            Map.entry("chalk_cyan", 0x169C9C),
+            Map.entry("chalk_light_blue", 0x3AB3DA),
+            Map.entry("chalk_blue", 0x3C44AA),
+            Map.entry("chalk_purple", 0x8932B8),
+            Map.entry("chalk_magenta", 0xC74EBD),
+            Map.entry("chalk_pink", 0xF38BAA)
+    );
 
     public Stream<Item> getKnownItems() {
         return Stream.of(
@@ -228,6 +249,32 @@ public class OccultismItemModelSubProvider {
         ));
     }
 
+    private void registerTintedItemGenerated(ItemModelGenerators itemModels, Item item, String texture, int color) {
+        Identifier modelId = ModelTemplates.FLAT_ITEM.create(
+                this.modLoc("item/" + this.name(item)),
+                TextureMapping.layer0(new Material(this.modLoc("item/" + texture))),
+                itemModels.modelOutput
+        );
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelId,
+                ItemModelUtils.constantTint(opaque(color))));
+    }
+
+    private void registerImpureChalk(ItemModelGenerators itemModels, Item item, int color) {
+        Identifier modelId = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + this.name(item));
+        itemModels.modelOutput.accept(modelId, () -> {
+            var json = new com.google.gson.JsonObject();
+            json.addProperty("parent", "item/generated");
+            var texturesJson = new com.google.gson.JsonObject();
+            texturesJson.addProperty("layer0", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/chalk_base").toString());
+            texturesJson.addProperty("layer1", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/chalk_base_impure").toString());
+            json.add("textures", texturesJson);
+            return json;
+        });
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelId,
+                ItemModelUtils.constantTint(opaque(color)),
+                ItemModelUtils.constantTint(opaque(0xFFFFFF))));
+    }
+
     private void registerItemHandheld(ItemModelGenerators itemModels, Item item) {
         itemModels.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM);
     }
@@ -278,8 +325,8 @@ public class OccultismItemModelSubProvider {
         var colors = this.getSpawnEggColors(item);
         var modelId = this.modLoc("item/template_spawn_egg");
         itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelId,
-                ItemModelUtils.constantTint(colors.primaryColor()),
-                ItemModelUtils.constantTint(colors.secondaryColor())));
+                ItemModelUtils.constantTint(opaque(colors.primaryColor())),
+                ItemModelUtils.constantTint(opaque(colors.secondaryColor()))));
     }
 
     private void registerSpawnEggTemplate(ItemModelGenerators itemModels) {
@@ -652,7 +699,7 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.CHALK_WHITE.get()
         };
         for (Item item : chalks) {
-            this.registerItemGenerated(itemModels, item, "chalk_base");
+            this.registerTintedItemGenerated(itemModels, item, "chalk_base", this.getChalkColor(item));
         }
 
         Item[] chalksImpure = {
@@ -674,19 +721,24 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.CHALK_WHITE_IMPURE.get()
         };
         for (Item item : chalksImpure) {
-            // Impure chalks have two layers
-            Identifier modelId = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + this.name(item));
-            itemModels.modelOutput.accept(modelId, () -> {
-                var json = new com.google.gson.JsonObject();
-                json.addProperty("parent", "item/generated");
-                var texturesJson = new com.google.gson.JsonObject();
-                texturesJson.addProperty("layer0", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/chalk_base").toString());
-                texturesJson.addProperty("layer1", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/chalk_base_impure").toString());
-                json.add("textures", texturesJson);
-                return json;
-            });
-            itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
+            this.registerImpureChalk(itemModels, item, this.getChalkColor(item));
         }
+    }
+
+    private int getChalkColor(Item item) {
+        String path = this.name(item);
+        if (path.endsWith("_impure")) {
+            path = path.substring(0, path.length() - "_impure".length());
+        }
+        Integer color = CHALK_COLORS.get(path);
+        if (color == null) {
+            throw new IllegalArgumentException("Missing chalk color for " + BuiltInRegistries.ITEM.getKey(item));
+        }
+        return color;
+    }
+
+    private static int opaque(int color) {
+        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
     }
 
     private void registerItemCandles(ItemModelGenerators itemModels, BlockModelGenerators blockModels) {

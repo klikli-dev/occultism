@@ -29,80 +29,65 @@ import com.klikli_dev.occultism.common.block.VoidGlyphBlock;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.client.color.block.BlockTintSource;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class ColorEventHandler {
 
     //region Static Methods
-    @SubscribeEvent
     public static void onRegisterBlockColorHandlers(RegisterColorHandlersEvent.BlockTintSources event) {
         // Chalk glyphs and candles with fixed colors derived from block instance
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_WHITE.get(), OccultismBlocks.LARGE_CANDLE_WHITE.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_YELLOW.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_YELLOW.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_YELLOW.get(), OccultismBlocks.LARGE_CANDLE_YELLOW.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_PURPLE.get(), OccultismBlocks.LARGE_CANDLE_PURPLE.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_RED.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_RED.get(), OccultismBlocks.LARGE_CANDLE_RED.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get(), OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_GRAY.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_GRAY.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_GRAY.get(), OccultismBlocks.LARGE_CANDLE_GRAY.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_BLACK.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_BLACK.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_BLACK.get(), OccultismBlocks.LARGE_CANDLE_BLACK.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_BROWN.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_BROWN.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_BROWN.get(), OccultismBlocks.LARGE_CANDLE_BROWN.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_ORANGE.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_ORANGE.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_ORANGE.get(), OccultismBlocks.LARGE_CANDLE_ORANGE.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_LIME.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_LIME.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_LIME.get(), OccultismBlocks.LARGE_CANDLE_LIME.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_GREEN.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_GREEN.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_GREEN.get(), OccultismBlocks.LARGE_CANDLE_GREEN.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_CYAN.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_CYAN.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_CYAN.get(), OccultismBlocks.LARGE_CANDLE_CYAN.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get(), OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_BLUE.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_BLUE.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_BLUE.get(), OccultismBlocks.LARGE_CANDLE_BLUE.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_MAGENTA.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_MAGENTA.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_MAGENTA.get(), OccultismBlocks.LARGE_CANDLE_MAGENTA.get());
-        event.register(List.of(state -> OccultismBlocks.CHALK_GLYPH_PINK.get().getColor()),
+        event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_PINK.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_PINK.get(), OccultismBlocks.LARGE_CANDLE_PINK.get());
 
         // Rainbow glyph: color is state-dependent (cycles through colors)
-        event.register(List.of((BlockTintSource) state -> ((RainbowGlyphBlock) state.getBlock()).getColor(state)),
+        event.register(List.of((BlockTintSource) state -> opaque(((RainbowGlyphBlock) state.getBlock()).getColor(state))),
                 OccultismBlocks.CHALK_GLYPH_RAINBOW.get());
 
         // Void glyph: color is state-dependent
-        event.register(List.of((BlockTintSource) state -> ((VoidGlyphBlock) state.getBlock()).getColor(state)),
+        event.register(List.of((BlockTintSource) state -> opaque(((VoidGlyphBlock) state.getBlock()).getColor(state))),
                 OccultismBlocks.CHALK_GLYPH_VOID.get());
 
         // Spirit fire: color is state-dependent (tint index 0 only for block colors)
-        event.register(List.of((BlockTintSource) state -> ((SpiritFireBlock) state.getBlock()).getColor(state, 0)),
+        event.register(List.of((BlockTintSource) state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 0))),
                 OccultismBlocks.SPIRIT_FIRE.get());
 
         // Otherworld leaves: white tint when uncovered (has own texture), biome foliage color when covered
-        event.register(List.of(new BlockTintSource() {
-            @Override
-            public int color(BlockState state) {
-                return state.getValue(IOtherworldBlock.UNCOVERED) ? 0xFFFFFF : GrassColor.getDefaultColor();
-            }
-
-            @Override
-            public int colorInWorld(BlockState state, net.minecraft.client.renderer.block.BlockAndTintGetter level, net.minecraft.core.BlockPos pos) {
-                return state.getValue(IOtherworldBlock.UNCOVERED) ? 0xFFFFFF : BiomeColors.getAverageFoliageColor(level, pos);
-            }
-        }), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
+        event.register(List.of((BlockTintSource) state -> state.getValue(IOtherworldBlock.UNCOVERED)
+                ? opaque(0xFFFFFF)
+                : opaque(GrassColor.getDefaultColor())), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 
         Occultism.LOGGER.info("Block color registration complete.");
     }
@@ -110,4 +95,8 @@ public class ColorEventHandler {
     // TODO: Port to 26.1 data-driven item tint system (ItemTintSource)
     // RegisterColorHandlersEvent.Item was removed in 26.1. Item colors are now data-driven via RegisterColorHandlersEvent.ItemTintSources.
     //endregion Static Methods
+
+    private static int opaque(int color) {
+        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
+    }
 }
