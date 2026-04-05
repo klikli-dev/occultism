@@ -24,9 +24,14 @@ package com.klikli_dev.occultism.crafting.recipe;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.crafting.recipe.display.RitualRecipeDisplay;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
@@ -42,10 +47,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -243,10 +250,75 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
         return java.util.List.of(new RitualRecipeDisplay(
                 this.getIngredients(),
-                this.result != null ? this.result : new ItemStackTemplate(net.minecraft.world.item.Items.STICK),
+                this.result != null ? this.result : this.ritualDummy,
                 this.ritualDummy,
-                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem())
+                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem()),
+                this.getActivationItem().display(),
+                Optional.ofNullable(this.getItemToUse()).map(Ingredient::display),
+                this.getSummonEntityDropsDisplay(),
+                this.getRandomEntityDropsDisplay(),
+                this.getPentacleId(),
+                this.getSummonText(),
+                this.getJobText(),
+                this.getSacrificeText(),
+                this.getConditionText()
         ));
+    }
+
+    private Optional<SlotDisplay> getSummonEntityDropsDisplay() {
+        return Optional.ofNullable(this.getEntityToSummon())
+                .flatMap(entity -> entity.getDefaultLootTable().map(key -> key.identifier().toString()))
+                .map(lootTableId -> lootTableId
+                        .replace("occultism:entities/", "")
+                        .replace("minecraft:entities/", "")
+                        .replace("c:entities/", "")
+                        .replace(":entities/", "_"))
+                .map(mob -> new SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
+    }
+
+    private Optional<SlotDisplay> getRandomEntityDropsDisplay() {
+        return Optional.ofNullable(this.getEntityTagToSummon())
+                .map(tag -> tag.location().toString()
+                        .replace("random_animals_", "")
+                        .replace("occultism:", "")
+                        .replace("minecraft:", "")
+                        .replace("c:", "")
+                        .replace(":", "_"))
+                .map(mob -> new SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+    }
+
+    private Optional<Component> getSummonText() {
+        return Optional.ofNullable(this.getEntityToSummon())
+                .map(entity -> Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,
+                        Component.translatable(entity.getDescriptionId())));
+    }
+
+    private Optional<Component> getJobText() {
+        return Optional.ofNullable(this.getSpiritJobType())
+                .map(jobType -> Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,
+                        Component.translatable("job." + jobType.toString().replace(":", "."))));
+    }
+
+    private Optional<Component> getSacrificeText() {
+        if (!this.requiresSacrifice()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,
+                Component.translatable(this.getEntityToSacrificeDisplayName())));
+    }
+
+    private Optional<Component> getConditionText() {
+        if (this.getCondition() == null) {
+            return Optional.empty();
+        }
+
+        var condition = ConditionWrapperFactory.wrap(this.getCondition());
+        if (condition == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(condition.accept(new RitualRecipeConditionDescriptionVisitor(), OccultismConditionContext.EMPTY));
     }
 
     public TagKey<EntityType<?>> getEntityToSacrifice() {
