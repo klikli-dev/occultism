@@ -567,10 +567,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
         this.addBlock(OccultismBlocks.OTHERFLOWER, "Otherflower");
         this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING, "Otherworld Sapling");
+        this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL, "Unstable Otherworld Sapling");
         this.addBlock(OccultismBlocks.OTHERWORLD_LEAVES, "Otherworld Leaves");
+        this.addBlock(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL, "Unstable Otherworld Leaves");
         this.addBlock(OccultismBlocks.OTHERWORLD_LOG, "Otherworld Log");
+        this.addBlock(OccultismBlocks.OTHERWORLD_LOG_NATURAL, "Unstable Otherworld Log");
         this.addBlock(OccultismBlocks.OTHERWORLD_WOOD, "Otherworld Wood");
         this.addBlock(OccultismBlocks.STRIPPED_OTHERWORLD_LOG, "Stripped Otherworld Log");
+        this.addBlock(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL, "Unstable Stripped Otherworld Log");
         this.addBlock(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD, "Stripped Otherworld Wood");
         this.addBlock(OccultismBlocks.OTHERPLANKS, "Otherplanks");
         this.addBlock(OccultismBlocks.OTHERPLANKS_STAIRS, "Otherplanks Stairs");

@@ -778,7 +778,7 @@ public class OccultismBlocks {
 
     //Crops
     public static final DeferredBlock<ReplantableCropsBlock> DATURA = register("datura",
-            (p) -> new ReplantableCropsBlock(p, OccultismItems.DATURA_SEEDS, OccultismItems.DATURA),
+            (p) -> new ReplantableCropsBlock(p, () -> OccultismItems.DATURA_SEEDS.asItem(), () -> OccultismItems.DATURA.asItem()),
             () -> Block.Properties.of()
                     .mapColor(MapColor.PLANT)
                     .sound(SoundType.CROP).noCollision().randomTicks()
@@ -846,12 +846,12 @@ public class OccultismBlocks {
 
         if (generateDefaultBlockItem) {
             if (name.contains("natural")) {
-                OccultismItems.ITEMS.registerItem(name, p -> new OccultismBlockItem(object.get(), p));
+                OccultismItems.ITEMS.registerItem(name, p -> new OccultismBlockItem(object.get(), p.useBlockDescriptionPrefix()));
             } else {
                 if (rarity == Rarity.COMMON) {
-                    OccultismItems.ITEMS.registerItem(name, p -> new BlockItem(object.get(), p));
+                    OccultismItems.ITEMS.registerItem(name, p -> new BlockItem(object.get(), p.useBlockDescriptionPrefix()));
                 } else {
-                    OccultismItems.ITEMS.registerItem(name, p -> new BlockItem(object.get(), p.rarity(rarity).fireResistant()));
+                    OccultismItems.ITEMS.registerItem(name, p -> new BlockItem(object.get(), p.useBlockDescriptionPrefix().rarity(rarity).fireResistant()));
                 }
             }
         }

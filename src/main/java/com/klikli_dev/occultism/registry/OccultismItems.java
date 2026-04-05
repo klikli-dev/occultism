@@ -284,8 +284,8 @@ public class OccultismItems {
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.durability));
 
     //Crops and food
-    public static final DeferredItem<Item> DATURA_SEEDS = ITEMS.registerItem("datura_seeds",
-            properties -> new BlockItem(OccultismBlocks.DATURA.get(), properties
+    public static final DeferredItem<BlockItem> DATURA_SEEDS = ITEMS.registerItem("datura_seeds",
+            properties -> new BlockItem(OccultismBlocks.DATURA.get(), properties.useBlockDescriptionPrefix()
                     .component(OccultismDataComponents.SOUL_VALUE, 1)));
     public static final DeferredItem<Item> DATURA = ITEMS.registerItem("datura",
             SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.DATURA.get())
@@ -424,20 +424,20 @@ public class OccultismItems {
 
     //Machines
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
-            ITEMS.registerItem("spirit_fire", properties -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), properties));
+            ITEMS.registerItem("spirit_fire", properties -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), properties.useBlockDescriptionPrefix()));
     public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.registerItem("stable_wormhole",
-            properties -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), properties)); //not work if auto-gen
+            properties -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), properties.useBlockDescriptionPrefix())); //not work if auto-gen
     public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE_DARK = ITEMS.registerItem("stable_wormhole_dark",
-            properties -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE_DARK.get(), properties)); //not work if auto-gen
+            properties -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE_DARK.get(), properties.useBlockDescriptionPrefix())); //not work if auto-gen
 
     //Deco Block Items
-    public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.registerItem("spirit_torch",
+    public static final DeferredItem<BlockItem> SPIRIT_TORCH = ITEMS.registerItem("spirit_torch",
             properties -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(), Direction.UP,
-                    properties));
-    public static final DeferredItem<Item> OTHERPLANKS_SIGN = ITEMS.registerItem("otherplanks_sign",
-            properties -> new SignItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), properties.stacksTo(16)));
-    public static final DeferredItem<Item> OTHERPLANKS_HANGING_SIGN = ITEMS.registerItem("otherplanks_hanging_sign",
-            properties -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), properties.stacksTo(16)));
+                    properties.useBlockDescriptionPrefix()));
+    public static final DeferredItem<BlockItem> OTHERPLANKS_SIGN = ITEMS.registerItem("otherplanks_sign",
+            properties -> new SignItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), properties.stacksTo(16).useBlockDescriptionPrefix()));
+    public static final DeferredItem<BlockItem> OTHERPLANKS_HANGING_SIGN = ITEMS.registerItem("otherplanks_hanging_sign",
+            properties -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), properties.stacksTo(16).useBlockDescriptionPrefix()));
 
     //Spawn Eggs
     public static final DeferredItem<Item> SPAWN_EGG_FOLIOT = ITEMS.registerItem("spawn_egg/foliot",
