@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.ItemStackKey;
-import com.klikli_dev.occultism.common.misc.MapItemStackHandler;
+import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
@@ -36,9 +36,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -120,15 +122,13 @@ public class ExtractItemsGoal extends PausableGoal {
                 //when close enough extract item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    var rawBlockHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
-                    var blockEntityHandler = rawBlockHandler != null ? IItemHandler.of(rawBlockHandler) : null;
+                    var blockEntityHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
                     if (blockEntityHandler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
 
-                    var rawEntityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
-                    IItemHandler entityHandler = rawEntityHandler != null ? IItemHandler.of(rawEntityHandler) : null;
+                    var entityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
 
                     if (this.tryPerformStorageActuatorExtraction(blockEntityHandler, entityHandler,
                             this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist())) {
@@ -139,13 +139,13 @@ public class ExtractItemsGoal extends PausableGoal {
                                 this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
                         if (slot >= 0) {
                             //simulate extraction
-                            ItemStack toExtract = blockEntityHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
+                            ItemStack toExtract = ItemTransferUtil.extractItem(blockEntityHandler, slot, Integer.MAX_VALUE, true);
                             if (!toExtract.isEmpty()) {
-                                ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
+                                ItemStack remaining = ItemTransferUtil.insertItem(entityHandler, toExtract, true);
                                 if (remaining.getCount() < toExtract.getCount()) {
                                     //if simulation went well, do for real
-                                    ItemStack extracted = blockEntityHandler.extractItem(slot, toExtract.getCount() - remaining.getCount(), false);
-                                    ItemHandlerHelper.insertItem(entityHandler, extracted, false);
+                                    ItemStack extracted = ItemTransferUtil.extractItem(blockEntityHandler, slot, toExtract.getCount() - remaining.getCount(), false);
+                                    ItemTransferUtil.insertItem(entityHandler, extracted, false);
                                 }
                             }
                         }
@@ -162,8 +162,8 @@ public class ExtractItemsGoal extends PausableGoal {
         }
     }
 
-    public boolean tryPerformStorageActuatorExtraction(IItemHandler blockEntityHandler, IItemHandler entityHandler, ItemStackHandler itemFilter, String tagFilter, boolean isFilterBlacklist) {
-        if (!(blockEntityHandler instanceof MapItemStackHandler mapItemStackHandler))
+    public boolean tryPerformStorageActuatorExtraction(ResourceHandler<ItemResource> blockEntityHandler, ResourceHandler<ItemResource> entityHandler, ItemStacksResourceHandler itemFilter, String tagFilter, boolean isFilterBlacklist) {
+        if (!(blockEntityHandler instanceof MapItemResourceHandler mapItemStackHandler))
             return false;
 
         if (isFilterBlacklist)
@@ -171,8 +171,8 @@ public class ExtractItemsGoal extends PausableGoal {
 
 
         boolean filterEmpty = true;
-        for (int i = 0; i < itemFilter.getSlots(); i++) {
-            var filterItem = itemFilter.getStackInSlot(i);
+        for (int i = 0; i < itemFilter.size(); i++) {
+            var filterItem = itemFilter.getResource(i).toStack();
             if (filterItem.isEmpty()) {
                 continue;
             }
@@ -181,10 +181,10 @@ public class ExtractItemsGoal extends PausableGoal {
 
             var extractStack = mapItemStackHandler.extractItemIgnoreComponents(filterItem, Integer.MAX_VALUE, true);
             if (!extractStack.isEmpty()) {
-                var inserted = ItemHandlerHelper.insertItemStacked(entityHandler, extractStack, true);
+                var inserted = ItemTransferUtil.insertItemStacked(entityHandler, extractStack, true);
 
                 if (inserted.getCount() != extractStack.getCount()) {
-                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(entityHandler, extractStack, false);
+                    ItemStack remaining = ItemTransferUtil.insertItemStacked(entityHandler, extractStack, false);
                     mapItemStackHandler.extractItem(ItemStackKey.of(extractStack), extractStack.getCount() - remaining.getCount(), false);
                     return true;
                 }
@@ -193,6 +193,7 @@ public class ExtractItemsGoal extends PausableGoal {
 
         return !filterEmpty;
     }
+
 
     public boolean canSeeTarget() {
 

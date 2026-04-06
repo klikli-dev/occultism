@@ -32,7 +32,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ComponentItemHandler;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.component.ItemContainerContents;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -74,11 +76,7 @@ public abstract class RitualSatchelItem extends Item {
 
         var statePredicate = targetMatcher.stateMatcher().getStatePredicate();
 
-        var inventory = new ComponentItemHandler(
-                context.getItemInHand(),
-                DataComponents.CONTAINER,
-                RitualSatchelContainer.SATCHEL_SIZE
-        );
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
 
         if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1) && !context.getLevel().getBlockState(context.getClickedPos().above()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_ABOVE_NOT_AIR;
@@ -86,8 +84,8 @@ public abstract class RitualSatchelItem extends Item {
         if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_AT_POSITION_NOT_AIR;
 
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            var stack = inventory.getStackInSlot(i);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            var stack = inventory.getItem(i);
             var isGlyph = false;
 
             BlockState blockStateToPlace = null;
@@ -121,7 +119,8 @@ public abstract class RitualSatchelItem extends Item {
                 }
                 // Simulate item use
                 stack.useOn(new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult()));
-                inventory.setStackInSlot(i, stack); // Force an update of the container if the item was used up or stack size reduced.
+                inventory.setItem(i, stack); // Force an update of the container if the item was used up or stack size reduced.
+                inventory.writeItemStack();
                 return PlacementResult.SUCCESS;
             }
         }
@@ -170,13 +169,8 @@ public abstract class RitualSatchelItem extends Item {
 
     @Override
     public boolean isFoil(@NotNull ItemStack stack) {
-        var inventory = new ComponentItemHandler(
-                stack,
-                DataComponents.CONTAINER,
-                RitualSatchelContainer.SATCHEL_SIZE
-        );
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            var item = inventory.getStackInSlot(i);
+        var inventory = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
+        for (var item : inventory.nonEmptyItemCopyStream().toList()) {
             if (item.getMaxDamage() - item.getDamageValue() == 1) {
                 return false;
             }

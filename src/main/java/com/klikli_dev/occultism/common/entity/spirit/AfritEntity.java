@@ -29,7 +29,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -46,7 +46,7 @@ public class AfritEntity extends SpiritEntity implements GeoEntity {
         super(type, level);
     }
 
-    public AfritEntity(EntityType<? extends AfritEntity> type, Level worldIn, ItemStackHandler itemStackHandler) {
+    public AfritEntity(EntityType<? extends AfritEntity> type, Level worldIn, ItemStacksResourceHandler itemStackHandler) {
         super(type, worldIn, itemStackHandler);
     }
 

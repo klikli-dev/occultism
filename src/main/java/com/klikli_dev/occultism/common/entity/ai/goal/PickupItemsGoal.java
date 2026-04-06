@@ -29,10 +29,10 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -46,21 +46,16 @@ public class PickupItemsGoal extends TargetGoal {
     protected float pickupRange;
 
     public PickupItemsGoal(SpiritEntity entity) {
-        this(entity, 2f, 10);
-        this.setFlags(EnumSet.of(Flag.MOVE));
-    }
-
-    public PickupItemsGoal(SpiritEntity entity, float pickupRange, int executionChance) {
         super(entity, false, false);
         this.entity = entity;
-        this.pickupRange = pickupRange;
-        this.executionChance = executionChance;
+        this.pickupRange = 2f;
+        this.executionChance = 10;
         this.targetItemSelector = new Predicate<ItemEntity>() {
 
             @Override
             public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
-                return !stack.isEmpty() && entity.canPickupItem(item) && ItemHandlerHelper.insertItemStacked(
+                return !stack.isEmpty() && entity.canPickupItem(item) && ItemTransferUtil.insertItemStacked(
                         entity.inventory, stack, true).getCount() <
                         stack.getCount();
             }
@@ -111,9 +106,9 @@ public class PickupItemsGoal extends TargetGoal {
                 this.entity.getNavigation().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
-                ItemStackHandler handler = this.entity.inventory;
-                if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
-                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
+                ItemStacksResourceHandler handler = this.entity.inventory;
+                if (ItemTransferUtil.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
+                    ItemStack remaining = ItemTransferUtil.insertItemStacked(handler, duplicate, false);
                     this.targetItem.getItem().setCount(remaining.getCount());
                 }
             }

@@ -30,14 +30,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 import javax.annotation.Nullable;
 
 public class SpiritContainer extends AbstractContainerMenu {
 
-    public ItemStackHandler inventory;
+    public ItemStacksResourceHandler inventory;
     public SpiritEntity spirit;
 
     public SpiritContainer(int id, Inventory playerInventory, SpiritEntity spirit) {
@@ -61,11 +62,11 @@ public class SpiritContainer extends AbstractContainerMenu {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             
-            if (index >= this.slots.size() - this.inventory.getSlots()) {
-                if (!this.moveItemStackTo(itemstack1, 0, this.slots.size() - this.inventory.getSlots(), true)) {
+            if (index >= this.slots.size() - this.inventory.size()) {
+                if (!this.moveItemStackTo(itemstack1, 0, this.slots.size() - this.inventory.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, this.slots.size() - this.inventory.getSlots(), this.slots.size(), true)) {
+            } else if (!this.moveItemStackTo(itemstack1, this.slots.size() - this.inventory.size(), this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
             
@@ -114,7 +115,7 @@ public class SpiritContainer extends AbstractContainerMenu {
     }
 
     protected void setupEntityInventory() {
-        this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
+        this.addSlot(new SlotItemHandler(IItemHandler.of(this.inventory), 0, 152, 54) {
 
             @Override
             public boolean mayPlace(ItemStack stack) {

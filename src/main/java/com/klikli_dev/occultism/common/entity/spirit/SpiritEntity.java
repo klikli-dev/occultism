@@ -64,7 +64,9 @@ import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrain;
@@ -133,11 +135,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     private static final EntityDataAccessor<String> TAG_FILTER = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
 
-    public ItemStackHandler inventory;
-    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(MAX_FILTER_SLOTS) {
+    public ItemStacksResourceHandler inventory;
+    public ItemStacksResourceHandler filterItemStackHandler = new ItemStacksResourceHandler(MAX_FILTER_SLOTS) {
         @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+        protected void onContentsChanged(int slot, @NotNull ItemStack previousContents) {
+            super.onContentsChanged(slot, previousContents);
             TagValueOutput tagOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, SpiritEntity.this.level().registryAccess());
             this.serialize(tagOutput);
             SpiritEntity.this.entityData.set(FILTER_ITEMS, tagOutput.buildResult().toString());
@@ -149,10 +151,10 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     protected boolean isInitialized = false;
 
     public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn) {
-        this(type, worldIn, new ItemStackHandler(1));
+        this(type, worldIn, new ItemStacksResourceHandler(1));
     }
 
-    public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn, ItemStackHandler inventory) {
+    public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn, ItemStacksResourceHandler inventory) {
         super(type, worldIn);
         this.inventory = inventory;
         this.setPersistenceRequired();
@@ -378,7 +380,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * @return the filter mode
      */
-    public ItemStackHandler getFilterItems() {
+    public ItemStacksResourceHandler getFilterItems() {
         return this.filterItemStackHandler;
     }
 
@@ -505,7 +507,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public ItemStack getItemBySlot(EquipmentSlot slotIn) {
         if (slotIn == EquipmentSlot.MAINHAND) {
-            return this.inventory.getStackInSlot(0);
+            return this.inventory.getResource(0).toStack();
         }
         return ItemStack.EMPTY;
     }
@@ -513,7 +515,10 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public void setItemSlot(EquipmentSlot slotIn, ItemStack stack) {
         if (slotIn == EquipmentSlot.MAINHAND) {
-            this.inventory.setStackInSlot(0, stack);
+            try (var tx = Transaction.openRoot()) {
+                this.inventory.set(0, ItemResource.of(stack), stack.getCount());
+                tx.commit();
+            }
         }
     }
 
@@ -637,8 +642,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     protected void dropEquipment(ServerLevel level) {
         super.dropEquipment(level);
-        for (int i = 0; i < this.inventory.getSlots(); ++i) {
-            ItemStack itemstack = this.inventory.getStackInSlot(i);
+        for (int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack itemstack = this.inventory.getResource(i).toStack();
             if (!itemstack.isEmpty()) {
                 this.spawnAtLocation(level, itemstack, 0.0F);
             }

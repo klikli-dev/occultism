@@ -23,18 +23,19 @@
 package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
-public class StorageControllerMapItemStackHandler extends MapItemStackHandler {
+public class StorageControllerMapItemResourceHandler extends MapItemResourceHandler {
 
     protected IStorageController storageController;
 
-    public StorageControllerMapItemStackHandler(IStorageController storageController, int maxItemTypes, long maxTotalItemCount) {
+    public StorageControllerMapItemResourceHandler(IStorageController storageController, int maxItemTypes, long maxTotalItemCount) {
         super(maxItemTypes, maxTotalItemCount);
         this.storageController = storageController;
     }
 
     @Override
-    protected void onContentsChanged(ItemStackKey key) {
+    protected void onContentsChanged(ItemResource resource) {
         this.storageController.onContentsChanged();
     }
 }

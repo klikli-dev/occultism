@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.klikli_dev.occultism.common.misc.MapItemStackHandler;
+import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -61,7 +61,7 @@ public class OccultismCapabilities {
         @Override
         protected int getCapacity(int index, ItemResource resource) {
             int slotLimit = delegate.getSlotLimit(index);
-            if (resource.isEmpty() || delegate instanceof MapItemStackHandler) {
+            if (resource.isEmpty() || delegate instanceof MapItemResourceHandler) {
                 return slotLimit;
             }
             return Math.min(slotLimit, resource.getMaxStackSize());
@@ -132,7 +132,7 @@ public class OccultismCapabilities {
                 OccultismBlockEntities.STABLE_WORMHOLE.get(),
                 (blockEntity, side) -> {
                     if (blockEntity.getLinkedStorageController() instanceof StorageControllerBlockEntity controller) {
-                        return new LegacyItemHandlerResourceHandler(controller.itemStackHandler);
+                        return controller.itemStackHandler;
                     }
                     return null;
                 });
@@ -140,27 +140,27 @@ public class OccultismCapabilities {
         event.registerBlockEntity(
                 Capabilities.Item.BLOCK,
                 OccultismBlockEntities.STORAGE_CONTROLLER.get(),
-                (blockEntity, side) -> new LegacyItemHandlerResourceHandler(blockEntity.itemStackHandler));
+                (blockEntity, side) -> blockEntity.itemStackHandler);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.FOLIOT.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.DJINNI.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.AFRIT.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.MARID.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
     }
 

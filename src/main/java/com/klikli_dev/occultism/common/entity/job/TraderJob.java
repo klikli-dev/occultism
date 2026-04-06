@@ -50,8 +50,9 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityEvent;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class TraderJob extends SpiritJob {
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
     protected List<RecipeHolder<SpiritTradeRecipe>> currentRecipe = List.of();
     protected List<WeightedRecipeResult> possibleResults;
-    private IItemHandler handlerBelow = null;
+    private ResourceHandler<ItemResource> handlerBelow = null;
     private BlockState cachedStateBelow = null;
 
     public TraderJob(SpiritEntity entity, Supplier<Integer> timeToConvert, Supplier<Integer> maxTradesPerRound) {
@@ -167,7 +168,7 @@ public class TraderJob extends SpiritJob {
                     Vec3 pos = this.entity.position();
                     ((ServerLevel) level)
                             .sendParticles(ParticleTypes.PORTAL, pos.x + level.getRandom().nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                                     pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
@@ -200,7 +201,7 @@ public class TraderJob extends SpiritJob {
                                     if (this.cachedStateBelow != level.getBlockState(this.entity.blockPosition().below(2)))
                                         this.updateBelowBlock();
                                     if (this.handlerBelow != null) {
-                                        ItemHandlerHelper.insertItemStacked(this.handlerBelow, event.getResult(), false);
+                                        ItemTransferUtil.insertItemStacked(this.handlerBelow, event.getResult(), false);
                                         flag = false;
                                     }
                                 }
@@ -264,9 +265,8 @@ public class TraderJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        var rawHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK,
+        this.handlerBelow = this.entity.level().getCapability(Capabilities.Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
-        this.handlerBelow = rawHandler != null ? IItemHandler.of(rawHandler) : null;
     }
 
     public static class TraderJobEvent extends ItemProcessingJobEvent {
