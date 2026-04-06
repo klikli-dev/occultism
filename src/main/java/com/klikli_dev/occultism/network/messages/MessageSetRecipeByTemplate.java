@@ -85,11 +85,17 @@ public class MessageSetRecipeByTemplate implements IMessage {
         CraftingContainer craftMatrix = container.getCraftMatrix();
 
         var ingredients = this.getDesiredIngredients(player);
+        int recipeAmount = this.sanitizeRecipeAmount(this.recipeAmount);
 
-        for(int i=0;i<recipeAmount;i++) {
+        for (int i = 0; i < recipeAmount; i++) {
+            boolean anyExtracted = false;
             for (int slot = 0; slot < 9; slot++) {
                 var ingredient = ingredients.get(slot);
                 if (ingredient.isEmpty()) {
+                    continue;
+                }
+
+                if (!this.canAcceptIngredient(craftMatrix, slot)) {
                     continue;
                 }
 
@@ -97,34 +103,66 @@ public class MessageSetRecipeByTemplate implements IMessage {
                 ItemStack extractedStack = StorageUtil
                         .extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient,
                                 1, true);
-                if (!extractedStack.isEmpty()) {
-                    //if we found the desired stack, extract it for real and place it in the matrix
-                    StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
-                    if(ItemStack.isSameItemSameComponents(craftMatrix.getItem(slot), extractedStack))
-                        craftMatrix.getItem(slot).setCount(craftMatrix.getItem(slot).getCount()+1);
-                    else
-                        craftMatrix.setItem(slot, extractedStack);
-                    continue;
+                if (this.canAcceptIngredient(craftMatrix, slot, extractedStack)) {
+                    extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
+                    if (!extractedStack.isEmpty()) {
+                        this.placeExtractedStack(craftMatrix, slot, extractedStack);
+                        anyExtracted = true;
+                        continue;
+                    }
                 }
 
                 //if we did not find anything in the player inventory, get it from the network now
-                var stack = storageController.getItemStack(ingredient, 1, false);
-                //var stack = storageController.getOneOfMostCommonItem(ingredient, false);
-                if (!stack.isEmpty()) {
-                    //if extraction was successful, place it in the matrix
-                    if(ItemStack.isSameItemSameComponents(craftMatrix.getItem(slot), stack))
-                        craftMatrix.getItem(slot).setCount(craftMatrix.getItem(slot).getCount()+1);
-                    else
-                        craftMatrix.setItem(slot, stack);
-                    continue;
+                extractedStack = storageController.getItemStack(ingredient, 1, true);
+                if (this.canAcceptIngredient(craftMatrix, slot, extractedStack)) {
+                    extractedStack = storageController.getItemStack(ingredient, 1, false);
+                    if (!extractedStack.isEmpty()) {
+                        this.placeExtractedStack(craftMatrix, slot, extractedStack);
+                        anyExtracted = true;
+                    }
                 }
+            }
 
+            if (!anyExtracted) {
+                break;
             }
         }
         //sync to client
         container.updateCraftingSlots(true);
         //finally update controller content for client
         Networking.sendTo(player, storageController.getMessageUpdateStacks());
+    }
+
+    private int sanitizeRecipeAmount(int recipeAmount) {
+        return Math.max(1, recipeAmount);
+    }
+
+    private boolean canAcceptIngredient(CraftingContainer craftMatrix, int slot) {
+        var stackInSlot = craftMatrix.getItem(slot);
+        return stackInSlot.isEmpty() || stackInSlot.getCount() < stackInSlot.getMaxStackSize();
+    }
+
+    private boolean canAcceptIngredient(CraftingContainer craftMatrix, int slot, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        var stackInSlot = craftMatrix.getItem(slot);
+        if (ItemStack.isSameItemSameComponents(stackInSlot, stack)) {
+            int newCount = stackInSlot.getCount() + stack.getCount();
+            return newCount <= stackInSlot.getMaxStackSize();
+        }
+
+        return stackInSlot.isEmpty();
+    }
+
+    private void placeExtractedStack(CraftingContainer craftMatrix, int slot, ItemStack stack) {
+        ItemStack stackInSlot = craftMatrix.getItem(slot);
+        if (ItemStack.isSameItemSameComponents(stackInSlot, stack)) {
+            stackInSlot.grow(stack.getCount());
+        } else {
+            craftMatrix.setItem(slot, stack);
+        }
     }
 
     @Override
