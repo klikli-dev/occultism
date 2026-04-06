@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.208.1] - 2026-04-06
+### :bug: Bug Fixes
+- [`5fe0ebc`](https://github.com/klikli-dev/occultism/commit/5fe0ebcc430b405f3438b0edd78f358b0deca031) - preserve durability when repairing paste items *(PR [#1505](https://github.com/klikli-dev/occultism/pull/1505) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1496](https://github.com/klikli-dev/occultism/issues/1496) opened by [@lizwiz13](https://github.com/lizwiz13)*
+
+### :wrench: Chores
+- [`a2b7d28`](https://github.com/klikli-dev/occultism/commit/a2b7d28e42c21be2502ad945eceb9cf32e591491) - cleanup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a866f1c`](https://github.com/klikli-dev/occultism/commit/a866f1cf3fb305dbed4e763be800a22af0fe119a) - update agent branching policy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.208.0] - 2026-04-06
 ### :sparkles: New Features
 - [`e50fa34`](https://github.com/klikli-dev/occultism/commit/e50fa345086f03e235b92a3e47df0a1106054b29) - update to 26.1 (May still have [lots] of issues) *(PR [#1504](https://github.com/klikli-dev/occultism/pull/1504) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2302,3 +2312,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.205.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.204.0...release/v1.21.1-1.205.0
 [release/v1.21.1-1.206.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.205.0...release/v1.21.1-1.206.0
 [release/v26.1-1.208.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-0.0.0...release/v26.1-1.208.0
+[release/v26.1-1.208.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.0...release/v26.1-1.208.1
