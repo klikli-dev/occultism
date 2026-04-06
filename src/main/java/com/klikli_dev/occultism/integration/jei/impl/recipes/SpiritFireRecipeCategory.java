@@ -37,9 +37,9 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -55,7 +55,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.spirit_fire");
         this.overlay = guiHelper.createDrawable(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, this.renderStack);
 //        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
     }
@@ -93,7 +93,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
     }
 
     @Override
-    public void draw(RecipeHolder<SpiritFireRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<SpiritFireRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 48, 0);
     }

@@ -55,7 +55,7 @@ public class SummonWildRitual extends SummonRitual {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
         if (castingPlayer != null){
-            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+            castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
 
@@ -77,13 +77,13 @@ public class SummonWildRitual extends SummonRitual {
                     double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
                     double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
 
-                    living.absMoveTo(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
+                    living.snapTo(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                             goldenBowlPosition.getZ() + offsetZ,
                             level.getRandom().nextInt(360), 0);
                     living.setCustomName(Component.literal(TextUtil.generateName()));
 
                     if (living instanceof Mob mob) {
-                        EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
+                        EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, ((ServerLevel) level).getCurrentDifficultyAt(goldenBowlPosition), EntitySpawnReason.MOB_SUMMONED, null);
                     }
 
                     this.applyEntityNbt(living);

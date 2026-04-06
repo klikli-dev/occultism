@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/titanium"
-  },
+  "ingredient": "#c:raw_materials/titanium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

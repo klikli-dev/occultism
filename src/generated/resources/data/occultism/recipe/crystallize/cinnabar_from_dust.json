@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/cinnabar"
-  },
+  "ingredient": "#c:dusts/cinnabar",
   "result": {
     "type": "occultism:tag",
     "count": 1,

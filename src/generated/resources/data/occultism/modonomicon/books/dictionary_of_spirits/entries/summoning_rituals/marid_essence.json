@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:marid_essence"
+    "id": "occultism:marid_essence"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.name",
   "pages": [

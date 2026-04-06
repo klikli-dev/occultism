@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,14 +39,14 @@ public class SetWalkTargetToCropBehaviour<E extends SpiritEntity> extends Extend
 
     @Override
     protected void start(E entity) {
-        var cropPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+        var cropPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
         if (entity.distanceToSqr(Vec3.atCenterOf(cropPos)) < HarvestCropBehaviour.HARVEST_CROP_RANGE_SQUARE) {
-            BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
-            BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_CROP_WALK_TARGET.get());
+            BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+            BrainUtil.clearMemory(entity, OccultismMemoryTypes.LAST_CROP_WALK_TARGET.get());
         } else {
             BlockPos walkPos = null;
 
-            var unreachableWalkTargets = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
+            var unreachableWalkTargets = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = cropPos.relative(facing);
@@ -57,9 +57,9 @@ public class SetWalkTargetToCropBehaviour<E extends SpiritEntity> extends Extend
             }
 
             if (walkPos != null) {
-                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
-                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
-                BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_CROP_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
+                BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
+                BrainUtil.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
+                BrainUtil.setMemory(entity, OccultismMemoryTypes.LAST_CROP_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(cropPos, 1000, OccultismConstants.Color.MAGENTA));
@@ -67,13 +67,13 @@ public class SetWalkTargetToCropBehaviour<E extends SpiritEntity> extends Extend
                 }
 
             } else {
-                var unreachableCrops = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get(), HashSet::new);
+                var unreachableCrops = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get(), HashSet::new);
                 unreachableCrops.add(cropPos);
-                BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get(), unreachableCrops, FORGET_UNREACHABLE_CROPS_AFTER_TICKS);
+                BrainUtil.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get(), unreachableCrops, FORGET_UNREACHABLE_CROPS_AFTER_TICKS);
 
-                BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
-                BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_CROP_WALK_TARGET.get());
-                BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+                BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtil.clearMemory(entity, OccultismMemoryTypes.LAST_CROP_WALK_TARGET.get());
+                BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(cropPos, 10000, OccultismConstants.Color.RED));

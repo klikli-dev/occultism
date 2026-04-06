@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iesnium_butcher_knife"
+    "id": "occultism:iesnium_butcher_knife"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:iesnium_butcher_knife"
-      },
+      "item": "occultism:iesnium_butcher_knife",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.spotlight.text",
       "title": ""
     },

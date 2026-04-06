@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/unobtainium_vibranium_alloy"
-  },
+  "ingredient": "#c:ingots/unobtainium_vibranium_alloy",
   "result": {
     "type": "occultism:tag",
     "count": 1,

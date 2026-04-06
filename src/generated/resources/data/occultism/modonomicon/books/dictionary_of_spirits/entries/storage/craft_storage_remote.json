@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.storage.craft_storage_remote.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_remote"
+    "id": "occultism:storage_remote"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.craft_storage_remote.name",
   "pages": [
@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:storage_remote"
-      },
+      "item": "occultism:storage_remote",
       "text": "book.occultism.dictionary_of_spirits.storage.craft_storage_remote.spotlight.text",
       "title": ""
     },

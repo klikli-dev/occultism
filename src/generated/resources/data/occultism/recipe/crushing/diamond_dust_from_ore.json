@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/diamond"
-  },
+  "ingredient": "#c:ores/diamond",
   "result": {
     "type": "occultism:tag",
     "count": 3,

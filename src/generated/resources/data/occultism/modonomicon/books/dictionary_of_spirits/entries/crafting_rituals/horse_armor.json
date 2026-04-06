@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:diamond_horse_armor"
+    "id": "minecraft:diamond_horse_armor"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "minecraft:leather_horse_armor"
-      },
+      "item": "minecraft:leather_horse_armor",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.horse_armor.spotlight.text",
       "title": ""
     },

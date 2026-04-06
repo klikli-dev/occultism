@@ -24,11 +24,11 @@ package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +47,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -85,30 +86,18 @@ public class DimensionalBattlefieldBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
         if (worldIn.getBlockEntity(pos) instanceof DimensionalBattlefieldBlockEntity battlefield) {
             battlefield.updateBelowBlock();
         }
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-            if (blockEntity != null) {
-                StorageUtil.dropInventoryItems(blockEntity);
-            }
-            super.onRemove(state, worldIn, pos, newState, isMoving);
-        }
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide)
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide())
             if (pLevel.getBlockEntity(pPos) instanceof MenuProvider menu && pPlayer instanceof ServerPlayer serverPlayer)
                 serverPlayer.openMenu(menu, pPos);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -139,7 +128,7 @@ public class DimensionalBattlefieldBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
         BlockEntity blockentity = level.getBlockEntity(pos);
         return (blockentity instanceof DimensionalBattlefieldBlockEntity battlefield)? battlefield.getRedstoneSignal() : 0;
     }

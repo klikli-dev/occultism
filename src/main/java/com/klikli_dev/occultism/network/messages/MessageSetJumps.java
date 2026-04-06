@@ -29,11 +29,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 public class MessageSetJumps implements IMessage {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_jumps");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "set_jumps");
     public static final Type<MessageSetJumps> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetJumps> STREAM_CODEC = CustomPacketPayload.codec(MessageSetJumps::encode, MessageSetJumps::new);
     public int jumps;

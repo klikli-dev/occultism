@@ -4,7 +4,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.Widget;
 import dev.emi.emi.api.widget.WidgetTooltipHolder;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class ItemWidget extends Widget  implements WidgetTooltipHolder<ItemWidge
     }
 
     @Override
-    public void render(GuiGraphics draw, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphicsExtractor draw, int mouseX, int mouseY, float delta) {
         stack.render(draw, x, y, 16);
     }
 

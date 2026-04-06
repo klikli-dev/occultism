@@ -1,10 +1,16 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dyes/black"
+      }
+    }
+  ],
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "tag": "c:dyes/black"
-  },
+  "ingredient": "#c:dyes/black",
   "result": {
-    "count": 1,
     "id": "occultism:purified_ink"
   }
 }

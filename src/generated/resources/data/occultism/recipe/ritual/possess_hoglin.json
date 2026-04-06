@@ -1,8 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
-  },
+  "activation_item": "occultism:book_of_binding_bound_afrit",
   "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.pigs",
@@ -10,44 +8,30 @@
   },
   "entity_to_summon": "occultism:possessed_hoglin",
   "ingredients": [
-    {
-      "item": "minecraft:netherite_scrap"
-    },
-    {
-      "tag": "c:leathers"
-    },
-    {
-      "tag": "c:netherracks"
-    },
-    {
-      "tag": "c:netherracks"
-    },
-    {
-      "item": "minecraft:porkchop"
-    },
-    {
-      "item": "minecraft:porkchop"
-    },
-    {
-      "item": "minecraft:porkchop"
-    },
-    {
-      "item": "occultism:spirit_attuned_crystal"
-    }
+    "minecraft:netherite_scrap",
+    "#c:leathers",
+    "#c:netherracks",
+    "#c:netherracks",
+    "minecraft:porkchop",
+    "minecraft:porkchop",
+    "minecraft:porkchop",
+    "occultism:spirit_attuned_crystal"
   ],
   "pentacle_id": "occultism:possess_afrit",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_hoglin\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.possess_hoglin"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_hoglin.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.possess_hoglin.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/possessed_hoglin"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/possess_hoglin"
   },
   "ritual_type": "occultism:summon"

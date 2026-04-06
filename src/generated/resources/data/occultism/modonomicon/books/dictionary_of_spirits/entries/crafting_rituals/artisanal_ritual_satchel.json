@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:ritual_satchel_t2"
+    "id": "occultism:ritual_satchel_t2"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:ritual_satchel_t2"
-      },
+      "item": "occultism:ritual_satchel_t2",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.spotlight.text",
       "title": ""
     },

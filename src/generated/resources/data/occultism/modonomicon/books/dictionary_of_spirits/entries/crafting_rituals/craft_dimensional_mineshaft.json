@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:dimensional_mineshaft"
+    "id": "occultism:dimensional_mineshaft"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:dimensional_mineshaft"
-      },
+      "item": "occultism:dimensional_mineshaft",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.spotlight.text",
       "title": ""
     },

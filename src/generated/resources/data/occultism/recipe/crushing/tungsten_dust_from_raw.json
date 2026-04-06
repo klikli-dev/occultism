@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/tungsten"
-  },
+  "ingredient": "#c:raw_materials/tungsten",
   "result": {
     "type": "occultism:tag",
     "count": 2,

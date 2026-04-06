@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle_craft"
+    "id": "occultism:pentacle_craft"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.name",
   "pages": [

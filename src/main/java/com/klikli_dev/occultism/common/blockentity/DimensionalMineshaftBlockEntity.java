@@ -35,14 +35,14 @@ import com.klikli_dev.occultism.util.RecipeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.MenuProvider;
@@ -74,7 +74,7 @@ import java.util.stream.Collectors;
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
-            .create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
+            .create(Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
@@ -119,6 +119,12 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
 
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        com.klikli_dev.occultism.util.StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
+    }
+
     // region Inner Classes
     public class MineshaftInventory extends ItemStackHandler {
         private boolean isInput;
@@ -138,7 +144,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         public boolean mayPlace(ItemStack stack) {
-            RecipeManager recipeManager = DimensionalMineshaftBlockEntity.this.getLevel().getRecipeManager();
+            RecipeManager recipeManager = ((ServerLevel) DimensionalMineshaftBlockEntity.this.getLevel()).getServer().getRecipeManager();
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
 
@@ -225,7 +231,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     // region Static Methods
     public static void forceInitStackNBT(ItemStack stack, ServerLevel level) {
-        stack.getItem().onCraftedBy(stack, level, FakePlayerFactory.getMinecraft(level));
+        stack.getItem().onCraftedBy(stack, FakePlayerFactory.getMinecraft(level));
     }
 
     public static int getMaxMiningTime(ItemStack stack) {
@@ -242,34 +248,34 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadAdditional(compound, provider);
-        this.inputHandler.deserializeNBT(provider, compound.getCompound("inputHandler"));
-        this.outputHandler.deserializeNBT(provider, compound.getCompound("outputHandler"));
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.inputHandler.deserialize(input.childOrEmpty("inputHandler"));
+        this.outputHandler.deserialize(input.childOrEmpty("outputHandler"));
         this.updateBelowBlock();
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inputHandler", this.inputHandler.serializeNBT(provider));
-        compound.put("outputHandler", this.outputHandler.serializeNBT(provider));
-        super.saveAdditional(compound, provider);
+    protected void saveAdditional(ValueOutput output) {
+        this.inputHandler.serialize(output.child("inputHandler"));
+        this.outputHandler.serialize(output.child("outputHandler"));
+        super.saveAdditional(output);
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadNetwork(compound, provider);
-        this.miningTime = compound.getInt("miningTime");
-        this.maxMiningTime = compound.getInt("maxMiningTime");
+    public void loadNetwork(ValueInput input) {
+        super.loadNetwork(input);
+        this.miningTime = input.getIntOr("miningTime", 0);
+        this.maxMiningTime = input.getIntOr("maxMiningTime", 0);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+    public void saveNetwork(ValueOutput output) {
         this.lastSyncedMiningTime = this.miningTime;
         this.lastSyncedMaxMiningTime = this.maxMiningTime;
-        compound.putInt("miningTime", this.miningTime);
-        compound.putInt("maxMiningTime", this.maxMiningTime);
-        return super.saveNetwork(compound, provider);
+        output.putInt("miningTime", this.miningTime);
+        output.putInt("maxMiningTime", this.maxMiningTime);
+        super.saveNetwork(output);
     }
 
     public void tick() {
@@ -277,7 +283,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             this.miningTime = 0;
             return;
         }
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             ItemStack input = this.inputHandler.getStackInSlot(0);
 
             if (!cachedEnchantment) {
@@ -297,14 +303,14 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
                 int efficiency = bonusEfficiency && input.isEnchanted() ? input.getEnchantmentLevel(EFFICIENCY) : 0;
                 if (efficiency > 0) {
-                    int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
-                    int extra2 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                    int extra1 = this.level.getRandom().nextIntBetweenInclusive(0, efficiency);
+                    int extra2 = this.level.getRandom().nextIntBetweenInclusive(0, efficiency);
                     efficiency = Math.min(extra1, extra2);
                 }
 
                 this.miningTime -= 1+efficiency;
 
-                if (this.miningTime <= 0 && !this.level.isClientSide) {
+                if (this.miningTime <= 0 && !this.level.isClientSide()) {
                     this.mine();
                 }
 
@@ -373,9 +379,11 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return;
 
         if (this.possibleResults == null) {
-            List<RecipeHolder<MinerRecipe>> recipes = this.level.getRecipeManager()
-                    .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                            new ItemHandlerRecipeInput(this.inputHandler), this.level);
+            ItemHandlerRecipeInput recipeInput = new ItemHandlerRecipeInput(this.inputHandler);
+            List<RecipeHolder<MinerRecipe>> recipes = ((ServerLevel) this.level).getServer().getRecipeManager()
+                    .recipeMap()
+                    .getRecipesFor(OccultismRecipes.MINER_TYPE.get(), recipeInput, this.level)
+                    .collect(Collectors.toList());
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
             } else {
@@ -391,9 +399,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         int fortune = bonusFortune && input.isEnchanted() ? input.getEnchantmentLevel(FORTUNE) : 0;
         if (fortune > 0) {
-            int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
-            int extra2 = this.level.random.nextIntBetweenInclusive(0, fortune);
-            int extra3 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            int extra1 = this.level.getRandom().nextIntBetweenInclusive(0, fortune);
+            int extra2 = this.level.getRandom().nextIntBetweenInclusive(0, fortune);
+            int extra3 = this.level.getRandom().nextIntBetweenInclusive(0, fortune);
             fortune = Math.min(extra1, Math.min(extra2, extra3));
         }
         int silk = bonusSilk && input.isEnchanted() ? input.getEnchantmentLevel(SILK_TOUCH) : 0;
@@ -401,8 +409,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         List<ItemStack> batchedDrops = new ArrayList<>();
 
         for (int i = 0; i < this.rollsPerOperation + fortune; i++) {
-            var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
-            int finalSilk = silk > 0 ? 1 + this.level.random.nextIntBetweenInclusive(0, silk) : 1;
+            var result = WeightedRandom.getRandomItem(this.level.getRandom(), this.possibleResults, WeightedRecipeResult::weight);
+            int finalSilk = silk > 0 ? 1 + this.level.getRandom().nextIntBetweenInclusive(0, silk) : 1;
 
             result.ifPresent(r -> {
                 ItemStack finalResult = r.getStack().copy();
@@ -467,8 +475,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public void updateBelowBlock() {
         if (this.level != null) {
             this.cachedStateBelow = this.level.getBlockState(this.getBlockPos().below(2));
-            this.handlerBelow = this.level.getCapability(Capabilities.ItemHandler.BLOCK,
-                    this.getBlockPos().below(2), this.cachedStateBelow, null, Direction.UP);
+            // TODO: Port to new NeoForge transfer API (Capabilities.Item.BLOCK / ResourceHandler<ItemResource>)
+            // The old IItemHandler capability system was replaced in NeoForge 26.1
+            this.handlerBelow = null;
         }
     }
 

@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/peridot"
-  },
+  "ingredient": "#c:ores/peridot",
   "result": {
     "type": "occultism:tag",
     "count": 2,

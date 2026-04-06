@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/lead"
-  },
+  "ingredient": "#c:clumps/lead",
   "result": {
     "type": "occultism:tag",
     "count": 2,

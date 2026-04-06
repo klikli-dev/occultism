@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.ender_satchel.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:ender_satchel"
+    "id": "occultism:ender_satchel"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.ender_satchel.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:ender_satchel"
-      },
+      "item": "occultism:ender_satchel",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.ender_satchel.spotlight.text",
       "title": ""
     },

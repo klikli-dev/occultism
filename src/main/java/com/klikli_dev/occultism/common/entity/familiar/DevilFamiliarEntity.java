@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -51,14 +50,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
@@ -101,14 +105,14 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         builder.define(SIN_TIME, (long) 0);
     }
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.entityData.set(SIN_TIME, compound.getLong("sinLastTime"));
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.entityData.set(SIN_TIME, input.getLongOr("sinLastTime", 0L));
     }
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putLong("sinLastTime", this.getSinTime());
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putLong("sinLastTime", this.getSinTime());
     }
 
     private void setSinTime(long b) {
@@ -127,16 +131,16 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
             if (itemstack.is(Items.GOLDEN_APPLE)) {
                 long time =  this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.devil.no_upgrade"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
                 } else if (time < 0) {
                     this.setSinTime(this.level().getGameTime());
                     itemstack.shrink(1);
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE));
                 } else {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time));
                 }
                 //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
 
         }
@@ -151,7 +155,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.level().isClientSide && this.swinging) {
+        if (this.level().isClientSide() && this.swinging) {
             Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(0.6);
             for (int i = 0; i < 5; i++) {
                 Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
@@ -172,7 +176,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        var mainController = new AnimationController<DevilFamiliarEntity>("mainController", 0, this::animPredicate);
         controllerRegistrar.add(mainController);
     }
 
@@ -181,14 +185,14 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         return 11; //to match our attack animation speed + 1 tick
     }
 
-    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+    private PlayState animPredicate(AnimationTest<DevilFamiliarEntity> tAnimationState) {
 
         if (this.swinging) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
         }
 
         if (this.isSitting()) {
-            tAnimationState.getController().setAnimation(RawAnimation.begin().thenPlay("sitting"));
+            tAnimationState.setAnimation(RawAnimation.begin().thenPlay("sitting"));
             return PlayState.CONTINUE;
         }
 

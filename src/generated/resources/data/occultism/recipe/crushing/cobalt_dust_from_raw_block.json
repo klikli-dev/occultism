@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "crushing_time": 1600,
-  "ingredient": {
-    "tag": "c:storage_blocks/raw_cobalt"
-  },
+  "ingredient": "#c:storage_blocks/raw_cobalt",
   "result": {
     "type": "occultism:tag",
     "count": 18,

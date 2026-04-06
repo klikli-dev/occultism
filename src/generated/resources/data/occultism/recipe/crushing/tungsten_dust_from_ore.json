@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/tungsten"
-  },
+  "ingredient": "#c:ores/tungsten",
   "result": {
     "type": "occultism:tag",
     "count": 2,

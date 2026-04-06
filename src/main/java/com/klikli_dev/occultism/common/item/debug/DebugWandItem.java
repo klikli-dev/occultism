@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.item.debug;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -41,7 +40,7 @@ public class DebugWandItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
 
-        if (!context.getLevel().isClientSide) {
+        if (!context.getLevel().isClientSide()) {
             Player player = context.getPlayer();
 
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
@@ -57,7 +56,7 @@ public class DebugWandItem extends Item {
 //                    context.getLevel().random.nextInt(360), 0);
 //            spirit.setCustomName(Component.literal("Testguy"));
 //            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(target),
-//                    MobSpawnType.MOB_SUMMONED, null,
+//                    EntitySpawnReason.MOB_SUMMONED, null,
 //                    null);
 //            spirit.tame(context.getPlayer());
 //            //set up the job
@@ -73,7 +72,7 @@ public class DebugWandItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
 
         return super.use(worldIn, playerIn, handIn);
     }

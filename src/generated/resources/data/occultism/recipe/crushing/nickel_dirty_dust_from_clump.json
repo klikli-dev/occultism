@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/nickel"
-  },
+  "ingredient": "#c:clumps/nickel",
   "result": {
     "type": "occultism:tag",
     "count": 2,

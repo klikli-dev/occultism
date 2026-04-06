@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/platinum"
-  },
+  "ingredient": "#c:clumps/platinum",
   "result": {
     "type": "occultism:tag",
     "count": 2,

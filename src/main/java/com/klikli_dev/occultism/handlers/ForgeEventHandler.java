@@ -28,8 +28,8 @@ import com.klikli_dev.occultism.registry.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
@@ -65,21 +65,21 @@ public class ForgeEventHandler {
     public static void onTraderSpawn(FinalizeSpawnEvent event) {
         if (event.isSpawnCancelled() || event.isCanceled())
             return;
-        if (event.getSpawnType() != MobSpawnType.EVENT)
+        if (event.getSpawnType() != EntitySpawnReason.EVENT)
             return;
         if (!(event.getEntity() instanceof WanderingTrader trader) || (event.getEntity() instanceof WonderingTraderEntity))
             return;
         if (RandomSource.create().nextInt(100) >= Occultism.SERVER_CONFIG.spiritJobs.traderWonderingChance.getAsInt())
             return;
         Level level = trader.level();
-        if (level.isClientSide)
+        if (level.isClientSide())
             return;
-        if (trader.getPersistentData().getBoolean("replaced"))
+        if (trader.getPersistentData().getBoolean("replaced").orElse(false))
             return;
         trader.getPersistentData().putBoolean("replaced", true);
 
         level.playSound(null, trader.blockPosition(), OccultismSounds.START_RITUAL.get(), SoundSource.AMBIENT, 2, 3);
-        WonderingTraderEntity wondering = OccultismEntities.WONDERING_TRADER.get().spawn((ServerLevel) level, trader.blockPosition(), MobSpawnType.EVENT);
+        WonderingTraderEntity wondering = OccultismEntities.WONDERING_TRADER.get().spawn((ServerLevel) level, trader.blockPosition(), EntitySpawnReason.EVENT);
         if (wondering == null)
             return;
         wondering.setDespawnDelay(48000);

@@ -29,16 +29,16 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -567,10 +567,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
         this.addBlock(OccultismBlocks.OTHERFLOWER, "Otherflower");
         this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING, "Otherworld Sapling");
+        this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL, "Unstable Otherworld Sapling");
         this.addBlock(OccultismBlocks.OTHERWORLD_LEAVES, "Otherworld Leaves");
+        this.addBlock(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL, "Unstable Otherworld Leaves");
         this.addBlock(OccultismBlocks.OTHERWORLD_LOG, "Otherworld Log");
+        this.addBlock(OccultismBlocks.OTHERWORLD_LOG_NATURAL, "Unstable Otherworld Log");
         this.addBlock(OccultismBlocks.OTHERWORLD_WOOD, "Otherworld Wood");
         this.addBlock(OccultismBlocks.STRIPPED_OTHERWORLD_LOG, "Stripped Otherworld Log");
+        this.addBlock(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL, "Unstable Stripped Otherworld Log");
         this.addBlock(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD, "Stripped Otherworld Wood");
         this.addBlock(OccultismBlocks.OTHERPLANKS, "Otherplanks");
         this.addBlock(OccultismBlocks.OTHERPLANKS_STAIRS, "Otherplanks Stairs");
@@ -833,9 +837,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         //Dimension types
 
-        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.location()), "Overworld");
-        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.location()), "Nether");
-        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.location()), "The End");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.identifier()), "Overworld");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.identifier()), "Nether");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.identifier()), "The End");
     }
 
     private void addGuiTranslations() {
@@ -1851,7 +1855,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addPentacle(String id, String name) {
-        this.add(Util.makeDescriptionId("multiblock", ResourceLocation.fromNamespaceAndPath(Occultism.MODID, id)), name);
+        this.add(Util.makeDescriptionId("multiblock", Identifier.fromNamespaceAndPath(Occultism.MODID, id)), name);
     }
 
     private void addRitualDummies() {
@@ -1895,8 +1899,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "Summon Djinni Machine Operator", "Djinni", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER, "Summon Djinni Gambler", "Djinni", "The Gambler bets any gem for some other gems and nuggets, a trader with a taste of randomness");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_WONDERING_TRADER, "Summon Wondering Trader", "Djinni", "Summons a Wondering Trader who offers special occult items when you see the otherworld.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "Summoning of Dawn", "Djinni", "Summons a Djinni that sets the time to high noon.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "Summoning of Dusk", "Djinni", "Summons a Djinni that sets the time to midnight.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "Summoning of Dawn", "Djinni", "Summons a Djinni that sets the time to dawn.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "Summoning of Dusk", "Djinni", "Summons a Djinni that sets the time to sunset.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "Summoning of Clear Sky", "Djinni", "Summons a Djinni that clears the weather.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER, "Summoning of Rain", "Afrit", "Summons an Afrit that creates rain.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER, "Summoning of Thunderstorm", "Afrit", "Summons an Afrit that creates a thunderstorm.");
@@ -2079,11 +2083,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addModonomiconIntegration() {
-        this.add(I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
-        this.add(I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
-        this.add(I18n.RITUAL_RECIPE_JOB, "Job: %s");
-        this.add(I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
-        this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Open Pentacle Page: %s");
+        this.add("occultism.modonomicon.ritual_recipe.item_to_use", "Item to use:");
+        this.add("occultism.modonomicon.ritual_recipe.summon", "Summon: %s");
+        this.add("occultism.modonomicon.ritual_recipe.job", "Job: %s");
+        this.add("occultism.modonomicon.ritual_recipe.sacrifice", "Sacrifice: %s");
+        this.add("occultism.modonomicon.ritual_recipe.go_to_pentacle", "Open Pentacle Page: %s");
     }
 
     private void advancementTitle(String name, String s) {
@@ -2183,11 +2187,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM, "Iesnium Knives");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/knife"), "Knives");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "head"), "Head");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "ring"), "Ring");
+        this.addItemTag(Identifier.fromNamespaceAndPath("c", "tools/knife"), "Knives");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "belt"), "Belts");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "hands"), "Hands");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "head"), "Head");
+        this.addItemTag(Identifier.fromNamespaceAndPath("curios", "ring"), "Ring");
         this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD, "Demonic Partner Food");
         this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE, "Other Cobblestone");
         this.addItemTag(OccultismTags.Items.OTHERSTONE, "Otherstone");
@@ -2227,7 +2231,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER, "Can spawn as Random Villager");
     }
 
-    private void addItemTag(ResourceLocation resourceLocation, String string) {
+    private void addItemTag(Identifier resourceLocation, String string) {
         this.add("tag.item." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 
@@ -2239,7 +2243,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(item.location(), string);
     }
 
-    private void addBlockTag(ResourceLocation resourceLocation, String string) {
+    private void addBlockTag(Identifier resourceLocation, String string) {
         this.add("tag.block." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 

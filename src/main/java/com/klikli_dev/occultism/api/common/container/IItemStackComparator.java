@@ -22,14 +22,12 @@
 
 package com.klikli_dev.occultism.api.common.container;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-public interface IItemStackComparator extends INBTSerializable<CompoundTag>, Predicate<ItemStack> {
+public interface IItemStackComparator extends Predicate<ItemStack> {
 
     /**
      * Matches the given stack with the master stack using the rules in the comparator.

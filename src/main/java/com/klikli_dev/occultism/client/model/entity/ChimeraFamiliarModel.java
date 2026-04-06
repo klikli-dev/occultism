@@ -22,8 +22,6 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.common.entity.familiar.ChimeraFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -31,12 +29,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
+public class ChimeraFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -90,6 +89,7 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
     public ModelPart rightLeg3;
 
     public ChimeraFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.head = this.body.getChild("head");
         this.leftBackLeg1 = this.body.getChild("leftBackLeg1");
@@ -196,101 +196,55 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState
+        // boolean isSnakeAttacking = pEntity.getAttackProgress(0) > 0
+        //         && pEntity.getAttacker() == ChimeraFamiliarEntity.SNAKE_ATTACKER;
 
-    @Override
-    public void setupAnim(ChimeraFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
-                          float netHeadYaw, float headPitch) {
-        boolean isSnakeAttacking = pEntity.getAttackProgress(0) > 0
-                && pEntity.getAttacker() == ChimeraFamiliarEntity.SNAKE_ATTACKER;
-
-        this.showModels(pEntity);
+        // this.showModels(pEntity);
 
         this.snake2.yRot = 0;
         this.snake3.yRot = 0;
         this.leftLeg3.xRot = 0.31f;
         this.rightLeg3.xRot = 0.31f;
         this.body.xRot = 0;
-        if (!isSnakeAttacking) {
+        // TODO: needs custom RenderState - isSnakeAttacking depends on pEntity
+        // if (!isSnakeAttacking) {
             this.snake1.xRot = -0.66f;
             this.snake2.xRot = 0.47f;
             this.snake3.xRot = 0.47f;
             this.snake4.xRot = 0.59f;
-        }
+        // }
         this.goatHead.zRot = -0.94f;
         this.leftLeg1.yRot = 0;
         this.rightLeg1.yRot = 0;
 
-        this.head.yRot = this.toRads(netHeadYaw) * 0.7f;
-        this.head.xRot = this.toRads(headPitch) * 0.7f;
-        this.snake4.yRot = this.toRads(netHeadYaw) * 0.3f;
-        this.snake4.zRot = -this.toRads(netHeadYaw) * 0.3f;
+        // TODO: needs custom RenderState
+        // this.head.yRot = this.toRads(netHeadYaw) * 0.7f;
+        // this.head.xRot = this.toRads(headPitch) * 0.7f;
+        // this.snake4.yRot = this.toRads(netHeadYaw) * 0.3f;
+        // this.snake4.zRot = -this.toRads(netHeadYaw) * 0.3f;
 
-        this.snake1.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
-        this.snake2.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
-        this.snake3.zRot = Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount + this.toRads(0);
-        this.snake4.zRot = -Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount;
+        // this.snake1.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
+        // this.snake2.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
+        // this.snake3.zRot = Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount + this.toRads(0);
+        // this.snake4.zRot = -Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount;
 
-        this.snake5.xRot = Mth.cos(pAgeInTicks * 0.1f) * this.toRads(15) + this.toRads(15);
+        // this.snake5.xRot = Mth.cos(pAgeInTicks * 0.1f) * this.toRads(15) + this.toRads(15);
 
-        this.rightBackLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.23f;
-        this.leftBackLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
-        this.rightLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
-        this.leftLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
+        // this.rightBackLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.23f;
+        // this.leftBackLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
+        // this.rightLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
+        // this.leftLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
 
-        if (pEntity.isSitting()) {
-            this.leftLeg1.xRot = -this.toRads(15);
-            this.rightLeg1.xRot = -this.toRads(15);
-            this.leftLeg3.xRot = this.toRads(30);
-            this.rightLeg3.xRot = this.toRads(30);
-            this.leftBackLeg1.xRot = -this.toRads(62);
-            this.rightBackLeg1.xRot = -this.toRads(62);
-            this.body.xRot = -this.toRads(20);
-            this.leftLeg1.yRot = -this.toRads(10);
-            this.rightLeg1.yRot = this.toRads(10);
-            this.snake1.zRot = this.toRads(80);
-            this.snake2.zRot = this.toRads(0);
-            this.snake3.zRot = this.toRads(-20);
-            this.snake4.zRot = this.toRads(-65);
-            this.snake2.yRot = -this.toRads(20);
-            this.snake3.yRot = -this.toRads(20);
-            this.snake4.yRot = -this.toRads(20);
-            this.snake2.xRot = this.toRads(40);
-            this.snake3.xRot = this.toRads(50);
-            this.snake4.xRot = this.toRads(60);
-            this.snake5.xRot = this.toRads(7);
-        }
-
-        if (pEntity.isPartying()) {
-            this.head.xRot = Mth.cos(pAgeInTicks * 0.4f) * this.toRads(30);
-            this.goatHead.zRot = -Mth.cos(pAgeInTicks * 0.4f) * this.toRads(15) - 0.94f;
-            this.goatHead.yRot = -0.20f;
-            this.snake4.xRot = Mth.cos(pAgeInTicks * 0.4f) * this.toRads(30) + 0.59f;
-        }
+        // TODO: needs custom RenderState
+        // if (pEntity.isSitting()) { ... }
+        // if (pEntity.isPartying()) { ... }
     }
 
-    @Override
-    public void prepareMobModel(ChimeraFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
-                                float pPartialTick) {
-        this.goatMouth.zRot = pEntity.getNoseGoatRot(pPartialTick) - 0.2f;
-
-        float attackProgress = pEntity.getAttackProgress(pPartialTick);
-        if (attackProgress > 0) {
-            switch (pEntity.getAttacker()) {
-                case ChimeraFamiliarEntity.GOAT_ATTACKER:
-                    this.goatNeck.zRot = -Mth.sin(attackProgress * PI * 2) * this.toRads(30) + 0.9f;
-                    break;
-                case ChimeraFamiliarEntity.SNAKE_ATTACKER:
-                    this.snake1.xRot = Mth.sin(attackProgress * PI) * this.toRads(25) - 0.66f;
-                    this.snake2.xRot = Mth.sin(attackProgress * PI) * this.toRads(25) + 0.47f;
-                    this.snake3.xRot = Mth.sin(attackProgress * PI) * this.toRads(25) + 0.47f;
-                    this.snake4.xRot = -Mth.sin(attackProgress * PI) * this.toRads(30) + 0.59f;
-                    break;
-            }
-        }
-    }
+    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
+    // prepareMobModel set goatMouth.zRot, goatNeck.zRot, snake1/2/3/4.xRot based on entity attack data
 
     private void showModels(ChimeraFamiliarEntity entityIn) {
         boolean hasFlaps = entityIn.hasFlaps();

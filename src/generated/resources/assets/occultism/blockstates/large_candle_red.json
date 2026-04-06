@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "occultism:block/large_candle_white"
+      "model": "occultism:block/large_candle_red"
     }
   }
 }

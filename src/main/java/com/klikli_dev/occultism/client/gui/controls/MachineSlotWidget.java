@@ -25,10 +25,9 @@ package com.klikli_dev.occultism.client.gui.controls;
 
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -73,28 +72,26 @@ public class MachineSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(GuiGraphics guiGraphics, int mx, int my) {
-        guiGraphics.pose().pushPose();
+    public void drawSlot(GuiGraphicsExtractor guiGraphics, int mx, int my) {
+        guiGraphics.pose().pushMatrix();
         //render item
         //RenderHelper.setupGuiFlatDiffuseLighting();
 
         var isMouseOverSlot = this.isMouseOverSlot(mx, my);
 
         if (isMouseOverSlot)
-            guiGraphics.renderItem(this.machine.getExtractItemStack(), this.x, this.y);
+            guiGraphics.fakeItem(this.machine.getExtractItemStack(), this.x, this.y);
         else
-            guiGraphics.renderItem(this.machine.getInsertItemStack(), this.x, this.y);
+            guiGraphics.fakeItem(this.machine.getInsertItemStack(), this.x, this.y);
 
         if (isMouseOverSlot) {
-            RenderSystem.colorMask(true, true, true, false);
             this.parent.drawGradientRect(guiGraphics, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                     this.slotHighlightColor);
-            RenderSystem.colorMask(true, true, true, true);
         }
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
-    public void drawTooltip(GuiGraphics guiGraphics, int mx, int my) {
+    public void drawTooltip(GuiGraphicsExtractor guiGraphics, int mx, int my) {
         if (this.isMouseOverSlot(mx, my)) {
             this.parent.renderToolTip(guiGraphics, this.machine, mx, my);
         }

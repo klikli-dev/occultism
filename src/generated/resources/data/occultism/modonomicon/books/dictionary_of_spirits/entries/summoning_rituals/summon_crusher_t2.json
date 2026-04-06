@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iron_dust"
+    "id": "occultism:iron_dust"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.name",
   "pages": [

@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/unobtainium"
-  },
+  "ingredient": "#c:ores/unobtainium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

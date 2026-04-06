@@ -27,13 +27,10 @@ import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.util.CuriosUtil;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -47,9 +44,9 @@ import java.util.Set;
 public class ThirdEyeEffectRenderer {
 
     public static final int MAX_THIRD_EYE_DISTANCE = 10;
-    public static final ResourceLocation THIRD_EYE_SHADER = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    public static final Identifier THIRD_EYE_SHADER = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "shaders/post/third_eye.json");
-    public static final ResourceLocation THIRD_EYE_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    public static final Identifier THIRD_EYE_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/overlay/third_eye.png");
     public boolean thirdEyeActiveLastTick = false;
     public boolean gogglesActiveLastTick = false;
@@ -58,7 +55,7 @@ public class ThirdEyeEffectRenderer {
 
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent.Post event) {
-        if (event.getEntity().level().isClientSide && event.getEntity() == Minecraft.getInstance().player) {
+        if (event.getEntity().level().isClientSide() && event.getEntity() == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
             this.onStaffTick(event);
@@ -66,36 +63,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void renderOverlay(PoseStack pose) {
-        RenderSystem.setShaderTexture(0, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(
-                GlStateManager.SourceFactor.SRC_ALPHA,
-                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-                GlStateManager.SourceFactor.ONE,
-                GlStateManager.DestFactor.ZERO);
-
-        RenderSystem.clearColor(1, 1, 1, 1);
-
-        Window window = Minecraft.getInstance().getWindow();
-        pose.pushPose();
-
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-
-        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.addVertex(0.0f, window.getGuiScaledHeight(), -90.0f).setUv(0.0f, 1.0f);
-        buffer.addVertex(window.getGuiScaledWidth(), window.getGuiScaledHeight(), -90.0f).setUv(1.0f, 1.0f);
-        buffer.addVertex(window.getGuiScaledWidth(), 0.0f, -90.0f).setUv(1.0f, 0.0f);
-        buffer.addVertex(0.0f, 0.0f, -90.0f).setUv(0.0f, 0.0f);
-        BufferUploader.drawWithShader(buffer.buildOrThrow());
-
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
-
-        pose.popPose();
-
-        RenderSystem.clearColor(1, 1, 1, 1);
-        RenderSystem.disableBlend();
+        // RenderSystem overlay rendering removed in 26.1 - stubbed out
     }
 
     /**
@@ -149,7 +117,7 @@ public class ThirdEyeEffectRenderer {
 
                 //load shader, but only if we are on the natural effects
                 if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
-                    Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.loadEffect(THIRD_EYE_SHADER));
+                    // gameRenderer.loadEffect removed in 26.1
                 }
             }
             //also handle goggles in one if we have them
@@ -163,8 +131,7 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = false;
 
                 if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
-                    //unload shader
-                    Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.shutdownEffect());
+                    //shader effect system removed in 26.1
                 }
             }
         }

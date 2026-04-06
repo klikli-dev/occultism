@@ -32,11 +32,13 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -44,9 +46,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -87,17 +90,17 @@ public class SpiritFireBlock extends BaseFireBlock {
     }
 
     @Override
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pEntity instanceof ItemEntity item) {
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
+        if (pLevel instanceof ServerLevel serverLevel && pEntity instanceof ItemEntity item) {
             var recipeInput =
                     new SingleRecipeInput(item.getItem());
             var recipe =
-                    pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, pLevel);
+                    serverLevel.recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, serverLevel);
 
             if (recipe.isPresent() && !item.isRemoved()) {
                 item.remove(RemovalReason.DISCARDED);
 
-                ItemStack result = recipe.get().value().assemble(recipeInput, pLevel.registryAccess());
+                ItemStack result = recipe.get().value().assemble(recipeInput);
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 
@@ -117,72 +120,72 @@ public class SpiritFireBlock extends BaseFireBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(
+    protected InteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
     ) {
         if (player.getAbilities().mayBuild) {
             Item item = stack.getItem();
             if (item.equals(OccultismItems.CHALK_WHITE.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.WHITE));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_LIGHT_GRAY.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.LIGHT_GRAY));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_GRAY.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.GRAY));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_BLACK.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.BLACK));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_BROWN.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.BROWN));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_RED.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.RED));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_ORANGE.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.ORANGE));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_YELLOW.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.YELLOW));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_LIME.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.LIME));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_GREEN.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.GREEN));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_CYAN.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.CYAN));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_LIGHT_BLUE.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.LIGHT_BLUE));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_BLUE.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.BLUE));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_PURPLE.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.PURPLE));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_MAGENTA.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.MAGENTA));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_PINK.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.PINK));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_RAINBOW.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.RAINBOW));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (item.equals(OccultismItems.CHALK_VOID.get())) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.VOID));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess scheduledTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource random) {
         return this.canSurvive(pState, pLevel, pCurrentPos) ? pState : Blocks.AIR.defaultBlockState();
     }
 

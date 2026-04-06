@@ -5,7 +5,6 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,13 +31,18 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
+import net.minecraft.world.item.component.TypedEntityData;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
@@ -63,8 +67,8 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     @Override
-    protected void dropFromLootTable(@NotNull DamageSource pDamageSource, boolean pAttackedRecently) {
-        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+    protected void dropFromLootTable(ServerLevel level, @NotNull DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(level, pDamageSource, pAttackedRecently);
 
         var owner = this.getOwner();
 
@@ -75,13 +79,15 @@ public class DemonicPartner extends TamableAnimal {
         this.resetFallDistance();
         this.removeAllEffects();
 
-        var entityData = new CompoundTag();
+        var entityData = new net.minecraft.nbt.CompoundTag();
                 var id = this.getEncodeId();
         if(id != null)
             entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
+        var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
+        this.saveWithoutId(output);
+        entityData.merge(output.buildResult());
 
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
         this.setHealth(health);
 
         if(owner instanceof Player player){
@@ -101,14 +107,14 @@ public class DemonicPartner extends TamableAnimal {
         builder.define(IS_LYING, false).define(HEART_TIME, (long) 0);
     }
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.entityData.set(HEART_TIME, compound.getLong("heartLastTime"));
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.entityData.set(HEART_TIME, input.getLongOr("heartLastTime", 0L));
     }
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putLong("heartLastTime", this.getHeartTime());
+    public void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putLong("heartLastTime", this.getHeartTime());
     }
 
     private void setHeartTime(long b) {
@@ -152,9 +158,9 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     public Optional<RecipeHolder<SmokingRecipe>> getRecipe(ItemStack pStack) {
-        return this.level().getRecipeManager().getAllRecipesFor(RecipeType.SMOKING).stream().filter(r ->
-                r.value().ingredient.test(pStack)
-        ).findFirst();
+        if (!(this.level() instanceof ServerLevel serverLevel)) return Optional.empty();
+        return serverLevel.recipeAccess().getRecipeFor(RecipeType.SMOKING,
+                new SingleRecipeInput(pStack), serverLevel);
     }
 
     @Override
@@ -162,7 +168,7 @@ public class DemonicPartner extends TamableAnimal {
         super.aiStep();
         this.updateSwingTime();
 
-        if (this.level().isClientSide && this.swinging) {
+        if (this.level().isClientSide() && this.swinging) {
             Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(0.6);
             for (int i = 0; i < 5; i++) {
                 Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
@@ -176,7 +182,7 @@ public class DemonicPartner extends TamableAnimal {
     public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             boolean willInteract = this.isOwnedBy(pPlayer) || this.isTame() || itemstack.is(Items.DIAMOND) && !this.isTame();
             return willInteract ? InteractionResult.CONSUME : InteractionResult.PASS;
         }
@@ -191,7 +197,7 @@ public class DemonicPartner extends TamableAnimal {
                     itemstack.shrink(1);
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
                 } else {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.partner.heart_on_cooldown", time), true);
+                    pPlayer.sendOverlayMessage(Component.translatable("dialog.occultism.partner.heart_on_cooldown", time));
                 }
                 return InteractionResult.SUCCESS;
             }
@@ -200,7 +206,7 @@ public class DemonicPartner extends TamableAnimal {
             if (effects.hasEffects()) {
                 for (var instance : effects.getAllEffects()) {
                     if (instance.getEffect().value().isInstantenous()) {
-                        instance.getEffect().value().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier() + 2, 1.0D);
+                        instance.getEffect().value().applyInstantenousEffect((ServerLevel) this.level(), this, this, pPlayer, instance.getAmplifier() + 2, 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.getEffect(), instance.getDuration() * 5, instance.getAmplifier(), instance.isAmbient(), instance.isVisible()));
                     }
@@ -208,10 +214,11 @@ public class DemonicPartner extends TamableAnimal {
 
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
-                    if (itemstack.getCraftingRemainingItem().isEmpty()) {
+                    var remainder = itemstack.getItem().getCraftingRemainder();
+                    if (remainder == null) {
                         ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
                     } else {
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, itemstack.getCraftingRemainingItem());
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, remainder.create());
                     }
                 }
 
@@ -223,7 +230,7 @@ public class DemonicPartner extends TamableAnimal {
                 //Spoiler: int buff = hasCrown() ? 1 : 0;
                 for (var instance : effectsStew.effects()) {
                     if (instance.effect().value().isInstantenous()) {
-                        instance.effect().value().applyInstantenousEffect(this, this, pPlayer, 1 /*+ buff*/, 1.0D);
+                        instance.effect().value().applyInstantenousEffect((ServerLevel) this.level(), this, this, pPlayer, 1 /*+ buff*/, 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.effect(), instance.duration() * (50 /*+ 25*buff*/), 0 /*buff*/, false, false));
                     }
@@ -241,10 +248,10 @@ public class DemonicPartner extends TamableAnimal {
             }
 
             //cook raw food
-            var recipe = this.lastRecipe.isPresent() ? this.lastRecipe.get().value().ingredient.test(itemstack) ? this.lastRecipe : this.getRecipe(itemstack) : this.getRecipe(itemstack);
+            var recipe = this.lastRecipe.isPresent() ? this.lastRecipe.get().value().input().test(itemstack) ? this.lastRecipe : this.getRecipe(itemstack) : this.getRecipe(itemstack);
             if (recipe.isPresent()) {
                 this.lastRecipe = recipe;
-                var result = recipe.get().value().getResultItem(this.level().registryAccess());
+                var result = recipe.get().value().assemble(new SingleRecipeInput(itemstack));
 
                 if (pPlayer.isShiftKeyDown()) 
                 {
@@ -276,7 +283,7 @@ public class DemonicPartner extends TamableAnimal {
 
             //heal with food
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                FoodProperties foodProperties = itemstack.getFoodProperties(this);
+                FoodProperties foodProperties = itemstack.get(DataComponents.FOOD);
                 this.heal(foodProperties != null ? (float)foodProperties.nutrition() : 1.0F);
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
@@ -320,8 +327,8 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     @Override
-    public boolean doHurtTarget(@NotNull Entity pEntity) {
-        boolean flag = super.doHurtTarget(pEntity);
+    public boolean doHurtTarget(ServerLevel level, @NotNull Entity pEntity) {
+        boolean flag = super.doHurtTarget(level, pEntity);
 
         pEntity.setRemainingFireTicks(2 * 20);
 
@@ -331,7 +338,7 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
-        return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
+    public boolean isInvulnerableTo(ServerLevel level, @NotNull DamageSource source) {
+        return super.isInvulnerableTo(level, source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
     }
 }

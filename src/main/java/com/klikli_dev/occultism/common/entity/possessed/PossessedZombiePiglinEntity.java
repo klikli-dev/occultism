@@ -28,7 +28,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.Level;
 
 public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
@@ -49,16 +49,6 @@ public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
                 .add(Attributes.MAX_HEALTH,80)
                 .add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 25.0);
-    }
-
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
     }
 
     @Override

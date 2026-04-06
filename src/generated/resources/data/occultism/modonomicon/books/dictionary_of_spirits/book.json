@@ -22,7 +22,8 @@
   "crafting_texture": "occultism:textures/gui/book/crafting_textures.png",
   "creative_tab": "modonomicon:modonomicon",
   "custom_book_item": "occultism:dictionary_of_spirits",
-  "default_title_color": 0,
+  "default_text_color": -16777216,
+  "default_title_color": -16777216,
   "description": "",
   "display_mode": "node",
   "font": "modonomicon:default",
@@ -52,6 +53,7 @@
   },
   "search_button_x_offset": 0,
   "search_button_y_offset": 0,
+  "show_recently_unlocked": true,
   "single_page_texture": "modonomicon:textures/gui/single_page_entry.png",
   "tooltip": "book.occultism.dictionary_of_spirits.tooltip",
   "top_frame_overlay": {

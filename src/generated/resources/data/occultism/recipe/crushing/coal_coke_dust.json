@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:coal_coke"
-  },
+  "ingredient": "#c:coal_coke",
   "result": {
     "type": "occultism:tag",
     "count": 1,

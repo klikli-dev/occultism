@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/lumium"
-  },
+  "ingredient": "#c:ingots/lumium",
   "result": {
     "type": "occultism:tag",
     "count": 1,

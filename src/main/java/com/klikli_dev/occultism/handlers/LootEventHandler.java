@@ -30,7 +30,10 @@ import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -39,12 +42,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ResolvableProfile;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.util.TriState;
+import net.minecraft.util.TriState;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
@@ -89,7 +93,7 @@ public class LootEventHandler {
     }
 
     private static void repairEquipment(Player player) {
-        for (ItemStack stack : player.getAllSlots()) {
+        for (ItemStack stack : player.getInventory().getNonEquipmentItems()) {
             if (!stack.isDamaged())
                 continue;
             stack.setDamageValue(stack.getDamageValue() - 2);
@@ -103,21 +107,19 @@ public class LootEventHandler {
         if (player.isCreative())
             return;
 
-        event.getState().getTags().forEach(blockTagKey -> {
-            if (blockTagKey.equals(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
-                if (player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
-                        || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
-                        || CuriosUtil.hasStaff(player)) {
-                    Level level = (Level) event.getLevel();
-                    BlockPos pos = event.getPos();
-                    ItemEntity itementity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(),
-                            new ItemStack(event.getState().getBlock()));
-                    level.addFreshEntity(itementity);
-                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
-                    event.setCanceled(true);
-                }
+        if (event.getState().is(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
+            if (player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
+                    || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
+                    || CuriosUtil.hasStaff(player)) {
+                Level level = (Level) event.getLevel();
+                BlockPos pos = event.getPos();
+                ItemEntity itementity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(),
+                        new ItemStack(event.getState().getBlock()));
+                level.addFreshEntity(itementity);
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
+                event.setCanceled(true);
             }
-        });
+        }
     }
 
 
@@ -129,7 +131,7 @@ public class LootEventHandler {
                 && !event.isCanceled()) {
 
             ItemStack head = new ItemStack(Items.PLAYER_HEAD);
-            ResolvableProfile resolvable = new ResolvableProfile(player.getGameProfile());
+            ResolvableProfile resolvable = ResolvableProfile.createResolved(player.getGameProfile());
             head.set(DataComponents.PROFILE, resolvable);
             ItemEntity itemEntity = new ItemEntity(
                     player.level(),
@@ -147,11 +149,11 @@ public class LootEventHandler {
 
         if (killer instanceof LivingEntity living) {
             int level = living.getWeaponItem().getEnchantmentLevel(killed.level().holderOrThrow(OccultismEnchantments.FRACTURE_SOUL));
-            if (level == 0 || killed.getType().is(OccultismTags.Entities.SOUL_SHATTERED_DENY_LIST) || killed instanceof IFamiliar) {
+            if (level == 0 || killed.getType().builtInRegistryHolder().is(OccultismTags.Entities.SOUL_SHATTERED_DENY_LIST) || killed instanceof IFamiliar || killed instanceof Player) {
                 return;
             }
 
-            if (killed.level().random.nextFloat() < (float) (level * Occultism.SERVER_CONFIG.itemSettings.shatteredSoulChance.get())) {
+            if (killed.level().getRandom().nextFloat() < (float) (level * Occultism.SERVER_CONFIG.itemSettings.shatteredSoulChance.get())) {
                 var shard = new ItemStack(OccultismItems.SOUL_SHATTERED_ITEM.get());
                 var health = killed.getHealth();
                 killed.setHealth(killed.getMaxHealth()); //simulate a healthy mob to avoid death on respawn
@@ -161,8 +163,11 @@ public class LootEventHandler {
                 var id = killed.getEncodeId();
                 if(id != null)
                     entityData.putString("id", id);
-                entityData = killed.saveWithoutId(entityData);
-                shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+                // 26.1: saveWithoutId now takes ValueOutput instead of CompoundTag
+                var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                killed.saveWithoutId(output);
+                entityData = output.buildResult();
+                shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(killed.getType(), entityData));
                 killed.setHealth(health); //stop healthy simulation to mob die
                 event.getDrops().add(new ItemEntity(killed.level(), killed.getX(), killed.getY(), killed.getZ(), shard));
             }

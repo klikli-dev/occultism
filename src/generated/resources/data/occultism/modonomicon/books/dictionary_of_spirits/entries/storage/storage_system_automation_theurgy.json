@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:list_filter"
+    "id": "minecraft:hopper"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.name",
   "pages": [

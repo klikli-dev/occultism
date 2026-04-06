@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:bricks/normal"
-  },
+  "ingredient": "#c:bricks/normal",
   "result": {
     "type": "occultism:tag",
     "count": 1,

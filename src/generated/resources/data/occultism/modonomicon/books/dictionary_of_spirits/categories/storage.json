@@ -25,7 +25,7 @@
   "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
-    "item": "minecraft:chest"
+    "id": "minecraft:chest"
   },
   "max_scroll_x": 512,
   "max_scroll_y": 512,

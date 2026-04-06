@@ -26,8 +26,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class BookOfBindingItem extends Item {
 
@@ -37,9 +38,9 @@ public class BookOfBindingItem extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
 
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
+        tooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip"));
     }
 }

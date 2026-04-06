@@ -2,12 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "occultism:otherplanks"
-    }
+    "occultism:otherplanks"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherplanks_button"
   }
 }

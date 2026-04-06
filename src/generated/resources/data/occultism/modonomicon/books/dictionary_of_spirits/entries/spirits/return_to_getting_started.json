@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:dictionary_of_spirits_icon"
+    "id": "occultism:dictionary_of_spirits_icon"
   },
   "name": "book.occultism.dictionary_of_spirits.spirits.return_to_getting_started.name",
   "parents": [

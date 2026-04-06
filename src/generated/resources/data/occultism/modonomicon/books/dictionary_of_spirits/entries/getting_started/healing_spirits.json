@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:splash_potion"
+    "id": "minecraft:splash_potion"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.name",
   "pages": [
@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:datura"
-      },
+      "item": "occultism:datura",
       "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight.text",
       "title": ""
     },
@@ -27,9 +25,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:demons_dream_essence"
-      },
+      "item": "occultism:demons_dream_essence",
       "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight2.text",
       "title": ""
     },
@@ -39,9 +35,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:otherworld_essence"
-      },
+      "item": "occultism:otherworld_essence",
       "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight3.text",
       "title": ""
     }

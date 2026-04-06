@@ -37,16 +37,15 @@ public class ExtractItemMode extends ItemMode {
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                 String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                Component.translatable(blockName), face.getSerializedName()), true);
+                                Component.translatable(blockName), face.getSerializedName()));
                 return true;
             } else {
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"));
             }
         }
         return false;
@@ -66,7 +65,7 @@ public class ExtractItemMode extends ItemMode {
      */
     @Override
     public boolean handle(BlockEntity blockEntity, Player player, Level world, BlockPos pos, ItemStack stack, Direction face) {
-        if (blockEntity != null && world.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, face) != null) {
+        if (blockEntity != null && world.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, face) != null) {
             return this.setSpiritExtractLocation(player, world, pos, stack,
                     face);
         }

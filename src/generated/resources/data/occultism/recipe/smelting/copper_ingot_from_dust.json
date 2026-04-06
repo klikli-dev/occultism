@@ -1,13 +1,10 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
+  "category": "blocks",
   "cookingtime": 200,
   "experience": 0.7,
-  "ingredient": {
-    "tag": "c:dusts/copper"
-  },
+  "ingredient": "#c:dusts/copper",
   "result": {
-    "count": 1,
     "id": "minecraft:copper_ingot"
   }
 }

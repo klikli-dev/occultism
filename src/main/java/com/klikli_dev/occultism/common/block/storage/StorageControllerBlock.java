@@ -29,7 +29,7 @@ import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -68,13 +68,8 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
-        return false;
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof MenuProvider provider &&
                     StorageControllerContainerBase.canOpen(pPlayer, pPos) &&
@@ -84,12 +79,7 @@ public class StorageControllerBlock extends Block implements EntityBlock {
                 StorageControllerContainerBase.reserve(pPlayer, pPos);
             }
         }
-        return ItemInteractionResult.SUCCESS;
-    }
-
-    @Override
-    protected void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -100,7 +90,7 @@ public class StorageControllerBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state, boolean includeData) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 

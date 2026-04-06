@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": {
-      "tag": "c:raw_materials/iesnium"
-    }
+    "p": "#c:raw_materials/iesnium"
   },
   "pattern": [
     "ppp",
@@ -12,7 +10,6 @@
     "ppp"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:raw_iesnium_block"
   }
 }

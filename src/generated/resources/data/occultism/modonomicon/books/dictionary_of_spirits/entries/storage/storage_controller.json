@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.storage.storage_controller.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_controller"
+    "id": "occultism:storage_controller"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.storage_controller.name",
   "pages": [
@@ -20,8 +20,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "occultism:storage_controller"
+        "id": "occultism:storage_controller"
       },
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.title"

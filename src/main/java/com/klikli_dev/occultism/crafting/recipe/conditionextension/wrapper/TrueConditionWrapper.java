@@ -4,12 +4,12 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionVisi
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapper;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.neoforge.common.conditions.TrueCondition;
+import net.neoforged.neoforge.common.conditions.AlwaysCondition;
 
-public class TrueConditionWrapper implements ConditionWrapper<TrueCondition> {
-    private final TrueCondition condition;
+public class TrueConditionWrapper implements ConditionWrapper<AlwaysCondition> {
+    private final AlwaysCondition condition;
 
-    public TrueConditionWrapper(TrueCondition condition) {
+    public TrueConditionWrapper(AlwaysCondition condition) {
         this.condition = condition;
     }
 
@@ -19,7 +19,7 @@ public class TrueConditionWrapper implements ConditionWrapper<TrueCondition> {
     }
 
     @Override
-    public TrueCondition condition() {
+    public AlwaysCondition condition() {
         return condition;
     }
 }

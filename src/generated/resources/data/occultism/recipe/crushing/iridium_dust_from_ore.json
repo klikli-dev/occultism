@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/iridium"
-  },
+  "ingredient": "#c:ores/iridium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

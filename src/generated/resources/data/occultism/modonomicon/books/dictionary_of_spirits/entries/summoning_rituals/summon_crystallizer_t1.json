@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t1.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:lapis_lazuli"
+    "id": "minecraft:lapis_lazuli"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t1.name",
   "pages": [

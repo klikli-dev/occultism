@@ -1,14 +1,15 @@
 package com.klikli_dev.occultism.integration.modonomicon;
 
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class OccultismModonomiconConstants {
     public static class Page {
-        public static final ResourceLocation SPIRIT_FIRE_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire_recipe");
-        public static final ResourceLocation SPIRIT_TRADE_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade_recipe");
-        public static final ResourceLocation RITUAL_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_recipe");
-        public static final ResourceLocation BOOK_BINDING_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "book_binding_recipe");
+        // Use Identifier.fromNamespaceAndPath to match 26.1 Identifier API
+        public static final net.minecraft.resources.Identifier SPIRIT_FIRE_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire_recipe");
+        public static final net.minecraft.resources.Identifier SPIRIT_TRADE_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade_recipe");
+        public static final net.minecraft.resources.Identifier RITUAL_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_recipe");
+        public static final net.minecraft.resources.Identifier BOOK_BINDING_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "book_binding_recipe");
     }
 
     public static class I18n {

@@ -1,48 +1,24 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_marid"
-  },
+  "activation_item": "occultism:book_of_binding_bound_marid",
   "duration": 510,
   "ingredients": [
-    {
-      "tag": "c:dusts/amethyst"
-    },
-    {
-      "tag": "c:dusts/amethyst"
-    },
-    {
-      "tag": "c:dusts/end_stone"
-    },
-    {
-      "item": "minecraft:end_crystal"
-    },
-    {
-      "item": "minecraft:end_crystal"
-    },
-    {
-      "item": "minecraft:end_crystal"
-    },
-    {
-      "item": "minecraft:end_crystal"
-    },
-    {
-      "item": "minecraft:dragon_breath"
-    },
-    {
-      "item": "minecraft:dragon_breath"
-    },
-    {
-      "item": "minecraft:dragon_breath"
-    }
+    "#c:dusts/amethyst",
+    "#c:dusts/amethyst",
+    "#c:dusts/end_stone",
+    "minecraft:end_crystal",
+    "minecraft:end_crystal",
+    "minecraft:end_crystal",
+    "minecraft:end_crystal",
+    "minecraft:dragon_breath",
+    "minecraft:dragon_breath",
+    "minecraft:dragon_breath"
   ],
   "pentacle_id": "occultism:craft_marid",
   "result": {
-    "count": 1,
     "id": "occultism:dragonyst_dust"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/craft_dragonyst_dust"
   },
   "ritual_type": "occultism:craft"

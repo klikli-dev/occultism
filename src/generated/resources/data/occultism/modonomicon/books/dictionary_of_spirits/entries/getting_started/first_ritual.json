@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle_summon"
+    "id": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.name",
   "pages": [
@@ -128,9 +128,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:flame_of_automation"
-      },
+      "item": "occultism:flame_of_automation",
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.automation_flame.text",
       "title": ""
     },

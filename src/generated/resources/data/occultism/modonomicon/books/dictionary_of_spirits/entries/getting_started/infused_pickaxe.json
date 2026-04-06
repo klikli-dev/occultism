@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:infused_pickaxe"
+    "id": "occultism:infused_pickaxe"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:infused_pickaxe"
-      },
+      "item": "occultism:infused_pickaxe",
       "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.spotlight.text",
       "title": ""
     },

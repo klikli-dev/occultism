@@ -39,10 +39,6 @@ public class PossessedEndermanEntity extends EnderMan implements PossessedMob {
         return EnderMan.createAttributes();
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

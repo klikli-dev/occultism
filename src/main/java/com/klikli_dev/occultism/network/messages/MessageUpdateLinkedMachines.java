@@ -31,7 +31,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ import java.util.Map;
  */
 public class MessageUpdateLinkedMachines implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_linked_machines");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "update_linked_machines");
     public static final Type<MessageUpdateLinkedMachines> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateLinkedMachines> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateLinkedMachines::encode, MessageUpdateLinkedMachines::new);
 

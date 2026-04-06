@@ -28,36 +28,31 @@ import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTr
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.layer.GeoRenderLayer;
 
-public class WonderingTraderRenderer extends GeoEntityRenderer<WonderingTraderEntity> {
+public class WonderingTraderRenderer extends GeoEntityRenderer<WonderingTraderEntity, EntityRenderState> {
 
     public WonderingTraderRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new WonderingTraderModel());
 
-        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
+        this.withRenderLayer(glowLayer);
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, WonderingTraderEntity entity, BakedGeoModel model,
-            @Nullable RenderType renderType, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer,
-            boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void submit(EntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         Player player = Minecraft.getInstance().player;
-
         if (player != null && (player.hasEffect(OccultismEffects.THIRD_EYE) || CuriosUtil.hasGoggles(player) || CuriosUtil.hasStaff(player))) {
             poseStack.scale(1.2F, 1.2F, 1.2F);
         }
-
-        super.actuallyRender(poseStack, entity, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        super.submit(state, poseStack, submitNodeCollector, camera);
     }
-
-
 }

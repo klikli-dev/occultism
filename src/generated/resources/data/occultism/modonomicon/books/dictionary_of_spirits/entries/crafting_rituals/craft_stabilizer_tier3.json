@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier3.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_stabilizer_tier3"
+    "id": "occultism:storage_stabilizer_tier3"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier3.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:storage_stabilizer_tier3"
-      },
+      "item": "occultism:storage_stabilizer_tier3",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier3.spotlight.text",
       "title": ""
     },

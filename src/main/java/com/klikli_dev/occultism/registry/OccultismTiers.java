@@ -22,70 +22,25 @@
 
 package com.klikli_dev.occultism.registry;
 
-import com.google.common.base.Suppliers;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ToolMaterial;
 
-import java.util.function.Supplier;
+public class OccultismTiers {
+    public static final ToolMaterial SPIRIT_ATTUNED = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            ToolMaterial.STONE.durability(),
+            9.0F,
+            3.0F,
+            22,
+            OccultismTags.Items.SPIRIT_ATTUNED_GEM_MATERIALS
+    );
 
-public enum OccultismTiers implements Tier {
-    SPIRIT_ATTUNED(Tiers.DIAMOND, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, Tiers.STONE.getUses(), 9.0F, 3.0F, 22, () -> Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM)),
-    IESNIUM(Tiers.DIAMOND, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 10.0F, 4.0F, 24, () -> Ingredient.of(OccultismItems.IESNIUM_INGOT));
-
-    private final Tiers vanillaTier;
-    private final TagKey<Block> incorrectBlocksForDrops;
-    private final int uses;
-    private final float speed;
-    private final float damage;
-    private final int enchantmentValue;
-    private final Supplier<Ingredient> repairIngredient;
-
-    OccultismTiers(Tiers vanillaTier, TagKey<Block> incorrectBlockForDrops, int uses, float speed, float damage, int enchantmentValue, Supplier<Ingredient> repairIngredient) {
-        this.vanillaTier = vanillaTier;
-        this.incorrectBlocksForDrops = incorrectBlockForDrops;
-        this.uses = uses;
-        this.speed = speed;
-        this.damage = damage;
-        this.enchantmentValue = enchantmentValue;
-        this.repairIngredient = Suppliers.memoize(repairIngredient::get);
-    }
-
-    @Override
-    public int getUses() {
-        return this.uses;
-    }
-
-    @Override
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    @Override
-    public float getAttackDamageBonus() {
-        return this.damage;
-    }
-
-    @Override
-    public TagKey<Block> getIncorrectBlocksForDrops() {
-        return this.incorrectBlocksForDrops;
-    }
-
-    @Override
-    public int getEnchantmentValue() {
-        return this.enchantmentValue;
-    }
-
-    @Override
-    public Ingredient getRepairIngredient() {
-        return this.repairIngredient.get();
-    }
-
-    @org.jetbrains.annotations.Nullable
-    public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getTag() {
-        return net.neoforged.neoforge.common.CommonHooks.getTagFromVanillaTier(this.vanillaTier);
-    }
+    public static final ToolMaterial IESNIUM = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            1561,
+            10.0F,
+            4.0F,
+            24,
+            OccultismTags.Items.IESNIUM_INGOT
+    );
 }

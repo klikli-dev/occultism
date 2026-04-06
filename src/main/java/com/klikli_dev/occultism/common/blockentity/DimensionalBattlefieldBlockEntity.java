@@ -31,22 +31,21 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
@@ -65,6 +64,8 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -91,7 +92,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
     private static final int DEFAULT_MAX_LUCK = 16;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey.create(
-                            Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
+                            Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
     private Holder<Enchantment> UNUSING;
     private Holder<Enchantment> SHARPNESS;
     private Holder<Enchantment> SMITE;
@@ -171,46 +172,52 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     }
 
     @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        com.klikli_dev.occultism.util.StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
+    }
+
+    @Override
     public @NotNull Component getDisplayName() {
         return Component.literal(Objects.requireNonNull(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType())).getPath());
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadAdditional(compound, provider);
-        this.inputSoulHandler.deserializeNBT(provider, compound.getCompound("inputSoulHandler"));
-        this.inputWeaponHandler.deserializeNBT(provider, compound.getCompound("inputWeaponHandler"));
-        this.inputFuelHandler.deserializeNBT(provider, compound.getCompound("inputFuelHandler"));
-        this.outputHandler.deserializeNBT(provider, compound.getCompound("outputHandler"));
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.inputSoulHandler.deserialize(input.childOrEmpty("inputSoulHandler"));
+        this.inputWeaponHandler.deserialize(input.childOrEmpty("inputWeaponHandler"));
+        this.inputFuelHandler.deserialize(input.childOrEmpty("inputFuelHandler"));
+        this.outputHandler.deserialize(input.childOrEmpty("outputHandler"));
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inputSoulHandler", this.inputSoulHandler.serializeNBT(provider));
-        compound.put("inputWeaponHandler", this.inputWeaponHandler.serializeNBT(provider));
-        compound.put("inputFuelHandler", this.inputFuelHandler.serializeNBT(provider));
-        compound.put("outputHandler", this.outputHandler.serializeNBT(provider));
-        super.saveAdditional(compound, provider);
+    protected void saveAdditional(ValueOutput output) {
+        this.inputSoulHandler.serialize(output.child("inputSoulHandler"));
+        this.inputWeaponHandler.serialize(output.child("inputWeaponHandler"));
+        this.inputFuelHandler.serialize(output.child("inputFuelHandler"));
+        this.outputHandler.serialize(output.child("outputHandler"));
+        super.saveAdditional(output);
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadNetwork(compound, provider);
-        this.mobHealth = compound.getInt("mobHealth");
-        this.maxMobLife = compound.getInt("maxMobLife");
-        this.hitTimer = compound.getInt("hitTimer");
-        this.maxHitTimer = compound.getInt("maxHitTimer");
-        this.soulValue = compound.getInt("soulValue");
+    public void loadNetwork(ValueInput input) {
+        super.loadNetwork(input);
+        this.mobHealth = input.getIntOr("mobHealth", 0);
+        this.maxMobLife = input.getIntOr("maxMobLife", 0);
+        this.hitTimer = input.getIntOr("hitTimer", 0);
+        this.maxHitTimer = input.getIntOr("maxHitTimer", 0);
+        this.soulValue = input.getIntOr("soulValue", 0);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.putInt("mobHealth", this.mobHealth);
-        compound.putInt("maxMobLife", this.maxMobLife);
-        compound.putInt("hitTimer", this.hitTimer);
-        compound.putInt("maxHitTimer", this.maxHitTimer);
-        compound.putInt("soulValue", this.soulValue);
-        return super.saveNetwork(compound, provider);
+    public void saveNetwork(ValueOutput output) {
+        output.putInt("mobHealth", this.mobHealth);
+        output.putInt("maxMobLife", this.maxMobLife);
+        output.putInt("hitTimer", this.hitTimer);
+        output.putInt("maxHitTimer", this.maxHitTimer);
+        output.putInt("soulValue", this.soulValue);
+        super.saveNetwork(output);
     }
 
     public void tick() {
@@ -218,7 +225,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (level == null)
             return;
 
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             if (this.mobHealth > 0 && level.getGameTime() % 50 == 0) {
                 level.addParticle(
                         ParticleTypes.ANGRY_VILLAGER,
@@ -282,7 +289,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         hitTimer = maxHitTimer;
         mobHealth--;
 
-        if (level.random.nextFloat() < BUTCHER_HURT_CHANCE) {
+        if (level.getRandom().nextFloat() < BUTCHER_HURT_CHANCE) {
             weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {});
         }
 
@@ -319,14 +326,14 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         LivingEntity entity = this.storedLivingEntity;
         int rolls = soul.getOrDefault(OccultismDataComponents.ROLLS_PER_OPERATION, 1);
-        if (entity.getType().is(Tags.EntityTypes.BOSSES)) {
+        if (entity.getType().builtInRegistryHolder().is(Tags.EntityTypes.BOSSES)) {
             rolls = 1;
         }
         if (entity instanceof PossessedMob possessedMob) {
             rolls = Math.max(1, (int) (rolls/3F) );
             EntityType<?> baseMob = possessedMob.basedMob();
             if (baseMob != null)
-                entity = (LivingEntity) baseMob.create(this.level);
+                entity = (LivingEntity) baseMob.create(this.level, EntitySpawnReason.MOB_SUMMONED);
         }
         if (entity == null)
             return;
@@ -353,12 +360,12 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
 
         FakePlayer fakePlayer = this.getFakePlayer();
-        if (entity.getType().is(OccultismTags.Entities.FORCE_KILL_SIMULATION)) {
+        if (entity.getType().builtInRegistryHolder().is(OccultismTags.Entities.FORCE_KILL_SIMULATION)) {
             NeoForge.EVENT_BUS.addListener(this.entityJoinLevelEventListener);
             for (int i = 0; i < rolls; i++) {
-                Entity clone = entity.getType().create(this.level);
+                Entity clone = entity.getType().create(this.level, EntitySpawnReason.MOB_SUMMONED);
                 if (clone != null) {
-                    clone.moveTo(this.getBlockPos().getX(), -100, this.getBlockPos().getZ());
+                    clone.snapTo((double)this.getBlockPos().getX(), -100.0, (double)this.getBlockPos().getZ(), 0.0f, 0.0f);
                     clone.hurt(this.level.damageSources().playerAttack(fakePlayer), Integer.MAX_VALUE);
                 }
             }
@@ -399,20 +406,20 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public void setStoredLivingEntity(ItemStack stack, ServerLevel level) {
         this.storedLivingEntity = null;
         if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA) && this.level != null) {
-            CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTag();
-            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(this.level);
+            CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTagWithoutId();
+            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(this.level, EntitySpawnReason.MOB_SUMMONED);
             if (tempEntity instanceof LivingEntity livingEntity)
                 this.storedLivingEntity = livingEntity;
         }
         if (this.storedLivingEntity != null) {
             if (this.storedLivingEntity instanceof PossessedMob possessed && !stack.is(OccultismItems.TRINITY_GEM_ITEM)) {
                 EntityType<?> baseMob = possessed.basedMob();
-                if (baseMob != null && baseMob.create(level) instanceof LivingEntity entity) {
-                    this.storedLootTable = level.getServer().reloadableRegistries().getLootTable(entity.getLootTable());
+                if (baseMob != null && baseMob.create(level, EntitySpawnReason.MOB_SUMMONED) instanceof LivingEntity entity) {
+                    this.storedLootTable = entity.getLootTable().map(key -> level.getServer().reloadableRegistries().getLootTable(key)).orElse(null);
                     return;
                 }
             }
-            this.storedLootTable = level.getServer().reloadableRegistries().getLootTable(this.storedLivingEntity.getLootTable());
+            this.storedLootTable = this.storedLivingEntity.getLootTable().map(key -> level.getServer().reloadableRegistries().getLootTable(key)).orElse(null);
         } else {
             this.storedLootTable = null;
         }
@@ -448,13 +455,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         this.maxMobLife = health;
         if (soul.has(DataComponents.ENTITY_DATA)) {
             health = (int) this.storedLivingEntity.getMaxHealth();
-            CompoundTag entityData = Objects.requireNonNull(soul.get(DataComponents.ENTITY_DATA)).copyTag();
+            CompoundTag entityData = Objects.requireNonNull(soul.get(DataComponents.ENTITY_DATA)).copyTagWithoutId();
             if (entityData.contains("attributes")) {
-                ListTag attrs = entityData.getList("attributes", Tag.TAG_COMPOUND);
+                ListTag attrs = entityData.getListOrEmpty("attributes");
                 for (int i = 0; i < attrs.size(); i++) {
-                    CompoundTag attr = attrs.getCompound(i);
-                    if ("minecraft:generic.max_health".equals(attr.getString("id"))) {
-                        health = (int) attr.getDouble("base");
+                    CompoundTag attr = attrs.getCompoundOrEmpty(i);
+                    if ("minecraft:generic.max_health".equals(attr.getStringOr("id", ""))) {
+                        health = (int) attr.getDoubleOr("base", 0.0);
                     }
                 }
             }
@@ -484,16 +491,16 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
         if (weapon.isEnchanted()) {
             attackDamage += weapon.getEnchantmentLevel(SHARPNESS);
-            if (this.storedLivingEntity.getType().is(EntityTypeTags.SENSITIVE_TO_SMITE))
+            if (this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.SENSITIVE_TO_SMITE))
                 attackDamage += 2.5*weapon.getEnchantmentLevel(SMITE);
-            if (this.storedLivingEntity.getType().is(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
+            if (this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
                 attackDamage += 2.5*weapon.getEnchantmentLevel(BANE_OF_ARTHROPODS);
-            if (this.storedLivingEntity.getType().is(EntityTypeTags.SENSITIVE_TO_IMPALING))
+            if (this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.SENSITIVE_TO_IMPALING))
                 attackDamage += 2.5*weapon.getEnchantmentLevel(IMPALING);
         }
         if (weapon.is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM) &&
-                (this.storedLivingEntity.getType().is(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
-                || this.storedLivingEntity.getType().is(Tags.EntityTypes.BOSSES))) {
+                (this.storedLivingEntity.getType().builtInRegistryHolder().is(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+                || this.storedLivingEntity.getType().builtInRegistryHolder().is(Tags.EntityTypes.BOSSES))) {
             attackDamage *= 3;
         }
         if (attackSpeed == 0 || attackDamage == 0)
@@ -547,8 +554,9 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public void updateBelowBlock() {
         if (this.level != null) {
             this.cachedStateBelow = this.level.getBlockState(this.getBlockPos().below(2));
-            this.handlerBelow = this.level.getCapability(Capabilities.ItemHandler.BLOCK,
-                    this.getBlockPos().below(2), this.cachedStateBelow, null, Direction.UP);
+            // TODO: Port to new NeoForge transfer API (Capabilities.Item.BLOCK / ResourceHandler<ItemResource>)
+            // The old IItemHandler capability system was replaced in NeoForge 26.1
+            this.handlerBelow = null;
         }
     }
 

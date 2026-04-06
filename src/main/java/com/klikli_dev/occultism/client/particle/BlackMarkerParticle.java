@@ -2,17 +2,20 @@ package com.klikli_dev.occultism.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 
-public class BlackMarkerParticle extends TextureSheetParticle {
+public class BlackMarkerParticle extends SingleQuadParticle {
 
     private final SpriteSet sprites;
 
     protected BlackMarkerParticle(
-            ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet sprites
+            ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
+            SpriteSet sprites, RandomSource random
     ) {
-        super(level, x, y, z, xSpeed, ySpeed, zSpeed);
+        super(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites.get(random));
         this.friction = 0.99F;
         this.speedUpWhenYMotionIsBlocked = false;
         this.sprites = sprites;
@@ -25,15 +28,15 @@ public class BlackMarkerParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    protected SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
     @Override
-    public int getLightColor(float partialTick) {
+    public int getLightCoords(float partialTick) {
         float f = ((float)this.age + partialTick) / (float)this.lifetime;
         f = Mth.clamp(f, 0.0F, 1.0F);
-        int i = super.getLightColor(partialTick);
+        int i = super.getLightCoords(partialTick);
         int j = i & 0xFF;
         int k = i >> 16 & 0xFF;
         j += (int)(f * 15.0F * 16.0F);
@@ -59,10 +62,9 @@ public class BlackMarkerParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z,
-                                       double xSpeed, double ySpeed, double zSpeed) {
-            BlackMarkerParticle particle = new BlackMarkerParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, sprite);
+                                       double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
+            BlackMarkerParticle particle = new BlackMarkerParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, sprite, random);
             particle.setParticleSpeed(0,0,0);
-            particle.pickSprite(this.sprite);
             return particle;
         }
     }

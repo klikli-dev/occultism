@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/cobalt"
-  },
+  "ingredient": "#c:clumps/cobalt",
   "result": {
     "type": "occultism:tag",
     "count": 2,

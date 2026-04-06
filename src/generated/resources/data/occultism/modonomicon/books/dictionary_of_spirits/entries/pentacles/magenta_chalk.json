@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.magenta_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_magenta"
+    "id": "occultism:chalk_magenta"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.magenta_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_magenta"
-      },
+      "item": "occultism:chalk_magenta",
       "text": "book.occultism.dictionary_of_spirits.pentacles.magenta_chalk.spotlight.text",
       "title": ""
     },

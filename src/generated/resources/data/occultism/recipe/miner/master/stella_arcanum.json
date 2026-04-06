@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:miner",
-  "ingredient": {
-    "tag": "occultism:miners/master"
-  },
+  "ingredient": "#occultism:miners/master",
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,

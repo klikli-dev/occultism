@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.vitality_compass.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:vitality_compass"
+    "id": "occultism:vitality_compass"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.vitality_compass.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:vitality_compass"
-      },
+      "item": "occultism:vitality_compass",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.vitality_compass.spotlight.text",
       "title": ""
     },

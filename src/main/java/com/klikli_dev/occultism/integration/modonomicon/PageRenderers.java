@@ -9,20 +9,16 @@ public class PageRenderers {
     public static void onClientSetup(FMLClientSetupEvent event) {
         PageRendererRegistry.registerPageRenderer(
                 OccultismModonomiconConstants.Page.SPIRIT_FIRE_RECIPE,
-                p -> new BookSpiritFireRecipePageRenderer<>((BookSpiritFireRecipePage) p) {
-                });
+                p -> new BookSpiritFireRecipePageRenderer((BookSpiritFireRecipePage) p));
         PageRendererRegistry.registerPageRenderer(
                 OccultismModonomiconConstants.Page.SPIRIT_TRADE_RECIPE,
-                p -> new BookSpiritTradeRecipePageRenderer<>((BookSpiritTradeRecipePage) p) {
-                });
+                p -> new BookSpiritTradeRecipePageRenderer((BookSpiritTradeRecipePage) p));
         PageRendererRegistry.registerPageRenderer(
                 OccultismModonomiconConstants.Page.RITUAL_RECIPE,
-                p -> new BookRitualRecipePageRenderer<>((BookRitualRecipePage) p) {
-                });
+                p -> new BookRitualRecipePageRenderer((BookRitualRecipePage) p));
         PageRendererRegistry.registerPageRenderer(
                 OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE,
-                p -> new BookBindingCraftingRecipePageRenderer((BookBindingCraftingRecipePage) p) {
-                });
+                p -> new BookBindingCraftingRecipePageRenderer((BookBindingCraftingRecipePage) p));
     }
 
 }

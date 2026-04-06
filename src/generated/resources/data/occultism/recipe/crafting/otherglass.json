@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "e": {
-      "tag": "c:dusts/end_stone"
-    },
-    "g": {
-      "tag": "c:glass_blocks"
-    },
-    "n": {
-      "tag": "c:nuggets/iesnium"
-    }
+    "e": "#c:dusts/end_stone",
+    "g": "#c:glass_blocks",
+    "n": "#c:nuggets/iesnium"
   },
   "pattern": [
     "nen",
@@ -18,7 +12,6 @@
     "nen"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherglass_natural"
   }
 }

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:soul_shard"
+    "id": "occultism:soul_shard"
   },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:soul_shard"
-      },
+      "item": "occultism:soul_shard",
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.soul_shard.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.soul_shard.title"
     },

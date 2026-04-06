@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/amber"
-  },
+  "ingredient": "#c:dusts/amber",
   "result": {
     "type": "occultism:tag",
     "count": 1,

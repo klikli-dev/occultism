@@ -69,15 +69,7 @@ public class OtherglassNaturalBlock extends TransparentBlock implements IOtherwo
     }
 
     @Override
-    public String getDescriptionId() {
-        return "block.occultism.otherglass";
-    }
-
-
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state, boolean includeData) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }
 

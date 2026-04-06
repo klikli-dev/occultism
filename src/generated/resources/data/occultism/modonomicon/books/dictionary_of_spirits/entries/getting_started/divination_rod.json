@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:divination_rod"
+    "id": "occultism:divination_rod"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.name",
   "pages": [
@@ -48,9 +48,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:divination_rod"
-      },
+      "item": "occultism:divination_rod",
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod.text",
       "title": ""
     },

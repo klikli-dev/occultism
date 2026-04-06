@@ -115,7 +115,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isFloor(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
-        if (!state.isSolidRender(seedReader, pos))
+        if (!state.isSolidRender())
             return false;
 
         BlockPos upPos = pos.above();
@@ -123,7 +123,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isCeiling(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
-        if (!state.isSolidRender(seedReader, pos))
+        if (!state.isSolidRender())
             return false;
 
         BlockPos downPos = pos.below();
@@ -131,7 +131,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isWall(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
-        if (!state.isSolidRender(seedReader, pos) || !this.isStone(state))
+        if (!state.isSolidRender() || !this.isStone(state))
             return false;
 
         return this.isBorder(seedReader, pos);

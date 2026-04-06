@@ -27,33 +27,58 @@ import com.klikli_dev.occultism.client.model.entity.BatFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.BatFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.context.ContextKey;
 
-public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamiliarModel> {
+public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, LivingEntityRenderState, BatFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/bat_familiar.png");
+
+    // ContextKey to pass entity-specific data to render state
+    private static final ContextKey<Float> ANIM_HEIGHT = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "bat_anim_height"));
+    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "bat_is_sitting"));
+    private static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "bat_is_partying"));
 
     public BatFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new BatFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BAT)), 0.3f);
-
     }
 
     @Override
-    public void render(BatFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack,
-                       MultiBufferSource bufferIn, int packedLightIn) {
+    public void extractRenderState(BatFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.setRenderData(ANIM_HEIGHT, entity.getAnimationHeight(partialTick));
+        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.setRenderData(IS_PARTYING, entity.isPartying());
+    }
+
+    @Override
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
-        if (!entityIn.isSitting() || entityIn.isPartying())
-            poseStack.translate(0, entityIn.getAnimationHeight(partialTicks) * 0.1 + 0.1f, 0);
-        super.render(entityIn, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
+        Boolean sitting = state.getRenderData(IS_SITTING);
+        Boolean partying = state.getRenderData(IS_PARTYING);
+        Float animHeight = state.getRenderData(ANIM_HEIGHT);
+        boolean isSitting = sitting != null && sitting;
+        boolean isPartying = partying != null && partying;
+        float height = animHeight != null ? animHeight : 0f;
+        if (!isSitting || isPartying)
+            poseStack.translate(0, height * 0.1 + 0.1f, 0);
+        super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BatFamiliarEntity entity) {
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 }

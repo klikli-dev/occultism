@@ -24,9 +24,8 @@ package com.klikli_dev.occultism.common.misc;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 
-public class DepositOrder implements INBTSerializable<CompoundTag> {
+public class DepositOrder {
 
     public ItemStackComparator comparator;
     public int amount;
@@ -55,16 +54,14 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     }
 
     public void readFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
-        this.comparator = ItemStackComparator.from(compound.getCompound("comparator"), provider);
-        this.amount = compound.getInt("amount");
+        this.comparator = ItemStackComparator.from(compound.getCompoundOrEmpty("comparator"), provider);
+        this.amount = compound.getIntOr("amount", 0);
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return this.writeToNBT(new CompoundTag(), provider);
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.readFromNBT(nbt, provider);
     }

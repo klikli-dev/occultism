@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "occultism:otherplanks"
-    }
+    "#": "minecraft:stick",
+    "W": "occultism:otherplanks"
   },
   "pattern": [
     "W#W",

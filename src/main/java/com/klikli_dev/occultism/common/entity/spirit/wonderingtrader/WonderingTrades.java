@@ -9,7 +9,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.VillagerTrades;
+// ItemListing was removed in 26.1; replaced with custom ItemListing interface below
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
@@ -19,6 +19,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class WonderingTrades {
+    /**
+     * Custom replacement for ItemListing which was removed in 26.1.
+     * VillagerTrades is now fully data-driven, but we keep this for our custom Wondering Trader.
+     */
+    @FunctionalInterface
+    public interface ItemListing {
+        MerchantOffer getOffer(Entity trader, RandomSource random);
+    }
+
     public static final int HINT = 0;
     public static final int BOOK = 1;
     public static final int PARAPHERNALIA = 2;
@@ -29,11 +38,11 @@ public class WonderingTrades {
     public static final int FAMILIAR = 7;
     public static final int DYE = 8;
 
-    public static Int2ObjectMap<VillagerTrades.ItemListing[]> WONDERING_TRADES = new Int2ObjectOpenHashMap<>(Map.of(
-            HINT, new VillagerTrades.ItemListing[]{
+    public static Int2ObjectMap<ItemListing[]> WONDERING_TRADES = new Int2ObjectOpenHashMap<>(Map.of(
+            HINT, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.WHEAT_SEEDS, 1),
                             new ItemStack(OccultismItems.DATURA.get()), 1, 1)},
-            BOOK, new VillagerTrades.ItemListing[]{
+            BOOK, new ItemListing[]{
                     new ItemTrade(new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get(), 1),
                             new ItemStack(Items.BOOK), 1, 1),
                     new ItemTrade(new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get(), 1),
@@ -50,7 +59,7 @@ public class WonderingTrades {
                             new ItemStack(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()), 1, 3),
                     new ItemTrade(new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get(), 4),
                             new ItemStack(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()), 1, 4)},
-            PARAPHERNALIA, new VillagerTrades.ItemListing[]{
+            PARAPHERNALIA, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.ROTTEN_FLESH, 10),
                             new ItemStack(OccultismBlocks.LARGE_CANDLE.get()), 8, 4),
                     new ItemTrade(new ItemStack(Items.ROTTEN_FLESH, 10),
@@ -91,7 +100,7 @@ public class WonderingTrades {
                             new ItemStack(Items.SKELETON_SKULL), 4, 8),
                     new ItemTrade(new ItemStack(Items.COAL, 64),
                             new ItemStack(Items.WITHER_SKELETON_SKULL), 2, 16)},
-            MATERIAL, new VillagerTrades.ItemListing[]{
+            MATERIAL, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.ROSE_BUSH, 1),
                             new ItemStack(OccultismBlocks.OTHERFLOWER, 15), 15, 15),
                     new ItemTrade(new ItemStack(Items.NETHER_WART, 7),
@@ -128,7 +137,7 @@ public class WonderingTrades {
                             new ItemStack(Items.BLAZE_ROD, 10), 1, 20),
                     new ItemTrade(new ItemStack(Items.POWDER_SNOW_BUCKET, 1),
                             new ItemStack(Items.BREEZE_ROD, 10), 1, 20)},
-            INVENTORY, new VillagerTrades.ItemListing[]{
+            INVENTORY, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.CHEST_MINECART, 1),
                             new ItemStack(OccultismItems.SATCHEL.get()), 1, 27),
                     new ItemTrade(new ItemStack(Items.END_ROD, 4),
@@ -147,7 +156,7 @@ public class WonderingTrades {
                             new ItemStack(OccultismItems.STORAGE_REMOTE.get(), 1), 1, 27),
                     new ItemTrade(new ItemStack(Items.SCULK_CATALYST, 1),
                             new ItemStack(OccultismItems.KNOWLEDGE_TABLET.get()), 1, 27)},
-            STORAGE, new VillagerTrades.ItemListing[]{
+            STORAGE, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.QUARTZ, 27),
                             new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get()), 1, 27),
                     new ItemTrade(new ItemStack(Items.GOLD_INGOT, 3),
@@ -183,7 +192,7 @@ public class WonderingTrades {
                             new ItemStack(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()), 1, 27),
                     new ItemTrade(new ItemStack(OccultismItems.AFRIT_ESSENCE.get(), 8),
                             new ItemStack(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get()), 1, 27)},
-            UTILITY, new VillagerTrades.ItemListing[]{
+            UTILITY, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.SPYGLASS, 1),
                             new ItemStack(OccultismItems.OTHERWORLD_GOGGLES.get()), 1, 32),
                     new ItemTrade(new ItemStack(Items.END_CRYSTAL, 1),
@@ -210,7 +219,7 @@ public class WonderingTrades {
                             new ItemStack(Items.TOTEM_OF_UNDYING), 1, 32),
                     new ItemTrade(new ItemStack(Items.ENDER_EYE, 1),
                             new ItemStack(Items.TURTLE_HELMET), 1, 32)},
-            FAMILIAR, new VillagerTrades.ItemListing[]{
+            FAMILIAR, new ItemListing[]{
                     new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
                             new ItemStack(OccultismItems.SPAWN_EGG_BAT_FAMILIAR.get()), 1, 24),
                     new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
@@ -237,7 +246,7 @@ public class WonderingTrades {
                             new ItemStack(OccultismItems.SPAWN_EGG_HEADLESS_FAMILIAR.get()), 1, 24),
                     new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
                             new ItemStack(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR.get()), 1, 24)},
-            DYE, new VillagerTrades.ItemListing[]{
+            DYE, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.WHITE_DYE, 64),
                             new ItemStack(OccultismBlocks.SPIRIT_GRINDSTONE.get()), 1, 1),
                     new ItemTrade(new ItemStack(Items.LIGHT_GRAY_DYE, 64),
@@ -274,7 +283,7 @@ public class WonderingTrades {
 
     public WonderingTrades(){}
 
-    public static class ItemTrade implements VillagerTrades.ItemListing {
+    public static class ItemTrade implements ItemListing {
         private final ItemStack input;
         private final int maxUses;
         private final int villagerXp;

@@ -46,15 +46,15 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -89,14 +89,14 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 //        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
 //        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
         this.eye = guiHelper.createDrawable(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
         this.goldenEye = guiHelper.createDrawable(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
 
         this.checklist = guiHelper.drawableBuilder(
-                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
     }
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
@@ -105,11 +105,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         return actualX + width;
     }
 
-    protected void drawStringCentered(GuiGraphics guiGraphics, Font font, Component text, int x, int y) {
+    protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
         GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
-    protected void drawStringCentered(GuiGraphics guiGraphics, Font font, FormattedCharSequence text, int x, int y) {
+    protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, int x, int y) {
         GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
@@ -269,7 +269,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     }
 
     @Override
-    public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
 

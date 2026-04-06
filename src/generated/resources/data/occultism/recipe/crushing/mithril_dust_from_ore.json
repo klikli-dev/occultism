@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/mithril"
-  },
+  "ingredient": "#c:ores/mithril",
   "result": {
     "type": "occultism:tag",
     "count": 2,

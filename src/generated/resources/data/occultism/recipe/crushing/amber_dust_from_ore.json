@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/amber"
-  },
+  "ingredient": "#c:ores/amber",
   "result": {
     "type": "occultism:tag",
     "count": 3,

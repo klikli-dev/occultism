@@ -29,11 +29,14 @@ import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class BookOfCallingTransportItems extends BookOfCallingItem {
 
@@ -42,21 +45,21 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
 
         BlockPos extract = ItemNBTUtil.getExtractPosition(pStack);
         if (extract != null) {
-            pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
+            tooltipAdder.accept(Component.translatable(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
         }
 
         BlockPos deposit = ItemNBTUtil.getDepositPosition(pStack);
         String depositName = ItemNBTUtil.getDepositEntityName(pStack);
 
         if (deposit != null) {
-            pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
+            tooltipAdder.accept(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
         } else if (depositName != null) {
-            pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
+            tooltipAdder.accept(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
         }
     }
 

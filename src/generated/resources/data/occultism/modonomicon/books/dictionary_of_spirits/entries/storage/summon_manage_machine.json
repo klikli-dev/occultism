@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:lever"
+    "id": "minecraft:lever"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.name",
   "pages": [

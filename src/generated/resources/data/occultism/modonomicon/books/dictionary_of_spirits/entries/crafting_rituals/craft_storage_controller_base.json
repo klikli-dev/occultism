@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_controller_base"
+    "id": "occultism:storage_controller_base"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:storage_controller_base"
-      },
+      "item": "occultism:storage_controller_base",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:storage_controller_base_dark"
-      },
+      "item": "occultism:storage_controller_base_dark",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.spotlight_dark.text",
       "title": ""
     },

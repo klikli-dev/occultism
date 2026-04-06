@@ -28,22 +28,21 @@ import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
-public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
+public abstract class SpiritJob {
     public SpiritEntity entity;
-    public ResourceLocation factoryId;
+    public Identifier factoryId;
 
     public SpiritJob(SpiritEntity entity) {
         this.entity = entity;
@@ -51,28 +50,18 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
 
     public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                .get(ResourceLocation.parse(nbt.getString("factoryId")));
+                .get(Identifier.parse(nbt.getStringOr("factoryId", ""))).orElseThrow().value();
         SpiritJob job = factory.create(entity);
-        job.deserializeNBT(entity.level().registryAccess(), nbt);
+        job.readJobFromNBT(nbt, entity.level().registryAccess());
         return job;
     }
 
-    public ResourceLocation getFactoryID() {
+    public Identifier getFactoryID() {
         return this.factoryId;
     }
 
-    public void setFactoryId(ResourceLocation factoryId) {
+    public void setFactoryId(Identifier factoryId) {
         this.factoryId = factoryId;
-    }
-
-    @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return this.writeJobToNBT(new CompoundTag(), provider);
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        this.readJobFromNBT(nbt, provider);
     }
 
 
@@ -81,10 +70,10 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      */
     public final void init() {
         this.entity.remakeBrain();
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.entity.getDepositFacing());
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
+        BrainUtil.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.entity.getDepositFacing());
         this.onInit();
     }
 

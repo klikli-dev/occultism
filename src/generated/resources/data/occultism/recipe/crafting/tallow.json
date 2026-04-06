@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:tallow_block"
-    }
+    "occultism:tallow_block"
   ],
   "result": {
     "count": 9,

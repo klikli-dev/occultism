@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:heavy_core"
+    "id": "minecraft:heavy_core"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_strong_breeze.name",
   "pages": [

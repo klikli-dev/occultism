@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/tungsten"
-  },
+  "ingredient": "#c:clumps/tungsten",
   "result": {
     "type": "occultism:tag",
     "count": 2,

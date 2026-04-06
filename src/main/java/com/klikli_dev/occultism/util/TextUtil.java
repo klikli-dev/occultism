@@ -27,7 +27,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
@@ -90,7 +90,7 @@ public class TextUtil {
         if (modNamesInitialized)
             initializeModNames();
 
-        ResourceLocation key;
+        Identifier key;
         if (object instanceof Item) {
             key = BuiltInRegistries.ITEM.getKey((Item) object);
         } else if (object instanceof Block) {
@@ -142,8 +142,8 @@ public class TextUtil {
      * Formats the given spirit type name in a color based on the type.
      */
     public static MutableComponent formatDemonType(Component name, EntityType<?> type) {
-        var egg = SpawnEggItem.byId(type);
-        var color = egg != null ? egg.getColor(0) : 0xffffff;
+        // SpawnEggItem.forEntityType() doesn't exist in 26.1, use default color
+        var color = 0xffffff;
         color = makeColorLighterForDarkMode(color);
         int finalColor = color;
         return Component.empty().append(name).withStyle(style -> style.withColor(finalColor));

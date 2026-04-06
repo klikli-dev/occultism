@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:gems/sapphire"
-  },
+  "ingredient": "#c:gems/sapphire",
   "result": {
     "type": "occultism:tag",
     "count": 1,

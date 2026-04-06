@@ -22,10 +22,9 @@
 
 package com.klikli_dev.occultism.client.gui.controls;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.resources.language.I18n;
@@ -70,13 +69,10 @@ public class LabelWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             Font fontrenderer = minecraft.font;
-            RenderSystem.clearColor(1.0F, 1.0F, 1.0F, this.alpha);
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
 
             if (this.centered && this.width <= 0 && this.lines.size() > 0)
                 this.width = fontrenderer.width(this.lines.get(0));
@@ -95,30 +91,30 @@ public class LabelWidget extends AbstractWidget {
         }
     }
 
-    public void drawCenteredLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
+    public void drawCenteredLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text) / 2), (float) y, color, true);
+            guiGraphics.text(font, text, (int) (x - font.width(text) / 2), y, color, true);
         } else {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text) / 2), (float) y, color, false);
+            guiGraphics.text(font, text, (int) (x - font.width(text) / 2), y, color, false);
         }
     }
 
-    public void drawRightAlignedLabelString(GuiGraphics guiGraphics, Font font, String text,
+    public void drawRightAlignedLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text,
                                             int x, int y,
                                             int color) {
         if (this.shadow) {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text)), (float) y, color, true);
+            guiGraphics.text(font, text, (int) (x - font.width(text)), y, color, true);
         } else {
-            guiGraphics.drawString(font, text, (float) (x - font.width(text)), (float) y, color, false);
+            guiGraphics.text(font, text, (int) (x - font.width(text)), y, color, false);
         }
 
     }
 
-    public void drawLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
+    public void drawLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
-            guiGraphics.drawString(font, text, x, y, color, true);
+            guiGraphics.text(font, text, x, y, color, true);
         } else {
-            guiGraphics.drawString(font, text, x, y, color, false);
+            guiGraphics.text(font, text, x, y, color, false);
         }
     }
 

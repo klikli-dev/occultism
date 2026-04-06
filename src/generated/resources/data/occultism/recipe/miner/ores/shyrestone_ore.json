@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:miner",
-  "ingredient": {
-    "tag": "occultism:miners/ores"
-  },
+  "ingredient": "#occultism:miners/ores",
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,

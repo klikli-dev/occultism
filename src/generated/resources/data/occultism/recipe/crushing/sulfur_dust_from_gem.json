@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:gems/sulfur"
-  },
+  "ingredient": "#c:gems/sulfur",
   "result": {
     "type": "occultism:tag",
     "count": 1,

@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.zombie.Husk;
 import net.minecraft.world.level.Level;
 
 public class WildHordeHuskEntity extends Husk implements PossessedMob {
@@ -44,11 +44,6 @@ public class WildHordeHuskEntity extends Husk implements PossessedMob {
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.ATTACK_SPEED, 6.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
-    }
-
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
     }
 
     @Override

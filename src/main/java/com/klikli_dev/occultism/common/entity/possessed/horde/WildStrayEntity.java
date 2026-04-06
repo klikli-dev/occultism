@@ -24,13 +24,14 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.skeleton.Stray;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -65,29 +66,20 @@ public class WildStrayEntity extends Stray implements PossessedMob {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
 
         Entity trueSource = source.getEntity();
-        if (trueSource != null && trueSource.getType().is(wildTrialTag))
+        if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildTrialTag))
             return true;
 
         Entity immediateSource = source.getDirectEntity();
-        if (immediateSource != null && immediateSource.getType().is(wildTrialTag))
+        if (immediateSource != null && immediateSource.getType().builtInRegistryHolder().is(wildTrialTag))
             return true;
 
-        return super.isInvulnerableTo(source);
-    }
-
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return true;
+        return super.isInvulnerableTo(level, source);
     }
     //endregion Static Methods
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
 
     @Override
     public EntityType basedMob(){

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "c:crops/datura"
-    },
-    "S": {
-      "tag": "c:rods/wooden"
-    },
-    "X": {
-      "tag": "minecraft:coals"
-    }
+    "#": "#c:crops/datura",
+    "S": "#c:rods/wooden",
+    "X": "#minecraft:coals"
   },
   "pattern": [
     "X",
@@ -18,7 +12,6 @@
     "S"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:spirit_torch"
   }
 }

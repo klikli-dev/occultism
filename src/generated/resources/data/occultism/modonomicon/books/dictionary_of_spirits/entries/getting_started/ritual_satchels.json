@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:ritual_satchel_t1"
+    "id": "occultism:ritual_satchel_t1"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:ritual_satchel_t1"
-      },
+      "item": "occultism:ritual_satchel_t1",
       "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.spotlight.text",
       "title": ""
     },

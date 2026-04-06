@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:music_disc_cat"
+    "id": "minecraft:music_disc_cat"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_creeper.name",
   "pages": [

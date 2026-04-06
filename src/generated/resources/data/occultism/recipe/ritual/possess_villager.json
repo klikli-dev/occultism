@@ -1,36 +1,28 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "entity_tag_to_summon": "c:villagers",
   "ingredients": [
-    {
-      "tag": "minecraft:beds"
-    },
-    {
-      "item": "minecraft:campfire"
-    },
-    {
-      "tag": "c:foods/pie"
-    }
+    "#minecraft:beds",
+    "minecraft:campfire",
+    "#c:foods/pie"
   ],
-  "item_to_use": {
-    "item": "minecraft:experience_bottle"
-  },
+  "item_to_use": "minecraft:experience_bottle",
   "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_villager\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.possess_villager"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_villager.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.possess_villager.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:mysterious_egg_icon"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/possess_villager"
   },
   "ritual_type": "occultism:summon"

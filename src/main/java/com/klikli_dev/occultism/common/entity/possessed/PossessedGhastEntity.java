@@ -38,11 +38,6 @@ public class PossessedGhastEntity extends Ghast implements PossessedMob {
     }
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
     public EntityType basedMob(){
         return EntityType.GHAST;
     }

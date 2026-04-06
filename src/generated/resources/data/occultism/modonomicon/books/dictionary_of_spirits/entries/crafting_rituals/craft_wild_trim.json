@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:wild_armor_trim_smithing_template"
+    "id": "minecraft:wild_armor_trim_smithing_template"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "minecraft:wild_armor_trim_smithing_template"
-      },
+      "item": "minecraft:wild_armor_trim_smithing_template",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.spotlight.text",
       "title": ""
     },

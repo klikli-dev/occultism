@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ender_pearls"
-  },
+  "ingredient": "#c:ender_pearls",
   "result": {
     "type": "occultism:tag",
     "count": 1,

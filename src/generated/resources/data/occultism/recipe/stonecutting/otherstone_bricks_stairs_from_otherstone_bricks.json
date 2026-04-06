@@ -1,10 +1,7 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "occultism:otherstone_bricks"
-  },
+  "ingredient": "occultism:otherstone_bricks",
   "result": {
-    "count": 1,
     "id": "occultism:otherstone_bricks_stairs"
   }
 }

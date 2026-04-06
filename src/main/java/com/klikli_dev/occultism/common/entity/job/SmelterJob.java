@@ -39,6 +39,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -87,14 +88,12 @@ public class SmelterJob extends SpiritJob {
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         Level level = this.entity.level();
-        this.itemsToPickUp.addAll(level.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING).stream()
-                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
-        this.itemsToPickUp.addAll(level.getRecipeManager().getAllRecipesFor(RecipeType.BLASTING).stream()
-                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
-        this.itemsToPickUp.addAll(level.getRecipeManager().getAllRecipesFor(RecipeType.SMOKING).stream()
-                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
-        this.itemsToPickUp.addAll(level.getRecipeManager().getAllRecipesFor(RecipeType.CAMPFIRE_COOKING).stream()
-                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
+        var allRecipes = ((ServerLevel) level).recipeAccess().getRecipes();
+        for (var holder : allRecipes) {
+            if (holder.value() instanceof AbstractCookingRecipe cookingRecipe) {
+                this.itemsToPickUp.add(cookingRecipe.input());
+            }
+        }
     }
 
     @Override
@@ -113,16 +112,16 @@ public class SmelterJob extends SpiritJob {
                                 && this.currentRecipeSmoke.isEmpty()
                                 && this.currentRecipeCamp.isEmpty()) {
 
-            this.currentRecipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING,
+            this.currentRecipe = ((ServerLevel) level).recipeAccess().getRecipeFor(RecipeType.SMELTING,
                     recipeInput, level);
             if (this.currentRecipe.isEmpty()) {
-                this.currentRecipeBlast = level.getRecipeManager().getRecipeFor(RecipeType.BLASTING,
+                this.currentRecipeBlast = ((ServerLevel) level).recipeAccess().getRecipeFor(RecipeType.BLASTING,
                         recipeInput, level);
                 if (this.currentRecipeBlast.isEmpty()) {
-                    this.currentRecipeSmoke = level.getRecipeManager().getRecipeFor(RecipeType.SMOKING,
+                    this.currentRecipeSmoke = ((ServerLevel) level).recipeAccess().getRecipeFor(RecipeType.SMOKING,
                             recipeInput, level);
                     if (this.currentRecipeSmoke.isEmpty()) {
-                        this.currentRecipeCamp = level.getRecipeManager().getRecipeFor(RecipeType.CAMPFIRE_COOKING,
+                        this.currentRecipeCamp = ((ServerLevel) level).recipeAccess().getRecipeFor(RecipeType.CAMPFIRE_COOKING,
                                 recipeInput, level);
                     }
                 }
@@ -136,7 +135,7 @@ public class SmelterJob extends SpiritJob {
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
+                ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, handHeld);
                 if (droppedItem != null) {
                     droppedItem.addTag(DROPPED_BY_SMELTER);
                 }
@@ -148,9 +147,9 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipe = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipe.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipe.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
-                    ItemStack result = this.currentRecipe.get().value().assemble(recipeInput, level.registryAccess());
+                    ItemStack result = this.currentRecipe.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
@@ -161,9 +160,9 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipeBlast = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipeBlast.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipeBlast.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
-                    ItemStack result = this.currentRecipeBlast.get().value().assemble(recipeInput, level.registryAccess());
+                    ItemStack result = this.currentRecipeBlast.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
@@ -174,9 +173,9 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipeSmoke = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
-                    ItemStack result = this.currentRecipeSmoke.get().value().assemble(recipeInput, level.registryAccess());
+                    ItemStack result = this.currentRecipeSmoke.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
@@ -187,9 +186,9 @@ public class SmelterJob extends SpiritJob {
                 this.currentRecipeCamp = Optional.empty();
             } else {
                 commonTick();
-                if (this.smeltingTimer >= this.currentRecipeCamp.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                if (this.smeltingTimer >= this.currentRecipeCamp.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
-                    ItemStack result = this.currentRecipeCamp.get().value().assemble(recipeInput, level.registryAccess());
+                    ItemStack result = this.currentRecipeCamp.get().value().assemble(recipeInput);
                     commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
@@ -207,8 +206,8 @@ public class SmelterJob extends SpiritJob {
         if (level.getGameTime() % 10 == 0) {
             Vec3 pos = this.entity.position();
             ((ServerLevel) level)
-                    .sendParticles(ParticleTypes.FLAME, pos.x + level.random.nextGaussian() / 3,
-                            pos.y + 0.5, pos.z + level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                    .sendParticles(ParticleTypes.FLAME, pos.x + level.getRandom().nextGaussian() / 3,
+                            pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                             0.0);
         }
 
@@ -241,7 +240,7 @@ public class SmelterJob extends SpiritJob {
                 }
             }
             if (flag) {
-                ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, event.getResult());
                 if (droppedItem != null) {
                     droppedItem.addTag(DROPPED_BY_SMELTER);
                 }
@@ -258,12 +257,12 @@ public class SmelterJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
-        this.smeltingTimer = compound.getInt("conversionTimer");
+        this.smeltingTimer = compound.getIntOr("conversionTimer", 0);
     }
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if (entity.getTags().contains(DROPPED_BY_SMELTER) && entity.getAge() <
+        if (entity.entityTags().contains(DROPPED_BY_SMELTER) && entity.getAge() <
                 Occultism.SERVER_CONFIG.spiritJobs.smelterResultPickupDelay.get())
             return false; //cannot pick up items a smelter (most likely *this* one) dropped util delay elapsed.
 
@@ -288,8 +287,9 @@ public class SmelterJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        this.handlerBelow = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK,
+        var resourceHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
+        this.handlerBelow = resourceHandler != null ? IItemHandler.of(resourceHandler) : null;
     }
 
     public static class SmelterJobEvent extends ItemProcessingJobEvent {

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:clock"
+    "id": "minecraft:clock"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name",
   "pages": [

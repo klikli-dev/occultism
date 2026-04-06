@@ -23,30 +23,29 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.client.model.ParrotModel;
+import net.minecraft.client.model.animal.parrot.ParrotModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.ParrotRenderState;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.animal.parrot.Parrot;
 
-public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotModel> {
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
+public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotRenderState, ParrotModel> {
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
 
     public OtherworldBirdRenderer(EntityRendererProvider.Context context) {
         super(context, new ParrotModel(context.bakeLayer(ModelLayers.PARROT)), 0.3F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Parrot pEntity) {
-        return TEXTURE;
+    public ParrotRenderState createRenderState() {
+        return new ParrotRenderState();
     }
 
     @Override
-    public float getBob(Parrot livingBase, float partialTicks) {
-        float f = Mth.lerp(partialTicks, livingBase.oFlap, livingBase.flap);
-        float f1 = Mth.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.flapSpeed);
-        return (Mth.sin(f) + 1.0F) * f1;
+    public Identifier getTextureLocation(ParrotRenderState state) {
+        return TEXTURE;
     }
 }

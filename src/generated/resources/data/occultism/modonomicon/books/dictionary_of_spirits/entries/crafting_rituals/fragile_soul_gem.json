@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.fragile_soul_gem.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:fragile_soul_gem"
+    "id": "occultism:fragile_soul_gem"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.fragile_soul_gem.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:fragile_soul_gem"
-      },
+      "item": "occultism:fragile_soul_gem",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.fragile_soul_gem.spotlight.text",
       "title": ""
     },

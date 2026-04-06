@@ -22,23 +22,5 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
-
-@OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
-public class StableWormholeBlockItemPropertyGetter implements ItemPropertyFunction {
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        return stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER) ? 1.0f : 0.0f;
-    }
+public class StableWormholeBlockItemPropertyGetter extends StorageRemoteItemPropertyGetter {
 }

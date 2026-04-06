@@ -26,22 +26,24 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -49,16 +51,22 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
 public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final byte ONE_ARMED = 4;
     public static final byte ONE_LEGGED = 3;
@@ -79,7 +87,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setColor();
         this.setTree(this.getRandom().nextDouble() < 0.1);
         this.setBird(this.getRandom().nextDouble() < 0.5);
@@ -149,8 +157,8 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.getLives() <= 0 && !this.level().isClientSide)
-            this.kill();
+        if (this.getLives() <= 0 && !this.level().isClientSide())
+            if (this.level() instanceof ServerLevel sl) this.kill(sl);
 
         if (this.lives0 != -1 && this.lives0 > this.getLives()) {
             this.particleTimer = 30;
@@ -159,11 +167,11 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
         this.lives0 = this.getLives();
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             if (this.particleTimer-- > 0) {
                 for (int i = 0; i < 20; i++) {
-                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
-                            .setPos(this.blockPosition()), this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
+                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()),
+                            this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
                 }
             }
         }
@@ -209,30 +217,29 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("lives", this.getLives());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putByte("lives", this.getLives());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants")) {
-            this.setTree(compound.getBoolean("hasTree"));
-            this.setBird(compound.getBoolean("hasBird"));
-            this.setTools(compound.getBoolean("hasTools"));
-        }
-        this.setLives(compound.getByte("lives"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        // Note: "variants" guard removed - ValueInput has no contains() method
+        this.setTree(input.getBooleanOr("hasTree", false));
+        this.setBird(input.getBooleanOr("hasBird", false));
+        this.setTools(input.getBooleanOr("hasTools", false));
+        this.setLives(input.getByteOr("lives", (byte) 0));
 
-        if (compound.getBoolean("for_book")) {
+        if (input.getBooleanOr("for_book", false)) {
             this.setLives(MAX_LIVES);
             this.setColor();
         }
     }
 
     @Override
-    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
-        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+    protected void dropFromLootTable(ServerLevel level, DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(level, pDamageSource, pAttackedRecently);
 
         //copied from parent to also modify lives before saving to item
 
@@ -248,13 +255,11 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
         var lives = this.getLives();
         this.setLives((byte) (this.getRandom().nextInt(5) + 1)); //randomize lives for next respawn
 
-        var entityData = new CompoundTag();
-        var id = this.getEncodeId();
-        if(id != null)
-            entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
-
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), LOGGER)) {
+            TagValueOutput output = TagValueOutput.createWithContext(reporter, this.registryAccess());
+            this.saveWithoutId(output);
+            shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), output.buildResult()));
+        }
 
         this.setHealth(health);
         this.setLives(lives);

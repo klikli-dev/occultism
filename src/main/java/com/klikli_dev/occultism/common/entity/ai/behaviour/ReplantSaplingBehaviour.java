@@ -15,7 +15,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -28,18 +28,18 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get()).getFirst();
+        var treePos = BrainUtil.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get()).getFirst();
         var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
         return StorageUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1
                 && dist <= ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE;
     }
 
     protected void start(E entity) {
-        var lastFelledTreeList = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        var lastFelledTreeList = BrainUtil.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
         var lastFelledTree = lastFelledTreeList.getFirst();
 
         if (entity.level().isEmptyBlock(lastFelledTree)) {
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(lastFelledTree));
+            BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(lastFelledTree));
 
             if (entity.level().getBlockState(lastFelledTree.below()).is(BlockTags.DIRT)) {
                 var handler = entity.inventory;
@@ -52,9 +52,9 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
         }
         lastFelledTreeList.removeFirst();
         if (lastFelledTreeList.isEmpty()) {
-            BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+            BrainUtil.clearMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
         } else {
-            BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), lastFelledTreeList);
+            BrainUtil.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), lastFelledTreeList);
         }
     }
 

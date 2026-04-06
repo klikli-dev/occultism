@@ -78,13 +78,16 @@ jobs:
           tag: ${{ github.ref }}
           artifacts: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
           artifactContentType: application/java-archive
-      - name: Commit CHANGELOG.md
+      - name: Update mod_version in gradle.properties
+        if: ${{ steps.get_release_type.outputs.result != 'test' }}
+        run: sed -i "s/^mod_version=.*/mod_version=${{ steps.get_version.outputs.result }}/" gradle.properties
+      - name: Commit CHANGELOG.md and gradle.properties
         uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
-          branch: version/1.21.1
-          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
-          file_pattern: CHANGELOG.md
+          branch: version/${{ steps.get_mc_version.outputs.result }}
+          commit_message: 'docs: update CHANGELOG.md and mod_version for ${{ github.ref_name }} [skip ci]'
+          file_pattern: CHANGELOG.md gradle.properties
       - name: Upload to Mod Platforms
         uses: Kir-Antipov/mc-publish@v3.3.0
         if: ${{ steps.get_release_type.outputs.result != 'test' }}

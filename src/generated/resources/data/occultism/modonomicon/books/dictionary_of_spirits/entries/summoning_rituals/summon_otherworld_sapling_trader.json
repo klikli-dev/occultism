@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:otherworld_sapling"
+    "id": "occultism:otherworld_sapling"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.name",
   "pages": [

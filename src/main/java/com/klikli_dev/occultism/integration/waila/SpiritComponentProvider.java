@@ -3,7 +3,7 @@ package com.klikli_dev.occultism.integration.waila;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -45,7 +45,7 @@ public class SpiritComponentProvider implements IEntityComponentProvider {
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foliot");
+    public Identifier getUid() {
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "foliot");
     }
 }

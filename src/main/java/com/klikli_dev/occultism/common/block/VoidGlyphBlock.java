@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.util.EnumUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -107,7 +107,7 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
     }
 
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(
+    protected @NotNull InteractionResult useItemOn(
             @NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
             Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (player.getAbilities().mayBuild) {
@@ -117,19 +117,19 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
                 } else {
                     level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
                 }
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_WHITE)) {
+                return InteractionResult.SUCCESS;
+            } else if (stack.is(Tags.Items.DYES_WHITE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 0));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_LIGHT_GRAY)) {
+                return InteractionResult.SUCCESS;
+            } else if (stack.is(Tags.Items.DYES_LIGHT_GRAY)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 1));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_GRAY)) {
+                return InteractionResult.SUCCESS;
+            } else if (stack.is(Tags.Items.DYES_GRAY)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 2));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_BLACK)) {
+                return InteractionResult.SUCCESS;
+            } else if (stack.is(Tags.Items.DYES_BLACK)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 3));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);

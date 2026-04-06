@@ -27,71 +27,110 @@ import com.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
 
-public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
+public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, LivingEntityRenderState, CthulhuFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/cthulhu_familiar.png");
+
+    private static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "cthulhu_is_partying"));
+    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "cthulhu_is_sitting"));
+    private static final ContextKey<Float> ANIM_HEIGHT = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "cthulhu_anim_height"));
+    private static final ContextKey<Float> AGE_IN_TICKS = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "cthulhu_age_in_ticks"));
+    private static final ContextKey<Boolean> IS_GIVING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "cthulhu_is_giving"));
+
+    private final ItemModelResolver itemModelResolver;
 
     public CthulhuFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new CthulhuFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CTHULHU)), 0.3f);
-        this.addLayer(new HeldItemLayer(this));
+        this.itemModelResolver = context.getItemModelResolver();
+        this.addLayer(new HeldItemLayer(this, this.itemModelResolver));
     }
 
     @Override
-    public void render(CthulhuFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-
-        pMatrixStack.pushPose();
-
-        if (pEntity.isPartying()) {
-            float ageInTicks = pEntity.tickCount + pPartialTicks;
-            pMatrixStack.translate(0, 1.55, 0);
-            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(ageInTicks * 3 * ((float) Math.PI / 180F), 0, 0));
-            pMatrixStack.translate(0, 0.5, 0);
-            pEntity.yBodyRotO = -180;
-            pEntity.yBodyRot = -180;
-        } else
-            pMatrixStack.translate(0, pEntity.isSitting() ? -0.35 : pEntity.getAnimationHeight(pPartialTicks) * 0.08, 0);
-
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-        pMatrixStack.popPose();
+    public void extractRenderState(CthulhuFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.setRenderData(IS_PARTYING, entity.isPartying());
+        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.setRenderData(ANIM_HEIGHT, entity.getAnimationHeight(partialTick));
+        reusedState.setRenderData(AGE_IN_TICKS, entity.tickCount + partialTick);
+        reusedState.setRenderData(IS_GIVING, entity.isGiving());
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CthulhuFamiliarEntity entity) {
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        poseStack.pushPose();
+
+        Boolean isPartying = state.getRenderData(IS_PARTYING);
+        Boolean isSitting = state.getRenderData(IS_SITTING);
+        Float animHeight = state.getRenderData(ANIM_HEIGHT);
+        Float ageInTicks = state.getRenderData(AGE_IN_TICKS);
+
+        if (isPartying != null && isPartying && ageInTicks != null) {
+            poseStack.translate(0, 1.55, 0);
+            poseStack.mulPose(new Quaternionf().rotateXYZ(ageInTicks * 3 * ((float) Math.PI / 180F), 0, 0));
+            poseStack.translate(0, 0.5, 0);
+        } else {
+            double offsetY = (isSitting != null && isSitting) ? -0.35 : (animHeight != null ? animHeight * 0.08 : 0);
+            poseStack.translate(0, offsetY, 0);
+        }
+
+        super.submit(state, poseStack, submitNodeCollector, camera);
+        poseStack.popPose();
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 
-    public class HeldItemLayer extends RenderLayer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
-        public HeldItemLayer(RenderLayerParent<CthulhuFamiliarEntity, CthulhuFamiliarModel> parent) {
+    public static class HeldItemLayer extends RenderLayer<LivingEntityRenderState, CthulhuFamiliarModel> {
+
+        private final ItemModelResolver itemModelResolver;
+
+        public HeldItemLayer(RenderLayerParent<LivingEntityRenderState, CthulhuFamiliarModel> parent, ItemModelResolver itemModelResolver) {
             super(parent);
+            this.itemModelResolver = itemModelResolver;
         }
 
         @Override
-        public void render(PoseStack matrixStack, MultiBufferSource pBuffer, int pPackedLight, CthulhuFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-            if (pLivingEntity.isGiving()) {
-                matrixStack.pushPose();
-                matrixStack.scale(1.25f, -1.25f, 1.25f);
-                matrixStack.translate(0, -0.75, -0.35);
-                matrixStack.mulPose(new Quaternionf().rotateXYZ(-65 * ((float) Math.PI / 180F), 0, 0));
-                Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.POPPY),
-                        ItemDisplayContext.GROUND, false, matrixStack, pBuffer,
-                        pPackedLight);
-                matrixStack.popPose();
-            }
+        public void submit(PoseStack matrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+            Boolean isGiving = state.getRenderData(CthulhuFamiliarRenderer.IS_GIVING);
+            if (isGiving == null || !isGiving)
+                return;
 
+            matrixStack.pushPose();
+            matrixStack.scale(1.25f, -1.25f, 1.25f);
+            matrixStack.translate(0, -0.75, -0.35);
+            matrixStack.mulPose(new Quaternionf().rotateXYZ(-65 * ((float) Math.PI / 180F), 0, 0));
+
+            ItemStack poppyStack = new ItemStack(Items.POPPY);
+            ItemStackRenderState stackState = new ItemStackRenderState();
+            this.itemModelResolver.updateForTopItem(stackState, poppyStack, ItemDisplayContext.GROUND, null, null, 0);
+            stackState.submit(matrixStack, submitNodeCollector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
+
+            matrixStack.popPose();
         }
     }
-
 }

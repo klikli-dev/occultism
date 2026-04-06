@@ -26,33 +26,37 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class MagicLampItem extends Item {
-
-    private static final MapCodec<EntityType<?>> ENTITY_TYPE_FIELD_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
 
     public MagicLampItem(Properties properties) {
         super(properties);
@@ -69,20 +73,18 @@ public class MagicLampItem extends Item {
         Direction facing = context.getClickedFace();
         BlockPos pos = context.getClickedPos();
         if (itemStack.has(DataComponents.ENTITY_DATA)) {
-            if (player != null && !level.isClientSide) {
-                CompoundTag entityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA)).copyTag();
+            if (player != null && !level.isClientSide()) {
+                CompoundTag entityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA)).getUnsafe().copy();
                 itemStack.remove(DataComponents.ENTITY_DATA);
                 EntityType<?> type = EntityUtil.entityTypeFromNbt(entityData);
                 BlockPos spawnPos = pos.immutable();
                 if (!level.getBlockState(spawnPos).getCollisionShape(level, spawnPos).isEmpty())
                     spawnPos = spawnPos.relative(facing);
                 entityData.remove("Pos");
-                CompoundTag wrapper = new CompoundTag();
-                wrapper.put("EntityTag", entityData);
-                Entity entity = type.create(level);
+                Entity entity = type.create(level, EntitySpawnReason.LOAD);
                 assert entity != null;
-                entity.load(entityData);
-                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                entity.load(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), entityData));
+                entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
                 float yaw = player.getYHeadRot() + 180;
                 entity.setYRot(yaw);
                 entity.setYBodyRot(yaw);
@@ -102,7 +104,7 @@ public class MagicLampItem extends Item {
 
     @Override
     public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, @NotNull Player player, @NotNull LivingEntity target, @NotNull InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !target.isAlive() || target.level().isClientSide)
+        if (hand != InteractionHand.MAIN_HAND || !target.isAlive() || target.level().isClientSide())
             return InteractionResult.PASS;
 
         //Only one spirit at a time
@@ -113,12 +115,10 @@ public class MagicLampItem extends Item {
         if (!(target instanceof SpiritEntity spirit && spirit.getJob().isPresent() && spirit.isOwnedBy(player)))
             return InteractionResult.FAIL;
 
-        var entityData = new CompoundTag();
-        var id = target.getEncodeId();
-        if(id != null)
-            entityData.putString("id", id);
-        entityData = target.saveWithoutId(entityData);
-        stack.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        var tagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+        target.saveWithoutId(tagOutput);
+        var entityData = tagOutput.buildResult();
+        stack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(target.getType(), entityData));
         ItemNBTUtil.setBoundSpiritName(stack, target.getName().getString());
         ItemNBTUtil.setSpiritJob(stack, spirit.getJobID());
         player.swing(hand);
@@ -129,26 +129,30 @@ public class MagicLampItem extends Item {
     }
 
     @Override
-    public @NotNull String getDescriptionId(ItemStack stack) {
-        return stack.has(DataComponents.ENTITY_DATA) ? this.getDescriptionId().replace("empty","filled"):
+    public @NotNull Component getName(ItemStack stack) {
+        String id = stack.has(DataComponents.ENTITY_DATA) ? this.getDescriptionId().replace("empty", "filled") :
                 this.getDescriptionId();
+        return Component.translatable(id);
     }
 
     protected EntityType<?> getType(ItemStack pStack) {
-        CustomData customdata = pStack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
-        return customdata.read(ENTITY_TYPE_FIELD_CODEC).getOrThrow();
+        var data = pStack.get(DataComponents.ENTITY_DATA);
+        if (data == null) return null;
+        return EntityUtil.entityTypeFromNbt(data.getUnsafe());
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull Item.TooltipContext pContext,
+                                @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipComponents,
+                                @NotNull TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             EntityType<?> type = this.getType(pStack);
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled",
+            pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack)), type.getDescription(),
                 Component.translatable("job.occultism."+ItemNBTUtil.getSpiritJob(pStack).split(":",2)[1])));
         } else {
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
+            pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
 
@@ -158,13 +162,13 @@ public class MagicLampItem extends Item {
     }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slotId, boolean isSelected) {
+    public void inventoryTick(@NotNull ItemStack stack, @NotNull ServerLevel level, @NotNull Entity entity, @Nullable EquipmentSlot slot) {
         if (stack.has(DataComponents.ENTITY_DATA) && level.getGameTime() % 20 == 0 && level.getRandom().nextInt(100) == 0 && entity instanceof Player player) {
-            player.displayClientMessage(
+            player.sendSystemMessage(
                     Component.translatable(this.getDescriptionId() + ".spirit_message_" + level.getRandom().nextInt(10),
-                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))), false);
+                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
             if (player.isSleeping())
-                player.hurt(player.damageSources().magic(), 1);
+                player.hurtServer(level, player.damageSources().magic(), 1);
         }
     }
 }

@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iesnium_pickaxe"
+    "id": "occultism:iesnium_pickaxe"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.name",
   "pages": [
@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:iesnium_pickaxe"
-      },
+      "item": "occultism:iesnium_pickaxe",
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.spotlight.text",
       "title": ""
     },

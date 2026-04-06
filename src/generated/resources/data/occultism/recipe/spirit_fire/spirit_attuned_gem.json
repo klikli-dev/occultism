@@ -1,10 +1,16 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/diamond"
+      }
+    }
+  ],
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "tag": "c:gems/diamond"
-  },
+  "ingredient": "#c:gems/diamond",
   "result": {
-    "count": 1,
     "id": "occultism:spirit_attuned_gem"
   }
 }

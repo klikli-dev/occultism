@@ -41,7 +41,6 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.EnumSet;
 import java.util.Optional;
-import java.util.UUID;
 
 public class DepositItemsGoal extends PausableGoal {
 
@@ -192,16 +191,16 @@ public class DepositItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
             this.moveTarget = new BlockPosMoveTarget(this.entity.level(), pos);
-            var handler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
+            var handler = this.entity.level().getCapability(Capabilities.Item.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
             if (handler == null) {
                 //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
                 this.entity.setDepositPosition(null);
             }
         });
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
-        Optional<UUID> targetUUID = this.entity.getDepositEntityUUID();
-        targetUUID.ifPresent((uuid) -> {
-            Entity targetEntity = ((ServerLevel) this.entity.level()).getEntity(uuid);
+        Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>> targetRef = this.entity.getDepositEntityUUID();
+        targetRef.ifPresent((ref) -> {
+            var targetEntity = ref.getEntity(this.entity.level(), net.minecraft.world.entity.LivingEntity.class);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

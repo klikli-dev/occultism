@@ -9,15 +9,20 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+// removed ItemStackTemplate usage
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -44,8 +49,9 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     private int minTier;
     private int maxTier;
     private boolean allowEmpty;
+    private final HolderLookup.Provider registries;
 
-    public CrushingRecipeBuilder(Ingredient ingredient, RecipeResult result, int crushingTime) {
+    public CrushingRecipeBuilder(Ingredient ingredient, RecipeResult result, int crushingTime, HolderLookup.Provider registries) {
         this.serializer = OccultismRecipes.CRUSHING.get();
         this.ingredient = ingredient;
         this.allowEmpty = false;
@@ -53,26 +59,27 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         this.result = result;
         this.minTier = -1;
         this.maxTier = -1;
+        this.registries = registries;
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, ItemLike result, int crushingTime) {
-        return crushingRecipe(Ingredient.of(ingredient), result, crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, ItemLike result, int crushingTime, HolderLookup.Provider registries) {
+        return crushingRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), result, crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, ItemLike result, int crushingTime) {
-        return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new ItemStack(result)), crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, ItemLike result, int crushingTime, HolderLookup.Provider registries) {
+        return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new ItemStackTemplate(result.asItem())), crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Item item, TagKey<Item> result, int crushingTime) {
-        return new CrushingRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(Item item, TagKey<Item> result, int crushingTime, HolderLookup.Provider registries) {
+        return new CrushingRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Item item, ItemLike result, int crushingTime) {
-        return new CrushingRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStack(result)), crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(Item item, ItemLike result, int crushingTime, HolderLookup.Provider registries) {
+        return new CrushingRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStackTemplate(result.asItem())), crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crushingTime) {
-        return new CrushingRecipeBuilder(Ingredient.of(ingredient), TagRecipeResult.of(result), crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crushingTime, HolderLookup.Provider registries) {
+        return new CrushingRecipeBuilder(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), TagRecipeResult.of(result), crushingTime, registries);
     }
 
     @Override
@@ -87,11 +94,15 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    @Override
-    public @NotNull Item getResult() {
+    public Item getResult() {
         if (this.result.getStacks().length == 1)
             return this.result.getStack().getItem();
         return Items.AIR;
+    }
+
+    @Override
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE, Identifier.withDefaultNamespace("crushing"));
     }
 
     public CrushingRecipeBuilder allowEmpty() {
@@ -146,17 +157,18 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
 
 
     @Override
-    public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceLocation pId) {
+    public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
 
         CrushingRecipe recipe = new CrushingRecipe(this.ingredient, this.result, this.minTier, this.maxTier, this.crushingTime, this.ignoreCrushingMultiplier);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")), conditions);
+        ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
+        RecipeOutput output = conditions.length > 0 ? pRecipeOutput.withConditions(conditions) : pRecipeOutput;
+        output.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/crushing/")));
     }
 
     protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, RecipeResult result) {
@@ -173,8 +185,8 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     }
 
     protected ICondition getNoTagCondition(Ingredient ingredient) {
-        if (ingredient.getValues().length == 1 && ingredient.getValues()[0] instanceof Ingredient.TagValue tagValue) {
-            return new NotCondition(new TagEmptyCondition(tagValue.tag()));
+        if (!ingredient.isCustom()) {
+            return ingredient.getValues().unwrapKey().<ICondition>map(tag -> new NotCondition(new TagEmptyCondition(tag))).orElse(null);
         }
         return null;
     }
@@ -186,7 +198,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         return null;
     }
 
-    private void ensureValid(ResourceLocation pId) {
+    private void ensureValid(ResourceKey<Recipe<?>> pId) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + pId);
         }

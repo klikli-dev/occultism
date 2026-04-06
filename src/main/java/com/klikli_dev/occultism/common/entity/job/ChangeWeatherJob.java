@@ -31,6 +31,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.phys.Vec3;
@@ -89,8 +90,8 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         if (this.currentChangeTicks == this.requiredChangeTicks.get()) {
             this.changeWeather();
 
-            LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level());
-            lightningboltentity.moveTo(Vec3.atBottomCenterOf(this.entity.blockPosition()));
+            LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level(), EntitySpawnReason.COMMAND);
+            lightningboltentity.snapTo(Vec3.atBottomCenterOf(this.entity.blockPosition()));
             lightningboltentity.setVisualOnly(true);
 
             this.entity.die(this.entity.damageSources().lightningBolt());
@@ -108,8 +109,8 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
-        this.currentChangeTicks = compound.getInt("currentChangeTicks");
-        var requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        this.currentChangeTicks = compound.getIntOr("currentChangeTicks", 0);
+        var requiredChangeTicks = compound.getIntOr("requiredChangeTicks", 0);
         this.requiredChangeTicks = () -> requiredChangeTicks;
     }
 

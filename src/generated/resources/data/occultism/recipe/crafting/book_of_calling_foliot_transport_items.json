@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:book_of_binding_bound_foliot"
-    },
-    {
-      "tag": "c:chests"
-    }
+    "occultism:book_of_binding_bound_foliot",
+    "#c:chests"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:book_of_calling_foliot_transport_items"
   }
 }

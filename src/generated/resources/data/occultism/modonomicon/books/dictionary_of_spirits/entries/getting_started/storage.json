@@ -10,7 +10,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.storage.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_controller"
+    "id": "occultism:storage_controller"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.storage.name",
   "parents": [

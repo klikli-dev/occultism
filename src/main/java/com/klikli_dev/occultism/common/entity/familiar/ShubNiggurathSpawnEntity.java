@@ -26,9 +26,10 @@ import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -36,7 +37,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.level.Level;
-import org.joml.Vector3f;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -77,7 +79,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.lifeTicks-- < 0)
                 this.explode();
 
@@ -93,20 +95,18 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("lifeTicks", this.lifeTicks);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("lifeTicks", this.lifeTicks);
         if (this.creatorId != null)
-            pCompound.putUUID("creatorId", this.creatorId);
+            output.store("creatorId", UUIDUtil.CODEC, this.creatorId);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        if (pCompound.contains("lifeTicks"))
-            this.lifeTicks = pCompound.getInt("lifeTicks");
-        if (pCompound.hasUUID("creatorId"))
-            this.creatorId = pCompound.getUUID("creatorId");
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.lifeTicks = input.getIntOr("lifeTicks", LIFE_TICKS_MAX);
+        this.creatorId = input.<UUID>read("creatorId", UUIDUtil.CODEC).orElse(null);
     }
 
     public boolean isBlinking(int eye) {
@@ -126,7 +126,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
         if (!enemies.isEmpty())
             OccultismAdvancements.FAMILIAR.get().trigger(this.getCreatorOwner(), FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN);
 
-        this.kill();
+        this.kill((ServerLevel) this.level());
     }
 
     private LivingEntity getCreator() {
@@ -149,9 +149,9 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     public void die(DamageSource pCause) {
         super.die(pCause);
 
-        if (this.level().isClientSide)
+        if (this.level().isClientSide())
             for (int i = 0; i < 30; i++)
-                this.level().addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getRandomX(1), this.getRandomY(),
+                this.level().addParticle(new DustParticleOptions(ARGB.color(255, 127, 0, 0), 1), this.getRandomX(1), this.getRandomY(),
                         this.getRandomZ(1), 0, 1, 0);
     }
 

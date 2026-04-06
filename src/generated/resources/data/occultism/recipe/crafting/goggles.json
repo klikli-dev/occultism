@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "f": {
-      "item": "occultism:lens_frame"
-    },
-    "i": {
-      "item": "occultism:infused_lenses"
-    },
-    "l": {
-      "tag": "c:leathers"
-    }
+    "f": "occultism:lens_frame",
+    "i": "occultism:infused_lenses",
+    "l": "#c:leathers"
   },
   "pattern": [
     " l ",
@@ -18,7 +12,6 @@
     " f "
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherworld_goggles"
   }
 }

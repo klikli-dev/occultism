@@ -36,7 +36,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
@@ -82,7 +82,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.isInWater()) {
                 this.navigation = this.waterNavigator;
                 this.setSwimming(true);
@@ -113,7 +113,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setBigTail(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextBoolean());
         this.setWhiskers(this.getRandom().nextBoolean());
@@ -132,15 +132,15 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
             if (!pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"));
                 } else if (this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL) {
                     this.lastSnackTime = this.level().getGameTime();
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
                 } else {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"));
                 }
                 //even if we don't give a snack we return success, otherwise we make the familiar change sitting position
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
 
         }

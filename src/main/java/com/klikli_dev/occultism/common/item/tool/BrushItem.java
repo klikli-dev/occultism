@@ -42,7 +42,7 @@ public class BrushItem extends Item {
     public @NotNull InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             //only remove chalks
             if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
                 level.removeBlock(pos, false);

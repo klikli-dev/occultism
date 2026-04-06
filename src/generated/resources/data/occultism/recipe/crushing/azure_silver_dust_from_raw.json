@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/azure_silver"
-  },
+  "ingredient": "#c:raw_materials/azure_silver",
   "result": {
     "type": "occultism:tag",
     "count": 2,

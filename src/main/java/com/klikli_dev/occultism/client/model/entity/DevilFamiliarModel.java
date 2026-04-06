@@ -24,14 +24,14 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.DefaultedGeoModel;
+import net.minecraft.resources.Identifier;
+import com.geckolib.model.DefaultedGeoModel;
 
 
 public class DevilFamiliarModel extends DefaultedGeoModel<DevilFamiliarEntity> {
 
     public DevilFamiliarModel() {
-        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "familiar_devil"));
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "familiar_devil"));
     }
 
     @Override

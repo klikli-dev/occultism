@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -49,7 +49,7 @@ public class OccultismSounds {
      * @return the sound event.
      */
     private static SoundEvent loadSoundEvent(String name) {
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, name);
+        Identifier location = Identifier.fromNamespaceAndPath(Occultism.MODID, name);
         return SoundEvent.createVariableRangeEvent(location);
     }
 }

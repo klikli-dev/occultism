@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.common.effect;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,7 +32,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class DoubleJumpEffect extends MobEffect {
 
-    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    public static final Identifier ICON = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/mob_effect/double_jump.png");
 
     public DoubleJumpEffect() {

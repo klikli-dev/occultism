@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/crimson_iron"
-  },
+  "ingredient": "#c:raw_materials/crimson_iron",
   "result": {
     "type": "occultism:tag",
     "count": 2,

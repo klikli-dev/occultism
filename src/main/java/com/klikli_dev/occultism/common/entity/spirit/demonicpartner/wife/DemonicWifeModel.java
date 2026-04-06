@@ -22,35 +22,13 @@
 
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife;
 
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.model.DefaultedGeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
+import com.geckolib.model.DefaultedEntityGeoModel;
 
 
-public class DemonicWifeModel extends DefaultedGeoModel<DemonicWife> {
+public class DemonicWifeModel extends DefaultedEntityGeoModel<DemonicWife> {
 
     public DemonicWifeModel() {
         super(DemonicWife.ID);
-    }
-
-    @Override
-    protected String subtype() {
-        return "entity";
-    }
-
-    @Override
-    public void setCustomAnimations(DemonicWife entity, long instanceId, AnimationState<DemonicWife> animationState) {
-        super.setCustomAnimations(entity, instanceId, animationState);
-
-        GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-        }
     }
 
 //

@@ -33,7 +33,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -417,10 +417,10 @@ public class PentacleProvider implements DataProvider {
     }
 
     private void addPentacle(String name, List<String> pattern, Map<Character, JsonElement> mappings) {
-        this.addPentacle(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, name), pattern, mappings);
+        this.addPentacle(Identifier.fromNamespaceAndPath(Occultism.MODID, name), pattern, mappings);
     }
 
-    private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
+    private void addPentacle(Identifier rl, List<String> pattern, Map<Character, JsonElement> mappings) {
         JsonObject json = new JsonObject();
 
         json.addProperty("type", "modonomicon:dense");

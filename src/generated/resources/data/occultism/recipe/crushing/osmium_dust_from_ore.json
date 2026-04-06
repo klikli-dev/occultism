@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/osmium"
-  },
+  "ingredient": "#c:ores/osmium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

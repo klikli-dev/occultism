@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:skeleton_skull"
+    "id": "minecraft:skeleton_skull"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.name",
   "pages": [

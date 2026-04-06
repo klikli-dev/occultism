@@ -32,7 +32,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -44,7 +44,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  */
 public class MessageRequestOrder implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "request_order");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "request_order");
     public static final Type<MessageRequestOrder> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageRequestOrder> STREAM_CODEC = CustomPacketPayload.codec(MessageRequestOrder::encode, MessageRequestOrder::new);
     private GlobalBlockPos storageControllerPosition;
@@ -80,9 +80,8 @@ public class MessageRequestOrder implements IMessage {
         //then place the order.
         ItemStackComparator comparator = new ItemStackComparator(this.stack, true);
         storageController.addDepositOrder(this.targetMachinePosition, comparator, this.stack.getCount());
-        player.displayClientMessage(
-                Component.translatable("network.messages." + Occultism.MODID + ".request_order.order_received"),
-                true);
+        player.sendSystemMessage(
+                Component.translatable("network.messages." + Occultism.MODID + ".request_order.order_received"));
     }
 
     @Override

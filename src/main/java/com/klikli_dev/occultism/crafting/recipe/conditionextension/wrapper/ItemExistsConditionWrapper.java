@@ -4,12 +4,12 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionVisi
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapper;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
+import net.neoforged.neoforge.common.conditions.RegisteredCondition;
 
-public class ItemExistsConditionWrapper implements ConditionWrapper<ItemExistsCondition> {
-    private final ItemExistsCondition condition;
+public class ItemExistsConditionWrapper implements ConditionWrapper<RegisteredCondition<?>> {
+    private final RegisteredCondition<?> condition;
 
-    public ItemExistsConditionWrapper(ItemExistsCondition condition) {
+    public ItemExistsConditionWrapper(RegisteredCondition<?> condition) {
         this.condition = condition;
     }
 
@@ -19,7 +19,7 @@ public class ItemExistsConditionWrapper implements ConditionWrapper<ItemExistsCo
     }
 
     @Override
-    public ItemExistsCondition condition() {
+    public RegisteredCondition<?> condition() {
         return condition;
     }
 }

@@ -23,22 +23,24 @@
 package com.klikli_dev.occultism.client.itemproperties;
 
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+public class StorageRemoteItemPropertyGetter implements ConditionalItemModelProperty {
+    public static final MapCodec<StorageRemoteItemPropertyGetter> MAP_CODEC = MapCodec.unit(new StorageRemoteItemPropertyGetter());
 
-@OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
-public class StorageRemoteItemPropertyGetter implements ItemPropertyFunction {
-
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        return stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER) ? 1.0f : 0.0f;
+    public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+        return stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
+    }
+
+    @Override
+    public MapCodec<? extends ConditionalItemModelProperty> type() {
+        return MAP_CODEC;
     }
 }

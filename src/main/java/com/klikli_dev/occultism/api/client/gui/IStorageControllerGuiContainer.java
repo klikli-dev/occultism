@@ -24,17 +24,17 @@ package com.klikli_dev.occultism.api.client.gui;
 
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 
 public interface IStorageControllerGuiContainer {
     Font getFontRenderer();
 
-    void drawGradientRect(GuiGraphics guiGraphics, int left, int top, int right, int bottom, int startColor, int endColor);
+    void drawGradientRect(GuiGraphicsExtractor guiGraphics, int left, int top, int right, int bottom, int startColor, int endColor);
 
     boolean isPointInRegionController(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY);
 
-    void renderToolTip(GuiGraphics guiGraphics, ItemStack stack, int x, int y);
+    void renderToolTip(GuiGraphicsExtractor guiGraphics, ItemStack stack, int x, int y);
 
-    void renderToolTip(GuiGraphics guiGraphics, MachineReference machine, int x, int y);
+    void renderToolTip(GuiGraphicsExtractor guiGraphics, MachineReference machine, int x, int y);
 }

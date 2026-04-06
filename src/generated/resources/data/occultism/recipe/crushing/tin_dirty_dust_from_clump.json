@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/tin"
-  },
+  "ingredient": "#c:clumps/tin",
   "result": {
     "type": "occultism:tag",
     "count": 2,

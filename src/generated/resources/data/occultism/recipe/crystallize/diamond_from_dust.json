@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/diamond"
-  },
+  "ingredient": "#c:dusts/diamond",
   "result": {
     "type": "occultism:tag",
     "count": 1,

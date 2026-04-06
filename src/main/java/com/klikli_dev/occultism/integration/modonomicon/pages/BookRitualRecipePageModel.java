@@ -9,7 +9,7 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class BookRitualRecipePageModel extends BookRecipePageModel<BookRitualRecipePageModel> {
     protected BookRitualRecipePageModel() {
@@ -36,7 +36,7 @@ public class BookRitualRecipePageModel extends BookRecipePageModel<BookRitualRec
     }
 
     @Override
-    public BookRitualRecipePageModel withRecipeId2(ResourceLocation recipeId) {
+    public BookRitualRecipePageModel withRecipeId2(Identifier recipeId) {
         throw new RuntimeException("Ritual recipe pages do not support a second recipe!");
     }
 

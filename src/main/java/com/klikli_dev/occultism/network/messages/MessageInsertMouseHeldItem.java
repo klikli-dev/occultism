@@ -31,7 +31,7 @@ import com.klikli_dev.occultism.util.InputUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +41,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class MessageInsertMouseHeldItem implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "insert_mouse_held_item");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "insert_mouse_held_item");
     public static final Type<MessageInsertMouseHeldItem> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageInsertMouseHeldItem> STREAM_CODEC = CustomPacketPayload.codec(MessageInsertMouseHeldItem::encode, MessageInsertMouseHeldItem::new);
     private int mouseButton;

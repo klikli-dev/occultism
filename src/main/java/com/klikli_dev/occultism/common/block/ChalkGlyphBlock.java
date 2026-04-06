@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -74,8 +75,7 @@ public class ChalkGlyphBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-                                boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
         if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.removeBlock(pos, false);
         }
@@ -134,7 +134,7 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
+    protected ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean includeData) {
         if (BuiltInRegistries.ITEM.containsValue(this.getChalk()))//fix for startup crash related to patchouli getting pick block too early
             return new ItemStack(this.getChalk());
         return ItemStack.EMPTY;

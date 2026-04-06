@@ -33,11 +33,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 
 import java.util.Objects;
 
@@ -104,11 +107,11 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }
 
-    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationTest<T> tAnimationState) {
 
         if (this.swinging) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenLoop("attack"));

@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/fluorite"
-  },
+  "ingredient": "#c:dusts/fluorite",
   "result": {
     "type": "occultism:tag",
     "count": 1,

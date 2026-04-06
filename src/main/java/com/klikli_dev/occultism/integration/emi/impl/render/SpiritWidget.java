@@ -5,7 +5,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.Widget;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.world.entity.EntityType;
 
@@ -32,7 +32,7 @@ public class SpiritWidget<T extends SpiritEntity> extends Widget {
     }
 
     @Override
-    public void render(GuiGraphics draw, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphicsExtractor draw, int mouseX, int mouseY, float delta) {
         if(spiritEntity==null)
             spiritEntity= spiritType.create(Minecraft.getInstance().level);
         SpiritGui.drawEntityToGui(draw, (int) (x),(int)(y+(spiritEntity.getEyeHeight()*15)),s,1,1,spiritEntity);

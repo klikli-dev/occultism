@@ -48,7 +48,7 @@ public class CraftRitual extends Ritual {
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = this.recipe.getResultItem(level.registryAccess()).copy();
+        ItemStack result = this.recipe.getResult().copy();
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
     }
 }

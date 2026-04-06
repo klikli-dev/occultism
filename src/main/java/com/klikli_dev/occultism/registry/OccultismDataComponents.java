@@ -12,7 +12,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -84,9 +84,9 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
-            .persistent(ResourceLocation.CODEC)
-            .networkSynchronized(ResourceLocation.STREAM_CODEC)
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Identifier>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
+            .persistent(Identifier.CODEC)
+            .networkSynchronized(Identifier.STREAM_CODEC)
             .cacheEncoding()
     );
 

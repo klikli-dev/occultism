@@ -29,13 +29,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 public class MessageDoubleJump implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "double_jump");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "double_jump");
     public static final Type<MessageDoubleJump> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageDoubleJump> STREAM_CODEC = CustomPacketPayload.codec(MessageDoubleJump::encode, MessageDoubleJump::new);
 
@@ -51,7 +52,7 @@ public class MessageDoubleJump implements IMessage {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
         if (MovementUtil.doubleJump(player)) {
             //Show cloud on jump.
-            player.serverLevel()
+            ((ServerLevel) player.level())
                     .sendParticles(ParticleTypes.CLOUD, player.position().x, player.position().y,
                             player.position().z, 5, 0, 0, 0, 0.01F);
         }

@@ -31,10 +31,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.enchantment.Enchantable;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class MinerSpiritItem extends Item {
@@ -42,27 +44,26 @@ public class MinerSpiritItem extends Item {
     private final Supplier<Integer> maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
     private final Supplier<Integer> maxDamage;
-    private final int enchantmentValue;
 
     public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> maxDamage) {
-        super(properties.component(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY));
+        super(properties.component(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY)
+                .component(DataComponents.ENCHANTABLE, new Enchantable(9)));
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
         this.maxDamage = maxDamage;
-        this.enchantmentValue = 9;
     }
 
     @Override
-    public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
-        super.onCraftedBy(stack, worldIn, playerIn);
+    public void onCraftedBy(ItemStack stack, Player playerIn) {
+        super.onCraftedBy(stack, playerIn);
         stack.set(OccultismDataComponents.MAX_MINING_TIME, this.maxMiningTime.get());
         stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
+        tooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
 
@@ -79,10 +80,5 @@ public class MinerSpiritItem extends Item {
         if(!stack.has(OccultismDataComponents.ROLLS_PER_OPERATION))
             stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
         return super.getMaxStackSize(stack);
-    }
-
-    @Override
-    public int getEnchantmentValue() {
-        return this.enchantmentValue;
     }
 }

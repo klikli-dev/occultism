@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/cinnabar"
-  },
+  "ingredient": "#c:ores/cinnabar",
   "result": {
     "type": "occultism:tag",
     "count": 2,

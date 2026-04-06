@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:book_of_binding_bound_foliot"
+    "id": "occultism:book_of_binding_bound_foliot"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.name",
   "pages": [
@@ -86,7 +86,6 @@
       "title1": "",
       "title2": "",
       "unbound_book": {
-        "count": 1,
         "id": "occultism:book_of_binding_foliot"
       }
     },
@@ -112,7 +111,6 @@
       "title1": "",
       "title2": "",
       "unbound_book": {
-        "count": 1,
         "id": "occultism:book_of_binding_djinni"
       }
     },
@@ -138,7 +136,6 @@
       "title1": "",
       "title2": "",
       "unbound_book": {
-        "count": 1,
         "id": "occultism:book_of_binding_afrit"
       }
     },
@@ -164,7 +161,6 @@
       "title1": "",
       "title2": "",
       "unbound_book": {
-        "count": 1,
         "id": "occultism:book_of_binding_marid"
       }
     },

@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/quicksilver"
-  },
+  "ingredient": "#c:raw_materials/quicksilver",
   "result": {
     "type": "occultism:tag",
     "count": 2,

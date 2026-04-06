@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/vibranium_allthemodium_alloy"
-  },
+  "ingredient": "#c:ingots/vibranium_allthemodium_alloy",
   "result": {
     "type": "occultism:tag",
     "count": 1,

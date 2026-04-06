@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wondering.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:spawn_egg/wondering_trader"
+    "id": "occultism:spawn_egg/wondering_trader"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wondering.name",
   "pages": [

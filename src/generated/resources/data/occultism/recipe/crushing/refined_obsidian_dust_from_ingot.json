@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/refined_obsidian"
-  },
+  "ingredient": "#c:ingots/refined_obsidian",
   "result": {
     "type": "occultism:tag",
     "count": 1,

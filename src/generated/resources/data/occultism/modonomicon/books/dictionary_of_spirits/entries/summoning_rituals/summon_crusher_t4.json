@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t4.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iesnium_dust"
+    "id": "occultism:iesnium_dust"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t4.name",
   "pages": [

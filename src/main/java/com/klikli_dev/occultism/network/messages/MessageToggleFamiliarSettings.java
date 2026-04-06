@@ -31,7 +31,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
@@ -42,7 +42,7 @@ import java.util.Map.Entry;
 
 public class MessageToggleFamiliarSettings implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "toggle_familiar_settings");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "toggle_familiar_settings");
     public static final Type<MessageToggleFamiliarSettings> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageToggleFamiliarSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageToggleFamiliarSettings::encode, MessageToggleFamiliarSettings::new);
 
@@ -62,10 +62,10 @@ public class MessageToggleFamiliarSettings implements IMessage {
         for (Entry<EntityType<?>, Boolean> toggle : this.familiarsPressed.entrySet()) {
             if (toggle.getValue()) {
                 cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
-                player.displayClientMessage(
+                player.sendSystemMessage(
                         Component.translatable(
                                 "message." + Occultism.MODID + ".familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(toggle.getKey()).getPath() +
-                                        (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
+                                        (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")));
             }
         }
         FamiliarSettingsData.syncFor(player);

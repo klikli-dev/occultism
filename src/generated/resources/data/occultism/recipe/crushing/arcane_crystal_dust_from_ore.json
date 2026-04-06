@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/arcane_crystal"
-  },
+  "ingredient": "#c:ores/arcane_crystal",
   "result": {
     "type": "occultism:tag",
     "count": 3,

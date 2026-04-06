@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.zombie.Drowned;
 import net.minecraft.world.level.Level;
 
 public class WildHordeDrownedEntity extends Drowned implements PossessedMob {
@@ -47,15 +47,6 @@ public class WildHordeDrownedEntity extends Drowned implements PossessedMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.8);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

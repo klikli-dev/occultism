@@ -10,18 +10,19 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
-import software.bernie.geckolib.util.Color;
+import net.minecraft.util.ARGB;
 
 import java.util.Collections;
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
+public class DragonFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -70,6 +71,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     public ColorModelPartProxy rightEye;
 
     public DragonFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.neck1 = this.body.getChild("neck1");
         this.leftLeg1 = this.body.getChild("leftLeg1");
@@ -163,122 +165,26 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         return LayerDefinition.create(mesh, 64, 32);
     }
 
-
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-        //        this.rightEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-//        this.leftEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState
+        // if (entityIn.isPartying()) {
+        //     this.head.xRot = this.toRads(50) + Mth.sin(ageInTicks) * this.toRads(20);
+        //     this.head.yRot = Mth.sin(ageInTicks) * this.toRads(5);
+        //     this.head.zRot = Mth.sin(ageInTicks) * this.toRads(5);
+        // } else {
+        //     this.head.xRot = this.toRads(50) + 0.03f + headPitch * (PI / 180f) * 0.7f;
+        //     this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
+        //     this.head.zRot = netHeadYaw * (PI / 180f) * 0.5f;
+        // }
     }
 
-    @Override
-    public void setupAnim(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-                          float netHeadYaw, float headPitch) {
-        if (entityIn.isPartying()) {
-            this.head.xRot = this.toRads(50) + Mth.sin(ageInTicks) * this.toRads(20);
-            this.head.yRot = Mth.sin(ageInTicks) * this.toRads(5);
-            this.head.zRot = Mth.sin(ageInTicks) * this.toRads(5);
-
-        } else {
-            this.head.xRot = this.toRads(50) + 0.03f + headPitch * (PI / 180f) * 0.7f;
-            this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
-            this.head.zRot = netHeadYaw * (PI / 180f) * 0.5f;
-        }
-
-    }
-
-
-    @Override
-    public void prepareMobModel(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                                float partialTick) {
-        this.setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick),
-                entityIn.getEyeColorB(partialTick));
-        this.showModels(entityIn);
-
-        float ageInTicks = entityIn.tickCount + partialTick;
-
-        this.tail1.zRot = 0;
-        this.tail2.zRot = 0;
-        this.tail3.zRot = 0;
-        this.jaw.zRot = 0;
-
-        if (entityIn.isPartying()) {
-            this.tail1.zRot = Mth.sin(ageInTicks) * this.toRads(30);
-            this.tail2.zRot = -Mth.sin(ageInTicks) * this.toRads(60);
-            this.tail3.zRot = Mth.sin(ageInTicks) * this.toRads(90);
-
-            this.leftWing1.yRot = Mth.sin(ageInTicks) * this.toRads(20);
-            this.rightWing1.yRot = -Mth.sin(ageInTicks) * this.toRads(20);
-        } else {
-            this.leftWing1.yRot = 0;
-            this.rightWing1.yRot = 0;
-        }
-
-        float petTimer = entityIn.getPetTimer() + partialTick;
-        float petDuration = DragonFamiliarEntity.MAX_PET_TIMER / 2.0f;
-        if (petTimer < petDuration) {
-            this.tail1.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
-            this.tail2.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
-            this.tail3.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
-            this.jaw.zRot = -Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(10);
-        }
-
-        if (entityIn.swinging) {
-            float attackProgress = entityIn.getAttackProgress(partialTick);
-            this.tail1.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
-            this.tail2.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
-            this.tail3.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
-        } else {
-            this.tail1.yRot = 0;
-            this.tail2.yRot = 0;
-            this.tail3.yRot = 0;
-        }
-
-        if (!entityIn.isSitting()) {
-            this.leftLeg1.xRot = this.toRads(25) + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
-            this.rightLeg1.xRot = this.toRads(25) + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
-            this.leftLeg3.xRot = this.toRads(23);
-            this.rightLeg3.xRot = this.toRads(23);
-
-            float flyingTimer = entityIn.getFlyingTimer(partialTick);
-            float wingspan = entityIn.getWingspan(partialTick);
-            float flyingWingRot = flyingTimer * 1.15f;
-            this.leftWing1.zRot = this.toRads(65)
-                    + Mth.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(wingspan));
-            this.leftWing2.zRot = this.toRads(50) + Mth.cos(limbSwing * 0.7f + flyingWingRot)
-                    * (limbSwingAmount * 0.2f + this.toRads(wingspan) * 0.5f);
-            this.rightWing1.zRot = -this.toRads(65)
-                    - Mth.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(wingspan));
-            this.rightWing2.zRot = -this.toRads(50) - Mth.cos(limbSwing * 0.7f + flyingWingRot)
-                    * (limbSwingAmount * 0.2f + this.toRads(wingspan) * 0.5f);
-
-            this.tail1.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
-            this.tail2.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
-            this.tail3.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
-
-            this.body.xRot = this.toRads(-4);
-            this.neck1.xRot = this.toRads(-30);
-            this.neck2.xRot = this.toRads(-9);
-        } else {
-            this.leftLeg1.xRot = this.toRads(15);
-            this.rightLeg1.xRot = this.toRads(15);
-            this.leftLeg3.xRot = this.toRads(26);
-            this.rightLeg3.xRot = this.toRads(26);
-
-            this.leftWing1.zRot = this.toRads(150);
-            this.leftWing2.zRot = this.toRads(20);
-            this.rightWing1.zRot = -this.toRads(150);
-            this.rightWing2.zRot = -this.toRads(20);
-
-            this.tail1.xRot = this.toRads(30);
-            this.tail2.xRot = this.toRads(30);
-            this.tail3.xRot = this.toRads(30);
-
-            this.body.xRot = this.toRads(-50);
-            this.neck1.xRot = this.toRads(10);
-            this.neck2.xRot = this.toRads(5);
-        }
-    }
+    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
+    // this.setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick), entityIn.getEyeColorB(partialTick));
+    // this.showModels(entityIn);
+    // float ageInTicks = entityIn.tickCount + partialTick;
+    // ... (wing, tail, pet, attack, leg, sitting animations)
 
     private float toRads(float deg) {
         return PI / 180f * deg;
@@ -304,8 +210,9 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
     public static class ColorModelPartProxy extends ModelPart {
 
-        Color color;
+        int color;
         ModelPart proxied;
+
 
         public ColorModelPartProxy(ModelPart modelPart) {
             super(Collections.emptyList(), Collections.emptyMap());
@@ -318,17 +225,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         public void setColor(float r, float g, float b, float a) {
-            this.color =        Color.ofRGBA(r, g, b, a);
+            this.color = ARGB.color((int)(a * 255), (int)(r * 255), (int)(g * 255), (int)(b * 255));
         }
 
         @Override
         public void render(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, int pColor) {
             //prevent actual render
-            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color.getColor());
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color);
         }
 
         public void proxyRender(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, int pColor) {
-            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color.getColor());
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color);
         }
 
         @Override
@@ -357,7 +264,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         @Override
-        public Stream<ModelPart> getAllParts() {
+        public List<ModelPart> getAllParts() {
             return this.proxied.getAllParts();
         }
 
@@ -379,11 +286,6 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         @Override
         public void loadPose(PartPose pPartPose) {
             this.proxied.loadPose(pPartPose);
-        }
-
-        @Override
-        public void copyFrom(ModelPart pModelPart) {
-            this.proxied.copyFrom(pModelPart);
         }
 
         @Override

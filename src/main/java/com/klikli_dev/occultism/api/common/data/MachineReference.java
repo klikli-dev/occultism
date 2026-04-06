@@ -34,25 +34,24 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 
 import java.util.Objects;
 import java.util.Optional;
 
-public class MachineReference implements INBTSerializable<CompoundTag> {
+public class MachineReference {
     public static final Codec<MachineReference> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             GlobalBlockPos.CODEC.optionalFieldOf("extractGlobalPos").forGetter(m -> Optional.ofNullable(m.extractGlobalPos)),
-            ResourceLocation.CODEC.optionalFieldOf("extractRegistryName").forGetter(m -> Optional.ofNullable(m.extractRegistryName)),
+            Identifier.CODEC.optionalFieldOf("extractRegistryName").forGetter(m -> Optional.ofNullable(m.extractRegistryName)),
             Codec.BOOL.fieldOf("extractChunkLoaded").forGetter(m -> m.extractChunkLoaded),
             Direction.CODEC.fieldOf("extractFacing").forGetter(m -> m.extractFacing),
             GlobalBlockPos.CODEC.optionalFieldOf("insertGlobalPos").forGetter(m -> Optional.ofNullable(m.insertGlobalPos)),
-            ResourceLocation.CODEC.optionalFieldOf("insertRegistryName").forGetter(m -> Optional.ofNullable(m.insertRegistryName)),
+            Identifier.CODEC.optionalFieldOf("insertRegistryName").forGetter(m -> Optional.ofNullable(m.insertRegistryName)),
             Codec.BOOL.fieldOf("insertChunkLoaded").forGetter(m -> m.insertChunkLoaded),
             Direction.CODEC.fieldOf("insertFacing").forGetter(m -> m.insertFacing),
             Codec.STRING.fieldOf("customName").forGetter(m -> m.customName)
@@ -61,7 +60,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
     public static final StreamCodec<RegistryFriendlyByteBuf, MachineReference> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
             ByteBufCodecs.optional(GlobalBlockPos.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.extractGlobalPos),
-            ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+            ByteBufCodecs.optional(Identifier.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.extractRegistryName),
             ByteBufCodecs.BOOL,
             (m) -> m.extractChunkLoaded,
@@ -69,7 +68,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
             (m) -> m.extractFacing,
             ByteBufCodecs.optional(GlobalBlockPos.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.insertGlobalPos),
-            ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+            ByteBufCodecs.optional(Identifier.STREAM_CODEC),
             (m) -> Optional.ofNullable(m.insertRegistryName),
             ByteBufCodecs.BOOL,
             (m) -> m.insertChunkLoaded,
@@ -82,12 +81,12 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     //extract is a potentially separate output block entity
     public GlobalBlockPos extractGlobalPos;
-    public ResourceLocation extractRegistryName;
+    public Identifier extractRegistryName;
     public boolean extractChunkLoaded;
     public Direction extractFacing = Direction.DOWN;
     //insert is the managed machine itself
     public GlobalBlockPos insertGlobalPos;
-    public ResourceLocation insertRegistryName;
+    public Identifier insertRegistryName;
     public boolean insertChunkLoaded;
     public Direction insertFacing = Direction.UP;
     public String customName = "";
@@ -100,24 +99,24 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     }
 
-    public MachineReference(GlobalBlockPos extractGlobalPos, ResourceLocation extractRegistryName, boolean extractChunkLoaded,
+    public MachineReference(GlobalBlockPos extractGlobalPos, Identifier extractRegistryName, boolean extractChunkLoaded,
                             Direction extractFacing,
-                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded,
+                            GlobalBlockPos insertGlobalPos, Identifier insertRegistryName, boolean insertChunkLoaded,
                             Direction insertFacing) {
         this(extractGlobalPos, extractRegistryName, extractChunkLoaded, extractFacing, insertGlobalPos, insertRegistryName, insertChunkLoaded, insertFacing, "");
     }
 
-    public MachineReference(Optional<GlobalBlockPos> extractGlobalPos, Optional<ResourceLocation> extractRegistryName, boolean extractChunkLoaded,
+    public MachineReference(Optional<GlobalBlockPos> extractGlobalPos, Optional<Identifier> extractRegistryName, boolean extractChunkLoaded,
                             Direction extractFacing,
-                            Optional<GlobalBlockPos> insertGlobalPos, Optional<ResourceLocation> insertRegistryName, boolean insertChunkLoaded,
+                            Optional<GlobalBlockPos> insertGlobalPos, Optional<Identifier> insertRegistryName, boolean insertChunkLoaded,
                             Direction insertFacing,
                             String customName) {
         this(extractGlobalPos.orElse(null), extractRegistryName.orElse(null), extractChunkLoaded, extractFacing, insertGlobalPos.orElse(null), insertRegistryName.orElse(null), insertChunkLoaded, insertFacing, customName);
     }
 
-    public MachineReference(GlobalBlockPos extractGlobalPos, ResourceLocation extractRegistryName, boolean extractChunkLoaded,
+    public MachineReference(GlobalBlockPos extractGlobalPos, Identifier extractRegistryName, boolean extractChunkLoaded,
                             Direction extractFacing,
-                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded,
+                            GlobalBlockPos insertGlobalPos, Identifier insertRegistryName, boolean insertChunkLoaded,
                             Direction insertFacing,
                             String customName) {
         this.extractGlobalPos = extractGlobalPos;
@@ -139,13 +138,13 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
     public static MachineReference from(BlockEntity extractBlockEntity, BlockEntity insertBlockEntity) {
         var extractPos = GlobalBlockPos.from(extractBlockEntity);
         BlockState extractState = extractBlockEntity.getLevel().getBlockState(extractPos.getPos());
-        ItemStack extractItem = extractState.getBlock().getCloneItemStack(extractBlockEntity.getLevel(), extractPos.getPos(), extractState);
+        ItemStack extractItem = extractState.getCloneItemStack(extractBlockEntity.getLevel(), extractPos.getPos(), false);
         boolean extractIsLoaded = extractBlockEntity.getLevel().isLoaded(extractPos.getPos());
 
 
         var insertPos = GlobalBlockPos.from(insertBlockEntity);
         BlockState insertState = extractBlockEntity.getLevel().getBlockState(insertPos.getPos());
-        ItemStack insertItem = insertState.getBlock().getCloneItemStack(extractBlockEntity.getLevel(), insertPos.getPos(), insertState);
+        ItemStack insertItem = insertState.getCloneItemStack(extractBlockEntity.getLevel(), insertPos.getPos(), false);
         boolean insertIsLoaded = insertBlockEntity.getLevel().isLoaded(insertPos.getPos());
 
         return new MachineReference(extractPos,
@@ -159,7 +158,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     public Item getExtractItem() {
         if (this.cachedExtractItem == null)
-            this.cachedExtractItem = BuiltInRegistries.ITEM.get(this.extractRegistryName);
+            this.cachedExtractItem = BuiltInRegistries.ITEM.getValue(this.extractRegistryName);
         return this.cachedExtractItem;
     }
 
@@ -171,7 +170,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     public Item getInsertItem() {
         if (this.cachedInsertItem == null)
-            this.cachedInsertItem = BuiltInRegistries.ITEM.get(this.insertRegistryName);
+            this.cachedInsertItem = BuiltInRegistries.ITEM.getValue(this.insertRegistryName);
         return this.cachedInsertItem;
     }
 
@@ -181,12 +180,10 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         return this.cachedInsertItemStack;
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         var ref = CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).getOrThrow();
         this.extractGlobalPos = ref.extractGlobalPos;

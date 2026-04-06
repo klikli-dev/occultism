@@ -22,51 +22,49 @@
 
 package com.klikli_dev.occultism.client.render;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.renderer.RenderType;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.klikli_dev.occultism.Occultism;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.LayeringTransform;
+import net.minecraft.client.renderer.rendertype.OutputTarget;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 
-import java.util.OptionalDouble;
+import java.util.Optional;
 
-public class OccultismRenderType extends RenderType {
-    public static final RenderType OVERLAY_LINES_ALTERNATIVE = create("overlay_lines_alternative", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES,
-            256, false, false, RenderType.CompositeState.builder()
-                    .setShaderState(RENDERTYPE_LINES_SHADER)
-                    .setLineState(new LineStateShard(OptionalDouble.empty()))
-                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
-                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                    .setDepthTestState(NO_DEPTH_TEST)
-                    .setOutputState(OutputStateShard.ITEM_ENTITY_TARGET)
-                    .setCullState(NO_CULL)
-                    .setWriteMaskState(COLOR_DEPTH_WRITE)
-                    .createCompositeState(false));
-    private static final LineStateShard THICK_LINES = new LineStateShard(OptionalDouble.of(4.0D));
-    private static final RenderType OVERLAY_LINES = create("overlay_lines",
-            DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 256, false, false,
-            CompositeState.builder().setLineState(THICK_LINES)
-                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
-                    .setShaderState(RENDERTYPE_LINES_SHADER)
-                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                    .setTextureState(NO_TEXTURE)
-                    .setDepthTestState(NO_DEPTH_TEST)
-                    .setCullState(NO_CULL)
-                    .setLightmapState(NO_LIGHTMAP)
-                    .setWriteMaskState(COLOR_WRITE)
-                    .setOutputState(PARTICLES_TARGET)
-                    .createCompositeState(false));
+public class OccultismRenderType {
+    public static final RenderPipeline OVERLAY_LINES_NO_DEPTH_PIPELINE = RenderPipelines.LINES.toBuilder()
+            .withLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "overlay_lines_no_depth"))
+            .withDepthStencilState(Optional.empty())
+            .build();
 
+    public static final RenderPipeline OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE = RenderPipelines.SECONDARY_BLOCK_OUTLINE.toBuilder()
+            .withLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "overlay_lines_alternative_no_depth"))
+            .withDepthStencilState(Optional.empty())
+            .build();
 
-    public OccultismRenderType(String name, VertexFormat vertexFormat, VertexFormat.Mode drawMode, int bufferSize,
-                               boolean useDelegate, boolean needsSorting, Runnable setupTaskIn,
-                               Runnable clearTaskIn) {
-        super(name, vertexFormat, drawMode, bufferSize, useDelegate, needsSorting, setupTaskIn, clearTaskIn);
-    }
+    private static final RenderType OVERLAY_LINES_NO_DEPTH = RenderType.create(
+            "occultism_overlay_lines_no_depth",
+            RenderSetup.builder(OVERLAY_LINES_NO_DEPTH_PIPELINE)
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                    .createRenderSetup()
+    );
+
+    private static final RenderType OVERLAY_LINES_ALTERNATIVE_NO_DEPTH = RenderType.create(
+            "occultism_overlay_lines_alternative_no_depth",
+            RenderSetup.builder(OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE)
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                    .createRenderSetup()
+    );
 
     public static RenderType overlayLines() {
-        return OVERLAY_LINES;
+        return OVERLAY_LINES_NO_DEPTH;
     }
 
     public static RenderType overlayLinesAlternative() {
-        return OVERLAY_LINES_ALTERNATIVE;
+        return OVERLAY_LINES_ALTERNATIVE_NO_DEPTH;
     }
 }

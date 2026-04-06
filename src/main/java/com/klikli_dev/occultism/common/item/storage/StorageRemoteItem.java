@@ -31,26 +31,24 @@ import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import javax.annotation.Nullable;
-import java.util.List;
+import java.util.function.Consumer;
 
 public class StorageRemoteItem extends Item implements MenuProvider {
 
@@ -75,28 +73,17 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void verifyComponentsAfterLoad(ItemStack pStack) {
-        super.verifyComponentsAfterLoad(pStack);
-
-        if(pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
-            pStack.set(DataComponents.RARITY, Rarity.RARE);
-        else
-            pStack.set(DataComponents.RARITY, Rarity.COMMON);
-    }
-
-    @Override
     public Component getDisplayName() {
         return Component.translatable(this.getDescriptionId());
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        if (!context.getLevel().isClientSide) {
+        if (!context.getLevel().isClientSide()) {
             ItemStack stack = context.getItemInHand();
             BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
             if (blockEntity instanceof IStorageController) {
                 stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, GlobalBlockPos.from(blockEntity));
-                stack.set(DataComponents.RARITY, Rarity.RARE);
                 context.getPlayer()
                         .sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.linked"));
             }
@@ -106,10 +93,10 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (level.isClientSide || !stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
+        if (level.isClientSide() || !stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
             return super.use(level, player, hand);
 
         GlobalBlockPos storageControllerPos = stack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
@@ -123,25 +110,25 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
         //then access it and if it fits, open UI
         if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController && player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu(this, buffer -> buffer.writeVarInt(player.getInventory().selected));
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+            serverPlayer.openMenu(this, buffer -> buffer.writeVarInt(player.getInventory().getSelectedSlot()));
+            return InteractionResult.SUCCESS;
         }
         return super.use(level, player, hand);
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.spirit", TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
+        pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip.spirit", TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
 
         if (pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER)) {
             GlobalBlockPos globalPos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
 
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.toString() + ChatFormatting.RESET;
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
+            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         } else {
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
+            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
 

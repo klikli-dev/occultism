@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:ghast_tear"
+    "id": "minecraft:ghast_tear"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_ghast.name",
   "pages": [

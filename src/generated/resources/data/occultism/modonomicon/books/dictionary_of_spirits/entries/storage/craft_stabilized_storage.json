@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.storage.craft_stabilized_storage.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:storage_controller_stabilized"
+    "id": "occultism:storage_controller_stabilized"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.craft_stabilized_storage.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:storage_controller_stabilized"
-      },
+      "item": "occultism:storage_controller_stabilized",
       "text": "book.occultism.dictionary_of_spirits.storage.craft_stabilized_storage.spotlight.text",
       "title": ""
     },

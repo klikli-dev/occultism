@@ -18,9 +18,7 @@
   "type": "occultism:crushing",
   "crushing_time": 20,
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "occultism:otherstone"
-  },
+  "ingredient": "#occultism:otherstone",
   "result": {
     "type": "occultism:tag",
     "count": 1,

@@ -38,9 +38,10 @@ public class ClearWeatherJob extends ChangeWeatherJob {
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
             var level = (ServerLevel) this.entity.level();
-            level.setWeatherParameters(0, 0, false, false);
+            level.getServer().setWeatherParameters(0, 0, false, false);
         } else {
-            this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
+            if (this.entity.getOwner() instanceof net.minecraft.world.entity.player.Player player)
+                player.sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }
 

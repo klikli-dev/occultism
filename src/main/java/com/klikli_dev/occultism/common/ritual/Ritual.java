@@ -39,7 +39,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -50,6 +50,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -84,7 +85,7 @@ public abstract class Ritual {
 
     public RitualRecipe recipe;
 
-    public ResourceLocation factoryId;
+    public Identifier factoryId;
     Supplier<RecipeHolder<RitualRecipe>> recipeHolderSupplier;
 
     //region Getter / Setter
@@ -121,11 +122,11 @@ public abstract class Ritual {
         return remainingAdditionalIngredients;
     }
 
-    public ResourceLocation getFactoryID() {
+    public Identifier getFactoryID() {
         return this.factoryId;
     }
 
-    public void setFactoryId(ResourceLocation factoryId) {
+    public void setFactoryId(Identifier factoryId) {
         this.factoryId = factoryId;
     }
 
@@ -133,12 +134,20 @@ public abstract class Ritual {
         return this.recipe;
     }
 
+    @SuppressWarnings("unchecked")
     public RecipeHolder<RitualRecipe> getRecipeHolder(Level level) {
         if (this.recipeHolderSupplier == null) {
             this.recipeHolderSupplier =
-                    Suppliers.memoize(() -> level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
-                    r -> r.value() == this.getRecipe()
-            ).findFirst().orElse(null));
+                    Suppliers.memoize(() -> {
+                        if (level instanceof ServerLevel serverLevel) {
+                            return serverLevel.recipeAccess().getRecipes().stream()
+                                    .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
+                                    .filter(r -> r.value() == this.getRecipe())
+                                    .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
+                                    .findFirst().orElse(null);
+                        }
+                        return null;
+                    });
         }
         return this.recipeHolderSupplier.get();
     }
@@ -147,7 +156,7 @@ public abstract class Ritual {
         var holder = this.getRecipeHolder(player.level());
         if(holder == null)
             return "unknown";
-        ResourceLocation recipeId = holder.id();
+        Identifier recipeId = holder.id().identifier();
         String path = recipeId.getPath();
         if (path.contains("/"))
             path = path.substring(path.indexOf("/") + 1);
@@ -230,13 +239,13 @@ public abstract class Ritual {
             var context = RitualRecipeConditionContext.of(blockEntity);
             if(!this.recipe.getCondition().test(context)){
                 if (castingPlayer != null)
-                    castingPlayer.displayClientMessage(this.getConditionNotMetMessage(blockEntity, castingPlayer), false);
+                    castingPlayer.sendSystemMessage(this.getConditionNotMetMessage(blockEntity, castingPlayer));
                 return false;
             }
         }
 
         if (castingPlayer != null)
-            castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage(castingPlayer)), true);
+            castingPlayer.sendOverlayMessage(Component.translatable(this.getStartedMessage(castingPlayer)));
 
         return true;
     }
@@ -256,7 +265,7 @@ public abstract class Ritual {
                 0.7f);
 
         if (castingPlayer != null){
-            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+            castingPlayer.sendOverlayMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
     }
@@ -274,7 +283,7 @@ public abstract class Ritual {
                           @Nullable ServerPlayer castingPlayer, ItemStack activationItem, boolean showMessage) {
         level.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
         if (castingPlayer != null && showMessage)
-            castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage(castingPlayer)), true);
+            castingPlayer.sendOverlayMessage(Component.translatable(this.getInterruptedMessage(castingPlayer)));
     }
 
     /**
@@ -584,7 +593,7 @@ public abstract class Ritual {
      * @return true if the entity is a valid sacrifice.
      */
     public boolean isValidSacrifice(LivingEntity entity) {
-        return entity != null && this.recipe.requiresSacrifice() && entity.getType().is(this.recipe.getEntityToSacrifice());
+        return entity != null && this.recipe.requiresSacrifice() && entity.getType().builtInRegistryHolder().is(this.recipe.getEntityToSacrifice());
     }
 
     /**
@@ -643,7 +652,7 @@ public abstract class Ritual {
                 && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
         } else if (realDrop) {
-            double angle = level.random.nextDouble() * Math.PI * 2;
+            double angle = level.getRandom().nextDouble() * Math.PI * 2;
             ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                     goldenBowlPosition.getZ() + 0.5, stack);
             entity.setDeltaMovement(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);

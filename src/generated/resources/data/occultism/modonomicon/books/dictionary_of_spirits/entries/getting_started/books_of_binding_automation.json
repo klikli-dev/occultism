@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:crafter"
+    "id": "minecraft:crafter"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.name",
   "pages": [

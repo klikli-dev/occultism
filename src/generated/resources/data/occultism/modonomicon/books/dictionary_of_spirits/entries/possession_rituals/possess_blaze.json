@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:blaze_rod"
+    "id": "minecraft:blaze_rod"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_blaze.name",
   "pages": [

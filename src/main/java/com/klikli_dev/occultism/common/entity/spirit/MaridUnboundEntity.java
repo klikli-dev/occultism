@@ -23,11 +23,12 @@
 package com.klikli_dev.occultism.common.entity.spirit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -43,11 +44,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.EventHooks;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
@@ -83,18 +87,18 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
         int maxGuardians = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxGuardians; i++) {
-            Guardian entity = EntityType.GUARDIAN.create(level.getLevel());
+            Guardian entity = EntityType.GUARDIAN.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
 
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             level.addFreshEntity(entity);
         }
@@ -113,11 +117,11 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }
 
-    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationTest<T> tAnimationState) {
 
         if (this.swinging) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
@@ -132,7 +136,7 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (source.is(DamageTypeTags.IS_FIRE)
                 || source.is(DamageTypeTags.IS_DROWNING)
                 || source.is(DamageTypeTags.IS_FREEZING)
@@ -140,6 +144,6 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
                 || source.is(DamageTypeTags.WITCH_RESISTANT_TO))
             return true;
 
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 }

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:skeleton_skull"
+    "id": "minecraft:skeleton_skull"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:large_candle"
-      },
+      "item": "occultism:large_candle",
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "minecraft:skeleton_skull"
-      },
+      "item": "minecraft:skeleton_skull",
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skull.text",
       "title": ""
     },
@@ -54,9 +50,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:spirit_attuned_crystal"
-      },
+      "item": "occultism:spirit_attuned_crystal",
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.crystal.text",
       "title": ""
     },
@@ -89,8 +83,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "minecraft:wither_skeleton_skull"
+        "id": "minecraft:wither_skeleton_skull"
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.wither_skull.text",
       "title": ""

@@ -33,14 +33,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MessageSortItems implements IMessage {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "sort_items");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "sort_items");
     public static final Type<MessageSortItems> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSortItems> STREAM_CODEC = CustomPacketPayload.codec(MessageSortItems::encode, MessageSortItems::new);
     private BlockPos entityPosition;
@@ -74,7 +74,7 @@ public class MessageSortItems implements IMessage {
                 }
             } else {
                 //for item remotes, we just set the nbt.
-                ItemStack stack = player.getInventory().getSelected();
+                ItemStack stack = player.getMainHandItem();
                 stack.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
                 stack.set(OccultismDataComponents.SORT_TYPE, this.sortType);
             }

@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/fluix"
-  },
+  "ingredient": "#c:dusts/fluix",
   "result": {
     "type": "occultism:tag",
     "count": 1,

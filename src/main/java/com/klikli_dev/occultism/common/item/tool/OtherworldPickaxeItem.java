@@ -24,15 +24,13 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.api.common.item.IOtherworldTool;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Tier;
 
-public class OtherworldPickaxeItem extends PickaxeItem implements IOtherworldTool {
+public class OtherworldPickaxeItem extends Item implements IOtherworldTool {
 
-    public OtherworldPickaxeItem(Tier tier,
-                                 Properties builder) {
-        super(tier, builder);
+    public OtherworldPickaxeItem(Properties builder) {
+        super(builder);
     }
 
     @Override

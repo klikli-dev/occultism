@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/silver"
-  },
+  "ingredient": "#c:ores/silver",
   "result": {
     "type": "occultism:tag",
     "count": 2,

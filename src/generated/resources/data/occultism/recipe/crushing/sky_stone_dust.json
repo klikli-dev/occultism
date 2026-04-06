@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:sky_stones"
-  },
+  "ingredient": "#c:sky_stones",
   "result": {
     "type": "occultism:tag",
     "count": 1,

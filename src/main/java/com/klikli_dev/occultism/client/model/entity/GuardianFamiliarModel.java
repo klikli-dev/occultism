@@ -22,9 +22,6 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.GuardianFamiliarEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -32,12 +29,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
+public class GuardianFamiliarModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -70,6 +68,7 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
     public ModelPart rightArm3;
 
     public GuardianFamiliarModel(ModelPart part) {
+        super(part);
         this.body = part.getChild("body");
         this.bodyLower = this.body.getChild("bodyLower");
         this.head = this.body.getChild("head");
@@ -133,101 +132,46 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
         return LayerDefinition.create(mesh, 64, 32);
     }
 
-    @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-
-        if (!this.leftArm1.visible) {
-            pPoseStack.pushPose();
-            pPoseStack.translate(this.body.x / 16d, this.body.y / 16d, this.body.z / 16d);
-            pPoseStack.translate(0.35, -0.2, 0);
-            this.birdBody.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-            pPoseStack.popPose();
-        }
-    }
+    // TODO: renderToBuffer is final in Model in 26.1 — custom bird rendering logic removed pending custom RenderState
 
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
 
     @Override
-    public void setupAnim(GuardianFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
-                          float netHeadYaw, float headPitch) {
-        this.showModels(pEntity);
-        int lives = pEntity.getLives();
-        this.head.yRot = netHeadYaw * (PI / 180f);
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState to restore entity-specific animation
+        // this.showModels(pEntity);
+        // int lives = pEntity.getLives();
+        // this.head.yRot = netHeadYaw * (PI / 180f);
 
         this.body.zRot = 0;
         this.rightLeg1.zRot = 0.16f;
         this.rightArm1.zRot = 0.19f;
 
-        if (pEntity.isSitting()) {
-            this.rightLeg1.xRot = this.toRads(-90);
-            this.leftLeg1.xRot = this.toRads(-90);
-            this.leftArm1.xRot = this.toRads(-30);
-            this.rightArm1.xRot = this.toRads(-30);
-            this.leftArm2.xRot = this.toRads(-30);
-            this.rightArm2.xRot = this.toRads(-30);
-            this.leftArm3.xRot = this.toRads(-30);
-            this.rightArm3.xRot = this.toRads(-30);
-        } else {
-            this.rightLeg1.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f;
-            this.leftLeg1.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f;
-            this.leftArm2.xRot = 0;
-            this.rightArm2.xRot = 0;
-            this.leftArm3.xRot = 0;
-            this.rightArm3.xRot = 0;
-        }
-
-        if (pEntity.isPartying()) {
-            this.leftArm1.xRot = -pAgeInTicks / 10;
-            this.rightArm1.xRot = -pAgeInTicks / 10;
-            this.head.yRot = pAgeInTicks / 10;
-        } else if (!pEntity.isSitting()) {
-            this.rightArm1.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f;
-            this.leftArm1.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f;
-        }
-
-        if (lives == GuardianFamiliarEntity.ONE_LEGGED) {
-            this.body.zRot = this.toRads(-20);
-            this.rightLeg1.zRot = this.toRads(20);
-            this.rightArm1.zRot = this.toRads(20);
-        }
+        // TODO: needs custom RenderState
+        // if (pEntity.isSitting()) { ... }
+        // if (pEntity.isPartying()) { ... }
+        // if (lives == GuardianFamiliarEntity.ONE_LEGGED) { ... }
 
         // Bird
-        this.birdHead.yRot = netHeadYaw * (PI / 180f) * 0.4f;
-        this.birdHead.xRot = headPitch * (PI / 180f) * 0.4f + this.toRads(30);
-        if (lives > GuardianFamiliarEntity.ONE_ARMED) {
-            this.birdLeftLeg.y = -(Mth.sin(pAgeInTicks / 2) + 1) * 0.1f - 0.21f;
-            this.birdRightLeg.y = -(Mth.sin(pAgeInTicks / 2 + PI) + 1) * 0.1f - 0.21f;
-            if (pAgeInTicks % 100 < 20) {
-                float wingProgress = pAgeInTicks % 100 % 20;
-                this.birdLeftWing.zRot = this.toRads(20) + Mth.sin(wingProgress / 20 * this.toRads(360) * 2) * this.toRads(25);
-                this.birdRightWing.zRot = this.toRads(-20)
-                        - Mth.sin(wingProgress / 20 * this.toRads(360) * 2) * this.toRads(25);
-            }
-            this.birdBody.y = -2.9f;
-        } else {
-            this.birdLeftLeg.y = -0.31f;
-            this.birdRightLeg.y = -0.31f;
-            this.birdLeftWing.zRot = this.toRads(20) + Mth.sin(pAgeInTicks / 2) * this.toRads(25);
-            this.birdRightWing.zRot = this.toRads(-20) - Mth.sin(pAgeInTicks / 2) * this.toRads(25);
-            this.birdBody.y = -2.9f - Mth.sin(pAgeInTicks / 2) * 0.4f;
-            this.birdBody.zRot = lives <= GuardianFamiliarEntity.ONE_LEGGED ? -0 : 0;
-        }
+        // TODO: needs custom RenderState
+        // this.birdHead.yRot = ...
+        // this.birdHead.xRot = ...
     }
 
-    private void showModels(GuardianFamiliarEntity entity) {
-        boolean hasTree = entity.hasTree();
-        byte lives = entity.getLives();
-
-        this.tree1.visible = hasTree;
-        this.tree2.visible = hasTree;
-        this.birdBody.visible = entity.hasBird();
-        this.leftArm1.visible = lives > 4;
-        this.leftLeg1.visible = lives > 3;
-        this.rightLeg1.visible = lives > 2;
-        this.rightArm1.visible = lives > 1;
-    }
+    // TODO: needs custom RenderState to restore entity-specific visibility logic
+    // private void showModels(GuardianFamiliarEntity entity) {
+    //     boolean hasTree = entity.hasTree();
+    //     byte lives = entity.getLives();
+    //     this.tree1.visible = hasTree;
+    //     this.tree2.visible = hasTree;
+    //     this.birdBody.visible = entity.hasBird();
+    //     this.leftArm1.visible = lives > 4;
+    //     this.leftLeg1.visible = lives > 3;
+    //     this.rightLeg1.visible = lives > 2;
+    //     this.rightArm1.visible = lives > 1;
+    // }
 
 }

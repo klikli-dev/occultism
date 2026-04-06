@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/cobalt"
-  },
+  "ingredient": "#c:raw_materials/cobalt",
   "result": {
     "type": "occultism:tag",
     "count": 2,

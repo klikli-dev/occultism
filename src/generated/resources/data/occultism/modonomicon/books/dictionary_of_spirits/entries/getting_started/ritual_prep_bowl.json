@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:golden_sacrificial_bowl"
+    "id": "occultism:golden_sacrificial_bowl"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.name",
   "pages": [
@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:sacrificial_bowl"
-      },
+      "item": "occultism:sacrificial_bowl",
       "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl.title"
     },
@@ -50,9 +48,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:spirit_fire"
-      },
+      "item": "occultism:spirit_fire",
       "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.title"
     },
@@ -62,9 +58,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:golden_sacrificial_bowl"
-      },
+      "item": "occultism:golden_sacrificial_bowl",
       "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.golden_sacrificial_bowl.text",
       "title": ""
     },

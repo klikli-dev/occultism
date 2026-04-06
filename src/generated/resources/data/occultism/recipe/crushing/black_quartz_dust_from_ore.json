@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/black_quartz"
-  },
+  "ingredient": "#c:ores/black_quartz",
   "result": {
     "type": "occultism:tag",
     "count": 3,

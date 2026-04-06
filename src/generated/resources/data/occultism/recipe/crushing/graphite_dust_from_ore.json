@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/graphite"
-  },
+  "ingredient": "#c:ores/graphite",
   "result": {
     "type": "occultism:tag",
     "count": 2,

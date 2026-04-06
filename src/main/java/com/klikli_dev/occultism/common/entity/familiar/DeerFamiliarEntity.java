@@ -27,8 +27,8 @@ import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ import java.util.List;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
-    private static final ResourceLocation SPEED_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "deer_speed_bonus");
+    private static final Identifier SPEED_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "deer_speed_bonus");
 
     private static final byte START_EATING = 10;
 
@@ -86,10 +87,10 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide && !this.hasGlowingTag() && this.hasRedNose())
+        if (!this.level().isClientSide() && !this.hasGlowingTag() && this.hasRedNose())
             this.setGlowingTag(true);
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             this.eatTimer--;
             this.oNeckRotTimer = this.neckRotTimer;
             if (this.isEating())
@@ -98,7 +99,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                 this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             Entity owner = this.getFamiliarOwner();
             if (owner != null && this.distanceToSqr(owner) > 50) {
                 if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) == null)
@@ -118,7 +119,8 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void ate() {
         if (this.getRandom().nextDouble() < 0.25) {
-            this.spawnAtLocation(OccultismItems.DATURA_SEEDS.get(), 0);
+            if (this.level() instanceof ServerLevel sl)
+                this.spawnAtLocation(sl, OccultismItems.DATURA_SEEDS.get());
             LivingEntity owner = this.getOwner();
             if (owner instanceof ServerPlayer serverPlayer)
                 OccultismAdvancements.FAMILIAR.get().trigger(serverPlayer, FamiliarTrigger.Type.DEER_POOP);
@@ -128,8 +130,8 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
-        effects.add(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, false));
+        effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 300, 0, false, false));
+        effects.add(new MobEffectInstance(MobEffects.SPEED, 300, 0, false, false));
         if (DeerFamiliarEntity.this.hasBlacksmithUpgrade()){
             effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 1, false, false));
         } else {
@@ -139,17 +141,16 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants"))
-            this.setRedNose(compound.getBoolean("hasRedNose"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setRedNose(input.getBooleanOr("hasRedNose", false));
     }
 
     @Override

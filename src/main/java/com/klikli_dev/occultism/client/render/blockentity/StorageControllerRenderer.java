@@ -27,27 +27,25 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import java.awt.Color;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.item.ItemStack;
 
-import java.awt.*;
-import java.util.List;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Use StorageControllerGeoRenderer instead
  */
 @Deprecated
-public class StorageControllerRenderer implements BlockEntityRenderer<StorageControllerBlockEntity> {
+public class StorageControllerRenderer implements BlockEntityRenderer<StorageControllerBlockEntity, BlockEntityRenderState> {
 
     protected Minecraft minecraft;
     protected ItemStack stack;
@@ -57,6 +55,21 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
     }
 
     @Override
+    public BlockEntityRenderState createRenderState() {
+        return new BlockEntityRenderState();
+    }
+
+    @Override
+    public void extractRenderState(StorageControllerBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+    }
+
+    @Override
+    public void submit(BlockEntityRenderState renderState, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState cameraRenderState) {
+        // TODO: Port to 26.1 rendering API
+    }
+
+    // Legacy render method preserved for reference - not an @Override
+    // TODO: Port to 26.1 rendering API
     public void render(StorageControllerBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         if (this.stack == null)
@@ -88,12 +101,13 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         float saturation = (float) systemTimeRadSin8 * 0.5f + 0.5f;
         int color = Color.getHSBColor(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale).getRGB();
 
+        /* TODO: Port to 26.1 rendering API - BakedModel removed
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         BakedModel model = itemRenderer.getModel(this.stack, blockEntity.getLevel(), null, 0);
 
         //from ItemRenderer#renderItem
         poseStack.translate(-0.5D, -0.5D, -0.5D);
-        RenderType rendertype = ItemBlockRenderTypes.getRenderType(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
+        RenderType rendertype = ItemBlockRenderTypes.getRenderType(this.stack, false);
         VertexConsumer ivertexbuilder = ItemRenderer.getFoilBuffer(buffer, rendertype, true, this.stack.hasFoil());
         //from  ItemRenderer#rendermodel
         var random = RandomSource.create();
@@ -107,12 +121,14 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         random.setSeed(42L);
         this.renderQuads(poseStack, ivertexbuilder, model.getQuads(null, null, random), color, combinedLight,
                 combinedOverlay);
-
+        */
 
         poseStack.popPose();
     }
 
-    public void renderQuads(PoseStack matrixStackIn, VertexConsumer bufferIn, List<BakedQuad> quadsIn, int colorIn,
+    // Legacy renderQuads method preserved for reference
+    // TODO: Port to 26.1 rendering API - BakedQuad removed
+    /* public void renderQuads(PoseStack matrixStackIn, VertexConsumer bufferIn, List<BakedQuad> quadsIn, int colorIn,
                             int combinedLightIn, int combinedOverlayIn) {
         //from  ItemRenderer#renderQuadList
         PoseStack.Pose pose = matrixStackIn.last();
@@ -125,7 +141,6 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
             float f2 = (float) (i & 255) / 255.0F;
             bufferIn.putBulkData(pose, bakedquad, f, f1, f2, 1.0f, combinedLightIn, combinedOverlayIn, true);
         }
-
-    }
+    } */
 
 }

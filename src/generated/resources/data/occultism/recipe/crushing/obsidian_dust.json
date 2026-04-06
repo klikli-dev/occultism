@@ -1,9 +1,7 @@
 {
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:obsidians"
-  },
+  "ingredient": "#c:obsidians",
   "result": {
     "type": "occultism:tag",
     "count": 1,

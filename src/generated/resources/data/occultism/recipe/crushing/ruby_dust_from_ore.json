@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/ruby"
-  },
+  "ingredient": "#c:ores/ruby",
   "result": {
     "type": "occultism:tag",
     "count": 3,

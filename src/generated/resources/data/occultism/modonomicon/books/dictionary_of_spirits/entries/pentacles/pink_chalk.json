@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_pink"
+    "id": "occultism:chalk_pink"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_pink"
-      },
+      "item": "occultism:chalk_pink",
       "text": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:demonic_meat"
-      },
+      "item": "occultism:demonic_meat",
       "text": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.meat.text",
       "title": ""
     },

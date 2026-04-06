@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:otherworld_logs"
+      }
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_tag_item": {

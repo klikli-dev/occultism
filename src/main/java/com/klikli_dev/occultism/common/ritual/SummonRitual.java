@@ -38,11 +38,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
@@ -65,7 +68,7 @@ public class SummonRitual extends Ritual {
      * @return return the bound book of calling with the nbt from the activation item.
      */
     public ItemStack getBookOfCallingBound(RegistryAccess registryAccess, ItemStack activationItem) {
-        ItemStack result = this.recipe.getResultItem(registryAccess).copy();
+        ItemStack result = this.recipe.getResult().copy();
         if (result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()
             || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
             || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()
@@ -119,9 +122,11 @@ public class SummonRitual extends Ritual {
      */
     public void applyEntityNbt(Entity entity) {
         if (this.recipe.getEntityNbt() != null) {
-            var tag = entity.saveWithoutId(new CompoundTag());
+            var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+            entity.saveWithoutId(output);
+            var tag = output.buildResult();
             tag.merge(this.recipe.getEntityNbt());
-            entity.load(tag);
+            entity.load(TagValueInput.create(ProblemReporter.DISCARDING, entity.registryAccess(), tag));
         }
     }
 
@@ -168,7 +173,7 @@ public class SummonRitual extends Ritual {
             var options = StreamSupport.stream(BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(this.recipe.getEntityTagToSummon()).spliterator(), false).toList();
 
             if (!options.isEmpty()) {
-                int index = level.random.nextInt(options.size());
+                int index = level.getRandom().nextInt(options.size());
                 return options.get(index).value();
             }
         }
@@ -178,7 +183,7 @@ public class SummonRitual extends Ritual {
 
     public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                                        @Nullable Player castingPlayer) {
-        return entityType.create(level);
+        return entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
     }
 
     public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, @Nullable Player castingPlayer) {
@@ -208,16 +213,16 @@ public class SummonRitual extends Ritual {
         }
         if (level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())
                 || level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.CELESTIAL_CHALICE.get())) {
-            livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,
-                    level.random.nextInt(360), 0);
+            livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,
+                    level.getRandom().nextInt(360), 0);
         } else {
-            livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY(), goldenBowlPosition.getZ() + 0.5,
-                    level.random.nextInt(360), 0);
+            livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY(), goldenBowlPosition.getZ() + 0.5,
+                    level.getRandom().nextInt(360), 0);
         }
         if (!spiritName.isEmpty())
             livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob) {
-            EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
+            EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, ((ServerLevel) level).getCurrentDifficultyAt(goldenBowlPosition), EntitySpawnReason.MOB_SUMMONED, null);
         }
     }
 }

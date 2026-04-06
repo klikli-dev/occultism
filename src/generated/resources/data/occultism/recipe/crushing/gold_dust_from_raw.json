@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/gold"
-  },
+  "ingredient": "#c:raw_materials/gold",
   "result": {
     "type": "occultism:tag",
     "count": 2,

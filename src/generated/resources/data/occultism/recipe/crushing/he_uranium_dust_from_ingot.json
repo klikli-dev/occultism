@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/he_uranium"
-  },
+  "ingredient": "#c:ingots/he_uranium",
   "result": {
     "type": "occultism:tag",
     "count": 1,

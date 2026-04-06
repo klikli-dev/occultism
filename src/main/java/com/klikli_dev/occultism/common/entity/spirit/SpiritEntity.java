@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.entity.spirit;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
@@ -31,19 +30,17 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -51,25 +48,29 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrain;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -92,8 +93,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Optional<BlockPos>> DEPOSIT_POSITION =
             SynchedEntityData.defineId(SpiritEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
-    private static final EntityDataAccessor<Optional<UUID>> DEPOSIT_ENTITY_UUID =
-            SynchedEntityData.defineId(SpiritEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> DEPOSIT_ENTITY_UUID =
+            SynchedEntityData.defineId(SpiritEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
     private static final EntityDataAccessor<Direction> DEPOSIT_FACING =
             SynchedEntityData.defineId(SpiritEntity.class, EntityDataSerializers.DIRECTION);
     private static final EntityDataAccessor<Optional<BlockPos>> EXTRACT_POSITION =
@@ -123,8 +124,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * The filter item list
      */
-    private static final EntityDataAccessor<CompoundTag> FILTER_ITEMS = SynchedEntityData
-            .defineId(SpiritEntity.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<String> FILTER_ITEMS = SynchedEntityData
+            .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
 
     /**
      * The filter for tags
@@ -137,7 +138,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
-            SpiritEntity.this.entityData.set(FILTER_ITEMS, this.serializeNBT(SpiritEntity.this.level().registryAccess()));
+            TagValueOutput tagOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, SpiritEntity.this.level().registryAccess());
+            this.serialize(tagOutput);
+            SpiritEntity.this.entityData.set(FILTER_ITEMS, tagOutput.buildResult().toString());
         }
     };
 
@@ -168,13 +171,12 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    protected Brain.Provider<?> brainProvider() {
-        //memories are dynamic due to the job system.
-        return new SmartBrainProvider<>(this, true);
+    protected Brain<?> makeBrain(Brain.Packed packedBrain) {
+        return new SmartBrainProvider<>(this, true).makeBrain(this, packedBrain);
     }
 
     @Override
-    protected void customServerAiStep() {
+    protected void customServerAiStep(ServerLevel level) {
         this.tickBrain(this);
     }
 
@@ -205,10 +207,17 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
         if (key == FILTER_ITEMS) {
             //restore filter item handler from data param on client
-            if (this.level().isClientSide) {
-                CompoundTag compound = this.entityData.get(FILTER_ITEMS);
-                if (!compound.isEmpty())
-                    this.filterItemStackHandler.deserializeNBT(this.level().registryAccess(), compound);
+            if (this.level().isClientSide()) {
+                String compoundStr = this.entityData.get(FILTER_ITEMS);
+                if (!compoundStr.isEmpty()) {
+                    try {
+                        CompoundTag compound = net.minecraft.nbt.TagParser.parseCompoundFully(compoundStr);
+                        ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
+                        this.filterItemStackHandler.deserialize(valueInput);
+                    } catch (Exception e) {
+                        // ignore parse errors
+                    }
+                }
             }
         }
 
@@ -224,16 +233,16 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         if (position != null)
             this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.empty());
 
-        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_POSITION.get(), position);
+        BrainUtil.setMemory(this, OccultismMemoryTypes.DEPOSIT_POSITION.get(), position);
     }
 
-    public Optional<UUID> getDepositEntityUUID() {
+    public Optional<EntityReference<LivingEntity>> getDepositEntityUUID() {
         return this.entityData.get(DEPOSIT_ENTITY_UUID);
     }
 
-    public void setDepositEntityUUID(UUID uuid) {
-        this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.ofNullable(uuid));
-        if (uuid != null)
+    public void setDepositEntityUUID(EntityReference<LivingEntity> ref) {
+        this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.ofNullable(ref));
+        if (ref != null)
             this.entityData.set(DEPOSIT_POSITION, Optional.empty());
     }
 
@@ -251,7 +260,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaPosition(BlockPos position) {
         this.entityData.set(WORK_AREA_POSITION, Optional.ofNullable(position));
-        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
+        BrainUtil.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
 
         this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
@@ -262,7 +271,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaSize(WorkAreaSize workAreaSize) {
         this.entityData.set(WORK_AREA_SIZE, workAreaSize.ordinal()); //for the entity data set the
-        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+        BrainUtil.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
 
         this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
@@ -277,7 +286,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setDepositFacing(Direction depositFacing) {
         this.entityData.set(DEPOSIT_FACING, depositFacing);
-        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_FACING.get(), depositFacing);
+        BrainUtil.setMemory(this, OccultismMemoryTypes.DEPOSIT_FACING.get(), depositFacing);
     }
 
     public Direction getExtractFacing() {
@@ -410,8 +419,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void remakeBrain() {
-        NbtOps nbtops = NbtOps.INSTANCE;
-        this.brain = this.makeBrain(new Dynamic<>(nbtops, nbtops.createMap(ImmutableMap.of(nbtops.createString("memories"), nbtops.emptyMap()))));
+        this.brain = this.makeBrain(Brain.Packed.EMPTY);
     }
 
     @Nullable
@@ -431,7 +439,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason,
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
         this.selectRandomSkin();
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
@@ -450,7 +458,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public void aiStep() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (!this.isInitialized) {
                 this.init();
             }
@@ -474,23 +482,18 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
-        return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
+    public boolean isInvulnerableTo(ServerLevel level, @NotNull DamageSource source) {
+        return super.isInvulnerableTo(level, source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        } else {
-            //copied from wolf
-            Entity entity = source.getEntity();
-            if (entity != null && !(entity instanceof Player) && !(entity instanceof AbstractArrow)) {
-                amount = (amount + 1.0F) / 2.0F;
-            }
-
-            return super.hurt(source, amount);
+    protected void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
+        //copied from wolf
+        Entity entity = source.getEntity();
+        if (entity != null && !(entity instanceof Player) && !(entity instanceof AbstractArrow)) {
+            amount = (amount + 1.0F) / 2.0F;
         }
+        super.actuallyHurt(level, source, amount);
     }
 
 
@@ -529,110 +532,99 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         builder.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
         builder.define(JOB_ID, "");
         builder.define(IS_FILTER_BLACKLIST, false);
-        builder.define(FILTER_ITEMS, new CompoundTag());
+        builder.define(FILTER_ITEMS, "");
         builder.define(TAG_FILTER, "");
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
 
         //Store age
-        compound.putInt("spiritAge", this.getSpiritAge());
-        compound.putInt("spiritMaxAge", this.getSpiritMaxAge());
+        output.putInt("spiritAge", this.getSpiritAge());
+        output.putInt("spiritMaxAge", this.getSpiritMaxAge());
 
         //store work area position
-        this.getWorkAreaPosition().ifPresent(pos -> compound.putLong("workAreaPosition", pos.asLong()));
-        compound.putInt("workAreaSize", this.getWorkAreaSize().ordinal());
+        this.getWorkAreaPosition().ifPresent(pos -> output.putLong("workAreaPosition", pos.asLong()));
+        output.putInt("workAreaSize", this.getWorkAreaSize().ordinal());
 
         //store deposit info
-        this.getDepositPosition().ifPresent(pos -> compound.putLong("depositPosition", pos.asLong()));
-        this.getDepositEntityUUID().ifPresent(uuid -> compound.putUUID("depositEntityUUID", uuid));
-        compound.putInt("depositFacing", this.getDepositFacing().ordinal());
+        this.getDepositPosition().ifPresent(pos -> output.putLong("depositPosition", pos.asLong()));
+        this.getDepositEntityUUID().ifPresent(ref -> EntityReference.store(ref, output, "depositEntityRef"));
+        output.putInt("depositFacing", this.getDepositFacing().ordinal());
 
         //store extract info
-        this.getExtractPosition().ifPresent(pos -> compound.putLong("extractPosition", pos.asLong()));
-        compound.putInt("extractFacing", this.getExtractFacing().ordinal());
+        this.getExtractPosition().ifPresent(pos -> output.putLong("extractPosition", pos.asLong()));
+        output.putInt("extractFacing", this.getExtractFacing().ordinal());
 
         //store current inventory
-        compound.put("inventory", this.inventory.serializeNBT(this.level().registryAccess()));
+        {
+            TagValueOutput inv = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
+            this.inventory.serialize(inv);
+            output.store("inventory", CompoundTag.CODEC, inv.buildResult());
+        }
 
         //store job
-        this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT(this.level().registryAccess())));
+        this.getJob().ifPresent(job -> output.store("spiritJob", CompoundTag.CODEC, job.writeJobToNBT(new CompoundTag(), this.level().registryAccess())));
 
-        compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
-        compound.put("filterItems", this.filterItemStackHandler.serializeNBT(this.level().registryAccess()));
+        output.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
+        {
+            TagValueOutput filterOut = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
+            this.filterItemStackHandler.serialize(filterOut);
+            output.store("filterItems", CompoundTag.CODEC, filterOut.buildResult());
+        }
 
-        compound.putString("tagFilter", this.getTagFilter());
+        output.putString("tagFilter", this.getTagFilter());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
 
         //read age
-        if (compound.contains("spiritAge")) {
-            this.setSpiritAge(compound.getInt("spiritAge"));
-        }
-        if (compound.contains("spiritMaxAge")) {
-            this.setSpiritMaxAge(compound.getInt("spiritMaxAge"));
-        }
+        input.getInt("spiritAge").ifPresent(this::setSpiritAge);
+        input.getInt("spiritMaxAge").ifPresent(this::setSpiritMaxAge);
 
         //read base position
-        if (compound.contains("workAreaPosition")) {
-            this.setWorkAreaPosition(BlockPos.of(compound.getLong("workAreaPosition")));
-        }
-        if (compound.contains("workAreaSize")) {
-            this.setWorkAreaSize(WorkAreaSize.get(compound.getInt("workAreaSize")));
-        }
+        input.getLong("workAreaPosition").ifPresent(l -> this.setWorkAreaPosition(BlockPos.of(l)));
+        input.getInt("workAreaSize").ifPresent(i -> this.setWorkAreaSize(WorkAreaSize.get(i)));
 
         //read deposit information
-        if (compound.contains("depositPosition")) {
-            this.setDepositPosition(BlockPos.of(compound.getLong("depositPosition")));
-        }
-        if (compound.contains("depositEntityUUID")) {
-            this.setDepositEntityUUID(compound.getUUID("depositEntityUUID"));
-        }
-        if (compound.contains("depositFacing")) {
-            this.setDepositFacing(Direction.values()[compound.getInt("depositFacing")]);
-        }
+        input.getLong("depositPosition").ifPresent(l -> this.setDepositPosition(BlockPos.of(l)));
+        Optional.ofNullable(EntityReference.<LivingEntity>readWithOldOwnerConversion(input, "depositEntityRef", this.level()))
+                .ifPresent(this::setDepositEntityUUID);
+        input.getInt("depositFacing").ifPresent(i -> this.setDepositFacing(Direction.values()[i]));
 
         //read extract information
-        if (compound.contains("extractPosition")) {
-            this.setExtractPosition(BlockPos.of(compound.getLong("extractPosition")));
-        }
-        if (compound.contains("extractFacing")) {
-            this.setExtractFacing(Direction.values()[compound.getInt("extractFacing")]);
-        }
+        input.getLong("extractPosition").ifPresent(l -> this.setExtractPosition(BlockPos.of(l)));
+        input.getInt("extractFacing").ifPresent(i -> this.setExtractFacing(Direction.values()[i]));
 
         //set up inventory and read items
-
-        if (compound.contains("inventory")) {
-            this.inventory.deserializeNBT(this.level().registryAccess(), compound.getCompound("inventory"));
-        }
+        input.read("inventory", CompoundTag.CODEC).ifPresent(tag -> {
+            ValueInput invInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
+            this.inventory.deserialize(invInput);
+        });
 
         //read job
-        if (compound.contains("spiritJob")) {
-            SpiritJob job = SpiritJob.from(this, compound.getCompound("spiritJob"));
-            var containsBrain = compound.contains("Brain", 10);
-            this.setJob(job, !containsBrain);
-            if (compound.contains("Brain", Tag.TAG_COMPOUND)) {
-                this.brain = this.makeBrain(new Dynamic<>(NbtOps.INSTANCE, compound.get("Brain")));
+        input.read("spiritJob", CompoundTag.CODEC).ifPresent(tag -> {
+            SpiritJob job = SpiritJob.from(this, tag);
+            // Check if brain data exists (we can't use contains with 2 args in 26.1)
+            var hasBrain = input.read("Brain", CompoundTag.CODEC).isPresent();
+            this.setJob(job, !hasBrain);
+            if (hasBrain) {
+                this.brain = this.makeBrain(Brain.Packed.EMPTY);
             }
-        }
+        });
 
-        if (compound.contains("isFilterBlacklist")) {
-            this.setFilterBlacklist(compound.getBoolean("isFilterBlacklist"));
-        }
+        this.setFilterBlacklist(input.getBooleanOr("isFilterBlacklist", this.isFilterBlacklist()));
 
-        if (compound.contains("filterItems")) {
-            compound.getCompound("filterItems").putInt("Size", MAX_FILTER_SLOTS); //override legacy filter size
-            this.filterItemStackHandler.deserializeNBT(this.level().registryAccess(), compound.getCompound("filterItems"));
-        }
+        input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
+            tag.putInt("Size", MAX_FILTER_SLOTS); //override legacy filter size
+            ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
+            this.filterItemStackHandler.deserialize(filterInput);
+        });
 
-        if (compound.contains("tagFilter")) {
-            this.setTagFilter(compound.getString("tagFilter"));
-        }
+        input.getString("tagFilter").ifPresent(this::setTagFilter);
     }
 
     @Override
@@ -643,19 +635,19 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    protected void dropEquipment() {
-        super.dropEquipment();
+    protected void dropEquipment(ServerLevel level) {
+        super.dropEquipment(level);
         for (int i = 0; i < this.inventory.getSlots(); ++i) {
             ItemStack itemstack = this.inventory.getStackInSlot(i);
             if (!itemstack.isEmpty()) {
-                this.spawnAtLocation(itemstack, 0.0F);
+                this.spawnAtLocation(level, itemstack, 0.0F);
             }
         }
     }
 
     @Override
     public void die(DamageSource cause) {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.isTame()) {
                 BookOfCallingItem.spiritDeathRegister.put(this.uuid, this.level().getGameTime());
             }
@@ -681,7 +673,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public InteractionResult interactAt(Player player, Vec3 vec, InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
       ItemStack itemStack = player.getItemInHand(hand);
 
       if (!(itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_DJINNI))) {
@@ -694,7 +686,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
       }
         
-      return super.interactAt(player, vec, hand);
+      return super.mobInteract(player, hand);
     }
 
     @Override
@@ -724,7 +716,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void openScreen(Player playerEntity) {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             MenuProvider menuProvider = this;
 
             SpiritJob currentJob = this.getJob().orElse(null);

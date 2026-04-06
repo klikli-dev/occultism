@@ -10,9 +10,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "item": "minecraft:charcoal"
-  },
+  "ingredient": "minecraft:charcoal",
   "result": {
     "type": "occultism:tag",
     "count": 1,

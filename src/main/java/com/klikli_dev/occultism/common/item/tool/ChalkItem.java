@@ -66,7 +66,7 @@ public class ChalkItem extends Item {
         Player player = context.getPlayer();
         boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (this.isBrush && player != null && player.isCrouching()){ //brush job
                 if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
                     level.removeBlock(pos, false);

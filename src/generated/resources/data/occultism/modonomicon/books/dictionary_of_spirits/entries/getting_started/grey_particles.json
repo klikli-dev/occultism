@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:gray_dye"
+    "id": "minecraft:gray_dye"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.name",
   "pages": [

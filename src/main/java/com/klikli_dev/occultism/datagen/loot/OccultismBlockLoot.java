@@ -6,7 +6,7 @@ import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -72,6 +73,12 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 .forEach(block -> {
                     OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
                             .get(BuiltInRegistries.BLOCK.getKey(block));
+                    if (settings == null) {
+                        Occultism.LOGGER.warn("No block data-gen settings for block {}. Skipping loot table generation.",
+                                BuiltInRegistries.BLOCK.getKey(block));
+                        return;
+                    }
+
                     if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                         this.registerDropNothingLootTable(block);
                     else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
@@ -83,8 +90,14 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                         this.add(block,
                                 this.createCropDrops(block, cropsBlock.getCropsItem().asItem(),
                                         cropsBlock.getSeedsItem().asItem(), lootCondition));
-                    } else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
-                        this.dropSelf(block);
+                    } else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF) {
+                        if (block.asItem() != Items.AIR) {
+                            this.dropSelf(block);
+                        } else {
+                            Occultism.LOGGER.warn("Block {} has DROP_SELF loot type but its item is AIR. Skipping.",
+                                    BuiltInRegistries.BLOCK.getKey(block));
+                        }
+                    }
                     else if (settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
                         this.registerOtherworldBlockTable(block);
                 });
@@ -160,6 +173,8 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.POTTED_OTHERFLOWER.get(), createPotFlowerItemTable(OccultismBlocks.OTHERFLOWER.get()));
         this.add(OccultismBlocks.OTHERSTONE.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLESTONE.asItem()));
         this.add(OccultismBlocks.OTHERROCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLEROCK.asItem()));
+        this.add(OccultismBlocks.SKELETON_SKULL_DUMMY.get(), block -> noDrop());
+        this.add(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(), block -> noDrop());
     }
 
     protected void registerOtherworldBlockTable(Block block) {
@@ -272,7 +287,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     protected CopyComponentsFunction.Builder copyComponents(DataComponentType<?>... pIncludes) {
-        var builder = CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY);
+        var builder = CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY);
         for (var include : pIncludes) {
             builder.include(include);
         }
@@ -280,7 +295,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     private LootItemCondition.Builder hasShearsOrSilkTouch() {
-        return HAS_SHEARS.or(this.hasSilkTouch());
+        return this.hasShears().or(this.hasSilkTouch());
     }
 
     private LootItemCondition.Builder doesNotHaveShearsOrSilkTouch() {

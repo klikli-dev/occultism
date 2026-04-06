@@ -30,7 +30,6 @@ import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -58,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class TraderJob extends SpiritJob {
     public static final String DROPPED_BY_TRADER = "occultism:dropped_by_trader";
@@ -109,7 +109,9 @@ public class TraderJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.itemsToPickUp = this.entity.level().getRecipeManager().getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get()).stream()
+        this.itemsToPickUp = StreamSupport.stream(((ServerLevel) this.entity.level()).recipeAccess().getRecipes().spliterator(), false)
+                .filter(recipe -> recipe.value() instanceof SpiritTradeRecipe)
+                .map(recipe -> (RecipeHolder<SpiritTradeRecipe>) recipe)
                 .filter(
                         recipe -> {
                             //we filter by trader id
@@ -131,8 +133,11 @@ public class TraderJob extends SpiritJob {
         var recipeInput = new TraderRecipeInput(handHeld, this.getFactoryID().toString());
         Level level = this.entity.level();
         if (this.currentRecipe.isEmpty() && !handHeld.isEmpty()) {
-            this.currentRecipe = level.getRecipeManager().getRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
-                    recipeInput, level);
+            this.currentRecipe = ((ServerLevel) level).recipeAccess().getRecipes().stream()
+                    .filter(r -> r.value() instanceof SpiritTradeRecipe && ((SpiritTradeRecipe) r.value()).matches(recipeInput, level))
+                    .map(r -> (RecipeHolder<SpiritTradeRecipe>) r)
+                    .filter(r -> r.value().getTrader() == null || r.value().getTrader().equals(this.getFactoryID().toString()))
+                    .collect(Collectors.toList());
             this.conversionTimer = 0;
 
             if (!this.currentRecipe.isEmpty()) {
@@ -143,7 +148,7 @@ public class TraderJob extends SpiritJob {
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
+                ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, handHeld);
                 if (droppedItem != null) {
                     droppedItem.addTag(DROPPED_BY_TRADER);
                 }
@@ -161,8 +166,8 @@ public class TraderJob extends SpiritJob {
                 if (level.getGameTime() % 10 == 0) {
                     Vec3 pos = this.entity.position();
                     ((ServerLevel) level)
-                            .sendParticles(ParticleTypes.PORTAL, pos.x + level.random.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                            .sendParticles(ParticleTypes.PORTAL, pos.x + level.getRandom().nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
@@ -178,7 +183,7 @@ public class TraderJob extends SpiritJob {
 
                     int a = Math.min(this.maxTradesPerRound, handHeld.getCount());
                     for (int i = 0; i<a ; i++) {
-                        var result = WeightedRandom.getRandomItem(this.entity.getRandom(), this.possibleResults);
+                        var result = WeightedRandom.getRandomItem(this.entity.getRandom(), this.possibleResults, WeightedRecipeResult::weight);
                         //Important: copy the result, don't use it raw!
                         result.ifPresent(r -> {
                             ItemStack finalResult = r.getStack().copy();
@@ -200,7 +205,7 @@ public class TraderJob extends SpiritJob {
                                     }
                                 }
                                 if (flag) {
-                                    ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                                    ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, event.getResult());
                                     if (droppedItem != null) {
                                         droppedItem.addTag(DROPPED_BY_TRADER);
                                     }
@@ -227,14 +232,14 @@ public class TraderJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
-        this.timeToConvert = compound.getInt("timeToConvert");
-        this.conversionTimer = compound.getInt("conversionTimer");
-        this.maxTradesPerRound = compound.getInt("maxTradesPerRound");
+        this.timeToConvert = compound.getIntOr("timeToConvert", 0);
+        this.conversionTimer = compound.getIntOr("conversionTimer", 0);
+        this.maxTradesPerRound = compound.getIntOr("maxTradesPerRound", 0);
     }
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if (entity.getTags().contains(DROPPED_BY_TRADER)
+        if (entity.entityTags().contains(DROPPED_BY_TRADER)
                 && entity.getAge() < Occultism.SERVER_CONFIG.spiritJobs.traderResultPickupDelay.get())
             return false; //cannot pick up items a trader (most likely *this* one) dropped util delay elapsed.
 
@@ -259,8 +264,9 @@ public class TraderJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        this.handlerBelow = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK,
+        var rawHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
+        this.handlerBelow = rawHandler != null ? IItemHandler.of(rawHandler) : null;
     }
 
     public static class TraderJobEvent extends ItemProcessingJobEvent {

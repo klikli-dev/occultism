@@ -28,6 +28,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class OccultismBlockEntities {
@@ -35,47 +36,47 @@ public class OccultismBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Occultism.MODID);
 
     public static final Supplier<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER = BLOCK_ENTITIES.register(
-            "storage_controller", () -> BlockEntityType.Builder.of(StorageControllerBlockEntity::new,
-                    OccultismBlocks.STORAGE_CONTROLLER.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
-                    OccultismBlocks.STORAGE_CONTROLLER_DARK.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get()).build(null));
+            "storage_controller", () -> new BlockEntityType<>(StorageControllerBlockEntity::new,
+                    Set.of(OccultismBlocks.STORAGE_CONTROLLER.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
+                    OccultismBlocks.STORAGE_CONTROLLER_DARK.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get())));
 
     public static final Supplier<BlockEntityType<StableWormholeBlockEntity>> STABLE_WORMHOLE = BLOCK_ENTITIES.register(
-            "stable_wormhole", () -> BlockEntityType.Builder.of(StableWormholeBlockEntity::new,
-                    OccultismBlocks.STABLE_WORMHOLE.get(), OccultismBlocks.STABLE_WORMHOLE_DARK.get()).build(null));
+            "stable_wormhole", () -> new BlockEntityType<>(StableWormholeBlockEntity::new,
+                    Set.of(OccultismBlocks.STABLE_WORMHOLE.get(), OccultismBlocks.STABLE_WORMHOLE_DARK.get())));
 
     public static final Supplier<BlockEntityType<SacrificialBowlBlockEntity>> SACRIFICIAL_BOWL = BLOCK_ENTITIES.register(
-            "sacrificial_bowl", () -> BlockEntityType.Builder.of(SacrificialBowlBlockEntity::new,
-                    OccultismBlocks.SACRIFICIAL_BOWL.get(), OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
-                    OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get()).build(null));
+            "sacrificial_bowl", () -> new BlockEntityType<>(SacrificialBowlBlockEntity::new,
+                    Set.of(OccultismBlocks.SACRIFICIAL_BOWL.get(), OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
+                    OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get())));
 
     public static final Supplier<BlockEntityType<EntityWormholeBlockEntity>> ENTITY_WORMHOLE = BLOCK_ENTITIES.register(
-            "entity_wormhole", () -> BlockEntityType.Builder.of(EntityWormholeBlockEntity::new,
-                    OccultismBlocks.ENTITY_WORMHOLE.get(), OccultismBlocks.ENTITY_WORMHOLE_DARK.get()).build(null));
+            "entity_wormhole", () -> new BlockEntityType<>(EntityWormholeBlockEntity::new,
+                    Set.of(OccultismBlocks.ENTITY_WORMHOLE.get(), OccultismBlocks.ENTITY_WORMHOLE_DARK.get())));
 
     public static final Supplier<BlockEntityType<GoldenSacrificialBowlBlockEntity>> GOLDEN_SACRIFICIAL_BOWL =
             BLOCK_ENTITIES.register(
-                    "golden_sacrificial_bowl", () -> BlockEntityType.Builder.of(GoldenSacrificialBowlBlockEntity::new,
-                            OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(),
+                    "golden_sacrificial_bowl", () -> new BlockEntityType<>(GoldenSacrificialBowlBlockEntity::new,
+                            Set.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(),
                             OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
-                            OccultismBlocks.ELDRITCH_CHALICE.get(), OccultismBlocks.CELESTIAL_CHALICE.get()).build(null));
+                            OccultismBlocks.ELDRITCH_CHALICE.get(), OccultismBlocks.CELESTIAL_CHALICE.get())));
 
     public static final Supplier<BlockEntityType<DimensionalMineshaftBlockEntity>> DIMENSIONAL_MINESHAFT =
             BLOCK_ENTITIES.register(
-                    "dimensional_mineshaft", () -> BlockEntityType.Builder.of(DimensionalMineshaftBlockEntity::new,
-                            OccultismBlocks.DIMENSIONAL_MINESHAFT.get()).build(null));
+                    "dimensional_mineshaft", () -> new BlockEntityType<>(DimensionalMineshaftBlockEntity::new,
+                            Set.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())));
 
     public static final Supplier<BlockEntityType<DimensionalBattlefieldBlockEntity>> DIMENSIONAL_BATTLEFIELD =
             BLOCK_ENTITIES.register(
-                    "dimensional_battlefield", () -> BlockEntityType.Builder.of(DimensionalBattlefieldBlockEntity::new,
-                            OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get()).build(null));
+                    "dimensional_battlefield", () -> new BlockEntityType<>(DimensionalBattlefieldBlockEntity::new,
+                            Set.of(OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get())));
 
     public static final Supplier<BlockEntityType<OtherSignBlockEntity>> OTHERPLANKS_SIGN =
             BLOCK_ENTITIES.register("otheplanks_sign", () ->
-                    BlockEntityType.Builder.of(OtherSignBlockEntity::new,
-                            OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get()).build(null));
+                    new BlockEntityType<>(OtherSignBlockEntity::new,
+                            Set.of(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get())));
 
     public static final Supplier<BlockEntityType<OtherHangingSignBlockEntity>> OTHERPLANKS_HANGING_SIGN =
             BLOCK_ENTITIES.register("otherplanks_hanging_sign", () ->
-                    BlockEntityType.Builder.of(OtherHangingSignBlockEntity::new,
-                            OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get()).build(null));
+                    new BlockEntityType<>(OtherHangingSignBlockEntity::new,
+                            Set.of(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get())));
 }

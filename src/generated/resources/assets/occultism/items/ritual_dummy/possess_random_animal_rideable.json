@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "occultism:item/ritual_dummy/possess_random_animal_rideable"
+  }
+}

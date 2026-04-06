@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:familiar_ring"
+    "id": "occultism:familiar_ring"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:familiar_ring"
-      },
+      "item": "occultism:familiar_ring",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.spotlight.text",
       "title": ""
     },

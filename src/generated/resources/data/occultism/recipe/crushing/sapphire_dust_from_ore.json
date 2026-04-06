@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/sapphire"
-  },
+  "ingredient": "#c:ores/sapphire",
   "result": {
     "type": "occultism:tag",
     "count": 3,

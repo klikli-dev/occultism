@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/topaz"
-  },
+  "ingredient": "#c:ores/topaz",
   "result": {
     "type": "occultism:tag",
     "count": 3,

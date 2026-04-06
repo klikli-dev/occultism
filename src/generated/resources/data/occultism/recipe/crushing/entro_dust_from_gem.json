@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:gems/entro"
-  },
+  "ingredient": "#c:gems/entro",
   "result": {
     "type": "occultism:tag",
     "count": 1,

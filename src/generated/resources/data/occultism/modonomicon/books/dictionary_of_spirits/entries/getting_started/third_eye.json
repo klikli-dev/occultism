@@ -39,9 +39,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:otherworld_goggles"
-      },
+      "item": "occultism:otherworld_goggles",
       "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.otherworld_goggles.text",
       "title": ""
     }

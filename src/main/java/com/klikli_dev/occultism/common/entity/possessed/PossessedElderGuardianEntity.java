@@ -41,10 +41,6 @@ public class PossessedElderGuardianEntity extends ElderGuardian implements Posse
                 .add(Attributes.MAX_HEALTH, 160.0);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

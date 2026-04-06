@@ -1,0 +1,15 @@
+{
+  "type": "occultism:add_item",
+  "conditions": [
+    {
+      "chance": 0.02,
+      "condition": "minecraft:random_chance"
+    },
+    {
+      "block": "minecraft:tall_grass",
+      "condition": "minecraft:block_state_property"
+    }
+  ],
+  "count": 1,
+  "item": "occultism:datura_seeds"
+}

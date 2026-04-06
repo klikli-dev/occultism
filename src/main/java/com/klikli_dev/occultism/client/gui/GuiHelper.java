@@ -28,20 +28,16 @@ import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class GuiHelper {
 
     //region Static Methods
-    @OnlyIn(Dist.CLIENT)
     public static void openBookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing,
                                                           String customName) {
         Minecraft.getInstance().setScreen(
                 new BookOfCallingManagedMachineGui(insertFacing, extractFacing, customName));
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void openBookOfCallingGui(ItemMode itemMode, WorkAreaSize workAreaSize) {
         itemMode.openGUI(workAreaSize);
     }

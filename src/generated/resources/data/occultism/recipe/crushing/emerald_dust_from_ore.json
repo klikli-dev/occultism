@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/emerald"
-  },
+  "ingredient": "#c:ores/emerald",
   "result": {
     "type": "occultism:tag",
     "count": 3,

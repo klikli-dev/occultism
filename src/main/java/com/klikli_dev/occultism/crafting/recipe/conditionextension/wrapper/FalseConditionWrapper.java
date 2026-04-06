@@ -4,12 +4,12 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionVisi
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapper;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.neoforge.common.conditions.FalseCondition;
+import net.neoforged.neoforge.common.conditions.NeverCondition;
 
-public class FalseConditionWrapper implements ConditionWrapper<FalseCondition> {
-    private final FalseCondition condition;
+public class FalseConditionWrapper implements ConditionWrapper<NeverCondition> {
+    private final NeverCondition condition;
 
-    public FalseConditionWrapper(FalseCondition condition) {
+    public FalseConditionWrapper(NeverCondition condition) {
         this.condition = condition;
     }
 
@@ -19,7 +19,7 @@ public class FalseConditionWrapper implements ConditionWrapper<FalseCondition> {
     }
 
     @Override
-    public FalseCondition condition() {
+    public NeverCondition condition() {
         return condition;
     }
 }

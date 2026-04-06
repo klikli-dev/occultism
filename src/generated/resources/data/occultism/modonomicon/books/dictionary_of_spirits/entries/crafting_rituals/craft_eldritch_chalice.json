@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:eldritch_chalice"
+    "id": "occultism:eldritch_chalice"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:eldritch_chalice"
-      },
+      "item": "occultism:eldritch_chalice",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:celestial_chalice"
-      },
+      "item": "occultism:celestial_chalice",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight2.text",
       "title": ""
     },

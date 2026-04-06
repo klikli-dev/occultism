@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:otherflower"
-    },
-    {
-      "tag": "c:dyes/lime"
-    }
+    "occultism:otherflower",
+    "#c:dyes/lime"
   ],
   "result": {
     "count": 3,

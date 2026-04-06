@@ -26,7 +26,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle_misc"
+    "id": "occultism:pentacle_misc"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.name",
   "pages": [

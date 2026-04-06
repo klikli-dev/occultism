@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_gambler.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:spirit_attuned_gem"
+    "id": "occultism:spirit_attuned_gem"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_gambler.name",
   "pages": [

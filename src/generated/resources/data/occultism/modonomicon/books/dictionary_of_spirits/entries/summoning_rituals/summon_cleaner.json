@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:brush"
+    "id": "occultism:brush"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.name",
   "pages": [

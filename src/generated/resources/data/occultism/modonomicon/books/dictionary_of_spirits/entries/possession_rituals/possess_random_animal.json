@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:mysterious_egg_icon"
+    "id": "occultism:mysterious_egg_icon"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.name",
   "pages": [

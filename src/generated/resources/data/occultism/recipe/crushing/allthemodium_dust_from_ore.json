@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/allthemodium"
-  },
+  "ingredient": "#c:ores/allthemodium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

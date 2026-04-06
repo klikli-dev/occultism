@@ -25,11 +25,10 @@ package com.klikli_dev.occultism.common.block;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -40,6 +39,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -69,33 +69,19 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, @Nullable Orientation orientation,
                                 boolean isMoving) {
-        super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
+        super.neighborChanged(state, level, pos, blockIn, orientation, isMoving);
         level.scheduleTick(pos, this, 0);
     }
 
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-            if (blockEntity != null) {
-                GoldenSacrificialBowlBlockEntity bowl = (GoldenSacrificialBowlBlockEntity) blockEntity;
-                bowl.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
-                StorageUtil.dropInventoryItems(bowl);
-            }
-            super.onRemove(state, worldIn, pos, newState, isMoving);
-        }
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
             return bowl.activate(pLevel, pPos, pPlayer, pHand,
-                    pHitResult.getDirection()) ? ItemInteractionResult.SUCCESS : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                    pHitResult.getDirection()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
         return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
     }

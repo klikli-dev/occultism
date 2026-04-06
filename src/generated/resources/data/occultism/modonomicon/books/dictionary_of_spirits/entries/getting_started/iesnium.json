@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.iesnium.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iesnium_ore"
+    "id": "occultism:iesnium_ore"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium.name",
   "pages": [
@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:iesnium_ore"
-      },
+      "item": "occultism:iesnium_ore",
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.spotlight.text",
       "title": ""
     },

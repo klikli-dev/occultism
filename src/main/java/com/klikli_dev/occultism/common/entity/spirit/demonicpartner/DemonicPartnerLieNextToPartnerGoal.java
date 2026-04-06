@@ -119,10 +119,7 @@ public class DemonicPartnerLieNextToPartnerGoal extends Goal {
     public void stop() {
         this.entity.stopSleeping();
         this.entity.setLying(false);
-        float f = this.entity.level().getTimeOfDay(1.0F);
-        if (this.ownerPlayer.getSleepTimer() >= 100 && (double) f > 0.77D && (double) f < 0.8D && (double) this.entity.level().getRandom().nextFloat() < 0.7D) {
-//            this.giveMorningGift();
-        }
+        // Morning gift disabled - time of day check removed (getTimeOfDay removed in 26.1)
 
         this.entity.getNavigation().stop();
     }

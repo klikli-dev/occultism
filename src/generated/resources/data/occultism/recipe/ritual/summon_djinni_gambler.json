@@ -1,37 +1,29 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 120,
   "entity_to_summon": "occultism:djinni",
   "ingredients": [
-    {
-      "tag": "c:gems/emerald"
-    },
-    {
-      "tag": "c:storage_blocks/diamond"
-    },
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "tag": "c:storage_blocks/silver"
-    }
+    "#c:gems/emerald",
+    "#c:storage_blocks/diamond",
+    "#c:ingots/gold",
+    "#c:storage_blocks/silver"
   ],
   "pentacle_id": "occultism:summon_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_gambler\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.summon_djinni_gambler"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_gambler.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.summon_djinni_gambler.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/djinni"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/summon_djinni_gambler"
   },
   "ritual_type": "occultism:summon_spirit_with_job",

@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/lignite_coal"
-  },
+  "ingredient": "#c:ores/lignite_coal",
   "result": {
     "type": "occultism:tag",
     "count": 2,

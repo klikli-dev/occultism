@@ -39,7 +39,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -211,7 +211,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         }
 
         @Override
-        public void showError(@NotNull GuiGraphics matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
+        public void showError(@NotNull GuiGraphicsExtractor matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
                               int recipeY) {
             this.parent.showError(matrixStack, mouseX, mouseY, recipeLayout, recipeX, recipeY);
         }

@@ -2,13 +2,15 @@ package com.klikli_dev.occultism.client.misc;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,16 +48,21 @@ public class ClientPentacleManager {
             if(!(allPentacles.isEmpty() && mc.level.getGameTime() - lastPentacleQueryTime < 20)) {
                 lastPentacleQueryTime = mc.level.getGameTime();
                 lastHovered = pos;
-                allPentacles = mc.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream()
-                        .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
-                        .collect(Collectors.toMap(
-                                r -> r.value().getPentacle().getId(),
-                                Function.identity(),
-                                (existing, replacement) -> existing
-                        ))
-                        .values().stream()
-                        .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
-                        .collect(Collectors.toList());
+                var server = mc.level.getServer();
+                if (server != null) {
+                    allPentacles = server.getRecipeManager().getRecipes().stream()
+                            .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
+                            .map(r -> (RecipeHolder<RitualRecipe>) r)
+                            .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
+                            .collect(Collectors.toMap(
+                                    r -> r.value().getPentacle().getId(),
+                                    Function.identity(),
+                                    (existing, replacement) -> existing
+                            ))
+                            .values().stream()
+                            .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
+                            .collect(Collectors.toList());
+                }
                 currentPage = 0;
                 calculateTotalPages();
                 updateDisplayedPentacles();

@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/graphite"
-  },
+  "ingredient": "#c:raw_materials/graphite",
   "result": {
     "type": "occultism:tag",
     "count": 2,

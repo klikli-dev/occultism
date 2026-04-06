@@ -26,8 +26,9 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
-public abstract class BipedSpiritRenderer<T extends SpiritEntity, M extends HumanoidModel<T>> extends HumanoidMobRenderer<T, M> {
+public abstract class BipedSpiritRenderer<T extends SpiritEntity, M extends HumanoidModel<HumanoidRenderState>> extends HumanoidMobRenderer<T, HumanoidRenderState, M> {
 
     public BipedSpiritRenderer(EntityRendererProvider.Context context, M modelBiped, float shadowsizein) {
         super(context, modelBiped, shadowsizein);

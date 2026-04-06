@@ -28,8 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -58,6 +56,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.Tags;
@@ -123,10 +123,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                         ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD));
                     }
                 } else {
-                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"), true);
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"));
                 }
                 //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
 
         }
@@ -147,7 +147,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.riderRot0 = this.riderRot;
         this.riderRot = Mth.approachDegrees(this.riderRot, this.yRotO, 10);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.lightTimer--;
             if (this.lightTimer < 0) {
                 this.lightTimer = 10;
@@ -160,7 +160,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setHat(this.getRandom().nextDouble() < 0.1);
         this.setTrunk(this.getRandom().nextDouble() < 0.5);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
@@ -204,7 +204,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     private void removeLight(BlockPos pos) {
-        if (!this.level().isClientSide && pos != null
+        if (!this.level().isClientSide() && pos != null
                 && this.level().getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
             this.level().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
@@ -224,7 +224,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.isInWater()) {
                 this.navigation = this.waterNavigator;
                 this.setSwimming(true);
@@ -255,23 +255,20 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (super.hurt(source, amount)) {
-            if (source.getEntity() == this.getFamiliarOwner()) {
-                this.setAngry(true);
-                this.setSitting(true);
-                OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
-            } else if (source.getEntity() != null) {
-                Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
-                if (tp != null) {
-                    this.absMoveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRotO,
-                            this.xRotO);
-                }
-                this.navigation.stop();
+    public void actuallyHurt(ServerLevel serverLevel, DamageSource source, float amount) {
+        super.actuallyHurt(serverLevel, source, amount);
+        if (source.getEntity() == this.getFamiliarOwner()) {
+            this.setAngry(true);
+            this.setSitting(true);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
+        } else if (source.getEntity() != null) {
+            Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
+            if (tp != null) {
+                this.snapTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRotO,
+                        this.xRotO);
             }
-            return true;
+            this.navigation.stop();
         }
-        return false;
     }
 
     @Override
@@ -284,7 +281,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 
@@ -326,28 +323,31 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants")) {
-            this.setHat(compound.getBoolean("hasHat"));
-            this.setTrunk(compound.getBoolean("hasTrunk"));
-            this.setAngry(compound.getBoolean("isAngry"));
-        }
-        if (compound.contains("lightPos"))
-            //noinspection OptionalGetWithoutIsPresent
-            this.lightPos = NbtUtils.readBlockPos(compound, "lightPos").get();
-        if (compound.contains("lightPos0"))
-            //noinspection OptionalGetWithoutIsPresent
-            this.lightPos0 = NbtUtils.readBlockPos(compound, "lightPos0").get();
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        int lpX = input.getIntOr("lightPosX", Integer.MIN_VALUE);
+        int lpY = input.getIntOr("lightPosY", Integer.MIN_VALUE);
+        int lpZ = input.getIntOr("lightPosZ", Integer.MIN_VALUE);
+        if (lpX != Integer.MIN_VALUE) this.lightPos = new BlockPos(lpX, lpY, lpZ);
+        int lp0X = input.getIntOr("lightPos0X", Integer.MIN_VALUE);
+        int lp0Y = input.getIntOr("lightPos0Y", Integer.MIN_VALUE);
+        int lp0Z = input.getIntOr("lightPos0Z", Integer.MIN_VALUE);
+        if (lp0X != Integer.MIN_VALUE) this.lightPos0 = new BlockPos(lp0X, lp0Y, lp0Z);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        if (this.lightPos != null)
-            compound.put("lightPos", NbtUtils.writeBlockPos(this.lightPos));
-        if (this.lightPos0 != null)
-            compound.put("lightPos0", NbtUtils.writeBlockPos(this.lightPos0));
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        if (this.lightPos != null) {
+            output.putInt("lightPosX", this.lightPos.getX());
+            output.putInt("lightPosY", this.lightPos.getY());
+            output.putInt("lightPosZ", this.lightPos.getZ());
+        }
+        if (this.lightPos0 != null) {
+            output.putInt("lightPos0X", this.lightPos0.getX());
+            output.putInt("lightPos0Y", this.lightPos0.getY());
+            output.putInt("lightPos0Z", this.lightPos0.getZ());
+        }
     }
 
     public static class MoveController extends MoveControl {

@@ -18,7 +18,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle_summon"
+    "id": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.name",
   "pages": [

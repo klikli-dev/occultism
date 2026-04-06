@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:otherstone"
+    "id": "occultism:otherstone"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.name",
   "pages": [

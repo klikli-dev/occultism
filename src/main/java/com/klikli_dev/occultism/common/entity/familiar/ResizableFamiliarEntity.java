@@ -22,13 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class ResizableFamiliarEntity extends FamiliarEntity {
 
@@ -56,19 +57,18 @@ public abstract class ResizableFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setSize(compound.getByte("getSize"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setSize(input.getByteOr("getSize", (byte) 0));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("getSize", this.getSize());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putByte("getSize", this.getSize());
     }
 
-    @Override
-    public float getScale() {
+    public float getFamiliarScale() {
         return 1 + this.getSize() * 1f / MAX_SIZE;
     }
 

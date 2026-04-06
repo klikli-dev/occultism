@@ -27,13 +27,13 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
@@ -52,7 +52,7 @@ import javax.annotation.Nullable;
 
 public class MummyFamiliarEntity extends FamiliarEntity {
 
-    private static final ResourceLocation DAMAGE_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "mummy_damage_bonus");
+    private static final Identifier DAMAGE_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_damage_bonus");
 
     private static final int MAX_FIGHT_TIMER = 5;
 
@@ -86,7 +86,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.level().isClientSide && this.fightPose != -1) {
+        if (this.level().isClientSide() && this.fightPose != -1) {
             this.capowOffset0 = this.capowOffset;
             if (this.fightTimer++ == MAX_FIGHT_TIMER) {
                 this.fightTimer = 0;
@@ -102,7 +102,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setCrown(this.getRandom().nextDouble() < 0.1);
         this.setTooth(this.getRandom().nextBoolean());
         this.setHeka(this.getRandom().nextBoolean());

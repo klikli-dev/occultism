@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "occultism:item/chalk_light_blue_impure",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -12930086
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      }
+    ]
+  }
+}

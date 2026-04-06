@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": {
-      "item": "occultism:taboo_book"
-    },
-    "c": {
-      "item": "occultism:purified_ink"
-    },
-    "f": {
-      "item": "occultism:awakened_feather"
-    },
-    "g": {
-      "tag": "c:dyes/purple"
-    }
+    "b": "occultism:taboo_book",
+    "c": "occultism:purified_ink",
+    "f": "occultism:awakened_feather",
+    "g": "#c:dyes/purple"
   },
   "pattern": [
     "cgf",
@@ -21,7 +13,6 @@
     " g "
   ],
   "result": {
-    "count": 1,
     "id": "occultism:book_of_binding_djinni"
   }
 }

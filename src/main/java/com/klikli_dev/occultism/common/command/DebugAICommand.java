@@ -40,7 +40,7 @@ public class DebugAICommand implements Command<CommandSourceStack> {
     //region Static Methods
     public static ArgumentBuilder<CommandSourceStack, ?> register(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("ai")
-                .requires(cs -> cs.hasPermission(1))
+                .requires(Commands.hasPermission(Commands.LEVEL_MODERATORS))
                 .executes(CMD);
     }
 

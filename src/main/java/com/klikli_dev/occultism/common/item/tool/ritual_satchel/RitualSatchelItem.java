@@ -18,7 +18,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -49,12 +49,12 @@ public abstract class RitualSatchelItem extends Item {
         return this.targetPentacles;
     }
 
-    public void setTargetPentacle(UUID player, ResourceLocation multiblock, BlockPos anchor, Rotation facing, BlockPos target, long timeWhenAdded) {
+    public void setTargetPentacle(UUID player, Identifier multiblock, BlockPos anchor, Rotation facing, BlockPos target, long timeWhenAdded) {
         this.targetPentacles.put(player, new PentacleData(multiblock, anchor, facing, target, timeWhenAdded));
     }
 
     protected void openMenu(ServerPlayer player, ItemStack stack) {
-        int selectedSlot = player.getInventory().selected;
+        int selectedSlot = player.getInventory().getSelectedSlot();
 
         player.openMenu(
                 new SimpleMenuProvider((id, playerInventory, unused) -> {
@@ -69,10 +69,10 @@ public abstract class RitualSatchelItem extends Item {
     }
 
     protected PlacementResult tryPlaceBlockForMatcher(UseOnContext context, Multiblock.SimulateResult targetMatcher) {
-        if (targetMatcher.getStateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.getStateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
+        if (targetMatcher.stateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.stateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
             return PlacementResult.ERROR_INVALID_MATCHER;
 
-        var statePredicate = targetMatcher.getStateMatcher().getStatePredicate();
+        var statePredicate = targetMatcher.stateMatcher().getStatePredicate();
 
         var inventory = new ComponentItemHandler(
                 context.getItemInHand(),
@@ -108,13 +108,13 @@ public abstract class RitualSatchelItem extends Item {
                 continue;
 
 
-            if (statePredicate.test(context.getLevel(), targetMatcher.getWorldPosition(), blockStateToPlace)) {
+            if (statePredicate.test(context.getLevel(), targetMatcher.worldPosition(), blockStateToPlace)) {
                 if (stack.getMaxDamage() - stack.getDamageValue() == 1) {
                     if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1))
                         return PlacementResult.ERROR_WILL_BREAK_ITEM;
                     continue;
                 }
-                if (isGlyph && !blockStateToPlace.canSurvive(context.getLevel(), targetMatcher.getWorldPosition().above())) {
+                if (isGlyph && !blockStateToPlace.canSurvive(context.getLevel(), targetMatcher.worldPosition().above())) {
                     if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1))
                         return PlacementResult.ERROR_GLYPH_CANNOT_SURVIVE;
                     continue;
@@ -139,17 +139,17 @@ public abstract class RitualSatchelItem extends Item {
 
         //First, verify if we have a valid preview in the world
         if (preview == null || !preview.isAnchored()) {
-            player.displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD).withStyle(ChatFormatting.YELLOW), true);
+            player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }
 
         var simulation = preview.multiblock().simulate(level, preview.anchor(), preview.facing(), false, false);
 
         //Then, check if we are targeting any block of the preview
-        var targetMatcher = simulation.getSecond().stream().filter(p -> p.getWorldPosition().equals(pos)).findFirst();
+        var targetMatcher = simulation.getSecond().stream().filter(p -> p.worldPosition().equals(pos)).findFirst();
         if (targetMatcher.isEmpty() ||
-                targetMatcher.get().getStateMatcher().getType() == AnyMatcher.TYPE ||
-                targetMatcher.get().getStateMatcher().getType() == DisplayOnlyMatcher.TYPE) {
+                targetMatcher.get().stateMatcher().getType() == AnyMatcher.TYPE ||
+                targetMatcher.get().stateMatcher().getType() == DisplayOnlyMatcher.TYPE) {
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }
@@ -185,20 +185,20 @@ public abstract class RitualSatchelItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+    public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND)
-            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+            return InteractionResult.PASS;
 
         if (!player.isShiftKeyDown())
-            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+            return InteractionResult.PASS;
 
         final ItemStack stack = player.getItemInHand(hand);
 
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             this.openMenu(serverPlayer, stack);
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -216,7 +216,7 @@ public abstract class RitualSatchelItem extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if (context.getLevel().isClientSide) {
+        if (context.getLevel().isClientSide()) {
             return this.useOnClientSide(context);
         } else {
             return this.useOnServerSide(context);

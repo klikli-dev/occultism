@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:true_sight_staff"
+    "id": "occultism:true_sight_staff"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:true_sight_staff"
-      },
+      "item": "occultism:true_sight_staff",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.spotlight.text",
       "title": ""
     },

@@ -39,7 +39,7 @@ import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +106,8 @@ public class FarmerJob extends SpiritJob {
 
     @Override
     public void onInit() {
-        this.itemsToPickUp.add(Ingredient.of(Tags.Items.SEEDS));
-        this.itemsToPickUp.add(Ingredient.of(Tags.Items.CROPS));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(Tags.Items.SEEDS)));
+        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(Tags.Items.CROPS)));
     }
 
     @Override
@@ -127,9 +127,9 @@ public class FarmerJob extends SpiritJob {
 
     @Override
     public void onChangeWorkArea() {
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.NO_CROP_IN_WORK_AREA.get());
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get());
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get());
-        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.NON_CROP.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.NO_CROP_IN_WORK_AREA.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get());
+        BrainUtil.clearMemory(this.entity, OccultismMemoryTypes.NON_CROP.get());
     }
 }

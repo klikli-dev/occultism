@@ -1,12 +1,9 @@
 {
   "type": "occultism:spirit_trade",
-  "ingredient": {
-    "tag": "occultism:saplings/otherworld_natural"
-  },
+  "ingredient": "#occultism:saplings/otherworld_natural",
   "result": {
     "type": "occultism:weighted_item",
     "stack": {
-      "count": 1,
       "id": "occultism:otherworld_sapling"
     },
     "weight": 1

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:bell"
+    "id": "minecraft:bell"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "minecraft:bell"
-      },
+      "item": "minecraft:bell",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.spotlight.text",
       "title": ""
     },

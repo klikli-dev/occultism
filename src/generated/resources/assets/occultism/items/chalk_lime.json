@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "occultism:item/chalk_lime",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -8337633
+      }
+    ]
+  }
+}

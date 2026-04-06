@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.entity.familiar.MummyFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
@@ -36,25 +37,32 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
-import software.bernie.geckolib.util.Color;
 
-public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, LivingEntityRenderState, MummyFamiliarModel> {
+
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/mummy_familiar.png");
+
+    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_is_sitting"));
+    private static final ContextKey<Integer> FIGHT_POSE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_fight_pose"));
+    private static final ContextKey<Float> CAPOW_ALPHA = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_capow_alpha"));
+    private static final ContextKey<Vec3> CAPOW_POSITION = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_capow_position"));
 
     public MummyFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new MummyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_MUMMY)), 0.3f);
@@ -63,37 +71,54 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MummyFamiliarEntity entity) {
+    public void extractRenderState(MummyFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.setRenderData(FIGHT_POSE, entity.getFightPose());
+        if (entity.getFightPose() != -1) {
+            reusedState.setRenderData(CAPOW_ALPHA, entity.getCapowAlpha(partialTick));
+            reusedState.setRenderData(CAPOW_POSITION, entity.getCapowPosition(partialTick));
+        }
+    }
+
+    @Override
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 
-    private static class EyesLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
+    private static class EyesLayer extends RenderLayer<LivingEntityRenderState, MummyFamiliarModel> {
 
-        private static final ResourceLocation EYES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier EYES = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/mummy_familiar_eyes.png");
 
-        public EyesLayer(RenderLayerParent<MummyFamiliarEntity, MummyFamiliarModel> parent) {
+        public EyesLayer(RenderLayerParent<LivingEntityRenderState, MummyFamiliarModel> parent) {
             super(parent);
         }
 
         @Override
-        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, MummyFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float ppPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-            if (pLivingEntity.isInvisible())
+        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+            if (state.isInvisible)
                 return;
 
-            int light = pLivingEntity.isSitting() ? 0 : 10;
+            Boolean isSitting = state.getRenderData(MummyFamiliarRenderer.IS_SITTING);
+            boolean sitting = isSitting != null && isSitting;
+
+            // For glowing eyes: when not sitting, use full-bright light; when sitting, use normal light
+            int eyeLight = sitting ? lightCoords : (15 << 20 | 15 << 4);
 
             MummyFamiliarModel model = this.getParentModel();
-            VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(EYES));
-            model.renderToBuffer(pMatrixStack, ivertexbuilder, LightTexture.pack(light, light),
-                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
+            RenderLayer.renderColoredCutoutModel(model, EYES, poseStack, submitNodeCollector, eyeLight, state, -1, 0);
         }
-
     }
 
-    private static class KapowLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
+    private static class KapowLayer extends RenderLayer<LivingEntityRenderState, MummyFamiliarModel> {
 
-        private static final ResourceLocation KAPOW_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+        private static final Identifier KAPOW_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/kapow.png");
         private static final Component KAPOW_TEXT = Component.translatable(
                 "dialog.occultism.mummy.kapow");
@@ -110,68 +135,73 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
         }
 
         @Override
-        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, MummyFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-            if (pLivingEntity.getFightPose() == -1)
+        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+            Integer fightPose = state.getRenderData(MummyFamiliarRenderer.FIGHT_POSE);
+            if (fightPose == null || fightPose == -1)
                 return;
 
-            float alpha = pLivingEntity.getCapowAlpha(pPartialTicks);
+            Float alpha = state.getRenderData(MummyFamiliarRenderer.CAPOW_ALPHA);
+            Vec3 capowPos = state.getRenderData(MummyFamiliarRenderer.CAPOW_POSITION);
+            if (alpha == null || capowPos == null)
+                return;
 
-            pMatrixStack.pushPose();
+            poseStack.pushPose();
             float scale = 0.5f;
-            pMatrixStack.scale(scale, scale, scale);
-            Vec3 capowPos = pLivingEntity.getCapowPosition(pPartialTicks);
-            pMatrixStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
-            model.renderToBuffer(pMatrixStack, pBuffer.getBuffer(model.renderType(KAPOW_TEXTURE)), pPackedLight,
-                    OverlayTexture.NO_OVERLAY,
-                    Color.ofRGBA(1, 1, 1, alpha).getColor());
+            poseStack.scale(scale, scale, scale);
+            poseStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
 
-            pMatrixStack.pushPose();
-            pMatrixStack.scale(0.07f, 0.07f, 0.07f);
-            pMatrixStack.translate(0, -2.5, 0);
-            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, 20 * ((float) Math.PI / 180F)));
+            // Render kapow sprite using bufferSource workaround for alpha-blended model
+            MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+            VertexConsumer kapowBuffer = bufferSource.getBuffer(model.renderType(KAPOW_TEXTURE));
+            model.kapow.render(poseStack, kapowBuffer, lightCoords, OverlayTexture.NO_OVERLAY,
+                    ((int) (alpha * 255) << 24) | 0x00FFFFFF);
+            bufferSource.endBatch(model.renderType(KAPOW_TEXTURE));
+
+            poseStack.pushPose();
+            poseStack.scale(0.07f, 0.07f, 0.07f);
+            poseStack.translate(0, -2.5, 0);
+            poseStack.mulPose(new Quaternionf().rotateXYZ(0, 0, 20 * ((float) Math.PI / 180F)));
             Font font = this.renderer.getFont();
+            int textColor = 0xff0000 | ((int) (alpha * 255) << 24);
 
-            pMatrixStack.pushPose();
-            pMatrixStack.translate(0, 0, -0.01);
-            var matrix = pMatrixStack.last().pose();
-            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
-                    matrix, pBuffer, Font.DisplayMode.NORMAL, 0, pPackedLight);
-            pMatrixStack.popPose();
+            poseStack.pushPose();
+            poseStack.translate(0, 0, -0.01);
+            var matrix = poseStack.last().pose();
+            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2f, 0, textColor, true,
+                    matrix, bufferSource, Font.DisplayMode.NORMAL, 0, lightCoords);
+            poseStack.popPose();
 
-            pMatrixStack.pushPose();
-            pMatrixStack.translate(0, 0, 0.01);
-            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 180 * ((float) Math.PI / 180F), 0));
-            matrix = pMatrixStack.last().pose();
-            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
-                    matrix, pBuffer, Font.DisplayMode.NORMAL, 0, pPackedLight);
-            pMatrixStack.popPose();
-            pMatrixStack.popPose();
-            pMatrixStack.popPose();
+            poseStack.pushPose();
+            poseStack.translate(0, 0, 0.01);
+            poseStack.mulPose(new Quaternionf().rotateXYZ(0, 180 * ((float) Math.PI / 180F), 0));
+            matrix = poseStack.last().pose();
+            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2f, 0, textColor, true,
+                    matrix, bufferSource, Font.DisplayMode.NORMAL, 0, lightCoords);
+            poseStack.popPose();
+
+            bufferSource.endBatch();
+
+            poseStack.popPose();
+            poseStack.popPose();
         }
-
     }
 
-    public static class KapowModel extends Model {
+    public static class KapowModel extends Model<net.minecraft.util.Unit> {
         public ModelPart kapow;
 
         public KapowModel(ModelPart part) {
-            super(RenderType::entityTranslucent);
+            super(part, RenderTypes::entityTranslucent);
             this.kapow = part.getChild("kapow");
         }
 
         public static LayerDefinition createBodyLayer() {
             MeshDefinition mesh = new MeshDefinition();
             PartDefinition parts = mesh.getRoot();
-            PartDefinition body = parts.addOrReplaceChild("kapow",
+            parts.addOrReplaceChild("kapow",
                     CubeListBuilder.create().texOffs(0, 0).
                             addBox(-16.0F, -16.0F, 0.0F, 32.0F, 32.0F, 0.0F, false),
                     PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
             return LayerDefinition.create(mesh, 64, 32);
-        }
-
-        @Override
-        public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-            this.kapow.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
         }
     }
 }

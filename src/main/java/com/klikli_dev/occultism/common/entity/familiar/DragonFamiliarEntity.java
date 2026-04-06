@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -45,6 +44,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -87,7 +88,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setFez(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextDouble() < 0.5);
         this.setArms(this.getRandom().nextDouble() < 0.5);
@@ -136,7 +137,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 
@@ -195,7 +196,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         if (this.hasStick()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
             this.setStick(false);
-            return InteractionResult.sidedSuccess(!this.isEffectiveAi());
+            return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (stack.is(Tags.Items.NUGGETS_GOLD)) {
             OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
             this.greedyTimer += GREEDY_INCREMENT;
@@ -204,11 +205,11 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             else
                 this.level().addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0,
                         0);
-            return InteractionResult.sidedSuccess(!this.isEffectiveAi());
+            return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
             OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.DRAGON_PET);
-            return InteractionResult.sidedSuccess(!this.isEffectiveAi());
+            return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return super.mobInteract(playerIn, hand);
     }
@@ -246,21 +247,15 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("greedyTimer", this.greedyTimer);
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("greedyTimer", this.greedyTimer);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants")) {
-            this.setFez(compound.getBoolean("hasFez"));
-            this.setEars(compound.getBoolean("hasEars"));
-            this.setArms(compound.getBoolean("hasArms"));
-            this.setStick(compound.getBoolean("hasStick"));
-        }
-        this.greedyTimer = compound.getInt("greedyTimer");
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.greedyTimer = input.getIntOr("greedyTimer", 0);
     }
 
     @Override

@@ -37,7 +37,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -58,7 +58,7 @@ public class FamiliarRitual extends SummonRitual {
                 0.7f);
 
         if (castingPlayer != null){
-            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+            castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
 
@@ -73,12 +73,12 @@ public class FamiliarRitual extends SummonRitual {
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof FamiliarEntity familiar) {
-                EventHooks.finalizeMobSpawn(familiar, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
+                EventHooks.finalizeMobSpawn(familiar, (ServerLevelAccessor) level, ((ServerLevel) level).getCurrentDifficultyAt(goldenBowlPosition), EntitySpawnReason.MOB_SUMMONED, null);
 
                 this.applyEntityNbt(familiar);
 
-                familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        level.random.nextInt(360), 0);
+                familiar.snapTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        level.getRandom().nextInt(360), 0);
                 familiar.setCustomName(Component.literal(entityName));
                 if(castingPlayer != null)
                     familiar.setFamiliarOwner(castingPlayer);

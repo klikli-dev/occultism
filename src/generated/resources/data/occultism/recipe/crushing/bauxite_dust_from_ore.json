@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/bauxite"
-  },
+  "ingredient": "#c:ores/bauxite",
   "result": {
     "type": "occultism:tag",
     "count": 2,

@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/crimson_iron"
-  },
+  "ingredient": "#c:ingots/crimson_iron",
   "result": {
     "type": "occultism:tag",
     "count": 1,

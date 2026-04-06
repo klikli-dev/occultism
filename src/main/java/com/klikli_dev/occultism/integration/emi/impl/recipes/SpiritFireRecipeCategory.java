@@ -10,7 +10,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class SpiritFireRecipeCategory implements EmiRecipe {
 
-    private final ResourceLocation id;
+    private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
     public SpiritFireRecipeCategory(RecipeHolder<SpiritFireRecipe> recipe) {
@@ -34,7 +34,7 @@ public class SpiritFireRecipeCategory implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return id;
     }
 
@@ -66,7 +66,7 @@ public class SpiritFireRecipeCategory implements EmiRecipe {
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,20+27,16);
 
         //widgetHolder.addTexture(new EmiTexture(OccultismEmiPlugin.EMI_WIDGETS,0,0,16,16), 26, 16);
-        //widgetHolder.addAnimatedTexture(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/block/spirit_fire_0.png"), 0, 0, 16, 16, 0, 0,20,false,true,true);
+        //widgetHolder.addAnimatedTexture(Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/block/spirit_fire_0.png"), 0, 0, 16, 16, 0, 0,20,false,true,true);
         widgetHolder.addSlot(EmiIngredient.of(Ingredient.of(OccultismItems.SPIRIT_FIRE.get())), 24, 16);
         // Adds an input slot on the left
         widgetHolder.addSlot(input.get(0), 0, 0);

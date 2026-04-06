@@ -11,7 +11,7 @@ import dev.emi.emi.api.widget.TextWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class MinerRecipeCategory implements EmiRecipe {
     public static Map<TagKey<Item>, Long> totalWeights = new HashMap<>();
-    private final ResourceLocation id;
+    private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
     private final double chances;
@@ -51,7 +51,7 @@ public class MinerRecipeCategory implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return this.id;
     }
 

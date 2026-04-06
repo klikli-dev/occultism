@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:demonic_meat"
+    "id": "occultism:demonic_meat"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombie_piglin.name",
   "pages": [

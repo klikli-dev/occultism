@@ -16,9 +16,9 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -42,7 +42,7 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     }
 
     public static boolean isCropSoil(Level level, BlockPos pos) {
-        return level.getBlockState(pos).getBlock() instanceof FarmBlock;
+        return level.getBlockState(pos).getBlock() instanceof FarmlandBlock;
     }
 
     public static boolean isGrowthCrop(Level level, BlockPos pos) {
@@ -65,17 +65,17 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         //if we currently have a crop, exit
         //Will be removed by the fell crop behaviour
-        if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get()))
+        if (BrainUtil.hasMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get()))
             return;
 
         //if work area is empty, exit. This memory expires on its own to allow rescan
-        if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NO_CROP_IN_WORK_AREA.get()))
+        if (BrainUtil.hasMemory(entity, OccultismMemoryTypes.NO_CROP_IN_WORK_AREA.get()))
             return;
 
-        var nonCrop = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.NON_CROP.get(), HashSet::new);
-        var unreachableCrops = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get(), HashSet::new);
-        var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
-        var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
+        var nonCrop = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.NON_CROP.get(), HashSet::new);
+        var unreachableCrops = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_CROPS.get(), HashSet::new);
+        var workAreaCenter = BrainUtil.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
+        var workAreaSize = BrainUtil.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
 
         if (Occultism.DEBUG.debugAI) {
             for (var crop : unreachableCrops) {
@@ -130,14 +130,14 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                             Networking.sendToTracking(entity, new MessageSelectBlock(potentialRoot, 50000, 0x800080));
                         }
 
-                        BrainUtils.setMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get(), potentialRoot);
+                        BrainUtil.setMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get(), potentialRoot);
                         foundCrop = true;
                         break;
                     }
                 } else {
                     //we have a Root, but it is not a crop, add it to the list of ignored Roots
                     nonCrop.add(potentialRoot);
-                    BrainUtils.setMemory(entity, OccultismMemoryTypes.NON_CROP.get(), nonCrop);
+                    BrainUtil.setMemory(entity, OccultismMemoryTypes.NON_CROP.get(), nonCrop);
 
                     if (Occultism.DEBUG.debugAI) {
                         Networking.sendToTracking(entity, new MessageSelectBlock(potentialRoot, 10000, 0xffff00));
@@ -147,8 +147,8 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         }
 
         if (!foundCrop) {
-            BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
-            BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.NO_CROP_IN_WORK_AREA.get(), true, RESCAN_EMPTY_WORK_AREA_AFTER_TICKS);
+            BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
+            BrainUtil.setForgettableMemory(entity, OccultismMemoryTypes.NO_CROP_IN_WORK_AREA.get(), true, RESCAN_EMPTY_WORK_AREA_AFTER_TICKS);
         }
     }
 }

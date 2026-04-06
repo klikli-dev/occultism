@@ -1,9 +1,7 @@
 {
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "item": "minecraft:blue_ice"
-  },
+  "ingredient": "minecraft:blue_ice",
   "min_tier": 2,
   "result": {
     "type": "occultism:tag",

@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:experience_bottle"
+    "id": "minecraft:experience_bottle"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_witch.name",
   "pages": [

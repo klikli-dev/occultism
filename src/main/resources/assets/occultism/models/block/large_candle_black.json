@@ -3,8 +3,8 @@
   "parent": "block/block",
   "ambientocclusion": false,
   "textures": {
-    "0": "occultism:block/large_candle_black",
-    "particle": "occultism:block/large_candle_black"
+    "0": "occultism:block/large_candle",
+    "particle": "occultism:block/large_candle"
   },
   "elements": [
     {

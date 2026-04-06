@@ -32,14 +32,14 @@ import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
 public class MessageOpenStorageRemote implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "open_storage_remote");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "open_storage_remote");
     public static final Type<MessageOpenStorageRemote> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageOpenStorageRemote> STREAM_CODEC = CustomPacketPayload.codec(MessageOpenStorageRemote::encode, MessageOpenStorageRemote::new);
 

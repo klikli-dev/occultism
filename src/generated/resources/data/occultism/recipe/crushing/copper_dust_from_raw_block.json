@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "crushing_time": 1600,
-  "ingredient": {
-    "tag": "c:storage_blocks/raw_copper"
-  },
+  "ingredient": "#c:storage_blocks/raw_copper",
   "result": {
     "type": "occultism:tag",
     "count": 18,

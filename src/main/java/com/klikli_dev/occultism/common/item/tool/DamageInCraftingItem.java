@@ -1,49 +1,25 @@
 package com.klikli_dev.occultism.common.item.tool;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.util.RandomSource;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
-
-import java.util.Map;
+import net.minecraft.world.item.ItemInstance;
+import net.minecraft.world.item.ItemStackTemplate;
+import org.jetbrains.annotations.Nullable;
 
 public class DamageInCraftingItem extends Item {
 
     public DamageInCraftingItem(Properties properties) {
         super(properties);
-        this.craftingRemainingItem = this;
     }
 
     @Override
-    public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-
-        DataComponentMap components = itemStack.getComponents();
-        boolean[] eternal = {false};
-        components.forEach(comp -> {
-            if (comp.toString().startsWith("forbidden_arcanus:modifier")
-                    && comp.toString().contains("eternal")) {
-                eternal[0] = true;
-            }
-        });
-        if (eternal[0] || !itemStack.isDamageableItem())
-            return itemStack.copy();
-
-        ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-        int unbLvl = 0;
-        for (Map.Entry<Holder<Enchantment>, Integer> e : enchantments.entrySet()){
-            if (e.getKey().is(Enchantments.UNBREAKING)){
-                unbLvl = e.getValue();
-            }
+    public @Nullable ItemStackTemplate getCraftingRemainder(ItemInstance instance) {
+        int damage = instance.getOrDefault(DataComponents.DAMAGE, 0);
+        int maxDamage = instance.getOrDefault(DataComponents.MAX_DAMAGE, 0);
+        if (damage >= maxDamage - 1) {
+            return null; // item would break
         }
-
-        ItemStack remain = itemStack.copy();
-        if (RandomSource.create().nextFloat() <= 1.0F /(unbLvl+1))
-            remain.setDamageValue(itemStack.getDamageValue() + 1);
-        return remain.getDamageValue() == remain.getMaxDamage() ? ItemStack.EMPTY : remain;
+        return new ItemStackTemplate(this, 1, DataComponentPatch.builder().set(DataComponents.DAMAGE, damage + 1).build());
     }
 }

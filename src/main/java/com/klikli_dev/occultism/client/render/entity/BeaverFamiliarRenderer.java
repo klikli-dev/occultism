@@ -28,11 +28,12 @@ import com.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.resources.Identifier;
 
-public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, BeaverFamiliarModel> {
+public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, LivingEntityRenderState, BeaverFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/beaver_familiar.png");
 
     public BeaverFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -41,7 +42,12 @@ public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, Be
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BeaverFamiliarEntity entity) {
+    public LivingEntityRenderState createRenderState() {
+        return new LivingEntityRenderState();
+    }
+
+    @Override
+    public Identifier getTextureLocation(LivingEntityRenderState state) {
         return TEXTURES;
     }
 }

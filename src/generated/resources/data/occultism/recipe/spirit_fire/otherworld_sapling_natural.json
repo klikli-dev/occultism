@@ -1,10 +1,7 @@
 {
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "item": "minecraft:oak_sapling"
-  },
+  "ingredient": "minecraft:oak_sapling",
   "result": {
-    "count": 1,
     "id": "occultism:otherworld_sapling_natural"
   }
 }

@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -60,12 +60,10 @@ public class ItemTagComparator implements IItemStackComparator {
         return stack.is(this.tag);
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return this.write(new CompoundTag());
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.read(nbt);
     }
@@ -75,7 +73,7 @@ public class ItemTagComparator implements IItemStackComparator {
     }
 
     public CompoundTag write(CompoundTag compound) {
-        this.tag = TagKey.create(Registries.ITEM, ResourceLocation.parse(compound.getString("tag")));
+        this.tag = TagKey.create(Registries.ITEM, Identifier.parse(compound.getString("tag").orElse("")));
         return compound;
     }
 }

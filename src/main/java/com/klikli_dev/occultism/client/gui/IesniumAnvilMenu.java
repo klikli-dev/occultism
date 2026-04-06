@@ -17,9 +17,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AnvilUpdateEvent;
-import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+// import net.neoforged.neoforge.common.NeoForge; // Unused after AnvilUpdateEvent stub
+// import net.neoforged.neoforge.event.AnvilUpdateEvent; // Removed in NeoForge 26.1 - API changed
+// import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent; // Removed in NeoForge 26.1
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -49,7 +49,8 @@ public class IesniumAnvilMenu extends AnvilMenu {
             }
         }
 
-        NeoForge.EVENT_BUS.post(new AnvilRepairEvent(player, inputSlots.getItem(0), inputSlots.getItem(1), stack));
+        // AnvilRepairEvent was removed in NeoForge 26.1 - disabled until replacement is available
+        // NeoForge.EVENT_BUS.post(new AnvilRepairEvent(player, inputSlots.getItem(0), inputSlots.getItem(1), stack));
         this.inputSlots.setItem(0, ItemStack.EMPTY);
         if (this.repairItemCountCost > 0) {
             ItemStack itemstack = this.inputSlots.getItem(1);
@@ -68,7 +69,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
     }
 
     @Override
-    public void createResult() {
+    protected void createResultInternal() {
         ItemStack itemstack = this.inputSlots.getItem(0);
         this.cost.set(1);
         int i = 0;
@@ -85,7 +86,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
             if (!onIesniumAnvilChange(this, itemstack, itemstack2, resultSlots, itemName, j, this.player)) return;
             if (!itemstack2.isEmpty()) {
                 flag = itemstack2.has(DataComponents.STORED_ENCHANTMENTS);
-                if (itemstack1.isDamageableItem() && itemstack1.getItem().isValidRepairItem(itemstack, itemstack2)) {
+                if (itemstack1.isDamageableItem() && itemstack.isValidRepairItem(itemstack2)) {
                     int l2 = Math.min(itemstack1.getDamageValue(), itemstack1.getMaxDamage() / 4);
                     if (l2 <= 0) {
                         this.resultSlots.setItem(0, ItemStack.EMPTY);
@@ -194,8 +195,6 @@ public class IesniumAnvilMenu extends AnvilMenu {
                 i += k;
                 itemstack1.remove(DataComponents.CUSTOM_NAME);
             }
-            if (flag && !itemstack1.isBookEnchantable(itemstack2)) itemstack1 = ItemStack.EMPTY;
-
             int k2 = (int)Mth.clamp(j + (long)i, 0L, 2147483647L);
             this.cost.set(k2);
             if (i <= 0) {
@@ -267,15 +266,8 @@ public class IesniumAnvilMenu extends AnvilMenu {
     }
 
     public static boolean onIesniumAnvilChange(IesniumAnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name, long baseCost, Player player) {
-        AnvilUpdateEvent e = new AnvilUpdateEvent(left, right, name, baseCost, player);
-        if (NeoForge.EVENT_BUS.post(e).isCanceled())
-            return false;
-        if (e.getOutput().isEmpty())
-            return true;
-
-        outputSlot.setItem(0, e.getOutput());
-        container.setMaximumCost(e.getCost());
-        container.repairItemCountCost = e.getMaterialCost();
-        return false;
+        // TODO: Port AnvilUpdateEvent to 26.1 API when NeoForge stabilizes
+        // AnvilUpdateEvent constructor and API changed in 26.1
+        return true;
     }
 }

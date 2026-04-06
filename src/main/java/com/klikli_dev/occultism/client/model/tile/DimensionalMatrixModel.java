@@ -24,22 +24,23 @@ package com.klikli_dev.occultism.client.model.tile;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
+import net.minecraft.resources.Identifier;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntity> {
     @Override
-    public ResourceLocation getModelResource(StorageControllerBlockEntity object) {
-        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "geo/dimensional_matrix.geo.json");
+    public Identifier getModelResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "geo/dimensional_matrix.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(StorageControllerBlockEntity object) {
-        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/block/dimensional_matrix.png");
+    public Identifier getTextureResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/block/dimensional_matrix.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(StorageControllerBlockEntity animatable) {
-        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "animations/dimensional_matrix.animation.json");
+    public Identifier getAnimationResource(StorageControllerBlockEntity animatable) {
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "animations/dimensional_matrix.animation.json");
     }
 }

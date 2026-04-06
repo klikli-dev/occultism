@@ -4,17 +4,15 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.TagManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.common.conditions.ConditionContext;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 
 public class RitualRecipeConditionContext implements OccultismConditionContext {
@@ -23,7 +21,8 @@ public class RitualRecipeConditionContext implements OccultismConditionContext {
     protected GoldenSacrificialBowlBlockEntity bowl;
 
     protected RitualRecipeConditionContext(GoldenSacrificialBowlBlockEntity bowl) {
-        this.neoConditionContext = new ConditionContext(new TagManager(Objects.requireNonNull(bowl.getLevel()).registryAccess()));
+        var level = (ServerLevel) Objects.requireNonNull(bowl.getLevel());
+        this.neoConditionContext = new ConditionContext(List.of(), level.registryAccess(), level.enabledFeatures());
         this.bowl = bowl;
 
     }
@@ -53,7 +52,8 @@ public class RitualRecipeConditionContext implements OccultismConditionContext {
     }
 
     @Override
-    public <T> @NotNull Map<ResourceLocation, Collection<Holder<T>>> getAllTags(@NotNull ResourceKey<? extends Registry<T>> registry) {
-        return this.neoConditionContext.getAllTags(registry);
+    public <T> boolean isTagLoaded(@NotNull net.minecraft.tags.TagKey<T> key) {
+        return this.neoConditionContext.isTagLoaded(key);
     }
 }
+

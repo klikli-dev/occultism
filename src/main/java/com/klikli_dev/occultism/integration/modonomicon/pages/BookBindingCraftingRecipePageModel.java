@@ -9,14 +9,16 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStackTemplate;
+import org.jetbrains.annotations.Nullable;
 
 public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<BookBindingCraftingRecipePageModel> {
 
     public static final String RECIPE_ID = "occultism:crafting/bound_book_of_binding";
-    protected ItemStack unboundBook = ItemStack.EMPTY;
+    @Nullable
+    protected ItemStackTemplate unboundBook;
 
     protected BookBindingCraftingRecipePageModel() {
         super(OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE);
@@ -26,23 +28,22 @@ public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<Book
         return new BookBindingCraftingRecipePageModel();
     }
 
-    @Override
-    public JsonObject toJson(HolderLookup.Provider provider) {
-        var json = super.toJson(provider);
-        json.add("unbound_book", ItemStack.STRICT_CODEC
-                .encodeStart(provider.createSerializationContext(JsonOps.INSTANCE), this.unboundBook)
-                .getOrThrow()
-        );
-        return json;
-    }
-
-    public ItemStack getUnboundBook() {
+    public @Nullable ItemStackTemplate getUnboundBook() {
         return this.unboundBook;
     }
 
-    public BookBindingCraftingRecipePageModel withUnboundBook(ItemStack unboundBook) {
+    public BookBindingCraftingRecipePageModel withUnboundBook(ItemStackTemplate unboundBook) {
         this.unboundBook = unboundBook;
         return this;
+    }
+
+    @Override
+    public JsonObject toJson(Identifier entryId, HolderLookup.Provider provider) {
+        var json = super.toJson(entryId, provider);
+        if (this.unboundBook != null) {
+            json.add("unbound_book", ItemStackTemplate.CODEC.encodeStart(provider.createSerializationContext(com.mojang.serialization.JsonOps.INSTANCE), this.unboundBook).getOrThrow());
+        }
+        return json;
     }
 
     public BookBindingCraftingRecipePageModel withRecipeId1() {

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:wheat"
+    "id": "minecraft:wheat"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.name",
   "pages": [

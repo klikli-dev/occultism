@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crystallize",
-  "ingredient": {
-    "tag": "c:ores/lapis"
-  },
+  "ingredient": "#c:ores/lapis",
   "result": {
     "type": "occultism:tag",
     "count": 6,

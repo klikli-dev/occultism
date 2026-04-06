@@ -24,19 +24,21 @@ package com.klikli_dev.occultism.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
 import javax.annotation.Nullable;
 
-public class RitualWaitingParticle extends TextureSheetParticle {
+public class RitualWaitingParticle extends SingleQuadParticle {
 
     private final double portalPosX;
     private final double portalPosY;
     private final double portalPosZ;
 
     private RitualWaitingParticle(ClientLevel worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
-                                  double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn);
+                                  double xSpeedIn, double ySpeedIn, double zSpeedIn, TextureAtlasSprite sprite) {
+        super(worldIn, xCoordIn, yCoordIn, zCoordIn, sprite);
         this.xd = xSpeedIn;
         this.yd = ySpeedIn;
         this.zd = zSpeedIn;
@@ -83,8 +85,8 @@ public class RitualWaitingParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    protected SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.OPAQUE;
     }
 
     @Override
@@ -94,8 +96,8 @@ public class RitualWaitingParticle extends TextureSheetParticle {
     }
 
     @Override
-    public int getLightColor(float partialTick) {
-        int i = super.getLightColor(partialTick);
+    public int getLightCoords(float partialTick) {
+        int i = super.getLightCoords(partialTick);
         float f = (float) this.age / (float) this.lifetime;
         f = f * f;
         f = f * f;
@@ -121,10 +123,8 @@ public class RitualWaitingParticle extends TextureSheetParticle {
         @Nullable
         @Override
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z,
-                                       double xSpeed, double ySpeed, double zSpeed) {
-            RitualWaitingParticle particle = new RitualWaitingParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.pickSprite(this.spriteSet);
-            return particle;
+                                       double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
+            return new RitualWaitingParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet.get(random));
         }
     }
 }

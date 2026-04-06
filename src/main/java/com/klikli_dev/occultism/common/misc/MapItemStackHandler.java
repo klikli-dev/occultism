@@ -12,9 +12,9 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable {
     protected static final int VIRTUAL_SLOT = -1;
 
     //Note: liliandev (Neo Discord) in response to "not a string" error for our codec when using codec.unboundedmap:
@@ -147,7 +147,6 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         return this.keyToCountMap.getOrDefault(key, 0);
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider) {
         //        return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
 
@@ -156,7 +155,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         this.keyToCountMap.forEach((key, value) -> {
             try{
                 CompoundTag entryTag = new CompoundTag();
-                entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
+                entryTag.put("itemStackkey", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), key.stack()).getOrThrow());
                 entryTag.putInt("int", value);
                 keyToCountList.add(entryTag);
             } catch(Exception e){
@@ -170,7 +169,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         this.keyToSlot.forEach((key, slot) -> {
             try{
                 CompoundTag entryTag = new CompoundTag();
-                entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
+                entryTag.put("itemStackkey", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), key.stack()).getOrThrow());
                 entryTag.putInt("int", slot);
                 keyToSlotList.add(entryTag);
             } catch(Exception e){
@@ -179,7 +178,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         });
         nbt.put("keyToSlot", keyToSlotList);
 
-        nbt.putIntArray("emptySlots", new ArrayList<>(this.emptySlots));
+        nbt.putIntArray("emptySlots", this.emptySlots.stream().mapToInt(Integer::intValue).toArray());
         nbt.putInt("nextSlot", this.nextSlotIndex);
         nbt.putInt("maxSlots", this.maxItemTypes);
         nbt.putLong("totalItemCount", this.totalItemCount);
@@ -188,42 +187,41 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         return nbt;
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.@NotNull Provider provider, CompoundTag nbt) {
-        ListTag keyToCountList = nbt.getList("keyToCountMap", ListTag.TAG_COMPOUND);
+        ListTag keyToCountList = nbt.getListOrEmpty("keyToCountMap");
         this.keyToCountMap = new Object2IntOpenHashMap<>();
         keyToCountList.forEach(tag -> {
             CompoundTag entryTag = (CompoundTag) tag;
-            var stack = ItemStack.parseOptional(provider, entryTag.getCompound("itemStackkey"));
+            var stack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), entryTag.getCompoundOrEmpty("itemStackkey")).result().orElse(ItemStack.EMPTY);
             if (stack.isEmpty())
                 return;
 
             ItemStackKey key = new ItemStackKey(stack);
-            int count = entryTag.getInt("int");
+            int count = entryTag.getIntOr("int", 0);
             this.keyToCountMap.put(key, count);
         });
 
-        ListTag keyToSlotList = nbt.getList("keyToSlot", ListTag.TAG_COMPOUND);
+        ListTag keyToSlotList = nbt.getListOrEmpty("keyToSlot");
         this.keyToSlot = HashBiMap.create();
         keyToSlotList.forEach(tag -> {
             CompoundTag entryTag = (CompoundTag) tag;
-            var stack = ItemStack.parseOptional(provider, entryTag.getCompound("itemStackkey"));
+            var stack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), entryTag.getCompoundOrEmpty("itemStackkey")).result().orElse(ItemStack.EMPTY);
             if (stack.isEmpty())
                 return;
 
             ItemStackKey key = new ItemStackKey(stack);
-            int slot = entryTag.getInt("int");
+            int slot = entryTag.getIntOr("int", 0);
             this.keyToSlot.put(key, slot);
         });
 
-        this.emptySlots = Arrays.stream(nbt.getIntArray("emptySlots"))
+        this.emptySlots = Arrays.stream(nbt.getIntArray("emptySlots").orElse(new int[0]))
                 .boxed()
                 .collect(Collectors.toCollection(Stack::new));
 
-        this.nextSlotIndex = nbt.getInt("nextSlot");
-        this.maxItemTypes = nbt.getInt("maxSlots");
-        this.totalItemCount = nbt.getLong("totalItemCount");
-        this.maxTotalItemCount = nbt.getLong("maxTotalItemCount");
+        this.nextSlotIndex = nbt.getIntOr("nextSlot", 0);
+        this.maxItemTypes = nbt.getIntOr("maxSlots", -1);
+        this.totalItemCount = nbt.getLongOr("totalItemCount", 0L);
+        this.maxTotalItemCount = nbt.getLongOr("maxTotalItemCount", -1L);
 
 //        CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).resultOrPartial(e -> {
 //              throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);

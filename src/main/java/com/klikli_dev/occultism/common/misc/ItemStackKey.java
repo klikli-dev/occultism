@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 
 public record ItemStackKey(ItemStack stack) {
 
-    public static final Codec<ItemStackKey> CODEC = ItemStack.STRICT_CODEC.xmap(ItemStackKey::new, ItemStackKey::stack);
+    public static final Codec<ItemStackKey> CODEC = ItemStack.CODEC.xmap(ItemStackKey::new, ItemStackKey::stack);
 
     public static ItemStackKey of(ItemStack stack) {
         return new ItemStackKey(stack.copyWithCount(1));

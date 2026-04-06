@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/vibranium"
-  },
+  "ingredient": "#c:clumps/vibranium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

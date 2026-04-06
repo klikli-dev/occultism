@@ -33,7 +33,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -109,7 +109,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setRibbon(this.getRandom().nextDouble() < 0.1);
         this.setTail(this.getRandom().nextBoolean());
         this.setHair(this.getRandom().nextBoolean());
@@ -121,7 +121,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 

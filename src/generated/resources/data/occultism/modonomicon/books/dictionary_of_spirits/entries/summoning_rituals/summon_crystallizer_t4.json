@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t4.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:emerald"
+    "id": "minecraft:emerald"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t4.name",
   "pages": [

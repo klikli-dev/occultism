@@ -8,15 +8,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class KnowledgeTabletItem extends Item {
     public KnowledgeTabletItem(Properties properties) {
@@ -24,10 +24,10 @@ public class KnowledgeTabletItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand hand) {
+    public @NotNull InteractionResult use(Level level, Player player, @NotNull InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
 
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             //here we use main hand item as selected slot
             if (serverPlayer.isShiftKeyDown()) {
                 serverPlayer.giveExperiencePoints(ItemNBTUtil.getStoredXP(stack));
@@ -59,15 +59,15 @@ public class KnowledgeTabletItem extends Item {
             }
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext,
-                                @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull Item.TooltipContext pContext,
+                                @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
 
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+        pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack)),
                 ChatFormatting.GREEN.toString() + ItemNBTUtil.getStoredXP(pStack) + ChatFormatting.RESET));
     }

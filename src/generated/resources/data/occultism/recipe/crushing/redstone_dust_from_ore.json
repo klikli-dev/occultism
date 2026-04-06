@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/redstone"
-  },
+  "ingredient": "#c:ores/redstone",
   "result": {
     "type": "occultism:tag",
     "count": 4,

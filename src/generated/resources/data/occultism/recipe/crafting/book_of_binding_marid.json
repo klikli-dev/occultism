@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": {
-      "item": "occultism:taboo_book"
-    },
-    "c": {
-      "item": "occultism:purified_ink"
-    },
-    "f": {
-      "item": "occultism:awakened_feather"
-    },
-    "o": {
-      "tag": "c:dyes/green"
-    },
-    "p": {
-      "tag": "c:dyes/green"
-    }
+    "b": "occultism:taboo_book",
+    "c": "occultism:purified_ink",
+    "f": "occultism:awakened_feather",
+    "o": "#c:dyes/green",
+    "p": "#c:dyes/green"
   },
   "pattern": [
     "cof",
@@ -24,7 +14,6 @@
     " o "
   ],
   "result": {
-    "count": 1,
     "id": "occultism:book_of_binding_marid"
   }
 }

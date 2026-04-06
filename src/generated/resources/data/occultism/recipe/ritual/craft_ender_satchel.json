@@ -1,36 +1,20 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 150,
   "ingredients": [
-    {
-      "tag": "c:chests/ender"
-    },
-    {
-      "tag": "c:leathers"
-    },
-    {
-      "tag": "c:leathers"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:ingots/silver"
-    },
-    {
-      "tag": "c:ingots/gold"
-    }
+    "#c:chests/ender",
+    "#c:leathers",
+    "#c:leathers",
+    "#c:strings",
+    "#c:ingots/silver",
+    "#c:ingots/gold"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {
-    "count": 1,
     "id": "occultism:ender_satchel"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/craft_ender_satchel"
   },
   "ritual_type": "occultism:craft_with_spirit_name"

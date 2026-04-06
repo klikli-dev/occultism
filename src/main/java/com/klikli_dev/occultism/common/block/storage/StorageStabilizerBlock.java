@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -72,16 +73,12 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state != newState) {
-            this.notifyStorageControllers(level, pos, state);
-        }
-        super.onRemove(state, level, pos, newState, isMoving);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        this.notifyStorageControllers(level, pos, state);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(BlockStateProperties.FACING));
     }

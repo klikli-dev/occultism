@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/saltpeter"
-  },
+  "ingredient": "#c:ores/saltpeter",
   "result": {
     "type": "occultism:tag",
     "count": 2,

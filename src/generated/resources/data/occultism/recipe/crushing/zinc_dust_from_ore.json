@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/zinc"
-  },
+  "ingredient": "#c:ores/zinc",
   "result": {
     "type": "occultism:tag",
     "count": 2,

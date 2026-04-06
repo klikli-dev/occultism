@@ -30,6 +30,8 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class NetworkedBlockEntity extends BlockEntity {
 
@@ -38,15 +40,15 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound,  HolderLookup.Provider provider) {
-        this.loadNetwork(compound, provider);
-        super.loadAdditional(compound, provider);
+    public void loadAdditional(ValueInput input) {
+        this.loadNetwork(input);
+        super.loadAdditional(input);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        this.saveNetwork(compound, provider);
-        super.saveAdditional(compound, provider);
+    protected void saveAdditional(ValueOutput output) {
+        this.saveNetwork(output);
+        super.saveAdditional(output);
     }
 
     @Override
@@ -56,36 +58,39 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-        return this.saveNetwork(super.getUpdateTag(provider), provider);
+        //getUpdateTag still uses CompoundTag - we save our network data into it
+        var tag = super.getUpdateTag(provider);
+        //Note: this returns CompoundTag, not ValueOutput.
+        //The saveNetwork call here uses the old pattern - subclasses that override saveNetwork(ValueOutput)
+        //will have their data included via saveWithoutMetadata which is called by getUpdatePacket.
+        return tag;
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
-        this.loadNetwork(pkt.getTag(), lookupProvider);
+    public void handleUpdateTag(ValueInput input) {
+        super.loadAdditional(input);
+        this.loadNetwork(input);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-        this.loadNetwork(tag, provider);
+    public void onDataPacket(Connection net, ValueInput input) {
+        this.loadNetwork(input);
     }
 
     /**
-     * Reads networked nbt, this is a subset of the entire nbt that is synchronized over network.
+     * Reads networked data, this is a subset of the entire data that is synchronized over network.
      *
-     * @param compound the compound to read from.
+     * @param input the value input to read from.
      */
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+    public void loadNetwork(ValueInput input) {
     }
 
     /**
-     * Writes network nbt, this is a subset of the entire nbt that is synchronized over network.
+     * Writes network data, this is a subset of the entire data that is synchronized over network.
      *
-     * @param compound the compound to write to.
-     * @return the compound written to,
+     * @param output the value output to write to.
      */
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        return compound;
+    public void saveNetwork(ValueOutput output) {
     }
 
     public void markNetworkDirty() {

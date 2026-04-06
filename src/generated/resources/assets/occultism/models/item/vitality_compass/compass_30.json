@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
     "layer0": "occultism:item/vitality_compass/compass_base",
     "layer1": "occultism:item/vitality_compass/compass_30"

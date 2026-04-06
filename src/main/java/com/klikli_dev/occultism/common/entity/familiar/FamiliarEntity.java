@@ -39,22 +39,28 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.util.ProblemReporter;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -72,7 +78,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> VARIANTS = SynchedEntityData.defineId(FamiliarEntity.class,
             EntityDataSerializers.BYTE);
-    private static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(FamiliarEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(FamiliarEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
 
     private boolean partying;
     private BlockPos jukeboxPos;
@@ -91,11 +97,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     @Override
-    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+    protected void dropFromLootTable(ServerLevel level, DamageSource pDamageSource, boolean pAttackedRecently) {
         if (this.getFamiliarEntity() instanceof GuardianFamiliarEntity || this.getFamiliarEntity() instanceof HeadlessFamiliarEntity)
             return;
 
-        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+        super.dropFromLootTable(level, pDamageSource, pAttackedRecently);
 
         var owner = this.getFamiliarOwner();
 
@@ -110,9 +116,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         var id = this.getEncodeId();
         if(id != null)
             entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
+        var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
+        this.saveWithoutId(valueOutput);
+        entityData.merge(valueOutput.buildResult());
 
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
 
         this.setHealth(health);
 
@@ -157,7 +165,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     @Override
     public void blacksmithUpgrade() {
         if (this.getOwner() instanceof Player player)
-            player.displayClientMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()), true);
+            player.sendSystemMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()));
         if (!(this.getFamiliarEntity() instanceof GuardianFamiliarEntity))
             this.setCustomName(Component.empty().append(this.getName()).append(" ⛤"));
         this.setBlacksmithUpgrade(true);
@@ -179,7 +187,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
 
         LivingEntity owner;
-        if (!this.level().isClientSide && this.level().getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
+        if (!this.level().isClientSide() && this.level().getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
                 && this.distanceTo(owner) < MAX_BOOST_DISTANCE)
             for (MobEffectInstance effect : this.getFamiliarEffects())
                 owner.addEffect(effect);
@@ -202,10 +210,10 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             return stack.interactLivingEntity(playerIn, this, hand);
         } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get() || this.getFamiliarOwner() == null) {
             this.setOwnerId(playerIn.getUUID());
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        } else if (stack.isEmpty() && !this.level().isClientSide && this.getFamiliarOwner() == playerIn) {
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        } else if (stack.isEmpty() && !this.level().isClientSide() && this.getFamiliarOwner() == playerIn) {
             this.setSitting(!this.isSitting());
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.PASS;
     }
@@ -221,11 +229,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     public UUID getOwnerId() {
-        return this.entityData.get(OWNER_UNIQUE_ID).orElse(null);
+        return this.entityData.get(OWNER_UNIQUE_ID).map(EntityReference::getUUID).orElse(null);
     }
 
     private void setOwnerId(UUID id) {
-        this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
+        this.entityData.set(OWNER_UNIQUE_ID, id == null ? Optional.empty() : Optional.of(EntityReference.of(id)));
     }
 
     @Override
@@ -234,31 +242,28 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.hasUUID("owner"))
-            this.setOwnerId(compound.getUUID("owner"));
-        if (compound.contains("isSitting"))
-            this.setSitting(compound.getBoolean("isSitting"));
-        this.setBlacksmithUpgrade(compound.getBoolean("hasBlacksmithUpgrade"));
-        this.entityData.set(VARIANTS, compound.getByte("variants"));
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        var ownerRef = EntityReference.read(input, "owner");
+        if (ownerRef != null) this.setOwnerId(ownerRef.getUUID());
+        this.setSitting(input.getBooleanOr("isSitting", false));
+        this.setBlacksmithUpgrade(input.getBooleanOr("hasBlacksmithUpgrade", false));
+        this.entityData.set(VARIANTS, input.getByteOr("variants", (byte) 0));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        if (this.getOwnerId() != null) {
-            compound.putUUID("owner", this.getOwnerId());
-        }
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        EntityReference.store(this.entityData.get(OWNER_UNIQUE_ID).orElse(null), output, "owner");
 
-        compound.putBoolean("isSitting", this.isSitting());
-        compound.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
-        compound.putByte("variants", this.entityData.get(VARIANTS));
+        output.putBoolean("isSitting", this.isSitting());
+        output.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
+        output.putByte("variants", this.entityData.get(VARIANTS));
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
-        return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
+    public boolean isInvulnerableTo(ServerLevel level, @NotNull DamageSource source) {
+        return super.isInvulnerableTo(level, source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
     }
 
     public boolean isSitting() {
@@ -378,7 +383,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             boolean noCollision = this.entity.level().noCollision(this.entity,
                     this.entity.getBoundingBox().move(pos.subtract(this.entity.blockPosition())));
             if (walkable && noCollision) {
-                this.entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                this.entity.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
                         this.entity.yRotO, this.entity.xRotO);
                 this.entity.navigation.stop();
                 return true;
@@ -404,7 +409,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         @Override
         public boolean canUse() {
-            return !this.entity.isInWaterOrBubble() && this.entity.getFamiliarOwner() != null
+            return !this.entity.isInWater() && this.entity.getFamiliarOwner() != null
                     && this.entity.isSitting();
         }
 

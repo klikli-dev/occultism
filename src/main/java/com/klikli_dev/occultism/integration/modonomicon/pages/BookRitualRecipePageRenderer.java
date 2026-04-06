@@ -6,36 +6,31 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
-import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
-import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
+import com.klikli_dev.occultism.crafting.recipe.display.RitualRecipeDisplay;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.ClickEvent.Action;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<RitualRecipe, BookRecipePage<RitualRecipe>> {
-
+public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualRecipe, BookRitualRecipePage> {
     public static final int RITUAL_DUMMY_OFFSET = 10;
 
     private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
@@ -51,70 +46,82 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float ticks) {
-        int recipeX = X;
-        int recipeY = Y;
-
-        if (this.page.getRecipe1() != null) {
-            //rituals only support one recipe
-            this.drawRecipe(guiGraphics, this.page.getRecipe1(), recipeX, recipeY, mouseX, mouseY, false);
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float ticks) {
+        var entry = this.page.getRecipeDisplayEntry1();
+        if (entry != null && entry.display() instanceof RitualRecipeDisplay display) {
+            this.drawRitualRecipe(guiGraphics, display, X, Y, mouseX, mouseY, false);
+        } else {
+            this.drawWrappedStringNoShadow(guiGraphics,
+                    Component.translatable("modonomicon.gui.recipe_page.recipe_missing", String.valueOf(this.page.getRecipeKey1()))
+                            .withStyle(ChatFormatting.RED),
+                    X - 13, Y - 15, -1, 124);
         }
 
+        int textY = this.getTextY();
+        this.renderBookTextHolder(guiGraphics, this.page.getText(), 0, textY, 124, 155 - textY);
 
         var style = this.getClickedComponentStyleAt(mouseX, mouseY);
-        if (style != null)
+        if (style != null) {
             this.parentScreen.renderComponentHoverEffect(guiGraphics, style, mouseX, mouseY);
+        }
     }
 
     @Nullable
     @Override
-    public Style getClickedComponentStyleAt(double pMouseX, double pMouseY) {
-        var textStyle = super.getClickedComponentStyleAt(pMouseX, pMouseY);
-        if (pMouseX > 0 && pMouseY > 0 && textStyle == null && this.page.getRecipe1() != null) {
-
-            int recipeX = X;
-            int recipeY = Y;
-            int pentacleNameX = recipeX + RITUAL_DUMMY_OFFSET; // see render x/y below
-            int pentacleNameY = recipeY + 8;
-            //8 is a magic constant, maybe actually because of line height?
-            // IDK why but I put 8 and it works so I won't touch it
-
-            var pentacleName = I18n.get(Util.makeDescriptionId("multiblock", this.page.getRecipe1().value().getPentacleId()));
-            var nameWidth = this.font.width(pentacleName);
-
-            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
-            var scale = Math.min(1.0f, (float) maxWidth / (float) nameWidth);
-            if (scale < 1) {
-                nameWidth = (int) (nameWidth * scale);
-            }
-
-            if (pMouseX > pentacleNameX && pMouseX < pentacleNameX + nameWidth && pMouseY > pentacleNameY && pMouseY < pentacleNameY + this.font.lineHeight) {
-                var goToText = "book.occultism.dictionary_of_spirits.pentacles." + this.page.getRecipe1().value().getPentacleId().getPath() + ".name";
-                var hoverComponent = Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE,
-                        Component.translatable(goToText));
-                return Style.EMPTY
-                        .withClickEvent(new ClickEvent(Action.CHANGE_PAGE,
-                                "entry://occultism:dictionary_of_spirits/pentacles/" + this.page.getRecipe1().value().getPentacleId().getPath()))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverComponent));
-            }
+    public Style getClickedComponentStyleAt(double mouseX, double mouseY) {
+        var textStyle = super.getClickedComponentStyleAt(mouseX, mouseY);
+        if (textStyle != null || mouseX <= 0 || mouseY <= 0) {
+            return textStyle;
         }
+
+        var entry = this.page.getRecipeDisplayEntry1();
+        if (entry == null || !(entry.display() instanceof RitualRecipeDisplay display)) {
+            return textStyle;
+        }
+
+        int pentacleNameX = X + RITUAL_DUMMY_OFFSET;
+        int pentacleNameY = Y + 8;
+        String pentacleName = I18n.get(Util.makeDescriptionId("multiblock", display.pentacleId()));
+        int nameWidth = this.font.width(pentacleName);
+
+        int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10;
+        float scale = Math.min(1.0f, (float) maxWidth / (float) nameWidth);
+        if (scale < 1) {
+            nameWidth = (int) (nameWidth * scale);
+        }
+
+        if (mouseX > pentacleNameX && mouseX < pentacleNameX + nameWidth && mouseY > pentacleNameY && mouseY < pentacleNameY + this.font.lineHeight) {
+            String goToText = "book.occultism.dictionary_of_spirits.pentacles." + display.pentacleId().getPath() + ".name";
+            Component hoverComponent = Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE,
+                    Component.translatable(goToText));
+            return Style.EMPTY
+                    .withClickEvent(new ClickEvent.OpenFile("entry://occultism:dictionary_of_spirits/pentacles/" + display.pentacleId().getPath()))
+                    .withHoverEvent(new HoverEvent.ShowText(hoverComponent));
+        }
+
         return textStyle;
     }
 
-
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<RitualRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
-
-        recipeY += 10;
-        var recipe = recipeHolder.value();
-
-        if (!second) {
-            //rituals only support one recipe
-            if (!this.page.getTitle1().isEmpty()) {
-                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
-            }
+    protected void drawRecipe(GuiGraphicsExtractor guiGraphics, RecipeDisplayEntry entry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+        if (entry.display() instanceof RitualRecipeDisplay display) {
+            this.drawRitualRecipe(guiGraphics, display, recipeX, recipeY, mouseX, mouseY, second);
         }
+    }
 
+    private void drawRitualRecipe(GuiGraphicsExtractor guiGraphics, RitualRecipeDisplay display, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+        recipeY += 10;
+        final int recipeBaseY = recipeY;
+        var level = Minecraft.getInstance().level;
+        if (level == null) {
+            guiGraphics.text(this.font, "[Ritual recipe unavailable]", recipeX, recipeY, 0x000000, false);
+            return;
+        }
+        var context = SlotDisplayContext.fromLevel(level);
+
+        if (!second && !this.page.getTitle1().isEmpty()) {
+            this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
+        }
 
         int ritualCenterX = recipeX + 30;
         int ritualCenterY = recipeY + 70;
@@ -122,189 +129,146 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         int sacricialBowlPaddingVertical = 20;
         int sacricialBowlPaddingHorizontal = 15;
         List<Vec3i> sacrificialBowlPosition = Stream.of(
-                //first the 4 centers of each side
                 new Vec3i(ritualCenterX, ritualCenterY - sacrificialCircleRadius, 0),
                 new Vec3i(ritualCenterX + sacrificialCircleRadius, ritualCenterY, 0),
                 new Vec3i(ritualCenterX, ritualCenterY + sacrificialCircleRadius, 0),
                 new Vec3i(ritualCenterX - sacrificialCircleRadius, ritualCenterY, 0),
-
-                //then clockwise of the enter the next 4
-                new Vec3i(ritualCenterX + sacricialBowlPaddingHorizontal,
-                        ritualCenterY - sacrificialCircleRadius,
-                        0),
-                new Vec3i(ritualCenterX + sacrificialCircleRadius,
-                        ritualCenterY - sacricialBowlPaddingVertical, 0),
-                new Vec3i(ritualCenterX - sacricialBowlPaddingHorizontal,
-                        ritualCenterY + sacrificialCircleRadius,
-                        0),
-                new Vec3i(ritualCenterX - sacrificialCircleRadius,
-                        ritualCenterY + sacricialBowlPaddingVertical, 0),
-
-                //then counterclockwise of the center the last 4
-                new Vec3i(ritualCenterX - sacricialBowlPaddingHorizontal,
-                        ritualCenterY - sacrificialCircleRadius,
-                        0),
-                new Vec3i(ritualCenterX + sacrificialCircleRadius,
-                        ritualCenterY + sacricialBowlPaddingVertical, 0),
-                new Vec3i(ritualCenterX + sacricialBowlPaddingHorizontal,
-                        ritualCenterY + sacrificialCircleRadius,
-                        0),
-                new Vec3i(ritualCenterX - sacrificialCircleRadius,
-                        ritualCenterY - sacricialBowlPaddingVertical, 0)
+                new Vec3i(ritualCenterX + sacricialBowlPaddingHorizontal, ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(ritualCenterX + sacrificialCircleRadius, ritualCenterY - sacricialBowlPaddingVertical, 0),
+                new Vec3i(ritualCenterX - sacricialBowlPaddingHorizontal, ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(ritualCenterX - sacrificialCircleRadius, ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vec3i(ritualCenterX - sacricialBowlPaddingHorizontal, ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(ritualCenterX + sacrificialCircleRadius, ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vec3i(ritualCenterX + sacricialBowlPaddingHorizontal, ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(ritualCenterX - sacrificialCircleRadius, ritualCenterY - sacricialBowlPaddingVertical, 0)
         ).toList();
 
-        for (int i = 0; i < recipe.getIngredients().size(); i++) {
+        for (int i = 0; i < display.ingredients().size() && i < sacrificialBowlPosition.size(); i++) {
             Vec3i pos = sacrificialBowlPosition.get(i);
-
             this.parentScreen.renderItemStack(guiGraphics, pos.getX(), pos.getY(), mouseX, mouseY, this.sacrificialBowl);
-            this.parentScreen.renderIngredient(guiGraphics, pos.getX(), pos.getY() - 5, mouseX, mouseY, recipe.getIngredients().get(i));
+            this.parentScreen.renderIngredient(guiGraphics, pos.getX(), pos.getY() - 5, mouseX, mouseY, display.ingredients().get(i));
         }
 
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 110, mouseX, mouseY, this.goldenSacrificialBowl);
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 105, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 105, mouseX, mouseY, display.output().create());
+        this.parentScreen.renderItemStack(guiGraphics, recipeX - 10, recipeY - 5, mouseX, mouseY, display.ritualDummy().create());
 
-        this.parentScreen.renderItemStack(guiGraphics, recipeX - 10, recipeY - 5, mouseX, mouseY, recipe.getRitualDummy());
-
-        if (recipe.getEntityToSummon() != null) {
-            String mob = recipe.getEntityToSummon().getDefaultLootTable().location().toString()
-                    .replace("occultism:entities/","")
-                    .replace("minecraft:entities/","")
-                    .replace("c:entities/","")
-                    .replace(":entities/","_");
-            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).hasNoItems())
-                this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 90, mouseX, mouseY, Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
-        }
-
-        if (recipe.getEntityTagToSummon() != null) {
-            String mob = recipe.getEntityTagToSummon().location().toString()
-                    .replace("random_animals_","")
-                    .replace("occultism:","")
-                    .replace("minecraft:","")
-                    .replace("c:","")
-                    .replace(":","_");
-            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)).hasNoItems())
-                this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 90, mouseX, mouseY, Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
-        }
-
-        if (recipe.getPentacle() != null) {
-            guiGraphics.pose().pushPose();
-
-            String pentacleName = I18n.get(Util.makeDescriptionId("multiblock", recipe.getPentacleId()));
-
-            //if pentacleName is larger than allowed, scaled to fit
-            int y = recipeY - 1;
-            int x = recipeX;
-            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
-            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(pentacleName));
-            if (scale < 1) {
-                guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
-                guiGraphics.pose().scale(scale, scale, scale);
+        display.summonEntityDrops().ifPresent(slotDisplay -> {
+            var summonDrops = slotDisplay.resolveForStacks(context);
+            if (!summonDrops.isEmpty()) {
+                this.parentScreen.renderItemStacks(guiGraphics, recipeX + 85, recipeBaseY + 90, mouseX, mouseY, summonDrops);
             }
+        });
 
-            this.drawScaledStringNoShadow(guiGraphics, pentacleName, x + RITUAL_DUMMY_OFFSET, y, 0x3366CC, scale);
+        display.randomEntityDrops().ifPresent(slotDisplay -> {
+            var randomDrops = slotDisplay.resolveForStacks(context);
+            if (!randomDrops.isEmpty()) {
+                this.parentScreen.renderItemStacks(guiGraphics, recipeX + 85, recipeBaseY + 90, mouseX, mouseY, randomDrops);
+            }
+        });
 
-            guiGraphics.pose().popPose();
+        guiGraphics.pose().pushMatrix();
 
+        String pentacleName = I18n.get(Util.makeDescriptionId("multiblock", display.pentacleId()));
+        int pentacleTextY = recipeY - 1;
+        int pentacleTextX = recipeX;
+        int pentacleMaxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10;
+        float pentacleScale = Math.min(1.0f, (float) pentacleMaxWidth / (float) this.font.width(pentacleName));
+        if (pentacleScale < 1) {
+            guiGraphics.pose().translate(pentacleTextX - pentacleTextX * pentacleScale, pentacleTextY - pentacleTextY * pentacleScale);
+            guiGraphics.pose().scale(pentacleScale, pentacleScale);
         }
 
-        if (recipe.requiresItemUse()) {
-            this.parentScreen.renderIngredient(guiGraphics, recipeX + 50, recipeY + 21, mouseX, mouseY, recipe.getItemToUse());
-            guiGraphics.drawString(this.font, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE), recipeX - 15, recipeY + 25, 0, false);
-        }
+        this.drawScaledStringNoShadow(guiGraphics, pentacleName, pentacleTextX + RITUAL_DUMMY_OFFSET, pentacleTextY, 0x3366CC, pentacleScale);
+        guiGraphics.pose().popMatrix();
+
+        display.itemToUse().ifPresent(slotDisplay -> {
+            var itemToUseStacks = slotDisplay.resolveForStacks(context);
+            if (!itemToUseStacks.isEmpty()) {
+                this.parentScreen.renderItemStacks(guiGraphics, recipeX + 50, recipeBaseY + 21, mouseX, mouseY, itemToUseStacks);
+            }
+            guiGraphics.text(this.font, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE), recipeX - 15, recipeBaseY + 25, 0x000000, false);
+        });
 
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 30, recipeY + 70, mouseX, mouseY, this.goldenSacrificialBowl);
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 30, recipeY + 65, mouseX, mouseY, recipe.getActivationItem());
+        this.parentScreen.renderItemStacks(guiGraphics, recipeX + 30, recipeY + 65, mouseX, mouseY,
+                display.activationItem().resolveForStacks(context));
 
-        if (recipe.getEntityToSummon() != null) {
-            guiGraphics.pose().pushPose();
+        if (display.summonText().isPresent()) {
+            guiGraphics.pose().pushMatrix();
 
-            var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,
-                    I18n.get(recipe.getEntityToSummon().getDescriptionId()));
-
+            Component text = display.summonText().get();
             int y = recipeY + 120;
             int x = recipeX - 15;
-            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual output, 10 is our magic constant
-            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10;
+            float scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
             if (scale < 1) {
-                guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
-                guiGraphics.pose().scale(scale, scale, scale);
+                guiGraphics.pose().translate(x - x * scale, y - y * scale);
+                guiGraphics.pose().scale(scale, scale);
             }
 
             this.drawScaledStringNoShadow(guiGraphics, text, x, y, 0x000000, scale);
-
-            guiGraphics.pose().popPose();
+            guiGraphics.pose().popMatrix();
         }
 
-        if (recipe.getSpiritJobType() != null) {
-            guiGraphics.pose().pushPose();
+        if (display.jobText().isPresent()) {
+            guiGraphics.pose().pushMatrix();
 
-            var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,
-                    I18n.get("job." + recipe.getSpiritJobType().toString().replace(":", ".")));
-
+            Component text = display.jobText().get();
             int y = recipeY + 130;
-            int x = recipeX;
-            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - 15; //account for the ritual dummy icon, 10 is a magic constant
-            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            int x = recipeX - 15;
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - 15;
+            float scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
             if (scale < 1) {
-                guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
-                guiGraphics.pose().scale(scale, scale, scale);
+                guiGraphics.pose().translate(x - x * scale, y - y * scale);
+                guiGraphics.pose().scale(scale, scale);
             }
 
-            this.drawScaledStringNoShadow(guiGraphics, text, x - 15, y, 0x3366CC, scale);
-
-            guiGraphics.pose().popPose();
+            this.drawScaledStringNoShadow(guiGraphics, text, x, y, 0x3366CC, scale);
+            guiGraphics.pose().popMatrix();
         }
 
-        if (recipe.requiresSacrifice()) {
-            guiGraphics.pose().pushPose();
+        if (display.sacrificeText().isPresent()) {
+            guiGraphics.pose().pushMatrix();
 
-            var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,
-                    I18n.get(recipe.getEntityToSacrificeDisplayName()));
-
+            Component text = display.sacrificeText().get();
             int y = recipeY + 15;
             int x = recipeX - 15;
             int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH;
-            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            float scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
             if (scale < 1) {
-                guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
-                guiGraphics.pose().scale(scale, scale, scale);
+                guiGraphics.pose().translate(x - x * scale, y - y * scale);
+                guiGraphics.pose().scale(scale, scale);
+            }
+
+            this.drawScaledStringNoShadow(guiGraphics, text, x, y, 0x000000, scale);
+            guiGraphics.pose().popMatrix();
+        }
+
+        if (display.conditionText().isPresent()) {
+            guiGraphics.pose().pushMatrix();
+
+            int y = recipeY + 24;
+            int x = recipeX - 15;
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH;
+            Component text = display.conditionText().get();
+            float scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1) {
+                guiGraphics.pose().translate(x - x * scale, y - y * scale);
+                guiGraphics.pose().scale(scale, scale);
             }
 
             this.drawScaledStringNoShadow(guiGraphics, text, x, y, 0x000000, scale);
 
-            guiGraphics.pose().popPose();
-        }
-
-        if (recipe.getCondition() != null) {
-            guiGraphics.pose().pushPose();
-
-            int y = recipeY + 15 + 9;
-            int x = recipeX - 15;
-            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH;
-
-            var visitor = new RitualRecipeConditionDescriptionVisitor();
-            var condition = ConditionWrapperFactory.wrap(recipe.getCondition());
-            if(condition!=null) {
-                var text = condition.accept(visitor, OccultismConditionContext.EMPTY);
-
-                var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
-                if (scale < 1) {
-                    guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
-                    guiGraphics.pose().scale(scale, scale, scale);
-                }
-
-                this.drawScaledStringNoShadow(guiGraphics, text, x, y, 0x000000, scale);
-
-            }
-            guiGraphics.pose().popPose();
+            guiGraphics.pose().popMatrix();
         }
     }
 
-    public void drawScaledStringNoShadow(GuiGraphics guiGraphics, String s, int x, int y, int color, float scale) {
-        guiGraphics.drawString(this.font, s, x, y + (this.font.lineHeight * (1 - scale)), color, false);
+    private void drawScaledStringNoShadow(GuiGraphicsExtractor guiGraphics, String text, int x, int y, int color, float scale) {
+        guiGraphics.text(this.font, text, x, (int) (y + (this.font.lineHeight * (1 - scale))), color, false);
     }
 
-    public void drawScaledStringNoShadow(GuiGraphics guiGraphics, Component s, int x, int y, int color, float scale) {
-        guiGraphics.drawString(this.font, s.getVisualOrderText(), x, y + (this.font.lineHeight * (1 - scale)), color, false);
+    private void drawScaledStringNoShadow(GuiGraphicsExtractor guiGraphics, Component text, int x, int y, int color, float scale) {
+        guiGraphics.text(this.font, text.getVisualOrderText(), x, (int) (y + (this.font.lineHeight * (1 - scale))), color, false);
     }
 }

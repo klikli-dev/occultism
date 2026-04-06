@@ -1,8 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.horses",
@@ -10,35 +8,27 @@
   },
   "entity_to_summon": "occultism:devil_familiar",
   "ingredients": [
-    {
-      "tag": "c:magma"
-    },
-    {
-      "tag": "c:bones"
-    },
-    {
-      "tag": "c:magma"
-    },
-    {
-      "tag": "c:bones"
-    },
-    {
-      "item": "minecraft:lava_bucket"
-    }
+    "#c:magma",
+    "#c:bones",
+    "#c:magma",
+    "#c:bones",
+    "minecraft:lava_bucket"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_devil\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.familiar_devil"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.familiar_devil.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.familiar_devil.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/familiar_devil"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/familiar_devil"
   },
   "ritual_type": "occultism:summon_tamed"

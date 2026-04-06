@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.block.storage;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.OtherstoneFrameBlock;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
@@ -34,7 +33,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -73,22 +72,8 @@ public class StableWormholeBlock extends OtherstoneFrameBlock implements EntityB
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if(Occultism.SERVER_CONFIG.storage.unlinkWormholeOnBreak.get()){
-            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-            if (blockEntity instanceof StableWormholeBlockEntity wormhole) {
-                if (wormhole.getLinkedStorageController() != null) {
-                    wormhole.setLinkedStorageControllerPosition(null);
-                }
-            }
-        }
-        super.onRemove(state, worldIn, pos, newState, isMoving);
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof StableWormholeBlockEntity wormhole && StorageControllerContainerBase.canOpen(pPlayer, pPos)
                     && pPlayer instanceof ServerPlayer serverPlayer) {
@@ -100,7 +85,7 @@ public class StableWormholeBlock extends OtherstoneFrameBlock implements EntityB
                 }
             }
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -114,8 +99,7 @@ public class StableWormholeBlock extends OtherstoneFrameBlock implements EntityB
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state, boolean includeData) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 

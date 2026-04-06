@@ -1,8 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
-  },
+  "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.llamas",
@@ -10,44 +8,30 @@
   },
   "entity_to_summon": "occultism:mummy_familiar",
   "ingredients": [
-    {
-      "tag": "c:slime_balls"
-    },
-    {
-      "tag": "c:slime_balls"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "tag": "minecraft:wool"
-    }
+    "#c:slime_balls",
+    "#c:slime_balls",
+    "minecraft:paper",
+    "minecraft:paper",
+    "#minecraft:wool",
+    "#minecraft:wool",
+    "#minecraft:wool",
+    "#minecraft:wool"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_mummy\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.familiar_mummy"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.familiar_mummy.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.familiar_mummy.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/familiar_mummy"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/familiar_mummy"
   },
   "ritual_type": "occultism:summon_tamed"

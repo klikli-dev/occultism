@@ -22,13 +22,15 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public abstract class SingleInputRecipe<T extends RecipeInput> implements Recipe<T> {
 
@@ -46,25 +48,37 @@ public abstract class SingleInputRecipe<T extends RecipeInput> implements Recipe
     }
 
     @Override
-    public ItemStack assemble(T pCraftingContainer, HolderLookup.Provider pRegistries) {
-        return this.getResultItem(pRegistries).copy();
-    }
-
-
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        //as we don't have a real inventory so this is ignored.
-        return true;
+    public ItemStack assemble(T pCraftingContainer) {
+        return this.output.copy();
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public boolean showNotification() {
+        return false;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        //Custom recipes don't use the recipe book
+        return null;
+    }
+
+    public ItemStack getResultItem() {
         return this.output;
     }
 
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.EMPTY, this.input);
+    public List<Ingredient> getIngredients() {
+        return List.of(this.input);
     }
 
 }

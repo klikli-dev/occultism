@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/chromium"
-  },
+  "ingredient": "#c:ingots/chromium",
   "result": {
     "type": "occultism:tag",
     "count": 1,

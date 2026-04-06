@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:repair_icon"
+    "id": "occultism:repair_icon"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.name",
   "pages": [
@@ -20,8 +20,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "minecraft:anvil"
+        "id": "minecraft:anvil"
       },
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.title"

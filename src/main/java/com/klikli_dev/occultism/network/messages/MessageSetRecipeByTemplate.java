@@ -27,16 +27,18 @@ import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
-import com.klikli_dev.occultism.integration.emi.impl.EmiHelper;
+//import com.klikli_dev.occultism.integration.emi.impl.EmiHelper; // TODO: re-enable when EMI is available for 26.1
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -49,11 +51,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class MessageSetRecipeByTemplate implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_recipe_by_template");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "set_recipe_by_template");
     public static final Type<MessageSetRecipeByTemplate> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipeByTemplate> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipeByTemplate::encode, MessageSetRecipeByTemplate::new);
 
-    private @Nullable ResourceLocation recipeId;
+    private @Nullable Identifier recipeId;
     private NonNullList<ItemStack> ingredientTemplates;
     private int recipeAmount;
 
@@ -61,7 +63,7 @@ public class MessageSetRecipeByTemplate implements IMessage {
         this.decode(buf);
     }
 
-    public MessageSetRecipeByTemplate(@Nullable ResourceLocation recipeId,
+    public MessageSetRecipeByTemplate(@Nullable Identifier recipeId,
                                       NonNullList<ItemStack> ingredientTemplates, int recipeAmount) {
         this.recipeId = recipeId;
         this.ingredientTemplates = ingredientTemplates;
@@ -127,7 +129,7 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
     @Override
     public void encode(RegistryFriendlyByteBuf buf) {
-        buf.writeNullable(this.recipeId, FriendlyByteBuf::writeResourceLocation);
+        buf.writeNullable(this.recipeId, FriendlyByteBuf::writeIdentifier);
 
         ItemStack.OPTIONAL_LIST_STREAM_CODEC.encode(buf, this.ingredientTemplates);
         buf.writeInt(this.recipeAmount);
@@ -135,7 +137,7 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
-        this.recipeId = buf.readNullable(FriendlyByteBuf::readResourceLocation);
+        this.recipeId = buf.readNullable(FriendlyByteBuf::readIdentifier);
         this.ingredientTemplates = NonNullList.copyOf(ItemStack.OPTIONAL_LIST_STREAM_CODEC.decode(buf));
         this.recipeAmount = buf.readInt();
     }
@@ -148,21 +150,27 @@ public class MessageSetRecipeByTemplate implements IMessage {
     private NonNullList<Ingredient> getDesiredIngredients(Player player) {
         // Try to retrieve the real recipe on the server-side
         if (this.recipeId != null) {
-            var recipe = player.level().getRecipeManager().byKey(this.recipeId).orElse(null);
-            if (recipe != null) {
-                return EmiHelper.ensure3by3CraftingMatrix(recipe.value());
+            // Access via ServerPlayer's level which has getServer()
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            var server = serverPlayer.level().getServer();
+            if (server != null) {
+                var recipeHolder = server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, this.recipeId));
+                var recipe = recipeHolder.map(r -> r.value()).orElse(null);
+                if (recipe != null) {
+                    return StorageUtil.ensure3by3CraftingMatrix(recipe);
+                }
             }
         }
 
         // If the recipe is unavailable for any reason, use the templates provided by the client
-        var ingredients = NonNullList.withSize(9, Ingredient.EMPTY);
+        var ingredients = NonNullList.withSize(9, Ingredient.of());
         Preconditions.checkArgument(ingredients.size() == this.ingredientTemplates.size(),
                 "Got %d ingredient templates from client, expected %d",
                 this.ingredientTemplates.size(), ingredients.size());
         for (int i = 0; i < ingredients.size(); i++) {
             var template = this.ingredientTemplates.get(i);
             if (!template.isEmpty()) {
-                ingredients.set(i, Ingredient.of(template));
+                ingredients.set(i, Ingredient.of(template.getItem()));
             }
         }
 

@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/iesnium"
-  },
+  "ingredient": "#c:ingots/iesnium",
   "result": {
     "type": "occultism:tag",
     "count": 1,

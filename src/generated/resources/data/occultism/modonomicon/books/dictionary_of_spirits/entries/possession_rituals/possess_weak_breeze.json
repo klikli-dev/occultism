@@ -9,7 +9,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:trial_key"
+    "id": "minecraft:trial_key"
   },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_weak_breeze.name",
   "pages": [

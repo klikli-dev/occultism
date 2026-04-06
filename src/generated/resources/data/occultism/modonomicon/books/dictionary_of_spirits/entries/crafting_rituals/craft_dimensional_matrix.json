@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:dimensional_matrix"
+    "id": "occultism:dimensional_matrix"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:dimensional_matrix"
-      },
+      "item": "occultism:dimensional_matrix",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.spotlight.text",
       "title": ""
     },

@@ -98,9 +98,8 @@ public class TagRecipeResult extends RecipeResult {
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
             //get all items in tag
-            this.cachedStacks = BuiltInRegistries.ITEM.getTag(this.tag)
-                    .map(tag -> tag.stream().map(ItemStack::new).toArray(ItemStack[]::new))
-                    .orElse(new ItemStack[0]);
+            this.cachedStacks = java.util.stream.StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(this.tag).spliterator(), false)
+                    .map(ItemStack::new).toArray(ItemStack[]::new);
         }
         return this.cachedStacks;
     }

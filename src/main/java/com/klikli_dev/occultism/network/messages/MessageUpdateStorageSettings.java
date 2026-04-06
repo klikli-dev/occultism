@@ -35,7 +35,7 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +45,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class MessageUpdateStorageSettings implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_storage_settings");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "update_storage_settings");
     public static final Type<MessageUpdateStorageSettings> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateStorageSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateStorageSettings::encode, MessageUpdateStorageSettings::new);
     private SortDirection sortDirection;

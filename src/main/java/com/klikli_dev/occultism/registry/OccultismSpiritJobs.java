@@ -27,13 +27,13 @@ import com.klikli_dev.occultism.client.entities.SpiritJobClient;
 import com.klikli_dev.occultism.common.entity.job.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class OccultismSpiritJobs {
 
-    public static final ResourceKey<Registry<SpiritJobFactory>> JOBS_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_job_factories"));
+    public static final ResourceKey<Registry<SpiritJobFactory>> JOBS_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_job_factories"));
     public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(JOBS_KEY, Occultism.MODID);
 
     public static final Registry<SpiritJobFactory> REGISTRY = JOBS.makeRegistry((builder) -> {

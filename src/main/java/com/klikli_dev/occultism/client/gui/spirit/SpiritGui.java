@@ -27,17 +27,14 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
@@ -45,63 +42,32 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
 
-    protected static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected SpiritEntity spirit;
     protected T container;
 
     public SpiritGui(T container, Inventory playerInventory, Component titleIn) {
-        super(container, playerInventory, titleIn);
+        super(container, playerInventory, titleIn, 175, 165);
         this.container = container;
         this.spirit = this.container.spirit;
-        this.imageWidth = 175;
-        this.imageHeight = 165;
     }
 
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+    public SpiritGui(T container, Inventory playerInventory, Component titleIn, int imageWidth, int imageHeight) {
+        super(container, playerInventory, titleIn, imageWidth, imageHeight);
+        this.container = container;
+        this.spirit = this.container.spirit;
     }
 
-    public static void drawEntityToGui(GuiGraphics guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
-        var poseStack = guiGraphics.pose();
-        //From inventory screen
-        float f = (float) Math.atan(mouseX / 40.0F);
-        float f1 = (float) Math.atan(mouseY / 40.0F);
-        poseStack.pushPose();
-        poseStack.translate((float) posX, (float) posY, 1050.0F);
-        poseStack.scale(1.0F, 1.0F, -1.0F);
-        poseStack.translate(0.0D, 0.0D, 1000.0D);
-        poseStack.scale((float) scale, (float) scale, (float) scale);
-        var quaternion = Axis.ZP.rotationDegrees(180.0F);
-        var quaternion1 = Axis.XP.rotationDegrees(f1 * 20.0F);
-        quaternion.mul(quaternion1);
-        poseStack.mulPose(quaternion);
-        float f2 = entity.yBodyRot;
-        float f3 = entity.yRotO;
-        float f4 = entity.xRotO;
-        float f5 = entity.yHeadRotO;
-        float f6 = entity.yHeadRot;
-        entity.yBodyRot = 180.0F + f * 20.0F;
-        entity.yRotO = 180.0F + f * 40.0F;
-        entity.xRotO = -f1 * 20.0F;
-        entity.yHeadRot = entity.yRotO;
-        entity.yHeadRotO = entity.yRotO;
-        EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
-        quaternion1.conjugate();
-        entityrenderermanager.overrideCameraOrientation(quaternion1);
-        entityrenderermanager.setRenderShadow(false);
-        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-        entityrenderermanager.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack, bufferSource, 15728880);
-        bufferSource.endBatch();
-        entityrenderermanager.setRenderShadow(true);
-        entity.yBodyRot = f2;
-        entity.yRotO = f3;
-        entity.xRotO = f4;
-        entity.yHeadRotO = f5;
-        entity.yHeadRot = f6;
-        poseStack.popPose();
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    public static void drawEntityToGui(GuiGraphicsExtractor guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
+        // Use the vanilla InventoryScreen method with a bounding box centered around posX, posY
+        InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics, posX - 25, posY - 50, posX + 25, posY, scale, 0.0625F, mouseX, mouseY, entity);
     }
 
     @Override
@@ -138,21 +104,20 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int pMouseX, int pMouseY) {
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
 //        this.renderBackground(guiGraphics); //called by super
 
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
-        guiGraphics.pose().pushPose();
+        guiGraphics.pose().pushMatrix();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit);
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 }

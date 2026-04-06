@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathSpawnEntity;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -34,12 +33,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntity> {
+public class ShubNiggurathSpawnModel extends EntityModel<EntityRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -70,6 +70,7 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
     public ModelPart christmasPresent3;
 
     public ShubNiggurathSpawnModel(ModelPart part) {
+        super(part);
         this.head = part.getChild("head");
         this.rightHorn1 = this.head.getChild("rightHorn1");
         this.mouth = this.head.getChild("mouth");
@@ -129,38 +130,25 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.head.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
-    }
+    public void setupAnim(EntityRenderState state) {
+        super.setupAnim(state);
+        // TODO: needs custom RenderState for entity-specific animation data
+        // this.showModels(entity); // moved below as commented out
 
-    @Override
-    public void setupAnim(ShubNiggurathSpawnEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
-                          float pNetHeadYaw, float pHeadPitch) {
-        this.showModels(pEntity);
+        this.jaw.xRot = 0.35f; // + Mth.cos(pAgeInTicks * 0.3f) * this.toRads(15);
+        // this.head.y = 22.5f - Math.abs(Mth.cos(pAgeInTicks * 0.15f)) * 7;
+        // this.head.yRot = Mth.cos(pAgeInTicks * 0.15f) * this.toRads(20);
+        this.head.zRot = -1.57f; // Mth.cos(pAgeInTicks * 0.30f) * this.toRads(20) - 1.57f;
 
-        this.jaw.xRot = 0.35f + Mth.cos(pAgeInTicks * 0.3f) * this.toRads(15);
-        this.head.y = 22.5f - Math.abs(Mth.cos(pAgeInTicks * 0.15f)) * 7;
-        this.head.yRot = Mth.cos(pAgeInTicks * 0.15f) * this.toRads(20);
-        this.head.zRot = Mth.cos(pAgeInTicks * 0.30f) * this.toRads(20) - 1.57f;
-
-        ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleBottom1, this.tentacleBottom2, this.tentacleBottom3), pAgeInTicks * 2.25f, 0);
-        ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleMiddle1, this.tentacleMiddle2, this.tentacleMiddle3), pAgeInTicks * 2.25f, 0.5f);
-        ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleTop1, this.tentacleTop2, this.tentacleTop3), pAgeInTicks * 2.25f, 1);
+        // ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleBottom1, this.tentacleBottom2, this.tentacleBottom3), pAgeInTicks * 2.25f, 0);
+        // ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleMiddle1, this.tentacleMiddle2, this.tentacleMiddle3), pAgeInTicks * 2.25f, 0.5f);
+        // ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleTop1, this.tentacleTop2, this.tentacleTop3), pAgeInTicks * 2.25f, 1);
         this.tentacleBottom1.xRot -= this.toRads(90);
         this.tentacleMiddle1.xRot -= this.toRads(90);
         this.tentacleTop1.xRot -= this.toRads(90);
         this.tentacleBottom1.zRot = 0;
         this.tentacleMiddle1.zRot = 0;
         this.tentacleTop1.zRot = 0;
-    }
-
-    private void showModels(ShubNiggurathSpawnEntity entityIn) {
-        boolean isChristmas = FamiliarUtil.isChristmas();
-        this.tentacleBottom1.visible = !isChristmas;
-        this.tentacleMiddle1.visible = !isChristmas;
-        this.tentacleTop1.visible = !isChristmas;
-        this.mouth.visible = !isChristmas;
-        this.christmasPresent1.visible = isChristmas;
     }
 
     private float toRads(float deg) {

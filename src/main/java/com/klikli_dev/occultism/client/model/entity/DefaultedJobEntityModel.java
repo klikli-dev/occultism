@@ -1,102 +1,90 @@
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.constant.dataticket.DataTicket;
+import com.geckolib.model.DefaultedEntityGeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
+import com.google.common.reflect.TypeToken;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.SpiritJobFactory;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.GeckoLibCache;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
+import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimatable> extends DefaultedEntityGeoModel<T> {
+    private static final DataTicket<Identifier> JOB_MODEL = DataTicket.create("occultism_job_model", new TypeToken<>() {});
+    private static final DataTicket<Identifier> JOB_TEXTURE = DataTicket.create("occultism_job_texture", new TypeToken<>() {});
+    private static final DataTicket<Identifier> JOB_ANIMATION = DataTicket.create("occultism_job_animation", new TypeToken<>() {});
+
     private final String entity_subpath;
     protected final Map<String, ModelData> jobModels;
     protected final ModelData worker;
 
-    public DefaultedJobEntityModel(ResourceLocation assetSubpath, boolean turnsHead, String entity_subpath) {
-        super(assetSubpath, turnsHead);
+    public DefaultedJobEntityModel(Identifier assetSubpath, boolean turnsHead, String entity_subpath) {
+        super(assetSubpath);
         this.entity_subpath = entity_subpath;
         jobModels = new HashMap<>();
         this.worker = this.buildModelData("worker");
-        for(var job: OccultismSpiritJobs.REGISTRY.entrySet()) {
+        for (var job : OccultismSpiritJobs.REGISTRY.entrySet()) {
             SpiritJobFactory factory = job.getValue();
-            jobModels.put(job.getKey().location().toString(), this.buildModelData(factory.client().modelID(),"_"));
+            jobModels.put(job.getKey().identifier().toString(), this.buildModelData(factory.client().modelID(), "_"));
         }
     }
 
     public ModelData getModelData(T animatable) {
         var job = animatable.getJobID();
-        var model = jobModels.getOrDefault(job, this.worker);
-        if(!GeckoLibCache.getBakedModels().containsKey(model.model()))
-            model=this.worker;
-        return model;
+        return jobModels.getOrDefault(job, this.worker);
     }
+
     public ModelData buildModelData(String job) {
         return this.buildModelData(job, "_");
     }
 
-    public ModelData buildModelData(ResourceLocation basePath) {
+    public ModelData buildModelData(Identifier basePath) {
         return new ModelData(
                 this.buildFormattedModelPath(basePath),
                 this.buildFormattedTexturePath(basePath),
                 this.buildFormattedAnimationPath(basePath)
         );
     }
-    public ModelData buildModelData(ResourceLocation location, String separator) {
-        return this.buildModelData(ResourceLocation.fromNamespaceAndPath(location.getNamespace(), entity_subpath + separator + location.getPath()));
+
+    public ModelData buildModelData(Identifier location, String separator) {
+        return this.buildModelData(Identifier.fromNamespaceAndPath(location.getNamespace(), entity_subpath + separator + location.getPath()));
     }
+
     public ModelData buildModelData(String job, String separator) {
-        return this.buildModelData(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, job),separator);
+        return this.buildModelData(Identifier.fromNamespaceAndPath(Occultism.MODID, job), separator);
     }
 
-    public record ModelData(ResourceLocation model, ResourceLocation texture, ResourceLocation animation) {
-    }
-
-    @Override
-    public RenderType getRenderType(T animatable, ResourceLocation texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
+    public record ModelData(Identifier model, Identifier texture, Identifier animation) {
     }
 
     @Override
-    public ResourceLocation getModelResource(T animatable) {
-        return this.getModelData(animatable).model();
+    public void addAdditionalStateData(T animatable, @org.jetbrains.annotations.Nullable Object relatedObject, GeoRenderState renderState) {
+        super.addAdditionalStateData(animatable, relatedObject, renderState);
+        ModelData data = this.getModelData(animatable);
+        renderState.addGeckolibData(JOB_MODEL, data.model());
+        renderState.addGeckolibData(JOB_TEXTURE, data.texture());
+        renderState.addGeckolibData(JOB_ANIMATION, data.animation());
     }
 
     @Override
-    public ResourceLocation getTextureResource(T animatable) {
-        return this.getModelData(animatable).texture();
+    public Identifier getModelResource(GeoRenderState renderState) {
+        Identifier id = renderState.getGeckolibData(JOB_MODEL);
+        return id != null ? id : this.worker.model();
     }
 
     @Override
-    public ResourceLocation getAnimationResource(T animatable) {
+    public Identifier getTextureResource(GeoRenderState renderState) {
+        Identifier id = renderState.getGeckolibData(JOB_TEXTURE);
+        return id != null ? id : this.worker.texture();
+    }
+
+    @Override
+    public Identifier getAnimationResource(T animatable) {
         return this.getModelData(animatable).animation();
-    }
-
-    @Override
-    public void setCustomAnimations(T entity, long instanceId, AnimationState<T> animationState) {
-        super.setCustomAnimations(entity, instanceId, animationState);
-
-        GeoBone head = getAnimationProcessor().getBone("head");
-        if (head != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-        }
-        GeoBone Head = getAnimationProcessor().getBone("Head");
-        if (Head != null) {
-            EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-            Head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            Head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
-        }
     }
 }

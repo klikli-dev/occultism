@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:hopper"
+    "id": "minecraft:hopper"
   },
   "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.name",
   "pages": [

@@ -12,11 +12,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Places a single block of a ritual multiblock.
@@ -48,7 +50,7 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
         var multiblock = ModonomiconAPI.get().getMultiblock(targetPentacle.multiblock());
         var simulation = multiblock.simulate(context.getLevel(), targetPentacle.anchor(), targetPentacle.facing(), false, false);
 
-        var targetMatcher = simulation.getSecond().stream().filter(p -> p.getWorldPosition().equals(context.getClickedPos())).findFirst();
+        var targetMatcher = simulation.getSecond().stream().filter(p -> p.worldPosition().equals(context.getClickedPos())).findFirst();
         if (targetMatcher.isEmpty()) {
             //should not happen, player clicked a non-preview block
             return InteractionResult.FAIL;
@@ -57,27 +59,27 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
         return switch (this.tryPlaceBlockForMatcher(context, targetMatcher.get())) {
             case SUCCESS -> InteractionResult.SUCCESS;
             case ERROR_NO_MATCHING_BLOCK_FOUND -> {
-                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL).withStyle(ChatFormatting.YELLOW), true);
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL).withStyle(ChatFormatting.YELLOW));
                 yield InteractionResult.FAIL;
             }
             case ERROR_BLOCK_ABOVE_NOT_AIR -> {
-                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_BLOCK_ABOVE_NOT_AIR).withStyle(ChatFormatting.YELLOW), true);
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_BLOCK_ABOVE_NOT_AIR).withStyle(ChatFormatting.YELLOW));
                 yield InteractionResult.FAIL;
             }
             case ERROR_BLOCK_AT_POSITION_NOT_AIR -> {
-                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR).withStyle(ChatFormatting.YELLOW), true);
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR).withStyle(ChatFormatting.YELLOW));
                 yield InteractionResult.FAIL;
             }
             case ERROR_INVALID_MATCHER -> {
-                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER).withStyle(ChatFormatting.YELLOW), true);
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER).withStyle(ChatFormatting.YELLOW));
                 yield InteractionResult.FAIL;
             }
             case ERROR_GLYPH_CANNOT_SURVIVE -> {
-                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE).withStyle(ChatFormatting.YELLOW), true);
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE).withStyle(ChatFormatting.YELLOW));
                 yield InteractionResult.FAIL;
             }
             case ERROR_WILL_BREAK_ITEM -> {
-                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM).withStyle(ChatFormatting.YELLOW), true);
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM).withStyle(ChatFormatting.YELLOW));
                 yield InteractionResult.FAIL;
             }
             default -> InteractionResult.FAIL;
@@ -85,10 +87,10 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
 
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+        pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
 }

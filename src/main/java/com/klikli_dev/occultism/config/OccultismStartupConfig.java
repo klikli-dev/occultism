@@ -31,15 +31,21 @@ import java.util.List;
 
 public class OccultismStartupConfig {
 
+    private static final OccultismStartupConfig instance = new OccultismStartupConfig();
+
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final RitualSettings rituals;
 
     public final ModConfigSpec spec;
-    public OccultismStartupConfig() {
+    private OccultismStartupConfig() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(builder);
         this.rituals = new RitualSettings(builder);
         this.spec = builder.build();
+    }
+
+    public static OccultismStartupConfig get() {
+        return instance;
     }
 
     public static class RitualSettings {

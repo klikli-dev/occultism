@@ -42,7 +42,8 @@ public class ItemNBTUtil {
     public static void updateItemNBTFromEntity(ItemStack stack, SpiritEntity entity) {
         setWorkAreaPosition(stack, entity.getWorkAreaPosition());
         setDepositPosition(stack, entity.getDepositPosition());
-        setDepositEntityUUID(stack, entity.getDepositEntityUUID());
+        // In 26.1, getDepositEntityUUID returns Optional<EntityReference<LivingEntity>>, convert to UUID
+        setDepositEntityUUID(stack, entity.getDepositEntityUUID().map(ref -> ref.getUUID()));
         setDepositFacing(stack, entity.getDepositFacing());
         setExtractPosition(stack, entity.getExtractPosition());
         setExtractFacing(stack, entity.getExtractFacing());
@@ -235,7 +236,7 @@ public class ItemNBTUtil {
         if (!stack.has(OccultismDataComponents.SPIRIT_ENTITY_DATA))
             return null;
 
-        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).getUnsafe();
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).copyTag();
     }
 
     public static void setSpiritEntityData(ItemStack stack, CompoundTag entityData) {

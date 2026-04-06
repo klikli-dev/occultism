@@ -9,13 +9,16 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
+import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
-public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
-    public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<T> page) {
+public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<SpiritTradeRecipe, BookProcessingRecipePage<SpiritTradeRecipe>> {
+    public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<SpiritTradeRecipe> page) {
         super(page);
     }
 
@@ -25,10 +28,9 @@ public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> ext
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<T> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphicsExtractor guiGraphics, RecipeDisplayEntry entry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
 
         recipeY += 10;
-        var recipe = recipeHolder.value();
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
@@ -41,13 +43,22 @@ public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> ext
             }
         }
 
-        RenderSystem.enableBlend();
-        guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX, recipeY, 11, 71, 24, 24, 128, 256); //first box
-        guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX + 36, recipeY + 7, 0, 246, 18, 10, 128, 256); //"throw arrow"
-        guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY, 72, 71, 36, 24, 128, 256); //straight arrow and second box
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX, recipeY,
+                11.0F, 71.0F, 24, 24, 128, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 36, recipeY + 7,
+                0.0F, 246.0F, 18, 10, 128, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY,
+                72.0F, 71.0F, 36, 24, 128, 256);
 
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 4, recipeY + 4, mouseX, mouseY, recipe.getIngredients().get(0));
-//        this.parentScreen.renderItemStack(guiGraphics, recipeX + 40, recipeY + 4, mouseX, mouseY, recipe.getToastSymbol());
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 76, recipeY + 4, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
+        if (!(entry.display() instanceof SpiritTradeRecipeDisplay display) || Minecraft.getInstance().level == null) {
+            guiGraphics.text(this.font, "[Spirit trade recipe unavailable]", recipeX, recipeY, 0x000000, false);
+            return;
+        }
+
+        var context = SlotDisplayContext.fromLevel(Minecraft.getInstance().level);
+
+        this.parentScreen.renderIngredient(guiGraphics, recipeX + 4, recipeY + 4, mouseX, mouseY, display.ingredient());
+        this.parentScreen.renderItemStacks(guiGraphics, recipeX + 76, recipeY + 4, mouseX, mouseY,
+                display.result().resolveForStacks(context));
     }
 }

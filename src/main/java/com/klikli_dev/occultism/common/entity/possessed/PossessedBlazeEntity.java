@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.possessed;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -46,21 +47,11 @@ public class PossessedBlazeEntity extends Blaze implements PossessedMob{
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount){
+    protected void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
         if (source.getDirectEntity() != null && source.getDirectEntity().getType() == EntityType.SNOWBALL)
             amount = 0;
 
-        return super.hurt(source, amount);
-    }
-
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
+        super.actuallyHurt(level, source, amount);
     }
 
     @Override

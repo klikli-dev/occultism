@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:raw_materials/osmium"
-  },
+  "ingredient": "#c:raw_materials/osmium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

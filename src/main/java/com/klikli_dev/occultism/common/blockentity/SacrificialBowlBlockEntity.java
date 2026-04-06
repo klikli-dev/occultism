@@ -27,10 +27,12 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
@@ -54,15 +56,15 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
                 int slot) {
 
             Level level = SacrificialBowlBlockEntity.this.level;
-            if (level != null && !level.isClientSide) {
+            if (level != null && !level.isClientSide()) {
                 Block blockBellow = level.getBlockState(getBlockPos().below()).getBlock();
                 if (!(SacrificialBowlBlockEntity.this instanceof GoldenSacrificialBowlBlockEntity)
                         && (blockBellow instanceof SpiritFireBlock || blockBellow == OccultismBlocks.SPIRIT_CAMPFIRE.get())) {
                     var recipeInput = new SingleRecipeInput(this.getStackInSlot(0));
-                    var recipe = level.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, level);
+                    var recipe = ((ServerLevel) level).recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, (ServerLevel) level);
                     if (recipe.isPresent() && !recipeInput.item().is(OccultismBlocks.OTHERFLOWER.asItem())) {
                         super.extractItem(0, 1, false);
-                        ItemStack result = recipe.get().value().assemble(recipeInput, level.registryAccess());
+                        ItemStack result = recipe.get().value().assemble(recipeInput);
                         super.setStackInSlot(0, result);
                         level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
                     }
@@ -85,17 +87,21 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
         super(BlockEntityTypeIn, worldPos, state);
     }
 
-
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.itemStackHandler.deserializeNBT(provider, compound.getCompound("inventory"));
-        this.lastChangeTime = compound.getLong("lastChangeTime");
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        StorageUtil.dropInventoryItems(this);
+        super.preRemoveSideEffects(pos, state);
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
-        compound.putLong("lastChangeTime", this.lastChangeTime);
-        return compound;
+    public void loadNetwork(ValueInput input) {
+        this.itemStackHandler.deserialize(input.childOrEmpty("inventory"));
+        this.lastChangeTime = input.getLongOr("lastChangeTime", 0L);
+    }
+
+    @Override
+    public void saveNetwork(ValueOutput output) {
+        this.itemStackHandler.serialize(output.child("inventory"));
+        output.putLong("lastChangeTime", this.lastChangeTime);
     }
 }

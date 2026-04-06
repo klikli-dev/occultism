@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/dark_gem"
-  },
+  "ingredient": "#c:ores/dark_gem",
   "result": {
     "type": "occultism:tag",
     "count": 3,

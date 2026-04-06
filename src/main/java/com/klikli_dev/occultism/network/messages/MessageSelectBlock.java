@@ -29,14 +29,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 import java.awt.*;
 
 public class MessageSelectBlock implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "select_block");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "select_block");
     public static final Type<MessageSelectBlock> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSelectBlock> STREAM_CODEC = CustomPacketPayload.codec(MessageSelectBlock::encode, MessageSelectBlock::new);
 

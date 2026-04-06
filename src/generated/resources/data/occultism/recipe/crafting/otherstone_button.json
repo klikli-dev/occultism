@@ -2,12 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "occultism:otherstone"
-    }
+    "occultism:otherstone"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherstone_button"
   }
 }

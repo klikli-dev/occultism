@@ -27,8 +27,6 @@ import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
@@ -37,9 +35,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.horse.TraderLlama;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.animal.equine.TraderLlama;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ItemStack;
@@ -50,15 +47,22 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class WonderingTraderEntity extends WanderingTrader implements GeoEntity {
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
@@ -87,7 +91,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                 player.awardStat(Stats.TALKED_TO_VILLAGER);
             }
 
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 if (this.getOffers().isEmpty()) {
                     return InteractionResult.CONSUME;
                 }
@@ -97,7 +101,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                 this.openTradingScreen(player, name, 1);
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(player, hand);
         }
@@ -105,8 +109,8 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
 
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty,
-                                        @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        if (spawnType == MobSpawnType.EVENT) {
+                                        @NotNull EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (spawnType == EntitySpawnReason.EVENT) {
             for (int t = 0; t < 2; t++) {
                 BlockPos blockpos = null;
                 SpawnPlacementType spawnplacementtype = SpawnPlacements.getPlacementType(EntityType.WANDERING_TRADER);
@@ -121,7 +125,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                     }
                 }
                 if (blockpos != null) {
-                    TraderLlama traderllama = EntityType.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, MobSpawnType.EVENT);
+                    TraderLlama traderllama = EntityType.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, EntitySpawnReason.EVENT);
                     if (traderllama != null) {
                         traderllama.setLeashedTo(this, true);
                         traderllama.setPersistenceRequired();
@@ -149,9 +153,9 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             if (this.level().getGameTime() % 20 == 0) {
                 Vec3 pos = this.position();
                 ((ServerLevel) this.level())
-                        .sendParticles(ParticleTypes.ENCHANT, pos.x + this.level().random.nextGaussian() / 3,
-                                pos.y + 0.5, pos.z + this.level().random.nextGaussian() / 3,
-                                this.level().random.nextInt(4), 0.0, 0.0, 0.0, 0.0);
+                        .sendParticles(ParticleTypes.ENCHANT, pos.x + this.level().getRandom().nextGaussian() / 3,
+                                pos.y + 0.5, pos.z + this.level().getRandom().nextGaussian() / 3,
+                                this.level().getRandom().nextInt(4), 0.0, 0.0, 0.0, 0.0);
             }
         }
     }
@@ -167,20 +171,20 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             Vec3 pos = this.position();
             for (int i = 0; i < 30; i++)
                 ((ServerLevel) this.level())
-                    .sendParticles(OccultismParticles.RITUAL_WAITING.get(), pos.x + this.level().random.nextGaussian() / 3,
-                            pos.y + 0.2, pos.z + this.level().random.nextGaussian() / 3,
+                    .sendParticles(OccultismParticles.RITUAL_WAITING.get(), pos.x + this.level().getRandom().nextGaussian() / 3,
+                            pos.y + 0.2, pos.z + this.level().getRandom().nextGaussian() / 3,
                             1, 0.0, 0.0, 0.0, 0.0);
         }
     }
 
     @Override
     public @NotNull MerchantOffers getOffers() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             throw new IllegalStateException("Cannot load Villager offers on the client");
         } else {
             if (this.offers == null) {
                 this.offers = new MerchantOffers();
-                this.updateTrades();
+                this.updateTrades((ServerLevel) this.level());
                 if (this.commonOffers == null) {
                     this.commonOffers = this.offers;
                 } else if (this.otherOffers == null) {
@@ -197,13 +201,13 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     }
 
     public MerchantOffers getCommonOffers() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             throw new IllegalStateException("Cannot load Villager offers on the client");
         } else {
             if (this.commonOffers == null) {
                 if (this.offers == null) {
                     this.offers = new MerchantOffers();
-                    this.updateTrades();
+                    this.updateTrades((ServerLevel) this.level());
                 }
                 this.commonOffers = this.offers;
             }
@@ -213,7 +217,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     }
 
     public MerchantOffers getOtherOffers() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             throw new IllegalStateException("Cannot load Villager offers on the client");
         } else {
             if (this.otherOffers == null) {
@@ -226,38 +230,29 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     }
 
     @Override
-    protected void updateTrades() {
+    protected void updateTrades(ServerLevel level) {
         if (this.level().enabledFeatures().contains(FeatureFlags.TRADE_REBALANCE)) {
-            super.updateTrades();
+            super.updateTrades(level);
         } else {
-            VillagerTrades.ItemListing[] hint = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.HINT);
-            VillagerTrades.ItemListing[] listing = VillagerTrades.WANDERING_TRADER_TRADES.get(1);
-            VillagerTrades.ItemListing[] listing1 = VillagerTrades.WANDERING_TRADER_TRADES.get(2);
-            if (listing != null && listing1 != null) {
+            WonderingTrades.ItemListing[] hint = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.HINT);
+            // Vanilla wandering trader trades are now data-driven and no longer accessible via code.
+            // We only add our own custom hint trades here.
+            if (hint != null) {
                 MerchantOffers merchantoffers = this.getOffers();
-                if (hint != null)
-                    this.addOffersFromItemListings(merchantoffers, hint, 1);
-                this.addOffersFromItemListings(merchantoffers, listing, 5);
-                int i = this.random.nextInt(listing1.length);
-                VillagerTrades.ItemListing villagertrades$itemlisting = listing1[i];
-                MerchantOffer merchantoffer = villagertrades$itemlisting.getOffer(this, this.random);
-                if (merchantoffer != null) {
-                    merchantoffers.add(merchantoffer);
-                }
+                this.addOffersFromItemListings(merchantoffers, hint, 1);
             }
         }
-
     }
 
     protected void updateOtherTrades() {
-            VillagerTrades.ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
-            VillagerTrades.ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
-            VillagerTrades.ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
-            VillagerTrades.ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
-            VillagerTrades.ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
-            VillagerTrades.ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
-            VillagerTrades.ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
-            VillagerTrades.ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
+            WonderingTrades.ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
+            WonderingTrades.ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
+            WonderingTrades.ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
+            WonderingTrades.ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
+            WonderingTrades.ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
+            WonderingTrades.ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
+            WonderingTrades.ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
+            WonderingTrades.ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
             if (list1 != null && list2 != null && list3 != null && list4 != null
                     && list5 != null && list6 != null && list7 != null && list8 != null) {
                 MerchantOffers merchantoffers = this.getOtherOffers();
@@ -273,8 +268,15 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                     this.addOffersFromItemListings(merchantoffers, list8, 1);
                 }
             }
+    }
 
-
+    private void addOffersFromItemListings(MerchantOffers offers, WonderingTrades.ItemListing[] listings, int count) {
+        ArrayList<WonderingTrades.ItemListing> list = new ArrayList<>(Arrays.asList(listings));
+        Collections.shuffle(list);
+        for (int i = 0; i < Math.min(count, list.size()); i++) {
+            MerchantOffer offer = list.get(i).getOffer(this, this.random);
+            if (offer != null) offers.add(offer);
+        }
     }
 
     @Override
@@ -284,11 +286,11 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        var mainController = new AnimationController<>(this, "mainController", 5, this::animPredicate);
+        var mainController = new AnimationController<>("mainController", 5, this::animPredicate);
         controllers.add(mainController);
     }
 
-    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationTest<T> tAnimationState) {
 
         if (this.swinging) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
@@ -310,39 +312,25 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         return this.animatableInstanceCache;
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        if (!this.level().isClientSide) {
-            MerchantOffers common = this.getCommonOffers();
-            if (!common.isEmpty()) {
-                compound.put(
-                        "CommonOffers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), common).getOrThrow()
-                );
+    @Override
+    public void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        if (!this.level().isClientSide()) {
+            if (this.commonOffers != null && !this.commonOffers.isEmpty()) {
+                output.storeNullable("CommonOffers", MerchantOffers.CODEC, this.commonOffers);
             }
-            MerchantOffers other = this.getOtherOffers();
-            if (!other.isEmpty()) {
-                compound.put(
-                        "OtherOffers", MerchantOffers.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), other).getOrThrow()
-                );
+            if (this.otherOffers != null && !this.otherOffers.isEmpty()) {
+                output.storeNullable("OtherOffers", MerchantOffers.CODEC, this.otherOffers);
             }
         }
-
-        this.writeInventoryToTag(compound, this.registryAccess());
+        this.writeInventoryToTag(output);
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("CommonOffers")) {
-            MerchantOffers.CODEC
-                    .parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("CommonOffers"))
-                    .result().ifPresent(p_323775_ -> this.commonOffers = p_323775_);
-        }
-        if (compound.contains("OtherOffers")) {
-            MerchantOffers.CODEC
-                    .parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("OtherOffers"))
-                    .result().ifPresent(p_323775_ -> this.otherOffers = p_323775_);
-        }
-
-        this.readInventoryFromTag(compound, this.registryAccess());
+    @Override
+    public void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.commonOffers = input.<MerchantOffers>read("CommonOffers", MerchantOffers.CODEC).orElse(null);
+        this.otherOffers = input.<MerchantOffers>read("OtherOffers", MerchantOffers.CODEC).orElse(null);
+        this.readInventoryFromTag(input);
     }
 }

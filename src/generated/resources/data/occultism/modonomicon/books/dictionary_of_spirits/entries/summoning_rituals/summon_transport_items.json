@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:chest_minecart"
+    "id": "minecraft:chest_minecart"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.name",
   "pages": [

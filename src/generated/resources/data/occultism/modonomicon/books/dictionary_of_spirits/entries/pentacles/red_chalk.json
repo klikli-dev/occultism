@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.red_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_red"
+    "id": "occultism:chalk_red"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.red_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_red"
-      },
+      "item": "occultism:chalk_red",
       "text": "book.occultism.dictionary_of_spirits.pentacles.red_chalk.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:afrit_essence"
-      },
+      "item": "occultism:afrit_essence",
       "text": "book.occultism.dictionary_of_spirits.pentacles.red_chalk.essence.text",
       "title": ""
     },

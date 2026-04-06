@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/lead"
-  },
+  "ingredient": "#c:ores/lead",
   "result": {
     "type": "occultism:tag",
     "count": 2,

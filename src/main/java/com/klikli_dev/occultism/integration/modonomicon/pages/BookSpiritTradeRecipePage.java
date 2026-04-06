@@ -7,42 +7,37 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.book.BookTextHolder;
-import com.klikli_dev.modonomicon.book.conditions.BookCondition;
-import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.Identifier;
 
 public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTradeRecipe> {
-    public BookSpiritTradeRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
-        super(OccultismRecipes.SPIRIT_TRADE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+    public BookSpiritTradeRecipePage(JsonDataHolder data) {
+        super(data);
     }
 
-    public static BookSpiritTradeRecipePage fromJson(ResourceLocation conditionParentId, JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(json, provider);
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(conditionParentId, json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookSpiritTradeRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+    public BookSpiritTradeRecipePage(NetworkDataHolder data) {
+        super(data);
+    }
+
+    public static BookSpiritTradeRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
+        var common = BookRecipePage.commonFromJson(entryId, json, provider);
+        return new BookSpiritTradeRecipePage(common);
     }
 
     public static BookSpiritTradeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer){
         var common = BookRecipePage.commonFromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookSpiritTradeRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        return new BookSpiritTradeRecipePage(common);
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return OccultismModonomiconConstants.Page.SPIRIT_TRADE_RECIPE;
     }
 }

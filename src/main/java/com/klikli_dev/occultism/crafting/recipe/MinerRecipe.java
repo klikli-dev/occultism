@@ -27,13 +27,14 @@ import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -54,7 +55,7 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
             MinerRecipe::new
     );
 
-    public static Serializer SERIALIZER = new Serializer();
+    public static final RecipeSerializer<MinerRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     protected final Ingredient input;
     protected final WeightedRecipeResult result;
 
@@ -68,6 +69,26 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
         return true;
     }
 
+    @Override
+    public boolean showNotification() {
+        return false;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
+    }
+
     public WeightedRecipeResult getWeightedResult() {
         return this.result;
     }
@@ -78,47 +99,22 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        //we only ever use one slot, and we only support miners, so return true.
-        return true;
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer) {
+        return this.getResultItem().copy();
     }
 
-    @Override
-    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
-        return this.getResultItem(pRegistries).copy();
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public ItemStack getResultItem() {
         return this.result.getStack();
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.EMPTY, this.input);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<MinerRecipe> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<MinerRecipe> getType() {
         return OccultismRecipes.MINER_TYPE.get();
     }
 
-
-    public static class Serializer implements RecipeSerializer<MinerRecipe> {
-
-        @Override
-        public MapCodec<MinerRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, MinerRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

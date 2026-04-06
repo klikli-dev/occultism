@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
+import com.klikli_dev.occultism.handlers.ColorEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
@@ -63,10 +64,10 @@ public class Occultism {
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
-    public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
-    public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
-    public static final OccultismStartupConfig STARTUP_CONFIG = new OccultismStartupConfig();
+    public static final OccultismServerConfig SERVER_CONFIG = OccultismServerConfig.get();
+    public static final OccultismCommonConfig COMMON_CONFIG = OccultismCommonConfig.get();
+    public static final OccultismClientConfig CLIENT_CONFIG = OccultismClientConfig.get();
+    public static final OccultismStartupConfig STARTUP_CONFIG = OccultismStartupConfig.get();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static final DebugHelper DEBUG = new DebugHelper();
@@ -100,6 +101,7 @@ public class Occultism {
         OccultismDataComponents.DATA_COMPONENTS.register(modEventBus);
         OccultismRecipeResults.RECIPE_RESULT_TYPES.register(modEventBus);
         OccultismConditionCodecs.CONDITION_CODECS.register(modEventBus);
+        OccultismRecipeDisplays.RECIPE_DISPLAYS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
@@ -116,9 +118,13 @@ public class Occultism {
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
 
-        if (FMLEnvironment.dist == Dist.CLIENT) {
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterRenderPipelines);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterConditionalItemModelProperties);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterRangeSelectItemModelProperties);
+            modEventBus.addListener(ColorEventHandler::onRegisterBlockColorHandlers);
             ClientSetupEventHandler.registerConfigScreen(modContainer);
         }
 

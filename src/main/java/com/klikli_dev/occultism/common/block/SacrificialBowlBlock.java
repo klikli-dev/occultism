@@ -27,14 +27,13 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.GuideBookItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -48,6 +47,7 @@ import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -78,20 +78,8 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-            if (blockEntity != null) {
-                StorageUtil.dropInventoryItems(blockEntity);
-            }
-            super.onRemove(state, worldIn, pos, newState, isMoving);
-        }
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide()) {
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) pLevel.getBlockEntity(pPos);
             var handler = bowl.itemStackHandler;
@@ -115,12 +103,12 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
                 bowl.setChanged();
             }
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        if (!level.isClientSide && level.getBlockState(pos).is(this) && level.hasNeighborSignal(pos)
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean isMoving) {
+        if (!level.isClientSide() && level.getBlockState(pos).is(this) && level.hasNeighborSignal(pos)
             && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
             && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf
             && bowl.itemStackHandler.getStackInSlot(0).getItem() instanceof GuideBookItem) {

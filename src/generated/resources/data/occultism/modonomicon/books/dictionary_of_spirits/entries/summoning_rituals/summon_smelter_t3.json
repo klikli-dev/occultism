@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t3.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:gold_ingot"
+    "id": "minecraft:gold_ingot"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t3.name",
   "pages": [

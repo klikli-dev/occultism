@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:ores/sulfur"
-  },
+  "ingredient": "#c:ores/sulfur",
   "result": {
     "type": "occultism:tag",
     "count": 3,

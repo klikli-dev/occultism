@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:gems/fluix"
-  },
+  "ingredient": "#c:gems/fluix",
   "result": {
     "type": "occultism:tag",
     "count": 1,

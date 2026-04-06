@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/mithril"
-  },
+  "ingredient": "#c:ingots/mithril",
   "result": {
     "type": "occultism:tag",
     "count": 1,

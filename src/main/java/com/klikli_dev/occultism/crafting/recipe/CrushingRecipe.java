@@ -27,12 +27,12 @@ import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -65,7 +65,7 @@ public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
             Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
     ).apply(instance, CrushingRecipe::new));
 
-    public static Serializer SERIALIZER = new Serializer();
+    public static RecipeSerializer<CrushingRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final int crushingTime;
     protected final int minTier;
@@ -119,31 +119,20 @@ public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public ItemStack getResultItem() {
         return this.result.getStack();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<TieredSingleRecipeInput>> getSerializer() {
         return SERIALIZER;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public RecipeType<?> getType() {
-        return OccultismRecipes.CRUSHING_TYPE.get();
+    public RecipeType<? extends Recipe<TieredSingleRecipeInput>> getType() {
+        return (RecipeType<? extends Recipe<TieredSingleRecipeInput>>) (RecipeType<?>) OccultismRecipes.CRUSHING_TYPE.get();
     }
 
-
-    public static class Serializer implements RecipeSerializer<CrushingRecipe> {
-
-        @Override
-        public MapCodec<CrushingRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

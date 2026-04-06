@@ -14,7 +14,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -33,23 +33,23 @@ public class SetWalkTargetToItemBehaviour<E extends SpiritEntity> extends Extend
 
     @Override
     protected void start(E entity) {
-        var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+        var jobItem = BrainUtil.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         if (jobItem != null && jobItem.isAlive()) {
             if (Math3DUtil.withinAxisDistances(entity.position(), jobItem.position(),
                     PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE,
                     PickupItemBehaviour.PICKUP_Y_RANGE,
                     PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE)) {
-                BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
             } else {
-                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
-                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(jobItem, 1.0f, 0));
+                BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
+                BrainUtil.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(jobItem, 1.0f, 0));
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(jobItem.blockPosition(), 5000, OccultismConstants.Color.GREEN));
                 }
             }
         } else {
-            BrainUtils.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+            BrainUtil.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         }
     }
 

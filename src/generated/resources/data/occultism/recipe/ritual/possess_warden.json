@@ -1,8 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
-  },
+  "activation_item": "occultism:book_of_binding_bound_afrit",
   "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.cows",
@@ -10,38 +8,28 @@
   },
   "entity_to_summon": "occultism:possessed_warden",
   "ingredients": [
-    {
-      "item": "minecraft:sculk"
-    },
-    {
-      "item": "minecraft:sculk"
-    },
-    {
-      "item": "minecraft:sculk"
-    },
-    {
-      "item": "minecraft:sculk"
-    },
-    {
-      "item": "minecraft:sculk"
-    },
-    {
-      "item": "minecraft:sculk"
-    }
+    "minecraft:sculk",
+    "minecraft:sculk",
+    "minecraft:sculk",
+    "minecraft:sculk",
+    "minecraft:sculk",
+    "minecraft:sculk"
   ],
   "pentacle_id": "occultism:possess_afrit",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_warden\"}",
+      "minecraft:item_name": {
+        "translate": "item.occultism.ritual_dummy.possess_warden"
+      },
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_warden.tooltip\"}"
+        {
+          "translate": "item.occultism.ritual_dummy.possess_warden.tooltip"
+        }
       ]
     },
-    "count": 1,
     "id": "occultism:spawn_egg/possessed_warden"
   },
   "ritual_dummy": {
-    "count": 1,
     "id": "occultism:ritual_dummy/possess_warden"
   },
   "ritual_type": "occultism:summon"

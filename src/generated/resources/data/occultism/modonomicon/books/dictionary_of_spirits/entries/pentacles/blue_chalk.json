@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_blue"
+    "id": "occultism:chalk_blue"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_blue"
-      },
+      "item": "occultism:chalk_blue",
       "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:marid_essence"
-      },
+      "item": "occultism:marid_essence",
       "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.essence.text",
       "title": ""
     },

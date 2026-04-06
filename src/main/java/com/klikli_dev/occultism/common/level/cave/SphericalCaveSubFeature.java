@@ -70,10 +70,10 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         //Store a list of spherical caves for easy access during development, or future command access.
         sphericalCaves.add(rootPosition);
 
-        ChunkPos rootChunk = new ChunkPos(rootPosition);
+        ChunkPos rootChunk = ChunkPos.containing(rootPosition);
 
         //Seed with root chunk position
-        var seed = MultiChunkFeature.getLargeFeatureWithSaltSeed(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+        var seed = MultiChunkFeature.getLargeFeatureWithSaltSeed(reader.getSeed(), rootChunk.x(), rootChunk.z(), config.featureSeedSalt);
         rand.setSeed(seed);
 
         List<Sphere> spheres = new ArrayList<>();

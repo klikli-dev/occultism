@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "o": {
-      "item": "occultism:polished_otherrock"
-    }
+    "o": "occultism:polished_otherrock"
   },
   "pattern": [
     "ooo"

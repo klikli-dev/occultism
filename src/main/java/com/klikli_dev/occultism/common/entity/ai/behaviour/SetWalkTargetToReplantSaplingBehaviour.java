@@ -17,7 +17,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -39,12 +39,12 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
 
     @Override
     protected void start(E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get()).getFirst();
+        var treePos = BrainUtil.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get()).getFirst();
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE) {
-            BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+            BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
         } else {
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
-            BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 0));
+            BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
+            BrainUtil.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 0));
 
             if (Occultism.DEBUG.debugAI) {
                 Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.GREEN));

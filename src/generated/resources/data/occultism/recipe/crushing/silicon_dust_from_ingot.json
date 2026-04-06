@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/silicon"
-  },
+  "ingredient": "#c:ingots/silicon",
   "result": {
     "type": "occultism:tag",
     "count": 1,

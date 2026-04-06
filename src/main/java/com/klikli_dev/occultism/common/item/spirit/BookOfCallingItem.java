@@ -33,31 +33,44 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class BookOfCallingItem extends Item implements IHandleItemMode {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public static Map<UUID, Long> spiritDeathRegister = new HashMap<>();
     public String translationKeyBase;
@@ -104,9 +117,9 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
-        if(!pPlayer.isShiftKeyDown() && pLevel.isClientSide) {
+        if(!pPlayer.isShiftKeyDown() && pLevel.isClientSide()) {
             ItemMode curr = this.getCurrentItemMode(itemStack);
             WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
             GuiHelper.openBookOfCallingGui(curr, workAreaSize);
@@ -125,7 +138,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         CompoundTag entityData = ItemNBTUtil.getSpiritEntityData(itemStack);
         if (entityData != null) {
             //whenever we have an entity stored we can do nothing but release it
-            if (!world.isClientSide) {
+            if (!world.isClientSide()) {
                 EntityType type = EntityUtil.entityTypeFromNbt(entityData);
 
                 facing = facing == null ? Direction.UP : facing;
@@ -142,14 +155,16 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 CompoundTag wrapper = new CompoundTag();
                 wrapper.put("EntityTag", entityData);
 
-                SpiritEntity entity = (SpiritEntity) type.create(world);
-                entity.load(entityData);
-                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                SpiritEntity entity = (SpiritEntity) type.create(world, EntitySpawnReason.LOAD);
+                try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(entity.problemPath(), LOGGER)) {
+                    entity.load(TagValueInput.create(reporter, entity.registryAccess(), entityData));
+                }
+                entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
                 world.addFreshEntity(entity);
 
                 //old spawn code
                 //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerLevel)world, wrapper, customName, null, spawnPos,
-                //                        MobSpawnType.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                //                        EntitySpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 //                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                 //                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
                 //                }
@@ -168,7 +183,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             if (player.isShiftKeyDown()) {
                 //when sneaking, perform action based on mode
                 return this.handleItemMode(player, world, pos, itemStack, facing);
-            } else if (world.isClientSide) {
+            } else if (world.isClientSide()) {
                 //if not sneaking, open general ui
                 ItemMode curr = this.getCurrentItemMode(itemStack);
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
@@ -187,7 +202,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         if (!(target instanceof SpiritEntity targetSpirit) || !targetSpirit.isOwnedBy(player))
             return InteractionResult.PASS;
 
-        if (target.level().isClientSide)
+        if (target.level().isClientSide())
             return InteractionResult.SUCCESS;
 
         //books can only control the spirit that is bound to them.
@@ -198,10 +213,9 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
                     stack.set(DataComponents.RARITY, Rarity.RARE);
                     ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
-                    player.displayClientMessage(
+                    player.sendOverlayMessage(
                             Component.translatable(
-                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"),
-                            true);
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"));
                     player.swing(hand);
                     player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
                     player.inventoryMenu.broadcastChanges();
@@ -210,74 +224,73 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     //if our mode is "set deposit" then we check if the target is appropriate for depositing
                     //Note: we filter above for spirits -> so for now only spirits are an appropriate target
                     if (this.getCurrentItemMode(stack) == ItemModes.SET_DEPOSIT) {
-                        if (targetSpirit.getCapability(Capabilities.ItemHandler.ENTITY) != null) {
+                        if (targetSpirit.getCapability(Capabilities.Item.ENTITY) != null) {
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
                             if (boundSpiritId != null) {
                                 Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.level().getServer(), boundSpiritId)
                                         .map(e -> (SpiritEntity) e);
 
                                 if (boundSpirit.isPresent()) {
-                                    boundSpirit.get().setDepositEntityUUID(targetSpirit.getUUID());
+                                    boundSpirit.get().setDepositEntityUUID(EntityReference.of(targetSpirit.getUUID()));
                                     //also update control item with latest data
                                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
                                     ItemNBTUtil.setDepositEntityName(stack, target.getName().getString());
 
 
-                                    player.displayClientMessage(
+                                    player.sendOverlayMessage(
                                             Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit_entity",
                                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                                    TextUtil.formatDemonName(targetSpirit.getName().getString())), true);
+                                                    TextUtil.formatDemonName(targetSpirit.getName().getString())));
                                     player.swing(hand);
                                     player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
                                     player.inventoryMenu.broadcastChanges();
                                     return InteractionResult.SUCCESS;
                                 } else {
-                                    player.displayClientMessage(
+                                    player.sendOverlayMessage(
                                             Component.translatable(
-                                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                                            true);
+                                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"));
                                     return InteractionResult.FAIL;
                                 }
                             } else {
                                 //if spirit id is null then this was a (failed) link attempt -> and we fail
-                                player.displayClientMessage(
+                                player.sendOverlayMessage(
                                         Component.translatable(
-                                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
-                                        true);
+                                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"));
                                 return InteractionResult.FAIL;
                             }
                         } else {
                             //if target is not appropriate, we fail
-                            player.displayClientMessage(
+                            player.sendOverlayMessage(
                                     Component.translatable(
-                                            TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_entity_no_inventory"),
-                                    true);
+                                            TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_entity_no_inventory"));
                             return InteractionResult.FAIL;
                         }
                     }
 
                     //if mode is not deposit we fail the linking
-                    player.displayClientMessage(
+                    player.sendOverlayMessage(
                             Component.translatable(
-                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
-                            true);
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"));
                     return InteractionResult.FAIL;
                 }
             } else {
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
-                        true);
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"));
                 return InteractionResult.FAIL;
             }
         }
 
         //serialize entity
-        var entityData = new CompoundTag();
+        CompoundTag entityData;
+        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(targetSpirit.problemPath(), LOGGER)) {
+            TagValueOutput output = TagValueOutput.createWithContext(reporter, targetSpirit.registryAccess());
+            targetSpirit.saveWithoutId(output);
+            entityData = output.buildResult();
+        }
         var id = targetSpirit.getEncodeId();
         if(id != null)
             entityData.putString("id", id);
-        entityData = targetSpirit.saveWithoutId(entityData);
 
         ItemNBTUtil.setSpiritEntityData(stack, entityData);
         ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
@@ -291,7 +304,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, ServerLevel worldIn, Entity entityIn, @Nullable EquipmentSlot slot) {
         if (worldIn.getGameTime() % (20 * 60) == 0) {
             UUID spiritID = ItemNBTUtil.getSpiritEntityUUID(stack);
             if (spiritID != null) {
@@ -304,14 +317,14 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             }
         }
 
-        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+        super.inventoryTick(stack, worldIn, entityIn, slot);
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
 
-        pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() +
+        tooltipAdder.accept(Component.translatable(this.getTranslationKeyBase() +
                         (ItemNBTUtil.getSpiritDead(pStack) ? ".tooltip_dead" : ".tooltip"),
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
@@ -319,16 +332,6 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     @Override
     public boolean isFoil(ItemStack stack) {
         return ItemNBTUtil.getSpiritEntityData(stack) != null;
-    }
-
-    @Override
-    public void verifyComponentsAfterLoad(ItemStack pStack) {
-        super.verifyComponentsAfterLoad(pStack);
-
-        if(pStack.has(OccultismDataComponents.SPIRIT_ENTITY_UUID))
-            pStack.set(DataComponents.RARITY, Rarity.RARE);
-        else
-            pStack.set(DataComponents.RARITY, Rarity.COMMON);
     }
 
     public ItemMode getCurrentItemMode(ItemStack stack) {
@@ -352,7 +355,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         //handle the serverside item modes
-        if (!world.isClientSide) {
+        if (!world.isClientSide()) {
 
                 return itemMode.handle(blockEntity,player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
 

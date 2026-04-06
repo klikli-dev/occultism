@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
@@ -37,13 +38,15 @@ import net.minecraft.world.entity.ai.goal.target.DefendVillageTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.TagValueOutput;
 
 public class IesniumGolemEntity extends IronGolem {
 
@@ -62,7 +65,7 @@ public class IesniumGolemEntity extends IronGolem {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new DefendVillageTargetGoal(this));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, p_28879_ -> p_28879_ instanceof Enemy));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, false, (target, level) -> target instanceof Enemy));
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
     }
 
@@ -77,14 +80,10 @@ public class IesniumGolemEntity extends IronGolem {
     }
 
     @Override
-    public boolean canAttackType(EntityType<?> type) {
-        return type != EntityType.PLAYER;
-    }
-
-    @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if(source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
-            this.teleportTo(this.level().getSharedSpawnPos().getX(), this.level().getSharedSpawnPos().getY(), this.level().getSharedSpawnPos().getZ());
+            var spawnPos = ((ServerLevel)this.level()).getRespawnData().pos();
+            this.teleportTo(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
             while (!level().getBlockState(this.getOnPos()).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos()))
                     || !level().getBlockState(this.getOnPos(1)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(1)))
                     || !level().getBlockState(this.getOnPos(2)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(2)))
@@ -98,16 +97,14 @@ public class IesniumGolemEntity extends IronGolem {
         if (source.getEntity() == null || !source.getEntity().isCrouching())
             return true;
 
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        } else {
+    protected void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
+        if (!this.isInvulnerableTo(level, source)) {
             this.createShard();
-            return super.hurt(source, amount);
+            super.actuallyHurt(level, source, amount);
         }
     }
 
@@ -120,13 +117,15 @@ public class IesniumGolemEntity extends IronGolem {
         this.removeAllEffects();
         this.remove(RemovalReason.DISCARDED);
 
-        var entityData = new CompoundTag();
         var id = this.getEncodeId();
+        var entityData = new CompoundTag();
         if (id != null)
             entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
+        var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
+        this.saveWithoutId(valueOutput);
+        entityData.merge(valueOutput.buildResult());
 
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+        shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
         this.setHealth(health);
 
         ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);

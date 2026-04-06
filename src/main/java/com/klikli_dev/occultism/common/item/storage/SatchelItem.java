@@ -33,9 +33,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class SatchelItem extends Item {
 
@@ -45,12 +46,12 @@ public class SatchelItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
 
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             //here we use main hand item as selected slot
-            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : -1;
+            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : -1;
 
             serverPlayer.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
@@ -61,14 +62,14 @@ public class SatchelItem extends Item {
                     });
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
 
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+        pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
 

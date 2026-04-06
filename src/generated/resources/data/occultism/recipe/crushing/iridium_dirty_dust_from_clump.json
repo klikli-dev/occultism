@@ -16,9 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
-  "ingredient": {
-    "tag": "c:clumps/iridium"
-  },
+  "ingredient": "#c:clumps/iridium",
   "result": {
     "type": "occultism:tag",
     "count": 2,

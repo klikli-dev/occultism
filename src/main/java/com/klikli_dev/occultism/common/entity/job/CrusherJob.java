@@ -92,7 +92,9 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.itemsToPickUp = this.entity.level().getRecipeManager().getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get()).stream()
+        this.itemsToPickUp = ((ServerLevel) this.entity.level()).recipeAccess().getRecipes().stream()
+                .filter(recipe -> recipe.value() instanceof CrushingRecipe)
+                .map(recipe -> (RecipeHolder<CrushingRecipe>) (RecipeHolder<?>) recipe)
                 .filter(
                         recipe -> {
                             //we filter by tier, but only if the recipe has an "active" min and max tier set = min/max >= -1
@@ -117,7 +119,7 @@ public class CrusherJob extends SpiritJob {
         Level level = this.entity.level();
 
         if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
-            this.currentRecipe = level.getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
+            this.currentRecipe = ((ServerLevel) level).recipeAccess().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
                     recipeInput, level);
             this.crushingTimer = 0;
 
@@ -129,7 +131,7 @@ public class CrusherJob extends SpiritJob {
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
+                ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, handHeld);
                 if (droppedItem != null) {
                     droppedItem.addTag(DROPPED_BY_CRUSHER);
                 }
@@ -147,8 +149,8 @@ public class CrusherJob extends SpiritJob {
                 if (level.getGameTime() % 10 == 0) {
                     Vec3 pos = this.entity.position();
                     ((ServerLevel) level)
-                            .sendParticles(ParticleTypes.CRIT, pos.x + level.random.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                            .sendParticles(ParticleTypes.CRIT, pos.x + level.getRandom().nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
@@ -162,7 +164,7 @@ public class CrusherJob extends SpiritJob {
                 if (this.crushingTimer >= this.currentRecipe.get().value().getCrushingTime() * this.crushingTimeMultiplier.get()) {
                     this.crushingTimer = 0;
 
-                    ItemStack result = this.currentRecipe.get().value().assemble(recipeInput, level.registryAccess());
+                    ItemStack result = this.currentRecipe.get().value().assemble(recipeInput);
                     //make sure to ignore output multiplier on recipes that set that flag.
                     //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
                     float outputMultiplier = this.outputMultiplier.get();
@@ -188,7 +190,7 @@ public class CrusherJob extends SpiritJob {
                             }
                         }
                         if (flag) {
-                            ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                            ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, event.getResult());
                             if (droppedItem != null) {
                                 droppedItem.addTag(DROPPED_BY_CRUSHER);
                             }
@@ -210,12 +212,12 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
-        this.crushingTimer = compound.getInt("conversionTimer");
+        this.crushingTimer = compound.getIntOr("conversionTimer", 0);
     }
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if ((entity.getTags().contains(DROPPED_BY_CRUSHER) || entity.getTags().contains(DROPPED_BY_SMELTER) || entity.getTags().contains(DROPPED_BY_CRYSTALLIZER))
+        if ((entity.entityTags().contains(DROPPED_BY_CRUSHER) || entity.entityTags().contains(DROPPED_BY_SMELTER) || entity.entityTags().contains(DROPPED_BY_CRYSTALLIZER))
                 && entity.getAge() < Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
             return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
 
@@ -240,8 +242,9 @@ public class CrusherJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        this.handlerBelow = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK,
+        var resourceHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
+        this.handlerBelow = resourceHandler != null ? IItemHandler.of(resourceHandler) : null;
     }
 
     public static class CrusherJobEvent extends ItemProcessingJobEvent {

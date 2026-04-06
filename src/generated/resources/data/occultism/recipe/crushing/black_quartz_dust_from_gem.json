@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:gems/black_quartz"
-  },
+  "ingredient": "#c:gems/black_quartz",
   "result": {
     "type": "occultism:tag",
     "count": 1,

@@ -22,23 +22,25 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+public class SoulGemItemPropertyGetter implements ConditionalItemModelProperty {
+    public static final MapCodec<SoulGemItemPropertyGetter> MAP_CODEC = MapCodec.unit(new SoulGemItemPropertyGetter());
 
-@OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
-public class SoulGemItemPropertyGetter implements ItemPropertyFunction {
-
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        return stack.has(DataComponents.ENTITY_DATA) ? 1.0f : 0.0f;
+    public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+        return stack.has(DataComponents.ENTITY_DATA);
+    }
+
+    @Override
+    public MapCodec<? extends ConditionalItemModelProperty> type() {
+        return MAP_CODEC;
     }
 }

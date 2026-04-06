@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crystallize",
   "ignore_crystallize_multiplier": true,
-  "ingredient": {
-    "tag": "c:dusts/lapis"
-  },
+  "ingredient": "#c:dusts/lapis",
   "result": {
     "type": "occultism:tag",
     "count": 1,

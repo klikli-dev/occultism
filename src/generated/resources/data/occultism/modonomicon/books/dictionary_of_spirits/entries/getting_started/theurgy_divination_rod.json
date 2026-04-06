@@ -18,7 +18,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.description",
   "hide_while_locked": true,
   "icon": {
-    "item": "theurgy:divination_rod_t1"
+    "id": "minecraft:stick"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.name",
   "pages": [
@@ -28,9 +28,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:divination_rod_t1"
-      },
+      "item": "minecraft:stick",
       "text": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.intro.text",
       "title": ""
     },

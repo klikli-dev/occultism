@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_lime"
+    "id": "occultism:chalk_lime"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_lime"
-      },
+      "item": "occultism:chalk_lime",
       "text": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.spotlight.text",
       "title": ""
     },

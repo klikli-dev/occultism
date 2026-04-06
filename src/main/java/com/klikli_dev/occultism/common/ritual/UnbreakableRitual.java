@@ -33,7 +33,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.component.Unbreakable;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -57,7 +57,7 @@ public class UnbreakableRitual extends Ritual {
 
         result.setDamageValue(0);
 
-        result.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
+        result.set(DataComponents.UNBREAKABLE, Unit.INSTANCE);
         if (result.isEnchanted()) {
             EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(Enchantments.UNBREAKING)));
             EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(Enchantments.MENDING)));

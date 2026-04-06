@@ -24,10 +24,11 @@ package com.klikli_dev.occultism.common.effect;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,11 +37,11 @@ public class StepHeightEffect extends MobEffect {
 
     public StepHeightEffect() {
         super(MobEffectCategory.BENEFICIAL, 3402751);
-        this.addAttributeModifier(Attributes.STEP_HEIGHT, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, AttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, AttributeModifier.Operation.ADD_VALUE);
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel level, LivingEntity livingEntity, int amplifier) {
         if (livingEntity.isShiftKeyDown())
             livingEntity.addEffect(new MobEffectInstance(OccultismEffects.STEP_BLOCKED, 2, 1, true, false));
         return true;

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iesnium_ingot"
+    "id": "occultism:iesnium_ingot"
   },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.name",
   "pages": [

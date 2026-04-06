@@ -50,11 +50,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -69,10 +72,13 @@ import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoBlockEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -113,7 +119,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     public void tick() {
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             if (!this.stabilizersInitialized) {
                 this.stabilizersInitialized = true;
                 this.updateStabilizers();
@@ -207,8 +213,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 .map(entry -> (Predicate<ItemStack>) stack -> stack.getItem() == entry.getKey()).toList();
     }
 
-    private <E extends GeoBlockEntity> PlayState predicate(AnimationState<E> event) {
-        event.getController().setAnimation(RawAnimation.begin()
+    private PlayState predicate(AnimationTest<StorageControllerBlockEntity> event) {
+        event.setAnimation(RawAnimation.begin()
                 .thenLoop("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
     }
@@ -220,7 +226,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             if (matrix.get(i) != null && !matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                stackTag.put("stack", matrix.get(i).save(provider));
+                stackTag.put("stack", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), matrix.get(i)).getOrThrow());
                 matrixNbt.add(stackTag);
             }
         }
@@ -231,11 +237,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, HolderLookup.Provider provider) {
         Map<Integer, ItemStack> matrix = new HashMap<>();
         if (matrixCompound.contains("matrix")) {
-            ListTag matrixNbt = matrixCompound.getList("matrix", Tag.TAG_COMPOUND);
+            ListTag matrixNbt = matrixCompound.getListOrEmpty("matrix");
             for (int i = 0; i < matrixNbt.size(); i++) {
-                CompoundTag stackTag = matrixNbt.getCompound(i);
-                int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.parseOptional(provider, stackTag.getCompound("stack"));
+                CompoundTag stackTag = matrixNbt.getCompoundOrEmpty(i);
+                int slot = stackTag.getByteOr("slot", (byte) 0);
+                ItemStack s = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), stackTag.getCompoundOrEmpty("stack")).result().orElse(ItemStack.EMPTY);
                 matrix.put(slot, s);
             }
         }
@@ -535,76 +541,68 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.loadAdditional(compound, provider);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        //linked machines are not saved, they self-register.
 
         //read stored items
-        if (compound.contains("items")) {
-            this.itemStackHandler.deserializeNBT(provider, compound.getCompound("items"));
+        input.read("items", CompoundTag.CODEC).ifPresent(tag -> {
+            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), tag);
             this.cachedMessageUpdateStacks = null;
-        }
+        });
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        super.saveAdditional(compound, provider);
-        compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        compound.put("items", this.itemStackHandler.serializeNBT(provider));
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        //linked machines are not saved, they self-register.
+        output.store("items", CompoundTag.CODEC, this.itemStackHandler.serializeNBT(this.level.registryAccess()));
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
-        this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));
-        if (compound.contains("maxItemTypes") && compound.contains("maxTotalItemCount")) {
-            this.setStorageLimits(compound.getInt("maxItemTypes"), compound.getLong("maxTotalItemCount"));
+    public void loadNetwork(ValueInput input) {
+        this.setSortDirection(SortDirection.BY_ID.apply(input.getIntOr("sortDirection", 0)));
+        this.setSortType(SortType.BY_ID.apply(input.getIntOr("sortType", 0)));
+        if (input.getInt("maxItemTypes").isPresent() && input.getLong("maxTotalItemCount").isPresent()) {
+            this.setStorageLimits(input.getIntOr("maxItemTypes", 0), input.getLongOr("maxTotalItemCount", 0L));
         }
 
         //read stored crafting matrix
-        if (compound.contains("matrix")) {
-            this.matrix = loadMatrix(compound.getCompound("matrix"), provider);
-        }
+        input.read("matrix", CompoundTag.CODEC).ifPresent(tag -> this.matrix = loadMatrix(tag, input.lookup()));
 
-        if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.parseOptional(provider, compound.getCompound("orderStack"));
+        this.orderStack = input.read("orderStack", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
         //read the linked machines
         this.linkedMachines = new HashMap<>();
-        if (compound.contains("linkedMachines")) {
-            ListTag machinesNbt = compound.getList("linkedMachines", Tag.TAG_COMPOUND);
-            for (int i = 0; i < machinesNbt.size(); i++) {
-                MachineReference reference = MachineReference.CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), machinesNbt.getCompound(i)).getOrThrow();
-                this.linkedMachines.put(reference.insertGlobalPos, reference);
-            }
-        }
+        input.listOrEmpty("linkedMachines", MachineReference.CODEC).forEach(reference -> {
+            this.linkedMachines.put(reference.insertGlobalPos, reference);
+        });
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.putInt("sortDirection", this.getSortDirection().ordinal());
-        compound.putInt("sortType", this.getSortType().ordinal());
-        compound.putInt("maxItemTypes", this.maxItemTypes);
-        compound.putLong("maxTotalItemCount", this.maxTotalItemCount);
+    public void saveNetwork(ValueOutput output) {
+        output.putInt("sortDirection", this.getSortDirection().ordinal());
+        output.putInt("sortType", this.getSortType().ordinal());
+        output.putInt("maxItemTypes", this.maxItemTypes);
+        output.putLong("maxTotalItemCount", this.maxTotalItemCount);
 
         //write stored crafting matrix
-        compound.put("matrix", saveMatrix(this.matrix, provider));
+        if (this.level != null) {
+            output.store("matrix", CompoundTag.CODEC, saveMatrix(this.matrix, this.level.registryAccess()));
+        }
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.saveOptional(provider));
+            output.store("orderStack", ItemStack.OPTIONAL_CODEC, this.orderStack);
 
         //write linked machines
-        ListTag machinesNbt = new ListTag();
+        var machinesList = output.list("linkedMachines", MachineReference.CODEC);
         for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
-            machinesNbt.add(entry.getValue().serializeNBT(provider));
+            machinesList.add(entry.getValue());
         }
-        compound.put("linkedMachines", machinesNbt);
-
-        return compound;
     }
 
     @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+    protected void applyImplicitComponents(DataComponentGetter pComponentInput) {
         super.applyImplicitComponents(pComponentInput);
 
         if (pComponentInput.get(OccultismDataComponents.SORT_DIRECTION) != null)
@@ -613,13 +611,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             this.sortType = pComponentInput.get(OccultismDataComponents.SORT_TYPE);
 
         if (pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX) != null) {
-            this.matrix = loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe(), this.level.registryAccess());
+            this.matrix = loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).copyTag(), this.level.registryAccess());
         }
         if (pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
-            this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
+            this.orderStack = ItemStack.OPTIONAL_CODEC.parse(this.level.registryAccess().createSerializationContext(NbtOps.INSTANCE), pComponentInput.get(OccultismDataComponents.ORDER_STACK).copyTag()).result().orElse(ItemStack.EMPTY);
 
         if (pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()) != null) {
-            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).getUnsafe());
+            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).copyTag());
         }
     }
 
@@ -632,12 +630,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         pComponents.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(saveMatrix(this.matrix, this.level.registryAccess())));
 
-        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) this.orderStack.saveOptional(this.level.registryAccess())));
+        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(this.level.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.orderStack).getOrThrow()));
 
         pComponents.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS, CustomData.of(this.itemStackHandler.serializeNBT(this.level.registryAccess())));
     }
 
-    @Override
     public void removeComponentsFromTag(CompoundTag pTag) {
         //this causes stuff to get lost. Not sure why / how it is used in vanilla shulker boxes
 //        pTag.remove("items");
@@ -656,7 +653,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::predicate));
+        controllers.add(new AnimationController<StorageControllerBlockEntity>("controller", 0, this::predicate));
     }
 
     @Override

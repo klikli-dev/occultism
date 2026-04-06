@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
 
     @Override
     protected boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull E entity) {
-        var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+        var jobItem = BrainUtil.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         return Math3DUtil.withinAxisDistances(entity.position(), jobItem.position(),
                 PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE,
                 PickupItemBehaviour.PICKUP_Y_RANGE,
@@ -44,9 +44,9 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
     }
 
     protected void start(E entity) {
-        var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+        var jobItem = BrainUtil.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 
-        BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
+        BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
         ItemStack duplicate = jobItem.getItem().copy();
         ItemStackHandler handler = entity.inventory;
         if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
@@ -60,7 +60,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
             }
         }
 
-        BrainUtils.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+        BrainUtil.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
     }
 
     @Override

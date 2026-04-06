@@ -23,12 +23,13 @@
 package com.klikli_dev.occultism.common.item.otherworld;
 
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Allows to show different textures and translation keys for HWYLA and in the inventory
@@ -40,21 +41,15 @@ public class OtherworldBlockItem extends BlockItem {
     }
 
     /**
-     * Make getDefaultTranslationKey public for use in OtherworldUtil
+     * Get the block's description id for use in OtherworldUtil
      */
-    @Override
-    public String getOrCreateDescriptionId() {
+    public String getBlockDescriptionId() {
         return this.getBlock().getDescriptionId();
     }
 
     @Override
-    public String getDescriptionId(ItemStack stack) {
-        return OtherworldUtil.getTranslationKeyDistAware(this, stack);
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entityIn, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(stack, level, entityIn, slot);
         stack.set(OccultismDataComponents.IS_INVENTORY_ITEM, true);
     }
 

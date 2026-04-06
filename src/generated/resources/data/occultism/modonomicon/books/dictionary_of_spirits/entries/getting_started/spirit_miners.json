@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:miner_foliot_unspecialized"
+    "id": "occultism:miner_foliot_unspecialized"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.name",
   "pages": [
@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:miner_foliot_unspecialized"
-      },
+      "item": "occultism:miner_foliot_unspecialized",
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.spotlight.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.spotlight.title"
     },

@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_ancient_miner.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:miner_ancient_eldritch"
+    "id": "occultism:miner_ancient_eldritch"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_ancient_miner.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:miner_ancient_eldritch"
-      },
+      "item": "occultism:miner_ancient_eldritch",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_ancient_miner.spotlight.text",
       "title": ""
     },

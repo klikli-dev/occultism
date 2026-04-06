@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:gray_paste"
-    },
-    {
-      "tag": "c:dusts/emerald"
-    }
+    "occultism:gray_paste",
+    "#c:dusts/emerald"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:emerald"
   }
 }

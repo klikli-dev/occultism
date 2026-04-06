@@ -1,5 +1,4 @@
 {
-  "parent": "minecraft:builtin/entity",
   "textures": {
     "particle": "occultism:block/stripped_otherworld_log"
   }

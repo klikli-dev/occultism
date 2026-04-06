@@ -26,13 +26,17 @@ import com.klikli_dev.occultism.client.model.entity.MaridUnboundModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.MaridUnboundEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.layer.GeoRenderLayer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
-public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity> {
+public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity, EntityRenderState> {
 
     public MaridUnboundRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridUnboundModel());
 
-        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        GeoRenderLayer layer = new ConditionalGlowingGeoLayer(this);
+        this.withRenderLayer(layer);
     }
 }

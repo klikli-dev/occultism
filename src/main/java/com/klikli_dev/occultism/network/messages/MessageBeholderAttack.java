@@ -29,7 +29,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
@@ -38,7 +38,7 @@ import java.util.List;
 
 public class MessageBeholderAttack implements IMessage {
 
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "beholder_attack");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "beholder_attack");
     public static final Type<MessageBeholderAttack> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageBeholderAttack> STREAM_CODEC = CustomPacketPayload.codec(MessageBeholderAttack::encode, MessageBeholderAttack::new);
 

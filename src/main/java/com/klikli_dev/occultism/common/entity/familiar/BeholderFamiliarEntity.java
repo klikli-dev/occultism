@@ -31,7 +31,6 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -52,10 +51,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -97,15 +97,15 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setWardenUpgrade(compound.getBoolean("hasWardenUpgrade"));
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setWardenUpgrade(input.getBooleanOr("hasWardenUpgrade", false));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasWardenUpgrade", this.hasWardenUpgrade());
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean("hasWardenUpgrade", this.hasWardenUpgrade());
     }
 
     @Override
@@ -130,7 +130,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 
@@ -148,7 +148,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             for (Eye eye : this.eyes)
                 eye.tick();
 
@@ -168,7 +168,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
                 if (this.eatTimer < 50) {
                     if (this.eatTimer % 5 == 0)
-                        this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EAT,
+                        this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EAT.value(),
                                 SoundSource.HOSTILE, this.getSoundVolume(), this.getVoicePitch(), false);
 
                     this.mouthRot = Mth.sin(this.tickCount) * FamiliarUtil.toRads(50) + FamiliarUtil.toRads(20);
@@ -187,7 +187,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setColor();
         this.setBeard(this.getRandom().nextBoolean());
         this.setSpikes(this.getRandom().nextBoolean());
@@ -358,8 +358,8 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             for (int id : this.targetIds) {
                 Entity e = this.entity.level().getEntity(id);
                 float damage = 9;
-                if (this.entity.hasEffect(MobEffects.DAMAGE_BOOST))
-                    damage *= this.entity.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() + 2;
+                if (this.entity.hasEffect(MobEffects.STRENGTH))
+                    damage *= this.entity.getEffect(MobEffects.STRENGTH).getAmplifier() + 2;
 
                 if (e == null)
                     continue;
@@ -401,8 +401,8 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                 Entity food = foods.get(this.entity.getRandom().nextInt(foods.size()));
                 food.remove(RemovalReason.DISCARDED);
                 this.entity.swing(InteractionHand.MAIN_HAND);
-                this.entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, EAT_EFFECT_DURATION, 0, false, false));
-                this.entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, EAT_EFFECT_DURATION, 0, false, false));
+                this.entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, EAT_EFFECT_DURATION, 0, false, false));
+                this.entity.addEffect(new MobEffectInstance(MobEffects.SPEED, EAT_EFFECT_DURATION, 0, false, false));
 
                 OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.BEHOLDER_EAT);
             }
@@ -503,7 +503,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             AABB endBox = new AABB(end, end).inflate(0.25);
             for (int i = 0; i < 150; i++) {
                 Vec3 particlePos = start.add(direction.scale(i * 0.1));
-                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(new Vector3f(BeholderFamiliarEntity.this.getRed(), BeholderFamiliarEntity.this.getBlue(), BeholderFamiliarEntity.this.getGreen()), 1), particlePos.x,
+                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(net.minecraft.util.ARGB.color(255, (int)(BeholderFamiliarEntity.this.getRed()*255), (int)(BeholderFamiliarEntity.this.getBlue()*255), (int)(BeholderFamiliarEntity.this.getGreen()*255)), 1.0f), particlePos.x,
                         particlePos.y, particlePos.z, 0, 0, 0);
                 if (endBox.intersects(new AABB(particlePos, particlePos).inflate(0.25)))
                     break;

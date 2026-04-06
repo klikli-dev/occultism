@@ -17,9 +17,7 @@
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
-  "ingredient": {
-    "tag": "c:ingots/azure_electrum"
-  },
+  "ingredient": "#c:ingots/azure_electrum",
   "result": {
     "type": "occultism:tag",
     "count": 1,

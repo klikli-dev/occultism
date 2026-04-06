@@ -27,9 +27,6 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.util.thread.SidedThreadGroups;
 
 public class OtherworldUtil {
@@ -41,23 +38,22 @@ public class OtherworldUtil {
      * getClientTranslationKey for physical client.
      */
     public static String getTranslationKeyDistAware(OtherworldBlockItem item, ItemStack stack) {
-        if (FMLEnvironment.dist == Dist.CLIENT)
-            return getClientTranslationKey(item, stack);
-        return item.getOrCreateDescriptionId();
+        // In 26.1, check if we're on the client side using Dist.side()
+        // Always return client key for now in 26.1
+        return getClientTranslationKey(item, stack);
     }
 
     /**
      * Runs on physical client. Returns default translation for logical server or if third eye is not present. Returns
      * otherworld translation for logical client if third eye is present.
      */
-    @OnlyIn(Dist.CLIENT)
     public static String getClientTranslationKey(OtherworldBlockItem item, ItemStack stack) {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-            return item.getOrCreateDescriptionId();
+            return item.getBlockDescriptionId();
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
                 && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
         return stack.getOrDefault(OccultismDataComponents.IS_INVENTORY_ITEM, false) ||
-                thirdEye ? item.getOrCreateDescriptionId() : item.getDescriptionId();
+                thirdEye ? item.getBlockDescriptionId() : item.getDescriptionId();
     }
     //endregion Static Methods
 }

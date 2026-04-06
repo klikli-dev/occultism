@@ -40,12 +40,12 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
         this.access = access;
         this.addSlot(new Slot(this.repairSlots, 0, 49, 19) {
             public boolean mayPlace(@NotNull ItemStack p_39607_) {
-                return p_39607_.isDamageableItem() || EnchantmentHelper.hasAnyEnchantments(p_39607_) || p_39607_.canGrindstoneRepair();
+                return p_39607_.isDamageableItem() || EnchantmentHelper.hasAnyEnchantments(p_39607_) || p_39607_.has(DataComponents.REPAIRABLE);
             }
         });
         this.addSlot(new Slot(this.repairSlots, 1, 49, 40) {
             public boolean mayPlace(@NotNull ItemStack p_39616_) {
-                return p_39616_.isDamageableItem() || EnchantmentHelper.hasAnyEnchantments(p_39616_) || p_39616_.canGrindstoneRepair();
+                return p_39616_.isDamageableItem() || EnchantmentHelper.hasAnyEnchantments(p_39616_) || p_39616_.has(DataComponents.REPAIRABLE);
             }
         });
         this.addSlot(new Slot(this.resultSlots, 2, 129, 34) {
@@ -125,7 +125,7 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
         } else {
             int i = Math.max(inputItem.getMaxDamage(), additionalItem.getMaxDamage());
             int i1 = 1;
-            if (!inputItem.isDamageableItem() || !inputItem.isRepairable()) {
+            if (!inputItem.isDamageableItem() || !inputItem.has(DataComponents.REPAIRABLE)) {
                 if (inputItem.getMaxStackSize() < 2 || !ItemStack.matches(inputItem, additionalItem))
                     return ItemStack.EMPTY;
                 i1 = 2;
@@ -137,7 +137,7 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
                     i - (inputItem.getMaxDamage()-inputItem.getDamageValue()
                     + additionalItem.getMaxDamage()-additionalItem.getDamageValue())
                     * DURABILITY_MULTIPLIER_ON_REPAIR));
-                if (!additionalItem.isRepairable())
+                if (!additionalItem.has(DataComponents.REPAIRABLE))
                     itemstack.setDamageValue(inputItem.getDamageValue());
             }
             return this.removeOnlyCursesFrom(itemstack);

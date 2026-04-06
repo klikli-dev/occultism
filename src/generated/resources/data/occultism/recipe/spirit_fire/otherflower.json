@@ -1,10 +1,16 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:flowers"
+      }
+    }
+  ],
   "type": "occultism:spirit_fire",
-  "ingredient": {
-    "tag": "minecraft:flowers"
-  },
+  "ingredient": "#minecraft:flowers",
   "result": {
-    "count": 1,
     "id": "occultism:otherflower"
   }
 }

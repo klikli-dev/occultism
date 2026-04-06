@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -46,16 +47,12 @@ public class WildHordeCreeperEntity extends Creeper implements PossessedMob {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }
 
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (source.is(DamageTypeTags.IS_EXPLOSION))
             return true;
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

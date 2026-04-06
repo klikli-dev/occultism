@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -37,7 +37,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
 
-    public static final ResourceLocation OTHERWORLD_TREE_NATURAL = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_tree_natural");
+    public static final Identifier OTHERWORLD_TREE_NATURAL = Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_tree_natural");
 
     public UndergroundGroveDecorator() {
         super(Blocks.GRASS_BLOCK.defaultBlockState(), null, OccultismBlocks.OTHERSTONE_NATURAL.get().defaultBlockState());

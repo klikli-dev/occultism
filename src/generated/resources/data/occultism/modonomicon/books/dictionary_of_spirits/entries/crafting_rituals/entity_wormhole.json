@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:entity_wormhole"
+    "id": "occultism:entity_wormhole"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:entity_wormhole"
-      },
+      "item": "occultism:entity_wormhole",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:entity_wormhole_dark"
-      },
+      "item": "occultism:entity_wormhole_dark",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.spotlight_dark.text",
       "title": ""
     },
@@ -110,8 +106,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "minecraft:fishing_rod"
+        "id": "minecraft:fishing_rod"
       },
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.title"

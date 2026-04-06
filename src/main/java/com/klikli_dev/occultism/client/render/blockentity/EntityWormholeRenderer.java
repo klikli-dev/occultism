@@ -27,12 +27,13 @@ import com.klikli_dev.occultism.common.blockentity.EntityWormholeBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -41,12 +42,30 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
-public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormholeBlockEntity> {
+public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormholeBlockEntity, BlockEntityRenderState> {
 
     public EntityWormholeRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
+    public BlockEntityRenderState createRenderState() {
+        return new BlockEntityRenderState();
+    }
+
+    @Override
+    public void extractRenderState(EntityWormholeBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.CrumblingOverlay crumbling) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
+    }
+
+    @Override
+    public void submit(BlockEntityRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitCollector, CameraRenderState cameraRenderState) {
+        // TODO: Port to 26.1 rendering API
+        // Original render logic used BakedModel-based item rendering which requires the old BlockEntityRenderer API.
+        // The old render() showed the wormhole portal item, nugget indicators for exit yaw/pitch.
+        // This needs to be ported to the new submit/extractRenderState pattern.
+    }
+
+    // Legacy render logic preserved as reference:
     public void render(EntityWormholeBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         var handler = blockEntity.itemStackHandler;
@@ -82,6 +101,8 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
 
         //Fixed scale
         poseStack.scale(0.1F, 0.1F, 0.1F);
+        // TODO: Port to 26.1 rendering API - BakedModel removed
+        /*
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         //Exit yawl indicator
@@ -138,7 +159,7 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
         BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
         itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
                 combinedLight, combinedOverlay, model);
-
+        */
 
         poseStack.popPose();
 

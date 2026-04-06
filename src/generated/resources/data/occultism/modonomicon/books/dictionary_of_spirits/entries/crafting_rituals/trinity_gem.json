@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.trinity_gem.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:trinity_gem"
+    "id": "occultism:trinity_gem"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.trinity_gem.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:trinity_gem"
-      },
+      "item": "occultism:trinity_gem",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.trinity_gem.spotlight.text",
       "title": ""
     },

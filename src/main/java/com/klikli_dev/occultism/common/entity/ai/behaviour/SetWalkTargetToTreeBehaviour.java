@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -39,14 +39,14 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
 
     @Override
     protected void start(E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+        var treePos = BrainUtil.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE_SQUARE) {
-            BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
-            BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
+            BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+            BrainUtil.clearMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
         } else {
             BlockPos walkPos = null;
 
-            var unreachableWalkTargets = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
+            var unreachableWalkTargets = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = treePos.relative(facing);
@@ -57,9 +57,9 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
             }
 
             if (walkPos != null) {
-                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
-                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
-                BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
+                BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
+                BrainUtil.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
+                BrainUtil.setMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.MAGENTA));
@@ -67,13 +67,13 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 }
 
             } else {
-                var unreachableTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), HashSet::new);
+                var unreachableTrees = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), HashSet::new);
                 unreachableTrees.add(treePos);
-                BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), unreachableTrees, FORGET_UNREACHABLE_TREES_AFTER_TICKS);
+                BrainUtil.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), unreachableTrees, FORGET_UNREACHABLE_TREES_AFTER_TICKS);
 
-                BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
-                BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
-                BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+                BrainUtil.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtil.clearMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
+                BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
 
                 if (Occultism.DEBUG.debugAI) {
                     Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, OccultismConstants.Color.RED));

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "o": {
-      "item": "occultism:otherrock"
-    },
-    "s": {
-      "item": "occultism:otherrock_slab"
-    }
+    "o": "occultism:otherrock",
+    "s": "occultism:otherrock_slab"
   },
   "pattern": [
     "s s",
@@ -15,7 +11,6 @@
     "sss"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherstone_pedestal_silver"
   }
 }

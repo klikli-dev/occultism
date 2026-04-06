@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:knowledge_tablet"
+    "id": "occultism:knowledge_tablet"
   },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.name",
   "pages": [
@@ -19,9 +19,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:knowledge_tablet"
-      },
+      "item": "occultism:knowledge_tablet",
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.spotlight.text",
       "title": ""
     },

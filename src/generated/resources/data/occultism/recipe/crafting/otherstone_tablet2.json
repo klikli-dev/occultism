@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "a": {
-      "tag": "c:dusts/otherworld_wood"
-    },
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "s": {
-      "item": "occultism:otherrock"
-    }
+    "a": "#c:dusts/otherworld_wood",
+    "g": "#c:ingots/gold",
+    "s": "occultism:otherrock"
   },
   "pattern": [
     "aga",
@@ -18,7 +12,6 @@
     "aga"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:otherstone_tablet"
   }
 }

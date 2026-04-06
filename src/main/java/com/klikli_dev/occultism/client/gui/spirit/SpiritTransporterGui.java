@@ -31,13 +31,16 @@ import com.klikli_dev.occultism.network.messages.MessageSetFilterMode;
 import com.klikli_dev.occultism.network.messages.MessageSetTagFilterText;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.CharacterEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> {
 
-    protected static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit_transporter_tagfilter.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
     protected final List<Component> tooltip = new ArrayList<>();
@@ -60,12 +63,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
                                 Component titleIn) {
-        super(container, playerInventory, titleIn);
-
+        super(container, playerInventory, titleIn, 176, 220);
         this.container = container;
-
-        this.imageWidth = 176;
-        this.imageHeight = 220;
     }
 
     //region Getter / Setter
@@ -130,18 +129,17 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
-        guiGraphics.pose().pushPose();
+        guiGraphics.pose().pushMatrix();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit);
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
-    protected void renderFg(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (this.filterModeButton.isHoveredOrFocused()) {
@@ -157,18 +155,20 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty())
-            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        this.tagFilterTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
         this.renderFg(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int mouseButton = event.button();
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
@@ -177,31 +177,31 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             }
         }
 
-        if (this.tagFilterTextField.mouseClicked(mouseX, mouseY, mouseButton)) {
+        if (this.tagFilterTextField.mouseClicked(event, doubleClick)) {
             return true;
         }
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(event, doubleClick);
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent event) {
         //prevent exiting without saving
         this.setTagFilterText(this.tagFilterTextField.getValue());
 
         if (this.tagFilterTextField.isFocused() &&
-                this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
+                this.tagFilterTextField.keyPressed(event)) {
             return true;
         }
 
         //Handle inventory key down in search bar:
         if (this.tagFilterTextField.isFocused()) {
-            InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
+            InputConstants.Key mouseKey = InputConstants.getKey(event);
             if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)) {
                 return true;
             }
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(event);
     }
 
     @Override
@@ -215,8 +215,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    public boolean charTyped(char codePoint, int modifiers) {
-        if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(codePoint, modifiers)) {
+    public boolean charTyped(CharacterEvent event) {
+        if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(event)) {
             this.setTagFilterText(this.tagFilterTextField.getValue());
         }
 

@@ -77,8 +77,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "occultism:sweet_honey_heart"
+        "id": "occultism:sweet_honey_heart"
       },
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.heart.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.heart.title"

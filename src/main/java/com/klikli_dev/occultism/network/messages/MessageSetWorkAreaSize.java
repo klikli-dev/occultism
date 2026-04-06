@@ -34,14 +34,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 public class MessageSetWorkAreaSize implements IMessage {
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_work_area_size");
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "set_work_area_size");
     public static final Type<MessageSetWorkAreaSize> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetWorkAreaSize> STREAM_CODEC = CustomPacketPayload.codec(MessageSetWorkAreaSize::encode, MessageSetWorkAreaSize::new);
     public byte workAreaSize;
@@ -66,11 +66,11 @@ public class MessageSetWorkAreaSize implements IMessage {
                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
                 player.inventoryMenu.broadcastChanges();
 
-                player.displayClientMessage(Component.translatable(
+                player.sendSystemMessage(Component.translatable(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                                 ".message_set_work_area_size",
                         TextUtil.formatDemonName((MutableComponent) spirit.getName()),
-                        Component.translatable(workAreaSize.getDescriptionId())), true);
+                        Component.translatable(workAreaSize.getDescriptionId())));
             });
         }
     }

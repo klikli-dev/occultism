@@ -33,14 +33,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.util.INBTSerializable;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class FamiliarSettingsData implements INBTSerializable<CompoundTag> {
+public class FamiliarSettingsData {
 
     private static ImmutableList<EntityType<? extends IFamiliar>> familiars = null;
 
@@ -102,7 +100,6 @@ public class FamiliarSettingsData implements INBTSerializable<CompoundTag> {
         Networking.sendTo(player, new MessageSyncFamiliarSettings(this, player.registryAccess()));
     }
 
-    @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag compound = new CompoundTag();
         for (Entry<EntityType<?>, Boolean> entry : this.familiarEnabled.entrySet())
@@ -110,10 +107,9 @@ public class FamiliarSettingsData implements INBTSerializable<CompoundTag> {
         return compound;
     }
 
-    @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         for (EntityType<?> familiar : getFamiliars())
             if (nbt.contains(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()))
-                this.familiarEnabled.put(familiar, nbt.getBoolean(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()));
+                this.familiarEnabled.put(familiar, nbt.getBooleanOr(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), false));
     }
 }

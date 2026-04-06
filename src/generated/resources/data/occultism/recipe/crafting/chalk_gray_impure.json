@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "occultism:chalk_white_impure"
-    },
-    {
-      "item": "occultism:gray_paste"
-    }
+    "occultism:chalk_white_impure",
+    "occultism:gray_paste"
   ],
   "result": {
-    "count": 1,
     "id": "occultism:chalk_gray_impure"
   }
 }

@@ -39,10 +39,6 @@ public class PossessedEndermiteEntity extends Endermite implements PossessedMob{
         return Endermite.createAttributes();
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
     //endregion Static Methods
 
     @Override

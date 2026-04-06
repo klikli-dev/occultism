@@ -35,7 +35,7 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.integration.emi.OccultismEmiIntegration;
+// import com.klikli_dev.occultism.integration.emi.OccultismEmiIntegration; // EMI integration excluded from build
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.network.Networking;
@@ -43,27 +43,31 @@ import com.klikli_dev.occultism.network.messages.*;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerListener;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.CharacterEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.apache.commons.lang3.StringUtils;
 
@@ -76,13 +80,13 @@ import java.util.stream.Collectors;
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
 
     public static final int ORDER_AREA_OFFSET = 48;
-    protected static final ResourceLocation TEXTURE_TOP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE_TOP = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_top.png");
-    protected static final ResourceLocation TEXTURE_ROW = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE_ROW = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_row.png");
-    protected static final ResourceLocation TEXTURE_BOTTOM = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+    protected static final Identifier TEXTURE_BOTTOM = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_bottom.png");
-    protected static final ResourceLocation BUTTONS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
+    protected static final Identifier BUTTONS = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     public int lastStacksCount;
     public ClientStorageCache clientStorageCache;
@@ -127,13 +131,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected int realTopPos;
 
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
-        super(container, playerInventory, name);
+        super(container, playerInventory, name, 224, 256);
         this.storageControllerContainer = container;
-        this.storageControllerContainer.getOrderSlot().addListener(this);
-
-        //size of the gui texture
-        this.imageWidth = 224;
-        this.imageHeight = 256;
+        // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = 9;
@@ -183,7 +183,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void drawGradientRect(GuiGraphics guiGraphics, int left, int top, int right, int bottom, int startColor,
+    public void drawGradientRect(GuiGraphicsExtractor guiGraphics, int left, int top, int right, int bottom, int startColor,
                                  int endColor) {
         guiGraphics.fillGradient(left, top, right, bottom, startColor, endColor);
     }
@@ -195,12 +195,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void renderToolTip(GuiGraphics guiGraphics, ItemStack stack, int x, int y) {
-        guiGraphics.renderTooltip(this.font, this.getTooltipFromContainerItem(stack), stack.getTooltipImage(), x, y);
+    public void renderToolTip(GuiGraphicsExtractor guiGraphics, ItemStack stack, int x, int y) {
+        guiGraphics.setTooltipForNextFrame(this.font, this.getTooltipFromContainerItem(stack), stack.getTooltipImage(), x, y);
     }
 
     @Override
-    public void renderToolTip(GuiGraphics guiGraphics, MachineReference machine, int x, int y) {
+    public void renderToolTip(GuiGraphicsExtractor guiGraphics, MachineReference machine, int x, int y) {
         List<Component> tooltip = new ArrayList<>();
         tooltip.add(machine.getInsertItemStack().getDisplayName());
         if (!StringUtils.isBlank(machine.customName)) {
@@ -211,10 +211,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         if (this.minecraft.player.level().dimension() != machine.insertGlobalPos.getDimensionKey())
             tooltip.add(Component.translatable(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
-                    machine.insertGlobalPos.getDimensionKey().location() +
+                    machine.insertGlobalPos.getDimensionKey().identifier() +
                     ChatFormatting.RESET));
 
-        guiGraphics.renderComponentTooltip(this.font, tooltip, x, y);
+        guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, x, y);
     }
 
     @Override
@@ -283,9 +283,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.setFocused(focus);
 
         this.searchBar.setValue(searchBarText);
-        if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            this.searchBar.setValue(OccultismEmiIntegration.get().getFilterText());
-        } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
         }
 
@@ -319,11 +318,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
 //        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks); //called by super
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
 
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        // Poll order slot to detect autocrafting mode change (replaces removed Container.addListener)
+        this.containerChanged(this.storageControllerContainer.getOrderSlot());
+
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
         if (!this.isGuiValid()) {
             this.minecraft.player.closeContainer();
             return;
@@ -347,13 +349,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int pMouseX, int pMouseY) {
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX,
-                            int mouseY) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
+                            float partialTicks) {
         if (!this.isGuiValid()) {
             return;
         }
@@ -368,12 +370,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.drawMachines(guiGraphics, partialTicks, mouseX, mouseY);
                 break;
         }
-        this.searchBar.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int mouseButton = event.button();
+        super.mouseClicked(event, doubleClick);
 
         this.searchBar.setFocused(false);
 
@@ -391,8 +395,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
                 Networking.sendToServer(
-                        new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
-                                Screen.hasControlDown()));
+                        new MessageTakeItem(this.stackUnderMouse, mouseButton, Minecraft.getInstance().hasShiftDown(),
+                                Minecraft.getInstance().hasControlDown()));
                 this.lastClick = System.currentTimeMillis();
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
@@ -404,7 +408,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 if (slot.isMouseOverSlot(mouseX, mouseY)) {
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                         ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
-                        if (Screen.hasShiftDown()) {
+                        if (Minecraft.getInstance().hasShiftDown()) {
                             long time = System.currentTimeMillis() + 5000;
                             Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().insertGlobalPos.getPos(), time, Color.GREEN);
                             Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().extractGlobalPos.getPos(), time, Color.YELLOW);
@@ -431,18 +435,17 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == InputConstants.KEY_ESCAPE) {
+    public boolean keyPressed(KeyEvent event) {
+        if (event.key() == InputConstants.KEY_ESCAPE) {
             this.minecraft.player.closeContainer();
         }
 
-        var nothandled = !this.searchBar.keyPressed(keyCode, scanCode, modifiers) && !this.searchBar.canConsumeInput();
+        var nothandled = !this.searchBar.keyPressed(event) && !this.searchBar.canConsumeInput();
         if (nothandled)
-            return super.keyPressed(keyCode, scanCode, modifiers);
+            return super.keyPressed(event);
 
-        if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            OccultismEmiIntegration.get().setFilterText(this.searchBar.getValue());
-        } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
         }
         return true;
@@ -453,12 +456,22 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         return true;
     }
 
-    @Override
+    // SimpleContainer.addListener was removed in 26.1; poll the order slot each frame instead
     public void containerChanged(Container inventory) {
         if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getItem(0).isEmpty()) {
             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
             this.init();
         }
+    }
+
+    @Override
+    public void slotChanged(AbstractContainerMenu menu, int slotIndex, ItemStack itemStack) {
+        // No slot change handling needed
+    }
+
+    @Override
+    public void dataChanged(AbstractContainerMenu menu, int dataSlotIndex, int value) {
+        // No data slots to track
     }
 
     @Override
@@ -478,12 +491,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean charTyped(char typedChar, int keyCode) {
-        if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
+    public boolean charTyped(CharacterEvent event) {
+        if (this.searchBar.isFocused() && this.searchBar.charTyped(event)) {
             Networking.sendToServer(new MessageRequestStacks());
-            if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-                OccultismEmiIntegration.get().setFilterText(this.searchBar.getValue());
-            } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+            // OccultismEmiIntegration excluded from build - EMI sync disabled
+            if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
                 OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
             }
         }
@@ -541,7 +553,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addRenderableWidget(this.sortDirectionButton);
 
-        if (OccultismEmiIntegration.get().isLoaded() || OccultismJeiIntegration.get().isLoaded()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled; show button if JEI is loaded
+        if (OccultismJeiIntegration.get().isLoaded()) {
             int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
             this.jeiSyncButton = new SizedImageButton(
                     this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
@@ -613,7 +626,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.autocraftingModeButton);
     }
 
-    protected void drawItems(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawItems(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
 
         var changedPage = this.previousPage != this.currentPage;
@@ -634,7 +647,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.drawItemSlots(guiGraphics, mouseX, mouseY);
     }
 
-    protected void drawMachines(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawMachines(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<MachineReference> machinesToDisplay = this.applySearchToMachines();
         this.sortMachines(machinesToDisplay);
         this.buildPage(machinesToDisplay);
@@ -670,7 +683,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
-    protected void drawTooltips(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
                 for (ItemSlotWidget s : this.itemSlots) {
@@ -690,7 +703,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             List<Component> tooltip = new ArrayList<>();
-            if (!Screen.hasShiftDown()) {
+            if (!Minecraft.getInstance().hasShiftDown()) {
                 tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".shift"));
             } else {
                 switch (this.guiMode) {
@@ -705,10 +718,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            guiGraphics.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderComponentTooltip(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+            guiGraphics.setComponentTooltipForNextFrame(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY);
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
@@ -724,48 +737,46 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                     this.getSortType().getSerializedName();
                     break;
             }
-            guiGraphics.renderTooltip(this.font, Component.translatable(translationKey), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
         if (this.rowCountButton != null && this.rowCountButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.translatable(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".display.rows"),
                     mouseX, mouseY);
         }
 
         if (this.isPointInSpaceText(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.literal(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
                     this.usedTotalItemCount + " / " + this.maxTotalItemCount), mouseX, mouseY);
         }
         if (this.isPointInTypesText(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(this.font, Component.literal(
+            guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
                     this.usedItemTypes + " / " + this.maxItemTypes), mouseX, mouseY);
         }
     }
 
-    protected void drawBackgroundTexture(GuiGraphics guiGraphics) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(TEXTURE_TOP, this.leftPos, this.realTopPos, 0, 0, this.imageWidth, this.imageHeight);
+    protected void drawBackgroundTexture(GuiGraphicsExtractor guiGraphics) {
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_TOP, this.leftPos, this.realTopPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         for (int i =0; i < this.rows; i++) {
-            guiGraphics.blit(TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0, 0, this.imageWidth, this.imageHeight);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         }
-        guiGraphics.blit(TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     }
 
-    protected void drawItemSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void drawItemSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             slot.drawSlot(guiGraphics, mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
@@ -896,7 +907,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("$")) {
             StringBuilder tagStringBuilder = new StringBuilder();
-            stack.getTags().forEach(
+            stack.getItem().builtInRegistryHolder().tags().forEach(
                     tag -> tagStringBuilder.append(tag.location()).append(" ")
             );
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
@@ -974,7 +985,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void drawMachineSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void drawMachineSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         for (MachineSlotWidget slot : this.machineSlots) {
             slot.drawSlot(guiGraphics, mouseX, mouseY);
         }
@@ -982,9 +993,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void clearSearch() {
         this.searchBar.setValue("");
-        if (OccultismEmiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            OccultismEmiIntegration.get().setFilterText("");
-        } else if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+        // OccultismEmiIntegration excluded from build - EMI sync disabled
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             OccultismJeiIntegration.get().setFilterText("");
         }
     }

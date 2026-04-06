@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_orange"
+    "id": "occultism:chalk_orange"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_orange"
-      },
+      "item": "occultism:chalk_orange",
       "text": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.spotlight.text",
       "title": ""
     },
@@ -42,9 +40,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:cursed_honey"
-      },
+      "item": "occultism:cursed_honey",
       "text": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.honey.text",
       "title": ""
     },

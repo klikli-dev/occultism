@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.light_blue_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_light_blue"
+    "id": "occultism:chalk_light_blue"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.light_blue_chalk.name",
   "pages": [
@@ -30,9 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "occultism:chalk_light_blue"
-      },
+      "item": "occultism:chalk_light_blue",
       "text": "book.occultism.dictionary_of_spirits.pentacles.light_blue_chalk.spotlight.text",
       "title": ""
     },
