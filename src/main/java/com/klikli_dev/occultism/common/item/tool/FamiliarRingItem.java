@@ -34,6 +34,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -49,11 +50,12 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.function.Consumer;
 
@@ -64,7 +66,10 @@ public class FamiliarRingItem extends Item {
     }
 
     private static Curio getCurio(ItemStack stack) {
-        // TODO: Curios integration disabled for 26.1
+        ICurio icurio = stack.getCapability(CuriosCapability.ITEM);
+        if (icurio != null && icurio instanceof Curio curio) {
+            return curio;
+        }
         return null;
     }
 
@@ -157,7 +162,7 @@ public class FamiliarRingItem extends Item {
         }
     }
 
-    public static class Curio {
+    public static class Curio implements ICurio{
         private final ItemStack stack;
         private IFamiliar familiar;
         private CompoundTag cachedNbt;

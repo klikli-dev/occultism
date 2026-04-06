@@ -33,7 +33,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-//import top.theillusivec4.curios.api.CuriosCapability; // TODO: re-enable when Curios is available for 26.1
+import top.theillusivec4.curios.api.CuriosCapability;
 
 public class OccultismCapabilities {
 
@@ -75,14 +75,13 @@ public class OccultismCapabilities {
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
 
-        // TODO: re-enable when Curios is available for 26.1
-        //event.registerItem(
-        //        CuriosCapability.ITEM, // capability to register for
-        //        (itemStack, context) -> {
-        //            return new FamiliarRingItem.Curio(itemStack);
-        //        },
-        //        // items to register for
-        //        OccultismItems.FAMILIAR_RING.get());
+        event.registerItem(
+                CuriosCapability.ITEM, // capability to register for
+                (itemStack, context) -> {
+                    return new FamiliarRingItem.Curio(itemStack);
+                },
+                // items to register for
+                OccultismItems.FAMILIAR_RING.get());
 
         event.registerBlockEntity(
                 Capabilities.Item.BLOCK,
