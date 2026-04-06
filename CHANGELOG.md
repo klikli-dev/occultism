@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.207.2] - 2026-04-06
+### :bug: Bug Fixes
+- [`461a2a3`](https://github.com/klikli-dev/occultism/commit/461a2a37739c28c59a30f8752182d22cc6f18984) - preserve durability when repairing paste items *(PR [#1505](https://github.com/klikli-dev/occultism/pull/1505) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1496](https://github.com/klikli-dev/occultism/issues/1496) opened by [@lizwiz13](https://github.com/lizwiz13)*
+- [`b89537c`](https://github.com/klikli-dev/occultism/commit/b89537c53ffe95c3230271dbdc9b8d0ad45f40b2) - stop EMI shift transfer from hanging *(PR [#1507](https://github.com/klikli-dev/occultism/pull/1507) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1497](https://github.com/klikli-dev/occultism/issues/1497) opened by [@Droxtern](https://github.com/Droxtern)*
+
+
 ## [release/v1.21.1-1.207.1] - 2026-04-06
 ### :bug: Bug Fixes
 - [`465c812`](https://github.com/klikli-dev/occultism/commit/465c8125de43f3eefb01d97b2b75b62bd711fb8d) - prevent Fracture Soul enchantment from affecting players *(PR [#1503](https://github.com/klikli-dev/occultism/pull/1503) by [@GaeaKat](https://github.com/GaeaKat))*
@@ -2314,3 +2322,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.206.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.205.0...release/v1.21.1-1.206.0
 [release/v1.21.1-1.207.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.206.0...release/v1.21.1-1.207.0
 [release/v1.21.1-1.207.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.207.0...release/v1.21.1-1.207.1
+[release/v1.21.1-1.207.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.207.1...release/v1.21.1-1.207.2
