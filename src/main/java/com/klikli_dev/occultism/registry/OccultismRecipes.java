@@ -59,6 +59,8 @@ public class OccultismRecipes {
             () -> RitualRecipe.SERIALIZER);
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<BoundBookOfBindingRecipe>> BOOK_BINDING = RECIPES.register("crafting_special_book_binding",
             () -> BoundBookOfBindingRecipe.SERIALIZER);
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<PasteRepairItemRecipe>> REPAIR_ITEM = RECIPES.register("crafting_special_repairitem",
+            () -> PasteRepairItemRecipe.SERIALIZER);
 
     static <T extends Recipe<?>> DeferredHolder<RecipeType<?>, RecipeType<T>> registerRecipeType(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

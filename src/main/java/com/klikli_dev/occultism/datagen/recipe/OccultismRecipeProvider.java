@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen.recipe;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
+import com.klikli_dev.occultism.crafting.recipe.PasteRepairItemRecipe;
 import com.klikli_dev.occultism.datagen.recipe.builders.SpiritFireRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -144,6 +145,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     private void craftingRecipes(RecipeOutput pRecipeOutput) {
+        SpecialRecipeBuilder.special(PasteRepairItemRecipe::new).save(pRecipeOutput,
+                ResourceLocation.fromNamespaceAndPath("minecraft", "repair_item"));
         SpecialRecipeBuilder.special(BoundBookOfBindingRecipe::new).save(pRecipeOutput,
                 ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/bound_book_of_binding"));
 
