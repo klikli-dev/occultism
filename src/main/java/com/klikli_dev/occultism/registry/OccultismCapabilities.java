@@ -145,22 +145,22 @@ public class OccultismCapabilities {
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.FOLIOT.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.DJINNI.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.AFRIT.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
         event.registerEntity(
                 Capabilities.Item.ENTITY,
                 OccultismEntities.MARID.get(),
-                (entity, side) -> new LegacyItemHandlerResourceHandler(entity.inventory));
+                (entity, side) -> entity.inventory);
 
     }
 
