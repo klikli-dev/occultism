@@ -1,3 +1,6 @@
 {
-  "parent": "occultism:block/spirit_torch"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "occultism:block/spirit_torch"
+  }
 }

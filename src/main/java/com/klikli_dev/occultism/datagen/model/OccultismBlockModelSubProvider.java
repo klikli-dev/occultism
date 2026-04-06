@@ -51,8 +51,6 @@ import java.util.stream.Stream;
 
 public class OccultismBlockModelSubProvider {
 
-    private static final int DEFAULT_SPIRIT_FLAME_COLOR = 0x9c0393;
-
     public Stream<Block> getKnownBlocks() {
         return Stream.of(
                 Stream.of(
@@ -318,6 +316,8 @@ public class OccultismBlockModelSubProvider {
         }
 
         Block[] blocksUsingItemModels = {
+                OccultismBlocks.SPIRIT_FIRE.get(),
+                OccultismBlocks.SPIRIT_TORCH.get(),
                 OccultismBlocks.OTHERSTONE_NATURAL.get(),
                 OccultismBlocks.OTHERROCK_NATURAL.get(),
                 OccultismBlocks.OTHERFLOWER.get(),
@@ -333,9 +333,6 @@ public class OccultismBlockModelSubProvider {
         for (Block block : blocksUsingItemModels) {
             this.registerExistingItemModel(itemModels, block.asItem(), itemModel(block));
         }
-
-        this.registerTintedExistingItemModel(itemModels, OccultismBlocks.SPIRIT_FIRE.asItem(), itemModel(OccultismBlocks.SPIRIT_FIRE.get()), DEFAULT_SPIRIT_FLAME_COLOR);
-        this.registerTintedExistingItemModel(itemModels, OccultismBlocks.SPIRIT_TORCH.asItem(), itemModel(OccultismBlocks.SPIRIT_TORCH.get()), DEFAULT_SPIRIT_FLAME_COLOR);
     }
 
     private void registerGlyphBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -673,11 +670,6 @@ public class OccultismBlockModelSubProvider {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
     }
 
-    private void registerTintedExistingItemModel(ItemModelGenerators itemModels, net.minecraft.world.item.Item item, Identifier modelLocation, int color) {
-        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelLocation,
-                ItemModelUtils.constantTint(opaque(color))));
-    }
-
     private void emitParticleModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier particleTexture) {
         this.emitParentModel(output, modelLocation, null, Map.of("particle", particleTexture));
     }
@@ -695,9 +687,5 @@ public class OccultismBlockModelSubProvider {
             }
             return json;
         });
-    }
-
-    private static int opaque(int color) {
-        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
     }
 }

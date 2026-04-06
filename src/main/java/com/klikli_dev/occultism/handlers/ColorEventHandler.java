@@ -80,8 +80,11 @@ public class ColorEventHandler {
         event.register(List.of((BlockTintSource) state -> opaque(((VoidGlyphBlock) state.getBlock()).getColor(state))),
                 OccultismBlocks.CHALK_GLYPH_VOID.get());
 
-        // Spirit fire: color is state-dependent (tint index 0 only for block colors)
-        event.register(List.of((BlockTintSource) state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 0))),
+        // Spirit fire: color is state-dependent and uses two tint layers in the model
+        event.register(List.of(
+                        (BlockTintSource) state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 0)),
+                        (BlockTintSource) state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 1))
+                ),
                 OccultismBlocks.SPIRIT_FIRE.get());
 
         // Otherworld leaves: white tint when uncovered (has own texture), biome foliage color when covered
