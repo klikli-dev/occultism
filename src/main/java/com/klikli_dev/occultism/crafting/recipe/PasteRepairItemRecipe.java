@@ -17,7 +17,6 @@ import javax.annotation.Nullable;
 
 public class PasteRepairItemRecipe extends RepairItemRecipe {
     public static final RecipeSerializer<PasteRepairItemRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(PasteRepairItemRecipe::new);
-    private static final RepairItemRecipe VANILLA_REPAIR = new RepairItemRecipe(CraftingBookCategory.MISC);
 
     public PasteRepairItemRecipe(CraftingBookCategory category) {
         super(category);
@@ -42,7 +41,7 @@ public class PasteRepairItemRecipe extends RepairItemRecipe {
     public @NotNull NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
         PasteRepairInput pasteRepairInput = this.getPasteRepairInput(input);
         if (pasteRepairInput == null) {
-            return this.defaultRemainingItems(input);
+            return super.getRemainingItems(input);
         }
 
         NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
@@ -63,10 +62,6 @@ public class PasteRepairItemRecipe extends RepairItemRecipe {
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
         return OccultismRecipes.REPAIR_ITEM.get();
-    }
-
-    private NonNullList<ItemStack> defaultRemainingItems(CraftingInput input) {
-        return VANILLA_REPAIR.getRemainingItems(input);
     }
 
     private ItemStack createPasteStack(ItemStack source, int remainingDurability) {
