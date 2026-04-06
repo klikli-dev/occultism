@@ -333,10 +333,10 @@ public class OccultismItemModelSubProvider {
         Identifier modelId = this.modLoc("item/template_spawn_egg");
         itemModels.modelOutput.accept(modelId, () -> {
             var json = new com.google.gson.JsonObject();
-            json.addProperty("parent", "minecraft:item/generated");
+            json.addProperty("parent", "item/generated");
             var texturesJson = new com.google.gson.JsonObject();
-            texturesJson.addProperty("layer0", this.modLoc("item/template_spawn_egg").toString());
-            texturesJson.addProperty("layer1", this.modLoc("item/template_spawn_egg_overlay").toString());
+            texturesJson.addProperty("layer0", this.modLoc("item/spawn_egg").toString());
+            texturesJson.addProperty("layer1", this.modLoc("item/spawn_egg_overlay").toString());
             json.add("textures", texturesJson);
             return json;
         });
