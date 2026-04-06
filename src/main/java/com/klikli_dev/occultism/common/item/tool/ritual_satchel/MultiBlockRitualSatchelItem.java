@@ -11,6 +11,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
+import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Pair;
@@ -31,8 +32,10 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.items.ComponentItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.component.ItemContainerContents;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -80,11 +83,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
                 .filter(p -> p.getSecond() != null)
                 .toList();
 
-        var inventory = new ComponentItemHandler(
-                context.getItemInHand(),
-                DataComponents.CONTAINER,
-                RitualSatchelContainer.SATCHEL_SIZE
-        );
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
 
         for(var pentacle : pentacles){
             var simulation = pentacle.getFirst().simulate(context.getLevel(), context.getClickedPos(), pentacle.getSecond(), false, false);
@@ -115,12 +114,13 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
                 for(var drop : drops){
                     //try to put into satchel, if full -> player inv
 
-                    var remainder = ItemHandlerHelper.insertItemStacked(inventory, drop, false);
+                    var remainder = inventory.addItem(drop);
                     if(!remainder.isEmpty())
-                        ItemHandlerHelper.giveItemToPlayer(context.getPlayer(), remainder);
+                        ItemTransferUtil.giveItemToPlayer(context.getPlayer(), remainder);
                 }
             }
         }
+        inventory.writeItemStack();
 
         return InteractionResult.SUCCESS;
     }
