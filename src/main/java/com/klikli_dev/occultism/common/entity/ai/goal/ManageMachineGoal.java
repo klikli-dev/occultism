@@ -38,8 +38,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -127,15 +126,14 @@ public class ManageMachineGoal extends Goal {
                         ItemStack itemToExtract = this.job.getStorageController()
                                 .getItemStack(currentOrder.comparator, currentOrder.amount,
                                         true);
-                        var rawHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
-                        IItemHandler handler = rawHandler != null ? IItemHandler.of(rawHandler) : null;
+                        var handler = this.entity.getCapability(Capabilities.Item.ENTITY);
                         if (!itemToExtract.isEmpty() &&
-                                ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
+                                ItemTransferUtil.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
                             ItemStack extracted = this.job.getStorageController()
                                     .getItemStack(currentOrder.comparator, currentOrder.amount,
                                             false);
-                            ItemHandlerHelper.insertItem(handler, extracted, false);
+                            ItemTransferUtil.insertItem(handler, extracted, false);
 
                             //job fulfilled, deposit ai will take over
                             this.entity.setDepositPosition(machineReference.insertGlobalPos.getPos());
@@ -146,28 +144,25 @@ public class ManageMachineGoal extends Goal {
                     } else if (this.targetBlock.equals(machineReference.extractGlobalPos.getPos())) {
                         //if we reached the machine (=extract block entity), we take out the result
 
-                        var rawMachineHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
+                        var machineHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
                                 blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,
                                 machineReference.extractFacing);
-                        var machineHandler = rawMachineHandler != null ? IItemHandler.of(rawMachineHandler) : null;
 
                         if (machineHandler != null) {
 
-                            var rawEntityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
-                            IItemHandler entityHandler = rawEntityHandler != null ? IItemHandler.of(rawEntityHandler) : null;
+                            var entityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
 
                             boolean movedAnyItems = false;
-                            for (int i = 0; i < machineHandler.getSlots(); i++) {
+                            for (int i = 0; i < machineHandler.size(); i++) {
                                 //first simulate if we can put anything into the entity
-                                ItemStack itemToExtract = machineHandler
-                                        .extractItem(i, machineHandler.getSlotLimit(i), true);
-                                ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, itemToExtract, true);
+                                ItemStack itemToExtract = ItemTransferUtil.extractItem(machineHandler, i, Integer.MAX_VALUE, true);
+                                ItemStack remaining = ItemTransferUtil.insertItem(entityHandler, itemToExtract, true);
                                 //if anything was taken and inserted, perform for real
                                 if (!itemToExtract.isEmpty() && remaining.getCount() != itemToExtract.getCount()) {
                                     //extract only as much as we can insert
-                                    ItemStack extracted = machineHandler.extractItem(i,
+                                    ItemStack extracted = ItemTransferUtil.extractItem(machineHandler, i,
                                             itemToExtract.getCount() - remaining.getCount(), false);
-                                    ItemHandlerHelper.insertItem(entityHandler, extracted, false);
+                                    ItemTransferUtil.insertItem(entityHandler, extracted, false);
                                     movedAnyItems = true;
                                     //If something was moved, but not everything the entity is full and we can break
                                     if (remaining.getCount() > 0) {
@@ -249,9 +244,8 @@ public class ManageMachineGoal extends Goal {
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
 
-        var rawMachineItemHandler = machine.getLevel().getCapability(Capabilities.Item.BLOCK,
+        var machineItemHandler = machine.getLevel().getCapability(Capabilities.Item.BLOCK,
                 machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing);
-        var machineItemHandler = rawMachineItemHandler != null ? IItemHandler.of(rawMachineItemHandler) : null;
         if (machineItemHandler == null)
             return false;
 
@@ -260,7 +254,7 @@ public class ManageMachineGoal extends Goal {
                 .getItemStack(depositOrder.comparator, depositOrder.amount,
                         true);
         if (!orderStack.isEmpty() &&
-                ItemHandlerHelper.insertItem(machineItemHandler, orderStack, true).isEmpty()) {
+                ItemTransferUtil.insertItem(machineItemHandler, orderStack, true).isEmpty()) {
             //if we can insert everything we can get for this order, perform it.
             BlockEntity storageControllerProxy = this.findClosestStorageProxy();
             if (storageControllerProxy != null) {
@@ -279,14 +273,13 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
                                                      BlockEntity extractBlockEntity, IStorageController storageController) {
-        var rawMachineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
+        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
                 extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing);
-        var machineItemHandler = rawMachineItemHandler != null ? IItemHandler.of(rawMachineItemHandler) : null;
         if (machineItemHandler == null)
             return false;
 
-        for (int i = 0; i < machineItemHandler.getSlots(); i++) {
-            if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
+        for (int i = 0; i < machineItemHandler.size(); i++) {
+            if (!machineItemHandler.getResource(i).isEmpty()) {
                 this.targetBlock = extractBlockEntity.getBlockPos();
                 return true;
             }

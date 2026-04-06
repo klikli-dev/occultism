@@ -20,6 +20,8 @@ import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
     public static final double DEPOSIT_ITEM_RANGE_SQUARE = Math.pow(2.5, 2); //we're comparing to square distance
 
@@ -44,7 +46,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var depositPos = BrainUtil.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(depositPos));
-        return StorageUtil.getFirstFilledSlot(entity.inventory) != -1
+        return ItemTransferUtil.getFirstFilledSlot(entity.inventory) != -1
                 && dist <= DepositItemsBehaviour.DEPOSIT_ITEM_RANGE_SQUARE;
     }
 
@@ -56,25 +58,21 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         if (blockEntity != null) {
             BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
-            var rawHandler = entity.level().getCapability(Capabilities.Item.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
-            var depositItemHandler = rawHandler != null ? IItemHandler.of(rawHandler) : null;
+            var depositItemHandler = entity.level().getCapability(Capabilities.Item.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
 
             this.toggleContainer(blockEntity, true);
 
             if (depositItemHandler != null) {
                 var entityItemHandler = entity.inventory;
-                var firstFilledSlot = StorageUtil.getFirstFilledSlot(entityItemHandler);
-                ItemStack duplicate = entityItemHandler.getStackInSlot(firstFilledSlot).copy();
+                var firstFilledSlot = ItemTransferUtil.getFirstFilledSlot(entityItemHandler);
+                if (firstFilledSlot != -1) {
+                    ItemStack duplicate = entityItemHandler.getStackInSlot(firstFilledSlot).copy();
 
-                //simulate insertion
-                ItemStack toInsert = ItemHandlerHelper.insertItem(depositItemHandler, duplicate, true);
-                //if anything was inserted go for real
-                if (toInsert.getCount() != duplicate.getCount()) {
-                    ItemStack leftover = ItemHandlerHelper.insertItem(depositItemHandler, duplicate, false);
+                    //simulate insertion
+                    ItemStack leftover = ItemTransferUtil.insertItem(depositItemHandler, duplicate, false);
                     //if we inserted everything
                     entityItemHandler.setStackInSlot(firstFilledSlot, leftover);
                 }
-
             } else {
                 //if deposit is bogus, that is a player issue not ai.
             }

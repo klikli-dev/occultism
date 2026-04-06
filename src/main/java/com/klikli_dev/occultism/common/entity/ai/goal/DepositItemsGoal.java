@@ -37,7 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -124,13 +124,13 @@ public class DepositItemsGoal extends PausableGoal {
                     ItemStack duplicate = this.entity.getItemInHand(InteractionHand.MAIN_HAND).copy();
 
                     //simulate insertion
-                    ItemStack toInsert = ItemHandlerHelper.insertItem(handler, duplicate, true);
+                    ItemStack leftOverSimulated = ItemTransferUtil.insertItem(handler, duplicate, true);
                     //if anything was inserted go for real
-                    if (toInsert.getCount() != duplicate.getCount()) {
-                        ItemStack leftover = ItemHandlerHelper.insertItem(handler, duplicate, false);
+                    if (leftOverSimulated.getCount() != duplicate.getCount()) {
+                        ItemStack leftover = ItemTransferUtil.insertItem(handler, duplicate, false);
                         //if we inserted everything
                         this.entity.setItemInHand(InteractionHand.MAIN_HAND, leftover);
-                        if (toInsert.isEmpty()) {
+                        if (leftover.isEmpty()) {
                             this.moveTarget = null;
                             this.stop();
                         } else {

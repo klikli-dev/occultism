@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -37,7 +38,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        return StorageUtil.getFirstFilledSlot(entity.inventory) != -1;
+        return ItemTransferUtil.getFirstFilledSlot(entity.inventory) != -1;
     }
 
     @Override

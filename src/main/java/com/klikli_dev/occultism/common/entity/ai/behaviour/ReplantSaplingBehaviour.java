@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -30,7 +31,7 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var treePos = BrainUtil.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get()).getFirst();
         var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
-        return StorageUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1
+        return ItemTransferUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1
                 && dist <= ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE;
     }
 
@@ -43,10 +44,13 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
 
             if (entity.level().getBlockState(lastFelledTree.below()).is(BlockTags.DIRT)) {
                 var handler = entity.inventory;
-                ItemStack sapling = handler.getStackInSlot(StorageUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS));
-                if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
-                    entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
-                    sapling.shrink(1);
+                int slot = ItemTransferUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS);
+                if (slot != -1) {
+                    ItemStack sapling = handler.getStackInSlot(slot);
+                    if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
+                        entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
+                        sapling.shrink(1);
+                    }
                 }
             }
         }

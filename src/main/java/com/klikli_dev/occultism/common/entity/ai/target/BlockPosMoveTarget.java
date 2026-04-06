@@ -27,7 +27,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class BlockPosMoveTarget implements IMoveTarget {
 
@@ -55,8 +56,7 @@ public class BlockPosMoveTarget implements IMoveTarget {
     }
 
     @Override
-    public IItemHandler getItemHandler(Direction depositFacing) {
-        var rawHandler = this.level.getCapability(Capabilities.Item.BLOCK, this.getBlockPos(), depositFacing);
-        return rawHandler != null ? IItemHandler.of(rawHandler) : null;
+    public ResourceHandler<ItemResource> getItemHandler(Direction depositFacing) {
+        return this.level.getCapability(Capabilities.Item.BLOCK, this.getBlockPos(), depositFacing);
     }
 }

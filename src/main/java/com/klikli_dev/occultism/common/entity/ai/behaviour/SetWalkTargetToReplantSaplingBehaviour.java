@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -34,7 +35,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        return StorageUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1;
+        return ItemTransferUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1;
     }
 
     @Override

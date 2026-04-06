@@ -12,8 +12,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +37,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
                 PickupItemBehaviour.PICKUP_Y_RANGE,
                 PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE)
                 //also check if inserting would take anything from the entity stack -> means we have free slots
-                && ItemHandlerHelper.insertItemStacked(
+                && ItemTransferUtil.insertItemStacked(
                 entity.inventory, jobItem.getItem(), true).getCount() <
                 jobItem.getItem().getCount();
     }
@@ -48,14 +47,14 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
 
         BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
         ItemStack duplicate = jobItem.getItem().copy();
-        ItemStackHandler handler = entity.inventory;
-        if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
-            ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
+        var handler = entity.inventory;
+        if (ItemTransferUtil.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
+            ItemStack remaining = ItemTransferUtil.insertItemStacked(handler, duplicate, false);
             jobItem.getItem().setCount(remaining.getCount());
         }
         for (ItemEntity e : entity.level().getEntitiesOfClass(ItemEntity.class, jobItem.getBoundingBox().inflate(3), Entity::isAlive)) {
-            if (ItemHandlerHelper.insertItemStacked(handler, e.getItem().copy(), true).getCount() <= 64) {
-                ItemStack remains = ItemHandlerHelper.insertItemStacked(handler, e.getItem().copy(), false);
+            if (ItemTransferUtil.insertItemStacked(handler, e.getItem().copy(), true).getCount() <= 64) {
+                ItemStack remains = ItemTransferUtil.insertItemStacked(handler, e.getItem().copy(), false);
                 e.getItem().setCount(remains.getCount());
             }
         }

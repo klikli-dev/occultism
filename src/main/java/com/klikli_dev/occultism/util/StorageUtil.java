@@ -43,7 +43,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
@@ -88,7 +89,7 @@ public class StorageUtil {
                     craftMatrix.setItem(i, ItemStack.EMPTY);
                 else
                 {
-                    ItemHandlerHelper.giveItemToPlayer(player, stackInSlot.copyWithCount(remainingAfterInsert));
+                    ItemTransferUtil.giveItemToPlayer(player, stackInSlot.copyWithCount(remainingAfterInsert));
                     craftMatrix.setItem(i, ItemStack.EMPTY);
                 }
             }
@@ -150,19 +151,21 @@ public class StorageUtil {
      * @param simulate    true to simulate.
      * @return the extracted stack.
      */
-    public static ItemStack extractItem(IItemHandler itemHandler, Predicate<ItemStack> comparator, int amount,
-                                        boolean simulate) {
+    public static ItemStack extractItem(ResourceHandler<ItemResource> itemHandler, Predicate<ItemStack> comparator, int amount,
+                                         boolean simulate) {
         if (itemHandler == null || comparator == null) {
             return ItemStack.EMPTY;
         }
         int amountExtracted = 0;
         //go through all slots in the handler
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            ItemStack slot = itemHandler.getStackInSlot(i);
+        for (int i = 0; i < itemHandler.size(); i++) {
+            var resource = itemHandler.getResource(i);
+            var slotAmount = itemHandler.getAmountAsLong(i);
+            ItemStack slot = resource.toStack((int) slotAmount);
             //check if current slot matches
             if (comparator.test(slot)) {
                 //take out of handler, one by one
-                ItemStack extractedStack = itemHandler.extractItem(i, 1, simulate);
+                ItemStack extractedStack = ItemTransferUtil.extractItem(itemHandler, i, 1, simulate);
                 if (!extractedStack.isEmpty()) {
                     //if not empty increase the amount we extracted
                     amountExtracted++;
@@ -179,34 +182,62 @@ public class StorageUtil {
         return ItemStack.EMPTY;
     }
 
-    public static int getFirstFilledSlot(IItemHandler handler) {
+    @SuppressWarnings("unchecked")
+    public static ItemStack extractItem(IItemHandler itemHandler, Predicate<ItemStack> comparator, int amount,
+                                        boolean simulate) {
+        if (itemHandler instanceof ResourceHandler<?> resourceHandler) {
+            return extractItem((ResourceHandler<ItemResource>) resourceHandler, comparator, amount, simulate);
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    public static ItemStack extractItem(IItemHandler itemHandler, Ingredient ingredient, int amount, boolean simulate) {
+        return extractItem(itemHandler, ingredient::test, amount, simulate);
+    }
+
+    public static int getFirstFilledSlot(ResourceHandler<ItemResource> handler) {
         return getFirstFilledSlotAfter(handler, -1);
     }
 
-    public static int getFirstFilledSlotAfter(IItemHandler handler, int slot) {
-        for (int i = slot + 1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty())
+    public static int getFirstFilledSlotAfter(ResourceHandler<ItemResource> handler, int slot) {
+        for (int i = slot + 1; i < handler.size(); i++) {
+            if (!handler.getResource(i).isEmpty())
                 return i;
         }
         return -1;
     }
 
-//    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist){
-//        int itemMatchedSlot = getFirstMatchingSlot(handler, filter, isBlacklist);
-//        int tagMatchedSlot = getFirstMatchingSlot(handler, tagFilter, isBlacklist);
-//        //if item match is found (>1) but smaller than tag match (-> item found before tag match), return item match, otherwise tag
-//        return itemMatchedSlot > -1 && itemMatchedSlot < tagMatchedSlot ? itemMatchedSlot : tagMatchedSlot;
-//    }
-
-    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
+    public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, ResourceHandler<ItemResource> filter, String tagFilter, boolean isBlacklist) {
         return getFirstMatchingSlotAfter(handler, -1, filter, tagFilter, isBlacklist);
     }
 
-    public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, String tagFilter, boolean isBlacklist) {
-        for (int i = slot + 1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty()) {
-                boolean matches = matchesFilter(handler.getStackInSlot(i), filter) ||
-                        matchesFilter(handler.getStackInSlot(i), tagFilter);
+    @SuppressWarnings("unchecked")
+    public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
+        if (filter instanceof ResourceHandler<?> filterResourceHandler) {
+            return getFirstMatchingSlot(handler, (ResourceHandler<ItemResource>) filterResourceHandler, tagFilter, isBlacklist);
+        }
+
+        return -1;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
+        if (handler instanceof ResourceHandler<?> resourceHandler && filter instanceof ResourceHandler<?> filterResourceHandler) {
+            return getFirstMatchingSlot((ResourceHandler<ItemResource>) resourceHandler,
+                    (ResourceHandler<ItemResource>) filterResourceHandler, tagFilter, isBlacklist);
+        }
+
+        return -1;
+    }
+
+    public static int getFirstMatchingSlotAfter(ResourceHandler<ItemResource> handler, int slot, ResourceHandler<ItemResource> filter, String tagFilter, boolean isBlacklist) {
+        for (int i = slot + 1; i < handler.size(); i++) {
+            var resource = handler.getResource(i);
+            if (!resource.isEmpty()) {
+                ItemStack stack = resource.toStack((int) handler.getAmountAsLong(i));
+                boolean matches = matchesFilter(stack, filter) ||
+                        matchesFilter(stack, tagFilter);
 
                 //if we're in blacklist mode, if the item matches either item or tag -> we continue into next iteration
                 //if we're in blacklist mode and none of the filters match -> we return
@@ -219,9 +250,13 @@ public class StorageUtil {
         return -1;
     }
 
-    public static boolean matchesFilter(ItemStack stack, IItemHandler filter) {
-        for (int i = 0; i < filter.getSlots(); i++) {
-            ItemStack filtered = filter.getStackInSlot(i);
+    public static boolean matchesFilter(ItemStack stack, ResourceHandler<ItemResource> filter) {
+        for (int i = 0; i < filter.size(); i++) {
+            var resource = filter.getResource(i);
+            if (resource.isEmpty())
+                continue;
+
+            ItemStack filtered = resource.toStack((int) filter.getAmountAsLong(i));
 
             boolean equals = ItemStack.isSameItem(filtered, stack);
 
@@ -232,11 +267,21 @@ public class StorageUtil {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
+    public static boolean matchesFilter(ItemStack stack, IItemHandler filter) {
+        if (filter instanceof ResourceHandler<?> resourceHandler) {
+            return matchesFilter(stack, (ResourceHandler<ItemResource>) resourceHandler);
+        }
+
+        return false;
+    }
+
 
     /**
      * Checks if stack matches the given tag filter (wildcard match)
      */
     public static boolean matchesFilter(ItemStack stack, String tagFilter) {
+
         if (tagFilter.isEmpty())
             return false;
 
@@ -278,15 +323,24 @@ public class StorageUtil {
         // TODO: implement dropInventoryItems for ResourceHandler<ItemResource>
     }
 
-    public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler itemHandler) {
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+    public static void dropInventoryItems(Level worldIn, BlockPos pos, ResourceHandler<ItemResource> itemHandler) {
+        for (int i = 0; i < itemHandler.size(); i++) {
+            var resource = itemHandler.getResource(i);
+            if (!resource.isEmpty())
+                Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), resource.toStack((int) itemHandler.getAmountAsLong(i)));
         }
     }
 
     public static int getFirstMatchingSlot(IItemHandler handler, TagKey<Item> tag) {
-        for (int i = 0; i < handler.getSlots(); i++) {
-            if (handler.getStackInSlot(i).is(tag))
+        if (handler instanceof ResourceHandler<?> resourceHandler) {
+            return getFirstMatchingSlot((ResourceHandler<ItemResource>) resourceHandler, tag);
+        }
+        return -1;
+    }
+
+    public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, TagKey<Item> tag) {
+        for (int i = 0; i < handler.size(); i++) {
+            if (handler.getResource(i).toStack().is(tag))
                 return i;
         }
         return -1;

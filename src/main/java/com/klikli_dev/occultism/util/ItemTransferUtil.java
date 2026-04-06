@@ -1,7 +1,10 @@
 package com.klikli_dev.occultism.util;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.tags.TagKey;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -46,7 +49,39 @@ public final class ItemTransferUtil {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public static ItemStack insertItemStacked(@Nullable IItemHandler handler, ItemStack stack, boolean simulate) {
+        if (handler == null || stack.isEmpty()) {
+            return stack;
+        }
+        if (handler instanceof ResourceHandler) {
+            return insertItemStacked((ResourceHandler<ItemResource>) handler, stack, simulate);
+        }
+        return stack;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static int getFirstFilledSlot(IItemHandler handler) {
+        if (handler instanceof ResourceHandler) {
+            return getFirstFilledSlot((ResourceHandler<ItemResource>) handler);
+        }
+        return -1;
+    }
+
+    public static int getFirstFilledSlot(ResourceHandler<ItemResource> handler) {
+        for (int i = 0; i < handler.size(); i++) {
+            if (!handler.getResource(i).isEmpty())
+                return i;
+        }
+        return -1;
+    }
+
+    public static int getFirstMatchingSlot(IItemHandler handler, TagKey<Item> tag) {
+        return StorageUtil.getFirstMatchingSlot(handler, tag);
+    }
+
     public static ItemStack extractItem(@Nullable ResourceHandler<ItemResource> handler, int index, int amount, boolean simulate) {
+
         if (handler == null || amount <= 0 || index < 0 || index >= handler.size()) {
             return ItemStack.EMPTY;
         }
