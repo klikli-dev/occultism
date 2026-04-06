@@ -46,25 +46,15 @@ public class PasteRepairItemRecipe extends RepairItemRecipe {
         }
 
         NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
-        if (pasteRepairInput.totalRemainingDurability() <= pasteRepairInput.maxDamage()) {
+        int leftoverDurability = pasteRepairInput.totalRemainingDurability() - pasteRepairInput.maxDamage();
+        if (leftoverDurability <= 0) {
             return remainingItems;
         }
 
-        int durabilityToConsume = pasteRepairInput.maxDamage();
-        int minimumFirstConsumed = Math.max(0, durabilityToConsume - pasteRepairInput.secondRemainingDurability());
-        int maximumFirstConsumed = Math.min(pasteRepairInput.firstRemainingDurability(), durabilityToConsume);
-        int idealFirstConsumed = durabilityToConsume / 2 + durabilityToConsume % 2;
-        int firstConsumed = Math.min(maximumFirstConsumed, Math.max(minimumFirstConsumed, idealFirstConsumed));
-        int secondConsumed = durabilityToConsume - firstConsumed;
-
-        int firstRemainingDurability = pasteRepairInput.firstRemainingDurability() - firstConsumed;
-        int secondRemainingDurability = pasteRepairInput.secondRemainingDurability() - secondConsumed;
-
-        if (firstRemainingDurability > 0) {
-            remainingItems.set(pasteRepairInput.firstSlot, this.createPasteStack(pasteRepairInput.first, firstRemainingDurability));
-        }
-        if (secondRemainingDurability > 0) {
-            remainingItems.set(pasteRepairInput.secondSlot, this.createPasteStack(pasteRepairInput.second, secondRemainingDurability));
+        if (pasteRepairInput.firstRemainingDurability() >= pasteRepairInput.secondRemainingDurability()) {
+            remainingItems.set(pasteRepairInput.firstSlot, this.createPasteStack(pasteRepairInput.first, leftoverDurability));
+        } else {
+            remainingItems.set(pasteRepairInput.secondSlot, this.createPasteStack(pasteRepairInput.second, leftoverDurability));
         }
 
         return remainingItems;
