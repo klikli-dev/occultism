@@ -29,8 +29,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -100,10 +100,10 @@ public class SpiritTransporterContainer extends SpiritContainer {
     protected void setupFilterSlots() {
         int x = 8;
         int y = 84;
-        ItemStackHandler filterItems = this.spirit.filterItemStackHandler;
+        ItemStacksResourceHandler filterItems = this.spirit.filterItemStackHandler;
 
         for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < filterItems.getSlots() / 2; j++) {
+            for (int j = 0; j < filterItems.size() / 2; j++) {
                 this.addSlot(new FilterSlot(filterItems, j + i * 7, x + j * 18,
                         y + i * 18));
             }
@@ -120,11 +120,11 @@ public class SpiritTransporterContainer extends SpiritContainer {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             
-            if (index >= this.slots.size() - this.inventory.getSlots() - filterSize) {
-                if (!this.moveItemStackTo(itemstack1, 0, this.slots.size() - this.inventory.getSlots() - filterSize, true)) {
+            if (index >= this.slots.size() - this.inventory.size() - filterSize) {
+                if (!this.moveItemStackTo(itemstack1, 0, this.slots.size() - this.inventory.size() - filterSize, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, this.slots.size() - this.inventory.getSlots() - filterSize, this.slots.size() - filterSize, true)) {
+            } else if (!this.moveItemStackTo(itemstack1, this.slots.size() - this.inventory.size() - filterSize, this.slots.size() - filterSize, true)) {
                 return ItemStack.EMPTY;
             }
             
@@ -141,8 +141,8 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     public class FilterSlot extends SlotItemHandler {
 
-        public FilterSlot(IItemHandler handler, int inventoryIndex, int x, int y) {
-            super(handler, inventoryIndex, x, y);
+        public FilterSlot(ItemStacksResourceHandler handler, int inventoryIndex, int x, int y) {
+            super(IItemHandler.of(handler), inventoryIndex, x, y);
         }
 
         @Override
