@@ -46,9 +46,25 @@ public class PasteRepairItemRecipe extends RepairItemRecipe {
         }
 
         NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
-        int leftoverDurability = pasteRepairInput.totalRemainingDurability() - pasteRepairInput.maxDamage();
-        if (leftoverDurability > 0) {
-            remainingItems.set(pasteRepairInput.secondSlot, this.createPasteStack(pasteRepairInput.second, leftoverDurability));
+        if (pasteRepairInput.totalRemainingDurability() <= pasteRepairInput.maxDamage()) {
+            return remainingItems;
+        }
+
+        int durabilityToConsume = pasteRepairInput.maxDamage();
+        int minimumFirstConsumed = Math.max(0, durabilityToConsume - pasteRepairInput.secondRemainingDurability());
+        int maximumFirstConsumed = Math.min(pasteRepairInput.firstRemainingDurability(), durabilityToConsume);
+        int idealFirstConsumed = durabilityToConsume / 2 + durabilityToConsume % 2;
+        int firstConsumed = Math.min(maximumFirstConsumed, Math.max(minimumFirstConsumed, idealFirstConsumed));
+        int secondConsumed = durabilityToConsume - firstConsumed;
+
+        int firstRemainingDurability = pasteRepairInput.firstRemainingDurability() - firstConsumed;
+        int secondRemainingDurability = pasteRepairInput.secondRemainingDurability() - secondConsumed;
+
+        if (firstRemainingDurability > 0) {
+            remainingItems.set(pasteRepairInput.firstSlot, this.createPasteStack(pasteRepairInput.first, firstRemainingDurability));
+        }
+        if (secondRemainingDurability > 0) {
+            remainingItems.set(pasteRepairInput.secondSlot, this.createPasteStack(pasteRepairInput.second, secondRemainingDurability));
         }
 
         return remainingItems;
@@ -134,8 +150,16 @@ public class PasteRepairItemRecipe extends RepairItemRecipe {
             return this.first.getMaxDamage();
         }
 
+        private int firstRemainingDurability() {
+            return this.first.getMaxDamage() - this.first.getDamageValue();
+        }
+
+        private int secondRemainingDurability() {
+            return this.second.getMaxDamage() - this.second.getDamageValue();
+        }
+
         private int totalRemainingDurability() {
-            return this.first.getMaxDamage() - this.first.getDamageValue() + this.second.getMaxDamage() - this.second.getDamageValue();
+            return this.firstRemainingDurability() + this.secondRemainingDurability();
         }
     }
 }
