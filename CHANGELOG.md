@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.207.1] - 2026-04-06
+### :bug: Bug Fixes
+- [`465c812`](https://github.com/klikli-dev/occultism/commit/465c8125de43f3eefb01d97b2b75b62bd711fb8d) - prevent Fracture Soul enchantment from affecting players *(PR [#1503](https://github.com/klikli-dev/occultism/pull/1503) by [@GaeaKat](https://github.com/GaeaKat))*
+  - :arrow_lower_right: *fixes issue [#1502](https://github.com/klikli-dev/occultism/issues/1502) opened by [@dewboy3d](https://github.com/dewboy3d)*
+
+
 ## [release/v1.21.1-1.207.0] - 2026-04-05
 ### :sparkles: New Features
 - [`ab857b0`](https://github.com/klikli-dev/occultism/commit/ab857b0d0f615b7f5ac3622159e214ca0e35bbaa) - New Crowdin updates *(PR [#1492](https://github.com/klikli-dev/occultism/pull/1492) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2307,3 +2313,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.205.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.204.0...release/v1.21.1-1.205.0
 [release/v1.21.1-1.206.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.205.0...release/v1.21.1-1.206.0
 [release/v1.21.1-1.207.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.206.0...release/v1.21.1-1.207.0
+[release/v1.21.1-1.207.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.207.0...release/v1.21.1-1.207.1
