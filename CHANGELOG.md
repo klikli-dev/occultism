@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.208.2] - 2026-04-06
+### :sparkles: New Features
+- [`619b656`](https://github.com/klikli-dev/occultism/commit/619b656169117929bfa382035ec967f7891498a0) - New Crowdin updates *(PR [#1506](https://github.com/klikli-dev/occultism/pull/1506) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`9859a0a`](https://github.com/klikli-dev/occultism/commit/9859a0a1f2f2670fcff5e0d60d26d8490751783a) - use vanilla 1.21.1 spawn egg template *(PR [#1508](https://github.com/klikli-dev/occultism/pull/1508) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c9e2319`](https://github.com/klikli-dev/occultism/commit/c9e2319b2f744ad4bf67fbb17586a6b3720af1de) - stop EMI shift transfer from hanging *(PR [#1509](https://github.com/klikli-dev/occultism/pull/1509) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.208.1] - 2026-04-06
 ### :bug: Bug Fixes
 - [`5fe0ebc`](https://github.com/klikli-dev/occultism/commit/5fe0ebcc430b405f3438b0edd78f358b0deca031) - preserve durability when repairing paste items *(PR [#1505](https://github.com/klikli-dev/occultism/pull/1505) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2313,3 +2322,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.206.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.205.0...release/v1.21.1-1.206.0
 [release/v26.1-1.208.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-0.0.0...release/v26.1-1.208.0
 [release/v26.1-1.208.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.0...release/v26.1-1.208.1
+[release/v26.1-1.208.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.1...release/v26.1-1.208.2
