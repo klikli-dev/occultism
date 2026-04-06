@@ -110,6 +110,8 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         // We send the items in the recipe in any case to serve as a fallback in case the recipe is transient
         var templateItems = findGoodTemplateItems(recipe, menu);
 
+        amount = sanitizeTransferAmount(amount);
+
         // Don't transmit a recipe id to the server in case the recipe is not actually resolvable
         // this is the case for recipes synthetically generated for JEI/EMI
         if (recipeId != null && menu.player.level().getRecipeManager().byKey(recipeId).isEmpty()) {
@@ -118,6 +120,14 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         }
 
         Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems,amount));
+    }
+
+    private static int sanitizeTransferAmount(int amount) {
+        if (amount <= 0) {
+            return 1;
+        }
+
+        return amount;
     }
 
     private static NonNullList<ItemStack> findGoodTemplateItems(Recipe<?> recipe, StorageControllerContainerBase menu) {
@@ -495,4 +505,5 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
             }
         }
     }
+
 }
