@@ -117,7 +117,11 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
             recipeId = null;
         }
 
-        Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems,amount));
+        Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems, sanitizeTransferAmount(amount)));
+    }
+
+    private static int sanitizeTransferAmount(int amount) {
+        return Math.max(1, amount);
     }
 
     private static NonNullList<ItemStack> findGoodTemplateItems(Recipe<?> recipe, StorageControllerContainerBase menu) {
