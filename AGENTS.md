@@ -30,6 +30,6 @@
 - Several integrations are intentionally excluded in `build.gradle`; do not re-enable them.
 
 ## GIT Workflow
-- Do not create branches, use only the current checked out branch for all work.
+- For fixes and features always create a branch.
 - Use conventional commit messages, and keep commits focused on a single change or fix.
 - Commit early and commit often.
