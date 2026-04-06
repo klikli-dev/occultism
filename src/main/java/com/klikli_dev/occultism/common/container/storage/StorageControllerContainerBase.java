@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
+import com.klikli_dev.occultism.crafting.recipe.PasteRepairItemRecipe;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.common.misc.StorageControllerSlot;
@@ -336,18 +337,23 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     }
 
                     //handle container item refunding
-                    var remainder = stackInSlot.getItem().getCraftingRemainder();
-                    if (remainder != null) {
-                        ItemStack container = remainder.create();
-                        if (!stackInSlot.isStackable()) {
-                            stackInSlot = container;
-                            this.matrix.setItem(currentSlot, stackInSlot);
-                        } else {
-                            //handle stackable container items
-                            stackInSlot.shrink(1);
-                            ItemHandlerHelper.giveItemToPlayer(player, container);
+                    if (!(this.currentRecipe.value() instanceof PasteRepairItemRecipe)) {
+                        var remainder = stackInSlot.getItem().getCraftingRemainder();
+                        if (remainder != null) {
+                            ItemStack container = remainder.create();
+                            if (!stackInSlot.isStackable()) {
+                                stackInSlot = container;
+                                this.matrix.setItem(currentSlot, stackInSlot);
+                            } else {
+                                //handle stackable container items
+                                stackInSlot.shrink(1);
+                                ItemHandlerHelper.giveItemToPlayer(player, container);
+                            }
+                            continue;
                         }
-                    } else if (!currentCraftingItem.isEmpty()) {
+                    }
+
+                    if (!currentCraftingItem.isEmpty()) {
                         //if the slot is empty now we just place the crafting item in it
                         if (stackInSlot.isEmpty()) {
                             this.matrix.setItem(currentSlot, currentCraftingItem);
