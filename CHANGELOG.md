@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.209.0] - 2026-04-06
+### :recycle: Refactors
+- [`99875d8`](https://github.com/klikli-dev/occultism/commit/99875d8892e0ccc8908646e96be123a6639809a7) - migrate deprecated item handlers to resource handlers *(PR [#1511](https://github.com/klikli-dev/occultism/pull/1511) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.208.2] - 2026-04-06
 ### :sparkles: New Features
 - [`619b656`](https://github.com/klikli-dev/occultism/commit/619b656169117929bfa382035ec967f7891498a0) - New Crowdin updates *(PR [#1506](https://github.com/klikli-dev/occultism/pull/1506) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2323,3 +2328,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.208.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-0.0.0...release/v26.1-1.208.0
 [release/v26.1-1.208.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.0...release/v26.1-1.208.1
 [release/v26.1-1.208.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.1...release/v26.1-1.208.2
+[release/v26.1-1.209.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.2...release/v26.1-1.209.0
