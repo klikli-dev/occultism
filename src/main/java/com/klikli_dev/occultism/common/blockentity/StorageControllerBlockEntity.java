@@ -38,7 +38,7 @@ import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
-import com.klikli_dev.occultism.common.misc.StorageControllerMapItemStackHandler;
+import com.klikli_dev.occultism.common.misc.StorageControllerMapItemResourceHandler;
 import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -99,7 +99,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public ItemStack orderStack = ItemStack.EMPTY;
     public Map<GlobalBlockPos, MachineReference> linkedMachines = new HashMap<>();
     public Map<GlobalBlockPos, UUID> depositOrderSpirits = new HashMap<>();
-    public StorageControllerMapItemStackHandler itemStackHandler = new StorageControllerMapItemStackHandler(this,
+    public StorageControllerMapItemResourceHandler itemStackHandler = new StorageControllerMapItemResourceHandler(this,
             Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get(),
             Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get()
     );
@@ -310,11 +310,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public List<ItemStack> getStacks() {
 
         List<ItemStack> result = new ArrayList<>(this.itemStackHandler.getSlots());
-        for (var entry : this.itemStackHandler.keyToCountMap().object2IntEntrySet()) {
-            result.add(entry.getKey().stack().copyWithCount(entry.getIntValue()));
+        for (var entry : this.itemStackHandler.resourceToCountMap().object2IntEntrySet()) {
+            result.add(entry.getKey().toStack(entry.getIntValue()));
         }
 
-        this.usedItemTypes = this.itemStackHandler.keyToCountMap().size();
+        this.usedItemTypes = this.itemStackHandler.resourceToCountMap().size();
         this.usedTotalItemCount = this.itemStackHandler.totalItemCount();
         return result;
     }
