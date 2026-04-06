@@ -149,7 +149,7 @@ public class LootEventHandler {
 
         if (killer instanceof LivingEntity living) {
             int level = living.getWeaponItem().getEnchantmentLevel(killed.level().holderOrThrow(OccultismEnchantments.FRACTURE_SOUL));
-            if (level == 0 || killed instanceof IFamiliar) {
+            if (level == 0 || killed.getType().is(OccultismTags.Entities.SOUL_SHATTERED_DENY_LIST) || killed instanceof IFamiliar || killed instanceof Player) {
                 return;
             }
 
