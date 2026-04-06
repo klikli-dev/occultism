@@ -13,8 +13,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtil;
 
@@ -63,15 +66,18 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
             this.toggleContainer(blockEntity, true);
 
             if (depositItemHandler != null) {
-                var entityItemHandler = entity.inventory;
+                ItemStacksResourceHandler entityItemHandler = entity.inventory;
                 var firstFilledSlot = ItemTransferUtil.getFirstFilledSlot(entityItemHandler);
                 if (firstFilledSlot != -1) {
-                    ItemStack duplicate = entityItemHandler.getStackInSlot(firstFilledSlot).copy();
+                    ItemStack duplicate = entityItemHandler.getResource(firstFilledSlot).toStack().copy();
 
                     //simulate insertion
                     ItemStack leftover = ItemTransferUtil.insertItem(depositItemHandler, duplicate, false);
                     //if we inserted everything
-                    entityItemHandler.setStackInSlot(firstFilledSlot, leftover);
+                    try (var tx = Transaction.openRoot()) {
+                        entityItemHandler.set(firstFilledSlot, ItemResource.of(leftover), leftover.getCount());
+                        tx.commit();
+                    }
                 }
             } else {
                 //if deposit is bogus, that is a player issue not ai.

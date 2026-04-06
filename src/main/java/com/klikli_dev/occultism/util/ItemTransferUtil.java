@@ -77,7 +77,20 @@ public final class ItemTransferUtil {
     }
 
     public static int getFirstMatchingSlot(IItemHandler handler, TagKey<Item> tag) {
+        if (handler instanceof ResourceHandler) {
+            return getFirstMatchingSlot((ResourceHandler<ItemResource>) handler, tag);
+        }
         return StorageUtil.getFirstMatchingSlot(handler, tag);
+    }
+
+    public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, TagKey<Item> tag) {
+        for (int i = 0; i < handler.size(); i++) {
+            ItemResource resource = handler.getResource(i);
+            if (!resource.isEmpty() && resource.toStack().is(tag)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static ItemStack extractItem(@Nullable ResourceHandler<ItemResource> handler, int index, int amount, boolean simulate) {

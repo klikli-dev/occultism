@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
@@ -161,7 +162,7 @@ public class ExtractItemsGoal extends PausableGoal {
         }
     }
 
-    public boolean tryPerformStorageActuatorExtraction(ResourceHandler<ItemResource> blockEntityHandler, ResourceHandler<ItemResource> entityHandler, ItemStackHandler itemFilter, String tagFilter, boolean isFilterBlacklist) {
+    public boolean tryPerformStorageActuatorExtraction(ResourceHandler<ItemResource> blockEntityHandler, ResourceHandler<ItemResource> entityHandler, ItemStacksResourceHandler itemFilter, String tagFilter, boolean isFilterBlacklist) {
         if (!(blockEntityHandler instanceof MapItemResourceHandler mapItemStackHandler))
             return false;
 
@@ -170,8 +171,8 @@ public class ExtractItemsGoal extends PausableGoal {
 
 
         boolean filterEmpty = true;
-        for (int i = 0; i < itemFilter.getSlots(); i++) {
-            var filterItem = itemFilter.getStackInSlot(i);
+        for (int i = 0; i < itemFilter.size(); i++) {
+            var filterItem = itemFilter.getResource(i).toStack();
             if (filterItem.isEmpty()) {
                 continue;
             }

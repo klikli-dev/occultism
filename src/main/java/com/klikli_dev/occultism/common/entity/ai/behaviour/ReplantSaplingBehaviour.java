@@ -15,6 +15,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtil;
 
@@ -46,10 +48,14 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
                 var handler = entity.inventory;
                 int slot = ItemTransferUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS);
                 if (slot != -1) {
-                    ItemStack sapling = handler.getStackInSlot(slot);
+                    ItemStack sapling = handler.getResource(slot).toStack();
                     if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
                         entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
                         sapling.shrink(1);
+                        try (var tx = Transaction.openRoot()) {
+                            handler.set(slot, ItemResource.of(sapling), sapling.getCount());
+                            tx.commit();
+                        }
                     }
                 }
             }

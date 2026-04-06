@@ -30,7 +30,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -106,7 +106,7 @@ public class PickupItemsGoal extends TargetGoal {
                 this.entity.getNavigation().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
-                ItemStackHandler handler = this.entity.inventory;
+                ItemStacksResourceHandler handler = this.entity.inventory;
                 if (ItemTransferUtil.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
                     ItemStack remaining = ItemTransferUtil.insertItemStacked(handler, duplicate, false);
                     this.targetItem.getItem().setCount(remaining.getCount());
