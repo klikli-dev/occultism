@@ -176,6 +176,12 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    protected void removeDataFromSoulShard(net.minecraft.nbt.CompoundTag entityData) {
+        super.removeDataFromSoulShard(entityData);
+        entityData.remove("ironCount");
+    }
+
+    @Override
     public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setIronCount(input.getIntOr("ironCount", 0));
