@@ -120,6 +120,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
         this.saveWithoutId(valueOutput);
         entityData.merge(valueOutput.buildResult());
+        this.removeDataFromSoulShard(entityData);
 
         shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
 
@@ -140,6 +141,9 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     public void setRecordPlayingNearby(BlockPos jukeboxPos, boolean partying) {
         this.jukeboxPos = jukeboxPos;
         this.partying = partying;
+    }
+
+    protected void removeDataFromSoulShard(CompoundTag entityData) {
     }
 
     public boolean isPartying() {
