@@ -240,13 +240,13 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (!BlockEntityUtil.isLoaded(this.entity.level(), this.storageControllerPosition)) {
-            return this.storageController;
+            this.storageController = null;
+            return null;
         }
 
         BlockEntity blockEntity = BlockEntityUtil.get(this.entity.level(), this.storageControllerPosition);
         if (!(blockEntity instanceof IStorageController currentStorageController)) {
             this.storageController = null;
-            this.storageControllerPosition = null;
             return null;
         }
 
