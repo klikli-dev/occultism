@@ -108,17 +108,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
         this.itemStackHandler = new ItemStacksResourceHandler(1) {
 
-            private int handleDummyInsert(ItemResource resource, int amount, TransactionContext tx, boolean simulate){
+            private int handleDummyInsert(ItemResource resource, int amount, TransactionContext tx) {
                 ItemStack stack = resource.toStack(amount);
 
-                int inserted = this.insert(0, resource, amount, tx);
+                int inserted = super.insert(0, resource, amount, tx);
 
-                 if (!simulate && inserted > 0 && stack.getItem() instanceof DummyTooltipItem activationItem) {
+                if (inserted > 0 && stack.getItem() instanceof DummyTooltipItem activationItem) {
                     new RootCommitJournal(() -> {
                         activationItem.performRitual(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this,
                                 null, this.getResource(0).toStack());
                         try (var extractTx = Transaction.openRoot()) {
-                            this.extract(0, resource, 1, extractTx);
+                            super.extract(0, resource, 1, extractTx);
                             extractTx.commit();
                         }
                     }).updateSnapshots(tx);
@@ -127,9 +127,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 return inserted;
             }
 
+            @Override
             public int insert(int slot, ItemResource resource, int amount, TransactionContext tx) {
-                if(resource.toStack().getItem() instanceof DummyTooltipItem)
-                    return handleDummyInsert(resource, amount, tx, false);
+                if (resource.toStack().getItem() instanceof DummyTooltipItem)
+                    return handleDummyInsert(resource, amount, tx);
 
                 if (GoldenSacrificialBowlBlockEntity.this.getCurrentRitualRecipe() != null)
                     return 0;
@@ -143,7 +144,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
                 int inserted = super.insert(slot, resource, amount, tx);
 
-                 if (inserted > 0) {
+                if (inserted > 0) {
                     new RootCommitJournal(() -> {
                         var activationItemStack = this.getResource(0).toStack();
                         if (ritualRecipe.value().getRitual().isValid(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this, GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack,

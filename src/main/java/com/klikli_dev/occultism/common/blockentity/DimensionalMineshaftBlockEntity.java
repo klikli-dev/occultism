@@ -129,7 +129,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     // region Inner Classes
     public class MineshaftInventory extends ItemStacksResourceHandler {
         private boolean isInput;
-        public boolean suppressWrites = false;
 
         public MineshaftInventory(int size, boolean isInput) {
             super(size);

@@ -593,7 +593,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     // region Inner Classes
     public class BattlefieldInventory extends ItemStacksResourceHandler {
         private boolean isInput;
-        public boolean suppressWrites = false;
 
         public BattlefieldInventory(int size, boolean isInput) {
             super(size);

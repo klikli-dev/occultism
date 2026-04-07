@@ -48,8 +48,8 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
         this.otherworldMiner = otherworldMiner;
-        this.inputHandler = (ItemStacksResourceHandler) (Object) otherworldMiner.inputHandler;
-        this.outputHandler = (ItemStacksResourceHandler) (Object) otherworldMiner.outputHandler;
+        this.inputHandler = otherworldMiner.inputHandler;
+        this.outputHandler = otherworldMiner.outputHandler;
 
         this.setupMinerInventory();
         this.setupPlayerInventorySlots(playerInventory.player);
@@ -122,18 +122,18 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 this.addSlot(
-                        new OutputSlot(this.outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
+                        new OutputSlot(this.otherworldMiner.outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
             }
         }
 
-        this.addSlot(new InputSlot(this.inputHandler, 0, 26, 35));
+        this.addSlot(new InputSlot(this.otherworldMiner.inputHandler, 0, 26, 35));
     }
 
      public class InputSlot extends ResourceHandlerSlot {
  
           public InputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
-             super(itemHandler, itemHandler::set, index, xPosition, yPosition);
-          }
+              super(itemHandler, itemHandler::set, index, xPosition, yPosition);
+           }
  
           public boolean mayPlace(ItemStack stack) {
             RecipeManager recipeManager = ((ServerLevel) DimensionalMineshaftContainer.this.otherworldMiner.getLevel()).getServer().getRecipeManager();
@@ -145,8 +145,8 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
      public class OutputSlot extends ResourceHandlerSlot {
  
           public OutputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
-             super(itemHandler, itemHandler::set, index, xPosition, yPosition);
-          }
+              super(itemHandler, itemHandler::set, index, xPosition, yPosition);
+           }
  
          public boolean mayPlace(ItemStack stack) {
             return false;

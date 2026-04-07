@@ -48,37 +48,10 @@ public final class ItemTransferUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static ItemStack insertItemStacked(@Nullable Object handler, ItemStack stack, boolean simulate) {
-        if (handler == null || stack.isEmpty()) {
-            return stack;
-        }
-        if (handler instanceof ResourceHandler) {
-            return insertItemStacked((ResourceHandler<ItemResource>) handler, stack, simulate);
-        }
-        return stack;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static int getFirstFilledSlot(Object handler) {
-        if (handler instanceof ResourceHandler) {
-            return getFirstFilledSlot((ResourceHandler<ItemResource>) handler);
-        }
-        return -1;
-    }
-
     public static int getFirstFilledSlot(ResourceHandler<ItemResource> handler) {
         for (int i = 0; i < handler.size(); i++) {
             if (!handler.getResource(i).isEmpty())
                 return i;
-        }
-        return -1;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static int getFirstMatchingSlot(Object handler, TagKey<Item> tag) {
-        if (handler instanceof ResourceHandler) {
-            return getFirstMatchingSlot((ResourceHandler<ItemResource>) handler, tag);
         }
         return -1;
     }
