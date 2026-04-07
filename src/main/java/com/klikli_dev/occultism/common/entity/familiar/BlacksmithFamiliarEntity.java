@@ -177,6 +177,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     @Override
     protected void removeDataFromSoulShard(net.minecraft.nbt.CompoundTag entityData) {
+        super.removeDataFromSoulShard(entityData);
         entityData.remove("ironCount");
     }
 
