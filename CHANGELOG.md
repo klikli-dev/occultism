@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.210.1] - 2026-04-07
+### :bug: Bug Fixes
+- [`09df27e`](https://github.com/klikli-dev/occultism/commit/09df27e8954d1a8f7bc95fc2f5e678b85832998e) - exclude blacksmith iron from soul shard data *(PR [#1513](https://github.com/klikli-dev/occultism/pull/1513) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1488](https://github.com/klikli-dev/occultism/issues/1488) opened by [@Pinkhai](https://github.com/Pinkhai)*
+- [`4feaf84`](https://github.com/klikli-dev/occultism/commit/4feaf84abd5f4696ef27389e00b748d631f2c8e6) - handle newlines in tooltips where MC doesn't do it. *(PR [#1514](https://github.com/klikli-dev/occultism/pull/1514) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1493](https://github.com/klikli-dev/occultism/issues/1493) opened by [@uhloin](https://github.com/uhloin)*
+
+
 ## [release/v26.1-1.210.0] - 2026-04-07
 ### :sparkles: New Features
 - [`f132398`](https://github.com/klikli-dev/occultism/commit/f1323987df4982b0f61491c8cc7e601079abb19b) - re-enable familiar ring curio *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2338,3 +2346,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.208.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.1...release/v26.1-1.208.2
 [release/v26.1-1.209.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.2...release/v26.1-1.209.0
 [release/v26.1-1.210.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.209.0...release/v26.1-1.210.0
+[release/v26.1-1.210.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.0...release/v26.1-1.210.1
