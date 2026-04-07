@@ -50,9 +50,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 
+import java.util.regex.Pattern;
 import java.util.function.Consumer;
 
 public class SoulGemItem extends Item {
+
+    private static final Pattern NEWLINE_PATTERN = Pattern.compile("\\\\n|\\R", Pattern.MULTILINE);
 
     public SoulGemItem(Properties properties) {
         super(properties);
@@ -193,10 +196,17 @@ public class SoulGemItem extends Item {
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             EntityType<?> type = this.getType(pStack);
             if (type != null) {
-                pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+                this.appendMultilineTooltip(pTooltipAdder,
+                        Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
             }
         } else {
-            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
+            this.appendMultilineTooltip(pTooltipAdder, Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
+        }
+    }
+
+    protected void appendMultilineTooltip(Consumer<Component> pTooltipAdder, Component pTooltip) {
+        for (String line : NEWLINE_PATTERN.split(pTooltip.getString(), -1)) {
+            pTooltipAdder.accept(Component.literal(line));
         }
     }
 }
