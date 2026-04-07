@@ -226,3 +226,4 @@ public class SummonRitual extends Ritual {
         }
     }
 }
+

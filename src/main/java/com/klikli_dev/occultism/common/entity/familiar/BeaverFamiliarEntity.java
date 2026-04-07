@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -52,7 +54,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -135,7 +136,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"));
                 } else if (this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL) {
                     this.lastSnackTime = this.level().getGameTime();
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
                 } else {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"));
                 }
@@ -249,3 +250,4 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         }
     }
 }
+

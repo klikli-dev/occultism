@@ -376,3 +376,4 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     }
 
 }
+

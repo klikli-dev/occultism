@@ -55,7 +55,6 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 //import top.theillusivec4.curios.api.CuriosApi;
 //import top.theillusivec4.curios.api.SlotResult;
 //import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;

@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -48,7 +50,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -194,7 +195,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         if (this.hasStick()) {
-            ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
+            ItemTransferUtil.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
             this.setStick(false);
             return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (stack.is(Tags.Items.NUGGETS_GOLD)) {
@@ -366,3 +367,4 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     }
 }
+

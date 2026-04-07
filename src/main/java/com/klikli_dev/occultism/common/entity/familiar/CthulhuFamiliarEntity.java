@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -62,7 +64,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -116,11 +117,11 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                     if (this.hasBlacksmithUpgrade()) {
                         this.lastPrismarineTime = this.level().getGameTime();
                         itemstack.shrink(1);
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, RandomSource.create().nextInt(1,5)));
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, RandomSource.create().nextInt(1,5)));
                     } else {
                         this.lastPrismarineTime = this.level().getGameTime();
                         itemstack.shrink(1);
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD));
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD));
                     }
                 } else {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"));
@@ -461,3 +462,4 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     }
 }
+

@@ -310,7 +310,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             //region onTake replacement for crafting
 
             //give to the player
-            //historically we used ItemHandlerHelper.giveItemToPlayer(player, result); here
+            //historically we used ItemTransferUtil.giveItemToPlayer(player, result); here
             //now we instead pre-merge the stack -> might prevent intervention by other mods.
             resultList.add(newResult);
 
@@ -540,3 +540,4 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
 }
+

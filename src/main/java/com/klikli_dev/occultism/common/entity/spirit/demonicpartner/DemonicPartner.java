@@ -45,7 +45,6 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -217,9 +216,9 @@ public class DemonicPartner extends TamableAnimal {
                     itemstack.shrink(1);
                     var remainder = itemstack.getItem().getCraftingRemainder();
                     if (remainder == null) {
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
                     } else {
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, remainder.create());
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, remainder.create());
                     }
                 }
 
@@ -242,7 +241,7 @@ public class DemonicPartner extends TamableAnimal {
 
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.BOWL));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.BOWL));
                 }
 
                 return InteractionResult.SUCCESS;
@@ -262,14 +261,14 @@ public class DemonicPartner extends TamableAnimal {
                     if (!pPlayer.isCreative()) {
                         itemstack.shrink(itemstack.getCount());
                     }
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, multiResult);
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, multiResult);
                 }
                 else
                 {
                     if (!pPlayer.isCreative()) {
                         itemstack.shrink(1);
                     }
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, result);
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, result);
                 }
 
                 for (int i = 0; i < 2; i++) {
@@ -343,3 +342,4 @@ public class DemonicPartner extends TamableAnimal {
         return super.isInvulnerableTo(level, source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
     }
 }
+

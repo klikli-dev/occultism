@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageFairySupport;
@@ -65,7 +67,6 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
@@ -195,7 +196,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                 } else if (this.level().getGameTime() > this.lastBreathTime + BREATH_INTERVAL) {
                     this.lastBreathTime = this.level().getGameTime();
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.DRAGON_BREATH));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.DRAGON_BREATH));
                 } else {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.fairy.breath_on_cooldown"));
                 }
@@ -577,3 +578,4 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         }
     }
 }
+
