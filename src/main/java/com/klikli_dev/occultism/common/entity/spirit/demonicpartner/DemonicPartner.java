@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.common.entity.spirit.demonicpartner;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -91,7 +92,7 @@ public class DemonicPartner extends TamableAnimal {
         this.setHealth(health);
 
         if(owner instanceof Player player){
-            ItemHandlerHelper.giveItemToPlayer(player, shard);
+            ItemTransferUtil.giveItemToPlayer(player, shard);
         }
         else {
             ItemEntity entityItem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
@@ -195,7 +196,7 @@ public class DemonicPartner extends TamableAnimal {
                     this.setHeartTime(this.level().getGameTime());
                     this.lastHeartTime = this.level().getGameTime();
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
                 } else {
                     pPlayer.sendOverlayMessage(Component.translatable("dialog.occultism.partner.heart_on_cooldown", time));
                 }

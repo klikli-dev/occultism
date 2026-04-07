@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
@@ -47,7 +48,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.StreamSupport;
@@ -98,7 +98,7 @@ public class SummonRitual extends Ritual {
         ItemNBTUtil.setBoundSpiritName(bookOfCalling, spirit.getName().getString());
 
         if(player != null)
-            ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
+            ItemTransferUtil.giveItemToPlayer(player, bookOfCalling);
         else {
             this.dropResult(spirit.level(), spirit.blockPosition(), null, null, bookOfCalling, true);
         }
