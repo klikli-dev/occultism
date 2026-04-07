@@ -39,10 +39,12 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class TooltipHandler {
 
+    private static final Pattern NEWLINE_PATTERN = Pattern.compile("\\\\n|\\R", Pattern.MULTILINE);
     private static final List<String> namespacesToListenFor = new ArrayList<>();
 
     /**
@@ -78,7 +80,12 @@ public class TooltipHandler {
             String tooltipKey = stack.getItem().getDescriptionId() + ".auto_tooltip";
             boolean tooltipExists = I18n.exists(tooltipKey);
             if (tooltipExists) {
-                event.getToolTip().add(Component.translatable(tooltipKey).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+                var tooltipStyle = Style.EMPTY.withColor(ChatFormatting.GRAY);
+                String localizedTooltip = I18n.get(tooltipKey);
+
+                for (String line : NEWLINE_PATTERN.split(localizedTooltip, -1)) {
+                    event.getToolTip().add(Component.literal(line).withStyle(tooltipStyle));
+                }
             }
         }
     }
