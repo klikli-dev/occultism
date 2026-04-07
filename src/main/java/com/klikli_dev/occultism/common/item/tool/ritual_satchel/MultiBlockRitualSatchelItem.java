@@ -35,7 +35,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import java.util.function.Consumer;
 import java.util.stream.Collectors;

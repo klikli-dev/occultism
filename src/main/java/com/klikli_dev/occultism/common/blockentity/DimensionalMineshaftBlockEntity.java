@@ -454,8 +454,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public void updateBelowBlock() {
         if (this.level != null) {
             this.cachedStateBelow = this.level.getBlockState(this.getBlockPos().below(2));
-            // TODO: Port to new NeoForge transfer API (Capabilities.Item.BLOCK / ResourceHandler<ItemResource>)
-            // The old IItemHandler capability system was replaced in NeoForge 26.1
             this.handlerBelow = null;
         }
     }
