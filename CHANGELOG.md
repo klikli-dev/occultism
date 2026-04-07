@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.208.0] - 2026-04-07
+### :bug: Bug Fixes
+- [`05c2341`](https://github.com/klikli-dev/occultism/commit/05c23411ee7d3d81ce158b1b83765bf24b565782) - re-register machine operators after storage upgrades *(PR [#1515](https://github.com/klikli-dev/occultism/pull/1515) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`39a7cf9`](https://github.com/klikli-dev/occultism/commit/39a7cf9f530dbb24d4b0cf7433e0bb5a2c42a5b0) - separate controller lookup from registration *(PR [#1517](https://github.com/klikli-dev/occultism/pull/1517) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.207.2] - 2026-04-06
 ### :bug: Bug Fixes
 - [`461a2a3`](https://github.com/klikli-dev/occultism/commit/461a2a37739c28c59a30f8752182d22cc6f18984) - preserve durability when repairing paste items *(PR [#1505](https://github.com/klikli-dev/occultism/pull/1505) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2323,3 +2329,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.207.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.206.0...release/v1.21.1-1.207.0
 [release/v1.21.1-1.207.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.207.0...release/v1.21.1-1.207.1
 [release/v1.21.1-1.207.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.207.1...release/v1.21.1-1.207.2
+[release/v1.21.1-1.208.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.207.2...release/v1.21.1-1.208.0
