@@ -64,6 +64,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+
 public abstract class Ritual {
 
     /**
@@ -415,21 +418,27 @@ public abstract class Ritual {
                                                Ingredient ingredient, List<ItemStack> consumedIngredients) {
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
-            ItemStack stack = sacrificialBowl.itemStackHandler.extractItem(0, 1, true);
+            ItemStack stack = sacrificialBowl.itemStackHandler.getResource(0).toStack();
             if (ingredient.test(stack)) {
                 //now take for real
-                ItemStack extracted = sacrificialBowl.itemStackHandler.extractItem(0, 1, false);
-                consumedIngredients.add(extracted);
-                //Show effect in level
-                ((ServerLevel) level)
-                        .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getBlockPos().getX() + 0.5,
-                                sacrificialBowl.getBlockPos().getY() + 1.5, sacrificialBowl.getBlockPos().getZ() + 0.5, 1,
-                                0.0, 0.0, 0.0,
-                                0.0);
+                try (var tx = Transaction.openRoot()) {
+                    int extracted = sacrificialBowl.itemStackHandler.extract(0, ItemResource.of(stack), 1, tx);
+                    if (extracted > 0) {
+                        consumedIngredients.add(stack.copyWithCount(extracted));
+                        tx.commit();
 
-                level.playSound(null, sacrificialBowl.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
-                        0.7f, 0.7f);
-                return true;
+                        //Show effect in level
+                        ((ServerLevel) level)
+                                .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getBlockPos().getX() + 0.5,
+                                        sacrificialBowl.getBlockPos().getY() + 1.5, sacrificialBowl.getBlockPos().getZ() + 0.5, 1,
+                                        0.0, 0.0, 0.0,
+                                        0.0);
+
+                        level.playSound(null, sacrificialBowl.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
+                                0.7f, 0.7f);
+                        return true;
+                    }
+                }
             }
         }
         return false;
@@ -449,7 +458,7 @@ public abstract class Ritual {
         List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
-            ItemStack stack = sacrificialBowl.itemStackHandler.extractItem(0, 1, true);
+            ItemStack stack = sacrificialBowl.itemStackHandler.getResource(0).toStack();
             if (ingredient.test(stack)) {
                 double gameTime = level.getGameTime() * 0.05;
                 //Show effect in level
@@ -542,7 +551,7 @@ public abstract class Ritual {
 
         List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
-            ItemStack stack = sacrificialBowl.itemStackHandler.getStackInSlot(0);
+            ItemStack stack = sacrificialBowl.itemStackHandler.getResource(0).toStack();
             if (!stack.isEmpty()) {
                 result.add(stack);
             }
@@ -639,18 +648,27 @@ public abstract class Ritual {
         if (level.getBlockEntity(goldenBowlPosition.above()) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
                 && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
-                && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
-            sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
+                && sacrificialBowlBlockEntity.itemStackHandler.getResource(0).isEmpty()) {
+            try (var tx = Transaction.openRoot()) {
+                sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
+                tx.commit();
+            }
         } else if (level.getBlockEntity(goldenBowlPosition.above(2)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
                 && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
-                && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
-            sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
+                && sacrificialBowlBlockEntity.itemStackHandler.getResource(0).isEmpty()) {
+            try (var tx = Transaction.openRoot()) {
+                sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
+                tx.commit();
+            }
         } else if (level.getBlockEntity(goldenBowlPosition.above(3)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
                 && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
-                && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
-            sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
+                && sacrificialBowlBlockEntity.itemStackHandler.getResource(0).isEmpty()) {
+            try (var tx = Transaction.openRoot()) {
+                sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
+                tx.commit();
+            }
         } else if (realDrop) {
             double angle = level.getRandom().nextDouble() * Math.PI * 2;
             ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,

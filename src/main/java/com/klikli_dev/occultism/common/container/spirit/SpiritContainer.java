@@ -30,9 +30,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
 
 import javax.annotation.Nullable;
 
@@ -115,15 +114,11 @@ public class SpiritContainer extends AbstractContainerMenu {
     }
 
     protected void setupEntityInventory() {
-        this.addSlot(new SlotItemHandler(IItemHandler.of(this.inventory), 0, 152, 54) {
+        this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 152, 54) {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return super.mayPlace(stack);
-            }
-
-            public void setChanged() {
-                this.container.setChanged();
             }
 
         });

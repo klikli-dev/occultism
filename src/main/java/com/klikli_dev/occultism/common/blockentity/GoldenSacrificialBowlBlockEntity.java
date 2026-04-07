@@ -68,8 +68,11 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -103,59 +106,66 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         this.rightClickItemListener = this::onPlayerRightClickItem;
         this.livingDeathEventListener = this::onLivingDeath;
 
-        this.itemStackHandler = new ItemStackHandler(1) {
+        this.itemStackHandler = new ItemStacksResourceHandler(1) {
 
-            private ItemStack handleDummyInsert(int slot, @NotNull ItemStack stack, boolean simulate){
-                var insertResult = super.insertItem(slot, stack, simulate);
-                var activationItemStack = this.getStackInSlot(0);
+            private int handleDummyInsert(ItemResource resource, int amount, TransactionContext tx, boolean simulate){
+                ItemStack stack = resource.toStack(amount);
 
-                if (!simulate && insertResult.getCount() != stack.getCount() && stack.getItem() instanceof DummyTooltipItem activationItem) {
-                    activationItem.performRitual(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this,
-                            null, activationItemStack);
-                    activationItemStack.shrink(1);
+                int inserted = this.insert(0, resource, amount, tx);
+
+                 if (!simulate && inserted > 0 && stack.getItem() instanceof DummyTooltipItem activationItem) {
+                    new RootCommitJournal(() -> {
+                        activationItem.performRitual(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this,
+                                null, this.getResource(0).toStack());
+                        try (var extractTx = Transaction.openRoot()) {
+                            this.extract(0, resource, 1, extractTx);
+                            extractTx.commit();
+                        }
+                    }).updateSnapshots(tx);
                 }
 
-                return insertResult;
+                return inserted;
             }
 
-            @Override
-            public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-                if(stack.getItem() instanceof DummyTooltipItem)
-                    return handleDummyInsert(slot, stack, simulate);
+            public int insert(int slot, ItemResource resource, int amount, TransactionContext tx) {
+                if(resource.toStack().getItem() instanceof DummyTooltipItem)
+                    return handleDummyInsert(resource, amount, tx, false);
 
                 if (GoldenSacrificialBowlBlockEntity.this.getCurrentRitualRecipe() != null)
-                    return stack;
+                    return 0;
 
                 var ritualRecipe = getAllRitualRecipes(GoldenSacrificialBowlBlockEntity.this.level).stream().filter(
-                        r -> r.value().matches(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), stack)
+                        r -> r.value().matches(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), resource.toStack())
                 ).findFirst().orElse(null);
 
                 if (ritualRecipe == null)
-                    return stack;
+                    return 0;
 
-                var insertResult = super.insertItem(slot, stack, simulate);
-                var activationItemStack = this.getStackInSlot(0);
+                int inserted = super.insert(slot, resource, amount, tx);
 
-                if (!simulate && insertResult.getCount() != stack.getCount() && ritualRecipe != null) {
-                    if (ritualRecipe.value().getRitual().isValid(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this, GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack,
-                            ritualRecipe.value().getIngredients()))
-                        GoldenSacrificialBowlBlockEntity.this.startRitual(GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack, ritualRecipe);
+                 if (inserted > 0) {
+                    new RootCommitJournal(() -> {
+                        var activationItemStack = this.getResource(0).toStack();
+                        if (ritualRecipe.value().getRitual().isValid(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this, GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack,
+                                ritualRecipe.value().getIngredients()))
+                            GoldenSacrificialBowlBlockEntity.this.startRitual(GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack, ritualRecipe);
+                    }).updateSnapshots(tx);
                 }
 
-                return insertResult;
+                return inserted;
             }
 
             @Override
-            public int getSlotLimit(int slot) {
+            protected int getCapacity(int slot, ItemResource resource) {
                 return 1;
             }
 
             @Override
-            protected void onContentsChanged(
-                    int slot) {
-                if (!GoldenSacrificialBowlBlockEntity.this.level.isClientSide()) {
+            protected void onContentsChanged(int slot, ItemStack previousContents) {
+                if (GoldenSacrificialBowlBlockEntity.this.level != null && !GoldenSacrificialBowlBlockEntity.this.level.isClientSide()) {
                     GoldenSacrificialBowlBlockEntity.this.lastChangeTime = GoldenSacrificialBowlBlockEntity.this.level
                             .getGameTime();
+                    GoldenSacrificialBowlBlockEntity.this.setChanged();
                     GoldenSacrificialBowlBlockEntity.this.markNetworkDirty();
                 }
             }
@@ -372,9 +382,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 }
             }
 
-            IItemHandler handler = this.itemStackHandler;
             if (!recipe.value().getRitual().isValid(this.level, this.getBlockPos(), this, this.castingPlayer,
-                    handler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
+                    this.itemStackHandler.getResource(0).toStack(), this.remainingAdditionalIngredients)) {
                 //ritual is no longer valid, so interrupt
                 this.stopRitual(false);
                 return;
@@ -465,7 +474,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             recipe
                     .value().getRitual()
-                    .update(this.level, this.getBlockPos(), this, this.castingPlayer, handler.getStackInSlot(0),
+                    .update(this.level, this.getBlockPos(), this, this.castingPlayer, this.itemStackHandler.getResource(0).toStack(),
                             this.currentTime);
 
             if (!recipe
@@ -518,7 +527,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     if (ritualRecipe.value().getRitual().isValid(level, pos, this, player, activationItem,
                             ritualRecipe.value().getIngredients())) {
                         this.castingPlayer = serverPlayer; // set casting player so the item stack handler insert code can access it
-                        this.itemStackHandler.insertItem(0, activationItem.split(1), false);
+                        try (var tx = Transaction.openRoot()) {
+                            this.itemStackHandler.insert(0, ItemResource.of(activationItem), 1, tx);
+                            activationItem.shrink(1);
+                            tx.commit();
+                        }
                         //no need to start the ritual as insertItem calls it
 //                        this.startRitual(serverPlayer, activationItem, ritualRecipe);
                     } else {
@@ -621,7 +634,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.consumedIngredients.clear();
             this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitualRecipe.value().getIngredients());
             this.ritualActive=true;
-            if(!this.currentRitualRecipe.value().getRitual().start(this.level, this.getBlockPos(), this, player, this.itemStackHandler.getStackInSlot(0))) {
+            if(!this.currentRitualRecipe.value().getRitual().start(this.level, this.getBlockPos(), this, player, this.itemStackHandler.getResource(0).toStack())) {
                 this.stopRitual(false, false); //do not show message as start will already do that
                 return false;
             }
@@ -667,16 +680,24 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         if (!this.level.isClientSide()) {
             var recipe = this.getCurrentRitualRecipe();
             if (recipe != null) {
-                IItemHandler handler = this.itemStackHandler;
                 if (finished) {
-                    ItemStack activationItem = handler.getStackInSlot(0);
+                    ItemStack activationItem = this.itemStackHandler.getResource(0).toStack();
                     recipe.value().getRitual().finish(this.level, this.getBlockPos(), this, this.castingPlayer, activationItem);
                 } else {
                     recipe.value().getRitual().interrupt(this.level, this.getBlockPos(), this, this.castingPlayer,
-                            handler.getStackInSlot(0), showInterruptedMessage);
+                            this.itemStackHandler.getResource(0).toStack(), showInterruptedMessage);
                     //Pop activation item back into level
-                    Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
-                            handler.extractItem(0, 1, false));
+                    try (var tx = Transaction.openRoot()) {
+                        var resource = this.itemStackHandler.getResource(0);
+                        if (!resource.isEmpty()) {
+                            int extracted = this.itemStackHandler.extract(0, resource, 1, tx);
+                            if (extracted > 0) {
+                                Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
+                                        resource.toStack(extracted));
+                            }
+                        }
+                        tx.commit();
+                    }
                     for (ItemStack consumed : consumedIngredients) {
                         Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
                                 consumed);

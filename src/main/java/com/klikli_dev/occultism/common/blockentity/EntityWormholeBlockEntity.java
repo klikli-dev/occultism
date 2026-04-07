@@ -25,8 +25,6 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.util.StorageUtil;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueInput;
@@ -43,55 +41,39 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
+import org.jspecify.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = Occultism.MODID)
 public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
 
     public long lastChangeTime;
-    public ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-
-        @Override
-        protected void onContentsChanged(
-                int slot) {
-
-            Level level = EntityWormholeBlockEntity.this.level;
-            if (level != null && !level.isClientSide()) {
-                EntityWormholeBlockEntity.this.lastChangeTime = level.getGameTime();
-                EntityWormholeBlockEntity.this.setChanged();
-                EntityWormholeBlockEntity.this.markNetworkDirty();
-            }
-        }
-
-    };
+    public ItemStacksResourceHandler itemStackHandler;
     protected boolean initialized = false;
 
     public EntityWormholeBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismBlockEntities.ENTITY_WORMHOLE.get(), worldPos, state);
-        this.itemStackHandler = new ItemStackHandler(1) {
+        this.itemStackHandler = new ItemStacksResourceHandler(1) {
 
             @Override
-            public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-                return stack.is(ItemTags.COMPASSES) ? super.insertItem(slot, stack, simulate) : stack;
+            public int insert(int slot, @NotNull ItemResource resource, int amount, @Nullable TransactionContext tx) {
+                return resource.toStack().is(ItemTags.COMPASSES) ? super.insert(slot, resource, amount, tx) : 0;
             }
 
             @Override
-            public int getSlotLimit(int slot) {
+            protected int getCapacity(int slot, ItemResource resource) {
                 return 1;
             }
 
             @Override
-            protected void onContentsChanged(
-                    int slot) {
+            protected void onContentsChanged(int slot, ItemStack previousContents) {
                 if (EntityWormholeBlockEntity.this.level != null && !EntityWormholeBlockEntity.this.level.isClientSide()) {
                     EntityWormholeBlockEntity.this.lastChangeTime = EntityWormholeBlockEntity.this.level
                             .getGameTime();
+                    EntityWormholeBlockEntity.this.setChanged();
                     EntityWormholeBlockEntity.this.markNetworkDirty();
                 }
             }
@@ -100,11 +82,12 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
 
     public EntityWormholeBlockEntity(BlockEntityType<?> BlockEntityTypeIn, BlockPos worldPos, BlockState state) {
         super(BlockEntityTypeIn, worldPos, state);
+        this.itemStackHandler = new ItemStacksResourceHandler(1);
     }
 
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        StorageUtil.dropInventoryItems(this);
+        com.klikli_dev.occultism.util.StorageUtil.dropInventoryItems(this);
         super.preRemoveSideEffects(pos, state);
     }
 

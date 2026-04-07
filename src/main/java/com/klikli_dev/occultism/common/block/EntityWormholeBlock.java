@@ -63,7 +63,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -72,6 +72,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityBlock, Portal {
+
+    private static ItemStack getWormholeStack(EntityWormholeBlockEntity wormhole) {
+        return wormhole.itemStackHandler.getResource(0).toStack(wormhole.itemStackHandler.getAmountAsInt(0));
+    }
 
     public static final MapCodec<EntityWormholeBlock> CODEC = simpleCodec(EntityWormholeBlock::new);
     public static final IntegerProperty EXIT_ROTATION_X = IntegerProperty.create("exit_rotation_x", 0, 5);
@@ -120,14 +124,14 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                 EntityWormholeBlockEntity wormhole = (EntityWormholeBlockEntity) pLevel.getBlockEntity(pPos);
                 if (wormhole != null) {
                     var handler = wormhole.itemStackHandler;
-                    ItemStack itemStack = handler.getStackInSlot(0);
+                    ItemStack itemStack = getWormholeStack(wormhole);
                     if (pPlayer.isShiftKeyDown() && !itemStack.isEmpty()) {
                         if (heldItem.isEmpty()) {
                             //place it in the hand if possible
-                            pPlayer.setItemInHand(pHand, handler.extractItem(0, 64, false));
+                            pPlayer.setItemInHand(pHand, ItemTransferUtil.extractItem(handler, 0, 64, false));
                         } else {
                             //and if not, just put it in the inventory
-                            ItemHandlerHelper.giveItemToPlayer(pPlayer, handler.extractItem(0, 64, false));
+                            ItemTransferUtil.giveItemToPlayer(pPlayer, ItemTransferUtil.extractItem(handler, 0, 64, false));
                         }
                         pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
 
@@ -135,7 +139,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                         return InteractionResult.SUCCESS;
                     } else if (itemStack.isEmpty() && pStack.is(ItemTags.COMPASSES)) {
                         //if there is nothing in the bowl, put the hand held item in
-                        pPlayer.setItemInHand(pHand, handler.insertItem(0, heldItem, false));
+                        pPlayer.setItemInHand(pHand, ItemTransferUtil.insertItem(handler, 0, heldItem, false));
                         pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
                         wormhole.setChanged();
                         return InteractionResult.CONSUME;
@@ -160,7 +164,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                 state.getShape(level, pos), BooleanOp.AND)
                 || entity instanceof Projectile)
                 && level.getBlockEntity(pos) instanceof EntityWormholeBlockEntity wormholeBlockEntity
-                && !wormholeBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
+                && !getWormholeStack(wormholeBlockEntity).isEmpty()) {
             entity.setAsInsidePortal(this, pos);
         }
     }
@@ -168,7 +172,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     @Override
     public TeleportTransition getPortalDestination(ServerLevel level, @NotNull Entity entity, @NotNull BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof EntityWormholeBlockEntity wormhole) {
-            ItemStack compass = wormhole.itemStackHandler.getStackInSlot(0);
+            ItemStack compass = getWormholeStack(wormhole);
 
             ResourceKey<Level> resourcekey = null;
             BlockPos blockpos = null;
@@ -320,8 +324,8 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
     public void pullEntity(ServerLevel level, BlockPos pos, BlockState state){
         if (level.getBlockEntity(pos) instanceof EntityWormholeBlockEntity wormhole
-                && wormhole.itemStackHandler.getStackInSlot(0).has(OccultismDataComponents.SPIRIT_ENTITY_UUID)) {
-            UUID spirit = ItemNBTUtil.getSpiritEntityUUID(wormhole.itemStackHandler.getStackInSlot(0));
+                && getWormholeStack(wormhole).has(OccultismDataComponents.SPIRIT_ENTITY_UUID)) {
+            UUID spirit = ItemNBTUtil.getSpiritEntityUUID(getWormholeStack(wormhole));
             if (spirit != null) {
                 for (ServerLevel allLvl : Objects.requireNonNull(level.getServer()).getAllLevels()) {
                     Entity targetEntity = allLvl.getEntity(spirit);

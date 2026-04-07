@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -48,7 +49,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nullable;
@@ -297,7 +297,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
 
             //exit if we can no longer insert
-            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
+            if (!com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(this.playerInventory).getMainSlots(), newResult, true)
                     .isEmpty()) {
                 break;
             }
@@ -347,7 +347,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                             } else {
                                 //handle stackable container items
                                 stackInSlot.shrink(1);
-                                ItemHandlerHelper.giveItemToPlayer(player, container);
+                                ItemTransferUtil.giveItemToPlayer(player, container);
                             }
                             continue;
                         }
@@ -370,7 +370,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                             this.matrix.setItem(currentSlot, currentCraftingItem);
                         } else {
                             //last resort, try to place in player inventory or if that fails, drop.
-                            ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                            ItemTransferUtil.giveItemToPlayer(player, newResult);
                         }
 
                     } else if (!stackInSlot.isEmpty()) {
@@ -405,7 +405,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         for (ItemStack intermediateResult : resultList) {
             finalResult.setCount(finalResult.getCount() + intermediateResult.getCount());
         }
-        ItemHandlerHelper.giveItemToPlayer(player, finalResult);
+        ItemTransferUtil.giveItemToPlayer(player, finalResult);
 
         this.broadcastChanges();
 

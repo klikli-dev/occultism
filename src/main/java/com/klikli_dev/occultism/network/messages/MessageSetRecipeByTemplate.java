@@ -101,10 +101,10 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
                 //attempt to get the desired stack from the player inventory
                 ItemStack extractedStack = StorageUtil
-                        .extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient,
+                        .extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient,
                                 1, true);
                 if (this.canAcceptIngredient(craftMatrix, slot, extractedStack)) {
-                    extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
+                    extractedStack = StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient, 1, false);
                     if (!extractedStack.isEmpty()) {
                         this.placeExtractedStack(craftMatrix, slot, extractedStack);
                         anyExtracted = true;

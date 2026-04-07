@@ -69,7 +69,7 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
     public void render(EntityWormholeBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         var handler = blockEntity.itemStackHandler;
-        ItemStack stack = handler.getStackInSlot(0) == ItemStack.EMPTY ? ItemStack.EMPTY : OccultismItems.WORMHOLE_PORTAL.toStack();
+        ItemStack stack = handler.getResource(0).isEmpty() ? ItemStack.EMPTY : OccultismItems.WORMHOLE_PORTAL.toStack();
         ItemStack stackNugget = OccultismItems.IESNIUM_NUGGET.toStack();
         BlockState state = blockEntity.getBlockState();
 

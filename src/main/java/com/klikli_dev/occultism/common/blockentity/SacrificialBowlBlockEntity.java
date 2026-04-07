@@ -39,33 +39,35 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
     public long lastChangeTime;
-    public ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
+    public ItemStacksResourceHandler itemStackHandler = new ItemStacksResourceHandler(1) {
 
-        @Override
         public int getSlotLimit(int slot) {
             return 1;
         }
 
-        @Override
-        protected void onContentsChanged(
-                int slot) {
-
+        protected void onContentsChanged(int slot) {
             Level level = SacrificialBowlBlockEntity.this.level;
             if (level != null && !level.isClientSide()) {
                 Block blockBellow = level.getBlockState(getBlockPos().below()).getBlock();
                 if (!(SacrificialBowlBlockEntity.this instanceof GoldenSacrificialBowlBlockEntity)
                         && (blockBellow instanceof SpiritFireBlock || blockBellow == OccultismBlocks.SPIRIT_CAMPFIRE.get())) {
-                    var recipeInput = new SingleRecipeInput(this.getStackInSlot(0));
+
+                    var recipeInput = new SingleRecipeInput(this.getResource(0).toStack());
                     var recipe = ((ServerLevel) level).recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, (ServerLevel) level);
                     if (recipe.isPresent() && !recipeInput.item().is(OccultismBlocks.OTHERFLOWER.asItem())) {
-                        super.extractItem(0, 1, false);
-                        ItemStack result = recipe.get().value().assemble(recipeInput);
-                        super.setStackInSlot(0, result);
+                        try (var tx = Transaction.openRoot()) {
+                            this.extract(0, this.getResource(0), 1, tx);
+                            ItemStack result = recipe.get().value().assemble(recipeInput);
+                            this.insert(0, ItemResource.of(result), 1, tx);
+                            tx.commit();
+                        }
                         level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
                     }
                 }
@@ -75,7 +77,6 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
                 SacrificialBowlBlockEntity.this.markNetworkDirty();
             }
         }
-
     };
     protected boolean initialized = false;
 

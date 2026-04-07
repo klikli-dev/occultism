@@ -59,11 +59,12 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import net.neoforged.neoforge.transfer.CombinedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -88,7 +89,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public BufferedOutputHandler bufferedOutputHandler = new BufferedOutputHandler(outputHandler);
 
     // Combined handler now uses the buffered output to propagate safety
-    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
+    public ResourceHandler<ItemResource> combinedHandler = new CombinedResourceHandler<>(this.inputHandler, this.bufferedOutputHandler);
 
     public boolean outputDirty = false;
     public int miningTime;
@@ -112,7 +113,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     private final boolean bonusFortune = Occultism.SERVER_CONFIG.itemSettings.minerFortune.getAsBoolean();
     private final boolean bonusSilk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean();
     private final boolean saveMiner = Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean();
-    private IItemHandler handlerBelow = null;
+    private ResourceHandler<ItemResource> handlerBelow = null;
     private BlockState cachedStateBelow = null;
 
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
@@ -126,7 +127,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     // region Inner Classes
-    public class MineshaftInventory extends ItemStackHandler {
+    public class MineshaftInventory extends ItemStacksResourceHandler {
         private boolean isInput;
         public boolean suppressWrites = false;
 
@@ -136,11 +137,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            if (this.isInput) {
-                return mayPlace(stack) ? super.insertItem(slot, stack, simulate) : stack;
-            }
-            return super.insertItem(slot, stack, simulate);
+        public boolean isValid(int slot, ItemResource resource) {
+            return !this.isInput || mayPlace(resource.toStack());
         }
 
         public boolean mayPlace(ItemStack stack) {
@@ -148,83 +146,65 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
 
-        @Override
-        protected void onContentsChanged(int slot) {
-            if (!this.suppressWrites) {
-                DimensionalMineshaftBlockEntity.this.setChanged();
-            }
+        public @NotNull ItemStack getStackInSlot(int slot) {
+            return this.getResource(slot).toStack(this.getAmountAsInt(slot));
         }
 
-        public void setStackInSlotDirect(int slot, ItemStack stack) {
-            this.stacks.set(slot, stack);
+        @Override
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
+            DimensionalMineshaftBlockEntity.this.setChanged();
         }
     }
 
-    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+    public class BufferedOutputHandler implements ResourceHandler<ItemResource> {
         private final MineshaftInventory internal;
+        private final RootCommitJournal outputDirtyJournal = new RootCommitJournal(() -> DimensionalMineshaftBlockEntity.this.outputDirty = true);
 
         public BufferedOutputHandler(MineshaftInventory internal) {
             this.internal = internal;
         }
 
         @Override
-        public int getSlots() {
-            return internal.getSlots();
+        public int size() {
+            return internal.size();
         }
 
         @Override
-        public @NotNull ItemStack getStackInSlot(int slot) {
-            return internal.getStackInSlot(slot);
+        public @NotNull ItemResource getResource(int slot) {
+            return internal.getResource(slot);
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            internal.suppressWrites = true;
-            try {
-                ItemStack result = internal.insertItem(slot, stack, simulate);
-                // If items were accepted (result count < stack count), mark dirty
-                if (!simulate && (result.isEmpty() || result.getCount() < stack.getCount())) {
-                    DimensionalMineshaftBlockEntity.this.outputDirty = true;
-                }
-                return result;
-            } finally {
-                internal.suppressWrites = false;
+        public long getAmountAsLong(int slot) {
+            return internal.getAmountAsLong(slot);
+        }
+
+        @Override
+        public boolean isValid(int slot, ItemResource resource) {
+            return internal.isValid(slot, resource);
+        }
+
+        @Override
+        public long getCapacityAsLong(int slot, ItemResource resource) {
+            return internal.getCapacityAsLong(slot, resource);
+        }
+
+        @Override
+        public int insert(int slot, ItemResource resource, int amount, TransactionContext transaction) {
+            int inserted = internal.insert(slot, resource, amount, transaction);
+            if (inserted > 0) {
+                this.outputDirtyJournal.updateSnapshots(transaction);
             }
+            return inserted;
         }
 
         @Override
-        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-            internal.suppressWrites = true;
-            try {
-                ItemStack result = internal.extractItem(slot, amount, simulate);
-                if (!simulate && !result.isEmpty()) {
-                    DimensionalMineshaftBlockEntity.this.outputDirty = true;
-                }
-                return result;
-            } finally {
-                internal.suppressWrites = false;
+        public int extract(int slot, ItemResource resource, int amount, TransactionContext transaction) {
+            int extracted = internal.extract(slot, resource, amount, transaction);
+            if (extracted > 0) {
+                this.outputDirtyJournal.updateSnapshots(transaction);
             }
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return internal.getSlotLimit(slot);
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return internal.isItemValid(slot, stack);
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            internal.suppressWrites = true;
-            try {
-                internal.setStackInSlot(slot, stack);
-                DimensionalMineshaftBlockEntity.this.outputDirty = true;
-            } finally {
-                internal.suppressWrites = false;
-            }
+            return extracted;
         }
     }
     // endregion Inner Classes
@@ -372,7 +352,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new DimensionalMineshaftContainer(id, playerInventory, this);
     }
-    // endregion Static Methods
 
     public void mine() {
         if (this.level == null)
@@ -432,9 +411,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         // Insert batched drops
-        IItemHandler currentHandler = this.getCurrentHandler();
+        ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         for (ItemStack drop : batchedDrops) {
-            ItemHandlerHelper.insertItemStacked(currentHandler, drop, false);
+            com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(currentHandler, drop, false);
         }
 
         // damage the item and move to output before breaking
@@ -443,7 +422,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (saveMiner && input.getMaxDamage() - 1 == input.getDamageValue()) {
             var minerCopy = input.copy();
             input.shrink(1);
-            ItemHandlerHelper.insertItemStacked(currentHandler, minerCopy, false);
+            com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(currentHandler, minerCopy, false);
         }
     }
 
@@ -481,7 +460,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
     }
 
-    private IItemHandler getCurrentHandler() {
+    private ResourceHandler<ItemResource> getCurrentHandler() {
         if (this.level == null)
             return null;
 
