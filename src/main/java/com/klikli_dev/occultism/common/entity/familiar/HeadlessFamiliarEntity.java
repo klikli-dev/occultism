@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
@@ -70,7 +72,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
@@ -419,7 +420,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.setHealth(health);
 
         if (owner instanceof Player player) {
-            ItemHandlerHelper.giveItemToPlayer(player, shard);
+            ItemTransferUtil.giveItemToPlayer(player, shard);
         } else {
             ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
             entityitem.setPickUpDelay(5);
@@ -430,3 +431,4 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
 }
+

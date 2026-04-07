@@ -40,7 +40,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -108,11 +107,11 @@ public class MessageSetRecipe implements IMessage {
 
                 //attempt to get the desired stack from the player inventory
                 ItemStack extractedStack = StorageUtil
-                        .extractItem(new PlayerMainInvWrapper(player.getInventory()), comparator,
+                        .extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), comparator,
                                 1, true);
                 if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
-                    StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), comparator, 1, false);
+                    StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), comparator, 1, false);
                     craftMatrix.setItem(slot, extractedStack);
                     break;
                 }

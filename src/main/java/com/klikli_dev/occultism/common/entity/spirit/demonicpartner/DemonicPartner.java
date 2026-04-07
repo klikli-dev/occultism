@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.common.entity.spirit.demonicpartner;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -44,7 +45,6 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -91,7 +91,7 @@ public class DemonicPartner extends TamableAnimal {
         this.setHealth(health);
 
         if(owner instanceof Player player){
-            ItemHandlerHelper.giveItemToPlayer(player, shard);
+            ItemTransferUtil.giveItemToPlayer(player, shard);
         }
         else {
             ItemEntity entityItem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
@@ -195,7 +195,7 @@ public class DemonicPartner extends TamableAnimal {
                     this.setHeartTime(this.level().getGameTime());
                     this.lastHeartTime = this.level().getGameTime();
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
                 } else {
                     pPlayer.sendOverlayMessage(Component.translatable("dialog.occultism.partner.heart_on_cooldown", time));
                 }
@@ -216,9 +216,9 @@ public class DemonicPartner extends TamableAnimal {
                     itemstack.shrink(1);
                     var remainder = itemstack.getItem().getCraftingRemainder();
                     if (remainder == null) {
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
                     } else {
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, remainder.create());
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, remainder.create());
                     }
                 }
 
@@ -241,7 +241,7 @@ public class DemonicPartner extends TamableAnimal {
 
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.BOWL));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.BOWL));
                 }
 
                 return InteractionResult.SUCCESS;
@@ -261,14 +261,14 @@ public class DemonicPartner extends TamableAnimal {
                     if (!pPlayer.isCreative()) {
                         itemstack.shrink(itemstack.getCount());
                     }
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, multiResult);
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, multiResult);
                 }
                 else
                 {
                     if (!pPlayer.isCreative()) {
                         itemstack.shrink(1);
                     }
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, result);
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, result);
                 }
 
                 for (int i = 0; i < 2; i++) {
@@ -342,3 +342,4 @@ public class DemonicPartner extends TamableAnimal {
         return super.isInvulnerableTo(level, source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
     }
 }
+

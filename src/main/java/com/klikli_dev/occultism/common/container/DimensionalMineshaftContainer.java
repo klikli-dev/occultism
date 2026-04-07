@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.common.container;
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.util.RecipeUtil;
+ import com.klikli_dev.occultism.util.RecipeUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -33,18 +33,17 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
-public class DimensionalMineshaftContainer extends AbstractContainerMenu {
+ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
-    public ItemStackHandler inputHandler;
-    public ItemStackHandler outputHandler;
+    public ItemStacksResourceHandler inputHandler;
+    public ItemStacksResourceHandler outputHandler;
     public DimensionalMineshaftBlockEntity otherworldMiner;
     public Inventory playerInventory;
 
-    public DimensionalMineshaftContainer(int id, Inventory playerInventory,
+     public DimensionalMineshaftContainer(int id, Inventory playerInventory,
                                          DimensionalMineshaftBlockEntity otherworldMiner) {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
@@ -64,27 +63,27 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
                 this.otherworldMiner.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
 
-    @Override
+     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if (index < this.outputHandler.getSlots()) {
+            if (index < this.outputHandler.size()) {
                 //+1 because we have the input handler slot after the output hander slots
-                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.size() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //input handler slot is exactly at last output handler slot + 1
-            else if (index == this.outputHandler.getSlots()) {
-                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
+            else if (index == this.outputHandler.size()) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.size() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.moveItemStackTo(itemstack1, 0, this.outputHandler.getSlots() + 1, false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.outputHandler.size() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -115,44 +114,41 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
-    protected void setupMinerInventory() {
+     protected void setupMinerInventory() {
         int outputGridTop = 17;
         int outputGridLeft = 98;
         int index = 0;
 
-        IItemHandler outputHandler = this.otherworldMiner.outputHandler;
-        IItemHandler inputHandler = this.otherworldMiner.inputHandler;
-
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 this.addSlot(
-                        new OutputSlot(outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
+                        new OutputSlot(this.otherworldMiner.outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
             }
         }
 
-        this.addSlot(new InputSlot(inputHandler, 0, 26, 35));
+        this.addSlot(new InputSlot(this.otherworldMiner.inputHandler, 0, 26, 35));
     }
 
-    public class InputSlot extends SlotItemHandler {
-
-        public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-
-        public boolean mayPlace(ItemStack stack) {
+     public class InputSlot extends ResourceHandlerSlot {
+ 
+          public InputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+              super(itemHandler, itemHandler::set, index, xPosition, yPosition);
+           }
+ 
+          public boolean mayPlace(ItemStack stack) {
             RecipeManager recipeManager = ((ServerLevel) DimensionalMineshaftContainer.this.otherworldMiner.getLevel()).getServer().getRecipeManager();
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
 
     }
 
-    public class OutputSlot extends SlotItemHandler {
-
-        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-
-        public boolean mayPlace(ItemStack stack) {
+     public class OutputSlot extends ResourceHandlerSlot {
+ 
+          public OutputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+              super(itemHandler, itemHandler::set, index, xPosition, yPosition);
+           }
+ 
+         public boolean mayPlace(ItemStack stack) {
             return false;
         }
 

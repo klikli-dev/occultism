@@ -23,6 +23,9 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.job.event.ItemProcessingJobEvent;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -49,8 +52,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityEvent;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class CrusherJob extends SpiritJob {
     protected PickupItemsGoal pickupItemsGoal;
 
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
-    private IItemHandler handlerBelow = null;
+    private ResourceHandler<ItemResource> handlerBelow = null;
     private BlockState cachedStateBelow = null;
 
     public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> operationCount, Supplier<Integer> tier) {
@@ -185,9 +186,10 @@ public class CrusherJob extends SpiritJob {
                             if (this.cachedStateBelow != level.getBlockState(this.entity.blockPosition().below(2)))
                                 this.updateBelowBlock();
                             if (this.handlerBelow != null) {
-                                ItemHandlerHelper.insertItemStacked(this.handlerBelow, event.getResult(), false);
+                                ItemTransferUtil.insertItemStacked(this.handlerBelow, event.getResult(), false);
                                 flag = false;
                             }
+
                         }
                         if (flag) {
                             ItemEntity droppedItem = this.entity.spawnAtLocation((ServerLevel) level, event.getResult());
@@ -242,9 +244,8 @@ public class CrusherJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        var resourceHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK,
+        this.handlerBelow = this.entity.level().getCapability(Capabilities.Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
-        this.handlerBelow = resourceHandler != null ? IItemHandler.of(resourceHandler) : null;
     }
 
     public static class CrusherJobEvent extends ItemProcessingJobEvent {

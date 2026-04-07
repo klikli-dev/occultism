@@ -74,12 +74,14 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
-import net.neoforged.neoforge.items.wrapper.RangedWrapper;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.neoforged.neoforge.transfer.CombinedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.RangedResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
+import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -111,7 +113,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public int soulValue;
     private int xpStored;
     private boolean wait;
-    private IItemHandler handlerBelow = null;
+    private ResourceHandler<ItemResource> handlerBelow = null;
     private BlockState cachedStateBelow = null;
     public Consumer<EntityJoinLevelEvent> entityJoinLevelEventListener;
 
@@ -124,47 +126,55 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     public boolean outputDirty = false;
 
-    public ItemStackHandler inputSoulHandler = new ItemStackHandler(1) {
+    public ItemStacksResourceHandler inputSoulHandler = new ItemStacksResourceHandler(1) {
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            return stack.has(DataComponents.ENTITY_DATA) ? insertSoul(slot, stack, simulate) : stack;
+        public boolean isValid(int slot, ItemResource resource) {
+            return resource.toStack().has(DataComponents.ENTITY_DATA);
         }
-        private ItemStack insertSoul(int slot, ItemStack stack, boolean simulate) {
-            return super.insertItem(slot, stack, simulate);
-        }
+
         @Override
-        protected void onContentsChanged(int slot) {
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
             DimensionalBattlefieldBlockEntity.this.setChanged();
         }
     };
 
-    public ItemStackHandler inputWeaponHandler = new ItemStackHandler(1) {
+    public ItemStacksResourceHandler inputWeaponHandler = new ItemStacksResourceHandler(1) {
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            return stack.has(DataComponents.ATTRIBUTE_MODIFIERS) ? super.insertItem(slot, stack, simulate) : stack;
+        public boolean isValid(int slot, ItemResource resource) {
+            return resource.toStack().has(DataComponents.ATTRIBUTE_MODIFIERS);
         }
+
         @Override
-        protected void onContentsChanged(int slot) {
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
             DimensionalBattlefieldBlockEntity.this.setChanged();
         }
     };
 
-    public ItemStackHandler inputFuelHandler = new ItemStackHandler(1) {
+    public ItemStacksResourceHandler inputFuelHandler = new ItemStacksResourceHandler(1) {
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            return stack.has(OccultismDataComponents.SOUL_VALUE) ? super.insertItem(slot, stack, simulate) : stack;
+        public boolean isValid(int slot, ItemResource resource) {
+            return resource.toStack().has(OccultismDataComponents.SOUL_VALUE);
         }
+
         @Override
-        protected void onContentsChanged(int slot) {
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
             DimensionalBattlefieldBlockEntity.this.markNetworkDirty();
             DimensionalBattlefieldBlockEntity.this.setChanged();
         }
     };
 
-    public CombinedInvWrapper inputHandler = new CombinedInvWrapper(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
+    public ResourceHandler<ItemResource> inputHandler = new CombinedResourceHandler<>(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
     // Combined handler now uses the buffered output to propagate safety
-    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.bufferedOutputHandler);
-    public RangedWrapper jadeWrapper = new RangedWrapper(this.combinedHandler, 0, 8);
+    public ResourceHandler<ItemResource> combinedHandler = new CombinedResourceHandler<>(this.inputHandler, this.bufferedOutputHandler);
+    public ResourceHandler<ItemResource> jadeWrapper = RangedResourceHandler.of(this.combinedHandler, 0, 8);
+
+    private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
+        return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
+    }
+
+    private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
+        handler.set(slot, ItemResource.of(stack), stack.getCount());
+    }
 
     public DimensionalBattlefieldBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismBlockEntities.DIMENSIONAL_BATTLEFIELD.get(), worldPos, state);
@@ -241,9 +251,9 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (level.hasNeighborSignal(this.getBlockPos()))
             return;
 
-        ItemStack soul = inputSoulHandler.getStackInSlot(0);
-        ItemStack weapon = inputWeaponHandler.getStackInSlot(0);
-        ItemStack fuel = inputFuelHandler.getStackInSlot(0);
+        ItemStack soul = getStack(this.inputSoulHandler, 0);
+        ItemStack weapon = getStack(this.inputWeaponHandler, 0);
+        ItemStack fuel = getStack(this.inputFuelHandler, 0);
 
         if (soul.isEmpty() || weapon.isEmpty()) {
             this.mobHealth = 0;
@@ -261,11 +271,15 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
         }
 
-        if (storedLivingEntity == null || this.cachedSoul != soul || this.cachedWeapon != weapon) {
+        if (storedLivingEntity == null
+                || this.cachedSoul == null
+                || this.cachedWeapon == null
+                || !ItemStack.isSameItemSameComponents(this.cachedSoul, soul)
+                || !ItemStack.isSameItemSameComponents(this.cachedWeapon, weapon)) {
             setStoredLivingEntity(soul, (ServerLevel) level);
             setMaxMobLife();
-            this.cachedSoul = soul;
-            this.cachedWeapon = weapon;
+            this.cachedSoul = soul.copy();
+            this.cachedWeapon = weapon.copy();
         }
 
         int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
@@ -291,13 +305,16 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (level.getRandom().nextFloat() < BUTCHER_HURT_CHANCE) {
             weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {});
+            setStack(this.inputWeaponHandler, 0, weapon);
         }
 
         if (mobHealth <= 0) {
             int luck = fuel.getOrDefault(OccultismDataComponents.LUCK_VALUE, 1);
 
-            if (!soul.has(OccultismDataComponents.SOUL_VALUE))
+            if (!soul.has(OccultismDataComponents.SOUL_VALUE)) {
                 fuel.shrink(1 + (soulValue / Math.max(fuelValue, 1)));
+                setStack(this.inputFuelHandler, 0, fuel);
+            }
 
             defeat(soul, luck);
             mobHealth = maxMobLife;
@@ -346,18 +363,19 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F)/luck)
             soul.shrink(1);
+        setStack(this.inputSoulHandler, 0, soul);
 
-        IItemHandler currentHandler = this.getCurrentHandler();
+        ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         if (this.xpStored > 9) {
             int bottles = (int) (this.xpStored/10F);
             this.xpStored -= bottles*10;
             ItemStack bottleStack = new ItemStack(Items.EXPERIENCE_BOTTLE, bottles);
-            ItemHandlerHelper.insertItemStacked(currentHandler, bottleStack, false);
+            ItemTransferUtil.insertItemStacked(currentHandler, bottleStack, false);
         }
 
         //TODO: Custom drops with json recipes (planned for mc 26.1)
         if (entity.getType().equals(EntityType.ENDER_DRAGON))
-            ItemHandlerHelper.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
+            ItemTransferUtil.insertItemStacked(currentHandler, Items.DRAGON_EGG.getDefaultInstance(), false);
 
         FakePlayer fakePlayer = this.getFakePlayer();
         if (entity.getType().builtInRegistryHolder().is(OccultismTags.Entities.FORCE_KILL_SIMULATION)) {
@@ -379,25 +397,25 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             for (int i = 0; i < rolls; i++) {
                 ObjectArrayList<ItemStack> loot = this.storedLootTable.getRandomItems(lootparams);
                 for (ItemStack itemStack : loot)
-                    ItemHandlerHelper.insertItemStacked(currentHandler, itemStack, false);
+                    ItemTransferUtil.insertItemStacked(currentHandler, itemStack, false);
             }
         }
     }
 
     public int getRedstoneSignal() {
-        ItemStack weapon = this.inputWeaponHandler.getStackInSlot(0);
+        ItemStack weapon = getStack(this.inputWeaponHandler, 0);
         int signalI = 0;
         int signalO = 0;
         if (!weapon.isEmpty()) {
             signalI = (int) (15 * ((float) weapon.getDamageValue() / Math.max(weapon.getMaxDamage() - 1, 1)));
             signalO += 2;
         }
-        if (!this.inputSoulHandler.getStackInSlot(0).isEmpty())
+        if (!this.inputSoulHandler.getResource(0).isEmpty())
             signalO += 3;
-        if (!this.inputFuelHandler.getStackInSlot(0).isEmpty())
+        if (!this.inputFuelHandler.getResource(0).isEmpty())
             signalO += 5;
         for (int i = 0; i < 25; i++) {
-            if (!this.outputHandler.getStackInSlot(i).isEmpty())
+            if (!this.outputHandler.getResource(i).isEmpty())
                 signalO += 2;
         }
         return Math.max(signalI, signalO/4);
@@ -428,7 +446,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public LootParams setLootParams(LivingEntity entity, float luck) {
         ServerLevel serverLevel = (ServerLevel) this.level;
         FakePlayer fakePlayer = this.getFakePlayer();
-        ItemStack weapon = this.inputWeaponHandler.getStackInSlot(0);
+        ItemStack weapon = getStack(this.inputWeaponHandler, 0);
 
         assert serverLevel != null;
         return new LootParams.Builder(serverLevel)
@@ -447,8 +465,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (this.storedLivingEntity == null || this.level == null)
             return;
 
-        ItemStack soul = this.inputSoulHandler.getStackInSlot(0);
-        ItemStack weapon = this.inputWeaponHandler.getStackInSlot(0);
+        ItemStack soul = getStack(this.inputSoulHandler, 0);
+        ItemStack weapon = getStack(this.inputWeaponHandler, 0);
         if (soul.isEmpty() || weapon.isEmpty())
             return;
         int health = DEFAULT_MAX_TIME;
@@ -524,8 +542,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
 
         if (entity instanceof ItemEntity item) {
-            IItemHandler currentHandler = this.getCurrentHandler();
-            ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
+            ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
+            ItemTransferUtil.insertItemStacked(currentHandler, item.getItem(), false);
             return;
         }
         if (entity instanceof ExperienceOrb orb) {
@@ -553,14 +571,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     public void updateBelowBlock() {
         if (this.level != null) {
-            this.cachedStateBelow = this.level.getBlockState(this.getBlockPos().below(2));
-            // TODO: Port to new NeoForge transfer API (Capabilities.Item.BLOCK / ResourceHandler<ItemResource>)
-            // The old IItemHandler capability system was replaced in NeoForge 26.1
-            this.handlerBelow = null;
+            var pos = this.getBlockPos().below(2);
+            this.cachedStateBelow = this.level.getBlockState(pos);
+            this.handlerBelow = this.level.getCapability(Capabilities.Item.BLOCK, pos, this.cachedStateBelow, null, Direction.UP);
         }
     }
 
-    private IItemHandler getCurrentHandler() {
+    private ResourceHandler<ItemResource> getCurrentHandler() {
         if (this.level == null)
             return null;
 
@@ -574,9 +591,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     }
 
     // region Inner Classes
-    public class BattlefieldInventory extends ItemStackHandler {
+    public class BattlefieldInventory extends ItemStacksResourceHandler {
         private boolean isInput;
-        public boolean suppressWrites = false;
 
         public BattlefieldInventory(int size, boolean isInput) {
             super(size);
@@ -584,11 +600,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            if (this.isInput) {
-                return mayPlace(stack, slot) ? super.insertItem(slot, stack, simulate) : stack;
-            }
-            return super.insertItem(slot, stack, simulate);
+        public boolean isValid(int slot, ItemResource resource) {
+            return !this.isInput || mayPlace(resource.toStack(), slot);
         }
 
         public boolean mayPlace(ItemStack stack, int slot) {
@@ -601,82 +614,64 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         @Override
-        protected void onContentsChanged(int slot) {
-            if (!this.suppressWrites) {
-                DimensionalBattlefieldBlockEntity.this.setChanged();
-            }
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
+            DimensionalBattlefieldBlockEntity.this.setChanged();
         }
 
         public void setStackInSlotDirect(int slot, ItemStack stack) {
-            this.stacks.set(slot, stack);
+            this.set(slot, ItemResource.of(stack), stack.getCount());
         }
     }
 
-    public class BufferedOutputHandler implements IItemHandler, IItemHandlerModifiable {
+    public class BufferedOutputHandler implements ResourceHandler<ItemResource> {
         private final DimensionalBattlefieldBlockEntity.BattlefieldInventory internal;
+        private final RootCommitJournal outputDirtyJournal = new RootCommitJournal(() -> DimensionalBattlefieldBlockEntity.this.outputDirty = true);
 
         public BufferedOutputHandler(DimensionalBattlefieldBlockEntity.BattlefieldInventory internal) {
             this.internal = internal;
         }
 
         @Override
-        public int getSlots() {
-            return internal.getSlots();
+        public int size() {
+            return internal.size();
         }
 
         @Override
-        public @NotNull ItemStack getStackInSlot(int slot) {
-            return internal.getStackInSlot(slot);
+        public @NotNull ItemResource getResource(int slot) {
+            return internal.getResource(slot);
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-            internal.suppressWrites = true;
-            try {
-                ItemStack result = internal.insertItem(slot, stack, simulate);
-                // If items were accepted (result count < stack count), mark dirty
-                if (!simulate && (result.isEmpty() || result.getCount() < stack.getCount())) {
-                    DimensionalBattlefieldBlockEntity.this.outputDirty = true;
-                }
-                return result;
-            } finally {
-                internal.suppressWrites = false;
+        public long getAmountAsLong(int slot) {
+            return internal.getAmountAsLong(slot);
+        }
+
+        @Override
+        public long getCapacityAsLong(int slot, ItemResource resource) {
+            return internal.getCapacityAsLong(slot, resource);
+        }
+
+        @Override
+        public boolean isValid(int slot, ItemResource resource) {
+            return internal.isValid(slot, resource);
+        }
+
+        @Override
+        public int insert(int slot, @NotNull ItemResource resource, int amount, TransactionContext transaction) {
+            int result = internal.insert(slot, resource, amount, transaction);
+            if (result > 0) {
+                this.outputDirtyJournal.updateSnapshots(transaction);
             }
+            return result;
         }
 
         @Override
-        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-            internal.suppressWrites = true;
-            try {
-                ItemStack result = internal.extractItem(slot, amount, simulate);
-                if (!simulate && !result.isEmpty()) {
-                    DimensionalBattlefieldBlockEntity.this.outputDirty = true;
-                }
-                return result;
-            } finally {
-                internal.suppressWrites = false;
+        public int extract(int slot, @NotNull ItemResource resource, int amount, TransactionContext transaction) {
+            int result = internal.extract(slot, resource, amount, transaction);
+            if (result > 0) {
+                this.outputDirtyJournal.updateSnapshots(transaction);
             }
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return internal.getSlotLimit(slot);
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return internal.isItemValid(slot, stack);
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            internal.suppressWrites = true;
-            try {
-                internal.setStackInSlot(slot, stack);
-                DimensionalBattlefieldBlockEntity.this.outputDirty = true;
-            } finally {
-                internal.suppressWrites = false;
-            }
+            return result;
         }
     }
     // endregion Inner Classes

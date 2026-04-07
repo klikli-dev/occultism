@@ -35,6 +35,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class DimensionalBattlefieldScreen extends AbstractContainerScreen<DimensionalBattlefieldContainer> {
 
+    private static boolean isEmpty(net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler handler) {
+        return handler.getResource(0).isEmpty();
+    }
+
     public static final Identifier TEXTURE =
             Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_butcher.png");
 
@@ -68,11 +72,11 @@ public class DimensionalBattlefieldScreen extends AbstractContainerScreen<Dimens
         if (progress > 0 && mobHealth > 0) {
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 18, this.topPos + 81, (float) 176, (float) 0, progress + 1, 4, 256, 256);
         }
-        if (this.otherworldButcher.inputSoulHandler.getStackInSlot(0).isEmpty())
+        if (isEmpty(this.otherworldButcher.inputSoulHandler))
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 27, this.topPos + 37, (float) 176, (float) 4, 16, 16, 256, 256);
-        if (this.otherworldButcher.inputWeaponHandler.getStackInSlot(0).isEmpty())
+        if (isEmpty(this.otherworldButcher.inputWeaponHandler))
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 14, this.topPos + 59, (float) 176, (float) 20, 16, 16, 256, 256);
-        if (this.otherworldButcher.inputFuelHandler.getStackInSlot(0).isEmpty())
+        if (isEmpty(this.otherworldButcher.inputFuelHandler))
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 40, this.topPos + 59, (float) 176, (float) 36, 16, 16, 256, 256);
     }
 

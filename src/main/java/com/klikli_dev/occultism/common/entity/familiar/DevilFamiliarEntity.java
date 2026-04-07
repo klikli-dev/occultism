@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -54,7 +56,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -135,7 +136,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
                 } else if (time < 0) {
                     this.setSinTime(this.level().getGameTime());
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE));
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE));
                 } else {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time));
                 }
@@ -248,3 +249,4 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         }
     }
 }
+

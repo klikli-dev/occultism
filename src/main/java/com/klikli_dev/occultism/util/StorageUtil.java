@@ -42,7 +42,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.apache.commons.io.FilenameUtils;
@@ -182,17 +181,7 @@ public class StorageUtil {
         return ItemStack.EMPTY;
     }
 
-    @SuppressWarnings("unchecked")
-    public static ItemStack extractItem(IItemHandler itemHandler, Predicate<ItemStack> comparator, int amount,
-                                        boolean simulate) {
-        if (itemHandler instanceof ResourceHandler<?> resourceHandler) {
-            return extractItem((ResourceHandler<ItemResource>) resourceHandler, comparator, amount, simulate);
-        }
-
-        return ItemStack.EMPTY;
-    }
-
-    public static ItemStack extractItem(IItemHandler itemHandler, Ingredient ingredient, int amount, boolean simulate) {
+    public static ItemStack extractItem(ResourceHandler<ItemResource> itemHandler, Ingredient ingredient, int amount, boolean simulate) {
         return extractItem(itemHandler, ingredient::test, amount, simulate);
     }
 
@@ -210,25 +199,6 @@ public class StorageUtil {
 
     public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, ResourceHandler<ItemResource> filter, String tagFilter, boolean isBlacklist) {
         return getFirstMatchingSlotAfter(handler, -1, filter, tagFilter, isBlacklist);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
-        if (filter instanceof ResourceHandler<?> filterResourceHandler) {
-            return getFirstMatchingSlot(handler, (ResourceHandler<ItemResource>) filterResourceHandler, tagFilter, isBlacklist);
-        }
-
-        return -1;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
-        if (handler instanceof ResourceHandler<?> resourceHandler && filter instanceof ResourceHandler<?> filterResourceHandler) {
-            return getFirstMatchingSlot((ResourceHandler<ItemResource>) resourceHandler,
-                    (ResourceHandler<ItemResource>) filterResourceHandler, tagFilter, isBlacklist);
-        }
-
-        return -1;
     }
 
     public static int getFirstMatchingSlotAfter(ResourceHandler<ItemResource> handler, int slot, ResourceHandler<ItemResource> filter, String tagFilter, boolean isBlacklist) {
@@ -250,6 +220,7 @@ public class StorageUtil {
         return -1;
     }
 
+
     public static boolean matchesFilter(ItemStack stack, ResourceHandler<ItemResource> filter) {
         for (int i = 0; i < filter.size(); i++) {
             var resource = filter.getResource(i);
@@ -266,16 +237,6 @@ public class StorageUtil {
         }
         return false;
     }
-
-    @SuppressWarnings("unchecked")
-    public static boolean matchesFilter(ItemStack stack, IItemHandler filter) {
-        if (filter instanceof ResourceHandler<?> resourceHandler) {
-            return matchesFilter(stack, (ResourceHandler<ItemResource>) resourceHandler);
-        }
-
-        return false;
-    }
-
 
     /**
      * Checks if stack matches the given tag filter (wildcard match)
@@ -318,9 +279,10 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
-        //TODO: switch to loot table and fix capability access for 26.1
-        // NeoForge 26.1 uses ResourceHandler<ItemResource> instead of IItemHandler
-        // TODO: implement dropInventoryItems for ResourceHandler<ItemResource>
+        var resourceHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), null);
+        if (resourceHandler != null) {
+            dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), resourceHandler);
+        }
     }
 
     public static void dropInventoryItems(Level worldIn, BlockPos pos, ResourceHandler<ItemResource> itemHandler) {
@@ -329,13 +291,6 @@ public class StorageUtil {
             if (!resource.isEmpty())
                 Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), resource.toStack((int) itemHandler.getAmountAsLong(i)));
         }
-    }
-
-    public static int getFirstMatchingSlot(IItemHandler handler, TagKey<Item> tag) {
-        if (handler instanceof ResourceHandler<?> resourceHandler) {
-            return getFirstMatchingSlot((ResourceHandler<ItemResource>) resourceHandler, tag);
-        }
-        return -1;
     }
 
     public static int getFirstMatchingSlot(ResourceHandler<ItemResource> handler, TagKey<Item> tag) {

@@ -30,8 +30,7 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 import javax.annotation.Nonnull;
 
@@ -78,7 +77,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
             if (holding.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else if (slot.mayPlace(holding)) {
-                slot.set(holding.copy());
+                slot.set(holding.copyWithCount(1));
             }
 
             //Used to be "return holding;" in 1.16 (back then method was named slotClick on MCP names
@@ -139,19 +138,10 @@ public class SpiritTransporterContainer extends SpiritContainer {
         return itemstack;
     }
 
-    public class FilterSlot extends SlotItemHandler {
+    public class FilterSlot extends ResourceHandlerSlot {
 
         public FilterSlot(ItemStacksResourceHandler handler, int inventoryIndex, int x, int y) {
-            super(IItemHandler.of(handler), inventoryIndex, x, y);
-        }
-
-        @Override
-        public void set(@Nonnull ItemStack stack) {
-            if (!stack.isEmpty()) {
-                stack.setCount(1);
-            }
-
-            super.set(stack);
+            super(handler, handler::set, inventoryIndex, x, y);
         }
 
     }

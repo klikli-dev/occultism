@@ -42,7 +42,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,12 +87,12 @@ public class MessageSetRecipeByID implements IMessage {
 
         for (int slot = 0; slot < 9; slot++) {
             Ingredient ingredient = ingredients.get(slot);
-            ItemStack extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient,
+            ItemStack extractedStack = StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient,
                     1, true);
 
             if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if we found the desired stack, extract it for real and place it in the matrix
-                StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
+                StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient, 1, false);
                 craftMatrix.setItem(slot, extractedStack);
                 continue;
             }

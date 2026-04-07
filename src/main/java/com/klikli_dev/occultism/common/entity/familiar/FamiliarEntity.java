@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.BlockPos;
@@ -61,7 +63,6 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.util.ProblemReporter;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
@@ -125,7 +126,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         this.setHealth(health);
 
         if (owner instanceof Player player) {
-            ItemHandlerHelper.giveItemToPlayer(player, shard);
+            ItemTransferUtil.giveItemToPlayer(player, shard);
         } else {
             ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
             entityitem.setPickUpDelay(5);
@@ -438,3 +439,4 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
     }
 }
+

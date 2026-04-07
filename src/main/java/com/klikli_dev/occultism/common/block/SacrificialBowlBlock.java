@@ -51,9 +51,11 @@ import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class SacrificialBowlBlock extends DirectionalBlock implements EntityBlock {
 
@@ -84,21 +86,34 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) pLevel.getBlockEntity(pPos);
             var handler = bowl.itemStackHandler;
             if (!pPlayer.isShiftKeyDown()) {
-                ItemStack itemStack = handler.getStackInSlot(0);
+                ItemStack itemStack = handler.getResource(0).toStack();
                 if (itemStack.isEmpty()) {
                     //if there is nothing in the bowl, put the hand held item in
-                    pPlayer.setItemInHand(pHand, handler.insertItem(0, heldItem, false));
+                    try (var tx = Transaction.openRoot()) {
+                        int inserted = handler.insert(0, ItemResource.of(heldItem), 1, tx);
+                        if (inserted > 0) {
+                            heldItem.shrink(inserted);
+                            tx.commit();
+                        }
+                    }
                     pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
                 } else {
                     //otherwise take out the item.
-                    if (heldItem.isEmpty()) {
-                        //place it in the hand if possible
-                        pPlayer.setItemInHand(pHand, handler.extractItem(0, 64, false));
-                    } else {
-                        //and if not, just put it in the inventory
-                        ItemHandlerHelper.giveItemToPlayer(pPlayer, handler.extractItem(0, 64, false));
+                    try (var tx = Transaction.openRoot()) {
+                        int extractedCount = handler.extract(0, ItemResource.of(itemStack), 64, tx);
+                        if (extractedCount > 0) {
+                            ItemStack extracted = itemStack.copyWithCount(extractedCount);
+                            if (heldItem.isEmpty()) {
+                                //place it in the hand if possible
+                                pPlayer.setItemInHand(pHand, extracted);
+                            } else {
+                                //and if not, just put it in the inventory
+                                ItemTransferUtil.giveItemToPlayer(pPlayer, extracted);
+                            }
+                            tx.commit();
+                            pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
+                        }
                     }
-                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                 }
                 bowl.setChanged();
             }
@@ -111,10 +126,10 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
         if (!level.isClientSide() && level.getBlockState(pos).is(this) && level.hasNeighborSignal(pos)
             && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
             && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf
-            && bowl.itemStackHandler.getStackInSlot(0).getItem() instanceof GuideBookItem) {
+            && bowl.itemStackHandler.getResource(0).toStack().getItem() instanceof GuideBookItem) {
                 for (int i = 0; i < 6; i++) {
                     if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
-                        bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), bowl.itemStackHandler.getStackInSlot(0)));
+                        bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), bowl.itemStackHandler.getResource(0).toStack()));
                     }
                 }
         }

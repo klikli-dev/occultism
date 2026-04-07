@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -47,9 +48,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
+import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -198,7 +197,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
-            ItemHandlerHelper.giveItemToPlayer(playerIn, this.getOffhandItem());
+            ItemTransferUtil.giveItemToPlayer(playerIn, this.getOffhandItem());
             this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
@@ -252,7 +251,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (!(owner instanceof Player player))
                 return null;
 
-            IItemHandler inv = new PlayerMainInvWrapper(player.getInventory());
+            var inv = PlayerInventoryWrapper.of(player).getMainSlots();
 
             for (ItemEntity item : this.entity.level().getEntitiesOfClass(ItemEntity.class,
                     this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
@@ -262,7 +261,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if ((!isStackDemagnetized && !isEntityDemagnetized)
-                        && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
+                        && com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
             return null;
@@ -377,3 +376,4 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     }
 
 }
+

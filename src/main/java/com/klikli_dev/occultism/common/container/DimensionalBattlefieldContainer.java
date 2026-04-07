@@ -31,19 +31,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
-import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import org.jetbrains.annotations.NotNull;
 
 public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
 
-    public ItemStackHandler inputSoulHandler;
-    public ItemStackHandler inputWeaponHandler;
-    public ItemStackHandler inputFuelHandler;
-    public ItemStackHandler outputHandler;
-    public CombinedInvWrapper inputHandler;
+    public ItemStacksResourceHandler inputSoulHandler;
+    public ItemStacksResourceHandler inputWeaponHandler;
+    public ItemStacksResourceHandler inputFuelHandler;
+    public ItemStacksResourceHandler outputHandler;
+    public ResourceHandler<ItemResource> inputHandler;
     public DimensionalBattlefieldBlockEntity otherworldButcher;
     public Inventory playerInventory;
 
@@ -55,7 +55,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         this.inputSoulHandler = otherworldButcher.inputSoulHandler;
         this.inputWeaponHandler = otherworldButcher.inputWeaponHandler;
         this.inputFuelHandler = otherworldButcher.inputFuelHandler;
-        this.outputHandler = otherworldButcher.outputHandler;
+        this.outputHandler = (ItemStacksResourceHandler) otherworldButcher.outputHandler;
         this.inputHandler = otherworldButcher.inputHandler;
 
         this.setupButcherInventory();
@@ -77,20 +77,20 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         if (slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if (index < this.outputHandler.getSlots()) {
+            if (index < this.outputHandler.size()) {
                 //+1 because we have the input handler slot after the output hander slots
-                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.size() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //input handler slot is exactly at last output handler slot + 1
-            else if (index >= this.outputHandler.getSlots() && index <= this.outputHandler.getSlots() + 2) {
-                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 3, this.slots.size(), true)) {
+            else if (index >= this.outputHandler.size() && index <= this.outputHandler.size() + 2) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.size() + 3, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots(), this.outputHandler.getSlots() + 3, false)) {
+            else if (!this.moveItemStackTo(itemstack1, this.outputHandler.size(), this.outputHandler.size() + 3, false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -126,11 +126,10 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         int outputGridLeft = 8 + 18*4;
         int index = 0;
 
-        IItemHandler outputHandler = this.otherworldButcher.outputHandler;
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
                 this.addSlot(
-                        new OutputSlot(outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
+                        new OutputSlot(this.otherworldButcher.outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
             }
         }
 
@@ -139,10 +138,10 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         this.addSlot(new InputWeaponSlot(this.otherworldButcher.inputWeaponHandler, 0, 14, 59, this.otherworldButcher));
     }
 
-    public static class InputWeaponSlot extends SlotItemHandler {
+    public static class InputWeaponSlot extends ResourceHandlerSlot {
         DimensionalBattlefieldBlockEntity arena;
-        public InputWeaponSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
-            super(itemHandler, index, xPosition, yPosition);
+        public InputWeaponSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
             this.arena = arena;
         }
         public boolean mayPlace(ItemStack stack) {
@@ -150,10 +149,10 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
             return stack.has(DataComponents.ATTRIBUTE_MODIFIERS);
         }
     }
-    public static class InputSoulSlot extends SlotItemHandler {
+    public static class InputSoulSlot extends ResourceHandlerSlot {
         DimensionalBattlefieldBlockEntity arena;
-        public InputSoulSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
-            super(itemHandler, index, xPosition, yPosition);
+        public InputSoulSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
             this.arena = arena;
         }
         public boolean mayPlace(ItemStack stack) {
@@ -161,17 +160,17 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
             return stack.has(DataComponents.ENTITY_DATA);
         }
     }
-    public static class InputFuelSlot extends SlotItemHandler {
-        public InputFuelSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
+    public static class InputFuelSlot extends ResourceHandlerSlot {
+        public InputFuelSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         }
         public boolean mayPlace(ItemStack stack) {
             return stack.has(OccultismDataComponents.SOUL_VALUE);
         }
     }
-    public static class OutputSlot extends SlotItemHandler {
-        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
+    public static class OutputSlot extends ResourceHandlerSlot {
+        public OutputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         }
         public boolean mayPlace(@NotNull ItemStack stack) {
             return false;

@@ -39,43 +39,92 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
     public long lastChangeTime;
-    public ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
+    public ItemStacksResourceHandler itemStackHandler = new ItemStacksResourceHandler(1) {
+        private final RootCommitJournal spiritFireRecipeJournal = new RootCommitJournal(this::processSpiritFireRecipe);
 
         @Override
-        public int getSlotLimit(int slot) {
+        protected int getCapacity(int slot, ItemResource resource) {
             return 1;
         }
 
         @Override
-        protected void onContentsChanged(
-                int slot) {
+        public int insert(int slot, ItemResource resource, int amount, TransactionContext transaction) {
+            int inserted = super.insert(slot, resource, amount, transaction);
+            if (inserted > 0 && this.shouldProcessSpiritFire()) {
+                this.spiritFireRecipeJournal.updateSnapshots(transaction);
+            }
+            return inserted;
+        }
 
+        @Override
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
             Level level = SacrificialBowlBlockEntity.this.level;
             if (level != null && !level.isClientSide()) {
-                Block blockBellow = level.getBlockState(getBlockPos().below()).getBlock();
-                if (!(SacrificialBowlBlockEntity.this instanceof GoldenSacrificialBowlBlockEntity)
-                        && (blockBellow instanceof SpiritFireBlock || blockBellow == OccultismBlocks.SPIRIT_CAMPFIRE.get())) {
-                    var recipeInput = new SingleRecipeInput(this.getStackInSlot(0));
-                    var recipe = ((ServerLevel) level).recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, (ServerLevel) level);
-                    if (recipe.isPresent() && !recipeInput.item().is(OccultismBlocks.OTHERFLOWER.asItem())) {
-                        super.extractItem(0, 1, false);
-                        ItemStack result = recipe.get().value().assemble(recipeInput);
-                        super.setStackInSlot(0, result);
-                        level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
-                    }
-                }
-
                 SacrificialBowlBlockEntity.this.lastChangeTime = level.getGameTime();
                 SacrificialBowlBlockEntity.this.setChanged();
                 SacrificialBowlBlockEntity.this.markNetworkDirty();
             }
         }
 
+        private boolean shouldProcessSpiritFire() {
+            Level level = SacrificialBowlBlockEntity.this.level;
+            if (!(level instanceof ServerLevel)) {
+                return false;
+            }
+
+            Block blockBelow = level.getBlockState(SacrificialBowlBlockEntity.this.getBlockPos().below()).getBlock();
+            return blockBelow instanceof SpiritFireBlock || blockBelow == OccultismBlocks.SPIRIT_CAMPFIRE.get();
+        }
+
+        private void processSpiritFireRecipe() {
+            if (!(SacrificialBowlBlockEntity.this.level instanceof ServerLevel serverLevel) || !this.shouldProcessSpiritFire()) {
+                return;
+            }
+
+            ItemStack currentStack = this.getResource(0).toStack(this.getAmountAsInt(0));
+            if (currentStack.isEmpty() || currentStack.is(OccultismBlocks.OTHERFLOWER.asItem())) {
+                return;
+            }
+
+            var recipeInput = new SingleRecipeInput(currentStack);
+            var recipe = serverLevel.recipeAccess().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, serverLevel);
+            if (recipe.isEmpty()) {
+                return;
+            }
+
+            ItemStack result = recipe.get().value().assemble(recipeInput);
+            if (result.isEmpty()) {
+                return;
+            }
+
+            boolean converted = false;
+            try (var tx = Transaction.openRoot()) {
+                ItemResource currentResource = this.getResource(0);
+                int extracted = super.extract(0, currentResource, 1, tx);
+                if (extracted <= 0) {
+                    return;
+                }
+
+                int inserted = super.insert(0, ItemResource.of(result), 1, tx);
+                if (inserted > 0) {
+                    tx.commit();
+                    converted = true;
+                }
+            }
+
+            if (converted) {
+                serverLevel.playSound(null, SacrificialBowlBlockEntity.this.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
+            }
+        }
     };
     protected boolean initialized = false;
 

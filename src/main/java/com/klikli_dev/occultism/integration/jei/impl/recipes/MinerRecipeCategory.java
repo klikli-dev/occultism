@@ -44,7 +44,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,8 +93,9 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<MinerRecipe> recipe, IFocusGroup focuses) {
         //set up a simulated handler to get all possible results
         Level level = Minecraft.getInstance().level;
-        ItemStackHandler simulatedHandler = new ItemStackHandler(1);
-        simulatedHandler.setStackInSlot(0, recipe.value().getIngredients().get(0).getItems()[0]);
+        ItemStacksResourceHandler simulatedHandler = new ItemStacksResourceHandler(1);
+        var stack = recipe.value().getIngredients().get(0).getItems()[0];
+        simulatedHandler.set(0, ItemResource.of(stack), stack.getCount());
         var recipes = level.getRecipeManager()
                 .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                         new ItemHandlerRecipeInput(simulatedHandler), level);

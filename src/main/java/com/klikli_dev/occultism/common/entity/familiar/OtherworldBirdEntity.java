@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.util.ItemTransferUtil;
+
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -52,7 +54,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -212,7 +213,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         this.setHealth(health);
 
         if (owner instanceof Player player) {
-            ItemHandlerHelper.giveItemToPlayer(player, shard);
+            ItemTransferUtil.giveItemToPlayer(player, shard);
         } else {
             ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
             entityitem.setPickUpDelay(5);
@@ -223,3 +224,4 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     }
 //endregion Static Methods
 }
+

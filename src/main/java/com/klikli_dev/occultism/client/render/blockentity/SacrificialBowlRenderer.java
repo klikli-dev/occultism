@@ -76,7 +76,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         var handler = blockEntity.itemStackHandler;
-        ItemStack stack = handler.getStackInSlot(0);
+        ItemStack stack = handler.getResource(0).toStack();
         long time = blockEntity.getLevel().getGameTime();
 
         var facing = blockEntity.getBlockState().hasProperty(BlockStateProperties.FACING) ?

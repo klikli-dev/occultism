@@ -45,7 +45,7 @@ public class DebugWandItem extends Item {
 
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
 //            spirit.getItem().onCreated(spirit, context.getLevel(), context.getPlayer());
-//            ItemHandlerHelper.giveItemToPlayer(player, spirit);
+//            com.klikli_dev.occultism.util.ItemTransferUtil.giveItemToPlayer(player, spirit);
 
 //            context.getPlayer().sendSystemMessage(Component.literal(TextUtil.generateName()));
 

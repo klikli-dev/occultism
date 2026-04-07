@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.InputUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -36,7 +37,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 /**
  * This message requests to take an item from the currently opened storage Based on
@@ -103,7 +103,7 @@ public class MessageTakeItem implements IMessage {
             if (!stack.isEmpty()) {
                 //if shift click plop it directly into the inventory
                 if (this.isShiftDown) {
-                    ItemHandlerHelper.giveItemToPlayer(player, stack);
+                    ItemTransferUtil.giveItemToPlayer(player, stack);
                 } else {
                     //otherwise put it on the players mouse
                     player.containerMenu.setCarried(stack);
@@ -142,3 +142,4 @@ public class MessageTakeItem implements IMessage {
         return TYPE;
     }
 }
+
