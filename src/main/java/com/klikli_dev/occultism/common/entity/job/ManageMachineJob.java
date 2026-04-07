@@ -99,7 +99,7 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     public IStorageController getStorageController() {
-        return this.resolveCurrentStorageController(true);
+        return this.resolveCurrentStorageController();
     }
 
     public BlockEntity getManagedMachineBlockEntity() {
@@ -155,6 +155,8 @@ public class ManageMachineJob extends SpiritJob {
     public void update() {
         //we are basically inactive until we have both a storage controller and a managed machine.
         if (this.storageControllerPosition != null && this.managedMachine != null) {
+            this.refreshStorageControllerRegistration();
+
             //if we don't have an order and there is one available, take it from queue.
             if (this.getCurrentDepositOrder() == null && !this.depositOrderQueue.isEmpty()) {
                 this.setCurrentDepositOrder(this.depositOrderQueue.poll());
@@ -221,7 +223,7 @@ public class ManageMachineJob extends SpiritJob {
             return;
         }
 
-        IStorageController storageController = this.resolveCurrentStorageController(false);
+        IStorageController storageController = this.resolveCurrentStorageController();
         if (storageController != null) {
             this.registerWithStorageController(storageController);
         }
@@ -229,13 +231,21 @@ public class ManageMachineJob extends SpiritJob {
 
     protected void unregisterFromStorageController() {
         if (this.storageControllerPosition != null && this.managedMachine != null && BlockEntityUtil.isLoaded(this.entity.level(), this.storageControllerPosition)) {
-            IStorageController storageController = this.resolveCurrentStorageController(false);
+            IStorageController storageController = this.resolveCurrentStorageController();
             if (storageController != null)
                 storageController.removeDepositOrderSpirit(this.managedMachine.insertGlobalPos);
         }
     }
 
-    protected IStorageController resolveCurrentStorageController(boolean reRegisterIfChanged) {
+    protected void refreshStorageControllerRegistration() {
+        IStorageController previousStorageController = this.storageController;
+        IStorageController currentStorageController = this.resolveCurrentStorageController();
+        if (currentStorageController != null && currentStorageController != previousStorageController) {
+            this.registerWithStorageController(currentStorageController);
+        }
+    }
+
+    protected IStorageController resolveCurrentStorageController() {
         if (this.storageControllerPosition == null)
             return null;
 
@@ -250,14 +260,8 @@ public class ManageMachineJob extends SpiritJob {
             return null;
         }
 
-        if (this.storageController != currentStorageController) {
-            this.storageController = currentStorageController;
-            if (reRegisterIfChanged) {
-                this.registerWithStorageController(currentStorageController);
-            }
-        }
-
-        return this.storageController;
+        this.storageController = currentStorageController;
+        return currentStorageController;
     }
 
     protected void registerWithStorageController(IStorageController storageController) {
