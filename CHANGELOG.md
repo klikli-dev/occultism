@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.210.2] - 2026-04-07
+### :bug: Bug Fixes
+- [`2128b4e`](https://github.com/klikli-dev/occultism/commit/2128b4eff18394ba3de555de86e94eceb13460c8) - re-register machine operators after storage upgrades *(PR [#1516](https://github.com/klikli-dev/occultism/pull/1516) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1441](https://github.com/klikli-dev/occultism/issues/1441) opened by [@Revv1e](https://github.com/Revv1e)*
+
+
 ## [release/v26.1-1.210.1] - 2026-04-07
 ### :bug: Bug Fixes
 - [`09df27e`](https://github.com/klikli-dev/occultism/commit/09df27e8954d1a8f7bc95fc2f5e678b85832998e) - exclude blacksmith iron from soul shard data *(PR [#1513](https://github.com/klikli-dev/occultism/pull/1513) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2347,3 +2353,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.209.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.208.2...release/v26.1-1.209.0
 [release/v26.1-1.210.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.209.0...release/v26.1-1.210.0
 [release/v26.1-1.210.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.0...release/v26.1-1.210.1
+[release/v26.1-1.210.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.1...release/v26.1-1.210.2
