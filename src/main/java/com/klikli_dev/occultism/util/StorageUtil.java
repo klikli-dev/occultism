@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
@@ -151,34 +152,51 @@ public class StorageUtil {
      * @return the extracted stack.
      */
     public static ItemStack extractItem(ResourceHandler<ItemResource> itemHandler, Predicate<ItemStack> comparator, int amount,
-                                         boolean simulate) {
-        if (itemHandler == null || comparator == null) {
+                                          boolean simulate) {
+        if (itemHandler == null || comparator == null || amount <= 0) {
             return ItemStack.EMPTY;
         }
-        int amountExtracted = 0;
-        //go through all slots in the handler
-        for (int i = 0; i < itemHandler.size(); i++) {
-            var resource = itemHandler.getResource(i);
-            var slotAmount = itemHandler.getAmountAsLong(i);
-            ItemStack slot = resource.toStack((int) slotAmount);
-            //check if current slot matches
-            if (comparator.test(slot)) {
-                //take out of handler, one by one
-                ItemStack extractedStack = ItemTransferUtil.extractItem(itemHandler, i, 1, simulate);
-                if (!extractedStack.isEmpty()) {
-                    //if not empty increase the amount we extracted
-                    amountExtracted++;
 
-                    //once we found enough, use the current slot to create a stack with the desired amount and return it
-                    if (amountExtracted == amount)
-                        return extractedStack.copyWithCount(amount);
-                    else
-                        //continue extracting from this slot until we get nothing back.
-                        i--;
+        try (var tx = Transaction.openRoot()) {
+            ItemResource matchedResource = ItemResource.EMPTY;
+            int remaining = amount;
+
+            //go through all slots in the handler
+            for (int i = 0; i < itemHandler.size() && remaining > 0; i++) {
+                var resource = itemHandler.getResource(i);
+                if (resource.isEmpty()) {
+                    continue;
+                }
+
+                var slotAmount = itemHandler.getAmountAsLong(i);
+                ItemStack slot = resource.toStack((int) slotAmount);
+                //check if current slot matches
+                if (!comparator.test(slot)) {
+                    continue;
+                }
+
+                if (matchedResource.isEmpty()) {
+                    matchedResource = resource;
+                } else if (!ItemStack.isSameItemSameComponents(matchedResource.toStack(), slot)) {
+                    continue;
+                }
+
+                int extracted = itemHandler.extract(i, resource, remaining, tx);
+                if (extracted > 0) {
+                    remaining -= extracted;
                 }
             }
+
+            if (remaining > 0 || matchedResource.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+
+            if (!simulate) {
+                tx.commit();
+            }
+
+            return matchedResource.toStack(amount);
         }
-        return ItemStack.EMPTY;
     }
 
     public static ItemStack extractItem(ResourceHandler<ItemResource> itemHandler, Ingredient ingredient, int amount, boolean simulate) {
