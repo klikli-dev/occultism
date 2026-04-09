@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.208.4] - 2026-04-09
+### :bug: Bug Fixes
+- [`d7c3d24`](https://github.com/klikli-dev/occultism/commit/d7c3d249b7359b42ddbd761cb207eac01046f067) - make exact-stack extraction all-or-nothing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.208.3] - 2026-04-09
 ### :bug: Bug Fixes
 - [`eef1004`](https://github.com/klikli-dev/occultism/commit/eef1004d109c72337b2e53e5417aaa0d0cdc7a46) - preserve exact-stack EMI autofill items ([#1521](https://github.com/klikli-dev/occultism/pull/1521)) *(PR [#1524](https://github.com/klikli-dev/occultism/pull/1524) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2348,3 +2353,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.208.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.0...release/v1.21.1-1.208.1
 [release/v1.21.1-1.208.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.1...release/v1.21.1-1.208.2
 [release/v1.21.1-1.208.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.2...release/v1.21.1-1.208.3
+[release/v1.21.1-1.208.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.3...release/v1.21.1-1.208.4
