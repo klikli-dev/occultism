@@ -5,7 +5,6 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.mojang.datafixers.util.Function4;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -18,6 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -30,8 +30,8 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     @Override
-    protected Function4<Integer, Inventory, Container, Integer, AbstractContainerMenu> containerFactory() {
-        return RitualSatchelT1Container::new;
+    protected AbstractContainerMenu createContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot, UUID satchelUUID) {
+        return new RitualSatchelT1Container(id, playerInventory, satchelInventory, selectedSlot, satchelUUID);
     }
 
     @Override

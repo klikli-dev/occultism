@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -35,6 +36,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.UUID;
 
 public class MessageOpenSatchel implements IMessage {
 
@@ -60,19 +63,22 @@ public class MessageOpenSatchel implements IMessage {
         //if not found, try to get from player inventory
         if (!(backpackStack.getItem() instanceof SatchelItem)) {
             selectedSlot = CuriosUtil.getFirstBackpackSlot(player);
-            backpackStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
+            backpackStack = selectedSlot >= 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof SatchelItem) {
+            UUID satchelUUID = ItemNBTUtil.getOrCreateSatchelUUID(player.level(), backpackStack);
             ItemStack finalBackpackStack = backpackStack;
             int finalSelectedSlot = selectedSlot;
             player.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new StorageSatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
-                                finalSelectedSlot);
+                                finalSelectedSlot, satchelUUID);
                     }, backpackStack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(finalSelectedSlot);
+                        buffer.writeLong(satchelUUID.getMostSignificantBits());
+                        buffer.writeLong(satchelUUID.getLeastSignificantBits());
                     });
         }
     }

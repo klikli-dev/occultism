@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.container.satchel;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,25 +34,21 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
     protected Container satchelInventory;
     protected Inventory playerInventory;
     protected int selectedSlot;
-    protected ItemStack satchelStack;
+    protected UUID satchelUUID;
 
-    public AbstractSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
+    public AbstractSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot, UUID satchelUUID) {
         super(menuType, id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
         this.selectedSlot = selectedSlot;
-
-        if (this.selectedSlot == -1) {
-            this.satchelStack = CuriosUtil.getBackpack(playerInventory.player);
-        } else {
-            this.satchelStack = playerInventory.player.getInventory().getItem(this.selectedSlot).copy();
-        }
+        this.satchelUUID = satchelUUID;
 
 
         this.setupSatchelSlots();
@@ -105,12 +102,23 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        ItemStack currentSatchelStack;
         if (this.selectedSlot == -1) {
-            return CuriosUtil.getBackpack(player).getItem() == this.satchelStack.getItem();
+            currentSatchelStack = CuriosUtil.getBackpack(player);
+        } else {
+            if (this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
+                return false;
+            currentSatchelStack = player.getInventory().getItem(this.selectedSlot);
         }
-        if (this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
+
+        if (currentSatchelStack.isEmpty())
             return false;
-        return player.getInventory().getItem(this.selectedSlot).getItem() == this.satchelStack.getItem();
+
+        UUID currentSatchelUUID = player.level().isClientSide() ? ItemNBTUtil.getSatchelUUID(currentSatchelStack) : ItemNBTUtil.getOrCreateSatchelUUID(player.level(), currentSatchelStack);
+        if (currentSatchelUUID == null && player.level().isClientSide())
+            return true;
+
+        return this.satchelUUID.equals(currentSatchelUUID);
     }
 
     protected void setupPlayerInventorySlots() {

@@ -33,6 +33,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -284,6 +285,26 @@ public class ItemNBTUtil {
             return null;
 
         return stack.get(OccultismDataComponents.LINKED_PLAYER_UUID);
+    }
+
+    public static UUID getSatchelUUID(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.SATCHEL_UUID))
+            return null;
+
+        return stack.get(OccultismDataComponents.SATCHEL_UUID);
+    }
+
+    public static UUID getOrCreateSatchelUUID(Level level, ItemStack stack) {
+        if (level.isClientSide())
+            throw new IllegalStateException("Satchel UUIDs may only be created on the server.");
+
+        UUID satchelUUID = getSatchelUUID(stack);
+        if (satchelUUID != null)
+            return satchelUUID;
+
+        satchelUUID = UUID.randomUUID();
+        stack.set(OccultismDataComponents.SATCHEL_UUID, satchelUUID);
+        return satchelUUID;
     }
 
     public static void setLinkedPlayerUUID(ItemStack stack, UUID id) {

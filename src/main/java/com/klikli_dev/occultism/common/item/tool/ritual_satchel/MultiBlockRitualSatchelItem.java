@@ -13,7 +13,6 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -36,6 +35,7 @@ import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.component.ItemContainerContents;
 
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -49,8 +49,8 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     @Override
-    protected Function4<Integer, Inventory, Container, Integer, AbstractContainerMenu> containerFactory() {
-        return RitualSatchelT2Container::new;
+    protected AbstractContainerMenu createContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot, UUID satchelUUID) {
+        return new RitualSatchelT2Container(id, playerInventory, satchelInventory, selectedSlot, satchelUUID);
     }
 
     @Override

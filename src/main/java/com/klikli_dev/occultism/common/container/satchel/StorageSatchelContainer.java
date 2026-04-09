@@ -7,16 +7,19 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
+import java.util.UUID;
+
 public class StorageSatchelContainer extends AbstractSatchelContainer {
     public static final int SATCHEL_SIZE = 13 * 9;
 
-    public StorageSatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
-        super(OccultismContainers.SATCHEL.get(), id, playerInventory, satchelInventory, selectedSlot);
+    public StorageSatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot, UUID satchelUUID) {
+        super(OccultismContainers.SATCHEL.get(), id, playerInventory, satchelInventory, selectedSlot, satchelUUID);
     }
 
     public static StorageSatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
         final int selectedSlot = buffer.readVarInt();
-        return new StorageSatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
+        final UUID satchelUUID = new UUID(buffer.readLong(), buffer.readLong());
+        return new StorageSatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot, satchelUUID);
     }
 
     @Override

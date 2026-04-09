@@ -36,6 +36,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class SatchelItem extends Item {
@@ -52,13 +53,16 @@ public class SatchelItem extends Item {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             //here we use main hand item as selected slot
             int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : -1;
+            UUID satchelUUID = ItemNBTUtil.getOrCreateSatchelUUID(level, stack);
 
             serverPlayer.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new StorageSatchelContainer(id, playerInventory,
-                                this.getInventory((ServerPlayer) player, stack), selectedSlot);
+                                this.getInventory((ServerPlayer) player, stack), selectedSlot, satchelUUID);
                     }, stack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
+                        buffer.writeLong(satchelUUID.getMostSignificantBits());
+                        buffer.writeLong(satchelUUID.getLeastSignificantBits());
                     });
         }
 
