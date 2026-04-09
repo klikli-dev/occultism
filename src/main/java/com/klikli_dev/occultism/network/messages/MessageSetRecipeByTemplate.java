@@ -101,9 +101,10 @@ public class MessageSetRecipeByTemplate implements IMessage {
                 ItemStack extractedStack = StorageUtil
                         .extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, true);
                 if (canAcceptIngredient(craftMatrix, slot, extractedStack)) {
+                    ItemStack acceptedStack = extractedStack.copy();
                     extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
                     if (!extractedStack.isEmpty()) {
-                        placeExtractedStack(craftMatrix, slot, extractedStack);
+                        placeExtractedStack(craftMatrix, slot, acceptedStack);
                         extractedAny = true;
                         continue;
                     }
@@ -111,9 +112,10 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
                 extractedStack = storageController.getItemStack(ingredient, 1, true);
                 if (canAcceptIngredient(craftMatrix, slot, extractedStack)) {
+                    ItemStack acceptedStack = extractedStack.copy();
                     extractedStack = storageController.getItemStack(ingredient, 1, false);
                     if (!extractedStack.isEmpty()) {
-                        placeExtractedStack(craftMatrix, slot, extractedStack);
+                        placeExtractedStack(craftMatrix, slot, acceptedStack);
                         extractedAny = true;
                     }
                 }
