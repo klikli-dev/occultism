@@ -146,31 +146,53 @@ public class StorageUtil {
      */
     public static ItemStack extractItem(IItemHandler itemHandler, Predicate<ItemStack> comparator, int amount,
                                         boolean simulate) {
-        if (itemHandler == null || comparator == null) {
+        if (itemHandler == null || comparator == null || amount <= 0) {
             return ItemStack.EMPTY;
         }
-        int amountExtracted = 0;
-        //go through all slots in the handler
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            ItemStack slot = itemHandler.getStackInSlot(i);
-            //check if current slot matches
-            if (comparator.test(slot)) {
-                //take out of handler, one by one
-                ItemStack extractedStack = itemHandler.extractItem(i, 1, simulate);
-                if (!extractedStack.isEmpty()) {
-                    //if not empty increase the amount we extracted
-                    amountExtracted++;
+        ItemStack matchedStack = ItemStack.EMPTY;
+        int remaining = amount;
 
-                    //once we found enough, use the current slot to create a stack with the desired amount and return it
-                    if (amountExtracted == amount)
-                        return extractedStack.copyWithCount(amount);
-                    else
-                        //continue extracting from this slot until we get nothing back.
-                        i--;
-                }
+        // First simulate the full extraction so we can keep the all-or-nothing contract.
+        for (int i = 0; i < itemHandler.getSlots() && remaining > 0; i++) {
+            ItemStack slot = itemHandler.getStackInSlot(i);
+            if (slot.isEmpty() || !comparator.test(slot)) {
+                continue;
+            }
+
+            if (matchedStack.isEmpty()) {
+                matchedStack = slot.copyWithCount(1);
+            } else if (!ItemStack.isSameItemSameComponents(matchedStack, slot)) {
+                continue;
+            }
+
+            ItemStack simulatedExtraction = itemHandler.extractItem(i, remaining, true);
+            if (!simulatedExtraction.isEmpty()) {
+                remaining -= simulatedExtraction.getCount();
             }
         }
-        return ItemStack.EMPTY;
+
+        if (remaining > 0 || matchedStack.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+
+        if (simulate) {
+            return matchedStack.copyWithCount(amount);
+        }
+
+        remaining = amount;
+        for (int i = 0; i < itemHandler.getSlots() && remaining > 0; i++) {
+            ItemStack slot = itemHandler.getStackInSlot(i);
+            if (slot.isEmpty() || !comparator.test(slot) || !ItemStack.isSameItemSameComponents(matchedStack, slot)) {
+                continue;
+            }
+
+            ItemStack extractedStack = itemHandler.extractItem(i, remaining, false);
+            if (!extractedStack.isEmpty()) {
+                remaining -= extractedStack.getCount();
+            }
+        }
+
+        return remaining == 0 ? matchedStack.copyWithCount(amount) : ItemStack.EMPTY;
     }
 
     public static int getFirstFilledSlot(IItemHandler handler) {
