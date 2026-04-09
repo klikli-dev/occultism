@@ -11,7 +11,7 @@ import com.klikli_dev.occultism.common.item.tool.ChalkItem;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedPentacle;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Function4;
+import com.mojang.datafixers.util.Function5;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import net.minecraft.ChatFormatting;
@@ -56,11 +56,17 @@ public abstract class RitualSatchelItem extends Item {
     protected void openMenu(ServerPlayer player, ItemStack stack) {
         int selectedSlot = player.getInventory().selected;
 
+        if (!stack.has(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID)) {
+            stack.set(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID, UUID.randomUUID());
+        }
+        UUID satchelUuid = stack.get(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID);
+
         player.openMenu(
                 new SimpleMenuProvider((id, playerInventory, unused) -> {
-                    return this.containerFactory().apply(id, playerInventory, this.getInventory(player, stack), selectedSlot);
+                    return this.containerFactory().apply(id, playerInventory, this.getInventory(player, stack), selectedSlot, satchelUuid);
                 }, stack.getDisplayName()), buffer -> {
                     buffer.writeVarInt(selectedSlot);
+                    buffer.writeUUID(satchelUuid);
                 });
     }
 
@@ -164,7 +170,7 @@ public abstract class RitualSatchelItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    protected abstract Function4<Integer, Inventory, Container, Integer, AbstractContainerMenu> containerFactory();
+    protected abstract Function5<Integer, Inventory, Container, Integer, UUID, AbstractContainerMenu> containerFactory();
 
     protected abstract InteractionResult useOnServerSide(UseOnContext context);
 

@@ -52,12 +52,18 @@ public class SatchelItem extends Item {
             //here we use main hand item as selected slot
             int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : -1;
 
+            if (!stack.has(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID)) {
+                stack.set(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID, java.util.UUID.randomUUID());
+            }
+            java.util.UUID satchelUuid = stack.get(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID);
+
             serverPlayer.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new StorageSatchelContainer(id, playerInventory,
-                                this.getInventory((ServerPlayer) player, stack), selectedSlot);
+                                this.getInventory((ServerPlayer) player, stack), selectedSlot, satchelUuid);
                     }, stack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
+                        buffer.writeUUID(satchelUuid);
                     });
         }
 

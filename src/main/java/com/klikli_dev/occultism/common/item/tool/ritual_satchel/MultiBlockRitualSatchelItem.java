@@ -11,7 +11,7 @@ import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.mojang.datafixers.util.Function4;
+import com.mojang.datafixers.util.Function5;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -31,6 +31,7 @@ import net.neoforged.neoforge.items.ComponentItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +44,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     @Override
-    protected Function4<Integer, Inventory, Container, Integer, AbstractContainerMenu> containerFactory() {
+    protected Function5<Integer, Inventory, Container, Integer, UUID, AbstractContainerMenu> containerFactory() {
         return RitualSatchelT2Container::new;
     }
 

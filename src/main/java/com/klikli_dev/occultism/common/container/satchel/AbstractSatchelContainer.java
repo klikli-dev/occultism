@@ -32,6 +32,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.UUID;
+
 import javax.annotation.Nullable;
 
 public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
@@ -40,12 +42,14 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
     protected Inventory playerInventory;
     protected int selectedSlot;
     protected ItemStack satchelStack;
+    protected UUID satchelUuid;
 
-    public AbstractSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
+    public AbstractSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot, UUID satchelUuid) {
         super(menuType, id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
         this.selectedSlot = selectedSlot;
+        this.satchelUuid = satchelUuid;
 
         if (this.selectedSlot == -1) {
             this.satchelStack = CuriosUtil.getBackpack(playerInventory.player);
@@ -105,12 +109,22 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        ItemStack stack = ItemStack.EMPTY;
         if (this.selectedSlot == -1) {
-            return CuriosUtil.getBackpack(player).getItem() == this.satchelStack.getItem();
+            stack = CuriosUtil.getBackpack(player);
+        } else if (this.selectedSlot >= 0 && this.selectedSlot < player.getInventory().getContainerSize()) {
+            stack = player.getInventory().getItem(this.selectedSlot);
         }
-        if (this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
+
+        if (stack.isEmpty() || stack.getItem() != this.satchelStack.getItem())
             return false;
-        return player.getInventory().getItem(this.selectedSlot).getItem() == this.satchelStack.getItem();
+
+        var currentUuid = stack.get(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID);
+        if (player.level().isClientSide) {
+            return currentUuid == null || currentUuid.equals(this.satchelUuid);
+        }
+
+        return currentUuid != null && currentUuid.equals(this.satchelUuid);
     }
 
     protected void setupPlayerInventorySlots() {

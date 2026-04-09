@@ -36,6 +36,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.UUID;
+
 public class MessageOpenSatchel implements IMessage {
 
     public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "open_satchel");
@@ -60,19 +62,25 @@ public class MessageOpenSatchel implements IMessage {
         //if not found, try to get from player inventory
         if (!(backpackStack.getItem() instanceof SatchelItem)) {
             selectedSlot = CuriosUtil.getFirstBackpackSlot(player);
-            backpackStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
+            backpackStack = selectedSlot >= 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof SatchelItem) {
+            if (!backpackStack.has(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID)) {
+                backpackStack.set(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID, UUID.randomUUID());
+            }
+            UUID satchelUuid = backpackStack.get(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID);
+
             ItemStack finalBackpackStack = backpackStack;
             int finalSelectedSlot = selectedSlot;
             player.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new StorageSatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
-                                finalSelectedSlot);
+                                finalSelectedSlot, satchelUuid);
                     }, backpackStack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(finalSelectedSlot);
+                        buffer.writeUUID(satchelUuid);
                     });
         }
     }
