@@ -103,9 +103,10 @@ public class MessageSetRecipeByTemplate implements IMessage {
                         .extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient,
                                 1, true);
                 if (this.canAcceptIngredient(craftMatrix, slot, extractedStack)) {
+                    ItemStack acceptedStack = extractedStack.copy();
                     extractedStack = StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient, 1, false);
                     if (!extractedStack.isEmpty()) {
-                        this.placeExtractedStack(craftMatrix, slot, extractedStack);
+                        this.placeExtractedStack(craftMatrix, slot, acceptedStack);
                         anyExtracted = true;
                         continue;
                     }
@@ -114,9 +115,10 @@ public class MessageSetRecipeByTemplate implements IMessage {
                 //if we did not find anything in the player inventory, get it from the network now
                 extractedStack = storageController.getItemStack(ingredient, 1, true);
                 if (this.canAcceptIngredient(craftMatrix, slot, extractedStack)) {
+                    ItemStack acceptedStack = extractedStack.copy();
                     extractedStack = storageController.getItemStack(ingredient, 1, false);
                     if (!extractedStack.isEmpty()) {
-                        this.placeExtractedStack(craftMatrix, slot, extractedStack);
+                        this.placeExtractedStack(craftMatrix, slot, acceptedStack);
                         anyExtracted = true;
                     }
                 }
