@@ -5,7 +5,7 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.mojang.datafixers.util.Function4;
+import com.mojang.datafixers.util.Function5;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -17,6 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Places a single block of a ritual multiblock.
@@ -28,7 +29,7 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     @Override
-    protected Function4<Integer, Inventory, Container, Integer, AbstractContainerMenu> containerFactory() {
+    protected Function5<Integer, Inventory, Container, Integer, UUID, AbstractContainerMenu> containerFactory() {
         return RitualSatchelT1Container::new;
     }
 

@@ -98,7 +98,7 @@ public class ClientPlayerEventHandler {
     public static void checkBackpackKey() {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null & minecraft.screen == null && ClientSetupEventHandler.KEY_BACKPACK.consumeClick()
-                && (!CuriosUtil.getBackpack(minecraft.player).isEmpty() || CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0)) {
+                && (!CuriosUtil.getBackpack(minecraft.player).isEmpty() || CuriosUtil.getFirstBackpackSlot(minecraft.player) >= 0)) {
             Networking.sendToServer(new MessageOpenSatchel());
             minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 0.75F, 1.0F));
         }

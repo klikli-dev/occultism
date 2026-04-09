@@ -5,13 +5,15 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 
+import java.util.UUID;
+
 import javax.annotation.Nullable;
 
 public abstract class RitualSatchelContainer extends AbstractSatchelContainer {
     public static final int SATCHEL_SIZE = 4 * 9;
 
-    public RitualSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
-        super(menuType, id, playerInventory, satchelInventory, selectedSlot);
+    public RitualSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot, UUID satchelUuid) {
+        super(menuType, id, playerInventory, satchelInventory, selectedSlot, satchelUuid);
     }
 
     @Override

@@ -270,4 +270,10 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.FLOAT)
             .cacheEncoding()
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> SATCHEL_UUID = DATA_COMPONENTS.registerComponentType("satchel_uuid", builder -> builder
+            .persistent(OccultismExtraCodecs.UUID)
+            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
+            .cacheEncoding()
+    );
 }
