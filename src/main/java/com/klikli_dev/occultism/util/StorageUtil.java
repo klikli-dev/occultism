@@ -163,7 +163,7 @@ public class StorageUtil {
 
                     //once we found enough, use the current slot to create a stack with the desired amount and return it
                     if (amountExtracted == amount)
-                        return slot.copyWithCount(amount);
+                        return extractedStack.copyWithCount(amount);
                     else
                         //continue extracting from this slot until we get nothing back.
                         i--;
