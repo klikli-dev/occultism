@@ -64,8 +64,7 @@ public abstract class RitualSatchelItem extends Item {
                     return this.createContainer(id, playerInventory, this.getInventory(player, stack), selectedSlot, satchelUUID);
                 }, stack.getDisplayName()), buffer -> {
                     buffer.writeVarInt(selectedSlot);
-                    buffer.writeLong(satchelUUID.getMostSignificantBits());
-                    buffer.writeLong(satchelUUID.getLeastSignificantBits());
+                    buffer.writeUUID(satchelUUID);
                 });
     }
 

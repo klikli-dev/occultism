@@ -18,7 +18,7 @@ public class StorageSatchelContainer extends AbstractSatchelContainer {
 
     public static StorageSatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
         final int selectedSlot = buffer.readVarInt();
-        final UUID satchelUUID = new UUID(buffer.readLong(), buffer.readLong());
+        final UUID satchelUUID = buffer.readUUID();
         return new StorageSatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot, satchelUUID);
     }
 

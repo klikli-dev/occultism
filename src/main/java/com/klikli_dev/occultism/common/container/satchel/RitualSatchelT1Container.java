@@ -15,7 +15,7 @@ public class RitualSatchelT1Container extends RitualSatchelContainer {
 
     public static RitualSatchelT1Container createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
         final int selectedSlot = buffer.readVarInt();
-        final UUID satchelUUID = new UUID(buffer.readLong(), buffer.readLong());
+        final UUID satchelUUID = buffer.readUUID();
         return new RitualSatchelT1Container(id, playerInventory, new SimpleContainer(RitualSatchelContainer.SATCHEL_SIZE), selectedSlot, satchelUUID);
     }
 }

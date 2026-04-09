@@ -61,8 +61,7 @@ public class SatchelItem extends Item {
                                 this.getInventory((ServerPlayer) player, stack), selectedSlot, satchelUUID);
                     }, stack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
-                        buffer.writeLong(satchelUUID.getMostSignificantBits());
-                        buffer.writeLong(satchelUUID.getLeastSignificantBits());
+                        buffer.writeUUID(satchelUUID);
                     });
         }
 

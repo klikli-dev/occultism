@@ -77,8 +77,7 @@ public class MessageOpenSatchel implements IMessage {
                                 finalSelectedSlot, satchelUUID);
                     }, backpackStack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(finalSelectedSlot);
-                        buffer.writeLong(satchelUUID.getMostSignificantBits());
-                        buffer.writeLong(satchelUUID.getLeastSignificantBits());
+                        buffer.writeUUID(satchelUUID);
                     });
         }
     }
