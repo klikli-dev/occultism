@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.210.3] - 2026-04-09
+### :bug: Bug Fixes
+- [`ac9aab6`](https://github.com/klikli-dev/occultism/commit/ac9aab6e0c23a65f6c1458bcad8b0aabbbd4d992) - preserve autofill stacks for EMI actuator transfer *(PR [#1520](https://github.com/klikli-dev/occultism/pull/1520) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1518](https://github.com/klikli-dev/occultism/issues/1518) opened by [@chixiguaya](https://github.com/chixiguaya)*
+
+
 ## [release/v26.1-1.210.2] - 2026-04-07
 ### :bug: Bug Fixes
 - [`2128b4e`](https://github.com/klikli-dev/occultism/commit/2128b4eff18394ba3de555de86e94eceb13460c8) - re-register machine operators after storage upgrades *(PR [#1516](https://github.com/klikli-dev/occultism/pull/1516) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2354,3 +2360,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.210.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.209.0...release/v26.1-1.210.0
 [release/v26.1-1.210.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.0...release/v26.1-1.210.1
 [release/v26.1-1.210.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.1...release/v26.1-1.210.2
+[release/v26.1-1.210.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.2...release/v26.1-1.210.3
