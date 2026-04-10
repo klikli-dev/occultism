@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import com.geckolib.model.GeoModel;

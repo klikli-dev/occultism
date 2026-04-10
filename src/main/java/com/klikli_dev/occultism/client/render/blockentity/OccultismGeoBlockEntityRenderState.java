@@ -28,7 +28,7 @@ public class OccultismGeoBlockEntityRenderState extends BlockEntityRenderState i
 
     @Override
     public int getPackedLight() {
-        return getOrDefaultGeckolibData(DataTickets.PACKED_LIGHT, 0);
+        return getOrDefaultGeckolibData(DataTickets.PACKED_LIGHT, this.lightCoords);
     }
 
     @Override
