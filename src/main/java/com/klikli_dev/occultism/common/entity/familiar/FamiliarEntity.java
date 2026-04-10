@@ -58,6 +58,7 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
@@ -231,6 +232,12 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     @Override
     public Entity getFamiliarEntity() {
         return this;
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getControllingPassenger() {
+        return null;
     }
 
     @Override

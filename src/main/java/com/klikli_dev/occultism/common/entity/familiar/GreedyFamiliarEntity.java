@@ -421,7 +421,14 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                if ((!isStackDemagnetized && !isEntityDemagnetized) && this.entity instanceof GreedyFamiliarEntity greedy && greedy.canPickupItem(item)
+                GreedyFamiliarEntity greedy = null;
+                if (this.entity instanceof GreedyFamiliarEntity g) {
+                    greedy = g;
+                } else if (this.entity.getFirstPassenger() instanceof GreedyFamiliarEntity g) {
+                    greedy = g;
+                }
+
+                if ((!isStackDemagnetized && !isEntityDemagnetized) && greedy != null && greedy.canPickupItem(item)
                         && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
