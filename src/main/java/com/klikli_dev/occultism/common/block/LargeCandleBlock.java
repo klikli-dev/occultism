@@ -242,7 +242,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
     }
 
     @Override
-    public float getEnchantPowerBonus(BlockState state, LevelReader level, BlockPos pos) {
+    public float getEnchantPowerBonus(BlockState state, BlockGetter level, BlockPos pos) {
         return 1;
     }
 

@@ -42,6 +42,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
+
 public class SpiritFireRecipe implements Recipe<SingleRecipeInput> {
 
     public static final MapCodec<SpiritFireRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -74,6 +76,10 @@ public class SpiritFireRecipe implements Recipe<SingleRecipeInput> {
     @Override
     public boolean matches(SingleRecipeInput inv, Level level) {
         return this.input.test(inv.getItem(0));
+    }
+
+    public List<Ingredient> getIngredients() {
+        return List.of(this.input);
     }
 
     @Override

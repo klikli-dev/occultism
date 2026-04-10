@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.integration.waila;
+package com.klikli_dev.occultism.integration.jade;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.*;
@@ -22,9 +22,9 @@ public class SpiritComponentProvider implements IEntityComponentProvider {
             String spiritType = getSpiritType(spiritEntity);
             if (spiritType != null) {
                 if (maxAge != -1) {
-                    iTooltip.add(Component.translatable("occultism.waila." + spiritType + "_age", maxAge - age));
+                    iTooltip.add(Component.translatable("occultism.jade." + spiritType + "_age", maxAge - age));
                 } else {
-                    iTooltip.add(Component.translatable("occultism.waila." + spiritType));
+                    iTooltip.add(Component.translatable("occultism.jade." + spiritType));
                 }
             }
 

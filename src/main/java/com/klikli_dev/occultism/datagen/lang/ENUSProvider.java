@@ -1754,7 +1754,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.jei.crushing", "Crusher Spirit");
         this.add("occultism.jei.crystallize", "Crystallizer Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
-        this.add("occultism.jei.miner.chance", "Weight: %d");
+        this.add("occultism.jei.miner.chance", "Weight: %s");
         this.add("occultism.jei.ritual", "Occult Ritual");
         this.add("occultism.jei.pentacle", "Pentacle");
 
@@ -2452,22 +2452,22 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfigurationTranslations();
         this.addTags();
         this.addConditionMessages();
-        this.addWaila();
+        this.addJade();
     }
 
-    private void addWaila() {
-        this.add("occultism.waila.current_ritual","Current Ritual: %s");
-        this.add("occultism.waila.no_current_ritual","No Current Ritual");
-        this.add("occultism.waila.no_item_use","Required item not used");
-        this.add("occultism.waila.no_sacrifice","Required sacrifice not performed");
-        this.add("occultism.waila.foliot","Foliot");
-        this.add("occultism.waila.foliot_age","Foliot: %s seconds left");
-        this.add("occultism.waila.djinni","Djinni");
-        this.add("occultism.waila.djinni_age","DJinni: %s seconds left");
-        this.add("occultism.waila.afrit","Afrit");
-        this.add("occultism.waila.afrit_age","Afrit: %s seconds left");
-        this.add("occultism.waila.marid","Marid");
-        this.add("occultism.waila.marid_age","Marid: %s seconds left");
+    private void addJade() {
+        this.add("occultism.jade.current_ritual","Current Ritual: %s");
+        this.add("occultism.jade.no_current_ritual","No Current Ritual");
+        this.add("occultism.jade.no_item_use","Required item not used");
+        this.add("occultism.jade.no_sacrifice","Required sacrifice not performed");
+        this.add("occultism.jade.foliot","Foliot");
+        this.add("occultism.jade.foliot_age","Foliot: %s seconds left");
+        this.add("occultism.jade.djinni","Djinni");
+        this.add("occultism.jade.djinni_age","DJinni: %s seconds left");
+        this.add("occultism.jade.afrit","Afrit");
+        this.add("occultism.jade.afrit_age","Afrit: %s seconds left");
+        this.add("occultism.jade.marid","Marid");
+        this.add("occultism.jade.marid_age","Marid: %s seconds left");
         this.add("config.jade.plugin_occultism.foliot", "Spirits Info");
         this.add("config.jade.plugin_occultism.sacrificial", "Ritual Bowl Info");
 

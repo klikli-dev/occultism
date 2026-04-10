@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
+import com.klikli_dev.occultism.crafting.recipe.*;
 import com.klikli_dev.occultism.integration.jei.impl.recipes.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -42,21 +43,35 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+
+import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
 
     protected static IJeiRuntime runtime;
+    private static RecipeMap syncedRecipes = RecipeMap.EMPTY;
 
     public static IJeiRuntime getJeiRuntime() {
         return runtime;
+    }
+
+    public static RecipeMap getSyncedRecipes() {
+        return syncedRecipes;
     }
 
     @Override
@@ -76,28 +91,14 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        ClientLevel level = Minecraft.getInstance().level;
-        RecipeManager recipeManager = level.getRecipeManager();
-
         registration.addRecipes(RecipeTypes.CRAFTING, BoundBookRecipeMaker.createRecipes());
 
-        var spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
-        registration.addRecipes(JeiRecipeTypes.SPIRIT_FIRE, spiritFireRecipes);
-
-        var crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
-        registration.addRecipes(JeiRecipeTypes.CRUSHING, crushingRecipes);
-
-        var crystallizeRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRYSTALLIZE_TYPE.get());
-        registration.addRecipes(JeiRecipeTypes.CRYSTALLIZE, crystallizeRecipes);
-
-        var traderRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get());
-        registration.addRecipes(JeiRecipeTypes.SPIRIT_TRADE, traderRecipes);
-
-        var minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
-        registration.addRecipes(JeiRecipeTypes.MINER, minerRecipes);
-
-        var ritualRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get());
-        registration.addRecipes(JeiRecipeTypes.RITUAL, ritualRecipes);
+        registration.addRecipes(JeiRecipeTypes.SPIRIT_FIRE, this.getRecipes(syncedRecipes, OccultismRecipes.SPIRIT_FIRE_TYPE.get()));
+        registration.addRecipes(JeiRecipeTypes.CRUSHING, this.getRecipes(syncedRecipes, OccultismRecipes.CRUSHING_TYPE.get()));
+        registration.addRecipes(JeiRecipeTypes.CRYSTALLIZE, this.getRecipes(syncedRecipes, OccultismRecipes.CRYSTALLIZE_TYPE.get()));
+        registration.addRecipes(JeiRecipeTypes.SPIRIT_TRADE, this.getRecipes(syncedRecipes, OccultismRecipes.SPIRIT_TRADE_TYPE.get()));
+        registration.addRecipes(JeiRecipeTypes.MINER, this.getRecipes(syncedRecipes, OccultismRecipes.MINER_TYPE.get()));
+        registration.addRecipes(JeiRecipeTypes.RITUAL, this.getRecipes(syncedRecipes, OccultismRecipes.RITUAL_TYPE.get()));
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());
@@ -112,6 +113,11 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismItems.SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR.get());
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private <I extends RecipeInput, T extends net.minecraft.world.item.crafting.Recipe<I>> List<RecipeHolder<T>> getRecipes(RecipeMap recipeMap, RecipeType<T> type) {
+        return (List) recipeMap.byType(type);
+    }
+
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
@@ -124,84 +130,71 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.SPIRIT_FIRE.get()),
-                JeiRecipeTypes.SPIRIT_FIRE);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()),
-                JeiRecipeTypes.MINER);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get()),
-                JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()),
-                JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get()),
-                JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.CELESTIAL_CHALICE.get()),
-                JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.ELDRITCH_CHALICE.get()),
-                JeiRecipeTypes.RITUAL);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.getId())),
-                JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.getId())),
-                JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.getId())),
-                JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.getId())),
-                JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER.getId())),
-                JeiRecipeTypes.CRYSTALLIZE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER.getId())),
-                JeiRecipeTypes.CRYSTALLIZE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER.getId())),
-                JeiRecipeTypes.CRYSTALLIZE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER.getId())),
-                JeiRecipeTypes.CRYSTALLIZE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.getId())),
-                JeiRecipeTypes.SPIRIT_TRADE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.getId())),
-                JeiRecipeTypes.SPIRIT_TRADE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.getId())),
-                JeiRecipeTypes.SPIRIT_TRADE);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER.getId())),
-                JeiRecipeTypes.SPIRIT_TRADE);
+        registration.addCraftingStation(JeiRecipeTypes.SPIRIT_FIRE, new ItemStack(OccultismBlocks.SPIRIT_FIRE.get()));
+        registration.addCraftingStation(JeiRecipeTypes.MINER, new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()));
+        registration.addCraftingStation(JeiRecipeTypes.RITUAL, new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()));
+        registration.addCraftingStation(JeiRecipeTypes.RITUAL, new ItemStack(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get()));
+        registration.addCraftingStation(JeiRecipeTypes.RITUAL, new ItemStack(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()));
+        registration.addCraftingStation(JeiRecipeTypes.RITUAL, new ItemStack(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get()));
+        registration.addCraftingStation(JeiRecipeTypes.RITUAL, new ItemStack(OccultismBlocks.CELESTIAL_CHALICE.get()));
+        registration.addCraftingStation(JeiRecipeTypes.RITUAL, new ItemStack(OccultismBlocks.ELDRITCH_CHALICE.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRUSHING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRUSHING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRUSHING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRUSHING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRYSTALLIZE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRYSTALLIZE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRYSTALLIZE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.CRYSTALLIZE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.get()));
+        registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())),
-                RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())),
-                RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())),
-                RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())),
-                RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())),
-                RecipeTypes.SMOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())),
-                RecipeTypes.SMOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())),
-                RecipeTypes.SMOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())),
-                RecipeTypes.SMOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())),
-                RecipeTypes.BLASTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())),
-                RecipeTypes.BLASTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())),
-                RecipeTypes.BLASTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())),
-                RecipeTypes.BLASTING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())),
-                RecipeTypes.CAMPFIRE_COOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())),
-                RecipeTypes.CAMPFIRE_COOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())),
-                RecipeTypes.CAMPFIRE_COOKING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())),
-                RecipeTypes.CAMPFIRE_COOKING);
+        registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.CAMPFIRE_COOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.CAMPFIRE_COOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.CAMPFIRE_COOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get()));
+        registration.addCraftingStation(RecipeTypes.CAMPFIRE_COOKING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get()));
     }
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         JeiPlugin.runtime = jeiRuntime;
+    }
+
+    @EventBusSubscriber(modid = Occultism.MODID)
+    public static class ServerRecipeSync {
+        @SubscribeEvent
+        public static void onDatapackSync(OnDatapackSyncEvent event) {
+            event.sendRecipes(
+                    OccultismRecipes.SPIRIT_FIRE_TYPE.get(),
+                    OccultismRecipes.CRUSHING_TYPE.get(),
+                    OccultismRecipes.CRYSTALLIZE_TYPE.get(),
+                    OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
+                    OccultismRecipes.MINER_TYPE.get(),
+                    OccultismRecipes.RITUAL_TYPE.get()
+            );
+        }
+    }
+
+    @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
+    public static class ClientRecipeSync {
+        @SubscribeEvent
+        public static void onRecipesReceived(RecipesReceivedEvent event) {
+            syncedRecipes = event.getRecipeMap();
+        }
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {

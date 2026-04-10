@@ -21,7 +21,6 @@
  */
 package com.klikli_dev.occultism.network.messages;
 
-import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.IMessage;
@@ -33,18 +32,17 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.recipebook.PlaceRecipeHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
@@ -78,12 +76,16 @@ public class MessageSetRecipeByID implements IMessage {
         ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, this.id);
         RecipeManager recipeManager = minecraftServer.getRecipeManager();
         Recipe<?> recipe = recipeManager.byKey(recipeKey).map(r -> r.value()).orElse(null);
-        Preconditions.checkArgument(recipe != null); //should not happen
+        if (recipe == null) {
+            return;
+        }
 
         StorageUtil.clearOpenCraftingMatrix(player, false);
         CraftingContainer craftMatrix = container.getCraftMatrix();
-        // Use the new recipe display API to get ingredients
         NonNullList<Ingredient> ingredients = this.getIngredientsForRecipe(recipe);
+        if (ingredients.stream().allMatch(Ingredient::isEmpty)) {
+            return;
+        }
 
         for (int slot = 0; slot < 9; slot++) {
             Ingredient ingredient = ingredients.get(slot);
@@ -123,9 +125,25 @@ public class MessageSetRecipeByID implements IMessage {
     }
 
     private NonNullList<Ingredient> getIngredientsForRecipe(Recipe<?> recipe) {
-        // RecipeDisplay API doesn't expose ingredients directly in 26.1
-        // Return empty ingredient grid for now
         NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.of());
+        if (!(recipe instanceof CraftingRecipe craftingRecipe)) {
+            return ingredientsMatrixGrid;
+        }
+
+        PlacementInfo placementInfo = craftingRecipe.placementInfo();
+        if (placementInfo.isImpossibleToPlace()) {
+            return ingredientsMatrixGrid;
+        }
+
+        var ingredients = placementInfo.ingredients();
+        PlaceRecipeHelper.placeRecipe(3, 3, craftingRecipe, placementInfo.slotsToIngredientIndex(),
+                (ingredientIndex, slot, gridXPos, gridYPos) -> {
+                    if (slot >= 0 && slot < ingredientsMatrixGrid.size()
+                            && ingredientIndex >= 0 && ingredientIndex < ingredients.size()) {
+                        ingredientsMatrixGrid.set(slot, ingredients.get(ingredientIndex));
+                    }
+                });
+
         return ingredientsMatrixGrid;
     }
 

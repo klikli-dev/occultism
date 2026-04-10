@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.integration.waila;
+package com.klikli_dev.occultism.integration.jade;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
@@ -25,22 +25,22 @@ public class SacrificialComponentProvider implements IBlockComponentProvider {
         if(blockAccessor.getBlockEntity() instanceof GoldenSacrificialBowlBlockEntity goldenSacrificialBowlBlockEntity) {
             if(goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe()!=null && goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().value() instanceof RitualRecipe recipe && goldenSacrificialBowlBlockEntity.ritualActive) {
 
-                String ritualID = I18n.get("item.occultism.ritual_dummy." + goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().id().getPath().substring(7));
+                String ritualID = I18n.get("item.occultism.ritual_dummy." + goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
                 int i = ritualName.indexOf(":");
-                iTooltip.add(Component.translatable("occultism.waila.current_ritual", Component.literal(ritualName.substring(i+2)).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
+                iTooltip.add(Component.translatable("occultism.jade.current_ritual", Component.literal(ritualName.substring(i+2)).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
                 if (!goldenSacrificialBowlBlockEntity.sacrificeFulfilled()) {
-                    iTooltip.add(Component.translatable("occultism.waila.no_sacrifice").withStyle(ChatFormatting.RED));
+                    iTooltip.add(Component.translatable("occultism.jade.no_sacrifice").withStyle(ChatFormatting.RED));
                     iTooltip.add(Component.empty().append("-> ")
                             .append(Component.translatable(recipe.getEntityToSacrificeDisplayName()))
                             .withStyle(ChatFormatting.RED));
                 }
                 if (!goldenSacrificialBowlBlockEntity.itemUseFulfilled()) {
-                    ItemStack[] stacks = goldenSacrificialBowlBlockEntity.currentRitualRecipe.value().getItemToUse().getItems();
+                    ItemStack[] stacks = goldenSacrificialBowlBlockEntity.currentRitualRecipe.value().getItemToUse().items().map(holder -> new ItemStack(holder.value())).toArray(ItemStack[]::new);
                     int index = stacks.length == 1 ? 0 : (int) (System.currentTimeMillis() / 1000) % stacks.length;
-                    iTooltip.add(Component.translatable("occultism.waila.no_item_use").withStyle(ChatFormatting.RED));
+                    iTooltip.add(Component.translatable("occultism.jade.no_item_use").withStyle(ChatFormatting.RED));
                     iTooltip.add(Component.empty().append("-> ")
-                            .append(Component.translatable(recipe.getItemToUse().getItems()[index].getDisplayName().getString()))
+                            .append(stacks[index].getDisplayName())
                             .withStyle(ChatFormatting.RED));
                 }
                 return;

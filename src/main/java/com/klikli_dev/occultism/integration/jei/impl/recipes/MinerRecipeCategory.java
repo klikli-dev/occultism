@@ -24,39 +24,28 @@ package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;
-import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRecipe>> {
 
     private final IDrawable background;
     private final Component localizedName;
     private final IDrawable overlay;
-
-    private final Map<MinerRecipe, Float> chances = new HashMap<>();
 
     public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
@@ -70,7 +59,7 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     }
 
     @Override
-    public RecipeType<RecipeHolder<MinerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<MinerRecipe>> getRecipeType() {
         return JeiRecipeTypes.MINER;
     }
 
@@ -80,42 +69,33 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
-    }
-
-    @Override
     public IDrawable getIcon() {
         return null;
     }
 
     @Override
+    public int getWidth() {
+        return 168;
+    }
+
+    @Override
+    public int getHeight() {
+        return 46;
+    }
+
+    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<MinerRecipe> recipe, IFocusGroup focuses) {
-        //set up a simulated handler to get all possible results
-        Level level = Minecraft.getInstance().level;
-        ItemStacksResourceHandler simulatedHandler = new ItemStacksResourceHandler(1);
-        var stack = recipe.value().getIngredients().get(0).getItems()[0];
-        simulatedHandler.set(0, ItemResource.of(stack), stack.getCount());
-        var recipes = level.getRecipeManager()
-                .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                        new ItemHandlerRecipeInput(simulatedHandler), level);
-        var possibleResults = recipes.stream().map(RecipeHolder::value).map(MinerRecipe::getWeightedResult).toList();
-
-        float chance = (float) recipe.value().getWeightedResult().getWeight().asInt()/100;
-        this.chances.put(recipe.value(), chance);
-
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
-                .addIngredients(recipe.value().getIngredients().get(0));
+                .add(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .add(recipe.value().getResultItem());
     }
 
     @Override
     public void draw(RecipeHolder<MinerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
-                Component.translatable(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe.value())), 84, 0);
+                Component.translatable(Occultism.MODID + ".jei.miner.chance", (float) recipe.value().getWeightedResult().weight() / 100), 84, 0);
     }
 }

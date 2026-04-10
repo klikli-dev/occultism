@@ -36,6 +36,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.connection.ConnectionType;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,12 +79,10 @@ public class MessageUpdateStacks implements IMessage {
     public void onClientReceived(Minecraft minecraft, Player player) {
         this.uncompress(player.registryAccess());
         if (minecraft.screen instanceof IStorageControllerGui gui) {
-            if (gui != null) {
-                gui.setStacks(this.stacks);
-                gui.setUsedStorageSize(this.usedItemTypes, this.usedTotalItemCount);
-                gui.setMaxStorageSize(this.maxItemTypes, this.maxTotalItemCount);
-                gui.markDirty();
-            }
+            gui.setStacks(this.stacks);
+            gui.setUsedStorageSize(this.usedItemTypes, this.usedTotalItemCount);
+            gui.setMaxStorageSize(this.maxItemTypes, this.maxTotalItemCount);
+            gui.markDirty();
         }
     }
 
@@ -112,11 +112,11 @@ public class MessageUpdateStacks implements IMessage {
     }
 
     public void uncompress(RegistryAccess registryAccess) {
-        Inflater decompressor = new Inflater();
+        @SuppressWarnings("resource") Inflater decompressor = new Inflater();
         decompressor.setInput(this.payload.array());
 
         // Create an expandable packet buffer to hold the decompressed data
-        var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess).apply(new FriendlyByteBuf(Unpooled.buffer(this.payload.readableBytes() * 4)));
+        var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess, ConnectionType.NEOFORGE).apply(new FriendlyByteBuf(Unpooled.buffer(this.payload.readableBytes() * 4)));
 
         // Decompress the data
         byte[] buf = new byte[1024];
@@ -124,7 +124,7 @@ public class MessageUpdateStacks implements IMessage {
             try {
                 int count = decompressor.inflate(buf);
                 uncompressed.writeBytes(buf, 0, count);
-            } catch (Exception e) {
+            } catch (Exception _) {
             }
         }
 
@@ -138,12 +138,12 @@ public class MessageUpdateStacks implements IMessage {
     }
 
     public void compress(RegistryAccess registryAccess) {
-        Deflater compressor = new Deflater();
+        @SuppressWarnings("resource") Deflater compressor = new Deflater();
         compressor.setLevel(Deflater.BEST_SPEED);
 
         // Give the compressor the data to compress
         //create buffer with reasonable size (will increase automatically as needed
-        var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess).apply(new FriendlyByteBuf(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size())));
+        var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess, ConnectionType.NEOFORGE).apply(new FriendlyByteBuf(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size())));
         uncompressed.writeInt(this.stacks.size());
 
         for (ItemStack stack : this.stacks) {
@@ -165,7 +165,7 @@ public class MessageUpdateStacks implements IMessage {
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NonNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 }

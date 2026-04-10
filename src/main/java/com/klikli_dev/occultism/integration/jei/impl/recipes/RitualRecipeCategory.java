@@ -44,7 +44,7 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
@@ -71,6 +71,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     private final IDrawable eye;
     private final IDrawable goldenEye;
     private final IDrawable checklist;
+    private final IDrawable goldenSacrificialBowlDrawable;
+    private final IDrawable sacrificialBowlDrawable;
     private final Component localizedName;
     private final String pentacle;
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
@@ -94,6 +96,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                 Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
         this.goldenEye = guiHelper.createDrawable(
                 Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
+        this.goldenSacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.goldenSacrificialBowl);
+        this.sacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.sacrificialBowl);
 
         this.checklist = guiHelper.drawableBuilder(
                 Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
@@ -114,7 +118,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     }
 
     @Override
-    public RecipeType<RecipeHolder<RitualRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<RitualRecipe>> getRecipeType() {
         return JeiRecipeTypes.RITUAL;
     }
 
@@ -124,13 +128,18 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
+    public IDrawable getIcon() {
+        return null;
     }
 
     @Override
-    public IDrawable getIcon() {
-        return null;
+    public int getWidth() {
+        return 168;
+    }
+
+    @Override
+    public int getHeight() {
+        return 120;
     }
 
     @Override
@@ -139,11 +148,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
         //draw activation item on top of bowl
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
-                .addIngredients(recipe.value().getActivationItem());
-
-        //draw the sacrificial bowl in the center
-        builder.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX, this.ritualCenterY)
-                .addItemStack(this.goldenSacrificialBowl);
+                .add(recipe.value().getActivationItem());
 
         int sacrificialCircleRadius = 30;
         int sacricialBowlPaddingVertical = 20;
@@ -185,54 +190,48 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             Vec3i pos = sacrificialBowlPosition.get(i);
 
             builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
-                    .addIngredients(recipe.value().getIngredients().get(i));
-
-            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, pos.getX(), pos.getY())
-                    .addItemStack(this.sacrificialBowl);
+                    .add(recipe.value().getIngredients().get(i));
         }
 
         //ingredients: 0: recipe output, 1: ritual dummy item
 
         //draw recipe output on the left
-        var access = Minecraft.getInstance().level.registryAccess();
-        if (recipe.value().getResultItem(access).getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
+        if (!recipe.value().getResult().isEmpty() && recipe.value().getResult().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.value().getResultItem(access));
+                    .add(recipe.value().getResult());
         } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.value().getRitualDummy());
-        }
-        if (recipe.value().getEntityToSummon() != null){
-            String mob = recipe.value().getEntityToSummon().getDefaultLootTable().location().toString()
-                    .replace("occultism:entities/","")
-                    .replace("minecraft:entities/","")
-                    .replace("c:entities/","")
-                    .replace(":entities/","_");
-            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).hasNoItems())
-                builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .addIngredients(Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
-        }
-        if (recipe.value().getEntityTagToSummon() != null){
-            String mob = recipe.value().getEntityTagToSummon().location().toString()
-                    .replace("random_animals_","")
-                    .replace("occultism:","")
-                    .replace("minecraft:","")
-                    .replace("c:","")
-                    .replace(":","_");
-            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)).hasNoItems())
-                builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                        .addIngredients(Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+                    .add(recipe.value().getRitualDummy());
         }
 
-        //draw output golden bowl
-        builder.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
-                .addItemStack(this.goldenSacrificialBowl);
+        if (recipe.value().getEntityToSummon() != null) {
+            recipe.value().getEntityToSummon().getDefaultLootTable()
+                    .map(key -> key.identifier().toString()
+                            .replace("occultism:entities/", "")
+                            .replace("minecraft:entities/", "")
+                            .replace("c:entities/", "")
+                            .replace(":entities/", "_"))
+                    .ifPresent(mob -> builder.addSlot(RecipeIngredientRole.OUTPUT,
+                                    this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
+                            .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(
+                                    OccultismTags.makeItemTag("occultism:drop_from/" + mob))));
+        }
+        if (recipe.value().getEntityTagToSummon() != null) {
+            var mob = recipe.value().getEntityTagToSummon().location().toString()
+                    .replace("random_animals_", "")
+                    .replace("occultism:", "")
+                    .replace("minecraft:", "")
+                    .replace("c:", "")
+                    .replace(":", "_");
+            builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
+                    .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+        }
 
         //draw ritual dummy item in upper left corner
         builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
-                .addItemStack(recipe.value().getRitualDummy());
+                .add(recipe.value().getRitualDummy());
 
 
         //draw item to use
@@ -263,18 +262,46 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             int infoTextX = 94;
             int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
 
-            builder.addSlot(RecipeIngredientRole.CATALYST, itemToUseX, itemToUseY)
-                    .addIngredients(recipe.value().getItemToUse());
+            builder.addSlot(RecipeIngredientRole.INPUT, itemToUseX, itemToUseY)
+                    .add(recipe.value().getItemToUse());
         }
     }
 
     @Override
     public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
         this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
 
-        this.eye.draw(guiGraphics, 2, background.getHeight()-18);
-        RenderSystem.disableBlend();
+        this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX, this.ritualCenterY);
+        this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
+
+        int sacrificialCircleRadius = 30;
+        int sacricialBowlPaddingVertical = 20;
+        int sacricialBowlPaddingHorizontal = 15;
+        Stream.of(
+                new Vec3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vec3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
+                        this.ritualCenterY - sacricialBowlPaddingVertical, 0),
+                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
+                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
+                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
+                        this.ritualCenterY - sacricialBowlPaddingVertical, 0)
+        ).limit(recipe.value().getIngredients().size())
+                .forEach(pos -> this.sacrificialBowlDrawable.draw(guiGraphics, pos.getX(), pos.getY()));
+
+        this.eye.draw(guiGraphics, 2, 120-18);
 
         int infotextY = 0;
         int infoTextX = 94;
