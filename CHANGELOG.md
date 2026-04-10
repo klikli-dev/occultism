@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.209.0] - 2026-04-10
+### :sparkles: New Features
+- [`6724207`](https://github.com/klikli-dev/occultism/commit/6724207c1ad6d2a0ee5646896a13cdf81bfc6dff) - Implement Filtering UI for Greedy Familiar *(PR [#1526](https://github.com/klikli-dev/occultism/pull/1526) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`84be114`](https://github.com/klikli-dev/occultism/commit/84be1141cc0f4392495964e8580bfdfdd5c793c1) - align satchel hotkey with selected stack ([#1528](https://github.com/klikli-dev/occultism/pull/1528)) *(PR [#1529](https://github.com/klikli-dev/occultism/pull/1529) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`21bd3b4`](https://github.com/klikli-dev/occultism/commit/21bd3b4af67bb5c28846df9bd8d4a0eb49c7957d) - switch back to curios (from temp successor projects) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.208.4] - 2026-04-09
 ### :bug: Bug Fixes
 - [`d7c3d24`](https://github.com/klikli-dev/occultism/commit/d7c3d249b7359b42ddbd761cb207eac01046f067) - make exact-stack extraction all-or-nothing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2354,3 +2365,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.208.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.1...release/v1.21.1-1.208.2
 [release/v1.21.1-1.208.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.2...release/v1.21.1-1.208.3
 [release/v1.21.1-1.208.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.3...release/v1.21.1-1.208.4
+[release/v1.21.1-1.209.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.4...release/v1.21.1-1.209.0
