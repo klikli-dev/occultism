@@ -618,7 +618,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
             this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
 
-        var storageContents = pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get());
+        var storageContents = pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS);
         if (storageContents != null && !storageContents.isEmpty()) {
             this.itemStackHandler.deserializeNBT(this.level.registryAccess(), storageContents.copyTag());
         }
