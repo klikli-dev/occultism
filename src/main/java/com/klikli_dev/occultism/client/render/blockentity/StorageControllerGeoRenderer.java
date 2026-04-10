@@ -25,9 +25,9 @@ package com.klikli_dev.occultism.client.render.blockentity;
 import com.klikli_dev.occultism.client.model.tile.DimensionalMatrixModel;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import com.geckolib.model.GeoModel;
@@ -51,16 +51,11 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     }
 
     @Override
-    public void preRenderPass(RenderPassInfo<OccultismGeoBlockEntityRenderState> renderPassInfo, SubmitNodeCollector renderTasks) {
-        super.preRenderPass(renderPassInfo, renderTasks);
+    public void adjustRenderPose(RenderPassInfo<OccultismGeoBlockEntityRenderState> renderPassInfo) {
+        super.adjustRenderPose(renderPassInfo);
 
         // move above block
         renderPassInfo.poseStack().translate(0.0, 1.25, 0.0);
-    }
-
-    @Override
-    public void adjustRenderPose(RenderPassInfo<OccultismGeoBlockEntityRenderState> renderPassInfo) {
-        super.adjustRenderPose(renderPassInfo);
 
         // rotate item slowly around y axis
         long systemTime = System.currentTimeMillis();
