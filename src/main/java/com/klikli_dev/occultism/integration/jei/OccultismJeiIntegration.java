@@ -8,6 +8,7 @@ package com.klikli_dev.occultism.integration.jei;
 
 import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.platform.Services;
+import com.klikli_dev.occultism.Occultism;
 
 public interface OccultismJeiIntegration {
 
@@ -25,7 +26,7 @@ public interface OccultismJeiIntegration {
                     .getDeclaredConstructor()
                     .newInstance();
         } catch (ReflectiveOperationException | LinkageError e) {
-            Modonomicon.LOG.warn("Failed to initialize JEI integration, falling back to dummy implementation.", e);
+            Occultism.LOGGER.warn("Failed to initialize JEI integration, falling back to dummy implementation.", e);
             return new OccultismJeiIntegrationDummy();
         }
     }
