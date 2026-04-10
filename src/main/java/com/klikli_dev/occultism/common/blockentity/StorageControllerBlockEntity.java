@@ -618,8 +618,9 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
             this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
 
-        if (pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()) != null) {
-            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).getUnsafe());
+        var storageContents = pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get());
+        if (storageContents != null && !storageContents.isEmpty()) {
+            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), storageContents.copyTag());
         }
     }
 
@@ -634,18 +635,22 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) this.orderStack.saveOptional(this.level.registryAccess())));
 
-        pComponents.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS, CustomData.of(this.itemStackHandler.serializeNBT(this.level.registryAccess())));
+        var storageContents = this.itemStackHandler.serializeNBT(this.level.registryAccess());
+        if (!storageContents.isEmpty()) {
+            pComponents.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS, CustomData.of(storageContents));
+        }
     }
 
     @Override
     public void removeComponentsFromTag(CompoundTag pTag) {
-        //this causes stuff to get lost. Not sure why / how it is used in vanilla shulker boxes
-//        pTag.remove("items");
-//        pTag.remove("matrix");
-//        pTag.remove("orderStack");
-//        pTag.remove("sortDirection");
-//        pTag.remove("sortType");
-//        pTag.remove("linkedMachines");
+        pTag.remove("items");
+        pTag.remove("sortDirection");
+        pTag.remove("sortType");
+        pTag.remove("matrix");
+        pTag.remove("orderStack");
+        pTag.remove("linkedMachines");
+        pTag.remove("maxItemTypes");
+        pTag.remove("maxTotalItemCount");
     }
 
     @Nullable
