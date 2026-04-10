@@ -118,6 +118,15 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         super(OccultismBlockEntities.STORAGE_CONTROLLER.get(), worldPos, state);
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        if (this.level != null && !this.level.isClientSide()) {
+            this.markNetworkDirty();
+        }
+    }
+
     public void tick() {
         if (!this.level.isClientSide()) {
             if (!this.stabilizersInitialized) {

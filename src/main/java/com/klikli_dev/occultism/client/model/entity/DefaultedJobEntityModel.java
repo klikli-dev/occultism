@@ -9,6 +9,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.SpiritJobFactory;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
@@ -22,6 +23,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     private final String entity_subpath;
     protected final Map<String, ModelData> jobModels;
     protected final ModelData worker;
+    protected final Map<ModelData, Boolean> resourceCache = new HashMap<>();
 
     public DefaultedJobEntityModel(Identifier assetSubpath, boolean turnsHead, String entity_subpath) {
         super(assetSubpath);
@@ -36,7 +38,30 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
 
     public ModelData getModelData(T animatable) {
         var job = animatable.getJobID();
-        return jobModels.getOrDefault(job, this.worker);
+        var model = jobModels.getOrDefault(job, this.worker);
+        return this.resourceCache.computeIfAbsent(model, this::hasResources) ? model : this.worker;
+    }
+
+    protected boolean hasResources(ModelData data) {
+        var minecraft = Minecraft.getInstance();
+
+        if (minecraft == null) {
+            return true;
+        }
+
+        var resourceManager = minecraft.getResourceManager();
+
+        return resourceManager.getResource(data.modelPath()).isPresent()
+                && resourceManager.getResource(data.texture()).isPresent()
+                && resourceManager.getResource(data.animationPath()).isPresent();
+    }
+
+    protected Identifier getModelFilePath(Identifier id) {
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), "geckolib/models/" + id.getPath() + ".geo.json");
+    }
+
+    protected Identifier getAnimationFilePath(Identifier id) {
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), "geckolib/animations/" + id.getPath() + ".animation.json");
     }
 
     public ModelData buildModelData(String job) {
@@ -46,8 +71,10 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     public ModelData buildModelData(Identifier basePath) {
         return new ModelData(
                 this.buildFormattedModelPath(basePath),
+                this.getModelFilePath(this.buildFormattedModelPath(basePath)),
                 this.buildFormattedTexturePath(basePath),
-                this.buildFormattedAnimationPath(basePath)
+                this.buildFormattedAnimationPath(basePath),
+                this.getAnimationFilePath(this.buildFormattedAnimationPath(basePath))
         );
     }
 
@@ -59,7 +86,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
         return this.buildModelData(Identifier.fromNamespaceAndPath(Occultism.MODID, job), separator);
     }
 
-    public record ModelData(Identifier model, Identifier texture, Identifier animation) {
+    public record ModelData(Identifier model, Identifier modelPath, Identifier texture, Identifier animation, Identifier animationPath) {
     }
 
     @Override
