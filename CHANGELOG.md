@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.211.2] - 2026-04-10
+### :bug: Bug Fixes
+- [`59c5753`](https://github.com/klikli-dev/occultism/commit/59c575398098049203cde38528521a9fae932621) - restore storage controller GUI widgets *(PR [#1535](https://github.com/klikli-dev/occultism/pull/1535) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.211.0] - 2026-04-10
 ### :sparkles: New Features
 - [`d9d3ce7`](https://github.com/klikli-dev/occultism/commit/d9d3ce736066aef551bb93feffbdb0316140f703) - update to26.1.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2380,3 +2385,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.210.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.3...release/v26.1-1.210.4
 [release/v26.1-1.210.5]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.4...release/v26.1-1.210.5
 [release/v26.1.2-1.211.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-0.0.0...release/v26.1.2-1.211.0
+[release/v26.1.2-1.211.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.1...release/v26.1.2-1.211.2
