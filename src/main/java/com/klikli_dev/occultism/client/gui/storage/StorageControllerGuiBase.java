@@ -279,7 +279,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.searchBar.setBordered(false);
         this.searchBar.setVisible(true);
-        this.searchBar.setTextColor(OccultismConstants.Color.WHITE);
+        this.searchBar.setTextColor(0xFFFFFFFF);
         this.searchBar.setFocused(focus);
 
         this.searchBar.setValue(searchBarText);
