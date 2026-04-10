@@ -55,16 +55,22 @@ public class MessageOpenSatchel implements IMessage {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
 
-        int selectedSlot = -1;
-        //first attempt to get backpack from curios slot
-        ItemStack backpackStack = CuriosUtil.getBackpack(player);
+        int selectedSlot = player.getInventory().selected;
+        ItemStack backpackStack = player.getInventory().getSelected();
 
-        //if not found, try to get from player inventory
+        // first attempt to get backpack from the currently selected stack to match right-click behavior
+        if (!(backpackStack.getItem() instanceof SatchelItem)) {
+            selectedSlot = -1;
+            backpackStack = CuriosUtil.getBackpack(player);
+        }
+
+        // if not found, try to get from player inventory
         if (!(backpackStack.getItem() instanceof SatchelItem)) {
             selectedSlot = CuriosUtil.getFirstBackpackSlot(player);
             backpackStack = selectedSlot >= 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
         }
-        //now, if we have a satchel, proceed
+
+        // now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof SatchelItem) {
             if (!backpackStack.has(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID)) {
                 backpackStack.set(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID, UUID.randomUUID());
