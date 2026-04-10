@@ -71,6 +71,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     private final IDrawable eye;
     private final IDrawable goldenEye;
     private final IDrawable checklist;
+    private final IDrawable goldenSacrificialBowlDrawable;
+    private final IDrawable sacrificialBowlDrawable;
     private final Component localizedName;
     private final String pentacle;
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
@@ -94,6 +96,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                 Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
         this.goldenEye = guiHelper.createDrawable(
                 Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
+        this.goldenSacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.goldenSacrificialBowl);
+        this.sacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.sacrificialBowl);
 
         this.checklist = guiHelper.drawableBuilder(
                 Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
@@ -142,10 +146,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RitualRecipe> recipe, IFocusGroup focuses) {
         this.recipeOutputOffsetX = 75;
 
-        //draw the sacrificial bowl in the center
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, this.ritualCenterX, this.ritualCenterY)
-                .add(this.goldenSacrificialBowl);
-
         //draw activation item on top of bowl
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
                 .add(recipe.value().getActivationItem());
@@ -189,19 +189,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         for (int i = 0; i < recipe.value().getIngredients().size(); i++) {
             Vec3i pos = sacrificialBowlPosition.get(i);
 
-            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, pos.getX(), pos.getY())
-                    .add(this.sacrificialBowl);
-
             builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
                     .add(recipe.value().getIngredients().get(i));
         }
 
         //ingredients: 0: recipe output, 1: ritual dummy item
-
-        //draw output golden bowl
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
-                .add(this.goldenSacrificialBowl);
-
 
         //draw recipe output on the left
         if (!recipe.value().getResult().isEmpty() && recipe.value().getResult().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
@@ -278,6 +270,35 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     @Override
     public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+
+        this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX, this.ritualCenterY);
+        this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
+
+        int sacrificialCircleRadius = 30;
+        int sacricialBowlPaddingVertical = 20;
+        int sacricialBowlPaddingHorizontal = 15;
+        Stream.of(
+                new Vec3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vec3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
+                        this.ritualCenterY - sacricialBowlPaddingVertical, 0),
+                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
+                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
+                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
+                        this.ritualCenterY - sacricialBowlPaddingVertical, 0)
+        ).forEach(pos -> this.sacrificialBowlDrawable.draw(guiGraphics, pos.getX(), pos.getY()));
 
         this.eye.draw(guiGraphics, 2, 120-18);
 
