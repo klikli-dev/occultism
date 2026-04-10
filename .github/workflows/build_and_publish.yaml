@@ -113,13 +113,12 @@ jobs:
             modonomicon(required)
             geckolib(required)
             smartbrainlib(required)
+            curios(required)
             theurgy(optional)
             jei(optional)
             emi(optional)
             almost-unified(optional)
             perviaminvenire(optional)
-            curios-continuation(optional)
-            adorned(optional)
       # Publish at the end because it creates a non reobfed jarjar which otherwise would be distributed
       - name: Publish
         run: ./gradlew publish
