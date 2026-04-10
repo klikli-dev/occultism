@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContain
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.inventory.MenuType;
@@ -83,7 +84,7 @@ public class OccultismContainers {
                     () -> IMenuTypeExtension
                             .create((windowId, inv, data) -> {
                                 return new SpiritTransporterContainer(windowId, inv,
-                                        (SpiritEntity) inv.player.level().getEntity(data.readInt()));
+                                        (IFilterConfigurable) inv.player.level().getEntity(data.readInt()));
                             }));
 
     public static final Supplier<MenuType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =

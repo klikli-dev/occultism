@@ -25,22 +25,32 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.util.StorageUtil;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -55,10 +65,40 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class GreedyFamiliarEntity extends FamiliarEntity {
+public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfigurable, MenuProvider {
 
     private static final EntityDataAccessor<Optional<BlockPos>> TARGET_BLOCK = SynchedEntityData
             .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    /**
+     * The filter mode (blacklist/whitelist)
+     */
+    private static final EntityDataAccessor<Boolean> IS_FILTER_BLACKLIST = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.BOOLEAN);
+    /**
+     * The filter item list
+     */
+    private static final EntityDataAccessor<CompoundTag> FILTER_ITEMS = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.COMPOUND_TAG);
+    /**
+     * The filter for tags
+     */
+    private static final EntityDataAccessor<String> TAG_FILTER = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.STRING);
+
+    public ItemStackHandler inventory = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            GreedyFamiliarEntity.this.setItemInHand(InteractionHand.OFF_HAND, this.getStackInSlot(slot));
+        }
+    };
+    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(14) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            GreedyFamiliarEntity.this.entityData.set(FILTER_ITEMS, this.serializeNBT(GreedyFamiliarEntity.this.level().registryAccess()));
+        }
+    };
 
     private float earRotZ, earRotZ0, earRotX, earRotX0, peekRot, peekRot0, monsterRot, monsterRot0;
     private int monsterAnimTimer;
@@ -86,6 +126,58 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TARGET_BLOCK, Optional.empty());
+        builder.define(IS_FILTER_BLACKLIST, false);
+        builder.define(FILTER_ITEMS, new CompoundTag());
+        builder.define(TAG_FILTER, "");
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+
+        if (key == FILTER_ITEMS) {
+            //restore filter item handler from data param on client
+            if (this.level().isClientSide) {
+                CompoundTag compound = this.entityData.get(FILTER_ITEMS);
+                if (!compound.isEmpty())
+                    this.filterItemStackHandler.deserializeNBT(this.level().registryAccess(), compound);
+            }
+        }
+    }
+
+    @Override
+    public boolean isFilterBlacklist() {
+        return this.entityData.get(IS_FILTER_BLACKLIST);
+    }
+
+    @Override
+    public void setFilterBlacklist(boolean isFilterBlacklist) {
+        this.entityData.set(IS_FILTER_BLACKLIST, isFilterBlacklist);
+    }
+
+    @Override
+    public String getTagFilter() {
+        return this.entityData.get(TAG_FILTER);
+    }
+
+    @Override
+    public void setTagFilter(String tagFilter) {
+        this.entityData.set(TAG_FILTER, tagFilter);
+    }
+
+    @Override
+    public ItemStackHandler getFilterItems() {
+        return this.filterItemStackHandler;
+    }
+
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.inventory;
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
     }
 
     public Optional<BlockPos> getTargetBlock() {
@@ -113,10 +205,20 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                 boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                if (!isStackDemagnetized && !isEntityDemagnetized) {
+                if (!isStackDemagnetized && !isEntityDemagnetized && this.canPickupItem(e)) {
                     e.playerTouch((Player) wearer);
                 }
             }
+    }
+
+    public boolean canPickupItem(ItemEntity entity) {
+        ItemStack stack = entity.getItem();
+        boolean matches = StorageUtil.matchesFilter(stack,
+                this.getFilterItems()) ||
+                StorageUtil.matchesFilter(stack, this.getTagFilter());
+
+        boolean isBlacklist = this.isFilterBlacklist();
+        return ((!isBlacklist && matches) || (isBlacklist && !matches));
     }
 
     @Override
@@ -197,17 +299,75 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
+
+        if (playerIn.isShiftKeyDown() && this.getFamiliarOwner() == playerIn) {
+            this.openScreen(playerIn);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
         if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, this.getOffhandItem());
-            this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            this.inventory.setStackInSlot(0, ItemStack.EMPTY);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
-            this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(stack.getItem()));
+            this.inventory.setStackInSlot(0, new ItemStack(stack.getItem()));
             stack.shrink(1);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
         return super.mobInteract(playerIn, hand);
+    }
+
+    public void openScreen(Player playerEntity) {
+        if (!this.level().isClientSide) {
+            if (playerEntity instanceof ServerPlayer serverPlayer) {
+                serverPlayer.openMenu(this, (buf) -> buf.writeInt(this.getId()));
+            }
+        }
+    }
+
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        return new SpiritTransporterContainer(id, playerInventory, this);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return super.getDisplayName();
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        if (compound.contains("inventory")) {
+            this.inventory.deserializeNBT(this.level().registryAccess(), compound.getCompound("inventory"));
+        }
+
+        if (compound.contains("isFilterBlacklist")) {
+            this.setFilterBlacklist(compound.getBoolean("isFilterBlacklist"));
+        }
+
+        if (compound.contains("filterItems")) {
+            this.filterItemStackHandler.deserializeNBT(this.level().registryAccess(), compound.getCompound("filterItems"));
+        }
+
+        if (compound.contains("tagFilter")) {
+            this.setTagFilter(compound.getString("tagFilter"));
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+
+        //store current inventory
+        compound.put("inventory", this.inventory.serializeNBT(this.level().registryAccess()));
+
+        compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
+        compound.put("filterItems", this.filterItemStackHandler.serializeNBT(this.level().registryAccess()));
+
+        compound.putString("tagFilter", this.getTagFilter());
     }
 
 
@@ -261,7 +421,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                if ((!isStackDemagnetized && !isEntityDemagnetized)
+                if ((!isStackDemagnetized && !isEntityDemagnetized) && this.entity instanceof GreedyFamiliarEntity greedy && greedy.canPickupItem(item)
                         && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }

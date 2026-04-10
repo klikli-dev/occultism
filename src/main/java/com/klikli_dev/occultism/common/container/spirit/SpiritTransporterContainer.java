@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.container.spirit;
 
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
@@ -40,7 +41,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     protected final Player player;
 
     public SpiritTransporterContainer(int id, Inventory playerInventory,
-                                      SpiritEntity spirit) {
+                                      IFilterConfigurable spirit) {
 
         super(OccultismContainers.SPIRIT_TRANSPORTER.get(), id, playerInventory, spirit);
 
@@ -100,7 +101,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     protected void setupFilterSlots() {
         int x = 8;
         int y = 84;
-        ItemStackHandler filterItems = this.spirit.filterItemStackHandler;
+        ItemStackHandler filterItems = this.spirit.getFilterItems();
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < filterItems.getSlots() / 2; j++) {

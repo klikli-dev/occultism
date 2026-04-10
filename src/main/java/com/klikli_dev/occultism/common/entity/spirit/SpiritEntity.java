@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
@@ -77,7 +78,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider, SmartBrainOwner<SpiritEntity> {
+public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider, SmartBrainOwner<SpiritEntity>, IFilterConfigurable {
     public static final EntityDataAccessor<Integer> SKIN = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.INT);
     /**
@@ -371,6 +372,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      */
     public ItemStackHandler getFilterItems() {
         return this.filterItemStackHandler;
+    }
+
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.inventory;
     }
 
     public Optional<SpiritJob> getJob() {
