@@ -93,14 +93,14 @@ public class OccultismSpiritJobs {
                     () -> Occultism.SERVER_CONFIG.spiritJobs.crusherAfrit.outputMultiplier.get().floatValue(),
                     Occultism.SERVER_CONFIG.spiritJobs.crusherAfrit.operationCount::getAsInt,
                     Occultism.SERVER_CONFIG.spiritJobs.crusherAfrit.tier::getAsInt
-            ), SpiritJobClient.create("worker")));
+            ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.crusherMarid.timeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.crusherMarid.outputMultiplier.get().floatValue(),
                     Occultism.SERVER_CONFIG.spiritJobs.crusherMarid.operationCount::getAsInt,
                     Occultism.SERVER_CONFIG.spiritJobs.crusherMarid.tier::getAsInt
-            ), SpiritJobClient.create("worker")));
+            ), SpiritJobClient.create("crusher")));
     //Smelting Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER1 = JOBS.register("smelt_tier1",
             () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
