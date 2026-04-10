@@ -14,9 +14,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class BoundBookOfBindingRecipe extends CustomRecipe {
-    public static final MapCodec<BoundBookOfBindingRecipe> MAP_CODEC = MapCodec.unit(new BoundBookOfBindingRecipe());
-    public static final StreamCodec<RegistryFriendlyByteBuf, BoundBookOfBindingRecipe> STREAM_CODEC = StreamCodec.unit(new BoundBookOfBindingRecipe());
-    public static RecipeSerializer<BoundBookOfBindingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final BoundBookOfBindingRecipe INSTANCE = new BoundBookOfBindingRecipe();
+    public static final MapCodec<BoundBookOfBindingRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BoundBookOfBindingRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+    public static final RecipeSerializer<BoundBookOfBindingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     public BoundBookOfBindingRecipe() {
         super();
