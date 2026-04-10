@@ -25,39 +25,79 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
+import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.util.ProblemReporter;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
-public class GreedyFamiliarEntity extends FamiliarEntity {
+public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfigurable, MenuProvider {
 
     private static final EntityDataAccessor<Optional<BlockPos>> TARGET_BLOCK = SynchedEntityData
             .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+    private static final EntityDataAccessor<Boolean> IS_FILTER_BLACKLIST = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<String> FILTER_ITEMS = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<String> TAG_FILTER = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.STRING);
+
+    public ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
+            super.onContentsChanged(slot, previousContents);
+            GreedyFamiliarEntity.this.setItemInHand(InteractionHand.OFF_HAND, this.getResource(0).toStack());
+        }
+    };
+
+    public ItemStacksResourceHandler filterItemStackHandler = new ItemStacksResourceHandler(SpiritTransporterContainer.FILTER_SIZE) {
+        @Override
+        protected void onContentsChanged(int slot, ItemStack previousContents) {
+            super.onContentsChanged(slot, previousContents);
+            TagValueOutput tagOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, GreedyFamiliarEntity.this.level().registryAccess());
+            this.serialize(tagOutput);
+            GreedyFamiliarEntity.this.entityData.set(FILTER_ITEMS, tagOutput.buildResult().toString());
+        }
+    };
 
     private float earRotZ, earRotZ0, earRotX, earRotX0, peekRot, peekRot0, monsterRot, monsterRot0;
     private int monsterAnimTimer;
@@ -85,6 +125,71 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TARGET_BLOCK, Optional.empty());
+        builder.define(IS_FILTER_BLACKLIST, true);
+        builder.define(FILTER_ITEMS, "");
+        builder.define(TAG_FILTER, "");
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+
+        if (key == FILTER_ITEMS && this.level().isClientSide()) {
+            String compoundStr = this.entityData.get(FILTER_ITEMS);
+            if (!compoundStr.isEmpty()) {
+                try {
+                    var compound = net.minecraft.nbt.TagParser.parseCompoundFully(compoundStr);
+                    ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
+                    this.filterItemStackHandler.deserialize(valueInput);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean isFilterBlacklist() {
+        return this.entityData.get(IS_FILTER_BLACKLIST);
+    }
+
+    @Override
+    public void setFilterBlacklist(boolean isFilterBlacklist) {
+        this.entityData.set(IS_FILTER_BLACKLIST, isFilterBlacklist);
+    }
+
+    @Override
+    public String getTagFilter() {
+        return this.entityData.get(TAG_FILTER);
+    }
+
+    @Override
+    public void setTagFilter(String tagFilter) {
+        this.entityData.set(TAG_FILTER, tagFilter);
+    }
+
+    @Override
+    public ItemStacksResourceHandler getFilterItems() {
+        return this.filterItemStackHandler;
+    }
+
+    @Override
+    public ItemStacksResourceHandler getInventory() {
+        return this.inventory;
+    }
+
+    @Override
+    public LivingEntity getEntity() {
+        return this;
+    }
+
+    @Override
+    public boolean canPlaceInInventory(ItemStack stack) {
+        return this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem;
+    }
+
+    @Override
+    public boolean isInventorySlotActive() {
+        return this.hasBlacksmithUpgrade();
     }
 
     public Optional<BlockPos> getTargetBlock() {
@@ -112,10 +217,19 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                 boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
-                if (!isStackDemagnetized && !isEntityDemagnetized) {
+                if (!isStackDemagnetized && !isEntityDemagnetized && this.canPickupItem(e)) {
                     e.playerTouch((Player) wearer);
                 }
             }
+    }
+
+    public boolean canPickupItem(ItemEntity entity) {
+        ItemStack stack = entity.getItem();
+        boolean matches = StorageUtil.matchesFilter(stack, this.getFilterItems()) ||
+                StorageUtil.matchesFilter(stack, this.getTagFilter());
+
+        boolean isBlacklist = this.isFilterBlacklist();
+        return ((!isBlacklist && matches) || (isBlacklist && !matches));
     }
 
     @Override
@@ -196,17 +310,83 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
+        if (playerIn.isShiftKeyDown() && this.getFamiliarOwner() == playerIn) {
+            this.openScreen(playerIn);
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        }
+
         if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
             ItemTransferUtil.giveItemToPlayer(playerIn, this.getOffhandItem());
-            this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            try (var tx = Transaction.openRoot()) {
+                this.inventory.extract(0, this.inventory.getResource(0), 1, tx);
+                tx.commit();
+            }
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
-            this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(stack.getItem()));
+            try (var tx = Transaction.openRoot()) {
+                this.inventory.set(0, ItemResource.of(new ItemStack(stack.getItem())), 1);
+                tx.commit();
+            }
             stack.shrink(1);
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
 
         return super.mobInteract(playerIn, hand);
+    }
+
+    public void openScreen(Player playerEntity) {
+        if (!this.level().isClientSide() && playerEntity instanceof ServerPlayer serverPlayer) {
+            serverPlayer.openMenu(this, buf -> buf.writeInt(this.getId()));
+        }
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return super.getDisplayName();
+    }
+
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
+        return new SpiritTransporterContainer(id, playerInventory, this);
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        input.read("inventory", net.minecraft.nbt.CompoundTag.CODEC).ifPresent(tag -> {
+            ValueInput inventoryInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
+            this.inventory.deserialize(inventoryInput);
+        });
+
+        this.setFilterBlacklist(input.getBooleanOr("isFilterBlacklist", true));
+
+        input.read("filterItems", net.minecraft.nbt.CompoundTag.CODEC).ifPresent(tag -> {
+            tag.putInt("Size", SpiritTransporterContainer.FILTER_SIZE);
+            ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
+            this.filterItemStackHandler.deserialize(filterInput);
+        });
+
+        input.getString("tagFilter").ifPresent(this::setTagFilter);
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+
+        {
+            TagValueOutput inv = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
+            this.inventory.serialize(inv);
+            output.store("inventory", net.minecraft.nbt.CompoundTag.CODEC, inv.buildResult());
+        }
+
+        output.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
+        {
+            TagValueOutput filterOut = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
+            this.filterItemStackHandler.serialize(filterOut);
+            output.store("filterItems", net.minecraft.nbt.CompoundTag.CODEC, filterOut.buildResult());
+        }
+        output.putString("tagFilter", this.getTagFilter());
     }
 
 
@@ -261,6 +441,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if ((!isStackDemagnetized && !isEntityDemagnetized)
+                        && this.entity instanceof GreedyFamiliarEntity greedy && greedy.canPickupItem(item)
                         && com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }

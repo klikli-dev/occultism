@@ -82,7 +82,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     public void setIsBlacklist(boolean isBlacklist) {
         this.spirit.setFilterBlacklist(isBlacklist);
-        Networking.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getId()));
+        Networking.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getEntity().getId()));
     }
     //endregion Getter / Setter
 
@@ -135,7 +135,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         guiGraphics.pose().pushMatrix();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
-                this.topPos + 75 - 50 - y, this.spirit);
+                this.topPos + 75 - 50 - y, this.spirit.getEntity());
         guiGraphics.pose().popMatrix();
     }
 
@@ -211,7 +211,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         //we used to check for blank tag filter here, but that prevents emptying the filter
         this.spirit.setTagFilter(this.tagFilter);
-        Networking.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
+        Networking.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getEntity().getId()));
     }
 
     @Override

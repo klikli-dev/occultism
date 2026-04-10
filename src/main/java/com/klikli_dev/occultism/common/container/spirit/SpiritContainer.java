@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.container.spirit;
 
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,15 +39,15 @@ import javax.annotation.Nullable;
 public class SpiritContainer extends AbstractContainerMenu {
 
     public ItemStacksResourceHandler inventory;
-    public SpiritEntity spirit;
+    public IFilterConfigurable spirit;
 
     public SpiritContainer(int id, Inventory playerInventory, SpiritEntity spirit) {
         this(OccultismContainers.SPIRIT.get(), id, playerInventory, spirit);
     }
 
-    public SpiritContainer(@Nullable MenuType<?> type, int id, Inventory playerInventory, SpiritEntity spirit) {
+    public SpiritContainer(@Nullable MenuType<?> type, int id, Inventory playerInventory, IFilterConfigurable spirit) {
         super(type, id);
-        this.inventory = spirit.inventory;
+        this.inventory = spirit.getInventory();
         this.spirit = spirit;
 
         this.setupSlots(playerInventory);
@@ -87,7 +88,7 @@ public class SpiritContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player entityPlayer) {
-        return this.spirit.isAlive() && this.spirit.distanceTo(entityPlayer) < 8.0F;
+        return this.spirit.getEntity().isAlive() && this.spirit.getEntity().distanceTo(entityPlayer) < 8.0F;
     }
 
     public void setupSlots(Inventory playerInventory) {
@@ -117,8 +118,13 @@ public class SpiritContainer extends AbstractContainerMenu {
         this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 152, 54) {
 
             @Override
+            public boolean isActive() {
+                return SpiritContainer.this.spirit.isInventorySlotActive();
+            }
+
+            @Override
             public boolean mayPlace(ItemStack stack) {
-                return super.mayPlace(stack);
+                return SpiritContainer.this.spirit.canPlaceInInventory(stack) && super.mayPlace(stack);
             }
 
         });
