@@ -307,11 +307,9 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
 
         if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, this.getOffhandItem());
-            this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
             this.inventory.setStackInSlot(0, ItemStack.EMPTY);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
-            this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(stack.getItem()));
             this.inventory.setStackInSlot(0, new ItemStack(stack.getItem()));
             stack.shrink(1);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -423,7 +421,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                if ((!isStackDemagnetized && !isEntityDemagnetized) && ((GreedyFamiliarEntity) this.entity).canPickupItem(item)
+                if ((!isStackDemagnetized && !isEntityDemagnetized) && this.entity instanceof GreedyFamiliarEntity greedy && greedy.canPickupItem(item)
                         && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
