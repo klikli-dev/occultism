@@ -142,13 +142,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RitualRecipe> recipe, IFocusGroup focuses) {
         this.recipeOutputOffsetX = 75;
 
+        //draw the sacrificial bowl in the center
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, this.ritualCenterX, this.ritualCenterY)
+                .add(this.goldenSacrificialBowl);
+
         //draw activation item on top of bowl
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
                 .add(recipe.value().getActivationItem());
-
-        //draw the sacrificial bowl in the center
-        builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY)
-                .add(this.goldenSacrificialBowl);
 
         int sacrificialCircleRadius = 30;
         int sacricialBowlPaddingVertical = 20;
@@ -198,6 +198,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
         //ingredients: 0: recipe output, 1: ritual dummy item
 
+        //draw output golden bowl
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
+                .add(this.goldenSacrificialBowl);
+
+
         //draw recipe output on the left
         if (!recipe.value().getResult().isEmpty() && recipe.value().getResult().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
@@ -231,10 +236,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
                     .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
         }
-
-        //draw output golden bowl
-        builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
-                .add(this.goldenSacrificialBowl);
 
         //draw ritual dummy item in upper left corner
         builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
