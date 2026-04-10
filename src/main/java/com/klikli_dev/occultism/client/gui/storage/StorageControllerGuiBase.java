@@ -287,6 +287,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
         }
+        this.addRenderableWidget(this.searchBar);
 
         int storageSpaceInfoLabelLeft = 186;
         int storageSpaceInfoLabelTop = 35 + 18*this.rows;
@@ -361,6 +362,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         this.drawBackgroundTexture(guiGraphics);
+        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
 
         switch (this.guiMode) {
             case INVENTORY:
