@@ -137,13 +137,6 @@ repositories {
         }
     }
     maven {
-        name = "SBL Maven"
-        url "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
-        content {
-            includeGroup "net.tslat.smartbrainlib"
-        }
-    }
-    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -189,10 +182,6 @@ dependencies {
 
     //geckolib
     implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
-
-    //smartbrainlib
-    //TODO: use minecraft version variable once sbl is on 26.1
-    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-1.21.11:${smartbrainlib_version}") {transitive=false}
 
     //TODO: enable once available
     //almostunified
@@ -260,7 +249,6 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             theurgy_version        : theurgy_version,
             curios_version         : curios_version,
             geckolib_version       : geckolib_version,
-            smartbrainlib_version  : smartbrainlib_version,
             almost_unified_version : almost_unified_version,
             jei_version            : jei_version,
             emi_version            : emi_version,

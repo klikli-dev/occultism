@@ -61,12 +61,6 @@ versionRange = "[${geckolib_version},)"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
-modId = "smartbrainlib"
-type = "required"
-versionRange = "[${smartbrainlib_version},)"
-side = "BOTH"
-
-[[dependencies.${mod_id}]]
 modId = "almostunified"
 type = "optional"
 versionRange = "[${almost_unified_version},)"
