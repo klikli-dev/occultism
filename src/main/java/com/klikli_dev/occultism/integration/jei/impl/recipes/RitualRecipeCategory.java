@@ -189,11 +189,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         for (int i = 0; i < recipe.value().getIngredients().size(); i++) {
             Vec3i pos = sacrificialBowlPosition.get(i);
 
-            builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
-                    .add(recipe.value().getIngredients().get(i));
-
             builder.addSlot(RecipeIngredientRole.RENDER_ONLY, pos.getX(), pos.getY())
                     .add(this.sacrificialBowl);
+
+            builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
+                    .add(recipe.value().getIngredients().get(i));
         }
 
         //ingredients: 0: recipe output, 1: ritual dummy item
