@@ -44,7 +44,7 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
@@ -114,7 +114,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     }
 
     @Override
-    public RecipeType<RecipeHolder<RitualRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<RitualRecipe>> getRecipeType() {
         return JeiRecipeTypes.RITUAL;
     }
 
@@ -144,11 +144,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
         //draw activation item on top of bowl
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
-                .addIngredients(recipe.value().getActivationItem());
+                .add(recipe.value().getActivationItem());
 
         //draw the sacrificial bowl in the center
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY)
-                .addItemStack(this.goldenSacrificialBowl);
+                .add(this.goldenSacrificialBowl);
 
         int sacrificialCircleRadius = 30;
         int sacricialBowlPaddingVertical = 20;
@@ -190,10 +190,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             Vec3i pos = sacrificialBowlPosition.get(i);
 
             builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
-                    .addIngredients(recipe.value().getIngredients().get(i));
+                    .add(recipe.value().getIngredients().get(i));
 
             builder.addSlot(RecipeIngredientRole.RENDER_ONLY, pos.getX(), pos.getY())
-                    .addItemStack(this.sacrificialBowl);
+                    .add(this.sacrificialBowl);
         }
 
         //ingredients: 0: recipe output, 1: ritual dummy item
@@ -202,11 +202,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         if (!recipe.value().getResult().isEmpty() && recipe.value().getResult().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.value().getResult());
+                    .add(recipe.value().getResult());
         } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.value().getRitualDummy());
+                    .add(recipe.value().getRitualDummy());
         }
         if (recipe.value().getEntityToSummon() != null){
             String mob = recipe.value().getEntityToSummon().toString()
@@ -216,7 +216,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .replace(":entities/","_");
             if (!mob.isEmpty())
                 builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .addItemStack(recipe.value().getRitualDummy());
+                    .add(recipe.value().getRitualDummy());
         }
         if (recipe.value().getEntityTagToSummon() != null){
             String mob = recipe.value().getEntityTagToSummon().location().toString()
@@ -226,16 +226,16 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .replace("c:","")
                     .replace(":","_");
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .addItemStack(recipe.value().getRitualDummy());
+                    .add(recipe.value().getRitualDummy());
         }
 
         //draw output golden bowl
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
-                .addItemStack(this.goldenSacrificialBowl);
+                .add(this.goldenSacrificialBowl);
 
         //draw ritual dummy item in upper left corner
         builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
-                .addItemStack(recipe.value().getRitualDummy());
+                .add(recipe.value().getRitualDummy());
 
 
         //draw item to use
@@ -267,7 +267,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
 
             builder.addSlot(RecipeIngredientRole.INPUT, itemToUseX, itemToUseY)
-                    .addIngredients(recipe.value().getItemToUse());
+                    .add(recipe.value().getItemToUse());
         }
     }
 

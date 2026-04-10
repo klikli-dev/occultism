@@ -24,31 +24,31 @@ package com.klikli_dev.occultism.integration.jei.impl;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.*;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class JeiRecipeTypes {
 
-    public static final RecipeType<RecipeHolder<SpiritTradeRecipe>> SPIRIT_TRADE =
+    public static final IRecipeType<RecipeHolder<SpiritTradeRecipe>> SPIRIT_TRADE =
             create(Occultism.MODID, "spirit_trade", SpiritTradeRecipe.class);
-    public static final RecipeType<RecipeHolder<SpiritFireRecipe>> SPIRIT_FIRE =
+    public static final IRecipeType<RecipeHolder<SpiritFireRecipe>> SPIRIT_FIRE =
             create(Occultism.MODID, "spirit_fire", SpiritFireRecipe.class);
-    public static final RecipeType<RecipeHolder<CrushingRecipe>> CRUSHING =
+    public static final IRecipeType<RecipeHolder<CrushingRecipe>> CRUSHING =
             create(Occultism.MODID, "crushing", CrushingRecipe.class);
-    public static final RecipeType<RecipeHolder<CrystallizeRecipe>> CRYSTALLIZE =
+    public static final IRecipeType<RecipeHolder<CrystallizeRecipe>> CRYSTALLIZE =
             create(Occultism.MODID, "crystallize", CrystallizeRecipe.class);
 
-    public static final RecipeType<RecipeHolder<MinerRecipe>> MINER =
+    public static final IRecipeType<RecipeHolder<MinerRecipe>> MINER =
             create(Occultism.MODID, "miner", MinerRecipe.class);
-    public static final RecipeType<RecipeHolder<RitualRecipe>> RITUAL =
+    public static final IRecipeType<RecipeHolder<RitualRecipe>> RITUAL =
             create(Occultism.MODID, "ritual", RitualRecipe.class);
 
-    public static <R extends Recipe<?>> RecipeType<RecipeHolder<R>> create(String modid, String name, Class<? extends R> recipeClass) {
+    public static <R extends Recipe<?>> IRecipeType<RecipeHolder<R>> create(String modid, String name, Class<? extends R> recipeClass) {
         Identifier uid = Identifier.fromNamespaceAndPath(modid, name);
         @SuppressWarnings({"unchecked", "RedundantCast"})
         Class<? extends RecipeHolder<R>> holderClass = (Class<? extends RecipeHolder<R>>) (Object) RecipeHolder.class;
-        return new RecipeType<>(uid, holderClass);
+        return IRecipeType.create(uid, holderClass);
     }
 }

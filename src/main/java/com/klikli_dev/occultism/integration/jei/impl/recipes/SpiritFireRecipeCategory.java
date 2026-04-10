@@ -34,7 +34,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -61,7 +61,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
     }
 
     @Override
-    public RecipeType<RecipeHolder<SpiritFireRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<SpiritFireRecipe>> getRecipeType() {
         return JeiRecipeTypes.SPIRIT_FIRE;
     }
 
@@ -88,13 +88,13 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<SpiritFireRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 40, 12)
-                .addIngredients(recipe.value().getIngredients().get(0));
+                .add(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.INPUT, 75, 12)
-                .addItemStack(this.renderStack);
+                .add(this.renderStack);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 110, 12)
-                .addItemStack(recipe.value().assemble(null));
+                .add(recipe.value().assemble(null));
     }
 
     @Override

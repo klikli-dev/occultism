@@ -35,7 +35,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -69,7 +69,7 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     }
 
     @Override
-    public RecipeType<RecipeHolder<MinerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<MinerRecipe>> getRecipeType() {
         return JeiRecipeTypes.MINER;
     }
 
@@ -96,10 +96,10 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<MinerRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
-                .addIngredients(recipe.value().getIngredients().get(0));
+                .add(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.value().getResultItem());
+                .add(recipe.value().getResultItem());
     }
 
     @Override
