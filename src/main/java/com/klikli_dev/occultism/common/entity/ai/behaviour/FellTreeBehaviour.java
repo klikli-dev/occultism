@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
@@ -17,8 +18,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.*;
 
@@ -32,11 +31,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     protected int previousBreakProgress;
 
     public FellTreeBehaviour() {
-        super();
-
-        this.runtimeProvider = (entity) -> {
-            return 200;
-        };
+        super(MEMORY_REQUIREMENTS, 200);
     }
 
     @Override
@@ -46,11 +41,6 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
         return dist <= FellTreeBehaviour.FELL_TREE_RANGE_SQUARE;
     }
 
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
-    }
 
     protected boolean shouldKeepRunning(E entity) {
         return BrainUtil.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
@@ -84,13 +74,13 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
                     felled = stump;
                 }
                 BrainUtil.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), felled);
-                this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
+                this.doStop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
                 //we stop here (even though the above condition would save us) because sensor might reset last felled tree meanwhile
             }
 
         } else {
             //if the tree is gone, just stop and reset.
-            this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
+            this.doStop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
         }
     }
 

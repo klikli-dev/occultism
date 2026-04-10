@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
@@ -11,8 +12,6 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +25,10 @@ public class HandleUnreachableTreeBehaviour<E extends SpiritEntity> extends Exte
             Pair.of(OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get(), MemoryStatus.VALUE_PRESENT),
             Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT)
     );
+
+    public HandleUnreachableTreeBehaviour() {
+        super(MEMORY_REQUIREMENTS);
+    }
 
     @Override
     protected void start(E entity) {
@@ -45,10 +48,5 @@ public class HandleUnreachableTreeBehaviour<E extends SpiritEntity> extends Exte
                 }
             }
         }
-    }
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
     }
 }

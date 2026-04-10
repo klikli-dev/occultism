@@ -23,20 +23,22 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -69,7 +71,6 @@ public abstract class SpiritJob {
      * Sets up the job, e.g. AI Tasks
      */
     public final void init() {
-        this.entity.remakeBrain();
         BrainUtil.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
         BrainUtil.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
         BrainUtil.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
@@ -79,16 +80,16 @@ public abstract class SpiritJob {
 
     protected abstract void onInit();
 
-    public List<ExtendedSensor<SpiritEntity>> getSensors() {
+    public List<MemoryModuleType<?>> getMemoryTypes() {
+        return OccultismMemoryTypes.all();
+    }
+
+    public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of();
     }
 
-    public BrainActivityGroup<SpiritEntity> getCoreTasks() {
-        return BrainActivityGroup.empty();
-    }
-
-    public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-        return BrainActivityGroup.empty();
+    public List<ActivityData<SpiritEntity>> getActivityData() {
+        return ImmutableList.of();
     }
 
     public void handleAdditionalBrainSetup(Brain<? extends SpiritEntity> brain) {

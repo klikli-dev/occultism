@@ -2,12 +2,12 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
@@ -18,8 +18,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +33,10 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
             Pair.of(OccultismMemoryTypes.DEPOSIT_POSITION.get(), MemoryStatus.VALUE_PRESENT),
             Pair.of(OccultismMemoryTypes.DEPOSIT_FACING.get(), MemoryStatus.VALUE_PRESENT)
     );
+
+    public SetWalkTargetToDepositBehaviour() {
+        super(MEMORY_REQUIREMENTS);
+    }
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
@@ -80,10 +82,5 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
                 }
             }
         }
-    }
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
     }
 }
