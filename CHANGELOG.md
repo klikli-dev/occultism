@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.209.1] - 2026-04-10
+### :bug: Bug Fixes
+- [`d723d11`](https://github.com/klikli-dev/occultism/commit/d723d112b097ae5eaf33bb499086ebc2fbf68eaf) - familiar AI stopping when riding other familiars *(PR [#1532](https://github.com/klikli-dev/occultism/pull/1532) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.209.0] - 2026-04-10
 ### :sparkles: New Features
 - [`6724207`](https://github.com/klikli-dev/occultism/commit/6724207c1ad6d2a0ee5646896a13cdf81bfc6dff) - Implement Filtering UI for Greedy Familiar *(PR [#1526](https://github.com/klikli-dev/occultism/pull/1526) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2366,3 +2371,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.208.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.2...release/v1.21.1-1.208.3
 [release/v1.21.1-1.208.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.3...release/v1.21.1-1.208.4
 [release/v1.21.1-1.209.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.4...release/v1.21.1-1.209.0
+[release/v1.21.1-1.209.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.209.0...release/v1.21.1-1.209.1
