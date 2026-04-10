@@ -137,7 +137,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         guiGraphics.pose().pushPose();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
-                this.topPos + 75 - 50 - y, this.spirit);
+                this.topPos + 75 - 50 - y, this.spirit.getEntity());
         guiGraphics.pose().popPose();
     }
 

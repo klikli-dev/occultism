@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -48,7 +49,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
-    protected SpiritEntity spirit;
+    protected IFilterConfigurable spirit;
     protected T container;
 
     public SpiritGui(T container, Inventory playerInventory, Component titleIn) {
@@ -115,14 +116,14 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getString()));
         this.addRenderableWidget(nameLabel);
 
-        if (this.spirit.getSpiritMaxAge() >= 0) {
-            int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
+        if (this.spirit instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0) {
+            int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
             LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
             ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
             this.addRenderableWidget(ageLabel);
         }
 
-        String jobID = this.spirit.getJobID();
+        String jobID = this.spirit instanceof SpiritEntity spiritEntity ? spiritEntity.getJobID() : "";
         if (!StringUtils.isBlank(jobID)) {
             jobID = jobID.replace(":", ".");
             LabelWidget jobLabel = new LabelWidget(this.leftPos + 65,
@@ -152,7 +153,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         guiGraphics.pose().pushPose();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
-                this.topPos + 75 - 50 - y, this.spirit);
+                this.topPos + 75 - 50 - y, this.spirit.getEntity());
         guiGraphics.pose().popPose();
     }
 }
