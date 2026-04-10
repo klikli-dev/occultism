@@ -413,6 +413,9 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 return null;
 
             IItemHandler inv = new PlayerMainInvWrapper(player.getInventory());
+            GreedyFamiliarEntity greedy = this.getGreedyFamiliar();
+            if (greedy == null)
+                return null;
 
             for (ItemEntity item : this.entity.level().getEntitiesOfClass(ItemEntity.class,
                     this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
@@ -421,10 +424,22 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                if ((!isStackDemagnetized && !isEntityDemagnetized) && this.entity instanceof GreedyFamiliarEntity greedy && greedy.canPickupItem(item)
+                if ((!isStackDemagnetized && !isEntityDemagnetized) && greedy != null && greedy.canPickupItem(item)
                         && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
+            return null;
+        }
+
+        private GreedyFamiliarEntity getGreedyFamiliar() {
+            if (this.entity instanceof GreedyFamiliarEntity greedy)
+                return greedy;
+
+            for (Entity passenger : this.entity.getPassengers()) {
+                if (passenger instanceof GreedyFamiliarEntity greedy)
+                    return greedy;
+            }
+
             return null;
         }
 
