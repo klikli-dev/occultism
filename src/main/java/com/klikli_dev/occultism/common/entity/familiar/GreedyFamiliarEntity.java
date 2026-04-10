@@ -432,6 +432,9 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 return null;
 
             var inv = PlayerInventoryWrapper.of(player).getMainSlots();
+            GreedyFamiliarEntity greedy = this.getGreedyFamiliar();
+            if (greedy == null)
+                return null;
 
             for (ItemEntity item : this.entity.level().getEntitiesOfClass(ItemEntity.class,
                     this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
@@ -441,10 +444,22 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if ((!isStackDemagnetized && !isEntityDemagnetized)
-                        && this.entity instanceof GreedyFamiliarEntity greedy && greedy.canPickupItem(item)
+                        && greedy.canPickupItem(item)
                         && com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
+            return null;
+        }
+
+        private GreedyFamiliarEntity getGreedyFamiliar() {
+            if (this.entity instanceof GreedyFamiliarEntity greedy)
+                return greedy;
+
+            for (Entity passenger : this.entity.getPassengers()) {
+                if (passenger instanceof GreedyFamiliarEntity greedy)
+                    return greedy;
+            }
+
             return null;
         }
 
