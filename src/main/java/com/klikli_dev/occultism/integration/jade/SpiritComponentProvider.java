@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.integration.waila;
+package com.klikli_dev.occultism.integration.jade;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.*;

@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.integration.waila;
+package com.klikli_dev.occultism.integration.jade;
 
 import net.neoforged.fml.ModList;
 import snownee.jade.Jade;

@@ -27,8 +27,8 @@ sourceSets {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
             exclude '**/emi/**/*.java'
-            exclude '**/waila/**/*.java'
-            exclude '**/jei/impl/**/*.java'
+//            exclude '**/waila/**/*.java'
+//            exclude '**/jei/impl/**/*.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
@@ -163,6 +163,17 @@ repositories {
             includeGroup "dev.shadowsoffire"
         }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     flatDir {
@@ -172,16 +183,20 @@ repositories {
 
 dependencies {
     //Jei
-//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-//    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    //localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    //Jade (Hwyla/Waila)
+    compileOnly ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
+    localRuntime ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
 
     //curios
-    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
-    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
+    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}:api") {transitive=false}
+    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}") {transitive=false}
 
     //geckolib
-    implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
+    implementation ("com.geckolib:geckolib-neoforge-${minecraft_major_version}:${geckolib_version}") {transitive=false}
 
     //TODO: enable once available
     //almostunified
@@ -191,7 +206,7 @@ dependencies {
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //theurgy
-//    compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
+    compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 //    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
@@ -213,7 +228,7 @@ dependencies {
     //Apothic Enchanting
 //    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
 
-    // TODO: enable when need compacts testing
+    // TODO: enable when needed for integration testing
 
     // Apotheosis
     //implementation ("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${apothic_attributes_version}") {transitive=false}
