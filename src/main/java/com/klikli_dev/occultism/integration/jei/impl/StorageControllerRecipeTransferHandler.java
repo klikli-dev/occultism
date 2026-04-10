@@ -50,7 +50,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -146,22 +145,19 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         if (container instanceof StorageControllerContainerBase menu) {
             List<IRecipeSlotView> missing = new ArrayList<>();
             List<IRecipeSlotView> views = recipeSlots.getSlotViews();
-            List<List<ItemStack>> inputs = new ArrayList<>();
+            var reservedPlayerInventory = new int[player.getInventory().getNonEquipmentItems().size()];
             var reservedGridAmounts = new Object2IntOpenHashMap<>();
 
             for (IRecipeSlotView view : views) {
                 if (view.getRole() == RecipeIngredientRole.INPUT || view.getRole() == RecipeIngredientRole.CRAFTING_STATION) {
                     List<ItemStack> possibleStacks = view.getItemStacks().toList();
                     if (possibleStacks.isEmpty()) {
-                        inputs.add(List.of());
                         continue;
                     }
 
-                    inputs.add(possibleStacks);
-
                     boolean found = false;
                     for (ItemStack stack : possibleStacks) {
-                        if (stack != null && player.getInventory().findSlotMatchingItem(stack) != -1) {
+                        if (this.hasMatchingPlayerInventoryStack(player, stack, reservedPlayerInventory)) {
                             found = true;
                             break;
                         }
@@ -169,7 +165,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 
                     if (!found) {
                         for (ItemStack stack : possibleStacks) {
-                            if (menu.hasIngredient(Ingredient.of(stack.getItem()), reservedGridAmounts)) {
+                            if (this.hasMatchingStorageStack(menu, stack, reservedGridAmounts)) {
                                 found = true;
                                 break;
                             }
@@ -185,7 +181,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 
             //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
             if (doTransfer) {
-                if (player.level().getServer() != null && player.level().getServer().getRecipeManager().byKey(recipe.id()).isPresent()) {
+                if (JeiPlugin.getSyncedRecipes().byKey(recipe.id()) != null) {
                     Networking.sendToServer(new MessageSetRecipeByID(recipe.id().identifier()));
                 } else {
                     Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
@@ -196,6 +192,61 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
             }
         }
         return null;
+    }
+
+    private boolean hasMatchingPlayerInventoryStack(Player player, ItemStack desiredStack, int[] reservedPlayerInventory) {
+        if (desiredStack == null || desiredStack.isEmpty()) {
+            return false;
+        }
+
+        var mainInventory = player.getInventory().getNonEquipmentItems();
+        for (int i = 0; i < mainInventory.size(); i++) {
+            var playerStack = mainInventory.get(i);
+            if (!playerStack.isEmpty()
+                    && ItemStack.isSameItemSameComponents(playerStack, desiredStack)
+                    && playerStack.getCount() > reservedPlayerInventory[i]) {
+                reservedPlayerInventory[i]++;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasMatchingStorageStack(StorageControllerContainerBase menu, ItemStack desiredStack,
+                                            Object2IntOpenHashMap<Object> reservedAmounts) {
+        if (desiredStack == null || desiredStack.isEmpty()) {
+            return false;
+        }
+
+        for (int i = 1; i < 10; i++) {
+            var slot = menu.getSlot(i);
+            var stackInSlot = slot.getItem();
+            if (!stackInSlot.isEmpty() && ItemStack.isSameItemSameComponents(stackInSlot, desiredStack)) {
+                var reservedAmount = reservedAmounts.getOrDefault(slot, 0);
+                if (stackInSlot.getCount() > reservedAmount) {
+                    reservedAmounts.merge(slot, 1, Integer::sum);
+                    return true;
+                }
+            }
+        }
+
+        var clientCache = menu.getClientStorageCache();
+        if (clientCache == null) {
+            return false;
+        }
+
+        for (var stack : clientCache.stacks()) {
+            if (ItemStack.isSameItemSameComponents(stack, desiredStack)) {
+                var reservedAmount = reservedAmounts.getOrDefault(stack, 0);
+                if (stack.getCount() - reservedAmount >= 1) {
+                    reservedAmounts.merge(stack, 1, Integer::sum);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private static class TransferWarning implements IRecipeTransferError {

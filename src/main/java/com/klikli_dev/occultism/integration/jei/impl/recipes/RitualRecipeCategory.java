@@ -208,25 +208,28 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
                     .add(recipe.value().getRitualDummy());
         }
-        if (recipe.value().getEntityToSummon() != null){
-            String mob = recipe.value().getEntityToSummon().toString()
-                    .replace("occultism:entities/","")
-                    .replace("minecraft:entities/","")
-                    .replace("c:entities/","")
-                    .replace(":entities/","_");
-            if (!mob.isEmpty())
-                builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .add(recipe.value().getRitualDummy());
+
+        if (recipe.value().getEntityToSummon() != null) {
+            recipe.value().getEntityToSummon().getDefaultLootTable()
+                    .map(key -> key.identifier().toString()
+                            .replace("occultism:entities/", "")
+                            .replace("minecraft:entities/", "")
+                            .replace("c:entities/", "")
+                            .replace(":entities/", "_"))
+                    .ifPresent(mob -> builder.addSlot(RecipeIngredientRole.OUTPUT,
+                                    this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
+                            .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(
+                                    OccultismTags.makeItemTag("occultism:drop_from/" + mob))));
         }
-        if (recipe.value().getEntityTagToSummon() != null){
-            String mob = recipe.value().getEntityTagToSummon().location().toString()
-                    .replace("random_animals_","")
-                    .replace("occultism:","")
-                    .replace("minecraft:","")
-                    .replace("c:","")
-                    .replace(":","_");
+        if (recipe.value().getEntityTagToSummon() != null) {
+            var mob = recipe.value().getEntityTagToSummon().location().toString()
+                    .replace("random_animals_", "")
+                    .replace("occultism:", "")
+                    .replace("minecraft:", "")
+                    .replace("c:", "")
+                    .replace(":", "_");
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .add(recipe.value().getRitualDummy());
+                    .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
         }
 
         //draw output golden bowl

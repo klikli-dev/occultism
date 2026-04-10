@@ -24,32 +24,22 @@ package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;
-import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRecipe>> {
 
@@ -106,6 +96,6 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     public void draw(RecipeHolder<MinerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
-                Component.translatable(Occultism.MODID + ".jei.miner.chance", "0.1"), 84, 0);
+                Component.translatable(Occultism.MODID + ".jei.miner.chance", (float) recipe.value().getWeightedResult().weight() / 100), 84, 0);
     }
 }

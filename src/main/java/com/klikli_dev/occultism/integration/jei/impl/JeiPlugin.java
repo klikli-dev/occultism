@@ -70,6 +70,10 @@ public class JeiPlugin implements IModPlugin {
         return runtime;
     }
 
+    public static RecipeMap getSyncedRecipes() {
+        return syncedRecipes;
+    }
+
     @Override
     public Identifier getPluginUid() {
         return Identifier.fromNamespaceAndPath(Occultism.MODID, "jei");

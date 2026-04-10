@@ -25,18 +25,19 @@ package com.klikli_dev.occultism.integration.jei.impl.recipes;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
+import com.klikli_dev.occultism.integration.jei.impl.JeiPlugin;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;
-import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -103,9 +104,26 @@ public class SpiritTradeRecipeCategory implements IRecipeCategory<RecipeHolder<S
     public void draw(RecipeHolder<SpiritTradeRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(
-                "job." + recipe.value().getTrader().replace(":",".")), 84, 0);
+                "job." + recipe.value().getTrader().replace(":", ".")), 84, 0);
 
-        float chances = 0.5f; // Fallback
+        float chances = 0f;
+        var level = Minecraft.getInstance().level;
+        ItemStack inputStack = recipeSlotsView.getSlotViews(RecipeIngredientRole.INPUT).stream()
+                .findFirst()
+                .flatMap(IRecipeSlotView::getDisplayedItemStack)
+                .orElseGet(() -> recipeSlotsView.getSlotViews(RecipeIngredientRole.INPUT).stream()
+                        .findFirst()
+                        .flatMap(slot -> slot.getItemStacks().findFirst())
+                        .orElse(ItemStack.EMPTY));
+        if (level != null && !inputStack.isEmpty()) {
+            AtomicInteger all = new AtomicInteger();
+            JeiPlugin.getSyncedRecipes().getRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get(),
+                            new TraderRecipeInput(inputStack, recipe.value().getTrader()), level)
+                    .forEach(rs -> all.addAndGet(rs.value().getWeightedResult().weight()));
+            if (all.get() > 0) {
+                chances = (float) 100 * recipe.value().getWeightedResult().weight() / all.get();
+            }
+        }
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(
                 "occultism.jei.spirit_trader.chance", String.format(Locale.US, "%.2f", chances)), 84, 33);
     }

@@ -1754,7 +1754,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.jei.crushing", "Crusher Spirit");
         this.add("occultism.jei.crystallize", "Crystallizer Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
-        this.add("occultism.jei.miner.chance", "Weight: %d");
+        this.add("occultism.jei.miner.chance", "Weight: %s");
         this.add("occultism.jei.ritual", "Occult Ritual");
         this.add("occultism.jei.pentacle", "Pentacle");
 
