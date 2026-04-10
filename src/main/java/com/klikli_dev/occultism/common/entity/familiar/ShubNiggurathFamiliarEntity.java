@@ -110,7 +110,6 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
         if (friend != null) {
             Vec3 direction = this.position().vectorTo(friend.position());
             float rot = (float) Math.toDegrees(Mth.atan2(direction.z, direction.x)) - 50;
-            this.yRotO = this.yRotO;
             this.yRotO = rot;
             this.yBodyRot = this.yRotO;
             this.yBodyRotO = this.yRotO;
