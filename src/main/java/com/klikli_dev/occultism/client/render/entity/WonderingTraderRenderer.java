@@ -32,23 +32,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.player.Player;
-import com.geckolib.renderer.GeoEntityRenderer;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 
-public class WonderingTraderRenderer extends GeoEntityRenderer<WonderingTraderEntity, EntityRenderState> {
+public class WonderingTraderRenderer extends OccultismGeoLivingEntityRenderer<WonderingTraderEntity> {
 
     public WonderingTraderRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new WonderingTraderModel());
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
+        GeoRenderLayer<WonderingTraderEntity, Void, OccultismGeoLivingEntityRenderState> glowLayer = new ConditionalGlowingGeoLayer<>(this);
         this.withRenderLayer(glowLayer);
     }
 
     @Override
-    public void submit(EntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+    public void submit(OccultismGeoLivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         Player player = Minecraft.getInstance().player;
         if (player != null && (player.hasEffect(OccultismEffects.THIRD_EYE) || CuriosUtil.hasGoggles(player) || CuriosUtil.hasStaff(player))) {
             poseStack.scale(1.2F, 1.2F, 1.2F);

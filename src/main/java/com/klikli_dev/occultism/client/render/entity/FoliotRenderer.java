@@ -26,10 +26,7 @@ import com.klikli_dev.occultism.client.model.entity.FoliotModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.cache.model.GeoBone;
-import com.geckolib.renderer.GeoEntityRenderer;
-import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
@@ -37,31 +34,29 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity, EntityRenderState> {
+public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntity> {
 
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel());
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
+        GeoRenderLayer<FoliotEntity, Void, OccultismGeoLivingEntityRenderState> glowLayer = new ConditionalGlowingGeoLayer<>(this);
         this.withRenderLayer(glowLayer);
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(context, this) {
-            protected List getRelevantBones(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
-                FoliotEntity entity = (FoliotEntity) animatable;
-                String jobId = entity.getJobID();
-                ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
+        GeoRenderLayer<FoliotEntity, Void, OccultismGeoLivingEntityRenderState> itemLayer = new BlockAndItemGeoLayer<>(context, this) {
+            @Override
+            protected List<RenderData> getRelevantBones(FoliotEntity animatable, @Nullable Void relatedObject, OccultismGeoLivingEntityRenderState renderState, float partialTick) {
+                String jobId = animatable.getJobID();
+                ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
                 if (mainHandStack.isEmpty()) return Collections.emptyList();
 
                 String boneName;
@@ -72,18 +67,20 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity, EntityRender
                 } else {
                     boneName = "arm_right";
                 }
-                ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, entity);
+                ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, animatable);
                 return Collections.singletonList(RenderData.item(boneName, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, stackState));
             }
 
-            public void addRenderData(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
-                List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+            @Override
+            public void addRenderData(FoliotEntity animatable, @Nullable Void relatedObject, OccultismGeoLivingEntityRenderState renderState, float partialTick) {
+                List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
                     renderState.addGeckolibData(CONTENTS, bones);
                 }
             }
 
-            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, GeoRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
+            @Override
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.65, 0);
                 // TODO: job-specific CLEANER offset requires render state data

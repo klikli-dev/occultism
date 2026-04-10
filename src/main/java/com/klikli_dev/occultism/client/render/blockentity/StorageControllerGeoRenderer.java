@@ -35,7 +35,7 @@ import com.geckolib.renderer.GeoBlockRenderer;
 import com.geckolib.renderer.base.RenderPassInfo;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
-public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity, BlockEntityRenderState> {
+public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity, OccultismGeoBlockEntityRenderState> {
 
     public StorageControllerGeoRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn) {
         this(rendererDispatcherIn, new DimensionalMatrixModel());
@@ -45,9 +45,13 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         super(rendererDispatcherIn, modelProvider);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void adjustRenderPose(RenderPassInfo renderPassInfo) {
+    public OccultismGeoBlockEntityRenderState createRenderState() {
+        return new OccultismGeoBlockEntityRenderState();
+    }
+
+    @Override
+    public void adjustRenderPose(RenderPassInfo<OccultismGeoBlockEntityRenderState> renderPassInfo) {
         super.adjustRenderPose(renderPassInfo);
 
         // move above block
@@ -60,9 +64,10 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     }
 
     @Override
-    public RenderType getRenderType(BlockEntityRenderState renderState, Identifier texture) {
+    public RenderType getRenderType(OccultismGeoBlockEntityRenderState renderState, Identifier texture) {
         return RenderTypes.entityTranslucent(texture);
     }
+
 
     @Override
     public int getRenderColor(StorageControllerBlockEntity animatable, Void relatedObject, float partialTick) {

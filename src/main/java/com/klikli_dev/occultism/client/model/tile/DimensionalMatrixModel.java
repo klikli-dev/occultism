@@ -31,7 +31,7 @@ import com.geckolib.renderer.base.GeoRenderState;
 public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState state) {
-        return Identifier.fromNamespaceAndPath(Occultism.MODID, "geo/dimensional_matrix.geo.json");
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "dimensional_matrix");
     }
 
     @Override
@@ -41,6 +41,6 @@ public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntit
 
     @Override
     public Identifier getAnimationResource(StorageControllerBlockEntity animatable) {
-        return Identifier.fromNamespaceAndPath(Occultism.MODID, "animations/dimensional_matrix.animation.json");
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "dimensional_matrix");
     }
 }

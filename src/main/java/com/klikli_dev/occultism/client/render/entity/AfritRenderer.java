@@ -25,53 +25,51 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.renderer.GeoEntityRenderer;
-import com.geckolib.renderer.base.GeoRenderState;
-import com.geckolib.renderer.base.GeoRenderer;
+import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 
-public class AfritRenderer extends GeoEntityRenderer<AfritEntity, EntityRenderState> {
+public class AfritRenderer extends OccultismGeoLivingEntityRenderer<AfritEntity> {
 
     public AfritRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AfritModel());
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer glowLayer = new ConditionalGlowingGeoLayer(this);
+        GeoRenderLayer<AfritEntity, Void, OccultismGeoLivingEntityRenderState> glowLayer = new ConditionalGlowingGeoLayer<>(this);
         this.withRenderLayer(glowLayer);
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        GeoRenderLayer itemLayer = new BlockAndItemGeoLayer(renderManager, this) {
-            protected List getRelevantBones(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
-                AfritEntity entity = (AfritEntity) animatable;
-                ItemStack mainHandStack = entity.getItemInHand(InteractionHand.MAIN_HAND);
+        GeoRenderLayer<AfritEntity, Void, OccultismGeoLivingEntityRenderState> itemLayer = new BlockAndItemGeoLayer<>(renderManager, this) {
+            @Override
+            protected List<RenderData> getRelevantBones(AfritEntity animatable, @Nullable Void relatedObject, OccultismGeoLivingEntityRenderState renderState, float partialTick) {
+                ItemStack mainHandStack = animatable.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!mainHandStack.isEmpty()) {
-                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, entity);
+                    ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, ItemDisplayContext.THIRD_PERSON_LEFT_HAND, animatable);
                     return Collections.singletonList(RenderData.item("bone", ItemDisplayContext.THIRD_PERSON_LEFT_HAND, stackState));
                 }
                 return Collections.emptyList();
             }
 
-            public void addRenderData(GeoAnimatable animatable, Object relatedObject, GeoRenderState renderState, float partialTick) {
-                List bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
+            @Override
+            public void addRenderData(AfritEntity animatable, @Nullable Void relatedObject, OccultismGeoLivingEntityRenderState renderState, float partialTick) {
+                List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
                     renderState.addGeckolibData(CONTENTS, bones);
                 }
             }
 
-            protected void submitItemStackRender(PoseStack poseStack, com.geckolib.cache.model.GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, GeoRenderState renderState, net.minecraft.client.renderer.SubmitNodeCollector renderTasks, int packedLight) {
+            @Override
+            protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
