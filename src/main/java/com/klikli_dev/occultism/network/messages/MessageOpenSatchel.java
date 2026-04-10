@@ -58,9 +58,14 @@ public class MessageOpenSatchel implements IMessage {
         int selectedSlot = player.getInventory().selected;
         ItemStack backpackStack = player.getInventory().getSelected();
 
-        // first attempt to get backpack from the currently selected stack to match right-click behavior
+        // first attempt to get backpack from the held stacks to match right-click behavior
         if (!(backpackStack.getItem() instanceof SatchelItem)) {
-            selectedSlot = -1;
+            selectedSlot = StorageSatchelContainer.OFFHAND_SLOT;
+            backpackStack = player.getOffhandItem();
+        }
+
+        if (!(backpackStack.getItem() instanceof SatchelItem)) {
+            selectedSlot = StorageSatchelContainer.CURIO_SLOT;
             backpackStack = CuriosUtil.getBackpack(player);
         }
 

@@ -49,8 +49,7 @@ public class SatchelItem extends Item {
         final ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            //here we use main hand item as selected slot
-            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : -1;
+            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : StorageSatchelContainer.OFFHAND_SLOT;
 
             if (!stack.has(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID)) {
                 stack.set(com.klikli_dev.occultism.registry.OccultismDataComponents.SATCHEL_UUID, java.util.UUID.randomUUID());

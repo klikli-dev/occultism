@@ -38,6 +38,9 @@ import javax.annotation.Nullable;
 
 public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
+    public static final int CURIO_SLOT = -1;
+    public static final int OFFHAND_SLOT = -2;
+
     protected Container satchelInventory;
     protected Inventory playerInventory;
     protected int selectedSlot;
@@ -51,11 +54,7 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
         this.selectedSlot = selectedSlot;
         this.satchelUuid = satchelUuid;
 
-        if (this.selectedSlot == -1) {
-            this.satchelStack = CuriosUtil.getBackpack(playerInventory.player);
-        } else {
-            this.satchelStack = playerInventory.player.getInventory().getItem(this.selectedSlot).copy();
-        }
+        this.satchelStack = this.getTrackedSatchelStack(playerInventory.player).copy();
 
 
         this.setupSatchelSlots();
@@ -109,12 +108,7 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        ItemStack stack = ItemStack.EMPTY;
-        if (this.selectedSlot == -1) {
-            stack = CuriosUtil.getBackpack(player);
-        } else if (this.selectedSlot >= 0 && this.selectedSlot < player.getInventory().getContainerSize()) {
-            stack = player.getInventory().getItem(this.selectedSlot);
-        }
+        ItemStack stack = this.getTrackedSatchelStack(player);
 
         if (stack.isEmpty() || stack.getItem() != this.satchelStack.getItem())
             return false;
@@ -144,6 +138,22 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
         }
+    }
+
+    protected ItemStack getTrackedSatchelStack(Player player) {
+        if (this.selectedSlot == CURIO_SLOT) {
+            return CuriosUtil.getBackpack(player);
+        }
+
+        if (this.selectedSlot == OFFHAND_SLOT) {
+            return player.getOffhandItem();
+        }
+
+        if (this.selectedSlot >= 0 && this.selectedSlot < player.getInventory().getContainerSize()) {
+            return player.getInventory().getItem(this.selectedSlot);
+        }
+
+        return ItemStack.EMPTY;
     }
 
     protected abstract void setupSatchelSlots();
