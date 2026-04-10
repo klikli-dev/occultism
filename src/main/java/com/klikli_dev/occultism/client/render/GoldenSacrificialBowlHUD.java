@@ -3,7 +3,7 @@ package com.klikli_dev.occultism.client.render;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.client.misc.ClientPentacleManager;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
-// import com.klikli_dev.occultism.integration.waila.WailaIntegration; // WAILA integration disabled
+// import com.klikli_dev.occultism.integration.jade.JadeIntegration; // Jade integration disabled
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -37,7 +37,7 @@ public class GoldenSacrificialBowlHUD {
         }
 
         ClientPentacleManager.rebuild(pos);
-        // WailaIntegration.displayPentacles() check removed — WAILA integration is disabled
+        // JadeIntegration.displayPentacles() check removed — Jade integration is disabled
         if(mc.level.getBlockEntity(pos) instanceof GoldenSacrificialBowlBlockEntity bowl) {
             Font font = mc.font;
 
@@ -48,12 +48,12 @@ public class GoldenSacrificialBowlHUD {
                 String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
                 int i = ritualName.indexOf(":");
-                pGuiGraphics.centeredText(font, Component.translatable("occultism.waila.current_ritual",
+                pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.current_ritual",
                         Component.literal(ritualName.substring(i+2))), x, y,
                         bowl.getSignal() == 8 ? ChatFormatting.GREEN.getColor() : ChatFormatting.GRAY.getColor());
                 y += 9;
                 if (!bowl.sacrificeFulfilled()) {
-                    pGuiGraphics.centeredText(font, Component.translatable("occultism.waila.no_sacrifice"), x, y, ChatFormatting.RED.getColor());
+                    pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.no_sacrifice"), x, y, ChatFormatting.RED.getColor());
                     y += 9;
                     pGuiGraphics.centeredText(font, Component.translatable(bowl.currentRitualRecipe.value().getEntityToSacrificeDisplayName()), x, y, -1);
                 }
