@@ -4,7 +4,6 @@
 - MAKE CONVENTIONAL COMMITS FOR EVERY ATOMIC CHANGE.
 - For fixes and features always create a branch, and open a PR when ready. If given an issue to work on, link the issue in the PR description.
 - Read `build.gradle` and `gradle.properties`, and `src/main/resources/META-INF/neoforge.mods.toml` to find the current minecraft version used.
-- When updating, **never** change `gradle.properties`, a human will update it before you start work.
 - Do not guess vanilla API changes; verify them.
 
 ## Minecraft source lookups
