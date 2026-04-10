@@ -23,6 +23,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     private final String entity_subpath;
     protected final Map<String, ModelData> jobModels;
     protected final ModelData worker;
+    protected final Map<ModelData, Boolean> resourceCache = new HashMap<>();
 
     public DefaultedJobEntityModel(Identifier assetSubpath, boolean turnsHead, String entity_subpath) {
         super(assetSubpath);
@@ -38,7 +39,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     public ModelData getModelData(T animatable) {
         var job = animatable.getJobID();
         var model = jobModels.getOrDefault(job, this.worker);
-        return this.hasResources(model) ? model : this.worker;
+        return this.resourceCache.computeIfAbsent(model, this::hasResources) ? model : this.worker;
     }
 
     protected boolean hasResources(ModelData data) {
@@ -50,9 +51,9 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
 
         var resourceManager = minecraft.getResourceManager();
 
-        return resourceManager.getResource(this.getModelFilePath(data.model())).isPresent()
+        return resourceManager.getResource(data.modelPath()).isPresent()
                 && resourceManager.getResource(data.texture()).isPresent()
-                && resourceManager.getResource(this.getAnimationFilePath(data.animation())).isPresent();
+                && resourceManager.getResource(data.animationPath()).isPresent();
     }
 
     protected Identifier getModelFilePath(Identifier id) {
@@ -70,8 +71,10 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     public ModelData buildModelData(Identifier basePath) {
         return new ModelData(
                 this.buildFormattedModelPath(basePath),
+                this.getModelFilePath(this.buildFormattedModelPath(basePath)),
                 this.buildFormattedTexturePath(basePath),
-                this.buildFormattedAnimationPath(basePath)
+                this.buildFormattedAnimationPath(basePath),
+                this.getAnimationFilePath(this.buildFormattedAnimationPath(basePath))
         );
     }
 
@@ -83,7 +86,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
         return this.buildModelData(Identifier.fromNamespaceAndPath(Occultism.MODID, job), separator);
     }
 
-    public record ModelData(Identifier model, Identifier texture, Identifier animation) {
+    public record ModelData(Identifier model, Identifier modelPath, Identifier texture, Identifier animation, Identifier animationPath) {
     }
 
     @Override
