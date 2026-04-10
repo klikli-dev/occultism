@@ -71,13 +71,18 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
+    public IDrawable getIcon() {
+        return null;
     }
 
     @Override
-    public IDrawable getIcon() {
-        return null;
+    public int getWidth() {
+        return 168;
+    }
+
+    @Override
+    public int getHeight() {
+        return 56;
     }
 
     @Override
@@ -86,12 +91,11 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
                 .addIngredients(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem());
     }
 
     @Override
     public void draw(RecipeHolder<CrushingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, this.getTitle(), 84, 0);
         int y = 35;

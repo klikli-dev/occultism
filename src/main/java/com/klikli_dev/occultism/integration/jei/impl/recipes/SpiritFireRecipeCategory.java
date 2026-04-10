@@ -71,13 +71,18 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
+    public IDrawable getIcon() {
+        return this.icon;
     }
 
     @Override
-    public IDrawable getIcon() {
-        return this.icon;
+    public int getWidth() {
+        return 168;
+    }
+
+    @Override
+    public int getHeight() {
+        return 46;
     }
 
     @Override
@@ -85,16 +90,15 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
         builder.addSlot(RecipeIngredientRole.INPUT, 40, 12)
                 .addIngredients(recipe.value().getIngredients().get(0));
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 75, 12)
+        builder.addSlot(RecipeIngredientRole.INPUT, 75, 12)
                 .addItemStack(this.renderStack);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 110, 12)
-                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().assemble(null));
     }
 
     @Override
     public void draw(RecipeHolder<SpiritFireRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 48, 0);
     }
 }

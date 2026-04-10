@@ -39,6 +39,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
+
 public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public static final MapCodec<MinerRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -91,6 +93,10 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public WeightedRecipeResult getWeightedResult() {
         return this.result;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return List.of(this.input);
     }
 
     @Override

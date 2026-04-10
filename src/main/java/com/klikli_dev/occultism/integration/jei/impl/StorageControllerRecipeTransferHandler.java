@@ -34,10 +34,10 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
@@ -101,7 +101,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     //if stack is not empty, write to result
                     ItemStack itemStack = possibleItems.get(i);
                     if (!itemStack.isEmpty()) {
-                        invList.add(itemStack.saveOptional(Minecraft.getInstance().level.registryAccess()));
+                        invList.add(ItemStack.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, itemStack).getOrThrow().copy());
                     }
                 }
                 nbt.put("s" + (slot.getSlotIndex()), invList);
@@ -121,7 +121,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
     }
 
     @Override
-    public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
         return RecipeTypes.CRAFTING;
     }
 
@@ -132,7 +132,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         }
 
         //sort out any modded recipes that don't fit 3x3
-        if (!recipe.value().canCraftInDimensions(3, 3)) {
+        if (recipe.value().placementInfo().isImpossibleToPlace() || recipe.value().placementInfo().ingredients().size() > 9) {
             return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
@@ -150,7 +150,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
             var reservedGridAmounts = new Object2IntOpenHashMap<>();
 
             for (IRecipeSlotView view : views) {
-                if (view.getRole() == RecipeIngredientRole.INPUT || view.getRole() == RecipeIngredientRole.CATALYST) {
+                if (view.getRole() == RecipeIngredientRole.INPUT || view.getRole() == RecipeIngredientRole.CRAFTING_STATION) {
                     List<ItemStack> possibleStacks = view.getItemStacks().toList();
                     if (possibleStacks.isEmpty()) {
                         inputs.add(List.of());
@@ -169,7 +169,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 
                     if (!found) {
                         for (ItemStack stack : possibleStacks) {
-                            if (menu.hasIngredient(Ingredient.of(stack), reservedGridAmounts)) {
+                            if (menu.hasIngredient(Ingredient.of(stack.getItem()), reservedGridAmounts)) {
                                 found = true;
                                 break;
                             }
@@ -185,8 +185,8 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 
             //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
             if (doTransfer) {
-                if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.id()).isPresent()) {
-                    Networking.sendToServer(new MessageSetRecipeByID(recipe.id()));
+                if (player.level().getServer() != null && player.level().getServer().getRecipeManager().byKey(recipe.id()).isPresent()) {
+                    Networking.sendToServer(new MessageSetRecipeByID(recipe.id().identifier()));
                 } else {
                     Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
                 }

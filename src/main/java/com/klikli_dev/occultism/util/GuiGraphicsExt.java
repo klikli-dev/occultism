@@ -38,17 +38,17 @@ public class GuiGraphicsExt {
     /**
      * Render text using Component - delegates to GuiGraphicsExtractor.
      */
-    public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, @Nullable Component component, int x, int y, int color, boolean drawShadow) {
+    public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, @Nullable Component component, float x, float y, int color, boolean drawShadow) {
         if (component == null) {
             return;
         }
-        guiGraphics.text(font, component, x, y, color, drawShadow);
+        guiGraphics.text(font, component, (int) x, (int) y, color, drawShadow);
     }
 
     /**
      * Render text using FormattedCharSequence - delegates to GuiGraphicsExtractor.
      */
-    public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, int x, int y, int color, boolean drawShadow) {
-        guiGraphics.text(font, text, x, y, color, drawShadow);
+    public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, float x, float y, int color, boolean drawShadow) {
+        guiGraphics.text(font, text, (int) x, (int) y, color, drawShadow);
     }
 }
