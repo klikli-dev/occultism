@@ -42,4 +42,26 @@ public class OccultismMemoryTypes {
     public static final Supplier<MemoryModuleType<BlockPos>> DEPOSIT_POSITION = MEMORY_MODULE_TYPES.register("deposit_position", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<Direction>> DEPOSIT_FACING = MEMORY_MODULE_TYPES.register("deposit_facing", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static List<MemoryModuleType<?>> all() {
+        return List.of(
+                NEAREST_TREE.get(),
+                LAST_FELLED_TREE.get(),
+                LAST_TREE_WALK_TARGET.get(),
+                NO_TREE_IN_WORK_AREA.get(),
+                NON_TREE_LOGS.get(),
+                NEAREST_CROP.get(),
+                LAST_CROP_WALK_TARGET.get(),
+                NO_CROP_IN_WORK_AREA.get(),
+                NON_CROP.get(),
+                WORK_AREA_CENTER.get(),
+                WORK_AREA_SIZE.get(),
+                WALK_TARGET_UNREACHABLE.get(),
+                UNREACHABLE_WALK_TARGETS.get(),
+                UNREACHABLE_TREES.get(),
+                UNREACHABLE_CROPS.get(),
+                DEPOSIT_POSITION.get(),
+                DEPOSIT_FACING.get()
+        );
+    }
 }

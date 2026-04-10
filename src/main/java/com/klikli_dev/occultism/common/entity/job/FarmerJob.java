@@ -24,22 +24,24 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestCropSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableCropWalkTargetSensor;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.klikli_dev.occultism.registry.OccultismSensors;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,48 +55,43 @@ public class FarmerJob extends SpiritJob {
     }
 
     @Override
-    public List<ExtendedSensor<SpiritEntity>> getSensors() {
+    @SuppressWarnings("unchecked")
+    public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                new NearestCropSensor<>(),
-                new NearestJobItemSensor<>(),
-                new UnreachableCropWalkTargetSensor<>()
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_CROP.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_CROP_WALK_TARGET.get()
         );
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public BrainActivityGroup<SpiritEntity> getCoreTasks() {
-        //TODO: when idle we probably should walk to center of work area
-
-        //priority is handled by the set target behaviours mostly
-        //replant, deposit, pickup and fell tree should be gated by distance to tree/item/block/lastfelledtree anyway
-        //TODO: check if that works, or if we need firstApplicable or something here too -> for close quarters work
-
-        return BrainActivityGroup.coreTasks(
-                new LookAtTargetSink(8, 8),
-                new FirstApplicableBehaviour<>(
-                    new MoveToWalkTarget<>(),
-                    new HarvestCropBehaviour<>(),
-                    new PickupItemBehaviour<>(),
-                    new DepositItemsBehaviour<>()
-                )
-        );
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-
-        //prefer replanting saplings over depositing
-        //prefer depositing over picking up job items
-        //prefer job items to pick up, over trees
-        return BrainActivityGroup.idleTasks(
-                new FirstApplicableBehaviour<>(
-                        new SetWalkTargetToCropBehaviour<>(),
-                        new SetWalkTargetToDepositBehaviour<>(),
-                        new SetWalkTargetToItemBehaviour<>()
+    public List<ActivityData<SpiritEntity>> getActivityData() {
+        return List.of(
+                ActivityData.create(
+                        Activity.CORE,
+                        0,
+                        ImmutableList.of(
+                                new LookAtTargetSink(8, 8),
+                                new FirstApplicableBehaviour<>(
+                                        new MoveToTargetSink(),
+                                        new HarvestCropBehaviour<>(),
+                                        new PickupItemBehaviour<>(),
+                                        new DepositItemsBehaviour<>()
+                                )
+                        )
                 ),
-                new HandleUnreachableCropBehaviour<>()
+                ActivityData.create(
+                        Activity.IDLE,
+                        0,
+                        ImmutableList.of(
+                                new FirstApplicableBehaviour<>(
+                                        new SetWalkTargetToCropBehaviour<>(),
+                                        new SetWalkTargetToDepositBehaviour<>(),
+                                        new SetWalkTargetToItemBehaviour<>()
+                                ),
+                                new HandleUnreachableCropBehaviour<>()
+                        )
+                )
         );
     }
 

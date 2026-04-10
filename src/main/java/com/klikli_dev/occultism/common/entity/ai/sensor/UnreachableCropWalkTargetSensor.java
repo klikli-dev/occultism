@@ -2,18 +2,15 @@ package com.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
-import com.klikli_dev.occultism.registry.OccultismSensors;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -30,10 +27,6 @@ public class UnreachableCropWalkTargetSensor<E extends LivingEntity> extends Ext
 
     public List<MemoryModuleType<?>> memoriesUsed() {
         return MEMORIES;
-    }
-
-    public SensorType<? extends ExtendedSensor<?>> type() {
-        return OccultismSensors.UNREACHABLE_WALK_TARGET.get();
     }
 
     protected void doTick(ServerLevel level, E entity) {

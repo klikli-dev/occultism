@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.StorageUtil;
@@ -16,8 +17,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -32,11 +31,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
     );
 
     public DepositItemsBehaviour() {
-        super();
-
-        this.runtimeProvider = (entity) -> {
-            return 10;
-        };
+        super(MEMORY_REQUIREMENTS, 10);
     }
 
     protected boolean shouldKeepRunning(E entity) {
@@ -111,10 +106,5 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
             //event id: opener counter changed, event param: new count
             target.getLevel().blockEvent(target.getBlockPos(), target.getBlockState().getBlock(), 1, 0);
         }
-    }
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
     }
 }

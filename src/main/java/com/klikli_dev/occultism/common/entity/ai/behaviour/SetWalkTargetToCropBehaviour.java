@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
@@ -15,8 +16,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +35,10 @@ public class SetWalkTargetToCropBehaviour<E extends SpiritEntity> extends Extend
             Pair.of(OccultismMemoryTypes.UNREACHABLE_CROPS.get(), MemoryStatus.REGISTERED),
             Pair.of(OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), MemoryStatus.REGISTERED)
     );
+
+    public SetWalkTargetToCropBehaviour() {
+        super(MEMORY_REQUIREMENTS);
+    }
 
     @Override
     protected void start(E entity) {
@@ -80,10 +83,5 @@ public class SetWalkTargetToCropBehaviour<E extends SpiritEntity> extends Extend
                 }
             }
         }
-    }
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
     }
 }

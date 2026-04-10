@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestCropSensor;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
@@ -14,8 +15,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,9 +26,7 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
             Pair.of(OccultismMemoryTypes.NEAREST_CROP.get(), MemoryStatus.VALUE_PRESENT));
 
     public HarvestCropBehaviour() {
-        super();
-
-        this.runtimeProvider = (entity) -> 20;
+        super(MEMORY_REQUIREMENTS, 20);
     }
 
     @Override
@@ -39,11 +36,6 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
         return dist <= HarvestCropBehaviour.HARVEST_CROP_RANGE_SQUARE;
     }
 
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
-    }
 
     protected boolean shouldKeepRunning(E entity) {
         return BrainUtil.hasMemory(entity, OccultismMemoryTypes.NEAREST_CROP.get());
@@ -68,11 +60,11 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
                     }
                 }
             }
-            this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
+            this.doStop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
             //we stop here (even though the above condition would save us) because sensor might reset last harvested crop meanwhile
         } else {
             //if the crop is gone, just stop and reset.
-            this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
+            this.doStop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
         }
     }
 

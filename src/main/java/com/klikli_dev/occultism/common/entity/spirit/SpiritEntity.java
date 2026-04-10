@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.spirit;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
@@ -67,12 +68,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-import net.tslat.smartbrainlib.api.SmartBrainOwner;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.SmartBrain;
-import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -80,7 +75,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider, SmartBrainOwner<SpiritEntity> {
+public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider {
     public static final EntityDataAccessor<Integer> SKIN = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.INT);
     /**
@@ -174,33 +169,25 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     protected Brain<?> makeBrain(Brain.Packed packedBrain) {
-        return new SmartBrainProvider<>(this, true).makeBrain(this, packedBrain);
+        if (this.getJob().isEmpty()) {
+            return new Brain<>();
+        }
+
+        SpiritJob job = this.getJob().get();
+        Brain<SpiritEntity> brain = Brain.provider(job.getMemoryTypes(), job.getSensorTypes(), entity -> job.getActivityData())
+                .makeBrain(this, packedBrain);
+        job.handleAdditionalBrainSetup(brain);
+        return brain;
     }
 
     @Override
     protected void customServerAiStep(ServerLevel level) {
-        this.tickBrain(this);
+        this.getBrain().tick(level, this);
     }
 
     @Override
-    public void handleAdditionalBrainSetup(SmartBrain<? extends SpiritEntity> brain) {
-        //we might want to init brain vars that come from spirit vars here, but as this happens before entity is in the world, we are missing fallback data such as entity position that some of our spirit vars (work area center) use
-        this.getJob().ifPresent(job -> job.handleAdditionalBrainSetup(brain));
-    }
-
-    @Override
-    public List<ExtendedSensor<SpiritEntity>> getSensors() {
-        return this.getJob().isPresent() ? this.getJob().get().getSensors() : ImmutableList.of();
-    }
-
-    @Override
-    public BrainActivityGroup<SpiritEntity> getCoreTasks() {
-        return this.getJob().isPresent() ? this.getJob().get().getCoreTasks() : BrainActivityGroup.empty();
-    }
-
-    @Override
-    public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-        return this.getJob().isPresent() ? this.getJob().get().getIdleTasks() : BrainActivityGroup.empty();
+    public Brain<SpiritEntity> getBrain() {
+        return (Brain<SpiritEntity>) super.getBrain();
     }
 
     @Override
@@ -417,6 +404,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (recreateBrain) {
                 this.remakeBrain();
             }
+        } else {
+            this.setJobID("");
+            if (recreateBrain) {
+                this.remakeBrain();
+            }
         }
     }
 
@@ -613,12 +605,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         //read job
         input.read("spiritJob", CompoundTag.CODEC).ifPresent(tag -> {
             SpiritJob job = SpiritJob.from(this, tag);
-            // Check if brain data exists (we can't use contains with 2 args in 26.1)
-            var hasBrain = input.read("Brain", CompoundTag.CODEC).isPresent();
-            this.setJob(job, !hasBrain);
-            if (hasBrain) {
-                this.brain = this.makeBrain(Brain.Packed.EMPTY);
-            }
+            Brain.Packed packedBrain = input.read("Brain", Brain.Packed.CODEC).orElse(Brain.Packed.EMPTY);
+            this.setJob(job, false);
+            this.brain = this.makeBrain(packedBrain);
         });
 
         this.setFilterBlacklist(input.getBooleanOr("isFilterBlacklist", this.isFilterBlacklist()));

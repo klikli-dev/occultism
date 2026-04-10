@@ -2,12 +2,12 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
@@ -17,8 +17,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.List;
 
@@ -32,6 +30,10 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
             Pair.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED),
             Pair.of(OccultismMemoryTypes.LAST_FELLED_TREE.get(), MemoryStatus.VALUE_PRESENT)
     );
+
+    public SetWalkTargetToReplantSaplingBehaviour() {
+        super(MEMORY_REQUIREMENTS);
+    }
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
@@ -51,10 +53,5 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
                 Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.GREEN));
             }
         }
-    }
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
     }
 }

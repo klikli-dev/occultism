@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.Math3DUtil;
@@ -13,8 +14,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -28,6 +27,10 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
             Pair.of(OccultismMemoryTypes.DEPOSIT_POSITION.get(), MemoryStatus.VALUE_PRESENT), //we only pick up, if we can deposit
             Pair.of(OccultismMemoryTypes.DEPOSIT_FACING.get(), MemoryStatus.VALUE_PRESENT)
     );
+
+    public PickupItemBehaviour() {
+        super(MEMORY_REQUIREMENTS);
+    }
 
     @Override
     protected boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull E entity) {
@@ -60,10 +63,5 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
         }
 
         BrainUtil.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-    }
-
-    @Override
-    protected List<Pair<MemoryModuleType<?>, MemoryStatus>> getMemoryRequirements() {
-        return MEMORY_REQUIREMENTS;
     }
 }

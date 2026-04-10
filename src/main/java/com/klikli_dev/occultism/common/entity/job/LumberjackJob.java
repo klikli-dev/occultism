@@ -24,24 +24,26 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.klikli_dev.occultism.registry.OccultismSensors;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,50 +57,45 @@ public class LumberjackJob extends SpiritJob {
     }
 
     @Override
-    public List<ExtendedSensor<SpiritEntity>> getSensors() {
+    @SuppressWarnings("unchecked")
+    public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                new NearestTreeSensor<>(),
-                new NearestJobItemSensor<>(),
-                new UnreachableTreeWalkTargetSensor<>()
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_TREE.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
         );
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public BrainActivityGroup<SpiritEntity> getCoreTasks() {
-        //TODO: when idle we probably should walk to center of work area
-
-        //priority is handled by the set target behaviours mostly
-        //replant, deposit, pickup and fell tree should be gated by distance to tree/item/block/lastfelledtree anyway
-        //TODO: check if that works, or if we need firstApplicable or something here too -> for close quarters work
-
-        return BrainActivityGroup.coreTasks(
-                new LookAtTargetSink(8, 8),
-                new FirstApplicableBehaviour<>(
-                        new MoveToWalkTarget<>(),
-                        new ReplantSaplingBehaviour<>(),
-                        new DepositItemsBehaviour<>(),
-                        new PickupItemBehaviour<>(),
-                        new FellTreeBehaviour<>()
-                )
-        );
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-
-        //prefer replanting saplings over depositing
-        //prefer depositing over picking up job items
-        //prefer job items to pick up, over trees
-        return BrainActivityGroup.idleTasks(
-                new FirstApplicableBehaviour<>(
-                        new SetWalkTargetToReplantSaplingBehaviour<>(),
-                        new SetWalkTargetToDepositBehaviour<>(),
-                        new SetWalkTargetToItemBehaviour<>(),
-                        new SetWalkTargetToTreeBehaviour<>()
+    public List<ActivityData<SpiritEntity>> getActivityData() {
+        return List.of(
+                ActivityData.create(
+                        Activity.CORE,
+                        0,
+                        ImmutableList.of(
+                                new LookAtTargetSink(8, 8),
+                                new FirstApplicableBehaviour<>(
+                                        new MoveToTargetSink(),
+                                        new ReplantSaplingBehaviour<>(),
+                                        new DepositItemsBehaviour<>(),
+                                        new PickupItemBehaviour<>(),
+                                        new FellTreeBehaviour<>()
+                                )
+                        )
                 ),
-                new HandleUnreachableTreeBehaviour<>()
+                ActivityData.create(
+                        Activity.IDLE,
+                        0,
+                        ImmutableList.of(
+                                new FirstApplicableBehaviour<>(
+                                        new SetWalkTargetToReplantSaplingBehaviour<>(),
+                                        new SetWalkTargetToDepositBehaviour<>(),
+                                        new SetWalkTargetToItemBehaviour<>(),
+                                        new SetWalkTargetToTreeBehaviour<>()
+                                ),
+                                new HandleUnreachableTreeBehaviour<>()
+                        )
+                )
         );
     }
 

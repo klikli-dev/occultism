@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestCropSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
+import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableCropWalkTargetSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -41,8 +42,11 @@ public class OccultismSensors {
     public static final Supplier<SensorType<NearestCropSensor<?>>> NEAREST_CROP = SENSORS.register("nearest_crop",
             () -> new SensorType<>(NearestCropSensor::new));
 
-    public static final Supplier<SensorType<UnreachableTreeWalkTargetSensor<?>>> UNREACHABLE_WALK_TARGET = SENSORS.register("unreachable_walk_target",
+    public static final Supplier<SensorType<UnreachableTreeWalkTargetSensor<?>>> UNREACHABLE_TREE_WALK_TARGET = SENSORS.register("unreachable_walk_target",
             () -> new SensorType<>(UnreachableTreeWalkTargetSensor::new));
+
+    public static final Supplier<SensorType<UnreachableCropWalkTargetSensor<?>>> UNREACHABLE_CROP_WALK_TARGET = SENSORS.register("unreachable_crop_walk_target",
+            () -> new SensorType<>(UnreachableCropWalkTargetSensor::new));
 
     public static final Supplier<SensorType<NearestJobItemSensor<?>>> NEAREST_JOB_ITEM = SENSORS.register("nearest_job_item",
             () -> new SensorType<>(NearestJobItemSensor::new));

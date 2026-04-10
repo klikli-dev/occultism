@@ -2,12 +2,12 @@ package com.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
-import com.klikli_dev.occultism.registry.OccultismSensors;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
@@ -15,11 +15,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -35,11 +32,15 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     public static final int RESCAN_EMPTY_WORK_AREA_AFTER_TICKS = 20 * 30;
     private static final List<MemoryModuleType<?>> MEMORIES = ObjectArrayList.of(
             OccultismMemoryTypes.NEAREST_TREE.get(),
-            OccultismMemoryTypes.NON_TREE_LOGS.get()
+            OccultismMemoryTypes.NON_TREE_LOGS.get(),
+            OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get(),
+            OccultismMemoryTypes.UNREACHABLE_TREES.get(),
+            OccultismMemoryTypes.WORK_AREA_CENTER.get(),
+            OccultismMemoryTypes.WORK_AREA_SIZE.get()
     );
 
     public NearestTreeSensor() {
-        this.setScanRate((entity) -> DEFAULT_SCAN_RATE_TICKS);
+        super(DEFAULT_SCAN_RATE_TICKS);
     }
 
     public static boolean isTreeSoil(Level level, BlockPos pos) {
@@ -58,11 +59,6 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     @Override
     public List<MemoryModuleType<?>> memoriesUsed() {
         return MEMORIES;
-    }
-
-    @Override
-    public SensorType<? extends ExtendedSensor<?>> type() {
-        return OccultismSensors.NEAREST_TREE.get();
     }
 
     @Override
