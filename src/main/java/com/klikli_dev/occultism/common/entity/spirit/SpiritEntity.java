@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
@@ -75,7 +76,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider {
+public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider, IFilterConfigurable {
     public static final EntityDataAccessor<Integer> SKIN = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.INT);
     /**
@@ -337,6 +338,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * @return the filter mode
      */
+    @Override
     public boolean isFilterBlacklist() {
         return this.entityData.get(IS_FILTER_BLACKLIST);
     }
@@ -346,6 +348,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      *
      * @param isFilterBlacklist the filter mode
      */
+    @Override
     public void setFilterBlacklist(boolean isFilterBlacklist) {
         this.entityData.set(IS_FILTER_BLACKLIST, isFilterBlacklist);
     }
@@ -353,6 +356,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * Gets the tag filter string
      */
+    @Override
     public String getTagFilter() {
         return this.entityData.get(TAG_FILTER);
     }
@@ -360,6 +364,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * Sets the tag filter string
      */
+    @Override
     public void setTagFilter(String tagFilter) {
         this.entityData.set(TAG_FILTER, tagFilter);
     }
@@ -367,8 +372,14 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * @return the filter mode
      */
+    @Override
     public ItemStacksResourceHandler getFilterItems() {
         return this.filterItemStackHandler;
+    }
+
+    @Override
+    public ItemStacksResourceHandler getInventory() {
+        return this.inventory;
     }
 
     public Optional<SpiritJob> getJob() {

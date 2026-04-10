@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -55,8 +55,8 @@ public class MessageSetFilterMode implements IMessage {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
 
         Entity e = player.level().getEntity(this.entityId);
-        if (e instanceof SpiritEntity spirit) {
-            spirit.setFilterBlacklist(this.isBlacklistFilter);
+        if (e instanceof IFilterConfigurable filterConfigurable) {
+            filterConfigurable.setFilterBlacklist(this.isBlacklistFilter);
         }
     }
 

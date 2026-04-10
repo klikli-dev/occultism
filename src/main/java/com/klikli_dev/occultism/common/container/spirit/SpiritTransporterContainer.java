@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.container.spirit;
 
+import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
@@ -36,10 +37,17 @@ import javax.annotation.Nonnull;
 
 public class SpiritTransporterContainer extends SpiritContainer {
 
+    public static final int FILTER_SIZE = 14;
+
     protected final Player player;
 
     public SpiritTransporterContainer(int id, Inventory playerInventory,
                                       SpiritEntity spirit) {
+        this(id, playerInventory, (IFilterConfigurable) spirit);
+    }
+
+    public SpiritTransporterContainer(int id, Inventory playerInventory,
+                                      IFilterConfigurable spirit) {
 
         super(OccultismContainers.SPIRIT_TRANSPORTER.get(), id, playerInventory, spirit);
 
@@ -99,7 +107,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     protected void setupFilterSlots() {
         int x = 8;
         int y = 84;
-        ItemStacksResourceHandler filterItems = this.spirit.filterItemStackHandler;
+        ItemStacksResourceHandler filterItems = this.spirit.getFilterItems();
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < filterItems.size() / 2; j++) {
@@ -113,7 +121,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        final int filterSize = 14; // CHANGE IF FILTER SIZE IS CHANGED
+        final int filterSize = FILTER_SIZE;
 
         if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
