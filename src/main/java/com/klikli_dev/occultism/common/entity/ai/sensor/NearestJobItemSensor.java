@@ -13,7 +13,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.AABB;
 
-import java.util.Comparator;
 import java.util.function.BiPredicate;
 import java.util.List;
 
@@ -72,10 +71,17 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends ExtendedSensor
         var aabb = new AABB(workAreaCenter.getCenter().add(-workAreaSize / 2f, -workAreaSize / 2f, -workAreaSize / 2f),
                 workAreaCenter.getCenter().add(workAreaSize / 2f, workAreaSize / 2f, workAreaSize / 2f));
 
-        ItemEntity nearestEntity = level.getEntitiesOfClass(ItemEntity.class, aabb, item -> this.predicate.test(item, entity))
-                .stream()
-                .min(Comparator.comparingDouble(entity::distanceToSqr))
-                .orElse(null);
+        ItemEntity nearestEntity = null;
+        double nearestDistance = Double.MAX_VALUE;
+
+        for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, aabb, candidate -> this.predicate.test(candidate, entity))) {
+            double candidateDistance = entity.distanceToSqr(item);
+
+            if (candidateDistance < nearestDistance) {
+                nearestDistance = candidateDistance;
+                nearestEntity = item;
+            }
+        }
 
         BrainUtil.setMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, nearestEntity);
 
