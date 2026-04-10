@@ -298,7 +298,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                         this.ritualCenterY + sacrificialCircleRadius, 0),
                 new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
                         this.ritualCenterY - sacricialBowlPaddingVertical, 0)
-        ).forEach(pos -> this.sacrificialBowlDrawable.draw(guiGraphics, pos.getX(), pos.getY()));
+        ).limit(recipe.value().getIngredients().size())
+                .forEach(pos -> this.sacrificialBowlDrawable.draw(guiGraphics, pos.getX(), pos.getY()));
 
         this.eye.draw(guiGraphics, 2, 120-18);
 
