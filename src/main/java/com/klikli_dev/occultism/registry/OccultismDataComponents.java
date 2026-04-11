@@ -13,8 +13,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -24,16 +24,7 @@ import java.util.UUID;
 
 public class OccultismDataComponents {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Occultism.MODID);
-    private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {
-        @Override
-        public CustomData decode(RegistryFriendlyByteBuf buffer) {
-            return CustomData.EMPTY;
-        }
-
-        @Override
-        public void encode(RegistryFriendlyByteBuf buffer, CustomData value) {
-        }
-    };
+    private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = StreamCodec.unit(CustomData.EMPTY);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_MINING_TIME = DATA_COMPONENTS.registerComponentType("max_mining_time", builder -> builder
             .persistent(Codec.INT)
