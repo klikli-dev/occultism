@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.211.3] - 2026-04-11
+### :bug: Bug Fixes
+- [`db6b2fd`](https://github.com/klikli-dev/occultism/commit/db6b2fdd10cb32cbb635abd9b9b101851c299c03) - stop syncing oversized storage controller items *(PR [#1536](https://github.com/klikli-dev/occultism/pull/1536) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1495](https://github.com/klikli-dev/occultism/issues/1495) opened by [@asif-a16](https://github.com/asif-a16)*
+
+
 ## [release/v26.1.2-1.211.2] - 2026-04-10
 ### :bug: Bug Fixes
 - [`59c5753`](https://github.com/klikli-dev/occultism/commit/59c575398098049203cde38528521a9fae932621) - restore storage controller GUI widgets *(PR [#1535](https://github.com/klikli-dev/occultism/pull/1535) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2386,3 +2392,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.210.5]: https://github.com/klikli-dev/occultism/compare/release/v26.1-1.210.4...release/v26.1-1.210.5
 [release/v26.1.2-1.211.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-0.0.0...release/v26.1.2-1.211.0
 [release/v26.1.2-1.211.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.1...release/v26.1.2-1.211.2
+[release/v26.1.2-1.211.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.2...release/v26.1.2-1.211.3
