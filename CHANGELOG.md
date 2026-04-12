@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.209.3] - 2026-04-12
+### :bug: Bug Fixes
+- [`796bb95`](https://github.com/klikli-dev/occultism/commit/796bb9538f2d465446e5ef1573863c6aaf7125bd) - balance greedy familiar item render pose stack ([#1540](https://github.com/klikli-dev/occultism/pull/1540)) *(PR [#1541](https://github.com/klikli-dev/occultism/pull/1541) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.209.2] - 2026-04-11
 ### :bug: Bug Fixes
 - [`c1899b1`](https://github.com/klikli-dev/occultism/commit/c1899b188e4ffbc0f37c0414d9293e5484058e20) - backport oversized storage controller sync fix to 1.21.1 *(PR [#1537](https://github.com/klikli-dev/occultism/pull/1537) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2378,3 +2383,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.209.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.208.4...release/v1.21.1-1.209.0
 [release/v1.21.1-1.209.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.209.0...release/v1.21.1-1.209.1
 [release/v1.21.1-1.209.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.209.1...release/v1.21.1-1.209.2
+[release/v1.21.1-1.209.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.209.2...release/v1.21.1-1.209.3
