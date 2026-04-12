@@ -113,12 +113,18 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     public void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
 //        this.renderBackground(guiGraphics); //called by super
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.getTexture(), this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
         guiGraphics.pose().pushMatrix();
         int scale = 30;
         drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit.getEntity());
         guiGraphics.pose().popMatrix();
+
+        super.extractContents(guiGraphics, x, y, partialTicks);
+    }
+
+    protected Identifier getTexture() {
+        return TEXTURE;
     }
 }
