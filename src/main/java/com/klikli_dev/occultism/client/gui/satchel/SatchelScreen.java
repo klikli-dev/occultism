@@ -63,5 +63,6 @@ public class SatchelScreen extends AbstractContainerScreen<AbstractSatchelContai
     public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth,
                 this.imageHeight, 256, 256);
+        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
     }
 }
