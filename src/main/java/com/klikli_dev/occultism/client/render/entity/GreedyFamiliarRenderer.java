@@ -109,10 +109,8 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
             GreedyFamiliarModel model = this.getParentModel();
             ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
-            pMatrixStack.pushPose();
-
-
             if (hasBlacksmithUpgrade) {
+                pMatrixStack.pushPose();
                 model.body.translateAndRotate(pMatrixStack);
                 model.rightArm.translateAndRotate(pMatrixStack);
 
