@@ -78,6 +78,8 @@ public class DimensionalBattlefieldScreen extends AbstractContainerScreen<Dimens
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 14, this.topPos + 59, (float) 176, (float) 20, 16, 16, 256, 256);
         if (isEmpty(this.otherworldButcher.inputFuelHandler))
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 40, this.topPos + 59, (float) 176, (float) 36, 16, 16, 256, 256);
+
+        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
 }

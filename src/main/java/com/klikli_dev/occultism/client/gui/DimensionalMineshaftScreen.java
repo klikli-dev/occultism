@@ -67,6 +67,8 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
         }
         if (this.otherworldMiner.inputHandler.getStackInSlot(0).isEmpty())
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 26, this.topPos + 35, (float) 176, (float) 4, 16, 16, 256, 256);
+
+        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
 }
