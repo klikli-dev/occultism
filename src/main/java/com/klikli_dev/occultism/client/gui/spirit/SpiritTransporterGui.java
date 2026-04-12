@@ -48,6 +48,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> {
+    protected static final int INVENTORY_SLOT_LEFT = 152;
+    protected static final int INVENTORY_SLOT_TOP = 54;
+    protected static final int INVENTORY_SLOT_SIZE = 18;
+    protected static final int INVENTORY_SLOT_INDEX = 36;
 
     protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit_transporter_tagfilter.png");
@@ -136,6 +140,12 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.tooltip.clear();
 
+        if (!this.spirit.isInventorySlotActive()) {
+            guiGraphics.fillGradient(this.leftPos + INVENTORY_SLOT_LEFT, this.topPos + INVENTORY_SLOT_TOP,
+                    this.leftPos + INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 2,
+                    this.topPos + INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 2, 0xAA555555, 0xAA555555);
+        }
+
         if (this.filterModeButton.isHoveredOrFocused()) {
             this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_mode"));
             this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_mode."
@@ -146,6 +156,16 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         //can't use isHovered here, as it also checks for focus
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".tag_filter"));
+        }
+
+        if (this.isPointInInventorySlot(mouseX, mouseY)) {
+            if (!this.spirit.isInventorySlotActive()) {
+                this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.disabled")
+                        .withStyle(ChatFormatting.GRAY));
+            } else if (!this.container.getSlot(INVENTORY_SLOT_INDEX).hasItem()) {
+                this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.block_only")
+                        .withStyle(ChatFormatting.GRAY));
+            }
         }
 
         if (!this.tooltip.isEmpty())
@@ -220,6 +240,11 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
         return this.isHovering(this.tagFilterTextField.getX() - this.leftPos, this.tagFilterTextField.getY() - this.topPos,
                 this.tagFilterTextField.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
+    }
+
+    protected boolean isPointInInventorySlot(double mouseX, double mouseY) {
+        return this.isHovering(INVENTORY_SLOT_LEFT, INVENTORY_SLOT_TOP, INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
+                mouseX, mouseY);
     }
 
 }
