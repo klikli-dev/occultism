@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.211.4] - 2026-04-13
+### :bug: Bug Fixes
+- [`ca4d7e3`](https://github.com/klikli-dev/occultism/commit/ca4d7e35a4843a1615e8bb4c2cbea3a88ec866b6) - restore GUI slot rendering across container screens *(PR [#1542](https://github.com/klikli-dev/occultism/pull/1542) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6264380`](https://github.com/klikli-dev/occultism/commit/6264380b7b24e4290bc6321b0dc00edf189e4744) - clarify greedy familiar slot state *(PR [#1543](https://github.com/klikli-dev/occultism/pull/1543) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`fa8fe97`](https://github.com/klikli-dev/occultism/commit/fa8fe9794a179a47de163ec1814e361b93b6a1d1) - restrict mob head loot modifiers to matching entities ([#1539](https://github.com/klikli-dev/occultism/pull/1539)) *(PR [#1544](https://github.com/klikli-dev/occultism/pull/1544) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1539](https://github.com/klikli-dev/occultism/issues/1539) opened by [@supdogpsi](https://github.com/supdogpsi)*
+- [`8fd97ab`](https://github.com/klikli-dev/occultism/commit/8fd97ab4672b2c064ee1a03c4ffc81515acf2bb1) - handle JEI spirit fire recipe preview without input *(PR [#1545](https://github.com/klikli-dev/occultism/pull/1545) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.211.3] - 2026-04-11
 ### :bug: Bug Fixes
 - [`db6b2fd`](https://github.com/klikli-dev/occultism/commit/db6b2fdd10cb32cbb635abd9b9b101851c299c03) - stop syncing oversized storage controller items *(PR [#1536](https://github.com/klikli-dev/occultism/pull/1536) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2393,3 +2402,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.211.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-0.0.0...release/v26.1.2-1.211.0
 [release/v26.1.2-1.211.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.1...release/v26.1.2-1.211.2
 [release/v26.1.2-1.211.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.2...release/v26.1.2-1.211.3
+[release/v26.1.2-1.211.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.3...release/v26.1.2-1.211.4
