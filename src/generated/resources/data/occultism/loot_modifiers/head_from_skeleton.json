@@ -8,7 +8,9 @@
     {
       "condition": "minecraft:entity_properties",
       "entity": "this",
-      "predicate": {}
+      "predicate": {
+        "type": "minecraft:skeleton"
+      }
     }
   ],
   "count": 1,
