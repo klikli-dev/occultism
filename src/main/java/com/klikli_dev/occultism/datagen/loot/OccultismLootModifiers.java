@@ -52,11 +52,15 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
     }
 
     private AddItemModifier head(EntityType<?> entityType, Item head, float chance) {
+        var entityTypeRegistry = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
         return new AddItemModifier(
                 new LootItemCondition[]{
                         LootItemRandomChanceCondition.randomChance(chance).build(),
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().build()).build()
+                                .hasProperties(LootContext.EntityTarget.THIS,
+                                        EntityPredicate.Builder.entity()
+                                                .of(entityTypeRegistry, entityType)
+                                                .build()).build()
                 }, head, 1);
     }
 
