@@ -85,7 +85,9 @@ public class SpiritFireRecipe implements Recipe<SingleRecipeInput> {
     @Override
     public ItemStack assemble(SingleRecipeInput input) {
         ItemStack assembled = this.result.create();
-        assembled.setCount(input.getItem(0).getCount());
+        if (input != null) {
+            assembled.setCount(input.getItem(0).getCount());
+        }
         return assembled;
     }
 
