@@ -1645,6 +1645,8 @@
   "gui.occultism.spirit.transporter.filter_mode.blacklist": "黑名单",
   "gui.occultism.spirit.transporter.filter_mode.whitelist": "白名单",
   "gui.occultism.spirit.transporter.tag_filter": "输入标签以进行过滤，用分号“;”进行分隔。\n例如：“c:ores;*logs*”。\n使用“*”符号可匹配任意字符，例如，“*ore*”可匹配来自任何模组的矿石标签。若要筛选物品，在物品ID前添加“item:”前缀，例如：“item:minecraft:chest”。",
+  "gui.occultism.spirit.transporter.inventory_slot.disabled": "Requires blacksmith upgrade",
+  "gui.occultism.spirit.transporter.inventory_slot.block_only": "Accepts block items only",
   "gui.occultism.spirit_grindstone.container": "修复与清除诅咒",
   "gui.occultism.storage_controller.display.rows": "更改行数。",
   "gui.occultism.storage_controller.search.machines.tooltip@": "前缀@：搜索模组id。",
