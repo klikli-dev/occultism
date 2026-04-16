@@ -33,7 +33,7 @@ import net.minecraft.world.entity.player.Player;
 public class DoubleJumpEffect extends MobEffect {
 
     public static final Identifier ICON = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/mob_effect/double_jump.png");
+            "mob_effect/double_jump");
 
     public DoubleJumpEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xffff00);
