@@ -52,9 +52,15 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
     }
 
     private AddItemModifier head(EntityType<?> entityType, Item head, float chance) {
+        var itemRegistry = this.registries.lookupOrThrow(Registries.ITEM);
         var entityTypeRegistry = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
         return new AddItemModifier(
                 new LootItemCondition[]{
+                        LootItemEntityPropertyCondition
+                                .hasProperties(LootContext.EntityTarget.ATTACKER,
+                                        EntityPredicate.Builder.entity()
+                                                .equipment(this.mainHand(ItemPredicate.Builder.item().of(itemRegistry,
+                                                        OccultismTags.Items.TOOLS_KNIFE_IESNIUM)))).build(),
                         LootItemRandomChanceCondition.randomChance(chance).build(),
                         LootItemEntityPropertyCondition
                                 .hasProperties(LootContext.EntityTarget.THIS,
@@ -66,15 +72,22 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        // Simple datura seed drop - no tool check for now
+        var itemRegistry = this.registries.lookupOrThrow(Registries.ITEM);
+
         this.add("datura_seed_from_grass", new AddItemModifier(new LootItemCondition[]{
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build()
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
+                InvertedLootItemCondition.invert(
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
+                ).build()
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 
-        this.add("dallow_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+        this.add("datura_seed_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build()
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
+                InvertedLootItemCondition.invert(
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
+                ).build()
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 
         this.add("tallow_from_cows", this.tallow("cows", 4));

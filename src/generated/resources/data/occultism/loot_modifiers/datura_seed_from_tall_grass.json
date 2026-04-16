@@ -8,6 +8,15 @@
     {
       "block": "minecraft:tall_grass",
       "condition": "minecraft:block_state_property"
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": "#c:tools/shear"
+        }
+      }
     }
   ],
   "count": 1,
