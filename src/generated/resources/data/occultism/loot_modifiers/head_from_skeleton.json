@@ -2,6 +2,17 @@
   "type": "occultism:add_item",
   "conditions": [
     {
+      "condition": "minecraft:entity_properties",
+      "entity": "attacker",
+      "predicate": {
+        "equipment": {
+          "mainhand": {
+            "items": "#occultism:tools/knife/iesnium"
+          }
+        }
+      }
+    },
+    {
       "chance": 0.25,
       "condition": "minecraft:random_chance"
     },
@@ -10,13 +21,6 @@
       "entity": "this",
       "predicate": {
         "type": "minecraft:skeleton"
-      }
-    },
-    {
-      "condition": "minecraft:entity_properties",
-      "entity": "attacking_player",
-      "predicate": {
-        "type": "minecraft:player"
       }
     }
   ],

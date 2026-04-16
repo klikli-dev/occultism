@@ -52,20 +52,20 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
     }
 
     private AddItemModifier head(EntityType<?> entityType, Item head, float chance) {
+        var itemRegistry = this.registries.lookupOrThrow(Registries.ITEM);
         var entityTypeRegistry = this.registries.lookupOrThrow(Registries.ENTITY_TYPE);
         return new AddItemModifier(
                 new LootItemCondition[]{
+                        LootItemEntityPropertyCondition
+                                .hasProperties(LootContext.EntityTarget.ATTACKER,
+                                        EntityPredicate.Builder.entity()
+                                                .equipment(this.mainHand(ItemPredicate.Builder.item().of(itemRegistry,
+                                                        OccultismTags.Items.TOOLS_KNIFE_IESNIUM)))).build(),
                         LootItemRandomChanceCondition.randomChance(chance).build(),
                         LootItemEntityPropertyCondition
                                 .hasProperties(LootContext.EntityTarget.THIS,
                                         EntityPredicate.Builder.entity()
                                                 .of(entityTypeRegistry, entityType)
-                                                .build()).build(),
-                        // Require a player killer to prevent drops from explosions (e.g., creeper self-destruct)
-                        LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.ATTACKING_PLAYER,
-                                        EntityPredicate.Builder.entity()
-                                                .of(entityTypeRegistry, EntityType.PLAYER)
                                                 .build()).build()
                 }, head, 1);
     }
