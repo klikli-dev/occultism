@@ -60,6 +60,12 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                                 .hasProperties(LootContext.EntityTarget.THIS,
                                         EntityPredicate.Builder.entity()
                                                 .of(entityTypeRegistry, entityType)
+                                                .build()).build(),
+                        // Require a player killer to prevent drops from explosions (e.g., creeper self-destruct)
+                        LootItemEntityPropertyCondition
+                                .hasProperties(LootContext.EntityTarget.ATTACKING_PLAYER,
+                                        EntityPredicate.Builder.entity()
+                                                .of(entityTypeRegistry, EntityType.PLAYER)
                                                 .build()).build()
                 }, head, 1);
     }
