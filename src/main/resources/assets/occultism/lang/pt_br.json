@@ -1645,6 +1645,8 @@
   "gui.occultism.spirit.transporter.filter_mode.blacklist": "Lista Negra",
   "gui.occultism.spirit.transporter.filter_mode.whitelist": "Lista Branca",
   "gui.occultism.spirit.transporter.tag_filter": "Digite as tags para filtrar separadas por \";\".\nEx: \"c:ores;*logs*\".\nUse \"*\" para corresponder a qualquer caractere, ex: \"*ore*\" para corresponder a tags de minério de qualquer mod. Para filtrar por itens, prefixe o id do item com \"item:\", Ex: \"item:minecraft:chest\".",
+  "gui.occultism.spirit.transporter.inventory_slot.disabled": "Requer melhoria do ferreiro",
+  "gui.occultism.spirit.transporter.inventory_slot.block_only": "Aceita apenas itens em bloco",
   "gui.occultism.spirit_grindstone.container": "Repair & Uncurse",
   "gui.occultism.storage_controller.display.rows": "Alterar quantidade de fileiras.",
   "gui.occultism.storage_controller.search.machines.tooltip@": "Prefixo @: Pesquisar id do mod.",
