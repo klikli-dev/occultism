@@ -417,7 +417,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> SILVER_ORE = register("silver_ore", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> SILVER_ORE_DEEPSLATE = register("silver_ore_deepslate", Block::new,
-            () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE), true, LootTableType.CUSTOM);
+            () -> Block.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> IESNIUM_ORE = register("iesnium_ore", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE), true, LootTableType.CUSTOM);
     public static final DeferredBlock<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
