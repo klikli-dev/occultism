@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.213.0] - 2026-04-16
+### :sparkles: New Features
+- [`9e6757e`](https://github.com/klikli-dev/occultism/commit/9e6757e791ba949c9e5d346705be1909909dfaea) - restore food effects and fix otherworld block items and effect icons *(PR [#1556](https://github.com/klikli-dev/occultism/pull/1556) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1555](https://github.com/klikli-dev/occultism/issues/1555) opened by [@DinnerBeef](https://github.com/DinnerBeef)*
+- [`6ba5a7b`](https://github.com/klikli-dev/occultism/commit/6ba5a7b986ebd5991524878444dac6cc216d2a61) - New Crowdin updates *(PR [#1554](https://github.com/klikli-dev/occultism/pull/1554) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.212.0] - 2026-04-16
 ### :sparkles: New Features
 - [`92ddd0c`](https://github.com/klikli-dev/occultism/commit/92ddd0c0947104b9b9368b3c06c6318eca38541c) - New Crowdin updates *(PR [#1548](https://github.com/klikli-dev/occultism/pull/1548) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2414,3 +2421,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.211.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.2...release/v26.1.2-1.211.3
 [release/v26.1.2-1.211.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.3...release/v26.1.2-1.211.4
 [release/v26.1.2-1.212.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.4...release/v26.1.2-1.212.0
+[release/v26.1.2-1.213.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.212.0...release/v26.1.2-1.213.0
