@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.212.0] - 2026-04-16
+### :sparkles: New Features
+- [`92ddd0c`](https://github.com/klikli-dev/occultism/commit/92ddd0c0947104b9b9368b3c06c6318eca38541c) - New Crowdin updates *(PR [#1548](https://github.com/klikli-dev/occultism/pull/1548) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`5b10007`](https://github.com/klikli-dev/occultism/commit/5b100071e69c4ec964971a13623a12f21b0356a2) - datagen omnibus: translation keys & global loot modifiers *(PR [#1553](https://github.com/klikli-dev/occultism/pull/1553) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1552](https://github.com/klikli-dev/occultism/issues/1552) opened by [@supdogpsi](https://github.com/supdogpsi)*
+- [`1b0087f`](https://github.com/klikli-dev/occultism/commit/1b0087fc86f72ffb1a5385e2bf1c49f587957b7f) - use deepslate iron ore as template for deepslate silver ore *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.211.4] - 2026-04-13
 ### :bug: Bug Fixes
 - [`ca4d7e3`](https://github.com/klikli-dev/occultism/commit/ca4d7e35a4843a1615e8bb4c2cbea3a88ec866b6) - restore GUI slot rendering across container screens *(PR [#1542](https://github.com/klikli-dev/occultism/pull/1542) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2403,3 +2413,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.211.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.1...release/v26.1.2-1.211.2
 [release/v26.1.2-1.211.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.2...release/v26.1.2-1.211.3
 [release/v26.1.2-1.211.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.3...release/v26.1.2-1.211.4
+[release/v26.1.2-1.212.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.4...release/v26.1.2-1.212.0
