@@ -846,7 +846,7 @@ public class OccultismBlocks {
 
         if (generateDefaultBlockItem) {
             if (name.contains("natural")) {
-                OccultismItems.ITEMS.registerItem(name, p -> new OccultismBlockItem(object.get(), p.useBlockDescriptionPrefix()));
+                OccultismItems.ITEMS.registerItem(name, p -> new OccultismBlockItem(object.get(), p.overrideDescription(object.get().getDescriptionId())));
             } else {
                 if (rarity == Rarity.COMMON) {
                     OccultismItems.ITEMS.registerItem(name, p -> new BlockItem(object.get(), p.useBlockDescriptionPrefix()));

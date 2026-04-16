@@ -30,7 +30,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 public class ThirdEyeEffect extends MobEffect {
 
     public static final Identifier ICON = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/mob_effect/third_eye.png");
+            "mob_effect/third_eye");
 
     public ThirdEyeEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xffff00);

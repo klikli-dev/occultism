@@ -288,23 +288,23 @@ public class OccultismItems {
             properties -> new BlockItem(OccultismBlocks.DATURA.get(), properties.useBlockDescriptionPrefix()
                     .component(OccultismDataComponents.SOUL_VALUE, 1)));
     public static final DeferredItem<Item> DATURA = ITEMS.registerItem("datura",
-            SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.DATURA.get())
+            SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.DATURA.get(), OccultismFoods.DATURA_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 2));
     public static final DeferredItem<Item> DEMONS_DREAM_ESSENCE = ITEMS.registerItem("demons_dream_essence",
-            SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())
+            SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get(), OccultismFoods.DEMONS_DREAM_ESSENCE_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 20));
 
     public static final DeferredItem<Item> OTHERWORLD_ESSENCE = ITEMS.registerItem("otherworld_essence",
-            SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())
+            SpiritHealingItem::new, () -> new Item.Properties().food(OccultismFoods.OTHERWORLD_ESSENCE.get(), OccultismFoods.OTHERWORLD_ESSENCE_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 32).component(OccultismDataComponents.LUCK_VALUE, 2));
     public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.registerItem("beaver_nugget",
-            Item::new, () -> new Item.Properties().food(OccultismFoods.BEAVER_NUGGET.get()));
+            Item::new, () -> new Item.Properties().food(OccultismFoods.BEAVER_NUGGET.get(), OccultismFoods.BEAVER_NUGGET_CONSUMABLE));
     public static final DeferredItem<Item> CURSED_HONEY = ITEMS.registerItem("cursed_honey",
-            Item::new, () -> new Item.Properties().food(OccultismFoods.CURSED_HONEY.get()));
+            Item::new, () -> new Item.Properties().food(OccultismFoods.CURSED_HONEY.get(), OccultismFoods.CURSED_HONEY_CONSUMABLE));
     public static final DeferredItem<Item> SWEET_HONEY_HEART = ITEMS.registerItem("sweet_honey_heart",
-            Item::new, () -> new Item.Properties().food(OccultismFoods.SWEET_HONEY_HEART.get()));
+            Item::new, () -> new Item.Properties().food(OccultismFoods.SWEET_HONEY_HEART.get(), OccultismFoods.SWEET_HONEY_HEART_CONSUMABLE));
     public static final DeferredItem<Item> DEMONIC_MEAT = ITEMS.registerItem("demonic_meat",
-            Item::new, () -> new Item.Properties().food(OccultismFoods.DEMONIC_MEAT.get()).rarity(Rarity.UNCOMMON).fireResistant());
+            Item::new, () -> new Item.Properties().food(OccultismFoods.DEMONIC_MEAT.get(), OccultismFoods.DEMONIC_MEAT_CONSUMABLE).rarity(Rarity.UNCOMMON).fireResistant());
 
     //Resources and materials
     public static final DeferredItem<Item> TALLOW = ITEMS.registerItem("tallow",

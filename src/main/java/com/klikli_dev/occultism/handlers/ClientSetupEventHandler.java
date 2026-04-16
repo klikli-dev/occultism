@@ -261,22 +261,21 @@ public class ClientSetupEventHandler {
         event.registerMobEffect(new IClientMobEffectExtensions() {
             @Override
             public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ThirdEyeEffect.ICON, x + 3, y + 3, 0.0F, 0.0F, 18, 18, 256, 256);
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x + 3, y + 3, 18, 18, net.minecraft.util.ARGB.white(alpha));
                 return true;
             }
-
         }, OccultismEffects.THIRD_EYE.get());
 
-        event.registerMobEffect( new IClientMobEffectExtensions() {
+        event.registerMobEffect(new IClientMobEffectExtensions() {
             @Override
             public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, int blitOffset) {
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DoubleJumpEffect.ICON, x + 6, y + 7, 0.0F, 0.0F, 18, 18, 256, 256);
-                return false;
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 7, 18, 18);
+                return true;
             }
 
             @Override
             public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, DoubleJumpEffect.ICON, x + 3, y + 3, 0.0F, 0.0F, 18, 18, 256, 256);
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 3, 18, 18, net.minecraft.util.ARGB.white(alpha));
                 return false;
             }
         }, OccultismEffects.DOUBLE_JUMP.get());
