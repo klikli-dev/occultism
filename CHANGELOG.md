@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.215.0] - 2026-04-17
+### :sparkles: New Features
+- [`f894d50`](https://github.com/klikli-dev/occultism/commit/f894d502a91e80cbee93fd0d9e567e6196925f27) - Restore third eye overlay and add 26.1.2 follow-up fixes *(PR [#1562](https://github.com/klikli-dev/occultism/pull/1562) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`c2a525a`](https://github.com/klikli-dev/occultism/commit/c2a525a9c6dfaf30efca25bea514ea7aba952937) - restore missing item model properties *(PR [#1561](https://github.com/klikli-dev/occultism/pull/1561) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.214.1] - 2026-04-17
 ### :bug: Bug Fixes
 - [`7779e7a`](https://github.com/klikli-dev/occultism/commit/7779e7a821c6cc936d226c17893e1e598ef9bb6f) - prevent NPE in SoulShardItem tooltip when entity type is null *(PR [#1560](https://github.com/klikli-dev/occultism/pull/1560) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2439,3 +2447,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.213.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.212.0...release/v26.1.2-1.213.0
 [release/v26.1.2-1.214.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.213.0...release/v26.1.2-1.214.0
 [release/v26.1.2-1.214.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.214.0...release/v26.1.2-1.214.1
+[release/v26.1.2-1.215.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.214.1...release/v26.1.2-1.215.0
