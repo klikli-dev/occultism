@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
 import com.klikli_dev.occultism.common.ritual.Ritual;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.util.EntityUtil;
@@ -323,13 +324,15 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     @SuppressWarnings("unchecked")
     public RecipeHolder<RitualRecipe> getCurrentRitualRecipe() {
         if (this.currentRitualRecipeId != null) {
-            if (this.level != null && this.level instanceof ServerLevel serverLevel) {
+            if (this.level != null) {
                 var recipeKey = ResourceKey.create(Registries.RECIPE, this.currentRitualRecipeId);
-                var recipe = serverLevel.recipeAccess().byKey(recipeKey);
+                var recipe = OccultismRecipeManager.get().getRecipeByKey(OccultismRecipes.RITUAL_TYPE.get(), recipeKey, this.level);
                 recipe.map(r -> (RecipeHolder<RitualRecipe>) r).ifPresent(r -> this.currentRitualRecipe = r);
 
-                NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
-                NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
+                if (this.level instanceof ServerLevel) {
+                    NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
+                    NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
+                }
 
                 this.currentRitualRecipeId = null;
             }
@@ -849,16 +852,12 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     /**
      * Gets all ritual recipes from the recipe manager, filtering by type.
-     * In 26.1, getAllRecipesFor was removed; we must use getRecipes() and filter.
+     * Uses OccultismRecipeManager for both server and client-side access.
      */
     @SuppressWarnings("unchecked")
     private static List<RecipeHolder<RitualRecipe>> getAllRitualRecipes(Level level) {
-        if (level instanceof ServerLevel serverLevel) {
-            return serverLevel.recipeAccess().getRecipes().stream()
-                    .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
-                    .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
-                    .toList();
-        }
-        return List.of();
+        return OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), level).stream()
+                .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
+                .toList();
     }
 }

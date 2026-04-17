@@ -22,33 +22,37 @@
 
 package com.klikli_dev.occultism.client.render.blockentity;
 
+import com.klikli_dev.occultism.client.render.blockentity.state.GoldenSacrificialBowlRenderState;
 import com.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
-import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+
+import java.util.Objects;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
-public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity, BlockEntityRenderState> {
+public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity, GoldenSacrificialBowlRenderState> {
+
+    private final ItemModelResolver itemModelResolver;
 
     public GoldenSacrificialBowlRenderer(BlockEntityRendererProvider.Context context) {
-
+        this.itemModelResolver = context.itemModelResolver();
     }
 
     public static float getScale(ItemStack stack) {
@@ -60,94 +64,133 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
     }
 
     @Override
-    public BlockEntityRenderState createRenderState() {
-        return new BlockEntityRenderState();
+    public GoldenSacrificialBowlRenderState createRenderState() {
+        return new GoldenSacrificialBowlRenderState();
     }
 
     @Override
-    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.CrumblingOverlay crumbling) {
+    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, GoldenSacrificialBowlRenderState renderState, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.@Nullable CrumblingOverlay crumbling) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
+
+        ItemStack stack = blockEntity.itemStackHandler.getResource(0).toStack();
+        Direction facing = blockEntity.getBlockState().hasProperty(BlockStateProperties.FACING) ?
+                blockEntity.getBlockState().getValue(BlockStateProperties.FACING) : Direction.UP;
+        long gameTime = blockEntity.getLevel() != null ? blockEntity.getLevel().getGameTime() : 0L;
+        long lastChangeTime = blockEntity.lastChangeTime;
+
+        renderState.itemStack = stack;
+        renderState.facing = facing;
+        renderState.gameTime = gameTime;
+        renderState.lastChangeTime = lastChangeTime;
+
+        // Update the pre-initialized ItemStackRenderState with the current item
+        if (!stack.isEmpty()) {
+            int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
+            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.FIXED, blockEntity.getLevel(), null, seed);
+        }
+
+        // GoldenSacrificialBowl-specific data
+        if (blockEntity instanceof GoldenSacrificialBowlBlockEntity goldenBowl) {
+            renderState.isGoldenBowl = true;
+
+            var recipe = goldenBowl.getCurrentRitualRecipe();
+            if (recipe != null) {
+                renderState.itemUseFulfilled = goldenBowl.itemUseFulfilled();
+                renderState.sacrificeFulfilled = goldenBowl.sacrificeFulfilled();
+                renderState.recipeId = recipe.id().toString();
+                renderState.requiresItemUse = recipe.value().requiresItemUse();
+                renderState.requiresSacrifice = recipe.value().requiresSacrifice();
+
+                // Get item to use for cycling animation
+                if (renderState.requiresItemUse) {
+                    // Cache invalidation: only rebuild if recipe changed
+                    boolean recipeChanged = !Objects.equals(renderState.recipeId, renderState.cachedRecipeId);
+
+                    if (recipeChanged) {
+                        var items = recipe.value().getItemToUse().items().toList();
+                        if (!items.isEmpty()) {
+                            renderState.itemToUseStacks = items.stream()
+                                    .map(holder -> new ItemStack(holder.value()))
+                                    .toArray(ItemStack[]::new);
+                            renderState.cachedRecipeId = renderState.recipeId;
+                        }
+                    }
+
+                    // Compute cycling index in extract (called every frame)
+                    if (renderState.itemToUseStacks != null && renderState.itemToUseStacks.length > 0) {
+                        renderState.itemToUseIndex = renderState.itemToUseStacks.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % renderState.itemToUseStacks.length);
+
+                        // Pre-update render state for current index
+                        if (!renderState.itemToUseStacks[renderState.itemToUseIndex].isEmpty()) {
+                            this.itemModelResolver.updateForTopItem(renderState.itemToUseRenderState, renderState.itemToUseStacks[renderState.itemToUseIndex], ItemDisplayContext.FIXED, blockEntity.getLevel(), null, renderState.itemToUseIndex + 1);
+                        }
+                    }
+                }
+            } else {
+                renderState.itemUseFulfilled = true;
+                renderState.sacrificeFulfilled = true;
+                renderState.requiresItemUse = false;
+                renderState.requiresSacrifice = false;
+            }
+        } else {
+            renderState.isGoldenBowl = false;
+        }
     }
 
     @Override
-    public void submit(BlockEntityRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitCollector, CameraRenderState cameraRenderState) {
-        // TODO: Port to 26.1 rendering API
-        // Original render logic displayed a floating, rotating item above the bowl with bobbing animation.
-        // For GoldenSacrificialBowl, also showed items-to-use and entity-to-sacrifice indicators.
-        // This needs to be ported to the new submit/extractRenderState pattern.
-    }
+    public void submit(GoldenSacrificialBowlRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitCollector, CameraRenderState cameraRenderState) {
+        ItemStack stack = renderState.itemStack;
+        ItemStackRenderState stackRenderState = renderState.itemStackRenderState;
+        Direction facing = renderState.facing;
+        long gameTime = renderState.gameTime;
+        long lastChangeTime = renderState.lastChangeTime;
 
-    // Legacy render logic preserved as reference:
-    public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
-                       MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-        var handler = blockEntity.itemStackHandler;
-        ItemStack stack = handler.getResource(0).toStack();
-        long time = blockEntity.getLevel().getGameTime();
-
-        var facing = blockEntity.getBlockState().hasProperty(BlockStateProperties.FACING) ?
-                blockEntity.getBlockState().getValue(BlockStateProperties.FACING) : Direction.UP;
+        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0) {
+            return;
+        }
 
         poseStack.pushPose();
-
         poseStack.pushPose();
 
-        //slowly bob up and down following a sine
-        double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
-        offset = offset / 4.0f; //reduce amplitude
+        // Calculate bobbing offset
+        double offset = Math.sin((gameTime - lastChangeTime) / 16.0) * 0.5 + 0.5;
+        offset = offset / 4.0;
 
-        // Fixed offset to push the item away from the bowl
         double fixedOffset = 0.2;
 
-        // Adjust the translation based on the facing direction
         double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
         double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
         double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
 
         poseStack.translate(0.5 + xOffset, 0.5 + yOffset, 0.5 + zOffset);
 
-        //use system time to become independent of game time
+        // Rotate item around Y axis using system time
         long systemTime = System.currentTimeMillis();
-        //rotate item slowly around y axis
         float angle = (systemTime / 16) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(angle));
 
-        //Fixed scale
+        // Scale
         float scale = getScale(stack) * 0.5f;
         poseStack.scale(scale, scale, scale);
 
-        // TODO: Port to 26.1 rendering API - BakedModel removed
-        /*
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        Level level = blockEntity.getLevel();
-        BakedModel model = itemRenderer.getModel(stack, level, null, 0);
-        itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
-                combinedLight, combinedOverlay, model);
+        // Render the main item using the pre-created ItemStackRenderState
+        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
-        if (!stack.isEmpty() && blockEntity instanceof GoldenSacrificialBowlBlockEntity goldenBowl) {
-            poseStack.translate(0, 3.2 -(0.5 + yOffset)/scale, 0);
-            if (!goldenBowl.itemUseFulfilled()){
-                ItemStack[] itemStackList = goldenBowl.getCurrentRitualRecipe().value().getItemToUse().getItems();
-                if (itemStackList.length > 0) {
-                    int index = itemStackList.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % itemStackList.length);
-                    ItemStack itemStack = itemStackList[index];
+        // Render item-to-use indicator for GoldenSacrificialBowl
+        if (renderState.isGoldenBowl && !stack.isEmpty() && renderState.itemToUseStacks != null && renderState.itemToUseStacks.length > 0) {
+            poseStack.pushPose();
+            poseStack.translate(0, 3.2 - (0.5 + yOffset) / scale, 0);
+            if (!renderState.itemUseFulfilled && renderState.requiresItemUse) {
+                int index = renderState.itemToUseIndex;
+                ItemStack itemStack = renderState.itemToUseStacks[index];
+                if (!itemStack.isEmpty()) {
                     float scaleUse = getScale(itemStack) * 0.5F;
                     poseStack.scale(scaleUse, scaleUse, scaleUse);
-                    BakedModel modelItem = itemRenderer.getModel(itemStack, level, null, 0);
-                    itemRenderer.render(itemStack, ItemDisplayContext.FIXED, false, poseStack, buffer,
-                            combinedLight, combinedOverlay, modelItem);
+                    renderState.itemToUseRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 }
             }
-            if (!goldenBowl.sacrificeFulfilled()) {
-                LivingEntity pLivingEntity = (LivingEntity) EntityUtil.getEntityInTag(level, goldenBowl.currentRitualRecipe.value().getEntityToSacrifice()).create(level);
-                if (pLivingEntity == null)
-                    return;
-                float maxSize = (float) Math.max(pLivingEntity.getHitbox().getXsize(), Math.max(pLivingEntity.getHitbox().getYsize(), pLivingEntity.getHitbox().getZsize()));
-                float eScale = 0.5F/maxSize;
-                poseStack.scale(eScale, eScale, eScale);
-                EntityUtil.renderEntity(poseStack, pLivingEntity, buffer, partialTicks);
-            }
+            poseStack.popPose();
         }
-        */
 
         poseStack.popPose();
 

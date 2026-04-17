@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.NonNull;
 
 public abstract class NetworkedBlockEntity extends BlockEntity {
 
@@ -57,13 +58,8 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-        //getUpdateTag still uses CompoundTag - we save our network data into it
-        var tag = super.getUpdateTag(provider);
-        //Note: this returns CompoundTag, not ValueOutput.
-        //The saveNetwork call here uses the old pattern - subclasses that override saveNetwork(ValueOutput)
-        //will have their data included via saveWithoutMetadata which is called by getUpdatePacket.
-        return tag;
+    public @NonNull CompoundTag getUpdateTag(HolderLookup.@NonNull Provider provider) {
+        return this.saveWithoutMetadata(provider);
     }
 
     @Override
