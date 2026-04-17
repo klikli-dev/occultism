@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.SoulGemItem;
@@ -32,6 +33,7 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -42,6 +44,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -63,6 +66,8 @@ import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,13 +80,13 @@ public class PlayerEventHandler {
 
     //region Static Methods
     @SubscribeEvent
-    public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void onPlayerRightClickBlock(RightClickBlock event) {
         spiritFire(event);
         dancingFamiliars(event);
         bookshelfBinding(event);
     }
 
-    private static void spiritFire(PlayerInteractEvent.RightClickBlock event) {
+    private static void spiritFire(RightClickBlock event) {
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
         boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE) || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE);
@@ -101,7 +106,7 @@ public class PlayerEventHandler {
                 }
 
                 //consume all datura
-                list.forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
+                list.forEach(e -> e.remove(RemovalReason.DISCARDED));
 
                 //if there is air, place block and play sound
                 if (level.getBlockState(pos).canBeReplaced()) {
@@ -128,7 +133,7 @@ public class PlayerEventHandler {
         }
     }
 
-    private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
+    private static void dancingFamiliars(RightClickBlock event) {
         BlockState state = event.getLevel().getBlockState(event.getPos());
         if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.getValue(JukeboxBlock.HAS_RECORD)
                 || !(event.getItemStack().has(DataComponents.JUKEBOX_PLAYABLE)))
@@ -138,10 +143,10 @@ public class PlayerEventHandler {
                         e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getEntity())
                 .isEmpty())
             return;
-        OccultismAdvancements.FAMILIAR.get().trigger(event.getEntity(), FamiliarTrigger.Type.PARTY);
+        OccultismAdvancements.FAMILIAR.get().trigger(event.getEntity(), Type.PARTY);
     }
 
-    private static void bookshelfBinding(PlayerInteractEvent.RightClickBlock event) {
+    private static void bookshelfBinding(RightClickBlock event) {
         if (!(event.getHand() == InteractionHand.MAIN_HAND)
                 || !(event.getItemStack().getItem() == OccultismItems.DICTIONARY_OF_SPIRITS.get())
                 || !(event.getEntity().isCrouching()))
@@ -179,7 +184,7 @@ public class PlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+    public static void onPlayerRightClickEntity(EntityInteract event) {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof SoulGemItem soulGemItem) {
             //called from here to bypass sitting entity's sit command.
@@ -202,7 +207,7 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void spiritIesniumDamage(LivingIncomingDamageEvent event) {
         var entity = event.getEntity();
-        if (entity.getType().builtInRegistryHolder().is(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+        if (entity.getType().builtInRegistryHolder().is(Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
                 && event.getSource().getWeaponItem() != null
                 && event.getSource().getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)) {
             event.setAmount(event.getAmount() * 3);

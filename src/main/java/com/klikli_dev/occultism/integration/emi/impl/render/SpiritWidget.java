@@ -14,9 +14,11 @@ import java.util.function.BiFunction;
 
 public class SpiritWidget<T extends SpiritEntity> extends Widget {
 
-    private int x,y,s;
+    private final int x;
+    private final int y;
+    private final int s;
     private T spiritEntity;
-    private EntityType<T> spiritType;
+    private final EntityType<T> spiritType;
     private BiFunction<Integer, Integer, List<ClientTooltipComponent>> tooltipSupplier = (mouseX, mouseY) -> List.of();
     public SpiritWidget(int x, int y, EntityType<T> spiritType, int s) {
         super();
@@ -28,14 +30,14 @@ public class SpiritWidget<T extends SpiritEntity> extends Widget {
     }
     @Override
     public Bounds getBounds() {
-        return new Bounds(x-15, 0, 30, 30);
+        return new Bounds(this.x -15, 0, 30, 30);
     }
 
     @Override
     public void render(GuiGraphicsExtractor draw, int mouseX, int mouseY, float delta) {
-        if(spiritEntity==null)
-            spiritEntity= spiritType.create(Minecraft.getInstance().level);
-        SpiritGui.drawEntityToGui(draw, (int) (x),(int)(y+(spiritEntity.getEyeHeight()*15)),s,1,1,spiritEntity);
+        if(this.spiritEntity ==null)
+            this.spiritEntity = this.spiritType.create(Minecraft.getInstance().level);
+        SpiritGui.drawEntityToGui(draw, this.x,(int)(this.y +(this.spiritEntity.getEyeHeight()*15)), this.s,1,1, this.spiritEntity);
     }
 
 
@@ -45,7 +47,7 @@ public class SpiritWidget<T extends SpiritEntity> extends Widget {
     }
     @Override
     public List<ClientTooltipComponent> getTooltip(int mouseX, int mouseY) {
-        return tooltipSupplier.apply(mouseX, mouseY);
+        return this.tooltipSupplier.apply(mouseX, mouseY);
     }
 
 }

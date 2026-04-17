@@ -28,6 +28,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -180,11 +181,11 @@ public class MachineReference {
         return this.cachedInsertItemStack;
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    public CompoundTag serializeNBT(Provider provider) {
         return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+    public void deserializeNBT(Provider provider, CompoundTag nbt) {
         var ref = CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).getOrThrow();
         this.extractGlobalPos = ref.extractGlobalPos;
         this.extractRegistryName = ref.extractRegistryName;

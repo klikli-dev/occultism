@@ -4,10 +4,13 @@ import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -49,7 +52,7 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
         return new SpiritFireRecipeBuilder(ingredient, ItemStackTemplate.fromNonEmptyStack(output));
     }
 
-    public static SpiritFireRecipeBuilder spiritFireRecipe(TagKey<Item> ingredient, ItemStack output, HolderLookup.Provider registries) {
+    public static SpiritFireRecipeBuilder spiritFireRecipe(TagKey<Item> ingredient, ItemStack output, Provider registries) {
         return spiritFireRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output);
     }
 
@@ -79,10 +82,10 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
-                .rewards(AdvancementRewards.Builder.recipe(pId))
-                .requirements(AdvancementRequirements.Strategy.OR);
+                .rewards(Builder.recipe(pId))
+                .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        SpiritFireRecipe recipe = new SpiritFireRecipe(ingredient, output);
+        SpiritFireRecipe recipe = new SpiritFireRecipe(this.ingredient, this.output);
         ICondition[] conditions = this.getConditions(this.ingredient);
         RecipeOutput output = conditions.length > 0 ? pRecipeOutput.withConditions(conditions) : pRecipeOutput;
         output.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/spirit_fire/")));

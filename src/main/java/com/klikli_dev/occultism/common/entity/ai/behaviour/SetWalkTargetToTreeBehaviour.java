@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
@@ -11,6 +12,7 @@ import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -51,7 +53,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
 
             var unreachableWalkTargets = BrainUtil.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
 
-            for (Direction facing : Direction.Plane.HORIZONTAL) {
+            for (Direction facing : Plane.HORIZONTAL) {
                 var pos = treePos.relative(facing);
                 if (entity.level().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
                     walkPos = pos;
@@ -65,8 +67,8 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtil.setMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
-                    Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.MAGENTA));
-                    Networking.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, Color.MAGENTA));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, Color.GREEN));
                 }
 
             } else {
@@ -79,7 +81,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
 
                 if (Occultism.DEBUG.debugAI) {
-                    Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, OccultismConstants.Color.RED));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, Color.RED));
                 }
             }
         }

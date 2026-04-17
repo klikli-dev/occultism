@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -32,6 +33,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.DefendVillageTargetGoal;
@@ -70,7 +72,7 @@ public class IesniumGolemEntity extends IronGolem {
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return IronGolem.createAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.5)
@@ -82,16 +84,16 @@ public class IesniumGolemEntity extends IronGolem {
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if(source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
-            var spawnPos = ((ServerLevel)this.level()).getRespawnData().pos();
+            var spawnPos = this.level().getRespawnData().pos();
             this.teleportTo(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-            while (!level().getBlockState(this.getOnPos()).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos()))
-                    || !level().getBlockState(this.getOnPos(1)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(1)))
-                    || !level().getBlockState(this.getOnPos(2)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(2)))
-                    || !level().getBlockState(this.getOnPos(3)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(3))))
+            while (!this.level().getBlockState(this.getOnPos()).getBlock().isPossibleToRespawnInThis(this.level().getBlockState(this.getOnPos()))
+                    || !this.level().getBlockState(this.getOnPos(1)).getBlock().isPossibleToRespawnInThis(this.level().getBlockState(this.getOnPos(1)))
+                    || !this.level().getBlockState(this.getOnPos(2)).getBlock().isPossibleToRespawnInThis(this.level().getBlockState(this.getOnPos(2)))
+                    || !this.level().getBlockState(this.getOnPos(3)).getBlock().isPossibleToRespawnInThis(this.level().getBlockState(this.getOnPos(3))))
                 this.teleportRelative(0, 1, 0);
         }
 
-        if (source.getWeaponItem() != null && source.getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM))
+        if (source.getWeaponItem() != null && source.getWeaponItem().is(Items.TOOLS_KNIFE_IESNIUM))
             return false;
 
         if (source.getEntity() == null || !source.getEntity().isCrouching())

@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -46,7 +48,7 @@ public class VitalityCompassItem extends Item {
         if (target.level().isClientSide())
             return InteractionResult.PASS;
 
-        if (target.getType().builtInRegistryHolder().is(OccultismTags.Entities.VITALITY_COMPASS_DENY_LIST)) {
+        if (target.getType().builtInRegistryHolder().is(Entities.VITALITY_COMPASS_DENY_LIST)) {
             player.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.target_blocked", target.getName()));
             return InteractionResult.FAIL;
         } else {
@@ -60,7 +62,7 @@ public class VitalityCompassItem extends Item {
         return InteractionResult.SUCCESS;
     }
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
         pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
@@ -71,7 +73,7 @@ public class VitalityCompassItem extends Item {
         if (stack.has(OccultismDataComponents.SPIRIT_ENTITY_UUID)) {
             Entity target = level.getEntity(stack.get(OccultismDataComponents.SPIRIT_ENTITY_UUID));
             if (target != null && target.level().dimension() == entity.level().dimension()) {
-                stack.set(OccultismDataComponents.COMPASS_ANGLE, getRotationTowardsCompassTarget(entity, target.blockPosition()));
+                stack.set(OccultismDataComponents.COMPASS_ANGLE, this.getRotationTowardsCompassTarget(entity, target.blockPosition()));
             } else {
                 stack.set(OccultismDataComponents.COMPASS_ANGLE, this.getRandomlySpinningRotation(entity.getId(), level.getGameTime()));
             }

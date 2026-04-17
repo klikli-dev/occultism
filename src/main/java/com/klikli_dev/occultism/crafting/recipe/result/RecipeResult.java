@@ -5,6 +5,7 @@
 package com.klikli_dev.occultism.crafting.recipe.result;
 
 import com.klikli_dev.occultism.registry.OccultismRegistries;
+import com.klikli_dev.occultism.registry.OccultismRegistries.Keys;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -20,7 +21,7 @@ public abstract class RecipeResult {
 
     public static final Codec<RecipeResult> CODEC = OccultismRegistries.RECIPE_RESULT_TYPES.byNameCodec().dispatch(RecipeResult::getType, RecipeResultType::codec);
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, RecipeResult> STREAM_CODEC = ByteBufCodecs.registry(OccultismRegistries.Keys.RECIPE_RESULT_TYPES).dispatch(RecipeResult::getType, RecipeResultType::streamCodec);
+    public static final StreamCodec<RegistryFriendlyByteBuf, RecipeResult> STREAM_CODEC = ByteBufCodecs.registry(Keys.RECIPE_RESULT_TYPES).dispatch(RecipeResult::getType, RecipeResultType::streamCodec);
 
     public static RecipeResult of(ItemStack stack) {
         return new ItemRecipeResult(ItemStackTemplate.fromNonEmptyStack(stack));

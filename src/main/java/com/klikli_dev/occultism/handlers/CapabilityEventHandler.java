@@ -31,11 +31,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent.Post;
 
 @EventBusSubscriber(modid = Occultism.MODID)
 public class CapabilityEventHandler {
     @SubscribeEvent
-    public static void onPlayerTick(final PlayerTickEvent.Post evt) {
+    public static void onPlayerTick(final Post evt) {
             //Reset the double jump capability
             if (evt.getEntity().onGround()) {
                 evt.getEntity().setData(OccultismDataStorage.DOUBLE_JUMP, 0);

@@ -1,11 +1,15 @@
 package com.klikli_dev.occultism.common.advancement;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.TriggerInstance;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.ItemPredicate.Builder;
+import net.minecraft.advancements.criterion.MinMaxBounds.Ints;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger.SimpleInstance;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,7 +17,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.Optional;
 
-public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.TriggerInstance> {
+public class FamiliarTrigger extends SimpleCriterionTrigger<TriggerInstance> {
 
     public static Criterion<TriggerInstance> of(Type type) {
         return OccultismAdvancements.FAMILIAR.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.of(type)));
@@ -47,12 +51,12 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Trig
 
         @Override
         public String getSerializedName() {
-            return name;
+            return this.name;
         }
     }
 
     public record TriggerInstance(Optional<ContextAwarePredicate> player,
-                                  Optional<Type> type) implements SimpleCriterionTrigger.SimpleInstance {
+                                  Optional<Type> type) implements SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
                                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf( "player").forGetter(TriggerInstance::player),
@@ -63,7 +67,7 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Trig
         );
 
         public static Criterion<BeeNestDestroyedTrigger.TriggerInstance> destroyedBeeNest(
-                Block pBlock, ItemPredicate.Builder pItem, MinMaxBounds.Ints pNumBees
+                Block pBlock, Builder pItem, Ints pNumBees
         ) {
             return CriteriaTriggers.BEE_NEST_DESTROYED
                     .createCriterion(

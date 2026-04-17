@@ -11,6 +11,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,17 +29,17 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     public DefaultedJobEntityModel(Identifier assetSubpath, boolean turnsHead, String entity_subpath) {
         super(assetSubpath);
         this.entity_subpath = entity_subpath;
-        jobModels = new HashMap<>();
+        this.jobModels = new HashMap<>();
         this.worker = this.buildModelData("worker");
         for (var job : OccultismSpiritJobs.REGISTRY.entrySet()) {
             SpiritJobFactory factory = job.getValue();
-            jobModels.put(job.getKey().identifier().toString(), this.buildModelData(factory.client().modelID(), "_"));
+            this.jobModels.put(job.getKey().identifier().toString(), this.buildModelData(factory.client().modelID(), "_"));
         }
     }
 
     public ModelData getModelData(T animatable) {
         var job = animatable.getJobID();
-        var model = jobModels.getOrDefault(job, this.worker);
+        var model = this.jobModels.getOrDefault(job, this.worker);
         return this.resourceCache.computeIfAbsent(model, this::hasResources) ? model : this.worker;
     }
 
@@ -79,7 +80,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     }
 
     public ModelData buildModelData(Identifier location, String separator) {
-        return this.buildModelData(Identifier.fromNamespaceAndPath(location.getNamespace(), entity_subpath + separator + location.getPath()));
+        return this.buildModelData(Identifier.fromNamespaceAndPath(location.getNamespace(), this.entity_subpath + separator + location.getPath()));
     }
 
     public ModelData buildModelData(String job, String separator) {
@@ -90,7 +91,7 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     }
 
     @Override
-    public void addAdditionalStateData(T animatable, @org.jetbrains.annotations.Nullable Object relatedObject, GeoRenderState renderState) {
+    public void addAdditionalStateData(T animatable, @Nullable Object relatedObject, GeoRenderState renderState) {
         super.addAdditionalStateData(animatable, relatedObject, renderState);
         ModelData data = this.getModelData(animatable);
         renderState.addGeckolibData(JOB_MODEL, data.model());

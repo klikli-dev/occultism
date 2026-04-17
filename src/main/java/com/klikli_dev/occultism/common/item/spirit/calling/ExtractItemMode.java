@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -65,7 +66,7 @@ public class ExtractItemMode extends ItemMode {
      */
     @Override
     public boolean handle(BlockEntity blockEntity, Player player, Level world, BlockPos pos, ItemStack stack, Direction face) {
-        if (blockEntity != null && world.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, face) != null) {
+        if (blockEntity != null && world.getCapability(Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, face) != null) {
             return this.setSpiritExtractLocation(player, world, pos, stack,
                     face);
         }

@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.util;
 import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Player;
@@ -56,6 +57,6 @@ public class MovementUtil {
 
         ItemStack itemstack = player.getItemBySlot(EquipmentSlot.CHEST);
         //If player has a glider item equipped and it can still glide, no double jump
-        return !itemstack.is(OccultismTags.Items.ELYTRA) || !itemstack.has(DataComponents.GLIDER) || itemstack.nextDamageWillBreak();
+        return !itemstack.is(Items.ELYTRA) || !itemstack.has(DataComponents.GLIDER) || itemstack.nextDamageWillBreak();
     }
 }

@@ -32,6 +32,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSensors;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
@@ -60,9 +61,9 @@ public class LumberjackJob extends SpiritJob {
     @SuppressWarnings("unchecked")
     public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_TREE.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
+                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_TREE.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
         );
     }
 
@@ -107,10 +108,10 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void onInit() {
-        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(ItemTags.LOGS)));
-        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(ItemTags.LEAVES)));
-        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(ItemTags.SAPLINGS)));
-        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(OccultismTags.Items.FRUITS)));
+        this.itemsToPickUp.add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ItemTags.LOGS)));
+        this.itemsToPickUp.add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ItemTags.LEAVES)));
+        this.itemsToPickUp.add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ItemTags.SAPLINGS)));
+        this.itemsToPickUp.add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.Items.FRUITS)));
         this.itemsToPickUp.add(Ingredient.of(Items.STICK));
     }
 

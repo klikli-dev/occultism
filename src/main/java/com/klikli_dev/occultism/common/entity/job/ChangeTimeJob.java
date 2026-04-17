@@ -24,14 +24,20 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
+import net.minecraft.world.entity.player.Player;
+
 import java.util.function.Supplier;
 
 public abstract class ChangeTimeJob extends SpiritJob {
@@ -51,7 +57,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         this.newTime = this.getNewTime();
 
         if (!this.isEnabled()) {
-            if (this.entity.getOwner() instanceof net.minecraft.world.entity.player.Player player)
+            if (this.entity.getOwner() instanceof Player player)
                 player.sendSystemMessage(this.getDisabledMessage());
             this.finishChangeTime();
         }
@@ -96,7 +102,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
         compound.putInt("requiredChangeTicks", this.requiredChangeTicks.get());
         compound.putLong("newTime", this.newTime);
@@ -104,7 +110,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readJobFromNBT(CompoundTag compound, Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.currentChangeTicks = compound.getIntOr("currentChangeTicks", 0);
         var requiredChangeTicks = compound.getIntOr("requiredChangeTicks", 0);
@@ -114,7 +120,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
     public void updateTime() {
         var server = this.entity.level().getServer();
-        var clockHolder = server.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.WORLD_CLOCK).getOrThrow(net.minecraft.world.clock.WorldClocks.OVERWORLD);
+        var clockHolder = server.registryAccess().lookupOrThrow(Registries.WORLD_CLOCK).getOrThrow(WorldClocks.OVERWORLD);
         var clockManager = server.clockManager();
         var currentTime = clockManager.getTotalTicks(clockHolder);
 
@@ -134,7 +140,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public void finishChangeTime() {
         this.entity.level().playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
         this.entity.die(this.entity.damageSources().fellOutOfWorld());
-        this.entity.remove(Entity.RemovalReason.DISCARDED);
+        this.entity.remove(RemovalReason.DISCARDED);
     }
 
     protected static final int DAY_LENGTH = 24000;

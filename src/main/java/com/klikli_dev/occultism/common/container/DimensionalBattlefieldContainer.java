@@ -55,7 +55,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         this.inputSoulHandler = otherworldButcher.inputSoulHandler;
         this.inputWeaponHandler = otherworldButcher.inputWeaponHandler;
         this.inputFuelHandler = otherworldButcher.inputFuelHandler;
-        this.outputHandler = (ItemStacksResourceHandler) otherworldButcher.outputHandler;
+        this.outputHandler = otherworldButcher.outputHandler;
         this.inputHandler = otherworldButcher.inputHandler;
 
         this.setupButcherInventory();

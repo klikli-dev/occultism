@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -32,6 +33,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.item.ItemStack;
@@ -51,7 +53,7 @@ public class WildHuntSkeletonEntity extends Skeleton implements PossessedMob {
     }
 
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Skeleton.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.MAX_HEALTH, 20.0);
@@ -81,7 +83,7 @@ public class WildHuntSkeletonEntity extends Skeleton implements PossessedMob {
 
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
-        TagKey<EntityType<?>> wildHuntTag = OccultismTags.Entities.WILD_HUNT;
+        TagKey<EntityType<?>> wildHuntTag = Entities.WILD_HUNT;
 
         Entity trueSource = source.getEntity();
         if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildHuntTag))

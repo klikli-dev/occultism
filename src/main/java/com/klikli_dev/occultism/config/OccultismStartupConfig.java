@@ -23,8 +23,10 @@
 package com.klikli_dev.occultism.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.Builder;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class OccultismStartupConfig {
 
     public final ModConfigSpec spec;
     private OccultismStartupConfig() {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        Builder builder = new Builder();
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(builder);
         this.rituals = new RitualSettings(builder);
         this.spec = builder.build();
@@ -53,7 +55,7 @@ public class OccultismStartupConfig {
         public final DoubleValue usePossibleSpiritNamesChance;
 
 
-        public RitualSettings(ModConfigSpec.Builder builder) {
+        public RitualSettings(Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
 
             this.possibleSpiritNames =
@@ -80,7 +82,7 @@ public class OccultismStartupConfig {
         public final MinerSpiritSettings minerMaridMaster;
         public final MinerSpiritSettings minerAncientEldritch;
 
-        public DimensionalMineshaftSettings(ModConfigSpec.Builder builder) {
+        public DimensionalMineshaftSettings(Builder builder) {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
             this.minerFoliotUnspecialized =
@@ -102,11 +104,11 @@ public class OccultismStartupConfig {
         }
 
         public static class MinerSpiritSettings {
-            public final ModConfigSpec.IntValue maxMiningTime;
-            public final ModConfigSpec.IntValue rollsPerOperation;
-            public final ModConfigSpec.IntValue durability;
+            public final IntValue maxMiningTime;
+            public final IntValue rollsPerOperation;
+            public final IntValue durability;
 
-            public MinerSpiritSettings(String oreName, ModConfigSpec.Builder builder,
+            public MinerSpiritSettings(String oreName, Builder builder,
                                        int maxMiningTime, int rollsPerOperation, int durability) {
                 builder.comment("Miner Spirit Settings").push(oreName);
 

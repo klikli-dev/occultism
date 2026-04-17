@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.Clone;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -21,7 +22,7 @@ public class OccultismDataStorage {
     public static final Supplier<AttachmentType<FamiliarSettingsData>> FAMILIAR_SETTINGS = ATTACHMENT_TYPES.register(
             "familiar_settings", () -> AttachmentType.builder(() -> new FamiliarSettingsData()).build());
 
-    public static void onPlayerClone(final PlayerEvent.Clone event) {
+    public static void onPlayerClone(final Clone event) {
         //only handle respawn after death -> not portal transfers
         if (event.isWasDeath() && event.getOriginal().hasData(FAMILIAR_SETTINGS)) {
             event.getEntity().getData(FAMILIAR_SETTINGS).clone(event.getOriginal().getData(FAMILIAR_SETTINGS));

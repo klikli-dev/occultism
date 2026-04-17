@@ -37,11 +37,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.Tags.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -90,10 +92,10 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
             ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
                     player.getItemInHand(InteractionHand.OFF_HAND) :
                     player.getItemInHand(InteractionHand.MAIN_HAND) ;
-            if (stack.is(Tags.Items.DYES_WHITE)) {cor = 0; cc = false;}
-            else if (stack.is(Tags.Items.DYES_LIGHT_GRAY)) {cor = 1; cc = false;}
-            else if (stack.is(Tags.Items.DYES_GRAY)) {cor = 2; cc = false;}
-            else if (stack.is(Tags.Items.DYES_BLACK)) {cor = 3; cc = false;}
+            if (stack.is(Items.DYES_WHITE)) {cor = 0; cc = false;}
+            else if (stack.is(Items.DYES_LIGHT_GRAY)) {cor = 1; cc = false;}
+            else if (stack.is(Items.DYES_GRAY)) {cor = 2; cc = false;}
+            else if (stack.is(Items.DYES_BLACK)) {cor = 3; cc = false;}
             else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {cc = false;}
         }
         return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
@@ -101,7 +103,7 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
                         context.getHorizontalDirection().getOpposite());
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(COLOR, CYCLE);
         super.createBlockStateDefinition(builder);
     }
@@ -118,16 +120,16 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
                     level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
                 }
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_WHITE)) {
+            } else if (stack.is(Items.DYES_WHITE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 0));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_LIGHT_GRAY)) {
+            } else if (stack.is(Items.DYES_LIGHT_GRAY)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 1));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_GRAY)) {
+            } else if (stack.is(Items.DYES_GRAY)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 2));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_BLACK)) {
+            } else if (stack.is(Items.DYES_BLACK)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 3));
                 return InteractionResult.SUCCESS;
             }

@@ -24,6 +24,8 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -36,6 +38,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
@@ -67,7 +70,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new EatBlockGoal(this));
-        this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this, 5) {
+        this.goalSelector.addGoal(5, new AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
                 return super.canUse() && DeerFamiliarEntity.this.hasBlacksmithUpgrade();
@@ -80,7 +83,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasRedNose())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -104,7 +107,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
             if (owner != null && this.distanceToSqr(owner) > 50) {
                 if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) == null)
                     this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
-                            new AttributeModifier(SPEED_BONUS, 0.15, AttributeModifier.Operation.ADD_VALUE));
+                            new AttributeModifier(SPEED_BONUS, 0.15, Operation.ADD_VALUE));
             } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) != null) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_BONUS);
             }
@@ -123,7 +126,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                 this.spawnAtLocation(sl, OccultismItems.DATURA_SEEDS.get());
             LivingEntity owner = this.getOwner();
             if (owner instanceof ServerPlayer serverPlayer)
-                OccultismAdvancements.FAMILIAR.get().trigger(serverPlayer, FamiliarTrigger.Type.DEER_POOP);
+                OccultismAdvancements.FAMILIAR.get().trigger(serverPlayer, Type.DEER_POOP);
         }
     }
 

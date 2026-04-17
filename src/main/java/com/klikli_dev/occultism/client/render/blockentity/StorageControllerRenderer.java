@@ -33,8 +33,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.item.ItemStack;
 
@@ -50,7 +52,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
     protected Minecraft minecraft;
     protected ItemStack stack;
 
-    public StorageControllerRenderer(BlockEntityRendererProvider.Context context) {
+    public StorageControllerRenderer(Context context) {
         this.minecraft = Minecraft.getInstance();
     }
 
@@ -60,7 +62,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
     }
 
     @Override
-    public void extractRenderState(StorageControllerBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+    public void extractRenderState(StorageControllerBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable CrumblingOverlay crumblingOverlay) {
     }
 
     @Override

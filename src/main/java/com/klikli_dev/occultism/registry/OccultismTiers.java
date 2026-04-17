@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ToolMaterial;
 
@@ -32,7 +33,7 @@ public class OccultismTiers {
             9.0F,
             3.0F,
             22,
-            OccultismTags.Items.SPIRIT_ATTUNED_GEM_MATERIALS
+            Items.SPIRIT_ATTUNED_GEM_MATERIALS
     );
 
     public static final ToolMaterial IESNIUM = new ToolMaterial(
@@ -41,6 +42,6 @@ public class OccultismTiers {
             10.0F,
             4.0F,
             24,
-            OccultismTags.Items.IESNIUM_INGOT
+            Items.IESNIUM_INGOT
     );
 }

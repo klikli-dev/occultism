@@ -41,9 +41,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -51,6 +53,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
@@ -168,7 +171,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     return InteractionResult.FAIL;
                 }
 
-                try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(entity.problemPath(), LOGGER)) {
+                try (ScopedCollector reporter = new ScopedCollector(entity.problemPath(), LOGGER)) {
                     entity.load(TagValueInput.create(reporter, entity.registryAccess(), entityData));
                 }
                 entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
@@ -294,7 +297,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
         //serialize entity
         CompoundTag entityData;
-        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(targetSpirit.problemPath(), LOGGER)) {
+        try (ScopedCollector reporter = new ScopedCollector(targetSpirit.problemPath(), LOGGER)) {
             TagValueOutput output = TagValueOutput.createWithContext(reporter, targetSpirit.registryAccess());
             targetSpirit.saveWithoutId(output);
             entityData = output.buildResult();
@@ -306,7 +309,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         //show player swing anim
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
-        targetSpirit.remove(Entity.RemovalReason.DISCARDED);
+        targetSpirit.remove(RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();
         return InteractionResult.SUCCESS;
     }
@@ -329,7 +332,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
 
         tooltipAdder.accept(Component.translatable(this.getTranslationKeyBase() +
@@ -347,11 +350,11 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
         // sanity check.
         // here to prevent crashes if old system has invalid mode
-        if(mode<0 || mode>=getItemModes().size()){
+        if(mode<0 || mode>= this.getItemModes().size()){
             mode=0;
-            setItemMode(stack,mode);
+            this.setItemMode(stack,mode);
         }
-        return getItemModes().get(mode);
+        return this.getItemModes().get(mode);
     }
 
     public boolean useWorkAreaSize() {

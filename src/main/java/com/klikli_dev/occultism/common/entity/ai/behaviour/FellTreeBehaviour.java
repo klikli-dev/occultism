@@ -8,6 +8,7 @@ import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -111,7 +112,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
                 continue;
             }
 
-            for (Direction facing : Direction.Plane.HORIZONTAL) {
+            for (Direction facing : Plane.HORIZONTAL) {
                 BlockPos pos2 = pos.relative(facing);
                 if (!visited.contains(pos2)) {
                     blocks.add(pos2);
@@ -133,13 +134,13 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     }
 
     private void addAllStump(BlockPos pos, BlockGetter level, List<BlockPos> list) {
-        for (Direction facing : Direction.Plane.HORIZONTAL) {
+        for (Direction facing : Plane.HORIZONTAL) {
             BlockPos posR = pos.relative(facing);
             if (!list.contains(posR)
                     && level.getBlockState(posR).is(BlockTags.LOGS)
                     && level.getBlockState(posR.below()).is(BlockTags.DIRT)) {
                 list.add(posR);
-                addAllStump(posR, level, list);
+                this.addAllStump(posR, level, list);
             }
         }
     }

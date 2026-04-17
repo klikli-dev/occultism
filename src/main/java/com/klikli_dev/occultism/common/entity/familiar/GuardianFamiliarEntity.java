@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.google.common.collect.ImmutableList;
@@ -36,10 +37,12 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -135,12 +138,12 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasTree())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(LIVES, (byte) 0);
     }
@@ -149,7 +152,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
         byte lives = this.getLives();
         boolean success = lives > 0;
         if (lives == DEATHS_DOOR)
-            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), Type.GUARDIAN_ULTIMATE_SACRIFICE);
         this.setLives((byte) (lives - 1));
         return success;
     }
@@ -256,7 +259,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
         var lives = this.getLives();
         this.setLives((byte) (this.getRandom().nextInt(5) + 1)); //randomize lives for next respawn
 
-        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), LOGGER)) {
+        try (ScopedCollector reporter = new ScopedCollector(this.problemPath(), LOGGER)) {
             TagValueOutput output = TagValueOutput.createWithContext(reporter, this.registryAccess());
             this.saveWithoutId(output);
             shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), output.buildResult()));

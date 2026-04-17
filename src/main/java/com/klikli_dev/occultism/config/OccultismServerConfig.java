@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.Builder;
 import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 import net.neoforged.neoforge.common.ModConfigSpec.LongValue;
@@ -41,7 +42,7 @@ public class OccultismServerConfig {
     public final ModConfigSpec spec;
 
     private OccultismServerConfig() {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        Builder builder = new Builder();
         this.storage = new StorageSettings(builder);
         this.spiritJobs = new SpiritJobSettings(builder);
         this.familiar = new FamiliarSettings(builder);
@@ -67,7 +68,7 @@ public class OccultismServerConfig {
         public final IntValue maxDistanceRTP;
         public final IntValue maxTryRTP;
 
-        public ItemSettings(ModConfigSpec.Builder builder) {
+        public ItemSettings(Builder builder) {
             builder.comment("Item Settings").push("items");
 
             this.anyOreDivinationRod =
@@ -164,7 +165,7 @@ public class OccultismServerConfig {
         public final IntValue thunderTimeToCast;
         public final IntValue clearWeatherTimeToCast;
 
-        public SpiritJobSettings(ModConfigSpec.Builder builder) {
+        public SpiritJobSettings(Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
 
             this.crusherFoliot = new TierSpiritSettings(builder, "Foliot Crusher", "crusher_tier1",
@@ -238,13 +239,13 @@ public class OccultismServerConfig {
         }
 
         public static class TierSpiritSettings {
-            public final ModConfigSpec.IntValue tier;
-            public final ModConfigSpec.DoubleValue timeMultiplier;
-            public final ModConfigSpec.DoubleValue outputMultiplier;
-            public final ModConfigSpec.IntValue operationCount;
+            public final IntValue tier;
+            public final DoubleValue timeMultiplier;
+            public final DoubleValue outputMultiplier;
+            public final IntValue operationCount;
 
-            public TierSpiritSettings(ModConfigSpec.Builder builder, String spirit, String spiritJobName,
-                                       int tier, double timeMultiplier, double outputMultiplier, int operationCount) {
+            public TierSpiritSettings(Builder builder, String spirit, String spiritJobName,
+                                      int tier, double timeMultiplier, double outputMultiplier, int operationCount) {
                 builder.comment("Worker Spirit Settings").push(spiritJobName);
 
                 this.tier =
@@ -264,11 +265,11 @@ public class OccultismServerConfig {
             }
         }
         public static class SimpleWorkerSpiritSettings {
-            public final ModConfigSpec.DoubleValue timeMultiplier;
-            public final ModConfigSpec.IntValue operationCount;
+            public final DoubleValue timeMultiplier;
+            public final IntValue operationCount;
 
-            public SimpleWorkerSpiritSettings(ModConfigSpec.Builder builder, String spirit, String spiritJobName,
-                                      double timeMultiplier, int operationCount) {
+            public SimpleWorkerSpiritSettings(Builder builder, String spirit, String spiritJobName,
+                                              double timeMultiplier, int operationCount) {
                 builder.comment("Worker Spirit Settings").push(spiritJobName);
 
                 this.timeMultiplier =
@@ -282,11 +283,11 @@ public class OccultismServerConfig {
             }
         }
         public static class TraderSpiritSettings {
-            public final ModConfigSpec.IntValue operationTimer;
-            public final ModConfigSpec.IntValue operationCount;
+            public final IntValue operationTimer;
+            public final IntValue operationCount;
 
-            public TraderSpiritSettings(ModConfigSpec.Builder builder, String spirit, String spiritJobName,
-                                              int operationTimer, int operationCount) {
+            public TraderSpiritSettings(Builder builder, String spirit, String spiritJobName,
+                                        int operationTimer, int operationCount) {
                 builder.comment("Trader Spirit Settings").push(spiritJobName);
 
                 this.operationTimer =
@@ -309,7 +310,7 @@ public class OccultismServerConfig {
         public final IntValue greedySearchRange;
         public final IntValue greedyVerticalSearchRange;
 
-        public FamiliarSettings(ModConfigSpec.Builder builder) {
+        public FamiliarSettings(Builder builder) {
             builder.comment("Familiar Settings").push("familiar");
 
             this.drikwingFamiliarSlowFallingSeconds = builder.comment(
@@ -346,7 +347,7 @@ public class OccultismServerConfig {
         public final BooleanValue enableRemainingIngredientCountMatching;
         public final DoubleValue ritualDurationMultiplier;
 
-        public RitualSettings(ModConfigSpec.Builder builder) {
+        public RitualSettings(Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
 
             this.enableClearWeatherRitual =
@@ -394,7 +395,7 @@ public class OccultismServerConfig {
         public final IntValue stabilizedControllerStabilizers;
         public final BooleanValue unlinkWormholeOnBreak;
 
-        public StorageSettings(ModConfigSpec.Builder builder) {
+        public StorageSettings(Builder builder) {
             builder.comment("Storage Settings").push("storage");
             this.stabilizerTier1AdditionalMaxItemTypes =
                     builder.comment("The amount of additional slots the storage stabilizer tier 1 provides. 1 Slot holds one item type.")

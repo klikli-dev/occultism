@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent.Post;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +53,7 @@ public class ThirdEyeEffectRenderer {
     public Set<BlockPos> uncoveredBlocks = new HashSet<>();
 
     @SubscribeEvent
-    public void onPlayerTick(PlayerTickEvent.Post event) {
+    public void onPlayerTick(Post event) {
         if (event.getEntity().level().isClientSide() && event.getEntity() == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
@@ -102,7 +103,7 @@ public class ThirdEyeEffectRenderer {
         });
     }
 
-    public void onThirdEyeTick(PlayerTickEvent.Post event) {
+    public void onThirdEyeTick(Post event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.getEntity());
         if (hasGoggles)
             return;
@@ -126,7 +127,7 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public void onGogglesTick(PlayerTickEvent.Post event) {
+    public void onGogglesTick(Post event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.getEntity());
         if (hasGoggles) {
             if (!this.gogglesActiveLastTick) {
@@ -147,12 +148,12 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public void onStaffTick(PlayerTickEvent.Post event) {
+    public void onStaffTick(Post event) {
         if (CuriosUtil.hasStaff(event.getEntity())) {
             this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
         } else {
             //only cover blocks if third eye is not active and still needs them visible.
-            if (!gogglesActiveLastTick)
+            if (!this.gogglesActiveLastTick)
                 this.resetUncoveredBlocks(event.getEntity().level(), true);
             if (this.thirdEyeActiveLastTick) {
                 //this uncovers tier 1 blocks that we still can see under normal third eye

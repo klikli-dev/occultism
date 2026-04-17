@@ -14,8 +14,10 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
@@ -36,7 +38,7 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
         this.unboundBook = unboundBook;
     }
 
-    public static BookBindingCraftingRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookBindingCraftingRecipePage fromJson(Identifier entryId, JsonObject json, Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         var unboundBook = ItemStackTemplate.CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).getOrThrow();
         return new BookBindingCraftingRecipePage(common, unboundBook);
@@ -76,6 +78,6 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
 
     @Override
     public Identifier getType() {
-        return OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE;
+        return Page.BOOK_BINDING_RECIPE;
     }
 }

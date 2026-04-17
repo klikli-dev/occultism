@@ -34,12 +34,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -125,7 +127,7 @@ public class MagicLampItem extends Item {
         ItemNBTUtil.setSpiritJob(stack, spirit.getJobID());
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
-        target.remove(Entity.RemovalReason.DISCARDED);
+        target.remove(RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();
         return InteractionResult.SUCCESS;
     }
@@ -144,7 +146,7 @@ public class MagicLampItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @NotNull Item.TooltipContext pContext,
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext,
                                 @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipComponents,
                                 @NotNull TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);

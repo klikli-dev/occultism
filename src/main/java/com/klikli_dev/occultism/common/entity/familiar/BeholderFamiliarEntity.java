@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedWardenEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageBeholderAttack;
@@ -34,8 +35,10 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -83,7 +86,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(WARDEN_UPGRADE, false);
     }
@@ -97,13 +100,13 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
+    public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setWardenUpgrade(input.getBooleanOr("hasWardenUpgrade", false));
     }
 
     @Override
-    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
+    public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putBoolean("hasWardenUpgrade", this.hasWardenUpgrade());
     }
@@ -205,7 +208,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasTongue())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -353,7 +356,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
         protected void attack() {
             LivingEntity owner = this.entity.getFamiliarOwner();
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.BEHOLDER_RAY);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.BEHOLDER_RAY);
 
             for (int id : this.targetIds) {
                 Entity e = this.entity.level().getEntity(id);
@@ -404,7 +407,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                 this.entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, EAT_EFFECT_DURATION, 0, false, false));
                 this.entity.addEffect(new MobEffectInstance(MobEffects.SPEED, EAT_EFFECT_DURATION, 0, false, false));
 
-                OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.BEHOLDER_EAT);
+                OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.BEHOLDER_EAT);
             }
         }
 
@@ -503,7 +506,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             AABB endBox = new AABB(end, end).inflate(0.25);
             for (int i = 0; i < 150; i++) {
                 Vec3 particlePos = start.add(direction.scale(i * 0.1));
-                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(net.minecraft.util.ARGB.color(255, (int)(BeholderFamiliarEntity.this.getRed()*255), (int)(BeholderFamiliarEntity.this.getBlue()*255), (int)(BeholderFamiliarEntity.this.getGreen()*255)), 1.0f), particlePos.x,
+                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(ARGB.color(255, (int)(BeholderFamiliarEntity.this.getRed()*255), (int)(BeholderFamiliarEntity.this.getBlue()*255), (int)(BeholderFamiliarEntity.this.getGreen()*255)), 1.0f), particlePos.x,
                         particlePos.y, particlePos.z, 0, 0, 0);
                 if (endBox.intersects(new AABB(particlePos, particlePos).inflate(0.25)))
                     break;

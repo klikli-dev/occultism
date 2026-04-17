@@ -32,6 +32,7 @@ import com.geckolib.util.RenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -43,7 +44,7 @@ import java.util.List;
 
 public class AfritRenderer extends OccultismGeoLivingEntityRenderer<AfritEntity> {
 
-    public AfritRenderer(EntityRendererProvider.Context renderManager) {
+    public AfritRenderer(Context renderManager) {
         super(renderManager, new AfritModel());
 
         GeoRenderLayer<AfritEntity, Void, OccultismGeoLivingEntityRenderState> glowLayer = new ConditionalGlowingGeoLayer<>(this);

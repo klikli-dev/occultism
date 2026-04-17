@@ -6,6 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -52,7 +53,7 @@ public class RitualRecipeConditionContext implements OccultismConditionContext {
     }
 
     @Override
-    public <T> boolean isTagLoaded(@NotNull net.minecraft.tags.TagKey<T> key) {
+    public <T> boolean isTagLoaded(@NotNull TagKey<T> key) {
         return this.neoConditionContext.isTagLoaded(key);
     }
 }

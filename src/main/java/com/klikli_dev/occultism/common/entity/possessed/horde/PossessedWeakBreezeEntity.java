@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
@@ -37,6 +38,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.monster.breeze.Breeze;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -59,7 +61,7 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Breeze.createAttributes();
     }
 
@@ -114,7 +116,7 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
 
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
-        TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
+        TagKey<EntityType<?>> wildTrialTag = Entities.WILD_TRIAL;
 
         Entity trueSource = source.getEntity();
         if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildTrialTag))
@@ -129,17 +131,17 @@ public class PossessedWeakBreezeEntity extends Breeze implements PossessedMob {
 
     @Override
     public void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
-        if (!minionsA.isEmpty()) {
-            minionsA.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        if (!this.minionsA.isEmpty()) {
+            this.minionsA.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
-        if (!minionsB.isEmpty()) {
-            minionsB.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        if (!this.minionsB.isEmpty()) {
+            this.minionsB.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
-        if (!minionsC.isEmpty()) {
-            minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        if (!this.minionsC.isEmpty()) {
+            this.minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
 
-        super.actuallyHurt(level, source, (float) (amount * (1 - (minionsA.size() + minionsB.size() + minionsC.size())/10.0) ) );
+        super.actuallyHurt(level, source, (float) (amount * (1 - (this.minionsA.size() + this.minionsB.size() + this.minionsC.size())/10.0) ) );
     }
 
     public void notifyMinionDeath(WildZombieEntity minion) {

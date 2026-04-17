@@ -35,12 +35,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootParams.Builder;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -57,7 +59,7 @@ public class SoulShardItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
@@ -88,7 +90,7 @@ public class SoulShardItem extends Item {
                 LootTable lootTable = mob.getLootTable()
                         .map(key -> level.getServer().reloadableRegistries().getLootTable(key))
                         .orElse(LootTable.EMPTY);
-                LootParams lootParams = new LootParams.Builder(serverLevel)
+                LootParams lootParams = new Builder(serverLevel)
                         .withParameter(LootContextParams.THIS_ENTITY, mob)
                         .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(player.blockPosition()))
                         .withParameter(LootContextParams.DAMAGE_SOURCE, player.damageSources().generic())

@@ -37,6 +37,7 @@ import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap.Builder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -118,7 +119,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Override
     public IStorageController getLinkedStorageController() {
         if (this.linkedStorageControllerPosition != null) {
-            if (!controllerLoaded()) {
+            if (!this.controllerLoaded()) {
                 //if the target pos is not loaded we exit early to prevent accidentally clearing the linked storage controller position
                 return null;
             }
@@ -203,7 +204,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     }
 
     @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+    protected void collectImplicitComponents(Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
         pComponents.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, this.linkedStorageControllerPosition);

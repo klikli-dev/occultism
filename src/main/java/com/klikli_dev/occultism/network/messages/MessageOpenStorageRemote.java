@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.util.CuriosUtil.SelectedCurio;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -53,7 +54,7 @@ public class MessageOpenStorageRemote implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
+        SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
         if (selectedCurio != null) {
 
             if (!selectedCurio.itemStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))

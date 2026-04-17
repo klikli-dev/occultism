@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.SingleQuadParticle.Layer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
@@ -85,8 +86,8 @@ public class RitualWaitingParticle extends SingleQuadParticle {
     }
 
     @Override
-    protected SingleQuadParticle.Layer getLayer() {
-        return SingleQuadParticle.Layer.OPAQUE;
+    protected Layer getLayer() {
+        return Layer.OPAQUE;
     }
 
     @Override

@@ -38,19 +38,15 @@ import net.minecraft.world.item.ItemStack;
 public class CuriosUtil {
     public static boolean hasGoggles(Player player) {
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (OtherworldGogglesItem.isGogglesItem(helmet))
-            return true;
+        return OtherworldGogglesItem.isGogglesItem(helmet);
 
         // TODO: re-enable when Curios is available for 26.1
-        return false;
     }
 
     public static boolean hasStaff(Player player) {
-        if (player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF))
-            return true;
+        return player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF);
 
         // TODO: re-enable when Curios is available for 26.1
-        return false;
     }
 
     public static ItemStack getBackpack(Player player) {

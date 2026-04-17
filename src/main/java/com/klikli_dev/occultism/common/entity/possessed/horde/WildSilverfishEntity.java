@@ -24,12 +24,14 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.Level;
@@ -46,7 +48,7 @@ public class WildSilverfishEntity extends Silverfish implements PossessedMob {
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Silverfish.createAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.ARMOR,5)
@@ -67,7 +69,7 @@ public class WildSilverfishEntity extends Silverfish implements PossessedMob {
 
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
-        TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
+        TagKey<EntityType<?>> wildTrialTag = Entities.WILD_TRIAL;
 
         Entity trueSource = source.getEntity();
         if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildTrialTag))

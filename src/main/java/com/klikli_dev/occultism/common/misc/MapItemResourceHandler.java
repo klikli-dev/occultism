@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.common.misc;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.misc.MapItemResourceHandler.Snapshot;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -11,6 +12,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -26,10 +28,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MapItemResourceHandler extends SnapshotJournal<MapItemResourceHandler.Snapshot> implements ResourceHandler<ItemResource>, IMapItemResourceHandler {
+public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements ResourceHandler<ItemResource>, IMapItemResourceHandler {
     protected static final int VIRTUAL_SLOT = -1;
 
     private static final Codec<Map<ItemStackKey, Integer>> MAP_CODEC = Codec.list(Codec.pair(ItemStackKey.CODEC.fieldOf("itemStackkey").codec(), Codec.INT.fieldOf("int").codec()))
@@ -101,7 +104,7 @@ public class MapItemResourceHandler extends SnapshotJournal<MapItemResourceHandl
         return result;
     }
 
-    protected static IntArrayList toIntArrayList(java.util.List<Integer> list) {
+    protected static IntArrayList toIntArrayList(List<Integer> list) {
         IntArrayList result = new IntArrayList(list.size());
         list.forEach(result::add);
         return result;
@@ -161,13 +164,13 @@ public class MapItemResourceHandler extends SnapshotJournal<MapItemResourceHandl
         return this.resourceToCountMap.getOrDefault(resource, 0);
     }
 
-    public CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider) {
+    public CompoundTag serializeNBT(@NotNull Provider provider) {
         CompoundTag nbt = new CompoundTag();
         ListTag keyToCountList = new ListTag();
         this.resourceToCountMap.forEach((resource, value) -> {
             try {
                 CompoundTag entryTag = new CompoundTag();
-                entryTag.put("itemStackkey", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), resource.toStack()).getOrThrow());
+                entryTag.put("itemStackkey", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), resource.toStack()).getOrThrow());
                 entryTag.putInt("int", value);
                 keyToCountList.add(entryTag);
             } catch (Exception e) {
@@ -180,7 +183,7 @@ public class MapItemResourceHandler extends SnapshotJournal<MapItemResourceHandl
         this.resourceToSlot.forEach((resource, slot) -> {
             try {
                 CompoundTag entryTag = new CompoundTag();
-                entryTag.put("itemStackkey", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), resource.toStack()).getOrThrow());
+                entryTag.put("itemStackkey", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), resource.toStack()).getOrThrow());
                 entryTag.putInt("int", slot);
                 keyToSlotList.add(entryTag);
             } catch (Exception e) {
@@ -197,7 +200,7 @@ public class MapItemResourceHandler extends SnapshotJournal<MapItemResourceHandl
         return nbt;
     }
 
-    public void deserializeNBT(HolderLookup.@NotNull Provider provider, CompoundTag nbt) {
+    public void deserializeNBT(@NotNull Provider provider, CompoundTag nbt) {
         ListTag keyToCountList = nbt.getListOrEmpty("keyToCountMap");
         this.resourceToCountMap = new Object2IntOpenHashMap<>();
         this.resourceToCountMap.defaultReturnValue(0);
@@ -415,7 +418,7 @@ public class MapItemResourceHandler extends SnapshotJournal<MapItemResourceHandl
         if (existingSlot == -1) {
             this.resourceToSlot.put(resource, slot);
             this.slotToResource.put(slot, resource);
-            this.emptySlots.rem((Integer) slot);
+            this.emptySlots.rem(slot);
             if (slot == this.nextSlotIndex) {
                 this.nextSlotIndex++;
             }

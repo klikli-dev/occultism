@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.google.common.collect.ImmutableBiMap;
@@ -40,9 +42,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -141,7 +145,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
+        this.goalSelector.addGoal(6, new AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !HeadlessFamiliarEntity.this.isHeadlessDead();
@@ -195,7 +199,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return hasBlacksmithUpgrade() ?
+        return this.hasBlacksmithUpgrade() ?
                 ImmutableList.of(new MobEffectInstance(OccultismEffects.PUMPKIN_HEAD, 300, 0, false, false)) :
                 ImmutableList.of();
     }
@@ -206,7 +210,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(HEAD, NO_HEAD);
         builder.define(WEAPON, (byte) 0);
@@ -242,7 +246,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             if (success) {
                 stack.shrink(1);
                 if (this.isFullyRebuilt())
-                    OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
+                    OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.HEADLESS_REBUILT);
 
                 return InteractionResult.SUCCESS;
             }
@@ -254,7 +258,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasGlasses())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -411,7 +415,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.setHeadlessDead(false);
         this.entityData.set(REBUILT, (byte) 0);
 
-        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), LOGGER)) {
+        try (ScopedCollector reporter = new ScopedCollector(this.problemPath(), LOGGER)) {
             TagValueOutput output = TagValueOutput.createWithContext(reporter, this.registryAccess());
             this.saveWithoutId(output);
             shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), output.buildResult()));

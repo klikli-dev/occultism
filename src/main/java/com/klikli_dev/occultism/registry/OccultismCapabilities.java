@@ -24,8 +24,10 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem.Curio;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import top.theillusivec4.curios.api.CuriosCapability;
 
@@ -39,28 +41,28 @@ public class OccultismCapabilities {
         event.registerItem(
                 CuriosCapability.ITEM, // capability to register for
                 (itemStack, context) -> {
-                    return new FamiliarRingItem.Curio(itemStack);
+                    return new Curio(itemStack);
                 },
                 // items to register for
                 OccultismItems.FAMILIAR_RING.get());
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.SACRIFICIAL_BOWL.get(),
                 (blockEntity, side) -> (ResourceHandler<ItemResource>) blockEntity.itemStackHandler);
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(),
                 (blockEntity, side) -> (ResourceHandler<ItemResource>) blockEntity.itemStackHandler);
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.ENTITY_WORMHOLE.get(),
                 (blockEntity, side) -> (ResourceHandler<ItemResource>) blockEntity.itemStackHandler);
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(),
                 (blockEntity, side) -> {
                     if (side == Direction.DOWN) {
@@ -68,27 +70,27 @@ public class OccultismCapabilities {
                     } else if (side == Direction.UP) {
                         return (ResourceHandler<ItemResource>) blockEntity.inputHandler;
                     } else {
-                        return (ResourceHandler<ItemResource>) blockEntity.combinedHandler;
+                        return blockEntity.combinedHandler;
                     }
                 });
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.DIMENSIONAL_BATTLEFIELD.get(),
                 (blockEntity, side) -> {
                     if (side == Direction.DOWN) {
                         return (ResourceHandler<ItemResource>) blockEntity.bufferedOutputHandler;
                     } else if (side == Direction.UP) {
-                        return (ResourceHandler<ItemResource>) blockEntity.inputHandler;
+                        return blockEntity.inputHandler;
                     } else if (side != null) {
-                        return (ResourceHandler<ItemResource>) blockEntity.combinedHandler;
+                        return blockEntity.combinedHandler;
                     } else {
-                        return (ResourceHandler<ItemResource>) blockEntity.jadeWrapper;
+                        return blockEntity.jadeWrapper;
                     }
                 });
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.STABLE_WORMHOLE.get(),
                 (blockEntity, side) -> {
                     if (blockEntity.getLinkedStorageController() instanceof StorageControllerBlockEntity controller) {
@@ -98,27 +100,27 @@ public class OccultismCapabilities {
                 });
 
         event.registerBlockEntity(
-                Capabilities.Item.BLOCK,
+                Item.BLOCK,
                 OccultismBlockEntities.STORAGE_CONTROLLER.get(),
                 (blockEntity, side) -> (ResourceHandler<ItemResource>) blockEntity.itemStackHandler);
 
         event.registerEntity(
-                Capabilities.Item.ENTITY,
+                Item.ENTITY,
                 OccultismEntities.FOLIOT.get(),
                 (entity, side) -> (ResourceHandler<ItemResource>) entity.inventory);
 
         event.registerEntity(
-                Capabilities.Item.ENTITY,
+                Item.ENTITY,
                 OccultismEntities.DJINNI.get(),
                 (entity, side) -> (ResourceHandler<ItemResource>) entity.inventory);
 
         event.registerEntity(
-                Capabilities.Item.ENTITY,
+                Item.ENTITY,
                 OccultismEntities.AFRIT.get(),
                 (entity, side) -> (ResourceHandler<ItemResource>) entity.inventory);
 
         event.registerEntity(
-                Capabilities.Item.ENTITY,
+                Item.ENTITY,
                 OccultismEntities.MARID.get(),
                 (entity, side) -> (ResourceHandler<ItemResource>) entity.inventory);
 

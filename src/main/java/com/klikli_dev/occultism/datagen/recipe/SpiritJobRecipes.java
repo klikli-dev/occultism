@@ -9,9 +9,12 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate.Builder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -30,12 +33,12 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
 public abstract class SpiritJobRecipes extends RecipeProvider {
-    public SpiritJobRecipes(HolderLookup.Provider registries, RecipeOutput output) {
+    public SpiritJobRecipes(Provider registries, RecipeOutput output) {
         super(registries, output);
     }
 
     // Need a static create method that returns an instance for recipe generation
-    public static SpiritJobRecipes create(HolderLookup.Provider registries, RecipeOutput output) {
+    public static SpiritJobRecipes create(Provider registries, RecipeOutput output) {
         return new SpiritJobRecipes(registries, output) {
             @Override
             protected void buildRecipes() {
@@ -44,7 +47,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         };
     }
 
-    public static void spiritJobRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+    public static void spiritJobRecipes(RecipeOutput pRecipeOutput, Provider registries) {
         spiritTradeRecipes(pRecipeOutput, registries);
         mobDropCrushing(pRecipeOutput, registries);
         oreProcessRecipes(pRecipeOutput, registries);
@@ -52,22 +55,22 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     // Helper method to create Ingredient from TagKey using registries
-    protected static Ingredient ingredientOf(TagKey<Item> tag, HolderLookup.Provider registries) {
+    protected static Ingredient ingredientOf(TagKey<Item> tag, Provider registries) {
         return Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(tag));
     }
 
     // Helper method to create has() criterion for tags (requires HolderLookup.Provider)
-    protected static Criterion<InventoryChangeTrigger.TriggerInstance> hasTag(TagKey<Item> tag, HolderLookup.Provider registries) {
+    protected static Criterion<TriggerInstance> hasTag(TagKey<Item> tag, Provider registries) {
         HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
-        return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, tag).build());
+        return TriggerInstance.hasItems(Builder.item().of(items, tag).build());
     }
 
     // Helper method to create has() criterion for items
-    protected static Criterion<InventoryChangeTrigger.TriggerInstance> hasItem(ItemLike item) {
-        return InventoryChangeTrigger.TriggerInstance.hasItems(item);
+    protected static Criterion<TriggerInstance> hasItem(ItemLike item) {
+        return TriggerInstance.hasItems(item);
     }
 
-    private static void spiritTradeRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+    private static void spiritTradeRecipes(RecipeOutput pRecipeOutput, Provider registries) {
         SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL, registries),
                         new ItemStackTemplate(OccultismBlocks.OTHERWORLD_SAPLING.asItem()), 1,
                         "occultism:trader_otherworld_saplings", registries)
@@ -142,7 +145,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_iesnium")));
     }
 
-    private static void mobDropCrushing(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+    private static void mobDropCrushing(RecipeOutput pRecipeOutput, Provider registries) {
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200, registries)
                 .allowEmpty()
                 .setResultAmount(4)
@@ -195,7 +198,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/prismarine_crystal")));
     }
 
-    private static void blockProcessRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+    private static void blockProcessRecipes(RecipeOutput pRecipeOutput, Provider registries) {
         CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.OTHERSTONE, OccultismTags.Items.OTHERCOBBLESTONE, 20, registries)
                 .unlockedBy("has_otherstone", hasTag(OccultismTags.Items.OTHERSTONE, registries))
                 .setAllowEmpty(false)
@@ -325,7 +328,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/sky_stone_dust")));
     }
 
-    private static void oreProcessRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider registries) {
+    private static void oreProcessRecipes(RecipeOutput pRecipeOutput, Provider registries) {
         CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.DATURA_CROP, OccultismTags.Items.DATURA_SEEDS, 200, registries)
                 .unlockedBy("has_datura", hasTag(OccultismTags.Items.DATURA_CROP, registries))
                 .setAllowEmpty(false)
@@ -516,7 +519,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/crying_obsidian")));
     }
 
-    protected static void crushingGeneralizedRecipe(String input, Integer amount, String from, Boolean mult, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crushingGeneralizedRecipe(String input, Integer amount, String from, Boolean mult, RecipeOutput recipeOutput, Provider registries) {
         CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + input)), 200, registries)
                 .unlockedBy("has_" + input + "_" + from, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), registries))
                 .setResultAmount(amount)
@@ -525,19 +528,19 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/" + input + "_dust_from_" + from)));
     }
 
-    protected static void crushingOreRecipe(String input, Integer amount, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crushingOreRecipe(String input, Integer amount, RecipeOutput recipeOutput, Provider registries) {
         crushingGeneralizedRecipe(input, amount, "ore", Boolean.FALSE, recipeOutput, registries);
     }
 
-    protected static void crushingIngotRecipe(String input, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crushingIngotRecipe(String input, RecipeOutput recipeOutput, Provider registries) {
         crushingGeneralizedRecipe(input, 1, "ingot", Boolean.TRUE, recipeOutput, registries);
     }
 
-    protected static void crushingGemRecipe(String input, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crushingGemRecipe(String input, RecipeOutput recipeOutput, Provider registries) {
         crushingGeneralizedRecipe(input, 1, "gem", Boolean.TRUE, recipeOutput, registries);
     }
 
-    protected static void crystallizeGeneralizedRecipe(String input, Integer amount, String from, Boolean mult, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crystallizeGeneralizedRecipe(String input, Integer amount, String from, Boolean mult, RecipeOutput recipeOutput, Provider registries) {
         CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/" + input)), 200, registries)
                 .unlockedBy("has_" + input + "_" + from, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", from + "s/" + input)), registries))
                 .setResultAmount(amount)
@@ -546,15 +549,15 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/" + input + "_from_" + from)));
     }
 
-    protected static void crystallizeDustRecipe(String input, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crystallizeDustRecipe(String input, RecipeOutput recipeOutput, Provider registries) {
         crystallizeGeneralizedRecipe(input, 1, "dust", Boolean.TRUE, recipeOutput, registries);
     }
 
-    protected static void crystallizeOreRecipe(String input, Integer amount, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    protected static void crystallizeOreRecipe(String input, Integer amount, RecipeOutput recipeOutput, Provider registries) {
         crystallizeGeneralizedRecipe(input, amount, "ore", Boolean.FALSE, recipeOutput, registries);
     }
 
-    private static void doubleCookingRecipe(String metalName, Item output, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void doubleCookingRecipe(String metalName, Item output, RecipeOutput recipeOutput, Provider registries) {
         String outputString = output.toString().replace("minecraft:", "").replace("occultism:", "");
         var dustTag = OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName));
         SimpleCookingRecipeBuilder
@@ -568,19 +571,19 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "blasting/" + outputString + "_from_dust")));
     }
 
-    private static void gemCrushCrystalRecipe(String gemName, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void gemCrushCrystalRecipe(String gemName, RecipeOutput recipeOutput, Provider registries) {
         crushingGemRecipe(gemName, recipeOutput, registries);
         crystallizeDustRecipe(gemName, recipeOutput, registries);
     }
 
-    private static void fullGemRecipe(String gemName, Integer amount, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void fullGemRecipe(String gemName, Integer amount, RecipeOutput recipeOutput, Provider registries) {
         crushingOreRecipe(gemName, (int)(amount*1.5), recipeOutput, registries);
         crystallizeOreRecipe(gemName, amount, recipeOutput, registries);
         crushingGemRecipe(gemName, recipeOutput, registries);
         crystallizeDustRecipe(gemName, recipeOutput, registries);
     }
 
-    private static void crushingMetalRecipe(String metalName, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void crushingMetalRecipe(String metalName, RecipeOutput recipeOutput, Provider registries) {
         crushingIngotRecipe(metalName, recipeOutput, registries);
         crushingOreRecipe(metalName, 2, recipeOutput, registries);
 
@@ -604,12 +607,12 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dirty_dust_from_clump")));
     }
 
-    private static void fullMetalRecipe(String metalName, Item ingot, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void fullMetalRecipe(String metalName, Item ingot, RecipeOutput recipeOutput, Provider registries) {
         crushingMetalRecipe(metalName, recipeOutput, registries);
         doubleCookingRecipe(metalName, ingot, recipeOutput, registries);
     }
 
-    private static void tripleCrushSmeltBlastRecipe(String input, Item output, RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+    private static void tripleCrushSmeltBlastRecipe(String input, Item output, RecipeOutput recipeOutput, Provider registries) {
         crushingIngotRecipe(input, recipeOutput, registries);
         doubleCookingRecipe(input, output, recipeOutput, registries);
     }

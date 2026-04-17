@@ -4,6 +4,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -16,12 +17,12 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import java.util.concurrent.CompletableFuture;
 
 public class OccultismBlockTagProvider extends BlockTagsProvider {
-    public OccultismBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public OccultismBlockTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider) {
         super(output, lookupProvider, Occultism.MODID);
     }
 
 
-    public void addMinecraftTags(HolderLookup.Provider provider) {
+    public void addMinecraftTags(Provider provider) {
         this.tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get())
@@ -178,13 +179,13 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(Provider provider) {
         this.addForgeTags(provider);
         this.addMinecraftTags(provider);
         this.addOccultismTags(provider);
     }
 
-    private void addOccultismTags(HolderLookup.Provider provider) {
+    private void addOccultismTags(Provider provider) {
         this.tag(OccultismTags.Blocks.PENTACLE_MATERIALS)
                 .addTag(Tags.Blocks.SKULLS)
                 .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
@@ -358,7 +359,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
 
     }
 
-    private void addForgeTags(HolderLookup.Provider provider) {
+    private void addForgeTags(Provider provider) {
         this.tag(OccultismTags.Blocks.IESNIUM_ORE)
                 .add(OccultismBlocks.IESNIUM_ORE.get()).replace(false);
         this.tag(Tags.Blocks.ORES).addTags(OccultismTags.Blocks.IESNIUM_ORE).replace(false);

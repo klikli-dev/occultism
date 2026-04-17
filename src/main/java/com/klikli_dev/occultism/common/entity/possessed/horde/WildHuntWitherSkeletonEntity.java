@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
@@ -37,6 +38,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
 import net.minecraft.server.level.ServerLevel;
@@ -58,7 +60,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements Poss
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return WitherSkeleton.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
                 .add(Attributes.MAX_HEALTH, 60.0);
@@ -89,7 +91,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements Poss
 
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
-        TagKey<EntityType<?>> wildHuntTag = OccultismTags.Entities.WILD_HUNT;
+        TagKey<EntityType<?>> wildHuntTag = Entities.WILD_HUNT;
 
         Entity trueSource = source.getEntity();
         if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildHuntTag))
@@ -104,11 +106,11 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements Poss
 
     @Override
     public void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
-        if (!minions.isEmpty()) {
-            minions.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+        if (!this.minions.isEmpty()) {
+            this.minions.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
 
-        super.actuallyHurt(level, source, (float) (amount * (1 - minions.size()/10.0)));
+        super.actuallyHurt(level, source, (float) (amount * (1 - this.minions.size()/10.0)));
     }
 
     public void notifyMinionDeath(WildHuntSkeletonEntity minion) {

@@ -26,6 +26,8 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -33,6 +35,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunk.EntityCreationType;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
@@ -82,7 +86,7 @@ public class BlockEntityUtil {
         if (!level.isLoaded(pos)) {
             return null;
         } else {
-            return level.getChunkAt(pos).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
+            return level.getChunkAt(pos).getBlockEntity(pos, EntityCreationType.IMMEDIATE);
         }
     }
 
@@ -133,9 +137,9 @@ public class BlockEntityUtil {
             // Get the block entity data and set it on the item stack
             var tag = blockEntity.saveWithoutMetadata(level.registryAccess());
             if (!tag.isEmpty()) {
-                var output = net.minecraft.world.level.storage.TagValueOutput.createWithoutContext(
-                    net.minecraft.util.ProblemReporter.DISCARDING);
-                net.minecraft.world.item.BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), output);
+                var output = TagValueOutput.createWithoutContext(
+                    ProblemReporter.DISCARDING);
+                BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), output);
             }
         } else {
             Occultism.LOGGER.warn("BlockEntity is null for block {} at pos {}, cannot get ItemStack with Components", block, pos);

@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -56,7 +57,7 @@ public class SatchelItem extends Item {
             serverPlayer.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new StorageSatchelContainer(id, playerInventory,
-                                this.getInventory((ServerPlayer) player, stack), selectedSlot);
+                                this.getInventory(serverPlayer, stack), selectedSlot);
                     }, stack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
                     });
@@ -66,7 +67,7 @@ public class SatchelItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
 
         pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",

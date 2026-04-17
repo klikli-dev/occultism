@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -72,7 +73,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     @Override
     public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                               BlockPos pos, MultiChunkFeatureConfig config) {
-        for (Direction facing : Direction.Plane.HORIZONTAL) {
+        for (Direction facing : Plane.HORIZONTAL) {
             BlockPos offset = pos.relative(facing);
             BlockPos up = offset.above();
             if (this.isCeiling(seedReader, up, seedReader.getBlockState(up)) &&

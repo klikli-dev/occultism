@@ -11,8 +11,9 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 public class ItemWidget extends Widget  implements WidgetTooltipHolder<ItemWidget> {
-    private int x,y;
-    private EmiStack stack;
+    private final int x;
+    private final int y;
+    private final EmiStack stack;
     private BiFunction<Integer, Integer, List<ClientTooltipComponent>> tooltipSupplier = (mouseX, mouseY) -> List.of();
     public ItemWidget(EmiStack stack,int x, int y) {
         super();
@@ -25,12 +26,12 @@ public class ItemWidget extends Widget  implements WidgetTooltipHolder<ItemWidge
 
     @Override
     public Bounds getBounds() {
-        return new Bounds(x,y,16,16);
+        return new Bounds(this.x, this.y,16,16);
     }
 
     @Override
     public void render(GuiGraphicsExtractor draw, int mouseX, int mouseY, float delta) {
-        stack.render(draw, x, y, 16);
+        this.stack.render(draw, this.x, this.y, 16);
     }
 
     @Override
@@ -41,6 +42,6 @@ public class ItemWidget extends Widget  implements WidgetTooltipHolder<ItemWidge
 
     @Override
     public List<ClientTooltipComponent> getTooltip(int mouseX, int mouseY) {
-        return tooltipSupplier.apply(mouseX, mouseY);
+        return this.tooltipSupplier.apply(mouseX, mouseY);
     }
 }

@@ -52,6 +52,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.config.ModConfig.Type;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -77,9 +78,9 @@ public class Occultism {
 
     public Occultism(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
-        modContainer.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
-        modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
-        modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
+        modContainer.registerConfig(Type.SERVER, SERVER_CONFIG.spec);
+        modContainer.registerConfig(Type.CLIENT, CLIENT_CONFIG.spec);
+        modContainer.registerConfig(Type.STARTUP, STARTUP_CONFIG.spec);
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismPotions.POTIONS.register(modEventBus);

@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
@@ -33,6 +34,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,7 +55,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent.Pre;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
 
 @EventBusSubscriber(modid = Occultism.MODID)
 public class LootEventHandler {
@@ -73,7 +77,7 @@ public class LootEventHandler {
     }
 
     @SubscribeEvent
-    public static void giveStoneToBlacksmith(ItemEntityPickupEvent.Pre event) {
+    public static void giveStoneToBlacksmith(Pre event) {
         ItemEntity entity = event.getItemEntity();
         ItemStack stack = entity.getItem();
 
@@ -89,7 +93,7 @@ public class LootEventHandler {
             repairEquipment(player);
 
         event.setCanPickup(TriState.FALSE);
-        entity.remove(Entity.RemovalReason.DISCARDED);
+        entity.remove(RemovalReason.DISCARDED);
     }
 
     private static void repairEquipment(Player player) {
@@ -102,7 +106,7 @@ public class LootEventHandler {
     }
 
     @SubscribeEvent
-    public static void breakSpecialBlocks(BlockEvent.BreakEvent event) {
+    public static void breakSpecialBlocks(BreakEvent event) {
         Player player = event.getPlayer();
         if (player.isCreative())
             return;
@@ -149,7 +153,7 @@ public class LootEventHandler {
 
         if (killer instanceof LivingEntity living) {
             int level = living.getWeaponItem().getEnchantmentLevel(killed.level().holderOrThrow(OccultismEnchantments.FRACTURE_SOUL));
-            if (level == 0 || killed.getType().builtInRegistryHolder().is(OccultismTags.Entities.SOUL_SHATTERED_DENY_LIST) || killed instanceof IFamiliar || killed instanceof Player) {
+            if (level == 0 || killed.getType().builtInRegistryHolder().is(Entities.SOUL_SHATTERED_DENY_LIST) || killed instanceof IFamiliar || killed instanceof Player) {
                 return;
             }
 

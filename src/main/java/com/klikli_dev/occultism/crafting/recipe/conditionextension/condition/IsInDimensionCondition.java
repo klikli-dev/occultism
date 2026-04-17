@@ -12,19 +12,14 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 
-public class IsInDimensionCondition implements ICondition, ConditionWrapper<IsInDimensionCondition> {
+public record IsInDimensionCondition(
+        ResourceKey<Level> dimension) implements ICondition, ConditionWrapper<IsInDimensionCondition> {
     public static MapCodec<IsInDimensionCondition> CODEC = RecordCodecBuilder.mapCodec(
             builder -> builder
                     .group(
                             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(IsInDimensionCondition::dimension)
                     )
                     .apply(builder, IsInDimensionCondition::new));
-
-    private final ResourceKey<Level> dimension;
-
-    public IsInDimensionCondition(ResourceKey<Level> dimension) {
-        this.dimension = dimension;
-    }
 
     @Override
     public boolean test(@NotNull IContext context) {
@@ -34,10 +29,6 @@ public class IsInDimensionCondition implements ICondition, ConditionWrapper<IsIn
     @Override
     public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
-    }
-
-    public ResourceKey<Level> dimension() {
-        return this.dimension;
     }
 
     @Override

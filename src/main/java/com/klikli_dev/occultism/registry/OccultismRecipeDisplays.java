@@ -28,19 +28,20 @@ import com.klikli_dev.occultism.crafting.recipe.display.SpiritFireRecipeDisplay;
 import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.RecipeDisplay.Type;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class OccultismRecipeDisplays {
-    public static final DeferredRegister<RecipeDisplay.Type<?>> RECIPE_DISPLAYS = DeferredRegister.create(Registries.RECIPE_DISPLAY, Occultism.MODID);
+    public static final DeferredRegister<Type<?>> RECIPE_DISPLAYS = DeferredRegister.create(Registries.RECIPE_DISPLAY, Occultism.MODID);
 
-    public static final Supplier<RecipeDisplay.Type<SpiritFireRecipeDisplay>> SPIRIT_FIRE = RECIPE_DISPLAYS.register("spirit_fire",
-            () -> new RecipeDisplay.Type<>(SpiritFireRecipeDisplay.CODEC, SpiritFireRecipeDisplay.STREAM_CODEC));
+    public static final Supplier<Type<SpiritFireRecipeDisplay>> SPIRIT_FIRE = RECIPE_DISPLAYS.register("spirit_fire",
+            () -> new Type<>(SpiritFireRecipeDisplay.CODEC, SpiritFireRecipeDisplay.STREAM_CODEC));
 
-    public static final Supplier<RecipeDisplay.Type<SpiritTradeRecipeDisplay>> SPIRIT_TRADE = RECIPE_DISPLAYS.register("spirit_trade",
-            () -> new RecipeDisplay.Type<>(SpiritTradeRecipeDisplay.CODEC, SpiritTradeRecipeDisplay.STREAM_CODEC));
+    public static final Supplier<Type<SpiritTradeRecipeDisplay>> SPIRIT_TRADE = RECIPE_DISPLAYS.register("spirit_trade",
+            () -> new Type<>(SpiritTradeRecipeDisplay.CODEC, SpiritTradeRecipeDisplay.STREAM_CODEC));
 
-    public static final Supplier<RecipeDisplay.Type<RitualRecipeDisplay>> RITUAL = RECIPE_DISPLAYS.register("ritual",
-            () -> new RecipeDisplay.Type<>(RitualRecipeDisplay.CODEC, RitualRecipeDisplay.STREAM_CODEC));
+    public static final Supplier<Type<RitualRecipeDisplay>> RITUAL = RECIPE_DISPLAYS.register("ritual",
+            () -> new Type<>(RitualRecipeDisplay.CODEC, RitualRecipeDisplay.STREAM_CODEC));
 }

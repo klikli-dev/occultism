@@ -763,7 +763,7 @@ public class GettingStartedCategory extends CategoryProvider {
 
         this.context().page("intro");
         var intro = BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(net.minecraft.world.item.Items.STICK)) // TODO: re-enable when Theurgy is available for 26.1 - was ItemRegistry.DIVINATION_ROD_T1.get()
+                .withItem(Ingredient.of(Items.STICK)) // TODO: re-enable when Theurgy is available for 26.1 - was ItemRegistry.DIVINATION_ROD_T1.get()
                 .withText(this.context().pageText());
 
         this.lang().add(this.context().pageText(),
@@ -796,7 +796,7 @@ public class GettingStartedCategory extends CategoryProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(net.minecraft.world.item.Items.STICK) // TODO: re-enable when Theurgy is available for 26.1 - was ItemRegistry.DIVINATION_ROD_T1.get()
+                .withIcon(Items.STICK) // TODO: re-enable when Theurgy is available for 26.1 - was ItemRegistry.DIVINATION_ROD_T1.get()
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,

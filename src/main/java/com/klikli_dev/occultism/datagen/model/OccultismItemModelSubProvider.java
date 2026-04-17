@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.datagen.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.itemproperties.DivinationDistanceItemPropertyGetter;
 import com.klikli_dev.occultism.client.itemproperties.SoulGemItemPropertyGetter;
@@ -34,6 +36,8 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
+import net.minecraft.client.renderer.item.RangeSelectItemModel.Entry;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.renderer.item.ConditionalItemModel;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
@@ -263,9 +267,9 @@ public class OccultismItemModelSubProvider {
     private void registerImpureChalk(ItemModelGenerators itemModels, Item item, int color) {
         Identifier modelId = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + this.name(item));
         itemModels.modelOutput.accept(modelId, () -> {
-            var json = new com.google.gson.JsonObject();
+            var json = new JsonObject();
             json.addProperty("parent", "item/generated");
-            var texturesJson = new com.google.gson.JsonObject();
+            var texturesJson = new JsonObject();
             texturesJson.addProperty("layer0", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/chalk_base").toString());
             texturesJson.addProperty("layer1", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/chalk_base_impure").toString());
             json.add("textures", texturesJson);
@@ -291,7 +295,7 @@ public class OccultismItemModelSubProvider {
     private void registerConditionalItemDefinition(ItemModelGenerators itemModels, Item item,
                                                    ConditionalItemModelProperty property,
                                                    String onTrueModelPath, String onFalseModelPath) {
-        itemModels.itemModelOutput.accept(item, new ConditionalItemModel.Unbaked(
+        itemModels.itemModelOutput.accept(item, new Unbaked(
                 Optional.empty(),
                 property,
                 ItemModelUtils.plainModel(this.modLoc(onTrueModelPath)),
@@ -315,7 +319,7 @@ public class OccultismItemModelSubProvider {
         }
         Identifier itemModel = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + path);
         itemModels.modelOutput.accept(itemModel, () -> {
-            var json = new com.google.gson.JsonObject();
+            var json = new JsonObject();
             json.addProperty("parent", parent);
             return json;
         });
@@ -333,9 +337,9 @@ public class OccultismItemModelSubProvider {
     private void registerSpawnEggTemplate(ItemModelGenerators itemModels) {
         Identifier modelId = this.modLoc("item/template_spawn_egg");
         itemModels.modelOutput.accept(modelId, () -> {
-            var json = new com.google.gson.JsonObject();
+            var json = new JsonObject();
             json.addProperty("parent", "item/generated");
-            var texturesJson = new com.google.gson.JsonObject();
+            var texturesJson = new JsonObject();
             texturesJson.addProperty("layer0", this.modLoc("item/spawn_egg").toString());
             texturesJson.addProperty("layer1", this.modLoc("item/spawn_egg_overlay").toString());
             json.add("textures", texturesJson);
@@ -525,9 +529,9 @@ public class OccultismItemModelSubProvider {
             final String texture = textures[i];
             Identifier iconModel = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/advancement/" + texture);
             itemModels.modelOutput.accept(iconModel, () -> {
-                var json = new com.google.gson.JsonObject();
+                var json = new JsonObject();
                 json.addProperty("parent", "item/generated");
-                var texturesJson = new com.google.gson.JsonObject();
+                var texturesJson = new JsonObject();
                 texturesJson.addProperty("layer0", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/advancement/" + texture).toString());
                 json.add("textures", texturesJson);
                 return json;
@@ -537,16 +541,16 @@ public class OccultismItemModelSubProvider {
         // Generate the main advancement_icon model with overrides
         Identifier mainModel = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/advancement_icon");
         itemModels.modelOutput.accept(mainModel, () -> {
-            var json = new com.google.gson.JsonObject();
+            var json = new JsonObject();
             json.addProperty("parent", "item/generated");
-            var texturesJson = new com.google.gson.JsonObject();
+            var texturesJson = new JsonObject();
             texturesJson.addProperty("layer0", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/advancement/" + textures[0]).toString());
             json.add("textures", texturesJson);
 
-            var overrides = new com.google.gson.JsonArray();
+            var overrides = new JsonArray();
             for (int i = 0; i < textures.length; i++) {
-                var override = new com.google.gson.JsonObject();
-                var predicate = new com.google.gson.JsonObject();
+                var override = new JsonObject();
+                var predicate = new JsonObject();
                 predicate.addProperty("minecraft:custom_model_data", i);
                 override.add("predicate", predicate);
                 override.addProperty("model", Identifier.fromNamespaceAndPath(Occultism.MODID, "item/advancement/" + textures[i]).toString());
@@ -770,9 +774,9 @@ public class OccultismItemModelSubProvider {
             String suffix = String.format(Locale.ROOT, "_%02d", i);
             Identifier modelId = this.modLoc("item/vitality_compass/compass" + suffix);
             itemModels.modelOutput.accept(modelId, () -> {
-                var json = new com.google.gson.JsonObject();
+                var json = new JsonObject();
                 json.addProperty("parent", "item/generated");
-                var texturesJson = new com.google.gson.JsonObject();
+                var texturesJson = new JsonObject();
                 texturesJson.addProperty("layer0", this.modLoc("item/vitality_compass/compass_base").toString());
                 texturesJson.addProperty("layer1", this.modLoc("item/vitality_compass/compass" + suffix).toString());
                 json.add("textures", texturesJson);
@@ -784,42 +788,39 @@ public class OccultismItemModelSubProvider {
                 new VitalityCompassItemPropertyGetter(),
                 32.0F,
                 ItemModelUtils.plainModel(this.modLoc("item/vitality_compass")),
-                new net.minecraft.client.renderer.item.RangeSelectItemModel.Entry[] {
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 0.0F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_17")), 0.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_18")), 1.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_19")), 2.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_20")), 3.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_21")), 4.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_22")), 5.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_23")), 6.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_24")), 7.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_25")), 8.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_26")), 9.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_27")), 10.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_28")), 11.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_29")), 12.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_30")), 13.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_31")), 14.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_00")), 15.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_01")), 16.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_02")), 17.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_03")), 18.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_04")), 19.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_05")), 20.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_06")), 21.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_07")), 22.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_08")), 23.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_09")), 24.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_10")), 25.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_11")), 26.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_12")), 27.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_13")), 28.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_14")), 29.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_15")), 30.5F),
-                        ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 31.5F)
-                }
-        ));
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 0.0F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_17")), 0.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_18")), 1.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_19")), 2.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_20")), 3.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_21")), 4.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_22")), 5.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_23")), 6.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_24")), 7.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_25")), 8.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_26")), 9.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_27")), 10.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_28")), 11.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_29")), 12.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_30")), 13.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_31")), 14.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_00")), 15.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_01")), 16.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_02")), 17.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_03")), 18.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_04")), 19.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_05")), 20.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_06")), 21.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_07")), 22.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_08")), 23.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_09")), 24.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_10")), 25.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_11")), 26.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_12")), 27.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_13")), 28.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_14")), 29.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_15")), 30.5F),
+                ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 31.5F)));
     }
 
     private record SpawnEggColors(int primaryColor, int secondaryColor) {

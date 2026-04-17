@@ -42,6 +42,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 
 import java.util.*;
 
@@ -62,7 +63,7 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
 
             if(itemMode==ItemModes.SET_EXTRACT) {
                 if (blockEntity != null
-                         && world.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, facing) != null) {
+                         && world.getCapability(Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, facing) != null) {
                     return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
                             facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                 }
@@ -70,7 +71,7 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
         } else {
             if (Objects.requireNonNull(itemMode) == ItemModes.SET_MANAGED_MACHINE) {
                 if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                        Capabilities.Item.BLOCK)) {
+                        Item.BLOCK)) {
                     MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                     if (machine != null) {
                         GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,

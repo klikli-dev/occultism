@@ -25,10 +25,13 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
@@ -38,6 +41,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
@@ -49,6 +53,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.Tags.Items;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -93,10 +98,10 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
         if (playerIn == this.getFamiliarOwner() && this.ironCount < getMaxIron()
-                && (stack.is(Tags.Items.INGOTS_IRON) || stack.is(Tags.Items.STORAGE_BLOCKS_IRON))) {
+                && (stack.is(Items.INGOTS_IRON) || stack.is(Items.STORAGE_BLOCKS_IRON))) {
             if (!this.level().isClientSide()) {
                 stack.shrink(1);
-                this.changeIronCount(stack.is(Tags.Items.INGOTS_IRON) ? 1 : 9);
+                this.changeIronCount(stack.is(Items.INGOTS_IRON) ? 1 : 9);
             }
             return !this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
@@ -106,12 +111,12 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasEarring())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(BARS, (byte) 0);
     }
@@ -170,19 +175,19 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     */
 
     @Override
-    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
+    public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putInt("ironCount", this.ironCount);
     }
 
     @Override
-    protected void removeDataFromSoulShard(net.minecraft.nbt.CompoundTag entityData) {
+    protected void removeDataFromSoulShard(CompoundTag entityData) {
         super.removeDataFromSoulShard(entityData);
         entityData.remove("ironCount");
     }
 
     @Override
-    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
+    public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setIronCount(input.getIntOr("ironCount", 0));
     }
@@ -197,7 +202,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
         public UpgradeGoal(BlacksmithFamiliarEntity blacksmith) {
             this.blacksmith = blacksmith;
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         @Override
@@ -236,7 +241,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                     this.blacksmith.level().playSound(this.blacksmith, this.blacksmith.getOnPos(),
                             SoundEvents.ANVIL_USE, SoundSource.NEUTRAL, 0.5F, 1F);
                     OccultismAdvancements.FAMILIAR.get().trigger(this.blacksmith.getFamiliarOwner(),
-                            FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
+                            Type.BLACKSMITH_UPGRADE);
                 }
                 this.target = null;
             }

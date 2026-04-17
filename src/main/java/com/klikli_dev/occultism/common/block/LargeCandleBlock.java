@@ -50,6 +50,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -128,28 +129,28 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
                 extinguish(player, state, level, pos);
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.TORCH.asItem()) {
-                if (canBeLit(state)){
+                if (this.canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES,1), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 1), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.SOUL_TORCH.asItem()) {
-                if (canBeLit(state)){
+                if (this.canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 2), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 2), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.REDSTONE_TORCH.asItem()) {
-                if (canBeLit(state)){
+                if (this.canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 3), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 3), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == OccultismItems.SPIRIT_TORCH.asItem()) {
-                if (canBeLit(state)){
+                if (this.canBeLit(state)){
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 4), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 4), 11);
@@ -192,7 +193,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(LIT, WATERLOGGED, CANDLES);
         super.createBlockStateDefinition(builder);
     }

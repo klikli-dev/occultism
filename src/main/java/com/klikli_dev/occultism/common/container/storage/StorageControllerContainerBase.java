@@ -49,6 +49,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -195,7 +196,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
-    };
+    }
 
     protected void setupCraftingGrid() {
         int craftingGridTop = 0;
@@ -296,7 +297,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
 
             //exit if we can no longer insert
-            if (!com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(this.playerInventory).getMainSlots(), newResult, true)
+            if (!ItemTransferUtil.insertItemStacked(PlayerInventoryWrapper.of(this.playerInventory).getMainSlots(), newResult, true)
                     .isEmpty()) {
                 break;
             }

@@ -28,6 +28,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
+import net.minecraft.util.ByIdMap.OutOfBoundsStrategy;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +40,7 @@ public enum SortDirection implements StringRepresentable {
     UP;
     private static final Map<String, SortDirection> TYPES = new Object2ObjectArrayMap<>();
     public static final Codec<SortDirection> CODEC = Codec.stringResolver(SortDirection::getSerializedName, TYPES::get);
-    public static final IntFunction<SortDirection> BY_ID = ByIdMap.continuous(Enum::ordinal, SortDirection.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final IntFunction<SortDirection> BY_ID = ByIdMap.continuous(Enum::ordinal, SortDirection.values(), OutOfBoundsStrategy.WRAP);
     public static final StreamCodec<ByteBuf, SortDirection> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
 
     static {

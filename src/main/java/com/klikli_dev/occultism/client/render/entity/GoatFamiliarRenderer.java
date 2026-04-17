@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -49,7 +50,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, Living
     private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "goat_is_sitting"));
     private static final ContextKey<Boolean> IS_BLACK = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "goat_is_black"));
 
-    public GoatFamiliarRenderer(EntityRendererProvider.Context context) {
+    public GoatFamiliarRenderer(Context context) {
         super(context, new GoatFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GOAT)), 0.3f);
         this.addLayer(new BlackLayer(this, context));
     }
@@ -94,7 +95,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, Living
         private static final Identifier BLACK_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/goat_familiar.png");
 
-        public BlackLayer(RenderLayerParent<LivingEntityRenderState, GoatFamiliarModel> parent, EntityRendererProvider.Context context) {
+        public BlackLayer(RenderLayerParent<LivingEntityRenderState, GoatFamiliarModel> parent, Context context) {
             super(parent);
         }
 

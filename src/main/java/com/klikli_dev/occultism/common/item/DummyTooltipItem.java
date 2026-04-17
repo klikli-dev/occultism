@@ -32,6 +32,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -53,15 +54,15 @@ public class DummyTooltipItem extends Item {
                               @Nullable Player player, ItemStack activationItem) {
         var ritualRecipe = OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), level)
                 .stream()
-                .filter(r -> ((RitualRecipe) r.value()).getRitualDummy().getItem() == this)
+                .filter(r -> r.value().getRitualDummy().getItem() == this)
                 .findFirst();
 
         var serverPlayer = player instanceof ServerPlayer s ? s : null;
-        ritualRecipe.ifPresent(r -> ((RitualRecipe) r.value()).getRitual().finish(level, pos, blockEntity, serverPlayer, activationItem));
+        ritualRecipe.ifPresent(r -> r.value().getRitual().finish(level, pos, blockEntity, serverPlayer, activationItem));
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pDisplay, Consumer<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pDisplay, Consumer<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pDisplay, pTooltipComponents, pTooltipFlag);
 
         pTooltipComponents.accept(Component.translatable(pStack.getItem().getDescriptionId() + ".tooltip"));

@@ -18,8 +18,10 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.ClickEvent.OpenFile;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.HoverEvent.ShowText;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
@@ -95,8 +97,8 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
             Component hoverComponent = Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE,
                     Component.translatable(goToText));
             return Style.EMPTY
-                    .withClickEvent(new ClickEvent.OpenFile("entry://occultism:dictionary_of_spirits/pentacles/" + display.pentacleId().getPath()))
-                    .withHoverEvent(new HoverEvent.ShowText(hoverComponent));
+                    .withClickEvent(new OpenFile("entry://occultism:dictionary_of_spirits/pentacles/" + display.pentacleId().getPath()))
+                    .withHoverEvent(new ShowText(hoverComponent));
         }
 
         return textStyle;

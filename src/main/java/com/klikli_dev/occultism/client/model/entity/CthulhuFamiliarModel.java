@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.model.entity.DragonFamiliarModel.ColorModelPartProxy;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
@@ -66,7 +67,7 @@ public class CthulhuFamiliarModel extends EntityModel<EntityRenderState> {
     public ModelPart lantern1;
     public ModelPart lantern2;
     public ModelPart lantern3;
-    public DragonFamiliarModel.ColorModelPartProxy lantern4;
+    public ColorModelPartProxy lantern4;
 
     public CthulhuFamiliarModel(ModelPart part) {
         super(part);
@@ -95,7 +96,7 @@ public class CthulhuFamiliarModel extends EntityModel<EntityRenderState> {
         this.lantern1 = this.leftArm.getChild("lantern1");
         this.lantern2 = this.lantern1.getChild("lantern2");
         this.lantern3 = this.lantern2.getChild("lantern3");
-        this.lantern4 = new DragonFamiliarModel.ColorModelPartProxy(this.lantern3.getChild("lantern4"));
+        this.lantern4 = new ColorModelPartProxy(this.lantern3.getChild("lantern4"));
     }
 
     public static LayerDefinition createBodyLayer() {

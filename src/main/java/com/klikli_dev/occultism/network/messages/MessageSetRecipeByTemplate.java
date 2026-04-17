@@ -45,6 +45,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -100,11 +101,11 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
                 //attempt to get the desired stack from the player inventory
                 ItemStack extractedStack = StorageUtil
-                        .extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient,
+                        .extractItem(PlayerInventoryWrapper.of(player).getMainSlots(), ingredient,
                                 1, true);
                 if (this.canAcceptIngredient(craftMatrix, slot, extractedStack)) {
                     ItemStack acceptedStack = extractedStack.copy();
-                    extractedStack = StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), ingredient, 1, false);
+                    extractedStack = StorageUtil.extractItem(PlayerInventoryWrapper.of(player).getMainSlots(), ingredient, 1, false);
                     if (!extractedStack.isEmpty()) {
                         this.placeExtractedStack(craftMatrix, slot, acceptedStack);
                         anyExtracted = true;

@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.core.BlockPos;
@@ -36,10 +37,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -64,14 +67,14 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         this.moveControl = new FlyingMoveControl(this, 20, true);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return FamiliarEntity.createAttributes().add(Attributes.FLYING_SPEED, 0.4);
     }
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasRibbon())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -79,7 +82,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FamiliarPanicGoal(this, 1.25));
         SitGoal sitGoal = new SitGoal(this);
-        sitGoal.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
+        sitGoal.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE, Flag.LOOK));
         this.goalSelector.addGoal(2, sitGoal);
         this.goalSelector.addGoal(3, new CannibalismGoal(this));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8));
@@ -195,7 +198,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         public void start() {
             if (this.nearby != null) {
                 this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), 10);
-                OccultismAdvancements.FAMILIAR.get().trigger(this.bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.bat.getFamiliarOwner(), Type.BAT_EAT);
             }
         }
 

@@ -24,6 +24,8 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.minecraft.core.HolderLookup.Provider;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
@@ -147,11 +149,11 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             } else {
-                commonTick();
+                this.commonTick();
                 if (this.smeltingTimer >= this.currentRecipe.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipe.get().value().assemble(recipeInput);
-                    commonFinish(handHeld, result, level);
+                    this.commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
             }
@@ -160,11 +162,11 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipeBlast = Optional.empty();
             } else {
-                commonTick();
+                this.commonTick();
                 if (this.smeltingTimer >= this.currentRecipeBlast.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeBlast.get().value().assemble(recipeInput);
-                    commonFinish(handHeld, result, level);
+                    this.commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
             }
@@ -173,11 +175,11 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipeSmoke = Optional.empty();
             } else {
-                commonTick();
+                this.commonTick();
                 if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeSmoke.get().value().assemble(recipeInput);
-                    commonFinish(handHeld, result, level);
+                    this.commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
             }
@@ -186,11 +188,11 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipeCamp = Optional.empty();
             } else {
-                commonTick();
+                this.commonTick();
                 if (this.smeltingTimer >= this.currentRecipeCamp.get().value().cookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
                     ItemStack result = this.currentRecipeCamp.get().value().assemble(recipeInput);
-                    commonFinish(handHeld, result, level);
+                    this.commonFinish(handHeld, result, level);
                     //Don't reset recipe here, keep it cached
                 }
             }
@@ -250,13 +252,13 @@ public class SmelterJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider) {
         compound.putInt("conversionTimer", this.smeltingTimer);
         return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readJobFromNBT(CompoundTag compound, Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.smeltingTimer = compound.getIntOr("conversionTimer", 0);
     }
@@ -288,7 +290,7 @@ public class SmelterJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        this.handlerBelow = this.entity.level().getCapability(Capabilities.Item.BLOCK,
+        this.handlerBelow = this.entity.level().getCapability(Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
     }
 

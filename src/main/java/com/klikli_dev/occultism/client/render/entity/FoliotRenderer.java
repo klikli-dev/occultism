@@ -34,6 +34,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -46,7 +47,7 @@ import java.util.Objects;
 
 public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntity> {
 
-    public FoliotRenderer(EntityRendererProvider.Context context) {
+    public FoliotRenderer(Context context) {
         super(context, new FoliotModel());
 
         GeoRenderLayer<FoliotEntity, Void, OccultismGeoLivingEntityRenderState> glowLayer = new ConditionalGlowingGeoLayer<>(this);

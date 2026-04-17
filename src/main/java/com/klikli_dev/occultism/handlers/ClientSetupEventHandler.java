@@ -45,6 +45,8 @@ import com.klikli_dev.occultism.client.render.blockentity.GoldenSacrificialBowlR
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
+import com.klikli_dev.occultism.client.render.entity.DragonRendering.ThrownSwordRenderer;
+import com.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
@@ -54,8 +56,10 @@ import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.Demonic
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.platform.InputConstants.Type;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.KeyMapping.Category;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -67,15 +71,21 @@ import net.minecraft.client.renderer.entity.*;
 // TODO: Port to 26.1 item property system - ItemProperties was removed
 // import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers;
+import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -99,11 +109,11 @@ public class ClientSetupEventHandler {
     private static final Identifier ANGLE_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "angle");
 
     // Register a custom key category for this mod
-    private static final KeyMapping.Category OCCULTISM_KEY_CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
+    private static final Category OCCULTISM_KEY_CATEGORY = Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
 
-    public static final KeyMapping KEY_BACKPACK = new KeyMapping("key.occultism.backpack", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_B, OCCULTISM_KEY_CATEGORY);
-    public static final KeyMapping KEY_ENDER_BAG = new KeyMapping("key.occultism.ender_bag", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, OCCULTISM_KEY_CATEGORY);
-    public static final KeyMapping KEY_STORAGE_REMOTE = new KeyMapping("key.occultism.storage_remote", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_BACKPACK = new KeyMapping("key.occultism.backpack", Type.KEYSYM, GLFW.GLFW_KEY_B, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_ENDER_BAG = new KeyMapping("key.occultism.ender_bag", Type.KEYSYM, GLFW.GLFW_KEY_V, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_STORAGE_REMOTE = new KeyMapping("key.occultism.storage_remote", Type.KEYSYM, GLFW.GLFW_KEY_N, OCCULTISM_KEY_CATEGORY);
 
     public static Map<EntityType<?>, KeyMapping> keysFamiliars;
 
@@ -112,7 +122,7 @@ public class ClientSetupEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRegisterEntityRendererLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+    public static void onRegisterEntityRendererLayerDefinitions(RegisterLayerDefinitions event) {
         //Register Entity Layers
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BAT, BatFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_DEER, DeerFamiliarModel::createBodyLayer);
@@ -130,11 +140,11 @@ public class ClientSetupEventHandler {
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_FAIRY, FairyFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_MUMMY, MummyFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BEAVER, BeaverFamiliarModel::createBodyLayer);
-        event.registerLayerDefinition(OccultismModelLayers.KAPOW, MummyFamiliarRenderer.KapowModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.KAPOW, KapowModel::createBodyLayer);
     }
 
     @SubscribeEvent
-    public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    public static void onRegisterEntityRenderers(RegisterRenderers event) {
         //Register Entity Renderers
         event.registerEntityRenderer(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
@@ -152,7 +162,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.BLACKSMITH_FAMILIAR.get(), BlacksmithFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.GUARDIAN_FAMILIAR.get(), GuardianFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.HEADLESS_FAMILIAR.get(), HeadlessFamiliarRenderer::new);
-        event.registerEntityRenderer(OccultismEntities.THROWN_SWORD.get(), DragonRendering.ThrownSwordRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.THROWN_SWORD.get(), ThrownSwordRenderer::new);
         event.registerEntityRenderer(OccultismEntities.CHIMERA_FAMILIAR.get(), ChimeraFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get(), ShubNiggurathFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.BEHOLDER_FAMILIAR.get(), BeholderFamiliarRenderer::new);
@@ -215,7 +225,7 @@ public class ClientSetupEventHandler {
 
         keysFamiliars = new HashMap<>();
         for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars()) {
-            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), InputConstants.Type.KEYSYM, -1, OCCULTISM_KEY_CATEGORY);
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), Type.KEYSYM, -1, OCCULTISM_KEY_CATEGORY);
             keysFamiliars.put(familiar, kb);
             event.register(kb);
         }
@@ -228,7 +238,7 @@ public class ClientSetupEventHandler {
         //Register client side event handlers
         NeoForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
         NeoForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
-        NeoForge.EVENT_BUS.addListener((ScreenEvent.MouseButtonPressed.Pre e) -> StorageControllerGuiBase.onScreenMouseClickedPre(e));
+        NeoForge.EVENT_BUS.addListener((Pre e) -> StorageControllerGuiBase.onScreenMouseClickedPre(e));
 
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
@@ -250,7 +260,7 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
         event.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
         event.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
-        event.register(OccultismContainers.SPIRIT.get(), (SpiritContainer menu, net.minecraft.world.entity.player.Inventory inv, net.minecraft.network.chat.Component title) -> new SpiritGui<>(menu, inv, title));
+        event.register(OccultismContainers.SPIRIT.get(), (SpiritContainer menu, Inventory inv, Component title) -> new SpiritGui<>(menu, inv, title));
         event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
         event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
         event.register(OccultismContainers.OTHERWORLD_BUTCHER.get(), DimensionalBattlefieldScreen::new);
@@ -263,7 +273,7 @@ public class ClientSetupEventHandler {
         event.registerMobEffect(new IClientMobEffectExtensions() {
             @Override
             public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x + 3, y + 3, 18, 18, net.minecraft.util.ARGB.white(alpha));
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x + 3, y + 3, 18, 18, ARGB.white(alpha));
                 return true;
             }
         }, OccultismEffects.THIRD_EYE.get());
@@ -277,7 +287,7 @@ public class ClientSetupEventHandler {
 
             @Override
             public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 3, 18, 18, net.minecraft.util.ARGB.white(alpha));
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 3, 18, 18, ARGB.white(alpha));
                 return false;
             }
         }, OccultismEffects.DOUBLE_JUMP.get());

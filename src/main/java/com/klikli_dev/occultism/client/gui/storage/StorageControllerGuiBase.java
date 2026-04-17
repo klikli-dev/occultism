@@ -62,13 +62,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.TooltipFlag.Default;
 import net.minecraft.world.level.Level;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.CharacterEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
@@ -153,7 +156,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         Networking.sendToServer(new MessageRequestStacks());
     }
 
-    public static void onScreenMouseClickedPre(ScreenEvent.MouseButtonPressed.Pre event) {
+    public static void onScreenMouseClickedPre(Pre event) {
         //JEI correctly consumes the mouseClicked event if we click in their search bar
         //That leads to our search bar never getting unfocused
         //so we use the pre-event to unfocus -> if the click was in the search bar then the mouseClicked of our gui will handle it
@@ -256,7 +259,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.leftPos = (this.width - this.imageWidth) / 2 - ORDER_AREA_OFFSET;
         this.realTopPos = Math.max(0, (this.height - (175 + 18*this.rows)) / 2);
-        this.topPos = realTopPos + 24 + 9 + 18*this.rows;
+        this.topPos = this.realTopPos + 24 + 9 + 18*this.rows;
 
         this.clearWidgets();
 
@@ -902,7 +905,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("#")) {
-            List<String> tooltip = stack.getTooltipLines(Item.TooltipContext.of(this.minecraft.level), this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
+            List<String> tooltip = stack.getTooltipLines(TooltipContext.of(this.minecraft.level), this.minecraft.player, Default.NORMAL).stream()
                     .map(Component::getString).collect(
                             Collectors.toList());
             String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();

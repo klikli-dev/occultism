@@ -9,7 +9,10 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +24,7 @@ public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<Book
     protected ItemStackTemplate unboundBook;
 
     protected BookBindingCraftingRecipePageModel() {
-        super(OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE);
+        super(Page.BOOK_BINDING_RECIPE);
     }
 
     public static BookBindingCraftingRecipePageModel create() {
@@ -38,10 +41,10 @@ public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<Book
     }
 
     @Override
-    public JsonObject toJson(Identifier entryId, HolderLookup.Provider provider) {
+    public JsonObject toJson(Identifier entryId, Provider provider) {
         var json = super.toJson(entryId, provider);
         if (this.unboundBook != null) {
-            json.add("unbound_book", ItemStackTemplate.CODEC.encodeStart(provider.createSerializationContext(com.mojang.serialization.JsonOps.INSTANCE), this.unboundBook).getOrThrow());
+            json.add("unbound_book", ItemStackTemplate.CODEC.encodeStart(provider.createSerializationContext(JsonOps.INSTANCE), this.unboundBook).getOrThrow());
         }
         return json;
     }

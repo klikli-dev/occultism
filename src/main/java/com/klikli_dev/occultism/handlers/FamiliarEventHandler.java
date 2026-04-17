@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -53,7 +54,10 @@ import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Result;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 //import top.theillusivec4.curios.api.CuriosApi;
 //import top.theillusivec4.curios.api.SlotResult;
@@ -79,7 +83,7 @@ public class FamiliarEventHandler {
     }
 
     @SubscribeEvent
-    public static void beaverHarvest(PlayerEvent.BreakSpeed event) {
+    public static void beaverHarvest(BreakSpeed event) {
         Player player = event.getEntity();
 
         if (!event.getState().is(BlockTags.LOGS))
@@ -111,7 +115,7 @@ public class FamiliarEventHandler {
         event.setCanceled(dodge);
 
         if (dodge)
-            OccultismAdvancements.FAMILIAR.get().trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
+            OccultismAdvancements.FAMILIAR.get().trigger(entity, Type.MUMMY_DODGE);
     }
 
     @SubscribeEvent
@@ -155,7 +159,7 @@ public class FamiliarEventHandler {
         entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
 
         if (!owner.level().isClientSide())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.FAIRY_SAVE);
     }
 
     @SubscribeEvent
@@ -192,7 +196,7 @@ public class FamiliarEventHandler {
                 OccultismEntities.HEADLESS_FAMILIAR.get());
 
         if (!headlesses.isEmpty() && event.getEntity().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
-            OccultismAdvancements.FAMILIAR.get().trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
+            OccultismAdvancements.FAMILIAR.get().trigger(player, Type.HEADLESS_CTHULHU_HEAD);
 
         headlesses.forEach(h -> h.setHeadType(event.getEntity().getType()));
     }
@@ -222,7 +226,7 @@ public class FamiliarEventHandler {
     }
 
     @SubscribeEvent
-    public static void beholderBlindnessImmune(MobEffectEvent.Applicable event) {
+    public static void beholderBlindnessImmune(Applicable event) {
         if (event.getEffectInstance().getEffect() != MobEffects.BLINDNESS)
             return;
 
@@ -232,11 +236,11 @@ public class FamiliarEventHandler {
         if (!FamiliarUtil.hasFamiliar(entity, beholder, FamiliarEntity::hasBlacksmithUpgrade))
             return;
 
-        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+        event.setResult(Result.DO_NOT_APPLY);
     }
 
     @SubscribeEvent
-    public static void beholderDarknessImmune(MobEffectEvent.Applicable event) {
+    public static void beholderDarknessImmune(Applicable event) {
         if (event.getEffectInstance().getEffect() != MobEffects.DARKNESS)
             return;
 
@@ -246,7 +250,7 @@ public class FamiliarEventHandler {
         if (!FamiliarUtil.hasFamiliar(entity, beholder, FamiliarEntity::hasBlacksmithUpgrade) || !FamiliarUtil.hasFamiliar(entity, beholder, BeholderFamiliarEntity::hasWardenUpgrade))
             return;
 
-        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+        event.setResult(Result.DO_NOT_APPLY);
     }
 
     @SubscribeEvent

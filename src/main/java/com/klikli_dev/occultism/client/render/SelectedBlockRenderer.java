@@ -29,6 +29,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -96,7 +97,7 @@ public class SelectedBlockRenderer {
         });
     }
 
-    protected void renderSelectedBlocks(PoseStack matrixStack, MultiBufferSource.BufferSource buffer, Camera camera) {
+    protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, Camera camera) {
         var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
 
         if (!this.selectedBlocks.isEmpty()) {

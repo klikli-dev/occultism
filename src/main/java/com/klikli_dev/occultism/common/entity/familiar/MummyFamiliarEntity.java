@@ -25,6 +25,8 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.entity.familiar.FairyFamiliarEntity.SetAttackTargetGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.resources.Identifier;
@@ -38,6 +40,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -65,7 +68,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
         this.fightPose = -1;
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return FamiliarEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 9).add(Attributes.FOLLOW_RANGE, 30);
     }
@@ -79,7 +82,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
 
-        this.targetSelector.addGoal(0, new FairyFamiliarEntity.SetAttackTargetGoal(this));
+        this.targetSelector.addGoal(0, new SetAttackTargetGoal(this));
     }
 
     @Override
@@ -118,7 +121,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return hasBlacksmithUpgrade() ? ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 1, false, false)) :
+        return this.hasBlacksmithUpgrade() ? ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 1, false, false)) :
                 ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 0, false, false));
     }
 
@@ -156,7 +159,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasCrown())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 

@@ -11,19 +11,13 @@ import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 
-public class IsInBiomeCondition implements ICondition, ConditionWrapper<IsInBiomeCondition> {
+public record IsInBiomeCondition(Holder<Biome> biome) implements ICondition, ConditionWrapper<IsInBiomeCondition> {
     public static MapCodec<IsInBiomeCondition> CODEC = RecordCodecBuilder.mapCodec(
             builder -> builder
                     .group(
                             Biome.CODEC.fieldOf("biome").forGetter(IsInBiomeCondition::biome)
                     )
                     .apply(builder, IsInBiomeCondition::new));
-
-    private final Holder<Biome> biome;
-
-    public IsInBiomeCondition(Holder<Biome> biome) {
-        this.biome = biome;
-    }
 
     @Override
     public boolean test(@NotNull IContext context) {
@@ -33,10 +27,6 @@ public class IsInBiomeCondition implements ICondition, ConditionWrapper<IsInBiom
     @Override
     public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
-    }
-
-    public Holder<Biome> biome() {
-        return this.biome;
     }
 
     @Override

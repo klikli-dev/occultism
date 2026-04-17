@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -54,7 +55,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
 
     private final ItemModelResolver itemModelResolver;
 
-    public BlacksmithFamiliarRenderer(EntityRendererProvider.Context context) {
+    public BlacksmithFamiliarRenderer(Context context) {
         super(context, new BlacksmithFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BLACKSMITH)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new IngotsLayer(this, this.itemModelResolver));

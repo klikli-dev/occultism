@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.client.model.entity.BeaverFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
@@ -36,7 +37,7 @@ public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, Li
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/beaver_familiar.png");
 
-    public BeaverFamiliarRenderer(EntityRendererProvider.Context context) {
+    public BeaverFamiliarRenderer(Context context) {
         super(context, new BeaverFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BEAVER)), 0.3f);
 
     }

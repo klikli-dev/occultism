@@ -3,12 +3,14 @@ package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition.IContext;
 
-public interface OccultismConditionContext extends ICondition.IContext {
+public interface OccultismConditionContext extends IContext {
     ServerLevel level();
 
     Holder<Biome> biome();
@@ -39,7 +41,7 @@ public interface OccultismConditionContext extends ICondition.IContext {
         }
 
         @Override
-        public <T> boolean isTagLoaded(net.minecraft.tags.TagKey<T> key) {
+        public <T> boolean isTagLoaded(TagKey<T> key) {
             throw new UnsupportedOperationException("This context does not support accessing information on the context.");
         }
     };

@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import net.minecraft.client.model.animal.parrot.ParrotModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.ParrotRenderState;
 import net.minecraft.resources.Identifier;
@@ -35,7 +36,7 @@ import net.minecraft.world.entity.animal.parrot.Parrot;
 public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotRenderState, ParrotModel> {
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
 
-    public OtherworldBirdRenderer(EntityRendererProvider.Context context) {
+    public OtherworldBirdRenderer(Context context) {
         super(context, new ParrotModel(context.bakeLayer(ModelLayers.PARROT)), 0.3F);
     }
 

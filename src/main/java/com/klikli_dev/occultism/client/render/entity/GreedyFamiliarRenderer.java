@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -58,7 +59,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Li
 
     private final ItemModelResolver itemModelResolver;
 
-    public GreedyFamiliarRenderer(EntityRendererProvider.Context context) {
+    public GreedyFamiliarRenderer(Context context) {
         super(context, new GreedyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GREEDY)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new ItemLayer(this, this.itemModelResolver));

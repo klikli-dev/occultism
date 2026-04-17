@@ -22,6 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity.FollowOwnerWaterGoal;
+import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity.MoveController;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.google.common.collect.ImmutableList;
@@ -41,8 +44,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -74,10 +79,10 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         this.setPathfindingMalus(PathType.WATER, 0);
         this.waterNavigator = new WaterBoundPathNavigation(this, level);
         this.groundNavigator = new GroundPathNavigation(this, level);
-        this.moveControl = new CthulhuFamiliarEntity.MoveController(this);
+        this.moveControl = new MoveController(this);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
@@ -97,7 +102,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasBigTail())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -107,7 +112,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(4, new ChopTreeGoal(this));
-        this.goalSelector.addGoal(5, new CthulhuFamiliarEntity.FollowOwnerWaterGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(5, new FollowOwnerWaterGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
@@ -192,7 +197,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
         private ChopTreeGoal(BeaverFamiliarEntity beaver) {
             this.beaver = beaver;
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         @Override
@@ -245,7 +250,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
                 for (BlockPos p : harvesting)
                     this.beaver.level().destroyBlock(p, true);
                 this.beaver.treeTarget = null;
-                OccultismAdvancements.FAMILIAR.get().trigger(this.beaver.getFamiliarOwner(), FamiliarTrigger.Type.BEAVER_WOODCHOP);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.beaver.getFamiliarOwner(), Type.BEAVER_WOODCHOP);
             }
         }
     }

@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
@@ -73,7 +74,7 @@ public class BookOfCallingGui extends Screen {
 
 
         LabelWidget modeLabel = new LabelWidget(guiLeft - 80,
-                guiTop + 66, false, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
+                guiTop + 66, false, -1, 2, Color.WHITE).alignRight(true);
         modeLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.mode", true);
         this.addRenderableWidget(modeLabel);
 
@@ -94,7 +95,7 @@ public class BookOfCallingGui extends Screen {
         boolean showSize = this.mode.hasSize();
         if (showSize) {
             LabelWidget workAreaLabel = new LabelWidget(
-                    guiLeft - 80, guiTop + 91, true, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
+                    guiLeft - 80, guiTop + 91, true, -1, 2, Color.WHITE).alignRight(true);
             workAreaLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.work_area", true);
             this.addRenderableWidget(workAreaLabel);
 

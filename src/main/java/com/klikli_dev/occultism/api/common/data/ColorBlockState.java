@@ -31,7 +31,7 @@ public enum ColorBlockState implements StringRepresentable {
     private final String name;
     private final int number;
 
-    private ColorBlockState(String name, int number) {
+    ColorBlockState(String name, int number) {
         this.name = name;
         this.number = number;
     }

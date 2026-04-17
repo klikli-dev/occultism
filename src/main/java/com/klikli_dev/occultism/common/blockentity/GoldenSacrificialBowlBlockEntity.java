@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.registry.OccultismTags.Blocks;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.util.Util;
@@ -131,7 +132,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             @Override
             public int insert(int slot, ItemResource resource, int amount, TransactionContext tx) {
                 if (resource.toStack().getItem() instanceof DummyTooltipItem)
-                    return handleDummyInsert(resource, amount, tx);
+                    return this.handleDummyInsert(resource, amount, tx);
 
                 if (GoldenSacrificialBowlBlockEntity.this.getCurrentRitualRecipe() != null)
                     return 0;
@@ -327,7 +328,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (this.level != null) {
                 var recipeKey = ResourceKey.create(Registries.RECIPE, this.currentRitualRecipeId);
                 var recipe = OccultismRecipeManager.get().getRecipeByKey(OccultismRecipes.RITUAL_TYPE.get(), recipeKey, this.level);
-                recipe.map(r -> (RecipeHolder<RitualRecipe>) r).ifPresent(r -> this.currentRitualRecipe = r);
+                recipe.map(r -> r).ifPresent(r -> this.currentRitualRecipe = r);
 
                 if (this.level instanceof ServerLevel) {
                     NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
@@ -436,25 +437,25 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             //spawn particles in bowl before consume next item
             if (this.level.getGameTime() % 5 == 0) {
                 if (!this.remainingAdditionalIngredients.isEmpty()) {
-                    recipe.value().getRitual().markNextIngredient(this.level, this.getBlockPos(), this.remainingAdditionalIngredients.getFirst(), getTier(this.getBlockState()));
+                    recipe.value().getRitual().markNextIngredient(this.level, this.getBlockPos(), this.remainingAdditionalIngredients.getFirst(), this.getTier(this.getBlockState()));
                 } else {
-                    double gameTime = level.getGameTime() * 0.05;
+                    double gameTime = this.level.getGameTime() * 0.05;
                     double sin = Math.sin(gameTime) * 0.3;
                     double cos = Math.cos(gameTime) * 0.3;
                     Vec3 center = this.getBlockPos().getCenter();
-                    ((ServerLevel) level)
+                    ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos, center.y + 0.2 + cos, center.z + sin,
                                     1, 0.0, 0.0, 0.0, 0.003);
-                    if (this.getTier(getBlockState()) == 2) {
+                    if (this.getTier(this.getBlockState()) == 2) {
                         double sin2 = Math.sin(gameTime + (Math.PI * 0.5)) * 0.3;
                         double cos2 = Math.cos(gameTime + (Math.PI * 0.5)) * 0.3;
-                        ((ServerLevel) level)
+                        ((ServerLevel) this.level)
                                 .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos2, center.y + 0.2 + sin2, center.z + sin2,
                                         1, 0.0, 0.0, 0.0, 0.003);
-                        ((ServerLevel) level)
+                        ((ServerLevel) this.level)
                                 .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x - cos2, center.y + 0.2 + cos2, center.z - sin2,
                                         1, 0.0, 0.0, 0.0, 0.003);
-                        ((ServerLevel) level)
+                        ((ServerLevel) this.level)
                                 .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x - cos, center.y + 0.2 + sin, center.z - sin,
                                         1, 0.0, 0.0, 0.0, 0.003);
                     }
@@ -462,11 +463,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
 
             //Advance ritual time every second, based on the standard 20 tps, but taking into account duration multiplier
-            if (getTier(this.getBlockState()) == 1){ //golden bowl
+            if (this.getTier(this.getBlockState()) == 1){ //golden bowl
                 if (this.level.getGameTime() % ((int) (20 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0){
                     this.currentTime++;
                 }
-            } else if (getTier(this.getBlockState()) == 2) {
+            } else if (this.getTier(this.getBlockState()) == 2) {
                 if (Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get() < 0.2) { //avoiding crash of divide by 0 with iesnium bowl
                     this.currentTime++;
                 } else if (this.level.getGameTime() % ((int) (5 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0) {
@@ -582,7 +583,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                 for (BlockPos posCheck : blocksToCheck) {
                                     if (level.getBlockState(posCheck).is(BlockTags.AIR)
                                             && !level.getBlockState(posCheck.below()).is(BlockTags.AIR)
-                                            && !level.getBlockState(posCheck.below()).is(OccultismTags.Blocks.CHALK_GLYPHS) ) {
+                                            && !level.getBlockState(posCheck.below()).is(Blocks.CHALK_GLYPHS) ) {
 
                                         ((ServerLevel) level).sendParticles(OccultismParticles.BLACK_MARKER.get(),
                                                 posCheck.getX() + 0.5, posCheck.getY() + 0.1, posCheck.getZ() + 0.5,
@@ -607,7 +608,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                             .sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                                                     10, 0.3, 0.3, 0.3, 0.03);
 
-                                    level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.PLAYERS, 1, 3);
+                                    level.playSound(null, this.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.PLAYERS, 1, 3);
 
                                     player.sendOverlayMessage(
                                             Component.translatable(String.format("ritual.%s.put_in_satchel", Occultism.MODID)));
@@ -702,7 +703,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                         }
                         tx.commit();
                     }
-                    for (ItemStack consumed : consumedIngredients) {
+                    for (ItemStack consumed : this.consumedIngredients) {
                         Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
                                 consumed);
                     }
@@ -743,14 +744,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.markNetworkDirty();
     }
 
-    public void notifyItemUse(PlayerInteractEvent.RightClickItem event) {
+    public void notifyItemUse(RightClickItem event) {
         this.itemUseProvided = true;
         this.setChanged();
         if (this.level != null && !this.level.isClientSide())
             this.markNetworkDirty();
     }
 
-    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+    public void onPlayerRightClickItem(RightClickItem event) {
         Player player = event.getEntity();
         if (!player.level().isClientSide() && this.getCurrentRitualRecipe() != null) {
 
@@ -857,7 +858,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     @SuppressWarnings("unchecked")
     private static List<RecipeHolder<RitualRecipe>> getAllRitualRecipes(Level level) {
         return OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), level).stream()
-                .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
+                .map(r -> r)
                 .toList();
     }
 }

@@ -31,11 +31,12 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class DimensionalBattlefieldScreen extends AbstractContainerScreen<DimensionalBattlefieldContainer> {
 
-    private static boolean isEmpty(net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler handler) {
+    private static boolean isEmpty(ItemStacksResourceHandler handler) {
         return handler.getResource(0).isEmpty();
     }
 

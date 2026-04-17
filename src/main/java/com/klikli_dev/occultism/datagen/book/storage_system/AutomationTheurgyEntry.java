@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 //import com.klikli_dev.theurgy.registry.ItemRegistry; // TODO: re-enable when Theurgy is available for 26.1
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.item.Items;
 
 public class AutomationTheurgyEntry extends EntryProvider {
 
@@ -19,7 +20,7 @@ public class AutomationTheurgyEntry extends EntryProvider {
     @Override
     protected BookIconModel entryIcon() {
         // TODO: re-enable when Theurgy is available for 26.1
-        return BookIconModel.create(net.minecraft.world.item.Items.HOPPER); // placeholder for ItemRegistry.LIST_FILTER.get()
+        return BookIconModel.create(Items.HOPPER); // placeholder for ItemRegistry.LIST_FILTER.get()
     }
 
     @Override

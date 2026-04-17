@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
@@ -45,7 +46,7 @@ public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, LivingEn
     private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "bat_is_sitting"));
     private static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "bat_is_partying"));
 
-    public BatFamiliarRenderer(EntityRendererProvider.Context context) {
+    public BatFamiliarRenderer(Context context) {
         super(context, new BatFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BAT)), 0.3f);
     }
 

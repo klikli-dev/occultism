@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.client.render.blockentity;
 import com.klikli_dev.occultism.client.model.tile.DimensionalMatrixModel;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.mojang.math.Axis;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.Identifier;
@@ -34,13 +35,15 @@ import com.geckolib.renderer.GeoBlockRenderer;
 import com.geckolib.renderer.base.RenderPassInfo;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
+import java.awt.Color;
+
 public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity, OccultismGeoBlockEntityRenderState> {
 
-    public StorageControllerGeoRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn) {
+    public StorageControllerGeoRenderer(Context rendererDispatcherIn) {
         this(rendererDispatcherIn, new DimensionalMatrixModel());
     }
 
-    public StorageControllerGeoRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn, GeoModel<StorageControllerBlockEntity> modelProvider) {
+    public StorageControllerGeoRenderer(Context rendererDispatcherIn, GeoModel<StorageControllerBlockEntity> modelProvider) {
         super(rendererDispatcherIn, modelProvider);
     }
 
@@ -77,7 +80,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         //make saturation smoothly go from 0.0-1.0
         float saturation = (float) systemTimeRadSin8 * 0.5f + 0.5f;
         // Convert HSB to RGB int
-        int rgb = java.awt.Color.HSBtoRGB(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale);
+        int rgb = Color.HSBtoRGB(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale);
         return ARGB.color(255, ARGB.red(rgb), ARGB.green(rgb), ARGB.blue(rgb));
     }
 }

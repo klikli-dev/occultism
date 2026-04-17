@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.controls;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Button.OnPress;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -58,7 +59,7 @@ public class SizedImageButton extends Button {
     public SizedImageButton(int xIn, int yIn, int widthIn, int heightIn, int textureOffsetX,
                             int textureOffsetY, int hoverOffsetX, int textureWidth, int textureHeight,
                             int textureMapWidth, int textureMapHeight, Identifier resourceLocation,
-                            Button.OnPress handler) {
+                            OnPress handler) {
         super(xIn, yIn, widthIn, heightIn, Component.empty(), handler, DEFAULT_NARRATION);
         this.xTexStart = textureOffsetX;
         this.yTexStart = textureOffsetY;

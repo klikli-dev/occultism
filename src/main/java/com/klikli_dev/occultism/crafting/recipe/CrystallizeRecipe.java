@@ -132,7 +132,7 @@ public class CrystallizeRecipe extends SingleInputRecipe<TieredSingleRecipeInput
     @SuppressWarnings("unchecked")
     @Override
     public RecipeType<? extends Recipe<TieredSingleRecipeInput>> getType() {
-        return (RecipeType<? extends Recipe<TieredSingleRecipeInput>>) (RecipeType<?>) OccultismRecipes.CRYSTALLIZE_TYPE.get();
+        return OccultismRecipes.CRYSTALLIZE_TYPE.get();
     }
 
 }

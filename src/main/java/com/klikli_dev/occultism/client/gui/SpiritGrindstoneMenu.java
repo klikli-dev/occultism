@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.EnchantmentTags;
@@ -65,7 +66,7 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
 
             private int getExperienceFromItem(ItemStack stack) {
                 int l = 0;
-                for (Object2IntMap.Entry<Holder<Enchantment>> holderEntry : EnchantmentHelper.getEnchantmentsForCrafting(stack).entrySet()) {
+                for (Entry<Holder<Enchantment>> holderEntry : EnchantmentHelper.getEnchantmentsForCrafting(stack).entrySet()) {
                     Holder<Enchantment> holder = holderEntry.getKey();
                     if (holder.is(EnchantmentTags.CURSE))
                         l += (holder.value()).getMinCost(holderEntry.getIntValue());
@@ -136,7 +137,7 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
                 itemstack.setDamageValue((int) Math.max(0,
                     i - (inputItem.getMaxDamage()-inputItem.getDamageValue()
                     + additionalItem.getMaxDamage()-additionalItem.getDamageValue())
-                    * DURABILITY_MULTIPLIER_ON_REPAIR));
+                    * this.DURABILITY_MULTIPLIER_ON_REPAIR));
                 if (!additionalItem.has(DataComponents.REPAIRABLE))
                     itemstack.setDamageValue(inputItem.getDamageValue());
             }

@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootParams.Builder;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -126,12 +128,12 @@ public class DemonicPartnerLieNextToPartnerGoal extends Goal {
 
     private void giveMorningGift() {
         RandomSource randomsource = this.entity.getRandom();
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        MutableBlockPos blockpos$mutableblockpos = new MutableBlockPos();
         blockpos$mutableblockpos.set(this.entity.isLeashed() ? this.entity.getLeashHolder().blockPosition() : this.entity.blockPosition());
         this.entity.randomTeleport(blockpos$mutableblockpos.getX() + randomsource.nextInt(11) - 5, blockpos$mutableblockpos.getY() + randomsource.nextInt(5) - 2, blockpos$mutableblockpos.getZ() + randomsource.nextInt(11) - 5, false);
         blockpos$mutableblockpos.set(this.entity.blockPosition());
         LootTable loottable = this.entity.level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.CAT_MORNING_GIFT);
-        LootParams lootparams = (new LootParams.Builder((ServerLevel) this.entity.level())).withParameter(LootContextParams.ORIGIN, this.entity.position()).withParameter(LootContextParams.THIS_ENTITY, this.entity).create(LootContextParamSets.GIFT);
+        LootParams lootparams = (new Builder((ServerLevel) this.entity.level())).withParameter(LootContextParams.ORIGIN, this.entity.position()).withParameter(LootContextParams.THIS_ENTITY, this.entity).create(LootContextParamSets.GIFT);
 
         for (ItemStack itemstack : loottable.getRandomItems(lootparams)) {
             this.entity.level().addFreshEntity(new ItemEntity(this.entity.level(), (double) blockpos$mutableblockpos.getX() - (double) Mth.sin(this.entity.yBodyRot * ((float) Math.PI / 180F)), blockpos$mutableblockpos.getY(), (double) blockpos$mutableblockpos.getZ() + (double) Mth.cos(this.entity.yBodyRot * ((float) Math.PI / 180F)), itemstack));

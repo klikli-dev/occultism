@@ -24,6 +24,8 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.minecraft.core.HolderLookup.Provider;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
@@ -93,7 +95,7 @@ public class CrystallizerJob extends SpiritJob {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         this.itemsToPickUp = ((ServerLevel) this.entity.level()).recipeAccess().getRecipes().stream()
                 .filter(recipe -> recipe.value() instanceof CrystallizeRecipe)
-                .map(recipe -> (RecipeHolder<CrystallizeRecipe>) (RecipeHolder<?>) recipe)
+                .map(recipe -> (RecipeHolder<CrystallizeRecipe>) recipe)
                 .filter(
                         recipe -> {
                             //we filter by tier, but only if the recipe has an "active" min and max tier set = min/max >= -1
@@ -203,13 +205,13 @@ public class CrystallizerJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider) {
         compound.putInt("conversionTimer", this.crystallizeTimer);
         return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readJobFromNBT(CompoundTag compound, Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.crystallizeTimer = compound.getIntOr("conversionTimer", 0);
     }
@@ -241,7 +243,7 @@ public class CrystallizerJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        this.handlerBelow = this.entity.level().getCapability(Capabilities.Item.BLOCK,
+        this.handlerBelow = this.entity.level().getCapability(Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
     }
 

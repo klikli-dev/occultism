@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
@@ -116,7 +117,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
                 guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, Component.literal(""));
         this.text.setMaxLength(30);
         this.text.setVisible(true);
-        this.text.setTextColor(OccultismConstants.Color.WHITE);
+        this.text.setTextColor(Color.WHITE);
         this.text.setFocused(true);
 
         this.text.setValue(this.customName);
@@ -130,17 +131,17 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
         buttonTop += 5;
         LabelWidget insertFacingLabel = new LabelWidget(guiLeft - 80, guiTop + buttonTop, false, -1, 2,
-                OccultismConstants.Color.WHITE).alignRight(true);
+                Color.WHITE).alignRight(true);
         insertFacingLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.insert", true);
         this.addRenderableWidget(insertFacingLabel);
 
         LabelWidget extractFacingLabel = new LabelWidget(guiLeft - 80, guiTop + buttonTop + buttonHeight + buttonMargin,
-                false, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
+                false, -1, 2, Color.WHITE).alignRight(true);
         extractFacingLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.extract", true);
         this.addRenderableWidget(extractFacingLabel);
 
         LabelWidget customNameLabel = new LabelWidget(guiLeft - 80,
-                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2 + 1, false, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
+                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2 + 1, false, -1, 2, Color.WHITE).alignRight(true);
         customNameLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.custom_name", true);
         this.addRenderableWidget(customNameLabel);
     }
@@ -175,7 +176,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     }
 
     public MachineReference makeMachineReference() {
-        return new MachineReference((GlobalBlockPos) null, null, false, this.extractFacing, (GlobalBlockPos) null, null, false, this.insertFacing, this.customName);
+        return new MachineReference(null, null, false, this.extractFacing, (GlobalBlockPos) null, null, false, this.insertFacing, this.customName);
     }
 
 }

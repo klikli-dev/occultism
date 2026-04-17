@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity.RideFamiliarGoal;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
@@ -66,7 +67,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, LivingEntity.class, 8));
         this.goalSelector.addGoal(3,
-                new GreedyFamiliarEntity.RideFamiliarGoal<>(this, OccultismEntities.CTHULHU_FAMILIAR.get()));
+                new RideFamiliarGoal<>(this, OccultismEntities.CTHULHU_FAMILIAR.get()));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(8, new RandomStrollGoal(this, 1));
         this.goalSelector.addGoal(9, new FollowMobGoal(this, 1, 3, 7));

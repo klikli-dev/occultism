@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -58,7 +59,7 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public @NonNull CompoundTag getUpdateTag(HolderLookup.@NonNull Provider provider) {
+    public @NonNull CompoundTag getUpdateTag(@NonNull Provider provider) {
         return this.saveWithoutMetadata(provider);
     }
 

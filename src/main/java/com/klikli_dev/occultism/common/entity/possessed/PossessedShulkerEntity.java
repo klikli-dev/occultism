@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.level.Level;
@@ -36,7 +37,7 @@ public class PossessedShulkerEntity extends Shulker implements PossessedMob{
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Shulker.createAttributes()
                 .add(Attributes.MAX_HEALTH, 40.0);
     }

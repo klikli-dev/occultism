@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -63,7 +64,7 @@ public class KnowledgeTabletItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @NotNull Item.TooltipContext pContext,
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext,
                                 @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
 

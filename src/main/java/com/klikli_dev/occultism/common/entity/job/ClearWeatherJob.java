@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.function.Supplier;
 
@@ -40,7 +41,7 @@ public class ClearWeatherJob extends ChangeWeatherJob {
             var level = (ServerLevel) this.entity.level();
             level.getServer().setWeatherParameters(0, 0, false, false);
         } else {
-            if (this.entity.getOwner() instanceof net.minecraft.world.entity.player.Player player)
+            if (this.entity.getOwner() instanceof Player player)
                 player.sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }

@@ -59,6 +59,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -215,7 +216,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                             .replace(":entities/", "_"))
                     .ifPresent(mob -> builder.addSlot(RecipeIngredientRole.OUTPUT,
                                     this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                            .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(
+                            .add(new TagSlotDisplay(
                                     OccultismTags.makeItemTag("occultism:drop_from/" + mob))));
         }
         if (recipe.value().getEntityTagToSummon() != null) {
@@ -226,7 +227,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .replace("c:", "")
                     .replace(":", "_");
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .add(new net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+                    .add(new TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
         }
 
         //draw ritual dummy item in upper left corner
@@ -361,12 +362,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         builder.addInputHandler(new IJeiInputHandler() {
             @Override
             public ScreenRectangle getArea() {
-                return new ScreenRectangle(0, 0, background.getHeight(), background.getWidth());
+                return new ScreenRectangle(0, 0, RitualRecipeCategory.this.background.getHeight(), RitualRecipeCategory.this.background.getWidth());
             }
 
             @Override
             public boolean handleInput(double mouseX, double mouseY, IJeiUserInput input) {
-                if (mouseX > 4 && mouseX < 16 && mouseY > background.getHeight() - 16 && mouseY < background.getHeight() - 4
+                if (mouseX > 4 && mouseX < 16 && mouseY > RitualRecipeCategory.this.background.getHeight() - 16 && mouseY < RitualRecipeCategory.this.background.getHeight() - 4
                         && recipe.value().getPentacleId() != null) {
                     var pentacle = ModonomiconAPI.get().getMultiblock(recipe.value().getPentacleId());
 
@@ -380,10 +381,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
             @Override
             public  void handleMouseMoved(double mouseX, double mouseY) {
-                if (mouseX > 4 && mouseX < 16 && mouseY > background.getHeight() - 16 && mouseY < background.getHeight() - 4) {
-                    builder.addDrawable(goldenEye, 2, background.getHeight()-18);
+                if (mouseX > 4 && mouseX < 16 && mouseY > RitualRecipeCategory.this.background.getHeight() - 16 && mouseY < RitualRecipeCategory.this.background.getHeight() - 4) {
+                    builder.addDrawable(RitualRecipeCategory.this.goldenEye, 2, RitualRecipeCategory.this.background.getHeight()-18);
                 } else {
-                    builder.addDrawable(eye, 2, background.getHeight()-18);
+                    builder.addDrawable(RitualRecipeCategory.this.eye, 2, RitualRecipeCategory.this.background.getHeight()-18);
                 }
             }
         });

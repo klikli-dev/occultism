@@ -28,7 +28,9 @@ import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathSpawnEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -40,7 +42,7 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_spawn.png");
 
-    public ShubNiggurathSpawnRenderer(EntityRendererProvider.Context context) {
+    public ShubNiggurathSpawnRenderer(Context context) {
         super(context, new ShubNiggurathSpawnModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_SHUB_NIGGURATH_SPAWN)), 0.1f);
         this.addLayer(new BlinkingEyesLayer(this, context));
     }
@@ -62,13 +64,13 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
 
         private final ShubNiggurathSpawnModel model;
 
-        public BlinkingEyesLayer(RenderLayerParent<LivingEntityRenderState, ShubNiggurathSpawnModel> parent, EntityRendererProvider.Context context) {
+        public BlinkingEyesLayer(RenderLayerParent<LivingEntityRenderState, ShubNiggurathSpawnModel> parent, Context context) {
             super(parent);
             this.model = new ShubNiggurathSpawnModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_SHUB_NIGGURATH_SPAWN));
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, net.minecraft.client.renderer.SubmitNodeCollector pSubmitNodeCollector, int pPackedLight, LivingEntityRenderState pRenderState, float pNetHeadYaw, float pHeadPitch) {
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector pSubmitNodeCollector, int pPackedLight, LivingEntityRenderState pRenderState, float pNetHeadYaw, float pHeadPitch) {
             // TODO: Port to 26.1 rendering API
         }
 

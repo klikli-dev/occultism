@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.client.model.entity.ShubNiggurathFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
@@ -37,7 +38,7 @@ public class ShubNiggurathFamiliarRenderer
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_familiar.png");
 
-    public ShubNiggurathFamiliarRenderer(EntityRendererProvider.Context context) {
+    public ShubNiggurathFamiliarRenderer(Context context) {
         super(context, new ShubNiggurathFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_SHUB_NIGGURATH)), 0.3f);
     }
 

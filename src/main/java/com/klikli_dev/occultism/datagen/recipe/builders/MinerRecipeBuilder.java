@@ -4,10 +4,13 @@ import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.result.*;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -36,12 +39,12 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     private final Ingredient ingredient;
     @Nullable
     private String group;
-    private WeightedRecipeResult result;
+    private final WeightedRecipeResult result;
     private boolean allowEmpty;
     private boolean addResultItemExistsCondition;
-    private final HolderLookup.Provider registries;
+    private final Provider registries;
 
-    public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result, HolderLookup.Provider registries) {
+    public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result, Provider registries) {
         this.ingredient = ingredient;
         this.result = result;
         this.allowEmpty = false;
@@ -49,30 +52,30 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ItemLike output, int weight, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ItemLike output, int weight, Provider registries) {
         return new MinerRecipeBuilder(ingredient, WeightedItemRecipeResult.of(new ItemStackTemplate(output.asItem()), weight), registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(ItemLike ingredient, ItemLike output, int weight, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(ItemLike ingredient, ItemLike output, int weight, Provider registries) {
         return minerRecipe(Ingredient.of(ingredient), output, weight, registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, ItemLike output, int weight, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, ItemLike output, int weight, Provider registries) {
         return minerRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, Provider registries) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, 1, weight), registries);
     }
-    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, int count, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, int count, Provider registries) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, count, weight), registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, Provider registries) {
         return minerRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, int count, HolderLookup.Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, int count, Provider registries) {
         return minerRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, count, registries);
     }
 
@@ -115,8 +118,8 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
-                .rewards(AdvancementRewards.Builder.recipe(pId))
-                .requirements(AdvancementRequirements.Strategy.OR);
+                .rewards(Builder.recipe(pId))
+                .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
         MinerRecipe recipe = new MinerRecipe(this.ingredient, this.result);
@@ -145,7 +148,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
                 conditions.add(notCondition);
         }
         if(addItemExistsCondition) {
-            ICondition notCondition = getItemExistsCondition(result);
+            ICondition notCondition = this.getItemExistsCondition(result);
             if(notCondition!=null)
                 conditions.add(notCondition);
         }

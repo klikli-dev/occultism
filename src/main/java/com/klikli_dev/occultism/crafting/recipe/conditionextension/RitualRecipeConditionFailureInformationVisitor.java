@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.TranslationKeys.Condition.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeWithTagCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionCondition;
@@ -31,7 +32,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
             }
         }
 
-        return Component.translatable(TranslationKeys.Condition.Ritual.AND_NOT_FULFILLED, contained);
+        return Component.translatable(Ritual.AND_NOT_FULFILLED, contained);
     }
 
     @Override
@@ -54,23 +55,23 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
             }
         }
 
-        return Component.translatable(TranslationKeys.Condition.Ritual.OR_NOT_FULFILLED, contained);
+        return Component.translatable(Ritual.OR_NOT_FULFILLED, contained);
     }
 
     @Override
     public MutableComponent visit(TrueConditionWrapper condition, OccultismConditionContext context) {
-        return Component.translatable(TranslationKeys.Condition.Ritual.TRUE_NOT_FULFILLED);
+        return Component.translatable(Ritual.TRUE_NOT_FULFILLED);
     }
 
     @Override
     public MutableComponent visit(FalseConditionWrapper condition, OccultismConditionContext context) {
-        return Component.translatable(TranslationKeys.Condition.Ritual.FALSE_NOT_FULFILLED);
+        return Component.translatable(Ritual.FALSE_NOT_FULFILLED);
     }
 
     @Override
     public MutableComponent visit(NotConditionWrapper condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.NOT_NOT_FULFILLED,
+                Ritual.NOT_NOT_FULFILLED,
                 //get the description of the wrapped condition
                 ConditionWrapperFactory.wrap(condition.condition().value()).accept(this, context)
         );
@@ -79,7 +80,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(ItemExistsConditionWrapper condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.ITEM_EXISTS_NOT_FULFILLED,
+                Ritual.ITEM_EXISTS_NOT_FULFILLED,
                 Component.translatable(Util.makeDescriptionId("item", condition.condition().registryKey().identifier()))
         );
     }
@@ -87,7 +88,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(ModLoadedConditionWrapper condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.MOD_LOADED_NOT_FULFILLED,
+                Ritual.MOD_LOADED_NOT_FULFILLED,
                 condition.condition().modid()
         );
     }
@@ -95,7 +96,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(TagEmptyConditionWrapper condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.TAG_EMPTY_NOT_FULFILLED,
+                Ritual.TAG_EMPTY_NOT_FULFILLED,
                 Component.translatable(Util.makeDescriptionId("tag", condition.condition().tag().location()))
         );
     }
@@ -103,7 +104,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(IsInBiomeCondition condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.IS_IN_BIOME_NOT_FULFILLED,
+                Ritual.IS_IN_BIOME_NOT_FULFILLED,
                 Component.translatable(Util.makeDescriptionId("biome", condition.biome().unwrapKey().orElseThrow().identifier())),
                 Component.translatable(Util.makeDescriptionId("biome", context.biome().unwrapKey().orElseThrow().identifier()))
         );
@@ -112,7 +113,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(IsInBiomeWithTagCondition condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.IS_IN_BIOME_WITH_TAG_NOT_FULFILLED,
+                Ritual.IS_IN_BIOME_WITH_TAG_NOT_FULFILLED,
                 Component.translatable(Util.makeDescriptionId("tag", condition.tag().location())),
                 Component.translatable(Util.makeDescriptionId("biome", context.biome().unwrapKey().orElseThrow().identifier()))
         );
@@ -121,7 +122,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(IsInDimensionCondition condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_DESCRIPTION,
+                Ritual.IS_IN_DIMENSION_DESCRIPTION,
                 Component.translatable(Util.makeDescriptionId("dimension", condition.dimension().identifier())),
                 Component.translatable(Util.makeDescriptionId("dimension", context.dimension().identifier()))
         );
@@ -130,7 +131,7 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     @Override
     public MutableComponent visit(IsInDimensionTypeCondition condition, OccultismConditionContext context) {
         return Component.translatable(
-                TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED,
+                Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED,
                 Component.translatable(Util.makeDescriptionId("dimension_type", condition.dimensionType().unwrapKey().orElseThrow().identifier())),
                 Component.translatable(Util.makeDescriptionId("dimension_type", context.dimensionType().unwrapKey().orElseThrow().identifier()))
         );

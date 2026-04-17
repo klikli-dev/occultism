@@ -11,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantment.Builder;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -37,7 +38,7 @@ public class OccultismEnchantments {
         )));
     }
 
-    private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
+    private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Builder builder) {
         context.register(key, builder.build(key.identifier()));
     }
 

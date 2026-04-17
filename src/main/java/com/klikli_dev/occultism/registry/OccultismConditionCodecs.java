@@ -10,9 +10,10 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 
 public class OccultismConditionCodecs {
-    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, Occultism.MODID);
+    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(Keys.CONDITION_CODECS, Occultism.MODID);
 
     public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<IsInBiomeCondition>> IS_IN_BIOME = CONDITION_CODECS.register("is_in_biome", () -> IsInBiomeCondition.CODEC);
     public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<IsInBiomeWithTagCondition>> IS_IN_BIOME_WITH_TAG = CONDITION_CODECS.register("is_in_biome_with_tag", () -> IsInBiomeWithTagCondition.CODEC);

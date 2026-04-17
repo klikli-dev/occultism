@@ -6,13 +6,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 
 public class OccultismRegistries {
     public static final RegistrySetBuilder BUILDER = (new RegistrySetBuilder())
             .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap)
             .add(Registries.BIOME, OccultismRegistries::bootstrapBiomes)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap)
+            .add(Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap)
             .add(Registries.ENCHANTMENT, OccultismEnchantments::bootstrap); //not worldgen, but work here
 
     public static void bootstrapBiomes(BootstrapContext<Biome> context) {
