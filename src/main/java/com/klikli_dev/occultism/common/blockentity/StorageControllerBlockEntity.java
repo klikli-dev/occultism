@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
@@ -49,8 +50,10 @@ import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap.Builder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -83,6 +86,7 @@ import com.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -228,14 +232,14 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         return PlayState.CONTINUE;
     }
 
-    public static CompoundTag saveMatrix(Map<Integer, ItemStack> matrix, HolderLookup.Provider provider) {
+    public static CompoundTag saveMatrix(Map<Integer, ItemStack> matrix, Provider provider) {
         CompoundTag matrixCompound = new CompoundTag();
         ListTag matrixNbt = new ListTag();
         for (int i = 0; i < 9; i++) {
             if (matrix.get(i) != null && !matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                stackTag.put("stack", (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), matrix.get(i)).getOrThrow());
+                stackTag.put("stack", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), matrix.get(i)).getOrThrow());
                 matrixNbt.add(stackTag);
             }
         }
@@ -243,7 +247,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         return matrixCompound;
     }
 
-    public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, HolderLookup.Provider provider) {
+    public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, Provider provider) {
         Map<Integer, ItemStack> matrix = new HashMap<>();
         if (matrixCompound.contains("matrix")) {
             ListTag matrixNbt = matrixCompound.getListOrEmpty("matrix");
@@ -605,7 +609,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         //write linked machines
         var machinesList = output.list("linkedMachines", MachineReference.CODEC);
-        for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
+        for (Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
             machinesList.add(entry.getValue());
         }
     }
@@ -632,7 +636,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+    protected void collectImplicitComponents(Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
         pComponents.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
@@ -667,7 +671,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<StorageControllerBlockEntity>("controller", 0, this::predicate));
     }
 

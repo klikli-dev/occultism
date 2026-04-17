@@ -32,6 +32,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -130,7 +131,7 @@ public class ManageMachineJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
-        ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(true);
+        this.entity.getNavigation().setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.manageMachineGoal = new ManageMachineGoal(this.entity, this));
         this.entity.goalSelector.addGoal(4,
                 this.fallbackDepositToControllerGoal = new FallbackDepositToControllerGoal(this.entity, this));
@@ -142,7 +143,7 @@ public class ManageMachineJob extends SpiritJob {
     @Override
     public void cleanup() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(false);
-        ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(false);
+        this.entity.getNavigation().setCanOpenDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.manageMachineGoal);
         this.entity.goalSelector.removeGoal(this.openDoorGoal);
@@ -168,9 +169,9 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider) {
         if (this.storageControllerPosition != null)
-            compound.put("storageControllerPosition", (CompoundTag) GlobalBlockPos.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.storageControllerPosition).getOrThrow());
+            compound.put("storageControllerPosition", GlobalBlockPos.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.storageControllerPosition).getOrThrow());
 
         if (this.managedMachine != null)
             compound.put("managedMachine", this.managedMachine.serializeNBT(provider));
@@ -187,7 +188,7 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readJobFromNBT(CompoundTag compound, Provider provider) {
         if (compound.contains("storageControllerPosition"))
             this.storageControllerPosition = GlobalBlockPos.from(provider, compound.getCompoundOrEmpty("storageControllerPosition"));
 
@@ -219,7 +220,7 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     protected void registerWithStorageController() {
-        if (this.storageControllerPosition == null || !BlockEntityUtil.isLoaded(this.entity.level(), this.storageControllerPosition)) {
+        if (!BlockEntityUtil.isLoaded(this.entity.level(), this.storageControllerPosition)) {
             return;
         }
 
@@ -230,7 +231,7 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     protected void unregisterFromStorageController() {
-        if (this.storageControllerPosition != null && this.managedMachine != null && BlockEntityUtil.isLoaded(this.entity.level(), this.storageControllerPosition)) {
+        if (this.managedMachine != null && BlockEntityUtil.isLoaded(this.entity.level(), this.storageControllerPosition)) {
             IStorageController storageController = this.resolveCurrentStorageController();
             if (storageController != null)
                 storageController.removeDepositOrderSpirit(this.managedMachine.insertGlobalPos);

@@ -84,7 +84,7 @@ public class MinerRecipeCategory implements EmiRecipe {
     public void addWidgets(@NotNull WidgetHolder widgetHolder) {
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 26, 1);
         widgetHolder.addSlot(this.input.get(0), 0, 0);
-        widgetHolder.addText(Component.translatable("occultism.jei.miner.chance", chances),getDisplayWidth() / 2, getDisplayHeight() - 8,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
+        widgetHolder.addText(Component.translatable("occultism.jei.miner.chance", this.chances), this.getDisplayWidth() / 2, this.getDisplayHeight() - 8,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more

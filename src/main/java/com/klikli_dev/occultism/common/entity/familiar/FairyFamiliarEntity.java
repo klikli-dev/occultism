@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
@@ -34,6 +35,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.util.ARGB;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -94,7 +96,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(MAGIC_TARGET, -1);
     }
@@ -102,7 +104,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasFlower())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 

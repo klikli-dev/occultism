@@ -5,6 +5,7 @@
 package com.klikli_dev.occultism.crafting.recipe;
 
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 
 public final class OccultismRecipeManagerClient {
@@ -20,7 +21,7 @@ public final class OccultismRecipeManagerClient {
         }
     }
 
-    public static void onClientLogout(ClientPlayerNetworkEvent.LoggingOut event) {
+    public static void onClientLogout(LoggingOut event) {
         OccultismRecipeManager.get().clearClientCache();
     }
 }

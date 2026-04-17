@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -72,7 +73,7 @@ public class SetManagedMachineMode extends ItemMode {
     @Override
     public boolean handle(BlockEntity blockEntity, Player player, Level world, BlockPos pos, ItemStack stack, Direction face) {
         if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                Capabilities.Item.BLOCK)) {
+                Item.BLOCK)) {
             this.setSpiritManagedMachine(player, world, pos, stack, face);
             return true;
         }

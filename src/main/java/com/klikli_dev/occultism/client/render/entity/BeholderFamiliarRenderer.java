@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -50,7 +51,7 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
     private static final ContextKey<Boolean> IS_EATING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "beholder_is_eating"));
     private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "beholder_is_sitting"));
 
-    public BeholderFamiliarRenderer(EntityRendererProvider.Context context) {
+    public BeholderFamiliarRenderer(Context context) {
         super(context, new BeholderFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BEHOLDER)), 0.3f);
         this.addLayer(new SleepLayer(this));
     }

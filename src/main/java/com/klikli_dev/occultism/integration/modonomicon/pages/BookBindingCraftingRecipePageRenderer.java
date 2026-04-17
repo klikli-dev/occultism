@@ -7,6 +7,7 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.api.ModonomiconConstants;
+import com.klikli_dev.modonomicon.api.ModonomiconConstants.I18n.Tooltips;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
@@ -19,6 +20,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+
+import java.util.List;
 
 public class BookBindingCraftingRecipePageRenderer extends BookRecipePageRenderer<Recipe<?>, BookBindingCraftingRecipePage> {
     public BookBindingCraftingRecipePageRenderer(BookBindingCraftingRecipePage page) {
@@ -66,7 +69,7 @@ public class BookBindingCraftingRecipePageRenderer extends BookRecipePageRendere
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), iconX, iconY,
                 0.0F, 64.0F, 11, 11, 128, 256);
         if (this.parentScreen.isMouseInRange(mouseX, mouseY, iconX, iconY, 11, 11)) {
-            this.parentScreen.setTooltip(java.util.List.of(Component.translatable(ModonomiconConstants.I18n.Tooltips.RECIPE_CRAFTING_SHAPELESS)));
+            this.parentScreen.setTooltip(List.of(Component.translatable(Tooltips.RECIPE_CRAFTING_SHAPELESS)));
         }
 
         ItemStack boundBook = this.page.unboundBook != null

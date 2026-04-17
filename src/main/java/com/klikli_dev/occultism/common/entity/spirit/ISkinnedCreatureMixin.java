@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.spirit;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
@@ -74,7 +75,7 @@ public interface ISkinnedCreatureMixin {
     /**
      * registers the skin data parameter with the data manager.
      */
-    default void registerSkinDataParameter(SynchedEntityData.Builder builder) {
+    default void registerSkinDataParameter(Builder builder) {
         builder.define(this.getDataParameterSkin(), 0);
     }
 

@@ -30,11 +30,14 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -44,7 +47,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormholeBlockEntity, BlockEntityRenderState> {
 
-    public EntityWormholeRenderer(BlockEntityRendererProvider.Context context) {
+    public EntityWormholeRenderer(Context context) {
     }
 
     @Override
@@ -53,7 +56,7 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
     }
 
     @Override
-    public void extractRenderState(EntityWormholeBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.CrumblingOverlay crumbling) {
+    public void extractRenderState(EntityWormholeBlockEntity blockEntity, BlockEntityRenderState renderState, float partialTick, Vec3 cameraPos, CrumblingOverlay crumbling) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
     }
 
@@ -86,9 +89,9 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
         poseStack.pushPose();
 
         // Adjust the translation based on the facing direction
-        double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.03 : 0.97) : 0.5;
-        double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.03 : 0.97) : 0.5;
-        double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.03 : 0.97) : 0.5;
+        double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.03 : 0.97) : 0.5;
+        double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.03 : 0.97) : 0.5;
+        double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.03 : 0.97) : 0.5;
 
         poseStack.translate(xOffset, yOffset, zOffset);
 

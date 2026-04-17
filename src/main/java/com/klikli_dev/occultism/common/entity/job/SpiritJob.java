@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.ActivityData;
@@ -114,7 +115,7 @@ public abstract class SpiritJob {
      * @param compound the compound to write to.
      * @return the written to compound.
      */
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider
     ) {
         compound.putString("factoryId", this.getFactoryID().toString());
         return compound;
@@ -125,7 +126,7 @@ public abstract class SpiritJob {
      *
      * @param compound the NBT to read from.
      */
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider
+    public void readJobFromNBT(CompoundTag compound, Provider provider
     ) {
     }
 

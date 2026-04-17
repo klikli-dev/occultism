@@ -54,7 +54,7 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
     @Override
     public void onInit() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
-        ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(true);
+        this.entity.getNavigation().setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.extractItemsGoal = new ExtractItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(5, this.openDoorGoal = new OpenDoorGoal(this.entity, true));
@@ -63,7 +63,7 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
     @Override
     public void cleanup() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(false);
-        ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(false);
+        this.entity.getNavigation().setCanOpenDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.extractItemsGoal);
         this.entity.goalSelector.removeGoal(this.openDoorGoal);

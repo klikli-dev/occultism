@@ -34,6 +34,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.bee.Bee;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -55,7 +56,7 @@ public class PossessedBeeEntity extends Bee implements PossessedMob{
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Bee.createAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.4)
                 .add(Attributes.MAX_HEALTH, 40.0)

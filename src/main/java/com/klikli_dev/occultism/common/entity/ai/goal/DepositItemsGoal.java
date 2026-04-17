@@ -33,11 +33,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -191,16 +194,16 @@ public class DepositItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
             this.moveTarget = new BlockPosMoveTarget(this.entity.level(), pos);
-            var handler = this.entity.level().getCapability(Capabilities.Item.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
+            var handler = this.entity.level().getCapability(Item.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
             if (handler == null) {
                 //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
                 this.entity.setDepositPosition(null);
             }
         });
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
-        Optional<net.minecraft.world.entity.EntityReference<net.minecraft.world.entity.LivingEntity>> targetRef = this.entity.getDepositEntityUUID();
+        Optional<EntityReference<LivingEntity>> targetRef = this.entity.getDepositEntityUUID();
         targetRef.ifPresent((ref) -> {
-            var targetEntity = ref.getEntity(this.entity.level(), net.minecraft.world.entity.LivingEntity.class);
+            var targetEntity = ref.getEntity(this.entity.level(), LivingEntity.class);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

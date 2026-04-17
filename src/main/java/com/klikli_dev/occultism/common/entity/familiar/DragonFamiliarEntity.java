@@ -22,6 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
+import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity.FindItemGoal;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.google.common.collect.ImmutableList;
@@ -38,8 +41,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -71,7 +76,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         this.petTimer = MAX_PET_TIMER;
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return FamiliarEntity.createAttributes().add(Attributes.ARMOR, 25);
     }
 
@@ -83,7 +88,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasFez())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -111,7 +116,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
-        this.goalSelector.addGoal(3, new GreedyFamiliarEntity.FindItemGoal(this) {
+        this.goalSelector.addGoal(3, new FindItemGoal(this) {
             @Override
             public boolean canUse() {
                 return super.canUse() && DragonFamiliarEntity.this.getPassengers().stream()
@@ -120,7 +125,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         });
         this.goalSelector.addGoal(4, new FetchGoal(this));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
+        this.goalSelector.addGoal(6, new AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !DragonFamiliarEntity.this.hasBlacksmithUpgrade();
@@ -199,7 +204,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             this.setStick(false);
             return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (stack.is(Tags.Items.NUGGETS_GOLD)) {
-            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), Type.DRAGON_NUGGET);
             this.greedyTimer += GREEDY_INCREMENT;
             if (this.isEffectiveAi())
                 stack.shrink(1);
@@ -209,7 +214,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
-            OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.DRAGON_PET);
+            OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.DRAGON_PET);
             return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return super.mobInteract(playerIn, hand);
@@ -278,7 +283,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         return Math.abs(Mth.sin((this.tickCount + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
-    private static class ThrowSwordGoal extends DevilFamiliarEntity.AttackGoal {
+    private static class ThrowSwordGoal extends AttackGoal {
 
         public ThrowSwordGoal(FamiliarEntity entity, float range) {
             super(entity, range);
@@ -318,7 +323,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
         public FetchGoal(DragonFamiliarEntity dragon) {
             this.dragon = dragon;
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         @Override
@@ -353,7 +358,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             if (this.stick.distanceToSqr(this.dragon) < 3) {
                 this.dragon.setStick(true);
                 OccultismAdvancements.FAMILIAR.get().trigger(this.dragon.getFamiliarOwner(),
-                        FamiliarTrigger.Type.DRAGON_FETCH);
+                        Type.DRAGON_FETCH);
                 this.stick.getItem().shrink(1);
                 this.stick = null;
             }

@@ -46,6 +46,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
@@ -143,7 +144,7 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
     }
 

@@ -40,6 +40,7 @@ import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -122,11 +123,11 @@ public class SpiritFireRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new SpiritFireRecipeDisplay(
+    public List<RecipeDisplay> display() {
+        return List.of(new SpiritFireRecipeDisplay(
                 this.input,
                 this.result,
-                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
+                new ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
         ));
     }
 

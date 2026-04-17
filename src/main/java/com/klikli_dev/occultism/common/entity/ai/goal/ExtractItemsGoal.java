@@ -36,6 +36,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -121,13 +122,13 @@ public class ExtractItemsGoal extends PausableGoal {
                 //when close enough extract item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    var blockEntityHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
+                    var blockEntityHandler = this.entity.level().getCapability(Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
                     if (blockEntityHandler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
 
-                    var entityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                    var entityHandler = this.entity.getCapability(Item.ENTITY);
 
                     if (this.tryPerformStorageActuatorExtraction(blockEntityHandler, entityHandler,
                             this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist())) {
@@ -232,7 +233,7 @@ public class ExtractItemsGoal extends PausableGoal {
         targetPos.ifPresent((pos) -> {
             this.targetBlock = pos;
 
-            var rawHandler = this.entity.level().getCapability(Capabilities.Item.BLOCK, this.targetBlock, this.entity.getExtractFacing());
+            var rawHandler = this.entity.level().getCapability(Item.BLOCK, this.targetBlock, this.entity.getExtractFacing());
             if (rawHandler == null) {
                 //the extract block is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);

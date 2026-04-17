@@ -31,13 +31,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class StepHeightEffect extends MobEffect {
 
     public StepHeightEffect() {
         super(MobEffectCategory.BENEFICIAL, 3402751);
-        this.addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, AttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, Operation.ADD_VALUE);
     }
 
     @Override

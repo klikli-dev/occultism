@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -32,10 +33,13 @@ import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -46,6 +50,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -122,7 +127,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TARGET_BLOCK, Optional.empty());
         builder.define(IS_FILTER_BLACKLIST, true);
@@ -138,7 +143,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             String compoundStr = this.entityData.get(FILTER_ITEMS);
             if (!compoundStr.isEmpty()) {
                 try {
-                    var compound = net.minecraft.nbt.TagParser.parseCompoundFully(compoundStr);
+                    var compound = TagParser.parseCompoundFully(compoundStr);
                     ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
                     this.filterItemStackHandler.deserialize(valueInput);
                 } catch (Exception ignored) {
@@ -354,14 +359,14 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
 
-        input.read("inventory", net.minecraft.nbt.CompoundTag.CODEC).ifPresent(tag -> {
+        input.read("inventory", CompoundTag.CODEC).ifPresent(tag -> {
             ValueInput inventoryInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
             this.inventory.deserialize(inventoryInput);
         });
 
         this.setFilterBlacklist(input.getBooleanOr("isFilterBlacklist", true));
 
-        input.read("filterItems", net.minecraft.nbt.CompoundTag.CODEC).ifPresent(tag -> {
+        input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
             tag.putInt("Size", SpiritTransporterContainer.FILTER_SIZE);
             ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
             this.filterItemStackHandler.deserialize(filterInput);
@@ -377,14 +382,14 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
         {
             TagValueOutput inv = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
             this.inventory.serialize(inv);
-            output.store("inventory", net.minecraft.nbt.CompoundTag.CODEC, inv.buildResult());
+            output.store("inventory", CompoundTag.CODEC, inv.buildResult());
         }
 
         output.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
         {
             TagValueOutput filterOut = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
             this.filterItemStackHandler.serialize(filterOut);
-            output.store("filterItems", net.minecraft.nbt.CompoundTag.CODEC, filterOut.buildResult());
+            output.store("filterItems", CompoundTag.CODEC, filterOut.buildResult());
         }
         output.putString("tagFilter", this.getTagFilter());
     }
@@ -398,7 +403,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
 
         public FindItemGoal(FamiliarEntity entity) {
             this.entity = entity;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override
@@ -421,7 +426,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 LivingEntity owner = this.entity.getFamiliarOwner();
                 if (item.distanceToSqr(this.entity) < 4 && owner instanceof Player player) {
                     item.playerTouch(player);
-                    OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
+                    OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.GREEDY_ITEM);
                 }
             }
         }
@@ -445,7 +450,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
 
                 if ((!isStackDemagnetized && !isEntityDemagnetized)
                         && greedy.canPickupItem(item)
-                        && com.klikli_dev.occultism.util.ItemTransferUtil.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
+                        && ItemTransferUtil.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
             return null;
@@ -474,7 +479,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
         public RideFamiliarGoal(FamiliarEntity rider, EntityType<T> type) {
             this.rider = rider;
             this.type = type;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override
@@ -510,7 +515,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                 this.mount.getNavigation().stop();
 
                 if (this.rider.getType() == OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get() && this.type == OccultismEntities.CTHULHU_FAMILIAR.get())
-                    OccultismAdvancements.FAMILIAR.get().trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
+                    OccultismAdvancements.FAMILIAR.get().trigger(this.rider.getFamiliarOwner(), Type.SHUB_CTHULHU_FRIENDS);
             }
         }
 

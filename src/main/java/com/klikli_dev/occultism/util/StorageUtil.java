@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.Networking;
@@ -332,12 +333,12 @@ public class StorageUtil {
         
         var expandedIngredients = NonNullList.withSize(9, Ingredient.of());
 
-        com.google.common.base.Preconditions.checkArgument(ingredients.size() <= 9);
+        Preconditions.checkArgument(ingredients.size() <= 9);
 
         if (recipe instanceof ShapedRecipe shapedRecipe) {
             var width = shapedRecipe.getWidth();
             var height = shapedRecipe.getHeight();
-            com.google.common.base.Preconditions.checkArgument(width <= 3 && height <= 3);
+            Preconditions.checkArgument(width <= 3 && height <= 3);
 
             for (var h = 0; h < height; h++) {
                 for (var w = 0; w < width; w++) {

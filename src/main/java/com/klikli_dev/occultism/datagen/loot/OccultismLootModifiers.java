@@ -7,7 +7,9 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate.Builder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
@@ -24,11 +27,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class OccultismLootModifiers extends GlobalLootModifierProvider {
 
-    public OccultismLootModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+    public OccultismLootModifiers(PackOutput output, CompletableFuture<Provider> registries) {
         super(output, registries, Occultism.MODID);
     }
 
-    private EntityEquipmentPredicate mainHand(ItemPredicate.Builder itemPredicate) {
+    private EntityEquipmentPredicate mainHand(Builder itemPredicate) {
         EntityEquipmentPredicate.Builder builder = EntityEquipmentPredicate.Builder.equipment();
         builder.mainhand(itemPredicate);
         return builder.build();
@@ -40,12 +43,12 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         return new AddItemModifier(
                 new LootItemCondition[]{
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.ATTACKER,
+                                .hasProperties(EntityTarget.ATTACKER,
                                         EntityPredicate.Builder.entity()
-                                                .equipment(this.mainHand(ItemPredicate.Builder.item().of(itemRegistry,
+                                                .equipment(this.mainHand(Builder.item().of(itemRegistry,
                                                         OccultismTags.Items.TOOLS_KNIFE)))).build(),
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.THIS,
+                                .hasProperties(EntityTarget.THIS,
                                         EntityPredicate.Builder.entity()
                                                 .of(entityTypeRegistry, OccultismTags.makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", entityType))).build()).build()
                 }, OccultismItems.TALLOW.get(), count);
@@ -57,13 +60,13 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         return new AddItemModifier(
                 new LootItemCondition[]{
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.ATTACKER,
+                                .hasProperties(EntityTarget.ATTACKER,
                                         EntityPredicate.Builder.entity()
-                                                .equipment(this.mainHand(ItemPredicate.Builder.item().of(itemRegistry,
+                                                .equipment(this.mainHand(Builder.item().of(itemRegistry,
                                                         OccultismTags.Items.TOOLS_KNIFE_IESNIUM)))).build(),
                         LootItemRandomChanceCondition.randomChance(chance).build(),
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.THIS,
+                                .hasProperties(EntityTarget.THIS,
                                         EntityPredicate.Builder.entity()
                                                 .of(entityTypeRegistry, entityType)
                                                 .build()).build()
@@ -78,7 +81,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
                 InvertedLootItemCondition.invert(
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
+                        MatchTool.toolMatches(Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
                 ).build()
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 
@@ -86,7 +89,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 InvertedLootItemCondition.invert(
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
+                        MatchTool.toolMatches(Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
                 ).build()
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 

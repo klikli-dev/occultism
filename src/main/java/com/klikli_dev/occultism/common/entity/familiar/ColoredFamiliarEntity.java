@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -45,7 +46,7 @@ public abstract class ColoredFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(RED, 0f);
         builder.define(GREEN, 0f);

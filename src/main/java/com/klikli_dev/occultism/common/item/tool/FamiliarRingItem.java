@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
@@ -31,6 +32,7 @@ import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -39,11 +41,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
@@ -94,7 +98,7 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
 
         if (pStack.has(OccultismDataComponents.OCCUPIED) && FMLEnvironment.getDist() == Dist.CLIENT) {
@@ -110,7 +114,7 @@ public class FamiliarRingItem extends Item {
                                                   InteractionHand hand) {
         if (!playerIn.level().isClientSide() && target instanceof IFamiliar familiar) {
             if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level(), familiar)) {
-                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
+                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.CAPTURE);
                 stack.set(OccultismDataComponents.OCCUPIED, true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getFamiliarEntity().getDisplayName().getString());
                 return InteractionResult.SUCCESS;
@@ -180,7 +184,7 @@ public class FamiliarRingItem extends Item {
             this.setFamiliar(familiar, level.registryAccess());
             this.getFamiliar(level).getFamiliarEntity().stopRiding();
             this.getFamiliar(level).getFamiliarEntity().ejectPassengers();
-            this.getFamiliar(level).getFamiliarEntity().remove(Entity.RemovalReason.DISCARDED);
+            this.getFamiliar(level).getFamiliarEntity().remove(RemovalReason.DISCARDED);
             return true;
         }
 
@@ -228,7 +232,7 @@ public class FamiliarRingItem extends Item {
             }
         }
 
-        public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        public CompoundTag serializeNBT(Provider provider) {
             CompoundTag compound = new CompoundTag();
             compound.putBoolean("hasFamiliar", this.familiar != null || this.cachedNbt != null);
             if (this.familiar != null) {
@@ -241,7 +245,7 @@ public class FamiliarRingItem extends Item {
             return compound;
         }
 
-        public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compound) {
+        public void deserializeNBT(Provider provider, CompoundTag compound) {
             if (compound.getBooleanOr("hasFamiliar", false))
                 this.cachedNbt = compound.getCompoundOrEmpty("familiar");
         }
@@ -266,7 +270,7 @@ public class FamiliarRingItem extends Item {
             return this.familiar;
         }
 
-        private void setFamiliar(IFamiliar familiar, HolderLookup.Provider provider) {
+        private void setFamiliar(IFamiliar familiar, Provider provider) {
             this.familiar = familiar;
 
             if (this.familiar != null) {
@@ -283,7 +287,7 @@ public class FamiliarRingItem extends Item {
 
     public static class DistHelper {
 
-        public static void appendHoverText(ItemStack stack, Item.TooltipContext pContext, Consumer<Component> tooltip,
+        public static void appendHoverText(ItemStack stack, TooltipContext pContext, Consumer<Component> tooltip,
                                            TooltipFlag flagIn) {
             var level = Minecraft.getInstance().level; //we no longer get it handed over from MC, so we get i there
             if (level != null) {

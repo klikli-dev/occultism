@@ -22,10 +22,12 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
@@ -64,7 +66,7 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
                 .add(Attributes.FOLLOW_RANGE, 50.0);
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SIZE_STATE, 0);
     }
@@ -106,7 +108,7 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }

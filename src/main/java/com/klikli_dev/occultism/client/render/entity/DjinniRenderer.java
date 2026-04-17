@@ -33,6 +33,7 @@ import com.geckolib.util.RenderUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -45,7 +46,7 @@ import java.util.Objects;
 
 public class DjinniRenderer extends OccultismGeoLivingEntityRenderer<DjinniEntity> {
 
-    public DjinniRenderer(EntityRendererProvider.Context context) {
+    public DjinniRenderer(Context context) {
         super(context, new DjinniModel());
 
         GeoRenderLayer<DjinniEntity, Void, OccultismGeoLivingEntityRenderState> glowLayer = new ConditionalGlowingGeoLayer<>(this);

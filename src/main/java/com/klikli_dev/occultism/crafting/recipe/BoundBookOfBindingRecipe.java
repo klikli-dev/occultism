@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.crafting.recipe;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.component.DataComponents;
@@ -39,7 +40,7 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
 
                     dictionaryOfSpirits = inputStack;
                 } else {
-                    if (!inputStack.is(OccultismTags.Items.BOOKS_OF_BINDING)) {
+                    if (!inputStack.is(Items.BOOKS_OF_BINDING)) {
                         return false;
                     }
                     if (!bookOfBinding.isEmpty()) {
@@ -70,7 +71,7 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
 
                     dictionaryOfSpirits = inputStack;
                 } else {
-                    if (!inputStack.is(OccultismTags.Items.BOOKS_OF_BINDING)) {
+                    if (!inputStack.is(Items.BOOKS_OF_BINDING)) {
                         return ItemStack.EMPTY;
                     }
                     if (!bookOfBinding.isEmpty()) {

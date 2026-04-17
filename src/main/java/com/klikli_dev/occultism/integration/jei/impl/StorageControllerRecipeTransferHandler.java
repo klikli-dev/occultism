@@ -42,6 +42,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -100,7 +101,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     //if stack is not empty, write to result
                     ItemStack itemStack = possibleItems.get(i);
                     if (!itemStack.isEmpty()) {
-                        invList.add(ItemStack.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, itemStack).getOrThrow().copy());
+                        invList.add(ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, itemStack).getOrThrow().copy());
                     }
                 }
                 nbt.put("s" + (slot.getSlotIndex()), invList);
@@ -188,7 +189,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                 }
             }
             if (!missing.isEmpty()) {
-                return new TransferWarning(handlerHelper.createUserErrorForMissingSlots(Component.translatable("jei." + Occultism.MODID + ".error.recipe_no_items"), missing));
+                return new TransferWarning(this.handlerHelper.createUserErrorForMissingSlots(Component.translatable("jei." + Occultism.MODID + ".error.recipe_no_items"), missing));
             }
         }
         return null;
@@ -249,22 +250,17 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         return false;
     }
 
-    private static class TransferWarning implements IRecipeTransferError {
-        private final IRecipeTransferError parent;
-
-        public TransferWarning(IRecipeTransferError parent) {
-            this.parent = parent;
-        }
+    private record TransferWarning(IRecipeTransferError parent) implements IRecipeTransferError {
 
         @Override
-        public @NotNull Type getType() {
-            return Type.COSMETIC;
-        }
+            public @NotNull Type getType() {
+                return Type.COSMETIC;
+            }
 
-        @Override
-        public void showError(@NotNull GuiGraphicsExtractor matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
-                              int recipeY) {
-            this.parent.showError(matrixStack, mouseX, mouseY, recipeLayout, recipeX, recipeY);
+            @Override
+            public void showError(@NotNull GuiGraphicsExtractor matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
+                                  int recipeY) {
+                this.parent.showError(matrixStack, mouseX, mouseY, recipeLayout, recipeX, recipeY);
+            }
         }
-    }
 }

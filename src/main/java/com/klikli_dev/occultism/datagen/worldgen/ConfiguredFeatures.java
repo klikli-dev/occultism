@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration.TreeConfigurationBuilder;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -44,7 +45,7 @@ public class ConfiguredFeatures {
         FeatureUtils.register(context, ORE_IESNIUM, Feature.ORE, new OreConfiguration(new TagMatchTest(BlockTags.BASE_STONE_NETHER), OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), 3));
 
         FeatureUtils.register(context, TREE_OTHERWORLD_NATURAL, Feature.TREE,
-                new TreeConfiguration.TreeConfigurationBuilder(
+                new TreeConfigurationBuilder(
                         BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
                         new StraightTrunkPlacer(4, 2, 0),
                         BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
@@ -52,7 +53,7 @@ public class ConfiguredFeatures {
                         new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
         FeatureUtils.register(context, TREE_OTHERWORLD, Feature.TREE,
-                new TreeConfiguration.TreeConfigurationBuilder(
+                new TreeConfigurationBuilder(
                         BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
                         new StraightTrunkPlacer(4, 2, 0),
                         BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),

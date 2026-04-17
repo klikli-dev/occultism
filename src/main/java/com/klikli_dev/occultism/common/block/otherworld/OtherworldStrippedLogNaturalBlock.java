@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 
 import javax.annotation.Nullable;
 
@@ -74,7 +75,7 @@ public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implem
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }

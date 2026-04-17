@@ -9,11 +9,12 @@ import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.world.entity.LivingEntity;
 import org.jspecify.annotations.Nullable;
 
 public abstract class OccultismGeoLivingEntityRenderer<T extends LivingEntity & GeoAnimatable> extends GeoEntityRenderer<T, OccultismGeoLivingEntityRenderState> {
-    protected OccultismGeoLivingEntityRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+    protected OccultismGeoLivingEntityRenderer(Context context, GeoModel<T> model) {
         super(context, model);
     }
 

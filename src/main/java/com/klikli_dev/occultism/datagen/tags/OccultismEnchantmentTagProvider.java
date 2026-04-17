@@ -16,7 +16,7 @@ public class OccultismEnchantmentTagProvider extends EnchantmentTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider pProvider) {
+    protected void addTags(Provider pProvider) {
         this.tag(EnchantmentTags.NON_TREASURE).add(OccultismEnchantments.FRACTURE_SOUL);
         this.tag(EnchantmentTags.IN_ENCHANTING_TABLE).add(OccultismEnchantments.FRACTURE_SOUL);
     }

@@ -188,33 +188,22 @@ public class PasteRepairItemRecipe extends CustomRecipe {
         return stack.is(OccultismItems.NATURE_PASTE.get()) || stack.is(OccultismItems.GRAY_PASTE.get());
     }
 
-    private static final class PasteRepairInput {
-        private final int firstSlot;
-        private final ItemStack first;
-        private final int secondSlot;
-        private final ItemStack second;
-
-        private PasteRepairInput(int firstSlot, ItemStack first, int secondSlot, ItemStack second) {
-            this.firstSlot = firstSlot;
-            this.first = first;
-            this.secondSlot = secondSlot;
-            this.second = second;
-        }
+    private record PasteRepairInput(int firstSlot, ItemStack first, int secondSlot, ItemStack second) {
 
         private int maxDamage() {
-            return this.first.getMaxDamage();
-        }
+                return this.first.getMaxDamage();
+            }
 
-        private int firstRemainingDurability() {
-            return this.first.getMaxDamage() - this.first.getDamageValue();
-        }
+            private int firstRemainingDurability() {
+                return this.first.getMaxDamage() - this.first.getDamageValue();
+            }
 
-        private int secondRemainingDurability() {
-            return this.second.getMaxDamage() - this.second.getDamageValue();
-        }
+            private int secondRemainingDurability() {
+                return this.second.getMaxDamage() - this.second.getDamageValue();
+            }
 
-        private int totalRemainingDurability() {
-            return this.firstRemainingDurability() + this.secondRemainingDurability();
+            private int totalRemainingDurability() {
+                return this.firstRemainingDurability() + this.secondRemainingDurability();
+            }
         }
-    }
 }

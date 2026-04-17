@@ -31,13 +31,14 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.world.level.GrassColor;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.BlockTintSources;
 
 import java.util.List;
 
 public class ColorEventHandler {
 
     //region Static Methods
-    public static void onRegisterBlockColorHandlers(RegisterColorHandlersEvent.BlockTintSources event) {
+    public static void onRegisterBlockColorHandlers(BlockTintSources event) {
         // Chalk glyphs and candles with fixed colors derived from block instance
         event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor())),
                 OccultismBlocks.CHALK_GLYPH_WHITE.get(), OccultismBlocks.LARGE_CANDLE_WHITE.get());
@@ -73,22 +74,22 @@ public class ColorEventHandler {
                 OccultismBlocks.CHALK_GLYPH_PINK.get(), OccultismBlocks.LARGE_CANDLE_PINK.get());
 
         // Rainbow glyph: color is state-dependent (cycles through colors)
-        event.register(List.of((BlockTintSource) state -> opaque(((RainbowGlyphBlock) state.getBlock()).getColor(state))),
+        event.register(List.of(state -> opaque(((RainbowGlyphBlock) state.getBlock()).getColor(state))),
                 OccultismBlocks.CHALK_GLYPH_RAINBOW.get());
 
         // Void glyph: color is state-dependent
-        event.register(List.of((BlockTintSource) state -> opaque(((VoidGlyphBlock) state.getBlock()).getColor(state))),
+        event.register(List.of(state -> opaque(((VoidGlyphBlock) state.getBlock()).getColor(state))),
                 OccultismBlocks.CHALK_GLYPH_VOID.get());
 
         // Spirit fire: color is state-dependent and uses two tint layers in the model
         event.register(List.of(
-                        (BlockTintSource) state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 0)),
-                        (BlockTintSource) state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 1))
+                        state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 0)),
+                        state -> opaque(((SpiritFireBlock) state.getBlock()).getColor(state, 1))
                 ),
                 OccultismBlocks.SPIRIT_FIRE.get());
 
         // Otherworld leaves: white tint when uncovered (has own texture), biome foliage color when covered
-        event.register(List.of((BlockTintSource) state -> state.getValue(IOtherworldBlock.UNCOVERED)
+        event.register(List.of(state -> state.getValue(IOtherworldBlock.UNCOVERED)
                 ? opaque(0xFFFFFF)
                 : opaque(GrassColor.getDefaultColor())), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 

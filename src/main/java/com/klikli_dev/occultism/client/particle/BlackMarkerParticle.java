@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.SingleQuadParticle.Layer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
@@ -28,8 +29,8 @@ public class BlackMarkerParticle extends SingleQuadParticle {
     }
 
     @Override
-    protected SingleQuadParticle.Layer getLayer() {
-        return SingleQuadParticle.Layer.TRANSLUCENT;
+    protected Layer getLayer() {
+        return Layer.TRANSLUCENT;
     }
 
     @Override
@@ -63,7 +64,7 @@ public class BlackMarkerParticle extends SingleQuadParticle {
         @Override
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z,
                                        double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
-            BlackMarkerParticle particle = new BlackMarkerParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, sprite, random);
+            BlackMarkerParticle particle = new BlackMarkerParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite, random);
             particle.setParticleSpeed(0,0,0);
             return particle;
         }

@@ -40,9 +40,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
@@ -85,7 +87,7 @@ public class MessageSetRecipe implements IMessage {
             for (int i = 0; i < invList.size(); i++) {
                 // In 26.1 ListTag#getCompound returns an Optional<CompoundTag>.
                 // Older codec-based parsing was removed; use ItemStack.of(CompoundTag) instead.
-                java.util.Optional<CompoundTag> compoundOpt = invList.getCompound(i);
+                Optional<CompoundTag> compoundOpt = invList.getCompound(i);
                 ItemStack s = ItemStack.EMPTY;
                  if (compoundOpt.isPresent()) {
                      CompoundTag compoundTag = compoundOpt.get();
@@ -107,11 +109,11 @@ public class MessageSetRecipe implements IMessage {
 
                 //attempt to get the desired stack from the player inventory
                 ItemStack extractedStack = StorageUtil
-                        .extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), comparator,
+                        .extractItem(PlayerInventoryWrapper.of(player).getMainSlots(), comparator,
                                 1, true);
                 if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
-                    StorageUtil.extractItem(net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper.of(player).getMainSlots(), comparator, 1, false);
+                    StorageUtil.extractItem(PlayerInventoryWrapper.of(player).getMainSlots(), comparator, 1, false);
                     craftMatrix.setItem(slot, extractedStack);
                     break;
                 }

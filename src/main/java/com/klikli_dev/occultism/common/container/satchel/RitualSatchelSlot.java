@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.container.satchel;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +39,7 @@ public class RitualSatchelSlot extends Slot {
         if(stack.is(OccultismItems.RITUAL_SATCHEL_T1) || stack.is(OccultismItems.RITUAL_SATCHEL_T2))
             return false; //technically not necessary because they are not in pentacle materials, but just to make sure no datapack messes it up by accident.
 
-        if(!stack.is(OccultismTags.Items.PENTACLE_MATERIALS))
+        if(!stack.is(Items.PENTACLE_MATERIALS))
             return false;
 
         return super.mayPlace(stack);

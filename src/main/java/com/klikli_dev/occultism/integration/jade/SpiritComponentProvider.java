@@ -19,7 +19,7 @@ public class SpiritComponentProvider implements IEntityComponentProvider {
             int age = spiritEntity.getSpiritAge();
 
             // Determine spirit type and add appropriate tooltip
-            String spiritType = getSpiritType(spiritEntity);
+            String spiritType = this.getSpiritType(spiritEntity);
             if (spiritType != null) {
                 if (maxAge != -1) {
                     iTooltip.add(Component.translatable("occultism.jade." + spiritType + "_age", maxAge - age));

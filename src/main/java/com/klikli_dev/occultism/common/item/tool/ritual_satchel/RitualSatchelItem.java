@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.klikli_dev.modonomicon.multiblock.matcher.AnyMatcher;
 import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
 import com.klikli_dev.occultism.TranslationKeys;
@@ -70,7 +71,7 @@ public abstract class RitualSatchelItem extends Item {
         return new SatchelInventory(stack, RitualSatchelContainer.SATCHEL_SIZE);
     }
 
-    protected PlacementResult tryPlaceBlockForMatcher(UseOnContext context, Multiblock.SimulateResult targetMatcher) {
+    protected PlacementResult tryPlaceBlockForMatcher(UseOnContext context, SimulateResult targetMatcher) {
         if (targetMatcher.stateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.stateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
             return PlacementResult.ERROR_INVALID_MATCHER;
 

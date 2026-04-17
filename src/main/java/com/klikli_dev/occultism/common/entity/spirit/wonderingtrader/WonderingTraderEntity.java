@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.spirit.wonderingtrader;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
+import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTrades.ItemListing;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.CuriosUtil;
@@ -35,6 +37,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.animal.equine.TraderLlama;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
@@ -46,6 +49,7 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -117,7 +121,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                 for (int i = 0; i < 10; i++) {
                     int j = this.blockPosition().getX() + level.getRandom().nextInt(8) - 4;
                     int k = this.blockPosition().getZ() + level.getRandom().nextInt(8) - 4;
-                    int l = level.getHeight(Heightmap.Types.WORLD_SURFACE, j, k);
+                    int l = level.getHeight(Types.WORLD_SURFACE, j, k);
                     BlockPos blockpos1 = new BlockPos(j, l, k);
                     if (spawnplacementtype.isSpawnPositionOk(level, blockpos1, EntityType.WANDERING_TRADER)) {
                         blockpos = blockpos1;
@@ -145,7 +149,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
                 for (TraderLlama llama : this.level().getEntitiesOfClass(TraderLlama.class,
                         wanderingTrader.getBoundingBox().inflate(8), Entity::isAlive)) {
                     if (llama.getLeashHolder() != null && llama.getLeashHolder().is(wanderingTrader))
-                        llama.remove(Entity.RemovalReason.DISCARDED);
+                        llama.remove(RemovalReason.DISCARDED);
                 }
                 wanderingTrader.discard();
                 this.replacedTrader = null;
@@ -234,7 +238,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         if (this.level().enabledFeatures().contains(FeatureFlags.TRADE_REBALANCE)) {
             super.updateTrades(level);
         } else {
-            WonderingTrades.ItemListing[] hint = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.HINT);
+            ItemListing[] hint = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.HINT);
             // Vanilla wandering trader trades are now data-driven and no longer accessible via code.
             // We only add our own custom hint trades here.
             if (hint != null) {
@@ -245,14 +249,14 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     }
 
     protected void updateOtherTrades() {
-            WonderingTrades.ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
-            WonderingTrades.ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
-            WonderingTrades.ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
-            WonderingTrades.ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
-            WonderingTrades.ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
-            WonderingTrades.ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
-            WonderingTrades.ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
-            WonderingTrades.ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
+            ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
+            ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
+            ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
+            ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
+            ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
+            ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
+            ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
+            ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
             if (list1 != null && list2 != null && list3 != null && list4 != null
                     && list5 != null && list6 != null && list7 != null && list8 != null) {
                 MerchantOffers merchantoffers = this.getOtherOffers();
@@ -270,8 +274,8 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             }
     }
 
-    private void addOffersFromItemListings(MerchantOffers offers, WonderingTrades.ItemListing[] listings, int count) {
-        ArrayList<WonderingTrades.ItemListing> list = new ArrayList<>(Arrays.asList(listings));
+    private void addOffersFromItemListings(MerchantOffers offers, ItemListing[] listings, int count) {
+        ArrayList<ItemListing> list = new ArrayList<>(Arrays.asList(listings));
         Collections.shuffle(list);
         for (int i = 0; i < Math.min(count, list.size()); i++) {
             MerchantOffer offer = list.get(i).getOffer(this, this.random);
@@ -285,7 +289,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         var mainController = new AnimationController<>("mainController", 5, this::animPredicate);
         controllers.add(mainController);
     }
@@ -329,8 +333,8 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     @Override
     public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
-        this.commonOffers = input.<MerchantOffers>read("CommonOffers", MerchantOffers.CODEC).orElse(null);
-        this.otherOffers = input.<MerchantOffers>read("OtherOffers", MerchantOffers.CODEC).orElse(null);
+        this.commonOffers = input.read("CommonOffers", MerchantOffers.CODEC).orElse(null);
+        this.otherOffers = input.read("OtherOffers", MerchantOffers.CODEC).orElse(null);
         this.readInventoryFromTag(input);
     }
 }

@@ -28,12 +28,12 @@ public class OccultismGeoLivingEntityRenderState extends LivingEntityRenderState
 
     @Override
     public int getPackedLight() {
-        return getOrDefaultGeckolibData(DataTickets.PACKED_LIGHT, this.lightCoords);
+        return this.getOrDefaultGeckolibData(DataTickets.PACKED_LIGHT, this.lightCoords);
     }
 
     @Override
     public double getAnimatableAge() {
-        return getOrDefaultGeckolibData(DataTickets.TICK, (double) this.ageInTicks);
+        return this.getOrDefaultGeckolibData(DataTickets.TICK, (double) this.ageInTicks);
     }
 
     @Override

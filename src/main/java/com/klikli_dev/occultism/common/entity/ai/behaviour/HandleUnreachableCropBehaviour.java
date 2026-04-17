@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
@@ -44,7 +45,7 @@ public class HandleUnreachableCropBehaviour<E extends SpiritEntity> extends Exte
                 BrainUtil.clearMemory(entity, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get());
 
                 if (Occultism.DEBUG.debugAI) {
-                    Networking.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, OccultismConstants.Color.RED));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, Color.RED));
                 }
             }
         }

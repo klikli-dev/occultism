@@ -32,13 +32,16 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -52,6 +55,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.Brain.Packed;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -169,7 +173,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    protected Brain<?> makeBrain(Brain.Packed packedBrain) {
+    protected Brain<?> makeBrain(Packed packedBrain) {
         if (this.getJob().isEmpty()) {
             return new Brain<>();
         }
@@ -201,7 +205,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
                 String compoundStr = this.entityData.get(FILTER_ITEMS);
                 if (!compoundStr.isEmpty()) {
                     try {
-                        CompoundTag compound = net.minecraft.nbt.TagParser.parseCompoundFully(compoundStr);
+                        CompoundTag compound = TagParser.parseCompoundFully(compoundStr);
                         ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
                         this.filterItemStackHandler.deserialize(valueInput);
                     } catch (Exception e) {
@@ -424,7 +428,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void remakeBrain() {
-        this.brain = this.makeBrain(Brain.Packed.EMPTY);
+        this.brain = this.makeBrain(Packed.EMPTY);
     }
 
     @Nullable
@@ -526,7 +530,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         this.registerSkinDataParameter(builder);
         builder.define(DEPOSIT_POSITION, Optional.empty());
@@ -616,7 +620,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         //read job
         input.read("spiritJob", CompoundTag.CODEC).ifPresent(tag -> {
             SpiritJob job = SpiritJob.from(this, tag);
-            Brain.Packed packedBrain = input.read("Brain", Brain.Packed.CODEC).orElse(Brain.Packed.EMPTY);
+            Packed packedBrain = input.read("Brain", Packed.CODEC).orElse(Packed.EMPTY);
             this.setJob(job, false);
             this.brain = this.makeBrain(packedBrain);
         });
@@ -681,7 +685,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
       ItemStack itemStack = player.getItemInHand(hand);
 
-      if (!(itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_DJINNI))) {
+      if (!(itemStack.is(Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(Items.BOOK_OF_CALLING_DJINNI))) {
         if (!this.isTame())
             this.tame(player);
 

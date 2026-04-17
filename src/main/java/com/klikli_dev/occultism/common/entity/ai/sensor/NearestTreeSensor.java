@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -9,9 +10,11 @@ import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Blocks;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -44,7 +47,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     }
 
     public static boolean isTreeSoil(Level level, BlockPos pos) {
-        return level.getBlockState(pos).is(OccultismTags.Blocks.TREE_SOIL);
+        return level.getBlockState(pos).is(Blocks.TREE_SOIL);
     }
 
     public static boolean isLog(Level level, BlockPos pos) {
@@ -80,10 +83,10 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         if (Occultism.DEBUG.debugAI) {
             for (var tree : unreachableTrees) {
-                Networking.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
+                Networking.sendToTracking(entity, new MessageSelectBlock(tree, 10000, Color.ORANGE));
             }
             for (var tree : nonTreeLogs) {
-                Networking.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
+                Networking.sendToTracking(entity, new MessageSelectBlock(tree, 10000, Color.ORANGE));
             }
         }
 
@@ -111,14 +114,14 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
             for (var potentialStump : potentialStumps) {
 
                 if (Occultism.DEBUG.debugAI) {
-                    Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, OccultismConstants.Color.WHITE));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, Color.WHITE));
                 }
 
                 //we only check if the stump is actually a tree one by one from closest to furthest to save perf.
                 if (this.isTree(level, potentialStump)) {
                     //we have a tree, now we check if it is likely reachable
                     var isReachable = false;
-                    for (Direction facing : Direction.Plane.HORIZONTAL) {
+                    for (Direction facing : Plane.HORIZONTAL) {
                         BlockPos pos = potentialStump.relative(facing);
                         if (level.isEmptyBlock(pos)) {
                             isReachable = true;

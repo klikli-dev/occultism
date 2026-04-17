@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.util.OtherWoodType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -46,6 +47,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -162,52 +164,52 @@ public class OccultismBlocks {
             true, LootTableType.CUSTOM);
     public static final DeferredBlock<StairBlock> OTHERSTONE_STAIRS = register("otherstone_stairs",
             (p) -> new StairBlock(OccultismBlocks.OTHERSTONE.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<PressurePlateBlock> OTHERSTONE_PRESSURE_PLATE = register("otherstone_pressure_plate",
             (p) -> new PressurePlateBlock(BlockSetType.STONE, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
+            () -> Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
     public static final DeferredBlock<ButtonBlock> OTHERSTONE_BUTTON = register("otherstone_button",
             (p) -> new ButtonBlock(BlockSetType.STONE, 30, p),
-            () -> BlockBehaviour.Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
     public static final DeferredBlock<WallBlock> OTHERSTONE_WALL = register("otherstone_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> OTHERCOBBLESTONE = register("othercobblestone", Block::new,
             () -> Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30).requiresCorrectToolForDrops());
     public static final DeferredBlock<StairBlock> OTHERCOBBLESTONE_STAIRS = register("othercobblestone_stairs",
             (p) -> new StairBlock(OccultismBlocks.OTHERSTONE.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> OTHERCOBBLESTONE_SLAB = register("othercobblestone_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<WallBlock> OTHERCOBBLESTONE_WALL = register("othercobblestone_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> POLISHED_OTHERSTONE = register("polished_otherstone", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()));
     public static final DeferredBlock<StairBlock> POLISHED_OTHERSTONE_STAIRS = register("polished_otherstone_stairs",
             (p) -> new StairBlock(OccultismBlocks.POLISHED_OTHERSTONE.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> POLISHED_OTHERSTONE_SLAB = register("polished_otherstone_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(POLISHED_OTHERSTONE.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<WallBlock> POLISHED_OTHERSTONE_WALL = register("polished_otherstone_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> OTHERSTONE_BRICKS = register("otherstone_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()));
     public static final DeferredBlock<StairBlock> OTHERSTONE_BRICKS_STAIRS = register("otherstone_bricks_stairs",
             (p) -> new StairBlock(OccultismBlocks.OTHERSTONE_BRICKS.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> OTHERSTONE_BRICKS_SLAB = register("otherstone_bricks_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE_BRICKS.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<WallBlock> OTHERSTONE_BRICKS_WALL = register("otherstone_bricks_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> CHISELED_OTHERSTONE_BRICKS = register("chiseled_otherstone_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()));
     public static final DeferredBlock<Block> CRACKED_OTHERSTONE_BRICKS = register("cracked_otherstone_bricks", Block::new,
@@ -217,52 +219,52 @@ public class OccultismBlocks {
             () -> Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30).requiresCorrectToolForDrops(), true, LootTableType.CUSTOM);
     public static final DeferredBlock<StairBlock> OTHERROCK_STAIRS = register("otherrock_stairs",
             (p) -> new StairBlock(OccultismBlocks.OTHERROCK.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> OTHERROCK_SLAB = register("otherrock_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<PressurePlateBlock> OTHERROCK_PRESSURE_PLATE = register("otherrock_pressure_plate",
             (p) -> new PressurePlateBlock(BlockSetType.STONE, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
+            () -> Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
     public static final DeferredBlock<ButtonBlock> OTHERROCK_BUTTON = register("otherrock_button",
             (p) -> new ButtonBlock(BlockSetType.STONE, 30, p),
-            () -> BlockBehaviour.Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
     public static final DeferredBlock<WallBlock> OTHERROCK_WALL = register("otherrock_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> OTHERCOBBLEROCK = register("othercobblerock", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
     public static final DeferredBlock<StairBlock> OTHERCOBBLEROCK_STAIRS = register("othercobblerock_stairs",
             (p) -> new StairBlock(OccultismBlocks.OTHERROCK.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> OTHERCOBBLEROCK_SLAB = register("othercobblerock_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<WallBlock> OTHERCOBBLEROCK_WALL = register("othercobblerock_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> POLISHED_OTHERROCK = register("polished_otherrock", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
     public static final DeferredBlock<StairBlock> POLISHED_OTHERROCK_STAIRS = register("polished_otherrock_stairs",
             (p) -> new StairBlock(OccultismBlocks.POLISHED_OTHERROCK.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> POLISHED_OTHERROCK_SLAB = register("polished_otherrock_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(POLISHED_OTHERROCK.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<WallBlock> POLISHED_OTHERROCK_WALL = register("polished_otherrock_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> OTHERROCK_BRICKS = register("otherrock_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
     public static final DeferredBlock<StairBlock> OTHERROCK_BRICKS_STAIRS = register("otherrock_bricks_stairs",
             (p) -> new StairBlock(OccultismBlocks.OTHERROCK_BRICKS.get().defaultBlockState(), p),
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<SlabBlock> OTHERROCK_BRICKS_SLAB = register("otherrock_bricks_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK_BRICKS.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<WallBlock> OTHERROCK_BRICKS_WALL = register("otherrock_bricks_wall",
             WallBlock::new,
-            () -> BlockBehaviour.Properties.of().strength(1.5f).requiresCorrectToolForDrops());
+            () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<Block> CHISELED_OTHERROCK_BRICKS = register("chiseled_otherrock_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
     public static final DeferredBlock<Block> CRACKED_OTHERROCK_BRICKS = register("cracked_otherrock_bricks", Block::new,
@@ -343,32 +345,32 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG_NATURAL =
             register("stripped_otherworld_log_natural", OtherworldStrippedLogNaturalBlock::new,
                     () -> Block.Properties.of()
-                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)
+                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)
                             .overrideDescription("block.minecraft.stripped_oak_log"), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", (p) -> new OtherworldLogNaturalBlock(p, OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL),
                     () -> Block.Properties.of()
-                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)
+                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)
                             .overrideDescription("block.minecraft.oak_log"), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG =
             register("stripped_otherworld_log", RotatedPillarBlock::new,
                     () -> Block.Properties.of()
-                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
                             .strength(2.0F).sound(SoundType.WOOD).strength(2.0f));
     public static final DeferredBlock<Block> OTHERWORLD_LOG =
             register("otherworld_log", (p) -> new OtherworldStrippableBlock(p, OccultismBlocks.STRIPPED_OTHERWORLD_LOG),
                     () -> Block.Properties.of()
-                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
                             .strength(2.0F).sound(SoundType.WOOD).strength(2.0f));
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_WOOD =
             register("stripped_otherworld_wood", RotatedPillarBlock::new,
                     () -> Block.Properties.of()
-                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
                             .strength(2.0F).sound(SoundType.WOOD).strength(2.0f));
     public static final DeferredBlock<Block> OTHERWORLD_WOOD =
             register("otherworld_wood", (p) -> new OtherworldStrippableBlock(p, OccultismBlocks.STRIPPED_OTHERWORLD_WOOD),
                     () -> Block.Properties.of()
-                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                            .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
                             .strength(2.0F).sound(SoundType.WOOD).strength(2.0f));
     public static final DeferredBlock<Block> OTHERPLANKS =
             register("otherplanks", Block::new,
@@ -382,36 +384,36 @@ public class OccultismBlocks {
             () -> Block.Properties.ofFullCopy(OTHERPLANKS.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<FenceBlock> OTHERPLANKS_FENCE = register("otherplanks_fence",
             FenceBlock::new,
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE));
+            () -> Properties.ofFullCopy(Blocks.OAK_FENCE));
     public static final DeferredBlock<FenceGateBlock> OTHERPLANKS_FENCE_GATE = register("otherplanks_fence_gate",
             (p) -> new FenceGateBlock(WoodType.OAK, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get()));
+            () -> Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get()));
     public static final DeferredBlock<DoorBlock> OTHERPLANKS_DOOR = register("otherplanks_door",
             (p) -> new DoorBlock(BlockSetType.OAK, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get()), true, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<TrapDoorBlock> OTHERPLANKS_TRAPDOOR = register("otherplanks_trapdoor",
             (p) -> new TrapDoorBlock(BlockSetType.OAK, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get()));
+            () -> Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get()));
     public static final DeferredBlock<PressurePlateBlock> OTHERPLANKS_PRESSURE_PLATE = register("otherplanks_pressure_plate",
             (p) -> new PressurePlateBlock(BlockSetType.OAK, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE));
+            () -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE));
     public static final DeferredBlock<ButtonBlock> OTHERPLANKS_BUTTON = register("otherplanks_button",
             (p) -> new ButtonBlock(BlockSetType.OAK, 30, p),
-            () -> BlockBehaviour.Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
 
     public static final DeferredBlock<Block> OTHERPLANKS_SIGN = register("otherplanks_sign",
             (p) -> new OtherStandingSignBlock(OtherWoodType.OTHERPLANKS, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN), false, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(Blocks.OAK_SIGN), false, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERPLANKS_WALL_SIGN = register("otherplanks_wall_sign",
             (p) -> new OtherWallSignBlock(OtherWoodType.OTHERPLANKS, p),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN), false, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(Blocks.OAK_WALL_SIGN), false, LootTableType.CUSTOM);
 
     public static final DeferredBlock<OtherHangingSignBlock> OTHERPLANKS_HANGING_SIGN = register("otherplanks_hanging_sign",
             (p) -> new OtherHangingSignBlock(p, OtherWoodType.OTHERPLANKS),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN), false, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN), false, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherWallHangingSignBlock> OTHERPLANKS_WALL_HANGING_SIGN = register("otherplanks_wall_hanging_sign",
             (p) -> new OtherWallHangingSignBlock(p, OtherWoodType.OTHERPLANKS),
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), false, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), false, LootTableType.CUSTOM);
 
     //Ores
     public static final DeferredBlock<Block> SILVER_ORE = register("silver_ore", Block::new,
@@ -763,14 +765,14 @@ public class OccultismBlocks {
 
     public static final DeferredBlock<SpiritGrindstoneBlock> SPIRIT_GRINDSTONE =
             register("spirit_grindstone", SpiritGrindstoneBlock::new,
-                    () -> BlockBehaviour.Properties.of()
+                    () -> Properties.of()
                             .sound(SoundType.GLASS)
                             .strength(5, 1200)
                             .pushReaction(PushReaction.BLOCK)
             );
     public static final DeferredBlock<IesniumAnvilBlock> IESNIUM_ANVIL =
             register("iesnium_anvil", IesniumAnvilBlock::new,
-                    () -> BlockBehaviour.Properties.of()
+                    () -> Properties.of()
                             .sound(SoundType.ANVIL)
                             .strength(5, 1200)
                             .pushReaction(PushReaction.BLOCK)
@@ -794,7 +796,7 @@ public class OccultismBlocks {
     //Deco
     public static final DeferredBlock<Block> SPIRIT_LANTERN = register("spirit_lantern",
             LanternBlock::new,
-            () -> BlockBehaviour.Properties.of()
+            () -> Properties.of()
                     .mapColor(MapColor.METAL)
                     .requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN)
                     .lightLevel((state) -> 10).noOcclusion());
@@ -802,7 +804,7 @@ public class OccultismBlocks {
     //See Occultism#commonSetup for extending the campfire block entity type to accept our spirit campfire
     public static final DeferredBlock<Block> SPIRIT_CAMPFIRE = register("spirit_campfire",
             (p) -> new CampfireBlock(false, 0, p),
-            () -> BlockBehaviour.Properties.of()
+            () -> Properties.of()
                     .mapColor(MapColor.PODZOL)
                     .strength(2.0F).sound(SoundType.WOOD).lightLevel(
                             litBlockEmission(10)).noOcclusion());
@@ -810,35 +812,35 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> SPIRIT_TORCH = register("spirit_torch",
             (p) -> new SpiritTorchBlock(
                     OccultismParticles.SPIRIT_FIRE_FLAME, p),
-            () -> BlockBehaviour.Properties.of()
+            () -> Properties.of()
                     .noCollision().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD), false);
 
     public static final DeferredBlock<Block> SPIRIT_WALL_TORCH = register("spirit_wall_torch",
             (p) -> new SpiritWallTorchBlock(
                     OccultismParticles.SPIRIT_FIRE_FLAME, p),
-            () -> BlockBehaviour.Properties.of()
+            () -> Properties.of()
                     .noCollision().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD), false);
 
-    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<BlockBehaviour.Properties, ? extends I> func, Supplier<BlockBehaviour.Properties> properties) {
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<Properties, ? extends I> func, Supplier<Properties> properties) {
         return register(name, func, properties, true);
     }
 
-    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<BlockBehaviour.Properties, ? extends I> func, Supplier<BlockBehaviour.Properties> properties, Rarity rarity) {
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<Properties, ? extends I> func, Supplier<Properties> properties, Rarity rarity) {
         return register(name, func, properties, true, rarity, LootTableType.DROP_SELF);
     }
 
-    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<BlockBehaviour.Properties, ? extends I> func, Supplier<BlockBehaviour.Properties> properties,
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<Properties, ? extends I> func, Supplier<Properties> properties,
                                                               boolean generateDefaultBlockItem) {
         return register(name, func, properties, generateDefaultBlockItem, LootTableType.DROP_SELF);
     }
 
-    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<BlockBehaviour.Properties, ? extends I> func, Supplier<BlockBehaviour.Properties> properties,
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<Properties, ? extends I> func, Supplier<Properties> properties,
                                                               boolean generateDefaultBlockItem,
                                                               LootTableType lootTableType) {
         return register(name, func, properties, generateDefaultBlockItem, Rarity.COMMON, lootTableType);
     }
 
-    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<BlockBehaviour.Properties, ? extends I> func, Supplier<BlockBehaviour.Properties> properties,
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Function<Properties, ? extends I> func, Supplier<Properties> properties,
                                                               boolean generateDefaultBlockItem, Rarity rarity,
                                                               LootTableType lootTableType) {
         DeferredBlock<I> object = BLOCKS.registerBlock(name, func, properties);

@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.common.ritual.Ritual;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
@@ -56,6 +57,8 @@ import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
@@ -247,12 +250,12 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new RitualRecipeDisplay(
+    public List<RecipeDisplay> display() {
+        return List.of(new RitualRecipeDisplay(
                 this.getIngredients(),
                 this.result != null ? this.result : this.ritualDummy,
                 this.ritualDummy,
-                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem()),
+                new ItemSlotDisplay(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get().asItem()),
                 this.getActivationItem().display(),
                 Optional.ofNullable(this.getItemToUse()).map(Ingredient::display),
                 this.getSummonEntityDropsDisplay(),
@@ -273,7 +276,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         .replace("minecraft:entities/", "")
                         .replace("c:entities/", "")
                         .replace(":entities/", "_"))
-                .map(mob -> new SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
+                .map(mob -> new TagSlotDisplay(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
     }
 
     private Optional<SlotDisplay> getRandomEntityDropsDisplay() {
@@ -284,18 +287,18 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         .replace("minecraft:", "")
                         .replace("c:", "")
                         .replace(":", "_"))
-                .map(mob -> new SlotDisplay.TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+                .map(mob -> new TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
     }
 
     private Optional<Component> getSummonText() {
         return Optional.ofNullable(this.getEntityToSummon())
-                .map(entity -> Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,
+                .map(entity -> Component.translatable(I18n.RITUAL_RECIPE_SUMMON,
                         Component.translatable(entity.getDescriptionId())));
     }
 
     private Optional<Component> getJobText() {
         return Optional.ofNullable(this.getSpiritJobType())
-                .map(jobType -> Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,
+                .map(jobType -> Component.translatable(I18n.RITUAL_RECIPE_JOB,
                         Component.translatable("job." + jobType.toString().replace(":", "."))));
     }
 
@@ -304,7 +307,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             return Optional.empty();
         }
 
-        return Optional.of(Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,
+        return Optional.of(Component.translatable(I18n.RITUAL_RECIPE_SACRIFICE,
                 Component.translatable(this.getEntityToSacrificeDisplayName())));
     }
 

@@ -24,13 +24,17 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.DragonRendering.StickLayer;
+import com.klikli_dev.occultism.client.render.entity.DragonRendering.SwordLayer;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -42,6 +46,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
+import net.neoforged.neoforge.client.event.RenderLivingEvent.Post;
 import org.jspecify.annotations.Nullable;
 
 public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, LivingEntityRenderState, DragonFamiliarModel> {
@@ -64,11 +69,11 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
 
     private final ItemModelResolver itemModelResolver;
 
-    public DragonFamiliarRenderer(EntityRendererProvider.Context context) {
+    public DragonFamiliarRenderer(Context context) {
         super(context, new DragonFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DRAGON)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
-        this.addLayer(new DragonRendering.StickLayer(this));
-        this.addLayer(new DragonRendering.SwordLayer(this));
+        this.addLayer(new StickLayer(this));
+        this.addLayer(new SwordLayer(this));
     }
 
     @Override
@@ -92,7 +97,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
     private static class RenderText {
 
         @SubscribeEvent
-        public static void renderText(RenderLivingEvent.Post<DragonFamiliarEntity, LivingEntityRenderState, DragonFamiliarModel> event) {
+        public static void renderText(Post<DragonFamiliarEntity, LivingEntityRenderState, DragonFamiliarModel> event) {
             @Nullable DragonFamiliarEntity dragon = event.getRenderState().getRenderData(DRAGON_KEY);
             if (dragon == null)
                 return;
@@ -108,7 +113,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
             matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);
 
-            matrixStackIn.mulPose(net.minecraft.client.Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
+            matrixStackIn.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
             matrixStackIn.translate(Mth.sin(textTimer / 2) * 0.5, 0, 0);
             float size = (1 - textTimer / DragonFamiliarEntity.MAX_PET_TIMER) * 0.025f;
             matrixStackIn.scale(-size, -size, size);
@@ -121,7 +126,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
                     0,
                     text.getVisualOrderText(),
                     false,
-                    Font.DisplayMode.NORMAL,
+                    DisplayMode.NORMAL,
                     packedLight,
                     0xffffff,
                     0x000000,

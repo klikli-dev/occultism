@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.network.messages.MessageSyncFamiliarSettings;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -100,14 +101,14 @@ public class FamiliarSettingsData {
         Networking.sendTo(player, new MessageSyncFamiliarSettings(this, player.registryAccess()));
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    public CompoundTag serializeNBT(Provider provider) {
         CompoundTag compound = new CompoundTag();
         for (Entry<EntityType<?>, Boolean> entry : this.familiarEnabled.entrySet())
             compound.putBoolean(BuiltInRegistries.ENTITY_TYPE.getKey(entry.getKey()).getPath(), entry.getValue());
         return compound;
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+    public void deserializeNBT(Provider provider, CompoundTag nbt) {
         for (EntityType<?> familiar : getFamiliars())
             if (nbt.contains(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()))
                 this.familiarEnabled.put(familiar, nbt.getBooleanOr(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), false));

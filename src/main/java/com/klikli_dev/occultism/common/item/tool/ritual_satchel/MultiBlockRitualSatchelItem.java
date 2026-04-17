@@ -25,6 +25,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -71,7 +72,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     protected InteractionResult collectPentacle(UseOnContext context) {
         var pentacles = OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), context.getLevel()).stream()
                 .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
-                .map(r -> (RecipeHolder<RitualRecipe>) r)
+                .map(r -> r)
                 //First deduplicate pentacles
                 .collect(Collectors.toMap(
                         r -> r.value().getPentacle().getId(), // Use pentacle ID as the key
@@ -168,7 +169,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
 
         pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",

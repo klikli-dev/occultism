@@ -27,11 +27,12 @@ import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredRegister.DataComponents;
 
 import java.util.UUID;
 
 public class OccultismDataComponents {
-    public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Occultism.MODID);
+    public static final DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Occultism.MODID);
     public static final String INVALID_SPIRIT_ENTITY_DATA_MARKER = "occultism_invalid_spirit_entity_data";
     private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {
         @Override

@@ -22,9 +22,11 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -51,7 +53,7 @@ public class AfritEntity extends SpiritEntity implements GeoEntity {
     }
 
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 8.0)
                 .add(Attributes.ATTACK_SPEED, 8.0)
@@ -71,7 +73,7 @@ public class AfritEntity extends SpiritEntity implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }

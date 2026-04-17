@@ -23,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.stream.StreamSupport;
+
 /**
  * A tag result for recipes that use tags as output.
  */
@@ -102,7 +104,7 @@ public class WeightedTagRecipeResult extends WeightedRecipeResult {
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
             //get all items in tag
-            this.cachedStacks = java.util.stream.StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(this.tag).spliterator(), false)
+            this.cachedStacks = StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(this.tag).spliterator(), false)
                     .map(ItemStack::new).toArray(ItemStack[]::new);
         }
         return this.cachedStacks;

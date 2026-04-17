@@ -30,6 +30,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -38,8 +39,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -49,6 +52,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Unit;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
@@ -64,7 +68,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
     private static final ContextKey<Float> CAPOW_ALPHA = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_capow_alpha"));
     private static final ContextKey<Vec3> CAPOW_POSITION = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_capow_position"));
 
-    public MummyFamiliarRenderer(EntityRendererProvider.Context context) {
+    public MummyFamiliarRenderer(Context context) {
         super(context, new MummyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_MUMMY)), 0.3f);
         this.addLayer(new KapowLayer(this, context));
         this.addLayer(new EyesLayer(this));
@@ -126,7 +130,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
         private static KapowModel model;
         private final MummyFamiliarRenderer renderer;
 
-        public KapowLayer(MummyFamiliarRenderer renderer, EntityRendererProvider.Context context) {
+        public KapowLayer(MummyFamiliarRenderer renderer, Context context) {
             super(renderer);
             this.renderer = renderer;
             if (model == null) {
@@ -151,7 +155,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
             poseStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
 
             // Render kapow sprite using bufferSource workaround for alpha-blended model
-            MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+            BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
             VertexConsumer kapowBuffer = bufferSource.getBuffer(model.renderType(KAPOW_TEXTURE));
             model.kapow.render(poseStack, kapowBuffer, lightCoords, OverlayTexture.NO_OVERLAY,
                     ((int) (alpha * 255) << 24) | 0x00FFFFFF);
@@ -168,7 +172,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
             poseStack.translate(0, 0, -0.01);
             var matrix = poseStack.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2f, 0, textColor, true,
-                    matrix, bufferSource, Font.DisplayMode.NORMAL, 0, lightCoords);
+                    matrix, bufferSource, DisplayMode.NORMAL, 0, lightCoords);
             poseStack.popPose();
 
             poseStack.pushPose();
@@ -176,7 +180,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
             poseStack.mulPose(new Quaternionf().rotateXYZ(0, 180 * ((float) Math.PI / 180F), 0));
             matrix = poseStack.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2f, 0, textColor, true,
-                    matrix, bufferSource, Font.DisplayMode.NORMAL, 0, lightCoords);
+                    matrix, bufferSource, DisplayMode.NORMAL, 0, lightCoords);
             poseStack.popPose();
 
             bufferSource.endBatch();
@@ -186,7 +190,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
         }
     }
 
-    public static class KapowModel extends Model<net.minecraft.util.Unit> {
+    public static class KapowModel extends Model<Unit> {
         public ModelPart kapow;
 
         public KapowModel(ModelPart part) {

@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.Builder;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 public class OccultismClientConfig {
@@ -35,7 +36,7 @@ public class OccultismClientConfig {
     public final ModConfigSpec spec;
 
     private OccultismClientConfig() {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        Builder builder = new Builder();
         this.visuals = new VisualSettings(builder);
         this.misc = new MiscSettings(builder);
         this.spec = builder.build();
@@ -69,7 +70,7 @@ public class OccultismClientConfig {
 
 
 
-        public VisualSettings(ModConfigSpec.Builder builder) {
+        public VisualSettings(Builder builder) {
             builder.comment("Visual Settings").push("visual");
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
                     .define("showItemTagsInTooltip", false);
@@ -189,7 +190,7 @@ public class OccultismClientConfig {
         public final IntValue pentagramInBowlInfoCount;
         public final IntValue pentagramInBowlInfoTicks;
 
-        public MiscSettings(ModConfigSpec.Builder builder) {
+        public MiscSettings(Builder builder) {
             builder.comment("Misc Settings").push("misc");
 
             this.syncJeiSearch = builder.comment("Sync JEI search in storage actuator.")

@@ -77,15 +77,15 @@ public class SpiritTraderRecipeCategory implements EmiRecipe {
 
     @Override
     public void addWidgets(@NotNull WidgetHolder widgetHolder) {
-        widgetHolder.addText(this.trader,getDisplayWidth() / 2, 0,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, (getDisplayWidth() / 2) - 12, 11);
-        widgetHolder.addSlot(this.input.get(0), (getDisplayWidth() / 2) - 32, 10);
+        widgetHolder.addText(this.trader, this.getDisplayWidth() / 2, 0,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, (this.getDisplayWidth() / 2) - 12, 11);
+        widgetHolder.addSlot(this.input.get(0), (this.getDisplayWidth() / 2) - 32, 10);
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
-        widgetHolder.addSlot(this.output.get(0), (getDisplayWidth() / 2) + 16, 10).recipeContext(this);
+        widgetHolder.addSlot(this.output.get(0), (this.getDisplayWidth() / 2) + 16, 10).recipeContext(this);
         widgetHolder.addText(Component.translatable("occultism.jei.spirit_trader.chance", String.format(Locale.US, "%.2f", this.chances)),
-                getDisplayWidth() / 2, getDisplayHeight() - 8,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
+                this.getDisplayWidth() / 2, this.getDisplayHeight() - 8,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
     }
 
     private static final List<EmiIngredient> tiers = List.of(

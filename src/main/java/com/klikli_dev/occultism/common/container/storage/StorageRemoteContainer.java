@@ -34,6 +34,7 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -184,7 +185,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateCraftingSlots(boolean force) {
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.matrix.getContainerSize(); i++) {
-            nbtTagList.add(ItemStack.OPTIONAL_CODEC.encodeStart(this.player.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), this.matrix.getItem(i)).getOrThrow());
+            nbtTagList.add(ItemStack.OPTIONAL_CODEC.encodeStart(this.player.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.matrix.getItem(i)).getOrThrow());
         }
         var compoundTag = new CompoundTag();
         compoundTag.put("craftingMatrix", nbtTagList);
@@ -197,7 +198,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateOrderSlot(boolean force) {
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(this.player.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), this.orderInventory.getItem(0)).getOrThrow()));
+            storageRemote.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(this.player.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.orderInventory.getItem(0)).getOrThrow()));
     }
 
     protected List<ItemStack> getCraftingMatrixFromItemStack(ItemStack stack) {
@@ -208,7 +209,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         ListTag nbtTagList = stack.get(OccultismDataComponents.CRAFTING_MATRIX).copyTag().getListOrEmpty("craftingMatrix");
 
         for (int i = 0; i < nbtTagList.size(); i++) {
-            craftingMatrix.set(i, ItemStack.OPTIONAL_CODEC.parse(this.player.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), nbtTagList.getCompoundOrEmpty(i)).result().orElse(ItemStack.EMPTY));
+            craftingMatrix.set(i, ItemStack.OPTIONAL_CODEC.parse(this.player.registryAccess().createSerializationContext(NbtOps.INSTANCE), nbtTagList.getCompoundOrEmpty(i)).result().orElse(ItemStack.EMPTY));
         }
 
         return craftingMatrix;
@@ -218,7 +219,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (!stack.has(OccultismDataComponents.ORDER_STACK))
             return ItemStack.EMPTY;
 
-        return ItemStack.OPTIONAL_CODEC.parse(this.player.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), stack.get(OccultismDataComponents.ORDER_STACK).copyTag()).result().orElse(ItemStack.EMPTY);
+        return ItemStack.OPTIONAL_CODEC.parse(this.player.registryAccess().createSerializationContext(NbtOps.INSTANCE), stack.get(OccultismDataComponents.ORDER_STACK).copyTag()).result().orElse(ItemStack.EMPTY);
     }
 
 }

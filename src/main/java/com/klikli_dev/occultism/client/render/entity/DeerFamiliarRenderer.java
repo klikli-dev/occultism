@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -46,7 +47,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, Living
     private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "deer_is_sitting"));
     private static final ContextKey<Boolean> HAS_RED_NOSE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "deer_has_red_nose"));
 
-    public DeerFamiliarRenderer(EntityRendererProvider.Context context) {
+    public DeerFamiliarRenderer(Context context) {
         super(context, new DeerFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DEER)), 0.3f);
         this.addLayer(new RedNoseLayer(this));
     }

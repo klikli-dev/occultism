@@ -6,20 +6,10 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.neoforge.common.conditions.AndCondition;
 
-public class AndConditionWrapper implements ConditionWrapper<AndCondition> {
-    private final AndCondition condition;
-
-    public AndConditionWrapper(AndCondition condition) {
-        this.condition = condition;
-    }
+public record AndConditionWrapper(AndCondition condition) implements ConditionWrapper<AndCondition> {
 
     @Override
     public MutableComponent accept(ConditionVisitor visitor, OccultismConditionContext context) {
         return visitor.visit(this, context);
-    }
-
-    @Override
-    public AndCondition condition() {
-        return condition;
     }
 }

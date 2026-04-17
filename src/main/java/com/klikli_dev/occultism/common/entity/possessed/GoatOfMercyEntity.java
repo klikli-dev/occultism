@@ -22,10 +22,13 @@
 
 package com.klikli_dev.occultism.common.entity.possessed;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.level.Level;
@@ -38,14 +41,14 @@ public class GoatOfMercyEntity extends Goat implements PossessedMob {
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Goat.createAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.0)
                 .add(Attributes.MAX_HEALTH, 1.0);
     }
     @Override
-    public void actuallyHurt(net.minecraft.server.level.ServerLevel level, DamageSource source, float amount) {
-        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.EVENT);
+    public void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
+        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
         if (lightningBolt != null) {
             lightningBolt.setVisualOnly(true);
             lightningBolt.snapTo(this.getX(), this.getY(), this.getZ());

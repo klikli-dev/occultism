@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -11,6 +12,7 @@ import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.Level;
@@ -75,10 +77,10 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         if (Occultism.DEBUG.debugAI) {
             for (var crop : unreachableCrops) {
-                Networking.sendToTracking(entity, new MessageSelectBlock(crop, 10000, OccultismConstants.Color.ORANGE));
+                Networking.sendToTracking(entity, new MessageSelectBlock(crop, 10000, Color.ORANGE));
             }
             for (var crop : nonCrop) {
-                Networking.sendToTracking(entity, new MessageSelectBlock(crop, 10000, OccultismConstants.Color.ORANGE));
+                Networking.sendToTracking(entity, new MessageSelectBlock(crop, 10000, Color.ORANGE));
             }
         }
 
@@ -106,14 +108,14 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
             for (var potentialRoot : potentialRoots) {
 
                 if (Occultism.DEBUG.debugAI) {
-                    Networking.sendToTracking(entity, new MessageSelectBlock(potentialRoot, 5000, OccultismConstants.Color.WHITE));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(potentialRoot, 5000, Color.WHITE));
                 }
 
                 //we only check if the Root is actually a crop one by one from closest to furthest to save perf.
                 if (isGrowthCrop(level, potentialRoot)) {
                     //we have a crop, now we check if it is likely reachable
                     var isReachable = false;
-                    for (Direction facing : Direction.Plane.HORIZONTAL) {
+                    for (Direction facing : Plane.HORIZONTAL) {
                         BlockPos pos = potentialRoot.relative(facing);
                         if (level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
                             isReachable = true;

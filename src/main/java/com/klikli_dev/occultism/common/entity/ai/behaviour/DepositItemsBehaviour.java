@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -54,7 +55,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         if (blockEntity != null) {
             BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
-            var depositItemHandler = entity.level().getCapability(Capabilities.Item.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
+            var depositItemHandler = entity.level().getCapability(Item.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
 
             this.toggleContainer(blockEntity, true);
 

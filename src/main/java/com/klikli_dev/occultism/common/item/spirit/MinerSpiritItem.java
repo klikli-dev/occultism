@@ -29,6 +29,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -61,7 +62,7 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
         tooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));

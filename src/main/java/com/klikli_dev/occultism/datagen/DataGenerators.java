@@ -34,16 +34,21 @@ import com.klikli_dev.occultism.datagen.tags.*;
 import com.klikli_dev.occultism.datagen.model.OccultismModelProvider;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableProvider.SubProviderEntry;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.RecipeProvider.Runner;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent.Client;
 
 import java.util.List;
 import java.util.Set;
@@ -53,7 +58,7 @@ import java.util.concurrent.CompletableFuture;
 public class DataGenerators {
 
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent.Client event) {
+    public static void gatherData(Client event) {
         DataGenerator generator = event.getGenerator();
 
         //Used for enchantment
@@ -65,12 +70,12 @@ public class DataGenerators {
                         Set.of(Occultism.MODID)
                 );
         generator.addProvider(true, datapackProvider);
-        CompletableFuture<HolderLookup.Provider> lookup = datapackProvider.getRegistryProvider();
+        CompletableFuture<Provider> lookup = datapackProvider.getRegistryProvider();
 
         generator.addProvider(true,
                 new OccultismLootTableProvider(generator.getPackOutput(), Set.of(), List.of(
-                        new LootTableProvider.SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
-                        new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
+                        new SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
+                        new SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
                 ), event.getLookupProvider()));
         generator.addProvider(true, new PentacleProvider(generator));
         generator.addProvider(true,
@@ -92,9 +97,9 @@ public class DataGenerators {
 
         // Generate recipes using RecipeProvider.Runner - the standard way in 26.1
         // RecipeProvider.Runner is an abstract runner that must be subclassed to provide the concrete provider.
-        generator.addProvider(true, new net.minecraft.data.recipes.RecipeProvider.Runner(generator.getPackOutput(), event.getLookupProvider()) {
+        generator.addProvider(true, new Runner(generator.getPackOutput(), event.getLookupProvider()) {
             @Override
-            protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registries, net.minecraft.data.recipes.RecipeOutput output) {
+            protected RecipeProvider createRecipeProvider(Provider registries, RecipeOutput output) {
                 return OccultismRecipeProvider.create(registries, output);
             }
 

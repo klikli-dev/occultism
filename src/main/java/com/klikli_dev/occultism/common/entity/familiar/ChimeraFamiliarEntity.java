@@ -25,8 +25,10 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtByTargetGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtTargetGoal;
+import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -34,6 +36,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -64,6 +67,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.CommonHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -182,7 +186,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ATTACKER, NO_ATTACKER);
     }
@@ -304,7 +308,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 goat.setPos(this.getX(), this.getY(), this.getZ());
                 goat.setCustomName(Component.literal(TextUtil.generateName()));
                 this.level().addFreshEntity(goat);
-                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
+                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.GOAT_DETACH);
             }
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
@@ -317,7 +321,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 && this.getFamiliarOwner() == playerIn && this.getSize() > RIDING_SIZE) {
             if (!this.level().isClientSide()) {
                 playerIn.startRiding(this);
-                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.CHIMERA_RIDE);
+                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.CHIMERA_RIDE);
             }
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
@@ -328,7 +332,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -371,7 +375,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, d1, vec3.z);
         this.setIsJumping(true);
-        net.neoforged.neoforge.common.CommonHooks.onLivingJump(this);
+        CommonHooks.onLivingJump(this);
         if (pTravelVector.z > 0.0) {
             float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));
             float f1 = Mth.cos(this.getYRot() * (float) (Math.PI / 180.0));
@@ -521,7 +525,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     }
 
-    private static class ChimeraRangedAttackGoal extends DevilFamiliarEntity.AttackGoal {
+    private static class ChimeraRangedAttackGoal extends AttackGoal {
 
         ChimeraFamiliarEntity chimera;
 

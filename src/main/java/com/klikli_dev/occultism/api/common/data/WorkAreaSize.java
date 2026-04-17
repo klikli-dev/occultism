@@ -29,6 +29,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
+import net.minecraft.util.ByIdMap.OutOfBoundsStrategy;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.Map;
@@ -43,7 +44,7 @@ public enum WorkAreaSize implements StringRepresentable {
 
     private static final Map<String, WorkAreaSize> TYPES = new Object2ObjectArrayMap<>();
     public static final Codec<WorkAreaSize> CODEC = Codec.stringResolver(WorkAreaSize::getSerializedName, TYPES::get);
-    public static final IntFunction<WorkAreaSize> BY_ID = ByIdMap.continuous(Enum::ordinal, WorkAreaSize.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final IntFunction<WorkAreaSize> BY_ID = ByIdMap.continuous(Enum::ordinal, WorkAreaSize.values(), OutOfBoundsStrategy.WRAP);
     public static final StreamCodec<ByteBuf, WorkAreaSize> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
 
     static {

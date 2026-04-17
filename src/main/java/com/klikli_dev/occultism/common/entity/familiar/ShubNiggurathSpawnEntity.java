@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.FamiliarUtil;
@@ -33,8 +34,10 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
@@ -63,7 +66,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
         this.creatorId = creator.getUUID();
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 6).add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_DAMAGE, 6);
     }
@@ -106,7 +109,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.lifeTicks = input.getIntOr("lifeTicks", LIFE_TICKS_MAX);
-        this.creatorId = input.<UUID>read("creatorId", UUIDUtil.CODEC).orElse(null);
+        this.creatorId = input.read("creatorId", UUIDUtil.CODEC).orElse(null);
     }
 
     public boolean isBlinking(int eye) {
@@ -124,7 +127,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
             e.hurt(owner == null ? this.damageSources().generic() : this.damageSources().mobAttack(owner), damage);
 
         if (!enemies.isEmpty())
-            OccultismAdvancements.FAMILIAR.get().trigger(this.getCreatorOwner(), FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getCreatorOwner(), Type.SHUB_NIGGURATH_SPAWN);
 
         this.kill((ServerLevel) this.level());
     }
@@ -132,7 +135,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     private LivingEntity getCreator() {
         if (this.creatorId == null)
             return null;
-        Entity creator = ((ServerLevel) this.level()).getEntity(this.creatorId);
+        Entity creator = this.level().getEntity(this.creatorId);
         if (!(creator instanceof LivingEntity))
             return null;
         return (LivingEntity) creator;
@@ -162,7 +165,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
         private FindTargetGoal(ShubNiggurathSpawnEntity entity) {
             super(entity, false);
             this.entity = entity;
-            this.setFlags(EnumSet.of(Goal.Flag.TARGET));
+            this.setFlags(EnumSet.of(Flag.TARGET));
         }
 
         protected abstract LivingEntity findTarget();

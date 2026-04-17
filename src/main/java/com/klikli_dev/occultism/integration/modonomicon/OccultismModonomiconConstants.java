@@ -6,10 +6,10 @@ import net.minecraft.resources.Identifier;
 public class OccultismModonomiconConstants {
     public static class Page {
         // Use Identifier.fromNamespaceAndPath to match 26.1 Identifier API
-        public static final net.minecraft.resources.Identifier SPIRIT_FIRE_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire_recipe");
-        public static final net.minecraft.resources.Identifier SPIRIT_TRADE_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade_recipe");
-        public static final net.minecraft.resources.Identifier RITUAL_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_recipe");
-        public static final net.minecraft.resources.Identifier BOOK_BINDING_RECIPE = net.minecraft.resources.Identifier.fromNamespaceAndPath(Occultism.MODID, "book_binding_recipe");
+        public static final Identifier SPIRIT_FIRE_RECIPE = Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire_recipe");
+        public static final Identifier SPIRIT_TRADE_RECIPE = Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade_recipe");
+        public static final Identifier RITUAL_RECIPE = Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_recipe");
+        public static final Identifier BOOK_BINDING_RECIPE = Identifier.fromNamespaceAndPath(Occultism.MODID, "book_binding_recipe");
     }
 
     public static class I18n {

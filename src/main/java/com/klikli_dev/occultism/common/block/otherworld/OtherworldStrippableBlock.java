@@ -42,7 +42,7 @@ public class OtherworldStrippableBlock extends RotatedPillarBlock {
 
     @Override
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-        return itemAbility == ItemAbilities.AXE_STRIP ? strippedState.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)) : null;
+        return itemAbility == ItemAbilities.AXE_STRIP ? this.strippedState.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)) : null;
     }
 
 }

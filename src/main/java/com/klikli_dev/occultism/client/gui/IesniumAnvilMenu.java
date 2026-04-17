@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.occultism.integration.apothicenchanting.ApothicEnchantingIntegration;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 // import net.neoforged.neoforge.common.NeoForge; // Unused after AnvilUpdateEvent stub
 // import net.neoforged.neoforge.event.AnvilUpdateEvent; // Removed in NeoForge 26.1 - API changed
 // import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent; // Removed in NeoForge 26.1
+import net.minecraft.world.item.enchantment.ItemEnchantments.Mutable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -78,12 +80,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
         if (!itemstack.isEmpty() && EnchantmentHelper.canStoreEnchantments(itemstack)) {
             ItemStack itemstack1 = itemstack.copy();
             ItemStack itemstack2 = this.inputSlots.getItem(1);
-            ItemEnchantments.Mutable itemenchantments$mutable = new ItemEnchantments.Mutable(EnchantmentHelper.getEnchantmentsForCrafting(itemstack1));
+            Mutable itemenchantments$mutable = new Mutable(EnchantmentHelper.getEnchantmentsForCrafting(itemstack1));
             j += (long) itemstack.getOrDefault(DataComponents.REPAIR_COST, 0)
                     + (long) itemstack2.getOrDefault(DataComponents.REPAIR_COST, 0);
             this.repairItemCountCost = 0;
             boolean flag = false;
-            if (!onIesniumAnvilChange(this, itemstack, itemstack2, resultSlots, itemName, j, this.player)) return;
+            if (!onIesniumAnvilChange(this, itemstack, itemstack2, this.resultSlots, this.itemName, j, this.player)) return;
             if (!itemstack2.isEmpty()) {
                 flag = itemstack2.has(DataComponents.STORED_ENCHANTMENTS);
                 if (itemstack1.isDamageableItem() && itemstack.isValidRepairItem(itemstack2)) {
@@ -130,7 +132,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                     boolean flag2 = false;
                     boolean flag3 = false;
 
-                    for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemenchantments.entrySet()) {
+                    for (Entry<Holder<Enchantment>> entry : itemenchantments.entrySet()) {
                         Holder<Enchantment> holder = entry.getKey();
                         int i2 = itemenchantments$mutable.getLevel(holder);
                         int k2 = entry.getIntValue();

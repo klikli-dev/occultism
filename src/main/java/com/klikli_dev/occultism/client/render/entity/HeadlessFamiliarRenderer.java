@@ -23,10 +23,12 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
 import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
+import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity.Rebuilt;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
@@ -38,6 +40,8 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.object.skull.SkullModel;
 import net.minecraft.client.model.object.skull.SkullModelBase;
+import net.minecraft.client.model.object.skull.SkullModelBase.State;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -82,7 +86,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     private final ItemModelResolver itemModelResolver;
 
-    public HeadlessFamiliarRenderer(EntityRendererProvider.Context context) {
+    public HeadlessFamiliarRenderer(Context context) {
         super(context, new HeadlessFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_HEADLESS)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new HeadLayer(this));
@@ -97,12 +101,12 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         reusedState.setRenderData(IS_SITTING, entity.isSitting());
         reusedState.setRenderData(IS_HEADLESS_DEAD, entity.isHeadlessDead());
         reusedState.setRenderData(IS_PARTYING, entity.isPartying());
-        reusedState.setRenderData(REBUILT_RIGHT_LEG, entity.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightLeg));
-        reusedState.setRenderData(REBUILT_LEFT_LEG, entity.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftLeg));
-        reusedState.setRenderData(REBUILT_BODY, entity.isRebuilt(HeadlessFamiliarEntity.Rebuilt.Body));
-        reusedState.setRenderData(REBUILT_RIGHT_ARM, entity.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightArm));
-        reusedState.setRenderData(REBUILT_LEFT_ARM, entity.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftArm));
-        reusedState.setRenderData(REBUILT_HEAD, entity.isRebuilt(HeadlessFamiliarEntity.Rebuilt.Head));
+        reusedState.setRenderData(REBUILT_RIGHT_LEG, entity.isRebuilt(Rebuilt.RightLeg));
+        reusedState.setRenderData(REBUILT_LEFT_LEG, entity.isRebuilt(Rebuilt.LeftLeg));
+        reusedState.setRenderData(REBUILT_BODY, entity.isRebuilt(Rebuilt.Body));
+        reusedState.setRenderData(REBUILT_RIGHT_ARM, entity.isRebuilt(Rebuilt.RightArm));
+        reusedState.setRenderData(REBUILT_LEFT_ARM, entity.isRebuilt(Rebuilt.LeftArm));
+        reusedState.setRenderData(REBUILT_HEAD, entity.isRebuilt(Rebuilt.Head));
         reusedState.setRenderData(HAS_HEAD, entity.hasHead());
         reusedState.setRenderData(HEAD_TYPE, entity.getHeadType());
         reusedState.setRenderData(WEAPON_ITEM, entity.getWeaponItem());
@@ -169,14 +173,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, 130 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
-                renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords);
                 matrix.popPose();
             }
             if (leftLeg != null && leftLeg) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, 50 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
-                renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords);
                 matrix.popPose();
             }
             if (body != null && body) {
@@ -185,23 +189,23 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.scale(size, size, size);
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, 0, 0));
                 matrix.translate(0, -0.45, -0.05);
-                renderItem(new ItemStack(Items.HAY_BLOCK), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.HAY_BLOCK), matrix, collector, lightCoords);
                 matrix.translate(0, -0.25, 0);
-                renderItem(new ItemStack(Items.HAY_BLOCK), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.HAY_BLOCK), matrix, collector, lightCoords);
                 matrix.popPose();
             }
             if (rightArm != null && rightArm) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, (180 + (partying ? Mth.sin(ageInTicks / 3) * 20 : 0)) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, 0.05);
-                renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords);
                 matrix.popPose();
             }
             if (leftArm != null && leftArm) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? Mth.sin(ageInTicks / 3) * 20 : 0) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, -0.05);
-                renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords);
                 matrix.popPose();
             }
             if (headRebuilt != null && headRebuilt) {
@@ -209,7 +213,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.scale(-1, -1, 1);
                 matrix.translate(0, 0.7, -0.06);
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? ageInTicks * 8 : -netHeadYaw) * ((float) Math.PI / 180F), 0));
-                renderItem(new ItemStack(Items.CARVED_PUMPKIN), matrix, collector, lightCoords);
+                this.renderItem(new ItemStack(Items.CARVED_PUMPKIN), matrix, collector, lightCoords);
                 matrix.popPose();
             }
             matrix.popPose();
@@ -333,7 +337,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         private static Identifier getTexture(EntityType<?> type) {
             if (textures == null) {
-                ImmutableMap.Builder<EntityType<?>, Identifier> builder = new ImmutableMap.Builder<>();
+                Builder<EntityType<?>, Identifier> builder = new Builder<>();
                 builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultTexture());
                 builder.put(EntityType.SKELETON, Identifier.parse("textures/entity/skeleton/skeleton.png"));
                 builder.put(EntityType.WITHER_SKELETON, Identifier.parse("textures/entity/skeleton/wither_skeleton.png"));
@@ -369,7 +373,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         private static SkullModelBase getHeadModel(EntityType<?> type) {
             if (skulls == null) {
                 EntityModelSet entityModels = Minecraft.getInstance().getEntityModels();
-                ImmutableMap.Builder<EntityType<?>, SkullModelBase> builder = new ImmutableMap.Builder<>();
+                Builder<EntityType<?>, SkullModelBase> builder = new Builder<>();
                 builder.put(EntityType.SKELETON, new VanillaSkullModel(entityModels.bakeLayer(ModelLayers.SKELETON_SKULL)));
                 builder.put(EntityType.WITHER_SKELETON, new VanillaSkullModel(entityModels.bakeLayer(ModelLayers.WITHER_SKELETON_SKULL)));
                 builder.put(EntityType.STRAY, new VanillaSkullModel(entityModels.bakeLayer(ModelLayers.SKELETON_SKULL)));
@@ -484,7 +488,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void setupAnim(SkullModelBase.State state) {
+        public void setupAnim(State state) {
             super.setupAnim(state);
             this.head.yRot = state.yRot * ((float) Math.PI / 180F);
             this.head.xRot = state.xRot * ((float) Math.PI / 180F);
@@ -504,7 +508,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void setupAnim(SkullModelBase.State state) {
+        public void setupAnim(State state) {
             super.setupAnim(state);
             this.head.yRot = state.yRot * ((float) Math.PI / 180F);
             this.head.xRot = state.xRot * ((float) Math.PI / 180F);
@@ -525,7 +529,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void setupAnim(SkullModelBase.State state) {
+        public void setupAnim(State state) {
             super.setupAnim(state);
             this.head.yRot = state.yRot * ((float) Math.PI / 180F);
             this.head.xRot = state.xRot * ((float) Math.PI / 180F);
@@ -546,7 +550,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void setupAnim(SkullModelBase.State state) {
+        public void setupAnim(State state) {
             super.setupAnim(state);
             this.head.yRot = state.yRot * ((float) Math.PI / 180F);
             this.head.xRot = state.xRot * ((float) Math.PI / 180F);

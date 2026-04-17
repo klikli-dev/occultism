@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.util.CuriosUtil.SelectedCurio;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
@@ -40,6 +41,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -117,7 +119,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
         pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip.spirit", TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
 
@@ -135,7 +137,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-        CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
+        SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
         if (selectedCurio != null) {
             return new StorageRemoteContainer(id, playerInventory, selectedCurio.selectedSlot);
         } else {

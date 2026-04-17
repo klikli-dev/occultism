@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
@@ -43,7 +44,7 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
     private static final ContextKey<Float> SCALE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_scale"));
     private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_is_sitting"));
 
-    public ChimeraFamiliarRenderer(EntityRendererProvider.Context context) {
+    public ChimeraFamiliarRenderer(Context context) {
         super(context, new ChimeraFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CHIMERA)), 0.3f);
     }
 

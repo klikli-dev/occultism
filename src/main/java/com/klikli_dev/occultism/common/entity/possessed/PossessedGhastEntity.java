@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.level.Level;
 
@@ -33,7 +34,7 @@ public class PossessedGhastEntity extends Ghast implements PossessedMob {
         super(type, level);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Ghast.createAttributes();
     }
 

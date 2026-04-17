@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueInput;
@@ -41,6 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
@@ -87,7 +89,7 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
 
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        com.klikli_dev.occultism.util.StorageUtil.dropInventoryItems(this);
+        StorageUtil.dropInventoryItems(this);
         super.preRemoveSideEffects(pos, state);
     }
 
@@ -104,7 +106,7 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
     }
 
     @SubscribeEvent
-    public static void entityWormholeFishing(PlayerInteractEvent.RightClickItem event) {
+    public static void entityWormholeFishing(RightClickItem event) {
         Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
         FishingHook hook = player.fishing;

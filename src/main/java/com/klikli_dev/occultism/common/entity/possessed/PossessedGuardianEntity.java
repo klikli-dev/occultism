@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.level.Level;
@@ -36,7 +37,7 @@ public class PossessedGuardianEntity extends Guardian implements PossessedMob{
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Guardian.createAttributes()
                 .add(Attributes.MAX_HEALTH, 60.0)
                 .add(Attributes.ARMOR, 6);

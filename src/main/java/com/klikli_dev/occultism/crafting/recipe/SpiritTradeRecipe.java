@@ -40,6 +40,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -156,11 +157,11 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
     }
 
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new SpiritTradeRecipeDisplay(
+    public List<RecipeDisplay> display() {
+        return List.of(new SpiritTradeRecipeDisplay(
                 this.input,
                 ItemStackTemplate.fromNonEmptyStack(this.result.getStack()),
-                new SlotDisplay.ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
+                new ItemSlotDisplay(OccultismBlocks.SPIRIT_FIRE.get().asItem())
         ));
     }
 

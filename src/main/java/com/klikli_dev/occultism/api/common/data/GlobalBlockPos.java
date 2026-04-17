@@ -26,6 +26,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -75,7 +76,7 @@ public class GlobalBlockPos {
         return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
 
-    public static GlobalBlockPos from(HolderLookup.Provider provider, CompoundTag tag){
+    public static GlobalBlockPos from(Provider provider, CompoundTag tag){
         return GlobalBlockPos.CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), tag).getOrThrow().getFirst();
     }
 

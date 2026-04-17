@@ -4,10 +4,15 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.crops.IReplantableCrops;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismBlocks.BlockDataGenSettings;
+import com.klikli_dev.occultism.registry.OccultismBlocks.LootTableType;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -48,7 +53,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     protected static final float[] DEFAULT_SAPLING_DROP_RATES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
     protected static final float[] INCREASED_SAPLING_DROP_RATES = new float[]{0.1F, 0.2F, 0.3F, 0.4F};
 
-    public OccultismBlockLoot(HolderLookup.Provider pRegistries) {
+    public OccultismBlockLoot(Provider pRegistries) {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pRegistries);
     }
 
@@ -71,7 +76,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(DeferredHolder::get)
                 .forEach(block -> {
-                    OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
+                    BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
                             .get(BuiltInRegistries.BLOCK.getKey(block));
                     if (settings == null) {
                         Occultism.LOGGER.warn("No block data-gen settings for block {}. Skipping loot table generation.",
@@ -79,18 +84,18 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                         return;
                     }
 
-                    if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
+                    if (settings.lootTableType == LootTableType.EMPTY)
                         this.registerDropNothingLootTable(block);
-                    else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
+                    else if (settings.lootTableType == LootTableType.REPLANTABLE_CROP) {
                         IReplantableCrops cropsBlock = (IReplantableCrops) block;
                         LootItemCondition.Builder lootCondition =
                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
-                                        StatePropertiesPredicate.Builder.properties()
+                                        Builder.properties()
                                                 .hasProperty(CropBlock.AGE, 7));
                         this.add(block,
                                 this.createCropDrops(block, cropsBlock.getCropsItem().asItem(),
                                         cropsBlock.getSeedsItem().asItem(), lootCondition));
-                    } else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF) {
+                    } else if (settings.lootTableType == LootTableType.DROP_SELF) {
                         if (block.asItem() != Items.AIR) {
                             this.dropSelf(block);
                         } else {
@@ -98,7 +103,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                                     BuiltInRegistries.BLOCK.getKey(block));
                         }
                     }
-                    else if (settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
+                    else if (settings.lootTableType == LootTableType.OTHERWORLD_BLOCK)
                         this.registerOtherworldBlockTable(block);
                 });
 
@@ -160,17 +165,17 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 OccultismDataComponents.ORDER_STACK.get()
         );
 
-        this.add(OccultismBlocks.OTHERSTONE_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERSTONE_SLAB.get()));
-        this.add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()));
-        this.add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()));
-        this.add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()));
-        this.add(OccultismBlocks.OTHERPLANKS_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERPLANKS_SLAB.get()));
-        this.add(OccultismBlocks.OTHERPLANKS_DOOR.get(), block -> createDoorTable(OccultismBlocks.OTHERPLANKS_DOOR.get()));
-        this.add(OccultismBlocks.OTHERPLANKS_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
-        this.add(OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
-        this.add(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
-        this.add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
-        this.add(OccultismBlocks.POTTED_OTHERFLOWER.get(), createPotFlowerItemTable(OccultismBlocks.OTHERFLOWER.get()));
+        this.add(OccultismBlocks.OTHERSTONE_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERSTONE_SLAB.get()));
+        this.add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()));
+        this.add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()));
+        this.add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERPLANKS_SLAB.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_DOOR.get(), block -> this.createDoorTable(OccultismBlocks.OTHERPLANKS_DOOR.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
+        this.add(OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
+        this.add(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
+        this.add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
+        this.add(OccultismBlocks.POTTED_OTHERFLOWER.get(), this.createPotFlowerItemTable(OccultismBlocks.OTHERFLOWER.get()));
         this.add(OccultismBlocks.OTHERSTONE.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLESTONE.asItem()));
         this.add(OccultismBlocks.OTHERROCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLEROCK.asItem()));
         this.add(OccultismBlocks.SKELETON_SKULL_DUMMY.get(), block -> noDrop());
@@ -203,7 +208,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     protected LootTable.Builder createOtherworldLeavesDrops(Block leavesBlock, Block coveredSapling,
                                                             Block uncoveredSapling,
                                                             float... chances) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
         var saplingLootItem = LootItem.lootTableItem(uncoveredSapling)
                 .when(this.uncoveredCondition(leavesBlock)).otherwise(LootItem.lootTableItem(coveredSapling));
@@ -233,7 +238,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     protected LootTable.Builder createCoveredOreDrop(Block block, Item item) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
         var coveredBlock = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getCoveredBlock() : Blocks.AIR;
         var uncoveredBlock = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock() : Blocks.AIR;
@@ -242,7 +247,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(coveredBlock))
-                        .when(coveredCondition(block))
+                        .when(this.coveredCondition(block))
                 )
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
@@ -304,13 +309,13 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
     private LootItemCondition.Builder uncoveredCondition(Block block) {
         return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
-                        StatePropertiesPredicate.Builder.properties()
+                        Builder.properties()
                                 .hasProperty(IOtherworldBlock.UNCOVERED, true));
     }
 
     private LootItemCondition.Builder coveredCondition(Block block) {
         return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
-                StatePropertiesPredicate.Builder.properties()
+                Builder.properties()
                         .hasProperty(IOtherworldBlock.UNCOVERED, false));
     }
 

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 public interface PossessedMob {
 
     @Nullable
-    public default EntityType basedMob(){
+    default EntityType basedMob(){
         return null;
     }
 }

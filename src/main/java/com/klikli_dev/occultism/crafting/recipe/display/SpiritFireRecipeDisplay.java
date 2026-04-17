@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay.ItemStackSlotDisplay;
 
 public record SpiritFireRecipeDisplay(
         Ingredient ingredient,
@@ -61,6 +62,6 @@ public record SpiritFireRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(this.output);
+        return new ItemStackSlotDisplay(this.output);
     }
 }

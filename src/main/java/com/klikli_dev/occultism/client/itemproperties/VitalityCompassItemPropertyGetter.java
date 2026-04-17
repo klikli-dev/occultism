@@ -22,13 +22,26 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-// TODO: Port to 26.1 item property system
-// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
-// to the new item model property system once the API is available.
-//
-// Original logic: returns VitalityCompassItem.NOT_FOUND if COMPASS_ANGLE component
-// is absent or negative, otherwise returns the compass angle value.
+import com.klikli_dev.occultism.common.item.tool.VitalityCompassItem;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
+import net.minecraft.world.entity.ItemOwner;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
-public class VitalityCompassItemPropertyGetter {
-    // Empty stub - see TODO above
+public class VitalityCompassItemPropertyGetter implements RangeSelectItemModelProperty {
+    public static final MapCodec<VitalityCompassItemPropertyGetter> MAP_CODEC = MapCodec.unit(new VitalityCompassItemPropertyGetter());
+
+    @Override
+    public float get(ItemStack stack, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
+        Float angle = stack.get(OccultismDataComponents.COMPASS_ANGLE);
+        return angle != null && angle >= 0 ? angle : VitalityCompassItem.NOT_FOUND;
+    }
+
+    @Override
+    public MapCodec<VitalityCompassItemPropertyGetter> type() {
+        return MAP_CODEC;
+    }
 }

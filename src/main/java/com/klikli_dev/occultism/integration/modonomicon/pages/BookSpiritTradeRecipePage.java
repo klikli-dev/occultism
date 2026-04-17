@@ -13,7 +13,9 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
 
@@ -26,7 +28,7 @@ public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTr
         super(data);
     }
 
-    public static BookSpiritTradeRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookSpiritTradeRecipePage fromJson(Identifier entryId, JsonObject json, Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         return new BookSpiritTradeRecipePage(common);
     }
@@ -38,6 +40,6 @@ public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTr
 
     @Override
     public Identifier getType() {
-        return OccultismModonomiconConstants.Page.SPIRIT_TRADE_RECIPE;
+        return Page.SPIRIT_TRADE_RECIPE;
     }
 }

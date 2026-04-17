@@ -12,7 +12,9 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
 
@@ -25,7 +27,7 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
         super(data);
     }
 
-    public static BookRitualRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookRitualRecipePage fromJson(Identifier entryId, JsonObject json, Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         return new BookRitualRecipePage(common);
     }
@@ -37,6 +39,6 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
 
     @Override
     public Identifier getType() {
-        return OccultismModonomiconConstants.Page.RITUAL_RECIPE;
+        return Page.RITUAL_RECIPE;
     }
 }

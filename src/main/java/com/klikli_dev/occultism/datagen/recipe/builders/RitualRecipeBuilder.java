@@ -1,12 +1,19 @@
 package com.klikli_dev.occultism.datagen.recipe.builders;
 
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.EntityToSacrifice;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.EntityToSummonSettings;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.RitualRequirementSettings;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.RitualStartSettings;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -37,7 +44,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     private final int duration;
     private final NonNullList<Ingredient> ingredients;
     private final Identifier pentacleId;
-    private final HolderLookup.Provider registries;
+    private final Provider registries;
 
     @Nullable
     private Identifier spiritJobType;
@@ -62,7 +69,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     @Nullable
     private ICondition condition;
 
-    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries) {
+    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, Provider registries) {
         this.activationIngredient = activationIngredient;
         this.output = output;
         this.ritualDummy = ritualDummy;
@@ -73,7 +80,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, HolderLookup.Provider registries, Ingredient... ingredients) {
+    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, Provider registries, Ingredient... ingredients) {
         NonNullList<Ingredient> ingredientsList = NonNullList.create();
         Collections.addAll(ingredientsList, ingredients);
         return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, duration, ritualType, pentacleId, registries);
@@ -101,14 +108,14 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
-                .rewards(AdvancementRewards.Builder.recipe(pId))
-                .requirements(AdvancementRequirements.Strategy.OR);
+                .rewards(Builder.recipe(pId))
+                .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
         var recipe = new RitualRecipe(this.ritualType,
-                new RitualRecipe.RitualRequirementSettings(this.pentacleId, this.ingredients, this.activationIngredient, this.duration, this.duration / (float) (this.ingredients.size() + 1)),
-                new RitualRecipe.RitualStartSettings(this.entityToSacrifice == null ? null : new RitualRecipe.EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.condition),
-                new RitualRecipe.EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
+                new RitualRequirementSettings(this.pentacleId, this.ingredients, this.activationIngredient, this.duration, this.duration / (float) (this.ingredients.size() + 1)),
+                new RitualStartSettings(this.entityToSacrifice == null ? null : new EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.condition),
+                new EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
                 this.ritualDummy, this.output, this.command);
 
         pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/ritual/")));

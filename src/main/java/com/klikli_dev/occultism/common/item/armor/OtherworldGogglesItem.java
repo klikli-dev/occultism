@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.item.armor;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +40,7 @@ public class OtherworldGogglesItem extends Item {
 
     public static boolean isGogglesItem(ItemStack stack) {
         return stack.getItem() instanceof OtherworldGogglesItem ||
-                stack.is(OccultismTags.Items.OTHERWORLD_GOGGLES) ||
+                stack.is(Items.OTHERWORLD_GOGGLES) ||
                 stack.getOrDefault(OccultismDataComponents.OTHERWORLD_GOGGLES, false);
     }
 }

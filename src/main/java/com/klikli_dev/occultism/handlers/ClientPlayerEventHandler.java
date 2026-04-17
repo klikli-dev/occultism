@@ -47,8 +47,12 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.InputEvent.Key;
+import net.neoforged.neoforge.client.event.InputEvent.MouseButton;
 import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent.KeyPressed.Post;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
+import net.neoforged.neoforge.event.PlayLevelSoundEvent.AtPosition;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +65,7 @@ public class ClientPlayerEventHandler {
     //region Static Methods
 
     @SubscribeEvent
-    public static void onPlaySoundAt(PlayLevelSoundEvent.AtPosition event) {
+    public static void onPlaySoundAt(AtPosition event) {
         //handle spirit fire sound disable config
         if (event.getLevel().isClientSide() &&
                 Occultism.CLIENT_CONFIG.misc.disableSpiritFireSuccessSound.get() &&
@@ -73,7 +77,7 @@ public class ClientPlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onKeyInput(final InputEvent.Key event) {
+    public static void onKeyInput(final Key event) {
         Minecraft minecraft = Minecraft.getInstance();
         checkBackpackKey();
         checkEnderBagKey();
@@ -87,7 +91,7 @@ public class ClientPlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onMouseInput(final InputEvent.MouseButton.Key event) {
+    public static void onMouseInput(final MouseButton.Key event) {
         //handle mouse button bindings for storage keys
         checkBackpackKey();
         checkEnderBagKey();
@@ -140,7 +144,7 @@ public class ClientPlayerEventHandler {
         }
     }
     @SubscribeEvent
-    public static void onScreenKey(ScreenEvent.KeyPressed.Post event) {
+    public static void onScreenKey(Post event) {
         Screen screen = event.getScreen();
         if (screen instanceof ChatScreen)
             return;

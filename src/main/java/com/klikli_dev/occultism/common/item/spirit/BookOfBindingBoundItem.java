@@ -27,6 +27,8 @@ import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -36,13 +38,13 @@ import java.util.function.Consumer;
 
 public class BookOfBindingBoundItem extends Item {
 
-    public BookOfBindingBoundItem(Item.Properties properties) {
+    public BookOfBindingBoundItem(Properties properties) {
         super(properties);
     }
 
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, tooltipDisplay, tooltipAdder, pTooltipFlag);
 
         tooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",

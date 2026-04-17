@@ -39,6 +39,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -126,7 +127,7 @@ public class ManageMachineGoal extends Goal {
                         ItemStack itemToExtract = this.job.getStorageController()
                                 .getItemStack(currentOrder.comparator, currentOrder.amount,
                                         true);
-                        var handler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                        var handler = this.entity.getCapability(Item.ENTITY);
                         if (!itemToExtract.isEmpty() &&
                                 ItemTransferUtil.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
@@ -144,13 +145,13 @@ public class ManageMachineGoal extends Goal {
                     } else if (this.targetBlock.equals(machineReference.extractGlobalPos.getPos())) {
                         //if we reached the machine (=extract block entity), we take out the result
 
-                        var machineHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
+                        var machineHandler = blockEntity.getLevel().getCapability(Item.BLOCK,
                                 blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,
                                 machineReference.extractFacing);
 
                         if (machineHandler != null) {
 
-                            var entityHandler = this.entity.getCapability(Capabilities.Item.ENTITY);
+                            var entityHandler = this.entity.getCapability(Item.ENTITY);
 
                             boolean movedAnyItems = false;
                             for (int i = 0; i < machineHandler.size(); i++) {
@@ -244,7 +245,7 @@ public class ManageMachineGoal extends Goal {
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
 
-        var machineItemHandler = machine.getLevel().getCapability(Capabilities.Item.BLOCK,
+        var machineItemHandler = machine.getLevel().getCapability(Item.BLOCK,
                 machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing);
         if (machineItemHandler == null)
             return false;
@@ -273,7 +274,7 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
                                                      BlockEntity extractBlockEntity, IStorageController storageController) {
-        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK,
+        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Item.BLOCK,
                 extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing);
         if (machineItemHandler == null)
             return false;
@@ -298,9 +299,9 @@ public class ManageMachineGoal extends Goal {
         if (machine != null && extractBlockEntity != null && storageController != null) {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
-            if (machine.getLevel().getCapability(Capabilities.Item.BLOCK,
+            if (machine.getLevel().getCapability(Item.BLOCK,
                     machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing) == null ||
-                    extractBlockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing) == null) {
+                    extractBlockEntity.getLevel().getCapability(Item.BLOCK, extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing) == null) {
                 this.job.setManagedMachine(null);
                 this.targetBlock = null;
                 return;

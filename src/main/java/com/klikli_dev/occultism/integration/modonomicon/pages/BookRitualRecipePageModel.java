@@ -8,12 +8,13 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 public class BookRitualRecipePageModel extends BookRecipePageModel<BookRitualRecipePageModel> {
     protected BookRitualRecipePageModel() {
-        super(OccultismModonomiconConstants.Page.RITUAL_RECIPE);
+        super(Page.RITUAL_RECIPE);
     }
 
     public static BookRitualRecipePageModel create() {

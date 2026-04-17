@@ -6,20 +6,11 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.neoforge.common.conditions.RegisteredCondition;
 
-public class ItemExistsConditionWrapper implements ConditionWrapper<RegisteredCondition<?>> {
-    private final RegisteredCondition<?> condition;
-
-    public ItemExistsConditionWrapper(RegisteredCondition<?> condition) {
-        this.condition = condition;
-    }
+public record ItemExistsConditionWrapper(
+        RegisteredCondition<?> condition) implements ConditionWrapper<RegisteredCondition<?>> {
 
     @Override
     public MutableComponent accept(ConditionVisitor visitor, OccultismConditionContext context) {
         return visitor.visit(this, context);
-    }
-
-    @Override
-    public RegisteredCondition<?> condition() {
-        return condition;
     }
 }

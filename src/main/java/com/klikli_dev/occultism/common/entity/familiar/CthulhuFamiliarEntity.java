@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.google.common.collect.ImmutableList;
@@ -41,11 +42,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity.MoveFunction;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -88,7 +92,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.moveControl = new MoveController(this);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
@@ -105,7 +109,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -239,7 +243,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
+    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
         if (this.hasPassenger(pPassenger)) {
             Vec3 direction = this.riderLocation();
             pCallback.accept(pPassenger, direction.x, direction.y, direction.z);
@@ -263,7 +267,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         if (source.getEntity() == this.getFamiliarOwner()) {
             this.setAngry(true);
             this.setSitting(true);
-            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), Type.CTHULHU_SAD);
         } else if (source.getEntity() != null) {
             Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
             if (tp != null) {
@@ -421,7 +425,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         public GiveFlowerGoal(CthulhuFamiliarEntity cthulhu) {
             this.cthulhu = cthulhu;
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         @Override

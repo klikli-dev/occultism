@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.misc;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 
 public class DepositOrder {
@@ -39,7 +40,7 @@ public class DepositOrder {
     }
 
     //region Static Methods
-    public static DepositOrder from(CompoundTag compound, HolderLookup.Provider provider
+    public static DepositOrder from(CompoundTag compound, Provider provider
     ) {
         DepositOrder depositOrder = new DepositOrder();
         depositOrder.deserializeNBT(provider, compound);
@@ -47,22 +48,22 @@ public class DepositOrder {
     }
     //endregion Static Methods
 
-    public CompoundTag writeToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeToNBT(CompoundTag compound, Provider provider) {
         compound.put("comparator", this.comparator.serializeNBT(provider));
         compound.putInt("amount", this.amount);
         return compound;
     }
 
-    public void readFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readFromNBT(CompoundTag compound, Provider provider) {
         this.comparator = ItemStackComparator.from(compound.getCompoundOrEmpty("comparator"), provider);
         this.amount = compound.getIntOr("amount", 0);
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    public CompoundTag serializeNBT(Provider provider) {
         return this.writeToNBT(new CompoundTag(), provider);
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+    public void deserializeNBT(Provider provider, CompoundTag nbt) {
         this.readFromNBT(nbt, provider);
     }
 

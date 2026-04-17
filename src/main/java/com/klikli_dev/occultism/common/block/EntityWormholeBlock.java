@@ -35,12 +35,14 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer.RespawnConfig;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
@@ -54,6 +56,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.portal.TeleportTransition;
@@ -102,7 +105,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(EXIT_ROTATION_X, EXIT_ROTATION_Y);
         super.createBlockStateDefinition(builder);
     }
@@ -192,12 +195,12 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                     if (name != null) {
                         if (name.getString().equals("RTP")) {
                             resourcekey = entity.level().dimension();
-                            blockpos = findSafeRTP(level, entity, Occultism.SERVER_CONFIG.itemSettings.maxTryRTP.getAsInt());
+                            blockpos = this.findSafeRTP(level, entity, Occultism.SERVER_CONFIG.itemSettings.maxTryRTP.getAsInt());
                         }
                         if (name.getString().equals("HOME")
                                 && entity instanceof ServerPlayer player) {
-                            ServerPlayer.RespawnConfig respawnConfig = player.getRespawnConfig();
-                            ResourceKey<Level> tempKey = ServerPlayer.RespawnConfig.getDimensionOrDefault(respawnConfig);
+                            RespawnConfig respawnConfig = player.getRespawnConfig();
+                            ResourceKey<Level> tempKey = RespawnConfig.getDimensionOrDefault(respawnConfig);
                             ServerLevel tempLevel = level.getServer().getLevel(tempKey);
                             BlockPos tempPos = respawnConfig != null ? respawnConfig.respawnData().pos() : null;
                             if (tempLevel != null && tempPos != null) {
@@ -209,7 +212,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                                         blockpos = new BlockPos((int) optional.get().x(), (int) optional.get().y(), (int) optional.get().z());
                                         resourcekey = tempKey;
                                     }
-                                } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(net.minecraft.world.attribute.EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
+                                } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
                                     float respawnAngle = respawnConfig.respawnData().yaw();
                                     Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
                                     if (optional.isPresent()) {
@@ -319,7 +322,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         return blockpos.getY() == level.getMinY()
                 || level.getBlockState(blockpos.below()).is(Blocks.WATER)
                 || level.getBlockState(blockpos.below()).is(Blocks.LAVA) ?
-                findSafeRTP(level, entity, recursionLeft - 1) : blockpos;
+                this.findSafeRTP(level, entity, recursionLeft - 1) : blockpos;
     }
 
     public void pullEntity(ServerLevel level, BlockPos pos, BlockState state){

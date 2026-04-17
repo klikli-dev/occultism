@@ -27,6 +27,8 @@ import com.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -37,6 +39,7 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -48,7 +51,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
     private final ItemModelResolver itemModelResolver;
 
-    public SacrificialBowlRenderer(BlockEntityRendererProvider.Context context) {
+    public SacrificialBowlRenderer(Context context) {
         this.itemModelResolver = context.itemModelResolver();
     }
 
@@ -66,7 +69,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
     }
 
     @Override
-    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, SacrificialBowlRenderState renderState, float partialTick, Vec3 cameraPos, ModelFeatureRenderer.@Nullable CrumblingOverlay crumbling) {
+    public void extractRenderState(SacrificialBowlBlockEntity blockEntity, SacrificialBowlRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable CrumblingOverlay crumbling) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
 
         ItemStack stack = blockEntity.itemStackHandler.getResource(0).toStack();
@@ -109,9 +112,9 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
         double fixedOffset = 0.2;
 
-        double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
-        double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
-        double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+        double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+        double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+        double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
 
         poseStack.translate(0.5 + xOffset, 0.5 + yOffset, 0.5 + zOffset);
 

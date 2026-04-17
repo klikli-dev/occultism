@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.network.Networking;
@@ -31,6 +32,7 @@ import com.klikli_dev.occultism.network.messages.MessageSetFilterMode;
 import com.klikli_dev.occultism.network.messages.MessageSetTagFilterText;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.platform.InputConstants.Key;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -120,7 +122,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.tagFilterTextField.setBordered(false);
         this.tagFilterTextField.setVisible(true);
-        this.tagFilterTextField.setTextColor(OccultismConstants.Color.WHITE);
+        this.tagFilterTextField.setTextColor(Color.WHITE);
         this.tagFilterTextField.setFocused(false);
 
         if (!StringUtils.isBlank(this.getTagFilterText())) {
@@ -209,7 +211,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         //Handle inventory key down in search bar:
         if (this.tagFilterTextField.isFocused()) {
-            InputConstants.Key mouseKey = InputConstants.getKey(event);
+            Key mouseKey = InputConstants.getKey(event);
             if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)) {
                 return true;
             }

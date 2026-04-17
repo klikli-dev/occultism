@@ -2,33 +2,32 @@
  * MIT License
  *
  * Copyright 2020 klikli-dev
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
  */
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-// TODO: Port to 26.1 item property system
-// ItemPropertyFunction was removed in Minecraft 26.1; this class needs to be ported
-// to the new item model property system once the API is available.
-//
-// Original logic: returns 1.0f if IS_INVENTORY_ITEM component is true or player has
-// THIRD_EYE effect, otherwise returns 0.0f.
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
-public class OtherworldBlockItemPropertyGetter {
-    // Empty stub - see TODO above
+public class OtherworldBlockItemPropertyGetter implements ConditionalItemModelProperty {
+    public static final MapCodec<OtherworldBlockItemPropertyGetter> MAP_CODEC = MapCodec.unit(new OtherworldBlockItemPropertyGetter());
+
+    @Override
+    public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+        return stack.getOrDefault(OccultismDataComponents.IS_INVENTORY_ITEM, false)
+                || (entity instanceof Player player && player.hasEffect(OccultismEffects.THIRD_EYE));
+    }
+
+    @Override
+    public MapCodec<? extends ConditionalItemModelProperty> type() {
+        return MAP_CODEC;
+    }
 }

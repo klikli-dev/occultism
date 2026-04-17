@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -31,6 +32,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
@@ -95,19 +97,19 @@ public abstract class ChangeWeatherJob extends SpiritJob {
             lightningboltentity.setVisualOnly(true);
 
             this.entity.die(this.entity.damageSources().lightningBolt());
-            this.entity.remove(Entity.RemovalReason.DISCARDED);
+            this.entity.remove(RemovalReason.DISCARDED);
         }
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
         compound.putInt("requiredChangeTicks", this.requiredChangeTicks.get());
         return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readJobFromNBT(CompoundTag compound, Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.currentChangeTicks = compound.getIntOr("currentChangeTicks", 0);
         var requiredChangeTicks = compound.getIntOr("requiredChangeTicks", 0);

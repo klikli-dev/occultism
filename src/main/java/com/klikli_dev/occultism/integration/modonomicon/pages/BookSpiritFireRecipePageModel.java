@@ -8,10 +8,11 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 
 public class BookSpiritFireRecipePageModel extends BookRecipePageModel<BookSpiritFireRecipePageModel> {
     protected BookSpiritFireRecipePageModel() {
-        super(OccultismModonomiconConstants.Page.SPIRIT_FIRE_RECIPE);
+        super(Page.SPIRIT_FIRE_RECIPE);
     }
 
     public static BookSpiritFireRecipePageModel create() {

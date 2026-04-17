@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.advancement;
 
+import com.klikli_dev.occultism.common.advancement.RitualTrigger.TriggerInstance;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.mojang.serialization.Codec;
@@ -30,12 +31,13 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.ContextAwarePredicate;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger.SimpleInstance;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 
-public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerInstance> {
+public class RitualTrigger extends SimpleCriterionTrigger<TriggerInstance> {
 
 
     public void trigger(ServerPlayer player, Ritual ritual) {
@@ -49,7 +51,7 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerI
 
     public record TriggerInstance(Optional<ContextAwarePredicate> player,
                                   Optional<Identifier> ritualId,
-                                  Optional<Identifier> ritualFactoryId) implements SimpleCriterionTrigger.SimpleInstance {
+                                  Optional<Identifier> ritualFactoryId) implements SimpleInstance {
 
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
@@ -60,7 +62,7 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerI
                         .apply(instance, TriggerInstance::new)
         );
 
-        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(Identifier ritualFactoryId) {
+        public static Criterion<TriggerInstance> ritualFactory(Identifier ritualFactoryId) {
             return OccultismAdvancements.RITUAL.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(ritualFactoryId)));
         }
 

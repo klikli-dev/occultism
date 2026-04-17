@@ -37,11 +37,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.Tags.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -90,18 +92,18 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
             ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
                     player.getItemInHand(InteractionHand.OFF_HAND) :
                     player.getItemInHand(InteractionHand.MAIN_HAND) ;
-            if (stack.is(Tags.Items.DYES_BROWN)) {cor = 4; cc = false;}
-            else if (stack.is(Tags.Items.DYES_RED)) {cor = 5; cc = false;}
-            else if (stack.is(Tags.Items.DYES_ORANGE)) {cor = 6; cc = false;}
-            else if (stack.is(Tags.Items.DYES_YELLOW)) {cor = 7; cc = false;}
-            else if (stack.is(Tags.Items.DYES_LIME)) {cor = 8; cc = false;}
-            else if (stack.is(Tags.Items.DYES_GREEN)) {cor = 9; cc = false;}
-            else if (stack.is(Tags.Items.DYES_CYAN)) {cor = 10; cc = false;}
-            else if (stack.is(Tags.Items.DYES_LIGHT_BLUE)) {cor = 11; cc = false;}
-            else if (stack.is(Tags.Items.DYES_BLUE)) {cor = 12; cc = false;}
-            else if (stack.is(Tags.Items.DYES_PURPLE)) {cor = 13; cc = false;}
-            else if (stack.is(Tags.Items.DYES_MAGENTA)) {cor = 14; cc = false;}
-            else if (stack.is(Tags.Items.DYES_PINK)) {cor = 15; cc = false;}
+            if (stack.is(Items.DYES_BROWN)) {cor = 4; cc = false;}
+            else if (stack.is(Items.DYES_RED)) {cor = 5; cc = false;}
+            else if (stack.is(Items.DYES_ORANGE)) {cor = 6; cc = false;}
+            else if (stack.is(Items.DYES_YELLOW)) {cor = 7; cc = false;}
+            else if (stack.is(Items.DYES_LIME)) {cor = 8; cc = false;}
+            else if (stack.is(Items.DYES_GREEN)) {cor = 9; cc = false;}
+            else if (stack.is(Items.DYES_CYAN)) {cor = 10; cc = false;}
+            else if (stack.is(Items.DYES_LIGHT_BLUE)) {cor = 11; cc = false;}
+            else if (stack.is(Items.DYES_BLUE)) {cor = 12; cc = false;}
+            else if (stack.is(Items.DYES_PURPLE)) {cor = 13; cc = false;}
+            else if (stack.is(Items.DYES_MAGENTA)) {cor = 14; cc = false;}
+            else if (stack.is(Items.DYES_PINK)) {cor = 15; cc = false;}
             else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {cc = false;}
         }
         return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
@@ -109,7 +111,7 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
                         context.getHorizontalDirection().getOpposite());
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(COLOR, CYCLE);
         super.createBlockStateDefinition(builder);
     }
@@ -126,40 +128,40 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
                     level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
                 }
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_BROWN)) {
+            } else if (stack.is(Items.DYES_BROWN)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 4));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_RED)) {
+            } else if (stack.is(Items.DYES_RED)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 5));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_ORANGE)) {
+            } else if (stack.is(Items.DYES_ORANGE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 6));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_YELLOW)) {
+            } else if (stack.is(Items.DYES_YELLOW)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 7));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_LIME)) {
+            } else if (stack.is(Items.DYES_LIME)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 8));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_GREEN)) {
+            } else if (stack.is(Items.DYES_GREEN)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 9));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_CYAN)) {
+            } else if (stack.is(Items.DYES_CYAN)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 10));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_LIGHT_BLUE)) {
+            } else if (stack.is(Items.DYES_LIGHT_BLUE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 11));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_BLUE)) {
+            } else if (stack.is(Items.DYES_BLUE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 12));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_PURPLE)) {
+            } else if (stack.is(Items.DYES_PURPLE)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 13));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_MAGENTA)) {
+            } else if (stack.is(Items.DYES_MAGENTA)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 14));
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Tags.Items.DYES_PINK)) {
+            } else if (stack.is(Items.DYES_PINK)) {
                 level.setBlockAndUpdate(pos, state.setValue(COLOR, 15));
                 return InteractionResult.SUCCESS;
             }

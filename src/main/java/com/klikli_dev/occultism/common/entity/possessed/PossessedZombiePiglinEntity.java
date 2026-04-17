@@ -27,6 +27,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.Level;
@@ -39,7 +40,7 @@ public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
     }
 
     //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Zombie.createAttributes()
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.26F)

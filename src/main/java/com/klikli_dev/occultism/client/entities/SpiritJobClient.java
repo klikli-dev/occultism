@@ -12,7 +12,7 @@ public class SpiritJobClient {
     }
 
     public Identifier modelID() {
-        return modelID;
+        return this.modelID;
     }
 
     public static SpiritJobClient create(Identifier modelID) {

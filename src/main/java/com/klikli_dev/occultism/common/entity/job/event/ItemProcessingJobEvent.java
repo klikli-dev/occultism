@@ -14,7 +14,7 @@ public class ItemProcessingJobEvent extends EntityEvent {
     }
 
     public ItemStack getInput() {
-        return input;
+        return this.input;
     }
 
     public void setInput(ItemStack input) {
@@ -22,7 +22,7 @@ public class ItemProcessingJobEvent extends EntityEvent {
     }
 
     public ItemStack getResult() {
-        return result;
+        return this.result;
     }
 
     public void setResult(ItemStack result) {

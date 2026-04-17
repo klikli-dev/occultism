@@ -1,11 +1,13 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.DemonicPartner;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityType.Builder;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
@@ -23,7 +25,7 @@ public class DemonicWife extends DemonicPartner implements GeoEntity {
 
     public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "demonic_wife");
     public static final Lazy<EntityType<DemonicWife>> ENTITY_TYPE =
-            Lazy.of(() -> EntityType.Builder.of(DemonicWife::new, MobCategory.CREATURE)
+            Lazy.of(() -> Builder.of(DemonicWife::new, MobCategory.CREATURE)
                     .sized(0.6F, 2)
                     .fireImmune()
                     .clientTrackingRange(8)
@@ -40,7 +42,7 @@ public class DemonicWife extends DemonicPartner implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }

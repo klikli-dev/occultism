@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -57,7 +58,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
 
     private final ItemModelResolver itemModelResolver;
 
-    public CthulhuFamiliarRenderer(EntityRendererProvider.Context context) {
+    public CthulhuFamiliarRenderer(Context context) {
         super(context, new CthulhuFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CTHULHU)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new HeldItemLayer(this, this.itemModelResolver));

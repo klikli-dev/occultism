@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
@@ -51,7 +52,7 @@ public class ItemStackComparator implements IItemStackComparator {
     }
 
     //region Static Methods
-    public static ItemStackComparator from(CompoundTag nbt, HolderLookup.Provider provider) {
+    public static ItemStackComparator from(CompoundTag nbt, Provider provider) {
         ItemStackComparator comparator = new ItemStackComparator();
         comparator.deserializeNBT(provider, nbt);
         return !comparator.filterStack.isEmpty() ? comparator : null;
@@ -85,22 +86,22 @@ public class ItemStackComparator implements IItemStackComparator {
         return stack.getItem() == this.filterStack.getItem();
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    public CompoundTag serializeNBT(Provider provider) {
         return this.write(new CompoundTag(), provider);
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+    public void deserializeNBT(Provider provider, CompoundTag nbt) {
         this.read(nbt, provider);
     }
     //endregion Static Methods
 
-    public void read(CompoundTag compound, HolderLookup.Provider provider) {
+    public void read(CompoundTag compound, Provider provider) {
         CompoundTag nbt = compound.getCompoundOrEmpty("stack");
         this.filterStack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).result().orElse(ItemStack.EMPTY);
         this.matchNbt = compound.getBooleanOr("matchNbt", false);
     }
 
-    public CompoundTag write(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag write(CompoundTag compound, Provider provider) {
         compound.put("stack", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.filterStack).result().orElse(new CompoundTag()));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;

@@ -13,7 +13,9 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
 
@@ -26,7 +28,7 @@ public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFir
         super(data);
     }
 
-    public static BookSpiritFireRecipePage fromJson(Identifier conditionParentId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookSpiritFireRecipePage fromJson(Identifier conditionParentId, JsonObject json, Provider provider) {
         var common = BookRecipePage.commonFromJson(conditionParentId, json, provider);
         return new BookSpiritFireRecipePage(common);
     }
@@ -38,6 +40,6 @@ public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFir
 
     @Override
     public Identifier getType() {
-        return OccultismModonomiconConstants.Page.SPIRIT_FIRE_RECIPE;
+        return Page.SPIRIT_FIRE_RECIPE;
     }
 }

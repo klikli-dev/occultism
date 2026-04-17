@@ -36,7 +36,7 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
     private final Boolean multiplyOutput;
 
     public CrystallizeRecipeCategory(RecipeHolder<CrystallizeRecipe> recipe) {
-        id=recipe.id();
+        this.id =recipe.id();
         this.min = recipe.value().getMinTier();
         this.max = recipe.value().getMaxTier();
         this.multiplyOutput = !recipe.value().getIgnoreCrystallizeMultiplier();
@@ -51,7 +51,7 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
 
     @Override
     public @Nullable Identifier getId() {
-        return id;
+        return this.id;
     }
 
     @Override
@@ -89,18 +89,18 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        widgetHolder.addSlot(input.get(0), 0, 7);
+        widgetHolder.addSlot(this.input.get(0), 0, 7);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,18,7);
         int y = 0;
         int s = 12;
         EntityType spiritType;
-        if(getMin() <= 1) {
+        if(this.getMin() <= 1) {
             y = 10;
             s = 16;
             spiritType = OccultismEntities.FOLIOT.get();
-        } else if(getMin() == 2){
+        } else if(this.getMin() == 2){
             spiritType = OccultismEntities.DJINNI.get();
-        } else if(getMin() == 3){
+        } else if(this.getMin() == 3){
             spiritType = OccultismEntities.AFRIT.get();
         } else {
             spiritType = OccultismEntities.MARID.get();
@@ -108,13 +108,13 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
         SpiritWidget widget = new SpiritWidget(53, y, spiritType,s).tooltip((mouseX, mouseY) ->
         {
             List<ClientTooltipComponent> tooltip = new ArrayList<>();
-            if(getMin() >= 1) {
-                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.min_tier", getMin()).getVisualOrderText()));
+            if(this.getMin() >= 1) {
+                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.min_tier", this.getMin()).getVisualOrderText()));
             }
-            if(getMax() >= 1) {
-                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.max_tier", getMax()).getVisualOrderText()));
+            if(this.getMax() >= 1) {
+                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.max_tier", this.getMax()).getVisualOrderText()));
             }
-            if(getIfMultiplyOutput()) {
+            if(this.getIfMultiplyOutput()) {
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.multiply_output").getVisualOrderText()));
             }
             return tooltip;
@@ -125,7 +125,7 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
-        widgetHolder.addSlot(output.get(0), 90, 7).recipeContext(this);
+        widgetHolder.addSlot(this.output.get(0), 90, 7).recipeContext(this);
     }
 
     private static final List<EmiIngredient> tiers = List.of(

@@ -23,7 +23,7 @@ public class SpiritFireRecipeCategory implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
     public SpiritFireRecipeCategory(RecipeHolder<SpiritFireRecipe> recipe) {
-        id=recipe.id();
+        this.id =recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getIngredients().get(0)));
         this.output = List.of(EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess())));
     }
@@ -35,17 +35,17 @@ public class SpiritFireRecipeCategory implements EmiRecipe {
 
     @Override
     public @Nullable Identifier getId() {
-        return id;
+        return this.id;
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return input;
+        return this.input;
     }
 
     @Override
     public List<EmiStack> getOutputs() {
-        return output;
+        return this.output;
     }
 
     @Override
@@ -69,11 +69,11 @@ public class SpiritFireRecipeCategory implements EmiRecipe {
         //widgetHolder.addAnimatedTexture(Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/block/spirit_fire_0.png"), 0, 0, 16, 16, 0, 0,20,false,true,true);
         widgetHolder.addSlot(EmiIngredient.of(Ingredient.of(OccultismItems.SPIRIT_FIRE.get())), 24, 16);
         // Adds an input slot on the left
-        widgetHolder.addSlot(input.get(0), 0, 0);
+        widgetHolder.addSlot(this.input.get(0), 0, 0);
 
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
-        widgetHolder.addSlot(output.get(0), 58+20, 16).recipeContext(this);
+        widgetHolder.addSlot(this.output.get(0), 58+20, 16).recipeContext(this);
     }
 }

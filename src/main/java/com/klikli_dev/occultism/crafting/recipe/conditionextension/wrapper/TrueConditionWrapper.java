@@ -6,20 +6,10 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.neoforge.common.conditions.AlwaysCondition;
 
-public class TrueConditionWrapper implements ConditionWrapper<AlwaysCondition> {
-    private final AlwaysCondition condition;
-
-    public TrueConditionWrapper(AlwaysCondition condition) {
-        this.condition = condition;
-    }
+public record TrueConditionWrapper(AlwaysCondition condition) implements ConditionWrapper<AlwaysCondition> {
 
     @Override
     public MutableComponent accept(ConditionVisitor visitor, OccultismConditionContext context) {
         return visitor.visit(this, context);
-    }
-
-    @Override
-    public AlwaysCondition condition() {
-        return condition;
     }
 }

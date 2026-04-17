@@ -6,10 +6,12 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -45,6 +47,7 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -79,7 +82,7 @@ public class DemonicPartner extends TamableAnimal {
         this.resetFallDistance();
         this.removeAllEffects();
 
-        var entityData = new net.minecraft.nbt.CompoundTag();
+        var entityData = new CompoundTag();
                 var id = this.getEncodeId();
         if(id != null)
             entityData.putString("id", id);
@@ -102,7 +105,7 @@ public class DemonicPartner extends TamableAnimal {
         }
     }
 
-    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(IS_LYING, false).define(HEART_TIME, (long) 0);
     }
@@ -310,7 +313,7 @@ public class DemonicPartner extends TamableAnimal {
                 itemstack.shrink(1);
             }
 
-            if (!net.neoforged.neoforge.event.EventHooks.onAnimalTame(this, pPlayer)) {
+            if (!EventHooks.onAnimalTame(this, pPlayer)) {
                 this.tame(pPlayer);
                 this.navigation.stop();
                 this.setTarget(null);

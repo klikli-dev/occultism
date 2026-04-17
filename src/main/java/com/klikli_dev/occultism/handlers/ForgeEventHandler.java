@@ -32,6 +32,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.PotionBrewing.Builder;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -47,7 +48,7 @@ public class ForgeEventHandler {
     //region Static Methods
     @SubscribeEvent
     public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
-        PotionBrewing.Builder builder = event.getBuilder();
+        Builder builder = event.getBuilder();
 
         builder.addMix(Potions.AWKWARD, OccultismItems.OTHERWORLD_ESSENCE.asItem(), OccultismPotions.THIRD_EYE_POTION);
         builder.addMix(OccultismPotions.THIRD_EYE_POTION, Items.REDSTONE, OccultismPotions.LONG_THIRD_EYE_POTION);

@@ -13,9 +13,9 @@ public record ItemStackKey(ItemStack stack) {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ItemStackKey key &&
-                this.stack.isEmpty() == key.stack.isEmpty() &&
-                ItemStack.isSameItemSameComponents(this.stack, key.stack);
+        return obj instanceof ItemStackKey(ItemStack stack1) &&
+                this.stack.isEmpty() == stack1.isEmpty() &&
+                ItemStack.isSameItemSameComponents(this.stack, stack1);
     }
 
     @Override

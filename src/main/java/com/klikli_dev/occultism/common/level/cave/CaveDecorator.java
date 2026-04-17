@@ -24,8 +24,10 @@ package com.klikli_dev.occultism.common.level.cave;
 
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -139,7 +141,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public Direction getBorderDirection(WorldGenLevel seedReader, BlockPos pos) {
         BlockState state = seedReader.getBlockState(pos);
-        for (Direction facing : Direction.Plane.HORIZONTAL) {
+        for (Direction facing : Plane.HORIZONTAL) {
             BlockPos offsetPos = pos.relative(facing);
             BlockState stateAt = seedReader.getBlockState(offsetPos);
 
@@ -160,7 +162,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return state.is(OccultismTags.Blocks.CAVE_WALL_BLOCKS);
+            return state.is(Blocks.CAVE_WALL_BLOCKS);
         }
         return false;
     }

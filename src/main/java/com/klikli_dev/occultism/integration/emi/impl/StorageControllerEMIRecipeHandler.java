@@ -27,7 +27,10 @@ package com.klikli_dev.occultism.integration.emi.impl;
 import com.google.common.collect.Lists;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
+import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase.MissingIngredientSlots;
 import com.klikli_dev.occultism.common.misc.ItemStackKey;
+import com.klikli_dev.occultism.integration.emi.impl.StorageControllerEMIRecipeHandler.Result.PartiallyCraftable;
+import com.klikli_dev.occultism.integration.emi.impl.StorageControllerEMIRecipeHandler.Result.Success;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetRecipeByTemplate;
 import dev.emi.emi.api.recipe.EmiPlayerInventory;
@@ -54,6 +57,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * See also https://github.com/AppliedEnergistics/Applied-Energistics-2/blob/main/src/main/java/appeng/integration/modules/emi/EmiUseCraftingRecipeHandler.java
@@ -137,7 +141,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
                 var stack = ingredientPriorities.entrySet()
                         .stream()
                         .filter(e -> ingredient.test(e.getKey().stack()))
-                        .max(Comparator.comparingInt(Map.Entry::getValue))
+                        .max(Comparator.comparingInt(Entry::getValue))
                         .map(e -> e.getKey().stack())
                         .orElse(ingredient.getItems()[0]);
 
@@ -216,7 +220,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return inputSlots;
     }
 
-    public static List<Component> createCraftingTooltip(StorageControllerContainerBase.MissingIngredientSlots missingSlots, boolean withTitle) {
+    public static List<Component> createCraftingTooltip(MissingIngredientSlots missingSlots, boolean withTitle) {
         List<Component> tooltip = new ArrayList<>();
         if (withTitle) {
             tooltip.add(Component.translatable("jei." + Occultism.MODID + ".error.recipe_move_items"));
@@ -243,7 +247,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
     @Override
     public EmiPlayerInventory getInventory(AbstractContainerScreen<T> screen) {
-        List<EmiStack> sources = new ArrayList<>(getInputSources(screen.getMenu()).stream().map(Slot::getItem).map(EmiStack::of).toList());
+        List<EmiStack> sources = new ArrayList<>(this.getInputSources(screen.getMenu()).stream().map(Slot::getItem).map(EmiStack::of).toList());
         if(Occultism.CLIENT_CONFIG.misc.enableEMISync.get()) {
             sources.addAll(screen.getMenu().getClientStorageCache().stacks().stream().map(EmiStack::of).toList());
         }
@@ -303,7 +307,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         if (!doTransfer) {
             if (missingSlots.anyMissingOrCraftable()) {
                 // Highlight the slots with missing ingredients
-                return new Result.PartiallyCraftable(missingSlots);
+                return new PartiallyCraftable(missingSlots);
             }
         } else {
             performTransfer(menu, recipeId, recipe, amount);
@@ -338,7 +342,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         var holder = this.getRecipeHolder(context.getScreenHandler().player.level(), emiRecipe);
 
         var result = this.transferRecipe(menu, holder, emiRecipe,context, doTransfer);
-        if (result instanceof Result.Success && doTransfer) {
+        if (result instanceof Success && doTransfer) {
             Minecraft.getInstance().setScreen(context.getScreen());
         }
         return result;
@@ -439,9 +443,9 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
          * There are missing ingredients, but at least one is present.
          */
         static final class PartiallyCraftable extends Result {
-            private final StorageControllerContainerBase.MissingIngredientSlots missingSlots;
+            private final MissingIngredientSlots missingSlots;
 
-            public PartiallyCraftable(StorageControllerContainerBase.MissingIngredientSlots missingSlots) {
+            public PartiallyCraftable(MissingIngredientSlots missingSlots) {
                 this.missingSlots = missingSlots;
             }
 

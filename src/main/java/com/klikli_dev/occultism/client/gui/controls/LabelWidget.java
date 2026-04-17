@@ -92,30 +92,18 @@ public class LabelWidget extends AbstractWidget {
     }
 
     public void drawCenteredLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
-        if (this.shadow) {
-            guiGraphics.text(font, text, (int) (x - font.width(text) / 2), y, color, true);
-        } else {
-            guiGraphics.text(font, text, (int) (x - font.width(text) / 2), y, color, false);
-        }
+        guiGraphics.text(font, text, x - font.width(text) / 2, y, color, this.shadow);
     }
 
     public void drawRightAlignedLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text,
                                             int x, int y,
                                             int color) {
-        if (this.shadow) {
-            guiGraphics.text(font, text, (int) (x - font.width(text)), y, color, true);
-        } else {
-            guiGraphics.text(font, text, (int) (x - font.width(text)), y, color, false);
-        }
+        guiGraphics.text(font, text, x - font.width(text), y, color, this.shadow);
 
     }
 
     public void drawLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
-        if (this.shadow) {
-            guiGraphics.text(font, text, x, y, color, true);
-        } else {
-            guiGraphics.text(font, text, x, y, color, false);
-        }
+        guiGraphics.text(font, text, x, y, color, this.shadow);
     }
 
     public LabelWidget alignRight(boolean align) {

@@ -33,6 +33,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -45,6 +46,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
@@ -152,7 +154,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SITTING, false);
         builder.define(BLACKSMITH_UPGRADE, false);
@@ -313,11 +315,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
                 return false;
             }
 
-            if (target instanceof TamableAnimal tamableanimal && tamableanimal.isTame()) {
-                return false;
-            }
-
-            return true;
+            return !(target instanceof TamableAnimal tamableanimal) || !tamableanimal.isTame();
         }
     }
 
@@ -336,7 +334,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             this.speed = speed;
             this.minDist = minDist * minDist;
             this.maxDist = maxDist * maxDist;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         private boolean shouldFollow(double distance) {
@@ -416,7 +414,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         public SitGoal(FamiliarEntity entity) {
             this.entity = entity;
-            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         @Override

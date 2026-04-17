@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.FoodProperties.Builder;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
@@ -35,7 +36,7 @@ public class OccultismFoods {
     // Consumable handles effects via ApplyStatusEffectsConsumeEffect
 
     public static final Lazy<FoodProperties> DATURA = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
+            () -> new Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
 
     public static final Consumable DATURA_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 15 * 20, 1), 0.7f))
@@ -43,7 +44,7 @@ public class OccultismFoods {
             .build();
 
     public static final Lazy<FoodProperties> DEMONS_DREAM_ESSENCE = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
+            () -> new Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
 
     public static final Consumable DEMONS_DREAM_ESSENCE_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1), 1.0f))
@@ -58,7 +59,7 @@ public class OccultismFoods {
             .build();
 
     public static final Lazy<FoodProperties> OTHERWORLD_ESSENCE = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
+            () -> new Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
 
     public static final Consumable OTHERWORLD_ESSENCE_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1), 1.0f))
@@ -66,26 +67,26 @@ public class OccultismFoods {
             .build();
 
     public static final Lazy<FoodProperties> BEAVER_NUGGET = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(8).saturationModifier(0.8F).build());
+            () -> new Builder().nutrition(8).saturationModifier(0.8F).build());
 
     public static final Consumable BEAVER_NUGGET_CONSUMABLE = Consumables.DEFAULT_FOOD;
 
     public static final Lazy<FoodProperties> CURSED_HONEY = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(2).saturationModifier(1F).build());
+            () -> new Builder().nutrition(2).saturationModifier(1F).build());
 
     public static final Consumable CURSED_HONEY_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20, 1), 1.0f))
             .build();
 
     public static final Lazy<FoodProperties> SWEET_HONEY_HEART = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(5).saturationModifier(1.1F).build());
+            () -> new Builder().nutrition(5).saturationModifier(1.1F).build());
 
     public static final Consumable SWEET_HONEY_HEART_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 9, false, false, false), 1.0f))
             .build();
 
     public static final Lazy<FoodProperties> DEMONIC_MEAT = Lazy.of(
-            () -> new FoodProperties.Builder().nutrition(11).saturationModifier(0.1F).build());
+            () -> new Builder().nutrition(11).saturationModifier(0.1F).build());
 
     public static final Consumable DEMONIC_MEAT_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3 * 60 * 20, 1), 1.0f))

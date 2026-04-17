@@ -4,6 +4,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -192,9 +194,9 @@ public class NaturePasteItem extends Item {
         }
     }
 
-    public static boolean applyBonemeal(ItemStack naturePaste, Level level, BlockPos blockPos, @Nullable net.minecraft.world.entity.player.Player player) {
+    public static boolean applyBonemeal(ItemStack naturePaste, Level level, BlockPos blockPos, @Nullable Player player) {
         BlockState blockstate = level.getBlockState(blockPos);
-        var event = net.neoforged.neoforge.event.EventHooks.fireBonemealEvent(player, level, blockPos, blockstate, naturePaste);
+        var event = EventHooks.fireBonemealEvent(player, level, blockPos, blockstate, naturePaste);
         if (event.isCanceled()) return event.isSuccessful();
         if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock && bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate)) {
             if (level instanceof ServerLevel) {
@@ -241,7 +243,7 @@ public class NaturePasteItem extends Item {
                     }
                     if (blockstate.is(BlockTags.WALL_CORALS, p_204093_ -> p_204093_.hasProperty(BaseCoralWallFanBlock.FACING))) {
                         for (int k = 0; !blockstate.canSurvive(level, blockpos) && k < 4; k++) {
-                            blockstate = blockstate.setValue(BaseCoralWallFanBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(randomsource));
+                            blockstate = blockstate.setValue(BaseCoralWallFanBlock.FACING, Plane.HORIZONTAL.getRandomDirection(randomsource));
                         }
                     }
                     if (blockstate.canSurvive(level, blockpos)) {

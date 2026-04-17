@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -48,6 +49,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
@@ -145,7 +147,7 @@ public class TraderJob extends SpiritJob {
                 //play crushing sound
                 level.playSound(null, this.entity.blockPosition(), OccultismSounds.START_RITUAL.get(),
                         SoundSource.NEUTRAL, 1f, 1 + 0.5f * this.entity.getRandom().nextFloat());
-                    this.possibleResults = currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
+                    this.possibleResults = this.currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -193,7 +195,7 @@ public class TraderJob extends SpiritJob {
                             handHeld.shrink(1);
 
                             this.onConvert(inputCopy, finalResult);
-                            var event = new TraderJob.TraderJobEvent(this.entity, inputCopy, finalResult);
+                            var event = new TraderJobEvent(this.entity, inputCopy, finalResult);
                             NeoForge.EVENT_BUS.post(event);
                             if(!event.getResult().isEmpty()) {
                                 boolean flag = true;
@@ -223,7 +225,7 @@ public class TraderJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, Provider provider) {
         compound.putInt("timeToConvert", this.timeToConvert);
         compound.putInt("conversionTimer", this.conversionTimer);
         compound.putInt("maxTradesPerRound", this.maxTradesPerRound);
@@ -231,7 +233,7 @@ public class TraderJob extends SpiritJob {
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+    public void readJobFromNBT(CompoundTag compound, Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.timeToConvert = compound.getIntOr("timeToConvert", 0);
         this.conversionTimer = compound.getIntOr("conversionTimer", 0);
@@ -265,7 +267,7 @@ public class TraderJob extends SpiritJob {
 
     public void updateBelowBlock() {
         this.cachedStateBelow = this.entity.level().getBlockState(this.entity.blockPosition().below(2));
-        this.handlerBelow = this.entity.level().getCapability(Capabilities.Item.BLOCK,
+        this.handlerBelow = this.entity.level().getCapability(Item.BLOCK,
                 this.entity.blockPosition().below(2), this.cachedStateBelow, null, Direction.UP);
     }
 

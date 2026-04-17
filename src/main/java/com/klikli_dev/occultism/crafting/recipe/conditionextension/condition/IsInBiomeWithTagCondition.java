@@ -12,19 +12,14 @@ import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 
-public class IsInBiomeWithTagCondition implements ICondition, ConditionWrapper<IsInBiomeWithTagCondition> {
+public record IsInBiomeWithTagCondition(
+        TagKey<Biome> tag) implements ICondition, ConditionWrapper<IsInBiomeWithTagCondition> {
     public static MapCodec<IsInBiomeWithTagCondition> CODEC = RecordCodecBuilder.mapCodec(
             builder -> builder
                     .group(
                             TagKey.codec(Registries.BIOME).fieldOf("tag").forGetter(IsInBiomeWithTagCondition::tag)
                     )
                     .apply(builder, IsInBiomeWithTagCondition::new));
-
-    private final TagKey<Biome> tag;
-
-    public IsInBiomeWithTagCondition(TagKey<Biome> tag) {
-        this.tag = tag;
-    }
 
     @Override
     public boolean test(@NotNull IContext context) {
@@ -34,10 +29,6 @@ public class IsInBiomeWithTagCondition implements ICondition, ConditionWrapper<I
     @Override
     public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
-    }
-
-    public TagKey<Biome> tag() {
-        return this.tag;
     }
 
     @Override

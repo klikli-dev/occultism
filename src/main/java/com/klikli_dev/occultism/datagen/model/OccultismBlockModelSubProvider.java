@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.datagen.model;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.itemproperties.OtherworldBlockItemPropertyGetter;
 import com.klikli_dev.occultism.client.itemproperties.StableWormholeBlockItemPropertyGetter;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
@@ -38,9 +39,11 @@ import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ConditionalItemModel;
+import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -199,11 +202,11 @@ public class OccultismBlockModelSubProvider {
     }
 
     private Identifier blockModel(Block block) {
-        return modLoc("block/" + this.name(block));
+        return this.modLoc("block/" + this.name(block));
     }
 
     private Identifier itemModel(Block block) {
-        return modLoc("item/" + this.name(block));
+        return this.modLoc("item/" + this.name(block));
     }
 
     public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -244,7 +247,7 @@ public class OccultismBlockModelSubProvider {
         };
         for (Block block : cubeAll) {
             blockModels.createTrivialCube(block);
-            this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+            this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
         }
     }
 
@@ -286,7 +289,7 @@ public class OccultismBlockModelSubProvider {
             this.registerSimpleModelBlock(blockModels, itemModels, block);
         }
 
-        this.registerExistingItemModel(itemModels, OccultismBlocks.LARGE_CANDLE.asItem(), blockModel(OccultismBlocks.LARGE_CANDLE.get()));
+        this.registerExistingItemModel(itemModels, OccultismBlocks.LARGE_CANDLE.asItem(), this.blockModel(OccultismBlocks.LARGE_CANDLE.get()));
     }
 
     private void registerManualBlockItemDefinitions(ItemModelGenerators itemModels) {
@@ -312,7 +315,7 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.SPIRIT_GRINDSTONE.get()
         };
         for (Block block : blocksUsingBlockModels) {
-            this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+            this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
         }
 
         Block[] blocksUsingItemModels = {
@@ -323,7 +326,6 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.OTHERFLOWER.get(),
                 OccultismBlocks.OTHERFLOWER_NATURAL.get(),
                 OccultismBlocks.OTHERWORLD_SAPLING.get(),
-                OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
                 OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
                 OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get(),
                 OccultismBlocks.OTHERWORLD_LOG_NATURAL.get(),
@@ -331,17 +333,19 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.IESNIUM_ANVIL.get()
         };
         for (Block block : blocksUsingItemModels) {
-            this.registerExistingItemModel(itemModels, block.asItem(), itemModel(block));
+            this.registerExistingItemModel(itemModels, block.asItem(), this.itemModel(block));
         }
+
+        this.registerConditionalOtherworldSapling(itemModels, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get());
     }
 
     private void registerGlyphBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         for (int sign = 0; sign <= ChalkGlyphBlock.MAX_SIGN; sign++) {
             this.emitParentModel(
                     blockModels.modelOutput,
-                    modLoc("block/chalk_glyph/" + sign),
-                    modLoc("block/chalk_glyph/chalk_glyph"),
-                    Map.of("texture", modLoc("block/chalk_glyph/" + sign))
+                    this.modLoc("block/chalk_glyph/" + sign),
+                    this.modLoc("block/chalk_glyph/chalk_glyph"),
+                    Map.of("texture", this.modLoc("block/chalk_glyph/" + sign))
             );
         }
 
@@ -374,7 +378,7 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, ChalkGlyphBlock.SIGN)
-                                .generate((facing, sign) -> blockModels.plainVariant(modLoc("block/chalk_glyph/" + sign))
+                                .generate((facing, sign) -> BlockModelGenerators.plainVariant(this.modLoc("block/chalk_glyph/" + sign))
                                         .with(switch (facing) {
                                             case SOUTH -> BlockModelGenerators.NOP;
                                             case WEST -> BlockModelGenerators.Y_ROT_90;
@@ -413,9 +417,9 @@ public class OccultismBlockModelSubProvider {
         Identifier outerModel = ModelTemplates.STAIRS_OUTER.create(stairs, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createStairs(stairs,
-                        blockModels.plainVariant(innerModel),
-                        blockModels.plainVariant(straightModel),
-                        blockModels.plainVariant(outerModel))
+                        BlockModelGenerators.plainVariant(innerModel),
+                        BlockModelGenerators.plainVariant(straightModel),
+                        BlockModelGenerators.plainVariant(outerModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, stairs, straightModel);
     }
@@ -424,12 +428,12 @@ public class OccultismBlockModelSubProvider {
         TextureMapping textures = TextureMapping.cube(parent);
         Identifier bottomModel = ModelTemplates.SLAB_BOTTOM.create(slab, textures, blockModels.modelOutput);
         Identifier topModel = ModelTemplates.SLAB_TOP.create(slab, textures, blockModels.modelOutput);
-        Identifier fullModel = blockModel(parent);
+        Identifier fullModel = this.blockModel(parent);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createSlab(slab,
-                        blockModels.plainVariant(bottomModel),
-                        blockModels.plainVariant(topModel),
-                        blockModels.plainVariant(fullModel))
+                        BlockModelGenerators.plainVariant(bottomModel),
+                        BlockModelGenerators.plainVariant(topModel),
+                        BlockModelGenerators.plainVariant(fullModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, slab, bottomModel);
     }
@@ -457,9 +461,9 @@ public class OccultismBlockModelSubProvider {
         Identifier postModel = ModelTemplates.FENCE_POST.create(fence, textures, blockModels.modelOutput);
         Identifier sideModel = ModelTemplates.FENCE_SIDE.create(fence, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
-                BlockModelGenerators.createFence(fence, blockModels.plainVariant(postModel), blockModels.plainVariant(sideModel))
+                BlockModelGenerators.createFence(fence, BlockModelGenerators.plainVariant(postModel), BlockModelGenerators.plainVariant(sideModel))
         );
-        this.registerExistingItemModel(itemModels, fence.asItem(), itemModel(fence));
+        this.registerExistingItemModel(itemModels, fence.asItem(), this.itemModel(fence));
     }
 
     private void registerFenceGate(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block fenceGate, Block parent) {
@@ -470,10 +474,10 @@ public class OccultismBlockModelSubProvider {
         Identifier wallOpenModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createFenceGate(fenceGate,
-                        blockModels.plainVariant(openModel),
-                        blockModels.plainVariant(closedModel),
-                        blockModels.plainVariant(wallOpenModel),
-                        blockModels.plainVariant(wallClosedModel),
+                        BlockModelGenerators.plainVariant(openModel),
+                        BlockModelGenerators.plainVariant(closedModel),
+                        BlockModelGenerators.plainVariant(wallOpenModel),
+                        BlockModelGenerators.plainVariant(wallClosedModel),
                         false)
         );
         this.registerParentedItemModel(blockModels, itemModels, fenceGate, closedModel);
@@ -484,17 +488,17 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createDoor(
                         door,
-                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, textures, blockModels.modelOutput)),
-                        blockModels.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, textures, blockModels.modelOutput))
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, textures, blockModels.modelOutput)),
+                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, textures, blockModels.modelOutput))
                 )
         );
-        this.registerExistingItemModel(itemModels, door.asItem(), itemModel(door));
+        this.registerExistingItemModel(itemModels, door.asItem(), this.itemModel(door));
     }
 
     private void registerTrapdoor(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block trapdoor) {
@@ -505,12 +509,12 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createTrapdoor(
                         trapdoor,
-                        blockModels.plainVariant(topModel),
-                        blockModels.plainVariant(bottomModel),
-                        blockModels.plainVariant(openModel)
+                        BlockModelGenerators.plainVariant(topModel),
+                        BlockModelGenerators.plainVariant(bottomModel),
+                        BlockModelGenerators.plainVariant(openModel)
                 )
         );
-        this.registerExistingItemModel(itemModels, trapdoor.asItem(), itemModel(trapdoor));
+        this.registerExistingItemModel(itemModels, trapdoor.asItem(), this.itemModel(trapdoor));
     }
 
     private void registerButton(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block button, Block parent) {
@@ -520,11 +524,11 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createButton(
                         button,
-                        blockModels.plainVariant(unpoweredModel),
-                        blockModels.plainVariant(poweredModel)
+                        BlockModelGenerators.plainVariant(unpoweredModel),
+                        BlockModelGenerators.plainVariant(poweredModel)
                 )
         );
-        this.registerExistingItemModel(itemModels, button.asItem(), itemModel(button));
+        this.registerExistingItemModel(itemModels, button.asItem(), this.itemModel(button));
     }
 
     private void registerWall(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block wall, Block parent) {
@@ -535,12 +539,12 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createWall(
                         wall,
-                        blockModels.plainVariant(postModel),
-                        blockModels.plainVariant(lowSideModel),
-                        blockModels.plainVariant(tallSideModel)
+                        BlockModelGenerators.plainVariant(postModel),
+                        BlockModelGenerators.plainVariant(lowSideModel),
+                        BlockModelGenerators.plainVariant(tallSideModel)
                 )
         );
-        this.registerExistingItemModel(itemModels, wall.asItem(), itemModel(wall));
+        this.registerExistingItemModel(itemModels, wall.asItem(), this.itemModel(wall));
     }
 
     private void registerPressurePlates(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -555,8 +559,8 @@ public class OccultismBlockModelSubProvider {
         Identifier downModel = ModelTemplates.PRESSURE_PLATE_DOWN.create(plate, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createPressurePlate(plate,
-                        blockModels.plainVariant(upModel),
-                        blockModels.plainVariant(downModel))
+                        BlockModelGenerators.plainVariant(upModel),
+                        BlockModelGenerators.plainVariant(downModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, plate, upModel);
     }
@@ -593,9 +597,9 @@ public class OccultismBlockModelSubProvider {
     }
 
     private void registerFacingBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
-        Identifier model = blockModel(block);
+        Identifier model = this.blockModel(block);
         blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(block, blockModels.plainVariant(model))
+                MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model))
                         .with(PropertyDispatch.modify(BlockStateProperties.FACING)
                                 .select(Direction.UP, BlockModelGenerators.NOP)
                                 .select(Direction.DOWN, BlockModelGenerators.X_ROT_180)
@@ -605,15 +609,15 @@ public class OccultismBlockModelSubProvider {
                                 .select(Direction.EAST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
                         )
         );
-        this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+        this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
     }
 
     private void registerEntityWormholeBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
-        Identifier model = blockModel(block);
+        Identifier model = this.blockModel(block);
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(EntityWormholeBlock.EXIT_ROTATION_X, EntityWormholeBlock.EXIT_ROTATION_Y, BlockStateProperties.FACING)
-                                .generate((rotationX, rotationY, facing) -> blockModels.plainVariant(model).with(switch (facing) {
+                                .generate((rotationX, rotationY, facing) -> BlockModelGenerators.plainVariant(model).with(switch (facing) {
                                     case UP -> BlockModelGenerators.NOP;
                                     case DOWN -> BlockModelGenerators.X_ROT_180;
                                     case NORTH -> BlockModelGenerators.X_ROT_90;
@@ -622,17 +626,17 @@ public class OccultismBlockModelSubProvider {
                                     case EAST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
                                 })))
         );
-        this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+        this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
     }
 
     private void registerLinkedBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
-        Identifier linkedModel = blockModel(block);
-        Identifier unlinkedModel = modLoc("block/" + this.name(block) + "_unlinked");
+        Identifier linkedModel = this.blockModel(block);
+        Identifier unlinkedModel = this.modLoc("block/" + this.name(block) + "_unlinked");
 
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.FACING, StableWormholeBlock.LINKED)
-                                .generate((facing, linked) -> blockModels.plainVariant(linked ? linkedModel : unlinkedModel)
+                                .generate((facing, linked) -> BlockModelGenerators.plainVariant(linked ? linkedModel : unlinkedModel)
                                         .with(switch (facing) {
                                             case UP -> BlockModelGenerators.NOP;
                                             case DOWN -> BlockModelGenerators.X_ROT_180;
@@ -643,31 +647,45 @@ public class OccultismBlockModelSubProvider {
                                         })))
         );
 
-        itemModels.itemModelOutput.accept(block.asItem(), new ConditionalItemModel.Unbaked(
+        itemModels.itemModelOutput.accept(block.asItem(), new Unbaked(
                 Optional.empty(),
                 new StableWormholeBlockItemPropertyGetter(),
-                ItemModelUtils.plainModel(modLoc("item/" + this.name(block) + "_linked")),
-                ItemModelUtils.plainModel(modLoc("item/" + this.name(block) + "_unlinked"))
+                ItemModelUtils.plainModel(this.modLoc("item/" + this.name(block) + "_linked")),
+                ItemModelUtils.plainModel(this.modLoc("item/" + this.name(block) + "_unlinked"))
         ));
     }
 
     private void registerSimpleModelBlock(BlockModelGenerators blockModels, Block block) {
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, blockModels.plainVariant(blockModel(block))));
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(this.blockModel(block))));
     }
 
     private void registerSimpleModelBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
         this.registerSimpleModelBlock(blockModels, block);
-        this.registerExistingItemModel(itemModels, block.asItem(), blockModel(block));
+        this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
     }
 
     private void registerParentedItemModel(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier parentModel) {
-        Identifier itemModelId = itemModel(block);
+        Identifier itemModelId = this.itemModel(block);
         this.emitParentModel(itemModels.modelOutput, itemModelId, parentModel, Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(itemModelId));
     }
 
-    private void registerExistingItemModel(ItemModelGenerators itemModels, net.minecraft.world.item.Item item, Identifier modelLocation) {
+    private void registerExistingItemModel(ItemModelGenerators itemModels, Item item, Identifier modelLocation) {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
+    }
+
+    private void registerConditionalOtherworldSapling(ItemModelGenerators itemModels, Block block) {
+        Identifier simulated = this.modLoc("item/otherworld_sapling_natural_simulated");
+        Identifier inventory = this.modLoc("item/otherworld_sapling_natural_inventory");
+        Identifier generatedParent = Identifier.fromNamespaceAndPath("minecraft", "item/generated");
+        this.emitParentModel(itemModels.modelOutput, simulated, generatedParent, Map.of("layer0", Identifier.fromNamespaceAndPath("minecraft", "block/oak_sapling")));
+        this.emitParentModel(itemModels.modelOutput, inventory, generatedParent, Map.of("layer0", this.modLoc("block/otherworld_sapling")));
+        itemModels.itemModelOutput.accept(block.asItem(), new Unbaked(
+                Optional.empty(),
+                new OtherworldBlockItemPropertyGetter(),
+                ItemModelUtils.plainModel(inventory),
+                ItemModelUtils.plainModel(simulated)
+        ));
     }
 
     private void emitParticleModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier particleTexture) {

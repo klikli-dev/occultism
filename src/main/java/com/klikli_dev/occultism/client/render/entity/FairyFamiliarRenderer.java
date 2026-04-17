@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -56,7 +57,7 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Livi
     private static final ContextKey<Float> MAGIC_RADIUS_ANGLE_Y = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "fairy_magic_angle_y"));
     private static final ContextKey<Boolean> HAS_MAGIC_TARGET = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "fairy_has_magic_target"));
 
-    public FairyFamiliarRenderer(EntityRendererProvider.Context context) {
+    public FairyFamiliarRenderer(Context context) {
         super(context, new FairyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_FAIRY)), 0.3f);
         this.addLayer(new SleepLayer(this));
     }

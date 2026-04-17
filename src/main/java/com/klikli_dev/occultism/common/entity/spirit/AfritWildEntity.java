@@ -22,7 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
@@ -33,6 +35,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -63,7 +66,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
         super(type, level);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
 
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 50.0)
@@ -81,7 +84,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
         int maxBlazes = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
-            Blaze entity = EntityType.BLAZE.create(level.getLevel(), net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
+            Blaze entity = EntityType.BLAZE.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
 
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
@@ -116,7 +119,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (source.is(DamageTypeTags.IS_FIRE))
             return true;
-        TagKey<EntityType<?>> alliesTags = OccultismTags.Entities.AFRIT_ALLIES;
+        TagKey<EntityType<?>> alliesTags = Entities.AFRIT_ALLIES;
 
         //alliesTags should never be null - should in fact be impossible - but somehow for some people sometimes is.
         if (alliesTags != null) {
@@ -138,7 +141,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }

@@ -27,6 +27,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.level.Level;
@@ -40,7 +41,7 @@ public class PossessedHoglinEntity extends Hoglin implements PossessedMob{
         super(type, worldIn);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
         return Hoglin.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 12.0)
                 .add(Attributes.MAX_HEALTH, 66.0);

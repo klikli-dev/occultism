@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -62,7 +64,7 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
         super(type, level);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static Builder createAttributes() {
 
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 50.0)
@@ -116,7 +118,7 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(ControllerRegistrar controllers) {
         var mainController = new AnimationController<>("mainController", 0, this::animPredicate);
         controllers.add(mainController);
     }

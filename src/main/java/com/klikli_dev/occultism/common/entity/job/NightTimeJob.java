@@ -24,7 +24,9 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.clock.WorldClocks;
 
 import java.util.function.Supplier;
 
@@ -39,9 +41,9 @@ public class NightTimeJob extends ChangeTimeJob {
     @Override
     protected long getNewTime() {
         var server = this.entity.level().getServer();
-        var clockHolder = server.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.WORLD_CLOCK).getOrThrow(net.minecraft.world.clock.WorldClocks.OVERWORLD);
+        var clockHolder = server.registryAccess().lookupOrThrow(Registries.WORLD_CLOCK).getOrThrow(WorldClocks.OVERWORLD);
         long currentTime = server.clockManager().getTotalTicks(clockHolder);
-        return getNearestDayTime(currentTime, TIME_NIGHTFALL);
+        return this.getNearestDayTime(currentTime, TIME_NIGHTFALL);
     }
 
     @Override

@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableCropWalkTarge
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSensors;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
@@ -42,6 +43,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.Tags.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +60,9 @@ public class FarmerJob extends SpiritJob {
     @SuppressWarnings("unchecked")
     public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_CROP.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_CROP_WALK_TARGET.get()
+                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_CROP.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.UNREACHABLE_CROP_WALK_TARGET.get()
         );
     }
 
@@ -103,8 +105,8 @@ public class FarmerJob extends SpiritJob {
 
     @Override
     public void onInit() {
-        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(Tags.Items.SEEDS)));
-        this.itemsToPickUp.add(Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.getOrThrow(Tags.Items.CROPS)));
+        this.itemsToPickUp.add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(Items.SEEDS)));
+        this.itemsToPickUp.add(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(Items.CROPS)));
     }
 
     @Override

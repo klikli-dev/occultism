@@ -6,20 +6,10 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 
-public class TagEmptyConditionWrapper implements ConditionWrapper<TagEmptyCondition> {
-    private final TagEmptyCondition condition;
-
-    public TagEmptyConditionWrapper(TagEmptyCondition condition) {
-        this.condition = condition;
-    }
+public record TagEmptyConditionWrapper(TagEmptyCondition condition) implements ConditionWrapper<TagEmptyCondition> {
 
     @Override
     public MutableComponent accept(ConditionVisitor visitor, OccultismConditionContext context) {
         return visitor.visit(this, context);
-    }
-
-    @Override
-    public TagEmptyCondition condition() {
-        return condition;
     }
 }

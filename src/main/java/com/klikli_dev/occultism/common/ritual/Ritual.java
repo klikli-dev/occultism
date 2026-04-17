@@ -57,6 +57,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public abstract class Ritual {
                     Suppliers.memoize(() -> {
                         return OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), level).stream()
                                 .filter(r -> r.value() == this.getRecipe())
-                                .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
+                                .map(r -> r)
                                 .findFirst().orElse(null);
                     });
         }
@@ -608,7 +609,7 @@ public abstract class Ritual {
      * @param event the event to check.
      * @return true if the event represents a valid item use.
      */
-    public boolean isValidItemUse(PlayerInteractEvent.RightClickItem event) {
+    public boolean isValidItemUse(RightClickItem event) {
         return this.recipe.requiresItemUse() && this.recipe.getItemToUse().test(event.getItemStack());
     }
 

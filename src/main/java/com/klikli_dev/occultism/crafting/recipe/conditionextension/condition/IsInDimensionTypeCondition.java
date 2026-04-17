@@ -11,17 +11,12 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 
-public class IsInDimensionTypeCondition implements ICondition, ConditionWrapper<IsInDimensionTypeCondition> {
+public record IsInDimensionTypeCondition(
+        Holder<DimensionType> dimensionType) implements ICondition, ConditionWrapper<IsInDimensionTypeCondition> {
     public static MapCodec<IsInDimensionTypeCondition> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
                     DimensionType.CODEC.fieldOf("dimension_type").forGetter(IsInDimensionTypeCondition::dimensionType)
             )
             .apply(builder, IsInDimensionTypeCondition::new));
-
-    private final Holder<DimensionType> dimensionType;
-
-    public IsInDimensionTypeCondition(Holder<DimensionType> dimensionType) {
-        this.dimensionType = dimensionType;
-    }
 
     @Override
     public boolean test(@NotNull IContext context) {
@@ -31,10 +26,6 @@ public class IsInDimensionTypeCondition implements ICondition, ConditionWrapper<
     @Override
     public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
-    }
-
-    public Holder<DimensionType> dimensionType() {
-        return this.dimensionType;
     }
 
     @Override

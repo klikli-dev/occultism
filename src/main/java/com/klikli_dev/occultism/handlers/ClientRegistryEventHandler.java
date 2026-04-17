@@ -24,10 +24,12 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.particle.BlackMarkerParticle;
+import com.klikli_dev.occultism.client.particle.BlackMarkerParticle.Factory;
 import com.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.klikli_dev.occultism.client.particle.SnowflakeParticle;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.particle.FlameParticle.Provider;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -39,9 +41,9 @@ public class ClientRegistryEventHandler {
     public static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
         event.registerSpriteSet(OccultismParticles.SNOWFLAKE.get(), SnowflakeParticle.Factory::new);
-        event.registerSpriteSet(OccultismParticles.SPIRIT_FIRE_FLAME.get(), FlameParticle.Provider::new);
-        event.registerSpriteSet(OccultismParticles.RED_FIRE_FLAME.get(), FlameParticle.Provider::new);
-        event.registerSpriteSet(OccultismParticles.BLACK_MARKER.get(), BlackMarkerParticle.Factory::new);
+        event.registerSpriteSet(OccultismParticles.SPIRIT_FIRE_FLAME.get(), Provider::new);
+        event.registerSpriteSet(OccultismParticles.RED_FIRE_FLAME.get(), Provider::new);
+        event.registerSpriteSet(OccultismParticles.BLACK_MARKER.get(), Factory::new);
         Occultism.LOGGER.info("Registered Particle Factories");
     }
 }

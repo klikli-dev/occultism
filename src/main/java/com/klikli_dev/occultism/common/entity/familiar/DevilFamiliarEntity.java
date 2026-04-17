@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import com.google.common.collect.ImmutableList;
@@ -34,6 +36,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -101,17 +104,17 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SIN_TIME, (long) 0);
     }
     @Override
-    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput input) {
+    public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.entityData.set(SIN_TIME, input.getLongOr("sinLastTime", 0L));
     }
     @Override
-    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput output) {
+    public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putLong("sinLastTime", this.getSinTime());
     }
@@ -176,7 +179,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+    public void registerControllers(ControllerRegistrar controllerRegistrar) {
         var mainController = new AnimationController<DevilFamiliarEntity>("mainController", 0, this::animPredicate);
         controllerRegistrar.add(mainController);
     }
@@ -230,7 +233,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         public void start() {
             List<LivingEntity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
-                OccultismAdvancements.FAMILIAR.get().trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.entity.getFamiliarOwner(), Type.DEVIL_FIRE);
 
             this.attack(enemies);
             this.entity.swing(InteractionHand.MAIN_HAND);

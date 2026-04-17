@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.entity.familiar.GuardianFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -63,7 +64,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
 
     private final ItemModelResolver itemModelResolver;
 
-    public GuardianFamiliarRenderer(EntityRendererProvider.Context context) {
+    public GuardianFamiliarRenderer(Context context) {
         super(context, new GuardianFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GUARDIAN)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new GuardianFamiliarOverlay(this));
@@ -166,14 +167,14 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             model.body.translateAndRotate(poseStack);
             poseStack.translate(-0.15, -0.25, -0.25);
             poseStack.mulPose(new Quaternionf().rotateXYZ(0, -60 * ((float) Math.PI / 180F), 0));
-            renderItem(new ItemStack(Items.STONE_SWORD), poseStack, submitNodeCollector, lightCoords);
+            this.renderItem(new ItemStack(Items.STONE_SWORD), poseStack, submitNodeCollector, lightCoords);
             poseStack.popPose();
 
             poseStack.pushPose();
             model.body.translateAndRotate(poseStack);
             poseStack.translate(-0.15, 0.1, 0.37);
             poseStack.mulPose(new Quaternionf().rotateXYZ(0, 60 * ((float) Math.PI / 180F), -110 * ((float) Math.PI / 180F)));
-            renderItem(new ItemStack(Items.STONE_AXE), poseStack, submitNodeCollector, lightCoords);
+            this.renderItem(new ItemStack(Items.STONE_AXE), poseStack, submitNodeCollector, lightCoords);
             poseStack.popPose();
 
             if (model.leftArm1.visible) {
@@ -182,7 +183,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 model.leftArm1.translateAndRotate(poseStack);
                 poseStack.translate(0.21, 0.2, 0);
                 poseStack.mulPose(new Quaternionf().rotateXYZ(0, 0, 210 * ((float) Math.PI / 180F)));
-                renderItem(new ItemStack(Items.STONE_PICKAXE), poseStack, submitNodeCollector, lightCoords);
+                this.renderItem(new ItemStack(Items.STONE_PICKAXE), poseStack, submitNodeCollector, lightCoords);
                 poseStack.popPose();
             }
         }
