@@ -4,18 +4,26 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.util.OccultismExtraCodecs;
 import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -24,6 +32,7 @@ import java.util.UUID;
 
 public class OccultismDataComponents {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Occultism.MODID);
+    public static final String INVALID_SPIRIT_ENTITY_DATA_MARKER = "occultism_invalid_spirit_entity_data";
     private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {
         @Override
         public CustomData decode(RegistryFriendlyByteBuf buffer) {
@@ -210,9 +219,43 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> SPIRIT_ENTITY_DATA = DATA_COMPONENTS.registerComponentType("spirit_entity_data", builder -> builder
-            .persistent(CustomData.CODEC)
-            .networkSynchronized(CustomData.STREAM_CODEC)
+    private static final Codec<TypedEntityData<EntityType<?>>> STRICT_SPIRIT_ENTITY_DATA_CODEC = TypedEntityData.codec(EntityType.CODEC);
+    private static final Codec<TypedEntityData<EntityType<?>>> SPIRIT_ENTITY_DATA_CODEC = new Codec<>() {
+        @Override
+        public <T> DataResult<Pair<TypedEntityData<EntityType<?>>, T>> decode(DynamicOps<T> ops, T input) {
+            DataResult<Pair<TypedEntityData<EntityType<?>>, T>> strictResult = STRICT_SPIRIT_ENTITY_DATA_CODEC.decode(ops, input);
+            if (strictResult.result().isPresent()) {
+                return strictResult;
+            }
+
+            return CustomData.CODEC.decode(ops, input)
+                    .map(pair -> Pair.of(decodeLegacySpiritEntityData(pair.getFirst().copyTag()), pair.getSecond()));
+        }
+
+        @Override
+        public <T> DataResult<T> encode(TypedEntityData<EntityType<?>> input, DynamicOps<T> ops, T prefix) {
+            return STRICT_SPIRIT_ENTITY_DATA_CODEC.encode(input, ops, prefix);
+        }
+    };
+
+    private static TypedEntityData<EntityType<?>> decodeLegacySpiritEntityData(CompoundTag entityData) {
+        CompoundTag tagWithoutType = entityData.copy();
+        Tag typeTag = tagWithoutType.remove("id");
+        if (typeTag != null) {
+            var parsedType = EntityType.CODEC.parse(NbtOps.INSTANCE, typeTag).result();
+            if (parsedType.isPresent()) {
+                return TypedEntityData.of(parsedType.get(), tagWithoutType);
+            }
+        }
+
+        CompoundTag invalidData = tagWithoutType.copy();
+        invalidData.putBoolean(INVALID_SPIRIT_ENTITY_DATA_MARKER, true);
+        return TypedEntityData.of(EntityType.PIG, invalidData);
+    }
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TypedEntityData<EntityType<?>>>> SPIRIT_ENTITY_DATA = DATA_COMPONENTS.registerComponentType("spirit_entity_data", builder -> builder
+            .persistent(SPIRIT_ENTITY_DATA_CODEC)
+            .networkSynchronized(TypedEntityData.streamCodec(EntityType.STREAM_CODEC))
             .cacheEncoding()
     );
 
