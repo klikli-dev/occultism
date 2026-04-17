@@ -41,9 +41,11 @@ public class GoldenSacrificialBowlRenderState extends BlockEntityRenderState {
     public boolean itemUseFulfilled = true;
     public boolean sacrificeFulfilled = true;
     public String recipeId = null;
+    public String cachedRecipeId = null;
     public boolean requiresItemUse = false;
     public boolean requiresSacrifice = false;
     public ItemStack[] itemToUseStacks = null;
+    public int itemToUseIndex = 0;
 
     public GoldenSacrificialBowlRenderState() {
     }

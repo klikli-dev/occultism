@@ -41,6 +41,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Objects;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
@@ -101,15 +103,26 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
 
                 // Get item to use for cycling animation
                 if (renderState.requiresItemUse) {
-                    var items = recipe.value().getItemToUse().items().toList();
-                    if (!items.isEmpty()) {
-                        renderState.itemToUseStacks = items.stream()
-                                .map(holder -> new ItemStack(holder.value()))
-                                .toArray(ItemStack[]::new);
+                    // Cache invalidation: only rebuild if recipe changed
+                    boolean recipeChanged = !Objects.equals(renderState.recipeId, renderState.cachedRecipeId);
 
-                        // Pre-update the itemToUseRenderState for the first item (will be updated in submit for cycling)
-                        if (!renderState.itemToUseStacks[0].isEmpty()) {
-                            this.itemModelResolver.updateForTopItem(renderState.itemToUseRenderState, renderState.itemToUseStacks[0], ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 1);
+                    if (recipeChanged) {
+                        var items = recipe.value().getItemToUse().items().toList();
+                        if (!items.isEmpty()) {
+                            renderState.itemToUseStacks = items.stream()
+                                    .map(holder -> new ItemStack(holder.value()))
+                                    .toArray(ItemStack[]::new);
+                            renderState.cachedRecipeId = renderState.recipeId;
+                        }
+                    }
+
+                    // Compute cycling index in extract (called every frame)
+                    if (renderState.itemToUseStacks != null && renderState.itemToUseStacks.length > 0) {
+                        renderState.itemToUseIndex = renderState.itemToUseStacks.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % renderState.itemToUseStacks.length);
+
+                        // Pre-update render state for current index
+                        if (!renderState.itemToUseStacks[renderState.itemToUseIndex].isEmpty()) {
+                            this.itemModelResolver.updateForTopItem(renderState.itemToUseRenderState, renderState.itemToUseStacks[renderState.itemToUseIndex], ItemDisplayContext.FIXED, blockEntity.getLevel(), null, renderState.itemToUseIndex + 1);
                         }
                     }
                 }
@@ -168,11 +181,9 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
             poseStack.pushPose();
             poseStack.translate(0, 3.2 - (0.5 + yOffset) / scale, 0);
             if (!renderState.itemUseFulfilled && renderState.requiresItemUse) {
-                int index = renderState.itemToUseStacks.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % renderState.itemToUseStacks.length);
+                int index = renderState.itemToUseIndex;
                 ItemStack itemStack = renderState.itemToUseStacks[index];
                 if (!itemStack.isEmpty()) {
-                    // Update the render state for the current index (cycling requires re-resolve)
-                    this.itemModelResolver.updateForTopItem(renderState.itemToUseRenderState, itemStack, ItemDisplayContext.FIXED, null, null, index + 1);
                     float scaleUse = getScale(itemStack) * 0.5F;
                     poseStack.scale(scaleUse, scaleUse, scaleUse);
                     renderState.itemToUseRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
