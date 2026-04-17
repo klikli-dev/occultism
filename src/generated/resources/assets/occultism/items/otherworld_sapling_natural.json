@@ -1,6 +1,14 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "occultism:item/otherworld_sapling_natural"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "occultism:item/otherworld_sapling_natural_simulated"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "occultism:item/otherworld_sapling_natural_inventory"
+    },
+    "property": "occultism:simulated"
   }
 }

@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.datagen.model;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.itemproperties.OtherworldBlockItemPropertyGetter;
 import com.klikli_dev.occultism.client.itemproperties.StableWormholeBlockItemPropertyGetter;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
@@ -323,7 +324,6 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.OTHERFLOWER.get(),
                 OccultismBlocks.OTHERFLOWER_NATURAL.get(),
                 OccultismBlocks.OTHERWORLD_SAPLING.get(),
-                OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
                 OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
                 OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get(),
                 OccultismBlocks.OTHERWORLD_LOG_NATURAL.get(),
@@ -333,6 +333,8 @@ public class OccultismBlockModelSubProvider {
         for (Block block : blocksUsingItemModels) {
             this.registerExistingItemModel(itemModels, block.asItem(), itemModel(block));
         }
+
+        this.registerConditionalOtherworldSapling(itemModels, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get());
     }
 
     private void registerGlyphBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -668,6 +670,20 @@ public class OccultismBlockModelSubProvider {
 
     private void registerExistingItemModel(ItemModelGenerators itemModels, net.minecraft.world.item.Item item, Identifier modelLocation) {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelLocation));
+    }
+
+    private void registerConditionalOtherworldSapling(ItemModelGenerators itemModels, Block block) {
+        Identifier simulated = modLoc("item/otherworld_sapling_natural_simulated");
+        Identifier inventory = modLoc("item/otherworld_sapling_natural_inventory");
+        Identifier generatedParent = Identifier.fromNamespaceAndPath("minecraft", "item/generated");
+        this.emitParentModel(itemModels.modelOutput, simulated, generatedParent, Map.of("layer0", Identifier.fromNamespaceAndPath("minecraft", "block/oak_sapling")));
+        this.emitParentModel(itemModels.modelOutput, inventory, generatedParent, Map.of("layer0", modLoc("block/otherworld_sapling")));
+        itemModels.itemModelOutput.accept(block.asItem(), new ConditionalItemModel.Unbaked(
+                Optional.empty(),
+                new OtherworldBlockItemPropertyGetter(),
+                ItemModelUtils.plainModel(inventory),
+                ItemModelUtils.plainModel(simulated)
+        ));
     }
 
     private void emitParticleModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier particleTexture) {

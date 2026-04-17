@@ -94,6 +94,7 @@ import java.util.Map;
 public class ClientSetupEventHandler {
     private static final Identifier HAS_ENTITY_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity");
     private static final Identifier LINKED_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "linked");
+    private static final Identifier SIMULATED_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "simulated");
     private static final Identifier DISTANCE_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "distance");
     private static final Identifier ANGLE_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "angle");
 
@@ -285,6 +286,7 @@ public class ClientSetupEventHandler {
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
         event.register(HAS_ENTITY_ITEM_MODEL_PROPERTY, SoulGemItemPropertyGetter.MAP_CODEC);
         event.register(LINKED_ITEM_MODEL_PROPERTY, StorageRemoteItemPropertyGetter.MAP_CODEC);
+        event.register(SIMULATED_ITEM_MODEL_PROPERTY, OtherworldBlockItemPropertyGetter.MAP_CODEC);
     }
 
     public static void onRegisterRenderPipelines(RegisterRenderPipelinesEvent event) {
@@ -312,8 +314,6 @@ public class ClientSetupEventHandler {
         //             Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
         //     ItemProperties.register(OccultismItems.TRUE_SIGHT_STAFF.get(),
         //             Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
-        //     //ItemProperties.register(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(),
-        //     //        Identifier.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
         //     ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
         //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
         //     ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
