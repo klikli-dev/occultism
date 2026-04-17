@@ -124,8 +124,10 @@ public class Occultism {
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             NeoForge.EVENT_BUS.addListener(OccultismRecipeManagerClient::onRecipesReceived);
             NeoForge.EVENT_BUS.addListener(OccultismRecipeManagerClient::onClientLogout);
+            modEventBus.addListener(ClientSetupEventHandler::onClientSetup);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterGuiOverlays);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRenderPipelines);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterConditionalItemModelProperties);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRangeSelectItemModelProperties);
