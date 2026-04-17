@@ -80,15 +80,11 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         renderState.gameTime = gameTime;
         renderState.lastChangeTime = lastChangeTime;
 
-        // Create ItemStackRenderState for the item
+        // Update the pre-initialized ItemStackRenderState with the current item
         if (!stack.isEmpty()) {
-            ItemStackRenderState stackState = new ItemStackRenderState();
             int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
             // Pass null for owner since BlockEntity doesn't implement ItemOwner
-            this.itemModelResolver.updateForTopItem(stackState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
-            renderState.itemStackRenderState = stackState;
-        } else {
-            renderState.itemStackRenderState = null;
+            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
         }
     }
 
@@ -100,7 +96,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         long gameTime = renderState.gameTime;
         long lastChangeTime = renderState.lastChangeTime;
 
-        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0 || stackRenderState == null) {
+        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0) {
             return;
         }
 

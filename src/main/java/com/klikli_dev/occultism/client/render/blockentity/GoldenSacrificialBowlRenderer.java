@@ -81,14 +81,10 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         renderState.gameTime = gameTime;
         renderState.lastChangeTime = lastChangeTime;
 
-        // Create ItemStackRenderState for the main item
+        // Update the pre-initialized ItemStackRenderState with the current item
         if (!stack.isEmpty()) {
-            ItemStackRenderState stackState = new ItemStackRenderState();
             int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
-            this.itemModelResolver.updateForTopItem(stackState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
-            renderState.itemStackRenderState = stackState;
-        } else {
-            renderState.itemStackRenderState = null;
+            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
         }
 
         // GoldenSacrificialBowl-specific data
@@ -131,7 +127,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         long gameTime = renderState.gameTime;
         long lastChangeTime = renderState.lastChangeTime;
 
-        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0 || stackRenderState == null) {
+        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0) {
             return;
         }
 

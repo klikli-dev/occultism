@@ -29,8 +29,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class SacrificialBowlRenderState extends BlockEntityRenderState {
 
+    public final ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
     public ItemStack itemStack = ItemStack.EMPTY;
-    public ItemStackRenderState itemStackRenderState = null;
     public Direction facing = Direction.UP;
     public long gameTime = 0L;
     public long lastChangeTime = 0L;
