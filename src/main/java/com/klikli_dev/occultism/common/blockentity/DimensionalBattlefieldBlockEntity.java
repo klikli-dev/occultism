@@ -26,7 +26,6 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.*;
-import com.klikli_dev.occultism.util.EntityUtil;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,6 +55,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -424,8 +424,12 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public void setStoredLivingEntity(ItemStack stack, ServerLevel level) {
         this.storedLivingEntity = null;
         if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA) && this.level != null) {
-            CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTagWithoutId();
-            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(this.level, EntitySpawnReason.MOB_SUMMONED);
+            // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
+            // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
+            TypedEntityData<?> typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
+            @SuppressWarnings("unchecked")
+            EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+            Entity tempEntity = entityType.create(this.level, EntitySpawnReason.MOB_SUMMONED);
             if (tempEntity instanceof LivingEntity livingEntity)
                 this.storedLivingEntity = livingEntity;
         }
