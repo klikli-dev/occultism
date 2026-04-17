@@ -234,6 +234,10 @@
         "threshold": 31.5
       }
     ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "occultism:item/vitality_compass"
+    },
     "property": "occultism:angle",
     "scale": 32.0
   }

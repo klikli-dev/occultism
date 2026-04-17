@@ -783,7 +783,8 @@ public class OccultismItemModelSubProvider {
         itemModels.itemModelOutput.accept(OccultismItems.VITALITY_COMPASS.get(), ItemModelUtils.rangeSelect(
                 new VitalityCompassItemPropertyGetter(),
                 32.0F,
-                java.util.List.of(
+                ItemModelUtils.plainModel(this.modLoc("item/vitality_compass")),
+                new net.minecraft.client.renderer.item.RangeSelectItemModel.Entry[] {
                         ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 0.0F),
                         ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_17")), 0.5F),
                         ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_18")), 1.5F),
@@ -817,7 +818,7 @@ public class OccultismItemModelSubProvider {
                         ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_14")), 29.5F),
                         ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_15")), 30.5F),
                         ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 31.5F)
-                )
+                }
         ));
     }
 
