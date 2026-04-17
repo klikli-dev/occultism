@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import com.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -76,10 +75,13 @@ public class SoulGemItem extends Item {
         if (itemStack.has(DataComponents.ENTITY_DATA)) {
             //whenever we have an entity stored we can do nothing but release it
             if (!level.isClientSide()) {
-                CompoundTag entityData = itemStack.get(DataComponents.ENTITY_DATA).getUnsafe();
+                // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
+                // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
+                TypedEntityData<?> typedEntityData = itemStack.get(DataComponents.ENTITY_DATA);
+                CompoundTag entityData = typedEntityData.copyTagWithoutId();
+                @SuppressWarnings("unchecked")
+                EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
                 itemStack.remove(DataComponents.ENTITY_DATA); //delete entity from item right away to avoid duplicate in case of unexpected error
-
-                EntityType<?> type = EntityUtil.entityTypeFromNbt(entityData);
 
                 facing = facing == null ? Direction.UP : facing;
 
@@ -91,7 +93,7 @@ public class SoulGemItem extends Item {
                 //remove position from tag to allow the entity to spawn where it should be
                 entityData.remove("Pos");
 
-                Entity entity = type.create(level, EntitySpawnReason.MOB_SUMMONED);
+                Entity entity = entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
                 entity.load(TagValueInput.create(ProblemReporter.DISCARDING, entity.registryAccess(), entityData));
                 entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
                 float yaw = player.getYHeadRot() + 180;
@@ -158,17 +160,11 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
         }
 
-        var entityData = new CompoundTag();
-        var id = target.getEncodeId();
-        if(id != null)
-            entityData.putString("id", id);
         var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
         target.saveWithoutId(output);
-        entityData = output.buildResult();
-        if(id != null)
-            entityData.putString("id", id);
+        var entityData = output.buildResult();
 
-        //serialize entity
+        //serialize entity - TypedEntityData stores the type directly, so we don't need the "id" in the NBT
         stack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(target.getType(), entityData));
         //show player swing anim
         player.swing(hand);

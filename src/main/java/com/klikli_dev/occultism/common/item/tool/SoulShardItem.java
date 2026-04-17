@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -39,6 +38,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -60,10 +60,10 @@ public class SoulShardItem extends Item {
     public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
         if (pStack.has(DataComponents.ENTITY_DATA)) {
-            EntityType<?> type = EntityUtil.entityTypeFromNbt(pStack.get(DataComponents.ENTITY_DATA).getUnsafe());
-            if (type != null) {
-                pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
-            }
+            // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
+            // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
+            EntityType<?> type = pStack.get(DataComponents.ENTITY_DATA).type();
+            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         } else {
             pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
@@ -76,8 +76,13 @@ public class SoulShardItem extends Item {
             return InteractionResult.PASS;
 
         if (level instanceof ServerLevel serverLevel) {
-            CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTagWithoutId();
-            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(level, EntitySpawnReason.MOB_SUMMONED);
+            // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
+            // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
+            TypedEntityData<?> typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
+            CompoundTag entityData = typedEntityData.copyTagWithoutId();
+            @SuppressWarnings("unchecked")
+            EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+            Entity tempEntity = entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
             LivingEntity mob = tempEntity instanceof LivingEntity living ? living : null;
 
             if (mob != null) {
