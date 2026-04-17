@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
@@ -74,14 +73,17 @@ public class MagicLampItem extends Item {
         BlockPos pos = context.getClickedPos();
         if (itemStack.has(DataComponents.ENTITY_DATA)) {
             if (player != null && !level.isClientSide()) {
-                CompoundTag entityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA)).getUnsafe().copy();
+                // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
+                // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
+                var typedEntityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA));
+                CompoundTag entityData = typedEntityData.copyTagWithoutId();
+                EntityType<?> entityType = typedEntityData.type();
                 itemStack.remove(DataComponents.ENTITY_DATA);
-                EntityType<?> type = EntityUtil.entityTypeFromNbt(entityData);
                 BlockPos spawnPos = pos.immutable();
                 if (!level.getBlockState(spawnPos).getCollisionShape(level, spawnPos).isEmpty())
                     spawnPos = spawnPos.relative(facing);
                 entityData.remove("Pos");
-                Entity entity = type.create(level, EntitySpawnReason.LOAD);
+                Entity entity = entityType.create(level, EntitySpawnReason.LOAD);
                 assert entity != null;
                 entity.load(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), entityData));
                 entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
@@ -138,7 +140,7 @@ public class MagicLampItem extends Item {
     protected EntityType<?> getType(ItemStack pStack) {
         var data = pStack.get(DataComponents.ENTITY_DATA);
         if (data == null) return null;
-        return EntityUtil.entityTypeFromNbt(data.getUnsafe());
+        return data.type();
     }
 
     @Override

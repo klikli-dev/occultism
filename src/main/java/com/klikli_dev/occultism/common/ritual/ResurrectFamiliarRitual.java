@@ -29,7 +29,6 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
-import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -42,7 +41,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.phys.Vec3;
@@ -73,9 +74,11 @@ public class ResurrectFamiliarRitual extends SummonRitual {
 
         //copied and modified from soul gem item
         if (shard.has(DataComponents.ENTITY_DATA)) {
-            //whenever we have an entity stored we can do nothing but release it
-            var entityData = shard.get(DataComponents.ENTITY_DATA).getUnsafe();
-            var type = EntityUtil.entityTypeFromNbt(entityData);
+            // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
+            // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
+            var typedEntityData = shard.get(DataComponents.ENTITY_DATA);
+            var entityData = typedEntityData.copyTagWithoutId();
+            EntityType<?> entityType = typedEntityData.type();
 
             BlockPos spawnPos = goldenBowlPosition;
 
@@ -86,7 +89,7 @@ public class ResurrectFamiliarRitual extends SummonRitual {
             CompoundTag wrapper = new CompoundTag();
             wrapper.put("EntityTag", entityData);
 
-            Entity entity = type.create(level, EntitySpawnReason.MOB_SUMMONED);
+            Entity entity = entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
             entity.load(TagValueInput.create(ProblemReporter.DISCARDING, entity.registryAccess(), entityData));
             entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
             entity.setDeltaMovement(Vec3.ZERO);

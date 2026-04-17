@@ -31,8 +31,10 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -232,15 +234,22 @@ public class ItemNBTUtil {
         return stack.getOrDefault(OccultismDataComponents.SPIRIT_DEAD, false);
     }
 
-    public static CompoundTag getSpiritEntityData(ItemStack stack) {
-        if (!stack.has(OccultismDataComponents.SPIRIT_ENTITY_DATA))
-            return null;
-
-        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).copyTag();
+    public static @Nullable TypedEntityData<EntityType<?>> getSpiritEntityDataComponent(ItemStack stack) {
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA);
     }
 
-    public static void setSpiritEntityData(ItemStack stack, CompoundTag entityData) {
-        stack.set(OccultismDataComponents.SPIRIT_ENTITY_DATA, CustomData.of(entityData));
+    public static @Nullable EntityType<?> getSpiritEntityType(ItemStack stack) {
+        var entityData = getSpiritEntityDataComponent(stack);
+        return entityData == null ? null : entityData.type();
+    }
+
+    public static @Nullable CompoundTag getSpiritEntityData(ItemStack stack) {
+        var entityData = getSpiritEntityDataComponent(stack);
+        return entityData == null ? null : entityData.copyTagWithoutId();
+    }
+
+    public static void setSpiritEntityData(ItemStack stack, EntityType<?> entityType, CompoundTag entityData) {
+        stack.set(OccultismDataComponents.SPIRIT_ENTITY_DATA, TypedEntityData.of(entityType, entityData));
     }
 
     public static Optional<SpiritEntity> getSpiritEntity(ItemStack itemStack) {

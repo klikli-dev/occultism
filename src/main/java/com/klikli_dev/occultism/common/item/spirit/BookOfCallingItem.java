@@ -135,11 +135,20 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         Level world = context.getLevel();
         Direction facing = context.getClickedFace();
         BlockPos pos = context.getClickedPos();
-        CompoundTag entityData = ItemNBTUtil.getSpiritEntityData(itemStack);
-        if (entityData != null) {
+        var spiritEntityData = ItemNBTUtil.getSpiritEntityDataComponent(itemStack);
+        if (spiritEntityData != null) {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isClientSide()) {
-                EntityType type = EntityUtil.entityTypeFromNbt(entityData);
+                if (spiritEntityData.contains(OccultismDataComponents.INVALID_SPIRIT_ENTITY_DATA_MARKER)) {
+                    itemStack.remove(OccultismDataComponents.SPIRIT_ENTITY_DATA);
+                    itemStack.set(DataComponents.RARITY, Rarity.COMMON);
+                    if (player != null)
+                        player.inventoryMenu.broadcastChanges();
+                    return InteractionResult.FAIL;
+                }
+
+                EntityType<?> type = spiritEntityData.type();
+                CompoundTag entityData = spiritEntityData.copyTagWithoutId();
 
                 facing = facing == null ? Direction.UP : facing;
 
@@ -151,11 +160,14 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 //remove position from tag to allow the entity to spawn where it should be
                 entityData.remove("Pos");
 
-                //type.spawn uses the sub-tag EntityTag
-                CompoundTag wrapper = new CompoundTag();
-                wrapper.put("EntityTag", entityData);
+                if (!(type.create(world, EntitySpawnReason.LOAD) instanceof SpiritEntity entity)) {
+                    itemStack.remove(OccultismDataComponents.SPIRIT_ENTITY_DATA);
+                    itemStack.set(DataComponents.RARITY, Rarity.COMMON);
+                    if (player != null)
+                        player.inventoryMenu.broadcastChanges();
+                    return InteractionResult.FAIL;
+                }
 
-                SpiritEntity entity = (SpiritEntity) type.create(world, EntitySpawnReason.LOAD);
                 try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(entity.problemPath(), LOGGER)) {
                     entity.load(TagValueInput.create(reporter, entity.registryAccess(), entityData));
                 }
@@ -172,11 +184,10 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 //refresh item nbt
                 ItemNBTUtil.updateItemNBTFromEntity(itemStack, entity);
 
-                world.addFreshEntity(entity);
-
                 itemStack.remove(OccultismDataComponents.SPIRIT_ENTITY_DATA);
                 itemStack.set(DataComponents.RARITY, Rarity.COMMON);
-                player.inventoryMenu.broadcastChanges();
+                if (player != null)
+                    player.inventoryMenu.broadcastChanges();
             }
         } else {
             //if there are no entities stored, we can either open the ui or perform the action
@@ -288,11 +299,8 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             targetSpirit.saveWithoutId(output);
             entityData = output.buildResult();
         }
-        var id = targetSpirit.getEncodeId();
-        if(id != null)
-            entityData.putString("id", id);
 
-        ItemNBTUtil.setSpiritEntityData(stack, entityData);
+        ItemNBTUtil.setSpiritEntityData(stack, targetSpirit.getType(), entityData);
         ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
         ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
         //show player swing anim
