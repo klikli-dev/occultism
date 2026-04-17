@@ -44,8 +44,6 @@ import java.util.Set;
 public class ThirdEyeEffectRenderer {
 
     public static final int MAX_THIRD_EYE_DISTANCE = 10;
-    public static final Identifier THIRD_EYE_SHADER = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "shaders/post/third_eye.json");
     public static final Identifier THIRD_EYE_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/overlay/third_eye.png");
     public boolean thirdEyeActiveLastTick = false;
@@ -114,11 +112,6 @@ public class ThirdEyeEffectRenderer {
         if (duration > 1) {
             if (!this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = true;
-
-                //load shader, but only if we are on the natural effects
-                if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
-                    // gameRenderer.loadEffect removed in 26.1
-                }
             }
             //also handle goggles in one if we have them
             this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.ONE);
@@ -129,10 +122,6 @@ public class ThirdEyeEffectRenderer {
 
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
-
-                if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
-                    //shader effect system removed in 26.1
-                }
             }
         }
     }

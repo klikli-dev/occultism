@@ -47,7 +47,6 @@ public class OccultismClientConfig {
 
     public static class VisualSettings {
         public final BooleanValue showItemTagsInTooltip;
-        public final BooleanValue disableDemonsDreamShaders;
         public final BooleanValue disableHolidayTheming;
         public final BooleanValue useAlternativeDivinationRodRenderer;
 
@@ -74,8 +73,6 @@ public class OccultismClientConfig {
             builder.comment("Visual Settings").push("visual");
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
                     .define("showItemTagsInTooltip", false);
-            this.disableDemonsDreamShaders = builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
-                    .define("disableDemonsDreamShaders", false);
             this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")
                     .define("disableHolidayTheming", false);
             this.useAlternativeDivinationRodRenderer = builder.comment(
