@@ -61,7 +61,9 @@ public class SoulShardItem extends Item {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(pStack.get(DataComponents.ENTITY_DATA).getUnsafe());
-            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+            if (type != null) {
+                pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+            }
         } else {
             pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
