@@ -76,10 +76,9 @@ public class ResurrectFamiliarRitual extends SummonRitual {
         if (shard.has(DataComponents.ENTITY_DATA)) {
             // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
             // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
-            TypedEntityData<?> typedEntityData = shard.get(DataComponents.ENTITY_DATA);
+            var typedEntityData = shard.get(DataComponents.ENTITY_DATA);
             var entityData = typedEntityData.copyTagWithoutId();
-            @SuppressWarnings("unchecked")
-            EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+            EntityType<?> entityType = typedEntityData.type();
 
             BlockPos spawnPos = goldenBowlPosition;
 

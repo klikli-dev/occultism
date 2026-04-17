@@ -186,7 +186,8 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
                 itemStack.remove(OccultismDataComponents.SPIRIT_ENTITY_DATA);
                 itemStack.set(DataComponents.RARITY, Rarity.COMMON);
-                player.inventoryMenu.broadcastChanges();
+                if (player != null)
+                    player.inventoryMenu.broadcastChanges();
             }
         } else {
             //if there are no entities stored, we can either open the ui or perform the action

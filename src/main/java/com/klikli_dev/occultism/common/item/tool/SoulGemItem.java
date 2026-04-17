@@ -77,10 +77,9 @@ public class SoulGemItem extends Item {
             if (!level.isClientSide()) {
                 // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
                 // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
-                TypedEntityData<?> typedEntityData = itemStack.get(DataComponents.ENTITY_DATA);
+                var typedEntityData = itemStack.get(DataComponents.ENTITY_DATA);
                 CompoundTag entityData = typedEntityData.copyTagWithoutId();
-                @SuppressWarnings("unchecked")
-                EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+                EntityType<?> entityType = typedEntityData.type();
                 itemStack.remove(DataComponents.ENTITY_DATA); //delete entity from item right away to avoid duplicate in case of unexpected error
 
                 facing = facing == null ? Direction.UP : facing;

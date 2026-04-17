@@ -78,10 +78,9 @@ public class SoulShardItem extends Item {
         if (level instanceof ServerLevel serverLevel) {
             // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
             // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
-            TypedEntityData<?> typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
+            var typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
             CompoundTag entityData = typedEntityData.copyTagWithoutId();
-            @SuppressWarnings("unchecked")
-            EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+            EntityType<?> entityType = typedEntityData.type();
             Entity tempEntity = entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
             LivingEntity mob = tempEntity instanceof LivingEntity living ? living : null;
 

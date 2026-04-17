@@ -75,10 +75,9 @@ public class MagicLampItem extends Item {
             if (player != null && !level.isClientSide()) {
                 // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
                 // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
-                TypedEntityData<?> typedEntityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA));
+                var typedEntityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA));
                 CompoundTag entityData = typedEntityData.copyTagWithoutId();
-                @SuppressWarnings("unchecked")
-                EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+                EntityType<?> entityType = typedEntityData.type();
                 itemStack.remove(DataComponents.ENTITY_DATA);
                 BlockPos spawnPos = pos.immutable();
                 if (!level.getBlockState(spawnPos).getCollisionShape(level, spawnPos).isEmpty())

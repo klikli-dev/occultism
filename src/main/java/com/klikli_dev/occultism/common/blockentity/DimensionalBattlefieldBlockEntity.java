@@ -426,9 +426,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA) && this.level != null) {
             // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
             // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
-            TypedEntityData<?> typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
-            @SuppressWarnings("unchecked")
-            EntityType<Entity> entityType = (EntityType<Entity>) typedEntityData.type();
+            var typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
+            EntityType<?> entityType = typedEntityData.type();
             Entity tempEntity = entityType.create(this.level, EntitySpawnReason.MOB_SUMMONED);
             if (tempEntity instanceof LivingEntity livingEntity)
                 this.storedLivingEntity = livingEntity;
