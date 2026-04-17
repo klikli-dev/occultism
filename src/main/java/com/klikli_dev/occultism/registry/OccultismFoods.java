@@ -41,6 +41,7 @@ public class OccultismFoods {
     public static final Consumable DATURA_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 15 * 20, 1), 0.7f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 1), 1.0f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20, 1), 0.3f))
             .build();
 
     public static final Lazy<FoodProperties> DEMONS_DREAM_ESSENCE = Lazy.of(
