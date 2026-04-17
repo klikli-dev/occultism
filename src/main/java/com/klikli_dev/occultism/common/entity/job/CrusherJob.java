@@ -177,6 +177,8 @@ public class CrusherJob extends SpiritJob {
                     inputCopy.setCount(a);
                     handHeld.shrink(a);
 
+                    this.entity.setItemInHand(InteractionHand.MAIN_HAND, handHeld);
+
                     this.onCrush(inputCopy, result);
                     var event = new CrusherJobEvent(this.entity, inputCopy, result);
                     NeoForge.EVENT_BUS.post(event);

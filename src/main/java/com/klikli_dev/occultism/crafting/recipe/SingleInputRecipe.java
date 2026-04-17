@@ -49,7 +49,7 @@ public abstract class SingleInputRecipe<T extends RecipeInput> implements Recipe
 
     @Override
     public ItemStack assemble(T pCraftingContainer) {
-        return this.output.copy();
+        return this.getResultItem().copy();
     }
 
     @Override

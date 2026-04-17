@@ -36,6 +36,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
 public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
 
@@ -105,7 +106,7 @@ public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
     }
 
     @Override
-    public boolean matches(TieredSingleRecipeInput inv, Level level) {
+    public boolean matches(TieredSingleRecipeInput inv, @NonNull Level level) {
         boolean tierMatches = true;
         //tiers can be -1 in which case they are ignored, only if >= 0 we check
         if (this.minTier >= 0 && this.maxTier >= 0) {
@@ -123,16 +124,14 @@ public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
         return this.result.getStack();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public RecipeSerializer<? extends Recipe<TieredSingleRecipeInput>> getSerializer() {
+    public @NonNull RecipeSerializer<? extends Recipe<TieredSingleRecipeInput>> getSerializer() {
         return SERIALIZER;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public RecipeType<? extends Recipe<TieredSingleRecipeInput>> getType() {
-        return (RecipeType<? extends Recipe<TieredSingleRecipeInput>>) (RecipeType<?>) OccultismRecipes.CRUSHING_TYPE.get();
+    public @NonNull RecipeType<? extends Recipe<TieredSingleRecipeInput>> getType() {
+        return OccultismRecipes.CRUSHING_TYPE.get();
     }
 
 }
