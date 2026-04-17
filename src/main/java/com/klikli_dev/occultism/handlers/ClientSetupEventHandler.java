@@ -299,9 +299,6 @@ public class ClientSetupEventHandler {
         event.register(ANGLE_ITEM_MODEL_PROPERTY, VitalityCompassItemPropertyGetter.MAP_CODEC);
     }
 
-    public static void registerItemModelProperties(FMLClientSetupEvent event) {
-    }
-
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         // TODO (1.21 -> 26.1): The GUI overlay/render pipeline API changed in Minecraft 26.1.
