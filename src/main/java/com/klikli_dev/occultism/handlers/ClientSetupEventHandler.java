@@ -300,31 +300,6 @@ public class ClientSetupEventHandler {
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
-        // Legacy pre-26.1 registration reference. Item model properties are now registered
-        // through RegisterConditionalItemModelPropertyEvent and
-        // RegisterRangeSelectItemModelPropertyEvent.
-        // event.enqueueWork(() -> {
-        //     ItemProperties.register(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.TRINITY_GEM_ITEM.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.TRUE_SIGHT_STAFF.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.STABLE_WORMHOLE_DARK.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
-        //     ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
-        //             Identifier.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());
-        //
-        //     Occultism.LOGGER.debug("Registered Item Properties");
-        // });
     }
 
     @SubscribeEvent
