@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.214.0] - 2026-04-17
+### :bug: Bug Fixes
+- [`73f9177`](https://github.com/klikli-dev/occultism/commit/73f9177bbf099219879929b3e4d286cf83bfcc3f) - restore sacrificial bowl item rendering to match 1.21.1 defaults *(PR [#1559](https://github.com/klikli-dev/occultism/pull/1559) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1558](https://github.com/klikli-dev/occultism/issues/1558) opened by [@supdogpsi](https://github.com/supdogpsi)*
+- [`61147f1`](https://github.com/klikli-dev/occultism/commit/61147f143caa50aa7216c6eb76436208baa57423) - crushers not crushing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`8255c9f`](https://github.com/klikli-dev/occultism/commit/8255c9f6d7ca148c57a0f306eb2d1d647ff51436) - remove third eye shader *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.213.0] - 2026-04-16
 ### :sparkles: New Features
 - [`9e6757e`](https://github.com/klikli-dev/occultism/commit/9e6757e791ba949c9e5d346705be1909909dfaea) - restore food effects and fix otherworld block items and effect icons *(PR [#1556](https://github.com/klikli-dev/occultism/pull/1556) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2422,3 +2432,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.211.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.3...release/v26.1.2-1.211.4
 [release/v26.1.2-1.212.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.211.4...release/v26.1.2-1.212.0
 [release/v26.1.2-1.213.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.212.0...release/v26.1.2-1.213.0
+[release/v26.1.2-1.214.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.213.0...release/v26.1.2-1.214.0
