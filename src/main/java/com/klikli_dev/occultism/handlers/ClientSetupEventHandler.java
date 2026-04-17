@@ -95,6 +95,7 @@ public class ClientSetupEventHandler {
     private static final Identifier HAS_ENTITY_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity");
     private static final Identifier LINKED_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "linked");
     private static final Identifier DISTANCE_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "distance");
+    private static final Identifier ANGLE_ITEM_MODEL_PROPERTY = Identifier.fromNamespaceAndPath(Occultism.MODID, "angle");
 
     // Register a custom key category for this mod
     private static final KeyMapping.Category OCCULTISM_KEY_CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
@@ -293,13 +294,13 @@ public class ClientSetupEventHandler {
 
     public static void onRegisterRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(DISTANCE_ITEM_MODEL_PROPERTY, DivinationDistanceItemPropertyGetter.MAP_CODEC);
+        event.register(ANGLE_ITEM_MODEL_PROPERTY, VitalityCompassItemPropertyGetter.MAP_CODEC);
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
-        // TODO: Port remaining 26.1 item model properties.
-        // Boolean item properties now use RegisterConditionalItemModelPropertyEvent.
-        // Range/select properties for divination rod, true sight staff, and vitality compass still need migration.
-        //
+        // Legacy pre-26.1 registration reference. Item model properties are now registered
+        // through RegisterConditionalItemModelPropertyEvent and
+        // RegisterRangeSelectItemModelPropertyEvent.
         // event.enqueueWork(() -> {
         //     ItemProperties.register(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get(),
         //             Identifier.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
