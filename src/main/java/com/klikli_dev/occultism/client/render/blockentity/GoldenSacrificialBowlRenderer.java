@@ -81,6 +81,16 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         renderState.gameTime = gameTime;
         renderState.lastChangeTime = lastChangeTime;
 
+        // Create ItemStackRenderState for the main item
+        if (!stack.isEmpty()) {
+            ItemStackRenderState stackState = new ItemStackRenderState();
+            int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
+            this.itemModelResolver.updateForTopItem(stackState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
+            renderState.itemStackRenderState = stackState;
+        } else {
+            renderState.itemStackRenderState = null;
+        }
+
         // GoldenSacrificialBowl-specific data
         if (blockEntity instanceof GoldenSacrificialBowlBlockEntity goldenBowl) {
             renderState.isGoldenBowl = true;
@@ -116,11 +126,12 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
     @Override
     public void submit(GoldenSacrificialBowlRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitCollector, CameraRenderState cameraRenderState) {
         ItemStack stack = renderState.itemStack;
+        ItemStackRenderState stackRenderState = renderState.itemStackRenderState;
         Direction facing = renderState.facing;
         long gameTime = renderState.gameTime;
         long lastChangeTime = renderState.lastChangeTime;
 
-        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0) {
+        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0 || stackRenderState == null) {
             return;
         }
 
@@ -148,8 +159,8 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         float scale = getScale(stack) * 0.5f;
         poseStack.scale(scale, scale, scale);
 
-        // Render the main item
-        renderItem(stack, poseStack, submitCollector, renderState.lightCoords);
+        // Render the main item using the pre-created ItemStackRenderState
+        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         // Render item-to-use indicator for GoldenSacrificialBowl
         if (renderState.isGoldenBowl && !stack.isEmpty() && renderState.itemToUseStacks != null && renderState.itemToUseStacks.length > 0) {
@@ -159,9 +170,13 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                 int index = renderState.itemToUseStacks.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % renderState.itemToUseStacks.length);
                 ItemStack itemStack = renderState.itemToUseStacks[index];
                 if (!itemStack.isEmpty()) {
+                    // Create a temporary ItemStackRenderState for this item
+                    ItemStackRenderState itemStackState = new ItemStackRenderState();
+                    int seed = index + 1; // Different seed than main item
+                    this.itemModelResolver.updateForTopItem(itemStackState, itemStack, ItemDisplayContext.GROUND, null, null, seed);
                     float scaleUse = getScale(itemStack) * 0.5F;
                     poseStack.scale(scaleUse, scaleUse, scaleUse);
-                    renderItem(itemStack, poseStack, submitCollector, renderState.lightCoords);
+                    itemStackState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
                 }
             }
             poseStack.popPose();
@@ -172,11 +187,5 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         poseStack.mulPose(facing.getRotation());
 
         poseStack.popPose();
-    }
-
-    private void renderItem(ItemStack stack, PoseStack poseStack, SubmitNodeCollector submitCollector, int lightCoords) {
-        ItemStackRenderState stackState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(stackState, stack, ItemDisplayContext.FIXED, null, null, 0);
-        stackState.submit(poseStack, submitCollector, lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
     }
 }

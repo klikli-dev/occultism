@@ -23,12 +23,14 @@
 package com.klikli_dev.occultism.client.render.blockentity.state;
 
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
 public class GoldenSacrificialBowlRenderState extends BlockEntityRenderState {
 
     public ItemStack itemStack = ItemStack.EMPTY;
+    public ItemStackRenderState itemStackRenderState = null;
     public Direction facing = Direction.UP;
     public long gameTime = 0L;
     public long lastChangeTime = 0L;

@@ -79,16 +79,28 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         renderState.facing = facing;
         renderState.gameTime = gameTime;
         renderState.lastChangeTime = lastChangeTime;
+
+        // Create ItemStackRenderState for the item
+        if (!stack.isEmpty()) {
+            ItemStackRenderState stackState = new ItemStackRenderState();
+            int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
+            // Pass null for owner since BlockEntity doesn't implement ItemOwner
+            this.itemModelResolver.updateForTopItem(stackState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
+            renderState.itemStackRenderState = stackState;
+        } else {
+            renderState.itemStackRenderState = null;
+        }
     }
 
     @Override
     public void submit(SacrificialBowlRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitCollector, CameraRenderState cameraRenderState) {
         ItemStack stack = renderState.itemStack;
+        ItemStackRenderState stackRenderState = renderState.itemStackRenderState;
         Direction facing = renderState.facing;
         long gameTime = renderState.gameTime;
         long lastChangeTime = renderState.lastChangeTime;
 
-        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0) {
+        if (stack == null || stack.isEmpty() || facing == null || gameTime == 0 || stackRenderState == null) {
             return;
         }
 
@@ -116,19 +128,13 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         float scale = getScale(stack) * 0.5f;
         poseStack.scale(scale, scale, scale);
 
-        // Render the item using the new API
-        renderItem(stack, poseStack, submitCollector, renderState.lightCoords);
+        // Render the item using the pre-created ItemStackRenderState
+        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
         poseStack.popPose();
 
         poseStack.mulPose(facing.getRotation());
 
         poseStack.popPose();
-    }
-
-    private void renderItem(ItemStack stack, PoseStack poseStack, SubmitNodeCollector submitCollector, int lightCoords) {
-        ItemStackRenderState stackState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(stackState, stack, ItemDisplayContext.FIXED, null, null, 0);
-        stackState.submit(poseStack, submitCollector, lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
     }
 }
