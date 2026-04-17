@@ -58,12 +58,11 @@ public class LumberjackJob extends SpiritJob {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_TREE.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_JOB_ITEM.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_TREE.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
         );
     }
 

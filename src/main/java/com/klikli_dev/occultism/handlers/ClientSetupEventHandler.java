@@ -311,14 +311,7 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        // TODO (1.21 -> 26.1): The GUI overlay/render pipeline API changed in Minecraft 26.1.
-        // The original overlay logic using RenderSystem and PoseStack is no longer valid.
-        // Disable the overlays until they are ported to the new GuiGraphicsExtractor / RenderPipeline system.
-        // event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
-        //     if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
-        //         // Port overlay rendering to GuiGraphicsExtractor / RenderPipelines
-        //     }
-        // });
+        event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), Occultism.THIRD_EYE_EFFECT_RENDERER);
         // event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
     }
 }

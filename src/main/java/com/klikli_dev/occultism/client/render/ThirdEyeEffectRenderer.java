@@ -27,8 +27,10 @@ import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.util.CuriosUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
@@ -36,13 +38,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent.Post;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ThirdEyeEffectRenderer {
+public class ThirdEyeEffectRenderer implements GuiLayer {
 
     public static final int MAX_THIRD_EYE_DISTANCE = 10;
     public static final Identifier THIRD_EYE_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
@@ -61,8 +64,21 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public void renderOverlay(PoseStack pose) {
-        // RenderSystem overlay rendering removed in 26.1 - stubbed out
+    @Override
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+        var minecraft = Minecraft.getInstance();
+        if (minecraft.player == null || minecraft.options.hideGui) {
+            return;
+        }
+
+        if (this.gogglesActiveLastTick || this.thirdEyeActiveLastTick) {
+            this.renderOverlay(guiGraphics);
+        }
+    }
+
+    public void renderOverlay(GuiGraphicsExtractor guiGraphics) {
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, THIRD_EYE_TEXTURE, 0, 0, 0.0f, 0.0f,
+                guiGraphics.guiWidth(), guiGraphics.guiHeight(), 256, 256);
     }
 
     /**
