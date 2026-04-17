@@ -84,7 +84,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         // Update the pre-initialized ItemStackRenderState with the current item
         if (!stack.isEmpty()) {
             int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
-            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
+            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.FIXED, blockEntity.getLevel(), null, seed);
         }
 
         // GoldenSacrificialBowl-specific data
@@ -156,7 +156,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         poseStack.scale(scale, scale, scale);
 
         // Render the main item using the pre-created ItemStackRenderState
-        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
         // Render item-to-use indicator for GoldenSacrificialBowl
         if (renderState.isGoldenBowl && !stack.isEmpty() && renderState.itemToUseStacks != null && renderState.itemToUseStacks.length > 0) {
@@ -169,10 +169,10 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                     // Create a temporary ItemStackRenderState for this item
                     ItemStackRenderState itemStackState = new ItemStackRenderState();
                     int seed = index + 1; // Different seed than main item
-                    this.itemModelResolver.updateForTopItem(itemStackState, itemStack, ItemDisplayContext.GROUND, null, null, seed);
+                    this.itemModelResolver.updateForTopItem(itemStackState, itemStack, ItemDisplayContext.FIXED, null, null, seed);
                     float scaleUse = getScale(itemStack) * 0.5F;
                     poseStack.scale(scaleUse, scaleUse, scaleUse);
-                    itemStackState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+                    itemStackState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 }
             }
             poseStack.popPose();

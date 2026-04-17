@@ -84,7 +84,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         if (!stack.isEmpty()) {
             int seed = (int) (blockEntity.getBlockPos().asLong() & 0xFFFFFFFFL);
             // Pass null for owner since BlockEntity doesn't implement ItemOwner
-            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed);
+            this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, stack, ItemDisplayContext.FIXED, blockEntity.getLevel(), null, seed);
         }
     }
 
@@ -125,7 +125,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         poseStack.scale(scale, scale, scale);
 
         // Render the item using the pre-created ItemStackRenderState
-        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+        stackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
         poseStack.popPose();
 
