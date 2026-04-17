@@ -56,6 +56,8 @@ neoForge {
 
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             programArgument "--username=Occultism"
+            programArguments.add "--quickPlaySingleplayer"
+            programArguments.add "New World"
         }
 
         server {
