@@ -26,6 +26,7 @@ import com.google.common.base.Suppliers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionContext;
@@ -142,14 +143,10 @@ public abstract class Ritual {
         if (this.recipeHolderSupplier == null) {
             this.recipeHolderSupplier =
                     Suppliers.memoize(() -> {
-                        if (level instanceof ServerLevel serverLevel) {
-                            return serverLevel.recipeAccess().getRecipes().stream()
-                                    .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
-                                    .filter(r -> r.value() == this.getRecipe())
-                                    .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
-                                    .findFirst().orElse(null);
-                        }
-                        return null;
+                        return OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), level).stream()
+                                .filter(r -> r.value() == this.getRecipe())
+                                .map(r -> (RecipeHolder<RitualRecipe>) (RecipeHolder<?>) r)
+                                .findFirst().orElse(null);
                     });
         }
         return this.recipeHolderSupplier.get();

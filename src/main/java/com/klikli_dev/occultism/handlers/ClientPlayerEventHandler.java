@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.satchel.SatchelScreen;
-import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManagerClient;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.network.Networking;
@@ -47,9 +46,7 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 
@@ -173,16 +170,6 @@ public class ClientPlayerEventHandler {
             minecraft.player.closeContainer();
             event.setCanceled(true);
         }
-    }
-
-    @SubscribeEvent
-    public static void onRecipesReceived(RecipesReceivedEvent event) {
-        OccultismRecipeManagerClient.onRecipesReceived(event);
-    }
-
-    @SubscribeEvent
-    public static void onClientLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-        OccultismRecipeManagerClient.onClientLogout(event);
     }
     //endregion Static Methods
 }

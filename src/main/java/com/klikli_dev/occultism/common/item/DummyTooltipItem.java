@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.item;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;
@@ -50,10 +51,8 @@ public class DummyTooltipItem extends Item {
 
     public void performRitual(Level level, BlockPos pos, GoldenSacrificialBowlBlockEntity blockEntity,
                               @Nullable Player player, ItemStack activationItem) {
-        if (!(level instanceof ServerLevel serverLevel)) return;
-        var ritualRecipe = serverLevel.recipeAccess().getRecipes()
+        var ritualRecipe = OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), level)
                 .stream()
-                .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
                 .filter(r -> ((RitualRecipe) r.value()).getRitualDummy().getItem() == this)
                 .findFirst();
 

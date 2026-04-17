@@ -37,6 +37,8 @@ import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManagerClient;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.handlers.ColorEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
@@ -76,7 +78,6 @@ public class Occultism {
     public Occultism(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
         modContainer.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
-        modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
         modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
 
@@ -117,8 +118,11 @@ public class Occultism {
 
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
+        NeoForge.EVENT_BUS.addListener(OccultismRecipeManager.get()::onDatapackSync);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
+            NeoForge.EVENT_BUS.addListener(OccultismRecipeManagerClient::onRecipesReceived);
+            NeoForge.EVENT_BUS.addListener(OccultismRecipeManagerClient::onClientLogout);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRenderPipelines);

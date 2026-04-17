@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT2Container;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
@@ -68,7 +69,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     }
 
     protected InteractionResult collectPentacle(UseOnContext context) {
-        var pentacles = ((ServerLevel) context.getLevel()).recipeAccess().getRecipes().stream()
+        var pentacles = OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), context.getLevel()).stream()
                 .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
                 .map(r -> (RecipeHolder<RitualRecipe>) r)
                 //First deduplicate pentacles
