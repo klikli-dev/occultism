@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 public class GoldenSacrificialBowlRenderState extends BlockEntityRenderState {
 
     public final ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
+    public final ItemStackRenderState itemToUseRenderState = new ItemStackRenderState();
     public ItemStack itemStack = ItemStack.EMPTY;
     public Direction facing = Direction.UP;
     public long gameTime = 0L;

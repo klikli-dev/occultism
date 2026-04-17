@@ -106,6 +106,11 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                         renderState.itemToUseStacks = items.stream()
                                 .map(holder -> new ItemStack(holder.value()))
                                 .toArray(ItemStack[]::new);
+
+                        // Pre-update the itemToUseRenderState for the first item (will be updated in submit for cycling)
+                        if (!renderState.itemToUseStacks[0].isEmpty()) {
+                            this.itemModelResolver.updateForTopItem(renderState.itemToUseRenderState, renderState.itemToUseStacks[0], ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 1);
+                        }
                     }
                 }
             } else {
@@ -166,13 +171,11 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                 int index = renderState.itemToUseStacks.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % renderState.itemToUseStacks.length);
                 ItemStack itemStack = renderState.itemToUseStacks[index];
                 if (!itemStack.isEmpty()) {
-                    // Create a temporary ItemStackRenderState for this item
-                    ItemStackRenderState itemStackState = new ItemStackRenderState();
-                    int seed = index + 1; // Different seed than main item
-                    this.itemModelResolver.updateForTopItem(itemStackState, itemStack, ItemDisplayContext.FIXED, null, null, seed);
+                    // Update the render state for the current index (cycling requires re-resolve)
+                    this.itemModelResolver.updateForTopItem(renderState.itemToUseRenderState, itemStack, ItemDisplayContext.FIXED, null, null, index + 1);
                     float scaleUse = getScale(itemStack) * 0.5F;
                     poseStack.scale(scaleUse, scaleUse, scaleUse);
-                    itemStackState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                    renderState.itemToUseRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 }
             }
             poseStack.popPose();
