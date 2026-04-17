@@ -57,12 +57,11 @@ public class FarmerJob extends SpiritJob {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_CROP.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.NEAREST_JOB_ITEM.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) OccultismSensors.UNREACHABLE_CROP_WALK_TARGET.get()
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_CROP.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_CROP_WALK_TARGET.get()
         );
     }
 
