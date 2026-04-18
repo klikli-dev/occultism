@@ -24,7 +24,16 @@ import java.util.UUID;
 
 public class OccultismDataComponents {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Occultism.MODID);
-    private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = StreamCodec.unit(CustomData.EMPTY);
+    private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public CustomData decode(RegistryFriendlyByteBuf buffer) {
+            return CustomData.EMPTY;
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buffer, CustomData value) {
+        }
+    };
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_MINING_TIME = DATA_COMPONENTS.registerComponentType("max_mining_time", builder -> builder
             .persistent(Codec.INT)
