@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.216.0] - 2026-04-18
+### :sparkles: New Features
+- [`ea4a900`](https://github.com/klikli-dev/occultism/commit/ea4a900118173c1b953e6b1f180d92f7c35a733e) - New translations en_us.json (Chinese Simplified) *(PR [#1567](https://github.com/klikli-dev/occultism/pull/1567) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`1b98621`](https://github.com/klikli-dev/occultism/commit/1b986210d087b939b2a80985c25544abe7b95a56) - prevent dimensional mineshaft client crash *(PR [#1565](https://github.com/klikli-dev/occultism/pull/1565) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#14](https://github.com/AllTheMods/ATM-11/issues/14) opened by [@Angell4k](https://github.com/Angell4k)*
+
+
 ## [release/v26.1.2-1.215.0] - 2026-04-17
 ### :sparkles: New Features
 - [`f894d50`](https://github.com/klikli-dev/occultism/commit/f894d502a91e80cbee93fd0d9e567e6196925f27) - Restore third eye overlay and add 26.1.2 follow-up fixes *(PR [#1562](https://github.com/klikli-dev/occultism/pull/1562) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2448,3 +2457,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.214.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.213.0...release/v26.1.2-1.214.0
 [release/v26.1.2-1.214.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.214.0...release/v26.1.2-1.214.1
 [release/v26.1.2-1.215.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.214.1...release/v26.1.2-1.215.0
+[release/v26.1.2-1.216.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.215.0...release/v26.1.2-1.216.0
