@@ -31,8 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
@@ -136,8 +134,7 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
            }
  
           public boolean mayPlace(ItemStack stack) {
-            RecipeManager recipeManager = ((ServerLevel) DimensionalMineshaftContainer.this.otherworldMiner.getLevel()).getServer().getRecipeManager();
-            return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
+            return RecipeUtil.isValidIngredient(DimensionalMineshaftContainer.this.otherworldMiner.getLevel(), OccultismRecipes.MINER_TYPE.get(), stack);
         }
 
     }

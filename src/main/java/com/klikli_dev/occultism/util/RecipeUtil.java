@@ -22,31 +22,23 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.display.RecipeDisplay;
-import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
-
-import java.util.List;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.Level;
 
 public class RecipeUtil {
 
     //region Static Methods
-    public static <C extends RecipeInput, T extends Recipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
-                                                                                         RecipeType<T> recipeType,
-                                                                                         ItemStack stack) {
-        if (stack.isEmpty())
+    public static <T extends Recipe<SingleRecipeInput>> boolean isValidIngredient(Level level,
+                                                                                  RecipeType<T> recipeType,
+                                                                                  ItemStack stack) {
+        if (level == null || stack.isEmpty())
             return false;
 
-        var recipes = recipeManager.recipeMap().byType(recipeType);
-        for (var recipeHolder : recipes) {
-            // Skip ingredient checking for now - RecipeDisplay API doesn't expose ingredients
-            // TODO: implement proper ingredient checking using recipe-specific methods
-        }
-        return false;
+        return OccultismRecipeManager.get().getRecipeFor(recipeType, new SingleRecipeInput(stack), level).isPresent();
     }
 
     //endregion Static Methods
