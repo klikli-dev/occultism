@@ -142,7 +142,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         public boolean mayPlace(ItemStack stack) {
-            return RecipeUtil.isValidIngredient(DimensionalMineshaftBlockEntity.this.getLevel(), OccultismRecipes.MINER_TYPE.get(), new SingleRecipeInput(stack));
+            return RecipeUtil.isValidIngredient(DimensionalMineshaftBlockEntity.this.getLevel(), OccultismRecipes.MINER_TYPE.get(), stack);
         }
 
         public @NotNull ItemStack getStackInSlot(int slot) {

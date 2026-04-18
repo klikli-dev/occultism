@@ -34,17 +34,11 @@ public class RecipeUtil {
     //region Static Methods
     public static <T extends Recipe<SingleRecipeInput>> boolean isValidIngredient(Level level,
                                                                                   RecipeType<T> recipeType,
-                                                                                  SingleRecipeInput input) {
-        if (level == null || input.size() == 0)
+                                                                                  ItemStack stack) {
+        if (level == null || stack.isEmpty())
             return false;
 
-        ItemStack stack = input.getItem(0);
-        if (stack.isEmpty()) {
-            return false;
-        }
-
-        return OccultismRecipeManager.get().getRecipesByType(recipeType, level).stream()
-                .anyMatch(recipeHolder -> recipeHolder.value().matches(input, level));
+        return OccultismRecipeManager.get().getRecipeFor(recipeType, new SingleRecipeInput(stack), level).isPresent();
     }
 
     //endregion Static Methods
