@@ -77,10 +77,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
             .create(Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
-    public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
-    public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
 
     // Internal handlers (mirrored behavior)
     public MineshaftInventory inputHandler = new MineshaftInventory(1, true);
