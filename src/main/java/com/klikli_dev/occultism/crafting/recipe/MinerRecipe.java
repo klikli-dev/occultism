@@ -22,12 +22,10 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -37,11 +35,12 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
+public class MinerRecipe implements Recipe<SingleRecipeInput> {
 
     public static final MapCodec<MinerRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
@@ -100,12 +99,12 @@ public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public boolean matches(ItemHandlerRecipeInput inv, Level level) {
+    public boolean matches(SingleRecipeInput inv, Level level) {
         return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer) {
+    public ItemStack assemble(SingleRecipeInput pCraftingContainer) {
         return this.getResultItem().copy();
     }
 

@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -55,7 +54,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
@@ -143,8 +142,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         public boolean mayPlace(ItemStack stack) {
-            RecipeManager recipeManager = ((ServerLevel) DimensionalMineshaftBlockEntity.this.getLevel()).getServer().getRecipeManager();
-            return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
+            return RecipeUtil.isValidIngredient(DimensionalMineshaftBlockEntity.this.getLevel(), OccultismRecipes.MINER_TYPE.get(), new SingleRecipeInput(stack));
         }
 
         public @NotNull ItemStack getStackInSlot(int slot) {
@@ -356,7 +354,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return;
 
         if (this.possibleResults == null) {
-            ItemHandlerRecipeInput recipeInput = new ItemHandlerRecipeInput(this.inputHandler);
+            SingleRecipeInput recipeInput = new SingleRecipeInput(this.inputHandler.getStackInSlot(0));
             List<RecipeHolder<MinerRecipe>> recipes = ((ServerLevel) this.level).getServer().getRecipeManager()
                     .recipeMap()
                     .getRecipesFor(OccultismRecipes.MINER_TYPE.get(), recipeInput, this.level)
