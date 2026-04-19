@@ -18,10 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-// import net.neoforged.neoforge.common.NeoForge; // Unused after AnvilUpdateEvent stub
-// import net.neoforged.neoforge.event.AnvilUpdateEvent; // Removed in NeoForge 26.1 - API changed
-// import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent; // Removed in NeoForge 26.1
 import net.minecraft.world.item.enchantment.ItemEnchantments.Mutable;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AnvilUpdateEvent;
+import net.neoforged.neoforge.event.entity.player.AnvilCraftEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -43,6 +43,9 @@ public class IesniumAnvilMenu extends AnvilMenu {
 
     @Override
     protected void onTake(Player player, @NotNull ItemStack stack) {
+        ItemStack leftInput = this.inputSlots.getItem(0).copy();
+        ItemStack rightInput = this.inputSlots.getItem(1).copy();
+
         if (!player.getAbilities().instabuild) {
             if(ApothicEnchantingIntegration.isLoaded()) {
                 player.giveExperiencePoints(-ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(this.cost.get() / 2));
@@ -51,8 +54,10 @@ public class IesniumAnvilMenu extends AnvilMenu {
             }
         }
 
-        // AnvilRepairEvent was removed in NeoForge 26.1 - disabled until replacement is available
-        // NeoForge.EVENT_BUS.post(new AnvilRepairEvent(player, inputSlots.getItem(0), inputSlots.getItem(1), stack));
+        if (NeoForge.EVENT_BUS.post(new AnvilCraftEvent.Pre(this, player, leftInput, rightInput, stack)).isCanceled()) {
+            this.broadcastChanges();
+            return;
+        }
         this.inputSlots.setItem(0, ItemStack.EMPTY);
         if (this.repairItemCountCost > 0) {
             ItemStack itemstack = this.inputSlots.getItem(1);
@@ -68,6 +73,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
 
         this.cost.set(0);
         this.access.execute((p_150479_, p_150480_) -> p_150479_.levelEvent(1030, p_150480_, 0));
+        NeoForge.EVENT_BUS.post(new AnvilCraftEvent.Post(this, player, leftInput, rightInput, stack));
     }
 
     @Override
@@ -268,8 +274,15 @@ public class IesniumAnvilMenu extends AnvilMenu {
     }
 
     public static boolean onIesniumAnvilChange(IesniumAnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name, long baseCost, Player player) {
-        // TODO: Port AnvilUpdateEvent to 26.1 API when NeoForge stabilizes
-        // AnvilUpdateEvent constructor and API changed in 26.1
-        return true;
+        AnvilUpdateEvent event = new AnvilUpdateEvent(left, right, name, outputSlot.getItem(0), container.cost.get(), container.repairItemCountCost, player);
+        if (NeoForge.EVENT_BUS.post(event).isCanceled())
+            return false;
+        if (event.getOutput().isEmpty())
+            return true;
+
+        outputSlot.setItem(0, event.getOutput());
+        container.cost.set(event.getXpCost());
+        container.repairItemCountCost = event.getMaterialCost();
+        return false;
     }
 }
