@@ -29,8 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-// TODO: Re-enable when Curios is available for 26.1
-// import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -109,21 +108,21 @@ public class FamiliarUtil {
     @SuppressWarnings("unchecked")
     public static <T extends Entity & IFamiliar> List<T> getAllEquippedFamiliars(LivingEntity owner, EntityType<T> type,
                                                                                   Predicate<T> pred) {
-        // TODO: Re-enable when Curios is available for 26.1
         List<T> familiars = new ArrayList<>();
-        //var cap = owner.getCapability(CuriosCapability.INVENTORY);
-        //if (cap == null)
-        //    return familiars;
-        //
-        //var curios = cap.getEquippedCurios();
-        //for (int i = 0; i < curios.getSlots(); i++) {
-        //    IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level());
-        //    if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
-        //        T fam = (T) familiar.getFamiliarEntity();
-        //        if (pred.test(fam))
-        //            familiars.add(fam);
-        //    }
-        //}
+
+        var handler = CuriosApi.getCuriosInventory(owner).orElse(null);
+        if (handler == null)
+            return familiars;
+
+        var curios = handler.getEquippedCurios();
+        for (int i = 0; i < curios.getSlots(); i++) {
+            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level());
+            if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
+                T fam = (T) familiar.getFamiliarEntity();
+                if (pred.test(fam))
+                    familiars.add(fam);
+            }
+        }
 
         return familiars;
     }

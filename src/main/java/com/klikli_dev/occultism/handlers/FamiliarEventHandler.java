@@ -43,10 +43,13 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -59,9 +62,9 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Resu
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
-//import top.theillusivec4.curios.api.CuriosApi;
-//import top.theillusivec4.curios.api.SlotResult;
-//import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.List;
 
@@ -215,8 +218,29 @@ public class FamiliarEventHandler {
         if (!guardian.sacrifice())
             return;
 
-        // TODO: re-enable when Curios is available for 26.1
-        // Curios integration disabled - guardian sacrifice with familiar ring from curio slots not available
+        CuriosApi.getCuriosInventory(event.getEntity()).ifPresent(handler -> {
+            List<SlotResult> equipped = handler.findCurios(itemStack -> itemStack.getItem() instanceof FamiliarRingItem);
+            for (SlotResult ring : equipped) {
+                if (!(FamiliarRingItem.getFamiliar(ring.stack(), event.getEntity().level()) instanceof GuardianFamiliarEntity familiar)) {
+                    continue;
+                }
+
+                var familiarTagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                familiar.getFamiliarEntity().saveAsPassenger(familiarTagOutput);
+                CompoundTag familiarTag = familiarTagOutput.buildResult();
+                EntityType.loadEntityRecursive(familiarTag, event.getEntity().level(), EntitySpawnReason.LOAD, e -> {
+                    e.setPos(player.getX(), player.getY(), player.getZ());
+                    ((IFamiliar) e).setFamiliarOwner(player);
+                    String ringName = ItemNBTUtil.getBoundSpiritName(ring.stack());
+                    e.setCustomName(Component.literal(ringName));
+                    event.getEntity().level().addFreshEntity(e);
+                    ((GuardianFamiliarEntity) e).sacrifice();
+                    ring.stack().shrink(1);
+                    ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(OccultismItems.FAMILIAR_RING.get()));
+                    return e;
+                });
+            }
+        });
 
         event.setCanceled(true);
         player.setHealth(1);

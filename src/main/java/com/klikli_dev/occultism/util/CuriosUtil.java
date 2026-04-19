@@ -30,32 +30,72 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-//import top.theillusivec4.curios.api.CuriosCapability;
-//import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-//import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
-//import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 public class CuriosUtil {
     public static boolean hasGoggles(Player player) {
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        return OtherworldGogglesItem.isGogglesItem(helmet);
+        if (OtherworldGogglesItem.isGogglesItem(helmet))
+            return true;
 
-        // TODO: re-enable when Curios is available for 26.1
+        ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
+        if (curiosHandler == null)
+            return false;
+
+        return curiosHandler.getCurios().values().stream()
+                .map(ICurioStacksHandler::getStacks)
+                .anyMatch(stackHandler -> contains(stackHandler, OtherworldGogglesItem::isGogglesItem));
     }
 
     public static boolean hasStaff(Player player) {
-        return player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF);
+        if (player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF))
+            return true;
 
-        // TODO: re-enable when Curios is available for 26.1
+        ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
+        if (curiosHandler == null)
+            return false;
+
+        return curiosHandler.getCurios().values().stream()
+                .map(ICurioStacksHandler::getStacks)
+                .anyMatch(stackHandler -> contains(stackHandler, stack -> stack.is(OccultismItems.TRUE_SIGHT_STAFF)));
     }
 
     public static ItemStack getBackpack(Player player) {
-        // TODO: re-enable when Curios is available for 26.1
+        ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
+        if (curiosHandler == null)
+            return ItemStack.EMPTY;
+
+        for (String identifier : curiosHandler.getCurios().keySet()) {
+            ItemStack stack = getSatchelItemFromSlot(curiosHandler, identifier);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+
         return ItemStack.EMPTY;
     }
 
-    protected static ItemStack getSatchelItemFromSlot(Object curiosHandler, String identifier) {
-        // TODO: re-enable when Curios is available for 26.1
+    protected static ItemStack getSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+        if (curiosHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+        if (slotHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        IDynamicStackHandler stackHandler = slotHandler.getStacks();
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if (stack.getItem() instanceof SatchelItem) {
+                return stack;
+            }
+        }
+
         return ItemStack.EMPTY;
     }
 
@@ -84,8 +124,13 @@ public class CuriosUtil {
     }
 
     public static ItemStack getStorageRemoteCurio(Player player) {
-        // TODO: re-enable when Curios is available for 26.1
-        return ItemStack.EMPTY;
+        return CuriosApi.getCuriosInventory(player)
+                .map(handler -> handler.findCurios(stack -> stack.getItem() instanceof StorageRemoteItem)
+                        .stream()
+                        .map(top.theillusivec4.curios.api.SlotResult::stack)
+                        .findFirst()
+                        .orElse(ItemStack.EMPTY))
+                .orElse(ItemStack.EMPTY);
     }
 
     public static int getFirstBackpackSlot(Player player) {
@@ -107,13 +152,48 @@ public class CuriosUtil {
     }
 
     public static ItemStack getEnderSatchel(Player player) {
-        // TODO: re-enable when Curios is available for 26.1
+        ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
+        if (curiosHandler == null)
+            return ItemStack.EMPTY;
+
+        for (String identifier : curiosHandler.getCurios().keySet()) {
+            ItemStack stack = getEnderSatchelItemFromSlot(curiosHandler, identifier);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+
         return ItemStack.EMPTY;
     }
 
-    protected static ItemStack getEnderSatchelItemFromSlot(Object curiosHandler, String identifier) {
-        // TODO: re-enable when Curios is available for 26.1
+    protected static ItemStack getEnderSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+        if (curiosHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+        if (slotHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        IDynamicStackHandler stackHandler = slotHandler.getStacks();
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if (stack.getItem() instanceof EnderSatchelItem) {
+                return stack;
+            }
+        }
+
         return ItemStack.EMPTY;
+    }
+
+    private static boolean contains(IDynamicStackHandler stackHandler, java.util.function.Predicate<ItemStack> predicate) {
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            if (predicate.test(stackHandler.getStackInSlot(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static int getFirstEnderSatchelSlot(Player player) {
