@@ -37,9 +37,5 @@ public class WonderingTraderModel extends DefaultedGeoModel<WonderingTraderEntit
     protected String subtype() {
         return "entity";
     }
-
-    // TODO: Implement bone animations (head rotation, common/other bone visibility)
-    //       via the renderer's addRenderData or a GeckoLib 26.1-compatible override point.
-    //       The previous setCustomAnimations approach is no longer supported in GeckoLib 26.1.
 }
 
