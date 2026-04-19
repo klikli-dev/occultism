@@ -348,7 +348,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
         this.boost.tickBoost();
 
-        if (this.isPassenger()) { // TODO: was isControlledByLocalInstance(), removed in 26.1
+        if (this.isPassenger()) {
 //            if (travelVec.z <= 0.0) {
 //                this.gallopSoundCounter = 0;
 //            }
