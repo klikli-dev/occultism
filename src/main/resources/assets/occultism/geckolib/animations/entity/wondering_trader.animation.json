@@ -1,6 +1,45 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
+		"idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"common": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 0.15, 0],
+						"2.0": [0, 0, 0]
+					}
+				},
+				"other": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 0.15, 0],
+						"2.0": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"attack": {
+			"animation_length": 0.5,
+			"bones": {
+				"common": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, 1],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"other": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, 1],
+						"0.5": [0, 0, 0]
+					}
+				}
+			}
+		},
 		"walk": {
 			"loop": true,
 			"animation_length": 1,
