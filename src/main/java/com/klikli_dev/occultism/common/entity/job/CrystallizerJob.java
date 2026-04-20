@@ -36,7 +36,6 @@ import com.klikli_dev.occultism.crafting.recipe.TieredSingleRecipeInput;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -51,9 +50,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,6 +172,8 @@ public class CrystallizerJob extends SpiritJob {
                     ItemStack inputCopy = handHeld.copy();
                     inputCopy.setCount(a);
                     handHeld.shrink(a);
+
+                    this.entity.setItemInHand(InteractionHand.MAIN_HAND, handHeld);
 
                     this.onCrystallize(inputCopy, result);
                     var event = new CrystallizerJobEvent(this.entity, inputCopy, result);
