@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.217.0] - 2026-04-20
+### :bug: Bug Fixes
+- [`6263f74`](https://github.com/klikli-dev/occultism/commit/6263f746ae0fb90880ff58a6a6b4964db653058f) - Some fixes *(PR [#1576](https://github.com/klikli-dev/occultism/pull/1576) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *fixes issue [#1571](https://github.com/klikli-dev/occultism/issues/1571) opened by [@supdogpsi](https://github.com/supdogpsi)*
+
+
 ## [release/v26.1.2-1.216.1] - 2026-04-19
 ### :bug: Bug Fixes
 - [`0d188a0`](https://github.com/klikli-dev/occultism/commit/0d188a0f9123ae5d5ab76d089a292b22e6934fb2) - wandering trader ritual render crash *(PR [#1569](https://github.com/klikli-dev/occultism/pull/1569) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2464,3 +2470,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.215.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.214.1...release/v26.1.2-1.215.0
 [release/v26.1.2-1.216.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.215.0...release/v26.1.2-1.216.0
 [release/v26.1.2-1.216.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.216.0...release/v26.1.2-1.216.1
+[release/v26.1.2-1.217.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.216.1...release/v26.1.2-1.217.0
