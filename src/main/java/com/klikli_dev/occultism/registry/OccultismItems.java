@@ -177,8 +177,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_ORANGE = ITEMS.registerItem("chalk_orange",
             properties -> new ChalkItem(properties.durability(256),
                     OccultismBlocks.CHALK_GLYPH_ORANGE.get()));
-    //TODO: change id in next major version
-    public static final DeferredItem<Item> CHALK_YELLOW = ITEMS.registerItem("chalk_gold",
+    public static final DeferredItem<Item> CHALK_YELLOW = ITEMS.registerItem("chalk_yellow",
             properties -> new ChalkItem(properties.durability(256),
                     OccultismBlocks.CHALK_GLYPH_YELLOW.get()));
     public static final DeferredItem<Item> CHALK_LIME = ITEMS.registerItem("chalk_lime",
@@ -405,8 +404,7 @@ public class OccultismItems {
             Item::new, () -> new Properties());
     public static final DeferredItem<Item> OTHERROCK_FRAME = ITEMS.registerItem("otherrock_frame",
             Item::new, () -> new Properties());
-    //TODO: change id in next major version
-    public static final DeferredItem<Item> OTHERWORLDLY_TABLET = ITEMS.registerItem("otherstone_tablet",
+    public static final DeferredItem<Item> OTHERWORLDLY_TABLET = ITEMS.registerItem("otherworldly_tablet",
             Item::new, () -> new Properties());
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.registerItem("storage_remote_inert",
             Item::new, () -> new Properties());
