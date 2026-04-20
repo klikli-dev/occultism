@@ -2,6 +2,6 @@
   "type": "occultism:spirit_fire",
   "ingredient": "occultism:chalk_yellow_impure",
   "result": {
-    "id": "occultism:chalk_gold"
+    "id": "occultism:chalk_yellow"
   }
 }

@@ -5,7 +5,7 @@
   "ingredients": [
     [
       "occultism:otherstone_pedestal",
-      "occultism:otherstone_pedestal_silver"
+      "occultism:otherrock_pedestal"
     ],
     "minecraft:hopper",
     "#c:storage_blocks/iesnium",

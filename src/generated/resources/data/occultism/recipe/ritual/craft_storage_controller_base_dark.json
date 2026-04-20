@@ -3,7 +3,7 @@
   "activation_item": "occultism:book_of_binding_bound_foliot",
   "duration": 60,
   "ingredients": [
-    "occultism:otherstone_pedestal_silver",
+    "occultism:otherrock_pedestal",
     "#c:ingots/copper",
     "#c:ingots/copper",
     "#c:ingots/gold"

@@ -3,7 +3,7 @@
   "activation_item": "occultism:book_of_binding_bound_foliot",
   "duration": 60,
   "ingredients": [
-    "occultism:otherstone_tablet",
+    "occultism:otherworldly_tablet",
     "#c:dusts/research",
     "occultism:spirit_attuned_gem",
     "#c:ender_pearls"
