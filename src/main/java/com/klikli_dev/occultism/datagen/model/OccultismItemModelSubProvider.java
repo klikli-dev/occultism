@@ -731,9 +731,8 @@ public class OccultismItemModelSubProvider {
 
     private int getChalkColor(Item item) {
         String path = this.name(item);
-        if (path.endsWith("_impure")) {
-            path = path.substring(0, path.length() - "_impure".length());
-        }
+        //TODO: make large candle less saturated
+        path = path.replace("_impure","").replace("large_candle","chalk");
         Integer color = CHALK_COLORS.get(path);
         if (color == null) {
             throw new IllegalArgumentException("Missing chalk color for " + BuiltInRegistries.ITEM.getKey(item));
@@ -765,7 +764,10 @@ public class OccultismItemModelSubProvider {
                 OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
         };
         for (Block block : candles) {
-            this.registerItemFromBlock(itemModels, block);
+            int color = getChalkColor(block.asItem());
+            itemModels.itemModelOutput.accept(block.asItem(),
+                    ItemModelUtils.tintedModel(this.modLoc("block/" + this.name(block.asItem())),
+                    ItemModelUtils.constantTint(opaque(color))));
         }
     }
 

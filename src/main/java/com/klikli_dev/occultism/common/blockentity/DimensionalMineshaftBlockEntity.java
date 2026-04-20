@@ -40,6 +40,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.resources.ResourceKey;
@@ -362,6 +363,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             } else {
                 this.possibleResults = recipes.stream().map(r -> r.value().getWeightedResult())
                         .collect(Collectors.toList());
+                this.possibleResults.removeIf( i -> i.getStack().getItem().equals(Items.BARRIER));
             }
         }
 
@@ -447,8 +449,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     public void updateBelowBlock() {
         if (this.level != null) {
-            this.cachedStateBelow = this.level.getBlockState(this.getBlockPos().below(2));
-            this.handlerBelow = null;
+            var pos = this.getBlockPos().below(2);
+            this.cachedStateBelow = this.level.getBlockState(pos);
+            this.handlerBelow = this.level.getCapability(Capabilities.Item.BLOCK, pos, this.cachedStateBelow, null, Direction.UP);
         }
     }
 

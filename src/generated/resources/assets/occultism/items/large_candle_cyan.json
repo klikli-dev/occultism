@@ -1,6 +1,12 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:block/large_candle_cyan"
+    "model": "occultism:block/large_candle_cyan",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -15295332
+      }
+    ]
   }
 }

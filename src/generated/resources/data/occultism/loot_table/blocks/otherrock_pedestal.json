@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "occultism:otherstone_pedestal_silver"
+          "name": "occultism:otherrock_pedestal"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "occultism:blocks/otherstone_pedestal_silver"
+  "random_sequence": "occultism:blocks/otherrock_pedestal"
 }

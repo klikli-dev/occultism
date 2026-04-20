@@ -33,7 +33,6 @@ import com.klikli_dev.occultism.common.entity.job.event.ItemProcessingJobEvent;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -48,9 +47,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -228,6 +225,8 @@ public class SmelterJob extends SpiritJob {
         ItemStack inputCopy = handHeld.copy();
         inputCopy.setCount(a);
         handHeld.shrink(a);
+
+        this.entity.setItemInHand(InteractionHand.MAIN_HAND, handHeld);
 
         this.onSmelt(inputCopy, result);
         var event = new SmelterJobEvent(this.entity, inputCopy, result);

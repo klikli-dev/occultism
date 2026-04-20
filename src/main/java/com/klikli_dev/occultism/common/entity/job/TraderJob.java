@@ -32,7 +32,6 @@ import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -48,10 +47,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
@@ -193,6 +190,8 @@ public class TraderJob extends SpiritJob {
                             finalResult.setCount(finalResult.getCount());
                             ItemStack inputCopy = handHeld.copy();
                             handHeld.shrink(1);
+
+                            this.entity.setItemInHand(InteractionHand.MAIN_HAND, handHeld);
 
                             this.onConvert(inputCopy, finalResult);
                             var event = new TraderJobEvent(this.entity, inputCopy, finalResult);

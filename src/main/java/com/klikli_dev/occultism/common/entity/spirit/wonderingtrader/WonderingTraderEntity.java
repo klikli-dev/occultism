@@ -46,6 +46,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.world.item.trading.TradeSets;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -244,6 +245,9 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             if (hint != null) {
                 MerchantOffers merchantoffers = this.getOffers();
                 this.addOffersFromItemListings(merchantoffers, hint, 1);
+                this.addOffersFromTradeSet(level, merchantoffers, TradeSets.WANDERING_TRADER_BUYING);
+                this.addOffersFromTradeSet(level, merchantoffers, TradeSets.WANDERING_TRADER_UNCOMMON);
+                this.addOffersFromTradeSet(level, merchantoffers, TradeSets.WANDERING_TRADER_COMMON);
             }
         }
     }

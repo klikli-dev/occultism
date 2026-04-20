@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/chalk_gold",
+    "model": "occultism:item/chalk_yellow",
     "tints": [
       {
         "type": "minecraft:constant",

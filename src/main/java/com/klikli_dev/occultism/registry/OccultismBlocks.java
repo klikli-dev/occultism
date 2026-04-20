@@ -625,8 +625,7 @@ public class OccultismBlocks {
                     .sound(SoundType.STONE)
                     .strength(5f, 100).noOcclusion(), true, Rarity.EPIC, LootTableType.CUSTOM);
 
-    //TODO: change id in next major version, keep actual to avoid bugs
-    public static final DeferredBlock<Block> OTHERROCK_PEDESTAL = register("otherstone_pedestal_silver",
+    public static final DeferredBlock<Block> OTHERROCK_PEDESTAL = register("otherrock_pedestal",
             (p) -> new NonPathfindableBlock(p),
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion());
     public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE_DARK = register("storage_controller_base_dark",

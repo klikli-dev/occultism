@@ -35,11 +35,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootParams.Builder;
@@ -100,7 +98,10 @@ public class SoulShardItem extends Item {
                         .create(LootContextParamSets.ENTITY);
 
                 player.getCooldowns().addCooldown(stack, 10);
-                for (int i = 0; i < 1 + (int)Math.max(0, player.getLuck()); i++)
+                int pLuck = (int) player.getLuck();
+                int extraRolls = pLuck > 99 ? 19 + level.getRandom().nextInt(pLuck/33) :
+                        pLuck > 9 ? 9 + (pLuck/10) : pLuck < 1 ? 0 : pLuck;
+                for (int i = 0; i < 1 + extraRolls; i++)
                     lootTable.getRandomItems(lootParams, player.getLootTableSeed(), stack2 -> player.spawnAtLocation(serverLevel, stack2));
                 if (!player.hasInfiniteMaterials())
                     stack.shrink(1);
