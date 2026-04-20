@@ -46,17 +46,17 @@ public class IesniumAnvilMenu extends AnvilMenu {
         ItemStack leftInput = this.inputSlots.getItem(0).copy();
         ItemStack rightInput = this.inputSlots.getItem(1).copy();
 
+        if (NeoForge.EVENT_BUS.post(new AnvilCraftEvent.Pre(this, player, leftInput, rightInput, stack)).isCanceled()) {
+            this.broadcastChanges();
+            return;
+        }
+
         if (!player.getAbilities().instabuild) {
             if(ApothicEnchantingIntegration.isLoaded()) {
                 player.giveExperiencePoints(-ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(this.cost.get() / 2));
             } else {
                 player.giveExperienceLevels(-this.cost.get() / 2);
             }
-        }
-
-        if (NeoForge.EVENT_BUS.post(new AnvilCraftEvent.Pre(this, player, leftInput, rightInput, stack)).isCanceled()) {
-            this.broadcastChanges();
-            return;
         }
         this.inputSlots.setItem(0, ItemStack.EMPTY);
         if (this.repairItemCountCost > 0) {
