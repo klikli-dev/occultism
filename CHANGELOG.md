@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.218.2] - 2026-04-20
+### :bug: Bug Fixes
+- [`feaaba8`](https://github.com/klikli-dev/occultism/commit/feaaba8550029a3ad08d61592e7bbbf9b3346fc1) - render otherworld goggles as head equipment *(PR [#1581](https://github.com/klikli-dev/occultism/pull/1581) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1580](https://github.com/klikli-dev/occultism/issues/1580) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+
 ## [release/v26.1.2-1.218.1] - 2026-04-20
 ### :bug: Bug Fixes
 - [`2d93bb9`](https://github.com/klikli-dev/occultism/commit/2d93bb9feb5e498e7da851b2badd5b407cbbff75) - address remaining PR 1578 follow-up issues *(PR [#1579](https://github.com/klikli-dev/occultism/pull/1579) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2484,3 +2490,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.217.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.216.1...release/v26.1.2-1.217.0
 [release/v26.1.2-1.218.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.217.0...release/v26.1.2-1.218.0
 [release/v26.1.2-1.218.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.0...release/v26.1.2-1.218.1
+[release/v26.1.2-1.218.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.1...release/v26.1.2-1.218.2
