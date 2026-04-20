@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev, McJty
+ * Copyright 2026 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,22 +20,19 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.datagen;
+package com.klikli_dev.occultism.client.render.entity.state;
 
-// TODO: Port to 26.1 model generation system
-// BlockStateProvider was removed in NeoForge 26.1. Block states and models are now handled differently.
-// This entire class needs to be rewritten for the new model generation system.
-// The class is disabled and not registered in DataGenerators.java.
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
-/*
- * Original class extended net.neoforged.neoforge.client.model.generators.BlockStateProvider
- * which no longer exists in NeoForge 26.1.
- *
- * Based on https://github.com/McJty/YouTubeModding14
- * and https://github.com/Tutorials-By-Kaupenjoe
- *
- * The original source code is preserved in git history.
- */
-public class StandardBlockStateProvider {
-    // Stubbed out - see TODO above
+public class GuardianFamiliarRenderState extends LivingEntityRenderState {
+    public boolean isSitting;
+    public boolean isPartying;
+    public boolean hasBird;
+    public boolean hasTree;
+    public boolean hasTools;
+    public byte lives;
+    public float animHeight;
+    public float red = 1.0f;
+    public float green = 1.0f;
+    public float blue = 1.0f;
 }

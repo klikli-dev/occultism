@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2021 klikli-dev
+ * Copyright 2026 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,19 +20,22 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.datagen;
+package com.klikli_dev.occultism.client.render.blockentity.state;
 
-// TODO: Port to 26.1 model generation system
-// ItemModelProvider was removed in NeoForge 26.1. Item models are now handled differently.
-// This entire class needs to be rewritten for the new model generation system.
-// The class is disabled and not registered in DataGenerators.java.
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 
-/*
- * Original class extended net.neoforged.neoforge.client.model.generators.ItemModelProvider
- * which no longer exists in NeoForge 26.1.
- *
- * The original source code is preserved in git history.
- */
-public class ItemModelsGenerator {
-    // Stubbed out - see TODO above
+public class EntityWormholeRenderState extends BlockEntityRenderState {
+    public final ItemStackRenderState portalRenderState = new ItemStackRenderState();
+    public final ItemStackRenderState nuggetRenderState = new ItemStackRenderState();
+    public final ItemStackRenderState blockRenderState = new ItemStackRenderState();
+    public ItemStack portalStack = ItemStack.EMPTY;
+    public ItemStack nuggetStack = ItemStack.EMPTY;
+    public ItemStack blockStack = ItemStack.EMPTY;
+    public Direction facing = Direction.UP;
+    public int exitRotationX;
+    public int exitRotationY;
+    public int angleY;
 }
