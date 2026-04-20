@@ -39,6 +39,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
@@ -81,6 +82,7 @@ public class OccultismItems {
             OtherworldGogglesItem::new, () -> new Properties().stacksTo(1)
                     .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD)
                             .setAsset(OTHERWORLD_GOGGLES_EQUIPMENT_ASSET)
+                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
                             .build()));
     public static final DeferredItem<SatchelItem> SATCHEL = ITEMS.registerItem("satchel",
             SatchelItem::new, () -> new Properties().stacksTo(1)
