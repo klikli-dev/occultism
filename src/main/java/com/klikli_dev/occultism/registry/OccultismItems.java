@@ -37,7 +37,12 @@ import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitua
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
@@ -49,6 +54,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class OccultismItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Occultism.MODID);
+    private static final ResourceKey<EquipmentAsset> OTHERWORLD_GOGGLES_EQUIPMENT_ASSET = ResourceKey.create(
+            EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_goggles"));
 
     //Dictionary
     public static final DeferredItem<GuideBookItem> DICTIONARY_OF_SPIRITS = ITEMS.registerItem("dictionary_of_spirits",
@@ -73,7 +80,10 @@ public class OccultismItems {
                     BlockTags.MINEABLE_WITH_PICKAXE, 1.0F, -2.8F, 0)));
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.registerItem("otherworld_goggles",
             OtherworldGogglesItem::new, () -> new Properties().stacksTo(1)
-                    .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build()));
+                    .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD)
+                            .setAsset(OTHERWORLD_GOGGLES_EQUIPMENT_ASSET)
+                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
+                            .build()));
     public static final DeferredItem<SatchelItem> SATCHEL = ITEMS.registerItem("satchel",
             SatchelItem::new, () -> new Properties().stacksTo(1)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
