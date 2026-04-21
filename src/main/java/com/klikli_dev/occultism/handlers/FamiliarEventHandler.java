@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -62,7 +63,6 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Resu
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -236,7 +236,7 @@ public class FamiliarEventHandler {
                     event.getEntity().level().addFreshEntity(e);
                     ((GuardianFamiliarEntity) e).sacrifice();
                     ring.stack().shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(OccultismItems.FAMILIAR_RING.get()));
+                    ItemTransferUtil.giveItemToPlayer(player, new ItemStack(OccultismItems.FAMILIAR_RING.get()));
                     return e;
                 });
             }
