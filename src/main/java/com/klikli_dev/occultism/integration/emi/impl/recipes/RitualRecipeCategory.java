@@ -66,9 +66,11 @@ public class RitualRecipeCategory implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        List<EmiIngredient> inputs = this.recipe.getIngredients().stream().map(EmiIngredient::of).collect(Collectors.toCollection(ArrayList::new));
-        inputs.add(EmiIngredient.of(this.recipe.getActivationItem()));
-        return inputs;
+        return Stream.concat(
+                        Stream.of(EmiIngredient.of(this.recipe.getActivationItem())),
+                        this.recipe.getIngredients().stream().map(EmiIngredient::of)
+                )
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
