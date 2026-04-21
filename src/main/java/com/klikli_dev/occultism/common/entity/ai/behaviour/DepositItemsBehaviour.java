@@ -63,11 +63,11 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
                 ItemStacksResourceHandler entityItemHandler = entity.inventory;
                 var firstFilledSlot = ItemTransferUtil.getFirstFilledSlot(entityItemHandler);
                 if (firstFilledSlot != -1) {
-                    ItemStack duplicate = entityItemHandler.getResource(firstFilledSlot).toStack().copy();
+                    ItemStack duplicate = entityItemHandler.getResource(firstFilledSlot)
+                            .toStack(entityItemHandler.getAmountAsInt(firstFilledSlot)).copy();
 
-                    //simulate insertion
+                    //insert and write back remainder
                     ItemStack leftover = ItemTransferUtil.insertItem(depositItemHandler, duplicate, false);
-                    //if we inserted everything
                     try (var tx = Transaction.openRoot()) {
                         entityItemHandler.set(firstFilledSlot, ItemResource.of(leftover), leftover.getCount());
                         tx.commit();

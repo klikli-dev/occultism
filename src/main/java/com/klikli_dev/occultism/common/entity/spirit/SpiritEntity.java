@@ -514,7 +514,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public ItemStack getItemBySlot(EquipmentSlot slotIn) {
         if (slotIn == EquipmentSlot.MAINHAND) {
-            return this.inventory.getResource(0).toStack();
+            return this.inventory.getResource(0).toStack(this.inventory.getAmountAsInt(0));
         }
         return ItemStack.EMPTY;
     }
@@ -647,7 +647,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     protected void dropEquipment(ServerLevel level) {
         super.dropEquipment(level);
         for (int i = 0; i < this.inventory.size(); ++i) {
-            ItemStack itemstack = this.inventory.getResource(i).toStack();
+            ItemStack itemstack = this.inventory.getResource(i).toStack(this.inventory.getAmountAsInt(i));
             if (!itemstack.isEmpty()) {
                 this.spawnAtLocation(level, itemstack, 0.0F);
             }
