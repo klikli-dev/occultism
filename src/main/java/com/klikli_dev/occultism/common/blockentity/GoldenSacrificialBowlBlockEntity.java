@@ -686,8 +686,16 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             var recipe = this.getCurrentRitualRecipe();
             if (recipe != null) {
                 if (finished) {
-                    ItemStack activationItem = this.itemStackHandler.getResource(0).toStack();
+                    var activationResource = this.itemStackHandler.getResource(0);
+                    ItemStack activationItem = activationResource.toStack();
                     recipe.value().getRitual().finish(this.level, this.getBlockPos(), this, this.castingPlayer, activationItem);
+
+                    try (var tx = Transaction.openRoot()) {
+                        int extracted = this.itemStackHandler.extract(0, activationResource, 1, tx);
+                        if (extracted > 0) {
+                            tx.commit();
+                        }
+                    }
                 } else {
                     recipe.value().getRitual().interrupt(this.level, this.getBlockPos(), this, this.castingPlayer,
                             this.itemStackHandler.getResource(0).toStack(), showInterruptedMessage);
