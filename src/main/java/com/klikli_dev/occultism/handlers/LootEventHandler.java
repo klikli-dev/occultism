@@ -31,33 +31,29 @@ import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.util.TriState;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity.RemovalReason;
-import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
-import net.minecraft.util.TriState;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent.Pre;
-import net.neoforged.neoforge.event.level.BlockEvent;
-import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 @EventBusSubscriber(modid = Occultism.MODID)
 public class LootEventHandler {
@@ -106,7 +102,7 @@ public class LootEventHandler {
     }
 
     @SubscribeEvent
-    public static void breakSpecialBlocks(BreakEvent event) {
+    public static void breakSpecialBlocks(BreakBlockEvent event) {
         Player player = event.getPlayer();
         if (player.isCreative())
             return;
@@ -165,7 +161,7 @@ public class LootEventHandler {
                 killed.removeAllEffects();
                 var entityData = new CompoundTag();
                 var id = killed.getEncodeId();
-                if(id != null)
+                if (id != null)
                     entityData.putString("id", id);
                 // 26.1: saveWithoutId now takes ValueOutput instead of CompoundTag
                 var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
