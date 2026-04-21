@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.218.3] - 2026-04-21
+### :bug: Bug Fixes
+- [`ade7d04`](https://github.com/klikli-dev/occultism/commit/ade7d0471e8edc7c8d8ad103f0cabdc22f202a84) - consume golden bowl activation item on ritual completion *(PR [#1583](https://github.com/klikli-dev/occultism/pull/1583) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1572](https://github.com/klikli-dev/occultism/issues/1572) opened by [@supdogpsi](https://github.com/supdogpsi)*
+
+
 ## [release/v26.1.2-1.218.2] - 2026-04-20
 ### :bug: Bug Fixes
 - [`feaaba8`](https://github.com/klikli-dev/occultism/commit/feaaba8550029a3ad08d61592e7bbbf9b3346fc1) - render otherworld goggles as head equipment *(PR [#1581](https://github.com/klikli-dev/occultism/pull/1581) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2491,3 +2497,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.218.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.217.0...release/v26.1.2-1.218.0
 [release/v26.1.2-1.218.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.0...release/v26.1.2-1.218.1
 [release/v26.1.2-1.218.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.1...release/v26.1.2-1.218.2
+[release/v26.1.2-1.218.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.2...release/v26.1.2-1.218.3
