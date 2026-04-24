@@ -59,6 +59,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.function.Consumer;
@@ -217,14 +218,14 @@ public class FamiliarRingItem extends Item {
             return this.stack;
         }
 
-        public void curioTick(LivingEntity entity) {
+        @Override
+        public void curioTick(SlotContext slotContext) {
+            LivingEntity entity = slotContext.entity();
             Level level = entity.level();
             IFamiliar familiar = this.getFamiliar(level);
             if (familiar != null) {
                 if (!familiar.getFamiliarEntity().isAddedToLevel())
                     familiar.getFamiliarEntity().setLevel(level);
-                if (familiar.getFamiliarOwner() == null)
-                    familiar.setFamiliarOwner(entity);
                 if (familiar.getFamiliarOwner() != entity)
                     return;
                 if (!level.isClientSide() && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
