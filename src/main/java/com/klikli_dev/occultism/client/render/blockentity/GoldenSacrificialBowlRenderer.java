@@ -152,6 +152,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                         float maxSize = (float) Math.max(entity.getBbWidth(), Math.max(entity.getBbHeight(), entity.getBbWidth()));
                         renderState.sacrificeEntityScale = maxSize > 0 ? 0.5F / maxSize : 1.0F;
                         renderState.sacrificeEntityRenderState = Minecraft.getInstance().getEntityRenderDispatcher().extractEntity(entity, partialTick);
+                        renderState.sacrificeEntityRenderState.lightCoords = renderState.lightCoords;
                     }
                 }
             } else {
