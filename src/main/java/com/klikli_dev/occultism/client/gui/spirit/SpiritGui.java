@@ -68,7 +68,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     public static void drawEntityToGui(GuiGraphicsExtractor guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
         // Use the vanilla InventoryScreen method with a bounding box centered around posX, posY
-        InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics, posX - 25, posY - 50, posX + 25, posY, scale, 0.0625F, mouseX, mouseY, entity);
+        InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics, posX - 35, posY - 60, posX + 35, posY + 10, scale, 0.0625F, mouseX, mouseY, entity);
     }
 
     @Override

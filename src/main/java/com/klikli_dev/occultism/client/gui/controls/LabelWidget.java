@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.gui.controls;
 
+import com.klikli_dev.occultism.util.GuiGraphicsExt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -92,18 +93,18 @@ public class LabelWidget extends AbstractWidget {
     }
 
     public void drawCenteredLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
-        guiGraphics.text(font, text, x - font.width(text) / 2, y, color, this.shadow);
+        guiGraphics.text(font, text, x - font.width(text) / 2, y, GuiGraphicsExt.withOpaqueAlpha(color), this.shadow);
     }
 
     public void drawRightAlignedLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text,
                                             int x, int y,
                                             int color) {
-        guiGraphics.text(font, text, x - font.width(text), y, color, this.shadow);
+        guiGraphics.text(font, text, x - font.width(text), y, GuiGraphicsExt.withOpaqueAlpha(color), this.shadow);
 
     }
 
     public void drawLabelString(GuiGraphicsExtractor guiGraphics, Font font, String text, int x, int y, int color) {
-        guiGraphics.text(font, text, x, y, color, this.shadow);
+        guiGraphics.text(font, text, x, y, GuiGraphicsExt.withOpaqueAlpha(color), this.shadow);
     }
 
     public LabelWidget alignRight(boolean align) {
