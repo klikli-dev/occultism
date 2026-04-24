@@ -91,6 +91,14 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     // Combined handler now uses the buffered output to propagate safety
     public ResourceHandler<ItemResource> combinedHandler = new CombinedResourceHandler<>(this.inputHandler, this.bufferedOutputHandler);
 
+    private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
+        return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
+    }
+
+    private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
+        handler.set(slot, ItemResource.of(stack), stack.getCount());
+    }
+
     public boolean outputDirty = false;
     public int miningTime;
     public int maxMiningTime = 0;
@@ -370,7 +378,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (this.possibleResults.size() == 0)
             return;
 
-        ItemStack input = this.inputHandler.getStackInSlot(0);
+        ItemStack input = getStack(this.inputHandler, 0);
 
         int fortune = this.bonusFortune && input.isEnchanted() ? input.getEnchantmentLevel(this.FORTUNE) : 0;
         if (fortune > 0) {
@@ -420,6 +428,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             input.shrink(1);
             ItemTransferUtil.insertItemStacked(currentHandler, minerCopy, false);
         }
+        setStack(this.inputHandler, 0, input);
     }
 
     public int getRedstoneSignal() {
