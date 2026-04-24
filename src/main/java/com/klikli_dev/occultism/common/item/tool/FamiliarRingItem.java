@@ -223,6 +223,8 @@ public class FamiliarRingItem extends Item {
             if (familiar != null) {
                 if (!familiar.getFamiliarEntity().isAddedToLevel())
                     familiar.getFamiliarEntity().setLevel(level);
+                if (familiar.getFamiliarOwner() == null)
+                    familiar.setFamiliarOwner(entity);
                 if (familiar.getFamiliarOwner() != entity)
                     return;
                 if (!level.isClientSide() && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
