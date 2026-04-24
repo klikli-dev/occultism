@@ -6,15 +6,14 @@
 - If work is a continuation of an already-active change, PR, or branch, STAY ON THAT SAME BRANCH. Do not create a branch-on-branch or a second PR for follow-up tasks like spec sync, archive moves, review fixes, or small supporting changes unless the user explicitly asks for a separate branch.
 - When delegating to another agent for work inside the current change, instruct it to reuse the current branch and not open an additional PR unless explicitly requested.
 - If prompted to work in a worktree, create the worktree based off the main branch for that minecraft version.
-- Read `gradle.properties` to find the current minecraft version used.
+- Read `gradle.properties` to find the current minecraft version (variable name `minecraft_version`) and NeoForge version (variable name `neo_version`) used.
 
 ## Java
 Do not use fully qualified class names in code. Always import classes and use their simple names.
 
 ## Minecraft source lookups
-- Use the `minecraft-dev` skill for all vanilla lookups, diffs, and signature checks.
-- Always use **Mojmaps** when querying Minecraft code with `minecraft-dev`.
-- Use `minecraft-dev` version comparison and source lookup before editing code.
+- EXCLUSIVELY use the `minecraft-dev` skill for all minecraft, mod and modloader (neoforge) source code lookups, diffs, and signature checks.
+- Always use `mojmaps` mapping when querying code with `minecraft-dev`.
 
 ## Mapping and version rules
 - Minecraft no longer uses obfuscation. If anything requests a mapping, use mojmaps.
