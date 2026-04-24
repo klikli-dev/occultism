@@ -59,6 +59,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.function.Consumer;
@@ -217,7 +218,9 @@ public class FamiliarRingItem extends Item {
             return this.stack;
         }
 
-        public void curioTick(LivingEntity entity) {
+        @Override
+        public void curioTick(SlotContext slotContext) {
+            LivingEntity entity = slotContext.entity();
             Level level = entity.level();
             IFamiliar familiar = this.getFamiliar(level);
             if (familiar != null) {
@@ -255,6 +258,10 @@ public class FamiliarRingItem extends Item {
         private IFamiliar getFamiliar(Level level) {
             if (this.familiar != null)
                 return this.familiar;
+
+            if (!level.isClientSide() && this.stack.getItem() instanceof FamiliarRingItem familiarRingItem) {
+                familiarRingItem.handleFamiliarTypeTag(this.stack);
+            }
 
             var data = this.stack.get(OccultismDataComponents.FAMILIAR_DATA);
             var tag = data == null ? null : data.copyTag();
