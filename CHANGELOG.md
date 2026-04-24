@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.221.0] - 2026-04-24
+### :sparkles: New Features
+- [`342c830`](https://github.com/klikli-dev/occultism/commit/342c830e702cc85ecfb76494d6959f9643b2dcd0) - update agents.md *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`f9c71ca`](https://github.com/klikli-dev/occultism/commit/f9c71ca84cc8837b7bf37d347f47abe1938327ff) - restore familiar ring effects *(PR [#1590](https://github.com/klikli-dev/occultism/pull/1590) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#1589](https://github.com/klikli-dev/occultism/issues/1589) opened by [@supdogpsi](https://github.com/supdogpsi)*
+
+
 ## [release/v26.1.2-1.220.0] - 2026-04-21
 ### :bug: Bug Fixes
 - [`86e622b`](https://github.com/klikli-dev/occultism/commit/86e622bf18e2304305da1b49806faa45e7c1d17b) - update loot modifier codec and familiar item handlers *(PR [#1586](https://github.com/klikli-dev/occultism/pull/1586) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2512,3 +2521,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.218.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.2...release/v26.1.2-1.218.3
 [release/v26.1.2-1.218.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.218.3...release/v26.1.2-1.218.4
 [release/v26.1.2-1.220.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.219.0...release/v26.1.2-1.220.0
+[release/v26.1.2-1.221.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.220.0...release/v26.1.2-1.221.0
