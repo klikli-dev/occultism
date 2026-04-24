@@ -140,6 +140,7 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarRenderSta
     @Override
     public void setupAnim(GuardianFamiliarRenderState state) {
         super.setupAnim(state);
+        this.body.getAllParts().forEach(ModelPart::resetPose);
         this.showModels(state);
         int lives = state.lives;
         this.head.yRot = state.yRot * (PI / 180f);
