@@ -38,7 +38,6 @@ public class BoundBookRecipeMaker {
         var result = ItemStackTemplate.fromNonEmptyStack(BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding));
         var ingredients = List.of(
                 Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
-                Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
                 Ingredient.of(bookOfBinding.getItem())
         );
 
