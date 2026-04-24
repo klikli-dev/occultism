@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -42,6 +43,7 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -149,10 +151,13 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                         entity.setYHeadRot(0);
                         entity.yHeadRotO = 0;
 
+                        BlockPos previewPos = blockEntity.getBlockPos().relative(facing, 2).above(3);
+                        entity.setPos(previewPos.getX() + 0.5, previewPos.getY(), previewPos.getZ() + 0.5);
+
                         float maxSize = (float) Math.max(entity.getBbWidth(), Math.max(entity.getBbHeight(), entity.getBbWidth()));
                         renderState.sacrificeEntityScale = maxSize > 0 ? 0.5F / maxSize : 1.0F;
                         renderState.sacrificeEntityRenderState = Minecraft.getInstance().getEntityRenderDispatcher().extractEntity(entity, partialTick);
-                        renderState.sacrificeEntityRenderState.lightCoords = renderState.lightCoords;
+                        renderState.sacrificeEntityRenderState.lightCoords = LevelRenderer.getLightCoords(blockEntity.getLevel(), previewPos);
                     }
                 }
             } else {
