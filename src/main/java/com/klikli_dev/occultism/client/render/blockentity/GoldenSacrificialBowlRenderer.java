@@ -26,8 +26,10 @@ import com.klikli_dev.occultism.client.render.blockentity.state.GoldenSacrificia
 import com.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
+import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -35,12 +37,15 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -103,6 +108,9 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                 renderState.recipeId = recipe.id().toString();
                 renderState.requiresItemUse = recipe.value().requiresItemUse();
                 renderState.requiresSacrifice = recipe.value().requiresSacrifice();
+                renderState.sacrificeEntityType = null;
+                renderState.sacrificeEntityRenderState = null;
+                renderState.sacrificeEntityScale = 1.0F;
 
                 // Get item to use for cycling animation
                 if (renderState.requiresItemUse) {
@@ -129,11 +137,31 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                         }
                     }
                 }
+
+                if (renderState.requiresSacrifice && !renderState.sacrificeFulfilled) {
+                    var entityType = EntityUtil.getEntityInTag(blockEntity.getLevel(), recipe.value().getEntityToSacrifice());
+                    renderState.sacrificeEntityType = entityType;
+                    if (entityType != null && entityType.create(blockEntity.getLevel(), EntitySpawnReason.COMMAND) instanceof LivingEntity entity) {
+                        entity.setYRot(0);
+                        entity.yRotO = 0;
+                        entity.setYBodyRot(0);
+                        entity.yBodyRotO = 0;
+                        entity.setYHeadRot(0);
+                        entity.yHeadRotO = 0;
+
+                        float maxSize = (float) Math.max(entity.getBbWidth(), Math.max(entity.getBbHeight(), entity.getBbWidth()));
+                        renderState.sacrificeEntityScale = maxSize > 0 ? 0.5F / maxSize : 1.0F;
+                        renderState.sacrificeEntityRenderState = Minecraft.getInstance().getEntityRenderDispatcher().extractEntity(entity, partialTick);
+                    }
+                }
             } else {
                 renderState.itemUseFulfilled = true;
                 renderState.sacrificeFulfilled = true;
                 renderState.requiresItemUse = false;
                 renderState.requiresSacrifice = false;
+                renderState.sacrificeEntityType = null;
+                renderState.sacrificeEntityRenderState = null;
+                renderState.sacrificeEntityScale = 1.0F;
             }
         } else {
             renderState.isGoldenBowl = false;
@@ -192,6 +220,15 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                     renderState.itemToUseRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
                 }
             }
+            poseStack.popPose();
+        }
+
+        if (renderState.isGoldenBowl && renderState.requiresSacrifice && !renderState.sacrificeFulfilled && renderState.sacrificeEntityRenderState != null) {
+            poseStack.pushPose();
+            poseStack.translate(0, 3.2 - (0.5 + yOffset) / scale, 0);
+            poseStack.scale(renderState.sacrificeEntityScale, renderState.sacrificeEntityScale, renderState.sacrificeEntityScale);
+            EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+            dispatcher.submit(renderState.sacrificeEntityRenderState, cameraRenderState, 0, 0, 0, poseStack, submitCollector);
             poseStack.popPose();
         }
 
