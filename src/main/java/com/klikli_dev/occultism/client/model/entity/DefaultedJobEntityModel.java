@@ -7,10 +7,12 @@ import com.geckolib.renderer.base.GeoRenderState;
 import com.google.common.reflect.TypeToken;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.SpiritJobFactory;
+import com.klikli_dev.occultism.client.render.entity.OccultismGeoLivingEntityRenderState;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -20,6 +22,8 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     private static final DataTicket<Identifier> JOB_MODEL = DataTicket.create("occultism_job_model", new TypeToken<>() {});
     private static final DataTicket<Identifier> JOB_TEXTURE = DataTicket.create("occultism_job_texture", new TypeToken<>() {});
     private static final DataTicket<Identifier> JOB_ANIMATION = DataTicket.create("occultism_job_animation", new TypeToken<>() {});
+    private static final DataTicket<Float> HEAD_YAW = DataTicket.create("occultism_head_yaw", new TypeToken<>() {});
+    private static final DataTicket<Float> HEAD_PITCH = DataTicket.create("occultism_head_pitch", new TypeToken<>() {});
 
     private final String entity_subpath;
     protected final Map<String, ModelData> jobModels;
@@ -97,6 +101,11 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
         renderState.addGeckolibData(JOB_MODEL, data.model());
         renderState.addGeckolibData(JOB_TEXTURE, data.texture());
         renderState.addGeckolibData(JOB_ANIMATION, data.animation());
+
+        if (renderState instanceof OccultismGeoLivingEntityRenderState livingEntityRenderState) {
+            renderState.addGeckolibData(HEAD_YAW, livingEntityRenderState.yRot * Mth.DEG_TO_RAD);
+            renderState.addGeckolibData(HEAD_PITCH, -livingEntityRenderState.xRot * Mth.DEG_TO_RAD);
+        }
     }
 
     @Override
