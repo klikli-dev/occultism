@@ -1,7 +1,7 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.util.TextUtil;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,7 +25,7 @@ public class OccultismCreativeModeTabs {
                                 return;
                             var stack = new ItemStack(i.get());
                             if (OccultismItems.shouldPregenerateSpiritName(i.get())) {
-                                stack.set(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN);
+                                ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
                             }
                             output.accept(stack);
                         });
@@ -35,7 +35,7 @@ public class OccultismCreativeModeTabs {
                             if (OccultismItems.laterCreativeModTab(i.get()) && !OccultismItems.shouldSkipCreativeModTab(i.get())) {
                                 var stack = new ItemStack(i.get());
                                 if (OccultismItems.shouldPregenerateSpiritName(i.get())) {
-                                    stack.set(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN);
+                                    ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
                                 }
                                 output.accept(stack);
                             }
