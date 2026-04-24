@@ -94,11 +94,11 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
 
     private void start() {
         var root = this.add(Builder.advancement()
-//                    .display(OccultismItems.JEI_DUMMY_NONE.get(),
-//                            title("root"),
-//                            descr("root"),
-//                            Identifier.parse("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, true,
-//                            true, true)
+                .display(OccultismItems.JEI_DUMMY_NONE.get(),
+                        title("root"),
+                        descr("root"),
+                        Identifier.parse("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, true,
+                        true, true)
                 .addCriterion("occultism_present", PlayerTrigger.TriggerInstance.tick())
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/root")));
 
