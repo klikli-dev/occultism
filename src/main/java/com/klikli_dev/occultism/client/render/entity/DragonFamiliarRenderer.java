@@ -87,8 +87,12 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
     private static class RenderText {
 
         @SubscribeEvent
-        public static void renderText(Post<DragonFamiliarEntity, DragonFamiliarRenderState, DragonFamiliarModel> event) {
-            @Nullable DragonFamiliarEntity dragon = (DragonFamiliarEntity) event.getRenderState().dragonEntity;
+        public static void renderText(Post<?, ?, ?> event) {
+            if (!(event.getRenderState() instanceof DragonFamiliarRenderState dragonState)) {
+                return;
+            }
+
+            @Nullable DragonFamiliarEntity dragon = dragonState.dragonEntity instanceof DragonFamiliarEntity entity ? entity : null;
             if (dragon == null)
                 return;
 
@@ -109,7 +113,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
             matrixStackIn.scale(-size, -size, size);
 
             Font font = event.getRenderer().getFont();
-            int packedLight = event.getRenderState().lightCoords;
+            int packedLight = dragonState.lightCoords;
             event.getSubmitNodeCollector().submitText(
                     matrixStackIn,
                     -font.width(text) / 2f,
