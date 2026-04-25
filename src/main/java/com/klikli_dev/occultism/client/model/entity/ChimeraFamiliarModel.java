@@ -21,7 +21,7 @@
  */
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.client.render.entity.ChimeraFamiliarRenderer;
+import com.klikli_dev.occultism.client.render.entity.state.ChimeraFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.ChimeraFamiliarEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -30,13 +30,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class ChimeraFamiliarModel extends EntityModel<EntityRenderState> {
+public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -197,7 +196,7 @@ public class ChimeraFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(ChimeraFamiliarRenderState state) {
         super.setupAnim(state);
         // TODO: needs custom RenderState
         // boolean isSnakeAttacking = pEntity.getAttackProgress(0) > 0
@@ -239,8 +238,7 @@ public class ChimeraFamiliarModel extends EntityModel<EntityRenderState> {
         // this.rightLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
         // this.leftLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
 
-        Boolean sitting = state.getRenderData(ChimeraFamiliarRenderer.IS_SITTING);
-        if (Boolean.TRUE.equals(sitting)) {
+        if (state.isSitting) {
             this.leftLeg1.xRot = -this.toRads(15);
             this.rightLeg1.xRot = -this.toRads(15);
             this.leftLeg3.xRot = this.toRads(30);
