@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.DragonFamiliarRenderState;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.StickLayer;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.SwordLayer;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
@@ -36,12 +37,10 @@ import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.util.context.ContextKey;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -49,7 +48,7 @@ import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.event.RenderLivingEvent.Post;
 import org.jspecify.annotations.Nullable;
 
-public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, LivingEntityRenderState, DragonFamiliarModel> {
+public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, DragonFamiliarRenderState, DragonFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/dragon_familiar.png");
@@ -58,15 +57,6 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
      * ContextKey used to store the dragon entity reference on the render state so it can be
      * accessed in event handlers where the entity is no longer passed directly.
      */
-    static final ContextKey<DragonFamiliarEntity> DRAGON_KEY =
-            new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "dragon_familiar_entity"));
-
-    /**
-     * ContextKey used to pass the ItemModelResolver to the item render layers.
-     */
-    static final ContextKey<ItemModelResolver> ITEM_MODEL_RESOLVER_KEY =
-            new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "dragon_item_model_resolver"));
-
     private final ItemModelResolver itemModelResolver;
 
     public DragonFamiliarRenderer(Context context) {
@@ -77,19 +67,19 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
     }
 
     @Override
-    public void extractRenderState(DragonFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+    public void extractRenderState(DragonFamiliarEntity entity, DragonFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
-        reusedState.setRenderData(DRAGON_KEY, entity);
-        reusedState.setRenderData(ITEM_MODEL_RESOLVER_KEY, this.itemModelResolver);
+        reusedState.dragonEntity = entity;
+        reusedState.itemModelResolver = this.itemModelResolver;
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public DragonFamiliarRenderState createRenderState() {
+        return new DragonFamiliarRenderState();
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState renderState) {
+    public Identifier getTextureLocation(DragonFamiliarRenderState renderState) {
         return TEXTURES;
     }
 
@@ -97,8 +87,8 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Li
     private static class RenderText {
 
         @SubscribeEvent
-        public static void renderText(Post<DragonFamiliarEntity, LivingEntityRenderState, DragonFamiliarModel> event) {
-            @Nullable DragonFamiliarEntity dragon = event.getRenderState().getRenderData(DRAGON_KEY);
+        public static void renderText(Post<DragonFamiliarEntity, DragonFamiliarRenderState, DragonFamiliarModel> event) {
+            @Nullable DragonFamiliarEntity dragon = (DragonFamiliarEntity) event.getRenderState().dragonEntity;
             if (dragon == null)
                 return;
 

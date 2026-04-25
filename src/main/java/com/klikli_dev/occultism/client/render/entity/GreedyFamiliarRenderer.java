@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.GreedyFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.GreedyFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
@@ -34,28 +35,21 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
 
-public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, LivingEntityRenderState, GreedyFamiliarModel> {
+public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, GreedyFamiliarRenderState, GreedyFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/greedy_familiar.png");
-
-    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_is_sitting"));
-    private static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_is_partying"));
-    private static final ContextKey<Boolean> HAS_BLACKSMITH = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_has_blacksmith"));
-    private static final ContextKey<ItemStack> OFFHAND_ITEM = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "greedy_offhand_item"));
 
     private final ItemModelResolver itemModelResolver;
 
@@ -67,47 +61,45 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Li
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public GreedyFamiliarRenderState createRenderState() {
+        return new GreedyFamiliarRenderState();
     }
 
     @Override
-    public void extractRenderState(GreedyFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+    public void extractRenderState(GreedyFamiliarEntity entity, GreedyFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
-        reusedState.setRenderData(IS_SITTING, entity.isSitting());
-        reusedState.setRenderData(IS_PARTYING, entity.isPartying());
-        reusedState.setRenderData(HAS_BLACKSMITH, entity.hasBlacksmithUpgrade());
-        reusedState.setRenderData(OFFHAND_ITEM, entity.getOffhandItem().copy());
+        reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.offhandItem = entity.getOffhandItem().copy();
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public Identifier getTextureLocation(GreedyFamiliarRenderState state) {
         return TEXTURES;
     }
 
     @Override
-    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+    public void submit(GreedyFamiliarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
-        Boolean sitting = state.getRenderData(IS_SITTING);
-        Boolean partying = state.getRenderData(IS_PARTYING);
-        if (Boolean.TRUE.equals(sitting) && !Boolean.TRUE.equals(partying))
+        if (state.isSitting && !state.isPartying)
             poseStack.translate(0, -0.25, 0);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
     }
 
-    private static class GreedyFamiliarChest extends RenderLayer<LivingEntityRenderState, GreedyFamiliarModel> {
+    private static class GreedyFamiliarChest extends RenderLayer<GreedyFamiliarRenderState, GreedyFamiliarModel> {
         private static final Identifier CHEST = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_chest.png");
         private static final Identifier CHRISTMAS = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_christmas.png");
 
-        public GreedyFamiliarChest(RenderLayerParent<LivingEntityRenderState, GreedyFamiliarModel> parent) {
+        public GreedyFamiliarChest(RenderLayerParent<GreedyFamiliarRenderState, GreedyFamiliarModel> parent) {
             super(parent);
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, GreedyFamiliarRenderState state, float yRot, float xRot) {
             if (state.isInvisible)
                 return;
             GreedyFamiliarModel model = this.getParentModel();
@@ -116,26 +108,24 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Li
         }
     }
 
-    private static class ItemLayer extends RenderLayer<LivingEntityRenderState, GreedyFamiliarModel> {
+    private static class ItemLayer extends RenderLayer<GreedyFamiliarRenderState, GreedyFamiliarModel> {
 
         private final ItemModelResolver itemModelResolver;
 
-        public ItemLayer(RenderLayerParent<LivingEntityRenderState, GreedyFamiliarModel> parent, ItemModelResolver itemModelResolver) {
+        public ItemLayer(RenderLayerParent<GreedyFamiliarRenderState, GreedyFamiliarModel> parent, ItemModelResolver itemModelResolver) {
             super(parent);
             this.itemModelResolver = itemModelResolver;
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            Boolean hasBlacksmith = state.getRenderData(GreedyFamiliarRenderer.HAS_BLACKSMITH);
-            ItemStack offhand = state.getRenderData(GreedyFamiliarRenderer.OFFHAND_ITEM);
-
-            if (!Boolean.TRUE.equals(hasBlacksmith) && (offhand == null || offhand.isEmpty()))
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, GreedyFamiliarRenderState state, float yRot, float xRot) {
+            ItemStack offhand = state.offhandItem;
+            if (!state.hasBlacksmithUpgrade && (offhand == null || offhand.isEmpty()))
                 return;
 
             GreedyFamiliarModel model = this.getParentModel();
 
-            if (Boolean.TRUE.equals(hasBlacksmith)) {
+            if (state.hasBlacksmithUpgrade) {
                 pMatrixStack.pushPose();
                 model.body.translateAndRotate(pMatrixStack);
                 model.rightArm.translateAndRotate(pMatrixStack);

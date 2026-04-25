@@ -74,6 +74,7 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
 
             @Override
             public void addRenderData(FoliotEntity animatable, @Nullable Void relatedObject, OccultismGeoLivingEntityRenderState renderState, float partialTick) {
+                renderState.jobID = animatable.getJobID();
                 List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
                     renderState.addGeckolibData(CONTENTS, bones);
@@ -84,7 +85,10 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
             protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.65, 0);
-                // TODO: job-specific CLEANER offset requires render state data
+                if (Objects.equals(renderState.jobID, OccultismSpiritJobs.CLEANER.getId().toString())) {
+                    poseStack.translate(-0.3, 0.35, 0.85);
+                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                }
                 poseStack.mulPose(Axis.XN.rotationDegrees(90));
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();

@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.DragonFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.ThrownSwordEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,7 +11,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.entity.state.ThrownItemRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -24,14 +24,14 @@ import org.joml.Quaternionf;
 
 public class DragonRendering {
 
-    public static class StickLayer extends RenderLayer<LivingEntityRenderState, DragonFamiliarModel> {
-        public StickLayer(RenderLayerParent<LivingEntityRenderState, DragonFamiliarModel> parent) {
+    public static class StickLayer extends RenderLayer<DragonFamiliarRenderState, DragonFamiliarModel> {
+        public StickLayer(RenderLayerParent<DragonFamiliarRenderState, DragonFamiliarModel> parent) {
             super(parent);
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            DragonFamiliarEntity dragon = state.getRenderData(DragonFamiliarRenderer.DRAGON_KEY);
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, DragonFamiliarRenderState state, float yRot, float xRot) {
+            DragonFamiliarEntity dragon = state.dragonEntity instanceof DragonFamiliarEntity entity ? entity : null;
             if (dragon == null || !dragon.hasStick())
                 return;
 
@@ -47,7 +47,7 @@ public class DragonRendering {
             pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, -45 * ((float) Math.PI / 180F)));
 
             // Render stick item via ItemModelResolver stored in render state
-            ItemModelResolver resolver = state.getRenderData(DragonFamiliarRenderer.ITEM_MODEL_RESOLVER_KEY);
+            ItemModelResolver resolver = state.itemModelResolver;
             if (resolver != null) {
                 ItemStack stick = new ItemStack(Items.STICK);
                 ItemStackRenderState stackState = new ItemStackRenderState();
@@ -58,14 +58,14 @@ public class DragonRendering {
         }
     }
 
-    public static class SwordLayer extends RenderLayer<LivingEntityRenderState, DragonFamiliarModel> {
-        public SwordLayer(RenderLayerParent<LivingEntityRenderState, DragonFamiliarModel> parent) {
+    public static class SwordLayer extends RenderLayer<DragonFamiliarRenderState, DragonFamiliarModel> {
+        public SwordLayer(RenderLayerParent<DragonFamiliarRenderState, DragonFamiliarModel> parent) {
             super(parent);
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            DragonFamiliarEntity dragon = state.getRenderData(DragonFamiliarRenderer.DRAGON_KEY);
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, DragonFamiliarRenderState state, float yRot, float xRot) {
+            DragonFamiliarEntity dragon = state.dragonEntity instanceof DragonFamiliarEntity entity ? entity : null;
             if (dragon == null || !dragon.hasSword())
                 return;
 
@@ -86,7 +86,7 @@ public class DragonRendering {
 
             ItemStack sword = new ItemStack(Items.IRON_SWORD);
             ItemStackRenderState stackState = new ItemStackRenderState();
-            ItemModelResolver resolver = state.getRenderData(DragonFamiliarRenderer.ITEM_MODEL_RESOLVER_KEY);
+            ItemModelResolver resolver = state.itemModelResolver;
             if (resolver != null) {
                 resolver.updateForTopItem(stackState, sword, ItemDisplayContext.GROUND, null, null, 0);
                 stackState.submit(pMatrixStack, submitNodeCollector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);

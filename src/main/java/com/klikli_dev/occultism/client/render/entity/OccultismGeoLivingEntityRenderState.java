@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class OccultismGeoLivingEntityRenderState extends LivingEntityRenderState implements GeoRenderState {
     private final Map<DataTicket<?>, Object> geckolibData = new Reference2ObjectOpenHashMap<>();
+    public String jobID = "";
 
     @Override
     public <D> void addGeckolibData(DataTicket<D> dataTicket, D data) {

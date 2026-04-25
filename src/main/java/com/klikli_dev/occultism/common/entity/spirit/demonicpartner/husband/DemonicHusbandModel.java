@@ -30,10 +30,4 @@ public class DemonicHusbandModel extends DefaultedEntityGeoModel<DemonicHusband>
     public DemonicHusbandModel() {
         super(DemonicHusband.ID);
     }
-
-//
-//    @Override
-//    public RenderType getRenderType(AfritEntity animatable, ResourceLocation texture) {
-//        return RenderType.entityTranslucent(this.getTextureResource(animatable));
-//    }
 }
