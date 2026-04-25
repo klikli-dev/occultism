@@ -41,8 +41,8 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/chimera_familiar.png");
 
-    private static final ContextKey<Float> SCALE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_scale"));
-    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_is_sitting"));
+    public static final ContextKey<Float> SCALE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_scale"));
+    public static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_is_sitting"));
 
     public ChimeraFamiliarRenderer(Context context) {
         super(context, new ChimeraFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CHIMERA)), 0.3f);

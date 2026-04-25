@@ -21,6 +21,7 @@
  */
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.render.entity.ChimeraFamiliarRenderer;
 import com.klikli_dev.occultism.common.entity.familiar.ChimeraFamiliarEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -238,8 +239,29 @@ public class ChimeraFamiliarModel extends EntityModel<EntityRenderState> {
         // this.rightLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
         // this.leftLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
 
-        // TODO: needs custom RenderState
-        // if (pEntity.isSitting()) { ... }
+        Boolean sitting = state.getRenderData(ChimeraFamiliarRenderer.IS_SITTING);
+        if (Boolean.TRUE.equals(sitting)) {
+            this.leftLeg1.xRot = -this.toRads(15);
+            this.rightLeg1.xRot = -this.toRads(15);
+            this.leftLeg3.xRot = this.toRads(30);
+            this.rightLeg3.xRot = this.toRads(30);
+            this.leftBackLeg1.xRot = -this.toRads(62);
+            this.rightBackLeg1.xRot = -this.toRads(62);
+            this.body.xRot = -this.toRads(20);
+            this.leftLeg1.yRot = -this.toRads(10);
+            this.rightLeg1.yRot = this.toRads(10);
+            this.snake1.zRot = this.toRads(80);
+            this.snake2.zRot = this.toRads(0);
+            this.snake3.zRot = this.toRads(-20);
+            this.snake4.zRot = this.toRads(-65);
+            this.snake2.yRot = -this.toRads(20);
+            this.snake3.yRot = -this.toRads(20);
+            this.snake4.yRot = -this.toRads(20);
+            this.snake2.xRot = this.toRads(40);
+            this.snake3.xRot = this.toRads(50);
+            this.snake4.xRot = this.toRads(60);
+            this.snake5.xRot = this.toRads(7);
+        }
         // if (pEntity.isPartying()) { ... }
     }
 
