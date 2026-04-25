@@ -62,7 +62,8 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
     public void extractRenderState(EntityWormholeBlockEntity blockEntity, EntityWormholeRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable CrumblingOverlay crumbling) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
 
-        ItemStack portalStack = blockEntity.itemStackHandler.getResource(0).isEmpty() ? ItemStack.EMPTY : OccultismItems.WORMHOLE_PORTAL.toStack();
+        ItemStack storedStack = blockEntity.itemStackHandler.getResource(0).toStack(blockEntity.itemStackHandler.getAmountAsInt(0));
+        ItemStack portalStack = storedStack.isEmpty() ? ItemStack.EMPTY : OccultismItems.WORMHOLE_PORTAL.toStack();
         ItemStack nuggetStack = OccultismItems.IESNIUM_NUGGET.toStack();
         BlockState state = blockEntity.getBlockState();
 
