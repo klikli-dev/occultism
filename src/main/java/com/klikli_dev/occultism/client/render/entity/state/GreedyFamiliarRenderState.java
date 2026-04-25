@@ -28,6 +28,12 @@ import net.minecraft.world.item.ItemStack;
 public class GreedyFamiliarRenderState extends LivingEntityRenderState {
     public boolean isSitting;
     public boolean isPartying;
+    public boolean isVehicle;
     public boolean hasBlacksmithUpgrade;
+    public boolean hasTargetBlock;
+    public float lidRot;
+    public float monsterRot;
+    public float earRotZ;
+    public float earRotX;
     public ItemStack offhandItem = ItemStack.EMPTY;
 }

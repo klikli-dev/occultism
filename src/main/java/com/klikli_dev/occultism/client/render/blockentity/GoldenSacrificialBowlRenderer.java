@@ -47,11 +47,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
@@ -60,6 +64,7 @@ import org.jspecify.annotations.Nullable;
 public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity, GoldenSacrificialBowlRenderState> {
 
     private final ItemModelResolver itemModelResolver;
+    private final Map<EntityType<?>, LivingEntity> sacrificePreviewEntities = new HashMap<>();
 
     public GoldenSacrificialBowlRenderer(Context context) {
         this.itemModelResolver = context.itemModelResolver();
@@ -143,7 +148,8 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                 if (renderState.requiresSacrifice && !renderState.sacrificeFulfilled) {
                     var entityType = EntityUtil.getEntityInTag(blockEntity.getLevel(), recipe.value().getEntityToSacrifice());
                     renderState.sacrificeEntityType = entityType;
-                    if (entityType != null && entityType.create(blockEntity.getLevel(), EntitySpawnReason.COMMAND) instanceof LivingEntity entity) {
+                    LivingEntity entity = this.getSacrificePreviewEntity(entityType, blockEntity.getLevel());
+                    if (entity != null) {
                         entity.setYRot(0);
                         entity.yRotO = 0;
                         entity.setYBodyRot(0);
@@ -172,6 +178,25 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         } else {
             renderState.isGoldenBowl = false;
         }
+    }
+
+    @Nullable
+    private LivingEntity getSacrificePreviewEntity(@Nullable EntityType<?> entityType, @Nullable Level level) {
+        if (entityType == null || level == null) {
+            return null;
+        }
+
+        LivingEntity cached = this.sacrificePreviewEntities.get(entityType);
+        if (cached != null && cached.level() == level && !cached.isRemoved()) {
+            return cached;
+        }
+
+        if (entityType.create(level, EntitySpawnReason.COMMAND) instanceof LivingEntity created) {
+            this.sacrificePreviewEntities.put(entityType, created);
+            return created;
+        }
+
+        return null;
     }
 
     @Override

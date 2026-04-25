@@ -70,7 +70,13 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.isSitting = entity.isSitting();
         reusedState.isPartying = entity.isPartying();
+        reusedState.isVehicle = entity.getVehicle() != null;
         reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.hasTargetBlock = entity.getTargetBlock().isPresent();
+        reusedState.lidRot = entity.getLidRot(partialTick);
+        reusedState.monsterRot = entity.getMonsterRot(partialTick);
+        reusedState.earRotZ = entity.getEarRotZ(partialTick);
+        reusedState.earRotX = entity.getEarRotX(partialTick);
         reusedState.offhandItem = entity.getOffhandItem().copy();
     }
 

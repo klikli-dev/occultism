@@ -29,6 +29,12 @@ public class FairyFamiliarRenderState extends LivingEntityRenderState {
     public float animationHeight;
     public boolean isSitting;
     public boolean isPartying;
+    public boolean hasFlower;
+    public boolean hasTeeth;
+    public boolean isLeftHanded;
+    public float partyArmRotX;
+    public float partyArmRotY;
+    public float supportAnim;
     public boolean hasMagicTarget;
     public float magicPosX;
     public float magicPosY;
