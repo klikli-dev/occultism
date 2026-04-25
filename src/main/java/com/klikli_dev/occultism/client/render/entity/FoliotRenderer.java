@@ -89,7 +89,7 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
                 poseStack.pushPose();
                 poseStack.translate(0, -0.65, 0);
                 if (Objects.equals(renderState.jobID, OccultismSpiritJobs.CLEANER.getId().toString())) {
-                    poseStack.translate(-0.3, 0.35, 0.85);
+                    poseStack.translate(-0.3, 0.35, 1.35);
                     poseStack.scale(0.5F, 0.5F, 0.5F);
                 }
                 poseStack.mulPose(Axis.XN.rotationDegrees(90));
