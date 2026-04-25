@@ -5,7 +5,7 @@
     },
     "title": {"translate": "advancements.occultism.chalks.root.title"},
     "description": {"color":"#CCCCCC","translate":"advancements.occultism.chalks.root.description"},
-    "background": "occultism:textures/block/otherstone.png",
+    "background": "occultism:block/otherstone",
     "show_toast": true,
     "announce_to_chat": false
   },

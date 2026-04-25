@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2026 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,14 +20,19 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband;
+package com.klikli_dev.occultism.client.render.entity.state;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import com.klikli_dev.occultism.client.render.entity.OccultismGeoLivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
-public class DemonicHusbandRenderer extends OccultismGeoLivingEntityRenderer<DemonicHusband> {
-
-    public DemonicHusbandRenderer(Context renderManager) {
-        super(renderManager, new DemonicHusbandModel());
-    }
+public class GoatFamiliarRenderState extends LivingEntityRenderState {
+    public float scale = 1.0f;
+    public boolean isPartying;
+    public boolean isSitting;
+    public boolean isBlack;
+    public float neckYRot;
+    public boolean hasRing;
+    public boolean hasBeard;
+    public boolean hasBlacksmithUpgrade;
+    public boolean hasRedEyes;
+    public boolean hasEvilHorns;
 }

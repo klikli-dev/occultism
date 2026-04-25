@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.geckolib.cache.model.GeoBone;
+import com.geckolib.constant.DefaultAnimations;
 import com.geckolib.renderer.base.BoneSnapshots;
 import com.geckolib.renderer.base.RenderPassInfo;
 import com.klikli_dev.occultism.client.model.entity.WonderingTraderModel;
@@ -35,8 +36,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 
@@ -62,11 +61,8 @@ public class WonderingTraderRenderer extends OccultismGeoLivingEntityRenderer<Wo
     public void adjustModelBonesForRender(RenderPassInfo<OccultismGeoLivingEntityRenderState> renderPassInfo, BoneSnapshots snapshots) {
         super.adjustModelBonesForRender(renderPassInfo, snapshots);
 
-        float headYaw = renderPassInfo.renderState().yRot * Mth.DEG_TO_RAD;
-        float headPitch = -renderPassInfo.renderState().xRot * Mth.DEG_TO_RAD;
-
-        snapshots.ifPresent("head", bone -> bone.setRotY(headYaw).setRotX(headPitch));
-        snapshots.ifPresent("head3", bone -> bone.setRotY(headYaw).setRotX(headPitch));
+        DefaultAnimations.hardcodedHeadRotation(renderPassInfo, snapshots, "head");
+        DefaultAnimations.hardcodedHeadRotation(renderPassInfo, snapshots, "head3");
 
         Player player = Minecraft.getInstance().player;
         boolean showOtherForm = player != null && (player.hasEffect(OccultismEffects.THIRD_EYE) || CuriosUtil.hasGoggles(player) || CuriosUtil.hasStaff(player));

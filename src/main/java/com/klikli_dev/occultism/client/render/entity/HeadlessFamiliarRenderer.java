@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableMap.Builder;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.HeadlessFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity.Rebuilt;
 import com.klikli_dev.occultism.registry.OccultismEntities;
@@ -44,11 +45,9 @@ import net.minecraft.client.model.object.skull.SkullModelBase.State;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
@@ -56,7 +55,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -65,24 +63,10 @@ import org.joml.Quaternionf;
 
 import java.util.Map;
 
-public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, LivingEntityRenderState, HeadlessFamiliarModel> {
+public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarRenderState, HeadlessFamiliarModel> {
 
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/headless_familiar.png");
-
-    static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_is_sitting"));
-    static final ContextKey<Boolean> IS_HEADLESS_DEAD = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_is_dead"));
-    static final ContextKey<Boolean> IS_PARTYING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_is_partying"));
-    static final ContextKey<Boolean> REBUILT_RIGHT_LEG = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_rebuilt_right_leg"));
-    static final ContextKey<Boolean> REBUILT_LEFT_LEG = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_rebuilt_left_leg"));
-    static final ContextKey<Boolean> REBUILT_BODY = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_rebuilt_body"));
-    static final ContextKey<Boolean> REBUILT_RIGHT_ARM = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_rebuilt_right_arm"));
-    static final ContextKey<Boolean> REBUILT_LEFT_ARM = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_rebuilt_left_arm"));
-    static final ContextKey<Boolean> REBUILT_HEAD = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_rebuilt_head"));
-    static final ContextKey<Boolean> HAS_HEAD = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_has_head"));
-    static final ContextKey<EntityType<?>> HEAD_TYPE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_head_type"));
-    static final ContextKey<ItemStack> WEAPON_ITEM = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_weapon_item"));
-    static final ContextKey<Float> Y_HEAD_ROT = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "headless_y_head_rot"));
 
     private final ItemModelResolver itemModelResolver;
 
@@ -96,40 +80,45 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     @Override
-    public void extractRenderState(HeadlessFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+    public void extractRenderState(HeadlessFamiliarEntity entity, HeadlessFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
-        reusedState.setRenderData(IS_SITTING, entity.isSitting());
-        reusedState.setRenderData(IS_HEADLESS_DEAD, entity.isHeadlessDead());
-        reusedState.setRenderData(IS_PARTYING, entity.isPartying());
-        reusedState.setRenderData(REBUILT_RIGHT_LEG, entity.isRebuilt(Rebuilt.RightLeg));
-        reusedState.setRenderData(REBUILT_LEFT_LEG, entity.isRebuilt(Rebuilt.LeftLeg));
-        reusedState.setRenderData(REBUILT_BODY, entity.isRebuilt(Rebuilt.Body));
-        reusedState.setRenderData(REBUILT_RIGHT_ARM, entity.isRebuilt(Rebuilt.RightArm));
-        reusedState.setRenderData(REBUILT_LEFT_ARM, entity.isRebuilt(Rebuilt.LeftArm));
-        reusedState.setRenderData(REBUILT_HEAD, entity.isRebuilt(Rebuilt.Head));
-        reusedState.setRenderData(HAS_HEAD, entity.hasHead());
-        reusedState.setRenderData(HEAD_TYPE, entity.getHeadType());
-        reusedState.setRenderData(WEAPON_ITEM, entity.getWeaponItem());
-        reusedState.setRenderData(Y_HEAD_ROT, entity.yHeadRot);
+        reusedState.isSitting = entity.isSitting();
+        reusedState.isHeadlessDead = entity.isHeadlessDead();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.isHairy = entity.isHairy();
+        reusedState.rebuiltRightLeg = entity.isRebuilt(Rebuilt.RightLeg);
+        reusedState.rebuiltLeftLeg = entity.isRebuilt(Rebuilt.LeftLeg);
+        reusedState.rebuiltBody = entity.isRebuilt(Rebuilt.Body);
+        reusedState.rebuiltRightArm = entity.isRebuilt(Rebuilt.RightArm);
+        reusedState.rebuiltLeftArm = entity.isRebuilt(Rebuilt.LeftArm);
+        reusedState.rebuiltHead = entity.isRebuilt(Rebuilt.Head);
+        reusedState.hasHead = entity.hasHead();
+        reusedState.hasGlasses = entity.hasGlasses();
+        reusedState.headType = entity.getHeadType();
+        reusedState.weaponItem = entity.getWeaponItem().copy();
+        reusedState.yHeadRot = entity.yHeadRot;
+        reusedState.limbSwing = entity.walkAnimation.position();
+        reusedState.limbSwingAmount = entity.walkAnimation.speed(partialTick);
+        reusedState.attackTime = entity.getAttackAnim(partialTick);
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public HeadlessFamiliarRenderState createRenderState() {
+        return new HeadlessFamiliarRenderState();
     }
 
     @Override
-    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+    public void submit(HeadlessFamiliarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
-        Boolean isSitting = state.getRenderData(IS_SITTING);
-        if (isSitting != null && isSitting)
+        if (state.isSitting)
             poseStack.translate(0, -0.12, 0);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public Identifier getTextureLocation(HeadlessFamiliarRenderState state) {
         return TEXTURE;
     }
 
@@ -137,53 +126,42 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     // RebuiltLayer
     // -------------------------------------------------------------------------
 
-    private static class RebuiltLayer extends RenderLayer<LivingEntityRenderState, HeadlessFamiliarModel> {
+    private static class RebuiltLayer extends RenderLayer<HeadlessFamiliarRenderState, HeadlessFamiliarModel> {
         private final ItemModelResolver itemModelResolver;
 
-        public RebuiltLayer(RenderLayerParent<LivingEntityRenderState, HeadlessFamiliarModel> parent, ItemModelResolver itemModelResolver) {
+        public RebuiltLayer(RenderLayerParent<HeadlessFamiliarRenderState, HeadlessFamiliarModel> parent, ItemModelResolver itemModelResolver) {
             super(parent);
             this.itemModelResolver = itemModelResolver;
         }
 
         @Override
-        public void submit(PoseStack matrix, SubmitNodeCollector collector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            Boolean isDeadVal = state.getRenderData(HeadlessFamiliarRenderer.IS_HEADLESS_DEAD);
-            if (isDeadVal == null || !isDeadVal)
+        public void submit(PoseStack matrix, SubmitNodeCollector collector, int lightCoords, HeadlessFamiliarRenderState state, float yRot, float xRot) {
+            if (!state.isHeadlessDead)
                 return;
 
-            Boolean partyingVal = state.getRenderData(HeadlessFamiliarRenderer.IS_PARTYING);
-            boolean partying = partyingVal != null && partyingVal;
+            boolean partying = state.isPartying;
             float ageInTicks = state.ageInTicks;
-
-            Boolean rightLeg = state.getRenderData(HeadlessFamiliarRenderer.REBUILT_RIGHT_LEG);
-            Boolean leftLeg = state.getRenderData(HeadlessFamiliarRenderer.REBUILT_LEFT_LEG);
-            Boolean body = state.getRenderData(HeadlessFamiliarRenderer.REBUILT_BODY);
-            Boolean rightArm = state.getRenderData(HeadlessFamiliarRenderer.REBUILT_RIGHT_ARM);
-            Boolean leftArm = state.getRenderData(HeadlessFamiliarRenderer.REBUILT_LEFT_ARM);
-            Boolean headRebuilt = state.getRenderData(HeadlessFamiliarRenderer.REBUILT_HEAD);
-
-            Float yHeadRotVal = state.getRenderData(HeadlessFamiliarRenderer.Y_HEAD_ROT);
-            float netHeadYaw = yHeadRotVal != null ? yHeadRotVal : 0f;
+            float netHeadYaw = state.yHeadRot;
 
             matrix.pushPose();
             HeadlessFamiliarModel model = this.getParentModel();
             model.ratBody1.translateAndRotate(matrix);
 
-            if (rightLeg != null && rightLeg) {
+            if (state.rebuiltRightLeg) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, 130 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
                 this.renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords);
                 matrix.popPose();
             }
-            if (leftLeg != null && leftLeg) {
+            if (state.rebuiltLeftLeg) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, 50 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
                 this.renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords);
                 matrix.popPose();
             }
-            if (body != null && body) {
+            if (state.rebuiltBody) {
                 matrix.pushPose();
                 float size = 1.2f;
                 matrix.scale(size, size, size);
@@ -194,21 +172,21 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 this.renderItem(new ItemStack(Items.HAY_BLOCK), matrix, collector, lightCoords);
                 matrix.popPose();
             }
-            if (rightArm != null && rightArm) {
+            if (state.rebuiltRightArm) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, (180 + (partying ? Mth.sin(ageInTicks / 3) * 20 : 0)) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, 0.05);
                 this.renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords);
                 matrix.popPose();
             }
-            if (leftArm != null && leftArm) {
+            if (state.rebuiltLeftArm) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? Mth.sin(ageInTicks / 3) * 20 : 0) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, -0.05);
                 this.renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords);
                 matrix.popPose();
             }
-            if (headRebuilt != null && headRebuilt) {
+            if (state.rebuiltHead) {
                 matrix.pushPose();
                 matrix.scale(-1, -1, 1);
                 matrix.translate(0, 0.7, -0.06);
@@ -230,21 +208,20 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     // WeaponLayer
     // -------------------------------------------------------------------------
 
-    private static class WeaponLayer extends RenderLayer<LivingEntityRenderState, HeadlessFamiliarModel> {
+    private static class WeaponLayer extends RenderLayer<HeadlessFamiliarRenderState, HeadlessFamiliarModel> {
         private final ItemModelResolver itemModelResolver;
 
-        public WeaponLayer(RenderLayerParent<LivingEntityRenderState, HeadlessFamiliarModel> parent, ItemModelResolver itemModelResolver) {
+        public WeaponLayer(RenderLayerParent<HeadlessFamiliarRenderState, HeadlessFamiliarModel> parent, ItemModelResolver itemModelResolver) {
             super(parent);
             this.itemModelResolver = itemModelResolver;
         }
 
         @Override
-        public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            Boolean isDeadVal = state.getRenderData(HeadlessFamiliarRenderer.IS_HEADLESS_DEAD);
-            if (isDeadVal != null && isDeadVal)
+        public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, HeadlessFamiliarRenderState state, float yRot, float xRot) {
+            if (state.isHeadlessDead)
                 return;
 
-            ItemStack weaponItem = state.getRenderData(HeadlessFamiliarRenderer.WEAPON_ITEM);
+            ItemStack weaponItem = state.weaponItem;
             if (weaponItem == null || weaponItem.isEmpty())
                 return;
 
@@ -270,24 +247,23 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     // PumpkinLayer
     // -------------------------------------------------------------------------
 
-    private static class PumpkinLayer extends RenderLayer<LivingEntityRenderState, HeadlessFamiliarModel> {
+    private static class PumpkinLayer extends RenderLayer<HeadlessFamiliarRenderState, HeadlessFamiliarModel> {
         private static final Identifier PUMPKIN = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_pumpkin.png");
         private static final Identifier CHRISTMAS = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_christmas.png");
 
-        public PumpkinLayer(RenderLayerParent<LivingEntityRenderState, HeadlessFamiliarModel> renderer) {
+        public PumpkinLayer(RenderLayerParent<HeadlessFamiliarRenderState, HeadlessFamiliarModel> renderer) {
             super(renderer);
         }
 
         @Override
-        public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+        public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, HeadlessFamiliarRenderState state, float yRot, float xRot) {
             if (state.isInvisible)
                 return;
 
             boolean isChristmas = FamiliarUtil.isChristmas();
-            Boolean hasHeadVal = state.getRenderData(HeadlessFamiliarRenderer.HAS_HEAD);
-            boolean hasPumpkin = hasHeadVal == null || !hasHeadVal;
+            boolean hasPumpkin = !state.hasHead;
 
             HeadlessFamiliarModel model = this.getParentModel();
             model.pumpkin1.visible = hasPumpkin;
@@ -326,12 +302,12 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     // HeadLayer
     // -------------------------------------------------------------------------
 
-    public static class HeadLayer extends RenderLayer<LivingEntityRenderState, HeadlessFamiliarModel> {
+    public static class HeadLayer extends RenderLayer<HeadlessFamiliarRenderState, HeadlessFamiliarModel> {
 
         private static Map<EntityType<?>, Identifier> textures;
         private static Map<EntityType<?>, SkullModelBase> skulls;
 
-        public HeadLayer(RenderLayerParent<LivingEntityRenderState, HeadlessFamiliarModel> parent) {
+        public HeadLayer(RenderLayerParent<HeadlessFamiliarRenderState, HeadlessFamiliarModel> parent) {
             super(parent);
         }
 
@@ -406,12 +382,11 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            Boolean isDeadVal = state.getRenderData(HeadlessFamiliarRenderer.IS_HEADLESS_DEAD);
-            if (isDeadVal != null && isDeadVal)
+        public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, HeadlessFamiliarRenderState state, float yRot, float xRot) {
+            if (state.isHeadlessDead)
                 return;
 
-            EntityType<?> headType = state.getRenderData(HeadlessFamiliarRenderer.HEAD_TYPE);
+            EntityType<?> headType = state.headType;
             if (headType == null)
                 return;
 

@@ -25,14 +25,16 @@ package com.klikli_dev.occultism.common.item.spirit;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -61,6 +63,14 @@ public class BookOfBindingBoundItem extends Item {
     public void onCraftedPostProcess(ItemStack stack, Level level) {
         ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
         super.onCraftedPostProcess(stack, level);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+        if (entity instanceof Player player && ItemNBTUtil.generateBoundSpiritNameIfNone(stack)) {
+            player.inventoryMenu.broadcastChanges();
+        }
+        super.inventoryTick(stack, level, entity, slot);
     }
 
     @Override

@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.render.entity.state.GreedyFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -29,12 +30,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class GreedyFamiliarModel extends EntityModel<EntityRenderState> {
+public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -54,7 +52,6 @@ public class GreedyFamiliarModel extends EntityModel<EntityRenderState> {
     public ModelPart leftEar;
     public ModelPart rightEar;
     public ModelPart nose;
-
 
     public GreedyFamiliarModel(ModelPart part) {
         super(part);
@@ -88,10 +85,10 @@ public class GreedyFamiliarModel extends EntityModel<EntityRenderState> {
         PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, false), PartPose.offsetAndRotation(0.0F, -5.0F, 0.0F, 0, 0, 0));
         PartDefinition chest2 = chest1.addOrReplaceChild("chest2", CubeListBuilder.create().texOffs(0, 18).addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, 0.0F, 1.0555751236166873F, 0.0F, 0.0F));
         PartDefinition monster = chest1.addOrReplaceChild("monster", CubeListBuilder.create().texOffs(15, 0).addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -2.0F, 1.5F, 0.1563815016444822F, -0.11728612207217244F, 0.0F));
-        PartDefinition monsterLeftEye = monster.addOrReplaceChild("monsterLeftEye", CubeListBuilder.create().texOffs(21, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.8F, -1.8F, 1.8F, 0, 0, 0));
-        PartDefinition monsterRightEye = monster.addOrReplaceChild("monsterRightEye", CubeListBuilder.create().texOffs(21, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, true), PartPose.offsetAndRotation(0.8F, -1.8F, 1.8F, 0, 0, 0));
-        PartDefinition monsterLeftEar = monster.addOrReplaceChild("monsterLeftEar", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-0.6F, -1.6F, 0.3F, -0.3127630032889644F, 0.0781907508222411F, -0.35185837453889574F));
-        PartDefinition monsterRightEar = monster.addOrReplaceChild("monsterRightEar", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.6F, -1.6F, 0.3F, -0.3127630032889644F, 0.0781907508222411F, 0.35185837453889574F));
+        monster.addOrReplaceChild("monsterLeftEye", CubeListBuilder.create().texOffs(21, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.8F, -1.8F, 1.8F, 0, 0, 0));
+        monster.addOrReplaceChild("monsterRightEye", CubeListBuilder.create().texOffs(21, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, true), PartPose.offsetAndRotation(0.8F, -1.8F, 1.8F, 0, 0, 0));
+        monster.addOrReplaceChild("monsterLeftEar", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-0.6F, -1.6F, 0.3F, -0.3127630032889644F, 0.0781907508222411F, -0.35185837453889574F));
+        monster.addOrReplaceChild("monsterRightEar", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.6F, -1.6F, 0.3F, -0.3127630032889644F, 0.0781907508222411F, 0.35185837453889574F));
         PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(2.0F, -4.5F, 0.0F, 0.0F, 0.0F, 0.5235987755982988F));
         PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, true), PartPose.offsetAndRotation(-2.0F, -4.5F, 0.0F, 0.0F, 0.0F, -0.5235987755982988F));
         PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(18, 8).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -2.5F, 0, 0, 0));
@@ -102,66 +99,60 @@ public class GreedyFamiliarModel extends EntityModel<EntityRenderState> {
         return (float) Math.toRadians(deg);
     }
 
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // prepareMobModel set:
-    //   this.leftEar.zRot = -pEntity.getEarRotZ(pPartialTick);
-    //   this.rightEar.zRot = pEntity.getEarRotZ(pPartialTick);
-    //   this.leftEar.xRot = pEntity.getEarRotX(pPartialTick);
-    //   this.rightEar.xRot = pEntity.getEarRotX(pPartialTick);
-    //   float ageInTicks = pEntity.tickCount + pPartialTick;
-    //   if (!pEntity.isPartying()) {
-    //       this.chest2.xRot = pEntity.getLidRot(pPartialTick);
-    //       this.monster.y = -0.2f - pEntity.getLidRot(pPartialTick) * 3;
-    //       this.monster.yRot = pEntity.getMonsterRot(pPartialTick);
-    //       this.monster.xRot = 0;
-    //   } else {
-    //       this.chest2.xRot = this.toRad(40);
-    //       this.monster.y = -2.5f;
-    //       this.monster.yRot = 0;
-    //       this.monster.xRot = Mth.cos(ageInTicks) * this.toRad(15);
-    //   }
-
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(GreedyFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // this.head.yRot = netHeadYaw * (PI / 180f);
-        // this.head.xRot = headPitch * (PI / 180f);
+        this.head.yRot = state.yRot * (PI / 180f);
+        this.head.xRot = state.xRot * (PI / 180f);
         this.head.zRot = 0;
         this.rightArm.zRot = 0;
         this.leftArm.zRot = 0;
+        this.leftEar.zRot = -state.earRotZ;
+        this.rightEar.zRot = state.earRotZ;
+        this.leftEar.xRot = state.earRotX;
+        this.rightEar.xRot = state.earRotX;
 
-        // TODO: needs custom RenderState
-        // if (entityIn.isPartying()) {
-        //     this.rightArm.xRot = Mth.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
-        //     this.leftArm.xRot = Mth.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
-        //     this.rightArm.zRot = -this.toRad(20);
-        //     this.leftArm.zRot = this.toRad(20);
-        //     this.head.zRot = Mth.sin(ageInTicks) * this.toRad(20);
-        //     if (entityIn.getVehicle() == null) {
-        //         this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-        //         this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
-        //     } else {
-        //         this.rightLeg.xRot = -PI / 2;
-        //         this.leftLeg.xRot = -PI / 2;
-        //     }
-        // } else if (entityIn.isSitting() || entityIn.getVehicle() != null) {
-        //     this.rightArm.xRot = 0;
-        //     this.leftArm.xRot = 0;
-        //     this.rightLeg.xRot = -PI / 2;
-        //     this.leftLeg.xRot = -PI / 2;
-        // } else {
-        //     this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
-        //     this.leftArm.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
-        //     this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-        //     this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
-        // }
+        if (!state.isPartying) {
+            this.chest2.xRot = state.lidRot;
+            this.monster.y = -0.2f - state.lidRot * 3;
+            this.monster.yRot = state.monsterRot;
+            this.monster.xRot = 0;
+        } else {
+            this.chest2.xRot = this.toRad(40);
+            this.monster.y = -2.5f;
+            this.monster.yRot = 0;
+            this.monster.xRot = Mth.cos(state.ageInTicks) * this.toRad(15);
+        }
 
-        // TODO: needs custom RenderState
-        // this.chest1.zRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
+        if (state.isPartying) {
+            this.rightArm.xRot = Mth.cos(state.ageInTicks + PI) * this.toRad(20) + this.toRad(180);
+            this.leftArm.xRot = Mth.cos(state.ageInTicks) * this.toRad(20) + this.toRad(180);
+            this.rightArm.zRot = -this.toRad(20);
+            this.leftArm.zRot = this.toRad(20);
+            this.head.zRot = Mth.sin(state.ageInTicks) * this.toRad(20);
+            if (!state.isVehicle) {
+                this.rightLeg.xRot = Mth.cos(state.walkAnimationPos * 0.5f) * 1.4f * state.walkAnimationSpeed;
+                this.leftLeg.xRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * 1.4f * state.walkAnimationSpeed;
+            } else {
+                this.rightLeg.xRot = -PI / 2;
+                this.leftLeg.xRot = -PI / 2;
+            }
+        } else if (state.isSitting || state.isVehicle) {
+            this.rightArm.xRot = 0;
+            this.leftArm.xRot = 0;
+            this.rightLeg.xRot = -PI / 2;
+            this.leftLeg.xRot = -PI / 2;
+        } else {
+            this.rightArm.xRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * state.walkAnimationSpeed;
+            this.leftArm.xRot = Mth.cos(state.walkAnimationPos * 0.5f) * state.walkAnimationSpeed;
+            this.rightLeg.xRot = Mth.cos(state.walkAnimationPos * 0.5f) * 1.4f * state.walkAnimationSpeed;
+            this.leftLeg.xRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * 1.4f * state.walkAnimationSpeed;
+        }
 
-        // TODO: needs custom RenderState
-        // if (entityIn.getTargetBlock().isPresent())
-        //     this.rightArm.xRot = -this.toRad(100) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+        this.chest1.zRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * state.walkAnimationSpeed * 0.2f;
+
+        if (state.hasTargetBlock) {
+            this.rightArm.xRot = -this.toRad(100) + Mth.cos(state.walkAnimationPos * 0.5f + PI) * state.walkAnimationSpeed;
+        }
     }
 }

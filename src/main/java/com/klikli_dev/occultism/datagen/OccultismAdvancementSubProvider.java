@@ -94,11 +94,16 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
 
     private void start() {
         var root = this.add(Builder.advancement()
-//                    .display(OccultismItems.JEI_DUMMY_NONE.get(),
-//                            title("root"),
-//                            descr("root"),
-//                            Identifier.parse("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, true,
-//                            true, true)
+//                .display(
+//                        new ItemStackTemplate(OccultismItems.JEI_DUMMY_NONE.get().builtInRegistryHolder()),
+//                        title("root"),
+//                        descr("root"),
+//                        Identifier.fromNamespaceAndPath(Occultism.MODID,"block/otherstone"),
+//                        AdvancementType.TASK,
+//                        true,
+//                        true,
+//                        true
+//                )
                 .addCriterion("occultism_present", PlayerTrigger.TriggerInstance.tick())
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/root")));
 
@@ -106,8 +111,11 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
                 .display(OccultismItems.PENTACLE_POSSESS.get(),
                         title("familiars"),
                         descr("familiars"),
-                        Identifier.fromNamespaceAndPath(Occultism.MODID,"textures/block/otherplanks.png"), AdvancementType.TASK, true,
-                        true, false)
+                        Identifier.fromNamespaceAndPath(Occultism.MODID,"block/otherplanks"),
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
                 .addCriterion("summon_familiar",
                         TriggerInstance.ritualFactory(OccultismRituals.FAMILIAR.getId()))
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/familiar/root")));

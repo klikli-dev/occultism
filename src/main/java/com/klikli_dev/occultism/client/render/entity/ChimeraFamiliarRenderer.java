@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.ChimeraFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.ChimeraFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.ChimeraFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -31,57 +32,45 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.context.ContextKey;
 
-public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, LivingEntityRenderState, ChimeraFamiliarModel> {
+public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, ChimeraFamiliarRenderState, ChimeraFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/chimera_familiar.png");
-
-    private static final ContextKey<Float> SCALE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_scale"));
-    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_is_sitting"));
 
     public ChimeraFamiliarRenderer(Context context) {
         super(context, new ChimeraFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CHIMERA)), 0.3f);
     }
 
     @Override
-    public void extractRenderState(ChimeraFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+    public void extractRenderState(ChimeraFamiliarEntity entity, ChimeraFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
-        reusedState.setRenderData(SCALE, entity.getScale());
-        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.isSitting = entity.isSitting();
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public ChimeraFamiliarRenderState createRenderState() {
+        return new ChimeraFamiliarRenderState();
     }
 
     @Override
-    public void submit(LivingEntityRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+    public void submit(ChimeraFamiliarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
-        Boolean sitting = state.getRenderData(IS_SITTING);
-        Float entityScale = state.getRenderData(SCALE);
-        boolean isSitting = sitting != null && sitting;
-        float scale = entityScale != null ? entityScale : 1f;
-        if (isSitting)
-            poseStack.translate(0, -0.14 * scale, 0);
+        if (state.isSitting)
+            poseStack.translate(0, -0.14 * state.scale, 0);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
     }
 
     @Override
-    protected void scale(LivingEntityRenderState state, PoseStack poseStack) {
-        Float entityScale = state.getRenderData(SCALE);
-        float size = (entityScale != null ? entityScale : 1f) * 0.5f;
-        poseStack.scale(size, size, size);
+    protected void scale(ChimeraFamiliarRenderState state, PoseStack poseStack) {
+        poseStack.scale(0.5f, 0.5f, 0.5f);
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public Identifier getTextureLocation(ChimeraFamiliarRenderState state) {
         return TEXTURES;
     }
 }

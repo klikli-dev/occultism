@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2026 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,14 +20,30 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband;
+package com.klikli_dev.occultism.client.render.entity.state;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import com.klikli_dev.occultism.client.render.entity.OccultismGeoLivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
 
-public class DemonicHusbandRenderer extends OccultismGeoLivingEntityRenderer<DemonicHusband> {
-
-    public DemonicHusbandRenderer(Context renderManager) {
-        super(renderManager, new DemonicHusbandModel());
-    }
+public class HeadlessFamiliarRenderState extends LivingEntityRenderState {
+    public boolean isSitting;
+    public boolean isHeadlessDead;
+    public boolean isPartying;
+    public boolean hasBlacksmithUpgrade;
+    public boolean isHairy;
+    public boolean rebuiltRightLeg;
+    public boolean rebuiltLeftLeg;
+    public boolean rebuiltBody;
+    public boolean rebuiltRightArm;
+    public boolean rebuiltLeftArm;
+    public boolean rebuiltHead;
+    public boolean hasHead;
+    public boolean hasGlasses;
+    public EntityType<?> headType;
+    public ItemStack weaponItem = ItemStack.EMPTY;
+    public float yHeadRot;
+    public float limbSwing;
+    public float limbSwingAmount;
+    public float attackTime;
 }

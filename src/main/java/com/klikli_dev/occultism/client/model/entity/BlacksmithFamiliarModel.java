@@ -22,8 +22,7 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.entity.familiar.BlacksmithFamiliarEntity;
-import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.client.render.entity.state.BlacksmithFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -31,13 +30,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class BlacksmithFamiliarModel extends EntityModel<EntityRenderState> {
+public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -141,22 +139,21 @@ public class BlacksmithFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(BlacksmithFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // this.head.yRot = netHeadYaw * (PI / 180f);
-        // this.head.xRot = headPitch * (PI / 180f);
+        this.head.yRot = state.yRot * (PI / 180f);
+        this.head.xRot = state.xRot * (PI / 180f);
 
-        // this.wheel1.xRot = limbSwing;
-        // this.wheel2.xRot = limbSwing;
-        // this.wheel3.xRot = limbSwing;
-        // this.wheel4.xRot = limbSwing;
+        this.wheel1.xRot = state.walkAnimationPos;
+        this.wheel2.xRot = state.walkAnimationPos;
+        this.wheel3.xRot = state.walkAnimationPos;
+        this.wheel4.xRot = state.walkAnimationPos;
 
-        // this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.6f;
-        // this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.6f;
+        this.rightLeg.xRot = Mth.cos(state.walkAnimationPos * 0.5f) * state.walkAnimationSpeed * 0.6f;
+        this.leftLeg.xRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * state.walkAnimationSpeed * 0.6f;
 
-        // this.leftArm.xRot = this.toRad(-30) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
-        // this.leftArm.yRot = this.toRad(-15);
+        this.leftArm.xRot = this.toRad(-30) + Mth.cos(state.walkAnimationPos * 0.5f + PI) * state.walkAnimationSpeed * 0.2f;
+        this.leftArm.yRot = this.toRad(-15);
         this.rightArm.xRot = this.toRad(-75);
         this.rightArm.yRot = this.toRad(25);
         this.hammer1.yRot = 0;
@@ -170,48 +167,37 @@ public class BlacksmithFamiliarModel extends EntityModel<EntityRenderState> {
         this.leftArm.zRot = 0;
         this.rightArm.zRot = 0;
 
-        // TODO: needs custom RenderState
-        // if (entityIn.isPartying()) {
-        //     this.head.xRot = Mth.cos(ageInTicks * 0.8f) * this.toRad(25);
-        //     this.head.yRot = 0;
-        //     this.leftArm.xRot = this.toRad(-90) + Mth.cos(ageInTicks * 1.2f) * this.toRad(25);
-        //     this.leftArm.yRot = this.toRad(-5);
-        //     this.leftArm.zRot = this.toRad(20);
-        //     this.rightArm.xRot = this.toRad(-90) + Mth.cos(ageInTicks * 1.2f + PI) * this.toRad(25);
-        //     this.rightArm.yRot = this.toRad(-5);
-        //     this.rightArm.zRot = this.toRad(-20);
-        // } else if (entityIn.isSitting()) {
-        //     this.body.yRot = this.toRad(180);
-        //     this.leftLeg.xRot = this.toRad(-70);
-        //     this.rightLeg.xRot = this.toRad(-70);
-        //     this.body.y = 23f;
-        //     this.body.z = 4;
-        //     this.body.xRot = this.toRad(-20);
-        //     this.head.xRot = this.toRad(20);
-        //     this.head.yRot = 0;
-        //     this.leftArm.xRot = this.toRad(-10);
-        //     this.rightArm.xRot = this.toRad(-10);
-        // }
-    }
+        if (state.isPartying) {
+            this.head.xRot = Mth.cos(state.ageInTicks * 0.8f) * this.toRad(25);
+            this.head.yRot = 0;
+            this.leftArm.xRot = this.toRad(-90) + Mth.cos(state.ageInTicks * 1.2f) * this.toRad(25);
+            this.leftArm.yRot = this.toRad(-5);
+            this.leftArm.zRot = this.toRad(20);
+            this.rightArm.xRot = this.toRad(-90) + Mth.cos(state.ageInTicks * 1.2f + PI) * this.toRad(25);
+            this.rightArm.yRot = this.toRad(-5);
+            this.rightArm.zRot = this.toRad(-20);
+        } else if (state.isSitting) {
+            this.body.yRot = this.toRad(180);
+            this.leftLeg.xRot = this.toRad(-70);
+            this.rightLeg.xRot = this.toRad(-70);
+            this.body.y = 23f;
+            this.body.z = 4;
+            this.body.xRot = this.toRad(-20);
+            this.head.xRot = this.toRad(20);
+            this.head.yRot = 0;
+            this.leftArm.xRot = this.toRad(-10);
+            this.rightArm.xRot = this.toRad(-10);
+        }
 
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // private void prepareMobModel(BlacksmithFamiliarEntity entityIn, ...) { this.showModels(entityIn); }
+        this.earring.visible = state.hasEarring;
+        this.mouth1.visible = !state.hasMarioMoustache && !state.isChristmas;
+        this.mouth2.visible = state.hasMarioMoustache && !state.isChristmas;
+        this.hair1.visible = state.hasSquareHair;
+        this.hair2.visible = !state.hasSquareHair;
+        this.christmasBeard.visible = state.isChristmas;
+    }
 
     private float toRad(float deg) {
         return (float) Math.toRadians(deg);
-    }
-
-    private void showModels(BlacksmithFamiliarEntity entityIn) {
-        boolean hasSquarehair = entityIn.hasSquareHair();
-        boolean hasMarioMoustache = entityIn.hasMarioMoustache();
-        boolean isChristmas = FamiliarUtil.isChristmas();
-
-        this.earring.visible = entityIn.hasEarring();
-        this.mouth1.visible = !hasMarioMoustache && !isChristmas;
-        this.mouth2.visible = hasMarioMoustache && !isChristmas;
-        this.hair1.visible = hasSquarehair;
-        this.hair2.visible = !hasSquarehair;
-
-        this.christmasBeard.visible = isChristmas;
     }
 }

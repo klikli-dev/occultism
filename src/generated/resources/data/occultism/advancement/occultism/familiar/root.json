@@ -8,7 +8,7 @@
     }
   },
   "display": {
-    "background": "occultism:textures/block/otherplanks.png",
+    "background": "occultism:block/otherplanks",
     "description": {
       "translate": "advancements.occultism.familiars.description"
     },

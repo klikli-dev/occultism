@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.BatFamiliarEntity;
+import com.klikli_dev.occultism.client.render.entity.state.BatFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,14 +30,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class BatFamiliarModel extends EntityModel<EntityRenderState> {
-
+public class BatFamiliarModel extends EntityModel<BatFamiliarRenderState> {
     private static final float PI = (float) Math.PI;
 
     public ModelPart body1;
@@ -181,43 +176,44 @@ public class BatFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
-        super.setupAnim(state);
-        // TODO: Entity-specific animation data needs to be passed via a custom render state
-        // For now, set default pose
-        this.body1.yRot = 0;
-        this.body1.zRot = 0;
-        this.head.xRot = 0;
-        this.head.yRot = 0;
-        this.head.zRot = 0;
-        this.leftEar1.xRot = 0;
-        this.rightEar1.xRot = 0;
-        this.body1.xRot = this.toRads(20);
-        this.leftLeg.xRot = 0.24f;
-        this.rightLeg.xRot = 0.24f;
+    public void setupAnim(BatFamiliarRenderState s) {
+        super.setupAnim(s);
+        stick.visible = s.isSitting && !s.isPartying;
+        goblet1.visible = s.hasBlacksmithUpgrade && (!s.isSitting || s.isPartying);
+        hair.visible = s.hasHair;
+        ribbon.visible = s.hasRibbon;
+        tail.visible = s.hasTail;
+        body1.yRot = body1.zRot = 0;
+        head.xRot = toRads(s.xRot);
+        head.yRot = toRads(s.yRot);
+        head.zRot = 0;
+        leftEar1.xRot = rightEar1.xRot = 0;
+        float h = s.animationHeight;
+        leftWing1.xRot = rightWing1.xRot = h * toRads(20) - 0.15f;
+        leftWing1.yRot = h * toRads(20) - 0.15f;
+        rightWing1.yRot = -h * toRads(20) + 0.15f;
+        leftWing2.xRot = rightWing2.xRot = h * toRads(20) + toRads(15);
+        body1.xRot = toRads(20) + s.walkAnimationSpeed * toRads(30);
+        leftLeg.xRot = rightLeg.xRot = 0.24f + Mth.cos(s.ageInTicks * 0.1f) * toRads(20);
+        if (s.isPartying) {
+            float hr = Mth.sin(s.ageInTicks / 3) * toRads(10);
+            float wr = Mth.sin(s.ageInTicks / 3) * toRads(40);
+            head.xRot = head.yRot = head.zRot = hr;
+            leftWing1.xRot = rightWing1.xRot = leftWing1.yRot = rightWing1.yRot = leftWing2.xRot = rightWing2.xRot = wr;
+            body1.xRot = toRads(20) + s.walkAnimationSpeed * toRads(70);
+        } else if (s.isSitting) {
+            leftWing1.xRot = rightWing1.xRot = 0;
+            leftWing1.yRot = toRads(80);
+            rightWing1.yRot = -toRads(80);
+            leftWing2.xRot = rightWing2.xRot = toRads(15);
+            head.xRot = 0.2f;
+            body1.xRot = toRads(180);
+            body1.yRot = toRads(180);
+            leftLeg.xRot = rightLeg.xRot = 0.24f;
+        }
     }
 
     private float toRads(float deg) {
         return (float) Math.toRadians(deg);
-    }
-
-    private void showModels(BatFamiliarEntity entityIn) {
-        boolean isSitting = entityIn.isSitting();
-        boolean isPartying = entityIn.isPartying();
-
-        this.stick.visible = isSitting && !isPartying;
-        this.goblet1.visible = entityIn.hasBlacksmithUpgrade() && (!isSitting || isPartying);
-        this.hair.visible = entityIn.hasHair();
-        this.ribbon.visible = entityIn.hasRibbon();
-        this.tail.visible = entityIn.hasTail();
-    }
-
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
     }
 }

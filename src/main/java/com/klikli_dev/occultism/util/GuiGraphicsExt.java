@@ -35,6 +35,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public class GuiGraphicsExt {
 
+    public static int withOpaqueAlpha(int color) {
+        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
+    }
+
     /**
      * Render text using Component - delegates to GuiGraphicsExtractor.
      */
@@ -42,13 +46,13 @@ public class GuiGraphicsExt {
         if (component == null) {
             return;
         }
-        guiGraphics.text(font, component, (int) x, (int) y, color, drawShadow);
+        guiGraphics.text(font, component, (int) x, (int) y, withOpaqueAlpha(color), drawShadow);
     }
 
     /**
      * Render text using FormattedCharSequence - delegates to GuiGraphicsExtractor.
      */
     public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, float x, float y, int color, boolean drawShadow) {
-        guiGraphics.text(font, text, (int) x, (int) y, color, drawShadow);
+        guiGraphics.text(font, text, (int) x, (int) y, withOpaqueAlpha(color), drawShadow);
     }
 }

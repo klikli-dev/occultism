@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.client.render.entity.state.ShubNiggurathFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,7 +31,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 import java.util.List;
@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Created using Tabula 8.0.0
  */
-public class ShubNiggurathFamiliarModel extends EntityModel<EntityRenderState> {
+public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -216,29 +216,66 @@ public class ShubNiggurathFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(ShubNiggurathFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState to restore entity-specific animation
-
+        this.showModels(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
         this.body.xRot = 0.59f;
         this.body.yRot = 0;
         this.body.zRot = 0;
         this.leftLeg2.xRot = 1.99f;
         this.rightLeg2.xRot = 1.99f;
 
-        // TODO: needs custom RenderState for limbSwing, limbSwingAmount, netHeadYaw, headPitch,
-        //       getCthulhuFriend(), riderLimbSwing, riderLimbSwingAmount, getAnimationHeight(),
-        //       isPartying(), isSitting(), hasRing(), hasBeard(), hasBlacksmithUpgrade()
-        // float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        // this.showModels(pEntity);
-        // CthulhuFamiliarEntity friend = pEntity.getCthulhuFriend();
-        // ...
+        if (state.riderLimbSwingAmount != 0 || state.friendAnimationHeight != 0) {
+            limbSwing = state.riderLimbSwing;
+            limbSwingAmount = state.riderLimbSwingAmount;
+        }
+
+        this.head.yRot = this.toRads(state.yRot) * 0.7f;
+        this.head.xRot = this.toRads(state.xRot) * 0.7f;
+
+        rotateTentacles(ImmutableList.of(this.tentacleBottom1, this.tentacleBottom2, this.tentacleBottom3), state.ageInTicks, 0);
+        rotateTentacles(ImmutableList.of(this.tentacleMiddle1, this.tentacleMiddle2, this.tentacleMiddle3), state.ageInTicks, 0.5f);
+        rotateTentacles(ImmutableList.of(this.tentacleTop1, this.tentacleTop2, this.tentacleTop3), state.ageInTicks, 1);
+
+        this.rightArm1.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 1.21f;
+        this.leftArm1.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 1.21f;
+        this.leftLeg1.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 2.53f;
+        this.rightLeg1.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 2.53f;
+        this.body.y = 18.6f - Math.abs(Mth.cos(limbSwing * 0.5f + PI)) * limbSwingAmount * 1.5f;
+
+        if (state.riderLimbSwingAmount != 0 || state.friendAnimationHeight != 0) {
+            this.leftArm1.xRot = this.toRads(-143 - 5 * state.friendAnimationHeight - 10 * (this.body.y - 18.6f));
+        }
+
+        if (state.isPartying) {
+            this.body.xRot = toRads(-90) + Mth.cos(state.ageInTicks * 0.3f) * toRads(5);
+            this.body.yRot = Mth.cos(state.ageInTicks * 0.3f + PI * 1.5f) * toRads(5);
+            this.body.zRot = Mth.cos(state.ageInTicks * 0.3f + PI) * toRads(5);
+            this.leftArm1.xRot = Mth.cos(state.ageInTicks * 0.3f) * toRads(30) - toRads(90);
+            this.rightArm1.xRot = Mth.cos(state.ageInTicks * 0.3f + PI) * toRads(30) - toRads(90);
+            this.leftLeg1.xRot = Mth.cos(state.ageInTicks * 0.3f + PI) * toRads(30) - toRads(90);
+            this.rightLeg1.xRot = Mth.cos(state.ageInTicks * 0.3f) * toRads(30) - toRads(90);
+        } else if (state.isSitting) {
+            this.body.xRot = toRads(100);
+            this.leftLeg1.xRot = -toRads(60);
+            this.rightLeg1.xRot = -toRads(60);
+            this.leftLeg2.xRot = toRads(75);
+            this.rightLeg2.xRot = toRads(75);
+            this.rightArm1.xRot = -toRads(170);
+            this.leftArm1.xRot = -toRads(170);
+            this.head.yRot = this.toRads(115);
+        }
+    }
+
+    private void showModels(ShubNiggurathFamiliarRenderState state) {
+        this.ring.visible = state.hasRing;
+        this.beard.visible = state.hasBeard;
+        this.bell1.visible = state.hasBlacksmithUpgrade;
     }
 
     private float toRads(float deg) {
         return (float) Math.toRadians(deg);
     }
-
-    // TODO: needs custom RenderState — showModels cannot be called until EntityRenderState subclass is created
-    // private void showModels(ShubNiggurathFamiliarEntity entityIn) { ... }
 }

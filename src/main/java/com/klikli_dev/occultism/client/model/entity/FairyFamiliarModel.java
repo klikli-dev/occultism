@@ -22,8 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.FairyFamiliarEntity;
-import net.minecraft.client.Minecraft;
+import com.klikli_dev.occultism.client.render.entity.state.FairyFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -31,14 +30,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class FairyFamiliarModel extends EntityModel<EntityRenderState> {
+public class FairyFamiliarModel extends EntityModel<FairyFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -162,71 +157,89 @@ public class FairyFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(FairyFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // this.showModels(pEntity);
-        // float partialTicks = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
-        // ModelPart mainArm = this.getMainArm(pEntity); // TODO: needs custom RenderState
+        this.showModels(state);
 
-        // this.leftArm.yRot = 0;
-        // this.rightArm.yRot = 0;
-        // this.leftWand.xRot = 0;
-        // this.rightWand.xRot = 0;
+        ModelPart mainArm = this.getMainArm(state);
 
-        // this.head.xRot = 0;
-        // this.head.yRot = this.toRads(netHeadYaw) * 0.8f;
-        // this.head.zRot = this.toRads(headPitch) * 0.8f;
+        this.leftArm.yRot = 0;
+        this.rightArm.yRot = 0;
+        this.leftWand.xRot = 0;
+        this.rightWand.xRot = 0;
 
-        // float animationHeight = pEntity.getWingRot(partialTicks);
-        // this.leftWing.yRot = animationHeight * this.toRads(15) - 0.59f;
-        // this.rightWing.yRot = -animationHeight * this.toRads(15) + 0.59f;
+        this.head.xRot = 0;
+        this.head.yRot = this.toRads(state.yRot) * 0.8f;
+        this.head.zRot = this.toRads(state.xRot) * 0.8f;
 
-        // float bodyRot = limbSwingAmount * this.toRads(100);
-        // this.body.xRot = bodyRot;
-        // this.leftArm.xRot = -bodyRot * 3 + Mth.cos(pAgeInTicks * 0.2f) * this.toRads(10);
-        // this.rightArm.xRot = -bodyRot * 3 + Mth.cos(pAgeInTicks * 0.2f + PI) * this.toRads(10);
-        // this.leftLeg1.xRot = this.body.xRot;
-        // this.rightLeg1.xRot = this.body.xRot;
+        this.leftWing.yRot = state.animationHeight * this.toRads(15) - 0.59f;
+        this.rightWing.yRot = -state.animationHeight * this.toRads(15) + 0.59f;
 
-        // this.tail1.xRot = -0.51f + Mth.cos(pAgeInTicks * 0.2f) * this.toRads(10);
-        // this.tail2.xRot = 0.27f + Mth.cos(pAgeInTicks * 0.2f) * this.toRads(10);
-        // this.tail3.xRot = 0.27f + Mth.cos(pAgeInTicks * 0.2f) * this.toRads(10);
+        float bodyRot = state.walkAnimationSpeed * this.toRads(100);
+        this.body.xRot = bodyRot;
+        this.leftArm.xRot = -bodyRot * 3 + Mth.cos(state.ageInTicks * 0.2f) * this.toRads(10);
+        this.rightArm.xRot = -bodyRot * 3 + Mth.cos(state.ageInTicks * 0.2f + PI) * this.toRads(10);
+        this.leftLeg1.xRot = this.body.xRot;
+        this.rightLeg1.xRot = this.body.xRot;
 
-        // if (pEntity.hasMagicTarget()) { ... }
-        // if (pEntity.isPartying()) { mainArm.xRot = ...; mainArm.yRot = ...; }
-        // else if (pEntity.isSitting()) { ... }
-        // float supportAnim = pEntity.getSupportAnim(partialTicks);
-        // if (supportAnim != 0) { mainArm.xRot = ...; mainArm.yRot = ...; }
+        this.tail1.xRot = -0.51f + Mth.cos(state.ageInTicks * 0.2f) * this.toRads(10);
+        this.tail2.xRot = 0.27f + Mth.cos(state.ageInTicks * 0.2f) * this.toRads(10);
+        this.tail3.xRot = 0.27f + Mth.cos(state.ageInTicks * 0.2f) * this.toRads(10);
+
+        if (state.hasMagicTarget) {
+            this.body.xRot = this.toRads(20);
+            this.setRotateAngle(this.head, 0, 0, 0);
+            this.leftArm.xRot = this.toRads(-80) + Mth.cos(state.ageInTicks * 0.2f) * this.toRads(20);
+            this.rightArm.xRot = this.toRads(-80) + Mth.cos(state.ageInTicks * 0.2f) * this.toRads(20);
+            this.leftLeg1.xRot = this.toRads(20);
+            this.rightLeg1.xRot = this.toRads(20);
+        } else if (state.isPartying) {
+            this.body.xRot = 0;
+            mainArm.xRot = state.partyArmRotX;
+            mainArm.yRot = state.partyArmRotY;
+        } else if (state.isSitting) {
+            this.body.xRot = this.toRads(90);
+            this.head.xRot = this.toRads(-10);
+            this.head.yRot = 0;
+            this.head.zRot = 0;
+            this.leftArm.xRot = this.toRads(-80) + Mth.cos(state.ageInTicks * 0.1f) * this.toRads(10);
+            this.rightArm.xRot = this.toRads(-80) + Mth.cos(state.ageInTicks * 0.1f + PI) * this.toRads(10);
+            this.leftWand.xRot = this.toRads(60);
+            this.rightWand.xRot = this.toRads(60);
+            this.leftLeg1.xRot = this.toRads(-80) + Mth.cos(state.ageInTicks * 0.1f + PI) * this.toRads(10);
+            this.rightLeg1.xRot = this.toRads(-80) + Mth.cos(state.ageInTicks * 0.1f) * this.toRads(10);
+            this.tail1.xRot = this.toRads(-130) + Mth.cos(state.ageInTicks * 0.1f) * this.toRads(5);
+            this.tail2.xRot = this.toRads(-15) + Mth.cos(state.ageInTicks * 0.05f) * this.toRads(5);
+            this.tail3.xRot = this.toRads(-15) + Mth.cos(state.ageInTicks * 0.05f) * this.toRads(5);
+        }
+
+        if (state.supportAnim != 0) {
+            mainArm.xRot = this.toRads(-80) + Mth.sin(state.supportAnim * PI * 3) * this.toRads(35);
+            mainArm.yRot = Mth.cos(state.supportAnim * PI * 3) * this.toRads(35);
+        }
     }
 
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
 
-    private ModelPart getMainArm(FairyFamiliarEntity pEntity) {
-        return pEntity.isLeftHanded() ? this.leftArm : this.rightArm;
+    private ModelPart getMainArm(FairyFamiliarRenderState state) {
+        return state.isLeftHanded ? this.leftArm : this.rightArm;
     }
 
-    private void showModels(FairyFamiliarEntity entityIn) {
-        boolean hasTeeth = entityIn.hasTeeth();
-        boolean isLeftHanded = entityIn.isLeftHanded();
-
-        this.flower.visible = entityIn.hasFlower();
-        this.tooth1.visible = hasTeeth;
-        this.tooth2.visible = hasTeeth;
-        this.tooth3.visible = hasTeeth;
-        this.whisker1.visible = !hasTeeth;
-        this.whisker2.visible = !hasTeeth;
-        this.whisker3.visible = !hasTeeth;
-        this.whisker4.visible = !hasTeeth;
-        this.leftWand.visible = isLeftHanded;
-        this.rightWand.visible = !isLeftHanded;
+    private void showModels(FairyFamiliarRenderState state) {
+        this.flower.visible = state.hasFlower;
+        this.tooth1.visible = state.hasTeeth;
+        this.tooth2.visible = state.hasTeeth;
+        this.tooth3.visible = state.hasTeeth;
+        this.whisker1.visible = !state.hasTeeth;
+        this.whisker2.visible = !state.hasTeeth;
+        this.whisker3.visible = !state.hasTeeth;
+        this.whisker4.visible = !state.hasTeeth;
+        this.leftWand.visible = state.isLeftHanded;
+        this.rightWand.visible = !state.isLeftHanded;
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
     public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
         modelRenderer.xRot = x;
         modelRenderer.yRot = y;
