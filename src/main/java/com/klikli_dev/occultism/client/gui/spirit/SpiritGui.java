@@ -46,7 +46,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     private static final int ENTITY_RENDER_WIDTH = 70;
     private static final int ENTITY_RENDER_HEIGHT = 70;
     private static final int ENTITY_BASE_SCALE = 30;
-    private static final int ENTITY_FIT_PADDING = 6;
+    private static final int ENTITY_FIT_PADDING = 14;
 
     protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
