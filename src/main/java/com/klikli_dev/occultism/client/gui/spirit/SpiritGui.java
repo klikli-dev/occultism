@@ -46,6 +46,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     private static final int ENTITY_RENDER_WIDTH = 70;
     private static final int ENTITY_RENDER_HEIGHT = 70;
     private static final int ENTITY_BASE_SCALE = 30;
+    private static final int ENTITY_FIT_PADDING = 6;
 
     protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
@@ -77,6 +78,14 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                 mouseX, mouseY, entity);
     }
 
+    protected static float getEntityMouseX(int posX) {
+        return posX;
+    }
+
+    protected static float getEntityMouseY(int posY) {
+        return posY - ENTITY_RENDER_HEIGHT / 2.0F + 10;
+    }
+
     protected static int getEntityScale(LivingEntity entity) {
         float entityScale = Math.max(entity.getScale(), 0.0001F);
         float renderWidth = entity.getBbWidth() / entityScale;
@@ -85,8 +94,10 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
             return ENTITY_BASE_SCALE;
         }
 
-        int maxScaleForWidth = (int) Math.floor(ENTITY_RENDER_WIDTH / renderWidth);
-        int maxScaleForHeight = (int) Math.floor(ENTITY_RENDER_HEIGHT / renderHeight);
+        int fitWidth = ENTITY_RENDER_WIDTH - ENTITY_FIT_PADDING * 2;
+        int fitHeight = ENTITY_RENDER_HEIGHT - ENTITY_FIT_PADDING * 2;
+        int maxScaleForWidth = (int) Math.floor(fitWidth / renderWidth);
+        int maxScaleForHeight = (int) Math.floor(fitHeight / renderHeight);
         return Math.max(1, Math.min(ENTITY_BASE_SCALE, Math.min(maxScaleForWidth, maxScaleForHeight)));
     }
 
@@ -135,9 +146,11 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.getTexture(), this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
         guiGraphics.pose().pushMatrix();
+        int entityX = this.leftPos + 35;
+        int entityY = this.topPos + 65;
         int scale = getEntityScale(this.spirit.getEntity());
-        drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
-                this.topPos + 75 - 50 - y, this.spirit.getEntity());
+        drawEntityToGui(guiGraphics, entityX, entityY, scale, getEntityMouseX(entityX), getEntityMouseY(entityY),
+                this.spirit.getEntity());
         guiGraphics.pose().popMatrix();
 
         super.extractContents(guiGraphics, x, y, partialTicks);
