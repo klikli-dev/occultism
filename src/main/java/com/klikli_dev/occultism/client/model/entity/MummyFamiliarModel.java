@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.render.entity.state.MummyFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -29,41 +30,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class MummyFamiliarModel extends EntityModel<EntityRenderState> {
-
+public class MummyFamiliarModel extends EntityModel<MummyFamiliarRenderState> {
     private static final float PI = (float) Math.PI;
-
-    public ModelPart body;
-    public ModelPart head;
-    public ModelPart leftArm1;
-    public ModelPart leftLeg1;
-    public ModelPart skeleton;
-    public ModelPart spine;
-    public ModelPart rightArm1;
-    public ModelPart rightLeg1;
-    public ModelPart nose;
-    public ModelPart eyeSockets;
-    public ModelPart leftEye;
-    public ModelPart rightEye;
-    public ModelPart crown;
-    public ModelPart tooth;
-    public ModelPart leftArm2;
-    public ModelPart leftArmBandage;
-    public ModelPart heka;
-    public ModelPart leftGlove;
-    public ModelPart leftLeg2;
-    public ModelPart leftLegBandage;
-    public ModelPart rightArm2;
-    public ModelPart rightGlove;
-    public ModelPart rightArmBandage;
-    public ModelPart rightLeg2;
-    public ModelPart leftLegBandage_1;
+    public ModelPart body, head, leftArm1, leftLeg1, skeleton, spine, rightArm1, rightLeg1, nose, eyeSockets, leftEye, rightEye, crown, tooth, leftArm2, leftArmBandage, heka, leftGlove, leftLeg2, leftLegBandage, rightArm2, rightGlove, rightArmBandage, rightLeg2, leftLegBandage_1;
 
     public MummyFamiliarModel(ModelPart part) {
         super(part);
@@ -93,7 +64,6 @@ public class MummyFamiliarModel extends EntityModel<EntityRenderState> {
         this.rightLeg2 = this.rightLeg1.getChild("rightLeg2");
         this.leftLegBandage_1 = this.rightLeg2.getChild("leftLegBandage_1");
     }
-
 
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();
@@ -127,10 +97,9 @@ public class MummyFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(MummyFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState to restore entity-specific animation
-
+        this.showModels(state);
         this.setRotateAngle(this.body, 0, 0, 0);
         this.setRotateAngle(this.head, 0, 0, 0);
         this.setRotateAngle(this.rightArm1, -0.274f, 0, 0);
@@ -142,29 +111,32 @@ public class MummyFamiliarModel extends EntityModel<EntityRenderState> {
         this.setRotateAngle(this.leftLeg1, 0, 0, 0);
         this.setRotateAngle(this.leftLeg2, 0, 0, 0);
         this.body.z = 0;
-
-        // TODO: needs custom RenderState for head pitch/yaw, limb swing, fightPose, isPartying, isSitting
-        // this.head.xRot = this.toRads(pHeadPitch);
-        // this.head.yRot = this.toRads(pNetHeadYaw);
-        // this.rightLeg1.xRot = Mth.cos(pLimbSwing * 0.5f + PI) * this.toRads(40) * pLimbSwingAmount;
-        // this.leftLeg1.xRot = Mth.cos(pLimbSwing * 0.5f) * this.toRads(40) * pLimbSwingAmount;
-        // ... (fightPose, isPartying, isSitting blocks removed pending custom RenderState)
-        // this.showModels(pEntity);
+        this.head.xRot = this.toRads(state.xRot);
+        this.head.yRot = this.toRads(state.yRot);
+        this.rightLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * this.toRads(40) * state.walkAnimationSpeed;
+        this.leftLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.5f) * this.toRads(40) * state.walkAnimationSpeed;
+        this.rightLeg2.xRot = Math.abs(Mth.cos(state.walkAnimationPos * 0.5f + PI)) * this.toRads(40) * state.walkAnimationSpeed;
+        this.leftLeg2.xRot = Math.abs(Mth.cos(state.walkAnimationPos * 0.5f) * this.toRads(40)) * state.walkAnimationSpeed;
+        this.rightArm1.xRot = Mth.cos(state.walkAnimationPos * 0.5f) * this.toRads(40) * state.walkAnimationSpeed;
+        this.leftArm1.xRot = Mth.cos(state.walkAnimationPos * 0.5f + PI) * this.toRads(40) * state.walkAnimationSpeed;
+        this.rightArm2.xRot = this.toRads(-30) + Mth.cos(state.walkAnimationPos * 0.5f) * this.toRads(20) * state.walkAnimationSpeed;
+        this.leftArm2.xRot = this.toRads(-30) + Mth.cos(state.walkAnimationPos * 0.5f + PI) * this.toRads(20) * state.walkAnimationSpeed;
+        int fightPose = state.fightPose;
+        if (fightPose == 0) { this.body.yRot = this.toRads(-60); this.body.xRot = this.toRads(-40); this.body.zRot = this.toRads(40); this.head.yRot = this.toRads(60); this.head.xRot = this.toRads(20); this.rightArm1.xRot = this.toRads(20); this.rightArm1.zRot = this.toRads(60); this.rightArm2.xRot = this.toRads(-20); this.leftArm1.xRot = this.toRads(-30); this.leftArm1.yRot = this.toRads(40); this.leftArm1.zRot = this.toRads(-40); this.leftArm2.xRot = this.toRads(-70); this.rightLeg1.zRot = this.toRads(70); this.leftLeg1.xRot = this.toRads(-20); this.leftLeg1.zRot = this.toRads(-60); this.leftLeg2.zRot = this.toRads(110); }
+        else if (fightPose == 1) { this.body.yRot = this.toRads(40); this.head.yRot = this.toRads(-25); this.leftArm1.xRot = this.toRads(-60); this.leftArm1.zRot = this.toRads(-70); this.leftArm2.xRot = this.toRads(-10); this.rightArm1.yRot = this.toRads(-20); this.rightArm1.xRot = this.toRads(30); this.rightArm2.xRot = this.toRads(-90); this.leftLeg1.yRot = this.toRads(-40); this.leftLeg1.xRot = this.toRads(-50); this.leftLeg2.xRot = this.toRads(50); this.rightLeg1.yRot = this.toRads(60); this.rightLeg1.xRot = this.toRads(-40); this.rightLeg2.xRot = this.toRads(25); }
+        else if (fightPose == 2) { this.body.yRot = this.toRads(-60); this.head.yRot = this.toRads(60); this.head.xRot = this.toRads(-15); this.rightArm1.yRot = this.toRads(60); this.rightArm1.xRot = this.toRads(-140); this.rightArm2.xRot = this.toRads(-35); this.leftArm1.yRot = this.toRads(40); this.leftArm1.xRot = this.toRads(40); this.leftArm2.xRot = this.toRads(-70); this.rightLeg1.yRot = this.toRads(60); this.rightLeg1.xRot = this.toRads(-40); this.rightLeg2.xRot = this.toRads(55); this.leftLeg1.yRot = this.toRads(60); this.leftLeg1.xRot = this.toRads(30); }
+        if (state.isPartying) { this.setRotateAngle(this.head, 0, 0, 0); float bodyRot = state.ageInTicks * 10f % 360; this.body.z = Mth.sin(this.toRads(bodyRot)) * 5; this.body.yRot = bodyRot > 90 && bodyRot < 270 ? 0 : PI; this.leftArm1.xRot = this.toRads(90); this.leftArm2.xRot = this.toRads(-90) + Mth.cos(state.ageInTicks * 0.5f) * this.toRads(20); this.rightArm1.xRot = this.toRads(-90); this.rightArm2.xRot = this.toRads(-90) + Mth.cos(state.ageInTicks * 0.5f) * this.toRads(20); this.leftLeg1.xRot = this.toRads(-20) + Mth.cos(state.ageInTicks * 0.5f) * this.toRads(20); this.leftLeg2.xRot = this.toRads(20) + Mth.cos(state.ageInTicks * 0.5f) * this.toRads(-10); this.rightLeg1.xRot = this.toRads(-20) - Mth.cos(state.ageInTicks * 0.5f) * this.toRads(20); this.rightLeg2.xRot = this.toRads(20) - Mth.cos(state.ageInTicks * 0.5f) * this.toRads(-10); }
+        else if (state.isSitting) { this.head.xRot = this.toRads(40); this.head.yRot = this.toRads(-20); this.body.xRot = this.toRads(35); this.leftArm1.xRot = this.toRads(-50); this.leftArm2.xRot = this.toRads(10); this.rightArm1.xRot = this.toRads(-50); this.rightArm2.xRot = this.toRads(10); this.leftLeg1.xRot = this.toRads(-35); this.rightLeg1.xRot = this.toRads(-35); }
     }
 
-    private float toRads(float deg) {
-        return (float) Math.toRadians(deg);
+    private void showModels(MummyFamiliarRenderState state) {
+        this.leftGlove.visible = state.hasBlacksmithUpgrade;
+        this.rightGlove.visible = state.hasBlacksmithUpgrade;
+        this.crown.visible = state.hasCrown;
+        this.heka.visible = state.hasHeka;
+        this.tooth.visible = state.hasTooth;
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
-    }
-
-    // TODO: needs custom RenderState — showModels cannot be called until EntityRenderState subclass is created
-    // private void showModels(MummyFamiliarEntity entityIn) { ... }
+    private float toRads(float deg) { return (float) Math.toRadians(deg); }
+    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) { modelRenderer.xRot = x; modelRenderer.yRot = y; modelRenderer.zRot = z; }
 }
