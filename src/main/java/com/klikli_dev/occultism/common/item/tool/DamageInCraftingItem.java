@@ -40,9 +40,8 @@ public class DamageInCraftingItem extends Item {
 
         var map = PatchedDataComponentMap.fromPatch(instance.typeHolder().components(), patch);
 
-        DataComponentMap components = instance.typeHolder().components();
         boolean[] eternal = {false};
-        components.forEach(comp -> {
+        map.forEach(comp -> {
             if (comp.toString().startsWith("forbidden_arcanus:modifier")
                     && comp.toString().contains("eternal")) {
                 eternal[0] = true;
