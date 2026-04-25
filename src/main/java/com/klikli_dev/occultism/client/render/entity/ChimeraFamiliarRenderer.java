@@ -69,6 +69,7 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
         float scale = entityScale != null ? entityScale : 1f;
         if (isSitting)
             poseStack.translate(0, -0.14 * scale, 0);
+        this.model.setupAnim(state);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
     }
