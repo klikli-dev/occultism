@@ -28,18 +28,25 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
 
@@ -47,6 +54,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     private static final int ENTITY_RENDER_HEIGHT = 70;
     private static final int ENTITY_BASE_SCALE = 30;
     private static final int ENTITY_FIT_PADDING = 14;
+    private static final int ENTITY_RENDER_Y_OFFSET = ENTITY_RENDER_HEIGHT / 4;
 
     protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
@@ -72,10 +80,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     public static void drawEntityToGui(GuiGraphicsExtractor guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
-        // Use the vanilla InventoryScreen method with a bounding box centered around posX, posY
-        InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics, posX - ENTITY_RENDER_WIDTH / 2,
-                posY - ENTITY_RENDER_HEIGHT + 10, posX + ENTITY_RENDER_WIDTH / 2, posY + 10, scale, 0.0625F,
-                mouseX, mouseY, entity);
+        int x0 = posX - ENTITY_RENDER_WIDTH / 2;
+        int y0 = posY - ENTITY_RENDER_HEIGHT + 10;
+        int x1 = posX + ENTITY_RENDER_WIDTH / 2;
+        int y1 = posY + 10;
+        extractEntityInInventoryFollowsMouseWithoutName(guiGraphics, x0, y0, x1, y1, scale, 0.0625F, mouseX, mouseY,
+                entity);
     }
 
     protected static float getEntityMouseX(int posX) {
@@ -99,6 +109,50 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         int maxScaleForWidth = (int) Math.floor(fitWidth / renderWidth);
         int maxScaleForHeight = (int) Math.floor(fitHeight / renderHeight);
         return Math.max(1, Math.min(ENTITY_BASE_SCALE, Math.min(maxScaleForWidth, maxScaleForHeight)));
+    }
+
+    protected static void extractEntityInInventoryFollowsMouseWithoutName(GuiGraphicsExtractor guiGraphics, int x0,
+                                                                          int y0, int x1, int y1, int size,
+                                                                          float offsetY, float mouseX, float mouseY,
+                                                                          LivingEntity entity) {
+        float centerX = (x0 + x1) / 2.0F;
+        float centerY = (y0 + y1) / 2.0F;
+        float xAngle = (float) Math.atan((centerX - mouseX) / 40.0F);
+        float yAngle = (float) Math.atan((centerY - mouseY) / 40.0F);
+        Quaternionf rotation = new Quaternionf().rotateZ((float) Math.PI);
+        Quaternionf xRotation = new Quaternionf().rotateX(yAngle * 20.0F * (float) (Math.PI / 180.0));
+        rotation.mul(xRotation);
+
+        EntityRenderState renderState = createEntityRenderStateWithoutName(entity);
+        if (renderState instanceof LivingEntityRenderState livingRenderState) {
+            livingRenderState.bodyRot = 180.0F + xAngle * 20.0F;
+            livingRenderState.yRot = xAngle * 20.0F;
+            if (livingRenderState.pose != Pose.FALL_FLYING) {
+                livingRenderState.xRot = -yAngle * 20.0F;
+            } else {
+                livingRenderState.xRot = 0.0F;
+            }
+
+            livingRenderState.boundingBoxWidth = livingRenderState.boundingBoxWidth / livingRenderState.scale;
+            livingRenderState.boundingBoxHeight = livingRenderState.boundingBoxHeight / livingRenderState.scale;
+            livingRenderState.scale = 1.0F;
+        }
+
+        Vector3f translation = new Vector3f(0.0F, renderState.boundingBoxHeight / 2.0F + offsetY, 0.0F);
+        guiGraphics.entity(renderState, size, translation, rotation, xRotation, x0, y0, x1, y1);
+    }
+
+    protected static EntityRenderState createEntityRenderStateWithoutName(LivingEntity entity) {
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        EntityRenderer<? super LivingEntity, ?> renderer = entityRenderDispatcher.getRenderer(entity);
+        EntityRenderState renderState = renderer.createRenderState(entity, 1.0F);
+        renderState.shadowPieces.clear();
+        renderState.outlineColor = 0;
+        renderState.lightCoords = 15728880;
+        renderState.nameTag = null;
+        renderState.nameTagAttachment = null;
+        renderState.scoreText = null;
+        return renderState;
     }
 
     @Override
@@ -147,7 +201,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
         guiGraphics.pose().pushMatrix();
         int entityX = this.leftPos + 35;
-        int entityY = this.topPos + 65;
+        int entityY = this.topPos + 65 + ENTITY_RENDER_Y_OFFSET;
         int scale = getEntityScale(this.spirit.getEntity());
         drawEntityToGui(guiGraphics, entityX, entityY, scale, getEntityMouseX(entityX), getEntityMouseY(entityY),
                 this.spirit.getEntity());
