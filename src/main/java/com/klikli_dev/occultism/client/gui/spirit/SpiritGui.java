@@ -54,6 +54,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     private static final int ENTITY_RENDER_HEIGHT = 70;
     private static final int ENTITY_BASE_SCALE = 30;
     private static final int ENTITY_FIT_PADDING = 14;
+    private static final int ENTITY_RENDER_Y_OFFSET = ENTITY_RENDER_HEIGHT / 16;
 
     protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
@@ -200,7 +201,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
         guiGraphics.pose().pushMatrix();
         int entityX = this.leftPos + 35;
-        int entityY = this.topPos + 65;
+        int entityY = this.topPos + 65 + ENTITY_RENDER_Y_OFFSET;
         int scale = getEntityScale(this.spirit.getEntity());
         drawEntityToGui(guiGraphics, entityX, entityY, scale, getEntityMouseX(entityX), getEntityMouseY(entityY),
                 this.spirit.getEntity());
