@@ -4,21 +4,6 @@
       "trigger": "minecraft:tick"
     }
   },
-  "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
-    "description": {
-      "translate": "advancements.occultism.root.description"
-    },
-    "icon": {
-      "id": "occultism:jei_dummy/none"
-    },
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": true,
-    "title": {
-      "translate": "advancements.occultism.root.title"
-    }
-  },
   "requirements": [
     [
       "occultism_present"
