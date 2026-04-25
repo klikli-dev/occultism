@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.render.entity.state.HeadlessFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -29,13 +30,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class HeadlessFamiliarModel extends EntityModel<EntityRenderState> {
+public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -188,10 +188,9 @@ public class HeadlessFamiliarModel extends EntityModel<EntityRenderState> {
 
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(HeadlessFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState to restore entity-specific animation
-        // this.showModels(pEntity);
+        this.showModels(state);
 
         this.ratBody1.xRot = -0.078f;
         this.ratTail1.xRot = -0.195f;
@@ -201,27 +200,50 @@ public class HeadlessFamiliarModel extends EntityModel<EntityRenderState> {
         this.pumpkin1.z = -3.51f;
         this.pumpkin1.yRot = 0;
 
-        // TODO: needs custom RenderState for head pitch/yaw, limb swing, attack time
-        // this.ratHead.xRot = this.toRads(pHeadPitch) * 0.4f;
-        // this.ratHead.yRot = this.toRads(pNetHeadYaw) * 0.4f;
-        // this.ratTail1.yRot = Mth.sin(pAgeInTicks * 0.2f) * this.toRads(15);
-        // this.ratTail2.yRot = Mth.sin(pAgeInTicks * 0.2f) * this.toRads(15);
-        // this.ratBackLeftLeg1.xRot = 0.31f + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
-        // this.ratBackRightLeg1.xRot = 0.31f + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
-        // this.ratFrontLeftLeg1.xRot = -0.20f + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
-        // this.ratFrontRightLeg1.xRot = -0.20f + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
-        // this.rightArm.xRot = -1.57f + Mth.cos(limbSwing * 0.4f) * limbSwingAmount * 0.2f;
-        // if (attackTime > 0) this.rightArm.xRot = -1.57f + Mth.sin(attackTime * toRads(180)) * toRads(90);
+        this.ratHead.xRot = this.toRads(state.xRot) * 0.4f;
+        this.ratHead.yRot = this.toRads(state.yRot) * 0.4f;
+        this.ratTail1.yRot = Mth.sin(state.ageInTicks * 0.2f) * this.toRads(15);
+        this.ratTail2.yRot = Mth.sin(state.ageInTicks * 0.2f) * this.toRads(15);
+        this.ratBackLeftLeg1.xRot = 0.31f + Mth.cos(state.limbSwing * 0.7f + PI) * state.limbSwingAmount * 0.5f;
+        this.ratBackRightLeg1.xRot = 0.31f + Mth.cos(state.limbSwing * 0.7f) * state.limbSwingAmount * 0.5f;
+        this.ratFrontLeftLeg1.xRot = -0.20f + Mth.cos(state.limbSwing * 0.7f) * state.limbSwingAmount * 0.5f;
+        this.ratFrontRightLeg1.xRot = -0.20f + Mth.cos(state.limbSwing * 0.7f + PI) * state.limbSwingAmount * 0.5f;
+        this.rightArm.xRot = -1.57f + Mth.cos(state.limbSwing * 0.4f) * state.limbSwingAmount * 0.2f;
 
-        // TODO: needs custom RenderState for isSitting, isPartying
-        // if (pEntity.isSitting()) { ... }
-        // if (pEntity.isPartying()) { ... }
+        if (state.attackTime > 0) {
+            this.rightArm.xRot = -1.57f + Mth.sin(state.attackTime * this.toRads(180)) * this.toRads(90);
+        }
+
+        if (state.isSitting) {
+            this.ratBody1.xRot = -this.toRads(40);
+            this.ratHead.xRot += this.toRads(20);
+            this.ratBackLeftLeg1.xRot = -this.toRads(10);
+            this.ratBackRightLeg1.xRot = -this.toRads(10);
+            this.ratFrontLeftLeg1.xRot = this.toRads(25);
+            this.ratFrontRightLeg1.xRot = this.toRads(25);
+            this.ratTail1.xRot = this.toRads(35);
+            this.body.xRot = this.toRads(20);
+        }
+
+        if (state.isPartying) {
+            this.ratHead.zRot = Mth.cos(state.ageInTicks * 0.5f) * this.toRads(40);
+            this.ratTail1.zRot = Mth.cos(state.ageInTicks * 0.5f) * this.toRads(40);
+            this.pumpkin1.z = -7f + Mth.cos(state.ageInTicks * 0.25f) * 2;
+            this.pumpkin1.yRot = state.ageInTicks * this.toRads(10);
+        }
     }
 
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
 
-    // TODO: needs custom RenderState — showModels cannot be called until EntityRenderState subclass is created
-    // private void showModels(HeadlessFamiliarEntity entityIn) { ... }
+    private void showModels(HeadlessFamiliarRenderState state) {
+        this.pumpkin1.visible = !state.hasHead;
+        this.ratGlasses.visible = state.hasGlasses;
+        this.helmet.visible = state.hasBlacksmithUpgrade;
+        this.body.visible = !state.isHeadlessDead;
+        this.ratHair1.visible = state.isHairy;
+        this.ratHair2.visible = state.isHairy;
+        this.ratHair3.visible = state.isHairy;
+    }
 }

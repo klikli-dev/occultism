@@ -448,12 +448,14 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             }
         }
 
-        public void startExecuting() {
+        @Override
+        public void start() {
             this.cthulhu.getNavigation().moveTo(this.devil, 0.3);
             this.cthulhu.setGiving(true);
         }
 
-        public void resetTask() {
+        @Override
+        public void stop() {
             this.cthulhu.setGiving(false);
             this.cthulhu.getNavigation().stop();
             this.cooldown = MAX_COOLDOWN;
