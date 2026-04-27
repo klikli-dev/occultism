@@ -560,7 +560,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         //read stored items
         input.read("items", CompoundTag.CODEC).ifPresent(tag -> {
-            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), tag);
+            this.itemStackHandler.deserializeNBT(input.lookup(), tag);
             this.cachedMessageUpdateStacks = null;
         });
     }
