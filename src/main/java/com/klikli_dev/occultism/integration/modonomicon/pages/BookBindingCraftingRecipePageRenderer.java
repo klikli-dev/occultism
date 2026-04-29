@@ -6,7 +6,6 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.api.ModonomiconConstants.I18n.Tooltips;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
@@ -20,8 +19,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
-
-import java.util.List;
 
 public class BookBindingCraftingRecipePageRenderer extends BookRecipePageRenderer<Recipe<?>, BookBindingCraftingRecipePage> {
     public BookBindingCraftingRecipePageRenderer(BookBindingCraftingRecipePage page) {
@@ -61,15 +58,16 @@ public class BookBindingCraftingRecipePageRenderer extends BookRecipePageRendere
                     recipeY - (this.page.getTitle2().getString().isEmpty() ? 10 : 0) - 10);
         }
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX - 2, recipeY - 2,
-                0.0F, 0.0F, 100, 62, 128, 256);
+        var craftingRecipeBackground = this.page.getBook().theme().content().craftingRecipeBackground();
+        craftingRecipeBackground.extractRenderState(guiGraphics, recipeX - 2, recipeY - 2);
 
         int iconX = recipeX + 62;
         int iconY = recipeY + 2;
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), iconX, iconY,
-                0.0F, 64.0F, 11, 11, 128, 256);
+        var shapelessIcon = this.page.getBook().theme().content().shapelessIcon();
+        shapelessIcon.extractRenderState(guiGraphics, iconX, iconY);
+
         if (this.parentScreen.isMouseInRange(mouseX, mouseY, iconX, iconY, 11, 11)) {
-            this.parentScreen.setTooltip(List.of(Component.translatable(Tooltips.RECIPE_CRAFTING_SHAPELESS)));
+            this.parentScreen.setTooltip(Component.translatable(Tooltips.RECIPE_CRAFTING_SHAPELESS));
         }
 
         ItemStack boundBook = this.page.unboundBook != null

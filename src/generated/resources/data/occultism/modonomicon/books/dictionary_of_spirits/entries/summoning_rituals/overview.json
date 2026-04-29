@@ -1,6 +1,9 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 1,
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
+    "width": 26
+  },
   "category": "summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",

@@ -72,7 +72,7 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
             this.title1 = new BookTextHolder(boundBook.getHoverName().copy()
                     .withStyle(Style.EMPTY
                             .withBold(true)
-                            .withColor(this.getParentEntry().getBook().getDefaultTitleColor())));
+                            .withColor(this.getParentEntry().getBook().theme().palette().defaultTitleColor())));
         }
     }
 

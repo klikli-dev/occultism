@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 
 public class IesniumGolemEntry extends EntryProvider {
@@ -73,7 +73,7 @@ public class IesniumGolemEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

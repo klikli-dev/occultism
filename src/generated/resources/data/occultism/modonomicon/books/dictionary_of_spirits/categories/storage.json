@@ -23,7 +23,6 @@
   },
   "description": "",
   "display_mode": "node",
-  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
     "id": "minecraft:chest"
   },

@@ -10,7 +10,7 @@ import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
 import com.klikli_dev.occultism.datagen.book.pentacles.SummonAfritEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 
@@ -81,7 +81,7 @@ public class RepairEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

@@ -43,12 +43,14 @@ public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<Sp
             }
         }
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX, recipeY,
-                11.0F, 71.0F, 24, 24, 128, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 36, recipeY + 7,
-                0.0F, 246.0F, 18, 10, 128, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY,
-                72.0F, 71.0F, 36, 24, 128, 256);
+        var craftingSlot = this.page.getBook().theme().content().craftingSlot();
+        var craftingArrow = this.page.getBook().theme().content().craftingArrow();
+
+        craftingSlot.extractRenderState(guiGraphics, recipeX+1, recipeY+1);
+
+        craftingArrow.extractRenderState(guiGraphics, recipeX + 45, recipeY + 8);
+
+        craftingSlot.extractRenderState(guiGraphics, recipeX+73, recipeY+1);
 
         if (!(entry.display() instanceof SpiritTradeRecipeDisplay display) || Minecraft.getInstance().level == null) {
             guiGraphics.text(this.font, "[Spirit trade recipe unavailable]", recipeX, recipeY, 0x000000, false);

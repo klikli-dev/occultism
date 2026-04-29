@@ -6,7 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 //import com.klikli_dev.theurgy.registry.ItemRegistry; // TODO: re-enable when Theurgy is available for 26.1
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.Items;
 
 public class AutomationTheurgyEntry extends EntryProvider {
@@ -64,7 +64,7 @@ public class AutomationTheurgyEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

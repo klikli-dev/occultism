@@ -1,6 +1,9 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 1,
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
+    "width": 26
+  },
   "category": "spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.overview.description",
   "hide_while_locked": false,

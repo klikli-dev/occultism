@@ -10,7 +10,7 @@ import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
 import com.klikli_dev.occultism.datagen.book.pentacles.CraftDjinniEntry;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -61,7 +61,7 @@ public class StorageSystemEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

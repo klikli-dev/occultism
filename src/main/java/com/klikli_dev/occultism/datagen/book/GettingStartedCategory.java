@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
@@ -228,7 +229,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get())
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.SQUARE_GRAY)
                 .withPages(
                         intro,
                         help
@@ -1508,7 +1509,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withCategoryToOpen(this.modLoc("rituals"));
     }
 
@@ -1545,7 +1546,7 @@ public class GettingStartedCategory extends CategoryProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/spirits.png"))
                 .withCategoryToOpen(this.modLoc("spirits"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -1920,7 +1921,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.get())
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withCategoryToOpen(this.modLoc("storage"));
     }
 
@@ -1956,7 +1957,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -1995,7 +1996,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -2031,7 +2032,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -2067,7 +2068,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more

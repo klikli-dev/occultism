@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
 import com.klikli_dev.occultism.datagen.book.pentacles.SummonAfritEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.Items;
 
 public class MagicWeatherEntry extends EntryProvider {
@@ -77,7 +77,7 @@ public class MagicWeatherEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

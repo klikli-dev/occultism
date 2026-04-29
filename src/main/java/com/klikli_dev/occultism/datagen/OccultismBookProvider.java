@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
@@ -80,7 +81,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
     protected BookModel additionalSetup(BookModel book) {
         return super.additionalSetup(book)
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
-                .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
                 .withAutoAddReadConditions(true)
@@ -94,7 +94,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withCategoryToOpen(this.modLoc("rituals"))
-                .withEntryBackground(1, 2)
+                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
                 .withLocation(entryMap.get(icon));
     }
 
@@ -149,7 +149,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get())
                 .withCategoryToOpen(this.modLoc("getting_started"))
-                .withEntryBackground(1, 2)
+                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
                 .withLocation(entryMap.get(icon));
     }
 
@@ -244,7 +244,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/spirits.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.STAR_GOLD)
                 .withPages(
                         intro,
                         shapes,
@@ -516,7 +516,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.STAR_GOLD)
                 .withPages(
                         intro,
                         steps,
@@ -562,7 +562,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
                 .withCategoryToOpen(this.modLoc("summoning_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -572,7 +572,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
                 .withCategoryToOpen(this.modLoc("possession_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -582,7 +582,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
                 .withCategoryToOpen(this.modLoc("crafting_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -592,7 +592,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withCategoryToOpen(this.modLoc("familiar_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -774,7 +774,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.STAR_GOLD)
                 .withPages(
                         intro
                 );
