@@ -28,6 +28,8 @@ import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.FlameAutomationItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
+import com.klikli_dev.occultism.common.item.filter.AttributeFilterItem;
+import com.klikli_dev.occultism.common.item.filter.ListFilterItem;
 import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.*;
@@ -95,6 +97,10 @@ public class OccultismItems {
             KnowledgeTabletItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .component(OccultismDataComponents.STORED_XP, 0));
+    public static final DeferredItem<ListFilterItem> LIST_FILTER = ITEMS.registerItem("list_filter",
+            ListFilterItem::new, () -> new Properties());
+    public static final DeferredItem<AttributeFilterItem> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter",
+            AttributeFilterItem::new, () -> new Properties());
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.registerItem("storage_remote",
             StorageRemoteItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));

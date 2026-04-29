@@ -249,6 +249,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
         this.add(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM, "Some item is breaking, repair it!");
 
+        this.addItem(OccultismItems.LIST_FILTER, "List Filter");
+        this.addItem(OccultismItems.ATTRIBUTE_FILTER, "Attribute Filter");
         this.addItem(OccultismItems.KNOWLEDGE_TABLET, "Knowledge Tablet");
         this.addAutoTooltip(OccultismItems.KNOWLEDGE_TABLET.get(),
                 """

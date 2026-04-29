@@ -27,6 +27,8 @@ import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEn
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.common.container.filter.AttributeFilterMenu;
+import com.klikli_dev.occultism.common.container.filter.ListFilterMenu;
 import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
@@ -70,6 +72,12 @@ public class OccultismContainers {
             CONTAINERS.register("storage_remote",
                     () -> IMenuTypeExtension
                             .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv, data.readVarInt())));
+
+    public static final Supplier<MenuType<ListFilterMenu>> LIST_FILTER =
+            CONTAINERS.register("list_filter", () -> IMenuTypeExtension.create(ListFilterMenu::create));
+
+    public static final Supplier<MenuType<AttributeFilterMenu>> ATTRIBUTE_FILTER =
+            CONTAINERS.register("attribute_filter", () -> IMenuTypeExtension.create(AttributeFilterMenu::create));
 
     public static final Supplier<MenuType<SpiritContainer>> SPIRIT =
             CONTAINERS.register("spirit",

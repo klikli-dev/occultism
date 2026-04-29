@@ -25,6 +25,8 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.DimensionalBattlefieldScreen;
 import com.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
+import com.klikli_dev.occultism.client.gui.filter.AttributeFilterScreen;
+import com.klikli_dev.occultism.client.gui.filter.ListFilterScreen;
 import com.klikli_dev.occultism.client.gui.satchel.RitualSatchelScreen;
 import com.klikli_dev.occultism.client.gui.satchel.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritGui;
@@ -249,6 +251,8 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
         event.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
         event.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
+        event.register(OccultismContainers.LIST_FILTER.get(), ListFilterScreen::new);
+        event.register(OccultismContainers.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
         event.register(OccultismContainers.SPIRIT.get(), (SpiritContainer menu, Inventory inv, Component title) -> new SpiritGui<>(menu, inv, title));
         event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
         event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
