@@ -4,11 +4,15 @@
 
 package com.klikli_dev.occultism.client.gui.filter;
 
+import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.common.container.filter.AttributeFilterMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
-public class AttributeFilterScreen extends com.klikli_dev.codedefinedgui.gui.filter.AttributeFilterScreen<AttributeFilterMenu> {
+public class AttributeFilterScreen extends OccultismAttributeFilterScreenBase {
     private static final int BLACK = 0xFF000000;
     private static final int TOP_SECTION_HEIGHT = 15;
     private static final int MIDDLE_SECTION_HEIGHT = 75;
@@ -24,8 +28,11 @@ public class AttributeFilterScreen extends com.klikli_dev.codedefinedgui.gui.fil
 
     @Override
     protected void addBackgroundWidgets() {
-        this.root.addChild(new TintedSpriteWidget(this.leftPos + SECOND_BACKGROUND_X_OFFSET, this.topPos + SECOND_BACKGROUND_Y_OFFSET, this.imageWidth - SECOND_BACKGROUND_WIDTH_OFFSET, MIDDLE_SECTION_HEIGHT, OccultismFilterScreenStyle.GUI_BACKGROUND_SPRITE, OccultismFilterScreenStyle.BACKGROUND_TINT));
-        this.root.addChild(new TintedSpriteWidget(this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, OccultismFilterScreenStyle.GUI_BACKGROUND_SPRITE, OccultismFilterScreenStyle.TOP_BAR_TINT));
+        var tintedBackground = GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT);
+        var tintedTopBar = GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT);
+
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SECOND_BACKGROUND_X_OFFSET, this.topPos + SECOND_BACKGROUND_Y_OFFSET, this.imageWidth - SECOND_BACKGROUND_WIDTH_OFFSET, MIDDLE_SECTION_HEIGHT, tintedBackground));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.topPos, this.imageWidth, TOP_SECTION_HEIGHT, tintedTopBar));
     }
 
     @Override
@@ -38,7 +45,7 @@ public class AttributeFilterScreen extends com.klikli_dev.codedefinedgui.gui.fil
         int secondBackgroundBottom = secondBackgroundY + MIDDLE_SECTION_HEIGHT;
         int horizontalSeparatorY = this.topPos + HORIZONTAL_SEPARATOR_Y;
 
-        this.root.addChild(new SeparatorWidget(secondBackgroundX, horizontalSeparatorY, secondBackgroundWidth, 1, BLACK));
-        this.root.addChild(new SeparatorWidget(this.leftPos + VERTICAL_SEPARATOR_X, horizontalSeparatorY, 1, secondBackgroundBottom - horizontalSeparatorY, BLACK));
+        this.root.addChild(new HorizontalSeparatorWidget(secondBackgroundX, horizontalSeparatorY, secondBackgroundWidth));
+        this.root.addChild(new VerticalSeparatorWidget(this.leftPos + VERTICAL_SEPARATOR_X, horizontalSeparatorY, secondBackgroundBottom - horizontalSeparatorY, BLACK));
     }
 }
