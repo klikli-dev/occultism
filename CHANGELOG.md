@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.222.1] - 2026-05-01
+### :bug: Bug Fixes
+- [`babe98c`](https://github.com/klikli-dev/occultism/commit/babe98c3c6b7a62f8113200f517e5fbda7317b89) - paste repair *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.222.0] - 2026-04-29
 ### :sparkles: New Features
 - [`18c917a`](https://github.com/klikli-dev/occultism/commit/18c917af6c20292c4ef62ef7e6a6984043457ff8) - update to new modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2534,3 +2539,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.221.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.220.0...release/v26.1.2-1.221.0
 [release/v26.1.2-1.221.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.221.0...release/v26.1.2-1.221.1
 [release/v26.1.2-1.222.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.221.2...release/v26.1.2-1.222.0
+[release/v26.1.2-1.222.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.222.0...release/v26.1.2-1.222.1
