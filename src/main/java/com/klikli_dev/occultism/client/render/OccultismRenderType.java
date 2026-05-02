@@ -24,43 +24,41 @@ package com.klikli_dev.occultism.client.render;
 
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.LayeringTransform;
+import net.minecraft.client.renderer.rendertype.OutputTarget;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
 public class OccultismRenderType {
-    private static final Identifier BLANK_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/empty_transparent.png");
-
-    public static final RenderPipeline OVERLAY_LINES_NO_DEPTH_PIPELINE = RenderPipelines.ENTITY_SOLID.toBuilder()
+    public static final RenderPipeline OVERLAY_LINES_NO_DEPTH_PIPELINE = RenderPipelines.DEBUG_FILLED_BOX.toBuilder()
             .withLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "overlay_frame_no_depth"))
-            .withCull(false)
             .withDepthStencilState(Optional.empty())
             .build();
 
-    public static final RenderPipeline OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE = RenderPipelines.ENTITY_SOLID.toBuilder()
+    public static final RenderPipeline OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE = RenderPipelines.DEBUG_FILLED_BOX.toBuilder()
             .withLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "overlay_frame_alternative_no_depth"))
-            .withCull(false)
             .withDepthStencilState(Optional.empty())
             .build();
 
     private static final RenderType OVERLAY_FRAME_NO_DEPTH = RenderType.create(
             "occultism_overlay_frame_no_depth",
             RenderSetup.builder(OVERLAY_LINES_NO_DEPTH_PIPELINE)
-                    .withTexture("Sampler0", BLANK_TEXTURE)
-                    .useLightmap()
-                    .useOverlay()
+                    .sortOnUpload()
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup()
     );
 
     private static final RenderType OVERLAY_FRAME_ALTERNATIVE_NO_DEPTH = RenderType.create(
             "occultism_overlay_frame_alternative_no_depth",
             RenderSetup.builder(OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE)
-                    .withTexture("Sampler0", BLANK_TEXTURE)
-                    .useLightmap()
-                    .useOverlay()
+                    .sortOnUpload()
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup()
     );
 
