@@ -77,8 +77,8 @@ public class OccultismClientConfig {
             this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")
                     .define("disableHolidayTheming", false);
             this.useAlternativeDivinationRodRenderer = builder.comment(
-                            "When true the old divination rod selected block renderer will be used.",
-                            "May work for some people that do not see selected block outlines when using the divination rod.")
+                            "When true the divination rod selected block frame is rendered with chunkier 3D edges.",
+                            "May help if the default one-pixel frame is harder to notice.")
                     .define("useAlternativeDivinationRodRenderer", false);
 
             this.whiteChalkGlyphColor = builder.comment(
