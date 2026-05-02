@@ -49,7 +49,7 @@ public class OccultismClientConfig {
     public static class VisualSettings {
         public final BooleanValue showItemTagsInTooltip;
         public final BooleanValue disableHolidayTheming;
-        public final BooleanValue useAlternativeDivinationRodRenderer;
+        public final BooleanValue dontUseTheurgyDivinationRodParticle;
 
         public final IntValue whiteChalkGlyphColor;
         public final IntValue yellowChalkGlyphColor;
@@ -76,10 +76,10 @@ public class OccultismClientConfig {
                     .define("showItemTagsInTooltip", false);
             this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")
                     .define("disableHolidayTheming", false);
-            this.useAlternativeDivinationRodRenderer = builder.comment(
-                            "When true the old divination rod selected block renderer will be used.",
-                            "May work for some people that do not see selected block outlines when using the divination rod.")
-                    .define("useAlternativeDivinationRodRenderer", false);
+            this.dontUseTheurgyDivinationRodParticle = builder.comment(
+                            "When true occultism will continue using it's own Block Outline renderer, even if Theurgy is present.",
+                            "When false, only if Theurgy is present, it will use the more immersive Theurgy renderer that sends a particle to the target block.")
+                    .define("dontUseTheurgyDivinationRodParticle", false);
 
             this.whiteChalkGlyphColor = builder.comment(
                     "The integer code of the color of the white chalk glyph in world.",

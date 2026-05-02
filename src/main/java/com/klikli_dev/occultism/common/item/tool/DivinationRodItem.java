@@ -150,7 +150,7 @@ public class DivinationRodItem extends Item {
             if (result != null) {
                 stack.set(OccultismDataComponents.DIVINATION_POS, result);
 
-                if (TheurgyIntegration.isLoaded()) {
+                if (TheurgyIntegration.isLoaded() && !Occultism.CLIENT_CONFIG.visuals.dontUseTheurgyDivinationRodParticle.get()) {
                     //show nice particle if possible
                     TheurgyIntegration.spawnDivinationResultParticle(result, level, entityLiving);
                 } else {

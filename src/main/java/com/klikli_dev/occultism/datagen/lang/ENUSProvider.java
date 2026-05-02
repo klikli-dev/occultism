@@ -2311,7 +2311,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("showItemTagsInTooltip", "Show Item Tags in Tooltips");
         this.addConfig("disableDemonsDreamShaders", "Disable Demon's Dream Shaders");
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
-        this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
+        this.addConfig("dontUseTheurgyDivinationRodParticle", "Don't Use Theurgy Divination Rod Particle");
         this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
         this.addConfig("yellowChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
