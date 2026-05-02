@@ -1,139 +1,120 @@
 /*
- * MIT License
+ * SPDX-FileCopyrightText: 2026 klikli-dev
  *
- * Copyright 2020 klikli-dev
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * SPDX-License-Identifier: MIT
  */
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
+import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
+import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.gui.widget.FrameWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants.Color;
-import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
-import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.network.messages.MessageSetFilterMode;
-import com.klikli_dev.occultism.network.messages.MessageSetTagFilterText;
-import com.klikli_dev.occultism.util.InputUtil;
-import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.platform.InputConstants.Key;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.input.CharacterEvent;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import org.apache.commons.lang3.StringUtils;
+import net.minecraft.world.inventory.Slot;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> {
+public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> implements GuiHost {
+    protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
     protected static final int INVENTORY_SLOT_LEFT = 152;
     protected static final int INVENTORY_SLOT_TOP = 54;
     protected static final int INVENTORY_SLOT_SIZE = 18;
-    protected static final int INVENTORY_SLOT_INDEX = 36;
-
-    protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/inventory_spirit_transporter_tagfilter.png");
+    protected static final int FILTER_SLOT_LEFT = 152;
+    protected static final int FILTER_SLOT_TOP = 84;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
+
+    protected final GuiRootWidget root;
     protected final List<Component> tooltip = new ArrayList<>();
-    protected SpiritTransporterContainer container;
-
-    protected SizedImageButton filterModeButton;
-    protected EditBox tagFilterTextField;
-
-    protected String tagFilter;
 
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
                                 Component titleIn) {
         super(container, playerInventory, titleIn, 176, 220);
-        this.container = container;
+        this.root = new GuiRootWidget(this);
     }
-
-    //region Getter / Setter
-    public boolean isBlacklist() {
-        return this.spirit.isFilterBlacklist();
-    }
-
-    public String getTagFilterText() {
-        return this.tagFilter;
-    }
-
-    public void setTagFilterText(String tagFilterText) {
-        this.tagFilter = tagFilterText;
-    }
-
-    public void setIsBlacklist(boolean isBlacklist) {
-        this.spirit.setFilterBlacklist(isBlacklist);
-        Networking.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getEntity().getId()));
-    }
-    //endregion Getter / Setter
 
     @Override
     public void init() {
         super.init();
 
-        this.setTagFilterText(this.spirit.getTagFilter());
+        this.addRenderableWidget(this.root);
+        this.root.clearChildren();
+        this.root.addChild(new GuiBackgroundWidget(this));
+        this.root.addChild(new FrameWidget(this.guiX(7), this.guiY(7), this.imageWidth - 14, 96, 0xFF101010));
+        this.root.addChild(new FrameWidget(this.guiX(7), this.guiY(131), this.imageWidth - 14, 76, 0xFF101010));
+        this.root.addChild(new VerticalSeparatorWidget(this.guiX(61), this.guiY(8), 94, 0xFF101010));
+        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(8), this.guiY(102), this.imageWidth - 16, 0xFF101010));
+        this.root.addChild(new FrameWidget(this.guiX(143), this.guiY(44), 26, 58, 0xFF101010));
 
-        int isBlacklistButtonTop = 83;
-        int isBlacklistButtonLeft = 151;
-        int buttonSize = 18;
-
-        int isBlacklistOffset = (this.isBlacklist() ? 0 : 1) * 20;
-        this.filterModeButton = new SizedImageButton(this.leftPos + isBlacklistButtonLeft,
-                this.topPos + isBlacklistButtonTop, buttonSize, buttonSize, 177, isBlacklistOffset,
-                20, 20, 20, 256, 256, TEXTURE,
-                (button) -> {
-                    this.setIsBlacklist(!this.isBlacklist());
-                    this.init();
-                });
-        this.addRenderableWidget(this.filterModeButton);
-
-        int tagFilterLeft = 8;
-        int tagFilterTop = 123;
-        int tagFilterWidth = 124;
-        this.tagFilterTextField = new EditBox(this.font, this.leftPos + tagFilterLeft,
-                this.topPos + tagFilterTop, tagFilterWidth, this.font.lineHeight,
-                Component.literal("c:ores;*logs*;item:minecraft:chest"));
-        this.tagFilterTextField.setMaxLength(90);
-
-        this.tagFilterTextField.setBordered(false);
-        this.tagFilterTextField.setVisible(true);
-        this.tagFilterTextField.setTextColor(Color.WHITE);
-        this.tagFilterTextField.setFocused(false);
-
-        if (!StringUtils.isBlank(this.getTagFilterText())) {
-            this.tagFilterTextField.setValue(this.getTagFilterText());
+        for (Slot slot : this.menu.slots) {
+            this.root.addChild(new GuiSpriteWidget(this.guiX(slot.x - 1), this.guiY(slot.y - 1), GuiSprites.INVENTORY_SLOT));
         }
-        this.addWidget(this.tagFilterTextField);
-        this.setInitialFocus(this.tagFilterTextField);
+
+        this.root.addChild(new FrameWidget(this.guiX(FILTER_SLOT_LEFT - 2), this.guiY(FILTER_SLOT_TOP - 2), 22, 22, 0xFF592424));
+        this.root.syncWithHost();
     }
 
+    @Override
+    protected void extractBackground(GuiGraphicsExtractor guiGraphics) {
+    }
 
     @Override
-    protected Identifier getTexture() {
-        return TEXTURE;
+    public <T extends AbstractWidget> T addGuiWidget(T widget) {
+        return this.addRenderableWidget(widget);
+    }
+
+    @Override
+    public void removeGuiWidget(AbstractWidget widget) {
+        this.removeWidget(widget);
+    }
+
+    @Override
+    public int leftPos() {
+        return this.leftPos;
+    }
+
+    @Override
+    public int topPos() {
+        return this.topPos;
+    }
+
+    @Override
+    public int width() {
+        return this.width;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
+    }
+
+    @Override
+    public int imageWidth() {
+        return this.imageWidth;
+    }
+
+    @Override
+    public int imageHeight() {
+        return this.imageHeight;
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
+        this.renderFg(guiGraphics, mouseX, mouseY);
     }
 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
@@ -145,100 +126,27 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
                     this.topPos + INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 2, 0xAA555555, 0xAA555555);
         }
 
-        if (this.filterModeButton.isHoveredOrFocused()) {
-            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_mode"));
-            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_mode."
-                            + (this.isBlacklist() ? "blacklist" : "whitelist"))
-                    .withStyle(ChatFormatting.GRAY));
-        }
-
-        //can't use isHovered here, as it also checks for focus
-        if (this.isPointInSearchbar(mouseX, mouseY)) {
-            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".tag_filter"));
+        if (this.isPointInFilterSlot(mouseX, mouseY)) {
+            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_item"));
+            if (!this.menu.getSlot(this.menu.getFilterSlotIndex()).hasItem()) {
+                this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_item.empty")
+                        .withStyle(ChatFormatting.GRAY));
+            }
         }
 
         if (this.isPointInInventorySlot(mouseX, mouseY)) {
             if (!this.spirit.isInventorySlotActive()) {
                 this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.disabled")
                         .withStyle(ChatFormatting.GRAY));
-            } else if (!this.container.getSlot(INVENTORY_SLOT_INDEX).hasItem()) {
+            } else if (!this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX).hasItem()) {
                 this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.block_only")
                         .withStyle(ChatFormatting.GRAY));
             }
         }
 
-        if (!this.tooltip.isEmpty())
+        if (!this.tooltip.isEmpty()) {
             guiGraphics.setTooltipForNextFrame(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
-    }
-
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderFg(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        double mouseX = event.x();
-        double mouseY = event.y();
-        int mouseButton = event.button();
-
-        if (this.isPointInSearchbar(mouseX, mouseY)) {
-            if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
-                this.tagFilterTextField.setValue("");
-                this.setTagFilterText("");
-            }
         }
-
-        if (this.tagFilterTextField.mouseClicked(event, doubleClick)) {
-            return true;
-        }
-        return super.mouseClicked(event, doubleClick);
-    }
-
-    @Override
-    public boolean keyPressed(KeyEvent event) {
-        //prevent exiting without saving
-        this.setTagFilterText(this.tagFilterTextField.getValue());
-
-        if (this.tagFilterTextField.isFocused() &&
-                this.tagFilterTextField.keyPressed(event)) {
-            return true;
-        }
-
-        //Handle inventory key down in search bar:
-        if (this.tagFilterTextField.isFocused()) {
-            Key mouseKey = InputConstants.getKey(event);
-            if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)) {
-                return true;
-            }
-        }
-
-        return super.keyPressed(event);
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-        this.tagFilterTextField.setFocused(false);
-
-        //we used to check for blank tag filter here, but that prevents emptying the filter
-        this.spirit.setTagFilter(this.tagFilter);
-        Networking.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getEntity().getId()));
-    }
-
-    @Override
-    public boolean charTyped(CharacterEvent event) {
-        if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(event)) {
-            this.setTagFilterText(this.tagFilterTextField.getValue());
-        }
-
-        return false;
-    }
-
-    protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isHovering(this.tagFilterTextField.getX() - this.leftPos, this.tagFilterTextField.getY() - this.topPos,
-                this.tagFilterTextField.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
     }
 
     protected boolean isPointInInventorySlot(double mouseX, double mouseY) {
@@ -246,4 +154,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
                 mouseX, mouseY);
     }
 
+    protected boolean isPointInFilterSlot(double mouseX, double mouseY) {
+        return this.isHovering(FILTER_SLOT_LEFT, FILTER_SLOT_TOP, INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
+                mouseX, mouseY);
+    }
 }

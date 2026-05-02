@@ -23,14 +23,15 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
+import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
@@ -39,6 +40,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
@@ -77,11 +79,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
 
     private static final EntityDataAccessor<Optional<BlockPos>> TARGET_BLOCK = SynchedEntityData
             .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
-    private static final EntityDataAccessor<Boolean> IS_FILTER_BLACKLIST = SynchedEntityData
-            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<String> FILTER_ITEMS = SynchedEntityData
-            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.STRING);
-    private static final EntityDataAccessor<String> TAG_FILTER = SynchedEntityData
+    private static final EntityDataAccessor<String> FILTER_ITEM = SynchedEntityData
             .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.STRING);
 
     public ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(1) {
@@ -98,7 +96,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             super.onContentsChanged(slot, previousContents);
             TagValueOutput tagOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, GreedyFamiliarEntity.this.level().registryAccess());
             this.serialize(tagOutput);
-            GreedyFamiliarEntity.this.entityData.set(FILTER_ITEMS, tagOutput.buildResult().toString());
+            GreedyFamiliarEntity.this.entityData.set(FILTER_ITEM, tagOutput.buildResult().toString());
         }
     };
 
@@ -128,51 +126,39 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
     protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TARGET_BLOCK, Optional.empty());
-        builder.define(IS_FILTER_BLACKLIST, true);
-        builder.define(FILTER_ITEMS, "");
-        builder.define(TAG_FILTER, "");
+        builder.define(FILTER_ITEM, "");
     }
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
-        if (key == FILTER_ITEMS && this.level().isClientSide()) {
-            String compoundStr = this.entityData.get(FILTER_ITEMS);
-            if (!compoundStr.isEmpty()) {
-                try {
-                    var compound = TagParser.parseCompoundFully(compoundStr);
-                    ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
-                    this.filterItemStackHandler.deserialize(valueInput);
-                } catch (Exception ignored) {
-                }
+        if (key == FILTER_ITEM && this.level().isClientSide()) {
+            String compoundStr = this.entityData.get(FILTER_ITEM);
+            try {
+                var compound = compoundStr.isEmpty() ? new CompoundTag() : TagParser.parseCompoundFully(compoundStr);
+                compound.putInt("Size", SpiritTransporterContainer.FILTER_SIZE);
+                ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
+                this.filterItemStackHandler.deserialize(valueInput);
+            } catch (Exception ignored) {
             }
         }
     }
 
     @Override
-    public boolean isFilterBlacklist() {
-        return this.entityData.get(IS_FILTER_BLACKLIST);
-    }
-
-    @Override
-    public void setFilterBlacklist(boolean isFilterBlacklist) {
-        this.entityData.set(IS_FILTER_BLACKLIST, isFilterBlacklist);
-    }
-
-    @Override
-    public String getTagFilter() {
-        return this.entityData.get(TAG_FILTER);
-    }
-
-    @Override
-    public void setTagFilter(String tagFilter) {
-        this.entityData.set(TAG_FILTER, tagFilter);
-    }
-
-    @Override
     public ItemStacksResourceHandler getFilterItems() {
         return this.filterItemStackHandler;
+    }
+
+    private void setFilterItem(ItemStack stack) {
+        try (var tx = Transaction.openRoot()) {
+            if (stack.isEmpty()) {
+                this.filterItemStackHandler.set(0, ItemResource.EMPTY, 0);
+            } else {
+                this.filterItemStackHandler.set(0, ItemResource.of(stack.copyWithCount(1)), 1);
+            }
+            tx.commit();
+        }
     }
 
     @Override
@@ -227,12 +213,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
     }
 
     public boolean canPickupItem(ItemEntity entity) {
-        ItemStack stack = entity.getItem();
-        boolean matches = StorageUtil.matchesFilter(stack, this.getFilterItems()) ||
-                StorageUtil.matchesFilter(stack, this.getTagFilter());
-
-        boolean isBlacklist = this.isFilterBlacklist();
-        return ((!isBlacklist && matches) || (isBlacklist && !matches));
+        return EntityItemFilter.matches(this.level(), this, entity.getItem());
     }
 
     @Override
@@ -362,15 +343,24 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             this.inventory.deserialize(inventoryInput);
         });
 
-        this.setFilterBlacklist(input.getBooleanOr("isFilterBlacklist", true));
-
-        input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
+        input.read("filterItem", CompoundTag.CODEC).ifPresent(tag -> {
             tag.putInt("Size", SpiritTransporterContainer.FILTER_SIZE);
             ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
             this.filterItemStackHandler.deserialize(filterInput);
         });
 
-        input.getString("tagFilter").ifPresent(this::setTagFilter);
+        if (this.getFilterItem().isEmpty()) {
+            boolean legacyBlacklist = input.getBooleanOr("isFilterBlacklist", true);
+            String legacyTagFilter = input.getString("tagFilter").orElse("");
+            ItemStacksResourceHandler legacyFilterItems = new ItemStacksResourceHandler(SpiritEntity.LEGACY_MAX_FILTER_SLOTS);
+            input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
+                tag.putInt("Size", SpiritEntity.LEGACY_MAX_FILTER_SLOTS);
+                ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
+                legacyFilterItems.deserialize(filterInput);
+            });
+
+            this.setFilterItem(EntityItemFilter.createLegacyFilterItem(legacyFilterItems, legacyTagFilter, legacyBlacklist));
+        }
     }
 
     @Override
@@ -383,13 +373,16 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             output.store("inventory", CompoundTag.CODEC, inv.buildResult());
         }
 
-        output.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
         {
             TagValueOutput filterOut = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
             this.filterItemStackHandler.serialize(filterOut);
-            output.store("filterItems", CompoundTag.CODEC, filterOut.buildResult());
+            output.store("filterItem", CompoundTag.CODEC, filterOut.buildResult());
         }
-        output.putString("tagFilter", this.getTagFilter());
+    }
+
+    @Override
+    public boolean matchesWhenFilterEmpty() {
+        return true;
     }
 
 

@@ -196,7 +196,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     public void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
 //        this.renderBackground(guiGraphics); //called by super
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.getTexture(), this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        this.extractBackground(guiGraphics);
 
         guiGraphics.pose().pushMatrix();
         int entityX = this.leftPos + 35;
@@ -207,6 +207,10 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         guiGraphics.pose().popMatrix();
 
         super.extractContents(guiGraphics, x, y, partialTicks);
+    }
+
+    protected void extractBackground(GuiGraphicsExtractor guiGraphics) {
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.getTexture(), this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     }
 
     protected Identifier getTexture() {

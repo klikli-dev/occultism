@@ -28,15 +28,16 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 public interface IFilterConfigurable {
 
-    boolean isFilterBlacklist();
-
-    void setFilterBlacklist(boolean isFilterBlacklist);
-
-    String getTagFilter();
-
-    void setTagFilter(String tagFilter);
-
     ItemStacksResourceHandler getFilterItems();
+
+    default ItemStack getFilterItem() {
+        ItemStacksResourceHandler filterItems = this.getFilterItems();
+        return filterItems.getResource(0).toStack(filterItems.getAmountAsInt(0));
+    }
+
+    default boolean matchesWhenFilterEmpty() {
+        return false;
+    }
 
     ItemStacksResourceHandler getInventory();
 
