@@ -22,106 +22,24 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
-import com.klikli_dev.modonomicon.api.ModonomiconConstants.I18n.Tooltips;
-import com.klikli_dev.modonomicon.book.Book;
-import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
-import com.klikli_dev.modonomicon.client.gui.book.BookAddress;
-import com.klikli_dev.modonomicon.data.BookDataManager;
-import com.klikli_dev.modonomicon.item.ModonomiconItem;
-import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
+import com.klikli_dev.modonomicon.item.ModonomiconCustomItemBase;
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemInstance;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
-import java.util.function.Consumer;
-
-public class GuideBookItem extends ModonomiconItem {
+public class GuideBookItem extends ModonomiconCustomItemBase {
 
     public static final Identifier DICTIONARY_OF_SPIRITS = Identifier.fromNamespaceAndPath(Occultism.MODID, "dictionary_of_spirits");
 
     public GuideBookItem(Properties properties) {
-        super(properties);
+        super(DICTIONARY_OF_SPIRITS, properties);
     }
 
     @Override
-    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        //Copied from parent but statically gets DICTIONARY_OF_SPIRITS instead of from nbt
-        var itemInHand = pPlayer.getItemInHand(pUsedHand);
-        if (!itemInHand.has(DataComponentRegistry.BOOK_ID))
-            itemInHand.set(DataComponentRegistry.BOOK_ID, DICTIONARY_OF_SPIRITS);
-
-        if (pLevel.isClientSide()) {
-            var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
-            BookGuiManager.get().openBook(BookAddress.defaultFor(book));
-        }
-
-        return InteractionResult.SUCCESS;
-    }
-
-    @Override
-    public Component getName(ItemStack pStack) {
-        Book book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
-        if (book != null) {
-            return Component.translatable(book.getName());
-        }
-
-        return super.getName(pStack);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> list, TooltipFlag tooltipFlag) {
-//        super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
-
-        Book book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
-        if (book != null) {
-            if (tooltipFlag.isAdvanced()) {
-                list.accept(Component.literal("Book ID: ").withStyle(ChatFormatting.DARK_GRAY)
-                        .append(Component.literal(book.getId().toString()).withStyle(ChatFormatting.RED)));
-            }
-
-            if (!book.getTooltip().isBlank()) {
-                list.accept(Component.translatable(book.getTooltip()).withStyle(ChatFormatting.GRAY));
-            }
-        } else {
-            var compound = new CompoundTag();
-            for (var entry : itemStack.getComponents()) {
-                var tag = entry.encodeValue(tooltipContext.registries().createSerializationContext(NbtOps.INSTANCE)).getOrThrow();
-                var key = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.type());
-
-                compound.put(key.toString(), tag);
-            }
-
-            list.accept(Component.translatable(Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK, NbtUtils.toPrettyComponent(compound))
-                    .withStyle(ChatFormatting.DARK_GRAY));
-        }
-    }
-
-    @Override
-    public @Nullable ItemStackTemplate getCraftingRemainder(ItemInstance instance) {
+    public @Nullable ItemStackTemplate getCraftingRemainder(@NonNull ItemInstance instance) {
         return new ItemStackTemplate(this);
-    }
-
-
-    public ItemStack getCreativeModeTabDisplayStack() {
-        ItemStack stack = new ItemStack(this);
-
-        stack.set(DataComponentRegistry.BOOK_ID, DICTIONARY_OF_SPIRITS);
-
-        return stack;
     }
 }
