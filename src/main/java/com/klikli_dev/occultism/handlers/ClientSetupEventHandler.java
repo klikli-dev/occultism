@@ -34,9 +34,6 @@ import com.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.client.itemproperties.*;
-import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
-import com.klikli_dev.occultism.client.keybindings.EnderBagKeyConflictContext;
-import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.OccultismRenderType;
@@ -49,27 +46,21 @@ import com.klikli_dev.occultism.client.render.entity.DragonRendering.ThrownSword
 import com.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
-import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
-import com.klikli_dev.occultism.common.effect.ThirdEyeEffect;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusbandRenderer;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWifeRenderer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.InputConstants.Type;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyMapping.Category;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
 import net.minecraft.client.renderer.entity.*;
-// TODO: Port to 26.1 item property system - ItemProperties was removed
-// import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -82,17 +73,15 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -301,7 +290,6 @@ public class ClientSetupEventHandler {
 
     public static void onRegisterRenderPipelines(RegisterRenderPipelinesEvent event) {
         event.registerPipeline(OccultismRenderType.OVERLAY_LINES_NO_DEPTH_PIPELINE);
-        event.registerPipeline(OccultismRenderType.OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE);
     }
 
     public static void onRegisterRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
@@ -312,6 +300,6 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), Occultism.THIRD_EYE_EFFECT_RENDERER);
-        // event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
+        event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
     }
 }
