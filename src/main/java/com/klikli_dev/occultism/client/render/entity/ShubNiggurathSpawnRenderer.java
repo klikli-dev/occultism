@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.ShubNiggurathSpawnModel;
+import com.klikli_dev.occultism.client.render.entity.state.ShubNiggurathSpawnRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathSpawnEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -32,47 +33,72 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
-public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEntity, LivingEntityRenderState, ShubNiggurathSpawnModel> {
+public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnRenderState, ShubNiggurathSpawnModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_spawn.png");
 
     public ShubNiggurathSpawnRenderer(Context context) {
         super(context, new ShubNiggurathSpawnModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_SHUB_NIGGURATH_SPAWN)), 0.1f);
-        this.addLayer(new BlinkingEyesLayer(this, context));
+        this.addLayer(new BlinkingEyesLayer(this));
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public void extractRenderState(ShubNiggurathSpawnEntity entity, ShubNiggurathSpawnRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.eye1Blinking = entity.isBlinking(0);
+        reusedState.eye2Blinking = entity.isBlinking(1);
+        reusedState.eye3Blinking = entity.isBlinking(2);
+        reusedState.eye4Blinking = entity.isBlinking(3);
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public ShubNiggurathSpawnRenderState createRenderState() {
+        return new ShubNiggurathSpawnRenderState();
+    }
+
+    @Override
+    public Identifier getTextureLocation(ShubNiggurathSpawnRenderState state) {
         return TEXTURES;
     }
 
-    private static class BlinkingEyesLayer extends RenderLayer<LivingEntityRenderState, ShubNiggurathSpawnModel> {
+    private static class BlinkingEyesLayer extends RenderLayer<ShubNiggurathSpawnRenderState, ShubNiggurathSpawnModel> {
 
         private static final Identifier BLINKING = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/shub_niggurath_spawn_blinking.png");
 
-        private final ShubNiggurathSpawnModel model;
-
-        public BlinkingEyesLayer(RenderLayerParent<LivingEntityRenderState, ShubNiggurathSpawnModel> parent, Context context) {
+        public BlinkingEyesLayer(RenderLayerParent<ShubNiggurathSpawnRenderState, ShubNiggurathSpawnModel> parent) {
             super(parent);
-            this.model = new ShubNiggurathSpawnModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_SHUB_NIGGURATH_SPAWN));
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, SubmitNodeCollector pSubmitNodeCollector, int pPackedLight, LivingEntityRenderState pRenderState, float pNetHeadYaw, float pHeadPitch) {
-            // TODO: Port to 26.1 rendering API
+        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ShubNiggurathSpawnRenderState renderState, float netHeadYaw, float headPitch) {
+            if (renderState.isInvisible) {
+                return;
+            }
+
+            ShubNiggurathSpawnModel model = this.getParentModel();
+            boolean eye1Visible = model.eye1.visible;
+            boolean eye2Visible = model.eye2.visible;
+            boolean eye3Visible = model.eye3.visible;
+            boolean eye4Visible = model.eye4.visible;
+
+            model.eye1.visible = renderState.eye1Blinking;
+            model.eye2.visible = renderState.eye2Blinking;
+            model.eye3.visible = renderState.eye3Blinking;
+            model.eye4.visible = renderState.eye4Blinking;
+
+            RenderLayer.renderColoredCutoutModel(model, BLINKING, poseStack, submitNodeCollector, packedLight, renderState, -1, 0);
+
+            model.eye1.visible = eye1Visible;
+            model.eye2.visible = eye2Visible;
+            model.eye3.visible = eye3Visible;
+            model.eye4.visible = eye4Visible;
         }
 
-        // Old render method preserved for reference - TODO: Port to 26.1 rendering API
+        // Old render method preserved for reference
         // public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, ShubNiggurathSpawnEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         //     if (!pLivingEntity.isInvisible()) {
         //         this.getParentModel().copyPropertiesTo(this.model);
