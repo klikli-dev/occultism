@@ -31,6 +31,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
+public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements Clearable {
 
     public long lastChangeTime;
     public ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
@@ -97,5 +98,12 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
         compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
+            itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 }
