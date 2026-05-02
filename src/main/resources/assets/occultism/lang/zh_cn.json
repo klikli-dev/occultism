@@ -2658,6 +2658,7 @@
   "occultism.configuration.disableSpiritFireSuccessSound": "禁用灵火成功音效",
   "occultism.configuration.divinationRodHighlightAllResults": "探测杖高亮所有结果",
   "occultism.configuration.divinationRodScanRange": "探测杖扫描范围",
+  "occultism.configuration.dontUseTheurgyDivinationRodParticle": "Don't Use Theurgy Divination Rod Particle",
   "occultism.configuration.drikwingFamiliarSlowFallingSeconds": "具翼缓降持续时间",
   "occultism.configuration.durability": "耐久度",
   "occultism.configuration.enableClearWeatherRitual": "启用将天气变为晴天的仪式。",

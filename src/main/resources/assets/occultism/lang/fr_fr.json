@@ -2658,6 +2658,7 @@
   "occultism.configuration.disableSpiritFireSuccessSound": "Disable Spirit Fire Success Sound",
   "occultism.configuration.divinationRodHighlightAllResults": "Divination Rod Highlight All Results",
   "occultism.configuration.divinationRodScanRange": "Divination Rod Scan Range",
+  "occultism.configuration.dontUseTheurgyDivinationRodParticle": "Don't Use Theurgy Divination Rod Particle",
   "occultism.configuration.drikwingFamiliarSlowFallingSeconds": "Drikwing slow falling duration",
   "occultism.configuration.durability": "Durability",
   "occultism.configuration.enableClearWeatherRitual": "Enable the ritual to clear weather conditions.",
