@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.223.0] - 2026-05-02
+### :bug: Bug Fixes
+- [`d71db07`](https://github.com/klikli-dev/occultism/commit/d71db0762205022e6b1c97006751ddfc07c338b7) - omnibus render fixes *(PR [#1599](https://github.com/klikli-dev/occultism/pull/1599) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :recycle: Refactors
+- [`3444ff2`](https://github.com/klikli-dev/occultism/commit/3444ff295537d6ff4c69850e860468126d31fd27) - move chalks and otherglass loot into datagen *(PR [#1600](https://github.com/klikli-dev/occultism/pull/1600) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1598](https://github.com/klikli-dev/occultism/issues/1598) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+
 ## [release/v26.1.2-1.222.1] - 2026-05-01
 ### :bug: Bug Fixes
 - [`babe98c`](https://github.com/klikli-dev/occultism/commit/babe98c3c6b7a62f8113200f517e5fbda7317b89) - paste repair *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2540,3 +2549,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.221.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.221.0...release/v26.1.2-1.221.1
 [release/v26.1.2-1.222.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.221.2...release/v26.1.2-1.222.0
 [release/v26.1.2-1.222.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.222.0...release/v26.1.2-1.222.1
+[release/v26.1.2-1.223.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.222.1...release/v26.1.2-1.223.0
