@@ -9,7 +9,7 @@
     "minecraft:gravel",
     "#minecraft:terracotta"
   ],
-  "item_to_use": "minecraft:egg",
+  "item_to_use": "#c:eggs",
   "pentacle_id": "occultism:contact_wild_spirit",
   "result": {
     "components": {

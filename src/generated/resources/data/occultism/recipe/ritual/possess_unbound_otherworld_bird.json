@@ -11,7 +11,7 @@
     "#c:feathers",
     "#c:feathers",
     "#minecraft:leaves",
-    "minecraft:egg"
+    "#c:eggs"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {

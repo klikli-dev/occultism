@@ -13,7 +13,7 @@
     "#c:crops",
     "#c:crops"
   ],
-  "item_to_use": "minecraft:egg",
+  "item_to_use": "#c:eggs",
   "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
