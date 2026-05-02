@@ -49,14 +49,14 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
         if (NearestCropSensor.isGrowthCrop(entity.level(), cropPos)) {
             BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(cropPos));
             entity.swing(InteractionHand.MAIN_HAND, true);
-            for (int x = -2 ; x <= 2 ; x++) {
-                for (int z = -2 ; z <= 2 ; z++) {
-                    BlockState state = entity.level().getBlockState(cropPos.offset(x,0,z));
+            for (int x = -2; x <= 2; x++) {
+                for (int z = -2; z <= 2; z++) {
+                    BlockState state = entity.level().getBlockState(cropPos.offset(x, 0, z));
                     if (state.getBlock() instanceof CropBlock cropBlock
                             && cropBlock.isMaxAge(state)) {
                         entity.playSound(SoundEvents.CROP_BREAK, 1, 1);
-                        entity.level().destroyBlock(cropPos.offset(x,0,z), true);
-                        entity.level().setBlock(cropPos.offset(x,0,z), cropBlock.defaultBlockState(), 1);
+                        entity.level().destroyBlock(cropPos.offset(x, 0, z), true);
+                        entity.level().setBlock(cropPos.offset(x, 0, z), cropBlock.defaultBlockState(), 1);
                     }
                 }
             }

@@ -6,13 +6,10 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.EntityToSummonSetti
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.RitualRequirementSettings;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe.RitualStartSettings;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
@@ -23,7 +20,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -115,7 +111,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         var recipe = new RitualRecipe(this.ritualType,
                 new RitualRequirementSettings(this.pentacleId, this.ingredients, this.activationIngredient, this.duration, this.duration / (float) (this.ingredients.size() + 1)),
                 new RitualStartSettings(this.entityToSacrifice == null ? null : new EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.condition),
-                new EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
+                new EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType, this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
                 this.ritualDummy, this.output, this.command);
 
         pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.identifier().withPrefix("recipes/ritual/")));

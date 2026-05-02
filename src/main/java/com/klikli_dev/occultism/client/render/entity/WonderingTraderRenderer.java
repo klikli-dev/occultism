@@ -26,6 +26,7 @@ import com.geckolib.cache.model.GeoBone;
 import com.geckolib.constant.DefaultAnimations;
 import com.geckolib.renderer.base.BoneSnapshots;
 import com.geckolib.renderer.base.RenderPassInfo;
+import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.klikli_dev.occultism.client.model.entity.WonderingTraderModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
@@ -37,7 +38,6 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.entity.player.Player;
-import com.geckolib.renderer.layer.GeoRenderLayer;
 
 public class WonderingTraderRenderer extends OccultismGeoLivingEntityRenderer<WonderingTraderEntity> {
 

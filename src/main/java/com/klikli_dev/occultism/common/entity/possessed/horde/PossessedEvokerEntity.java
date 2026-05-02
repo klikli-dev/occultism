@@ -28,16 +28,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.illager.Illusioner;
 import net.minecraft.world.entity.monster.illager.Pillager;
-import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -56,7 +55,7 @@ public class PossessedEvokerEntity extends Evoker implements PossessedMob {
     public static Builder createAttributes() {
         return Evoker.createAttributes()
                 .add(Attributes.MAX_HEALTH, 42.0)
-                .add(Attributes.ARMOR,7);
+                .add(Attributes.ARMOR, 7);
     }
 
     @Override
@@ -122,7 +121,7 @@ public class PossessedEvokerEntity extends Evoker implements PossessedMob {
     //endregion Static Methods
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.EVOKER;
     }
 }

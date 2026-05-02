@@ -30,7 +30,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -131,8 +130,8 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
                 poseStack.mulPose(Axis.ZN.rotationDegrees(angleY));
             }
             float nuggetOffset = facing.getAxis() == Direction.Axis.Y ?
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -0.3F : 0.3F :
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.3F : -0.3F;
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? -0.3F : 0.3F :
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.3F : -0.3F;
             poseStack.translate(-4 * vec3.x, -4 * vec3.z, nuggetOffset);
             renderState.nuggetRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.translate(4 * vec3.x, 4 * vec3.z, -nuggetOffset);
@@ -141,8 +140,8 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
         if (exitX != 0) {
             poseStack.scale(0.25F, 0.25F, 0.25F);
             float blockOffset = facing.getAxis() == Direction.Axis.Y ?
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -0.7F : 0.7F :
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.7F : -0.7F;
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? -0.7F : 0.7F :
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.7F : -0.7F;
             poseStack.translate(0, 0, blockOffset);
             renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.mulPose(Axis.ZP.rotationDegrees(45));

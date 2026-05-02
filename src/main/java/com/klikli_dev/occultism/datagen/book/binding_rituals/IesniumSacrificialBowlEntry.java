@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -42,8 +42,8 @@ public class IesniumSacrificialBowlEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        For players who are on the path of otherrock, there is also the dark version.
-                        """
+                For players who are on the path of otherrock, there is also the dark version.
+                """
         );
 
         this.page("ritual2", () -> BookRitualRecipePageModel.create()

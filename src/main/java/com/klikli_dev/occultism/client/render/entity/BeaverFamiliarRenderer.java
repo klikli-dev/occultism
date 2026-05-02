@@ -1,3 +1,39 @@
 package com.klikli_dev.occultism.client.render.entity;
-import com.klikli_dev.occultism.Occultism; import com.klikli_dev.occultism.client.model.entity.BeaverFamiliarModel; import com.klikli_dev.occultism.client.render.entity.state.BeaverFamiliarRenderState; import com.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity; import com.klikli_dev.occultism.registry.OccultismModelLayers; import net.minecraft.client.renderer.entity.EntityRendererProvider.Context; import net.minecraft.client.renderer.entity.MobRenderer; import net.minecraft.resources.Identifier;
-public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, BeaverFamiliarRenderState, BeaverFamiliarModel>{ private static final Identifier TEXTURES=Identifier.fromNamespaceAndPath(Occultism.MODID,"textures/entity/beaver_familiar.png"); public BeaverFamiliarRenderer(Context c){super(c,new BeaverFamiliarModel(c.bakeLayer(OccultismModelLayers.FAMILIAR_BEAVER)),0.3f);} @Override public BeaverFamiliarRenderState createRenderState(){return new BeaverFamiliarRenderState();} @Override public void extractRenderState(BeaverFamiliarEntity e, BeaverFamiliarRenderState s, float p){super.extractRenderState(e,s,p); s.isSitting=e.isSitting(); s.isInWater=e.isInWater(); s.isPartying=e.isPartying(); s.hasEars=e.hasEars(); s.hasWhiskers=e.hasWhiskers(); s.hasBigTail=e.hasBigTail();} @Override public Identifier getTextureLocation(BeaverFamiliarRenderState s){return TEXTURES;}}
+
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.model.entity.BeaverFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.BeaverFamiliarRenderState;
+import com.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity;
+import com.klikli_dev.occultism.registry.OccultismModelLayers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.Identifier;
+
+public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, BeaverFamiliarRenderState, BeaverFamiliarModel> {
+    private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/beaver_familiar.png");
+
+    public BeaverFamiliarRenderer(Context c) {
+        super(c, new BeaverFamiliarModel(c.bakeLayer(OccultismModelLayers.FAMILIAR_BEAVER)), 0.3f);
+    }
+
+    @Override
+    public BeaverFamiliarRenderState createRenderState() {
+        return new BeaverFamiliarRenderState();
+    }
+
+    @Override
+    public void extractRenderState(BeaverFamiliarEntity e, BeaverFamiliarRenderState s, float p) {
+        super.extractRenderState(e, s, p);
+        s.isSitting = e.isSitting();
+        s.isInWater = e.isInWater();
+        s.isPartying = e.isPartying();
+        s.hasEars = e.hasEars();
+        s.hasWhiskers = e.hasWhiskers();
+        s.hasBigTail = e.hasBigTail();
+    }
+
+    @Override
+    public Identifier getTextureLocation(BeaverFamiliarRenderState s) {
+        return TEXTURES;
+    }
+}

@@ -27,7 +27,7 @@ import net.minecraft.core.Direction;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 
-public interface IMoveTarget  {
+public interface IMoveTarget {
     BlockPos getBlockPos();
 
     boolean isValid();

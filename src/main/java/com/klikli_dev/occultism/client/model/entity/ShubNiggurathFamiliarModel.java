@@ -250,21 +250,21 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
         }
 
         if (state.isPartying) {
-            this.body.xRot = toRads(-90) + Mth.cos(state.ageInTicks * 0.3f) * toRads(5);
-            this.body.yRot = Mth.cos(state.ageInTicks * 0.3f + PI * 1.5f) * toRads(5);
-            this.body.zRot = Mth.cos(state.ageInTicks * 0.3f + PI) * toRads(5);
-            this.leftArm1.xRot = Mth.cos(state.ageInTicks * 0.3f) * toRads(30) - toRads(90);
-            this.rightArm1.xRot = Mth.cos(state.ageInTicks * 0.3f + PI) * toRads(30) - toRads(90);
-            this.leftLeg1.xRot = Mth.cos(state.ageInTicks * 0.3f + PI) * toRads(30) - toRads(90);
-            this.rightLeg1.xRot = Mth.cos(state.ageInTicks * 0.3f) * toRads(30) - toRads(90);
+            this.body.xRot = this.toRads(-90) + Mth.cos(state.ageInTicks * 0.3f) * this.toRads(5);
+            this.body.yRot = Mth.cos(state.ageInTicks * 0.3f + PI * 1.5f) * this.toRads(5);
+            this.body.zRot = Mth.cos(state.ageInTicks * 0.3f + PI) * this.toRads(5);
+            this.leftArm1.xRot = Mth.cos(state.ageInTicks * 0.3f) * this.toRads(30) - this.toRads(90);
+            this.rightArm1.xRot = Mth.cos(state.ageInTicks * 0.3f + PI) * this.toRads(30) - this.toRads(90);
+            this.leftLeg1.xRot = Mth.cos(state.ageInTicks * 0.3f + PI) * this.toRads(30) - this.toRads(90);
+            this.rightLeg1.xRot = Mth.cos(state.ageInTicks * 0.3f) * this.toRads(30) - this.toRads(90);
         } else if (state.isSitting) {
-            this.body.xRot = toRads(100);
-            this.leftLeg1.xRot = -toRads(60);
-            this.rightLeg1.xRot = -toRads(60);
-            this.leftLeg2.xRot = toRads(75);
-            this.rightLeg2.xRot = toRads(75);
-            this.rightArm1.xRot = -toRads(170);
-            this.leftArm1.xRot = -toRads(170);
+            this.body.xRot = this.toRads(100);
+            this.leftLeg1.xRot = -this.toRads(60);
+            this.rightLeg1.xRot = -this.toRads(60);
+            this.leftLeg2.xRot = this.toRads(75);
+            this.rightLeg2.xRot = this.toRads(75);
+            this.rightArm1.xRot = -this.toRads(170);
+            this.leftArm1.xRot = -this.toRads(170);
             this.head.yRot = this.toRads(115);
         }
     }

@@ -7,7 +7,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,7 +29,7 @@ public class BeeNestEntry extends EntryProvider {
                         Unlike other rituals, creating a [](item://minecraft:bee_nest) is a service provided by {0}
                         and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits
                          uses his power to forge that item for you.
-                                                
+                        
                         """,
                 this.color("Wild Spirits", ChatFormatting.DARK_PURPLE)
         );

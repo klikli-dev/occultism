@@ -7,12 +7,9 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Items.Miners;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger.TriggerInstance;
-import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate.Builder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -23,8 +20,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
-
-import java.util.concurrent.CompletableFuture;
 
 // This class is now a utility class - no constructor needed
 public class MinerRecipes {
@@ -336,6 +331,7 @@ public class MinerRecipes {
                 .unlockedBy("has_miner", TriggerInstance.hasItems(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .save(consumer, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type)));
     }
+
     public static void makeGemEldritchOutputRecipe(String type, int weight, int amount, RecipeOutput consumer, Provider registries) {
         MinerRecipeBuilder.minerRecipe(Miners.ELDRITCH, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/" + type)), weight, amount, registries)
                 .unlockedBy("has_miner", TriggerInstance.hasItems(OccultismItems.MAGIC_LAMP_EMPTY.get()))

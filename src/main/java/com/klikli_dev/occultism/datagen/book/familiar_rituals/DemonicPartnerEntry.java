@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class DemonicPartnerEntry extends EntryProvider {
 
@@ -94,11 +94,11 @@ public class DemonicPartnerEntry extends EntryProvider {
         );
         this.pageTitle("Love is loving");
         this.pageText("""
-                A great partner gift is the {0}. To get this item, simply give a {1} to your husband or wife.
-                \\
-                \\
-                Note: This action has a cooldown of 10 minutes.
-                """,
+                        A great partner gift is the {0}. To get this item, simply give a {1} to your husband or wife.
+                        \\
+                        \\
+                        Note: This action has a cooldown of 10 minutes.
+                        """,
                 this.itemLink(OccultismItems.SWEET_HONEY_HEART.get()),
                 this.itemLink(OccultismItems.CURSED_HONEY.get())
         );

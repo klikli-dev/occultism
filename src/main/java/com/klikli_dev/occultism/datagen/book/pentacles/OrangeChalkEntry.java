@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class OrangeChalkEntry extends EntryProvider {
@@ -31,28 +31,28 @@ public class OrangeChalkEntry extends EntryProvider {
         );
         this.pageTitle("Afrit Attractive");
         this.pageText("""
-                        The orange chalk is a perfect bait for spirits of the Afrit class, who,
-                         although impressed by the lime chalk, can resist its call.
-                        """
+                The orange chalk is a perfect bait for spirits of the Afrit class, who,
+                 although impressed by the lime chalk, can resist its call.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_ORANGE.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Being a sweet and slightly warm chalk, it does not guarantee control over the invoked Afrit.
-                         Commanding an Afrit requires power directly related to its class of spirits and
-                         extreme stability in the pentacle.
-                        """
+                Being a sweet and slightly warm chalk, it does not guarantee control over the invoked Afrit.
+                 Commanding an Afrit requires power directly related to its class of spirits and
+                 extreme stability in the pentacle.
+                """
         );
 
         this.page("honey", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CURSED_HONEY.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        To obtain the [](item://occultism:cursed_honey) for [](item://occultism:chalk_orange) you need to
-                         [summon and kill a Possessed Bee](entry://possession_rituals/possess_bee)
-                        """
+                To obtain the [](item://occultism:cursed_honey) for [](item://occultism:chalk_orange) you need to
+                 [summon and kill a Possessed Bee](entry://possession_rituals/possess_bee)
+                """
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()

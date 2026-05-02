@@ -38,7 +38,7 @@ public class OccultismBlockEntities {
     public static final Supplier<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER = BLOCK_ENTITIES.register(
             "storage_controller", () -> new BlockEntityType<>(StorageControllerBlockEntity::new,
                     Set.of(OccultismBlocks.STORAGE_CONTROLLER.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
-                    OccultismBlocks.STORAGE_CONTROLLER_DARK.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get())));
+                            OccultismBlocks.STORAGE_CONTROLLER_DARK.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get())));
 
     public static final Supplier<BlockEntityType<StableWormholeBlockEntity>> STABLE_WORMHOLE = BLOCK_ENTITIES.register(
             "stable_wormhole", () -> new BlockEntityType<>(StableWormholeBlockEntity::new,
@@ -47,7 +47,7 @@ public class OccultismBlockEntities {
     public static final Supplier<BlockEntityType<SacrificialBowlBlockEntity>> SACRIFICIAL_BOWL = BLOCK_ENTITIES.register(
             "sacrificial_bowl", () -> new BlockEntityType<>(SacrificialBowlBlockEntity::new,
                     Set.of(OccultismBlocks.SACRIFICIAL_BOWL.get(), OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
-                    OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get())));
+                            OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get())));
 
     public static final Supplier<BlockEntityType<EntityWormholeBlockEntity>> ENTITY_WORMHOLE = BLOCK_ENTITIES.register(
             "entity_wormhole", () -> new BlockEntityType<>(EntityWormholeBlockEntity::new,
@@ -57,8 +57,8 @@ public class OccultismBlockEntities {
             BLOCK_ENTITIES.register(
                     "golden_sacrificial_bowl", () -> new BlockEntityType<>(GoldenSacrificialBowlBlockEntity::new,
                             Set.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(),
-                            OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
-                            OccultismBlocks.ELDRITCH_CHALICE.get(), OccultismBlocks.CELESTIAL_CHALICE.get())));
+                                    OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get(),
+                                    OccultismBlocks.ELDRITCH_CHALICE.get(), OccultismBlocks.CELESTIAL_CHALICE.get())));
 
     public static final Supplier<BlockEntityType<DimensionalMineshaftBlockEntity>> DIMENSIONAL_MINESHAFT =
             BLOCK_ENTITIES.register(

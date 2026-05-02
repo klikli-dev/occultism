@@ -6,7 +6,6 @@ import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.ThrownSwordEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;

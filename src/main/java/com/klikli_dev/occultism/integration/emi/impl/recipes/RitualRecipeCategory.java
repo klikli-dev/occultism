@@ -21,13 +21,13 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.TextWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -46,7 +46,7 @@ public class RitualRecipeCategory implements EmiRecipe {
 
     public RitualRecipeCategory(RecipeHolder<RitualRecipe> recipe) {
         this.recipe = recipe.value();
-        this.id=recipe.id();
+        this.id = recipe.id();
 
         this.infoTextSlots.add(new Pair<>(90, 0));
         this.infoTextSlots.add(new Pair<>(90, 18));
@@ -82,30 +82,30 @@ public class RitualRecipeCategory implements EmiRecipe {
     public List<EmiStack> getOutputs() {
         List<EmiStack> outputs = new ArrayList<>();
         outputs.add(EmiStack.of(this.recipe.getResultItem(Minecraft.getInstance().level.registryAccess())));
-        if(this.recipe.getEntityToSummon()!=null) {
-            for(SpawnEggItem egg:SpawnEggItem.eggs()) {
-                if(SpawnEggItem.getType(new ItemStack(egg)).equals(this.recipe.getEntityToSummon())) {
+        if (this.recipe.getEntityToSummon() != null) {
+            for (SpawnEggItem egg : SpawnEggItem.eggs()) {
+                if (SpawnEggItem.getType(new ItemStack(egg)).equals(this.recipe.getEntityToSummon())) {
                     outputs.add(EmiStack.of(egg));
                 }
             }
             this.extraItems(this.recipe.getEntityToSummon().getDefaultLootTable().location().toString()
-                    .replace("occultism:entities/","")
-                    .replace("minecraft:entities/","")
-                    .replace("c:entities","")
-                    .replace(":entities/","_"), outputs);
+                    .replace("occultism:entities/", "")
+                    .replace("minecraft:entities/", "")
+                    .replace("c:entities", "")
+                    .replace(":entities/", "_"), outputs);
         }
 
-        if(this.recipe.getEntityTagToSummon()!=null){
+        if (this.recipe.getEntityTagToSummon() != null) {
             this.extraSummons(this.recipe.getEntityTagToSummon().location().toString()
-                    .replace("random_animals_","")
-                    .replace("occultism:","")
-                    .replace("minecraft:","")
-                    .replace("c:","")
-                    .replace(":","_"), outputs);
+                    .replace("random_animals_", "")
+                    .replace("occultism:", "")
+                    .replace("minecraft:", "")
+                    .replace("c:", "")
+                    .replace(":", "_"), outputs);
         }
 
-        if(this.recipe.getRitualType().toString().contains("repair")){
-            for(ItemStack item: this.recipe.getActivationItemStack()){
+        if (this.recipe.getRitualType().toString().contains("repair")) {
+            for (ItemStack item : this.recipe.getActivationItemStack()) {
                 outputs.add(EmiStack.of(item));
             }
         }
@@ -124,12 +124,12 @@ public class RitualRecipeCategory implements EmiRecipe {
         return 100;
     }
 
-    public void extraItems(String mob, List<EmiStack> list){
+    public void extraItems(String mob, List<EmiStack> list) {
         if (!EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).getEmiStacks().isEmpty())
             list.addAll(EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).getEmiStacks());
     }
 
-    public void extraSummons(String mobList, List<EmiStack> listStack){
+    public void extraSummons(String mobList, List<EmiStack> listStack) {
         if (!EmiIngredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mobList)).getEmiStacks().isEmpty())
             listStack.addAll(EmiIngredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mobList)).getEmiStacks());
     }
@@ -236,9 +236,9 @@ public class RitualRecipeCategory implements EmiRecipe {
             widgetHolder.add(knife);
         }
 
-        if(this.recipe.requiresItemUse()) {
+        if (this.recipe.requiresItemUse()) {
             var infoSlot = this.infoTextSlots.get(infoTextIndex++);
-            SlotWidget itemToUse = new SlotWidget(EmiIngredient.of(Ingredient.of(this.recipe.getItemToUse().getItems())),infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
+            SlotWidget itemToUse = new SlotWidget(EmiIngredient.of(Ingredient.of(this.recipe.getItemToUse().getItems())), infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
             itemToUse.drawBack(false);
             itemToUse.appendTooltip(t ->
             {
@@ -255,7 +255,7 @@ public class RitualRecipeCategory implements EmiRecipe {
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.summon", Component.translatable(this.recipe.getEntityToSummon().getDescriptionId())).getVisualOrderText()));
-                if(this.recipe.getSpiritJobType()!=null) {
+                if (this.recipe.getSpiritJobType() != null) {
                     tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.job",
                             Component.translatable("job." + this.recipe.getSpiritJobType().toString().replace(":", "."))).getVisualOrderText()));
                 }
@@ -264,36 +264,36 @@ public class RitualRecipeCategory implements EmiRecipe {
 
             List<EmiStack> drops = new ArrayList<>();
             this.extraItems(this.recipe.getEntityToSummon().getDefaultLootTable().location().toString()
-                    .replace("occultism:entities/","")
-                    .replace("minecraft:entities/","")
-                    .replace("c:entities/","")
-                    .replace(":entities/","_"), drops);
-            if(!drops.getFirst().isEmpty()) {
+                    .replace("occultism:entities/", "")
+                    .replace("minecraft:entities/", "")
+                    .replace("c:entities/", "")
+                    .replace(":entities/", "_"), drops);
+            if (!drops.getFirst().isEmpty()) {
                 widgetHolder.addSlot(EmiIngredient.of(drops), 110, 52);
             }
         }
 
-        if(this.recipe.getEntityTagToSummon()!=null){
+        if (this.recipe.getEntityTagToSummon() != null) {
             List<EmiStack> eggs = new ArrayList<>();
             this.extraSummons(this.recipe.getEntityTagToSummon().location().toString()
-                    .replace("random_animals_","")
-                    .replace("occultism:","")
-                    .replace("minecraft:","")
-                    .replace("c:","")
-                    .replace(":","_"), eggs);
-            if(!eggs.getFirst().isEmpty()) {
+                    .replace("random_animals_", "")
+                    .replace("occultism:", "")
+                    .replace("minecraft:", "")
+                    .replace("c:", "")
+                    .replace(":", "_"), eggs);
+            if (!eggs.getFirst().isEmpty()) {
                 widgetHolder.addSlot(EmiIngredient.of(eggs), 110, 52);
             }
         }
 
-        if(this.recipe.getCondition() != null){
+        if (this.recipe.getCondition() != null) {
             var infoSlot = this.infoTextSlots.get(infoTextIndex++);
             widgetHolder.addTexture(Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/checklist.png"), infoSlot.getFirst(), infoSlot.getSecond() + infotextY, 16, 16, 0, 0, 64, 64, 64, 64).tooltip((mouseX, mouseY) ->
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
                 var visitor = new RitualRecipeConditionDescriptionVisitor();
                 var condition = ConditionWrapperFactory.wrap(this.recipe.getCondition());
-                if(condition!=null) {
+                if (condition != null) {
                     tooltip.add(new ClientTextTooltip(condition.accept(visitor, OccultismConditionContext.EMPTY).getVisualOrderText()));
                 }
                 return tooltip;

@@ -22,14 +22,19 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -55,26 +60,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.*;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
 public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
-    private static final EntityDataAccessor<Long> SIN_TIME = SynchedEntityData.defineId(DevilFamiliarEntity.class, EntityDataSerializers.LONG);
-
     protected static final long SIN_INTERVAL = 20 * 60 * 33;
-
+    private static final EntityDataAccessor<Long> SIN_TIME = SynchedEntityData.defineId(DevilFamiliarEntity.class, EntityDataSerializers.LONG);
     private final float heightOffset;
 
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
@@ -108,23 +103,25 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         super.defineSynchedData(builder);
         builder.define(SIN_TIME, (long) 0);
     }
+
     @Override
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.entityData.set(SIN_TIME, input.getLongOr("sinLastTime", 0L));
     }
+
     @Override
     public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putLong("sinLastTime", this.getSinTime());
     }
 
-    private void setSinTime(long b) {
-        this.entityData.set(SIN_TIME, b);
-    }
-
     private long getSinTime() {
         return this.entityData.get(SIN_TIME);
+    }
+
+    private void setSinTime(long b) {
+        this.entityData.set(SIN_TIME, b);
     }
 
     @Override
@@ -133,7 +130,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         if (this.getOwner() == pPlayer) {
 
             if (itemstack.is(Items.GOLDEN_APPLE)) {
-                long time =  this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
+                long time = this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
                 if (!this.hasBlacksmithUpgrade()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
                 } else if (time < 0) {

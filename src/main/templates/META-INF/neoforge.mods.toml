@@ -12,11 +12,11 @@ issueTrackerURL = "https://github.com/klikli-dev/occultism/issues" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
-modId="${mod_id}" #mandatory
+modId = "${mod_id}" #mandatory
 # The version number of the mod
-version="${mod_version}" #mandatory
+version = "${mod_version}" #mandatory
 # A display name for the mod
-displayName="${mod_name}" #mandatory
+displayName = "${mod_name}" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 # updateJSONURL = "https://raw.githubusercontent.com/klikli-dev/occultism/meta/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -26,71 +26,71 @@ logoFile = "occultism.png" #optional
 # A text field displayed in the mod UI
 credits = """See https://github.com/klikli-dev/occultism#licensing""" #optional
 # A text field displayed in the mod UI
-authors="${mod_authors}" #optional
+authors = "${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
-description='''${mod_description}'''
+description = '''${mod_description}'''
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "neoforge"
 type = "required"
 versionRange = "[${neo_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "modonomicon"
 type = "required"
 versionRange = "[${modonomicon_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "theurgy"
 type = "optional"
 versionRange = "[${theurgy_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "curios"
 type = "required"
 versionRange = "[${curios_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "geckolib"
 type = "required"
 versionRange = "[${geckolib_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "almostunified"
 type = "optional"
 versionRange = "[${almost_unified_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "jei"
 type = "optional"
 versionRange = "[${jei_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "emi"
 type = "optional"
 versionRange = "[${emi_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "apothic_enchanting"
 type = "optional"
 versionRange = "[${apothic_enchanting_version},)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "create"
 type = "optional"
 versionRange = "[6.0.0,)"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "immersiveengineering"
 type = "optional"
 versionRange = "[12.1.0-185,)"

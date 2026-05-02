@@ -37,9 +37,9 @@ public class CraftingOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Binding Rituals");
         this.pageText("""
-                        Binding rituals infuse spirits into items, where their powers are used for one specific purpose.
-                         The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
-                        """
+                Binding rituals infuse spirits into items, where their powers are used for one specific purpose.
+                 The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
+                """
         );
     }
 

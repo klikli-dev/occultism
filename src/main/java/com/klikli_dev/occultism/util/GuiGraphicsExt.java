@@ -22,15 +22,15 @@
 
 package com.klikli_dev.occultism.util;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Helper class for GuiGraphicsExtractor operations.
- * Note: In 26.1, the rendering API changed significantly. 
+ * Note: In 26.1, the rendering API changed significantly.
  * For custom rendering, use the native GuiGraphicsExtractor methods directly.
  */
 public class GuiGraphicsExt {

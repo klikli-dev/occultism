@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.api.common.data;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -36,21 +35,16 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
 public class GlobalBlockPos {
 
-    protected BlockPos pos;
-    protected ResourceKey<Level> dimensionKey;
-
     public static final Codec<GlobalBlockPos> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BlockPos.CODEC.fieldOf("pos").forGetter(GlobalBlockPos::getPos),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(GlobalBlockPos::getDimensionKey)
     ).apply(instance, GlobalBlockPos::new));
-
     public static final StreamCodec<RegistryFriendlyByteBuf, GlobalBlockPos> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,
             GlobalBlockPos::getPos,
@@ -58,6 +52,8 @@ public class GlobalBlockPos {
             GlobalBlockPos::getDimensionKey,
             GlobalBlockPos::new
     );
+    protected BlockPos pos;
+    protected ResourceKey<Level> dimensionKey;
 
     public GlobalBlockPos() {
     }
@@ -76,11 +72,11 @@ public class GlobalBlockPos {
         return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
 
-    public static GlobalBlockPos from(Provider provider, CompoundTag tag){
+    public static GlobalBlockPos from(Provider provider, CompoundTag tag) {
         return GlobalBlockPos.CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), tag).getOrThrow().getFirst();
     }
 
-    public static GlobalBlockPos from(RegistryFriendlyByteBuf buf){
+    public static GlobalBlockPos from(RegistryFriendlyByteBuf buf) {
         return GlobalBlockPos.STREAM_CODEC.decode(buf);
     }
 

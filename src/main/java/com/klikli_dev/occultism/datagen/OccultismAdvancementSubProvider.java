@@ -25,39 +25,30 @@ package com.klikli_dev.occultism.datagen;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.common.advancement.RitualTrigger;
 import com.klikli_dev.occultism.common.advancement.RitualTrigger.TriggerInstance;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRituals;
-import net.minecraft.advancements.Advancement;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.Advancement.Builder;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.DisplayInfo;
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.AnyBlockInteractionTrigger;
 import net.minecraft.advancements.criterion.ContextAwarePredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.PlayerTrigger;
-import net.minecraft.core.ClientAsset;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.ChatFormatting;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomModelData;
-import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 
@@ -151,7 +142,7 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
                 .display(OccultismItems.PENTACLE_POSSESS.get(),
                         title("familiars"),
                         descr("familiars"),
-                        Identifier.fromNamespaceAndPath(Occultism.MODID,"block/otherplanks"),
+                        Identifier.fromNamespaceAndPath(Occultism.MODID, "block/otherplanks"),
                         AdvancementType.TASK,
                         true,
                         true,

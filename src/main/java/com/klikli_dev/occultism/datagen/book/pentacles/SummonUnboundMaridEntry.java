@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class SummonUnboundMaridEntry extends EntryProvider {
@@ -28,12 +28,12 @@ public class SummonUnboundMaridEntry extends EntryProvider {
         );
         this.pageTitle("Tibira's Attraction");
         this.pageText("""
-                **Purpose:** Summon an {0}\\
-                \\
-                **Tibiras Attraction** is a improved version of {1}, allowing to summon {2},
-                 however without any control of the occultist. {3} summoned by this will become
-                 aggressive due to the instability of the ritual
-                """,
+                        **Purpose:** Summon an {0}\\
+                        \\
+                        **Tibiras Attraction** is a improved version of {1}, allowing to summon {2},
+                         however without any control of the occultist. {3} summoned by this will become
+                         aggressive due to the instability of the ritual
+                        """,
                 this.color("Unbound Marid", ChatFormatting.DARK_PURPLE),
                 this.color("Abras Conjure", ChatFormatting.LIGHT_PURPLE),
                 this.color("Marid", ChatFormatting.DARK_PURPLE),

@@ -26,6 +26,11 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SpiritTraderRecipeCategory implements EmiRecipe {
+    private static final List<EmiIngredient> tiers = List.of(
+            EmiIngredient.of(Ingredient.of(new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.get()))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.get()))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.get())))
+    );
     private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
@@ -42,7 +47,7 @@ public class SpiritTraderRecipeCategory implements EmiRecipe {
         AtomicInteger all = new AtomicInteger();
         recipes.forEach(rs -> all.addAndGet(rs.value().getWeightedResult().weight()));
         this.chances = (float) 100 * recipe.value().getWeightedResult().weight() / all.get();
-        this.trader = Component.translatable("job." + recipe.value().getTrader().replace(":","."));
+        this.trader = Component.translatable("job." + recipe.value().getTrader().replace(":", "."));
     }
 
     @Override
@@ -77,7 +82,7 @@ public class SpiritTraderRecipeCategory implements EmiRecipe {
 
     @Override
     public void addWidgets(@NotNull WidgetHolder widgetHolder) {
-        widgetHolder.addText(this.trader, this.getDisplayWidth() / 2, 0,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
+        widgetHolder.addText(this.trader, this.getDisplayWidth() / 2, 0, 0, false).horizontalAlign(TextWidget.Alignment.CENTER);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, (this.getDisplayWidth() / 2) - 12, 11);
         widgetHolder.addSlot(this.input.get(0), (this.getDisplayWidth() / 2) - 32, 10);
         // Adds an output slot on the right
@@ -85,14 +90,8 @@ public class SpiritTraderRecipeCategory implements EmiRecipe {
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
         widgetHolder.addSlot(this.output.get(0), (this.getDisplayWidth() / 2) + 16, 10).recipeContext(this);
         widgetHolder.addText(Component.translatable("occultism.jei.spirit_trader.chance", String.format(Locale.US, "%.2f", this.chances)),
-                this.getDisplayWidth() / 2, this.getDisplayHeight() - 8,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
+                this.getDisplayWidth() / 2, this.getDisplayHeight() - 8, 0, false).horizontalAlign(TextWidget.Alignment.CENTER);
     }
-
-    private static final List<EmiIngredient> tiers = List.of(
-            EmiIngredient.of(Ingredient.of(new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER.get()))),
-            EmiIngredient.of(Ingredient.of(new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.get()))),
-            EmiIngredient.of(Ingredient.of(new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.get())))
-    );
 
     @Override
     public List<EmiIngredient> getCatalysts() {

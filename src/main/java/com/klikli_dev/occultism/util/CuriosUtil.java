@@ -31,9 +31,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
+
+import java.util.function.Predicate;
 
 public class CuriosUtil {
     public static boolean hasGoggles(Player player) {
@@ -127,7 +130,7 @@ public class CuriosUtil {
         return CuriosApi.getCuriosInventory(player)
                 .map(handler -> handler.findCurios(stack -> stack.getItem() instanceof StorageRemoteItem)
                         .stream()
-                        .map(top.theillusivec4.curios.api.SlotResult::stack)
+                        .map(SlotResult::stack)
                         .findFirst()
                         .orElse(ItemStack.EMPTY))
                 .orElse(ItemStack.EMPTY);
@@ -187,7 +190,7 @@ public class CuriosUtil {
         return ItemStack.EMPTY;
     }
 
-    private static boolean contains(IDynamicStackHandler stackHandler, java.util.function.Predicate<ItemStack> predicate) {
+    private static boolean contains(IDynamicStackHandler stackHandler, Predicate<ItemStack> predicate) {
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             if (predicate.test(stackHandler.getStackInSlot(i))) {
                 return true;

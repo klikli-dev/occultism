@@ -23,14 +23,12 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
-import net.minecraft.tags.TagKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Zombie;
@@ -51,8 +49,8 @@ public class WildZombieEntity extends Zombie implements PossessedMob {
     public static Builder createAttributes() {
         return Zombie.createAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0)
-                .add(Attributes.ARMOR,5)
-                .add(Attributes.KNOCKBACK_RESISTANCE,0.25);
+                .add(Attributes.ARMOR, 5)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25);
     }
 
     public void setMaster(PossessedWeakBreezeEntity master) {
@@ -83,7 +81,7 @@ public class WildZombieEntity extends Zombie implements PossessedMob {
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.ZOMBIE;
     }
 }

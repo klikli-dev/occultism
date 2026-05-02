@@ -27,16 +27,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrushingRecipeCategory implements EmiRecipe {
+    private static final List<EmiIngredient> tiers = List.of(
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
+    );
     private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
-
     private final Integer min;
     private final Integer max;
     private final Boolean multiplyOutput;
 
     public CrushingRecipeCategory(RecipeHolder<CrushingRecipe> recipe) {
-        this.id =recipe.id();
+        this.id = recipe.id();
         this.min = recipe.value().getMinTier();
         this.max = recipe.value().getMaxTier();
         this.multiplyOutput = !recipe.value().getIgnoreCrushingMultiplier();
@@ -71,6 +80,7 @@ public class CrushingRecipeCategory implements EmiRecipe {
     public Integer getMax() {
         return this.max;
     }
+
     public Boolean getIfMultiplyOutput() {
         return this.multiplyOutput;
     }
@@ -85,58 +95,46 @@ public class CrushingRecipeCategory implements EmiRecipe {
         return 30;
     }
 
-
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         widgetHolder.addSlot(this.input.get(0), 0, 7);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,18,7);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 18, 7);
         int y = 0;
         int s = 12;
         EntityType spiritType;
-        if(this.getMin() <= 1) {
+        if (this.getMin() <= 1) {
             y = 10;
             s = 16;
             spiritType = OccultismEntities.FOLIOT.get();
-        } else if(this.getMin() == 2){
+        } else if (this.getMin() == 2) {
             spiritType = OccultismEntities.DJINNI.get();
-        } else if(this.getMin() == 3){
+        } else if (this.getMin() == 3) {
             spiritType = OccultismEntities.AFRIT.get();
         } else {
             spiritType = OccultismEntities.MARID.get();
         }
-        SpiritWidget widget = new SpiritWidget(53, y, spiritType,s).tooltip((mouseX, mouseY) ->
+        SpiritWidget widget = new SpiritWidget(53, y, spiritType, s).tooltip((mouseX, mouseY) ->
         {
             List<ClientTooltipComponent> tooltip = new ArrayList<>();
-            if(this.getMin() >= 1) {
+            if (this.getMin() >= 1) {
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crushing.min_tier", this.getMin()).getVisualOrderText()));
             }
-            if(this.getMax() >= 1) {
+            if (this.getMax() >= 1) {
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crushing.max_tier", this.getMax()).getVisualOrderText()));
             }
-            if(this.getIfMultiplyOutput()) {
+            if (this.getIfMultiplyOutput()) {
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crushing.multiply_output").getVisualOrderText()));
             }
             return tooltip;
         });
 
         widgetHolder.add(widget);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,64,7);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 64, 7);
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
         widgetHolder.addSlot(this.output.get(0), 90, 7).recipeContext(this);
     }
-
-    private static final List<EmiIngredient> tiers = List.of(
-            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
-            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
-            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
-            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
-    );
 
     @Override
     public List<EmiIngredient> getCatalysts() {

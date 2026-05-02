@@ -22,11 +22,11 @@
 
 package com.klikli_dev.occultism.client.model.tile;
 
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import net.minecraft.resources.Identifier;
-import com.geckolib.model.GeoModel;
-import com.geckolib.renderer.base.GeoRenderState;
 
 public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntity> {
     @Override

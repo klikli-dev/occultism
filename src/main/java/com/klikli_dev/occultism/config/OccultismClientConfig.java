@@ -69,7 +69,6 @@ public class OccultismClientConfig {
         public final IntValue pinkChalkGlyphColor;
 
 
-
         public VisualSettings(Builder builder) {
             builder.comment("Visual Settings").push("visual");
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
@@ -115,7 +114,7 @@ public class OccultismClientConfig {
                     "The integer code of the  color of the red chalk glyph in world.",
                     "This is intended to allow people with color blindness to change the color of the glyph.",
                     "For most types of color blindness this value should be changed to a green color, we recommend 33289 (= Hex 0x008209)"
-            ).defineInRange("redChalkGlyphColor", 0xcc0101,0, 0xffffff);
+            ).defineInRange("redChalkGlyphColor", 0xcc0101, 0, 0xffffff);
 
             this.orangeChalkGlyphColor = builder.comment(
                     "The integer code of the color of the orange chalk glyph in world.",
@@ -163,7 +162,7 @@ public class OccultismClientConfig {
                     "The integer code of the color of the purple chalk glyph in world.",
                     "This is intended to allow people with color blindness to change the color of the glyph.",
                     "For most types of color blindness it should not be necessary to change this."
-            ).defineInRange("purpleChalkGlyphColor", 0x9c0393,0, 0xffffff);
+            ).defineInRange("purpleChalkGlyphColor", 0x9c0393, 0, 0xffffff);
 
             this.magentaChalkGlyphColor = builder.comment(
                     "The integer code of the color of the magenta chalk glyph in world.",

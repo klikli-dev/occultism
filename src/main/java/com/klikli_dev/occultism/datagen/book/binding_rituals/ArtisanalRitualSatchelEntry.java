@@ -6,10 +6,10 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -46,8 +46,8 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Already have ritual satchel?");
         this.pageText("""
-                You can use this alternative recipe to upgrade the {0}, keeping the items inside!
-                """,
+                        You can use this alternative recipe to upgrade the {0}, keeping the items inside!
+                        """,
                 this.itemLink(OccultismItems.RITUAL_SATCHEL_T1)
         );
 
@@ -61,13 +61,13 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("About");
         this.pageText("""
-                A ritual satchel can hold items needed to create pentacles for rituals.
-                An item with durability will be used until only 1 durability remains, which will stop the glint effect.
-                Other items cannot be placed in the satchel.
-                \\
-                The satchel sets up an entire pentacle at once, if all necessary items are present in the satchel.\\
-                It can also remove (intact) pentacles by {0} the {1} and store all blocks back in the satchel.
-                """,
+                        A ritual satchel can hold items needed to create pentacles for rituals.
+                        An item with durability will be used until only 1 durability remains, which will stop the glint effect.
+                        Other items cannot be placed in the satchel.
+                        \\
+                        The satchel sets up an entire pentacle at once, if all necessary items are present in the satchel.\\
+                        It can also remove (intact) pentacles by {0} the {1} and store all blocks back in the satchel.
+                        """,
                 this.color("Right-Clicking", ChatFormatting.GREEN),
                 this.itemLink(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL)
         );

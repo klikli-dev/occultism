@@ -111,7 +111,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
 
         //Storage Entries
-            //Start
+        //Start
         var craftStorageSystem = this.add(new StorageSystemEntry(this).generate('z'));
         craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
@@ -121,7 +121,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftStorageControllerBase = this.add(new StorageControllerBaseEntry(this).generate('n'));
         craftStorageControllerBase.withParent(BookEntryParentModel.create(craftDimensionalMatrix.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-            //Stabilizer
+        //Stabilizer
         var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate('i'));
         craftStabilizerTier1.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
@@ -137,18 +137,18 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate('á'));
         craftStabilizerTier5.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
-            //Distance Access
+        //Distance Access
         var craftStableWormhole = this.add(new StableWormholeEntry(this).generate('m'));
         craftStableWormhole.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var craftStorageRemote = this.add(new StorageRemoteEntry(this).generate('o'));
         craftStorageRemote.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-            //Final
+        //Final
         var craftStabilizedStorage = this.add(new StabilizedStorageEntry(this).generate('ç'));
         craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier5.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
-            //Satchels
+        //Satchels
         var craftSatchel = this.add(new BackpackSatchelEntry(this).generate('g'));
         craftSatchel.withParent(BookEntryParentModel.create(craftStorageSystem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));

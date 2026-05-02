@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
@@ -16,8 +18,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
@@ -39,6 +39,74 @@ public class NaturePasteItem extends Item {
 
     public NaturePasteItem(Properties properties) {
         super(properties);
+    }
+
+    public static boolean applyBonemeal(ItemStack naturePaste, Level level, BlockPos blockPos, @Nullable Player player) {
+        BlockState blockstate = level.getBlockState(blockPos);
+        var event = EventHooks.fireBonemealEvent(player, level, blockPos, blockstate, naturePaste);
+        if (event.isCanceled()) return event.isSuccessful();
+        if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock && bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate)) {
+            if (level instanceof ServerLevel) {
+                if (bonemealableblock.isBonemealSuccess(level, level.getRandom(), blockPos, blockstate)) {
+                    bonemealableblock.performBonemeal((ServerLevel) level, level.getRandom(), blockPos, blockstate);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean growWaterPlant(ItemStack stack, Level level, BlockPos pos, @Nullable Direction clickedSide) {
+        if (level.getBlockState(pos).is(Blocks.WATER) && level.getFluidState(pos).getAmount() == 8 && !stack.isEmpty()) {
+            ParticleUtils.spawnParticles(level, pos, 15 * 3, 3.0, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
+            if (level instanceof ServerLevel) {
+                RandomSource randomsource = level.getRandom();
+                label78:
+                for (int i = 0; i < 128; i++) {
+                    BlockPos blockpos = pos;
+                    BlockState blockstate = Blocks.SEAGRASS.defaultBlockState();
+                    for (int j = 0; j < i / 16; j++) {
+                        blockpos = blockpos.offset(randomsource.nextInt(3) - 1, (randomsource.nextInt(3) - 1) * randomsource.nextInt(3) / 2, randomsource.nextInt(3) - 1);
+                        if (level.getBlockState(blockpos).isCollisionShapeFullBlock(level, blockpos)) {
+                            continue label78;
+                        }
+                    }
+                    Holder<Biome> holder = level.getBiome(blockpos);
+                    if (holder.is(BiomeTags.PRODUCES_CORALS_FROM_BONEMEAL)) {
+                        if (i == 0 && clickedSide != null && clickedSide.getAxis().isHorizontal()) {
+                            blockstate = BuiltInRegistries.BLOCK
+                                    .getRandomElementOf(BlockTags.WALL_CORALS, level.getRandom())
+                                    .map(p_204100_ -> p_204100_.value().defaultBlockState())
+                                    .orElse(blockstate);
+                            if (blockstate.hasProperty(BaseCoralWallFanBlock.FACING)) {
+                                blockstate = blockstate.setValue(BaseCoralWallFanBlock.FACING, clickedSide);
+                            }
+                        } else if (randomsource.nextInt(4) == 0) {
+                            blockstate = BuiltInRegistries.BLOCK
+                                    .getRandomElementOf(BlockTags.UNDERWATER_BONEMEALS, level.getRandom())
+                                    .map(p_204095_ -> p_204095_.value().defaultBlockState())
+                                    .orElse(blockstate);
+                        }
+                    }
+                    if (blockstate.is(BlockTags.WALL_CORALS, p_204093_ -> p_204093_.hasProperty(BaseCoralWallFanBlock.FACING))) {
+                        for (int k = 0; !blockstate.canSurvive(level, blockpos) && k < 4; k++) {
+                            blockstate = blockstate.setValue(BaseCoralWallFanBlock.FACING, Plane.HORIZONTAL.getRandomDirection(randomsource));
+                        }
+                    }
+                    if (blockstate.canSurvive(level, blockpos)) {
+                        BlockState blockState1 = level.getBlockState(blockpos);
+                        if (blockState1.is(Blocks.WATER) && level.getFluidState(blockpos).getAmount() == 8) {
+                            level.setBlock(blockpos, blockstate, 3);
+                        } else if (blockState1.is(Blocks.SEAGRASS) && randomsource.nextInt(10) == 0) {
+                            ((BonemealableBlock) Blocks.SEAGRASS).performBonemeal((ServerLevel) level, randomsource, blockpos, blockState1);
+                        }
+                    }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -153,8 +221,8 @@ public class NaturePasteItem extends Item {
         }
 
         if (blockState.getBlock() instanceof SugarCaneBlock
-            || blockState.getBlock() instanceof CactusBlock) {
-            for (int i = 1; i<(level.getMinY() + level.getHeight() - blockpos.getY()); i++) {
+                || blockState.getBlock() instanceof CactusBlock) {
+            for (int i = 1; i < (level.getMinY() + level.getHeight() - blockpos.getY()); i++) {
                 if (level.getBlockState(blockpos.above(i)).canBeReplaced()) {
                     level.setBlockAndUpdate(blockpos.above(i), blockState.getBlock().defaultBlockState());
                     ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.6, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
@@ -164,7 +232,7 @@ public class NaturePasteItem extends Item {
                         level.destroyBlock(blockpos.above(i), true);
                     }
                     break;
-                } else if (!level.getBlockState(blockpos.above(i)).getBlock().equals(blockState.getBlock())){
+                } else if (!level.getBlockState(blockpos.above(i)).getBlock().equals(blockState.getBlock())) {
                     break;
                 }
             }
@@ -191,74 +259,6 @@ public class NaturePasteItem extends Item {
             } else {
                 return InteractionResult.PASS;
             }
-        }
-    }
-
-    public static boolean applyBonemeal(ItemStack naturePaste, Level level, BlockPos blockPos, @Nullable Player player) {
-        BlockState blockstate = level.getBlockState(blockPos);
-        var event = EventHooks.fireBonemealEvent(player, level, blockPos, blockstate, naturePaste);
-        if (event.isCanceled()) return event.isSuccessful();
-        if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock && bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate)) {
-            if (level instanceof ServerLevel) {
-                if (bonemealableblock.isBonemealSuccess(level, level.getRandom(), blockPos, blockstate)) {
-                    bonemealableblock.performBonemeal((ServerLevel)level, level.getRandom(), blockPos, blockstate);
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean growWaterPlant(ItemStack stack, Level level, BlockPos pos, @Nullable Direction clickedSide) {
-        if (level.getBlockState(pos).is(Blocks.WATER) && level.getFluidState(pos).getAmount() == 8 && !stack.isEmpty()) {
-            ParticleUtils.spawnParticles(level, pos, 15 * 3, 3.0, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
-            if (level instanceof ServerLevel) {
-                RandomSource randomsource = level.getRandom();
-                label78:
-                for (int i = 0; i < 128; i++) {
-                    BlockPos blockpos = pos;
-                    BlockState blockstate = Blocks.SEAGRASS.defaultBlockState();
-                    for (int j = 0; j < i / 16; j++) {
-                        blockpos = blockpos.offset(randomsource.nextInt(3) - 1, (randomsource.nextInt(3) - 1) * randomsource.nextInt(3) / 2, randomsource.nextInt(3) - 1);
-                        if (level.getBlockState(blockpos).isCollisionShapeFullBlock(level, blockpos)) {
-                            continue label78;
-                        }
-                    }
-                    Holder<Biome> holder = level.getBiome(blockpos);
-                    if (holder.is(BiomeTags.PRODUCES_CORALS_FROM_BONEMEAL)) {
-                        if (i == 0 && clickedSide != null && clickedSide.getAxis().isHorizontal()) {
-                            blockstate = BuiltInRegistries.BLOCK
-                                    .getRandomElementOf(BlockTags.WALL_CORALS, level.getRandom())
-                                    .map(p_204100_ -> p_204100_.value().defaultBlockState())
-                                    .orElse(blockstate);
-                            if (blockstate.hasProperty(BaseCoralWallFanBlock.FACING)) {
-                                blockstate = blockstate.setValue(BaseCoralWallFanBlock.FACING, clickedSide);
-                            }
-                        } else if (randomsource.nextInt(4) == 0) {
-                            blockstate = BuiltInRegistries.BLOCK
-                                    .getRandomElementOf(BlockTags.UNDERWATER_BONEMEALS, level.getRandom())
-                                    .map(p_204095_ -> p_204095_.value().defaultBlockState())
-                                    .orElse(blockstate);
-                        }
-                    }
-                    if (blockstate.is(BlockTags.WALL_CORALS, p_204093_ -> p_204093_.hasProperty(BaseCoralWallFanBlock.FACING))) {
-                        for (int k = 0; !blockstate.canSurvive(level, blockpos) && k < 4; k++) {
-                            blockstate = blockstate.setValue(BaseCoralWallFanBlock.FACING, Plane.HORIZONTAL.getRandomDirection(randomsource));
-                        }
-                    }
-                    if (blockstate.canSurvive(level, blockpos)) {
-                        BlockState blockState1 = level.getBlockState(blockpos);
-                        if (blockState1.is(Blocks.WATER) && level.getFluidState(blockpos).getAmount() == 8) {
-                            level.setBlock(blockpos, blockstate, 3);
-                        } else if (blockState1.is(Blocks.SEAGRASS) && randomsource.nextInt(10) == 0) {
-                            ((BonemealableBlock) Blocks.SEAGRASS).performBonemeal((ServerLevel) level, randomsource, blockpos, blockState1);
-                        }
-                    }
-                }
-            }
-            return true;
-        } else {
-            return false;
         }
     }
 

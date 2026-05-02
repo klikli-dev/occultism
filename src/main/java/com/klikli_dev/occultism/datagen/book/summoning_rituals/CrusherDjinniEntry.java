@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class CrusherDjinniEntry extends EntryProvider {
 
@@ -39,11 +39,11 @@ public class CrusherDjinniEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Djinni Crusher");
         this.pageText("""
-                    The djinni crusher is faster, more efficient and proficient than the foliot crusher.
-                    Allowing ice to be crushed without melting.
-                    \\
-                    It will crush **one** ore into **three** corresponding dusts.
-                    """
+                The djinni crusher is faster, more efficient and proficient than the foliot crusher.
+                Allowing ice to be crushed without melting.
+                \\
+                It will crush **one** ore into **three** corresponding dusts.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

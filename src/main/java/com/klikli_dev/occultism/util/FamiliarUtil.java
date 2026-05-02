@@ -108,7 +108,7 @@ public class FamiliarUtil {
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity & IFamiliar> List<T> getAllEquippedFamiliars(LivingEntity owner, EntityType<T> type,
-                                                                                  Predicate<T> pred) {
+                                                                                 Predicate<T> pred) {
         List<T> familiars = new ArrayList<>();
 
         var handler = CuriosApi.getCuriosInventory(owner).orElse(null);

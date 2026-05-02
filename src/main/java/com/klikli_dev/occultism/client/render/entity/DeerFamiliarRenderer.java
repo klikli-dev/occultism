@@ -37,7 +37,9 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
     }
 
     @Override
-    public DeerFamiliarRenderState createRenderState() { return new DeerFamiliarRenderState(); }
+    public DeerFamiliarRenderState createRenderState() {
+        return new DeerFamiliarRenderState();
+    }
 
     @Override
     public void submit(DeerFamiliarRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
@@ -49,11 +51,17 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
     }
 
     @Override
-    public Identifier getTextureLocation(DeerFamiliarRenderState state) { return TEXTURES; }
+    public Identifier getTextureLocation(DeerFamiliarRenderState state) {
+        return TEXTURES;
+    }
 
     private static class RedNoseLayer extends RenderLayer<DeerFamiliarRenderState, DeerFamiliarModel> {
         private static final Identifier RED_NOSE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/deer_familiar_red_nose.png");
-        public RedNoseLayer(RenderLayerParent<DeerFamiliarRenderState, DeerFamiliarModel> parent) { super(parent); }
+
+        public RedNoseLayer(RenderLayerParent<DeerFamiliarRenderState, DeerFamiliarModel> parent) {
+            super(parent);
+        }
+
         @Override
         public void submit(PoseStack stack, SubmitNodeCollector collector, int light, DeerFamiliarRenderState state, float yRot, float xRot) {
             if (state.isInvisible || !state.hasRedNose) return;

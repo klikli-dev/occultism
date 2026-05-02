@@ -6,37 +6,30 @@ import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT2Container;
+import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
-import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
-import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.component.ItemContainerContents;
 
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -59,11 +52,11 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     protected InteractionResult useOnClientSide(UseOnContext context) {
         //non-preview golden sacrifical bowl means we try to collect the ritual pentacle.
         if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
             return InteractionResult.SUCCESS;
 
         return super.useOnClientSide(context);
@@ -86,22 +79,22 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
         var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
 
-        for(var pentacle : pentacles){
+        for (var pentacle : pentacles) {
             var simulation = pentacle.getFirst().simulate(context.getLevel(), context.getClickedPos(), pentacle.getSecond(), false, false);
 
             for (var targetMatcher : simulation.getSecond()) {
 
-                if(targetMatcher.stateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.stateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
+                if (targetMatcher.stateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.stateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
                     continue;
 
                 //if we got here it means the block at the location of the matcher is a valid block for the pentacle.
                 //however that may also be an "any" or "air" matcher.
                 var blockState = context.getLevel().getBlockState(targetMatcher.worldPosition());
 
-                if(blockState.isAir())
+                if (blockState.isAir())
                     continue;
 
-                if(!blockState.is(OccultismTags.Blocks.PENTACLE_MATERIALS))
+                if (!blockState.is(OccultismTags.Blocks.PENTACLE_MATERIALS))
                     continue;
 
                 var blockEntity = context.getLevel().getBlockEntity(targetMatcher.worldPosition());
@@ -112,11 +105,11 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
                 context.getLevel().setBlock(targetMatcher.worldPosition(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
 
-                for(var drop : drops){
+                for (var drop : drops) {
                     //try to put into satchel, if full -> player inv
 
                     var remainder = inventory.addItem(drop);
-                    if(!remainder.isEmpty())
+                    if (!remainder.isEmpty())
                         ItemTransferUtil.giveItemToPlayer(context.getPlayer(), remainder);
                 }
             }
@@ -129,11 +122,11 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     @Override
     protected InteractionResult useOnServerSide(UseOnContext context) {
         if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
+                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
             return this.collectPentacle(context);
 
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());

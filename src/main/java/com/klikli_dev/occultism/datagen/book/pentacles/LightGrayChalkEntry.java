@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class LightGrayChalkEntry extends EntryProvider {
@@ -30,19 +30,19 @@ public class LightGrayChalkEntry extends EntryProvider {
         );
         this.pageTitle("Most Common Foundation");
         this.pageText("""
-                        The light gray chalk uses mineral compounds to enhance the foundation of a pentacle.
-                         The foundation is an important property, often considered the stabilization of the "core."
-                        """
+                The light gray chalk uses mineral compounds to enhance the foundation of a pentacle.
+                 The foundation is an important property, often considered the stabilization of the "core."
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_LIGHT_GRAY.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Due to its relatively low cost and inherent magical properties, it is the most common
-                         foundation option among practitioners of occultism, capable of replacing white chalk
-                         in almost all pentacles.
-                        """
+                Due to its relatively low cost and inherent magical properties, it is the most common
+                 foundation option among practitioners of occultism, capable of replacing white chalk
+                 in almost all pentacles.
+                """
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()

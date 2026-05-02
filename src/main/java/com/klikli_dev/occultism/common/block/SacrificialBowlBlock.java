@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.GuideBookItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,17 +46,14 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
-
 import org.jetbrains.annotations.Nullable;
 
 public class SacrificialBowlBlock extends DirectionalBlock implements EntityBlock {
@@ -125,14 +123,14 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean isMoving) {
         if (!level.isClientSide() && level.getBlockState(pos).is(this) && level.hasNeighborSignal(pos)
-            && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
-            && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf
-            && bowl.itemStackHandler.getResource(0).toStack().getItem() instanceof GuideBookItem) {
-                for (int i = 0; i < 6; i++) {
-                    if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
-                        bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), bowl.itemStackHandler.getResource(0).toStack()));
-                    }
+                && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
+                && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf
+                && bowl.itemStackHandler.getResource(0).toStack().getItem() instanceof GuideBookItem) {
+            for (int i = 0; i < 6; i++) {
+                if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
+                    bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), bowl.itemStackHandler.getResource(0).toStack()));
                 }
+            }
         }
     }
 

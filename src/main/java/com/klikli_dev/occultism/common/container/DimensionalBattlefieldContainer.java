@@ -105,7 +105,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 17 + 18*5 + 4;
+        int playerInventoryTop = 17 + 18 * 5 + 4;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
@@ -115,7 +115,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 17 + 18*5 + 4 + 18*3 + 4;
+        int hotbarTop = 17 + 18 * 5 + 4 + 18 * 3 + 4;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
@@ -123,7 +123,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
 
     protected void setupButcherInventory() {
         int outputGridTop = 17;
-        int outputGridLeft = 8 + 18*4;
+        int outputGridLeft = 8 + 18 * 4;
         int index = 0;
 
         for (int i = 0; i < 5; ++i) {
@@ -140,38 +140,47 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
 
     public static class InputWeaponSlot extends ResourceHandlerSlot {
         DimensionalBattlefieldBlockEntity arena;
+
         public InputWeaponSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
             super(itemHandler, itemHandler::set, index, xPosition, yPosition);
             this.arena = arena;
         }
+
         public boolean mayPlace(ItemStack stack) {
             this.arena.mobHealth = 0;
             return stack.has(DataComponents.ATTRIBUTE_MODIFIERS);
         }
     }
+
     public static class InputSoulSlot extends ResourceHandlerSlot {
         DimensionalBattlefieldBlockEntity arena;
+
         public InputSoulSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, DimensionalBattlefieldBlockEntity arena) {
             super(itemHandler, itemHandler::set, index, xPosition, yPosition);
             this.arena = arena;
         }
+
         public boolean mayPlace(ItemStack stack) {
             this.arena.mobHealth = 0;
             return stack.has(DataComponents.ENTITY_DATA);
         }
     }
+
     public static class InputFuelSlot extends ResourceHandlerSlot {
         public InputFuelSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         }
+
         public boolean mayPlace(ItemStack stack) {
             return stack.has(OccultismDataComponents.SOUL_VALUE);
         }
     }
+
     public static class OutputSlot extends ResourceHandlerSlot {
         public OutputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         }
+
         public boolean mayPlace(@NotNull ItemStack stack) {
             return false;
         }

@@ -9,12 +9,8 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
@@ -33,7 +29,7 @@ public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTr
         return new BookSpiritTradeRecipePage(common);
     }
 
-    public static BookSpiritTradeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer){
+    public static BookSpiritTradeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
         return new BookSpiritTradeRecipePage(common);
     }

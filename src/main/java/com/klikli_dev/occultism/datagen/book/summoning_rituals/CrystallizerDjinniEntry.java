@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import net.minecraft.world.item.Items;
 
 public class CrystallizerDjinniEntry extends EntryProvider {
@@ -39,11 +39,11 @@ public class CrystallizerDjinniEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Djinni Crystallizer");
         this.pageText("""
-                    The djinni crystallizer is faster and more efficient, doubling the speed of processing and increasing the output amount from gem ores.
-                    \\
-                    \\
-                    They also can deconstruct amethyst and quartz blocks.
-                    """
+                The djinni crystallizer is faster and more efficient, doubling the speed of processing and increasing the output amount from gem ores.
+                \\
+                \\
+                They also can deconstruct amethyst and quartz blocks.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

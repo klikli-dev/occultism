@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -39,7 +40,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -88,8 +88,7 @@ public class StorageUtil {
                 }
                 if (remainingAfterInsert == 0)
                     craftMatrix.setItem(i, ItemStack.EMPTY);
-                else
-                {
+                else {
                     ItemTransferUtil.giveItemToPlayer(player, stackInSlot.copyWithCount(remainingAfterInsert));
                     craftMatrix.setItem(i, ItemStack.EMPTY);
                 }
@@ -153,7 +152,7 @@ public class StorageUtil {
      * @return the extracted stack.
      */
     public static ItemStack extractItem(ResourceHandler<ItemResource> itemHandler, Predicate<ItemStack> comparator, int amount,
-                                          boolean simulate) {
+                                        boolean simulate) {
         if (itemHandler == null || comparator == null || amount <= 0) {
             return ItemStack.EMPTY;
         }
@@ -330,7 +329,7 @@ public class StorageUtil {
         // RecipeDisplay API doesn't expose ingredients directly in 26.1
         // Return empty list for now
         List<Ingredient> ingredients = new ArrayList<>();
-        
+
         var expandedIngredients = NonNullList.withSize(9, Ingredient.of());
 
         Preconditions.checkArgument(ingredients.size() <= 9);

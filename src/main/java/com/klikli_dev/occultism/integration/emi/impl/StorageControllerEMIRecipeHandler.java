@@ -61,6 +61,7 @@ import java.util.Map.Entry;
 
 /**
  * See also https://github.com/AppliedEnergistics/Applied-Energistics-2/blob/main/src/main/java/appeng/integration/modules/emi/EmiUseCraftingRecipeHandler.java
+ *
  * @param <T>
  */
 public class StorageControllerEMIRecipeHandler<T extends StorageControllerContainerBase> implements StandardRecipeHandler<T> {
@@ -173,7 +174,6 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
     }
 
 
-
     private static void renderMissingAndCraftableSlotOverlays(Map<Integer, SlotWidget> inputSlots,
                                                               GuiGraphicsExtractor guiGraphics,
                                                               Set<Integer> missingSlots, Set<Integer> craftableSlots) {
@@ -248,7 +248,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
     @Override
     public EmiPlayerInventory getInventory(AbstractContainerScreen<T> screen) {
         List<EmiStack> sources = new ArrayList<>(this.getInputSources(screen.getMenu()).stream().map(Slot::getItem).map(EmiStack::of).toList());
-        if(Occultism.CLIENT_CONFIG.misc.enableEMISync.get()) {
+        if (Occultism.CLIENT_CONFIG.misc.enableEMISync.get()) {
             sources.addAll(screen.getMenu().getClientStorageCache().stacks().stream().map(EmiStack::of).toList());
         }
         return new EmiPlayerInventory(sources);
@@ -276,7 +276,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return StandardRecipeHandler.super.canCraft(recipe, context);
     }
 
-    protected Result transferRecipe(T menu, RecipeHolder<?> holder, EmiRecipe emiRecipe,EmiCraftContext<T> context, boolean doTransfer) {
+    protected Result transferRecipe(T menu, RecipeHolder<?> holder, EmiRecipe emiRecipe, EmiCraftContext<T> context, boolean doTransfer) {
 
         var recipeId = holder != null ? holder.id() : null;
         var recipe = holder != null ? holder.value() : null;
@@ -341,7 +341,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
         var holder = this.getRecipeHolder(context.getScreenHandler().player.level(), emiRecipe);
 
-        var result = this.transferRecipe(menu, holder, emiRecipe,context, doTransfer);
+        var result = this.transferRecipe(menu, holder, emiRecipe, context, doTransfer);
         if (result instanceof Success && doTransfer) {
             Minecraft.getInstance().setScreen(context.getScreen());
         }

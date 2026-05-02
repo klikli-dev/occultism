@@ -36,13 +36,11 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.Tags.Items;
 import org.jetbrains.annotations.NotNull;
 
@@ -79,7 +77,7 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
         int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
-        int cor = RandomSource.create().nextIntBetweenInclusive(4,15);
+        int cor = RandomSource.create().nextIntBetweenInclusive(4, 15);
         boolean cc = this.cycle;
         BlockState current = context.getLevel().getBlockState(pos);
         if (current.getBlock() == this) {
@@ -91,20 +89,46 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
         if (player != null) {
             ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
                     player.getItemInHand(InteractionHand.OFF_HAND) :
-                    player.getItemInHand(InteractionHand.MAIN_HAND) ;
-            if (stack.is(Items.DYES_BROWN)) {cor = 4; cc = false;}
-            else if (stack.is(Items.DYES_RED)) {cor = 5; cc = false;}
-            else if (stack.is(Items.DYES_ORANGE)) {cor = 6; cc = false;}
-            else if (stack.is(Items.DYES_YELLOW)) {cor = 7; cc = false;}
-            else if (stack.is(Items.DYES_LIME)) {cor = 8; cc = false;}
-            else if (stack.is(Items.DYES_GREEN)) {cor = 9; cc = false;}
-            else if (stack.is(Items.DYES_CYAN)) {cor = 10; cc = false;}
-            else if (stack.is(Items.DYES_LIGHT_BLUE)) {cor = 11; cc = false;}
-            else if (stack.is(Items.DYES_BLUE)) {cor = 12; cc = false;}
-            else if (stack.is(Items.DYES_PURPLE)) {cor = 13; cc = false;}
-            else if (stack.is(Items.DYES_MAGENTA)) {cor = 14; cc = false;}
-            else if (stack.is(Items.DYES_PINK)) {cor = 15; cc = false;}
-            else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {cc = false;}
+                    player.getItemInHand(InteractionHand.MAIN_HAND);
+            if (stack.is(Items.DYES_BROWN)) {
+                cor = 4;
+                cc = false;
+            } else if (stack.is(Items.DYES_RED)) {
+                cor = 5;
+                cc = false;
+            } else if (stack.is(Items.DYES_ORANGE)) {
+                cor = 6;
+                cc = false;
+            } else if (stack.is(Items.DYES_YELLOW)) {
+                cor = 7;
+                cc = false;
+            } else if (stack.is(Items.DYES_LIME)) {
+                cor = 8;
+                cc = false;
+            } else if (stack.is(Items.DYES_GREEN)) {
+                cor = 9;
+                cc = false;
+            } else if (stack.is(Items.DYES_CYAN)) {
+                cor = 10;
+                cc = false;
+            } else if (stack.is(Items.DYES_LIGHT_BLUE)) {
+                cor = 11;
+                cc = false;
+            } else if (stack.is(Items.DYES_BLUE)) {
+                cor = 12;
+                cc = false;
+            } else if (stack.is(Items.DYES_PURPLE)) {
+                cor = 13;
+                cc = false;
+            } else if (stack.is(Items.DYES_MAGENTA)) {
+                cor = 14;
+                cc = false;
+            } else if (stack.is(Items.DYES_PINK)) {
+                cor = 15;
+                cc = false;
+            } else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {
+                cc = false;
+            }
         }
         return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
                 .setValue(BlockStateProperties.HORIZONTAL_FACING,

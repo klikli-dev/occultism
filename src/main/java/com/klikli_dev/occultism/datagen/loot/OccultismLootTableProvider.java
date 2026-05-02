@@ -1,6 +1,5 @@
 package com.klikli_dev.occultism.datagen.loot;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;

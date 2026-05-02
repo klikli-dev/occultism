@@ -22,13 +22,11 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -41,14 +39,13 @@ import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -70,13 +67,12 @@ import javax.annotation.Nullable;
 
 public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     public static final byte ONE_ARMED = 4;
     public static final byte ONE_LEGGED = 3;
     public static final byte FLOATING = 2;
     public static final byte DEATHS_DOOR = 1;
     public static final byte DEAD = 0;
+    private static final Logger LOGGER = LogUtils.getLogger();
     private static final byte MAX_LIVES = 5;
     public static final byte UNDAMAGED = MAX_LIVES;
     private static final EntityDataAccessor<Byte> LIVES = SynchedEntityData.defineId(GuardianFamiliarEntity.class,

@@ -112,51 +112,51 @@ public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarRenderState> 
     @Override
     public void setupAnim(BeaverFamiliarRenderState s) {
         super.setupAnim(s);
-        leftEar.visible = s.hasEars;
-        rightEar.visible = s.hasEars;
-        whiskers1.visible = s.hasWhiskers;
-        whiskers2.visible = s.hasWhiskers;
-        tail.visible = !s.hasBigTail;
-        tail2.visible = s.hasBigTail;
-        rightLeg1.zRot = leftLeg1.zRot = rightArm1.zRot = leftArm1.zRot = 0;
-        body.xRot = 0.09f;
-        body.yRot = 0;
-        body.y = 19.5f;
-        leftLeg2.xRot = rightLeg2.xRot = leftArm2.xRot = rightArm2.xRot = 0;
-        head.xRot = toRads(s.xRot);
-        head.yRot = toRads(s.yRot);
-        rightLeg1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f) * 0.8f * s.walkAnimationSpeed;
-        leftLeg1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f + PI) * 0.8f * s.walkAnimationSpeed;
-        rightArm1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f + PI) * 0.8f * s.walkAnimationSpeed;
-        leftArm1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f) * 0.8f * s.walkAnimationSpeed;
-        tail.xRot = 0.51f + Mth.cos(s.ageInTicks * 0.1f) * toRads(20);
-        tail2.xRot = tail.xRot;
+        this.leftEar.visible = s.hasEars;
+        this.rightEar.visible = s.hasEars;
+        this.whiskers1.visible = s.hasWhiskers;
+        this.whiskers2.visible = s.hasWhiskers;
+        this.tail.visible = !s.hasBigTail;
+        this.tail2.visible = s.hasBigTail;
+        this.rightLeg1.zRot = this.leftLeg1.zRot = this.rightArm1.zRot = this.leftArm1.zRot = 0;
+        this.body.xRot = 0.09f;
+        this.body.yRot = 0;
+        this.body.y = 19.5f;
+        this.leftLeg2.xRot = this.rightLeg2.xRot = this.leftArm2.xRot = this.rightArm2.xRot = 0;
+        this.head.xRot = this.toRads(s.xRot);
+        this.head.yRot = this.toRads(s.yRot);
+        this.rightLeg1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f) * 0.8f * s.walkAnimationSpeed;
+        this.leftLeg1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f + PI) * 0.8f * s.walkAnimationSpeed;
+        this.rightArm1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f + PI) * 0.8f * s.walkAnimationSpeed;
+        this.leftArm1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f) * 0.8f * s.walkAnimationSpeed;
+        this.tail.xRot = 0.51f + Mth.cos(s.ageInTicks * 0.1f) * this.toRads(20);
+        this.tail2.xRot = this.tail.xRot;
         if (!s.isSitting && s.isInWater) {
-            rightLeg1.zRot = toRads(40);
-            leftLeg1.zRot = -toRads(40);
-            rightArm1.zRot = toRads(40);
-            leftArm1.zRot = -toRads(40);
+            this.rightLeg1.zRot = this.toRads(40);
+            this.leftLeg1.zRot = -this.toRads(40);
+            this.rightArm1.zRot = this.toRads(40);
+            this.leftArm1.zRot = -this.toRads(40);
         }
         if (s.isSitting) {
-            body.xRot = toRads(-40);
-            head.xRot = toRads(25);
-            tail.xRot = tail2.xRot = toRads(70);
-            leftLeg1.xRot = toRads(-20);
-            leftLeg2.xRot = toRads(50);
-            rightLeg1.xRot = toRads(-20);
-            rightLeg2.xRot = toRads(50);
-            leftArm1.xRot = toRads(10);
-            leftArm2.xRot = toRads(40);
-            rightArm1.xRot = toRads(10);
-            rightArm2.xRot = toRads(40);
+            this.body.xRot = this.toRads(-40);
+            this.head.xRot = this.toRads(25);
+            this.tail.xRot = this.tail2.xRot = this.toRads(70);
+            this.leftLeg1.xRot = this.toRads(-20);
+            this.leftLeg2.xRot = this.toRads(50);
+            this.rightLeg1.xRot = this.toRads(-20);
+            this.rightLeg2.xRot = this.toRads(50);
+            this.leftArm1.xRot = this.toRads(10);
+            this.leftArm2.xRot = this.toRads(40);
+            this.rightArm1.xRot = this.toRads(10);
+            this.rightArm2.xRot = this.toRads(40);
         }
         if (s.isPartying) {
-            body.xRot = toRads(90);
-            body.yRot = s.ageInTicks * 0.5f;
-            body.y = 12.5f;
-            head.xRot = 0;
-            head.yRot = 0;
-            tail.xRot = tail2.xRot = Mth.cos(s.ageInTicks * 0.8f) * toRads(50);
+            this.body.xRot = this.toRads(90);
+            this.body.yRot = s.ageInTicks * 0.5f;
+            this.body.y = 12.5f;
+            this.head.xRot = 0;
+            this.head.yRot = 0;
+            this.tail.xRot = this.tail2.xRot = Mth.cos(s.ageInTicks * 0.8f) * this.toRads(50);
         }
     }
 

@@ -40,12 +40,11 @@ public enum WorkAreaSize implements StringRepresentable {
     MEDIUM(32, "medium"),
     LARGE(64, "large");
 
-    private static final String TRANSLATION_KEY_BASE = "enum." + Occultism.MODID + ".work_area_size";
-
-    private static final Map<String, WorkAreaSize> TYPES = new Object2ObjectArrayMap<>();
-    public static final Codec<WorkAreaSize> CODEC = Codec.stringResolver(WorkAreaSize::getSerializedName, TYPES::get);
     public static final IntFunction<WorkAreaSize> BY_ID = ByIdMap.continuous(Enum::ordinal, WorkAreaSize.values(), OutOfBoundsStrategy.WRAP);
     public static final StreamCodec<ByteBuf, WorkAreaSize> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
+    private static final String TRANSLATION_KEY_BASE = "enum." + Occultism.MODID + ".work_area_size";
+    private static final Map<String, WorkAreaSize> TYPES = new Object2ObjectArrayMap<>();
+    public static final Codec<WorkAreaSize> CODEC = Codec.stringResolver(WorkAreaSize::getSerializedName, TYPES::get);
 
     static {
         for (WorkAreaSize type : values()) {

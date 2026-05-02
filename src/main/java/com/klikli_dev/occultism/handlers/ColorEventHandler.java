@@ -28,16 +28,13 @@ import com.klikli_dev.occultism.common.block.SpiritFireBlock;
 import com.klikli_dev.occultism.common.block.VoidGlyphBlock;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.world.level.GrassColor;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.BlockTintSources;
 
 import java.util.List;
 
 public class ColorEventHandler {
 
-    //region Static Methods
     public static void onRegisterBlockColorHandlers(BlockTintSources event) {
         // Chalk glyphs and candles with fixed colors derived from block instance
         event.register(List.of(state -> opaque(OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor())),
@@ -95,10 +92,6 @@ public class ColorEventHandler {
 
         Occultism.LOGGER.info("Block color registration complete.");
     }
-
-    // TODO: Port to 26.1 data-driven item tint system (ItemTintSource)
-    // RegisterColorHandlersEvent.Item was removed in 26.1. Item colors are now data-driven via RegisterColorHandlersEvent.ItemTintSources.
-    //endregion Static Methods
 
     private static int opaque(int color) {
         return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;

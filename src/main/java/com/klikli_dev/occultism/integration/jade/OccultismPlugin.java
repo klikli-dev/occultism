@@ -17,7 +17,7 @@ public class OccultismPlugin implements IWailaPlugin {
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.addRayTraceCallback((hitResult, accessor, originalAccessor) -> {
-            if(accessor!=null) {
+            if (accessor != null) {
                 boolean hasGoggles = CuriosUtil.hasGoggles(accessor.getPlayer());
                 boolean hasStaff = CuriosUtil.hasStaff(accessor.getPlayer());
                 if (accessor instanceof BlockAccessor blockAccessor) {

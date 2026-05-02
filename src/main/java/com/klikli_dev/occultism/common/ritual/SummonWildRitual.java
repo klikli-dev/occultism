@@ -54,7 +54,7 @@ public class SummonWildRitual extends SummonRitual {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        if (castingPlayer != null){
+        if (castingPlayer != null) {
             castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
@@ -94,7 +94,7 @@ public class SummonWildRitual extends SummonRitual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
 
     }

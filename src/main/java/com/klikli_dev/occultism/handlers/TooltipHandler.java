@@ -58,7 +58,7 @@ public class TooltipHandler {
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        if (stack.has(OccultismDataComponents.SPIRIT_NAME)){
+        if (stack.has(OccultismDataComponents.SPIRIT_NAME)) {
             String translationKey = stack.getItem().getDescriptionId() + ".occultism_spirit_tooltip";
 
             if (I18n.exists(translationKey))

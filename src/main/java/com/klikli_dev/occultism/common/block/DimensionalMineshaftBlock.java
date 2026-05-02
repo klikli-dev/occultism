@@ -43,7 +43,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -70,6 +69,7 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(ROTATION, Integer.valueOf(RotationSegment.convertToSegment(context.getRotation() + 180.0F)));
     }
+
     @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(ROTATION, Integer.valueOf(rotation.rotate(state.getValue(ROTATION), 16)));
@@ -134,7 +134,7 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
     @Override
     protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
         BlockEntity blockentity = level.getBlockEntity(pos);
-        return (blockentity instanceof DimensionalMineshaftBlockEntity mineshaft)? mineshaft.getRedstoneSignal() : 0;
+        return (blockentity instanceof DimensionalMineshaftBlockEntity mineshaft) ? mineshaft.getRedstoneSignal() : 0;
     }
 
     @Override

@@ -38,12 +38,12 @@ public class StorageOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Magic Storage");
         this.pageText("""
-                    Every summoner knows the problem: There are just too many occult paraphernalia lying around.
-                     The solution is simple, yet elegant: Magic Storage!
-                    \\
-                    \\
-                    Using Spirits able to access storage dimensions it is possible to create almost unlimited storage space.
-                    """
+                Every summoner knows the problem: There are just too many occult paraphernalia lying around.
+                 The solution is simple, yet elegant: Magic Storage!
+                \\
+                \\
+                Using Spirits able to access storage dimensions it is possible to create almost unlimited storage space.
+                """
         );
 
         this.page("intro2", () -> BookTextPageModel.create()
@@ -53,7 +53,7 @@ public class StorageOverviewEntry extends EntryProvider {
                          The steps related to storage in {0} show only the rituals,
                          while here **all required steps** including crafting are shown.
                         """,
-                this.categoryLink("Binding Rituals","crafting_rituals")
+                this.categoryLink("Binding Rituals", "crafting_rituals")
         );
     }
 

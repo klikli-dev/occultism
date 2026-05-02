@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class WhiteChalkEntry extends EntryProvider {
@@ -30,19 +30,19 @@ public class WhiteChalkEntry extends EntryProvider {
         );
         this.pageTitle("First Foundation");
         this.pageText("""
-                        This is the first chalk in the journey of any occultist. Due to its simplicity, it serves as a
-                         weak foundation. Pentacles drawn only with this chalk attract only the weakest spirits,
-                         known as Folit.
-                        """
+                This is the first chalk in the journey of any occultist. Due to its simplicity, it serves as a
+                 weak foundation. Pentacles drawn only with this chalk attract only the weakest spirits,
+                 known as Folit.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        In almost any pentacle where you see a white glyph, it can be replaced with another
-                         "colorless" chalk (light gray, gray, or black).
-                        """
+                In almost any pentacle where you see a white glyph, it can be replaced with another
+                 "colorless" chalk (light gray, gray, or black).
+                """
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()

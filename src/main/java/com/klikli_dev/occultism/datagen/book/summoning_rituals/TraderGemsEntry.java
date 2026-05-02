@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class TraderGemsEntry extends EntryProvider {
 
@@ -39,15 +39,15 @@ public class TraderGemsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Djinni Gambler");
         this.pageText("""
-                    Betting is a type of trade, right? Maybe random exchanger.
-                    \\
-                    The Gambler spirit allows you to wager some gems to receive
-                    another random gem or a nugget, including the rare {0}.
-                    \\
-                    Be careful not to leave the resulting gems on the ground.
-                    Collect them quickly because he is cunning and never stops playing...
-                    """,
-                    this.itemLink(OccultismItems.IESNIUM_NUGGET)
+                        Betting is a type of trade, right? Maybe random exchanger.
+                        \\
+                        The Gambler spirit allows you to wager some gems to receive
+                        another random gem or a nugget, including the rare {0}.
+                        \\
+                        Be careful not to leave the resulting gems on the ground.
+                        Collect them quickly because he is cunning and never stops playing...
+                        """,
+                this.itemLink(OccultismItems.IESNIUM_NUGGET)
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

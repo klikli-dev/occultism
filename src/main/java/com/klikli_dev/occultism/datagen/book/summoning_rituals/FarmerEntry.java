@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 
@@ -41,9 +41,9 @@ public class FarmerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Foliot Farmer");
         this.pageText("""
-                    The farmer will harvest and re-plant crops in it's working area.
-                     If a deposit location is set it will collect the dropped items into the specified chest.
-                    """
+                The farmer will harvest and re-plant crops in it's working area.
+                 If a deposit location is set it will collect the dropped items into the specified chest.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -65,11 +65,11 @@ public class FarmerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-                        Use the book of calling to set the work area and deposit location of the farmer.
-                        \\
-                        \\
-                        See {0} for more information.
-                       """,
+                         Use the book of calling to set the work area and deposit location of the farmer.
+                         \\
+                         \\
+                         See {0} for more information.
+                        """,
                 this.entryLink("Books of Calling", "getting_started", "books_of_calling")
         );
 
@@ -78,13 +78,13 @@ public class FarmerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Lazy Farmer?");
         this.pageText("""
-                        The spirit might pause for a few minutes after clearing his work area,
-                         even if crops have mature since. This is a performance-saving
-                         measure and not a bug, he will continue on his own.
-                        \\
-                        \\
-                        Set the work area again to make him continue work immediately.
-                      """
+                  The spirit might pause for a few minutes after clearing his work area,
+                   even if crops have mature since. This is a performance-saving
+                   measure and not a bug, he will continue on his own.
+                  \\
+                  \\
+                  Set the work area again to make him continue work immediately.
+                """
         );
     }
 

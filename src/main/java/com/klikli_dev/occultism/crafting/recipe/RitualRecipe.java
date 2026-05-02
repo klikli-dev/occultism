@@ -24,20 +24,16 @@ package com.klikli_dev.occultism.crafting.recipe;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
+import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.klikli_dev.occultism.common.ritual.Ritual;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.crafting.recipe.display.RitualRecipeDisplay;
-import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.display.RecipeDisplay;
-import net.minecraft.world.item.crafting.display.SlotDisplay;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismRituals;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -53,10 +49,12 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay;
 import net.minecraft.world.level.Level;
@@ -74,13 +72,13 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     public static final RecipeBookCategory RECIPE_BOOK_CATEGORY = new RecipeBookCategory();
 
     public static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Identifier.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
-            RitualRequirementSettings.CODEC.forGetter((r) -> r.ritualRequirementSettings),
-            RitualStartSettings.CODEC.forGetter((r) -> r.ritualStartSettings),
-            EntityToSummonSettings.CODEC.forGetter((r) -> r.entityToSummonSettings),
-            ItemStackTemplate.CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
-            ItemStackTemplate.CODEC.optionalFieldOf("result").forGetter(r -> Optional.ofNullable(r.result)),
-            Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
+                    Identifier.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
+                    RitualRequirementSettings.CODEC.forGetter((r) -> r.ritualRequirementSettings),
+                    RitualStartSettings.CODEC.forGetter((r) -> r.ritualStartSettings),
+                    EntityToSummonSettings.CODEC.forGetter((r) -> r.entityToSummonSettings),
+                    ItemStackTemplate.CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+                    ItemStackTemplate.CODEC.optionalFieldOf("result").forGetter(r -> Optional.ofNullable(r.result)),
+                    Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
             ).apply(instance, (ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command) ->
                     new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result.orElse(null), command.orElse(null))
             )
@@ -452,7 +450,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     ) {
         public static MapCodec<RitualRequirementSettings> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                         Identifier.CODEC.fieldOf("pentacle_id").forGetter(r -> r.pentacleId),
-                         Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
+                        Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
                         Ingredient.CODEC.fieldOf("activation_item").forGetter(r -> r.activationItem),
                         Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(r -> r.duration)
                 ).apply(instance, (pentacleId, ingredients, activationItem, duration) -> new RitualRequirementSettings(pentacleId, NonNullList.copyOf(ingredients), activationItem, duration, -1))

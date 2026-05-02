@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class SmelterMaridEntry extends EntryProvider {
 
@@ -39,8 +39,8 @@ public class SmelterMaridEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Marid Smelter");
         this.pageText("""
-                    The marid smelter is extremely faster, doing the process in one percent of the time.
-                    """
+                The marid smelter is extremely faster, doing the process in one percent of the time.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

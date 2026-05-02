@@ -29,27 +29,23 @@ import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.PowerParticleOption;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -63,7 +59,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.level.ScheduledTickAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -71,10 +66,10 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<LargeCandleBlock> CODEC = simpleCodec(LargeCandleBlock::new);
     public static final IntegerProperty CANDLES = BlockStateProperties.CANDLES; //This is defining the fire type since I can create a new property without errors
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final MapCodec<LargeCandleBlock> CODEC = simpleCodec(LargeCandleBlock::new);
     public static final ToIntFunction<BlockState> LIGHT_EMISSION = p_152848_ -> p_152848_.getValue(LIT) ? 15 : 0;
 
     private static final Int2ObjectMap<List<Vec3>> PARTICLE_OFFSETS = Util.make(
@@ -104,11 +99,6 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();
 
-    @Override
-    public MapCodec<LargeCandleBlock> codec() {
-        return CODEC;
-    }
-
     public LargeCandleBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
@@ -121,36 +111,41 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
     }
 
     @Override
+    public MapCodec<LargeCandleBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
     protected InteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
     ) {
         if (player.getAbilities().mayBuild) {
-            if (stack.isEmpty() && state.getValue(LIT)){
+            if (stack.isEmpty() && state.getValue(LIT)) {
                 extinguish(player, state, level, pos);
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.TORCH.asItem()) {
-                if (this.canBeLit(state)){
-                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES,1), 1);
+                if (this.canBeLit(state)) {
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 1), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 1), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.SOUL_TORCH.asItem()) {
-                if (this.canBeLit(state)){
+                if (this.canBeLit(state)) {
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 2), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 2), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.REDSTONE_TORCH.asItem()) {
-                if (this.canBeLit(state)){
+                if (this.canBeLit(state)) {
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 3), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 3), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == OccultismItems.SPIRIT_TORCH.asItem()) {
-                if (this.canBeLit(state)){
+                if (this.canBeLit(state)) {
                     level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 4), 1);
                 } else {
                     level.setBlock(pos, state.setValue(CANDLES, 4), 11);
@@ -234,6 +229,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
             worldIn.removeBlock(pos, false);
         }
     }
+
     @Override
     @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
@@ -249,7 +245,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource rand) {
-        if (state.getValue(LIT)){
+        if (state.getValue(LIT)) {
             double d0 = (double) blockPos.getX() + 0.5D;
             double d1 = (double) blockPos.getY() + 0.7D;
             double d2 = (double) blockPos.getZ() + 0.5D;

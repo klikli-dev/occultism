@@ -23,11 +23,8 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
-import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
-import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
-import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
+import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSensors;
@@ -40,8 +37,8 @@ import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -60,9 +57,9 @@ public class LumberjackJob extends SpiritJob {
     @Override
     public List<SensorType<? extends Sensor<SpiritEntity>>> getSensorTypes() {
         return ImmutableList.of(
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_TREE.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
-                (SensorType<? extends Sensor<SpiritEntity>>) (SensorType<?>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
+                (SensorType<? extends Sensor<SpiritEntity>>)(SensorType<?>) OccultismSensors.NEAREST_TREE.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>)(SensorType<?>) OccultismSensors.NEAREST_JOB_ITEM.get(),
+                (SensorType<? extends Sensor<SpiritEntity>>)(SensorType<?>) OccultismSensors.UNREACHABLE_TREE_WALK_TARGET.get()
         );
     }
 

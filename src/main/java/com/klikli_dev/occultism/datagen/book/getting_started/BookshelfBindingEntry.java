@@ -42,14 +42,14 @@ public class BookshelfBindingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Dyeing the empties");
         this.pageText("""
-                        You can also bind [](item://occultism:book_of_binding_empty) directly, just hold 4 dyes for each in your off-hand. \\
-                        \\
-                        The spirit to be bound depends on the dye held:\\
-                        Blue    ->  Foliot\\
-                        Purple  ->  Djinni\\
-                        Yellow  ->  Afrit\\
-                        Green   ->  Marid
-                        """
+                You can also bind [](item://occultism:book_of_binding_empty) directly, just hold 4 dyes for each in your off-hand. \\
+                \\
+                The spirit to be bound depends on the dye held:\\
+                Blue    ->  Foliot\\
+                Purple  ->  Djinni\\
+                Yellow  ->  Afrit\\
+                Green   ->  Marid
+                """
         );
 
         this.page("automation", () -> BookTextPageModel.create()

@@ -28,12 +28,12 @@ import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSyncFamiliarSettings;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

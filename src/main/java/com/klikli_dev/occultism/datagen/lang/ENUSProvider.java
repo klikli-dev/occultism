@@ -30,20 +30,18 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.TranslationKeys.Condition.Ritual;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
-
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Blocks;
 import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import com.klikli_dev.occultism.registry.OccultismTags.Items.Miners;
 import net.minecraft.ChatFormatting;
-import net.minecraft.util.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -363,7 +361,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.INFUSED_PICKAXE, "Infused Pickaxe");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD, "Spirit Attuned Pickaxe Head");
         this.addItem(OccultismItems.IESNIUM_PICKAXE, "Iesnium Pickaxe");
-        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId().replace("empty","filled"), "Magic Lamp");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId().replace("empty", "filled"), "Magic Lamp");
         this.addItem(OccultismItems.MAGIC_LAMP_EMPTY, "Empty Magic Lamp");
         this.addItem(OccultismItems.MINER_FOLIOT_UNSPECIALIZED, "Miner Foliot");
         this.addItem(OccultismItems.MINER_DJINNI_ORES, "Ore Miner Djinni");
@@ -440,32 +438,32 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_WILD_STRONG_BREEZE, "Wild Strong Breeze Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_EVOKER, "Wild Evoker Spawn Egg");
         //Pentacle Rework Update
-        this.addItem(OccultismItems.AMETHYST_DUST,"Amethyst Dust");
-        this.addItem(OccultismItems.CRUELTY_ESSENCE,"Cruelty Essence");
-        this.addItem(OccultismItems.CRUSHED_BLACKSTONE,"Crushed Blackstone");
-        this.addItem(OccultismItems.CRUSHED_BLUE_ICE,"Crushed Blue Ice");
-        this.addItem(OccultismItems.CRUSHED_CALCITE,"Crushed Calcite");
-        this.addItem(OccultismItems.CRUSHED_ICE,"Crushed Ice");
-        this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
-        this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
+        this.addItem(OccultismItems.AMETHYST_DUST, "Amethyst Dust");
+        this.addItem(OccultismItems.CRUELTY_ESSENCE, "Cruelty Essence");
+        this.addItem(OccultismItems.CRUSHED_BLACKSTONE, "Crushed Blackstone");
+        this.addItem(OccultismItems.CRUSHED_BLUE_ICE, "Crushed Blue Ice");
+        this.addItem(OccultismItems.CRUSHED_CALCITE, "Crushed Calcite");
+        this.addItem(OccultismItems.CRUSHED_ICE, "Crushed Ice");
+        this.addItem(OccultismItems.CRUSHED_PACKED_ICE, "Crushed Packed Ice");
+        this.addItem(OccultismItems.CURSED_HONEY, "Cursed Honey");
         this.addAutoTooltip(OccultismItems.CURSED_HONEY, "Grants Regeneration when eating");
-        this.addItem(OccultismItems.SWEET_HONEY_HEART,"Sweet-Honey-Heart");
-        this.addAutoTooltip(OccultismItems.SWEET_HONEY_HEART,  ChatFormatting.WHITE + "Made with love, sugar and evilness\n"+ ChatFormatting.GRAY + "Grants a great Absorption when eating\n" + ChatFormatting.DARK_PURPLE + "Get it giving a Cursed Honey to a Demonic Partner");
-        this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
+        this.addItem(OccultismItems.SWEET_HONEY_HEART, "Sweet-Honey-Heart");
+        this.addAutoTooltip(OccultismItems.SWEET_HONEY_HEART, ChatFormatting.WHITE + "Made with love, sugar and evilness\n" + ChatFormatting.GRAY + "Grants a great Absorption when eating\n" + ChatFormatting.DARK_PURPLE + "Get it giving a Cursed Honey to a Demonic Partner");
+        this.addItem(OccultismItems.DEMONIC_MEAT, "Demonic Meat");
         this.addAutoTooltip(OccultismItems.DEMONIC_MEAT, "Grants Fire Resistance when eating");
-        this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
-        this.addItem(OccultismItems.ECHO_DUST,"Echo Dust");
-        this.addItem(OccultismItems.EMERALD_DUST,"Emerald Dust");
-        this.addItem(OccultismItems.GRAY_PASTE,"Gray Paste");
+        this.addItem(OccultismItems.DRAGONYST_DUST, "Dragonyst Dust");
+        this.addItem(OccultismItems.ECHO_DUST, "Echo Dust");
+        this.addItem(OccultismItems.EMERALD_DUST, "Emerald Dust");
+        this.addItem(OccultismItems.GRAY_PASTE, "Gray Paste");
         this.addAutoTooltip(OccultismItems.GRAY_PASTE, "Reacts with some dusts, returning to its original shape");
-        this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
-        this.addItem(OccultismItems.MARID_ESSENCE,"Marid Essence");
-        this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
+        this.addItem(OccultismItems.LAPIS_DUST, "Lapis Dust");
+        this.addItem(OccultismItems.MARID_ESSENCE, "Marid Essence");
+        this.addItem(OccultismItems.NATURE_PASTE, "Nature Paste");
         this.addAutoTooltip(OccultismItems.NATURE_PASTE, "Powerful and reusable bonemeal (instantly grow and affects more plants)");
-        this.addItem(OccultismItems.NETHERITE_DUST,"Netherite Dust");
-        this.addItem(OccultismItems.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
-        this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST,"Research Fragment Dust");
-        this.addItem(OccultismItems.WITHERITE_DUST,"Witherite Dust");
+        this.addItem(OccultismItems.NETHERITE_DUST, "Netherite Dust");
+        this.addItem(OccultismItems.NETHERITE_SCRAP_DUST, "Netherite Scrap Dust");
+        this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST, "Research Fragment Dust");
+        this.addItem(OccultismItems.WITHERITE_DUST, "Witherite Dust");
     }
 
     private void addBlocks() {
@@ -994,7 +992,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit. Sacrifices are described on the ritual's page under the "Sacrifice" subheading. To perform a sacrifice, kill an animal within 8 blocks of the golden ritual bowl. Only kills by players count as sacrifice!
-                         """);
+                        """);
 
         helper.entry("summoning_rituals");
         this.add(helper.entryName(), "Summoning Rituals");
@@ -1030,7 +1028,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         Possessed Mobs count as their vanilla counterparts for the ritual sacrifices purposes.
-                           """);
+                        """);
 
         helper.entry("possess_enderman");
         this.add(helper.entryName(), "Possessed Enderman");
@@ -1040,7 +1038,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Drops**: 1-3x [](item://minecraft:ender_pearl)
                         and as 10%% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
-                                """);
+                        """);
 
         helper.page("ritual");
         //no text
@@ -1049,7 +1047,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
-                                """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("wither_skull");
         this.add(helper.entryName(), "Wild Hunt");
@@ -1059,7 +1057,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1072,7 +1070,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Drops**: 1-2x [](item://minecraft:end_stone)
                         and as 25%% chance to drop an Eye
-                                """);
+                        """);
 
         helper.page("ritual");
         //no text
@@ -1081,7 +1079,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
-                                """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_ghast");
         //moved to OccultismBookProvider#makePossessGhastEntry
@@ -1093,7 +1091,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1x [](item://minecraft:skeleton_skull)
-                                """);
+                        """);
 
         helper.page("ritual");
         //no text
@@ -1102,7 +1100,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
-                                """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_unbound_parrot");
         this.add(helper.entryName(), "Unbound Parrot");
@@ -1111,7 +1109,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: A tameable Parrot
-                          """);
+                        """);
 
         helper.page("ritual");
         //no text
@@ -1123,13 +1121,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
-                          """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageText(),
                 """
                         *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_unbound_otherworld_bird");
         this.add(helper.entryName(), "Unbound Drikwing");
@@ -1138,7 +1136,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: A tameable Drikwing
-                          """);
+                        """);
 
         helper.page("ritual");
         //no text
@@ -1147,7 +1145,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
-                          """);
+                        """);
     }
 
     private void addFamiliarRitualsCategory(BookContextHelper helper) {
@@ -1164,14 +1162,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         Familiar rituals summon spirits to aid the summoner directly. The spirits usually inhabit an animal's body, allowing them to resist essence decay. Familiars provide buffs, but may also actively protect the summoner.
-                                """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ring");
         this.add(helper.pageTitle(), "Equipping Familiars");
         this.add(helper.pageText(),
                 """
                         Enterprising summoners have found a way to bind familiars into jewelry that passively applies their buff, the [Familiar Ring](entry://crafting_rituals/craft_familiar_ring).
-                                """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("trading");
         this.add(helper.pageTitle(), "Equipping Familiars");
@@ -1181,7 +1179,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         When released, the spirit will recognize the person releasing them as their new master.
-                                 """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_bat");
         this.add(helper.entryName(), "Bat Familiar");
@@ -1190,7 +1188,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Night Vision[#]()
-                               """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1201,7 +1199,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, the bat familiar will give a life steal effect to it's master.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beaver");
         this.add(helper.entryName(), "Beaver Familiar");
@@ -1210,7 +1208,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Increased wood break speed[#]()
-                               """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1224,7 +1222,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         Gives free snacks when right-clicked with an empty hand.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beholder");
         this.add(helper.entryName(), "Beholder Familiar");
@@ -1233,7 +1231,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Highlights enemies[#](), [#](%1$s)Shoots **FREAKING LAZORS**[#]()
-                               """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1247,7 +1245,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it give it's master immunity to blindness, and after highlighting a Warden, the immunity extends to darkness.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_blacksmith");
         this.add(helper.entryName(), "Blacksmith Familiar");
@@ -1256,7 +1254,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Repairs Equipment while Mining[#](), [#](%1$s)Upgrades other familiars[#]()
-                               """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1270,7 +1268,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**: \\
                         Cannot be upgraded, but upgrades other Familiars.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageTitle(), "Upgrading Familiars");
@@ -1281,7 +1279,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         When the blacksmith upgrades a familiar, a message appears in the action bar, an anvil sound is emitted, and a star appears at the end of the familiar's name.
                         \\
                         Upgraded familiars provide additional effects.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_chimera");
         this.add(helper.entryName(), "Chimera Familiar");
@@ -1290,7 +1288,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Rideable Mount[#]()
-                               """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1303,14 +1301,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         The detached goat familiar can be used to obtain the [Shub Niggurath](entry://familiar_rituals/familiar_shub_niggurath) familiar.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, the goat familiar will get a warning bell. When you hit the familiar it will ring the bell and attract enemies in a large radius.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_cthulhu");
         this.add(helper.entryName(), "Cthulhu Familiar");
@@ -1319,7 +1317,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]() and [#](%1$s)Prismarine conversion[#]()
-                               """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1333,7 +1331,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it will act as a mobile light source.\\
                         You receive more prismarine per lapis.         
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_shub_niggurath");
         this.add(helper.entryName(), "Shub Niggurath Familiar");
@@ -1342,14 +1340,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Spawns small versions of itself to fight for you.[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         this.add(helper.pageTitle(), "Ritual");
         this.add(helper.pageText(),
                 """
                         The [#](%1$s)Shub Niggurath[#]() is not summoned directly. First, summon a [Chimera Familiar](entry://familiar_rituals/familiar_chimera) and feed it a [](item://minecraft:golden_apple) to detach the [#](%1$s)Goat[#](). Bring the goat to a [#](%1$s)Forest Biome[#](). Then click the goat with [any Black Dye](item://minecraft:black_dye), [](item://minecraft:flint) and [](item://minecraft:ender_eye) to summon the [#](%1$s)Shub Niggurath[#]().
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description");
         this.add(helper.pageTitle(), "Description");
@@ -1357,7 +1355,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it will get a warning bell. When you hit the familiar it will ring the bell and **attract enemies** in a large radius.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_deer");
         this.add(helper.entryName(), "Deer Familiar");
@@ -1366,7 +1364,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Speed and Jump Boost, Step assist[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1377,7 +1375,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, will increase the step assist and it will attack nearby enemies with a hammer. Yep, a **hammer**.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_devil");
         this.add(helper.entryName(), "Devil Familiar");
@@ -1386,7 +1384,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Fire Resistance[#](), [#](%1$s)Attacks Enemies[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1397,7 +1395,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Upgrade Behaviour**\\
                         Enchants a Golden Apple when right-click, but has large time interval.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_dragon");
         this.add(helper.entryName(), "Dragon Familiar");
@@ -1406,7 +1404,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Increased XP[#](), Loves Sticks
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1420,7 +1418,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it will throw swords at nearby enemies.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
 
         helper.entry("familiar_fairy");
@@ -1430,7 +1428,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Assists Familiars[#](), [#](%1$s)Prevents Familiar Deaths[#](), [#](%1$s)Drains Enemy Life Force[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1444,7 +1442,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         Allow getting Dragon's Breath when right-clicked with a glass bottle.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_greedy");
         this.add(helper.entryName(), "Greedy Familiar");
@@ -1453,7 +1451,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Picks up Items[#](), [#](%1$s)Increased Pick-up Range[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
         helper.page("ritual");
         //no text
 
@@ -1466,7 +1464,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it can find blocks for its master. [#](%1$s)Right-click[#]() it with a block to tell it what to look for.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_guardian");
         this.add(helper.entryName(), "Guardian Familiar");
@@ -1475,7 +1473,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Prevents player death while alive[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1485,14 +1483,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         The guardian familiar sacrifices a limb everytime it's master is about to die and thus **prevents the death**. Once the guardian dies, the player is no longer protected. When summoned, the guardian spawns with a **random amount of limbs**, there is no guarantee that a complete guardian is summoned.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it regains a limb.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_headless");
         this.add(helper.entryName(), "Headless Ratman Familiar");
@@ -1501,7 +1499,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Conditional Damage Buff[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1511,14 +1509,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         The headless ratman familiar steals heads of mobs near the ratman when they are killed. It then provides a damage buff against that type of mob to their master. If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them [](item://minecraft:wheat), [](item://minecraft:stick), [](item://minecraft:hay_block) and a [](item://minecraft:carved_pumpkin).
-                           """);
+                        """);
 
         helper.page("description2");
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from. And the owner will not make the Enderman angry by looking into his eyes.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
 
         helper.entry("familiar_mummy");
@@ -1528,7 +1526,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Fights your enemies[#](), [#](%1$s)Dodge Effect[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1542,7 +1540,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it the familiar will deal even more damage and double the dodge chance.
-                            """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_otherworld_bird");
         this.add(helper.entryName(), "Drikwing Familiar");
@@ -1551,7 +1549,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Multi-Jump[#](), [#](%1$s)Jump Boost[#](), [#](%1$s)Slow Falling[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1565,7 +1563,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         Increase number of jumps and change the slow fall to immunity to fall damage.
-                            """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageText(),
@@ -1574,7 +1572,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
-                            """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_parrot");
         this.add(helper.entryName(), "Parrot Familiar");
@@ -1583,7 +1581,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Company[#]()
-                                   """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -1596,7 +1594,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         In this ritual a [#](%1$s)Foliot[#]() is summoned **as a familiar**, the slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the [#](%1$s)Foliot[#]() to take the shape of a parrot.\\
                         As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
-                            """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageText(),
@@ -1606,7 +1604,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         **Upgrade Behaviour**\\
                         Cannot be upgraded by the blacksmith familiar.
-                           """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
         //no text
 
         helper.entry("resurrect_allay");
@@ -1616,7 +1614,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: Allay
-                          """);
+                        """);
 
         helper.page("ritual");
 
@@ -1625,7 +1623,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         Purify a Vex to an Allay on a resurrection process that reveals its true name.
-                          """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
     }
 
@@ -1877,25 +1875,25 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
 
         //SUMMON
-            //Crusher
+        //Crusher
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "Summon Foliot Crusher", "Foliot", "The Crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "Summon Djinni Crusher", "Djinni", "The Crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "Summon Afrit Crusher", "Afrit", "The Crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "Summon Marid Crusher", "Marid", "The Crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-            //Smelter
+        //Smelter
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "Summon Foliot Smelter", "Foliot", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "Summon Djinni Smelter", "Djinni", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "Summon Afrit Smelter", "Afrit", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "Summon Marid Smelter", "Marid", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
-            //Crystallizer
+        //Crystallizer
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER, "Summon Foliot Crystallizer", "Foliot", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER, "Summon Djinni Crystallizer", "Djinni", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER, "Summon Afrit Crystallizer", "Afrit", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER, "Summon Marid Crystallizer", "Marid", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
-            //Partner
+        //Partner
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE, "Summon Demonic Wife", "Djinni", "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND, "Summon Demonic Husband", "Djinni", "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
-            //One tier worker
+        //One tier worker
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK, "Summon Foliot Lumberjack", "Foliot", "The Lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_FARMER, "Summon Foliot Farmer", "Foliot", "The Farmer will harvest crops in it's working area and deposit the dropped items into the specified chest.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER, "Summon Otherstone Trader", "Foliot", "The Otherstone Trader trades normal stone for otherstone.");
@@ -1911,11 +1909,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "Summoning of Clear Sky", "Djinni", "Summons a Djinni that clears the weather.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER, "Summoning of Rain", "Afrit", "Summons an Afrit that creates rain.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER, "Summoning of Thunderstorm", "Afrit", "Summons an Afrit that creates a thunderstorm.");
-            //Unbound
+        //Unbound
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT, "Summon Unbound Afrit", "Afrit (Unbound)", "Summons an Unbound Afrit that can be killed to obtain Afrit Essence.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_MARID, "Summon Unbound Marid", "Marid (Unbound)", "Summons an Unbound Marid that can be killed to obtain Marid Essence.");
         //POSSESS
-            //Familiar
+        //Familiar
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEAVER, "Summon Beaver Familiar", "Foliot", "The Beaver familiar provides increased woodcutting speed to their masters and harvests nearby trees when they grow from a sapling.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BLACKSMITH, "Summon Blacksmith Familiar", "Foliot", "The Blacksmith familiars take stone their master mines and uses it to repair equipment.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEER, "Summon Deer Familiar", "Foliot", "The Deer familiars provide jump boost to their master.");
@@ -1935,7 +1933,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD, "Possess Unbound Drikwing", "Djinni", "Possess a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GUARDIAN, "Summon Guardian Familiar", "Afrit", "The Guardian familiars prevent their master's violent demise.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "Summon Iesnium Golem", "Marid", "Summons the strong and invulnerable iesnium golem to defend a region.");
-            //Possessed
+        //Possessed
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMITE, "Summon Possessed Endermite", "Foliot", "The Possessed Endermite drops End Stone.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_PHANTOM, "Summon Possessed Phantom", "Foliot", "The Possessed Phantom will always drop at least one phantom membrane when killed and is easy to trap.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SKELETON, "Summon Possessed Skeleton", "Foliot", "The Possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.");
@@ -1952,7 +1950,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_HOGLIN, "Summon Possessed Hoglin", "Afrit", "The Possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SHULKER, "Summon Possessed Shulker", "Afrit", "The Possessed Shulker will always drop at least one shulker shell when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GOAT, "Summon Goat of Mercy", "Marid", "The Goat of Mercy will drop the Cruelty Essence.");
-            //Random
+        //Random
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON, "Summon Common Random Animal", "Foliot", "Summons a common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "Summon Water Random Animal", "Foliot", "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL, "Summon Small Random Animal", "Foliot", "Summons a small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
@@ -1960,7 +1958,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "Summon Rideable Random Animal", "Djinni", "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER, "Summon Villager", "Djinni", "Summons a villager or wandering Trader.");
         //CRAFT
-            //Tools
+        //Tools
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LENSES, "Craft Infused Lenses", "Foliot", "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE, "Craft Infused Pickaxe", "Djinni", "Infuse a Pickaxe to mine otherworld ores.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "Craft Surprisingly Substantial Satchel", "Foliot", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
@@ -1975,7 +1973,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE, "Craft Iesnium Butcher Knife", "Afrit", "The Iesnium butcher knife is perfect for cutting heads and skulls, and continues to perform the functions of a regular butcher knife.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "Craft True Sight Staff", "Marid", "The true sight staff give abilities to find, see and interact with the otherworld.");
-            //Miners
+        //Miners
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_EXTRACTOR, "Craft Dimensional Extractor", "Djinni", "Place a dimensional mineshaft/battlefield or a spirit worker above it to enable depositing results directly into an inventory below that block.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT, "Craft Dimensional Mineshaft", "Djinni", "Allows miner spirits to enter the mining dimension and bring back resources.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_BATTLEFIELD, "Craft Dimensional Battlefield", "Afrit", "Allows the imprisoned Afrit to simulate spiritual battles to generate resources from mobs.");
@@ -1983,7 +1981,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES, "Infuse Djinni Ore Miner", "Djinni", "Summon Djinni Ore Miner into a magic lamp.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS, "Infuse Afrit Deep Ore Miner", "Afrit", "Summon Afrit Deep Ore Miner into a magic lamp.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER, "Infuse Marid Master Miner", "Marid", "Summon Marid Master Miner into a magic lamp.");
-            //Storage
+        //Storage
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE, "Craft Storage Actuator Base", "Foliot", "The Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK, "Craft Dark Storage Actuator Base", "Foliot", "The Dark Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX, "Craft Dimensional Matrix", "Djinni", "The Dimensional Matrix is the entry point to a small dimension used for storing items.");
@@ -1998,30 +1996,30 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE, "Craft Stable Wormhole", "Foliot", "The Stable Wormhole allows access to a dimensional matrix from a remote destination.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE_DARK, "Craft Dark Stable Wormhole", "Foliot", "The Dark Stable Wormhole allows access to a dimensional matrix from a remote destination.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_REMOTE, "Craft Storage Accessor", "Djinni", "The Storage Accessor can be linked to a Storage Actuator to remotely access items.");
-            //Materials
+        //Materials
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST, "Craft Research Fragment Dust", "Foliot", "A Foliot will infuse experience in the emerald dust.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_NATURE_PASTE, "Craft Nature Paste", "Foliot", "A Foliot will craft the nature paste mixing ingredients.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "Craft Gray Paste", "Djinni", "A Djinni will craft the gray paste mixing ingredients.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "Craft Witherite Dust", "Afrit", "An Afrit will infuse netherite dust with wither essence.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
-            //Blocks
+        //Blocks
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK, "Craft Dark Entity Wormhole", "Djinni", "The Dark Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE, "Craft Spirit Grindstone", "Djinni", "The spirit grindstone is an improvement on the common grindstone, which removes curses (keeping other enchantments) and repairs items more efficiently.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Ritual Bowl", "Afrit", "The Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will work like the Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Ritual Bowl", "Afrit", "The Dark Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will work like the Dark Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
-            //Repair
+        //Repair
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Repair Chalk", "Djinni", "Fully repair chalk by infusing it with a Djinni.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_TOOLS, "Repair Tool", "Afrit", "Fully repair a tool by infusing it with an Afrit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_ARMORS, "Repair Armor", "Afrit", "Fully repair armor by infusing it with an Afrit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_MINERS, "Repair Miner", "Afrit", "Extend a Miner's contract by striking a deal with an Afrit.");
         //MISC
-            //Resurrect
+        //Resurrect
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR, "Resurrect Familiar", "Familiar", "Resurrects a Familiar from a Soul Shard.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY, "Purify Vex to Allay", "Familiar", "Purifies a Vex into an Allay through resurrection.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_MOB, "Resurrect Mob", "Familiar", "Resurrects a Mob from a Shattered Soul Shard.");
-            //Wild
+        //Wild
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUNT, "Invoke The Wild Hunt", "Wild", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "Invoke a Horde of Creeper", "Wild", "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_DROWNED, "Invoke a Horde of Drowned", "Wild", "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
@@ -2037,7 +2035,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL, "Invoke Special Random Animal Group", "Wild", "Summons a group of special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE, "Invoke Rideable Random Animal Group", "Wild", "Summons a group of rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER, "Invoke Villager Group", "Wild", "Summons a group of villager and wandering Trader.");
-            //Forge
+        //Forge
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "Forge Bee Nest", "Wild", "Wild Spirits will forge a bee nest, more beautiful than beehive.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "Forge Bell", "Wild", "Wild Spirits will forge a bell.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "Forge Budding Amethyst", "Wild", "Wild Spirits will forge a Budding Amethyst.");
@@ -2063,9 +2061,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addTooltip(dummy.get(), description);
         this.addAutoTooltip(dummy.get(), "Tier: " + tier);
         this.addRitualMessage(dummy, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(dummy, "started", "Starting the ritual: " + name +".");
-        this.addRitualMessage(dummy, "finished", "Ritual completed successfully: " + name +".");
-        this.addRitualMessage(dummy, "interrupted", "Interruption in the ritual: " + name +".");
+        this.addRitualMessage(dummy, "started", "Starting the ritual: " + name + ".");
+        this.addRitualMessage(dummy, "finished", "Ritual completed successfully: " + name + ".");
+        this.addRitualMessage(dummy, "interrupted", "Interruption in the ritual: " + name + ".");
     }
 
     public void addTooltip(ItemLike key, String value) {
@@ -2169,27 +2167,27 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.MAGMA, "Magma");
         this.addItemTag(Items.BOOKS, "Books");
         this.addItemTag(Items.FRUITS, "Fruits");
-        this.addItemTag(Items.AMETHYST_DUST,"Amethyst Dust");
-        this.addItemTag(Items.BLACKSTONE_DUST,"Blackstone Dust");
-        this.addItemTag(Items.BLUE_ICE_DUST,"Blue Ice Dust");
-        this.addItemTag(Items.CALCITE_DUST,"Calcite Dust");
-        this.addItemTag(Items.ICE_DUST,"Ice Dust");
-        this.addItemTag(Items.PACKED_ICE_DUST,"Packed Ice Dust");
-        this.addItemTag(Items.DRAGONYST_DUST,"Dragonyst Dust");
-        this.addItemTag(Items.ECHO_DUST,"Echo Dust");
-        this.addItemTag(Items.EMERALD_DUST,"Emerald Dust");
-        this.addItemTag(Items.LAPIS_DUST,"Lapis Dust");
-        this.addItemTag(Items.NETHERITE_DUST,"Netherite Dust");
-        this.addItemTag(Items.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
-        this.addItemTag(Items.RESEARCH_DUST,"Research Dust");
-        this.addItemTag(Items.WITHERITE_DUST,"Witherite Dust");
-        this.addItemTag(Items.OTHERSTONE_DUST,"Otherstone Dust");
-        this.addItemTag(Items.OTHERROCK_DUST,"Otherrock Dust");
-        this.addItemTag(Items.CHALK_BASE_DUST,"Chalk Base Dust");
-        this.addItemTag(Items.OTHERWORLD_WOOD_DUST,"Otherworld Wood Dust");
-        this.addItemTag(Items.OCCULTISM_CANDLES,"Occultism Candles");
-        this.addItemTag(Miners.MINERS,"Dimensional Miners");
-        this.addItemTag(Items.SCUTESHELL,"Scute or Shell");
+        this.addItemTag(Items.AMETHYST_DUST, "Amethyst Dust");
+        this.addItemTag(Items.BLACKSTONE_DUST, "Blackstone Dust");
+        this.addItemTag(Items.BLUE_ICE_DUST, "Blue Ice Dust");
+        this.addItemTag(Items.CALCITE_DUST, "Calcite Dust");
+        this.addItemTag(Items.ICE_DUST, "Ice Dust");
+        this.addItemTag(Items.PACKED_ICE_DUST, "Packed Ice Dust");
+        this.addItemTag(Items.DRAGONYST_DUST, "Dragonyst Dust");
+        this.addItemTag(Items.ECHO_DUST, "Echo Dust");
+        this.addItemTag(Items.EMERALD_DUST, "Emerald Dust");
+        this.addItemTag(Items.LAPIS_DUST, "Lapis Dust");
+        this.addItemTag(Items.NETHERITE_DUST, "Netherite Dust");
+        this.addItemTag(Items.NETHERITE_SCRAP_DUST, "Netherite Scrap Dust");
+        this.addItemTag(Items.RESEARCH_DUST, "Research Dust");
+        this.addItemTag(Items.WITHERITE_DUST, "Witherite Dust");
+        this.addItemTag(Items.OTHERSTONE_DUST, "Otherstone Dust");
+        this.addItemTag(Items.OTHERROCK_DUST, "Otherrock Dust");
+        this.addItemTag(Items.CHALK_BASE_DUST, "Chalk Base Dust");
+        this.addItemTag(Items.OTHERWORLD_WOOD_DUST, "Otherworld Wood Dust");
+        this.addItemTag(Items.OCCULTISM_CANDLES, "Occultism Candles");
+        this.addItemTag(Miners.MINERS, "Dimensional Miners");
+        this.addItemTag(Items.SCUTESHELL, "Scute or Shell");
         this.addItemTag(Items.BLAZE_DUST, "Blaze Dust");
         this.addItemTag(Items.MANUALS, "Manuals");
         this.addItemTag(Items.TOOLS_KNIFE, "Knives");
@@ -2463,18 +2461,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addJade() {
-        this.add("occultism.jade.current_ritual","Current Ritual: %s");
-        this.add("occultism.jade.no_current_ritual","No Current Ritual");
-        this.add("occultism.jade.no_item_use","Required item not used");
-        this.add("occultism.jade.no_sacrifice","Required sacrifice not performed");
-        this.add("occultism.jade.foliot","Foliot");
-        this.add("occultism.jade.foliot_age","Foliot: %s seconds left");
-        this.add("occultism.jade.djinni","Djinni");
-        this.add("occultism.jade.djinni_age","DJinni: %s seconds left");
-        this.add("occultism.jade.afrit","Afrit");
-        this.add("occultism.jade.afrit_age","Afrit: %s seconds left");
-        this.add("occultism.jade.marid","Marid");
-        this.add("occultism.jade.marid_age","Marid: %s seconds left");
+        this.add("occultism.jade.current_ritual", "Current Ritual: %s");
+        this.add("occultism.jade.no_current_ritual", "No Current Ritual");
+        this.add("occultism.jade.no_item_use", "Required item not used");
+        this.add("occultism.jade.no_sacrifice", "Required sacrifice not performed");
+        this.add("occultism.jade.foliot", "Foliot");
+        this.add("occultism.jade.foliot_age", "Foliot: %s seconds left");
+        this.add("occultism.jade.djinni", "Djinni");
+        this.add("occultism.jade.djinni_age", "DJinni: %s seconds left");
+        this.add("occultism.jade.afrit", "Afrit");
+        this.add("occultism.jade.afrit_age", "Afrit: %s seconds left");
+        this.add("occultism.jade.marid", "Marid");
+        this.add("occultism.jade.marid_age", "Marid: %s seconds left");
         this.add("config.jade.plugin_occultism.foliot", "Spirits Info");
         this.add("config.jade.plugin_occultism.sacrificial", "Ritual Bowl Info");
 

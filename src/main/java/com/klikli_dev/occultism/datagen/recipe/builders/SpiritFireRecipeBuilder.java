@@ -3,13 +3,10 @@ package com.klikli_dev.occultism.datagen.recipe.builders;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -19,10 +16,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
@@ -33,17 +30,18 @@ import java.util.Map;
 
 public class SpiritFireRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
-    @Nullable
-    private String group;
     private final RecipeSerializer<SpiritFireRecipe> serializer;
     private final Ingredient ingredient;
     private final ItemStackTemplate output;
+    @Nullable
+    private String group;
 
     public SpiritFireRecipeBuilder(Ingredient ingredient, ItemStackTemplate output) {
         this.serializer = OccultismRecipes.SPIRIT_FIRE.get();
         this.ingredient = ingredient;
         this.output = output;
     }
+
     public static SpiritFireRecipeBuilder spiritFireRecipe(Ingredient ingredient, ItemStackTemplate output) {
         return new SpiritFireRecipeBuilder(ingredient, output);
     }

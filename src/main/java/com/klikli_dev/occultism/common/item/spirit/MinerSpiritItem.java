@@ -29,13 +29,11 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.enchantment.Enchantable;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -76,9 +74,9 @@ public class MinerSpiritItem extends Item {
     @Override
     public int getMaxStackSize(ItemStack stack) {
         //cannot use verifyTagAfterLoad as config is not available at that time
-        if(!stack.has(OccultismDataComponents.MAX_MINING_TIME))
+        if (!stack.has(OccultismDataComponents.MAX_MINING_TIME))
             stack.set(OccultismDataComponents.MAX_MINING_TIME, this.maxMiningTime.get());
-        if(!stack.has(OccultismDataComponents.ROLLS_PER_OPERATION))
+        if (!stack.has(OccultismDataComponents.ROLLS_PER_OPERATION))
             stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
         return super.getMaxStackSize(stack);
     }

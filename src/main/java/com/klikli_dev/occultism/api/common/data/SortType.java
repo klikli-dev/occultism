@@ -40,10 +40,10 @@ public enum SortType implements StringRepresentable {
     NAME,
     MOD;
 
-    private static final Map<String, SortType> TYPES = new Object2ObjectArrayMap<>();
-    public static final Codec<SortType> CODEC = Codec.stringResolver(SortType::getSerializedName, TYPES::get);
     public static final IntFunction<SortType> BY_ID = ByIdMap.continuous(Enum::ordinal, SortType.values(), OutOfBoundsStrategy.WRAP);
     public static final StreamCodec<ByteBuf, SortType> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
+    private static final Map<String, SortType> TYPES = new Object2ObjectArrayMap<>();
+    public static final Codec<SortType> CODEC = Codec.stringResolver(SortType::getSerializedName, TYPES::get);
 
     static {
         for (SortType type : values()) {

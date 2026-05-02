@@ -27,9 +27,9 @@ import com.klikli_dev.occultism.client.model.entity.BlacksmithFamiliarModel;
 import com.klikli_dev.occultism.client.render.entity.state.BlacksmithFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.BlacksmithFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -67,7 +67,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
         reusedState.hasSquareHair = entity.hasSquareHair();
         reusedState.hasMarioMoustache = entity.hasMarioMoustache();
         reusedState.hasEarring = entity.hasEarring();
-        reusedState.isChristmas = com.klikli_dev.occultism.util.FamiliarUtil.isChristmas();
+        reusedState.isChristmas = FamiliarUtil.isChristmas();
         reusedState.setRenderData(BARS, entity.getBars());
     }
 

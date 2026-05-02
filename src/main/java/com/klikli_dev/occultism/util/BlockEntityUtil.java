@@ -34,7 +34,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunk.EntityCreationType;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapability;
@@ -138,7 +137,7 @@ public class BlockEntityUtil {
             var tag = blockEntity.saveWithoutMetadata(level.registryAccess());
             if (!tag.isEmpty()) {
                 var output = TagValueOutput.createWithoutContext(
-                    ProblemReporter.DISCARDING);
+                        ProblemReporter.DISCARDING);
                 BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), output);
             }
         } else {

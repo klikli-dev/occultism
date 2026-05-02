@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;

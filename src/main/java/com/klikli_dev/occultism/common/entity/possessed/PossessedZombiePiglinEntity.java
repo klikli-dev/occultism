@@ -26,13 +26,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.Level;
 
-public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
+public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob {
 
     public PossessedZombiePiglinEntity(EntityType<? extends PossessedZombiePiglinEntity> type,
                                        Level worldIn) {
@@ -45,9 +44,9 @@ public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.26F)
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
-                .add(Attributes.ATTACK_SPEED,7)
-                .add(Attributes.ARMOR,6)
-                .add(Attributes.MAX_HEALTH,80)
+                .add(Attributes.ATTACK_SPEED, 7)
+                .add(Attributes.ARMOR, 6)
+                .add(Attributes.MAX_HEALTH, 80)
                 .add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 25.0);
     }
@@ -78,7 +77,7 @@ public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.ZOMBIFIED_PIGLIN;
     }
 }

@@ -1,7 +1,10 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.*;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.*;

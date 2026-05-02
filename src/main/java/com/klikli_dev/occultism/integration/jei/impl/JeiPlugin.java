@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
-import com.klikli_dev.occultism.crafting.recipe.*;
 import com.klikli_dev.occultism.integration.jei.impl.recipes.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -42,16 +41,11 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -175,6 +169,11 @@ public class JeiPlugin implements IModPlugin {
         JeiPlugin.runtime = jeiRuntime;
     }
 
+    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
+        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM_STACK,
+                Component.translatable("jei." + Occultism.MODID + ".ingredient." + BuiltInRegistries.ITEM.getKey(ingredient.asItem()).getPath().replace("/", ".") + ".description"));
+    }
+
     @EventBusSubscriber(modid = Occultism.MODID)
     public static class ServerRecipeSync {
         @SubscribeEvent
@@ -196,10 +195,5 @@ public class JeiPlugin implements IModPlugin {
         public static void onRecipesReceived(RecipesReceivedEvent event) {
             syncedRecipes = event.getRecipeMap();
         }
-    }
-
-    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
-        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM_STACK,
-                Component.translatable("jei." + Occultism.MODID + ".ingredient." + BuiltInRegistries.ITEM.getKey(ingredient.asItem()).getPath().replace("/", ".") + ".description"));
     }
 }

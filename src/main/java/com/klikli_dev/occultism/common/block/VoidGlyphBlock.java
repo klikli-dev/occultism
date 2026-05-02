@@ -36,13 +36,11 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.Tags.Items;
 import org.jetbrains.annotations.NotNull;
 
@@ -79,7 +77,7 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
         int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
-        int cor = RandomSource.create().nextIntBetweenInclusive(0,3);
+        int cor = RandomSource.create().nextIntBetweenInclusive(0, 3);
         boolean cc = this.cycle;
         BlockState current = context.getLevel().getBlockState(pos);
         if (current.getBlock() == this) {
@@ -91,12 +89,22 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
         if (player != null) {
             ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
                     player.getItemInHand(InteractionHand.OFF_HAND) :
-                    player.getItemInHand(InteractionHand.MAIN_HAND) ;
-            if (stack.is(Items.DYES_WHITE)) {cor = 0; cc = false;}
-            else if (stack.is(Items.DYES_LIGHT_GRAY)) {cor = 1; cc = false;}
-            else if (stack.is(Items.DYES_GRAY)) {cor = 2; cc = false;}
-            else if (stack.is(Items.DYES_BLACK)) {cor = 3; cc = false;}
-            else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {cc = false;}
+                    player.getItemInHand(InteractionHand.MAIN_HAND);
+            if (stack.is(Items.DYES_WHITE)) {
+                cor = 0;
+                cc = false;
+            } else if (stack.is(Items.DYES_LIGHT_GRAY)) {
+                cor = 1;
+                cc = false;
+            } else if (stack.is(Items.DYES_GRAY)) {
+                cor = 2;
+                cc = false;
+            } else if (stack.is(Items.DYES_BLACK)) {
+                cor = 3;
+                cc = false;
+            } else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {
+                cc = false;
+            }
         }
         return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
                 .setValue(BlockStateProperties.HORIZONTAL_FACING,

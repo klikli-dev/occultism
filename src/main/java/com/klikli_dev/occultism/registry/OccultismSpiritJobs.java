@@ -26,8 +26,8 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.entities.SpiritJobClient;
 import com.klikli_dev.occultism.common.entity.job.*;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -53,23 +53,23 @@ public class OccultismSpiritJobs {
     //Trade jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERSTONE = JOBS.register("trader_otherstone",
             () -> new SpiritJobFactory((entity) -> new TraderJob(entity,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderOtherstone.operationTimer::getAsInt,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderOtherstone.operationCount::getAsInt
+                    Occultism.SERVER_CONFIG.spiritJobs.traderOtherstone.operationTimer::getAsInt,
+                    Occultism.SERVER_CONFIG.spiritJobs.traderOtherstone.operationCount::getAsInt
             ), SpiritJobClient.create("otherstone_trader")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERROCK = JOBS.register("trader_otherrock",
             () -> new SpiritJobFactory((entity) -> new TraderJob(entity,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderOtherrock.operationTimer::getAsInt,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderOtherrock.operationCount::getAsInt
+                    Occultism.SERVER_CONFIG.spiritJobs.traderOtherrock.operationTimer::getAsInt,
+                    Occultism.SERVER_CONFIG.spiritJobs.traderOtherrock.operationCount::getAsInt
             ), SpiritJobClient.create("otherrock_trader")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS = JOBS.register("trader_otherworld_saplings",
-            () -> new SpiritJobFactory((entity) ->  new TraderJob(entity,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderSapling.operationTimer::getAsInt,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderSapling.operationCount::getAsInt
+            () -> new SpiritJobFactory((entity) -> new TraderJob(entity,
+                    Occultism.SERVER_CONFIG.spiritJobs.traderSapling.operationTimer::getAsInt,
+                    Occultism.SERVER_CONFIG.spiritJobs.traderSapling.operationCount::getAsInt
             ), SpiritJobClient.create("sapling_trader")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_GAMBLER = JOBS.register("gambler",
             () -> new SpiritJobFactory((entity) -> new TraderJob(entity,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationTimer::getAsInt,
-                        Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationCount::getAsInt
+                    Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationTimer::getAsInt,
+                    Occultism.SERVER_CONFIG.spiritJobs.traderGem.operationCount::getAsInt
             ), SpiritJobClient.create("gambler")));
 
     //Crushing jobs

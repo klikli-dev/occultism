@@ -24,24 +24,22 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.skeleton.WitherSkeleton;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
@@ -110,7 +108,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements Poss
             this.minions.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
 
-        super.actuallyHurt(level, source, (float) (amount * (1 - this.minions.size()/10.0)));
+        super.actuallyHurt(level, source, (float) (amount * (1 - this.minions.size() / 10.0)));
     }
 
     public void notifyMinionDeath(WildHuntSkeletonEntity minion) {
@@ -118,7 +116,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements Poss
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.WITHER_SKELETON;
     }
 }

@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -21,10 +20,9 @@ import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class SpiritGrindstoneMenu extends AbstractContainerMenu {
-    private final float DURABILITY_MULTIPLIER_ON_REPAIR = 1.2F;
-
-    private final Container resultSlots;
     final Container repairSlots;
+    private final float DURABILITY_MULTIPLIER_ON_REPAIR = 1.2F;
+    private final Container resultSlots;
     private final ContainerLevelAccess access;
     private int xp;
 
@@ -61,7 +59,7 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
             private int getExperienceAmount(Level level) {
                 return SpiritGrindstoneMenu.this.xp > -1 ? SpiritGrindstoneMenu.this.xp :
                         this.getExperienceFromItem(SpiritGrindstoneMenu.this.repairSlots.getItem(0)) +
-                        this.getExperienceFromItem(SpiritGrindstoneMenu.this.repairSlots.getItem(1));
+                                this.getExperienceFromItem(SpiritGrindstoneMenu.this.repairSlots.getItem(1));
             }
 
             private int getExperienceFromItem(ItemStack stack) {
@@ -76,13 +74,13 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
         });
 
         int k;
-        for(k = 0; k < 3; ++k) {
-            for(int j = 0; j < 9; ++j) {
+        for (k = 0; k < 3; ++k) {
+            for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + k * 9 + 9, 8 + j * 18, 84 + k * 18));
             }
         }
 
-        for(k = 0; k < 9; ++k) {
+        for (k = 0; k < 9; ++k) {
             this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
 
@@ -135,9 +133,9 @@ public class SpiritGrindstoneMenu extends AbstractContainerMenu {
             if (itemstack.isDamageableItem()) {
                 itemstack.set(DataComponents.MAX_DAMAGE, i);
                 itemstack.setDamageValue((int) Math.max(0,
-                    i - (inputItem.getMaxDamage()-inputItem.getDamageValue()
-                    + additionalItem.getMaxDamage()-additionalItem.getDamageValue())
-                    * this.DURABILITY_MULTIPLIER_ON_REPAIR));
+                        i - (inputItem.getMaxDamage() - inputItem.getDamageValue()
+                                + additionalItem.getMaxDamage() - additionalItem.getDamageValue())
+                                * this.DURABILITY_MULTIPLIER_ON_REPAIR));
                 if (!additionalItem.has(DataComponents.REPAIRABLE))
                     itemstack.setDamageValue(inputItem.getDamageValue());
             }

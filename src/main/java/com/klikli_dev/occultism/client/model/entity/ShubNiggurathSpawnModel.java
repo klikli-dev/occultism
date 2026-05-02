@@ -24,8 +24,6 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

@@ -178,38 +178,38 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarRenderState> {
     @Override
     public void setupAnim(BatFamiliarRenderState s) {
         super.setupAnim(s);
-        stick.visible = s.isSitting && !s.isPartying;
-        goblet1.visible = s.hasBlacksmithUpgrade && (!s.isSitting || s.isPartying);
-        hair.visible = s.hasHair;
-        ribbon.visible = s.hasRibbon;
-        tail.visible = s.hasTail;
-        body1.yRot = body1.zRot = 0;
-        head.xRot = toRads(s.xRot);
-        head.yRot = toRads(s.yRot);
-        head.zRot = 0;
-        leftEar1.xRot = rightEar1.xRot = 0;
+        this.stick.visible = s.isSitting && !s.isPartying;
+        this.goblet1.visible = s.hasBlacksmithUpgrade && (!s.isSitting || s.isPartying);
+        this.hair.visible = s.hasHair;
+        this.ribbon.visible = s.hasRibbon;
+        this.tail.visible = s.hasTail;
+        this.body1.yRot = this.body1.zRot = 0;
+        this.head.xRot = this.toRads(s.xRot);
+        this.head.yRot = this.toRads(s.yRot);
+        this.head.zRot = 0;
+        this.leftEar1.xRot = this.rightEar1.xRot = 0;
         float h = s.animationHeight;
-        leftWing1.xRot = rightWing1.xRot = h * toRads(20) - 0.15f;
-        leftWing1.yRot = h * toRads(20) - 0.15f;
-        rightWing1.yRot = -h * toRads(20) + 0.15f;
-        leftWing2.xRot = rightWing2.xRot = h * toRads(20) + toRads(15);
-        body1.xRot = toRads(20) + s.walkAnimationSpeed * toRads(30);
-        leftLeg.xRot = rightLeg.xRot = 0.24f + Mth.cos(s.ageInTicks * 0.1f) * toRads(20);
+        this.leftWing1.xRot = this.rightWing1.xRot = h * this.toRads(20) - 0.15f;
+        this.leftWing1.yRot = h * this.toRads(20) - 0.15f;
+        this.rightWing1.yRot = -h * this.toRads(20) + 0.15f;
+        this.leftWing2.xRot = this.rightWing2.xRot = h * this.toRads(20) + this.toRads(15);
+        this.body1.xRot = this.toRads(20) + s.walkAnimationSpeed * this.toRads(30);
+        this.leftLeg.xRot = this.rightLeg.xRot = 0.24f + Mth.cos(s.ageInTicks * 0.1f) * this.toRads(20);
         if (s.isPartying) {
-            float hr = Mth.sin(s.ageInTicks / 3) * toRads(10);
-            float wr = Mth.sin(s.ageInTicks / 3) * toRads(40);
-            head.xRot = head.yRot = head.zRot = hr;
-            leftWing1.xRot = rightWing1.xRot = leftWing1.yRot = rightWing1.yRot = leftWing2.xRot = rightWing2.xRot = wr;
-            body1.xRot = toRads(20) + s.walkAnimationSpeed * toRads(70);
+            float hr = Mth.sin(s.ageInTicks / 3) * this.toRads(10);
+            float wr = Mth.sin(s.ageInTicks / 3) * this.toRads(40);
+            this.head.xRot = this.head.yRot = this.head.zRot = hr;
+            this.leftWing1.xRot = this.rightWing1.xRot = this.leftWing1.yRot = this.rightWing1.yRot = this.leftWing2.xRot = this.rightWing2.xRot = wr;
+            this.body1.xRot = this.toRads(20) + s.walkAnimationSpeed * this.toRads(70);
         } else if (s.isSitting) {
-            leftWing1.xRot = rightWing1.xRot = 0;
-            leftWing1.yRot = toRads(80);
-            rightWing1.yRot = -toRads(80);
-            leftWing2.xRot = rightWing2.xRot = toRads(15);
-            head.xRot = 0.2f;
-            body1.xRot = toRads(180);
-            body1.yRot = toRads(180);
-            leftLeg.xRot = rightLeg.xRot = 0.24f;
+            this.leftWing1.xRot = this.rightWing1.xRot = 0;
+            this.leftWing1.yRot = this.toRads(80);
+            this.rightWing1.yRot = -this.toRads(80);
+            this.leftWing2.xRot = this.rightWing2.xRot = this.toRads(15);
+            this.head.xRot = 0.2f;
+            this.body1.xRot = this.toRads(180);
+            this.body1.yRot = this.toRads(180);
+            this.leftLeg.xRot = this.rightLeg.xRot = 0.24f;
         }
     }
 

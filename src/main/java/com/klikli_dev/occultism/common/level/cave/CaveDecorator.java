@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.level.cave;
 
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

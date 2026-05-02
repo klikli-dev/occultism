@@ -58,7 +58,7 @@ public interface IStorageController {
 
     /**
      *
-     * @param maxItemTypes the maximum amount of different items the controller can hold.
+     * @param maxItemTypes      the maximum amount of different items the controller can hold.
      * @param maxTotalItemCount the maximum total amount of items (all item types added up) the controller can hold.
      */
     void setStorageLimits(int maxItemTypes, long maxTotalItemCount);
