@@ -48,6 +48,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -75,6 +76,36 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityBlock, Portal {
+
+    // Mirrors RespawnAnchorBlock nearby stand-up search ordering.
+    private static final int[][] SAFE_TELEPORT_OFFSETS = new int[][]{
+            {0, 0, 0},
+            {0, 0, -1},
+            {-1, 0, 0},
+            {0, 0, 1},
+            {1, 0, 0},
+            {-1, 0, -1},
+            {1, 0, -1},
+            {-1, 0, 1},
+            {1, 0, 1},
+            {0, -1, -1},
+            {-1, -1, 0},
+            {0, -1, 1},
+            {1, -1, 0},
+            {-1, -1, -1},
+            {1, -1, -1},
+            {-1, -1, 1},
+            {1, -1, 1},
+            {0, 1, -1},
+            {-1, 1, 0},
+            {0, 1, 1},
+            {1, 1, 0},
+            {-1, 1, -1},
+            {1, 1, -1},
+            {-1, 1, 1},
+            {1, 1, 1},
+            {0, 1, 0}
+    };
 
     private static ItemStack getWormholeStack(EntityWormholeBlockEntity wormhole) {
         return wormhole.itemStackHandler.getResource(0).toStack(wormhole.itemStackHandler.getAmountAsInt(0));
@@ -178,14 +209,15 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             ItemStack compass = getWormholeStack(wormhole);
 
             ResourceKey<Level> resourcekey = null;
-            BlockPos blockpos = null;
+            BlockPos targetPos = null;
+            Vec3 destination = null;
             if (compass.has(DataComponents.LODESTONE_TRACKER)) {
                 var test = compass.get(DataComponents.LODESTONE_TRACKER);
                 if (test != null) {
                     Optional<GlobalPos> globalPos = test.target();
                     if (globalPos.isPresent()) {
                         resourcekey = globalPos.get().dimension();
-                        blockpos = globalPos.get().pos().above();
+                        targetPos = globalPos.get().pos().above();
                     }
                 }
             } else if (compass.is(Items.COMPASS)) {
@@ -195,7 +227,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                     if (name != null) {
                         if (name.getString().equals("RTP")) {
                             resourcekey = entity.level().dimension();
-                            blockpos = this.findSafeRTP(level, entity, Occultism.SERVER_CONFIG.itemSettings.maxTryRTP.getAsInt());
+                            targetPos = this.findSafeRTP(level, entity, Occultism.SERVER_CONFIG.itemSettings.maxTryRTP.getAsInt());
                         }
                         if (name.getString().equals("HOME")
                                 && entity instanceof ServerPlayer player) {
@@ -209,14 +241,14 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                                 if (block instanceof RespawnAnchorBlock && (blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0) && RespawnAnchorBlock.canSetSpawn(tempLevel, tempPos)) {
                                     Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos);
                                     if (optional.isPresent()) {
-                                        blockpos = new BlockPos((int) optional.get().x(), (int) optional.get().y(), (int) optional.get().z());
+                                        destination = optional.get();
                                         resourcekey = tempKey;
                                     }
                                 } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
                                     float respawnAngle = respawnConfig.respawnData().yaw();
                                     Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
                                     if (optional.isPresent()) {
-                                        blockpos = new BlockPos((int) optional.get().x(), (int) optional.get().y(), (int) optional.get().z());
+                                        destination = optional.get();
                                         resourcekey = tempKey;
                                     }
                                 }
@@ -228,7 +260,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                     && entity instanceof ServerPlayer serverPlayer
                     && serverPlayer.getLastDeathLocation().isPresent()) {
                 resourcekey = serverPlayer.getLastDeathLocation().get().dimension();
-                blockpos = serverPlayer.getLastDeathLocation().get().pos();
+                targetPos = serverPlayer.getLastDeathLocation().get().pos();
             } else if (compass.has(OccultismDataComponents.SPIRIT_ENTITY_UUID)) {
                 UUID spirit = ItemNBTUtil.getSpiritEntityUUID(compass);
                 if (spirit != null) {
@@ -236,7 +268,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                         Entity targetEntity = allLvl.getEntity(spirit);
                         if (targetEntity != null) {
                             resourcekey = targetEntity.level().dimension();
-                            blockpos = targetEntity.blockPosition();
+                            targetPos = targetEntity.blockPosition();
                             break;
                         }
                     }
@@ -249,11 +281,13 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             ServerLevel serverlevel = resourcekey == null ? null : level.getServer().getLevel(resourcekey);
             if (serverlevel == null)
                 return null;
-            //BlockPos check
-            if (blockpos == null)
-                blockpos = serverlevel.getRespawnData().pos();
-            //No exit suffocating
-            if (serverlevel.getBlockState(blockpos).isSuffocating(serverlevel, blockpos))
+            //Resolve to a safe destination around the target block when needed
+            if (destination == null) {
+                if (targetPos == null)
+                    targetPos = serverlevel.getRespawnData().pos();
+                destination = entity instanceof Projectile ? targetPos.getBottomCenter() : this.findSafeTeleportPosition(entity, serverlevel, targetPos);
+            }
+            if (destination == null)
                 return null;
 
             //State to get exit rotation
@@ -261,7 +295,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
             return new TeleportTransition(
                     serverlevel,
-                    blockpos.getBottomCenter(),
+                    destination,
                     entity.getDeltaMovement(),
                     state.getValue(EXIT_ROTATION_Y) == 0 ? entity.getYHeadRot() : this.getExitRotY(state),
                     state.getValue(EXIT_ROTATION_X) == 0 ? entity.getXRot() : this.getExitRotX(state),
@@ -293,6 +327,27 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             case 5 -> -90;
             default -> 0;
         };
+    }
+
+    @Nullable
+    private Vec3 findSafeTeleportPosition(Entity entity, ServerLevel level, BlockPos pos) {
+        // Matches vanilla respawn logic: prefer safe spots, then allow otherwise valid stand-up spaces.
+        Optional<Vec3> safePosition = this.findSafeTeleportPosition(entity.getType(), level, pos, true);
+        return safePosition.isPresent() ? safePosition.get() : this.findSafeTeleportPosition(entity.getType(), level, pos, false).orElse(null);
+    }
+
+    private Optional<Vec3> findSafeTeleportPosition(EntityType<?> type, ServerLevel level, BlockPos pos, boolean checkDangerous) {
+        BlockPos.MutableBlockPos candidatePos = pos.mutable();
+
+        for (int[] offset : SAFE_TELEPORT_OFFSETS) {
+            candidatePos.set(pos.getX() + offset[0], pos.getY() + offset[1], pos.getZ() + offset[2]);
+            Vec3 safePosition = DismountHelper.findSafeDismountLocation(type, level, candidatePos, checkDangerous);
+            if (safePosition != null) {
+                return Optional.of(safePosition);
+            }
+        }
+
+        return Optional.empty();
     }
 
     private BlockPos findSafeRTP(Level level, Entity entity, int recursionLeft){
