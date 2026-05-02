@@ -28,6 +28,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -92,14 +93,14 @@ public class SelectedBlockRenderer {
         BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 
         poseStack.pushPose();
-        this.renderSelectedBlocks(poseStack, buffer, camera);
-        buffer.endBatch();
+        var renderType = OccultismRenderType.overlayLines();
+        this.renderSelectedBlocks(poseStack, buffer, renderType, camera);
+        buffer.endBatch(renderType);
         poseStack.popPose();
     }
 
-    protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, Camera camera) {
+    protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, RenderType renderType, Camera camera) {
         if (!this.selectedBlocks.isEmpty()) {
-            var renderType = OccultismRenderType.overlayLines();
             VertexConsumer builder = buffer.getBuffer(renderType);
             matrixStack.pushPose();
 
