@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/purple",
+  "criteria": {
+    "chalk_green": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_green"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.green.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_green"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.green.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_green"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
