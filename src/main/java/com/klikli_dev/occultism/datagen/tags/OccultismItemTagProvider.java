@@ -260,6 +260,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem())
                 .add(OccultismItems.GRAY_PASTE.asItem())
                 .add(OccultismItems.NATURE_PASTE.asItem());
+        this.tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
 
