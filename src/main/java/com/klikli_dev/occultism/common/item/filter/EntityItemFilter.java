@@ -7,10 +7,6 @@
 package com.klikli_dev.occultism.common.item.filter;
 
 import com.klikli_dev.codedefinedgui.filter.attribute.AttributeFilterDefinition;
-import com.klikli_dev.codedefinedgui.filter.attribute.AttributeFilterMode;
-import com.klikli_dev.codedefinedgui.filter.attribute.AttributeFilterState;
-import com.klikli_dev.codedefinedgui.filter.attribute.AttributeFilterStateAccessor;
-import com.klikli_dev.codedefinedgui.filter.attribute.AttributeRule;
 import com.klikli_dev.codedefinedgui.filter.core.FilterMatchContext;
 import com.klikli_dev.codedefinedgui.filter.list.ListFilterMode;
 import com.klikli_dev.codedefinedgui.filter.list.ListFilterState;
@@ -20,14 +16,10 @@ import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-
-import java.util.List;
 
 public final class EntityItemFilter {
     private EntityItemFilter() {
@@ -122,50 +114,5 @@ public final class EntityItemFilter {
         }
 
         return hasEntries;
-    }
-
-    public static ItemStack createLegacyFilterItem(ItemStacksResourceHandler legacyFilterItems, String legacyTagFilter,
-                                                   boolean legacyBlacklist) {
-        List<AttributeRule> rules = new java.util.ArrayList<>();
-        for (int i = 0; i < legacyFilterItems.size(); i++) {
-            ItemStack stack = legacyFilterItems.getResource(i).toStack(legacyFilterItems.getAmountAsInt(i));
-            if (!stack.isEmpty()) {
-                rules.add(WildcardItemIdAttributeType.rule(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString()));
-            }
-        }
-
-        if (!legacyTagFilter.isBlank()) {
-            for (String rawToken : legacyTagFilter.split(";")) {
-                String token = rawToken.trim();
-                if (token.isEmpty()) {
-                    continue;
-                }
-
-                if (token.startsWith("item:")) {
-                    rules.add(WildcardItemIdAttributeType.rule(token.substring(5)));
-                    continue;
-                }
-
-                if (token.startsWith("tag:")) {
-                    token = token.substring(4);
-                }
-
-                if (!token.isBlank()) {
-                    rules.add(WildcardItemTagAttributeType.rule(token));
-                }
-            }
-        }
-
-        if (!rules.isEmpty()) {
-            ItemStack filterItem = new ItemStack(OccultismItems.ATTRIBUTE_FILTER.get());
-            AttributeFilterStateAccessor.INSTANCE.write(filterItem, new AttributeFilterState(
-                    ItemStack.EMPTY,
-                    legacyBlacklist ? AttributeFilterMode.DENY : AttributeFilterMode.MATCH_ANY,
-                    List.copyOf(rules)
-            ));
-            return filterItem;
-        }
-
-        return ItemStack.EMPTY;
     }
 }

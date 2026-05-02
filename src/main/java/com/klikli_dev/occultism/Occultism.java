@@ -23,12 +23,9 @@
 package com.klikli_dev.occultism;
 
 import com.google.common.collect.ImmutableSet;
-import com.klikli_dev.codedefinedgui.filter.attribute.ItemAttributes;
 import com.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
-import com.klikli_dev.occultism.common.item.filter.WildcardItemIdAttributeType;
-import com.klikli_dev.occultism.common.item.filter.WildcardItemTagAttributeType;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.possessed.horde.*;
@@ -139,8 +136,6 @@ public class Occultism {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         PageLoaders.onCommonSetup(event);
-        ItemAttributes.register(new WildcardItemIdAttributeType());
-        ItemAttributes.register(new WildcardItemTagAttributeType());
 
         event.enqueueWork(() -> {
             BlockEntityType.CAMPFIRE.validBlocks = Stream.concat(

@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
-import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
@@ -40,7 +39,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
@@ -349,18 +347,6 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             this.filterItemStackHandler.deserialize(filterInput);
         });
 
-        if (this.getFilterItem().isEmpty()) {
-            boolean legacyBlacklist = input.getBooleanOr("isFilterBlacklist", true);
-            String legacyTagFilter = input.getString("tagFilter").orElse("");
-            ItemStacksResourceHandler legacyFilterItems = new ItemStacksResourceHandler(SpiritEntity.LEGACY_MAX_FILTER_SLOTS);
-            input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
-                tag.putInt("Size", SpiritEntity.LEGACY_MAX_FILTER_SLOTS);
-                ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
-                legacyFilterItems.deserialize(filterInput);
-            });
-
-            this.setFilterItem(EntityItemFilter.createLegacyFilterItem(legacyFilterItems, legacyTagFilter, legacyBlacklist));
-        }
     }
 
     @Override

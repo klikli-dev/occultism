@@ -83,7 +83,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      * The default max age in seconds.
      */
     public static final int DEFAULT_MAX_AGE = -1;//default age is unlimited.
-    public static final int LEGACY_MAX_FILTER_SLOTS = 14;
     /**
      * The spirit job registry name/id.
      */
@@ -579,18 +578,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             this.filterItemStackHandler.deserialize(filterInput);
         });
 
-        if (this.getFilterItem().isEmpty()) {
-            boolean legacyBlacklist = input.getBooleanOr("isFilterBlacklist", false);
-            String legacyTagFilter = input.getString("tagFilter").orElse("");
-            ItemStacksResourceHandler legacyFilterItems = new ItemStacksResourceHandler(LEGACY_MAX_FILTER_SLOTS);
-            input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
-                tag.putInt("Size", LEGACY_MAX_FILTER_SLOTS);
-                ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
-                legacyFilterItems.deserialize(filterInput);
-            });
-
-            this.setFilterItem(EntityItemFilter.createLegacyFilterItem(legacyFilterItems, legacyTagFilter, legacyBlacklist));
-        }
     }
 
     @Override
