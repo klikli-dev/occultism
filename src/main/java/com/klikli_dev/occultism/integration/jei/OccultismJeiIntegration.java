@@ -6,7 +6,6 @@
 
 package com.klikli_dev.occultism.integration.jei;
 
-import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.platform.Services;
 import com.klikli_dev.occultism.Occultism;
 

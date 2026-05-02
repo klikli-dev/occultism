@@ -81,7 +81,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
         spheres.add(this.generateSphere(reader, rand, rootPosition, radius, bounds));
         for (Sphere sphere : spheres) {
-            this.closeOutSphere(reader, sphere.center, sphere.radius + 3 , bounds);
+            this.closeOutSphere(reader, sphere.center, sphere.radius + 3, bounds);
             this.hollowOutSphere(reader, rand, sphere.center, sphere.radius - 1, bounds);
             this.decorateSphere(reader, generator, rand, sphere.center, sphere.radius + 1, bounds, config);
         }
@@ -116,7 +116,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         BlockPos max = Math3DUtil.clamp(center.offset(radius, k + 2, radius), bounds);
 
         BlockPos.betweenClosed(min, max).forEach(blockPos -> {
-            if (blockPos.distSqr(center) <= (double) (f * f) ) {
+            if (blockPos.distSqr(center) <= (double) (f * f)) {
                 BlockState currentState = reader.getBlockState(blockPos);
                 this.setBlockSafely(reader, blockPos, currentState, Blocks.STONE.defaultBlockState(), 2);
             }

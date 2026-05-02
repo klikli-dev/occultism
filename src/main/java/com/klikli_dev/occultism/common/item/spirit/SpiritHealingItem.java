@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.item.spirit;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

@@ -7,7 +7,6 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 
 public class BookSpiritTradeRecipePageModel extends BookRecipePageModel<BookSpiritTradeRecipePageModel> {

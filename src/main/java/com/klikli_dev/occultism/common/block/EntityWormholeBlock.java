@@ -28,8 +28,10 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
@@ -56,7 +58,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -67,7 +68,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -77,6 +77,9 @@ import java.util.UUID;
 
 public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityBlock, Portal {
 
+    public static final IntegerProperty EXIT_ROTATION_X = IntegerProperty.create("exit_rotation_x", 0, 5);
+    public static final IntegerProperty EXIT_ROTATION_Y = IntegerProperty.create("exit_rotation_y", 0, 8);
+    public static final MapCodec<EntityWormholeBlock> CODEC = simpleCodec(EntityWormholeBlock::new);
     // Mirrors RespawnAnchorBlock nearby stand-up search ordering.
     private static final int[][] SAFE_TELEPORT_OFFSETS = new int[][]{
             {0, 0, 0},
@@ -106,23 +109,18 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             {1, 1, 1},
             {0, 1, 0}
     };
-
-    private static ItemStack getWormholeStack(EntityWormholeBlockEntity wormhole) {
-        return wormhole.itemStackHandler.getResource(0).toStack(wormhole.itemStackHandler.getAmountAsInt(0));
-    }
-
-    public static final MapCodec<EntityWormholeBlock> CODEC = simpleCodec(EntityWormholeBlock::new);
-    public static final IntegerProperty EXIT_ROTATION_X = IntegerProperty.create("exit_rotation_x", 0, 5);
-    public static final IntegerProperty EXIT_ROTATION_Y = IntegerProperty.create("exit_rotation_y", 0, 8);
-
     public EntityWormholeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
                 this.stateDefinition
                         .any()
-                        .setValue(EXIT_ROTATION_X,0)
-                        .setValue(EXIT_ROTATION_Y,0)
+                        .setValue(EXIT_ROTATION_X, 0)
+                        .setValue(EXIT_ROTATION_Y, 0)
         );
+    }
+
+    private static ItemStack getWormholeStack(EntityWormholeBlockEntity wormhole) {
+        return wormhole.itemStackHandler.getResource(0).toStack(wormhole.itemStackHandler.getAmountAsInt(0));
     }
 
     @Override
@@ -148,7 +146,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         if (!pLevel.isClientSide()) {
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
             if (pStack.is(OccultismItems.SPIRIT_ATTUNED_GEM.get())) {
-                if (pHand.equals(InteractionHand.MAIN_HAND)){
+                if (pHand.equals(InteractionHand.MAIN_HAND)) {
                     pLevel.setBlock(pPos, pState.cycle(EXIT_ROTATION_Y), 10);
                 } else {
                     pLevel.setBlock(pPos, pState.cycle(EXIT_ROTATION_X), 10);
@@ -337,7 +335,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     }
 
     private Optional<Vec3> findSafeTeleportPosition(EntityType<?> type, ServerLevel level, BlockPos pos, boolean checkDangerous) {
-        BlockPos.MutableBlockPos candidatePos = pos.mutable();
+        MutableBlockPos candidatePos = pos.mutable();
 
         for (int[] offset : SAFE_TELEPORT_OFFSETS) {
             candidatePos.set(pos.getX() + offset[0], pos.getY() + offset[1], pos.getZ() + offset[2]);
@@ -350,7 +348,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         return Optional.empty();
     }
 
-    private BlockPos findSafeRTP(Level level, Entity entity, int recursionLeft){
+    private BlockPos findSafeRTP(Level level, Entity entity, int recursionLeft) {
         if (recursionLeft <= 0)
             return null;
 
@@ -358,7 +356,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
         //Respect word border
         int range = Math.min((int) level.getWorldBorder().getDistanceToBorder(entity), Occultism.SERVER_CONFIG.itemSettings.maxDistanceRTP.getAsInt());
         //Random direction
-        blockpos = entity.blockPosition().offset(RandomSource.create().nextInt(-range, range), level.getMaxY(),RandomSource.create().nextInt(-range,range));
+        blockpos = entity.blockPosition().offset(RandomSource.create().nextInt(-range, range), level.getMaxY(), RandomSource.create().nextInt(-range, range));
         //Find floor
         while (level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
             blockpos = blockpos.below();
@@ -380,7 +378,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                 this.findSafeRTP(level, entity, recursionLeft - 1) : blockpos;
     }
 
-    public void pullEntity(ServerLevel level, BlockPos pos, BlockState state){
+    public void pullEntity(ServerLevel level, BlockPos pos, BlockState state) {
         if (level.getBlockEntity(pos) instanceof EntityWormholeBlockEntity wormhole
                 && getWormholeStack(wormhole).has(OccultismDataComponents.SPIRIT_ENTITY_UUID)) {
             UUID spirit = ItemNBTUtil.getSpiritEntityUUID(getWormholeStack(wormhole));

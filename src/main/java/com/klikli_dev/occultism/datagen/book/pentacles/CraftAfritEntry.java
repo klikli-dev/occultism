@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class CraftAfritEntry extends EntryProvider {
@@ -28,12 +28,12 @@ public class CraftAfritEntry extends EntryProvider {
         );
         this.pageTitle("Seviras Permanent Confinement");
         this.pageText("""
-                **Purpose:** Bind {0}\\
-                \\
-                First discovered by Grandmistress Sevira of Emberwoods, **Seviras Permanent Confinement** is used for
-                 binding {1} into objects. Due to the power of the spirits involved, this should be performed only by advanced summoners.
-
-                """,
+                        **Purpose:** Bind {0}\\
+                        \\
+                        First discovered by Grandmistress Sevira of Emberwoods, **Seviras Permanent Confinement** is used for
+                         binding {1} into objects. Due to the power of the spirits involved, this should be performed only by advanced summoners.
+                        
+                        """,
                 this.color("Afrit", ChatFormatting.DARK_PURPLE),
                 this.color("Afrit", ChatFormatting.DARK_PURPLE)
         );

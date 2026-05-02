@@ -33,8 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
-import javax.annotation.Nonnull;
-
 public class SpiritTransporterContainer extends SpiritContainer {
 
     public static final int FILTER_SIZE = 14;
@@ -126,7 +124,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
         if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            
+
             if (index >= this.slots.size() - this.inventory.size() - filterSize) {
                 if (!this.moveItemStackTo(itemstack1, 0, this.slots.size() - this.inventory.size() - filterSize, true)) {
                     return ItemStack.EMPTY;
@@ -134,7 +132,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
             } else if (!this.moveItemStackTo(itemstack1, this.slots.size() - this.inventory.size() - filterSize, this.slots.size() - filterSize, true)) {
                 return ItemStack.EMPTY;
             }
-            
+
 
             if (itemstack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);

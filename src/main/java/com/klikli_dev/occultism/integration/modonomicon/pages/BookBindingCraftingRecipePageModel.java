@@ -8,10 +8,8 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;

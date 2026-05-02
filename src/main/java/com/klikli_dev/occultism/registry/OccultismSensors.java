@@ -23,11 +23,7 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.entity.ai.sensor.NearestCropSensor;
-import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
-import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
-import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableCropWalkTargetSensor;
-import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
+import com.klikli_dev.occultism.common.entity.ai.sensor.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.neoforged.neoforge.registries.DeferredRegister;

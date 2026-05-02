@@ -51,13 +51,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -65,9 +65,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public abstract class Ritual {
 
@@ -155,7 +152,7 @@ public abstract class Ritual {
 
     public String getRitualID(ServerPlayer player) {
         var holder = this.getRecipeHolder(player.level());
-        if(holder == null)
+        if (holder == null)
             return "unknown";
         Identifier recipeId = holder.id().identifier();
         String path = recipeId.getPath();
@@ -192,7 +189,7 @@ public abstract class Ritual {
     public MutableComponent getConditionNotMetMessage(GoldenSacrificialBowlBlockEntity bowl, ServerPlayer player) {
         var visitor = new RitualRecipeConditionFailureInformationVisitor();
         var condition = ConditionWrapperFactory.wrap(this.recipe.getCondition());
-        if(condition == null)
+        if (condition == null)
             return Component.literal("Unknown condition");
 
         return condition.accept(visitor, RitualRecipeConditionContext.of(bowl));
@@ -233,12 +230,12 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public boolean start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                      @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
+                         @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
 
-        if(this.recipe.getCondition() != null){
+        if (this.recipe.getCondition() != null) {
             var context = RitualRecipeConditionContext.of(blockEntity);
-            if(!this.recipe.getCondition().test(context)){
+            if (!this.recipe.getCondition().test(context)) {
                 if (castingPlayer != null)
                     castingPlayer.sendSystemMessage(this.getConditionNotMetMessage(blockEntity, castingPlayer));
                 return false;
@@ -265,7 +262,7 @@ public abstract class Ritual {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
 
-        if (castingPlayer != null){
+        if (castingPlayer != null) {
             castingPlayer.sendOverlayMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
@@ -445,10 +442,10 @@ public abstract class Ritual {
     /**
      * Mark the next ingredient to consume.
      *
-     * @param level               the level.
-     * @param goldenBowlPosition  the position of the golden bowl.
-     * @param ingredient          the ingredient to consume.
-     * @param tier                the tier of central bowl
+     * @param level              the level.
+     * @param goldenBowlPosition the position of the golden bowl.
+     * @param ingredient         the ingredient to consume.
+     * @param tier               the tier of central bowl
      */
     public void markNextIngredient(Level level,
                                    BlockPos goldenBowlPosition,
@@ -466,7 +463,7 @@ public abstract class Ritual {
                 ((ServerLevel) level)
                         .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos, center.y + 0.2 + cos, center.z + sin,
                                 1, 0.0, 0.0, 0.0, 0.003);
-                if (tier == 2){
+                if (tier == 2) {
                     double sin2 = Math.sin(gameTime + (Math.PI * 0.5)) * 0.3;
                     double cos2 = Math.cos(gameTime + (Math.PI * 0.5)) * 0.3;
                     ((ServerLevel) level)

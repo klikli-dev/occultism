@@ -36,8 +36,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -57,7 +57,7 @@ public class FamiliarRitual extends SummonRitual {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
 
-        if (castingPlayer != null){
+        if (castingPlayer != null) {
             castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
             OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
@@ -80,7 +80,7 @@ public class FamiliarRitual extends SummonRitual {
                 familiar.snapTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.getRandom().nextInt(360), 0);
                 familiar.setCustomName(Component.literal(entityName));
-                if(castingPlayer != null)
+                if (castingPlayer != null)
                     familiar.setFamiliarOwner(castingPlayer);
 
                 //notify players nearby and spawn
@@ -89,7 +89,7 @@ public class FamiliarRitual extends SummonRitual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 }

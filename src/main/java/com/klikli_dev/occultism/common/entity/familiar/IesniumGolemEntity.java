@@ -23,16 +23,15 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -45,7 +44,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueOutput;
@@ -56,6 +54,17 @@ public class IesniumGolemEntity extends IronGolem {
                               Level worldIn) {
         super(type, worldIn);
     }
+
+    //region Static Methods
+    public static Builder createAttributes() {
+        return IronGolem.createAttributes()
+                .add(Attributes.MAX_HEALTH, 1.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.5)
+                .add(Attributes.ATTACK_DAMAGE, 100.0)
+                .add(Attributes.ATTACK_SPEED, 5)
+                .add(Attributes.FOLLOW_RANGE, 64);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0, true));
@@ -71,19 +80,9 @@ public class IesniumGolemEntity extends IronGolem {
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
     }
 
-    //region Static Methods
-    public static Builder createAttributes() {
-        return IronGolem.createAttributes()
-                .add(Attributes.MAX_HEALTH, 1.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.5)
-                .add(Attributes.ATTACK_DAMAGE, 100.0)
-                .add(Attributes.ATTACK_SPEED,5)
-                .add(Attributes.FOLLOW_RANGE,64);
-    }
-
     @Override
     public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
-        if(source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
+        if (source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
             var spawnPos = this.level().getRespawnData().pos();
             this.teleportTo(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
             while (!this.level().getBlockState(this.getOnPos()).getBlock().isPossibleToRespawnInThis(this.level().getBlockState(this.getOnPos()))

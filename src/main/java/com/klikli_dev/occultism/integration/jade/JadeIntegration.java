@@ -8,7 +8,7 @@ public class JadeIntegration {
         return ModList.get().isLoaded("jade");
     }
 
-    public static boolean displayPentacles(){
+    public static boolean displayPentacles() {
         return isLoaded();
     }
 }

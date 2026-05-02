@@ -22,16 +22,15 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
-import com.klikli_dev.occultism.client.model.entity.MaridModel;
-import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
-import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import com.geckolib.cache.model.GeoBone;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
+import com.klikli_dev.occultism.client.model.entity.MaridModel;
+import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
+import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.InteractionHand;

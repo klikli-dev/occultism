@@ -38,12 +38,12 @@ public class PentaclesOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("");
         this.pageText("""
-                        Each pentacle consists of a central golden ritual bowl, surrounding runes of various colors
-                         and occult paraphernalia that improve the intended effect in various ways.\\
-                        \\
-                        They act both as a device to call on the entity, an amplifier for the summoner's commanding power
-                         and as a protecting circle preventing attacks from within against the summoner.
-                        """
+                Each pentacle consists of a central golden ritual bowl, surrounding runes of various colors
+                 and occult paraphernalia that improve the intended effect in various ways.\\
+                \\
+                They act both as a device to call on the entity, an amplifier for the summoner's commanding power
+                 and as a protecting circle preventing attacks from within against the summoner.
+                """
         );
 
         this.page("intro3", () -> BookTextPageModel.create()
@@ -51,9 +51,9 @@ public class PentaclesOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("");
         this.pageText("""
-                        The combination of chosen runes and supporting items as well as their exact spatial positioning
-                         determines the use and effectiveness of the pentacle.
-                        """
+                The combination of chosen runes and supporting items as well as their exact spatial positioning
+                 determines the use and effectiveness of the pentacle.
+                """
         );
 
         this.page("intro4", () -> BookTextPageModel.create()
@@ -61,11 +61,11 @@ public class PentaclesOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("");
         this.pageText("""
-                        Ingredients are placed in [Sacrificial Bowls](item://occultism:sacrificial_bowl)
-                         near the pentacle. Specifically, must be placed **anywhere** within
-                         8 blocks horizontally of the central [](item://occultism:golden_sacrificial_bowl).
-                         The exact location does not matter.
-                        """
+                Ingredients are placed in [Sacrificial Bowls](item://occultism:sacrificial_bowl)
+                 near the pentacle. Specifically, must be placed **anywhere** within
+                 8 blocks horizontally of the central [](item://occultism:golden_sacrificial_bowl).
+                 The exact location does not matter.
+                """
         );
 
     }

@@ -22,11 +22,10 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
+import com.geckolib.renderer.layer.GeoRenderLayer;
 import com.klikli_dev.occultism.client.model.entity.AfritWildModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
-import com.geckolib.renderer.layer.GeoRenderLayer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 
 public class AfritWildRenderer extends OccultismGeoLivingEntityRenderer<AfritWildEntity> {

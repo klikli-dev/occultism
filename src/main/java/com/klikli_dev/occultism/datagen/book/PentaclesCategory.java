@@ -9,17 +9,21 @@ import com.klikli_dev.occultism.datagen.book.pentacles.*;
 
 public class PentaclesCategory extends CategoryProvider {
     public static final String CATEGORY_ID = "pentacles";
+
     public PentaclesCategory(OccultismBookProvider parent) {
         super(parent);
     }
+
     @Override
     protected String categoryName() {
         return "Pentacles";
     }
+
     @Override
     protected BookIconModel categoryIcon() {
         return BookIconModel.create(this.modLoc("textures/gui/book/pentacle.png"));
     }
+
     @Override
     public String categoryId() {
         return CATEGORY_ID;
@@ -45,9 +49,9 @@ public class PentaclesCategory extends CategoryProvider {
     }
 
     @Override
-    protected void generateEntries(){
+    protected void generateEntries() {
         //Introduction
-        var overviewEntry = this.add(new PentaclesOverviewEntry(this).generate( 'r'));
+        var overviewEntry = this.add(new PentaclesOverviewEntry(this).generate('r'));
 
         var paraphernaliaEntry = this.add(new ParaphernaliaEntry(this).generate('s'));
         paraphernaliaEntry.withParent(BookEntryParentModel.create(overviewEntry.getId()).withLineReversed(true))
@@ -231,10 +235,10 @@ public class PentaclesCategory extends CategoryProvider {
                         BookEntryParentModel.create(cyanChalkEntry.getId()),
                         BookEntryParentModel.create(contactWildSpirit.getId()))
                 .withCondition(this.condition().and(
-                            this.condition().entryRead(magentaChalkEntry),
-                            this.condition().entryRead(brownChalkEntry),
-                            this.condition().entryRead(cyanChalkEntry),
-                            this.condition().entryRead(contactWildSpirit)
-                        ));
+                        this.condition().entryRead(magentaChalkEntry),
+                        this.condition().entryRead(brownChalkEntry),
+                        this.condition().entryRead(cyanChalkEntry),
+                        this.condition().entryRead(contactWildSpirit)
+                ));
     }
 }

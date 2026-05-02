@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class SummonMaridEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class SummonMaridEntry extends EntryProvider {
         );
         this.pageTitle("Fatmas Incentivized Attraction");
         this.pageText("""
-                **Purpose:** Summon a {0}\\
-                \\
-                **Fatmas Incentivized Attraction** is a powerful pentacle, allowing you to summon and bind {1}
-                 to your will.
-                """,
+                        **Purpose:** Summon a {0}\\
+                        \\
+                        **Fatmas Incentivized Attraction** is a powerful pentacle, allowing you to summon and bind {1}
+                         to your will.
+                        """,
                 this.color("Marid", ChatFormatting.DARK_PURPLE),
                 this.color("Marids", ChatFormatting.DARK_PURPLE)
         );

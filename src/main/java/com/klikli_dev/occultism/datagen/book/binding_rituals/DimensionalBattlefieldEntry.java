@@ -6,10 +6,10 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -95,13 +95,13 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Operation");
         this.pageText("""
-                         The dimensional battlefield will discard any items it cannot store, so it is important
-                          to regularly empty the output, either manually, with hoppers or using a transporter spirit.\\
-                          Interactions per side:
-                          + Top -> input slots (gem, weapon, fuel);
-                          + Bottom -> loot slots;
-                          + Other -> all slots;
-                        """
+                 The dimensional battlefield will discard any items it cannot store, so it is important
+                  to regularly empty the output, either manually, with hoppers or using a transporter spirit.\\
+                  Interactions per side:
+                  + Top -> input slots (gem, weapon, fuel);
+                  + Bottom -> loot slots;
+                  + Other -> all slots;
+                """
         );
 
         this.page("redstone", () -> BookTextPageModel.create()
@@ -109,11 +109,11 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Redstone");
         this.pageText("""
-                         The dimensional battlefield has two interactions with redstone:
-                          1. The spirit will stop working when receives a redstone signal;
-                          2. A comparator can be used to extract a signal based on occupied slots and weapon durability.
-                          Tip, if the comparator sends a power of 15, it is better to stop the operations.
-                        """
+                 The dimensional battlefield has two interactions with redstone:
+                  1. The spirit will stop working when receives a redstone signal;
+                  2. A comparator can be used to extract a signal based on occupied slots and weapon durability.
+                  Tip, if the comparator sends a power of 15, it is better to stop the operations.
+                """
         );
 
         this.page("enchantment", () -> BookTextPageModel.create()
@@ -121,11 +121,11 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Enchantments");
         this.pageText("""
-                        As you know, weapons can be enchanted. Applying looting increases the amount of drops obtained.
-                        \\
-                        Sharpness speeds up the process, though not as effectively as Smite, Bane of
-                        Arthropods, or Impaling when the mob is vulnerable to those enchantments.
-                      """
+                  As you know, weapons can be enchanted. Applying looting increases the amount of drops obtained.
+                  \\
+                  Sharpness speeds up the process, though not as effectively as Smite, Bane of
+                  Arthropods, or Impaling when the mob is vulnerable to those enchantments.
+                """
         );
 
         this.page("enchantment2", () -> BookTextPageModel.create()
@@ -133,11 +133,11 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Durability");
         this.pageText("""
-                       The **Unbreaking** and **Mending** enchantments function as vanilla.
-                       \\
-                        With other methods (mods) you can make the weapon unusable (**unusing**)
-                        when it's close to breaking, or even truly unbreakable (**eternal**).
-                       """
+                The **Unbreaking** and **Mending** enchantments function as vanilla.
+                \\
+                 With other methods (mods) you can make the weapon unusable (**unusing**)
+                 when it's close to breaking, or even truly unbreakable (**eternal**).
+                """
         );
     }
 

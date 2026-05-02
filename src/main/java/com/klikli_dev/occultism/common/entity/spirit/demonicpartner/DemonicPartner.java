@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,13 +37,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.component.TypedEntityData;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -55,10 +55,10 @@ import java.util.Optional;
 
 public class DemonicPartner extends TamableAnimal {
 
+    protected static final int HEART_INTERVAL = 20 * 60 * 10;
     private static final EntityDataAccessor<Boolean> IS_LYING = SynchedEntityData.defineId(DemonicPartner.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Long> HEART_TIME = SynchedEntityData.defineId(DemonicPartner.class, EntityDataSerializers.LONG);
     protected Optional<RecipeHolder<SmokingRecipe>> lastRecipe = Optional.empty();
-    protected static final int HEART_INTERVAL = 20 * 60 * 10;
     protected long lastHeartTime;
 
     protected DemonicPartner(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
@@ -83,8 +83,8 @@ public class DemonicPartner extends TamableAnimal {
         this.removeAllEffects();
 
         var entityData = new CompoundTag();
-                var id = this.getEncodeId();
-        if(id != null)
+        var id = this.getEncodeId();
+        if (id != null)
             entityData.putString("id", id);
         var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
         this.saveWithoutId(output);
@@ -93,10 +93,9 @@ public class DemonicPartner extends TamableAnimal {
         shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
         this.setHealth(health);
 
-        if(owner instanceof Player player){
+        if (owner instanceof Player player) {
             ItemTransferUtil.giveItemToPlayer(player, shard);
-        }
-        else {
+        } else {
             ItemEntity entityItem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
             entityItem.setPickUpDelay(5);
             entityItem.setDeltaMovement(entityItem.getDeltaMovement().multiply(0, 1, 0));
@@ -109,23 +108,25 @@ public class DemonicPartner extends TamableAnimal {
         super.defineSynchedData(builder);
         builder.define(IS_LYING, false).define(HEART_TIME, (long) 0);
     }
+
     @Override
     public void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
         this.entityData.set(HEART_TIME, input.getLongOr("heartLastTime", 0L));
     }
+
     @Override
     public void addAdditionalSaveData(@NotNull ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putLong("heartLastTime", this.getHeartTime());
     }
 
-    private void setHeartTime(long b) {
-        this.entityData.set(HEART_TIME, b);
-    }
-
     private long getHeartTime() {
         return this.entityData.get(HEART_TIME);
+    }
+
+    private void setHeartTime(long b) {
+        this.entityData.set(HEART_TIME, b);
     }
 
     public boolean isLying() {
@@ -193,7 +194,7 @@ public class DemonicPartner extends TamableAnimal {
         if (this.isTame() && this.isOwnedBy(pPlayer)) {
 
             if (itemstack.is(OccultismItems.CURSED_HONEY.asItem())) {
-                long time =  this.getHeartTime() + HEART_INTERVAL - this.level().getGameTime();
+                long time = this.getHeartTime() + HEART_INTERVAL - this.level().getGameTime();
                 if (time < 0) {
                     this.setHeartTime(this.level().getGameTime());
                     this.lastHeartTime = this.level().getGameTime();
@@ -256,8 +257,7 @@ public class DemonicPartner extends TamableAnimal {
                 this.lastRecipe = recipe;
                 var result = recipe.get().value().assemble(new SingleRecipeInput(itemstack));
 
-                if (pPlayer.isShiftKeyDown()) 
-                {
+                if (pPlayer.isShiftKeyDown()) {
                     var multiResult = result.copy();
                     multiResult.setCount(result.getCount() * itemstack.getCount());
 
@@ -265,9 +265,7 @@ public class DemonicPartner extends TamableAnimal {
                         itemstack.shrink(itemstack.getCount());
                     }
                     ItemTransferUtil.giveItemToPlayer(pPlayer, multiResult);
-                }
-                else
-                {
+                } else {
                     if (!pPlayer.isCreative()) {
                         itemstack.shrink(1);
                     }
@@ -287,7 +285,7 @@ public class DemonicPartner extends TamableAnimal {
             //heal with food
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 FoodProperties foodProperties = itemstack.get(DataComponents.FOOD);
-                this.heal(foodProperties != null ? (float)foodProperties.nutrition() : 1.0F);
+                this.heal(foodProperties != null ? (float) foodProperties.nutrition() : 1.0F);
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
                 }

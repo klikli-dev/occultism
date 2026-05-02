@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class CraftMaridEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class CraftMaridEntry extends EntryProvider {
         );
         this.pageTitle("Uphyxes Inverted Tower");
         this.pageText("""
-                **Purpose:** Bind {0}\\
-                \\
-                **Uphyxes Inverted Tower** is one of the few pentacles capable of binding {1} into objects.
-                 Any rituals involving {2} should be performed only by the most experienced summoners.
-                """,
+                        **Purpose:** Bind {0}\\
+                        \\
+                        **Uphyxes Inverted Tower** is one of the few pentacles capable of binding {1} into objects.
+                         Any rituals involving {2} should be performed only by the most experienced summoners.
+                        """,
                 this.color("Marid", ChatFormatting.DARK_PURPLE),
                 this.color("Marid", ChatFormatting.DARK_PURPLE),
                 this.color("Marid", ChatFormatting.DARK_PURPLE)

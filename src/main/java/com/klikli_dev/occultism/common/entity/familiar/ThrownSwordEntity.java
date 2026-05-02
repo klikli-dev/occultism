@@ -32,6 +32,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+
 public class ThrownSwordEntity extends ThrowableItemProjectile {
 
     private static final int MAX_DURATION = 20 * 5;
@@ -50,7 +51,6 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         if (!this.level().isClientSide() && this.duration > MAX_DURATION)
             this.remove(RemovalReason.DISCARDED);
     }
-
 
 
     @Override

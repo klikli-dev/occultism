@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -34,7 +33,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.clock.WorldClocks;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.player.Player;
 
@@ -42,12 +40,12 @@ import java.util.function.Supplier;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 
+    protected static final int DAY_LENGTH = 24000;
     protected int currentChangeTicks;
     protected Supplier<Integer> requiredChangeTicks;
-
     protected long newTime;
 
-    public ChangeTimeJob(SpiritEntity entity, Supplier<Integer>  requiredChangeTicks) {
+    public ChangeTimeJob(SpiritEntity entity, Supplier<Integer> requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
     }
@@ -142,8 +140,6 @@ public abstract class ChangeTimeJob extends SpiritJob {
         this.entity.die(this.entity.damageSources().fellOutOfWorld());
         this.entity.remove(RemovalReason.DISCARDED);
     }
-
-    protected static final int DAY_LENGTH = 24000;
 
     protected long getNearestDayTime(long currentTime, int daytimeShift) {
         return (Math.floorDiv(currentTime - daytimeShift, DAY_LENGTH) + 1) * DAY_LENGTH + daytimeShift;

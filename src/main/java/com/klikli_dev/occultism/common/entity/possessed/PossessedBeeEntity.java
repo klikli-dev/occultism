@@ -33,17 +33,16 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.bee.Bee;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gamerules.GameRules;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class PossessedBeeEntity extends Bee implements PossessedMob{
+public class PossessedBeeEntity extends Bee implements PossessedMob {
 
     private static final int MAX_BEES_PER_TIME = 10; // Maximum bees allowed
     private static final long TIME_WINDOW_TICKS = 20 * 60; // Time window in ticks (60 ticks = 1 minute in Minecraft)
@@ -125,7 +124,7 @@ public class PossessedBeeEntity extends Bee implements PossessedMob{
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.BEE;
     }
 }

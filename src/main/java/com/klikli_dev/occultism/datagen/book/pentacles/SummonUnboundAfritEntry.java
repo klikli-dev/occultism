@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class SummonUnboundAfritEntry extends EntryProvider {
@@ -28,12 +28,12 @@ public class SummonUnboundAfritEntry extends EntryProvider {
         );
         this.pageTitle("Kandar's Open Conjure");
         this.pageText("""
-                **Purpose:** Summon an {0}\\
-                \\
-                **Kandars Open Conjure** is a simplified version of {1}, allowing to summon {2} without red chalk.
-                 Due to the much reduced power of the pentacle, it cannot be used to control {3},
-                 and it thus can only be used to fight and kill {4}.
-                """,
+                        **Purpose:** Summon an {0}\\
+                        \\
+                        **Kandars Open Conjure** is a simplified version of {1}, allowing to summon {2} without red chalk.
+                         Due to the much reduced power of the pentacle, it cannot be used to control {3},
+                         and it thus can only be used to fight and kill {4}.
+                        """,
                 this.color("Unbound Afrit", ChatFormatting.DARK_PURPLE),
                 this.color("Abras Conjure", ChatFormatting.LIGHT_PURPLE),
                 this.color("Afrit", ChatFormatting.DARK_PURPLE),

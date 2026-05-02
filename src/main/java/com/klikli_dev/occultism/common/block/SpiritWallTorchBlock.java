@@ -34,6 +34,7 @@ import java.util.function.Supplier;
 public class SpiritWallTorchBlock extends WallTorchBlock {
 
     Supplier<SimpleParticleType> particleType;
+
     public SpiritWallTorchBlock(Supplier<SimpleParticleType> particleType, Properties pProperties) {
         super(null, pProperties);
         this.particleType = particleType;
@@ -41,7 +42,7 @@ public class SpiritWallTorchBlock extends WallTorchBlock {
 
     @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
-        if(this.flameParticle == null){
+        if (this.flameParticle == null) {
             this.flameParticle = this.particleType.get();
         }
         super.animateTick(pState, pLevel, pPos, pRandom);

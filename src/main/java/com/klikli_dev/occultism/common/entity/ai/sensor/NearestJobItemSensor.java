@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -14,8 +13,8 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.AABB;
 
-import java.util.function.BiPredicate;
 import java.util.List;
+import java.util.function.BiPredicate;
 
 public class NearestJobItemSensor<E extends SpiritEntity> extends ExtendedSensor<E> {
     public static final int DEFAULT_SCAN_RATE_TICKS = 20;

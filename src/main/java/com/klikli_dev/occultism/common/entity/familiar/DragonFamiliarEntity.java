@@ -22,16 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity.FindItemGoal;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
-import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -40,11 +38,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -268,7 +264,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     public Iterable<MobEffectInstance> getFamiliarEffects() {
         int i = this.hasBlacksmithUpgrade() ? 1 : 0;
         return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED, 300,
-                this.greedyTimer > 0 ? 1+i : i, false, false));
+                this.greedyTimer > 0 ? 1 + i : i, false, false));
     }
 
     public float getEyeColorR(float partialTicks) {

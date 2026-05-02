@@ -21,7 +21,6 @@
  */
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.client.render.entity.state.BlacksmithFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;

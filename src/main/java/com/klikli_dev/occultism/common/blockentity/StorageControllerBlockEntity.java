@@ -23,7 +23,14 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 
+import com.geckolib.animatable.GeoBlockEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
@@ -49,18 +56,13 @@ import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap.Builder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -72,16 +74,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import com.geckolib.animatable.GeoBlockEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.*;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -122,6 +118,35 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         super(OccultismBlockEntities.STORAGE_CONTROLLER.get(), worldPos, state);
     }
 
+    public static CompoundTag saveMatrix(Map<Integer, ItemStack> matrix, Provider provider) {
+        CompoundTag matrixCompound = new CompoundTag();
+        ListTag matrixNbt = new ListTag();
+        for (int i = 0; i < 9; i++) {
+            if (matrix.get(i) != null && !matrix.get(i).isEmpty()) {
+                CompoundTag stackTag = new CompoundTag();
+                stackTag.putByte("slot", (byte) i);
+                stackTag.put("stack", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), matrix.get(i)).getOrThrow());
+                matrixNbt.add(stackTag);
+            }
+        }
+        matrixCompound.put("matrix", matrixNbt);
+        return matrixCompound;
+    }
+
+    public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, Provider provider) {
+        Map<Integer, ItemStack> matrix = new HashMap<>();
+        if (matrixCompound.contains("matrix")) {
+            ListTag matrixNbt = matrixCompound.getListOrEmpty("matrix");
+            for (int i = 0; i < matrixNbt.size(); i++) {
+                CompoundTag stackTag = matrixNbt.getCompoundOrEmpty(i);
+                int slot = stackTag.getByteOr("slot", (byte) 0);
+                ItemStack s = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), stackTag.getCompoundOrEmpty("stack")).result().orElse(ItemStack.EMPTY);
+                matrix.put(slot, s);
+            }
+        }
+        return matrix;
+    }
+
     @Override
     public void onLoad() {
         super.onLoad();
@@ -144,7 +169,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         int additionalMaxItemTypes = 0;
         long additionalTotalItemCount = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
-        if (this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER.get()) || this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER_DARK.get()) ) {
+        if (this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER.get()) || this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER_DARK.get())) {
             for (BlockPos pos : stabilizerLocations) {
                 additionalMaxItemTypes += this.getAdditionalMaxItemTypesForStabilizer(this.level.getBlockState(pos));
                 additionalTotalItemCount += this.getAdditionalMaxTotalItemCountForStabilizer(this.level.getBlockState(pos));
@@ -231,36 +256,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 .thenLoop("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
     }
-
-    public static CompoundTag saveMatrix(Map<Integer, ItemStack> matrix, Provider provider) {
-        CompoundTag matrixCompound = new CompoundTag();
-        ListTag matrixNbt = new ListTag();
-        for (int i = 0; i < 9; i++) {
-            if (matrix.get(i) != null && !matrix.get(i).isEmpty()) {
-                CompoundTag stackTag = new CompoundTag();
-                stackTag.putByte("slot", (byte) i);
-                stackTag.put("stack", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), matrix.get(i)).getOrThrow());
-                matrixNbt.add(stackTag);
-            }
-        }
-        matrixCompound.put("matrix", matrixNbt);
-        return matrixCompound;
-    }
-
-    public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, Provider provider) {
-        Map<Integer, ItemStack> matrix = new HashMap<>();
-        if (matrixCompound.contains("matrix")) {
-            ListTag matrixNbt = matrixCompound.getListOrEmpty("matrix");
-            for (int i = 0; i < matrixNbt.size(); i++) {
-                CompoundTag stackTag = matrixNbt.getCompoundOrEmpty(i);
-                int slot = stackTag.getByteOr("slot", (byte) 0);
-                ItemStack s = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), stackTag.getCompoundOrEmpty("stack")).result().orElse(ItemStack.EMPTY);
-                matrix.put(slot, s);
-            }
-        }
-        return matrix;
-    }
-
 
     @Override
     public Component getDisplayName() {

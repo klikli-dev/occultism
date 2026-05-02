@@ -6,9 +6,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -32,7 +32,7 @@ public class EntityWormholeEntry extends EntryProvider {
                          it creates a stable rift that creatures can step through, linking distant points as if
                          they were side by side. The Djinni ensures the wormhole remains open and aligned,
                          making it a reliable—though undeniably arcane—means of travel.
-                                                
+                        
                         """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );
@@ -61,10 +61,10 @@ public class EntityWormholeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Set destination");
         this.pageText("""
-                        To set the destination, you''ll need a compass. Right-click to place it and shift+right-click to remove it.
-                        + A standard compass takes you to the world spawn;
-                        + A compass attached to a lodestone takes you to the top of it. (After placing it in the wormhole, the lodestone can be broken);
-                        """
+                To set the destination, you''ll need a compass. Right-click to place it and shift+right-click to remove it.
+                + A standard compass takes you to the world spawn;
+                + A compass attached to a lodestone takes you to the top of it. (After placing it in the wormhole, the lodestone can be broken);
+                """
         );
 
         this.page("extra_uses", () -> BookTextPageModel.create()
@@ -88,9 +88,9 @@ public class EntityWormholeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Exit viewing direction");
         this.pageText("""
-                        Using a [](item://occultism:spirit_attuned_gem) will define the yaw viewing angle after teleportation.
-                        An iesnium nugget will point to the set direction like a compass rose.
-                        """
+                Using a [](item://occultism:spirit_attuned_gem) will define the yaw viewing angle after teleportation.
+                An iesnium nugget will point to the set direction like a compass rose.
+                """
         );
 
         this.page("exit_pitch", () -> BookTextPageModel.create()
@@ -98,14 +98,14 @@ public class EntityWormholeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Exit viewing inclination");
         this.pageText("""
-                        If you hold the gem in your off-hand, it will change the pitch viewing angle.
-                         A six-pointed star in the center of the portal indicates the current setting:
-                        + Emerald -> Forward
-                        + Iron -> Tilted Down
-                        + Redstone -> Straight Down
-                        + Diamond -> Tilted Up
-                        + Gold -> Straight Up
-                        """
+                If you hold the gem in your off-hand, it will change the pitch viewing angle.
+                 A six-pointed star in the center of the portal indicates the current setting:
+                + Emerald -> Forward
+                + Iron -> Tilted Down
+                + Redstone -> Straight Down
+                + Diamond -> Tilted Up
+                + Gold -> Straight Up
+                """
         );
 
         this.page("fishing", () -> BookSpotlightPageModel.create()

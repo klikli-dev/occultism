@@ -23,16 +23,13 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem.Curio;
 import net.minecraft.core.Direction;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import top.theillusivec4.curios.api.CuriosCapability;
-
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import top.theillusivec4.curios.api.CuriosCapability;
 
 public class OccultismCapabilities {
 

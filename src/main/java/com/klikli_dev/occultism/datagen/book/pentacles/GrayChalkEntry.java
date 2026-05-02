@@ -7,10 +7,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class GrayChalkEntry extends EntryProvider {
@@ -31,18 +31,18 @@ public class GrayChalkEntry extends EntryProvider {
         );
         this.pageTitle("Getting Power");
         this.pageText("""
-                        The gray chalk is made with one of the magical pastes, making it an intermediate-level
-                         foundation chalk. Its magical properties can react in curious ways with the world around it.
-                        """
+                The gray chalk is made with one of the magical pastes, making it an intermediate-level
+                 foundation chalk. Its magical properties can react in curious ways with the world around it.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_GRAY.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        As an enhanced foundation chalk, it further strengthens the core of the pentacle and
-                         (almost always) can replace white glyphs or light gray glyphs.
-                        """
+                As an enhanced foundation chalk, it further strengthens the core of the pentacle and
+                 (almost always) can replace white glyphs or light gray glyphs.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -55,10 +55,10 @@ public class GrayChalkEntry extends EntryProvider {
         );
         this.pageTitle("Gray Paste");
         this.pageText("""
-                        This strange amorphous paste is mainly used to improve the foundation of your pentacles.
-                         But its secondary use can be very useful, some dusts react with portion of this matter
-                         and return to their original shape as before being crushed.
-                        """
+                This strange amorphous paste is mainly used to improve the foundation of your pentacles.
+                 But its secondary use can be very useful, some dusts react with portion of this matter
+                 and return to their original shape as before being crushed.
+                """
         );
 
         this.page("ore_dupe", () -> BookTextPageModel.create()
@@ -67,10 +67,10 @@ public class GrayChalkEntry extends EntryProvider {
         );
         this.pageTitle("Growing ores");
         this.pageText("""
-                        The property of interacting with dusts can be combined with the powers of the [](item://occultism:nature_paste),
-                         holding the [](item://occultism:gray_paste) in the off-hand will allow you to interact with
-                         some minerals, making them grow and extracting extra resources from them.
-                        """
+                The property of interacting with dusts can be combined with the powers of the [](item://occultism:nature_paste),
+                 holding the [](item://occultism:gray_paste) in the off-hand will allow you to interact with
+                 some minerals, making them grow and extracting extra resources from them.
+                """
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()

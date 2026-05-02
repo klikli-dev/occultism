@@ -40,7 +40,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -48,8 +47,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class EnderSatchelItem extends Item {
 
@@ -105,8 +104,8 @@ public class EnderSatchelItem extends Item {
     public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipAdder, @NotNull TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
 
-            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
-                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
+        pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
         if (ItemNBTUtil.getLikedPlayerName(pStack) != null) {
             pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_linked",
                     TextUtil.formatPlayerName(ItemNBTUtil.getLikedPlayerName(pStack))));

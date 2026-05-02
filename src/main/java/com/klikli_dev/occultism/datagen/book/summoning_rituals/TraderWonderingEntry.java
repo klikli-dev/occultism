@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 
 public class TraderWonderingEntry extends EntryProvider {
@@ -48,8 +48,8 @@ public class TraderWonderingEntry extends EntryProvider {
                          The first time you interact with him, mundane sales are always shown.
                          These vendors love trying to sell everything they have.
                         """,
-                    this.color("Third Eye", ChatFormatting.DARK_PURPLE),
-                    this.itemLink(OccultismItems.OTHERWORLD_GOGGLES)
+                this.color("Third Eye", ChatFormatting.DARK_PURPLE),
+                this.itemLink(OccultismItems.OTHERWORLD_GOGGLES)
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

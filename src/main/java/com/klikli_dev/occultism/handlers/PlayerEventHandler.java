@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
@@ -65,7 +64,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 
@@ -100,7 +98,7 @@ public class PlayerEventHandler {
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
                 Level level = event.getLevel();
-                BlockPos pos = level.getBlockState(event.getPos()).canBeReplaced() ? event.getPos(): event.getPos().relative(event.getFace());
+                BlockPos pos = level.getBlockState(event.getPos()).canBeReplaced() ? event.getPos() : event.getPos().relative(event.getFace());
                 if (!event.getEntity().mayUseItemAt(pos, event.getFace(), event.getItemStack())) {
                     return;
                 }
@@ -161,10 +159,10 @@ public class PlayerEventHandler {
                 if (book.equals(OccultismItems.BOOK_OF_BINDING_EMPTY.get())) {
                     ItemStack dye = event.getEntity().getOffhandItem();
                     if (dye.getCount() > 3) {
-                        List<ItemStack> ingredients = List.of(ItemStack.EMPTY, dye, ItemStack.EMPTY, dye, bookShelf.getItem(i), dye,ItemStack.EMPTY, dye, ItemStack.EMPTY);
+                        List<ItemStack> ingredients = List.of(ItemStack.EMPTY, dye, ItemStack.EMPTY, dye, bookShelf.getItem(i), dye, ItemStack.EMPTY, dye, ItemStack.EMPTY);
                         CraftingInput input = CraftingInput.of(3, 3, ingredients);
                         Optional<RecipeHolder<CraftingRecipe>> optional = event.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, event.getLevel());
-                        if (optional.isPresent()){
+                        if (optional.isPresent()) {
                             bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(
                                     optional.get().value().assemble(input).copy(), event.getItemStack()));
                             if (!event.getEntity().isCreative())
@@ -190,14 +188,14 @@ public class PlayerEventHandler {
             //called from here to bypass sitting entity's sit command.
             if (event.getTarget() instanceof LivingEntity livingEntity
                     && soulGemItem.interactLivingEntity(stack, event.getEntity(),
-                        livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
+                    livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
             //force for multipart entities
             if (event.getTarget() instanceof PartEntity<?> partEntity
                     && partEntity.getParent() instanceof LivingEntity livingEntity
                     && soulGemItem.interactLivingEntity(stack, event.getEntity(),
-                        livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
+                    livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
         }

@@ -8,14 +8,15 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Registry;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 
 import java.util.function.Function;
 
 public class OccultismExtraStreamCodecs {
     public static final StreamCodec<ByteBuf, java.util.UUID> UUID = ByteBufCodecs.STRING_UTF8.map(java.util.UUID::fromString, java.util.UUID::toString);
+
     public static <T> StreamCodec<ByteBuf, TagKey<T>> tagKey(ResourceKey<? extends Registry<T>> pRegistry) {
         return Identifier.STREAM_CODEC.map(p_203893_ -> TagKey.create(pRegistry, p_203893_), TagKey::location);
     }
@@ -334,7 +335,7 @@ public class OccultismExtraStreamCodecs {
             }
         };
 
-        }
+    }
 
     public interface Function16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R> {
         R apply(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10, T11 t11, T12 t12, T13 t13, T14 t14, T15 t15, T16 t16);

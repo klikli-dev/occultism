@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class SummonDjinniEntry extends EntryProvider {
@@ -33,7 +33,7 @@ public class SummonDjinniEntry extends EntryProvider {
                         Developed by {1} during the Third Era, the {2} is the go-to pentacle for {3} summonings ever since.
                          Skeleton skulls ([Obtain here](entry://possession_rituals/possess_skeleton))
                          and {4} provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
-                                               
+                        
                         """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE),
                 this.color("Ophyx", ChatFormatting.LIGHT_PURPLE),

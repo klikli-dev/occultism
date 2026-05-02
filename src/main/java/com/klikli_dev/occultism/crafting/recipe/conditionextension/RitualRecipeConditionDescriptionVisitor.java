@@ -1,17 +1,16 @@
 package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 
-import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.TranslationKeys.Condition.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeWithTagCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionTypeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper.*;
-import net.minecraft.util.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Util;
 
-public class RitualRecipeConditionDescriptionVisitor implements ConditionVisitor{
+public class RitualRecipeConditionDescriptionVisitor implements ConditionVisitor {
     @Override
     public MutableComponent visit(AndConditionWrapper condition, OccultismConditionContext context) {
         var contained = Component.empty();
@@ -107,10 +106,10 @@ public class RitualRecipeConditionDescriptionVisitor implements ConditionVisitor
 
     @Override
     public MutableComponent visit(IsInDimensionCondition condition, OccultismConditionContext context) {
-       return Component.translatable(
-               Ritual.IS_IN_DIMENSION_DESCRIPTION,
-               Component.translatable(Util.makeDescriptionId("dimension", condition.dimension().identifier()))
-       );
+        return Component.translatable(
+                Ritual.IS_IN_DIMENSION_DESCRIPTION,
+                Component.translatable(Util.makeDescriptionId("dimension", condition.dimension().identifier()))
+        );
     }
 
     @Override

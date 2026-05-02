@@ -32,7 +32,7 @@ public class DjinniModel extends DefaultedJobEntityModel<DjinniEntity> {
     public final static String ASSET_SUBPATH = "djinni";
 
     public DjinniModel() {
-        super(Identifier.fromNamespaceAndPath(Occultism.MODID, ASSET_SUBPATH), false,ASSET_SUBPATH);
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, ASSET_SUBPATH), false, ASSET_SUBPATH);
     }
 
 }

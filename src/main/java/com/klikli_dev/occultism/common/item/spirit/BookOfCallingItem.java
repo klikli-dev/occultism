@@ -40,20 +40,13 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.Entity.RemovalReason;
-import net.minecraft.world.entity.EntityReference;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
@@ -97,7 +90,9 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
     //endregion Getter / Setter
 
-    public List<ItemMode> getItemModes() { return new ArrayList<>();}
+    public List<ItemMode> getItemModes() {
+        return new ArrayList<>();
+    }
 
     @Override
     public int getItemMode(ItemStack stack) {
@@ -115,14 +110,15 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         this.setItemMode(stack, mode);
         return this.getCurrentItemMode(stack);
     }
+
     public int modeValue(ItemMode mode) {
-        return this.getItemModes().indexOf(mode) ;
+        return this.getItemModes().indexOf(mode);
     }
 
     @Override
     public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
-        if(!pPlayer.isShiftKeyDown() && pLevel.isClientSide()) {
+        if (!pPlayer.isShiftKeyDown() && pLevel.isClientSide()) {
             ItemMode curr = this.getCurrentItemMode(itemStack);
             WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
             GuiHelper.openBookOfCallingGui(curr, workAreaSize);
@@ -346,13 +342,13 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     public ItemMode getCurrentItemMode(ItemStack stack) {
-        int mode= this.getItemMode(stack);
+        int mode = this.getItemMode(stack);
 
         // sanity check.
         // here to prevent crashes if old system has invalid mode
-        if(mode<0 || mode>= this.getItemModes().size()){
-            mode=0;
-            this.setItemMode(stack,mode);
+        if (mode < 0 || mode >= this.getItemModes().size()) {
+            mode = 0;
+            this.setItemMode(stack, mode);
         }
         return this.getItemModes().get(mode);
     }
@@ -368,7 +364,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         //handle the serverside item modes
         if (!world.isClientSide()) {
 
-                return itemMode.handle(blockEntity,player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
 
         }
         return InteractionResult.PASS;

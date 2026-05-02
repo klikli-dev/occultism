@@ -29,13 +29,16 @@ import com.klikli_dev.occultism.common.entity.familiar.GuardianFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
@@ -43,11 +46,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.client.model.Model;
 import org.joml.Quaternionf;
 
 import java.util.function.Function;
-import net.minecraft.client.renderer.rendertype.RenderType;
 
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarRenderState, GuardianFamiliarModel> {
@@ -237,7 +238,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
         }
 
         private static class BirdOnlyModel extends Model<GuardianFamiliarRenderState> {
-            public BirdOnlyModel(net.minecraft.client.model.geom.ModelPart root, Function<Identifier, RenderType> renderType) {
+            public BirdOnlyModel(ModelPart root, Function<Identifier, RenderType> renderType) {
                 super(root, renderType);
             }
         }

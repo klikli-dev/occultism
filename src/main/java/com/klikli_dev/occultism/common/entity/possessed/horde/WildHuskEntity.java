@@ -23,14 +23,12 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Husk;
@@ -51,8 +49,8 @@ public class WildHuskEntity extends Husk implements PossessedMob {
     public static Builder createAttributes() {
         return Husk.createAttributes()
                 .add(Attributes.MAX_HEALTH, 60.0)
-                .add(Attributes.ARMOR,15)
-                .add(Attributes.KNOCKBACK_RESISTANCE,0.75);
+                .add(Attributes.ARMOR, 15)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75);
     }
 
     public void setMaster(PossessedStrongBreezeEntity master) {
@@ -84,7 +82,7 @@ public class WildHuskEntity extends Husk implements PossessedMob {
     //endregion Static Methods
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.HUSK;
     }
 }

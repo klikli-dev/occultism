@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -31,19 +31,19 @@ public class RedChalkEntry extends EntryProvider {
         );
         this.pageTitle("Under Control");
         this.pageText("""
-                        The red chalk is made from the very essence of Afrit, making its glyphs directly
-                         connected to these spirits. Additionally, it elevates the pentacles
-                          capacity to the most demonic levels.
-                        """
+                The red chalk is made from the very essence of Afrit, making its glyphs directly
+                 connected to these spirits. Additionally, it elevates the pentacles
+                  capacity to the most demonic levels.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_RED.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        These properties allow for an incredible achievement that has been sought
-                         for ages before being attained: the summoning of an Afrit bound to the occultist.
-                        """
+                These properties allow for an incredible achievement that has been sought
+                 for ages before being attained: the summoning of an Afrit bound to the occultist.
+                """
         );
 
         this.page("essence", () -> BookSpotlightPageModel.create()

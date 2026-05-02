@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
 public class ContactEldritchSpiritEntry extends EntryProvider {
@@ -27,11 +27,11 @@ public class ContactEldritchSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Ronazas Contact");
         this.pageText("""
-                **Purpose:** Contact {0}\\
-                \\
-                This strange pentacle uses forbidden knowledge, bringing together paraphernalia from ancient traditions.\\
-                The level of power that can be achieved almost cheats the common reality.
-                """,
+                        **Purpose:** Contact {0}\\
+                        \\
+                        This strange pentacle uses forbidden knowledge, bringing together paraphernalia from ancient traditions.\\
+                        The level of power that can be achieved almost cheats the common reality.
+                        """,
                 this.color("Eldritch", ChatFormatting.DARK_PURPLE)
         );
 

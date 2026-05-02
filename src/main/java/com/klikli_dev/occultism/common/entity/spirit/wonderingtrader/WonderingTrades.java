@@ -9,7 +9,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-// ItemListing was removed in 26.1; replaced with custom ItemListing interface below
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
@@ -19,15 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class WonderingTrades {
-    /**
-     * Custom replacement for ItemListing which was removed in 26.1.
-     * VillagerTrades is now fully data-driven, but we keep this for our custom Wondering Trader.
-     */
-    @FunctionalInterface
-    public interface ItemListing {
-        MerchantOffer getOffer(Entity trader, RandomSource random);
-    }
-
     public static final int HINT = 0;
     public static final int BOOK = 1;
     public static final int PARAPHERNALIA = 2;
@@ -37,7 +27,6 @@ public class WonderingTrades {
     public static final int UTILITY = 6;
     public static final int FAMILIAR = 7;
     public static final int DYE = 8;
-
     public static Int2ObjectMap<ItemListing[]> WONDERING_TRADES = new Int2ObjectOpenHashMap<>(Map.of(
             HINT, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.WHEAT_SEEDS, 1),
@@ -279,9 +268,19 @@ public class WonderingTrades {
                             new ItemStack(Items.BUDDING_AMETHYST), 1, 1),
                     new ItemTrade(new ItemStack(Items.PINK_DYE, 64),
                             new ItemStack(Items.CHORUS_FLOWER), 1, 1)}
-            ));
+    ));
 
-    public WonderingTrades(){}
+    public WonderingTrades() {
+    }
+
+    /**
+     * Custom replacement for ItemListing which was removed in 26.1.
+     * VillagerTrades is now fully data-driven, but we keep this for our custom Wondering Trader.
+     */
+    @FunctionalInterface
+    public interface ItemListing {
+        MerchantOffer getOffer(Entity trader, RandomSource random);
+    }
 
     public static class ItemTrade implements ItemListing {
         private final ItemStack input;

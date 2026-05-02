@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import com.klikli_dev.occultism.client.render.entity.OccultismGeoLivingEntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 
 public class DemonicWifeRenderer extends OccultismGeoLivingEntityRenderer<DemonicWife> {
 

@@ -38,7 +38,6 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -253,14 +252,14 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
     private record TransferWarning(IRecipeTransferError parent) implements IRecipeTransferError {
 
         @Override
-            public @NotNull Type getType() {
-                return Type.COSMETIC;
-            }
-
-            @Override
-            public void showError(@NotNull GuiGraphicsExtractor matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
-                                  int recipeY) {
-                this.parent.showError(matrixStack, mouseX, mouseY, recipeLayout, recipeX, recipeY);
-            }
+        public @NotNull Type getType() {
+            return Type.COSMETIC;
         }
+
+        @Override
+        public void showError(@NotNull GuiGraphicsExtractor matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
+                              int recipeY) {
+            this.parent.showError(matrixStack, mouseX, mouseY, recipeLayout, recipeX, recipeY);
+        }
+    }
 }

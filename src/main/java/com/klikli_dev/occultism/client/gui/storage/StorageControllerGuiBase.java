@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.client.gui.storage;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
@@ -35,7 +34,6 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-// import com.klikli_dev.occultism.integration.emi.OccultismEmiIntegration; // EMI integration excluded from build
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.network.Networking;
@@ -49,28 +47,24 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.TooltipFlag.Default;
 import net.minecraft.world.level.Level;
-import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.CharacterEvent;
-import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import org.apache.commons.lang3.StringUtils;
 
@@ -126,12 +120,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected boolean forceFocus;
     protected long lastClick;
-
+    protected int realTopPos;
     private int lastCachedStacksToDisplayCount;
-
     private List<ItemStack> cachedStacksToDisplay;
     private String cachedSearchString;
-    protected int realTopPos;
 
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
         super(container, playerInventory, name, 224, 256);
@@ -258,8 +250,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         super.init();
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.leftPos = (this.width - this.imageWidth) / 2 - ORDER_AREA_OFFSET;
-        this.realTopPos = Math.max(0, (this.height - (175 + 18*this.rows)) / 2);
-        this.topPos = this.realTopPos + 24 + 9 + 18*this.rows;
+        this.realTopPos = Math.max(0, (this.height - (175 + 18 * this.rows)) / 2);
+        this.topPos = this.realTopPos + 24 + 9 + 18 * this.rows;
 
         this.clearWidgets();
 
@@ -293,7 +285,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.searchBar);
 
         int storageSpaceInfoLabelLeft = 186;
-        int storageSpaceInfoLabelTop = 35 + 18*this.rows;
+        int storageSpaceInfoLabelTop = 35 + 18 * this.rows;
         this.storageSpaceLabel =
                 new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.realTopPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
@@ -359,7 +351,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
-                            float partialTicks) {
+                                float partialTicks) {
         if (!this.isGuiValid()) {
             return;
         }
@@ -512,7 +504,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int controlButtonSize = 12;
 
         int clearRecipeButtonLeft = 93 + ORDER_AREA_OFFSET;
-        int clearRecipeButtonTop = 32 + 18*this.rows;
+        int clearRecipeButtonTop = 32 + 18 * this.rows;
         this.clearRecipeButton = new SizedImageButton(this.leftPos + clearRecipeButtonLeft,
                 this.realTopPos + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
@@ -574,19 +566,19 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int rowsCountOffset = 224;
         this.rowCountButton = new SizedImageButton(
-            this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
-            this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, rowsCountOffset, 28, 28, 28,
-            256, 256, BUTTONS, (button) -> {
-                    if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
-                        Occultism.CLIENT_CONFIG.misc.storageRows.set(1);
-                    } else {
-                        Occultism.CLIENT_CONFIG.misc.storageRows.set((Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() + 1));
-                    }
+                this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
+                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, rowsCountOffset, 28, 28, 28,
+                256, 256, BUTTONS, (button) -> {
+            if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
+                Occultism.CLIENT_CONFIG.misc.storageRows.set(1);
+            } else {
+                Occultism.CLIENT_CONFIG.misc.storageRows.set((Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() + 1));
+            }
         });
 
         this.addRenderableWidget(this.rowCountButton);
 
-        int guiModeButtonTop = 18*4;
+        int guiModeButtonTop = 18 * 4;
         int guiModeButtonLeft = 27;
         int guiModeButtonHeight = 29;
         int guiModeButtonWidth = 24;
@@ -595,7 +587,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             case INVENTORY:
                 //active tab button for inventory
                 this.inventoryModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + guiModeButtonTop , guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
+                        this.topPos + guiModeButtonTop, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
@@ -612,7 +604,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             case AUTOCRAFTING:
                 //inactive tab button for inventory
                 this.inventoryModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + guiModeButtonTop , guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
+                        this.topPos + guiModeButtonTop, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
@@ -670,7 +662,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
-        int itemAreaHeight = 4 + 18*this.rows;
+        int itemAreaHeight = 4 + 18 * this.rows;
         int itemAreaWidth = 160;
         int itemAreaTop = 24;
         int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
@@ -679,12 +671,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSpaceText(double mouseX, double mouseY) {
-        return this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32, this.storageSpaceLabel.getY() - this.topPos -2,
+        return this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32, this.storageSpaceLabel.getY() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
     protected boolean isPointInTypesText(double mouseX, double mouseY) {
-        return this.isHovering(this.storageTypesLabel.getX() - this.leftPos - 32, this.storageTypesLabel.getY() - this.topPos -2,
+        return this.isHovering(this.storageTypesLabel.getX() - this.leftPos - 32, this.storageTypesLabel.getY() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
@@ -773,10 +765,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void drawBackgroundTexture(GuiGraphicsExtractor guiGraphics) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_TOP, this.leftPos, this.realTopPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-        for (int i =0; i < this.rows; i++) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_ROW, this.leftPos, this.realTopPos + i*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        for (int i = 0; i < this.rows; i++) {
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_ROW, this.leftPos, this.realTopPos + i * 18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         }
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows*18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows * 18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     }
 
     protected void drawItemSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {

@@ -24,13 +24,13 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtByTargetGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtTargetGoal;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -58,7 +58,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -587,7 +586,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
             byte attacker = this.randomAttacker();
             this.chimera.setAttacker(attacker);
 
-            if(owner instanceof Player player){
+            if (owner instanceof Player player) {
                 target.hurt(this.chimera.damageSources().playerAttack(player), (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
             } else {
                 target.hurt(this.chimera.damageSources().mobAttack(this.chimera), (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));

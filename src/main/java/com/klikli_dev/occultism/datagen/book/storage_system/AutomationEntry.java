@@ -38,9 +38,9 @@ public class AutomationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Storage Logistics");
         this.pageText("""
-                    The Storage Actuator behaves much like a big chest or shulker box.
-                     That means, hoppers and pipes can insert and extract items.
-                    """
+                The Storage Actuator behaves much like a big chest or shulker box.
+                 That means, hoppers and pipes can insert and extract items.
+                """
         );
 
         this.page("performance", () -> BookTextPageModel.create()
@@ -48,10 +48,10 @@ public class AutomationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Performance");
         this.pageText("""
-                   Due to the potentially huge amount of items in the storage system,
-                    it is good to consider some performance aspects, otherwise your
-                    system might slow down your game or even a server you are playing on.
-                    """
+                Due to the potentially huge amount of items in the storage system,
+                 it is good to consider some performance aspects, otherwise your
+                 system might slow down your game or even a server you are playing on.
+                """
         );
 
         this.page("extraction", () -> BookTextPageModel.create()
@@ -59,15 +59,15 @@ public class AutomationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Extracting Items");
         this.pageText("""
-                    Extracting items can lead to performance issues, especially when pipes with Item Filters
-                     are used, because then the entire huge storage is searched for these items one by one.
-                     \\
-                     \\
-                     To *massively* improve performance, use Transporter Spirits to extract from the
-                     Storage Actuator or Stable Wormhole. Even if the Spirit deposits into a chest
-                     right next to the storage system, and a pipe extracts from that chest, the
-                     performance is **much** better than if a pipe extracts directly.
-                    """
+                Extracting items can lead to performance issues, especially when pipes with Item Filters
+                 are used, because then the entire huge storage is searched for these items one by one.
+                 \\
+                 \\
+                 To *massively* improve performance, use Transporter Spirits to extract from the
+                 Storage Actuator or Stable Wormhole. Even if the Spirit deposits into a chest
+                 right next to the storage system, and a pipe extracts from that chest, the
+                 performance is **much** better than if a pipe extracts directly.
+                """
         );
 
         this.page("insertion", () -> BookTextPageModel.create()
@@ -75,10 +75,10 @@ public class AutomationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Inserting Items");
         this.pageText("""
-                    When inserting items, you do not need to do anything, the Storage Actuator will
-                     maximize performance automatically for you. It is safe to insert high amounts
-                     of items at high frequencies without negative impact on game performance.
-                    """
+                When inserting items, you do not need to do anything, the Storage Actuator will
+                 maximize performance automatically for you. It is safe to insert high amounts
+                 of items at high frequencies without negative impact on game performance.
+                """
         );
     }
 

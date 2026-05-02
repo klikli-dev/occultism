@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -31,19 +31,19 @@ public class BlueChalkEntry extends EntryProvider {
         );
         this.pageTitle("Marid Lure");
         this.pageText("""
-                        Just as the red chalk is made from the essence of Afrit, the blue chalk is made
-                         from the essence of Marid, allowing for control over these powerful spirits.
-                        """
+                Just as the red chalk is made from the essence of Afrit, the blue chalk is made
+                 from the essence of Marid, allowing for control over these powerful spirits.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_BLUE.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        The purpose of the blue chalk is to overcome the willpower of a Marid; its sometimes
-                         excessive use serves as a guarantee that any Marid will be controlled.
-                         Should the control fail, it would generate extreme fury in the invoked Marid.
-                        """
+                The purpose of the blue chalk is to overcome the willpower of a Marid; its sometimes
+                 excessive use serves as a guarantee that any Marid will be controlled.
+                 Should the control fail, it would generate extreme fury in the invoked Marid.
+                """
         );
 
         this.page("essence", () -> BookSpotlightPageModel.create()

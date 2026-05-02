@@ -28,8 +28,8 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -50,15 +50,14 @@ import org.joml.Vector3f;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
 
+    protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
+            "textures/gui/inventory_spirit.png");
+    protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     private static final int ENTITY_RENDER_WIDTH = 70;
     private static final int ENTITY_RENDER_HEIGHT = 70;
     private static final int ENTITY_BASE_SCALE = 30;
     private static final int ENTITY_FIT_PADDING = 14;
     private static final int ENTITY_RENDER_Y_OFFSET = ENTITY_RENDER_HEIGHT / 16;
-
-    protected static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/inventory_spirit.png");
-    protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected IFilterConfigurable spirit;
     protected T container;
 
@@ -72,11 +71,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         super(container, playerInventory, titleIn, imageWidth, imageHeight);
         this.container = container;
         this.spirit = this.container.spirit;
-    }
-
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     public static void drawEntityToGui(GuiGraphicsExtractor guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
@@ -153,6 +147,11 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         renderState.nameTagAttachment = null;
         renderState.scoreText = null;
         return renderState;
+    }
+
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override

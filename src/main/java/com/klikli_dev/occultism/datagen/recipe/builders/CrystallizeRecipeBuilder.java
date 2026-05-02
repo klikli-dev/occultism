@@ -6,13 +6,10 @@ import com.klikli_dev.occultism.crafting.recipe.result.RecipeResult;
 import com.klikli_dev.occultism.crafting.recipe.result.TagRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -44,6 +41,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     private final RecipeSerializer<CrystallizeRecipe> serializer;
     private final Ingredient ingredient;
     private final int crystallizeTime;
+    private final Provider registries;
     private RecipeResult result;
     @Nullable
     private String group;
@@ -51,7 +49,6 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     private int minTier;
     private int maxTier;
     private boolean allowEmpty;
-    private final Provider registries;
 
     public CrystallizeRecipeBuilder(Ingredient ingredient, RecipeResult result, int crystallizeTime, Provider registries) {
         this.serializer = OccultismRecipes.CRYSTALLIZE.get();

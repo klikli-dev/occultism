@@ -43,7 +43,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.phys.Vec3;
@@ -61,9 +60,9 @@ public class ResurrectFamiliarRitual extends SummonRitual {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        if(castingPlayer != null){
+        if (castingPlayer != null) {
             castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
-            OccultismAdvancements.RITUAL.get().trigger( castingPlayer, this);
+            OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
         }
 
         var shard = activationItem.copy();
@@ -103,7 +102,7 @@ public class ResurrectFamiliarRitual extends SummonRitual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 }

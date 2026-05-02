@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -135,7 +134,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         List<MobEffectInstance> effects = new ArrayList<>();
         effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 300, 0, false, false));
         effects.add(new MobEffectInstance(MobEffects.SPEED, 300, 0, false, false));
-        if (DeerFamiliarEntity.this.hasBlacksmithUpgrade()){
+        if (DeerFamiliarEntity.this.hasBlacksmithUpgrade()) {
             effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 1, false, false));
         } else {
             effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 0, false, false));

@@ -41,7 +41,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 
 import java.util.*;
@@ -53,17 +52,15 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
     }
 
 
-
-
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
                                             Direction facing) {
         ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (!world.isClientSide()) {
 
-            if(itemMode==ItemModes.SET_EXTRACT) {
+            if (itemMode == ItemModes.SET_EXTRACT) {
                 if (blockEntity != null
-                         && world.getCapability(Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, facing) != null) {
+                        && world.getCapability(Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, facing) != null) {
                     return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
                             facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                 }

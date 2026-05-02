@@ -35,7 +35,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,10 +69,10 @@ public class SummonRitual extends Ritual {
     public ItemStack getBookOfCallingBound(RegistryAccess registryAccess, ItemStack activationItem) {
         ItemStack result = this.recipe.getResult().copy();
         if (result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()
-            || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
-            || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()
-            || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()
-            || result.getItem() == OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()) {
+                || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
+                || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()
+                || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()
+                || result.getItem() == OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()) {
             //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
             //https://github.com/klikli-dev/occultism/issues/183
 
@@ -97,7 +96,7 @@ public class SummonRitual extends Ritual {
         ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUUID());
         ItemNBTUtil.setBoundSpiritName(bookOfCalling, spirit.getName().getString());
 
-        if(player != null)
+        if (player != null)
             ItemTransferUtil.giveItemToPlayer(player, bookOfCalling);
         else {
             this.dropResult(spirit.level(), spirit.blockPosition(), null, null, bookOfCalling, true);
@@ -164,12 +163,12 @@ public class SummonRitual extends Ritual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 
-    protected EntityType<?> getEntityToSummon(Level level){
-        if(this.recipe.getEntityTagToSummon() != null){
+    protected EntityType<?> getEntityToSummon(Level level) {
+        if (this.recipe.getEntityTagToSummon() != null) {
             var options = StreamSupport.stream(BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(this.recipe.getEntityTagToSummon()).spliterator(), false).toList();
 
             if (!options.isEmpty()) {

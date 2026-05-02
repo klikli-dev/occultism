@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.crafting.recipe.display;
 
-import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.klikli_dev.occultism.registry.OccultismRecipeDisplays;
+import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;

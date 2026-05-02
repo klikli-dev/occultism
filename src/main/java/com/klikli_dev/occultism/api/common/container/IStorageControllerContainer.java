@@ -58,7 +58,7 @@ public interface IStorageControllerContainer {
      */
     void updateOrderSlot(boolean force);
 
-    void setClientStorageCache(ClientStorageCache cache);
-
     ClientStorageCache getClientStorageCache();
+
+    void setClientStorageCache(ClientStorageCache cache);
 }

@@ -22,7 +22,15 @@
 
 package com.klikli_dev.occultism.common.entity.spirit.wonderingtrader;
 
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTrades.ItemListing;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismParticles;
@@ -37,7 +45,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.animal.equine.TraderLlama;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
@@ -49,20 +56,11 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.item.trading.TradeSets;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.*;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -70,14 +68,12 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class WonderingTraderEntity extends WanderingTrader implements GeoEntity {
-    AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
-
     @Nullable
     protected MerchantOffers otherOffers;
     @Nullable
     protected MerchantOffers commonOffers;
-
     protected WanderingTrader replacedTrader = null;
+    AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public WonderingTraderEntity(EntityType<? extends WonderingTraderEntity> type, Level level) {
         super(type, level);
@@ -165,7 +161,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         }
     }
 
-    public void setReplacedTrader(WanderingTrader wanderingTrader){
+    public void setReplacedTrader(WanderingTrader wanderingTrader) {
         this.replacedTrader = wanderingTrader;
     }
 
@@ -176,9 +172,9 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             Vec3 pos = this.position();
             for (int i = 0; i < 30; i++)
                 ((ServerLevel) this.level())
-                    .sendParticles(OccultismParticles.RITUAL_WAITING.get(), pos.x + this.level().getRandom().nextGaussian() / 3,
-                            pos.y + 0.2, pos.z + this.level().getRandom().nextGaussian() / 3,
-                            1, 0.0, 0.0, 0.0, 0.0);
+                        .sendParticles(OccultismParticles.RITUAL_WAITING.get(), pos.x + this.level().getRandom().nextGaussian() / 3,
+                                pos.y + 0.2, pos.z + this.level().getRandom().nextGaussian() / 3,
+                                1, 0.0, 0.0, 0.0, 0.0);
         }
     }
 
@@ -253,29 +249,29 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     }
 
     protected void updateOtherTrades() {
-            ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
-            ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
-            ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
-            ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
-            ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
-            ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
-            ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
-            ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
-            if (list1 != null && list2 != null && list3 != null && list4 != null
-                    && list5 != null && list6 != null && list7 != null && list8 != null) {
-                MerchantOffers merchantoffers = this.getOtherOffers();
-                this.addOffersFromItemListings(merchantoffers, list1, 1);
-                this.addOffersFromItemListings(merchantoffers, list2, this.random.nextIntBetweenInclusive(1,3));
-                this.addOffersFromItemListings(merchantoffers, list3, this.random.nextIntBetweenInclusive(1,2));
-                this.addOffersFromItemListings(merchantoffers, list4, 1);
-                this.addOffersFromItemListings(merchantoffers, list5, this.random.nextIntBetweenInclusive(1,3));
-                this.addOffersFromItemListings(merchantoffers, list6, 1);
-                if (this.random.nextBoolean()) {
-                    this.addOffersFromItemListings(merchantoffers, list7, 1);
-                } else if (this.random.nextBoolean()) {
-                    this.addOffersFromItemListings(merchantoffers, list8, 1);
-                }
+        ItemListing[] list1 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK);
+        ItemListing[] list2 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA);
+        ItemListing[] list3 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL);
+        ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
+        ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
+        ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
+        ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
+        ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
+        if (list1 != null && list2 != null && list3 != null && list4 != null
+                && list5 != null && list6 != null && list7 != null && list8 != null) {
+            MerchantOffers merchantoffers = this.getOtherOffers();
+            this.addOffersFromItemListings(merchantoffers, list1, 1);
+            this.addOffersFromItemListings(merchantoffers, list2, this.random.nextIntBetweenInclusive(1, 3));
+            this.addOffersFromItemListings(merchantoffers, list3, this.random.nextIntBetweenInclusive(1, 2));
+            this.addOffersFromItemListings(merchantoffers, list4, 1);
+            this.addOffersFromItemListings(merchantoffers, list5, this.random.nextIntBetweenInclusive(1, 3));
+            this.addOffersFromItemListings(merchantoffers, list6, 1);
+            if (this.random.nextBoolean()) {
+                this.addOffersFromItemListings(merchantoffers, list7, 1);
+            } else if (this.random.nextBoolean()) {
+                this.addOffersFromItemListings(merchantoffers, list8, 1);
             }
+        }
     }
 
     private void addOffersFromItemListings(MerchantOffers offers, ItemListing[] listings, int count) {

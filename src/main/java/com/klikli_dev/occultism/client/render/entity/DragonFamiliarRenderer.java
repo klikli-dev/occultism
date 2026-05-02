@@ -24,17 +24,15 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
-import com.klikli_dev.occultism.client.render.entity.state.DragonFamiliarRenderState;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.StickLayer;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.SwordLayer;
+import com.klikli_dev.occultism.client.render.entity.state.DragonFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Font.DisplayMode;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -44,7 +42,6 @@ import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.event.RenderLivingEvent.Post;
 import org.jspecify.annotations.Nullable;
 

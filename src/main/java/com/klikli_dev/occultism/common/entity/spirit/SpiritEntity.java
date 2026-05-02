@@ -22,16 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
-import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -53,7 +51,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.Brain.Packed;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -76,9 +73,7 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider, IFilterConfigurable {
     public static final EntityDataAccessor<Integer> SKIN = SynchedEntityData
@@ -483,7 +478,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (!this.dead)
                 this.getJob().ifPresent(SpiritJob::update);
             if (this.getOwner() != null && this.getOwner().distanceTo(this.getEntity()) < 10
-                    &&  this.getDeltaMovement().x() == 0 && this.getDeltaMovement().z() == 0)
+                    && this.getDeltaMovement().x() == 0 && this.getDeltaMovement().z() == 0)
                 this.getLookControl().setLookAt(this.getOwner(), 10, this.getMaxHeadXRot());
         }
         this.updateSwingTime();
@@ -683,19 +678,19 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-      ItemStack itemStack = player.getItemInHand(hand);
+        ItemStack itemStack = player.getItemInHand(hand);
 
-      if (!(itemStack.is(Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(Items.BOOK_OF_CALLING_DJINNI))) {
-        if (!this.isTame())
-            this.tame(player);
+        if (!(itemStack.is(Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(Items.BOOK_OF_CALLING_DJINNI))) {
+            if (!this.isTame())
+                this.tame(player);
 
-        if (player.isShiftKeyDown() && this.getOwner() == player) {
-            this.openScreen(player);
-            return InteractionResult.SUCCESS;
+            if (player.isShiftKeyDown() && this.getOwner() == player) {
+                this.openScreen(player);
+                return InteractionResult.SUCCESS;
+            }
         }
-      }
-        
-      return super.mobInteract(player, hand);
+
+        return super.mobInteract(player, hand);
     }
 
     @Override

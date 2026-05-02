@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class CrusherFoliotEntry extends EntryProvider {
 
@@ -39,10 +39,10 @@ public class CrusherFoliotEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Crusher Spirits");
         this.pageText("""
-                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output.
-                         They will pick up appropriate ores and drop the resulting dusts into the world.
-                         A spark particle effect and a crushing sound indicate the crusher is at work.
-                      """
+                  Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output.
+                   They will pick up appropriate ores and drop the resulting dusts into the world.
+                   A spark particle effect and a crushing sound indicate the crusher is at work.
+                """
         );
 
         this.page("automation", () -> BookTextPageModel.create()

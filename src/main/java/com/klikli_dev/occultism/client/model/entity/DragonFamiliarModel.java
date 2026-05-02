@@ -11,10 +11,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
-import net.minecraft.util.ARGB;
 
 import java.util.Collections;
 import java.util.List;
@@ -221,7 +221,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
         }
 
         public void setColor(float r, float g, float b, float a) {
-            this.color = ARGB.color((int)(a * 255), (int)(r * 255), (int)(g * 255), (int)(b * 255));
+            this.color = ARGB.color((int) (a * 255), (int) (r * 255), (int) (g * 255), (int) (b * 255));
         }
 
         @Override
@@ -237,6 +237,11 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
         @Override
         public PartPose getInitialPose() {
             return this.proxied.getInitialPose();
+        }
+
+        @Override
+        public void setInitialPose(PartPose pInitialPose) {
+            this.proxied.setInitialPose(pInitialPose);
         }
 
         @Override
@@ -267,11 +272,6 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
         @Override
         public PartPose storePose() {
             return this.proxied.storePose();
-        }
-
-        @Override
-        public void setInitialPose(PartPose pInitialPose) {
-            this.proxied.setInitialPose(pInitialPose);
         }
 
         @Override

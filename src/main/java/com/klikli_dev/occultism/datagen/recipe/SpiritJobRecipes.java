@@ -8,15 +8,11 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger.TriggerInstance;
-import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate.Builder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -25,9 +21,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
@@ -577,7 +573,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     private static void fullGemRecipe(String gemName, Integer amount, RecipeOutput recipeOutput, Provider registries) {
-        crushingOreRecipe(gemName, (int)(amount*1.5), recipeOutput, registries);
+        crushingOreRecipe(gemName, (int) (amount * 1.5), recipeOutput, registries);
         crystallizeOreRecipe(gemName, amount, recipeOutput, registries);
         crushingGemRecipe(gemName, recipeOutput, registries);
         crystallizeDustRecipe(gemName, recipeOutput, registries);

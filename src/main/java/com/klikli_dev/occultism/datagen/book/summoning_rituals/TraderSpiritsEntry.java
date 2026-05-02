@@ -38,20 +38,20 @@ public class TraderSpiritsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Trade Spirits");
         this.pageText("""
-                    Trade spirits pick up appropriate items and throw trade results on the ground.
-                    The spirit is only actively exchanging items if purple particles spawn around it.
-                    \\
-                    \\
-                    **If you do not see any particles**, ensure that you gave the proper item and amount.
-                    """
+                Trade spirits pick up appropriate items and throw trade results on the ground.
+                The spirit is only actively exchanging items if purple particles spawn around it.
+                \\
+                \\
+                **If you do not see any particles**, ensure that you gave the proper item and amount.
+                """
         );
 
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("""
-                    Most trade spirits experience extreme essence decay and will return to {0} quickly.
-                    """,
-                    this.color("The Other Place", ChatFormatting.DARK_PURPLE)
+                        Most trade spirits experience extreme essence decay and will return to {0} quickly.
+                        """,
+                this.color("The Other Place", ChatFormatting.DARK_PURPLE)
         );
     }
 

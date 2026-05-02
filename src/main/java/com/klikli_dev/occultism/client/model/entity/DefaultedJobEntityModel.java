@@ -17,14 +17,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimatable> extends DefaultedEntityGeoModel<T> {
-    private static final DataTicket<Identifier> JOB_MODEL = DataTicket.create("occultism_job_model", new TypeToken<>() {});
-    private static final DataTicket<Identifier> JOB_TEXTURE = DataTicket.create("occultism_job_texture", new TypeToken<>() {});
-    private static final DataTicket<Identifier> JOB_ANIMATION = DataTicket.create("occultism_job_animation", new TypeToken<>() {});
-
-    private final String entity_subpath;
+    private static final DataTicket<Identifier> JOB_MODEL = DataTicket.create("occultism_job_model", new TypeToken<>() {
+    });
+    private static final DataTicket<Identifier> JOB_TEXTURE = DataTicket.create("occultism_job_texture", new TypeToken<>() {
+    });
+    private static final DataTicket<Identifier> JOB_ANIMATION = DataTicket.create("occultism_job_animation", new TypeToken<>() {
+    });
     protected final Map<String, ModelData> jobModels;
     protected final ModelData worker;
     protected final Map<ModelData, Boolean> resourceCache = new HashMap<>();
+    private final String entity_subpath;
 
     public DefaultedJobEntityModel(Identifier assetSubpath, boolean turnsHead, String entity_subpath) {
         super(assetSubpath);
@@ -87,9 +89,6 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
         return this.buildModelData(Identifier.fromNamespaceAndPath(Occultism.MODID, job), separator);
     }
 
-    public record ModelData(Identifier model, Identifier modelPath, Identifier texture, Identifier animation, Identifier animationPath) {
-    }
-
     @Override
     public void addAdditionalStateData(T animatable, @Nullable Object relatedObject, GeoRenderState renderState) {
         super.addAdditionalStateData(animatable, relatedObject, renderState);
@@ -114,5 +113,9 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
     @Override
     public Identifier getAnimationResource(T animatable) {
         return this.getModelData(animatable).animation();
+    }
+
+    public record ModelData(Identifier model, Identifier modelPath, Identifier texture, Identifier animation,
+                            Identifier animationPath) {
     }
 }

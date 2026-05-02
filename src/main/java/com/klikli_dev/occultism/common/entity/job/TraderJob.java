@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
@@ -51,7 +52,6 @@ import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,7 +144,7 @@ public class TraderJob extends SpiritJob {
                 //play crushing sound
                 level.playSound(null, this.entity.blockPosition(), OccultismSounds.START_RITUAL.get(),
                         SoundSource.NEUTRAL, 1f, 1 + 0.5f * this.entity.getRandom().nextFloat());
-                    this.possibleResults = this.currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
+                this.possibleResults = this.currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -167,7 +167,7 @@ public class TraderJob extends SpiritJob {
                     Vec3 pos = this.entity.position();
                     ((ServerLevel) level)
                             .sendParticles(ParticleTypes.PORTAL, pos.x + level.getRandom().nextGaussian() / 3,
-                                     pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                                    pos.y + 0.5, pos.z + level.getRandom().nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
@@ -182,7 +182,7 @@ public class TraderJob extends SpiritJob {
                     this.conversionTimer = 0;
 
                     int a = Math.min(this.maxTradesPerRound, handHeld.getCount());
-                    for (int i = 0; i<a ; i++) {
+                    for (int i = 0; i < a; i++) {
                         var result = WeightedRandom.getRandomItem(this.entity.getRandom(), this.possibleResults, WeightedRecipeResult::weight);
                         //Important: copy the result, don't use it raw!
                         result.ifPresent(r -> {
@@ -196,7 +196,7 @@ public class TraderJob extends SpiritJob {
                             this.onConvert(inputCopy, finalResult);
                             var event = new TraderJobEvent(this.entity, inputCopy, finalResult);
                             NeoForge.EVENT_BUS.post(event);
-                            if(!event.getResult().isEmpty()) {
+                            if (!event.getResult().isEmpty()) {
                                 boolean flag = true;
                                 if (level.getBlockState(this.entity.blockPosition().below()).is(OccultismBlocks.DIMENSIONAL_EXTRACTOR)) {
                                     if (this.cachedStateBelow != level.getBlockState(this.entity.blockPosition().below(2)))

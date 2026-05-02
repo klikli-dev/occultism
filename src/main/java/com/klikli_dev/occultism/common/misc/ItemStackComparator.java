@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;

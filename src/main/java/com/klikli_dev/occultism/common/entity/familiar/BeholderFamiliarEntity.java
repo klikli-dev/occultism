@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedWardenEntity;
 import com.klikli_dev.occultism.network.Networking;
@@ -69,15 +68,14 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     private static final float DEG_30 = FamiliarUtil.toRads(30);
     private static final int EAT_EFFECT_DURATION = 20 * 60 * 10;
+    private static final EntityDataAccessor<Boolean> WARDEN_UPGRADE = SynchedEntityData.defineId(BeholderFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
     private final float heightOffset;
     private final Eye[] eyes = new Eye[]{new Eye(-0.2 + 0.07, 1.3, -0.2 + 0.07), new Eye(0.24 - 0.1, 1.3, -0.23 + 0.1),
             new Eye(0.28 - 0.1, 1.3, 0.23 - 0.07), new Eye(-0.15 + 0.06, 1.3, 0.2 - 0.09)};
     private Vec2 bigEyePos, bigEyePos0, bigEyeTarget;
     private int eatTimer = -1;
     private float mouthRot, actualMouthRot, actualMouthRot0;
-
-    private static final EntityDataAccessor<Boolean> WARDEN_UPGRADE = SynchedEntityData.defineId(BeholderFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
 
     public BeholderFamiliarEntity(EntityType<? extends BeholderFamiliarEntity> type, Level level) {
         super(type, level);
@@ -225,7 +223,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         LivingEntity mob = nearby.get(this.getRandom().nextInt(nearby.size()));
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 60, 0, false, false));
 
-        if (this.hasBlacksmithUpgrade() && (mob instanceof Warden || mob instanceof PossessedWardenEntity)){
+        if (this.hasBlacksmithUpgrade() && (mob instanceof Warden || mob instanceof PossessedWardenEntity)) {
             this.setWardenUpgrade(true);
         }
     }
@@ -506,7 +504,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             AABB endBox = new AABB(end, end).inflate(0.25);
             for (int i = 0; i < 150; i++) {
                 Vec3 particlePos = start.add(direction.scale(i * 0.1));
-                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(ARGB.color(255, (int)(BeholderFamiliarEntity.this.getRed()*255), (int)(BeholderFamiliarEntity.this.getBlue()*255), (int)(BeholderFamiliarEntity.this.getGreen()*255)), 1.0f), particlePos.x,
+                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(ARGB.color(255, (int) (BeholderFamiliarEntity.this.getRed() * 255), (int) (BeholderFamiliarEntity.this.getBlue() * 255), (int) (BeholderFamiliarEntity.this.getGreen() * 255)), 1.0f), particlePos.x,
                         particlePos.y, particlePos.z, 0, 0, 0);
                 if (endBox.intersects(new AABB(particlePos, particlePos).inflate(0.25)))
                     break;

@@ -23,14 +23,12 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.spider.Spider;
@@ -47,6 +45,13 @@ public class WildSpiderEntity extends Spider implements PossessedMob {
         super(type, worldIn);
     }
 
+    public static Builder createAttributes() {
+        return Spider.createAttributes()
+                .add(Attributes.MAX_HEALTH, 45.0)
+                .add(Attributes.ARMOR, 10)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5);
+    }
+
     public void setMaster(PossessedBreezeEntity master) {
         this.master = Optional.ofNullable(master);
     }
@@ -57,13 +62,6 @@ public class WildSpiderEntity extends Spider implements PossessedMob {
             boss.notifyMinionDeath(this);
         });
         super.remove(reason);
-    }
-
-    public static Builder createAttributes() {
-        return Spider.createAttributes()
-                .add(Attributes.MAX_HEALTH, 45.0)
-                .add(Attributes.ARMOR,10)
-                .add(Attributes.KNOCKBACK_RESISTANCE,0.5);
     }
 
     @Override
@@ -83,7 +81,7 @@ public class WildSpiderEntity extends Spider implements PossessedMob {
     //endregion Static Methods
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.SPIDER;
     }
 }

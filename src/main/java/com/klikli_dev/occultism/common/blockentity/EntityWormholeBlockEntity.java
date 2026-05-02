@@ -28,26 +28,24 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
-import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
-import org.jspecify.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.Nullable;
 
 @EventBusSubscriber(modid = Occultism.MODID)
 public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
@@ -87,6 +85,23 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
         this.itemStackHandler = new ItemStacksResourceHandler(1);
     }
 
+    @SubscribeEvent
+    public static void entityWormholeFishing(RightClickItem event) {
+        Player player = event.getEntity();
+        ItemStack stack = event.getItemStack();
+        FishingHook hook = player.fishing;
+
+        if (!event.isCanceled() && !event.getLevel().isClientSide()
+                && stack.getItem() instanceof FishingRodItem
+                && hook != null && hook.getHookedIn() == null
+                && hook.getDeltaMovement().equals(Vec3.ZERO)) {
+            BlockState state = event.getLevel().getBlockState(hook.blockPosition());
+            if (state.getBlock() instanceof EntityWormholeBlock wormhole) {
+                wormhole.pullEntity((ServerLevel) event.getLevel(), hook.blockPosition(), state);
+            }
+        }
+    }
+
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         StorageUtil.dropInventoryItems(this);
@@ -103,22 +118,5 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
     public void saveNetwork(ValueOutput output) {
         this.itemStackHandler.serialize(output.child("inventory"));
         output.putLong("lastChangeTime", this.lastChangeTime);
-    }
-
-    @SubscribeEvent
-    public static void entityWormholeFishing(RightClickItem event) {
-        Player player = event.getEntity();
-        ItemStack stack = event.getItemStack();
-        FishingHook hook = player.fishing;
-
-        if (!event.isCanceled() && !event.getLevel().isClientSide()
-                && stack.getItem() instanceof FishingRodItem
-                && hook != null && hook.getHookedIn() == null
-                && hook.getDeltaMovement().equals(Vec3.ZERO)) {
-            BlockState state = event.getLevel().getBlockState(hook.blockPosition());
-            if (state.getBlock() instanceof EntityWormholeBlock wormhole) {
-                wormhole.pullEntity((ServerLevel) event.getLevel(), hook.blockPosition(), state);
-            }
-        }
     }
 }

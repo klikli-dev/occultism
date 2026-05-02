@@ -30,7 +30,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
@@ -211,10 +210,10 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
         this.body.xRot = 0;
         // TODO: needs custom RenderState - isSnakeAttacking depends on pEntity
         // if (!isSnakeAttacking) {
-            this.snake1.xRot = -0.66f;
-            this.snake2.xRot = 0.47f;
-            this.snake3.xRot = 0.47f;
-            this.snake4.xRot = 0.59f;
+        this.snake1.xRot = -0.66f;
+        this.snake2.xRot = 0.47f;
+        this.snake3.xRot = 0.47f;
+        this.snake4.xRot = 0.59f;
         // }
         this.goatHead.zRot = -0.94f;
         this.leftLeg1.yRot = 0;

@@ -23,14 +23,12 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
-import net.minecraft.tags.TagKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -47,15 +45,15 @@ public class WildSlimeEntity extends Slime implements PossessedMob {
         super(type, world);
     }
 
+    public static Builder createAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH);
+    }
+
     @Override
     public void setSize(int size, boolean resetHealth) {
         super.setSize(size, resetHealth);
         this.xpReward = size - 1;
-    }
-
-    public static Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH);
     }
 
     public void setMaster(PossessedStrongBreezeEntity master) {
@@ -91,7 +89,7 @@ public class WildSlimeEntity extends Slime implements PossessedMob {
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.SLIME;
     }
 }

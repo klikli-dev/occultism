@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
@@ -39,17 +40,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -57,36 +54,32 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootParams.Builder;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.Tags.EntityTypes;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.neoforged.neoforge.transfer.CombinedResourceHandler;
-import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.RangedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -95,42 +88,23 @@ import java.util.function.Consumer;
 
 public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
-    private final float BUTCHER_HURT_CHANCE = (float) Occultism.SERVER_CONFIG.itemSettings.butcherHurtChance.getAsDouble();
     private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
     private static final int DEFAULT_MAX_LUCK = 16;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey.create(
-                            Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
-    private Holder<Enchantment> UNUSING;
-    private Holder<Enchantment> SHARPNESS;
-    private Holder<Enchantment> SMITE;
-    private Holder<Enchantment> BANE_OF_ARTHROPODS;
-    private Holder<Enchantment> IMPALING;
-    private boolean cachedEnchantment = false;
-    private FakePlayer cachedFakePlayer;
-    private ItemStack cachedSoul;
-    private ItemStack cachedWeapon;
-    private LivingEntity storedLivingEntity = null;
-    private LootTable storedLootTable = null;
+            Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
+    private final float BUTCHER_HURT_CHANCE = (float) Occultism.SERVER_CONFIG.itemSettings.butcherHurtChance.getAsDouble();
     public int mobHealth;
     public int maxMobLife;
     public int hitTimer;
     public int maxHitTimer;
     public int soulValue;
-    private int xpStored;
-    private boolean wait;
-    private ResourceHandler<ItemResource> handlerBelow = null;
-    private BlockState cachedStateBelow = null;
     public Consumer<EntityJoinLevelEvent> entityJoinLevelEventListener;
-
     // Internal handlers (mirrored behavior)
     //public BattlefieldInventory inputHandler = new BattlefieldInventory(3, true);
     public BattlefieldInventory outputHandler = new BattlefieldInventory(25, false);
-
     // External capability-exposed handler (buffered/cached writes)
     public BufferedOutputHandler bufferedOutputHandler = new BufferedOutputHandler(this.outputHandler);
-
     public boolean outputDirty = false;
-
     public ItemStacksResourceHandler inputSoulHandler = new ItemStacksResourceHandler(1) {
         @Override
         public boolean isValid(int slot, ItemResource resource) {
@@ -142,7 +116,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             DimensionalBattlefieldBlockEntity.this.setChanged();
         }
     };
-
     public ItemStacksResourceHandler inputWeaponHandler = new ItemStacksResourceHandler(1) {
         @Override
         public boolean isValid(int slot, ItemResource resource) {
@@ -154,7 +127,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             DimensionalBattlefieldBlockEntity.this.setChanged();
         }
     };
-
     public ItemStacksResourceHandler inputFuelHandler = new ItemStacksResourceHandler(1) {
         @Override
         public boolean isValid(int slot, ItemResource resource) {
@@ -167,11 +139,30 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             DimensionalBattlefieldBlockEntity.this.setChanged();
         }
     };
-
     public ResourceHandler<ItemResource> inputHandler = new CombinedResourceHandler<>(this.inputSoulHandler, this.inputWeaponHandler, this.inputFuelHandler);
     // Combined handler now uses the buffered output to propagate safety
     public ResourceHandler<ItemResource> combinedHandler = new CombinedResourceHandler<>(this.inputHandler, this.bufferedOutputHandler);
     public ResourceHandler<ItemResource> jadeWrapper = RangedResourceHandler.of(this.combinedHandler, 0, 8);
+    private Holder<Enchantment> UNUSING;
+    private Holder<Enchantment> SHARPNESS;
+    private Holder<Enchantment> SMITE;
+    private Holder<Enchantment> BANE_OF_ARTHROPODS;
+    private Holder<Enchantment> IMPALING;
+    private boolean cachedEnchantment = false;
+    private FakePlayer cachedFakePlayer;
+    private ItemStack cachedSoul;
+    private ItemStack cachedWeapon;
+    private LivingEntity storedLivingEntity = null;
+    private LootTable storedLootTable = null;
+    private int xpStored;
+    private boolean wait;
+    private ResourceHandler<ItemResource> handlerBelow = null;
+    private BlockState cachedStateBelow = null;
+
+    public DimensionalBattlefieldBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismBlockEntities.DIMENSIONAL_BATTLEFIELD.get(), worldPos, state);
+        this.entityJoinLevelEventListener = this::itemEntityConsumer;
+    }
 
     private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
         return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
@@ -179,11 +170,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
         handler.set(slot, ItemResource.of(stack), stack.getCount());
-    }
-
-    public DimensionalBattlefieldBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismBlockEntities.DIMENSIONAL_BATTLEFIELD.get(), worldPos, state);
-        this.entityJoinLevelEventListener = this::itemEntityConsumer;
     }
 
     @Override
@@ -309,7 +295,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         this.mobHealth--;
 
         if (level.getRandom().nextFloat() < this.BUTCHER_HURT_CHANCE) {
-            weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {});
+            weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {
+            });
             setStack(this.inputWeaponHandler, 0, weapon);
         }
 
@@ -352,7 +339,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             rolls = 1;
         }
         if (entity instanceof PossessedMob possessedMob) {
-            rolls = Math.max(1, (int) (rolls/3F) );
+            rolls = Math.max(1, (int) (rolls / 3F));
             EntityType<?> baseMob = possessedMob.basedMob();
             if (baseMob != null)
                 entity = (LivingEntity) baseMob.create(this.level, EntitySpawnReason.MOB_SUMMONED);
@@ -362,18 +349,18 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         luck = Math.min(rolls, DEFAULT_MAX_LUCK); //Cap luck
 
-        rolls = rolls + (int) (luck*luck/100F);
-        if (RandomSource.create().nextIntBetweenInclusive(0, 99) < (luck*luck) % 100)
+        rolls = rolls + (int) (luck * luck / 100F);
+        if (RandomSource.create().nextIntBetweenInclusive(0, 99) < (luck * luck) % 100)
             rolls++;
 
-        if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F)/luck)
+        if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F) / luck)
             soul.shrink(1);
         setStack(this.inputSoulHandler, 0, soul);
 
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         if (this.xpStored > 9) {
-            int bottles = (int) (this.xpStored/10F);
-            this.xpStored -= bottles*10;
+            int bottles = (int) (this.xpStored / 10F);
+            this.xpStored -= bottles * 10;
             ItemStack bottleStack = new ItemStack(Items.EXPERIENCE_BOTTLE, bottles);
             ItemTransferUtil.insertItemStacked(currentHandler, bottleStack, false);
         }
@@ -423,7 +410,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             if (!this.outputHandler.getResource(i).isEmpty())
                 signalO += 2;
         }
-        return Math.max(signalI, signalO/4);
+        return Math.max(signalI, signalO / 4);
     }
 
     public void setStoredLivingEntity(ItemStack stack, ServerLevel level) {
@@ -518,21 +505,21 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (weapon.isEnchanted()) {
             attackDamage += weapon.getEnchantmentLevel(this.SHARPNESS);
             if (this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.SENSITIVE_TO_SMITE))
-                attackDamage += 2.5*weapon.getEnchantmentLevel(this.SMITE);
+                attackDamage += 2.5 * weapon.getEnchantmentLevel(this.SMITE);
             if (this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
-                attackDamage += 2.5*weapon.getEnchantmentLevel(this.BANE_OF_ARTHROPODS);
+                attackDamage += 2.5 * weapon.getEnchantmentLevel(this.BANE_OF_ARTHROPODS);
             if (this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypeTags.SENSITIVE_TO_IMPALING))
-                attackDamage += 2.5*weapon.getEnchantmentLevel(this.IMPALING);
+                attackDamage += 2.5 * weapon.getEnchantmentLevel(this.IMPALING);
         }
         if (weapon.is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM) &&
                 (this.storedLivingEntity.getType().builtInRegistryHolder().is(Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
-                || this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypes.BOSSES))) {
+                        || this.storedLivingEntity.getType().builtInRegistryHolder().is(EntityTypes.BOSSES))) {
             attackDamage *= 3;
         }
         if (attackSpeed == 0 || attackDamage == 0)
             return;
-        int life =  Math.max((int) (health / attackDamage), 1);
-        int hitSpeed =  (int) (40 / attackSpeed);
+        int life = Math.max((int) (health / attackDamage), 1);
+        int hitSpeed = (int) (40 / attackSpeed);
         this.maxMobLife = life;
         this.mobHealth = life;
         this.maxHitTimer = hitSpeed;

@@ -170,31 +170,31 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarRenderSta
     @Override
     public void setupAnim(BeholderFamiliarRenderState s) {
         super.setupAnim(s);
-        tongue.visible = s.hasTongue;
-        beard.visible = s.hasBeard;
-        spike1.visible = spike2.visible = spike3.visible = spike4.visible = spike5.visible = spike6.visible = s.hasSpikes;
-        bigPupil.visible = !s.isSitting;
-        glasses.visible = s.hasBlacksmithUpgrade;
-        setRotateAngle(head, 0, 0, 0);
-        setEyeRot(s.eyeRot[0], ImmutableList.of(eye11, eye12, eye13, eye14));
-        setEyeRot(s.eyeRot[1], ImmutableList.of(eye21, eye22, eye23, eye24));
-        setEyeRot(s.eyeRot[2], ImmutableList.of(eye31, eye32, eye33, eye34));
-        setEyeRot(s.eyeRot[3], ImmutableList.of(eye41, eye42, eye43, eye44));
-        bigPupil.x = s.bigEyePos.x;
-        bigPupil.y = s.bigEyePos.y - 0.5f;
-        mouth.xRot = s.mouthRot;
+        this.tongue.visible = s.hasTongue;
+        this.beard.visible = s.hasBeard;
+        this.spike1.visible = this.spike2.visible = this.spike3.visible = this.spike4.visible = this.spike5.visible = this.spike6.visible = s.hasSpikes;
+        this.bigPupil.visible = !s.isSitting;
+        this.glasses.visible = s.hasBlacksmithUpgrade;
+        this.setRotateAngle(this.head, 0, 0, 0);
+        this.setEyeRot(s.eyeRot[0], ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14));
+        this.setEyeRot(s.eyeRot[1], ImmutableList.of(this.eye21, this.eye22, this.eye23, this.eye24));
+        this.setEyeRot(s.eyeRot[2], ImmutableList.of(this.eye31, this.eye32, this.eye33, this.eye34));
+        this.setEyeRot(s.eyeRot[3], ImmutableList.of(this.eye41, this.eye42, this.eye43, this.eye44));
+        this.bigPupil.x = s.bigEyePos.x;
+        this.bigPupil.y = s.bigEyePos.y - 0.5f;
+        this.mouth.xRot = s.mouthRot;
         if (s.isPartying) {
-            float eyeRot = -Mth.cos(s.ageInTicks * 0.2f) * toRads(15);
-            ImmutableList.of(eye11, eye12, eye13, eye14, eye21, eye22, eye23, eye24, eye31, eye32, eye33, eye34, eye41, eye42, eye43, eye44).forEach(e -> {
+            float eyeRot = -Mth.cos(s.ageInTicks * 0.2f) * this.toRads(15);
+            ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14, this.eye21, this.eye22, this.eye23, this.eye24, this.eye31, this.eye32, this.eye33, this.eye34, this.eye41, this.eye42, this.eye43, this.eye44).forEach(e -> {
                 e.yRot = 0;
                 e.xRot = eyeRot;
             });
-            head.xRot = Mth.cos(s.ageInTicks * 0.2f) * toRads(20);
-            head.yRot = Mth.cos(s.ageInTicks * 0.2f + PI) * toRads(20);
-            head.zRot = Mth.cos(s.ageInTicks * 0.1f) * toRads(30);
+            this.head.xRot = Mth.cos(s.ageInTicks * 0.2f) * this.toRads(20);
+            this.head.yRot = Mth.cos(s.ageInTicks * 0.2f + PI) * this.toRads(20);
+            this.head.zRot = Mth.cos(s.ageInTicks * 0.1f) * this.toRads(30);
         } else if (s.isSitting) {
-            head.zRot = toRads(90);
-            mouth.xRot = toRads(20);
+            this.head.zRot = this.toRads(90);
+            this.mouth.xRot = this.toRads(20);
         }
     }
 

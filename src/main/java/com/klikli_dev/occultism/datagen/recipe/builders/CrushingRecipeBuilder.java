@@ -6,13 +6,10 @@ import com.klikli_dev.occultism.crafting.recipe.result.RecipeResult;
 import com.klikli_dev.occultism.crafting.recipe.result.TagRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -22,7 +19,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
-// removed ItemStackTemplate usage
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -45,6 +41,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     private final RecipeSerializer<CrushingRecipe> serializer;
     private final Ingredient ingredient;
     private final int crushingTime;
+    private final Provider registries;
     private RecipeResult result;
     @Nullable
     private String group;
@@ -52,7 +49,6 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     private int minTier;
     private int maxTier;
     private boolean allowEmpty;
-    private final Provider registries;
 
     public CrushingRecipeBuilder(Ingredient ingredient, RecipeResult result, int crushingTime, Provider registries) {
         this.serializer = OccultismRecipes.CRUSHING.get();

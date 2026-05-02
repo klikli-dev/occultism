@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
@@ -84,12 +83,12 @@ public class BookOfCallingGui extends Screen {
             LocalPlayer player = Minecraft.getInstance().player;
             ItemStack stack = player.getMainHandItem(); //important: use main hand otherwise we may get a shield or other non-book item here
 
-            if(stack.getItem() instanceof BookOfCallingItem bookOfCallingItem){
+            if (stack.getItem() instanceof BookOfCallingItem bookOfCallingItem) {
                 this.mode = bookOfCallingItem.nextItemMode(stack);
                 Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
                 this.init();
             }
-            
+
         })));
 
         boolean showSize = this.mode.hasSize();

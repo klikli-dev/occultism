@@ -22,10 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -34,7 +33,9 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -42,14 +43,11 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -64,7 +62,6 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.util.ProblemReporter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -118,7 +115,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         var entityData = new CompoundTag();
         var id = this.getEncodeId();
-        if(id != null)
+        if (id != null)
             entityData.putString("id", id);
         var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
         this.saveWithoutId(valueOutput);
@@ -300,7 +297,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-        if(target == owner)
+        if (target == owner)
             return false;
         else if (target instanceof Creeper || target instanceof Ghast || target instanceof ArmorStand) {
             return false;
@@ -409,6 +406,22 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
     }
 
+    public static class FamiliarPanicGoal extends PanicGoal {
+        protected final FamiliarEntity entity;
+
+        public FamiliarPanicGoal(FamiliarEntity mob, double speedModifier) {
+            super(mob, speedModifier);
+            this.entity = mob;
+        }
+
+        @Override
+        public void start() {
+            this.entity.setSitting(false);
+            this.mob.getNavigation().moveTo(this.posX, this.posY, this.posZ, this.speedModifier);
+            this.isRunning = true;
+        }
+    }
+
     protected class SitGoal extends Goal {
         private final FamiliarEntity entity;
 
@@ -433,19 +446,6 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         //public void stop() {
         //    this.entity.setSitting(false);
         //}
-    }
-    public static class FamiliarPanicGoal extends PanicGoal {
-        protected final FamiliarEntity entity;
-        public FamiliarPanicGoal(FamiliarEntity mob, double speedModifier) {
-            super(mob, speedModifier);
-            this.entity = mob;
-        }
-        @Override
-        public void start() {
-            this.entity.setSitting(false);
-            this.mob.getNavigation().moveTo(this.posX, this.posY, this.posZ, this.speedModifier);
-            this.isRunning = true;
-        }
     }
 }
 

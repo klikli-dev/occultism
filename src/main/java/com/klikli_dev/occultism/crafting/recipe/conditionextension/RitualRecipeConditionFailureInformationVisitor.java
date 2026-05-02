@@ -1,15 +1,14 @@
 package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 
-import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.TranslationKeys.Condition.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeWithTagCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionTypeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper.*;
-import net.minecraft.util.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Util;
 
 public class RitualRecipeConditionFailureInformationVisitor implements ConditionVisitor {
     @Override

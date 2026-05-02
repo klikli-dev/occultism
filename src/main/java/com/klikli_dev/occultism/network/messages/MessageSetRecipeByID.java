@@ -28,21 +28,17 @@ import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.recipebook.PlaceRecipeHelper;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.PlacementInfo;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 
 /**
@@ -73,7 +69,6 @@ public class MessageSetRecipeByID implements IMessage {
             return;
         }
 
-        // Port to 26.1 recipe API - resolve recipe via RecipeManager
         ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, this.id);
         RecipeManager recipeManager = minecraftServer.getRecipeManager();
         Recipe<?> recipe = recipeManager.byKey(recipeKey).map(r -> r.value()).orElse(null);

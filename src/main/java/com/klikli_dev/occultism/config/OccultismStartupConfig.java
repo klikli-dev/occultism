@@ -39,6 +39,7 @@ public class OccultismStartupConfig {
     public final RitualSettings rituals;
 
     public final ModConfigSpec spec;
+
     private OccultismStartupConfig() {
         Builder builder = new Builder();
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(builder);

@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -16,20 +15,18 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.function.Consumer;
-
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 public class VitalityCompassItem extends Item {
 
-    private final CompassWobble wobbleRandom = new CompassWobble();
     public static final float NOT_FOUND = 0;
+    private final CompassWobble wobbleRandom = new CompassWobble();
 
     public VitalityCompassItem(Properties properties) {
         super(properties);
@@ -61,6 +58,7 @@ public class VitalityCompassItem extends Item {
         }
         return InteractionResult.SUCCESS;
     }
+
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
@@ -87,12 +85,12 @@ public class VitalityCompassItem extends Item {
         double d1 = this.getWrappedVisualRotationY(entity);
         if (entity instanceof Player player) {
             if (player.isLocalPlayer() && player.level().tickRateManager().runsNormally()) {
-                return Mth.positiveModulo((float)d0, 1.0F);
+                return Mth.positiveModulo((float) d0, 1.0F);
             }
         }
 
         double d2 = 0.5 - (d1 - 0.25 - d0);
-        return Mth.positiveModulo((float)d2, 1.0F);
+        return Mth.positiveModulo((float) d2, 1.0F);
     }
 
     private double getAngleFromEntityToPos(Entity entity, BlockPos pos) {
@@ -101,7 +99,7 @@ public class VitalityCompassItem extends Item {
     }
 
     private double getWrappedVisualRotationY(Entity entity) {
-        return entity instanceof Player player?  Mth.positiveModulo((player.getYHeadRot() / 360.0F), 1.0): Mth.positiveModulo((entity.getVisualRotationYInDegrees() / 360.0F), 1.0);
+        return entity instanceof Player player ? Mth.positiveModulo((player.getYHeadRot() / 360.0F), 1.0) : Mth.positiveModulo((entity.getVisualRotationYInDegrees() / 360.0F), 1.0);
     }
 
     @Override
@@ -114,8 +112,8 @@ public class VitalityCompassItem extends Item {
             this.wobbleRandom.update(ticks, Math.random());
         }
 
-        double d0 = this.wobbleRandom.rotation + (double)((float)this.hash(seed) / 2.14748365E9F);
-        return Mth.positiveModulo((float)d0, 1.0F);
+        double d0 = this.wobbleRandom.rotation + (double) ((float) this.hash(seed) / 2.14748365E9F);
+        return Mth.positiveModulo((float) d0, 1.0F);
     }
 
     private int hash(int value) {

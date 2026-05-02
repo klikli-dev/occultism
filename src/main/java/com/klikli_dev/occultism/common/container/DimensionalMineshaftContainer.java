@@ -25,23 +25,23 @@ package com.klikli_dev.occultism.common.container;
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
- import com.klikli_dev.occultism.util.RecipeUtil;
+import com.klikli_dev.occultism.util.RecipeUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
- public class DimensionalMineshaftContainer extends AbstractContainerMenu {
+public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
     public ItemStacksResourceHandler inputHandler;
     public ItemStacksResourceHandler outputHandler;
     public DimensionalMineshaftBlockEntity otherworldMiner;
     public Inventory playerInventory;
 
-     public DimensionalMineshaftContainer(int id, Inventory playerInventory,
+    public DimensionalMineshaftContainer(int id, Inventory playerInventory,
                                          DimensionalMineshaftBlockEntity otherworldMiner) {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
@@ -61,7 +61,7 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
                 this.otherworldMiner.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
 
-     @Override
+    @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
@@ -112,7 +112,7 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
-     protected void setupMinerInventory() {
+    protected void setupMinerInventory() {
         int outputGridTop = 17;
         int outputGridLeft = 98;
         int index = 0;
@@ -127,25 +127,25 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
         this.addSlot(new InputSlot(this.otherworldMiner.inputHandler, 0, 26, 35));
     }
 
-     public class InputSlot extends ResourceHandlerSlot {
- 
-          public InputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
-              super(itemHandler, itemHandler::set, index, xPosition, yPosition);
-           }
- 
-          public boolean mayPlace(ItemStack stack) {
+    public class InputSlot extends ResourceHandlerSlot {
+
+        public InputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
+        }
+
+        public boolean mayPlace(ItemStack stack) {
             return RecipeUtil.isValidIngredient(DimensionalMineshaftContainer.this.otherworldMiner.getLevel(), OccultismRecipes.MINER_TYPE.get(), stack);
         }
 
     }
 
-     public class OutputSlot extends ResourceHandlerSlot {
- 
-          public OutputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
-              super(itemHandler, itemHandler::set, index, xPosition, yPosition);
-           }
- 
-         public boolean mayPlace(ItemStack stack) {
+    public class OutputSlot extends ResourceHandlerSlot {
+
+        public OutputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
+        }
+
+        public boolean mayPlace(ItemStack stack) {
             return false;
         }
 

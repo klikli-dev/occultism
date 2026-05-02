@@ -8,9 +8,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks.BlockDataGenSettings;
 import com.klikli_dev.occultism.registry.OccultismBlocks.LootTableType;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.component.DataComponentType;
@@ -71,6 +69,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                         .isPresent())
                 .collect(Collectors.toSet());
     }
+
     @Override
     protected void generate() {
         OccultismBlocks.BLOCKS.getEntries().stream()
@@ -102,8 +101,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                             Occultism.LOGGER.warn("Block {} has DROP_SELF loot type but its item is AIR. Skipping.",
                                     BuiltInRegistries.BLOCK.getKey(block));
                         }
-                    }
-                    else if (settings.lootTableType == LootTableType.OTHERWORLD_BLOCK)
+                    } else if (settings.lootTableType == LootTableType.OTHERWORLD_BLOCK)
                         this.registerOtherworldBlockTable(block);
                 });
 
@@ -219,24 +217,24 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
         return LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(leavesBlock)
-                    .when(this.uncoveredCondition(leavesBlock).and(this.hasShearsOrSilkTouch()))))
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(leavesBlock)
+                                .when(this.uncoveredCondition(leavesBlock).and(this.hasShearsOrSilkTouch()))))
                 .withPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(coveredLeaves)
-                    .when(this.coveredCondition(leavesBlock).and(this.hasShearsOrSilkTouch()))))
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(coveredLeaves)
+                                .when(this.coveredCondition(leavesBlock).and(this.hasShearsOrSilkTouch()))))
                 .withPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .when(this.doesNotHaveShearsOrSilkTouch())
-                    .add(this.applyExplosionCondition(leavesBlock, saplingLootItem)
-                    .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), chances))))
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(this.doesNotHaveShearsOrSilkTouch())
+                        .add(this.applyExplosionCondition(leavesBlock, saplingLootItem)
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), chances))))
                 .withPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .when(this.doesNotHaveShearsOrSilkTouch())
-                    .add(this.applyExplosionDecay(leavesBlock, LootItem.lootTableItem(Items.STICK)
-                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                    .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(this.doesNotHaveShearsOrSilkTouch())
+                        .add(this.applyExplosionDecay(leavesBlock, LootItem.lootTableItem(Items.STICK)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))
                         ));
     }
 
@@ -255,13 +253,13 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(uncoveredBlock)
-                        .when(this.uncoveredCondition(block).and(this.hasSilkTouch())))
+                                .when(this.uncoveredCondition(block).and(this.hasSilkTouch())))
                 )
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(item)
                                 .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
-                        .when(this.uncoveredCondition(block).and(this.doesNotHaveSilkTouch())))
+                                .when(this.uncoveredCondition(block).and(this.doesNotHaveSilkTouch())))
                 );
     }
 
@@ -312,8 +310,8 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
     private LootItemCondition.Builder uncoveredCondition(Block block) {
         return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
-                        Builder.properties()
-                                .hasProperty(IOtherworldBlock.UNCOVERED, true));
+                Builder.properties()
+                        .hasProperty(IOtherworldBlock.UNCOVERED, true));
     }
 
     private LootItemCondition.Builder coveredCondition(Block block) {
