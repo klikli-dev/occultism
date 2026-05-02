@@ -26,13 +26,14 @@ import com.klikli_dev.occultism.Occultism;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Brightness;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -89,7 +90,7 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void onExtractBlockOutlineRenderState(ExtractBlockOutlineRenderStateEvent event) {
+    public void onRenderLevelStage(RenderLevelStageEvent.AfterTranslucentParticles event) {
         if (this.selectedBlocks.isEmpty())
             return;
 
@@ -98,16 +99,14 @@ public class SelectedBlockRenderer {
         if (this.selectedBlocks.isEmpty())
             return;
 
-        Camera camera = event.getCamera();
-        boolean translucentPass = event.isInTranslucentPass();
-        event.addCustomRenderer((renderState, buffer, poseStack, currentPass, levelRenderState) -> {
-            if (currentPass != translucentPass) {
-                return false;
-            }
+        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        PoseStack poseStack = event.getPoseStack();
+        BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 
-            this.renderSelectedBlocks(poseStack, buffer, camera);
-            return false;
-        });
+        poseStack.pushPose();
+        this.renderSelectedBlocks(poseStack, buffer, camera);
+        buffer.endBatch();
+        poseStack.popPose();
     }
 
     protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, Camera camera) {
