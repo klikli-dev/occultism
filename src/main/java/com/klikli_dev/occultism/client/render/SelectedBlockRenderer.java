@@ -27,10 +27,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Brightness;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -41,6 +47,12 @@ public class SelectedBlockRenderer {
     private static final float EDGE_THICKNESS = 1.0f / 16.0f;
     private static final float ALTERNATIVE_EDGE_THICKNESS = 2.0f / 16.0f;
     private static final float EDGE_OFFSET = 0.001f;
+    private static final int FULL_BRIGHT = Brightness.FULL_BRIGHT.pack();
+
+    private final Vector3f minPosTemp = new Vector3f();
+    private final Vector3f maxPosTemp = new Vector3f();
+    private final Vector4f posTransformTemp = new Vector4f();
+    private final Vector3f normalTransformTemp = new Vector3f();
 
     protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
 
@@ -149,20 +161,85 @@ public class SelectedBlockRenderer {
 
     protected void renderFrameEdge(VertexConsumer builder, PoseStack.Pose pose, float x0, float y0, float z0, float x1, float y1,
             float z1, float r, float g, float b, float a) {
-        this.renderQuad(builder, pose, x0, y0, z0, x1, y0, z0, x1, y1, z0, x0, y1, z0, r, g, b, a);
-        this.renderQuad(builder, pose, x0, y0, z1, x0, y1, z1, x1, y1, z1, x1, y0, z1, r, g, b, a);
-        this.renderQuad(builder, pose, x0, y0, z0, x0, y0, z1, x1, y0, z1, x1, y0, z0, r, g, b, a);
-        this.renderQuad(builder, pose, x0, y1, z0, x1, y1, z0, x1, y1, z1, x0, y1, z1, r, g, b, a);
-        this.renderQuad(builder, pose, x0, y0, z0, x0, y1, z0, x0, y1, z1, x0, y0, z1, r, g, b, a);
-        this.renderQuad(builder, pose, x1, y0, z0, x1, y0, z1, x1, y1, z1, x1, y1, z0, r, g, b, a);
+        this.minPosTemp.set(x0, y0, z0);
+        this.maxPosTemp.set(x1, y1, z1);
+        this.renderCuboid(pose, builder, this.minPosTemp, this.maxPosTemp, r, g, b, a);
     }
 
-    protected void renderQuad(VertexConsumer builder, PoseStack.Pose pose, float ax, float ay, float az, float bx, float by, float bz,
-            float cx, float cy, float cz, float dx, float dy, float dz, float r, float g, float b, float a) {
-        builder.addVertex(pose, ax, ay, az).setColor(r, g, b, a);
-        builder.addVertex(pose, bx, by, bz).setColor(r, g, b, a);
-        builder.addVertex(pose, cx, cy, cz).setColor(r, g, b, a);
-        builder.addVertex(pose, dx, dy, dz).setColor(r, g, b, a);
+    protected void renderCuboid(PoseStack.Pose pose, VertexConsumer builder, Vector3f minPos, Vector3f maxPos, float r, float g, float b,
+            float a) {
+        Matrix4f posMatrix = pose.pose();
+        Matrix3f normalMatrix = pose.normal();
+        Vector4f posTransform = this.posTransformTemp;
+        Vector3f normalTransform = this.normalTransformTemp;
+
+        float minX = minPos.x();
+        float minY = minPos.y();
+        float minZ = minPos.z();
+        float maxX = maxPos.x();
+        float maxY = maxPos.y();
+        float maxZ = maxPos.z();
+
+        posTransform.set(minX, minY, maxZ, 1.0f).mul(posMatrix);
+        float x0 = posTransform.x();
+        float y0 = posTransform.y();
+        float z0 = posTransform.z();
+
+        posTransform.set(minX, minY, minZ, 1.0f).mul(posMatrix);
+        float x1 = posTransform.x();
+        float y1 = posTransform.y();
+        float z1 = posTransform.z();
+
+        posTransform.set(maxX, minY, minZ, 1.0f).mul(posMatrix);
+        float x2 = posTransform.x();
+        float y2 = posTransform.y();
+        float z2 = posTransform.z();
+
+        posTransform.set(maxX, minY, maxZ, 1.0f).mul(posMatrix);
+        float x3 = posTransform.x();
+        float y3 = posTransform.y();
+        float z3 = posTransform.z();
+
+        posTransform.set(minX, maxY, minZ, 1.0f).mul(posMatrix);
+        float x4 = posTransform.x();
+        float y4 = posTransform.y();
+        float z4 = posTransform.z();
+
+        posTransform.set(minX, maxY, maxZ, 1.0f).mul(posMatrix);
+        float x5 = posTransform.x();
+        float y5 = posTransform.y();
+        float z5 = posTransform.z();
+
+        posTransform.set(maxX, maxY, maxZ, 1.0f).mul(posMatrix);
+        float x6 = posTransform.x();
+        float y6 = posTransform.y();
+        float z6 = posTransform.z();
+
+        posTransform.set(maxX, maxY, minZ, 1.0f).mul(posMatrix);
+        float x7 = posTransform.x();
+        float y7 = posTransform.y();
+        float z7 = posTransform.z();
+
+        this.putQuad(builder, normalTransform, normalMatrix, x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, 0, -1, 0, r, g, b, a);
+        this.putQuad(builder, normalTransform, normalMatrix, x4, y4, z4, x5, y5, z5, x6, y6, z6, x7, y7, z7, 0, 1, 0, r, g, b, a);
+        this.putQuad(builder, normalTransform, normalMatrix, x7, y7, z7, x2, y2, z2, x1, y1, z1, x4, y4, z4, 0, 0, -1, r, g, b, a);
+        this.putQuad(builder, normalTransform, normalMatrix, x5, y5, z5, x0, y0, z0, x3, y3, z3, x6, y6, z6, 0, 0, 1, r, g, b, a);
+        this.putQuad(builder, normalTransform, normalMatrix, x4, y4, z4, x1, y1, z1, x0, y0, z0, x5, y5, z5, -1, 0, 0, r, g, b, a);
+        this.putQuad(builder, normalTransform, normalMatrix, x6, y6, z6, x3, y3, z3, x2, y2, z2, x7, y7, z7, 1, 0, 0, r, g, b, a);
+    }
+
+    protected void putQuad(VertexConsumer builder, Vector3f normalTransform, Matrix3f normalMatrix, float ax, float ay, float az,
+            float bx, float by, float bz, float cx, float cy, float cz, float dx, float dy, float dz, float nx, float ny, float nz,
+            float r, float g, float b, float a) {
+        normalTransform.set(nx, ny, nz).mul(normalMatrix);
+        float tx = normalTransform.x();
+        float ty = normalTransform.y();
+        float tz = normalTransform.z();
+
+        builder.addVertex(ax, ay, az).setColor(r, g, b, a).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(tx, ty, tz);
+        builder.addVertex(bx, by, bz).setColor(r, g, b, a).setUv(0, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(tx, ty, tz);
+        builder.addVertex(cx, cy, cz).setColor(r, g, b, a).setUv(1, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(tx, ty, tz);
+        builder.addVertex(dx, dy, dz).setColor(r, g, b, a).setUv(1, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(tx, ty, tz);
     }
 
     public class SelectionInfo {
