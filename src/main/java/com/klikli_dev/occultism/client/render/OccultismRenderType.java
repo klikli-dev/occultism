@@ -39,11 +39,6 @@ public class OccultismRenderType {
             .withDepthStencilState(Optional.empty())
             .build();
 
-    public static final RenderPipeline OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE = RenderPipelines.DEBUG_FILLED_BOX.toBuilder()
-            .withLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "overlay_frame_alternative_no_depth"))
-            .withDepthStencilState(Optional.empty())
-            .build();
-
     private static final RenderType OVERLAY_FRAME_NO_DEPTH = RenderType.create(
             "occultism_overlay_frame_no_depth",
             RenderSetup.builder(OVERLAY_LINES_NO_DEPTH_PIPELINE)
@@ -53,20 +48,7 @@ public class OccultismRenderType {
                     .createRenderSetup()
     );
 
-    private static final RenderType OVERLAY_FRAME_ALTERNATIVE_NO_DEPTH = RenderType.create(
-            "occultism_overlay_frame_alternative_no_depth",
-            RenderSetup.builder(OVERLAY_LINES_ALTERNATIVE_NO_DEPTH_PIPELINE)
-                    .sortOnUpload()
-                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
-                    .createRenderSetup()
-    );
-
     public static RenderType overlayLines() {
         return OVERLAY_FRAME_NO_DEPTH;
-    }
-
-    public static RenderType overlayLinesAlternative() {
-        return OVERLAY_FRAME_ALTERNATIVE_NO_DEPTH;
     }
 }

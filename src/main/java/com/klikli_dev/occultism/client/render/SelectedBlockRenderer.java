@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.client.render;
 
-import com.klikli_dev.occultism.Occultism;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -32,10 +32,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent.AfterTranslucentParticles;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -44,7 +41,6 @@ import java.util.Set;
 
 public class SelectedBlockRenderer {
     private static final float EDGE_THICKNESS = 1.0f / 16.0f;
-    private static final float ALTERNATIVE_EDGE_THICKNESS = 2.0f / 16.0f;
     private static final float EDGE_OFFSET = 0.001f;
 
     protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
@@ -82,7 +78,7 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void onRenderLevelStage(RenderLevelStageEvent.AfterTranslucentParticles event) {
+    public void onRenderLevelStage(AfterTranslucentParticles event) {
         if (this.selectedBlocks.isEmpty())
             return;
 
@@ -102,11 +98,8 @@ public class SelectedBlockRenderer {
     }
 
     protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, Camera camera) {
-        var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
-        float edgeThickness = useAltRenderer ? ALTERNATIVE_EDGE_THICKNESS : EDGE_THICKNESS;
-
         if (!this.selectedBlocks.isEmpty()) {
-            var renderType = useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines();
+            var renderType = OccultismRenderType.overlayLines();
             VertexConsumer builder = buffer.getBuffer(renderType);
             matrixStack.pushPose();
 
@@ -129,20 +122,20 @@ public class SelectedBlockRenderer {
                     float b = info.color.getBlue() / 255.0f;
                     float a = info.color.getAlpha() / 255.0f;
 
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + edgeThickness, z0 - EDGE_OFFSET + edgeThickness, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - edgeThickness, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + edgeThickness, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - edgeThickness, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + edgeThickness, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - edgeThickness, z1 + EDGE_OFFSET - edgeThickness, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
 
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + edgeThickness, y0 - EDGE_OFFSET + edgeThickness, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - edgeThickness, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + edgeThickness, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - edgeThickness, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + edgeThickness, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - edgeThickness, y1 + EDGE_OFFSET - edgeThickness, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
 
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + edgeThickness, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + edgeThickness, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - edgeThickness, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + edgeThickness, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - edgeThickness, x0 - EDGE_OFFSET + edgeThickness, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - edgeThickness, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - edgeThickness, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
                 }
             }
 
@@ -150,8 +143,8 @@ public class SelectedBlockRenderer {
         }
     }
 
-    protected void renderFrameEdge(VertexConsumer builder, PoseStack.Pose pose, float x0, float y0, float z0, float x1, float y1,
-            float z1, float r, float g, float b, float a) {
+    protected void renderFrameEdge(VertexConsumer builder, Pose pose, float x0, float y0, float z0, float x1, float y1,
+                                   float z1, float r, float g, float b, float a) {
         this.renderQuad(builder, pose, x0, y0, z0, x1, y0, z0, x1, y1, z0, x0, y1, z0, r, g, b, a);
         this.renderQuad(builder, pose, x0, y0, z1, x0, y1, z1, x1, y1, z1, x1, y0, z1, r, g, b, a);
         this.renderQuad(builder, pose, x0, y0, z0, x0, y0, z1, x1, y0, z1, x1, y0, z0, r, g, b, a);
@@ -160,8 +153,8 @@ public class SelectedBlockRenderer {
         this.renderQuad(builder, pose, x1, y0, z0, x1, y0, z1, x1, y1, z1, x1, y1, z0, r, g, b, a);
     }
 
-    protected void renderQuad(VertexConsumer builder, PoseStack.Pose pose, float ax, float ay, float az, float bx, float by, float bz,
-            float cx, float cy, float cz, float dx, float dy, float dz, float r, float g, float b, float a) {
+    protected void renderQuad(VertexConsumer builder, Pose pose, float ax, float ay, float az, float bx, float by, float bz,
+                              float cx, float cy, float cz, float dx, float dy, float dz, float r, float g, float b, float a) {
         builder.addVertex(pose, ax, ay, az).setColor(r, g, b, a);
         builder.addVertex(pose, bx, by, bz).setColor(r, g, b, a);
         builder.addVertex(pose, cx, cy, cz).setColor(r, g, b, a);
