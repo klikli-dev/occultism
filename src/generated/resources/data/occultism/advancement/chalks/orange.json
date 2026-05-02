@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/lime",
+  "criteria": {
+    "chalk_orange": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_orange"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.orange.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_orange"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.orange.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_orange"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

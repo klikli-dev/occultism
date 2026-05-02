@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/lime",
+  "criteria": {
+    "chalk_gray": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_gray"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.gray.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_gray"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.gray.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_gray"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

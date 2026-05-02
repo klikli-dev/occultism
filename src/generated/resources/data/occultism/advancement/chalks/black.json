@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/red",
+  "criteria": {
+    "chalk_black": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_black"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.black.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_black"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.black.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_black"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

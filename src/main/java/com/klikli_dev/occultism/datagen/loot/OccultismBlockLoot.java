@@ -115,6 +115,9 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 (block) -> this.createOtherworldLeavesDrops(block, Blocks.OAK_SAPLING, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
                         INCREASED_SAPLING_DROP_RATES));
 
+        this.add(OccultismBlocks.OTHERGLASS_NATURAL.get(),
+                (block) -> this.createOtherworldBlockTable(block, OccultismItems.CRUSHED_END_STONE.get(), block));
+
         this.add(OccultismBlocks.SILVER_ORE.get(), this.createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get()));
         this.add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), this.createOreDrop(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), OccultismItems.RAW_SILVER.get()));
         this.add(OccultismBlocks.IESNIUM_ORE.get(), this.createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));

@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/white",
+  "criteria": {
+    "chalk_light_gray": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_light_gray"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.light_gray.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_light_gray"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.light_gray.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_light_gray"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

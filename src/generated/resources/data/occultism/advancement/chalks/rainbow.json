@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/magenta",
+  "criteria": {
+    "chalk_rainbow": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_rainbow"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.rainbow.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_rainbow"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.rainbow.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_rainbow"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
