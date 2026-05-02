@@ -97,25 +97,6 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
             model.eye3.visible = eye3Visible;
             model.eye4.visible = eye4Visible;
         }
-
-        // Old render method preserved for reference
-        // public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, ShubNiggurathSpawnEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        //     if (!pLivingEntity.isInvisible()) {
-        //         this.getParentModel().copyPropertiesTo(this.model);
-        //         this.model.prepareMobModel(pLivingEntity, pLimbSwing, pLimbSwingAmount, pPartialTicks);
-        //         this.model.setupAnim(pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-        //         VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityTranslucent(BLINKING));
-        //         this.blinkEyes(pLivingEntity);
-        //         this.model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-        //                 LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
-        //     }
-        // }
-
-        // private void blinkEyes(ShubNiggurathSpawnEntity shub) {
-        //     ModelPart[] eyes = new ModelPart[]{this.model.eye1, this.model.eye2, this.model.eye3, this.model.eye4};
-        //     for (int i = 0; i < eyes.length; i++)
-        //         eyes[i].visible = shub.isBlinking(i);
-        // }
     }
 
 }
