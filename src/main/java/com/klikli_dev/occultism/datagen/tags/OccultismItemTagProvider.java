@@ -554,7 +554,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_GHAST)
                 .add(Items.GHAST_TEAR)
-                .add(Items.GUNPOWDER);
+                .add(Items.GUNPOWDER)
+                .add(Items.MUSIC_DISC_TEARS)
+                .add(Items.DRIED_GHAST);
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_HOGLIN)
                 .add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
@@ -719,7 +721,11 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.LLAMA_SPAWN_EGG)
                 .add(Items.TRADER_LLAMA_SPAWN_EGG)
                 .add(Items.MULE_SPAWN_EGG)
-                .add(Items.STRIDER_SPAWN_EGG);
+                .add(Items.STRIDER_SPAWN_EGG)
+                .add(Items.HAPPY_GHAST_SPAWN_EGG)
+                .add(Items.NAUTILUS_SPAWN_EGG)
+                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG)
+                .add(Items.CAMEL_HUSK_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_SMALL)
                 .add(Items.ALLAY_SPAWN_EGG)
                 .add(Items.BAT_SPAWN_EGG)
@@ -736,7 +742,8 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.PANDA_SPAWN_EGG)
                 .add(Items.POLAR_BEAR_SPAWN_EGG)
                 .add(Items.GOAT_SPAWN_EGG)
-                .add(Items.SNIFFER_SPAWN_EGG);
+                .add(Items.SNIFFER_SPAWN_EGG)
+                .add(Items.COPPER_GOLEM_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_WATER)
                 .add(Items.AXOLOTL_SPAWN_EGG)
                 .add(Items.FROG_SPAWN_EGG)
@@ -749,7 +756,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.SNOW_GOLEM_SPAWN_EGG)
                 .add(Items.GLOW_SQUID_SPAWN_EGG)
                 .add(Items.TADPOLE_SPAWN_EGG)
-                .add(Items.TURTLE_SPAWN_EGG);
+                .add(Items.TURTLE_SPAWN_EGG)
+                .add(Items.NAUTILUS_SPAWN_EGG)
+                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER)
                 .add(Items.VILLAGER_SPAWN_EGG)
                 .add(Items.WANDERING_TRADER_SPAWN_EGG)

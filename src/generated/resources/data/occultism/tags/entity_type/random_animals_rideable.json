@@ -9,6 +9,10 @@
     "minecraft:llama",
     "minecraft:trader_llama",
     "minecraft:mule",
-    "minecraft:strider"
+    "minecraft:strider",
+    "minecraft:happy_ghast",
+    "minecraft:nautilus",
+    "minecraft:zombie_nautilus",
+    "minecraft:camel_husk"
   ]
 }

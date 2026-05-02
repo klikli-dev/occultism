@@ -168,7 +168,9 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.SNOW_GOLEM)
                 .add(EntityType.GLOW_SQUID)
                 .add(EntityType.TADPOLE)
-                .add(EntityType.TURTLE);
+                .add(EntityType.TURTLE)
+                .add(EntityType.NAUTILUS)
+                .add(EntityType.ZOMBIE_NAUTILUS);
 
         this.tag(Entities.RANDOM_ANIMALS_SMALL)
                 .add(EntityType.ALLAY)
@@ -187,7 +189,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.PANDA)
                 .add(EntityType.POLAR_BEAR)
                 .add(EntityType.GOAT)
-                .add(EntityType.SNIFFER);
+                .add(EntityType.SNIFFER)
+                .add(EntityType.COPPER_GOLEM);
 
         this.tag(Entities.RANDOM_ANIMALS_RIDEABLE)
                 .add(EntityType.PIG)
@@ -199,7 +202,11 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.LLAMA)
                 .add(EntityType.TRADER_LLAMA)
                 .add(EntityType.MULE)
-                .add(EntityType.STRIDER);
+                .add(EntityType.STRIDER)
+                .add(EntityType.HAPPY_GHAST)
+                .add(EntityType.NAUTILUS)
+                .add(EntityType.ZOMBIE_NAUTILUS)
+                .add(EntityType.CAMEL_HUSK);
 
         this.tag(Entities.FORCE_KILL_SIMULATION)
                 .add(EntityType.WITHER);

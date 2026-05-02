@@ -307,6 +307,14 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))
                                                 )
                                 )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_TEARS))
+                                .add(LootItem.lootTableItem(Items.DRIED_GHAST))
+                                .when(LootItemRandomChanceWithEnchantedBonusCondition
+                                        .randomChanceAndLootingBoost(registries, 0.2F, 0.05F))
                 );
 
     }

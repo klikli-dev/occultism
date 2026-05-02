@@ -1,6 +1,8 @@
 {
   "values": [
     "minecraft:ghast_tear",
-    "minecraft:gunpowder"
+    "minecraft:gunpowder",
+    "minecraft:music_disc_tears",
+    "minecraft:dried_ghast"
   ]
 }

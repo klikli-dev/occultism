@@ -9,6 +9,10 @@
     "minecraft:llama_spawn_egg",
     "minecraft:trader_llama_spawn_egg",
     "minecraft:mule_spawn_egg",
-    "minecraft:strider_spawn_egg"
+    "minecraft:strider_spawn_egg",
+    "minecraft:happy_ghast_spawn_egg",
+    "minecraft:nautilus_spawn_egg",
+    "minecraft:zombie_nautilus_spawn_egg",
+    "minecraft:camel_husk_spawn_egg"
   ]
 }
