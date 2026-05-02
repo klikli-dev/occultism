@@ -670,7 +670,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 """
                         If the rod does not create highlighted blocks for you, you can try to:
                         - If you have theurgy mod installed, then a particle effect will be used instead, set the particles to all or decreased in the video settings
-                        - Open occultism-client.toml in your instance's /config folder and set useAlternativeDivinationRodRenderer = true for a chunkier highlight frame
+                        - Open occultism-client.toml in your instance's /config folder and set dontUseTheurgyDivinationRodParticle = true to keep using Occultism's own block outline renderer even if Theurgy is installed
                         """);
 
 
