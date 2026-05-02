@@ -34,7 +34,6 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;
-import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -44,9 +43,8 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.util.Util;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -56,8 +54,8 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay;
 
@@ -279,30 +277,30 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         int sacricialBowlPaddingVertical = 20;
         int sacricialBowlPaddingHorizontal = 15;
         Stream.of(
-                new Vec3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
-                new Vec3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
-                new Vec3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
-                new Vec3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
-                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
-                        this.ritualCenterY - sacrificialCircleRadius, 0),
-                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
-                        this.ritualCenterY - sacricialBowlPaddingVertical, 0),
-                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
-                        this.ritualCenterY + sacrificialCircleRadius, 0),
-                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
-                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
-                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
-                        this.ritualCenterY - sacrificialCircleRadius, 0),
-                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
-                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
-                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
-                        this.ritualCenterY + sacrificialCircleRadius, 0),
-                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
-                        this.ritualCenterY - sacricialBowlPaddingVertical, 0)
-        ).limit(recipe.value().getIngredients().size())
+                        new Vec3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
+                        new Vec3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
+                        new Vec3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
+                        new Vec3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
+                        new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                                this.ritualCenterY - sacrificialCircleRadius, 0),
+                        new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
+                                this.ritualCenterY - sacricialBowlPaddingVertical, 0),
+                        new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                                this.ritualCenterY + sacrificialCircleRadius, 0),
+                        new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
+                                this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                        new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                                this.ritualCenterY - sacrificialCircleRadius, 0),
+                        new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
+                                this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                        new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                                this.ritualCenterY + sacrificialCircleRadius, 0),
+                        new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
+                                this.ritualCenterY - sacricialBowlPaddingVertical, 0)
+                ).limit(recipe.value().getIngredients().size())
                 .forEach(pos -> this.sacrificialBowlDrawable.draw(guiGraphics, pos.getX(), pos.getY()));
 
-        this.eye.draw(guiGraphics, 2, 120-18);
+        this.eye.draw(guiGraphics, 2, 120 - 18);
 
         int infotextY = 0;
         int infoTextX = 94;
@@ -349,7 +347,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         if (recipe.value().getCondition() != null) {
             var visitor = new RitualRecipeConditionDescriptionVisitor();
             var condition = ConditionWrapperFactory.wrap(recipe.value().getCondition());
-            if(condition!=null) {
+            if (condition != null) {
                 this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                         condition.accept(visitor, OccultismConditionContext.EMPTY),
                         infoTextX, infotextY);
@@ -380,11 +378,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             }
 
             @Override
-            public  void handleMouseMoved(double mouseX, double mouseY) {
+            public void handleMouseMoved(double mouseX, double mouseY) {
                 if (mouseX > 4 && mouseX < 16 && mouseY > RitualRecipeCategory.this.background.getHeight() - 16 && mouseY < RitualRecipeCategory.this.background.getHeight() - 4) {
-                    builder.addDrawable(RitualRecipeCategory.this.goldenEye, 2, RitualRecipeCategory.this.background.getHeight()-18);
+                    builder.addDrawable(RitualRecipeCategory.this.goldenEye, 2, RitualRecipeCategory.this.background.getHeight() - 18);
                 } else {
-                    builder.addDrawable(RitualRecipeCategory.this.eye, 2, RitualRecipeCategory.this.background.getHeight()-18);
+                    builder.addDrawable(RitualRecipeCategory.this.eye, 2, RitualRecipeCategory.this.background.getHeight() - 18);
                 }
             }
         });

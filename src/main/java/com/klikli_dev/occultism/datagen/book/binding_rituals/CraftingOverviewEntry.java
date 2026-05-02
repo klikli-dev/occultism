@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class CraftingOverviewEntry extends EntryProvider {
 
@@ -37,14 +37,14 @@ public class CraftingOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Binding Rituals");
         this.pageText("""
-                        Binding rituals infuse spirits into items, where their powers are used for one specific purpose.
-                         The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
-                        """
+                Binding rituals infuse spirits into items, where their powers are used for one specific purpose.
+                 The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
+                """
         );
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.CATEGORY_START;
     }
 

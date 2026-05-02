@@ -30,6 +30,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -107,20 +108,23 @@ public class FamiliarUtil {
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity & IFamiliar> List<T> getAllEquippedFamiliars(LivingEntity owner, EntityType<T> type,
-                                                                                  Predicate<T> pred) {
+                                                                                 Predicate<T> pred) {
         List<T> familiars = new ArrayList<>();
 
         var handler = CuriosApi.getCuriosInventory(owner).orElse(null);
         if (handler == null)
             return familiars;
 
-        var curios = handler.getEquippedCurios();
-        for (int i = 0; i < curios.getSlots(); i++) {
-            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level());
-            if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
-                T fam = (T) familiar.getFamiliarEntity();
-                if (pred.test(fam))
-                    familiars.add(fam);
+        for (ICurioStacksHandler curios : handler.getCurios().values()) {
+            var stacks = curios.getStacks();
+            for (int i = 0; i < stacks.getSlots(); i++) {
+                IFamiliar familiar = FamiliarRingItem.getFamiliar(stacks.getStackInSlot(i), owner.level());
+                if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
+                    T fam = (T) familiar.getFamiliarEntity();
+                    if (pred.test(fam)) {
+                        familiars.add(fam);
+                    }
+                }
             }
         }
 

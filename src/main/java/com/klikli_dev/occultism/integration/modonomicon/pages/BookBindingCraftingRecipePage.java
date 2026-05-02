@@ -10,13 +10,9 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.entries.BookContentEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage.JsonDataHolder;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage.NetworkDataHolder;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Style;
@@ -72,7 +68,7 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
             this.title1 = new BookTextHolder(boundBook.getHoverName().copy()
                     .withStyle(Style.EMPTY
                             .withBold(true)
-                            .withColor(this.getParentEntry().getBook().getDefaultTitleColor())));
+                            .withColor(this.getParentEntry().getBook().theme().palette().defaultTitleColor())));
         }
     }
 

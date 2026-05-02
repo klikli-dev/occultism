@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.geckolib.model.DefaultedGeoModel;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
 import net.minecraft.resources.Identifier;
-import com.geckolib.model.DefaultedGeoModel;
 
 public class AfritWildModel extends DefaultedGeoModel<AfritWildEntity> {
 

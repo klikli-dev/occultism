@@ -11,9 +11,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import java.util.stream.StreamSupport;
-
 import org.jetbrains.annotations.Nullable;
+
+import java.util.stream.StreamSupport;
 
 
 public class TagUtil {
@@ -35,7 +35,7 @@ public class TagUtil {
     @Nullable
     public static Block getBlockForTag(TagKey<Block> tag) {
         return StreamSupport.stream(BuiltInRegistries.BLOCK.getTagOrEmpty(tag).spliterator(), false)
-                        .map(Holder::value).findFirst().orElse(null);
+                .map(Holder::value).findFirst().orElse(null);
     }
 
     public static ItemStack getItemStackForBlockTag(TagKey<Block> tag) {

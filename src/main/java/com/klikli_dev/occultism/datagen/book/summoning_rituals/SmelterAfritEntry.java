@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
 public class SmelterAfritEntry extends EntryProvider {
@@ -39,8 +39,8 @@ public class SmelterAfritEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Afrit Smelter");
         this.pageText("""
-                    The afrit smelter is more faster, doing the process in a tenth of the time.
-                    """
+                The afrit smelter is more faster, doing the process in a tenth of the time.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -49,7 +49,7 @@ public class SmelterAfritEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

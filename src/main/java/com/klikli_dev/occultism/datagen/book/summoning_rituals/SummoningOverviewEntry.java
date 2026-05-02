@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class SummoningOverviewEntry extends EntryProvider {
 
@@ -37,15 +37,15 @@ public class SummoningOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Summoning Rituals");
         this.pageText("""
-                    Summon rituals force spirits to enter this world in their chosen shape, leading
-                     to little restrictions on their power. Summoned spirits range from trade spirits
-                     that trade and convert items, to slave-like helpers for manual labour.
-                    """
+                Summon rituals force spirits to enter this world in their chosen shape, leading
+                 to little restrictions on their power. Summoned spirits range from trade spirits
+                 that trade and convert items, to slave-like helpers for manual labour.
+                """
         );
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.CATEGORY_START;
     }
 

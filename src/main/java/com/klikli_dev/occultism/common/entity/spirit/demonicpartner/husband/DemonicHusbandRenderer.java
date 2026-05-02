@@ -22,12 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import com.klikli_dev.occultism.client.render.entity.OccultismGeoLivingEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import com.geckolib.renderer.GeoEntityRenderer;
 
-public class DemonicHusbandRenderer extends GeoEntityRenderer<DemonicHusband, EntityRenderState> {
+public class DemonicHusbandRenderer extends OccultismGeoLivingEntityRenderer<DemonicHusband> {
 
     public DemonicHusbandRenderer(Context renderManager) {
         super(renderManager, new DemonicHusbandModel());

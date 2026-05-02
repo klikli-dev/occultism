@@ -30,7 +30,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -62,7 +61,8 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
     public void extractRenderState(EntityWormholeBlockEntity blockEntity, EntityWormholeRenderState renderState, float partialTick, Vec3 cameraPos, @Nullable CrumblingOverlay crumbling) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPos, crumbling);
 
-        ItemStack portalStack = blockEntity.itemStackHandler.getResource(0).isEmpty() ? ItemStack.EMPTY : OccultismItems.WORMHOLE_PORTAL.toStack();
+        ItemStack storedStack = blockEntity.itemStackHandler.getResource(0).toStack(blockEntity.itemStackHandler.getAmountAsInt(0));
+        ItemStack portalStack = storedStack.isEmpty() ? ItemStack.EMPTY : OccultismItems.WORMHOLE_PORTAL.toStack();
         ItemStack nuggetStack = OccultismItems.IESNIUM_NUGGET.toStack();
         BlockState state = blockEntity.getBlockState();
 
@@ -130,22 +130,22 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
                 poseStack.mulPose(Axis.ZN.rotationDegrees(angleY));
             }
             float nuggetOffset = facing.getAxis() == Direction.Axis.Y ?
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -0.3F : 0.3F :
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.3F : -0.3F;
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? -0.3F : 0.3F :
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.3F : -0.3F;
             poseStack.translate(-4 * vec3.x, -4 * vec3.z, nuggetOffset);
-            renderState.nuggetRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+            renderState.nuggetRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.translate(4 * vec3.x, 4 * vec3.z, -nuggetOffset);
         }
 
         if (exitX != 0) {
             poseStack.scale(0.25F, 0.25F, 0.25F);
             float blockOffset = facing.getAxis() == Direction.Axis.Y ?
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -0.7F : 0.7F :
-                    facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 0.7F : -0.7F;
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? -0.7F : 0.7F :
+                    facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.7F : -0.7F;
             poseStack.translate(0, 0, blockOffset);
-            renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+            renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.mulPose(Axis.ZP.rotationDegrees(45));
-            renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+            renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.translate(0, 0, -blockOffset);
             poseStack.scale(4F, 4F, 4F);
         }
@@ -154,7 +154,7 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
         float angle3 = (systemTime / 16) % 360;
         poseStack.mulPose(Axis.ZP.rotationDegrees(angle3));
         poseStack.scale(7F, 7F, 7F);
-        renderState.portalRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+        renderState.portalRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
         poseStack.popPose();
         poseStack.mulPose(facing.getRotation());

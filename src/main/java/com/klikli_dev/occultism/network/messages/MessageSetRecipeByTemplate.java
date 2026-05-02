@@ -27,7 +27,6 @@ import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
-//import com.klikli_dev.occultism.integration.emi.impl.EmiHelper; // TODO: re-enable when EMI is available for 26.1
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;

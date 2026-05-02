@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class CraftDjinniEntry extends EntryProvider {
@@ -28,12 +28,12 @@ public class CraftDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Strigeors Higher Binding");
         this.pageText("""
-                **Purpose:** Bind {0}\\
-                \\
-                **Strigeors Higher Binding** is a pentacle for binding {1} into objects, should not be attempted by the
-                 novice summoner. Supported by skeleton skulls and stabilized by candles it is highly suitable for
-                 permanent infusions of objects with spirits.
-                """,
+                        **Purpose:** Bind {0}\\
+                        \\
+                        **Strigeors Higher Binding** is a pentacle for binding {1} into objects, should not be attempted by the
+                         novice summoner. Supported by skeleton skulls and stabilized by candles it is highly suitable for
+                         permanent infusions of objects with spirits.
+                        """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE),
                 this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );
@@ -85,7 +85,7 @@ public class CraftDjinniEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

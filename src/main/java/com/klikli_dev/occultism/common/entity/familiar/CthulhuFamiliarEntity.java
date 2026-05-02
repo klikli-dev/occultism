@@ -22,13 +22,11 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -42,14 +40,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.Entity.MoveFunction;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -76,13 +71,13 @@ import java.util.List;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
+    protected static final int PRISMARINE_INTERVAL = 20 * 3;
     private final WaterBoundPathNavigation waterNavigator;
     private final GroundPathNavigation groundNavigator;
     public float riderRot, riderRot0, riderLimbSwingAmount, riderLimbSwing;
+    protected long lastPrismarineTime;
     private BlockPos lightPos, lightPos0;
     private int lightTimer;
-    protected static final int PRISMARINE_INTERVAL = 20 * 3;
-    protected long lastPrismarineTime;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, Level level) {
         super(type, level);
@@ -123,7 +118,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                     if (this.hasBlacksmithUpgrade()) {
                         this.lastPrismarineTime = this.level().getGameTime();
                         itemstack.shrink(1);
-                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, RandomSource.create().nextInt(1,5)));
+                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, RandomSource.create().nextInt(1, 5)));
                     } else {
                         this.lastPrismarineTime = this.level().getGameTime();
                         itemstack.shrink(1);
@@ -448,12 +443,14 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             }
         }
 
-        public void startExecuting() {
+        @Override
+        public void start() {
             this.cthulhu.getNavigation().moveTo(this.devil, 0.3);
             this.cthulhu.setGiving(true);
         }
 
-        public void resetTask() {
+        @Override
+        public void stop() {
             this.cthulhu.setGiving(false);
             this.cthulhu.getNavigation().stop();
             this.cooldown = MAX_COOLDOWN;

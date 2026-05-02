@@ -38,7 +38,6 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.renderer.item.ConditionalItemModel;
 import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -641,9 +640,12 @@ public class OccultismBlockModelSubProvider {
                                             case UP -> BlockModelGenerators.NOP;
                                             case DOWN -> BlockModelGenerators.X_ROT_180;
                                             case NORTH -> BlockModelGenerators.X_ROT_90;
-                                            case SOUTH -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180);
-                                            case WEST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
-                                            case EAST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
+                                            case SOUTH ->
+                                                    BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180);
+                                            case WEST ->
+                                                    BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
+                                            case EAST ->
+                                                    BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
                                         })))
         );
 

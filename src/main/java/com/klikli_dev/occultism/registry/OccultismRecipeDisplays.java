@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.crafting.recipe.display.RitualRecipeDisplay;
 import com.klikli_dev.occultism.crafting.recipe.display.SpiritFireRecipeDisplay;
 import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.RecipeDisplay.Type;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

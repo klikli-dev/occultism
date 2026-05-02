@@ -22,18 +22,17 @@
 
 package com.klikli_dev.occultism.client.render;
 
-import com.klikli_dev.occultism.Occultism;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent.AfterTranslucentParticles;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -41,6 +40,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class SelectedBlockRenderer {
+    private static final float EDGE_THICKNESS = 1.0f / 16.0f;
+    private static final float EDGE_OFFSET = 0.001f;
+
     protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
 
     /**
@@ -76,7 +78,7 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void onExtractBlockOutlineRenderState(ExtractBlockOutlineRenderStateEvent event) {
+    public void onRenderLevelStage(AfterTranslucentParticles event) {
         if (this.selectedBlocks.isEmpty())
             return;
 
@@ -85,34 +87,30 @@ public class SelectedBlockRenderer {
         if (this.selectedBlocks.isEmpty())
             return;
 
-        Camera camera = event.getCamera();
-        boolean translucentPass = event.isInTranslucentPass();
-        event.addCustomRenderer((renderState, buffer, poseStack, currentPass, levelRenderState) -> {
-            if (currentPass != translucentPass) {
-                return false;
-            }
+        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        PoseStack poseStack = event.getPoseStack();
+        BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 
-            this.renderSelectedBlocks(poseStack, buffer, camera);
-            return false;
-        });
+        poseStack.pushPose();
+        var renderType = OccultismRenderType.overlayLines();
+        this.renderSelectedBlocks(poseStack, buffer, renderType, camera);
+        buffer.endBatch(renderType);
+        poseStack.popPose();
     }
 
-    protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, Camera camera) {
-        var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
-
+    protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, RenderType renderType, Camera camera) {
         if (!this.selectedBlocks.isEmpty()) {
-            var renderType = useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines();
             VertexConsumer builder = buffer.getBuffer(renderType);
             matrixStack.pushPose();
 
             Vec3 cameraPosition = camera.position();
             matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+            var last = matrixStack.last();
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
 
                 if (info.selectedBlock != null) {
-                    // Draw the 12 edges of the AABB box manually as line segments
                     float x0 = info.selectedBlock.getX();
                     float y0 = info.selectedBlock.getY();
                     float z0 = info.selectedBlock.getZ();
@@ -123,43 +121,44 @@ public class SelectedBlockRenderer {
                     float g = info.color.getGreen() / 255.0f;
                     float b = info.color.getBlue() / 255.0f;
                     float a = info.color.getAlpha() / 255.0f;
-                    float lineWidth = useAltRenderer ? 4.0f : 2.0f;
-                    var last = matrixStack.last();
 
-                    // Bottom face edges
-                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
 
-                    // Top face edges
-                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, 1).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, -1, 0, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 0, -1).setLineWidth(lineWidth);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
 
-                    // Vertical edges
-                    builder.addVertex(last, x0, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y0, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y1, z0).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x1, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y0, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
-                    builder.addVertex(last, x0, y1, z1).setColor(r, g, b, a).setNormal(last, 0, 1, 0).setLineWidth(lineWidth);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
                 }
             }
 
             matrixStack.popPose();
         }
+    }
+
+    protected void renderFrameEdge(VertexConsumer builder, Pose pose, float x0, float y0, float z0, float x1, float y1,
+                                   float z1, float r, float g, float b, float a) {
+        this.renderQuad(builder, pose, x0, y0, z0, x1, y0, z0, x1, y1, z0, x0, y1, z0, r, g, b, a);
+        this.renderQuad(builder, pose, x0, y0, z1, x0, y1, z1, x1, y1, z1, x1, y0, z1, r, g, b, a);
+        this.renderQuad(builder, pose, x0, y0, z0, x0, y0, z1, x1, y0, z1, x1, y0, z0, r, g, b, a);
+        this.renderQuad(builder, pose, x0, y1, z0, x1, y1, z0, x1, y1, z1, x0, y1, z1, r, g, b, a);
+        this.renderQuad(builder, pose, x0, y0, z0, x0, y1, z0, x0, y1, z1, x0, y0, z1, r, g, b, a);
+        this.renderQuad(builder, pose, x1, y0, z0, x1, y0, z1, x1, y1, z1, x1, y1, z0, r, g, b, a);
+    }
+
+    protected void renderQuad(VertexConsumer builder, Pose pose, float ax, float ay, float az, float bx, float by, float bz,
+                              float cx, float cy, float cz, float dx, float dy, float dz, float r, float g, float b, float a) {
+        builder.addVertex(pose, ax, ay, az).setColor(r, g, b, a);
+        builder.addVertex(pose, bx, by, bz).setColor(r, g, b, a);
+        builder.addVertex(pose, cx, cy, cz).setColor(r, g, b, a);
+        builder.addVertex(pose, dx, dy, dz).setColor(r, g, b, a);
     }
 
     public class SelectionInfo {

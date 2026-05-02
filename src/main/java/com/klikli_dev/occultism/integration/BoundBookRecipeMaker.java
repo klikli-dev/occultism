@@ -3,12 +3,11 @@ package com.klikli_dev.occultism.integration;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.CraftingRecipe.CraftingBookInfo;
@@ -37,7 +36,6 @@ public class BoundBookRecipeMaker {
         var bookInfo = new CraftingBookInfo(CraftingBookCategory.MISC, "");
         var result = ItemStackTemplate.fromNonEmptyStack(BoundBookOfBindingRecipe.getBoundBookFromBook(bookOfBinding));
         var ingredients = List.of(
-                Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
                 Ingredient.of(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
                 Ingredient.of(bookOfBinding.getItem())
         );

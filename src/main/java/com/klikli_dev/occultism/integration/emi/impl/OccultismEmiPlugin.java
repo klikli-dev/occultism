@@ -42,12 +42,12 @@ public class OccultismEmiPlugin implements EmiPlugin {
     public static final EmiStack CELESTIAL_CHALICE = EmiStack.of(OccultismBlocks.CELESTIAL_CHALICE.get());
     public static final EmiStack ELDRITCH_CHALICE = EmiStack.of(OccultismBlocks.ELDRITCH_CHALICE.get());
     public static final Identifier EMI_WIDGETS = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/emi/widgets.png");
-    public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
+    public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"), SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
     public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
     public static final EmiRecipeCategory CRYSTALLIZE_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
     public static final EmiRecipeCategory TRADER_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trader"), new EmiTexture(EMI_WIDGETS, 0, 32, 16, 16), new EmiTexture(EMI_WIDGETS, 80, 0, 16, 16));
     public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
-    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
+    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual"), GOLDEN_SACRIFICIAL_BOWL, new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
 
     @Override
     public void initialize(EmiInitRegistry registry) {
@@ -108,40 +108,40 @@ public class OccultismEmiPlugin implements EmiPlugin {
         emiRegistry.addWorkstation(VanillaEmiRecipeCategories.CAMPFIRE_COOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())))));
         emiRegistry.addWorkstation(VanillaEmiRecipeCategories.CAMPFIRE_COOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())))));
 
-        RecipeManager manager=emiRegistry.getRecipeManager();
-        for(RecipeHolder<SpiritFireRecipe> recipe: manager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get())) {
+        RecipeManager manager = emiRegistry.getRecipeManager();
+        for (RecipeHolder<SpiritFireRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get())) {
             emiRegistry.addRecipe(new SpiritFireRecipeCategory(recipe));
         }
-        for(RecipeHolder<CrushingRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get())){
+        for (RecipeHolder<CrushingRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get())) {
             emiRegistry.addRecipe(new CrushingRecipeCategory(recipe));
         }
-        for(RecipeHolder<CrystallizeRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.CRYSTALLIZE_TYPE.get())){
+        for (RecipeHolder<CrystallizeRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.CRYSTALLIZE_TYPE.get())) {
             emiRegistry.addRecipe(new CrystallizeRecipeCategory(recipe));
         }
-        for(RecipeHolder<SpiritTradeRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get())){
+        for (RecipeHolder<SpiritTradeRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.SPIRIT_TRADE_TYPE.get())) {
             emiRegistry.addRecipe(new SpiritTraderRecipeCategory(recipe));
         }
 
-        for(RecipeHolder<MinerRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
-            if(recipe.value().getIngredients().get(0).getValues().length==1) {
+        for (RecipeHolder<MinerRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())) {
+            if (recipe.value().getIngredients().get(0).getValues().length == 1) {
                 if (recipe.value().getIngredients().get(0).getValues()[0] instanceof Ingredient.TagValue) {
                     var tag = ((Ingredient.TagValue) recipe.value().getIngredients().get(0).getValues()[0]).tag();
-                    if(!MinerRecipeCategory.totalWeights.containsKey(tag))
-                        MinerRecipeCategory.totalWeights.put(tag,0L);
-                    MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.value().getWeightedResult().getWeight().asInt());
+                    if (!MinerRecipeCategory.totalWeights.containsKey(tag))
+                        MinerRecipeCategory.totalWeights.put(tag, 0L);
+                    MinerRecipeCategory.totalWeights.put(tag, MinerRecipeCategory.totalWeights.get(tag) + recipe.value().getWeightedResult().getWeight().asInt());
 
 
                 }
             }
         }
-        for(RecipeHolder<MinerRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
+        for (RecipeHolder<MinerRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())) {
             emiRegistry.addRecipe(new MinerRecipeCategory(recipe));
         }
-        for(RecipeHolder<RitualRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())){
+        for (RecipeHolder<RitualRecipe> recipe : manager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())) {
             emiRegistry.addRecipe(new RitualRecipeCategory(recipe));
         }
 
-        for(RecipeHolder<CraftingRecipe> recipe: BoundBookRecipeMaker.createRecipes()){
+        for (RecipeHolder<CraftingRecipe> recipe : BoundBookRecipeMaker.createRecipes()) {
             var ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
             emiRegistry.addRecipe(new EmiCraftingRecipe(ingredients, EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)), recipe.id(), true));
         }

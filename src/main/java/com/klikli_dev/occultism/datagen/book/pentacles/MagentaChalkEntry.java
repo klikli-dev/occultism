@@ -7,10 +7,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class MagentaChalkEntry extends EntryProvider {
@@ -31,18 +31,18 @@ public class MagentaChalkEntry extends EntryProvider {
         );
         this.pageTitle("Ender Energy");
         this.pageText("""
-                        All the power of a dragon in a single chalk: this is the marvel of the purple chalk.
-                         The relationship between spirits and dragons is unclear, but there may definitely be connections.
-                        """
+                All the power of a dragon in a single chalk: this is the marvel of the purple chalk.
+                 The relationship between spirits and dragons is unclear, but there may definitely be connections.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_MAGENTA.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Ah, the energy of the end. But what end? Does an end truly exist?
-                         What concludes at the end? Will the end ever come to an end?
-                        """
+                Ah, the energy of the end. But what end? Does an end truly exist?
+                 What concludes at the end? Will the end ever come to an end?
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -70,7 +70,7 @@ public class MagentaChalkEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

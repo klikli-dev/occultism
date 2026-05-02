@@ -37,11 +37,16 @@ import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitua
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -49,11 +54,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class OccultismItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Occultism.MODID);
-
     //Dictionary
     public static final DeferredItem<GuideBookItem> DICTIONARY_OF_SPIRITS = ITEMS.registerItem("dictionary_of_spirits",
             GuideBookItem::new, () -> new Properties().stacksTo(1));
-
     //Tools and equipable
     public static final DeferredItem<DivinationRodItem> DIVINATION_ROD = ITEMS.registerItem("divination_rod",
             DivinationRodItem::new, () -> new Properties().stacksTo(1));
@@ -71,9 +74,6 @@ public class OccultismItems {
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.registerItem("iesnium_pickaxe",
             properties -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM.applyToolProperties(properties,
                     BlockTags.MINEABLE_WITH_PICKAXE, 1.0F, -2.8F, 0)));
-    public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.registerItem("otherworld_goggles",
-            OtherworldGogglesItem::new, () -> new Properties().stacksTo(1)
-                    .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).build()));
     public static final DeferredItem<SatchelItem> SATCHEL = ITEMS.registerItem("satchel",
             SatchelItem::new, () -> new Properties().stacksTo(1)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
@@ -152,7 +152,6 @@ public class OccultismItems {
             ITEMS.registerItem("book_of_calling_djinni_manage_machine",
                     properties -> new BookOfCallingManageMachineItem(properties.stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
-
     //Brush. Chalks and Impure Chalks
     public static final DeferredItem<BrushItem> BRUSH = ITEMS.registerItem("brush",
             BrushItem::new, () -> new Properties().stacksTo(1));
@@ -204,14 +203,12 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_PINK = ITEMS.registerItem("chalk_pink",
             properties -> new ChalkItem(properties.durability(256).rarity(Rarity.UNCOMMON).fireResistant(),
                     OccultismBlocks.CHALK_GLYPH_PINK.get()));
-
     public static final DeferredItem<Item> CHALK_RAINBOW = ITEMS.registerItem("chalk_rainbow",
             properties -> new ChalkItem(properties.stacksTo(1).rarity(Rarity.EPIC).fireResistant(),
                     OccultismBlocks.CHALK_GLYPH_RAINBOW.get(), true));
     public static final DeferredItem<Item> CHALK_VOID = ITEMS.registerItem("chalk_void",
             properties -> new ChalkItem(properties.stacksTo(1).rarity(Rarity.EPIC).fireResistant(),
                     OccultismBlocks.CHALK_GLYPH_VOID.get(), true));
-
     public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.registerItem("chalk_white_impure",
             Item::new, () -> new Properties());
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY_IMPURE = ITEMS.registerItem("chalk_light_gray_impure",
@@ -244,12 +241,9 @@ public class OccultismItems {
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> CHALK_PINK_IMPURE = ITEMS.registerItem("chalk_pink_impure",
             Item::new, () -> new Properties().rarity(Rarity.UNCOMMON).fireResistant());
-
-
     //Miner Spirits
     public static final DeferredItem<MagicLampItem> MAGIC_LAMP_EMPTY = ITEMS.registerItem("magic_lamp_empty",
             MagicLampItem::new, () -> new Properties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
-
     public static final DeferredItem<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.registerItem("miner_foliot_unspecialized",
             properties -> new MinerSpiritItem(properties
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
@@ -275,14 +269,12 @@ public class OccultismItems {
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
-
     public static final DeferredItem<MinerSpiritItem> MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("miner_ancient_eldritch",
             properties -> new MinerSpiritItem(properties.durability(3200).rarity(Rarity.EPIC).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.rollsPerOperation,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.durability));
-
     //Crops and food
     public static final DeferredItem<BlockItem> DATURA_SEEDS = ITEMS.registerItem("datura_seeds",
             properties -> new BlockItem(OccultismBlocks.DATURA.get(), properties.useBlockDescriptionPrefix()
@@ -293,7 +285,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> DEMONS_DREAM_ESSENCE = ITEMS.registerItem("demons_dream_essence",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get(), OccultismFoods.DEMONS_DREAM_ESSENCE_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 20));
-
     public static final DeferredItem<Item> OTHERWORLD_ESSENCE = ITEMS.registerItem("otherworld_essence",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.OTHERWORLD_ESSENCE.get(), OccultismFoods.OTHERWORLD_ESSENCE_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 32).component(OccultismDataComponents.LUCK_VALUE, 2));
@@ -305,7 +296,6 @@ public class OccultismItems {
             Item::new, () -> new Properties().food(OccultismFoods.SWEET_HONEY_HEART.get(), OccultismFoods.SWEET_HONEY_HEART_CONSUMABLE));
     public static final DeferredItem<Item> DEMONIC_MEAT = ITEMS.registerItem("demonic_meat",
             Item::new, () -> new Properties().food(OccultismFoods.DEMONIC_MEAT.get(), OccultismFoods.DEMONIC_MEAT_CONSUMABLE).rarity(Rarity.UNCOMMON).fireResistant());
-
     //Resources and materials
     public static final DeferredItem<Item> TALLOW = ITEMS.registerItem("tallow",
             Item::new, () -> new Properties());
@@ -321,12 +311,10 @@ public class OccultismItems {
             Item::new, () -> new Properties());
     public static final DeferredItem<Item> RAW_IESNIUM = ITEMS.registerItem("raw_iesnium",
             Item::new, () -> new Properties());
-
     public static final DeferredItem<Item> SILVER_INGOT = ITEMS.registerItem("silver_ingot",
             Item::new, () -> new Properties());
     public static final DeferredItem<Item> IESNIUM_INGOT = ITEMS.registerItem("iesnium_ingot",
             Item::new, () -> new Properties());
-
     public static final DeferredItem<Item> SILVER_NUGGET = ITEMS.registerItem("silver_nugget",
             Item::new, () -> new Properties());
     public static final DeferredItem<Item> IESNIUM_NUGGET = ITEMS.registerItem("iesnium_nugget",
@@ -384,7 +372,6 @@ public class OccultismItems {
             DamageInCraftingItem::new, () -> new Properties().durability(64));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.registerItem("nature_paste",
             NaturePasteItem::new, () -> new Properties().durability(64));
-
     //Components
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.registerItem("purified_ink",
             Item::new, () -> new Properties());
@@ -413,14 +400,12 @@ public class OccultismItems {
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.registerItem("mining_dim_core",
             DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something"));
-
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.registerItem("soul_shard",
             SoulShardItem::new, () -> new Properties().stacksTo(1));
     public static final DeferredItem<SoulShardItem> SOUL_SHATTERED_ITEM = ITEMS.registerItem("soul_shattered",
             SoulShardItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SOUL_VALUE, 1).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F));
-
     //Machines
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
             ITEMS.registerItem("spirit_fire", properties -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), properties.useBlockDescriptionPrefix()));
@@ -428,7 +413,6 @@ public class OccultismItems {
             properties -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), properties.useBlockDescriptionPrefix())); //not work if auto-gen
     public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE_DARK = ITEMS.registerItem("stable_wormhole_dark",
             properties -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE_DARK.get(), properties.useBlockDescriptionPrefix())); //not work if auto-gen
-
     //Deco Block Items
     public static final DeferredItem<BlockItem> SPIRIT_TORCH = ITEMS.registerItem("spirit_torch",
             properties -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(), Direction.UP,
@@ -437,7 +421,6 @@ public class OccultismItems {
             properties -> new SignItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), properties.stacksTo(16).useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> OTHERPLANKS_HANGING_SIGN = ITEMS.registerItem("otherplanks_hanging_sign",
             properties -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), properties.stacksTo(16).useBlockDescriptionPrefix()));
-
     //Spawn Eggs
     public static final DeferredItem<Item> SPAWN_EGG_FOLIOT = ITEMS.registerItem("spawn_egg/foliot",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.FOLIOT_TYPE.get()));
@@ -545,7 +528,6 @@ public class OccultismItems {
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.DEMONIC_HUSBAND.get()));
     public static final DeferredItem<Item> SPAWN_EGG_IESNIUM_GOLEM = ITEMS.registerItem("spawn_egg/iesnium_golem",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.IESNIUM_GOLEM_TYPE.get()));
-
     //Ritual Dummy Items
     //SUMMON
     //Crusher
@@ -563,7 +545,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_djinni_crystallizer", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_afrit_crystallizer", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_marid_crystallizer", DummyTooltipItem::new, () -> new Properties());
-
     //Partner
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.registerItem("ritual_dummy/summon_demonic_wife", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.registerItem("ritual_dummy/summon_demonic_husband", DummyTooltipItem::new, () -> new Properties());
@@ -645,7 +626,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_fragile_soul_gem", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_soul_gem", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.registerItem("ritual_dummy/craft_familiar_ring", DummyTooltipItem::new, () -> new Properties());
-
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE = ITEMS.registerItem("ritual_dummy/craft_iesnium_butcher_knife", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF = ITEMS.registerItem("ritual_dummy/craft_true_sight_staff", DummyTooltipItem::new, () -> new Properties());
     //Miners
@@ -680,7 +660,6 @@ public class OccultismItems {
     //Blocks
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.registerItem("ritual_dummy/craft_entity_wormhole", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK = ITEMS.registerItem("ritual_dummy/craft_entity_wormhole_dark", DummyTooltipItem::new, () -> new Properties());
-
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE = ITEMS.registerItem("ritual_dummy/craft_spirit_grindstone", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.registerItem("ritual_dummy/craft_iesnium_sacrificial_bowl", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.registerItem("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", DummyTooltipItem::new, () -> new Properties());
@@ -761,7 +740,6 @@ public class OccultismItems {
                     properties -> new MinerSpiritItem(properties
                             .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                             .durability(10000), () -> 100, () -> 10, () -> 10000));
-
     //Placeholders
     public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
             ITEMS.registerItem("dictionary_of_spirits_icon", Item::new, () -> new Properties());
@@ -790,6 +768,14 @@ public class OccultismItems {
             "jei_dummy/require_sacrifice", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.registerItem(
             "jei_dummy/require_item_use", DummyTooltipItem::new, () -> new Properties());
+    private static final ResourceKey<EquipmentAsset> OTHERWORLD_GOGGLES_EQUIPMENT_ASSET = ResourceKey.create(
+            EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_goggles"));
+    public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.registerItem("otherworld_goggles",
+            OtherworldGogglesItem::new, () -> new Properties().stacksTo(1)
+                    .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD)
+                            .setAsset(OTHERWORLD_GOGGLES_EQUIPMENT_ASSET)
+                            .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
+                            .build()));
 
     public static boolean shouldSkipCreativeModTab(Item item) {
         if (item == PENTACLE_SUMMON.get()

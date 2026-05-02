@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
 public class CrystallizerMaridEntry extends EntryProvider {
@@ -39,11 +39,11 @@ public class CrystallizerMaridEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Marid Crystallizer");
         this.pageText("""
-                    The marid crystallizer is extremely faster and efficient in gem ore multiplier.
-                    \\
-                    \\
-                    They also can transform amethyst cluster in budding amethyst and obsidian in crying obsidian.
-                    """
+                The marid crystallizer is extremely faster and efficient in gem ore multiplier.
+                \\
+                \\
+                They also can transform amethyst cluster in budding amethyst and obsidian in crying obsidian.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -52,7 +52,7 @@ public class CrystallizerMaridEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

@@ -23,11 +23,6 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-import net.minecraft.core.HolderLookup.Provider;
-import net.neoforged.neoforge.capabilities.Capabilities.Item;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.job.event.ItemProcessingJobEvent;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -36,8 +31,9 @@ import com.klikli_dev.occultism.crafting.recipe.TieredSingleRecipeInput;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -51,9 +47,10 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityEvent;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +181,7 @@ public class CrusherJob extends SpiritJob {
                     this.onCrush(inputCopy, result);
                     var event = new CrusherJobEvent(this.entity, inputCopy, result);
                     NeoForge.EVENT_BUS.post(event);
-                    if(!event.getResult().isEmpty()) {
+                    if (!event.getResult().isEmpty()) {
                         boolean flag = true;
                         if (level.getBlockState(this.entity.blockPosition().below()).is(OccultismBlocks.DIMENSIONAL_EXTRACTOR)) {
                             if (this.cachedStateBelow != level.getBlockState(this.entity.blockPosition().below(2)))

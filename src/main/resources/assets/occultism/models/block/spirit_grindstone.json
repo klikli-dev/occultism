@@ -1,71 +1,335 @@
 {
-	"credit": "Minecraft Grindstone",
-	"parent": "block/block",
-	"render_type": "translucent",
-	"textures": {
-		"2": "occultism:block/spirit_grindstone_faces",
-		"3": "occultism:block/spirit_grindstone_sides",
-		"leg": "occultism:block/otherworld_log",
-		"particle": "occultism:block/spirit_grindstone_faces"
-	},
-	"elements": [
-		{
-			"from": [12, 0, 6],
-			"to": [14, 7, 10],
-			"faces": {
-				"north": {"uv": [0, 0, 2, 7], "texture": "#leg"},
-				"east": {"uv": [4, 7, 0, 0], "texture": "#leg"},
-				"south": {"uv": [0, 0, 2, 7], "texture": "#leg"},
-				"west": {"uv": [0, 0, 4, 7], "texture": "#leg"},
-				"down": {"uv": [0, 0, 2, 4], "texture": "#leg"}
-			}
-		},
-		{
-			"from": [2, 0, 6],
-			"to": [4, 7, 10],
-			"faces": {
-				"north": {"uv": [0, 0, 2, 7], "texture": "#leg"},
-				"east": {"uv": [4, 7, 0, 0], "texture": "#leg"},
-				"south": {"uv": [0, 0, 2, 7], "texture": "#leg"},
-				"west": {"uv": [0, 0, 4, 7], "texture": "#leg"},
-				"down": {"uv": [0, 0, 2, 4], "texture": "#leg"}
-			}
-		},
-		{
-			"from": [12, 7, 5],
-			"to": [14, 13, 11],
-			"faces": {
-				"north": {"uv": [0, 0, 2, 6], "texture": "#leg"},
-				"east": {"uv": [0, 0, 6, 6], "texture": "#leg"},
-				"south": {"uv": [0, 0, 2, 6], "texture": "#leg"},
-				"west": {"uv": [0, 0, 6, 6], "texture": "#leg"},
-				"up": {"uv": [0, 0, 2, 6], "texture": "#leg"},
-				"down": {"uv": [0, 0, 2, 6], "texture": "#leg"}
-			}
-		},
-		{
-			"from": [2, 7, 5],
-			"to": [4, 13, 11],
-			"faces": {
-				"north": {"uv": [0, 0, 2, 6], "texture": "#leg"},
-				"east": {"uv": [0, 0, 6, 6], "texture": "#leg"},
-				"south": {"uv": [0, 0, 2, 6], "texture": "#leg"},
-				"west": {"uv": [0, 0, 6, 6], "texture": "#leg"},
-				"up": {"uv": [0, 0, 2, 6], "texture": "#leg"},
-				"down": {"uv": [0, 0, 2, 6], "texture": "#leg"}
-			}
-		},
-		{
-			"from": [4, 4, 2],
-			"to": [12, 16, 14],
-			"faces": {
-				"north": {"uv": [0, 0, 8, 12], "texture": "#2"},
-				"east": {"uv": [0, 0, 12, 12], "texture": "#3"},
-				"south": {"uv": [8, 0, 16, 12], "texture": "#2"},
-				"west": {"uv": [4, 0, 16, 12], "texture": "#3"},
-				"up": {"uv": [0, 0, 8, 12], "texture": "#2"},
-				"down": {"uv": [0, 0, 8, 12], "texture": "#2"}
-			}
-		}
-	]
+  "credit": "Minecraft Grindstone",
+  "parent": "block/block",
+  "render_type": "translucent",
+  "textures": {
+    "2": "occultism:block/spirit_grindstone_faces",
+    "3": "occultism:block/spirit_grindstone_sides",
+    "leg": "occultism:block/otherworld_log",
+    "particle": "occultism:block/spirit_grindstone_faces"
+  },
+  "elements": [
+    {
+      "from": [
+        12,
+        0,
+        6
+      ],
+      "to": [
+        14,
+        7,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            2,
+            7
+          ],
+          "texture": "#leg"
+        },
+        "east": {
+          "uv": [
+            4,
+            7,
+            0,
+            0
+          ],
+          "texture": "#leg"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            2,
+            7
+          ],
+          "texture": "#leg"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            4,
+            7
+          ],
+          "texture": "#leg"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            2,
+            4
+          ],
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        0,
+        6
+      ],
+      "to": [
+        4,
+        7,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            2,
+            7
+          ],
+          "texture": "#leg"
+        },
+        "east": {
+          "uv": [
+            4,
+            7,
+            0,
+            0
+          ],
+          "texture": "#leg"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            2,
+            7
+          ],
+          "texture": "#leg"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            4,
+            7
+          ],
+          "texture": "#leg"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            2,
+            4
+          ],
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        7,
+        5
+      ],
+      "to": [
+        14,
+        13,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            6,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            6,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        7,
+        5
+      ],
+      "to": [
+        4,
+        13,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            6,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            6,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            2,
+            6
+          ],
+          "texture": "#leg"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        4,
+        2
+      ],
+      "to": [
+        12,
+        16,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "texture": "#2"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            12,
+            12
+          ],
+          "texture": "#3"
+        },
+        "south": {
+          "uv": [
+            8,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        },
+        "west": {
+          "uv": [
+            4,
+            0,
+            16,
+            12
+          ],
+          "texture": "#3"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "texture": "#2"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            8,
+            12
+          ],
+          "texture": "#2"
+        }
+      }
+    }
+  ]
 }

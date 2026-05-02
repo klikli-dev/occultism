@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class PossessMaridEntry extends EntryProvider {
@@ -28,10 +28,10 @@ public class PossessMaridEntry extends EntryProvider {
         );
         this.pageTitle("Xeovrenth Adjure");
         this.pageText("""
-                **Purpose:** {0} Possession\\
-                \\
-                **Xeovrenth Adjure** is a powerful pentacle, allowing to possessing {1} in extremely dangerous rituals.
-                """,
+                        **Purpose:** {0} Possession\\
+                        \\
+                        **Xeovrenth Adjure** is a powerful pentacle, allowing to possessing {1} in extremely dangerous rituals.
+                        """,
                 this.color("Marid", ChatFormatting.DARK_PURPLE),
                 this.color("Marid", ChatFormatting.DARK_PURPLE)
         );
@@ -62,7 +62,7 @@ public class PossessMaridEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

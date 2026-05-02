@@ -6,11 +6,11 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
 import com.klikli_dev.occultism.datagen.book.pentacles.SummonAfritEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 
@@ -66,22 +66,22 @@ public class RepairEntry extends EntryProvider {
         //no text
         this.page("ritual_tools", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/repair_tools"))
-                    .withCondition(BookEntryReadConditionModel.create().withEntry(
-                            this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
-                    ))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(
+                        this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
+                ))
         );
         //no text
         this.page("ritual_armors", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/repair_armors"))
-                    .withCondition(BookEntryReadConditionModel.create().withEntry(
-                            this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
-                    ))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(
+                        this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
+                ))
         );
         //no text
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

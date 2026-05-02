@@ -22,18 +22,22 @@
 
 package com.klikli_dev.occultism.util;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Helper class for GuiGraphicsExtractor operations.
- * Note: In 26.1, the rendering API changed significantly. 
+ * Note: In 26.1, the rendering API changed significantly.
  * For custom rendering, use the native GuiGraphicsExtractor methods directly.
  */
 public class GuiGraphicsExt {
+
+    public static int withOpaqueAlpha(int color) {
+        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
+    }
 
     /**
      * Render text using Component - delegates to GuiGraphicsExtractor.
@@ -42,13 +46,13 @@ public class GuiGraphicsExt {
         if (component == null) {
             return;
         }
-        guiGraphics.text(font, component, (int) x, (int) y, color, drawShadow);
+        guiGraphics.text(font, component, (int) x, (int) y, withOpaqueAlpha(color), drawShadow);
     }
 
     /**
      * Render text using FormattedCharSequence - delegates to GuiGraphicsExtractor.
      */
     public static void drawString(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, float x, float y, int color, boolean drawShadow) {
-        guiGraphics.text(font, text, (int) x, (int) y, color, drawShadow);
+        guiGraphics.text(font, text, (int) x, (int) y, withOpaqueAlpha(color), drawShadow);
     }
 }

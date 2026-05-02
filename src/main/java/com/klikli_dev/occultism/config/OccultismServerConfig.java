@@ -23,11 +23,7 @@
 package com.klikli_dev.occultism.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.Builder;
-import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
-import net.neoforged.neoforge.common.ModConfigSpec.LongValue;
+import net.neoforged.neoforge.common.ModConfigSpec.*;
 
 public class OccultismServerConfig {
 
@@ -177,7 +173,7 @@ public class OccultismServerConfig {
             this.crusherMarid = new TierSpiritSettings(builder, "Marid Crusher", "crusher_tier4",
                     4, 0.3, 3.0, 1);
             this.crusherResultPickupDelay = builder.comment(
-                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                     .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.crystallizerFoliot = new TierSpiritSettings(builder, "Foliot Crystallizer", "crystal_tier1",
@@ -189,7 +185,7 @@ public class OccultismServerConfig {
             this.crystallizerMarid = new TierSpiritSettings(builder, "Marid Crystallizer", "crystal_tier4",
                     4, 0.1, 3.0, 1);
             this.crystallizerResultPickupDelay = builder.comment(
-                    "The minimum ticks before a crystallizer can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            "The minimum ticks before a crystallizer can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                     .defineInRange("crystallizerResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.smelterFoliot = new SimpleWorkerSpiritSettings(builder, "Foliot Smelter",
@@ -201,7 +197,7 @@ public class OccultismServerConfig {
             this.smelterMarid = new SimpleWorkerSpiritSettings(builder, "Marid Smelter",
                     "smelter_tier4", 0.01, 1);
             this.smelterResultPickupDelay = builder.comment(
-                    "The minimum ticks before a smelter can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            "The minimum ticks before a smelter can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                     .defineInRange("smelterResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.traderSapling = new TraderSpiritSettings(builder, "Otherworld Sapling Trader",
@@ -213,26 +209,26 @@ public class OccultismServerConfig {
             this.traderGem = new TraderSpiritSettings(builder, "Gambler",
                     "trader_gem", 200, 16);
             this.traderResultPickupDelay = builder.comment(
-                    "The minimum ticks before a trader can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            "The minimum ticks before a trader can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                     .defineInRange("traderResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
             this.traderWonderingChance = builder.comment(
                             "The percentage of Wondering Trader replace the Wandering Trader when spawn.")
                     .defineInRange("traderWonderingChance", 5, 0, 100);
 
             this.dayTimeToCast = builder.comment(
-                    "The time in ticks it takes to cast the day time ritual.")
+                            "The time in ticks it takes to cast the day time ritual.")
                     .defineInRange("dayTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
             this.nightTimeToCast = builder.comment(
-                    "The time in ticks it takes to cast the night time ritual.")
+                            "The time in ticks it takes to cast the night time ritual.")
                     .defineInRange("nightTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
             this.rainTimeToCast = builder.comment(
-                    "The time in ticks it takes to cast the rain ritual.")
+                            "The time in ticks it takes to cast the rain ritual.")
                     .defineInRange("rainTimeToCast", 20 * 10, 0, Integer.MAX_VALUE);
             this.thunderTimeToCast = builder.comment(
-                    "The time in ticks it takes to cast the thunder ritual.")
+                            "The time in ticks it takes to cast the thunder ritual.")
                     .defineInRange("thunderTimeToCast", 20 * 15, 0, Integer.MAX_VALUE);
             this.clearWeatherTimeToCast = builder.comment(
-                    "The time in ticks it takes to cast the clear weather ritual.")
+                            "The time in ticks it takes to cast the clear weather ritual.")
                     .defineInRange("clearWeatherTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
 
             builder.pop();
@@ -264,6 +260,7 @@ public class OccultismServerConfig {
                 builder.pop();
             }
         }
+
         public static class SimpleWorkerSpiritSettings {
             public final DoubleValue timeMultiplier;
             public final IntValue operationCount;
@@ -282,6 +279,7 @@ public class OccultismServerConfig {
                 builder.pop();
             }
         }
+
         public static class TraderSpiritSettings {
             public final IntValue operationTimer;
             public final IntValue operationCount;

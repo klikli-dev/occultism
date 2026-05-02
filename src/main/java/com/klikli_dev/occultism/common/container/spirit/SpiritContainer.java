@@ -31,8 +31,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 import javax.annotation.Nullable;
 
@@ -61,7 +61,7 @@ public class SpiritContainer extends AbstractContainerMenu {
         if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            
+
             if (index >= this.slots.size() - this.inventory.size()) {
                 if (!this.moveItemStackTo(itemstack1, 0, this.slots.size() - this.inventory.size(), true)) {
                     return ItemStack.EMPTY;
@@ -69,7 +69,7 @@ public class SpiritContainer extends AbstractContainerMenu {
             } else if (!this.moveItemStackTo(itemstack1, this.slots.size() - this.inventory.size(), this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
-            
+
 
             if (itemstack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);

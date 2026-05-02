@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -26,10 +26,10 @@ public class VitalityCompassEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.VITALITY_COMPASS))
                 .withText(this.context().pageText()));
         this.pageText("""
-                       The [](item://occultism:vitality_compass) is a mystical tool infused with a {0}
-                        that allows it to be attuned to the essence of living beings.
-                        By right-clicking on a creature, you bind its life force to the compass,
-                        allowing the needle to always point toward its location no matter the distance (while loaded).
+                        The [](item://occultism:vitality_compass) is a mystical tool infused with a {0}
+                         that allows it to be attuned to the essence of living beings.
+                         By right-clicking on a creature, you bind its life force to the compass,
+                         allowing the needle to always point toward its location no matter the distance (while loaded).
                         """,
                 this.color("Foliot", ChatFormatting.DARK_PURPLE)
         );
@@ -51,7 +51,7 @@ public class VitalityCompassEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

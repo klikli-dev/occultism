@@ -22,13 +22,10 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
-import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.display.RecipeDisplay;
-import net.minecraft.world.item.crafting.display.SlotDisplay;
+import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -36,10 +33,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -50,9 +49,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
-    private final String trader;
-    protected final WeightedRecipeResult result;
-
     public static final MapCodec<SpiritTradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
@@ -69,6 +65,8 @@ public class SpiritTradeRecipe extends SingleInputRecipe<TraderRecipeInput> {
             SpiritTradeRecipe::new
     );
     public static RecipeSerializer<SpiritTradeRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    protected final WeightedRecipeResult result;
+    private final String trader;
 
     public SpiritTradeRecipe(Ingredient input, WeightedRecipeResult result, String trader) {
         super(input, ItemStack.EMPTY);

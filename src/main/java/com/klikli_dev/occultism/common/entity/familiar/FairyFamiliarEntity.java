@@ -23,26 +23,24 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageFairySupport;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.syncher.SynchedEntityData.Builder;
-import net.minecraft.util.ARGB;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -69,21 +67,21 @@ import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 
 public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
+    protected static final int BREATH_INTERVAL = 20 * 3;
     private static final EntityDataAccessor<Integer> MAGIC_TARGET = SynchedEntityData.defineId(FairyFamiliarEntity.class,
             EntityDataSerializers.INT);
-
     private static final float ANIMATION_HEIGHT_SPEED = 0.2f;
     private static final double DEFAULT_ATTACK_REACH = Math.sqrt(2.04F) - 0.6F;
+    protected long lastBreathTime;
     private int saveCooldown = 0;
     private int supportAnim;
-    protected static final int BREATH_INTERVAL = 20 * 3;
-    protected long lastBreathTime;
 
     public FairyFamiliarEntity(EntityType<? extends FairyFamiliarEntity> type, Level level) {
         super(type, level);

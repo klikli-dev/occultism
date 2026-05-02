@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.GoatFamiliarEntity;
+import com.klikli_dev.occultism.client.render.entity.state.GoatFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,13 +30,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
  */
-public class GoatFamiliarModel extends EntityModel<EntityRenderState> {
+public class GoatFamiliarModel extends EntityModel<GoatFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -161,61 +160,50 @@ public class GoatFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(GoatFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // this.showModels(pEntity);
+        this.body.getAllParts().forEach(ModelPart::resetPose);
+        this.showModels(state);
 
         this.body.zRot = 0;
         this.neck.xRot = -0.87f;
+        this.neck.yRot = state.neckYRot;
+        this.head.yRot = state.yRot * (PI / 180f) * 0.5f;
+        this.head.zRot = state.yRot * (PI / 180f) * 0.5f;
+        this.head.xRot = state.xRot * (PI / 180f) * 0.5f + 0.96f;
 
-        // TODO: needs custom RenderState
-        // this.head.yRot = this.toRads(netHeadYaw) * 0.5f;
-        // this.head.zRot = this.toRads(netHeadYaw) * 0.5f;
-        // this.head.xRot = this.toRads(headPitch) * 0.5f + 0.96f;
+        this.rightBackLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.8f * state.walkAnimationSpeed - 0.23f;
+        this.leftBackLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 0.8f * state.walkAnimationSpeed - 0.23f;
+        this.rightFrontLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 0.8f * state.walkAnimationSpeed - 0.12f;
+        this.leftFrontLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.8f * state.walkAnimationSpeed - 0.12f;
 
-        // TODO: needs custom RenderState
-        // this.rightBackLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.23f;
-        // this.leftBackLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
-        // this.rightFrontLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.12f;
-        // this.leftFrontLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.12f;
+        if (state.isSitting) {
+            this.body.zRot = this.toRads(90);
+            this.neck.xRot = this.toRads(10);
+        }
 
-        // TODO: needs custom RenderState
-        // if (pEntity.isSitting()) {
-        //     this.body.zRot = this.toRads(90);
-        //     this.neck.xRot = this.toRads(10);
-        // }
+        if (state.isPartying) {
+            this.body.zRot = this.toRads(180);
+            this.neck.xRot = this.toRads(10);
+            this.rightBackLeg1.xRot = Mth.cos(state.ageInTicks * 0.5f) * this.toRads(25) - 0.23f;
+            this.leftBackLeg1.xRot = Mth.cos(state.ageInTicks * 0.5f + PI) * this.toRads(25) - 0.23f;
+            this.rightFrontLeg1.xRot = Mth.cos(state.ageInTicks * 0.5f + PI) * this.toRads(25) - 0.12f;
+            this.leftFrontLeg1.xRot = Mth.cos(state.ageInTicks * 0.5f) * this.toRads(25) - 0.12f;
+        }
 
-        // TODO: needs custom RenderState
-        // if (pEntity.isPartying()) {
-        //     this.body.zRot = this.toRads(180);
-        //     this.neck.xRot = this.toRads(10);
-        //     this.rightBackLeg1.xRot = Mth.cos(pAgeInTicks * 0.5f) * this.toRads(25) - 0.23f;
-        //     this.leftBackLeg1.xRot = Mth.cos(pAgeInTicks * 0.5f + PI) * this.toRads(25) - 0.23f;
-        //     this.rightFrontLeg1.xRot = Mth.cos(pAgeInTicks * 0.5f + PI) * this.toRads(25) - 0.12f;
-        //     this.leftFrontLeg1.xRot = Mth.cos(pAgeInTicks * 0.5f) * this.toRads(25) - 0.12f;
-        // }
-
-        // TODO: needs custom RenderState
-        // this.bell2.zRot = Mth.cos(limbSwing * 0.7f) * 0.5f * limbSwingAmount;
+        this.bell2.zRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.5f * state.walkAnimationSpeed;
     }
 
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // prepareMobModel set: this.neck.yRot = pEntity.getNeckYRot(pPartialTick);
-
-    private void showModels(GoatFamiliarEntity entityIn) {
-        boolean hasRedEyes = entityIn.hasRedEyes();
-        boolean hasEvilHorns = entityIn.hasEvilHorns();
-
-        this.ring.visible = entityIn.hasRing();
-        this.beard.visible = entityIn.hasBeard();
-        this.bell1.visible = entityIn.hasBlacksmithUpgrade();
-        this.leftEyeEvil.visible = hasRedEyes;
-        this.rightEyeEvil.visible = hasRedEyes;
-        this.leftHorn1.visible = !hasEvilHorns;
-        this.rightHorn1.visible = !hasEvilHorns;
-        this.leftSideHornEvil1.visible = hasEvilHorns;
-        this.rightSideHornEvil1.visible = hasEvilHorns;
+    private void showModels(GoatFamiliarRenderState state) {
+        this.ring.visible = state.hasRing;
+        this.beard.visible = state.hasBeard;
+        this.bell1.visible = state.hasBlacksmithUpgrade;
+        this.leftEyeEvil.visible = state.hasRedEyes;
+        this.rightEyeEvil.visible = state.hasRedEyes;
+        this.leftHorn1.visible = !state.hasEvilHorns;
+        this.rightHorn1.visible = !state.hasEvilHorns;
+        this.leftSideHornEvil1.visible = state.hasEvilHorns;
+        this.rightSideHornEvil1.visible = state.hasEvilHorns;
     }
 
     private float toRads(float deg) {

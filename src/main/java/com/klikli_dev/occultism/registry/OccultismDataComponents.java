@@ -34,6 +34,201 @@ import java.util.UUID;
 public class OccultismDataComponents {
     public static final DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Occultism.MODID);
     public static final String INVALID_SPIRIT_ENTITY_DATA_MARKER = "occultism_invalid_spirit_entity_data";
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_MINING_TIME = DATA_COMPONENTS.registerComponentType("max_mining_time", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ROLLS_PER_OPERATION = DATA_COMPONENTS.registerComponentType("rolls_per_operation", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortDirection>> SORT_DIRECTION = DATA_COMPONENTS.registerComponentType("sort_direction", builder -> builder
+            .persistent(SortDirection.CODEC)
+            .networkSynchronized(SortDirection.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortType>> SORT_TYPE = DATA_COMPONENTS.registerComponentType("sort_type", builder -> builder
+            .persistent(SortType.CODEC)
+            .networkSynchronized(SortType.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> CRAFTING_MATRIX = DATA_COMPONENTS.registerComponentType("crafting_matrix", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> ORDER_STACK = DATA_COMPONENTS.registerComponentType("order_stack", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<GlobalBlockPos>> LINKED_STORAGE_CONTROLLER = DATA_COMPONENTS.registerComponentType("linked_storage_controller", builder -> builder
+            .persistent(GlobalBlockPos.CODEC)
+            .networkSynchronized(GlobalBlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OCCUPIED = DATA_COMPONENTS.registerComponentType("occupied", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> FAMILIAR_DATA = DATA_COMPONENTS.registerComponentType("familiar_data", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Identifier>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
+            .persistent(Identifier.CODEC)
+            .networkSynchronized(Identifier.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DIVINATION_DISTANCE = DATA_COMPONENTS.registerComponentType("divination_distance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DIVINATION_POS = DATA_COMPONENTS.registerComponentType("divination_pos", builder -> builder
+            .persistent(BlockPos.CODEC)
+            .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Block>>> DIVINATION_LINKED_BLOCK = DATA_COMPONENTS.registerComponentType("divination_linked_block", builder -> builder
+            .persistent(BuiltInRegistries.BLOCK.holderByNameCodec())
+            .networkSynchronized(ByteBufCodecs.holderRegistry(Registries.BLOCK))
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SPIRIT_NAME = DATA_COMPONENTS.registerComponentType("spirit_name", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SPIRIT_JOB = DATA_COMPONENTS.registerComponentType("spirit_job", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ITEM_MODE = DATA_COMPONENTS.registerComponentType("item_mode", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MachineReference>> MANAGED_MACHINE = DATA_COMPONENTS.registerComponentType("managed_machine", builder -> builder
+            .persistent(MachineReference.CODEC)
+            .networkSynchronized(MachineReference.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DEPOSIT_POSITION = DATA_COMPONENTS.registerComponentType("deposit_position", builder -> builder
+            .persistent(BlockPos.CODEC)
+            .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> DEPOSIT_ENTITY_UUID = DATA_COMPONENTS.registerComponentType("deposit_entity_uuid", builder -> builder
+            .persistent(OccultismExtraCodecs.UUID)
+            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> DEPOSIT_ENTITY_NAME = DATA_COMPONENTS.registerComponentType("deposit_entity_name", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Direction>> DEPOSIT_FACING = DATA_COMPONENTS.registerComponentType("deposit_facing", builder -> builder
+            .persistent(Direction.CODEC)
+            .networkSynchronized(Direction.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DEPOSIT_POS = DATA_COMPONENTS.registerComponentType("deposit_pos", builder -> builder
+            .persistent(BlockPos.CODEC)
+            .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Direction>> EXTRACT_FACING = DATA_COMPONENTS.registerComponentType("extract_facing", builder -> builder
+            .persistent(Direction.CODEC)
+            .networkSynchronized(Direction.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> EXTRACT_POS = DATA_COMPONENTS.registerComponentType("extract_pos", builder -> builder
+            .persistent(BlockPos.CODEC)
+            .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> WORK_AREA_POS = DATA_COMPONENTS.registerComponentType("work_area_pos", builder -> builder
+            .persistent(BlockPos.CODEC)
+            .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<WorkAreaSize>> WORK_AREA_SIZE = DATA_COMPONENTS.registerComponentType("work_area_size", builder -> builder
+            .persistent(WorkAreaSize.CODEC)
+            .networkSynchronized(WorkAreaSize.STREAM_CODEC)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> SPIRIT_ENTITY_UUID = DATA_COMPONENTS.registerComponentType("spirit_entity_uuid", builder -> builder
+            .persistent(OccultismExtraCodecs.UUID)
+            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SPIRIT_DEAD = DATA_COMPONENTS.registerComponentType("spirit_dead", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> IS_INVENTORY_ITEM = DATA_COMPONENTS.registerComponentType("is_inventory_item", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OTHERWORLD_GOGGLES = DATA_COMPONENTS.registerComponentType("otherworld_goggles", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OTHERWORLD_TOOL_TIER = DATA_COMPONENTS.registerComponentType("otherworld_tool_tier", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP = DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.VAR_INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> COMPASS_ANGLE = DATA_COMPONENTS.registerComponentType("angle", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> LINKED_PLAYER_UUID = DATA_COMPONENTS.registerComponentType("linked_player_uuid", builder -> builder
+            .persistent(OccultismExtraCodecs.UUID)
+            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> LINKED_PLAYER_NAME = DATA_COMPONENTS.registerComponentType("linked_player_name", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SOUL_VALUE = DATA_COMPONENTS.registerComponentType("soul_value", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LUCK_VALUE = DATA_COMPONENTS.registerComponentType("luck_value", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FAIL_CHANCE = DATA_COMPONENTS.registerComponentType("fail_chance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> CONSUME_CHANCE = DATA_COMPONENTS.registerComponentType("consume_chance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
     private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {
         @Override
         public CustomData decode(RegistryFriendlyByteBuf buffer) {
@@ -44,182 +239,11 @@ public class OccultismDataComponents {
         public void encode(RegistryFriendlyByteBuf buffer, CustomData value) {
         }
     };
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_MINING_TIME = DATA_COMPONENTS.registerComponentType("max_mining_time", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ROLLS_PER_OPERATION = DATA_COMPONENTS.registerComponentType("rolls_per_operation", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortDirection>> SORT_DIRECTION = DATA_COMPONENTS.registerComponentType("sort_direction", builder -> builder
-            .persistent(SortDirection.CODEC)
-            .networkSynchronized(SortDirection.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortType>> SORT_TYPE = DATA_COMPONENTS.registerComponentType("sort_type", builder -> builder
-            .persistent(SortType.CODEC)
-            .networkSynchronized(SortType.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> CRAFTING_MATRIX = DATA_COMPONENTS.registerComponentType("crafting_matrix", builder -> builder
-            .persistent(CustomData.CODEC)
-            .networkSynchronized(CustomData.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> ORDER_STACK = DATA_COMPONENTS.registerComponentType("order_stack", builder -> builder
-            .persistent(CustomData.CODEC)
-            .networkSynchronized(CustomData.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> STORAGE_CONTROLLER_CONTENTS = DATA_COMPONENTS.registerComponentType("storage_controller_contents", builder -> builder
             .persistent(CustomData.CODEC)
             .networkSynchronized(STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC)
             .cacheEncoding()
     );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<GlobalBlockPos>> LINKED_STORAGE_CONTROLLER = DATA_COMPONENTS.registerComponentType("linked_storage_controller", builder -> builder
-            .persistent(GlobalBlockPos.CODEC)
-            .networkSynchronized(GlobalBlockPos.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OCCUPIED = DATA_COMPONENTS.registerComponentType("occupied", builder -> builder
-            .persistent(Codec.BOOL)
-            .networkSynchronized(ByteBufCodecs.BOOL)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> FAMILIAR_DATA = DATA_COMPONENTS.registerComponentType("familiar_data", builder -> builder
-            .persistent(CustomData.CODEC)
-            .networkSynchronized(CustomData.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Identifier>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
-            .persistent(Identifier.CODEC)
-            .networkSynchronized(Identifier.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DIVINATION_DISTANCE = DATA_COMPONENTS.registerComponentType("divination_distance", builder -> builder
-            .persistent(Codec.FLOAT)
-            .networkSynchronized(ByteBufCodecs.FLOAT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DIVINATION_POS = DATA_COMPONENTS.registerComponentType("divination_pos", builder -> builder
-            .persistent(BlockPos.CODEC)
-            .networkSynchronized(BlockPos.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Block>>> DIVINATION_LINKED_BLOCK = DATA_COMPONENTS.registerComponentType("divination_linked_block", builder -> builder
-            .persistent(BuiltInRegistries.BLOCK.holderByNameCodec())
-            .networkSynchronized(ByteBufCodecs.holderRegistry(Registries.BLOCK))
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SPIRIT_NAME = DATA_COMPONENTS.registerComponentType("spirit_name", builder -> builder
-            .persistent(Codec.STRING)
-            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SPIRIT_JOB = DATA_COMPONENTS.registerComponentType("spirit_job", builder -> builder
-            .persistent(Codec.STRING)
-            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ITEM_MODE = DATA_COMPONENTS.registerComponentType("item_mode", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MachineReference>> MANAGED_MACHINE = DATA_COMPONENTS.registerComponentType("managed_machine", builder -> builder
-            .persistent(MachineReference.CODEC)
-            .networkSynchronized(MachineReference.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DEPOSIT_POSITION = DATA_COMPONENTS.registerComponentType("deposit_position", builder -> builder
-            .persistent(BlockPos.CODEC)
-            .networkSynchronized(BlockPos.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> DEPOSIT_ENTITY_UUID = DATA_COMPONENTS.registerComponentType("deposit_entity_uuid", builder -> builder
-            .persistent(OccultismExtraCodecs.UUID)
-            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> DEPOSIT_ENTITY_NAME = DATA_COMPONENTS.registerComponentType("deposit_entity_name", builder -> builder
-            .persistent(Codec.STRING)
-            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Direction>> DEPOSIT_FACING = DATA_COMPONENTS.registerComponentType("deposit_facing", builder -> builder
-            .persistent(Direction.CODEC)
-            .networkSynchronized(Direction.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DEPOSIT_POS = DATA_COMPONENTS.registerComponentType("deposit_pos", builder -> builder
-            .persistent(BlockPos.CODEC)
-            .networkSynchronized(BlockPos.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Direction>> EXTRACT_FACING = DATA_COMPONENTS.registerComponentType("extract_facing", builder -> builder
-            .persistent(Direction.CODEC)
-            .networkSynchronized(Direction.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> EXTRACT_POS = DATA_COMPONENTS.registerComponentType("extract_pos", builder -> builder
-            .persistent(BlockPos.CODEC)
-            .networkSynchronized(BlockPos.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> WORK_AREA_POS = DATA_COMPONENTS.registerComponentType("work_area_pos", builder -> builder
-            .persistent(BlockPos.CODEC)
-            .networkSynchronized(BlockPos.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<WorkAreaSize>> WORK_AREA_SIZE = DATA_COMPONENTS.registerComponentType("work_area_size", builder -> builder
-            .persistent(WorkAreaSize.CODEC)
-            .networkSynchronized(WorkAreaSize.STREAM_CODEC)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> SPIRIT_ENTITY_UUID = DATA_COMPONENTS.registerComponentType("spirit_entity_uuid", builder -> builder
-            .persistent(OccultismExtraCodecs.UUID)
-            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SPIRIT_DEAD = DATA_COMPONENTS.registerComponentType("spirit_dead", builder -> builder
-            .persistent(Codec.BOOL)
-            .networkSynchronized(ByteBufCodecs.BOOL)
-            .cacheEncoding()
-    );
-
     private static final Codec<TypedEntityData<EntityType<?>>> STRICT_SPIRIT_ENTITY_DATA_CODEC = TypedEntityData.codec(EntityType.CODEC);
     private static final Codec<TypedEntityData<EntityType<?>>> SPIRIT_ENTITY_DATA_CODEC = new Codec<>() {
         @Override
@@ -238,6 +262,11 @@ public class OccultismDataComponents {
             return STRICT_SPIRIT_ENTITY_DATA_CODEC.encode(input, ops, prefix);
         }
     };
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TypedEntityData<EntityType<?>>>> SPIRIT_ENTITY_DATA = DATA_COMPONENTS.registerComponentType("spirit_entity_data", builder -> builder
+            .persistent(SPIRIT_ENTITY_DATA_CODEC)
+            .networkSynchronized(TypedEntityData.streamCodec(EntityType.STREAM_CODEC))
+            .cacheEncoding()
+    );
 
     private static TypedEntityData<EntityType<?>> decodeLegacySpiritEntityData(CompoundTag entityData) {
         CompoundTag tagWithoutType = entityData.copy();
@@ -253,77 +282,4 @@ public class OccultismDataComponents {
         invalidData.putBoolean(INVALID_SPIRIT_ENTITY_DATA_MARKER, true);
         return TypedEntityData.of(EntityType.PIG, invalidData);
     }
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TypedEntityData<EntityType<?>>>> SPIRIT_ENTITY_DATA = DATA_COMPONENTS.registerComponentType("spirit_entity_data", builder -> builder
-            .persistent(SPIRIT_ENTITY_DATA_CODEC)
-            .networkSynchronized(TypedEntityData.streamCodec(EntityType.STREAM_CODEC))
-            .cacheEncoding()
-    );
-
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> IS_INVENTORY_ITEM = DATA_COMPONENTS.registerComponentType("is_inventory_item", builder -> builder
-            .persistent(Codec.BOOL)
-            .networkSynchronized(ByteBufCodecs.BOOL)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OTHERWORLD_GOGGLES = DATA_COMPONENTS.registerComponentType("otherworld_goggles", builder -> builder
-            .persistent(Codec.BOOL)
-            .networkSynchronized(ByteBufCodecs.BOOL)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OTHERWORLD_TOOL_TIER = DATA_COMPONENTS.registerComponentType("otherworld_tool_tier", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP =  DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.VAR_INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> COMPASS_ANGLE = DATA_COMPONENTS.registerComponentType("angle", builder -> builder
-            .persistent(Codec.FLOAT)
-            .networkSynchronized(ByteBufCodecs.FLOAT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> LINKED_PLAYER_UUID = DATA_COMPONENTS.registerComponentType("linked_player_uuid", builder -> builder
-            .persistent(OccultismExtraCodecs.UUID)
-            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> LINKED_PLAYER_NAME = DATA_COMPONENTS.registerComponentType("linked_player_name", builder -> builder
-            .persistent(Codec.STRING)
-            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SOUL_VALUE = DATA_COMPONENTS.registerComponentType("soul_value", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LUCK_VALUE = DATA_COMPONENTS.registerComponentType("luck_value", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FAIL_CHANCE = DATA_COMPONENTS.registerComponentType("fail_chance", builder -> builder
-            .persistent(Codec.FLOAT)
-            .networkSynchronized(ByteBufCodecs.FLOAT)
-            .cacheEncoding()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> CONSUME_CHANCE = DATA_COMPONENTS.registerComponentType("consume_chance", builder -> builder
-            .persistent(Codec.FLOAT)
-            .networkSynchronized(ByteBufCodecs.FLOAT)
-            .cacheEncoding()
-    );
 }

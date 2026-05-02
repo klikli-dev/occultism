@@ -24,19 +24,18 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.BlacksmithFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.BlacksmithFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.BlacksmithFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
@@ -45,12 +44,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
 
-public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, LivingEntityRenderState, BlacksmithFamiliarModel> {
+public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarRenderState, BlacksmithFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/blacksmith_familiar.png");
 
-    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "blacksmith_is_sitting"));
     private static final ContextKey<Byte> BARS = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "blacksmith_bars"));
 
     private final ItemModelResolver itemModelResolver;
@@ -62,41 +60,45 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     }
 
     @Override
-    public void extractRenderState(BlacksmithFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+    public void extractRenderState(BlacksmithFamiliarEntity entity, BlacksmithFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
-        reusedState.setRenderData(IS_SITTING, entity.isSitting());
+        reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.hasSquareHair = entity.hasSquareHair();
+        reusedState.hasMarioMoustache = entity.hasMarioMoustache();
+        reusedState.hasEarring = entity.hasEarring();
+        reusedState.isChristmas = FamiliarUtil.isChristmas();
         reusedState.setRenderData(BARS, entity.getBars());
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public BlacksmithFamiliarRenderState createRenderState() {
+        return new BlacksmithFamiliarRenderState();
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public Identifier getTextureLocation(BlacksmithFamiliarRenderState state) {
         return TEXTURES;
     }
 
     @Override
-    protected void setupRotations(LivingEntityRenderState state, PoseStack poseStack, float bob, float scale) {
-        Boolean isSitting = state.getRenderData(IS_SITTING);
-        if (isSitting == null || !isSitting) {
+    protected void setupRotations(BlacksmithFamiliarRenderState state, PoseStack poseStack, float bob, float scale) {
+        if (!state.isSitting) {
             super.setupRotations(state, poseStack, bob, scale);
         }
     }
 
-    private static class IngotsLayer extends RenderLayer<LivingEntityRenderState, BlacksmithFamiliarModel> {
+    private static class IngotsLayer extends RenderLayer<BlacksmithFamiliarRenderState, BlacksmithFamiliarModel> {
 
         private final ItemModelResolver itemModelResolver;
 
-        public IngotsLayer(RenderLayerParent<LivingEntityRenderState, BlacksmithFamiliarModel> parent, ItemModelResolver itemModelResolver) {
+        public IngotsLayer(RenderLayerParent<BlacksmithFamiliarRenderState, BlacksmithFamiliarModel> parent, ItemModelResolver itemModelResolver) {
             super(parent);
             this.itemModelResolver = itemModelResolver;
         }
 
         @Override
-        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, BlacksmithFamiliarRenderState state, float yRot, float xRot) {
             Byte barsData = state.getRenderData(BlacksmithFamiliarRenderer.BARS);
             int bars = barsData != null ? barsData : 0;
             if (bars <= 0) return;

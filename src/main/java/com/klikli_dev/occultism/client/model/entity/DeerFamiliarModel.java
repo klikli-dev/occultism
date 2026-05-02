@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.render.entity.state.DeerFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -29,13 +30,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class DeerFamiliarModel extends EntityModel<EntityRenderState> {
+public class DeerFamiliarModel extends EntityModel<DeerFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -111,7 +108,7 @@ public class DeerFamiliarModel extends EntityModel<EntityRenderState> {
         PartDefinition parts = mesh.getRoot();
         PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -5.0F, -5.0F, 4.0F, 5.0F, 10.0F, false), PartPose.offsetAndRotation(0.0F, 16.4F, 0.0F, 0, 0, 0));
         PartDefinition leftFrontLeg1 = body.addOrReplaceChild("leftFrontLeg1", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, false), PartPose.offsetAndRotation(1.4F, -0.2F, -3.9F, -toRad(80), -toRad(10), -toRad(40)));
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(22, 0).addBox(-1.0F, -0.5F, 0.0F, 2.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -4.0F, 4.5F, -0.4363323129985824F, 0.0F, 0.0F));
+        body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(22, 0).addBox(-1.0F, -0.5F, 0.0F, 2.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -4.0F, 4.5F, -0.4363323129985824F, 0.0F, 0.0F));
         PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(30, 0).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -4.0F, -4.0F, 0.3909537457888271F, 0.0F, 0.0F));
         PartDefinition rightFrontLeg1 = body.addOrReplaceChild("rightFrontLeg1", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, true), PartPose.offsetAndRotation(-1.4F, -0.2F, -3.9F, -toRad(80), -toRad(10), -toRad(40)));
         PartDefinition leftBackLeg1 = body.addOrReplaceChild("leftBackLeg1", CubeListBuilder.create().texOffs(28, 9).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, false), PartPose.offsetAndRotation(1.4F, -0.2F, 3.9F, toRad(80), toRad(10), -toRad(40)));
@@ -119,24 +116,24 @@ public class DeerFamiliarModel extends EntityModel<EntityRenderState> {
         PartDefinition leftFrontLeg2 = leftFrontLeg1.addOrReplaceChild("leftFrontLeg2", CubeListBuilder.create().texOffs(18, 0).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, false), PartPose.offsetAndRotation(-0.01F, 3.8F, 0.0F, 0.11728612207217244F, 0.0F, 0.0F));
         PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(38, 0).addBox(-1.5F, -3.0F, -1.5F, 3.0F, 3.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, -2.5F, -0.3F, 0, 0, 0));
         PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(51, 5).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, -1.01F, -1.5F, 0, 0, 0));
-        PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(22, 3).addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(1.0F, -2.5F, 0.5F, -0.3909537457888271F, 0.0F, 0.7819074915776542F));
-        PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(22, 3).addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 1.0F, true), PartPose.offsetAndRotation(-1.0F, -2.5F, 0.5F, -0.3909537457888271F, 0.0F, -0.7819074915776542F));
+        head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(22, 3).addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(1.0F, -2.5F, 0.5F, -0.3909537457888271F, 0.0F, 0.7819074915776542F));
+        head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(22, 3).addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 1.0F, true), PartPose.offsetAndRotation(-1.0F, -2.5F, 0.5F, -0.3909537457888271F, 0.0F, -0.7819074915776542F));
         PartDefinition leftHorn1 = head.addOrReplaceChild("leftHorn1", CubeListBuilder.create().texOffs(50, 4).addBox(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F, false), PartPose.offsetAndRotation(0.7F, -2.5F, 0.3F, 0.0F, 0.0F, 0.3127630032889644F));
         PartDefinition rightHorn1 = head.addOrReplaceChild("rightHorn1", CubeListBuilder.create().texOffs(50, 4).addBox(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F, false), PartPose.offsetAndRotation(-0.7F, -2.5F, 0.3F, 0.0F, 0.0F, -0.3127630032889644F));
         PartDefinition hammerHandle = nose.addOrReplaceChild("hammerHandle", CubeListBuilder.create().texOffs(38, 14).addBox(0.0F, -0.5F, -0.5F, 5.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-1.8F, 0.3F, -1.3F, 0, 0, 0));
         PartDefinition hammerHead = hammerHandle.addOrReplaceChild("hammerHead", CubeListBuilder.create().texOffs(50, 12).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(6.0F, 0.0F, 0.0F, 0.0F, 0.7853981633974483F, 0.0F));
-        PartDefinition hammerSpikes1 = hammerHead.addOrReplaceChild("hammerSpikes1", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-0.2F, -1.2F, -0.6F, 0.0F, 0.0F, 0.7853981633974483F));
-        PartDefinition hammerSpikes2 = hammerHead.addOrReplaceChild("hammerSpikes2", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.2F, -1.2F, 0.4F, 0.0F, 0.0F, 0.7853981633974483F));
-        PartDefinition hammerSpikes3 = hammerHead.addOrReplaceChild("hammerSpikes3", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(1.2F, -0.3F, -0.6F, 0.0F, 0.0F, 0.7853981633974483F));
-        PartDefinition hammerSpikes4 = hammerHead.addOrReplaceChild("hammerSpikes4", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(1.2F, 0.3F, 0.4F, 0.0F, 0.0F, 0.7853981633974483F));
-        PartDefinition hammerSpikes5 = hammerHead.addOrReplaceChild("hammerSpikes5", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(0.5F, -0.2F, 1.2F, 0.7853981633974483F, 0.0F, 0.0F));
-        PartDefinition hammerSpikes6 = hammerHead.addOrReplaceChild("hammerSpikes6", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.4F, 0.3F, 1.2F, 0.7853981633974483F, 0.0F, 0.0F));
-        PartDefinition hammerSpikes7 = hammerHead.addOrReplaceChild("hammerSpikes7", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(0.6F, 1.2F, -0.1F, 0.7853981633974483F, 0.0F, 0.0F));
-        PartDefinition hammerSpikes8 = hammerHead.addOrReplaceChild("hammerSpikes8", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.5F, 1.2F, 0.3F, 0.7853981633974483F, 0.0F, 0.0F));
+        hammerHead.addOrReplaceChild("hammerSpikes1", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-0.2F, -1.2F, -0.6F, 0.0F, 0.0F, 0.7853981633974483F));
+        hammerHead.addOrReplaceChild("hammerSpikes2", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.2F, -1.2F, 0.4F, 0.0F, 0.0F, 0.7853981633974483F));
+        hammerHead.addOrReplaceChild("hammerSpikes3", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(1.2F, -0.3F, -0.6F, 0.0F, 0.0F, 0.7853981633974483F));
+        hammerHead.addOrReplaceChild("hammerSpikes4", CubeListBuilder.create().texOffs(58, 10).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(1.2F, 0.3F, 0.4F, 0.0F, 0.0F, 0.7853981633974483F));
+        hammerHead.addOrReplaceChild("hammerSpikes5", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(0.5F, -0.2F, 1.2F, 0.7853981633974483F, 0.0F, 0.0F));
+        hammerHead.addOrReplaceChild("hammerSpikes6", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.4F, 0.3F, 1.2F, 0.7853981633974483F, 0.0F, 0.0F));
+        hammerHead.addOrReplaceChild("hammerSpikes7", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(0.6F, 1.2F, -0.1F, 0.7853981633974483F, 0.0F, 0.0F));
+        hammerHead.addOrReplaceChild("hammerSpikes8", CubeListBuilder.create().texOffs(58, 9).addBox(0.0F, -0.5F, -0.5F, 0.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.5F, 1.2F, 0.3F, 0.7853981633974483F, 0.0F, 0.0F));
         PartDefinition leftHorn2 = leftHorn1.addOrReplaceChild("leftHorn2", CubeListBuilder.create().texOffs(58, 0).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(0.3F, -2.5F, 0.0F, 0.0F, 0.0F, 1.1344640137963142F));
-        PartDefinition leftHorn3 = leftHorn1.addOrReplaceChild("leftHorn3", CubeListBuilder.create().texOffs(18, 5).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, -2.7F, 0.0F, 0.5864306020384839F, 0.0F, 0.0F));
+        leftHorn1.addOrReplaceChild("leftHorn3", CubeListBuilder.create().texOffs(18, 5).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, -2.7F, 0.0F, 0.5864306020384839F, 0.0F, 0.0F));
         PartDefinition rightHorn2 = rightHorn1.addOrReplaceChild("rightHorn2", CubeListBuilder.create().texOffs(58, 0).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(-0.3F, -2.5F, 0.0F, 0.0F, 0.0F, -1.1344640137963142F));
-        PartDefinition rightHorn3 = rightHorn1.addOrReplaceChild("rightHorn3", CubeListBuilder.create().texOffs(18, 5).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, -2.7F, 0.0F, 0.5864306020384839F, 0.0F, 0.0F));
+        rightHorn1.addOrReplaceChild("rightHorn3", CubeListBuilder.create().texOffs(18, 5).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, -2.7F, 0.0F, 0.5864306020384839F, 0.0F, 0.0F));
         PartDefinition rightFrontLeg2 = rightFrontLeg1.addOrReplaceChild("rightFrontLeg2", CubeListBuilder.create().texOffs(18, 0).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, true), PartPose.offsetAndRotation(0.01F, 3.8F, 0.0F, 0.11728612207217244F, 0.0F, 0.0F));
         PartDefinition leftBackLeg2 = leftBackLeg1.addOrReplaceChild("leftBackLeg2", CubeListBuilder.create().texOffs(34, 10).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, false), PartPose.offsetAndRotation(-0.01F, 3.8F, 0.0F, -0.11728612207217244F, 0.0F, 0.0F));
         PartDefinition rightBackLeg2 = rightBackLeg1.addOrReplaceChild("rightBackLeg2", CubeListBuilder.create().texOffs(34, 10).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, true), PartPose.offsetAndRotation(0.01F, 3.8F, 0.0F, -0.11728612207217244F, 0.0F, 0.0F));
@@ -147,89 +144,89 @@ public class DeerFamiliarModel extends EntityModel<EntityRenderState> {
         return (float) Math.toRadians(deg);
     }
 
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // this.neck.xRot = entityIn.getNeckRot(partialTick);
-    // this.hammerHandle.visible = entityIn.hasBlacksmithUpgrade();
-
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(DeerFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // if (entityIn.isEating()) {
-        //     this.head.xRot = Mth.cos(ageInTicks * 0.8f) * 0.2f;
-        //     this.head.yRot = 0;
-        // } else {
-        //     this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
-        //     this.head.xRot = headPitch * (PI / 180f) * 0.5f;
-        // }
+        this.body.getAllParts().forEach(ModelPart::resetPose);
 
-        // TODO: attackTime no longer in EntityModel
-        // if (this.attackTime > 0.01) {
-        //     this.head.yRot = Mth.sin(this.attackTime * PI) * toRad(50);
-        //     this.head.zRot = Mth.sin(this.attackTime * PI) * toRad(-40);
-        //     this.nose.yRot = Mth.sin(this.attackTime * PI) * toRad(18);
-        //     this.nose.zRot = Mth.sin(this.attackTime * PI) * toRad(-18);
-        // } else {
-        //     this.head.zRot = 0;
-        //     this.nose.yRot = 0;
-        //     this.nose.zRot = 0;
-        // }
+        this.neck.xRot = state.neckRot;
+        this.hammerHandle.visible = state.hasBlacksmithUpgrade;
 
-        // this.tail.xRot = Mth.cos(limbSwing * 0.7f) * 0.4f * limbSwingAmount - 0.3f;
-        // this.body.xRot = 0;
+        if (state.isEating) {
+            this.head.xRot = Mth.cos(state.ageInTicks * 0.8f) * 0.2f;
+            this.head.yRot = 0;
+        } else {
+            this.head.yRot = state.yRot * (PI / 180f) * 0.5f;
+            this.head.xRot = state.xRot * (PI / 180f) * 0.5f;
+        }
 
-        // if (entityIn.isPartying()) {
-        //     this.body.xRot = toRad(-20);
-        //     this.setRotateAngle(this.rightBackLeg1, Mth.cos(ageInTicks / 2 + PI) * toRad(5) + toRad(20), 0, 0);
-        //     this.setRotateAngle(this.leftBackLeg1, Mth.cos(ageInTicks / 2) * toRad(5) + toRad(20), 0, 0);
-        //     this.setRotateAngle(this.rightFrontLeg1, Mth.cos(ageInTicks / 2) * toRad(30) - toRad(40), 0, 0);
-        //     this.setRotateAngle(this.leftFrontLeg1, Mth.cos(ageInTicks / 2 + PI) * toRad(30) - toRad(40), 0, 0);
-        //     this.rightBackLeg2.z = 0;
-        //     this.leftBackLeg2.z = 0;
-        //     this.rightFrontLeg2.z = 0;
-        //     this.leftFrontLeg2.z = 0;
-        //     this.rightBackLeg2.xRot = -0.1f;
-        //     this.leftBackLeg2.xRot = -0.1f;
-        //     this.rightFrontLeg2.xRot = 0.1f;
-        //     this.leftFrontLeg2.xRot = 0.1f;
-        // } else if (entityIn.isSitting()) {
-        //     this.setRotateAngle(this.rightBackLeg1, toRad(80), toRad(10), -toRad(40));
-        //     this.setRotateAngle(this.leftBackLeg1, toRad(80), toRad(10), -toRad(40));
-        //     this.setRotateAngle(this.rightFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
-        //     this.setRotateAngle(this.leftFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
-        //     this.rightBackLeg2.z = -0.5f;
-        //     this.leftBackLeg2.z = -0.5f;
-        //     this.rightFrontLeg2.z = 0.5f;
-        //     this.leftFrontLeg2.z = 0.5f;
-        //     this.rightBackLeg2.xRot = -toRad(150);
-        //     this.leftBackLeg2.xRot = -toRad(150);
-        //     this.rightFrontLeg2.xRot = toRad(150);
-        //     this.leftFrontLeg2.xRot = toRad(150);
-        // } else {
-        //     boolean fast = entityIn.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.4;
-        //     this.setRotateAngle(this.rightBackLeg1,
-        //             Mth.cos(limbSwing * 0.7f + (fast ? PI : 0)) * 1.4f * limbSwingAmount, 0, 0);
-        //     this.setRotateAngle(this.leftBackLeg1, Mth.cos(limbSwing * 0.7f + PI) * 1.4f * limbSwingAmount, 0, 0);
-        //     this.setRotateAngle(this.rightFrontLeg1,
-        //             Mth.cos(limbSwing * 0.7f + (fast ? 0 : PI)) * 1.4f * limbSwingAmount, 0, 0);
-        //     this.setRotateAngle(this.leftFrontLeg1, Mth.cos(limbSwing * 0.7f) * 1.4f * limbSwingAmount, 0, 0);
-        //     this.rightBackLeg2.z = 0;
-        //     this.leftBackLeg2.z = 0;
-        //     this.rightFrontLeg2.z = 0;
-        //     this.leftFrontLeg2.z = 0;
-        //     this.rightBackLeg2.xRot = -0.1f;
-        //     this.leftBackLeg2.xRot = -0.1f;
-        //     this.rightFrontLeg2.xRot = 0.1f;
-        //     this.leftFrontLeg2.xRot = 0.1f;
-        // }
+        if (state.attackAnim > 0.01f) {
+            this.head.yRot = Mth.sin(state.attackAnim * PI) * toRad(50);
+            this.head.zRot = Mth.sin(state.attackAnim * PI) * toRad(-40);
+            this.nose.yRot = Mth.sin(state.attackAnim * PI) * toRad(18);
+            this.nose.zRot = Mth.sin(state.attackAnim * PI) * toRad(-18);
+        } else {
+            this.head.zRot = 0;
+            this.nose.yRot = 0;
+            this.nose.zRot = 0;
+        }
+
+        this.tail.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.4f * state.walkAnimationSpeed - 0.3f;
+        this.body.xRot = 0;
+
+        if (state.isPartying) {
+            this.body.xRot = toRad(-20);
+            this.setRotateAngle(this.rightBackLeg1, Mth.cos(state.ageInTicks / 2 + PI) * toRad(5) + toRad(20), 0, 0);
+            this.setRotateAngle(this.leftBackLeg1, Mth.cos(state.ageInTicks / 2) * toRad(5) + toRad(20), 0, 0);
+            this.setRotateAngle(this.rightFrontLeg1, Mth.cos(state.ageInTicks / 2) * toRad(30) - toRad(40), 0, 0);
+            this.setRotateAngle(this.leftFrontLeg1, Mth.cos(state.ageInTicks / 2 + PI) * toRad(30) - toRad(40), 0, 0);
+
+            this.rightBackLeg2.z = 0;
+            this.leftBackLeg2.z = 0;
+            this.rightFrontLeg2.z = 0;
+            this.leftFrontLeg2.z = 0;
+
+            this.rightBackLeg2.xRot = -0.1f;
+            this.leftBackLeg2.xRot = -0.1f;
+            this.rightFrontLeg2.xRot = 0.1f;
+            this.leftFrontLeg2.xRot = 0.1f;
+        } else if (state.isSitting) {
+            this.setRotateAngle(this.rightBackLeg1, toRad(80), toRad(10), -toRad(40));
+            this.setRotateAngle(this.leftBackLeg1, toRad(80), toRad(10), -toRad(40));
+            this.setRotateAngle(this.rightFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
+            this.setRotateAngle(this.leftFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
+
+            this.rightBackLeg2.z = -0.5f;
+            this.leftBackLeg2.z = -0.5f;
+            this.rightFrontLeg2.z = 0.5f;
+            this.leftFrontLeg2.z = 0.5f;
+
+            this.rightBackLeg2.xRot = -toRad(150);
+            this.leftBackLeg2.xRot = -toRad(150);
+            this.rightFrontLeg2.xRot = toRad(150);
+            this.leftFrontLeg2.xRot = toRad(150);
+        } else {
+            boolean fast = state.isFast;
+            this.setRotateAngle(this.rightBackLeg1, Mth.cos(state.walkAnimationPos * 0.7f + (fast ? PI : 0)) * 1.4f * state.walkAnimationSpeed, 0, 0);
+            this.setRotateAngle(this.leftBackLeg1, Mth.cos(state.walkAnimationPos * 0.7f + PI) * 1.4f * state.walkAnimationSpeed, 0, 0);
+            this.setRotateAngle(this.rightFrontLeg1, Mth.cos(state.walkAnimationPos * 0.7f + (fast ? 0 : PI)) * 1.4f * state.walkAnimationSpeed, 0, 0);
+            this.setRotateAngle(this.leftFrontLeg1, Mth.cos(state.walkAnimationPos * 0.7f) * 1.4f * state.walkAnimationSpeed, 0, 0);
+
+            this.rightBackLeg2.z = 0;
+            this.leftBackLeg2.z = 0;
+            this.rightFrontLeg2.z = 0;
+            this.leftFrontLeg2.z = 0;
+
+            this.rightBackLeg2.xRot = -0.1f;
+            this.leftBackLeg2.xRot = -0.1f;
+            this.rightFrontLeg2.xRot = 0.1f;
+            this.leftFrontLeg2.xRot = 0.1f;
+        }
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelPart ModelPart, float x, float y, float z) {
-        ModelPart.xRot = x;
-        ModelPart.yRot = y;
-        ModelPart.zRot = z;
+    public void setRotateAngle(ModelPart modelPart, float x, float y, float z) {
+        modelPart.xRot = x;
+        modelPart.yRot = y;
+        modelPart.zRot = z;
     }
 }

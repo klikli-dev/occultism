@@ -3,16 +3,15 @@
 
 package com.klikli_dev.occultism.client.render.entity.glowlayer;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.Nullable;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.base.GeoRenderer;
 import com.geckolib.renderer.layer.builtin.AutoGlowingGeoLayer;
 import com.geckolib.util.RenderUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.Nullable;
 
 public class ConditionalGlowingGeoLayer<T extends GeoAnimatable, O, R extends GeoRenderState> extends AutoGlowingGeoLayer<T, O, R> {
 

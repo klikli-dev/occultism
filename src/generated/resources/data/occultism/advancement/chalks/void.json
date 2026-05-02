@@ -1,0 +1,37 @@
+{
+  "parent": "occultism:chalks/rainbow",
+  "criteria": {
+    "chalk_void": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_void"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.void.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "occultism:chalk_void"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.void.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_void"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

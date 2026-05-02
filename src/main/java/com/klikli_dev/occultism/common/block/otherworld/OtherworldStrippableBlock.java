@@ -34,6 +34,7 @@ import java.util.function.Supplier;
 
 public class OtherworldStrippableBlock extends RotatedPillarBlock {
     Supplier<Block> strippedState;
+
     public OtherworldStrippableBlock(Properties properties, Supplier<Block> stateSupplier) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState());

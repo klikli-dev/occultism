@@ -7,10 +7,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class LimeChalkEntry extends EntryProvider {
@@ -32,18 +32,18 @@ public class LimeChalkEntry extends EntryProvider {
         );
         this.pageTitle("Getting Experience");
         this.pageText("""
-                        The lime chalk attracts greater spirits than Foliots.
-                         Anyone wishing to elevate the level of their rituals will need this chalk.
-                        """
+                The lime chalk attracts greater spirits than Foliots.
+                 Anyone wishing to elevate the level of their rituals will need this chalk.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_LIME.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Made with valuable gems infused with experiences, lime glyphs become especially
-                         interesting to demonstrate that yours skills have surpassed the basic level.
-                        """
+                Made with valuable gems infused with experiences, lime glyphs become especially
+                 interesting to demonstrate that yours skills have surpassed the basic level.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -70,7 +70,7 @@ public class LimeChalkEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

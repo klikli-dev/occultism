@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.item.armor;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;

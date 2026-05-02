@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/blue",
+  "criteria": {
+    "chalk_magenta": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_magenta"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.magenta.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_magenta"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.magenta.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_magenta"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

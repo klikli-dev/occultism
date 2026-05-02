@@ -56,12 +56,13 @@ public class SetStorageLocationMode extends ItemMode {
 
     /**
      * Handle setting storage controller location
+     *
      * @param blockEntity the block entity
-     * @param player the player
-     * @param world the world
-     * @param pos the position
-     * @param stack the stack
-     * @param face the face
+     * @param player      the player
+     * @param world       the world
+     * @param pos         the position
+     * @param stack       the stack
+     * @param face        the face
      * @return true if handled, false otherwise
      */
     @Override

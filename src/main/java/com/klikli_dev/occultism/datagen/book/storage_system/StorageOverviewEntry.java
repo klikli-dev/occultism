@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.Items;
 
 public class StorageOverviewEntry extends EntryProvider {
@@ -38,12 +38,12 @@ public class StorageOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Magic Storage");
         this.pageText("""
-                    Every summoner knows the problem: There are just too many occult paraphernalia lying around.
-                     The solution is simple, yet elegant: Magic Storage!
-                    \\
-                    \\
-                    Using Spirits able to access storage dimensions it is possible to create almost unlimited storage space.
-                    """
+                Every summoner knows the problem: There are just too many occult paraphernalia lying around.
+                 The solution is simple, yet elegant: Magic Storage!
+                \\
+                \\
+                Using Spirits able to access storage dimensions it is possible to create almost unlimited storage space.
+                """
         );
 
         this.page("intro2", () -> BookTextPageModel.create()
@@ -53,12 +53,12 @@ public class StorageOverviewEntry extends EntryProvider {
                          The steps related to storage in {0} show only the rituals,
                          while here **all required steps** including crafting are shown.
                         """,
-                this.categoryLink("Binding Rituals","crafting_rituals")
+                this.categoryLink("Binding Rituals", "crafting_rituals")
         );
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.CATEGORY_START;
     }
 

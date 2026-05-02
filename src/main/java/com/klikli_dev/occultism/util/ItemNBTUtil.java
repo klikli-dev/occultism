@@ -60,13 +60,15 @@ public class ItemNBTUtil {
 
     }
 
-    public static void generateBoundSpiritNameIfNone(ItemStack stack) {
+    public static boolean generateBoundSpiritNameIfNone(ItemStack stack) {
         if (!stack.has(OccultismDataComponents.SPIRIT_NAME) ||
                 stack.get(OccultismDataComponents.SPIRIT_NAME).isEmpty() ||
                 stack.get(OccultismDataComponents.SPIRIT_NAME).equals(TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
         ) {
             generateBoundSpiritName(stack);
+            return true;
         }
+        return false;
     }
 
     public static void generateBoundSpiritName(ItemStack stack) {

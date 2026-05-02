@@ -7,10 +7,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class GreenChalkEntry extends EntryProvider {
@@ -31,16 +31,16 @@ public class GreenChalkEntry extends EntryProvider {
         );
         this.pageTitle("Wildness");
         this.pageText("""
-                        The green chalk uses herbal concentrate to bring the energies of flora into the pentacles.
-                        """
+                The green chalk uses herbal concentrate to bring the energies of flora into the pentacles.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_GREEN.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        This connection with nature makes the green chalk ideal for attracting wild spirits.
-                        """
+                This connection with nature makes the green chalk ideal for attracting wild spirits.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -68,7 +68,7 @@ public class GreenChalkEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

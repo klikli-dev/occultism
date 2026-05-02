@@ -5,9 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -28,14 +28,14 @@ public class GreatResurrectionEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Shattered Soul Shards");
         this.pageText("""
-                Occultists have discovered a way to capture part of the essence
-                 of any fallen enemy through an enchantment known as {0}.
-                \\
-                \\
-                With a variation of the ritual to resurrect familiars,
-                 it is possible for a {1} to create a completely revived mob,
-                 forming its new body and trapping within it the shard''s remaining soul.
-                """,
+                        Occultists have discovered a way to capture part of the essence
+                         of any fallen enemy through an enchantment known as {0}.
+                        \\
+                        \\
+                        With a variation of the ritual to resurrect familiars,
+                         it is possible for a {1} to create a completely revived mob,
+                         forming its new body and trapping within it the shard''s remaining soul.
+                        """,
                 this.color("Fracture Soul", ChatFormatting.GREEN),
                 this.itemLink(OccultismItems.SOUL_SHATTERED_ITEM.get()));
 
@@ -56,7 +56,7 @@ public class GreatResurrectionEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

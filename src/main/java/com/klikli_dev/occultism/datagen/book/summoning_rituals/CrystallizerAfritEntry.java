@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
 public class CrystallizerAfritEntry extends EntryProvider {
@@ -39,11 +39,11 @@ public class CrystallizerAfritEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Afrit Crystallizer");
         this.pageText("""
-                    The afrit Crystallizer is more faster and efficient.
-                    \\
-                    \\
-                    They also can re-materialize crushed blocks.
-                    """
+                The afrit Crystallizer is more faster and efficient.
+                \\
+                \\
+                They also can re-materialize crushed blocks.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -52,7 +52,7 @@ public class CrystallizerAfritEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

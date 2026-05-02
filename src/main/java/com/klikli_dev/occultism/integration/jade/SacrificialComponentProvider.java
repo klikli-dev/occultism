@@ -17,18 +17,20 @@ import snownee.jade.api.config.IPluginConfig;
 
 public class SacrificialComponentProvider implements IBlockComponentProvider {
     public static SacrificialComponentProvider INSTANCE;
+
     static {
         INSTANCE = new SacrificialComponentProvider();
     }
+
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-        if(blockAccessor.getBlockEntity() instanceof GoldenSacrificialBowlBlockEntity goldenSacrificialBowlBlockEntity) {
-            if(goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe()!=null && goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().value() instanceof RitualRecipe recipe && goldenSacrificialBowlBlockEntity.ritualActive) {
+        if (blockAccessor.getBlockEntity() instanceof GoldenSacrificialBowlBlockEntity goldenSacrificialBowlBlockEntity) {
+            if (goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe() != null && goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().value() instanceof RitualRecipe recipe && goldenSacrificialBowlBlockEntity.ritualActive) {
 
                 String ritualID = I18n.get("item.occultism.ritual_dummy." + goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
                 int i = ritualName.indexOf(":");
-                iTooltip.add(Component.translatable("occultism.jade.current_ritual", Component.literal(ritualName.substring(i+2)).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
+                iTooltip.add(Component.translatable("occultism.jade.current_ritual", Component.literal(ritualName.substring(i + 2)).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
                 if (!goldenSacrificialBowlBlockEntity.sacrificeFulfilled()) {
                     iTooltip.add(Component.translatable("occultism.jade.no_sacrifice").withStyle(ChatFormatting.RED));
                     iTooltip.add(Component.empty().append("-> ")
@@ -46,7 +48,7 @@ public class SacrificialComponentProvider implements IBlockComponentProvider {
                 return;
             }
             ClientPentacleManager.rebuild(blockAccessor.getPosition());
-            if(!ClientPentacleManager.lastPentacles.isEmpty()){
+            if (!ClientPentacleManager.lastPentacles.isEmpty()) {
                 iTooltip.add(Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND));
                 for (var text : ClientPentacleManager.lastPentacles) {
                     iTooltip.add(text);

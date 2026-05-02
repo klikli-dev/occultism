@@ -6,10 +6,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.BeeNestDestroyedTrigger;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate.Builder;
 import net.minecraft.advancements.criterion.MinMaxBounds.Ints;
-import net.minecraft.advancements.criterion.SimpleCriterionTrigger.SimpleInstance;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
@@ -59,7 +61,7 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<TriggerInstance> {
                                   Optional<Type> type) implements SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
-                                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf( "player").forGetter(TriggerInstance::player),
+                                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
                                 StringRepresentable.fromEnum(Type::values).optionalFieldOf("type")
                                         .forGetter(TriggerInstance::type)
                         )

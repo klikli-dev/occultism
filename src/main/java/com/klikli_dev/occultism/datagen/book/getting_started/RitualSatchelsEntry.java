@@ -6,10 +6,10 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.datagen.book.BindingRitualsCategory;
 import com.klikli_dev.occultism.datagen.book.binding_rituals.ApprenticeRitualSatchelEntry;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class RitualSatchelsEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class RitualSatchelsEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.RITUAL_SATCHEL_T1.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Ritual satchels are bags that can hold items needed to create pentacles for rituals.\\
-                        More importantly, they can automatically place the right items for a pentacle, removing the need to manually place chalks, candles, crystals, skulls and other items needed for rituals.\\\\
-                        The Apprentice Satchel places pentacle blocks one by one.\\
-                        The improved Artisanal Satchel places all pentacle blocks in a single action.\\
-                        """
+                Ritual satchels are bags that can hold items needed to create pentacles for rituals.\\
+                More importantly, they can automatically place the right items for a pentacle, removing the need to manually place chalks, candles, crystals, skulls and other items needed for rituals.\\\\
+                The Apprentice Satchel places pentacle blocks one by one.\\
+                The improved Artisanal Satchel places all pentacle blocks in a single action.\\
+                """
         );
 
         this.page("more", () -> BookTextPageModel.create()
@@ -60,7 +60,7 @@ public class RitualSatchelsEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

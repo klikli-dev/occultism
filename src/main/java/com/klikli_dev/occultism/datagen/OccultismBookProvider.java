@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
@@ -54,9 +55,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var storageCategory = this.add(new StorageCategory(this).generate().withSortNumber(sortNum++));
         storageCategory.withCondition(BookOrConditionModel.create().withChildren(
-            BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_dimensional_matrix")),
-            BookEntryReadConditionModel.create().withEntry(this.modLoc("getting_started/storage")),
-            BookEntryReadConditionModel.create().withEntry(this.modLoc("storage/overview"))
+                BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_dimensional_matrix")),
+                BookEntryReadConditionModel.create().withEntry(this.modLoc("getting_started/storage")),
+                BookEntryReadConditionModel.create().withEntry(this.modLoc("storage/overview"))
         ));
 
         var introReadCondition = BookEntryReadConditionModel.create()
@@ -80,7 +81,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
     protected BookModel additionalSetup(BookModel book) {
         return super.additionalSetup(book)
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
-                .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
                 .withAutoAddReadConditions(true)
@@ -94,7 +94,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withCategoryToOpen(this.modLoc("rituals"))
-                .withEntryBackground(1, 2)
+                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
                 .withLocation(entryMap.get(icon));
     }
 
@@ -149,7 +149,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get())
                 .withCategoryToOpen(this.modLoc("getting_started"))
-                .withEntryBackground(1, 2)
+                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
                 .withLocation(entryMap.get(icon));
     }
 
@@ -176,7 +176,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         When in our world Spirits can take a variety of forms, by morphing their essence into [#](%1$s)Chosen Forms[#](). Alternatively, they can inhabit objects or even living beings.
-                          """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         this.context().page("tiers");
         var tiers = BookTextPageModel.create()
@@ -186,7 +186,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         There are four major "ranks" of spirits identified by researchers, but there are a myriad spirits below and in between these ranks, and some great entities of terrible power, referred to only as [#](%1$s)Greater Spirits[#](), that are beyond classification.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         this.context().page("foliot");
         var foliot = BookTextPageModel.create()
@@ -196,7 +196,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         The lowest identified class of spirit. Equipped with some intelligence and a modicum of power they are most often used for manual labor or minor artifacts.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         this.context().page("djinni");
         var djinni = BookTextPageModel.create()
@@ -206,7 +206,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         The most commonly summoned class. There is a great variety of Djinni, differing both in intelligence and power. Djinni can be used for a variety of task, ranging from higher artifacts over possession of living beings to carrying out tasks in their Chosen Form.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         this.context().page("afrit");
         var afrit = BookTextPageModel.create()
@@ -216,7 +216,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         Even more powerful than Djinni, Afrit are used for the creation of major artifacts and the possession of powerful beings.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
 
         this.context().page("marid");
@@ -227,7 +227,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         The strongest identified class of spirits. Due to their power and vast intellect attempting a summoning is extremely dangerous and usually only carried out by the most experienced summoners, and even then usually in groups.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         this.context().page("greater_spirits");
         var greaterSpirits = BookTextPageModel.create()
@@ -237,14 +237,14 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/gui/book/spirits.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.STAR_GOLD)
                 .withPages(
                         intro,
                         shapes,
@@ -291,7 +291,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         Only trader, time and weather spirits are affected by essence decay, by default. All others are immune and will not despawn. Modpacks may modify this behaviour.
-                              """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -320,7 +320,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         \\
                         \\
                         *It should be noted, that it does not matter which spirit name is used in summoning, only the spirit tier is relevant.*
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         this.context().page("finding_names");
         var findingNames = BookTextPageModel.create()
@@ -340,7 +340,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         For your convenience, in this work you will find the known names of spirits of all 4 ranks, as well as some beyond that. To summon a spirit, copy their name from this book into the appropriate book of binding, then use this bound book of binding to activate a ritual.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -516,7 +516,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.STAR_GOLD)
                 .withPages(
                         intro,
                         steps,
@@ -562,7 +562,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
                 .withCategoryToOpen(this.modLoc("summoning_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -572,7 +572,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
                 .withCategoryToOpen(this.modLoc("possession_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -582,7 +582,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
                 .withCategoryToOpen(this.modLoc("crafting_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -592,7 +592,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withCategoryToOpen(this.modLoc("familiar_rituals"))
-                .withEntryBackground(1, 1) //silver background and wavey entry shape
+                .withEntryBackground(EntryBackground.STAR_GRAY) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
@@ -774,7 +774,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.STAR_GOLD)
                 .withPages(
                         intro
                 );
@@ -866,7 +866,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         **Drops**: 1-3x [](item://minecraft:ghast_tear) and
                         1-4x [](item://minecraft:gunpowder)
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -930,7 +930,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         **Drops**: 1-4x [](item://minecraft:phantom_membrane)
                         and has 5%% chance to drop a [](item://minecraft:wind_charge)
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -967,7 +967,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         **Drops**: 1-3x [](item://minecraft:chorus_fruit)
                         and as 10%% to drop a [](item://minecraft:shulker_shell);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1004,7 +1004,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         **Drops**: 2-6x [](item://minecraft:blaze_rod), 0-13x [](item://minecraft:blaze_powder)
                         and nether-related items (check next page);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1065,7 +1065,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         **Drops**: 1-2x [](item://minecraft:shulker_shell) and
                         as 10%% chance to drop a [](item://minecraft:chorus_flower)
                          or [](item://minecraft:spire_armor_trim_smithing_template);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1103,7 +1103,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         **Drops**: 2-4x [](item://minecraft:nautilus_shell)
                         and as 40%% to drop a [](item://minecraft:heart_of_the_sea)
                         Also common Elder Guardian loot;
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1140,7 +1140,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         **Drops**: 6-9x [](item://minecraft:echo_shard)
                         and items related to ancient city;
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1200,6 +1200,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makePossessWitchEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_witch");
         this.lang().add(this.context().entryName(), "Possessed Witch");
@@ -1411,7 +1412,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: Items related to desert trials (See next page);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1447,7 +1448,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: Items related to ocean trials (See next page);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1483,7 +1484,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: Discs that the normal creeper drops when killed by Skeleton (See next page);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
@@ -1519,7 +1520,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: Items related to ruins trials (See next page);
-                                """);
+                        """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()

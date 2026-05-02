@@ -29,8 +29,8 @@ import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -39,7 +39,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 
 import java.util.HashMap;
@@ -89,11 +88,11 @@ public class MessageSetRecipe implements IMessage {
                 // Older codec-based parsing was removed; use ItemStack.of(CompoundTag) instead.
                 Optional<CompoundTag> compoundOpt = invList.getCompound(i);
                 ItemStack s = ItemStack.EMPTY;
-                 if (compoundOpt.isPresent()) {
-                     CompoundTag compoundTag = compoundOpt.get();
-                     // ItemStack.of(CompoundTag) was removed in 26.1; use codec parsing via NbtOps
-                     s = ItemStack.CODEC.parse(NbtOps.INSTANCE, compoundTag).result().orElse(ItemStack.EMPTY);
-                 }
+                if (compoundOpt.isPresent()) {
+                    CompoundTag compoundTag = compoundOpt.get();
+                    // ItemStack.of(CompoundTag) was removed in 26.1; use codec parsing via NbtOps
+                    s = ItemStack.CODEC.parse(NbtOps.INSTANCE, compoundTag).result().orElse(ItemStack.EMPTY);
+                }
                 map.put(i, s);
             }
 

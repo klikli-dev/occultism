@@ -28,10 +28,10 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
-import com.klikli_dev.occultism.crafting.recipe.PasteRepairItemRecipe;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.common.misc.StorageControllerSlot;
+import com.klikli_dev.occultism.crafting.recipe.PasteRepairItemRecipe;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -182,7 +182,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 18*3 + 7;
+        int playerInventoryTop = 18 * 3 + 7;
         int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++)
@@ -192,7 +192,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerHotbar() {
-        int hotbarTop = 18*3 + 7 + 18*3 + 4;
+        int hotbarTop = 18 * 3 + 7 + 18 * 3 + 4;
         int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));

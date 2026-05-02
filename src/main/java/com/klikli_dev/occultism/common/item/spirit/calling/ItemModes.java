@@ -4,14 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ItemModes {
+    private static final Map<Integer, ItemMode> lookup = new HashMap<Integer, ItemMode>();
     public static ItemMode SET_DEPOSIT;
     public static ItemMode SET_EXTRACT;
     public static ItemMode SET_BASE;
     public static ItemMode SET_STORAGE_CONTROLLER;
     public static ItemMode SET_MANAGED_MACHINE;
-
-    private static final Map<Integer, ItemMode> lookup = new HashMap<Integer, ItemMode>();
-
 
     static {
         addItemMode(SET_DEPOSIT = new DepositItemMode());

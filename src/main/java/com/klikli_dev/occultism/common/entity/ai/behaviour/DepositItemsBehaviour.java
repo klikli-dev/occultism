@@ -3,7 +3,7 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
-import com.klikli_dev.occultism.util.StorageUtil;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
@@ -13,15 +13,12 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.List;
-
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 
 public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
     public static final double DEPOSIT_ITEM_RANGE_SQUARE = Math.pow(2.5, 2); //we're comparing to square distance
@@ -63,11 +60,11 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
                 ItemStacksResourceHandler entityItemHandler = entity.inventory;
                 var firstFilledSlot = ItemTransferUtil.getFirstFilledSlot(entityItemHandler);
                 if (firstFilledSlot != -1) {
-                    ItemStack duplicate = entityItemHandler.getResource(firstFilledSlot).toStack().copy();
+                    ItemStack duplicate = entityItemHandler.getResource(firstFilledSlot)
+                            .toStack(entityItemHandler.getAmountAsInt(firstFilledSlot)).copy();
 
-                    //simulate insertion
+                    //insert and write back remainder
                     ItemStack leftover = ItemTransferUtil.insertItem(depositItemHandler, duplicate, false);
-                    //if we inserted everything
                     try (var tx = Transaction.openRoot()) {
                         entityItemHandler.set(firstFilledSlot, ItemResource.of(leftover), leftover.getCount());
                         tx.commit();

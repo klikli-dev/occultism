@@ -29,7 +29,8 @@ import net.minecraft.resources.Identifier;
 
 public class AfritModel extends DefaultedJobEntityModel<AfritEntity> {
     public final static String ASSET_SUBPATH = "afrit";
+
     public AfritModel() {
-        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit"), true,ASSET_SUBPATH);
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit"), true, ASSET_SUBPATH);
     }
 }

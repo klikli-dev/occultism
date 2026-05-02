@@ -31,7 +31,7 @@ import net.minecraft.world.clock.WorldClocks;
 import java.util.function.Supplier;
 
 public class DayTimeJob extends ChangeTimeJob {
-    
+
     protected static final int TIME_DAWN = 0;
 
     public DayTimeJob(SpiritEntity entity, Supplier<Integer> ticksToClear) {

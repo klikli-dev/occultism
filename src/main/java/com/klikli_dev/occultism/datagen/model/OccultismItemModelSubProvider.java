@@ -37,10 +37,8 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
-import net.minecraft.client.renderer.item.RangeSelectItemModel.Entry;
-import net.minecraft.client.resources.model.sprite.Material;
-import net.minecraft.client.renderer.item.ConditionalItemModel;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -72,6 +70,10 @@ public class OccultismItemModelSubProvider {
             Map.entry("chalk_magenta", 0xC74EBD),
             Map.entry("chalk_pink", 0xF38BAA)
     );
+
+    private static int opaque(int color) {
+        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
+    }
 
     public Stream<Item> getKnownItems() {
         return Stream.of(
@@ -402,7 +404,8 @@ public class OccultismItemModelSubProvider {
             case "spawn_egg/demonic_wife" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
             case "spawn_egg/demonic_husband" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
             case "spawn_egg/iesnium_golem" -> new SpawnEggColors(0x94d4db, 0x345f7c);
-            default -> throw new IllegalArgumentException("Missing spawn egg colors for " + BuiltInRegistries.ITEM.getKey(item));
+            default ->
+                    throw new IllegalArgumentException("Missing spawn egg colors for " + BuiltInRegistries.ITEM.getKey(item));
         };
     }
 
@@ -732,16 +735,12 @@ public class OccultismItemModelSubProvider {
     private int getChalkColor(Item item) {
         String path = this.name(item);
         //TODO: make large candle less saturated
-        path = path.replace("_impure","").replace("large_candle","chalk");
+        path = path.replace("_impure", "").replace("large_candle", "chalk");
         Integer color = CHALK_COLORS.get(path);
         if (color == null) {
             throw new IllegalArgumentException("Missing chalk color for " + BuiltInRegistries.ITEM.getKey(item));
         }
         return color;
-    }
-
-    private static int opaque(int color) {
-        return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;
     }
 
     private void registerItemCandles(ItemModelGenerators itemModels, BlockModelGenerators blockModels) {
@@ -764,10 +763,10 @@ public class OccultismItemModelSubProvider {
                 OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
         };
         for (Block block : candles) {
-            int color = getChalkColor(block.asItem());
+            int color = this.getChalkColor(block.asItem());
             itemModels.itemModelOutput.accept(block.asItem(),
                     ItemModelUtils.tintedModel(this.modLoc("block/" + this.name(block.asItem())),
-                    ItemModelUtils.constantTint(opaque(color))));
+                            ItemModelUtils.constantTint(opaque(color))));
         }
     }
 

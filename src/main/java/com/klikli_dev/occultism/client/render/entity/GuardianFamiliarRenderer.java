@@ -28,16 +28,17 @@ import com.klikli_dev.occultism.client.render.entity.state.GuardianFamiliarRende
 import com.klikli_dev.occultism.common.entity.familiar.GuardianFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
@@ -45,8 +46,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.client.renderer.MultiBufferSource;
 import org.joml.Quaternionf;
+
+import java.util.function.Function;
 
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarRenderState, GuardianFamiliarModel> {
@@ -213,8 +215,12 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     private static class BirdLayer extends RenderLayer<GuardianFamiliarRenderState, GuardianFamiliarModel> {
+        private final BirdOnlyModel birdModel;
+
         public BirdLayer(RenderLayerParent<GuardianFamiliarRenderState, GuardianFamiliarModel> parent) {
             super(parent);
+            GuardianFamiliarModel model = parent.getModel();
+            this.birdModel = new BirdOnlyModel(model.birdBody, model::renderType);
         }
 
         @Override
@@ -224,14 +230,17 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 return;
             }
 
-            MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-            VertexConsumer vertexConsumer = bufferSource.getBuffer(model.renderType(TEXTURES));
             poseStack.pushPose();
-            poseStack.translate(model.body.x / 16d, model.body.y / 16d, model.body.z / 16d);
-            poseStack.translate(0.35, -0.2, 0);
-            model.birdBody.render(poseStack, vertexConsumer, lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+            model.body.translateAndRotate(poseStack);
+            model.leftArm1.translateAndRotate(poseStack);
+            RenderLayer.renderColoredCutoutModel(this.birdModel, TEXTURES, poseStack, submitNodeCollector, lightCoords, state, -1, 0);
             poseStack.popPose();
-            bufferSource.endBatch(model.renderType(TEXTURES));
+        }
+
+        private static class BirdOnlyModel extends Model<GuardianFamiliarRenderState> {
+            public BirdOnlyModel(ModelPart root, Function<Identifier, RenderType> renderType) {
+                super(root, renderType);
+            }
         }
     }
 }

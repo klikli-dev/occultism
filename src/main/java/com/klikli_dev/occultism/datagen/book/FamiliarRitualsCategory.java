@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
@@ -159,7 +160,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withLocation(entryMap.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.SQUARE_GRAY)
                 .withPages(
                         intro,
                         ring,
@@ -707,7 +708,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withCategoryToOpen(this.modLoc("rituals"))
-                .withEntryBackground(1, 2)
+                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
                 .withLocation(entryMap.get(icon));
     }
 }

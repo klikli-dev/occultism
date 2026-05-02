@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -31,27 +31,27 @@ public class CyanChalkEntry extends EntryProvider {
         );
         this.pageTitle("In the Past");
         this.pageText("""
-                        Almost lost to time, the cyan chalk brings ancient knowledge, often even forbidden.
-                         But who cares? After all, knowledge is knowledge, and the more, the better, right?
-                        """
+                Almost lost to time, the cyan chalk brings ancient knowledge, often even forbidden.
+                 But who cares? After all, knowledge is knowledge, and the more, the better, right?
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_CYAN.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Despite the complexity of its manufacture, this chalk is dated as one of the oldest,
-                         perhaps even the oldest chalk ever recorded. And even after all this time,
-                         its uses are little known, but you can see just how stable it is.
-                        """
+                Despite the complexity of its manufacture, this chalk is dated as one of the oldest,
+                 perhaps even the oldest chalk ever recorded. And even after all this time,
+                 its uses are little known, but you can see just how stable it is.
+                """
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"))
                 .withText(this.context().pageText()));
         this.pageText("""
-                "Pulverizing an {0} while retaining its properties is a job that only the best crushers can do.
-                """,
+                        "Pulverizing an {0} while retaining its properties is a job that only the best crushers can do.
+                        """,
                 this.color("Echo Shard", ChatFormatting.LIGHT_PURPLE));
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
@@ -71,7 +71,7 @@ public class CyanChalkEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

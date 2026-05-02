@@ -2739,6 +2739,7 @@
   "occultism.configuration.trader_sapling": "Торговец потусторонними саженцами",
   "occultism.configuration.unbreakableChalks": "Unbreakable Chalks",
   "occultism.configuration.unlinkWormholeOnBreak": "Unlink Wormhole on Break",
+  "occultism.configuration.dontUseTheurgyDivinationRodParticle": "Use Alternative Divination Rod Renderer",
   "occultism.configuration.usePossibleSpiritNamesChance": "Chance of choosing Possible Spirit Names List",
   "occultism.configuration.visual": "Visual Settings",
   "occultism.configuration.whiteChalkGlyphColor": "White Chalk Glyph Color",

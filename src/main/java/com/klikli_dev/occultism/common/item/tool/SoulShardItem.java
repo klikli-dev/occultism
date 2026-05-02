@@ -99,8 +99,8 @@ public class SoulShardItem extends Item {
 
                 player.getCooldowns().addCooldown(stack, 10);
                 int pLuck = (int) player.getLuck();
-                int extraRolls = pLuck > 99 ? 19 + level.getRandom().nextInt(pLuck/33) :
-                        pLuck > 9 ? 9 + (pLuck/10) : pLuck < 1 ? 0 : pLuck;
+                int extraRolls = pLuck > 99 ? 19 + level.getRandom().nextInt(pLuck / 33) :
+                        pLuck > 9 ? 9 + (pLuck / 10) : pLuck < 1 ? 0 : pLuck;
                 for (int i = 0; i < 1 + extraRolls; i++)
                     lootTable.getRandomItems(lootParams, player.getLootTableSeed(), stack2 -> player.spawnAtLocation(serverLevel, stack2));
                 if (!player.hasInfiniteMaterials())

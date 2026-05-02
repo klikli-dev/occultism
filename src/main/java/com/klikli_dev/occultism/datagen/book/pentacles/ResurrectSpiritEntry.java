@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class ResurrectSpiritEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class ResurrectSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Susjes Simple Circle");
         this.pageText("""
-                **Purpose:** Resurrect a {0}\\
-                \\
-                **Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has
-                 been slaughtered, not needing much to do so.
-                """,
+                        **Purpose:** Resurrect a {0}\\
+                        \\
+                        **Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has
+                         been slaughtered, not needing much to do so.
+                        """,
                 this.color("Familiar", ChatFormatting.DARK_PURPLE)
         );
 
@@ -63,7 +63,7 @@ public class ResurrectSpiritEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

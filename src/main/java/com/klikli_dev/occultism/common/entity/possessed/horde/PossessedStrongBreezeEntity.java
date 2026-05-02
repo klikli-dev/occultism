@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
@@ -35,10 +34,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.breeze.Breeze;
@@ -107,7 +105,7 @@ public class PossessedStrongBreezeEntity extends Breeze implements PossessedMob 
             entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
-            entity.setSize(i,true); //Haha bigger slimes
+            entity.setSize(i, true); //Haha bigger slimes
             level.addFreshEntity(entity);
             entity.setMaster(this);
             this.minionsC.add(entity);
@@ -143,21 +141,23 @@ public class PossessedStrongBreezeEntity extends Breeze implements PossessedMob 
             this.minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
         }
 
-        super.actuallyHurt(level, source, (float) (amount * (1 - (this.minionsA.size() + this.minionsB.size() + this.minionsC.size())/24.0) ) );
+        super.actuallyHurt(level, source, (float) (amount * (1 - (this.minionsA.size() + this.minionsB.size() + this.minionsC.size()) / 24.0)));
     }
 
     public void notifyMinionDeath(WildHuskEntity minion) {
         this.minionsA.remove(minion);
     }
+
     public void notifyMinionDeath(WildBoggedEntity minion) {
         this.minionsB.remove(minion);
     }
+
     public void notifyMinionDeath(WildSlimeEntity minion) {
         this.minionsC.remove(minion);
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.BREEZE;
     }
 }

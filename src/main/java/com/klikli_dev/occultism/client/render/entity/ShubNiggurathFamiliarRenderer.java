@@ -24,16 +24,16 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.ShubNiggurathFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.ShubNiggurathFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
 public class ShubNiggurathFamiliarRenderer
-        extends MobRenderer<ShubNiggurathFamiliarEntity, LivingEntityRenderState, ShubNiggurathFamiliarModel> {
+        extends MobRenderer<ShubNiggurathFamiliarEntity, ShubNiggurathFamiliarRenderState, ShubNiggurathFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_familiar.png");
@@ -43,23 +43,37 @@ public class ShubNiggurathFamiliarRenderer
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public void extractRenderState(ShubNiggurathFamiliarEntity entity, ShubNiggurathFamiliarRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.hasRing = entity.hasRing();
+        reusedState.hasBeard = entity.hasBeard();
+        reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        if (entity.getCthulhuFriend() != null) {
+            reusedState.riderLimbSwing = entity.getCthulhuFriend().riderLimbSwing;
+            reusedState.riderLimbSwingAmount = entity.getCthulhuFriend().riderLimbSwingAmount;
+            reusedState.friendAnimationHeight = entity.getCthulhuFriend().getAnimationHeight(partialTick);
+        }
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public ShubNiggurathFamiliarRenderState createRenderState() {
+        return new ShubNiggurathFamiliarRenderState();
+    }
+
+    @Override
+    public Identifier getTextureLocation(ShubNiggurathFamiliarRenderState state) {
         return TEXTURES;
     }
 
-    // Old render method preserved for reference - TODO: Port to 26.1 rendering API
-    // public void render(ShubNiggurathFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-    //     pMatrixStack.pushPose();
-    //     if (pEntity.isPartying())
-    //         pMatrixStack.translate(0, 0.07, 0);
-    //     else if (pEntity.isSitting())
-    //         pMatrixStack.translate(0, -0.19, 0);
-    //     super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-    //     pMatrixStack.popPose();
-    // }
+    @Override
+    protected void setupRotations(ShubNiggurathFamiliarRenderState state, PoseStack poseStack, float bob, float scale) {
+        if (state.isPartying) {
+            poseStack.translate(0, 0.07, 0);
+        } else if (state.isSitting) {
+            poseStack.translate(0, -0.19, 0);
+        }
+        super.setupRotations(state, poseStack, bob, scale);
+    }
 }

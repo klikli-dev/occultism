@@ -1,9 +1,10 @@
 package com.klikli_dev.occultism.util;
 
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.tags.TagKey;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -103,6 +104,15 @@ public final class ItemTransferUtil {
     }
 
     public static void giveItemToPlayer(Player player, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        var handler = player.getCapability(Capabilities.Item.ENTITY);
+        if (handler != null) {
+            stack = insertItemStacked(handler, stack, false);
+        }
+
         if (!stack.isEmpty()) {
             player.getInventory().placeItemBackInInventory(stack);
         }

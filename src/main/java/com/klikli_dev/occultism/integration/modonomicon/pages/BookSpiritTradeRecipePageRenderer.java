@@ -9,13 +9,12 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import com.klikli_dev.occultism.crafting.recipe.display.SpiritTradeRecipeDisplay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 
 public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<SpiritTradeRecipe, BookProcessingRecipePage<SpiritTradeRecipe>> {
     public BookSpiritTradeRecipePageRenderer(BookProcessingRecipePage<SpiritTradeRecipe> page) {
@@ -43,12 +42,14 @@ public class BookSpiritTradeRecipePageRenderer extends BookRecipePageRenderer<Sp
             }
         }
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX, recipeY,
-                11.0F, 71.0F, 24, 24, 128, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 36, recipeY + 7,
-                0.0F, 246.0F, 18, 10, 128, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY,
-                72.0F, 71.0F, 36, 24, 128, 256);
+        var craftingSlot = this.page.getBook().theme().content().craftingSlot();
+        var craftingArrow = this.page.getBook().theme().content().craftingArrow();
+
+        craftingSlot.extractRenderState(guiGraphics, recipeX + 1, recipeY + 1);
+
+        craftingArrow.extractRenderState(guiGraphics, recipeX + 45, recipeY + 8);
+
+        craftingSlot.extractRenderState(guiGraphics, recipeX + 73, recipeY + 1);
 
         if (!(entry.display() instanceof SpiritTradeRecipeDisplay display) || Minecraft.getInstance().level == null) {
             guiGraphics.text(this.font, "[Spirit trade recipe unavailable]", recipeX, recipeY, 0x000000, false);

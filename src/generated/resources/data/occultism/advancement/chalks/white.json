@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/root",
+  "criteria": {
+    "chalk_white": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_white"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.white.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_white"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.white.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_white"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

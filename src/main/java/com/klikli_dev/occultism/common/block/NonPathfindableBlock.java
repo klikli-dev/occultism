@@ -35,7 +35,24 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.stream.Stream;
 
 public class NonPathfindableBlock extends Block {
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.box(1, 0, 1, 15, 2, 15),
+            Block.box(2, 2, 2, 14, 3, 14),
+            Block.box(3, 3, 3, 13, 14, 13),
+            Block.box(2, 14, 2, 14, 16, 14)
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
+    private static final VoxelShape SHAPE_SLIM = Stream.of(
+            Block.box(1, 0, 1, 15, 2, 15),
+            Block.box(3, 2, 3, 13, 3, 13),
+            Block.box(5.5, 3, 5.5, 10.5, 14, 10.5),
+            Block.box(4, 14, 4, 12, 16, 12)
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
     private final boolean SLIM;
+
     public NonPathfindableBlock(Properties properties, boolean slim) {
         super(properties);
         this.SLIM = slim;
@@ -46,29 +63,12 @@ public class NonPathfindableBlock extends Block {
         this.SLIM = false;
     }
 
-    private static final VoxelShape SHAPE = Stream.of(
-            Block.box(1, 0, 1, 15, 2, 15),
-            Block.box(2, 2, 2, 14, 3, 14),
-            Block.box(3, 3, 3, 13, 14, 13),
-            Block.box(2, 14, 2, 14, 16, 14)
-    ).reduce((v1, v2) -> {
-        return Shapes.join(v1, v2, BooleanOp.OR);
-    }).get();
-
-    private static final VoxelShape SHAPE_SLIM = Stream.of(
-            Block.box(1, 0, 1, 15, 2, 15),
-            Block.box(3, 2, 3, 13, 3, 13),
-            Block.box(5.5, 3, 5.5, 10.5, 14, 10.5),
-            Block.box(4, 14, 4, 12, 16, 12)
-    ).reduce((v1, v2) -> {
-        return Shapes.join(v1, v2, BooleanOp.OR);
-    }).get();
-
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return this.SLIM ? SHAPE_SLIM : SHAPE;
     }
+
     @Override
     protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
         return false;

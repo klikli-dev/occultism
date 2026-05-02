@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
 public class MagicTimeEntry extends EntryProvider {
@@ -50,19 +50,19 @@ public class MagicTimeEntry extends EntryProvider {
         );
 
         this.page("ritual_day", () -> BookRitualRecipePageModel.create()
-                    .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time"))
-                    .withAnchor("day"));
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time"))
+                .withAnchor("day"));
         //no text
 
         this.page("ritual_night", () -> BookRitualRecipePageModel.create()
-                    .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time"))
-                    .withAnchor("night"));
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time"))
+                .withAnchor("night"));
         //no text
 
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

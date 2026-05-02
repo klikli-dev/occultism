@@ -23,13 +23,12 @@
 package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 
-public class PossessedWardenEntity extends Warden implements PossessedMob{
+public class PossessedWardenEntity extends Warden implements PossessedMob {
 
     public PossessedWardenEntity(EntityType<? extends Warden> type,
                                  Level worldIn) {
@@ -46,7 +45,7 @@ public class PossessedWardenEntity extends Warden implements PossessedMob{
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.WARDEN;
     }
 }

@@ -8,16 +8,20 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.occultism.crafting.recipe.display.SpiritFireRecipeDisplay;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
+import com.klikli_dev.occultism.crafting.recipe.display.SpiritFireRecipeDisplay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.world.item.crafting.display.SlotDisplayContext;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 
 public class BookSpiritFireRecipePageRenderer extends BookRecipePageRenderer<SpiritFireRecipe, BookProcessingRecipePage<SpiritFireRecipe>> {
+    public static final GuiSprite CRAFTING_ARROW_BENT = new GuiSprite(Identifier.fromNamespaceAndPath(Occultism.MODID, "book/crafting_arrow_bent"), 18, 10);
+
     public BookSpiritFireRecipePageRenderer(BookProcessingRecipePage<SpiritFireRecipe> page) {
         super(page);
     }
@@ -40,15 +44,19 @@ public class BookSpiritFireRecipePageRenderer extends BookRecipePageRenderer<Spi
                     recipeY - (this.page.getTitle2().getString().isEmpty() ? 10 : 0) - 10);
         }
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX, recipeY,
-                11.0F, 71.0F, 24, 24, 128, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 22, recipeY + 7,
-                0.0F, 246.0F, 18, 10, 128, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY,
-                72.0F, 71.0F, 36, 24, 128, 256);
+        var craftingSlot = this.page.getBook().theme().content().craftingSlot();
+        var craftingArrow = this.page.getBook().theme().content().craftingArrow();
+
+        craftingSlot.extractRenderState(guiGraphics, recipeX + 1, recipeY + 1);
+
+        CRAFTING_ARROW_BENT.extractRenderState(guiGraphics, recipeX + 25, recipeY + 9, (int) (CRAFTING_ARROW_BENT.width() / 1.3f), (int) (CRAFTING_ARROW_BENT.height() / 1.3f));
+
+        craftingArrow.extractRenderState(guiGraphics, recipeX + 60, recipeY + 8);
+
+        craftingSlot.extractRenderState(guiGraphics, recipeX + 73, recipeY + 1);
 
         if (!(entry.display() instanceof SpiritFireRecipeDisplay display) || Minecraft.getInstance().level == null) {
-            guiGraphics.text(this.font, "[Spirit fire recipe unavailable]", recipeX, recipeY, 0x000000, false);
+            guiGraphics.text(this.font, "[Spirit fire recipe unavailable]", recipeX, recipeY, 0xFF000000, false);
             return;
         }
 

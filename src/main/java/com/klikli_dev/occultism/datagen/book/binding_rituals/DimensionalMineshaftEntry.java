@@ -6,9 +6,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -30,7 +30,7 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                          The dimensional mineshaft houses a {0} which opens up a stable connection into an
                           uninhabited dimension, perfectly suited for mining. While the portal is too small
                            to transfer humans, other spirits can use it to enter the mining dimension and bring back resources.
-
+                        
                         """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );
@@ -45,13 +45,13 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Operation");
         this.pageText("""
-                        The dimensional mineshaft will discard any items it cannot store, so it is important
-                        to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit.\\
-                        Interactions per side:
-                        + Top -> lamp slot;
-                        + Bottom -> ores slots;
-                        + Other -> all slots;
-                        """
+                The dimensional mineshaft will discard any items it cannot store, so it is important
+                to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit.\\
+                Interactions per side:
+                + Top -> lamp slot;
+                + Bottom -> ores slots;
+                + Other -> all slots;
+                """
         );
 
         this.page("redstone", () -> BookTextPageModel.create()
@@ -59,11 +59,11 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Redstone");
         this.pageText("""
-                        The dimensional mineshaft has two interactions with redstone:
-                        1. The spirit will stop working when receives a redstone signal;
-                        2. A comparator can be used to extract a signal based on occupied slots and lamp durability.
-                         Tip, if the comparator sends a power of 10, it is better to stop the operations.
-                       """
+                 The dimensional mineshaft has two interactions with redstone:
+                 1. The spirit will stop working when receives a redstone signal;
+                 2. A comparator can be used to extract a signal based on occupied slots and lamp durability.
+                  Tip, if the comparator sends a power of 10, it is better to stop the operations.
+                """
         );
 
 
@@ -72,12 +72,12 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Enchantments");
         this.pageText("""
-                       You've noticed that your miner can be enchanted? Here's how effective it is!\\
-                        **Efficiency:** Increase the progress bar by the smaller of two RNB;\\
-                        **Fortune:** Mine a number of extra results equals smaller of three RNB;\\
-                        **Silk touch:** Multiply the count of mined result by 1 plus a RNB;\\
-                        RNB = random number between 0 and the enchantment level.
-                       """
+                You've noticed that your miner can be enchanted? Here's how effective it is!\\
+                 **Efficiency:** Increase the progress bar by the smaller of two RNB;\\
+                 **Fortune:** Mine a number of extra results equals smaller of three RNB;\\
+                 **Silk touch:** Multiply the count of mined result by 1 plus a RNB;\\
+                 RNB = random number between 0 and the enchantment level.
+                """
         );
 
         this.page("enchantment2", () -> BookTextPageModel.create()
@@ -85,11 +85,11 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Durability");
         this.pageText("""
-                       The **Unbreaking** and **Mending** enchantments function as vanilla.
-                       \\
-                        With other methods (mods) you can make your miner unusable (**unusing**)
-                        when it's close to breaking, or even truly unbreakable (**eternal**).
-                       """
+                The **Unbreaking** and **Mending** enchantments function as vanilla.
+                \\
+                 With other methods (mods) you can make your miner unusable (**unusing**)
+                 when it's close to breaking, or even truly unbreakable (**eternal**).
+                """
         );
 
         this.page("config", () -> BookTextPageModel.create()
@@ -97,10 +97,10 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Config");
         this.pageText("""
-                       If you want to save your miners before they break, check "Server Configuration > Items".
-                        By setting the "Save miners before breaking" option to "on", a miner will go to the output
-                        of the dimensional mineshaft when it reaches 1 durability. The effects of enchantments can also be turned off.
-                       """
+                If you want to save your miners before they break, check "Server Configuration > Items".
+                 By setting the "Save miners before breaking" option to "on", a miner will go to the output
+                 of the dimensional mineshaft when it reaches 1 durability. The effects of enchantments can also be turned off.
+                """
         );
     }
 
@@ -115,7 +115,7 @@ public class DimensionalMineshaftEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

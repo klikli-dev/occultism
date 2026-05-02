@@ -36,19 +36,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class DimensionalBattlefieldScreen extends AbstractContainerScreen<DimensionalBattlefieldContainer> {
 
-    private static boolean isEmpty(ItemStacksResourceHandler handler) {
-        return handler.getResource(0).isEmpty();
-    }
-
     public static final Identifier TEXTURE =
             Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_butcher.png");
-
     public DimensionalBattlefieldBlockEntity otherworldButcher;
 
     public DimensionalBattlefieldScreen(DimensionalBattlefieldContainer screenContainer, Inventory inv,
                                         Component titleIn) {
         super(screenContainer, inv, titleIn, 176, 192);
         this.otherworldButcher = screenContainer.otherworldButcher;
+    }
+
+    private static boolean isEmpty(ItemStacksResourceHandler handler) {
+        return handler.getResource(0).isEmpty();
     }
 
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {

@@ -7,10 +7,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class BlackChalkEntry extends EntryProvider {
@@ -31,18 +31,18 @@ public class BlackChalkEntry extends EntryProvider {
         );
         this.pageTitle("Powerful");
         this.pageText("""
-                        The black chalk has a composition as rigid as it is supernatural. Mixing the essence of
-                         Wither with netherite turns this chalk into an extremely valuable tool.
-                        """
+                The black chalk has a composition as rigid as it is supernatural. Mixing the essence of
+                 Wither with netherite turns this chalk into an extremely valuable tool.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_BLACK.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Perfect for the foundation of any pentacle, the power of the black chalk is sufficient
-                         to replace any other "colorless" chalk.
-                        """
+                Perfect for the foundation of any pentacle, the power of the black chalk is sufficient
+                 to replace any other "colorless" chalk.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -70,7 +70,7 @@ public class BlackChalkEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

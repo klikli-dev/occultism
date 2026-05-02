@@ -23,10 +23,9 @@
 package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
@@ -34,10 +33,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class PossessedHoglinEntity extends Hoglin implements PossessedMob{
+public class PossessedHoglinEntity extends Hoglin implements PossessedMob {
 
     public PossessedHoglinEntity(EntityType<? extends Hoglin> type,
-                                      Level worldIn) {
+                                 Level worldIn) {
         super(type, worldIn);
     }
 
@@ -58,7 +57,7 @@ public class PossessedHoglinEntity extends Hoglin implements PossessedMob{
     }
 
     @Override
-    public EntityType basedMob(){
+    public EntityType basedMob() {
         return EntityType.HOGLIN;
     }
 }

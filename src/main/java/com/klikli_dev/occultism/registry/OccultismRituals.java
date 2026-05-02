@@ -25,8 +25,8 @@ package com.klikli_dev.occultism.registry;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.ritual.*;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -46,7 +46,7 @@ public class OccultismRituals {
     public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_TAMED =
             RITUAL_FACTORIES.register("summon_tamed",
                     () -> new RitualFactory((r) -> new SummonRitual(r, true)));
-    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN=
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN =
             RITUAL_FACTORIES.register("summon_with_chance_of_chicken",
                     () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
     public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED =

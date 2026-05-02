@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.BatFamiliarEntity;
+import com.klikli_dev.occultism.client.render.entity.state.BatFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,14 +30,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class BatFamiliarModel extends EntityModel<EntityRenderState> {
-
+public class BatFamiliarModel extends EntityModel<BatFamiliarRenderState> {
     private static final float PI = (float) Math.PI;
 
     public ModelPart body1;
@@ -181,43 +176,44 @@ public class BatFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
-        super.setupAnim(state);
-        // TODO: Entity-specific animation data needs to be passed via a custom render state
-        // For now, set default pose
-        this.body1.yRot = 0;
-        this.body1.zRot = 0;
-        this.head.xRot = 0;
-        this.head.yRot = 0;
+    public void setupAnim(BatFamiliarRenderState s) {
+        super.setupAnim(s);
+        this.stick.visible = s.isSitting && !s.isPartying;
+        this.goblet1.visible = s.hasBlacksmithUpgrade && (!s.isSitting || s.isPartying);
+        this.hair.visible = s.hasHair;
+        this.ribbon.visible = s.hasRibbon;
+        this.tail.visible = s.hasTail;
+        this.body1.yRot = this.body1.zRot = 0;
+        this.head.xRot = this.toRads(s.xRot);
+        this.head.yRot = this.toRads(s.yRot);
         this.head.zRot = 0;
-        this.leftEar1.xRot = 0;
-        this.rightEar1.xRot = 0;
-        this.body1.xRot = this.toRads(20);
-        this.leftLeg.xRot = 0.24f;
-        this.rightLeg.xRot = 0.24f;
+        this.leftEar1.xRot = this.rightEar1.xRot = 0;
+        float h = s.animationHeight;
+        this.leftWing1.xRot = this.rightWing1.xRot = h * this.toRads(20) - 0.15f;
+        this.leftWing1.yRot = h * this.toRads(20) - 0.15f;
+        this.rightWing1.yRot = -h * this.toRads(20) + 0.15f;
+        this.leftWing2.xRot = this.rightWing2.xRot = h * this.toRads(20) + this.toRads(15);
+        this.body1.xRot = this.toRads(20) + s.walkAnimationSpeed * this.toRads(30);
+        this.leftLeg.xRot = this.rightLeg.xRot = 0.24f + Mth.cos(s.ageInTicks * 0.1f) * this.toRads(20);
+        if (s.isPartying) {
+            float hr = Mth.sin(s.ageInTicks / 3) * this.toRads(10);
+            float wr = Mth.sin(s.ageInTicks / 3) * this.toRads(40);
+            this.head.xRot = this.head.yRot = this.head.zRot = hr;
+            this.leftWing1.xRot = this.rightWing1.xRot = this.leftWing1.yRot = this.rightWing1.yRot = this.leftWing2.xRot = this.rightWing2.xRot = wr;
+            this.body1.xRot = this.toRads(20) + s.walkAnimationSpeed * this.toRads(70);
+        } else if (s.isSitting) {
+            this.leftWing1.xRot = this.rightWing1.xRot = 0;
+            this.leftWing1.yRot = this.toRads(80);
+            this.rightWing1.yRot = -this.toRads(80);
+            this.leftWing2.xRot = this.rightWing2.xRot = this.toRads(15);
+            this.head.xRot = 0.2f;
+            this.body1.xRot = this.toRads(180);
+            this.body1.yRot = this.toRads(180);
+            this.leftLeg.xRot = this.rightLeg.xRot = 0.24f;
+        }
     }
 
     private float toRads(float deg) {
         return (float) Math.toRadians(deg);
-    }
-
-    private void showModels(BatFamiliarEntity entityIn) {
-        boolean isSitting = entityIn.isSitting();
-        boolean isPartying = entityIn.isPartying();
-
-        this.stick.visible = isSitting && !isPartying;
-        this.goblet1.visible = entityIn.hasBlacksmithUpgrade() && (!isSitting || isPartying);
-        this.hair.visible = entityIn.hasHair();
-        this.ribbon.visible = entityIn.hasRibbon();
-        this.tail.visible = entityIn.hasTail();
-    }
-
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
     }
 }

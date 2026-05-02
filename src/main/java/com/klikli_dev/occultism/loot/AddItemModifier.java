@@ -41,21 +41,24 @@ public class AddItemModifier extends LootModifier {
 
     public static final Supplier<MapCodec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
             RecordCodecBuilder.mapCodec(instance ->
-                    instance.group(
-                                    LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions),
+                    LootModifier.codecStart(instance)
+                            .and(instance.group(
                                     BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(lm -> lm.addedItem),
-                                    Codec.intRange(0, Integer.MAX_VALUE).fieldOf("count").forGetter((lm) -> lm.count)
-                            )
-
+                                    Codec.intRange(0, Integer.MAX_VALUE).fieldOf("count").forGetter(lm -> lm.count)
+                            ))
                             .apply(instance, AddItemModifier::new)));
 
     private final Item addedItem;
     private final int count;
 
-    public AddItemModifier(LootItemCondition[] conditionsIn, Item addedItemIn, int count) {
-        super(conditionsIn);
+    public AddItemModifier(LootItemCondition[] conditionsIn, int priority, Item addedItemIn, int count) {
+        super(conditionsIn, priority);
         this.addedItem = addedItemIn;
         this.count = count;
+    }
+
+    public AddItemModifier(LootItemCondition[] conditionsIn, Item addedItemIn, int count) {
+        this(conditionsIn, IGlobalLootModifier.DEFAULT_PRIORITY, addedItemIn, count);
     }
 
     @Override

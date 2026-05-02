@@ -7,9 +7,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -32,28 +32,28 @@ public class PurpleChalkEntry extends EntryProvider {
         );
         this.pageTitle("Infusing");
         this.pageText("""
-                        The purple chalk is extremely important for those wishing to perform infusions,
-                         serving as the main glyph in this type of ritual.
-                        """
+                The purple chalk is extremely important for those wishing to perform infusions,
+                 serving as the main glyph in this type of ritual.
+                """
         );
 
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_PURPLE.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Infusions are an extremely different type of ritual, as while summoning and possession
-                         bring living creatures into the world, infusion creates objects bound to spirits.
-                        """
+                Infusions are an extremely different type of ritual, as while summoning and possession
+                 bring living creatures into the world, infusion creates objects bound to spirits.
+                """
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
                 .withText(this.context.pageText()));
         this.pageText("""
-                You do not need to visit the {0} to obtain Endstone. You can summon a
-                 [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
-                """,
-        this.color("The End", ChatFormatting.LIGHT_PURPLE));
+                        You do not need to visit the {0} to obtain Endstone. You can summon a
+                         [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
+                        """,
+                this.color("The End", ChatFormatting.LIGHT_PURPLE));
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))
@@ -72,7 +72,7 @@ public class PurpleChalkEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

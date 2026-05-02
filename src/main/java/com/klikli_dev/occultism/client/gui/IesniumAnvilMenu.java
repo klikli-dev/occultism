@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.occultism.integration.apothicenchanting.ApothicEnchantingIntegration;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -22,23 +21,48 @@ import net.minecraft.world.item.enchantment.ItemEnchantments.Mutable;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilCraftEvent;
+import net.neoforged.neoforge.event.entity.player.AnvilCraftEvent.Post;
+import net.neoforged.neoforge.event.entity.player.AnvilCraftEvent.Pre;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public class IesniumAnvilMenu extends AnvilMenu {
+    private final DataSlot cost = DataSlot.standalone();
     public int repairItemCountCost;
     @Nullable
     private String itemName;
-    private final DataSlot cost = DataSlot.standalone();
 
     public IesniumAnvilMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(containerId, playerInventory, access);
     }
 
+    public static int calculateLowedIncreasedRepairCost(int oldRepairCost) {
+        return (int) Math.min((long) oldRepairCost + 1L, 2147483647L);
+    }
+
+    @Nullable
+    private static String validateName(String itemName) {
+        String s = StringUtil.filterText(itemName);
+        return s.length() <= 50 ? s : null;
+    }
+
+    public static boolean onIesniumAnvilChange(IesniumAnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name, long baseCost, Player player) {
+        AnvilUpdateEvent event = new AnvilUpdateEvent(left, right, name, outputSlot.getItem(0), container.cost.get(), container.repairItemCountCost, player);
+        if (NeoForge.EVENT_BUS.post(event).isCanceled())
+            return false;
+        if (event.getOutput().isEmpty())
+            return true;
+
+        outputSlot.setItem(0, event.getOutput());
+        container.cost.set(event.getXpCost());
+        container.repairItemCountCost = event.getMaterialCost();
+        return false;
+    }
+
     @Override
     protected boolean mayPickup(Player player, boolean hasStack) {
-        return (player.hasInfiniteMaterials() || player.experienceLevel >= this.cost.get()/2) && this.cost.get() > 0;
+        return (player.hasInfiniteMaterials() || player.experienceLevel >= this.cost.get() / 2) && this.cost.get() > 0;
     }
 
     @Override
@@ -46,17 +70,17 @@ public class IesniumAnvilMenu extends AnvilMenu {
         ItemStack leftInput = this.inputSlots.getItem(0).copy();
         ItemStack rightInput = this.inputSlots.getItem(1).copy();
 
+        if (NeoForge.EVENT_BUS.post(new Pre(this, player, leftInput, rightInput, stack)).isCanceled()) {
+            this.broadcastChanges();
+            return;
+        }
+
         if (!player.getAbilities().instabuild) {
-            if(ApothicEnchantingIntegration.isLoaded()) {
+            if (ApothicEnchantingIntegration.isLoaded()) {
                 player.giveExperiencePoints(-ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(this.cost.get() / 2));
             } else {
                 player.giveExperienceLevels(-this.cost.get() / 2);
             }
-        }
-
-        if (NeoForge.EVENT_BUS.post(new AnvilCraftEvent.Pre(this, player, leftInput, rightInput, stack)).isCanceled()) {
-            this.broadcastChanges();
-            return;
         }
         this.inputSlots.setItem(0, ItemStack.EMPTY);
         if (this.repairItemCountCost > 0) {
@@ -73,7 +97,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
 
         this.cost.set(0);
         this.access.execute((p_150479_, p_150480_) -> p_150479_.levelEvent(1030, p_150480_, 0));
-        NeoForge.EVENT_BUS.post(new AnvilCraftEvent.Post(this, player, leftInput, rightInput, stack));
+        NeoForge.EVENT_BUS.post(new Post(this, player, leftInput, rightInput, stack));
     }
 
     @Override
@@ -91,7 +115,8 @@ public class IesniumAnvilMenu extends AnvilMenu {
                     + (long) itemstack2.getOrDefault(DataComponents.REPAIR_COST, 0);
             this.repairItemCountCost = 0;
             boolean flag = false;
-            if (!onIesniumAnvilChange(this, itemstack, itemstack2, this.resultSlots, this.itemName, j, this.player)) return;
+            if (!onIesniumAnvilChange(this, itemstack, itemstack2, this.resultSlots, this.itemName, j, this.player))
+                return;
             if (!itemstack2.isEmpty()) {
                 flag = itemstack2.has(DataComponents.STORED_ENCHANTMENTS);
                 if (itemstack1.isDamageableItem() && itemstack.isValidRepairItem(itemstack2)) {
@@ -162,13 +187,13 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             flag3 = true;
                         } else {
                             flag2 = true;
-                            if(ApothicEnchantingIntegration.isLoaded()) {
+                            if (ApothicEnchantingIntegration.isLoaded()) {
                                 if (j2 > ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1) {
-                                    j2 = Math.max(i2,k2);
+                                    j2 = Math.max(i2, k2);
                                 }
                             } else {
                                 if (j2 > enchantment.getMaxLevel() + 1) {
-                                    j2 = Math.max(i2,k2);
+                                    j2 = Math.max(i2, k2);
                                 }
                             }
                             itemenchantments$mutable.set(holder, j2);
@@ -203,7 +228,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                 i += k;
                 itemstack1.remove(DataComponents.CUSTOM_NAME);
             }
-            int k2 = (int)Mth.clamp(j + (long)i, 0L, 2147483647L);
+            int k2 = (int) Mth.clamp(j + (long) i, 0L, 2147483647L);
             this.cost.set(k2);
             if (i <= 0) {
                 itemstack1 = ItemStack.EMPTY;
@@ -239,10 +264,6 @@ public class IesniumAnvilMenu extends AnvilMenu {
         }
     }
 
-    public static int calculateLowedIncreasedRepairCost(int oldRepairCost) {
-        return (int)Math.min((long)oldRepairCost + 1L, 2147483647L);
-    }
-
     public boolean setItemName(@NotNull String itemName) {
         String s = validateName(itemName);
         if (s != null && !s.equals(this.itemName)) {
@@ -263,26 +284,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
         }
     }
 
-    @Nullable
-    private static String validateName(String itemName) {
-        String s = StringUtil.filterText(itemName);
-        return s.length() <= 50 ? s : null;
-    }
-
     public void setMaximumCost(long value) {
-        this.cost.set((int)Mth.clamp(value/2, 0L, Integer.MAX_VALUE));
-    }
-
-    public static boolean onIesniumAnvilChange(IesniumAnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name, long baseCost, Player player) {
-        AnvilUpdateEvent event = new AnvilUpdateEvent(left, right, name, outputSlot.getItem(0), container.cost.get(), container.repairItemCountCost, player);
-        if (NeoForge.EVENT_BUS.post(event).isCanceled())
-            return false;
-        if (event.getOutput().isEmpty())
-            return true;
-
-        outputSlot.setItem(0, event.getOutput());
-        container.cost.set(event.getXpCost());
-        container.repairItemCountCost = event.getMaterialCost();
-        return false;
+        this.cost.set((int) Mth.clamp(value / 2, 0L, Integer.MAX_VALUE));
     }
 }

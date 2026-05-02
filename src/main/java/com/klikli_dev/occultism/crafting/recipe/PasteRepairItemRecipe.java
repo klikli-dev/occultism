@@ -1,29 +1,19 @@
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.common.collect.Sets;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RepairItemRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.tags.EnchantmentTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.Set;
 
 public class PasteRepairItemRecipe extends CustomRecipe {
     public static final PasteRepairItemRecipe INSTANCE = new PasteRepairItemRecipe();
@@ -37,49 +27,24 @@ public class PasteRepairItemRecipe extends CustomRecipe {
 
     @Override
     public boolean matches(CraftingInput input, @NotNull Level level) {
-        return getItemsToCombine(input) != null;
+        return this.getPasteRepairInput(input) != null || RepairItemRecipe.INSTANCE.matches(input, level);
     }
 
     @Override
     public @NotNull ItemStack assemble(CraftingInput input) {
-        Pair<ItemStack, ItemStack> itemsToCombine = getItemsToCombine(input);
-        if (itemsToCombine == null) {
-            return ItemStack.EMPTY;
-        }
-
         PasteRepairInput pasteRepairInput = this.getPasteRepairInput(input);
-        if (pasteRepairInput != null) {
-            return this.createPasteStack(pasteRepairInput.first, Math.min(pasteRepairInput.totalRemainingDurability(), pasteRepairInput.maxDamage()));
+        if (pasteRepairInput == null) {
+            return RepairItemRecipe.INSTANCE.assemble(input);
         }
 
-        ItemStack first = itemsToCombine.getFirst();
-        ItemStack second = itemsToCombine.getSecond();
-        int durability = Math.max(first.getMaxDamage(), second.getMaxDamage());
-        int remaining1 = first.getMaxDamage() - first.getDamageValue();
-        int remaining2 = second.getMaxDamage() - second.getDamageValue();
-        int remaining = remaining1 + remaining2 + durability * 5 / 100;
-        ItemStack itemStack = new ItemStack(first.getItem());
-        itemStack.set(DataComponents.MAX_DAMAGE, durability);
-        itemStack.setDamageValue(Math.max(durability - remaining, 0));
-        ItemEnchantments firstEnchants = EnchantmentHelper.getEnchantmentsForCrafting(first);
-        ItemEnchantments secondEnchants = EnchantmentHelper.getEnchantmentsForCrafting(second);
-        EnchantmentHelper.updateEnchantments(itemStack, newEnchantments -> {
-            Set<Holder<Enchantment>> enchantments = Sets.union(firstEnchants.keySet(), secondEnchants.keySet());
-            for (Holder<Enchantment> enchantment : enchantments) {
-                if (enchantment.is(EnchantmentTags.CURSE)) {
-                    int enchantLevel = Math.max(firstEnchants.getLevel(enchantment), secondEnchants.getLevel(enchantment));
-                    newEnchantments.set(enchantment, enchantLevel);
-                }
-            }
-        });
-        return itemStack;
+        return this.createPasteStack(pasteRepairInput.first, Math.min(pasteRepairInput.totalRemainingDurability(), pasteRepairInput.maxDamage()));
     }
 
     @Override
     public @NotNull NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
         PasteRepairInput pasteRepairInput = this.getPasteRepairInput(input);
         if (pasteRepairInput == null) {
-            return CraftingRecipe.defaultCraftingReminder(input);
+            return super.getRemainingItems(input);
         }
 
         NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
@@ -100,38 +65,6 @@ public class PasteRepairItemRecipe extends CustomRecipe {
     @Override
     public @NotNull RecipeSerializer<PasteRepairItemRecipe> getSerializer() {
         return SERIALIZER;
-    }
-
-    @Nullable
-    private static Pair<ItemStack, ItemStack> getItemsToCombine(CraftingInput input) {
-        if (input.ingredientCount() != 2) {
-            return null;
-        }
-
-        ItemStack first = null;
-
-        for (int i = 0; i < input.size(); i++) {
-            ItemStack itemStack = input.getItem(i);
-            if (!itemStack.isEmpty()) {
-                if (first != null) {
-                    return canCombine(first, itemStack) ? Pair.of(first, itemStack) : null;
-                }
-
-                first = itemStack;
-            }
-        }
-
-        return null;
-    }
-
-    private static boolean canCombine(ItemStack first, ItemStack second) {
-        return second.is(first.getItem())
-                && first.getCount() == 1
-                && second.getCount() == 1
-                && first.has(DataComponents.MAX_DAMAGE)
-                && second.has(DataComponents.MAX_DAMAGE)
-                && first.has(DataComponents.DAMAGE)
-                && second.has(DataComponents.DAMAGE);
     }
 
     private ItemStack createPasteStack(ItemStack source, int remainingDurability) {
@@ -191,19 +124,19 @@ public class PasteRepairItemRecipe extends CustomRecipe {
     private record PasteRepairInput(int firstSlot, ItemStack first, int secondSlot, ItemStack second) {
 
         private int maxDamage() {
-                return this.first.getMaxDamage();
-            }
-
-            private int firstRemainingDurability() {
-                return this.first.getMaxDamage() - this.first.getDamageValue();
-            }
-
-            private int secondRemainingDurability() {
-                return this.second.getMaxDamage() - this.second.getDamageValue();
-            }
-
-            private int totalRemainingDurability() {
-                return this.firstRemainingDurability() + this.secondRemainingDurability();
-            }
+            return this.first.getMaxDamage();
         }
+
+        private int firstRemainingDurability() {
+            return this.first.getMaxDamage() - this.first.getDamageValue();
+        }
+
+        private int secondRemainingDurability() {
+            return this.second.getMaxDamage() - this.second.getDamageValue();
+        }
+
+        private int totalRemainingDurability() {
+            return this.firstRemainingDurability() + this.secondRemainingDurability();
+        }
+    }
 }

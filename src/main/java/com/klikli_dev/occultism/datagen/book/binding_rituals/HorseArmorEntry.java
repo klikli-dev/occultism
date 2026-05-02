@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,7 +30,7 @@ public class HorseArmorEntry extends EntryProvider {
                          You sacrifice the items and the {0} uses his power to forge that item for you.
                          Use the respective materials to obtain [](item://minecraft:iron_horse_armor),
                          [](item://minecraft:golden_horse_armor) or [](item://minecraft:diamond_horse_armor).
-                                                
+                        
                         """,
                 this.color("Wild Spirits", ChatFormatting.DARK_PURPLE)
         );
@@ -58,7 +58,7 @@ public class HorseArmorEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
@@ -110,7 +111,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
 
         //Storage Entries
-            //Start
+        //Start
         var craftStorageSystem = this.add(new StorageSystemEntry(this).generate('z'));
         craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
@@ -120,7 +121,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftStorageControllerBase = this.add(new StorageControllerBaseEntry(this).generate('n'));
         craftStorageControllerBase.withParent(BookEntryParentModel.create(craftDimensionalMatrix.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-            //Stabilizer
+        //Stabilizer
         var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate('i'));
         craftStabilizerTier1.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
@@ -136,18 +137,18 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate('á'));
         craftStabilizerTier5.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
-            //Distance Access
+        //Distance Access
         var craftStableWormhole = this.add(new StableWormholeEntry(this).generate('m'));
         craftStableWormhole.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var craftStorageRemote = this.add(new StorageRemoteEntry(this).generate('o'));
         craftStorageRemote.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-            //Final
+        //Final
         var craftStabilizedStorage = this.add(new StabilizedStorageEntry(this).generate('ç'));
         craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier5.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
-            //Satchels
+        //Satchels
         var craftSatchel = this.add(new BackpackSatchelEntry(this).generate('g'));
         craftSatchel.withParent(BookEntryParentModel.create(craftStorageSystem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
@@ -238,7 +239,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
                 .withCategoryToOpen(this.modLoc("rituals"))
-                .withEntryBackground(1, 2)
+                .withEntryBackground(EntryBackground.SQUARE_GRAY)
                 .withLocation(entryMap.get('9'));
     }
 }

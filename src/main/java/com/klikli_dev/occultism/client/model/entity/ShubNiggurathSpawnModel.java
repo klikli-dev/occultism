@@ -24,8 +24,6 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -132,17 +130,21 @@ public class ShubNiggurathSpawnModel extends EntityModel<EntityRenderState> {
     @Override
     public void setupAnim(EntityRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState for entity-specific animation data
-        // this.showModels(entity); // moved below as commented out
+        boolean isChristmas = FamiliarUtil.isChristmas();
+        this.tentacleBottom1.visible = !isChristmas;
+        this.tentacleMiddle1.visible = !isChristmas;
+        this.tentacleTop1.visible = !isChristmas;
+        this.mouth.visible = !isChristmas;
+        this.christmasPresent1.visible = isChristmas;
 
-        this.jaw.xRot = 0.35f; // + Mth.cos(pAgeInTicks * 0.3f) * this.toRads(15);
-        // this.head.y = 22.5f - Math.abs(Mth.cos(pAgeInTicks * 0.15f)) * 7;
-        // this.head.yRot = Mth.cos(pAgeInTicks * 0.15f) * this.toRads(20);
-        this.head.zRot = -1.57f; // Mth.cos(pAgeInTicks * 0.30f) * this.toRads(20) - 1.57f;
+        this.jaw.xRot = 0.35f + Mth.cos(state.ageInTicks * 0.3f) * this.toRads(15);
+        this.head.y = 22.5f - Math.abs(Mth.cos(state.ageInTicks * 0.15f)) * 7;
+        this.head.yRot = Mth.cos(state.ageInTicks * 0.15f) * this.toRads(20);
+        this.head.zRot = Mth.cos(state.ageInTicks * 0.30f) * this.toRads(20) - 1.57f;
 
-        // ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleBottom1, this.tentacleBottom2, this.tentacleBottom3), pAgeInTicks * 2.25f, 0);
-        // ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleMiddle1, this.tentacleMiddle2, this.tentacleMiddle3), pAgeInTicks * 2.25f, 0.5f);
-        // ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleTop1, this.tentacleTop2, this.tentacleTop3), pAgeInTicks * 2.25f, 1);
+        ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleBottom1, this.tentacleBottom2, this.tentacleBottom3), state.ageInTicks * 2.25f, 0);
+        ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleMiddle1, this.tentacleMiddle2, this.tentacleMiddle3), state.ageInTicks * 2.25f, 0.5f);
+        ShubNiggurathFamiliarModel.rotateTentacles(ImmutableList.of(this.tentacleTop1, this.tentacleTop2, this.tentacleTop3), state.ageInTicks * 2.25f, 1);
         this.tentacleBottom1.xRot -= this.toRads(90);
         this.tentacleMiddle1.xRot -= this.toRads(90);
         this.tentacleTop1.xRot -= this.toRads(90);

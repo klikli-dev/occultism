@@ -3,13 +3,10 @@ package com.klikli_dev.occultism.datagen.recipe.builders;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.result.*;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementRewards.Builder;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -37,12 +34,12 @@ import java.util.Map;
 public class MinerRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private final Ingredient ingredient;
+    private final WeightedRecipeResult result;
+    private final Provider registries;
     @Nullable
     private String group;
-    private final WeightedRecipeResult result;
     private boolean allowEmpty;
     private boolean addResultItemExistsCondition;
-    private final Provider registries;
 
     public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result, Provider registries) {
         this.ingredient = ingredient;
@@ -67,6 +64,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, Provider registries) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, 1, weight), registries);
     }
+
     public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, int count, Provider registries) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, count, weight), registries);
     }
@@ -147,9 +145,9 @@ public class MinerRecipeBuilder implements RecipeBuilder {
             if (notCondition != null)
                 conditions.add(notCondition);
         }
-        if(addItemExistsCondition) {
+        if (addItemExistsCondition) {
             ICondition notCondition = this.getItemExistsCondition(result);
-            if(notCondition!=null)
+            if (notCondition != null)
                 conditions.add(notCondition);
         }
         return conditions.toArray(new ICondition[0]);
@@ -163,10 +161,10 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     }
 
     protected ICondition getItemExistsCondition(RecipeResult ingredient) {
-        if(ingredient instanceof ItemRecipeResult itemResult) {
+        if (ingredient instanceof ItemRecipeResult itemResult) {
             return new RegisteredCondition<>(ResourceKey.create(Registries.ITEM, BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem())));
         }
-        if(ingredient instanceof WeightedItemRecipeResult itemResult) {
+        if (ingredient instanceof WeightedItemRecipeResult itemResult) {
             return new RegisteredCondition<>(ResourceKey.create(Registries.ITEM, BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem())));
         }
         return null;

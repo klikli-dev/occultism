@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 
@@ -42,14 +42,14 @@ public class BookshelfBindingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Dyeing the empties");
         this.pageText("""
-                        You can also bind [](item://occultism:book_of_binding_empty) directly, just hold 4 dyes for each in your off-hand. \\
-                        \\
-                        The spirit to be bound depends on the dye held:\\
-                        Blue    ->  Foliot\\
-                        Purple  ->  Djinni\\
-                        Yellow  ->  Afrit\\
-                        Green   ->  Marid
-                        """
+                You can also bind [](item://occultism:book_of_binding_empty) directly, just hold 4 dyes for each in your off-hand. \\
+                \\
+                The spirit to be bound depends on the dye held:\\
+                Blue    ->  Foliot\\
+                Purple  ->  Djinni\\
+                Yellow  ->  Afrit\\
+                Green   ->  Marid
+                """
         );
 
         this.page("automation", () -> BookTextPageModel.create()
@@ -78,7 +78,7 @@ public class BookshelfBindingEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

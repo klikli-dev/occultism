@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.client.render.entity.state.DragonFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -10,11 +11,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
-import net.minecraft.util.ARGB;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created using Tabula 8.0.0
  */
-public class DragonFamiliarModel extends EntityModel<EntityRenderState> {
+public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> {
 
     private static final float PI = (float) Math.PI;
 
@@ -166,18 +166,14 @@ public class DragonFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
+    public void setupAnim(DragonFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // if (entityIn.isPartying()) {
-        //     this.head.xRot = this.toRads(50) + Mth.sin(ageInTicks) * this.toRads(20);
-        //     this.head.yRot = Mth.sin(ageInTicks) * this.toRads(5);
-        //     this.head.zRot = Mth.sin(ageInTicks) * this.toRads(5);
-        // } else {
-        //     this.head.xRot = this.toRads(50) + 0.03f + headPitch * (PI / 180f) * 0.7f;
-        //     this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
-        //     this.head.zRot = netHeadYaw * (PI / 180f) * 0.5f;
-        // }
+        DragonFamiliarEntity entityIn = state.dragonEntity instanceof DragonFamiliarEntity d ? d : null;
+        if (entityIn != null && entityIn.isPartying()) {
+            this.head.xRot = this.toRads(50) + Mth.sin(entityIn.tickCount) * this.toRads(20);
+            this.head.yRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
+            this.head.zRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
+        }
     }
 
     // TODO: prepareMobModel removed - data needs to come from a custom RenderState
@@ -225,7 +221,7 @@ public class DragonFamiliarModel extends EntityModel<EntityRenderState> {
         }
 
         public void setColor(float r, float g, float b, float a) {
-            this.color = ARGB.color((int)(a * 255), (int)(r * 255), (int)(g * 255), (int)(b * 255));
+            this.color = ARGB.color((int) (a * 255), (int) (r * 255), (int) (g * 255), (int) (b * 255));
         }
 
         @Override
@@ -241,6 +237,11 @@ public class DragonFamiliarModel extends EntityModel<EntityRenderState> {
         @Override
         public PartPose getInitialPose() {
             return this.proxied.getInitialPose();
+        }
+
+        @Override
+        public void setInitialPose(PartPose pInitialPose) {
+            this.proxied.setInitialPose(pInitialPose);
         }
 
         @Override
@@ -271,11 +272,6 @@ public class DragonFamiliarModel extends EntityModel<EntityRenderState> {
         @Override
         public PartPose storePose() {
             return this.proxied.storePose();
-        }
-
-        @Override
-        public void setInitialPose(PartPose pInitialPose) {
-            this.proxied.setInitialPose(pInitialPose);
         }
 
         @Override

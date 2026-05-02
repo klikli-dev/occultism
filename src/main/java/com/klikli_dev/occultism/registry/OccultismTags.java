@@ -32,6 +32,43 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class OccultismTags {
+    public static final TagKey<Biome> ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION = makeBiomeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "allows_shub_niggurath_transformation"));
+
+    public static TagKey<Item> makeItemTag(String id) {
+        return makeItemTag(Identifier.parse(id));
+    }
+
+    public static TagKey<Item> makeItemTag(Identifier id) {
+        return TagKey.create(Registries.ITEM, id);
+    }
+
+
+    //Biome Tags
+
+    public static TagKey<Block> makeBlockTag(String id) {
+        return makeBlockTag(Identifier.parse(id));
+    }
+
+    public static TagKey<Block> makeBlockTag(Identifier id) {
+        return TagKey.create(Registries.BLOCK, id);
+    }
+
+    public static TagKey<EntityType<?>> makeEntityTypeTag(String id) {
+        return makeEntityTypeTag(Identifier.parse(id));
+    }
+
+    public static TagKey<EntityType<?>> makeEntityTypeTag(Identifier id) {
+        return TagKey.create(Registries.ENTITY_TYPE, id);
+    }
+
+    public static TagKey<Biome> makeBiomeTag(String id) {
+        return makeBiomeTag(Identifier.parse(id));
+    }
+
+    public static TagKey<Biome> makeBiomeTag(Identifier id) {
+        return TagKey.create(Registries.BIOME, id);
+    }
+
     public static class Blocks {
 
         public static final TagKey<Block> PENTACLE_MATERIALS = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
@@ -115,34 +152,34 @@ public class OccultismTags {
         public static final TagKey<Item> IRON_BARS = makeItemTag(Identifier.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Item> TUBE_CORALS = makeItemTag(Identifier.fromNamespaceAndPath("c", "tube_corals"));
         // Dusts
-        public static final TagKey<Item> COPPER_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/copper"));
-        public static final TagKey<Item> END_STONE_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/end_stone"));
-        public static final TagKey<Item> GOLD_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/gold"));
-        public static final TagKey<Item> IRON_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/iron"));
-        public static final TagKey<Item> IESNIUM_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/iesnium"));
-        public static final TagKey<Item> SILVER_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/silver"));
-        public static final TagKey<Item> RAW_MATERIALS_SILVER =makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/silver"));
-        public static final TagKey<Item> OBSIDIAN_DUST=makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/obsidian"));
+        public static final TagKey<Item> COPPER_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/copper"));
+        public static final TagKey<Item> END_STONE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/end_stone"));
+        public static final TagKey<Item> GOLD_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/gold"));
+        public static final TagKey<Item> IRON_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/iron"));
+        public static final TagKey<Item> IESNIUM_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/iesnium"));
+        public static final TagKey<Item> SILVER_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/silver"));
+        public static final TagKey<Item> RAW_MATERIALS_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/silver"));
+        public static final TagKey<Item> OBSIDIAN_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/obsidian"));
         public static final TagKey<Item> BLAZE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/blaze"));
 
-        public static final TagKey<Item> AMETHYST_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/amethyst"));
-        public static final TagKey<Item> BLACKSTONE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/blackstone"));
-        public static final TagKey<Item> BLUE_ICE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/blue_ice"));
-        public static final TagKey<Item> CALCITE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/calcite"));
-        public static final TagKey<Item> ICE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/ice"));
-        public static final TagKey<Item> PACKED_ICE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/packed_ice"));
-        public static final TagKey<Item> DRAGONYST_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/dragonyst"));
-        public static final TagKey<Item> ECHO_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/echo"));
-        public static final TagKey<Item> EMERALD_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/emerald"));
-        public static final TagKey<Item> LAPIS_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/lapis"));
-        public static final TagKey<Item> NETHERITE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/netherite"));
-        public static final TagKey<Item> NETHERITE_SCRAP_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/netherite_scrap"));
-        public static final TagKey<Item> RESEARCH_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/research"));
-        public static final TagKey<Item> WITHERITE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/witherite"));
-        public static final TagKey<Item> OTHERSTONE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/otherstone"));
-        public static final TagKey<Item> OTHERROCK_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/otherrock"));
-        public static final TagKey<Item> CHALK_BASE_DUST = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID,"dusts/chalk_base"));
-        public static final TagKey<Item> OTHERWORLD_WOOD_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c","dusts/otherworld_wood"));
+        public static final TagKey<Item> AMETHYST_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/amethyst"));
+        public static final TagKey<Item> BLACKSTONE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/blackstone"));
+        public static final TagKey<Item> BLUE_ICE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/blue_ice"));
+        public static final TagKey<Item> CALCITE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/calcite"));
+        public static final TagKey<Item> ICE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/ice"));
+        public static final TagKey<Item> PACKED_ICE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/packed_ice"));
+        public static final TagKey<Item> DRAGONYST_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/dragonyst"));
+        public static final TagKey<Item> ECHO_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/echo"));
+        public static final TagKey<Item> EMERALD_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/emerald"));
+        public static final TagKey<Item> LAPIS_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/lapis"));
+        public static final TagKey<Item> NETHERITE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/netherite"));
+        public static final TagKey<Item> NETHERITE_SCRAP_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/netherite_scrap"));
+        public static final TagKey<Item> RESEARCH_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/research"));
+        public static final TagKey<Item> WITHERITE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/witherite"));
+        public static final TagKey<Item> OTHERSTONE_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/otherstone"));
+        public static final TagKey<Item> OTHERROCK_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/otherrock"));
+        public static final TagKey<Item> CHALK_BASE_DUST = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "dusts/chalk_base"));
+        public static final TagKey<Item> OTHERWORLD_WOOD_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/otherworld_wood"));
 
         public static final TagKey<Item> DATURA_CROP = makeItemTag(Identifier.fromNamespaceAndPath("c", "crops/datura"));
 
@@ -179,22 +216,10 @@ public class OccultismTags {
         public static final TagKey<Item> METAL_AXES = makeItemTag(Identifier.fromNamespaceAndPath("c", "tools/metal/axes"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS_NATURAL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
-
-        public static class Miners {
-            public static final TagKey<Item> MINERS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners"));
-
-            public static final TagKey<Item> BASIC_RESOURCES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/basic_resources"));
-            public static final TagKey<Item> DEEPS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/deeps"));
-            public static final TagKey<Item> MASTER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/master"));
-            public static final TagKey<Item> ORES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/ores"));
-            public static final TagKey<Item> ELDRITCH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/eldritch"));
-        }
-
         public static final TagKey<Item> TOOLS_CHALK = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/chalk"));
         public static final TagKey<Item> OTHERWORLD_LOGS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
         public static final TagKey<Item> OTHERSTONE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherstone"));
         public static final TagKey<Item> OTHERCOBBLESTONE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "othercobblestone"));
-
         public static final TagKey<Item> DROPS_POSSESSED_BLAZE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_blaze"));
         public static final TagKey<Item> DROPS_POSSESSED_BREEZE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_breeze"));
         public static final TagKey<Item> DROPS_POSSESSED_ELDER_GUARDIAN = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_elder_guardian"));
@@ -224,6 +249,16 @@ public class OccultismTags {
         public static final TagKey<Item> RANDOM_SPAWN_SPECIAL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/special"));
         public static final TagKey<Item> RANDOM_SPAWN_WATER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/water"));
         public static final TagKey<Item> RANDOM_SPAWN_VILLAGER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/villagers"));
+
+        public static class Miners {
+            public static final TagKey<Item> MINERS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners"));
+
+            public static final TagKey<Item> BASIC_RESOURCES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/basic_resources"));
+            public static final TagKey<Item> DEEPS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/deeps"));
+            public static final TagKey<Item> MASTER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/master"));
+            public static final TagKey<Item> ORES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/ores"));
+            public static final TagKey<Item> ELDRITCH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/eldritch"));
+        }
     }
 
     public static class Entities {
@@ -236,8 +271,8 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "villagers"));
         public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "bats"));
         public static final TagKey<EntityType<?>> BEES = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "bees"));
-        public static final TagKey<EntityType<?>> SNOW_GOLEM=makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/snow"));
-        public static final TagKey<EntityType<?>> IRON_GOLEM=makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/iron"));
+        public static final TagKey<EntityType<?>> SNOW_GOLEM = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/snow"));
+        public static final TagKey<EntityType<?>> IRON_GOLEM = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/iron"));
         public static final TagKey<EntityType<?>> DONKEYS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "donkeys"));
         public static final TagKey<EntityType<?>> FISH = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "fish"));
         public static final TagKey<EntityType<?>> GOATS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "goats"));
@@ -283,43 +318,5 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_RIDEABLE = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_rideable"));
 
         public static final TagKey<EntityType<?>> FORCE_KILL_SIMULATION = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "force_kill_simulation"));
-    }
-
-
-    //Biome Tags
-
-    public static final TagKey<Biome> ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION = makeBiomeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "allows_shub_niggurath_transformation"));
-
-
-    public static TagKey<Item> makeItemTag(String id) {
-        return makeItemTag(Identifier.parse(id));
-    }
-
-    public static TagKey<Item> makeItemTag(Identifier id) {
-        return TagKey.create(Registries.ITEM, id);
-    }
-
-    public static TagKey<Block> makeBlockTag(String id) {
-        return makeBlockTag(Identifier.parse(id));
-    }
-
-    public static TagKey<Block> makeBlockTag(Identifier id) {
-        return TagKey.create(Registries.BLOCK, id);
-    }
-
-    public static TagKey<EntityType<?>> makeEntityTypeTag(String id) {
-        return makeEntityTypeTag(Identifier.parse(id));
-    }
-
-    public static TagKey<EntityType<?>> makeEntityTypeTag(Identifier id) {
-        return TagKey.create(Registries.ENTITY_TYPE, id);
-    }
-
-    public static TagKey<Biome> makeBiomeTag(String id) {
-        return makeBiomeTag(Identifier.parse(id));
-    }
-
-    public static TagKey<Biome> makeBiomeTag(Identifier id) {
-        return TagKey.create(Registries.BIOME, id);
     }
 }

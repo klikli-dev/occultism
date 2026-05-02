@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.geckolib.model.DefaultedGeoModel;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity;
 import net.minecraft.resources.Identifier;
-import com.geckolib.model.DefaultedGeoModel;
 
 
 public class DevilFamiliarModel extends DefaultedGeoModel<DevilFamiliarEntity> {

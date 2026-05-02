@@ -1,0 +1,27 @@
+{
+  "criteria": {
+    "always": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "occultism:block/otherstone",
+    "description": {
+      "color": "#CCCCCC",
+      "translate": "advancements.occultism.chalks.root.description"
+    },
+    "icon": {
+      "id": "occultism:brush"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "always"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -11,10 +11,6 @@ public class SpiritJobClient {
         this.modelID = modelID;
     }
 
-    public Identifier modelID() {
-        return this.modelID;
-    }
-
     public static SpiritJobClient create(Identifier modelID) {
         return new SpiritJobClient(modelID);
     }
@@ -25,5 +21,9 @@ public class SpiritJobClient {
 
     public static SpiritJobClient create() {
         return create("worker");
+    }
+
+    public Identifier modelID() {
+        return this.modelID;
     }
 }

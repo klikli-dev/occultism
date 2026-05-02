@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class PossessDjinniEntry extends EntryProvider {
@@ -28,15 +28,15 @@ public class PossessDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Ihagans Enthrallment");
         this.pageText("""
-                **Purpose:** {0} Possession\\
-                \\
-                **Ihagans Enthrallment** forces {1} to possess a nearby Creature. This pentacle is very versatile
-                  for imprisonment, allowing you to summon more powerful Spirits and Creatures.
-                """,
+                        **Purpose:** {0} Possession\\
+                        \\
+                        **Ihagans Enthrallment** forces {1} to possess a nearby Creature. This pentacle is very versatile
+                          for imprisonment, allowing you to summon more powerful Spirits and Creatures.
+                        """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE),
                 this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );
-       
+
         this.page("multiblock", () -> BookMultiblockPageModel.create().withMultiblockId(this.modLoc(ENTRY_ID)));
 
         this.page("uses", () -> BookTextPageModel.create()
@@ -87,7 +87,7 @@ public class PossessDjinniEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

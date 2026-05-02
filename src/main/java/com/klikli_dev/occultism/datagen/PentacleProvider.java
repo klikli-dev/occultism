@@ -356,7 +356,7 @@ public class PentacleProvider implements DataProvider {
                         "_____W_____",
                         "___________"),
                 new MappingBuilder().bowl().whiteChalk().ground().build());
-       this.addPentacle("contact_wild_spirit",
+        this.addPentacle("contact_wild_spirit",
                 this.createPattern(
                         "_____________",
                         "______P______",
@@ -507,6 +507,7 @@ public class PentacleProvider implements DataProvider {
             json.addProperty("display", BuiltInRegistries.BLOCK.getKey(display.get()).toString());
             return this.element(c, json);
         }
+
         private MappingBuilder tagDisplay(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:tag");
@@ -532,15 +533,19 @@ public class PentacleProvider implements DataProvider {
         private MappingBuilder bowl() {
             return this.tagDisplay('0', OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL, OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL);
         }
+
         private MappingBuilder candle() {
             return this.tag('1', OccultismTags.Blocks.CANDLES);
         }
+
         private MappingBuilder skeleton() {
             return this.block('2', () -> Blocks.SKELETON_SKULL);
         }
+
         private MappingBuilder crystal() {
             return this.block('3', OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL);
         }
+
         private MappingBuilder wither() {
             return this.block('4', () -> Blocks.WITHER_SKELETON_SKULL);
         }
@@ -548,56 +553,71 @@ public class PentacleProvider implements DataProvider {
         private MappingBuilder whiteChalk() {
             return this.tagDisplay('W', OccultismTags.Blocks.FOUNDATION_GLYPHS_ANY, OccultismBlocks.CHALK_GLYPH_WHITE);
         }
+
         private MappingBuilder lightGrayChalk() {
             return this.tagDisplay('S', OccultismTags.Blocks.FOUNDATION_GLYPHS_NO_WHITE, OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY);
         }
+
         private MappingBuilder grayChalk() {
             return this.tagDisplay('G', OccultismTags.Blocks.FOUNDATION_GLYPHS_DARK, OccultismBlocks.CHALK_GLYPH_GRAY);
         }
+
         private MappingBuilder blackChalk() {
             return this.tagDisplay('K', OccultismTags.Blocks.GLYPHS_BLACK, OccultismBlocks.CHALK_GLYPH_BLACK);
         }
+
         private MappingBuilder brownChalk() {
             return this.tagDisplay('B', OccultismTags.Blocks.GLYPHS_BROWN, OccultismBlocks.CHALK_GLYPH_BROWN);
         }
+
         private MappingBuilder redChalk() {
             return this.tagDisplay('R', OccultismTags.Blocks.GLYPHS_RED, OccultismBlocks.CHALK_GLYPH_RED);
         }
+
         private MappingBuilder orangeChalk() {
             return this.tagDisplay('O', OccultismTags.Blocks.GLYPHS_ORANGE, OccultismBlocks.CHALK_GLYPH_ORANGE);
         }
+
         private MappingBuilder yellowChalk() {
             return this.tagDisplay('Y', OccultismTags.Blocks.GLYPHS_YELLOW, OccultismBlocks.CHALK_GLYPH_YELLOW);
         }
+
         private MappingBuilder limeChalk() {
             return this.tagDisplay('L', OccultismTags.Blocks.GLYPHS_LIME, OccultismBlocks.CHALK_GLYPH_LIME);
         }
+
         private MappingBuilder greenChalk() {
             return this.tagDisplay('E', OccultismTags.Blocks.GLYPHS_GREEN, OccultismBlocks.CHALK_GLYPH_GREEN);
         }
+
         private MappingBuilder cyanChalk() {
             return this.tagDisplay('C', OccultismTags.Blocks.GLYPHS_CYAN, OccultismBlocks.CHALK_GLYPH_CYAN);
         }
+
         private MappingBuilder lightBlueChalk() {
             return this.tagDisplay('A', OccultismTags.Blocks.GLYPHS_LIGHT_BLUE, OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE);
         }
+
         private MappingBuilder blueChalk() {
             return this.tagDisplay('U', OccultismTags.Blocks.GLYPHS_BLUE, OccultismBlocks.CHALK_GLYPH_BLUE);
         }
+
         private MappingBuilder purpleChalk() {
             return this.tagDisplay('X', OccultismTags.Blocks.GLYPHS_PURPLE, OccultismBlocks.CHALK_GLYPH_PURPLE);
         }
+
         private MappingBuilder magentaChalk() {
             return this.tagDisplay('M', OccultismTags.Blocks.GLYPHS_MAGENTA, OccultismBlocks.CHALK_GLYPH_MAGENTA);
         }
+
         private MappingBuilder pinkChalk() {
             return this.tagDisplay('P', OccultismTags.Blocks.GLYPHS_PINK, OccultismBlocks.CHALK_GLYPH_PINK);
         }
 
-        private MappingBuilder eldritch(){
+        private MappingBuilder eldritch() {
             return this.block('e', () -> Blocks.LODESTONE)
                     .block('f', () -> Blocks.END_ROD)
-                    .block('g', () ->Blocks.AMETHYST_CLUSTER)
+                    .block('g', () -> Blocks.AMETHYST_CLUSTER)
                     .tag('h', Tags.Blocks.GLASS_PANES)
                     .block('i', () -> Blocks.BEACON)
                     .tag('j', OccultismTags.Blocks.LIGHTNING_RODS)

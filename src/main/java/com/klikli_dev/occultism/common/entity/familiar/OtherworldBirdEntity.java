@@ -22,11 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.util.ItemTransferUtil;
-
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -60,11 +59,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OtherworldBirdEntity extends Parrot implements IFamiliar {
-    private static final EntityDataAccessor<Boolean> BLACKSMITH_UPGRADE = SynchedEntityData.defineId(OtherworldBirdEntity.class, EntityDataSerializers.BOOLEAN);
-
     // region Fields
     public static final float MAX_BOOST_DISTANCE = 8f;
-
+    private static final EntityDataAccessor<Boolean> BLACKSMITH_UPGRADE = SynchedEntityData.defineId(OtherworldBirdEntity.class, EntityDataSerializers.BOOLEAN);
     public SitWhenOrderedToGoal sitGoal;
     // endregion Fields
 
@@ -84,11 +81,13 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         super.defineSynchedData(builder);
         builder.define(BLACKSMITH_UPGRADE, false);
     }
+
     @Override
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setBlacksmithUpgrade(input.getBooleanOr("hasBlacksmithUpgrade", false));
     }
+
     @Override
     public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
@@ -148,7 +147,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     public Iterable<MobEffectInstance> getFamiliarEffects() {
         List<MobEffectInstance> effects = new ArrayList<>();
         effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 60, 5, false, false));
-        if (this.hasBlacksmithUpgrade()){
+        if (this.hasBlacksmithUpgrade()) {
             effects.add(new MobEffectInstance(OccultismEffects.DOUBLE_JUMP, 120, 9, false, false));
         } else {
             effects.add(new MobEffectInstance(OccultismEffects.DOUBLE_JUMP, 120, 4, false, false));
@@ -162,10 +161,12 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     public boolean hasBlacksmithUpgrade() {
         return this.entityData.get(BLACKSMITH_UPGRADE);
     }
+
     @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
     }
+
     private void setBlacksmithUpgrade(boolean b) {
         this.entityData.set(BLACKSMITH_UPGRADE, b);
     }
@@ -203,7 +204,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
         var id = this.getEncodeId();
         var entityData = new CompoundTag();
-        if(id != null)
+        if (id != null)
             entityData.putString("id", id);
         var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
         this.saveWithoutId(valueOutput);

@@ -23,12 +23,10 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.client.particle.BlackMarkerParticle;
 import com.klikli_dev.occultism.client.particle.BlackMarkerParticle.Factory;
 import com.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.klikli_dev.occultism.client.particle.SnowflakeParticle;
 import com.klikli_dev.occultism.registry.OccultismParticles;
-import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.FlameParticle.Provider;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

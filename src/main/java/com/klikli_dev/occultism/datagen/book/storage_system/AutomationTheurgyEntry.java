@@ -5,8 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-//import com.klikli_dev.theurgy.registry.ItemRegistry; // TODO: re-enable when Theurgy is available for 26.1
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.Items;
 
 public class AutomationTheurgyEntry extends EntryProvider {
@@ -40,9 +39,9 @@ public class AutomationTheurgyEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Theurgy Storage Integration");
         this.pageText("""
-                    Much like transporter Spirits, Theurgy Mercurial Logistics systems
-                     are optimized to work with the Storage Actuator and Stable Wormholes.
-                    """
+                Much like transporter Spirits, Theurgy Mercurial Logistics systems
+                 are optimized to work with the Storage Actuator and Stable Wormholes.
+                """
         );
 
         this.page("extraction", () -> BookTextPageModel.create()
@@ -50,21 +49,21 @@ public class AutomationTheurgyEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Extracting Items");
         this.pageText("""
-                    Once again, item extraction is the critical issue for performance.
-                    \\
-                    \\
-                    To make use of the performance optimization, use a [](item://theurgy:logistics_item_extractor)
-                     and apply a [](item://theurgy:list_filter) to extract the desired items.
-                    \\
-                    \\
-                    The Theurgy Guidebook "The Hermetica" has a chapter on Theurgy
-                     mercurial logistics and how to use them to insert and extract items.
-                    """
+                Once again, item extraction is the critical issue for performance.
+                \\
+                \\
+                To make use of the performance optimization, use a [](item://theurgy:logistics_item_extractor)
+                 and apply a [](item://theurgy:list_filter) to extract the desired items.
+                \\
+                \\
+                The Theurgy Guidebook "The Hermetica" has a chapter on Theurgy
+                 mercurial logistics and how to use them to insert and extract items.
+                """
         );
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

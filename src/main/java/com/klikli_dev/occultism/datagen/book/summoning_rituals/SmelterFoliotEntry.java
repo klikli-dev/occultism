@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
 public class SmelterFoliotEntry extends EntryProvider {
@@ -39,10 +39,10 @@ public class SmelterFoliotEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Smelter Spirits");
         this.pageText("""
-                    Smelter spirits are summoned to do furnace, blast furnace, smoker and campfire process,
-                    without using fuel. They will pick up appropriate items and drop the resulting into the world.
-                    A fire particle effect and a flame sound indicate the smelter is at work.
-                    """
+                Smelter spirits are summoned to do furnace, blast furnace, smoker and campfire process,
+                without using fuel. They will pick up appropriate items and drop the resulting into the world.
+                A fire particle effect and a flame sound indicate the smelter is at work.
+                """
         );
 
         this.page("automation", () -> BookTextPageModel.create()
@@ -50,11 +50,11 @@ public class SmelterFoliotEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Automation");
         this.pageText("""
-                    To ease automation, try summoning a {0} to place items from chests
-                     in the smelter''s inventory, and a {1} to collect the processed items.
-                    """,
-                    this.entryLink("Transporter Spirit", "summoning_rituals", "summon_transport_items"),
-                    this.entryLink("Janitor Spirit", "summoning_rituals", "summon_cleaner")
+                        To ease automation, try summoning a {0} to place items from chests
+                         in the smelter''s inventory, and a {1} to collect the processed items.
+                        """,
+                this.entryLink("Transporter Spirit", "summoning_rituals", "summon_transport_items"),
+                this.entryLink("Janitor Spirit", "summoning_rituals", "summon_cleaner")
         );
 
         this.page("intro", () -> BookTextPageModel.create()
@@ -62,11 +62,11 @@ public class SmelterFoliotEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Foliot Smelter");
         this.pageText("""
-                    The foliot smelter is the most basic smelter spirit.
-                    \\
-                    \\
-                    It will smelt an item at the same speed as the furnace.
-                    """
+                The foliot smelter is the most basic smelter spirit.
+                \\
+                \\
+                It will smelt an item at the same speed as the furnace.
+                """
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
@@ -75,7 +75,7 @@ public class SmelterFoliotEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

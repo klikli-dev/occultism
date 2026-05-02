@@ -2,15 +2,14 @@ package com.klikli_dev.occultism.client.misc;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
-import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +17,17 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ClientPentacleManager {
+    public static final int ITEMS_PER_PAGE = Occultism.CLIENT_CONFIG.misc.pentagramInBowlInfoCount.getAsInt(); // Number of items per page
+    public static final int PAGE_CHANGE_TICKS = Occultism.CLIENT_CONFIG.misc.pentagramInBowlInfoTicks.getAsInt(); // Time in ticks between page changes
     public static BlockPos lastHovered = null;
     public static List<MutableComponent> lastPentacles = List.of();
     public static List<MutableComponent> allPentacles = List.of();
     public static long lastPentacleQueryTime = 0;
     public static long lastPageChangeTime = 0;
-    public static final int ITEMS_PER_PAGE = Occultism.CLIENT_CONFIG.misc.pentagramInBowlInfoCount.getAsInt(); // Number of items per page
-    public static final int PAGE_CHANGE_TICKS = Occultism.CLIENT_CONFIG.misc.pentagramInBowlInfoTicks.getAsInt(); // Time in ticks between page changes
-
     public static MutableComponent noPentacleFound = Component.translatable(TranslationKeys.HUD_NO_PENTACLE_FOUND);
+    public static MutableComponent pageIndicator = null;
     private static int currentPage = 0;
     private static int totalPages = 0;
-    public static MutableComponent pageIndicator = null;
 
     public static void reset() {
         lastHovered = null;
@@ -45,24 +43,19 @@ public class ClientPentacleManager {
     public static void rebuild(BlockPos pos) {
         Minecraft mc = Minecraft.getInstance();
         if (!pos.equals(lastHovered) || allPentacles.isEmpty()) {
-            if(!(allPentacles.isEmpty() && mc.level.getGameTime() - lastPentacleQueryTime < 20)) {
+            if (!(allPentacles.isEmpty() && mc.level.getGameTime() - lastPentacleQueryTime < 20)) {
                 lastPentacleQueryTime = mc.level.getGameTime();
                 lastHovered = pos;
-                var server = mc.level.getServer();
-                if (server != null) {
-                    allPentacles = server.getRecipeManager().getRecipes().stream()
-                            .filter(r -> r.value().getType() == OccultismRecipes.RITUAL_TYPE.get())
-                            .map(r -> (RecipeHolder<RitualRecipe>) r)
-                            .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
-                            .collect(Collectors.toMap(
-                                    r -> r.value().getPentacle().getId(),
-                                    Function.identity(),
-                                    (existing, replacement) -> existing
-                            ))
-                            .values().stream()
-                            .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
-                            .collect(Collectors.toList());
-                }
+                allPentacles = OccultismRecipeManager.get().getRecipesByType(OccultismRecipes.RITUAL_TYPE.get(), mc.level).stream()
+                        .filter(r -> r.value().getPentacle().validate(mc.level, pos) != null)
+                        .collect(Collectors.toMap(
+                                r -> r.value().getPentacle().getId(),
+                                Function.identity(),
+                                (existing, replacement) -> existing
+                        ))
+                        .values().stream()
+                        .map(r -> Component.translatable(Util.makeDescriptionId("multiblock", r.value().getPentacle().getId())).withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.WHITE))
+                        .collect(Collectors.toList());
                 currentPage = 0;
                 calculateTotalPages();
                 updateDisplayedPentacles();
@@ -97,9 +90,9 @@ public class ClientPentacleManager {
         }
 
         int startIdx = ITEMS_PER_PAGE + 1 == allPentacles.size() ?
-                currentPage * (ITEMS_PER_PAGE+1) : currentPage * ITEMS_PER_PAGE;
+                currentPage * (ITEMS_PER_PAGE + 1) : currentPage * ITEMS_PER_PAGE;
         int endIdx = ITEMS_PER_PAGE + 1 == allPentacles.size() ?
-                Math.min(startIdx + ITEMS_PER_PAGE+1, allPentacles.size()) : Math.min(startIdx + ITEMS_PER_PAGE, allPentacles.size());
+                Math.min(startIdx + ITEMS_PER_PAGE + 1, allPentacles.size()) : Math.min(startIdx + ITEMS_PER_PAGE, allPentacles.size());
         if (totalPages > 1) {
             pageIndicator = Component.literal("Page ")
                     .withStyle(ChatFormatting.GRAY)

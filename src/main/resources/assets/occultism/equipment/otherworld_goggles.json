@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "occultism:otherworld_goggles"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "occultism:otherworld_goggles"
+      }
+    ]
+  }
+}

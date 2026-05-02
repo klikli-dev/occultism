@@ -1,10 +1,9 @@
 package com.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.OccultismConstants.Color;
-import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
+import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
@@ -88,7 +87,7 @@ public class NearestCropSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         var blocksInWorkArea = workAreaCenter != null && workAreaSize != null ? BlockPos.betweenClosedStream(
                 workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2),
                 workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2)
-        ).map(BlockPos::immutable) : BlockPos.betweenClosedStream(-1,-1,-1,1,1,1);
+        ).map(BlockPos::immutable) : BlockPos.betweenClosedStream(-1, -1, -1, 1, 1, 1);
 
         //filter potential Roots
         List<BlockPos> potentialRoots = blocksInWorkArea

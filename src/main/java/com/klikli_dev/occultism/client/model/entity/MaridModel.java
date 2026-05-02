@@ -29,8 +29,9 @@ import net.minecraft.resources.Identifier;
 
 public class MaridModel extends DefaultedJobEntityModel<MaridEntity> {
     public final static String ASSET_SUBPATH = "marid";
+
     public MaridModel() {
-        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
+        super(Identifier.fromNamespaceAndPath(Occultism.MODID, "marid"), true, ASSET_SUBPATH);
     }
 }
 

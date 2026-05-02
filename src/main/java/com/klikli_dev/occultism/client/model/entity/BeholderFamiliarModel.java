@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.entity.familiar.BeholderFamiliarEntity;
+import com.klikli_dev.occultism.client.render.entity.state.BeholderFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -31,16 +31,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec2;
 
 import java.util.List;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class BeholderFamiliarModel extends EntityModel<EntityRenderState> {
-
+public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarRenderState> {
     private static final float PI = (float) Math.PI;
 
     public ModelPart head;
@@ -172,125 +168,53 @@ public class BeholderFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
-        super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // this.showModels(pEntity);
-
-        // float partialTicks = Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true);
-
+    public void setupAnim(BeholderFamiliarRenderState s) {
+        super.setupAnim(s);
+        this.tongue.visible = s.hasTongue;
+        this.beard.visible = s.hasBeard;
+        this.spike1.visible = this.spike2.visible = this.spike3.visible = this.spike4.visible = this.spike5.visible = this.spike6.visible = s.hasSpikes;
+        this.bigPupil.visible = !s.isSitting;
+        this.glasses.visible = s.hasBlacksmithUpgrade;
         this.setRotateAngle(this.head, 0, 0, 0);
-
-        // TODO: needs custom RenderState
-        // this.setEyeRot(pEntity, partialTicks, ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14), 0);
-        // this.setEyeRot(pEntity, partialTicks, ImmutableList.of(this.eye21, this.eye22, this.eye23, this.eye24), 1);
-        // this.setEyeRot(pEntity, partialTicks, ImmutableList.of(this.eye31, this.eye32, this.eye33, this.eye34), 2);
-        // this.setEyeRot(pEntity, partialTicks, ImmutableList.of(this.eye41, this.eye42, this.eye43, this.eye44), 3);
-
-        // Vec2 bigEyePos = pEntity.getBigEyePos(partialTicks);
-        // this.bigPupil.x = bigEyePos.x;
-        // this.bigPupil.y = bigEyePos.y - 0.5f;
-
-        // this.mouth.xRot = pEntity.getMouthRot(partialTicks);
-
-        // TODO: needs custom RenderState
-        // if (pEntity.isPartying()) {
-        //     float eyeRot = -Mth.cos(pAgeInTicks * 0.2f) * this.toRads(15);
-        //     ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14, this.eye21, this.eye22, this.eye23, this.eye24, this.eye31, this.eye32, this.eye33, this.eye34, this.eye41,
-        //             this.eye42, this.eye43, this.eye44).forEach(e -> {
-        //         e.yRot = 0;
-        //         e.xRot = eyeRot;
-        //     });
-        //
-        //     this.head.xRot = Mth.cos(pAgeInTicks * 0.2f) * this.toRads(20);
-        //     this.head.yRot = Mth.cos(pAgeInTicks * 0.2f + PI) * this.toRads(20);
-        //     this.head.zRot = Mth.cos(pAgeInTicks * 0.1f) * this.toRads(30);
-        // } else if (pEntity.isSitting()) {
-        //     this.head.zRot = this.toRads(90);
-        //     this.mouth.xRot = this.toRads(20);
-        //
-        //     ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14, this.eye21, this.eye22, this.eye23, this.eye24, this.eye31, this.eye32, this.eye33, this.eye34, this.eye41,
-        //             this.eye42, this.eye43, this.eye44).forEach(e -> {
-        //         e.yRot = 0;
-        //         e.xRot = 0;
-        //     });
-        //     this.eye11.xRot = this.toRads(25);
-        //     this.eye12.xRot = this.toRads(25);
-        //     this.eye13.xRot = this.toRads(25);
-        //     this.eye14.xRot = this.toRads(25);
-        //     this.eye11.zRot = this.toRads(-40);
-        //     this.eye12.zRot = this.toRads(-40);
-        //     this.eye13.zRot = this.toRads(-40);
-        //     this.eye14.zRot = this.toRads(-40);
-        //
-        //     this.eye41.xRot = this.toRads(-10);
-        //     this.eye42.xRot = this.toRads(-10);
-        //     this.eye43.xRot = this.toRads(-10);
-        //     this.eye44.xRot = this.toRads(-10);
-        //     this.eye41.zRot = this.toRads(-40);
-        //     this.eye42.zRot = this.toRads(-40);
-        //     this.eye43.zRot = this.toRads(-40);
-        //     this.eye44.zRot = this.toRads(-40);
-        //
-        //     this.eye21.xRot = this.toRads(-20);
-        //     this.eye22.xRot = this.toRads(-15);
-        //     this.eye23.xRot = this.toRads(-10);
-        //     this.eye24.xRot = this.toRads(-5);
-        //     this.eye21.zRot = this.toRads(2);
-        //     this.eye22.zRot = this.toRads(2);
-        //     this.eye23.zRot = this.toRads(2);
-        //     this.eye24.zRot = this.toRads(2);
-        //
-        //     this.eye31.xRot = this.toRads(20);
-        //     this.eye32.xRot = this.toRads(15);
-        //     this.eye33.xRot = this.toRads(10);
-        //     this.eye34.xRot = this.toRads(5);
-        //     this.eye31.zRot = this.toRads(2);
-        //     this.eye32.zRot = this.toRads(2);
-        //     this.eye33.zRot = this.toRads(2);
-        //     this.eye34.zRot = this.toRads(2);
-        // }
+        this.setEyeRot(s.eyeRot[0], ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14));
+        this.setEyeRot(s.eyeRot[1], ImmutableList.of(this.eye21, this.eye22, this.eye23, this.eye24));
+        this.setEyeRot(s.eyeRot[2], ImmutableList.of(this.eye31, this.eye32, this.eye33, this.eye34));
+        this.setEyeRot(s.eyeRot[3], ImmutableList.of(this.eye41, this.eye42, this.eye43, this.eye44));
+        this.bigPupil.x = s.bigEyePos.x;
+        this.bigPupil.y = s.bigEyePos.y - 0.5f;
+        this.mouth.xRot = s.mouthRot;
+        if (s.isPartying) {
+            float eyeRot = -Mth.cos(s.ageInTicks * 0.2f) * this.toRads(15);
+            ImmutableList.of(this.eye11, this.eye12, this.eye13, this.eye14, this.eye21, this.eye22, this.eye23, this.eye24, this.eye31, this.eye32, this.eye33, this.eye34, this.eye41, this.eye42, this.eye43, this.eye44).forEach(e -> {
+                e.yRot = 0;
+                e.xRot = eyeRot;
+            });
+            this.head.xRot = Mth.cos(s.ageInTicks * 0.2f) * this.toRads(20);
+            this.head.yRot = Mth.cos(s.ageInTicks * 0.2f + PI) * this.toRads(20);
+            this.head.zRot = Mth.cos(s.ageInTicks * 0.1f) * this.toRads(30);
+        } else if (s.isSitting) {
+            this.head.zRot = this.toRads(90);
+            this.mouth.xRot = this.toRads(20);
+        }
     }
 
-    private void setEyeRot(BeholderFamiliarEntity entity, float partialTicks, List<ModelPart> models, int index) {
-        // TODO: needs custom RenderState - entity parameter needed
-        // Vec2 rotation = entity.getEyeRot(partialTicks, index);
-        // for (int i = 0; i < models.size(); i++) {
-        //     models.get(i).xRot = rotation.x;
-        //     models.get(i).zRot = 0;
-        //     models.get(i).yRot = 0;
-        // }
-        //
-        // models.get(0).xRot = 0;
-        // models.get(0).yRot = rotation.y;
-    }
-
-    private void showModels(BeholderFamiliarEntity entityIn) {
-        boolean hasSpikes = entityIn.hasSpikes();
-
-        this.tongue.visible = entityIn.hasTongue();
-        this.beard.visible = entityIn.hasBeard();
-        this.spike1.visible = hasSpikes;
-        this.spike2.visible = hasSpikes;
-        this.spike3.visible = hasSpikes;
-        this.spike4.visible = hasSpikes;
-        this.spike5.visible = hasSpikes;
-        this.spike6.visible = hasSpikes;
-        this.bigPupil.visible = !entityIn.isSitting();
-        this.glasses.visible = entityIn.hasBlacksmithUpgrade();
+    private void setEyeRot(Vec2 rotation, List<ModelPart> models) {
+        for (int i = 0; i < models.size(); i++) {
+            models.get(i).xRot = rotation.x;
+            models.get(i).zRot = 0;
+            models.get(i).yRot = 0;
+        }
+        models.get(0).xRot = 0;
+        models.get(0).yRot = rotation.y;
     }
 
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
     public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
         modelRenderer.xRot = x;
         modelRenderer.yRot = y;
         modelRenderer.zRot = z;
     }
-
 }

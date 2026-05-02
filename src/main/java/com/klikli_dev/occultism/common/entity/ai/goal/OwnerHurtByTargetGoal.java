@@ -2,8 +2,6 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 

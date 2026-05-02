@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.MummyFamiliarModel;
+import com.klikli_dev.occultism.client.render.entity.state.MummyFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.MummyFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -38,16 +39,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
@@ -58,13 +55,11 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
 
-public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, LivingEntityRenderState, MummyFamiliarModel> {
+public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarRenderState, MummyFamiliarModel> {
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/mummy_familiar.png");
 
-    private static final ContextKey<Boolean> IS_SITTING = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_is_sitting"));
-    private static final ContextKey<Integer> FIGHT_POSE = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_fight_pose"));
     private static final ContextKey<Float> CAPOW_ALPHA = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_capow_alpha"));
     private static final ContextKey<Vec3> CAPOW_POSITION = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_capow_position"));
 
@@ -75,10 +70,15 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
     }
 
     @Override
-    public void extractRenderState(MummyFamiliarEntity entity, LivingEntityRenderState reusedState, float partialTick) {
+    public void extractRenderState(MummyFamiliarEntity entity, MummyFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
-        reusedState.setRenderData(IS_SITTING, entity.isSitting());
-        reusedState.setRenderData(FIGHT_POSE, entity.getFightPose());
+        reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.fightPose = entity.getFightPose();
+        reusedState.hasCrown = entity.hasCrown();
+        reusedState.hasHeka = entity.hasHeka();
+        reusedState.hasTooth = entity.hasTooth();
         if (entity.getFightPose() != -1) {
             reusedState.setRenderData(CAPOW_ALPHA, entity.getCapowAlpha(partialTick));
             reusedState.setRenderData(CAPOW_POSITION, entity.getCapowPosition(partialTick));
@@ -86,31 +86,30 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
     }
 
     @Override
-    public LivingEntityRenderState createRenderState() {
-        return new LivingEntityRenderState();
+    public MummyFamiliarRenderState createRenderState() {
+        return new MummyFamiliarRenderState();
     }
 
     @Override
-    public Identifier getTextureLocation(LivingEntityRenderState state) {
+    public Identifier getTextureLocation(MummyFamiliarRenderState state) {
         return TEXTURES;
     }
 
-    private static class EyesLayer extends RenderLayer<LivingEntityRenderState, MummyFamiliarModel> {
+    private static class EyesLayer extends RenderLayer<MummyFamiliarRenderState, MummyFamiliarModel> {
 
         private static final Identifier EYES = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/mummy_familiar_eyes.png");
 
-        public EyesLayer(RenderLayerParent<LivingEntityRenderState, MummyFamiliarModel> parent) {
+        public EyesLayer(RenderLayerParent<MummyFamiliarRenderState, MummyFamiliarModel> parent) {
             super(parent);
         }
 
         @Override
-        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
+        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, MummyFamiliarRenderState state, float yRot, float xRot) {
             if (state.isInvisible)
                 return;
 
-            Boolean isSitting = state.getRenderData(MummyFamiliarRenderer.IS_SITTING);
-            boolean sitting = isSitting != null && isSitting;
+            boolean sitting = state.isSitting;
 
             // For glowing eyes: when not sitting, use full-bright light; when sitting, use normal light
             int eyeLight = sitting ? lightCoords : (15 << 20 | 15 << 4);
@@ -120,7 +119,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
         }
     }
 
-    private static class KapowLayer extends RenderLayer<LivingEntityRenderState, MummyFamiliarModel> {
+    private static class KapowLayer extends RenderLayer<MummyFamiliarRenderState, MummyFamiliarModel> {
 
         private static final Identifier KAPOW_TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/kapow.png");
@@ -139,9 +138,8 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Livi
         }
 
         @Override
-        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, LivingEntityRenderState state, float yRot, float xRot) {
-            Integer fightPose = state.getRenderData(MummyFamiliarRenderer.FIGHT_POSE);
-            if (fightPose == null || fightPose == -1)
+        public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, MummyFamiliarRenderState state, float yRot, float xRot) {
+            if (state.fightPose == -1)
                 return;
 
             Float alpha = state.getRenderData(MummyFamiliarRenderer.CAPOW_ALPHA);

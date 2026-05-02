@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class PossessUnboundAfritEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class PossessUnboundAfritEntry extends EntryProvider {
         );
         this.pageTitle("Odus' Open Convocation");
         this.pageText("""
-                **Purpose:** {0} Possession\\
-                \\
-                **Odus Open Convocation** is a simplified version of {1}, allowing you to forces {2} to possess a nearby Creature without red chalk.
-                 Due to the very reduced power of the Pentacle it's limited in use.
-                """,
+                        **Purpose:** {0} Possession\\
+                        \\
+                        **Odus Open Convocation** is a simplified version of {1}, allowing you to forces {2} to possess a nearby Creature without red chalk.
+                         Due to the very reduced power of the Pentacle it's limited in use.
+                        """,
                 this.color("Unbound Afrit", ChatFormatting.DARK_PURPLE),
                 this.color("Posuc' Convocation", ChatFormatting.DARK_PURPLE),
                 this.color("Afrit", ChatFormatting.DARK_PURPLE)
@@ -64,7 +64,7 @@ public class PossessUnboundAfritEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

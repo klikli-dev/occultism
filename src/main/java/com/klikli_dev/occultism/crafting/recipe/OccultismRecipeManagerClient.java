@@ -4,7 +4,6 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 

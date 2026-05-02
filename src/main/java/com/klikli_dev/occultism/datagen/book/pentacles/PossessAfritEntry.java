@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class PossessAfritEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class PossessAfritEntry extends EntryProvider {
         );
         this.pageTitle("Posuc's Convocation");
         this.pageText("""
-                **Purpose:** {0} Possession\\
-                \\
-                **Posuc Convocation** is a modified version in the possession geometry of {1} that allows
-                 possessing entities, and thus summoning familiars.
-                """,
+                        **Purpose:** {0} Possession\\
+                        \\
+                        **Posuc Convocation** is a modified version in the possession geometry of {1} that allows
+                         possessing entities, and thus summoning familiars.
+                        """,
                 this.color("Afrit", ChatFormatting.DARK_PURPLE),
                 this.color("Abras Conjure", ChatFormatting.LIGHT_PURPLE)
         );
@@ -66,7 +66,7 @@ public class PossessAfritEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

@@ -6,8 +6,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 
 public class PossessFoliotEntry extends EntryProvider {
@@ -28,11 +28,11 @@ public class PossessFoliotEntry extends EntryProvider {
         );
         this.pageTitle("Hedyrins Lure");
         this.pageText("""
-                **Purpose:** {0} Possession\\
-                \\
-                **Hedyrins Lure** attracts {1} and forces them to possess a nearby Creature. This pentacle can
-                 perform basic possessions, bringing back only low-power Spirits and Possessed Creatures.
-                """,
+                        **Purpose:** {0} Possession\\
+                        \\
+                        **Hedyrins Lure** attracts {1} and forces them to possess a nearby Creature. This pentacle can
+                         perform basic possessions, bringing back only low-power Spirits and Possessed Creatures.
+                        """,
                 this.color("Foliot", ChatFormatting.DARK_PURPLE),
                 this.color("Foliot", ChatFormatting.DARK_PURPLE)
         );
@@ -72,7 +72,7 @@ public class PossessFoliotEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

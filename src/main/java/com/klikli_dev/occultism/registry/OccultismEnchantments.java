@@ -5,8 +5,8 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
@@ -27,14 +27,14 @@ public class OccultismEnchantments {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
 
         register(context, FRACTURE_SOUL, enchantment(Enchantment.definition(
-            items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-            items.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
-            1, // weight
-            5, // max level
-            Enchantment.dynamicCost(10, 2),
-            Enchantment.dynamicCost(18, 3),
-            8, // anvil cost
-            EquipmentSlotGroup.MAINHAND
+                items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                items.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
+                1, // weight
+                5, // max level
+                Enchantment.dynamicCost(10, 2),
+                Enchantment.dynamicCost(18, 3),
+                8, // anvil cost
+                EquipmentSlotGroup.MAINHAND
         )));
     }
 

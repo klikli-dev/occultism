@@ -1,0 +1,36 @@
+{
+  "parent": "occultism:chalks/blue",
+  "criteria": {
+    "chalk_brown": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_brown"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:any_block_use"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "green",
+      "translate": "advancements.occultism.chalks.brown.description"
+    },
+    "icon": {
+      "id": "occultism:chalk_brown"
+    },
+    "title": {
+      "translate": "advancements.occultism.chalks.brown.title"
+    }
+  },
+  "requirements": [
+    [
+      "chalk_brown"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

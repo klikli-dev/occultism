@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity;
+import com.klikli_dev.occultism.client.render.entity.state.BeaverFamiliarRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,14 +30,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
-/**
- * Created using Tabula 8.0.0
- */
-public class BeaverFamiliarModel extends EntityModel<EntityRenderState> {
-
+public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarRenderState> {
     private static final float PI = (float) Math.PI;
 
     public ModelPart body;
@@ -87,7 +82,6 @@ public class BeaverFamiliarModel extends EntityModel<EntityRenderState> {
         this.rightArm2 = this.rightArm1.getChild("rightArm2");
     }
 
-
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition parts = mesh.getRoot();
@@ -116,57 +110,57 @@ public class BeaverFamiliarModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(EntityRenderState state) {
-        super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // this.showModels(pEntity);
-
-        this.rightLeg1.zRot = 0;
-        this.leftLeg1.zRot = 0;
-        this.rightArm1.zRot = 0;
-        this.leftArm1.zRot = 0;
+    public void setupAnim(BeaverFamiliarRenderState s) {
+        super.setupAnim(s);
+        this.leftEar.visible = s.hasEars;
+        this.rightEar.visible = s.hasEars;
+        this.whiskers1.visible = s.hasWhiskers;
+        this.whiskers2.visible = s.hasWhiskers;
+        this.tail.visible = !s.hasBigTail;
+        this.tail2.visible = s.hasBigTail;
+        this.rightLeg1.zRot = this.leftLeg1.zRot = this.rightArm1.zRot = this.leftArm1.zRot = 0;
         this.body.xRot = 0.09f;
         this.body.yRot = 0;
         this.body.y = 19.5f;
-        this.leftLeg2.xRot = 0;
-        this.rightLeg2.xRot = 0;
-        this.leftArm2.xRot = 0;
-        this.rightArm2.xRot = 0;
-
-        // TODO: needs custom RenderState
-        // this.head.xRot = this.toRads(headPitch);
-        // this.head.yRot = this.toRads(netHeadYaw);
-
-        // TODO: needs custom RenderState
-        // this.rightLeg1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
-        // this.leftLeg1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
-        // this.rightArm1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
-        // this.leftArm1.xRot = -0.07f + Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
-
-        // TODO: needs custom RenderState
-        // this.tail.xRot = 0.51f + Mth.cos(pAgeInTicks * 0.1f) * this.toRads(20);
-        // this.tail2.xRot = 0.51f + Mth.cos(pAgeInTicks * 0.1f) * this.toRads(20);
-
-        // TODO: needs custom RenderState
-        // if (!pEntity.isSitting() && pEntity.isInWater()) { ... }
-        // if (pEntity.isSitting()) { ... }
-        // if (pEntity.isPartying()) { ... }
+        this.leftLeg2.xRot = this.rightLeg2.xRot = this.leftArm2.xRot = this.rightArm2.xRot = 0;
+        this.head.xRot = this.toRads(s.xRot);
+        this.head.yRot = this.toRads(s.yRot);
+        this.rightLeg1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f) * 0.8f * s.walkAnimationSpeed;
+        this.leftLeg1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f + PI) * 0.8f * s.walkAnimationSpeed;
+        this.rightArm1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f + PI) * 0.8f * s.walkAnimationSpeed;
+        this.leftArm1.xRot = -0.07f + Mth.cos(s.walkAnimationPos * 0.7f) * 0.8f * s.walkAnimationSpeed;
+        this.tail.xRot = 0.51f + Mth.cos(s.ageInTicks * 0.1f) * this.toRads(20);
+        this.tail2.xRot = this.tail.xRot;
+        if (!s.isSitting && s.isInWater) {
+            this.rightLeg1.zRot = this.toRads(40);
+            this.leftLeg1.zRot = -this.toRads(40);
+            this.rightArm1.zRot = this.toRads(40);
+            this.leftArm1.zRot = -this.toRads(40);
+        }
+        if (s.isSitting) {
+            this.body.xRot = this.toRads(-40);
+            this.head.xRot = this.toRads(25);
+            this.tail.xRot = this.tail2.xRot = this.toRads(70);
+            this.leftLeg1.xRot = this.toRads(-20);
+            this.leftLeg2.xRot = this.toRads(50);
+            this.rightLeg1.xRot = this.toRads(-20);
+            this.rightLeg2.xRot = this.toRads(50);
+            this.leftArm1.xRot = this.toRads(10);
+            this.leftArm2.xRot = this.toRads(40);
+            this.rightArm1.xRot = this.toRads(10);
+            this.rightArm2.xRot = this.toRads(40);
+        }
+        if (s.isPartying) {
+            this.body.xRot = this.toRads(90);
+            this.body.yRot = s.ageInTicks * 0.5f;
+            this.body.y = 12.5f;
+            this.head.xRot = 0;
+            this.head.yRot = 0;
+            this.tail.xRot = this.tail2.xRot = Mth.cos(s.ageInTicks * 0.8f) * this.toRads(50);
+        }
     }
 
     private float toRads(float deg) {
         return (float) Math.toRadians(deg);
-    }
-
-    private void showModels(BeaverFamiliarEntity entityIn) {
-        boolean hasEars = entityIn.hasEars();
-        boolean hasWhiskers = entityIn.hasWhiskers();
-        boolean hasBigTail = entityIn.hasBigTail();
-
-        this.leftEar.visible = hasEars;
-        this.rightEar.visible = hasEars;
-        this.whiskers1.visible = hasWhiskers;
-        this.whiskers2.visible = hasWhiskers;
-        this.tail.visible = !hasBigTail;
-        this.tail2.visible = hasBigTail;
     }
 }

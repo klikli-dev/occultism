@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -31,7 +30,6 @@ import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -40,14 +38,12 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
@@ -59,6 +55,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.function.Consumer;
@@ -166,7 +163,7 @@ public class FamiliarRingItem extends Item {
         }
     }
 
-    public static class Curio implements ICurio{
+    public static class Curio implements ICurio {
         private final ItemStack stack;
         private IFamiliar familiar;
         private CompoundTag cachedNbt;
@@ -217,7 +214,9 @@ public class FamiliarRingItem extends Item {
             return this.stack;
         }
 
-        public void curioTick(LivingEntity entity) {
+        @Override
+        public void curioTick(SlotContext slotContext) {
+            LivingEntity entity = slotContext.entity();
             Level level = entity.level();
             IFamiliar familiar = this.getFamiliar(level);
             if (familiar != null) {
@@ -255,6 +254,10 @@ public class FamiliarRingItem extends Item {
         private IFamiliar getFamiliar(Level level) {
             if (this.familiar != null)
                 return this.familiar;
+
+            if (!level.isClientSide() && this.stack.getItem() instanceof FamiliarRingItem familiarRingItem) {
+                familiarRingItem.handleFamiliarTypeTag(this.stack);
+            }
 
             var data = this.stack.get(OccultismDataComponents.FAMILIAR_DATA);
             var tag = data == null ? null : data.copyTag();

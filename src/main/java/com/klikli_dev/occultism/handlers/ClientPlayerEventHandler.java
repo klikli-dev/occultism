@@ -46,12 +46,9 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.InputEvent.Key;
 import net.neoforged.neoforge.client.event.InputEvent.MouseButton;
-import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent.KeyPressed.Post;
-import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent.AtPosition;
 
 import java.util.HashMap;
@@ -143,6 +140,7 @@ public class ClientPlayerEventHandler {
             }
         }
     }
+
     @SubscribeEvent
     public static void onScreenKey(Post event) {
         Screen screen = event.getScreen();

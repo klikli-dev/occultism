@@ -25,32 +25,32 @@ package com.klikli_dev.occultism.datagen;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.common.advancement.RitualTrigger;
 import com.klikli_dev.occultism.common.advancement.RitualTrigger.TriggerInstance;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRituals;
-import net.minecraft.advancements.Advancement;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.Advancement.Builder;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.DisplayInfo;
+import net.minecraft.advancements.*;
+import net.minecraft.advancements.criterion.AnyBlockInteractionTrigger;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.PlayerTrigger;
-import net.minecraft.core.ClientAsset;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomModelData;
-import net.minecraft.data.advancements.AdvancementSubProvider;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 
 import java.util.List;
 import java.util.Optional;
@@ -94,20 +94,59 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
 
     private void start() {
         var root = this.add(Builder.advancement()
-//                    .display(OccultismItems.JEI_DUMMY_NONE.get(),
-//                            title("root"),
-//                            descr("root"),
-//                            Identifier.parse("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, true,
-//                            true, true)
+//                .display(
+//                        new ItemStackTemplate(OccultismItems.JEI_DUMMY_NONE.get().builtInRegistryHolder()),
+//                        title("root"),
+//                        descr("root"),
+//                        Identifier.fromNamespaceAndPath(Occultism.MODID,"block/otherstone"),
+//                        AdvancementType.TASK,
+//                        true,
+//                        true,
+//                        true
+//                )
                 .addCriterion("occultism_present", PlayerTrigger.TriggerInstance.tick())
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/root")));
+
+        var chalksRoot = this.add(Builder.advancement()
+                .display(OccultismItems.BRUSH.get(),
+                        title("chalks.root"),
+                        descr("chalks.root").withStyle(style -> style.withColor(0xCCCCCC)),
+                        Identifier.fromNamespaceAndPath(Occultism.MODID, "block/otherstone"),
+                        AdvancementType.TASK,
+                        true,
+                        false,
+                        false)
+                .addCriterion("always", PlayerTrigger.TriggerInstance.tick())
+                .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "chalks/root")));
+
+        var chalkWhite = this.addChalkAdvancement(chalksRoot, "white", OccultismItems.CHALK_WHITE.get());
+        this.addChalkAdvancement(chalkWhite, "light_gray", OccultismItems.CHALK_LIGHT_GRAY.get());
+        var chalkYellow = this.addChalkAdvancement(chalkWhite, "yellow", OccultismItems.CHALK_YELLOW.get());
+        var chalkPurple = this.addChalkAdvancement(chalkYellow, "purple", OccultismItems.CHALK_PURPLE.get());
+        var chalkLime = this.addChalkAdvancement(chalkPurple, "lime", OccultismItems.CHALK_LIME.get());
+        var chalkOrange = this.addChalkAdvancement(chalkLime, "orange", OccultismItems.CHALK_ORANGE.get());
+        this.addChalkAdvancement(chalkLime, "gray", OccultismItems.CHALK_GRAY.get());
+        this.addChalkAdvancement(chalkLime, "light_blue", OccultismItems.CHALK_LIGHT_BLUE.get());
+        this.addChalkAdvancement(chalkPurple, "green", OccultismItems.CHALK_GREEN.get());
+        var chalkRed = this.addChalkAdvancement(chalkOrange, "red", OccultismItems.CHALK_RED.get());
+        var chalkBlack = this.addChalkAdvancement(chalkRed, "black", OccultismItems.CHALK_BLACK.get());
+        var chalkBlue = this.addChalkAdvancement(chalkBlack, "blue", OccultismItems.CHALK_BLUE.get());
+        this.addChalkAdvancement(chalkBlue, "brown", OccultismItems.CHALK_BROWN.get());
+        this.addChalkAdvancement(chalkBlue, "cyan", OccultismItems.CHALK_CYAN.get());
+        var chalkMagenta = this.addChalkAdvancement(chalkBlue, "magenta", OccultismItems.CHALK_MAGENTA.get());
+        this.addChalkAdvancement(chalkOrange, "pink", OccultismItems.CHALK_PINK.get());
+        var chalkRainbow = this.addChalkAdvancement(chalkMagenta, "rainbow", OccultismItems.CHALK_RAINBOW.get());
+        this.addChalkAdvancement(chalkRainbow, "void", OccultismItems.CHALK_VOID.get(), AdvancementType.CHALLENGE);
 
         var familiarsRoot = this.add(Builder.advancement()
                 .display(OccultismItems.PENTACLE_POSSESS.get(),
                         title("familiars"),
                         descr("familiars"),
-                        Identifier.fromNamespaceAndPath(Occultism.MODID,"textures/block/otherplanks.png"), AdvancementType.TASK, true,
-                        true, false)
+                        Identifier.fromNamespaceAndPath(Occultism.MODID, "block/otherplanks"),
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
                 .addCriterion("summon_familiar",
                         TriggerInstance.ritualFactory(OccultismRituals.FAMILIAR.getId()))
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/familiar/root")));
@@ -261,6 +300,24 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
                         ))
                 )
                 .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "occultism/" + id)));
+    }
+
+    private AdvancementHolder addChalkAdvancement(AdvancementHolder parent, String id, ItemLike item) {
+        return this.addChalkAdvancement(parent, id, item, AdvancementType.TASK);
+    }
+
+    private AdvancementHolder addChalkAdvancement(AdvancementHolder parent, String id, ItemLike item, AdvancementType type) {
+        return this.add(Builder.advancement().parent(parent)
+                .display(item, title("chalks." + id), descr("chalks." + id).withStyle(ChatFormatting.GREEN), null, type,
+                        true, true, false)
+                .addCriterion(BuiltInRegistries.ITEM.getKey(item.asItem()).getPath(), this.chalkUsedCriterion(item))
+                .build(Identifier.fromNamespaceAndPath(Occultism.MODID, "chalks/" + id)));
+    }
+
+    private Criterion<AnyBlockInteractionTrigger.TriggerInstance> chalkUsedCriterion(ItemLike item) {
+        var itemLookup = this.registries.lookupOrThrow(Registries.ITEM);
+        var location = ContextAwarePredicate.create(MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemLookup, item)).build());
+        return CriteriaTriggers.ANY_BLOCK_USE.createCriterion(new AnyBlockInteractionTrigger.TriggerInstance(Optional.empty(), Optional.of(location)));
     }
 
     private AdvancementHolder add(AdvancementHolder advancement) {

@@ -31,24 +31,19 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.Entity.RemovalReason;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import org.jetbrains.annotations.NotNull;
@@ -153,8 +148,8 @@ public class MagicLampItem extends Item {
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             EntityType<?> type = this.getType(pStack);
             pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled",
-                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack)), type.getDescription(),
-                Component.translatable("job.occultism."+ItemNBTUtil.getSpiritJob(pStack).split(":",2)[1])));
+                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack)), type.getDescription(),
+                    Component.translatable("job.occultism." + ItemNBTUtil.getSpiritJob(pStack).split(":", 2)[1])));
         } else {
             pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
