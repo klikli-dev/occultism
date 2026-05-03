@@ -16,6 +16,7 @@ import net.minecraft.resources.Identifier;
 public final class OccultismGuiStyles {
     private static final int BACKGROUND_TINT = 0xFF4B5563;
     private static final int TOP_BAR_TINT = 0xFF9C0393;
+    private static final int AGE_BAR_TINT = 0xFFBB7DB8;
     private static final int SLOT_TINT = 0xFF697586;
     private static final int BUTTON_TINT = 0xFF5D6878;
     private static final int BUTTON_HOVER_TINT = 0xFF707C8D;
@@ -85,6 +86,7 @@ public final class OccultismGuiStyles {
         GuiStyleRegistry.register(SPIRIT, spiritBaseStyle()
                 .set(OccultismGuiParts.SPIRIT_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.SPIRIT_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
+                .set(OccultismGuiParts.SPIRIT_AGE_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(AGE_BAR_TINT))
                 .set(OccultismGuiParts.SPIRIT_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)

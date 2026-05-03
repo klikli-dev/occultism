@@ -14,6 +14,7 @@ public final class OccultismGuiParts {
     public static final GuiPartKey SPIRIT_INVENTORY_SLOT = key("spirit/inventory_slot");
     public static final GuiPartKey SPIRIT_PANEL = key("spirit/panel");
     public static final GuiPartKey SPIRIT_TOP_BAR = key("spirit/top_bar");
+    public static final GuiPartKey SPIRIT_AGE_BAR = key("spirit/age_bar");
     public static final GuiPartKey SPIRIT_HORIZONTAL_SEPARATOR = key("spirit/horizontal_separator");
     public static final GuiPartKey SPIRIT_VERTICAL_SEPARATOR = key("spirit/vertical_separator");
     public static final GuiPartKey SPIRIT_TITLE = key("spirit/title");

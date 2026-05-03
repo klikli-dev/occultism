@@ -61,7 +61,11 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected static final int ENTITY_HEIGHT = 50;
     protected static final int NAME_LABEL_X = MAIN_LEFT + 8;
     protected static final int NAME_LABEL_Y = MAIN_TOP + 6;
-    protected static final int AGE_LABEL_X = ENTITY_X + ENTITY_WIDTH + 8;
+    protected static final int AGE_BAR_LEFT = MAIN_LEFT;
+    protected static final int AGE_BAR_WIDTH = MAIN_WIDTH;
+    protected static final int AGE_BAR_HEIGHT = 16;
+    protected static final int AGE_BAR_OVERLAP = 3;
+    protected static final int AGED_INVENTORY_OFFSET = AGE_BAR_HEIGHT - AGE_BAR_OVERLAP;
     protected static final int INVENTORY_BACKGROUND_LEFT = 3;
     protected static final int INVENTORY_BACKGROUND_TOP = 89;
     protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
@@ -80,7 +84,13 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected final T container;
 
     public SpiritGui(T container, Inventory playerInventory, Component titleIn) {
-        this(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT);
+        this(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT + inventoryOffsetFor(container));
+    }
+
+    protected static int inventoryOffsetFor(SpiritContainer container) {
+        return container.spirit.getEntity() instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0
+                ? AGED_INVENTORY_OFFSET
+                : 0;
     }
 
     public SpiritGui(T container, Inventory playerInventory, Component titleIn, int imageWidth, int imageHeight) {
@@ -101,13 +111,18 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                 this.mainWidth(), this.mainHeight(), this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND)));
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth,
                 this.topBarHeight(), this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
+        if (this.hasAgeBar()) {
+            this.root.addChild(new GuiBackgroundWidget(this, this.guiX(this.ageBarLeft()), this.guiY(this.ageBarTop()),
+                    this.ageBarWidth(), this.ageBarHeight(), this.partSprite(this.ageBarPart(),
+                    this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND))));
+        }
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(this.inventoryBackgroundLeft()),
                 this.guiY(this.inventoryBackgroundTop()), this.inventoryBackgroundWidth(), this.inventoryBackgroundHeight(),
                 this.partSprite(this.inventoryBackgroundPart(),
                         this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
         this.root.addChild(new VerticalSeparatorWidget(this.guiX(this.verticalSeparatorX()),
                 this.guiY(this.topBarHeight()),
-                this.mainHeight() - (this.topBarHeight() - this.mainTop()),
+                this.ageBarTop() - this.topBarHeight(),
                 this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
         this.root.addChild(new LivingEntityWidget(this, this.entityX(), this.entityY(), this.entityWidth(),
                 this.entityHeight(), () -> this.spirit.getEntity(), this.entityPreviewMouseOffsetX(),
@@ -136,10 +151,13 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X,
                 NAME_LABEL_Y, this.infoLabelColor(), false);
 
-        if (this.spirit instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0) {
+        SpiritEntity spiritEntity = this.spiritEntityWithAge();
+        if (spiritEntity != null) {
             int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
-            guiGraphics.text(this.font, I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent), AGE_LABEL_X,
-                    this.mainTop() + (this.mainHeight() - this.font.lineHeight) / 2, this.infoLabelColor(), false);
+            String ageText = I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent);
+            int ageLabelX = this.ageBarLeft() + (this.ageBarWidth() - this.font.width(ageText)) / 2;
+            int ageLabelY = this.ageBarTop() + (this.ageBarHeight() - this.font.lineHeight) / 2 + 1;
+            guiGraphics.text(this.font, ageText, ageLabelX, ageLabelY, 0xFF000000, false);
         }
 
         guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX(), this.inventoryLabelY(), 0x303030, false);
@@ -162,9 +180,9 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.tooltip.clear();
 
         if (!this.spirit.isInventorySlotActive()) {
-            guiGraphics.fillGradient(this.guiX(INVENTORY_SLOT_LEFT + 1), this.guiY(INVENTORY_SLOT_TOP),
+            guiGraphics.fillGradient(this.guiX(INVENTORY_SLOT_LEFT + 1), this.guiY(this.inventorySlotTop()),
                     this.guiX(INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 1),
-                    this.guiY(INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 2), 0xAA555555, 0xAA555555);
+                    this.guiY(this.inventorySlotTop() + INVENTORY_SLOT_SIZE - 2), 0xAA555555, 0xAA555555);
         }
 
         if (this.isPointInInventorySlot(mouseX, mouseY)) {
@@ -184,7 +202,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected boolean isPointInInventorySlot(double mouseX, double mouseY) {
-        return this.isHovering(INVENTORY_SLOT_LEFT, INVENTORY_SLOT_TOP, INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
+        return this.isHovering(INVENTORY_SLOT_LEFT, this.inventorySlotTop(), INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
                 mouseX, mouseY);
     }
 
@@ -281,7 +299,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected int inventoryBackgroundTop() {
-        return INVENTORY_BACKGROUND_TOP;
+        return INVENTORY_BACKGROUND_TOP + this.inventoryOffsetY();
     }
 
     protected int inventoryBackgroundWidth() {
@@ -301,11 +319,55 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected int inventoryLabelY() {
-        return INVENTORY_LABEL_Y;
+        return INVENTORY_LABEL_Y + this.inventoryOffsetY();
     }
 
     protected int verticalSeparatorX() {
         return VERTICAL_SEPARATOR_X;
+    }
+
+    protected int inventoryOffsetY() {
+        return this.hasAgeBar() ? AGED_INVENTORY_OFFSET : 0;
+    }
+
+    protected int inventorySlotTop() {
+        return this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX).y;
+    }
+
+    protected boolean hasAgeBar() {
+        return this.spiritEntityWithAge() != null;
+    }
+
+    protected SpiritEntity spiritEntityWithAge() {
+        if (this.spirit.getEntity() instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0) {
+            return spiritEntity;
+        }
+
+        return null;
+    }
+
+    protected int ageBarLeft() {
+        return AGE_BAR_LEFT;
+    }
+
+    protected int ageBarTop() {
+        return this.mainTop() + this.mainHeight() - this.ageBarOverlap() - 1;
+    }
+
+    protected int ageBarWidth() {
+        return AGE_BAR_WIDTH;
+    }
+
+    protected int ageBarHeight() {
+        return AGE_BAR_HEIGHT;
+    }
+
+    protected int ageBarOverlap() {
+        return AGE_BAR_OVERLAP;
+    }
+
+    protected GuiPartKey ageBarPart() {
+        return OccultismGuiParts.SPIRIT_AGE_BAR;
     }
 
     protected Component topBarTitle() {

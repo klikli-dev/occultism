@@ -21,6 +21,11 @@ import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import javax.annotation.Nullable;
 
 public class SpiritContainer extends AbstractContainerMenu {
+    protected static final int AGED_INVENTORY_OFFSET = 13;
+    protected static final int MAIN_TOP = 15;
+    protected static final int MAIN_HEIGHT = 63;
+    protected static final int TOP_BAR_HEIGHT = 18;
+    protected static final int INVENTORY_SLOT_SIZE = 18;
 
     public ItemStacksResourceHandler inventory;
     public IFilterConfigurable spirit;
@@ -81,8 +86,14 @@ public class SpiritContainer extends AbstractContainerMenu {
         this.setupEntityInventory();
     }
 
+    protected int inventoryOffsetY() {
+        return this.spirit.getEntity() instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0
+                ? AGED_INVENTORY_OFFSET
+                : 0;
+    }
+
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 97;
+        int playerInventoryTop = 97 + this.inventoryOffsetY();
         int playerInventoryLeft = 11;
 
         for (int i = 0; i < 3; i++)
@@ -92,14 +103,15 @@ public class SpiritContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 155;
+        int hotbarTop = 155 + this.inventoryOffsetY();
         int hotbarLeft = 11;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
     protected void setupEntityInventory() {
-        this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 153, 39) {
+        int inventorySlotTop = TOP_BAR_HEIGHT + ((MAIN_TOP + MAIN_HEIGHT - TOP_BAR_HEIGHT) - INVENTORY_SLOT_SIZE) / 2;
+        this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 153, inventorySlotTop) {
 
             @Override
             public boolean isActive() {
