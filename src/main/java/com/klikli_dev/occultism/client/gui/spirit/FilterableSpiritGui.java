@@ -207,9 +207,9 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
         }
 
         if (!this.spirit.isInventorySlotActive()) {
-            guiGraphics.fillGradient(this.guiX(INVENTORY_SLOT_LEFT + 1), this.guiY(INVENTORY_SLOT_TOP + 1),
+            guiGraphics.fillGradient(this.guiX(INVENTORY_SLOT_LEFT + 1), this.guiY(INVENTORY_SLOT_TOP),
                     this.guiX(INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 1),
-                    this.guiY(INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 1), 0xAA555555, 0xAA555555);
+                    this.guiY(INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 2), 0xAA555555, 0xAA555555);
         }
 
         if (this.isPointInFilterSlot(mouseX, mouseY)) {
