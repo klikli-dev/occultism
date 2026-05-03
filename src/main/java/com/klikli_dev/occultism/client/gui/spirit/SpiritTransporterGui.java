@@ -97,6 +97,11 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             this.root.addChild(new GuiSpriteWidget(this.guiX(slot.x - 1), this.guiY(slot.y - 1), this.slotSprite(i)));
         }
         this.root.syncWithHost();
+
+        LabelWidget titleLabel = new LabelWidget(this.leftPos + TITLE_X, this.topPos + TITLE_Y, false, -1, 2,
+                2, this.partColor(this.titlePart(), 0x303030));
+        titleLabel.addLine(this.topBarTitle());
+        this.addRenderableWidget(titleLabel);
     }
 
     @Override
@@ -187,9 +192,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, this.topBarTitle(), this.leftPos + TITLE_X, this.topPos + TITLE_Y,
-                this.partColor(this.titlePart(), 0x303030), false);
-
         this.tooltip.clear();
 
         if (this.isFilterSlotEmpty()) {
