@@ -9,6 +9,14 @@ import com.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.Identifier;
 
 public final class OccultismGuiParts {
+    public static final GuiPartKey SPIRIT_PLAYER_SLOT = key("spirit/player_slot");
+    public static final GuiPartKey SPIRIT_PLAYER_INVENTORY_BACKGROUND = key("spirit/player_inventory_background");
+    public static final GuiPartKey SPIRIT_INVENTORY_SLOT = key("spirit/inventory_slot");
+    public static final GuiPartKey SPIRIT_PANEL = key("spirit/panel");
+    public static final GuiPartKey SPIRIT_TOP_BAR = key("spirit/top_bar");
+    public static final GuiPartKey SPIRIT_HORIZONTAL_SEPARATOR = key("spirit/horizontal_separator");
+    public static final GuiPartKey SPIRIT_VERTICAL_SEPARATOR = key("spirit/vertical_separator");
+    public static final GuiPartKey SPIRIT_TITLE = key("spirit/title");
     public static final GuiPartKey FILTER_PLAYER_SLOT = key("filter/player_slot");
     public static final GuiPartKey FILTER_PLAYER_INVENTORY_BACKGROUND = key("filter/player_inventory_background");
     public static final GuiPartKey FILTER_FILTER_SLOT = key("filter/filter_slot");

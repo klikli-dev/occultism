@@ -6,41 +6,28 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
-import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
-import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
 import com.klikli_dev.codedefinedgui.gui.style.GuiPartKey;
 import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
 import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
 import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
-import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
-import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
 import com.klikli_dev.occultism.common.container.spirit.FilterableSpiritContainer;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
-
+import java.util.Optional;
 import java.util.regex.Pattern;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends SpiritGui<T> implements GuiHost {
+public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends SpiritGui<T> {
     protected static final GuiSprite FILTER_HINT_SPRITE = new GuiSprite(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/transporter_filter_hint"), 18, 18).tinted(0x4DFFFFFF);
     protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
     protected static final int TITLE_X = 11;
@@ -77,39 +64,10 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     protected static final String INVENTORY_SLOT_TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.inventory_slot";
     protected static final Pattern TIER_SUFFIX = Pattern.compile("_tier\\d+$");
 
-    protected final GuiRootWidget root;
-    protected final List<Component> tooltip = new ArrayList<>();
-
     public FilterableSpiritGui(T container,
                                Inventory playerInventory,
                                Component titleIn) {
         super(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT);
-        this.root = new GuiRootWidget(this);
-    }
-
-    @Override
-    public void init() {
-        super.init();
-
-        this.addRenderableWidget(this.root);
-        this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(MAIN_LEFT), this.guiY(MAIN_TOP), MAIN_WIDTH, MAIN_HEIGHT, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth, TOP_BAR_HEIGHT, this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(INVENTORY_BACKGROUND_LEFT), this.guiY(INVENTORY_BACKGROUND_TOP), INVENTORY_BACKGROUND_WIDTH, INVENTORY_BACKGROUND_HEIGHT, this.partSprite(OccultismGuiParts.SPIRIT_TRANSPORTER_PLAYER_INVENTORY_BACKGROUND, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
-        this.root.addChild(new VerticalSeparatorWidget(this.guiX(VERTICAL_SEPARATOR_X), this.guiY(MAIN_TOP), MAIN_HEIGHT, this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
-        this.root.addChild(new LivingEntityWidget(this, ENTITY_X, ENTITY_Y, ENTITY_WIDTH, ENTITY_HEIGHT,
-                () -> this.spirit.getEntity(), 14.0F, 7.0F));
-
-        for (int i = 0; i < this.menu.slots.size(); i++) {
-            Slot slot = this.menu.slots.get(i);
-            this.root.addChild(new GuiSpriteWidget(this.guiX(slot.x - 1), this.guiY(slot.y - 1), this.slotSprite(i)));
-        }
-        this.root.syncWithHost();
-
-        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth / 2), this.guiY(TITLE_Y - 1), true,
-                -1, 2, 2, 0x000000);
-        titleLabel.addLine(this.topBarTitle());
-        this.addRenderableWidget(titleLabel);
     }
 
     @Override
@@ -135,68 +93,83 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     }
 
     @Override
-    protected void addSpiritNameWidget() {
+    protected int mainLeft() {
+        return MAIN_LEFT;
     }
 
     @Override
-    protected int infoLabelColor() {
-        return 0xFF303030;
+    protected int mainTop() {
+        return MAIN_TOP;
     }
 
     @Override
-    protected int infoLabelLeft() {
-        return this.leftPos + 68;
+    protected int mainWidth() {
+        return MAIN_WIDTH;
     }
 
     @Override
-    protected int infoLabelTop() {
-        return this.topPos + 25;
+    protected int mainHeight() {
+        return MAIN_HEIGHT;
     }
 
     @Override
-    public <W extends AbstractWidget> W addGuiWidget(W widget) {
-        return this.addRenderableWidget(widget);
+    protected int entityX() {
+        return ENTITY_X;
     }
 
     @Override
-    public void removeGuiWidget(AbstractWidget widget) {
-        this.removeWidget(widget);
+    protected int entityY() {
+        return ENTITY_Y;
     }
 
     @Override
-    public int leftPos() {
-        return this.leftPos;
+    protected int entityWidth() {
+        return ENTITY_WIDTH;
     }
 
     @Override
-    public int topPos() {
-        return this.topPos;
+    protected int entityHeight() {
+        return ENTITY_HEIGHT;
     }
 
     @Override
-    public int width() {
-        return this.width;
+    protected int inventoryBackgroundLeft() {
+        return INVENTORY_BACKGROUND_LEFT;
     }
 
     @Override
-    public int height() {
-        return this.height;
+    protected int inventoryBackgroundTop() {
+        return INVENTORY_BACKGROUND_TOP;
     }
 
     @Override
-    public int imageWidth() {
-        return this.imageWidth;
+    protected int inventoryBackgroundWidth() {
+        return INVENTORY_BACKGROUND_WIDTH;
     }
 
     @Override
-    public int imageHeight() {
-        return this.imageHeight;
+    protected int inventoryBackgroundHeight() {
+        return INVENTORY_BACKGROUND_HEIGHT;
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.renderFg(guiGraphics, mouseX, mouseY);
+    protected GuiPartKey inventoryBackgroundPart() {
+        return OccultismGuiParts.SPIRIT_TRANSPORTER_PLAYER_INVENTORY_BACKGROUND;
+    }
+
+    @Override
+    protected int inventoryLabelX() {
+        return INVENTORY_LABEL_X;
+    }
+
+    @Override
+    protected int inventoryLabelY() {
+        return INVENTORY_LABEL_Y;
+    }
+
+    @Override
+    protected int verticalSeparatorX() {
+        return VERTICAL_SEPARATOR_X;
     }
 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
