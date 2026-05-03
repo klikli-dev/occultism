@@ -27,6 +27,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> implements GuiHost {
+    protected static final GuiSprite FILTER_HINT_SPRITE = new GuiSprite(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/transporter_filter_hint"), 18, 18);
     protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
     protected static final int TITLE_X = 11;
     protected static final int TITLE_Y = 6;
@@ -170,6 +172,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.tooltip.clear();
 
+        if (this.isFilterSlotEmpty()) {
+            FILTER_HINT_SPRITE.extractRenderState(guiGraphics, this.leftPos + FILTER_SLOT_LEFT, this.topPos + FILTER_SLOT_TOP);
+        }
+
         if (!this.spirit.isInventorySlotActive()) {
             guiGraphics.fillGradient(this.leftPos + INVENTORY_SLOT_LEFT, this.topPos + INVENTORY_SLOT_TOP,
                     this.leftPos + INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 2,
@@ -178,7 +184,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         if (this.isPointInFilterSlot(mouseX, mouseY)) {
             this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_item"));
-            if (!this.menu.getSlot(this.menu.getFilterSlotIndex()).hasItem()) {
+            if (this.isFilterSlotEmpty()) {
                 this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_item.empty")
                         .withStyle(ChatFormatting.GRAY));
             }
@@ -207,6 +213,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected boolean isPointInFilterSlot(double mouseX, double mouseY) {
         return this.isHovering(FILTER_SLOT_LEFT, FILTER_SLOT_TOP, INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
                 mouseX, mouseY);
+    }
+
+    protected boolean isFilterSlotEmpty() {
+        return !this.menu.getSlot(this.menu.getFilterSlotIndex()).hasItem();
     }
 
     protected GuiStyle style() {
