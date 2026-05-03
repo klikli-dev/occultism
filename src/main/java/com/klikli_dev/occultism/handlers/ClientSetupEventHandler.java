@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.DimensionalBattlefieldScreen;
 import com.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
-import com.klikli_dev.occultism.client.gui.filter.FilterStyles;
+import com.klikli_dev.occultism.client.gui.OccultismGuiStylesRegistry;
 import com.klikli_dev.occultism.client.gui.satchel.RitualSatchelScreen;
 import com.klikli_dev.occultism.client.gui.satchel.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritGui;
@@ -224,7 +224,7 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         TooltipHandler.registerNamespaceToListenTo(Occultism.MODID);
-        FilterStyles.register();
+        OccultismGuiStylesRegistry.register();
 
         //Register client side event handlers
         NeoForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
