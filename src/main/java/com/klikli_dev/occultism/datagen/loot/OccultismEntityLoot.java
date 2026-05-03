@@ -538,7 +538,8 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(EmptyLootItem.emptyItem().setWeight(7))
+                                .add(EmptyLootItem.emptyItem().setWeight(5))
+                                .add(LootItem.lootTableItem(Items.WIND_CHARGE).setWeight(3))
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR_MUSIC_BOX).setWeight(1))
                 );
     }

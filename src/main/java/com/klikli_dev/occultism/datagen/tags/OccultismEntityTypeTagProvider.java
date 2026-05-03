@@ -57,6 +57,10 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.SLIME)
                 .add(EntityType.MAGMA_CUBE)
                 .replace(false);
+        this.tag(Entities.CREEPER)
+                .add(EntityType.CREEPER)
+                .add(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get())
+                .replace(false);
         this.tag(Entities.FLYING_PASSIVE)
                 .add(EntityType.BAT)
                 .add(EntityType.PARROT)
@@ -217,6 +221,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(Entities.SOUL_GEM_DENY_LIST).add(OccultismEntities.IESNIUM_GOLEM_TYPE.get()).addOptionalTag(EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(EntityTypes.BOSSES);
 
         this.tag(Entities.SNOW_GOLEM).add(EntityType.SNOW_GOLEM).replace(false);
+        this.tag(Entities.COPPER_GOLEM).add(EntityType.COPPER_GOLEM).replace(false);
         this.tag(Entities.IRON_GOLEM).add(EntityType.IRON_GOLEM).replace(false);
         this.tag(Entities.AXOLOTL).add(EntityType.AXOLOTL).replace(false);
         this.tag(Entities.BATS).add(EntityType.BAT).add(OccultismEntities.BAT_FAMILIAR_TYPE.get()).replace(false);

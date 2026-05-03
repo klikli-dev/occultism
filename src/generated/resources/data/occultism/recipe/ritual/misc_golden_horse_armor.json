@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": "minecraft:leather_horse_armor",
-  "duration": 180,
+  "duration": 206,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.armadillos",
     "tag": "c:armadillos"

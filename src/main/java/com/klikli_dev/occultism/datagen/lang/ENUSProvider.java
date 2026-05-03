@@ -769,6 +769,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         //Ritual Sacrifices
         this.add("ritual.occultism.sacrifice.cows", "Cow");
+        this.add("ritual.occultism.sacrifice.creeper", "Creeper");
         this.add("ritual.occultism.sacrifice.bats", "Bat");
         this.add("ritual.occultism.sacrifice.bees", "Bee");
         this.add("ritual.occultism.sacrifice.zombies", "Zombie");
@@ -782,6 +783,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.llamas", "Llama");
         this.add("ritual.occultism.sacrifice.goats", "Goat");
         this.add("ritual.occultism.sacrifice.snow_golem", "Snow Golem");
+        this.add("ritual.occultism.sacrifice.copper_golem", "Copper Golem");
         this.add("ritual.occultism.sacrifice.iron_golem", "Iron Golem");
         this.add("ritual.occultism.sacrifice.spiders", "Spider");
         this.add("ritual.occultism.sacrifice.flying_passive", "Allay, Bat, Bee or Parrot");

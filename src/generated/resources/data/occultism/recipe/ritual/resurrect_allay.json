@@ -1,6 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": "minecraft:sugar",
+  "duration": 20,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.vex",
     "tag": "c:vex"

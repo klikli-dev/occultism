@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": "minecraft:flint_and_steel",
-  "duration": 90,
+  "duration": 96,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.pigs",
     "tag": "c:pigs"

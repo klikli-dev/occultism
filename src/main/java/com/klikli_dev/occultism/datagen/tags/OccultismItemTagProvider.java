@@ -617,6 +617,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE)
                 .add(Items.TRIAL_KEY)
+                .add(Items.WIND_CHARGE)
                 .add(Items.OMINOUS_BOTTLE)
                 .add(Items.MUSIC_DISC_CREATOR_MUSIC_BOX)
                 .add(Items.SCRAPE_POTTERY_SHERD)

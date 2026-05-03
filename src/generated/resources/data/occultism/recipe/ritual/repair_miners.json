@@ -1,6 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": "#occultism:miners",
+  "duration": 15,
   "ingredients": [
     "occultism:otherworld_essence",
     "occultism:otherworld_essence",
