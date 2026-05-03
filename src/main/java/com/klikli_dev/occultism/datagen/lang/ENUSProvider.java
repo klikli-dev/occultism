@@ -151,11 +151,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
         this.add(OccultismItems.DIMENSIONAL_MATRIX.get().getDescriptionId() + ".tooltip", "%s is bound to this dimensional matrix.");
         this.add(OccultismItems.INFUSED_PICKAXE.get().getDescriptionId() + ".tooltip", "%s is bound to this pickaxe.");
-        this.add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "%s will mine random basic ores in the mining dimension.");
-        this.add(OccultismItems.MINER_DJINNI_ORES.get().getDescriptionId() + ".tooltip", "%s will mine random ores in the mining dimension.");
-        this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner will mine random blocks in the mining dimension.");
-        this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s will mine random most ores in the mining dimension.");
-        this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s will mine ores, including rare ones, in the mining dimension.");
+        this.add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "%s randomly mines basic ores in the Mining Dimension.");
+        this.add(OccultismItems.MINER_DJINNI_ORES.get().getDescriptionId() + ".tooltip", "%s randomly mines general ores in the Mining Dimension.");
+        this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner mines random blocks in the Mining Dimension.");
+        this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s randomly mines most ores in the Mining Dimension.");
+        this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s randomly mines ores, including rare ones, in the Mining Dimension.");
         this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine every ores in the mining dimension.");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_filled", "%s is bound to this lamp.\n %s: %s");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_empty", "Use on a spirit worker to capture it.");
