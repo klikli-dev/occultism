@@ -15,7 +15,10 @@ import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
+import com.klikli_dev.codedefinedgui.gui.widget.IconButtonWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
@@ -24,32 +27,29 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.client.input.MouseButtonEvent;
 
 public abstract class BookOfCallingScreenBase extends Screen implements GuiHost {
-    protected static final int GUI_WIDTH = 182;
-    protected static final int GUI_HEIGHT = 140;
-    protected static final int TOP_BAR_HEIGHT = 18;
+    protected static final int GUI_WIDTH = 241;
+    protected static final int TOP_BAR_HEIGHT = 15;
     protected static final int MAIN_LEFT = 3;
-    protected static final int MAIN_TOP = 15;
-    protected static final int MAIN_WIDTH = 176;
-    protected static final int MAIN_HEIGHT = 122;
+    protected static final int MAIN_TOP = 12;
     protected static final int TITLE_Y = 6;
-    protected static final int CONTENT_LEFT = 14;
-    protected static final int CONTENT_TOP = 30;
-    protected static final int LABEL_RIGHT_X = 58;
-    protected static final int BUTTON_LEFT = 66;
-    protected static final int BUTTON_WIDTH = 102;
-    protected static final int ROW_HEIGHT = 25;
-    protected static final int BUTTON_HEIGHT = 20;
-    protected static final int DIVIDER_Y = 84;
-    protected static final int EXIT_BUTTON_SIZE = 20;
+    protected static final int LABEL_RIGHT_X = 66;
+    protected static final int SELECTION_LEFT = 72;
+    protected static final int SELECTION_WIDTH = 120;
+    protected static final int SELECTION_HEIGHT = 18;
+    protected static final int CONFIRM_BUTTON_X = 208;
 
     protected final GuiRootWidget root = new GuiRootWidget(this);
+    private final int imageHeight;
     protected int leftPos;
     protected int topPos;
+    private boolean closingHandled;
 
-    protected BookOfCallingScreenBase() {
-        super(Component.empty());
+    protected BookOfCallingScreenBase(Component title, int imageHeight) {
+        super(title);
+        this.imageHeight = imageHeight;
     }
 
     @Override
@@ -61,21 +61,20 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
 
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(MAIN_LEFT), this.guiY(MAIN_TOP), MAIN_WIDTH,
-                MAIN_HEIGHT, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(MAIN_LEFT), this.guiY(MAIN_TOP), this.imageWidth() - 6,
+                this.imageHeight() - MAIN_TOP, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiSprites.GUI_BACKGROUND)));
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth(),
                 TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(MAIN_LEFT), this.guiY(DIVIDER_Y), MAIN_WIDTH,
-                this.partColor(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, 0xFF000000)));
         this.addBackgroundChildren();
         this.root.syncWithHost();
 
         LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y - 1), true,
                 -1, 2, 2, this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0x303030));
-        titleLabel.addLine(this.title());
+        titleLabel.addLine(this.title);
         this.addRenderableWidget(titleLabel);
 
         this.initContents();
+        this.refreshWidgetState();
     }
 
     protected void addBackgroundChildren() {
@@ -83,13 +82,49 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
 
     protected abstract void initContents();
 
-    protected abstract Component title();
+    protected void refreshWidgetState() {
+    }
+
+    protected void applyChanges() {
+    }
 
     protected void addLabelRow(int y, String translationKey) {
-        LabelWidget label = new LabelWidget(this.guiX(LABEL_RIGHT_X), this.guiY(y), false, -1, 2, 2, 0xFFFFFFFF)
+        LabelWidget label = new LabelWidget(this.guiX(LABEL_RIGHT_X), this.guiY(y), false, -1, 2, 2,
+                this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_LABEL, 0xFFFFFFFF))
                 .alignRight(true);
         label.addLine(Component.translatable(translationKey).copy().withStyle(ChatFormatting.WHITE));
         this.addRenderableWidget(label);
+    }
+
+    protected void addHorizontalSeparator(int y) {
+        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(MAIN_LEFT), this.guiY(y), this.imageWidth() - 6,
+                this.partColor(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, 0xFF000000)));
+    }
+
+    protected void addVerticalSeparator(int x, int y, int height) {
+        this.root.addChild(new VerticalSeparatorWidget(this.guiX(x), this.guiY(y), height,
+                this.partColor(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, 0xFF000000)));
+    }
+
+    protected <W extends AbstractWidget> W addRootChild(W widget) {
+        return this.root.addChild(widget);
+    }
+
+    protected IconButtonWidget addConfirmButton(int y) {
+        return this.addRootChild(new IconButtonWidget(this.guiX(CONFIRM_BUTTON_X), this.guiY(y),
+                GuiSprites.FILTER_ICON_CONFIRM,
+                this.buttonBackgroundSprites(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON),
+                Component.translatable("gui.occultism.book_of_calling.confirm"),
+                () -> this.closeScreen(true)))
+                .withTooltip(Component.translatable("gui.occultism.book_of_calling.confirm.tooltip"));
+    }
+
+    protected IconButtonBackgroundSprites buttonBackgroundSprites(GuiPartKey part) {
+        return new IconButtonBackgroundSprites(
+                this.style().get(part, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON),
+                this.style().get(part, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN),
+                this.style().get(part, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER)
+        );
     }
 
     protected GuiStyle style() {
@@ -111,6 +146,42 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
     @Override
     public boolean shouldCloseOnEsc() {
         return true;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.refreshWidgetState();
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        for (var listener : this.children()) {
+            if (listener.isMouseOver(mouseX, mouseY) && listener.mouseScrolled(mouseX, mouseY, scrollX, scrollY)) {
+                this.setFocused(listener);
+                return true;
+            }
+        }
+
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
+
+    @Override
+    public void onClose() {
+        this.closeScreen(false);
+    }
+
+    protected final void closeScreen(boolean confirm) {
+        if (this.closingHandled) {
+            return;
+        }
+
+        this.closingHandled = true;
+        if (confirm) {
+            this.applyChanges();
+        }
+
+        super.onClose();
     }
 
     @Override
@@ -160,6 +231,6 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
 
     @Override
     public int imageHeight() {
-        return GUI_HEIGHT;
+        return this.imageHeight;
     }
 }

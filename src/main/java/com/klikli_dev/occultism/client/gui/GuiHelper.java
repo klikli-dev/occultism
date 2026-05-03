@@ -28,22 +28,23 @@ import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 
 public class GuiHelper {
 
     //region Static Methods
     public static void openBookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing,
-                                                          String customName) {
+                                                          String customName, InteractionHand hand) {
         Minecraft.getInstance().setScreen(
-                new BookOfCallingManagedMachineGui(insertFacing, extractFacing, customName));
+                new BookOfCallingManagedMachineGui(insertFacing, extractFacing, customName, hand));
     }
 
-    public static void openBookOfCallingGui(ItemMode itemMode, WorkAreaSize workAreaSize) {
-        itemMode.openGUI(workAreaSize);
+    public static void openBookOfCallingGui(ItemMode itemMode, WorkAreaSize workAreaSize, InteractionHand hand) {
+        itemMode.openGUI(workAreaSize, hand);
     }
 
-    public static void openBookOfCallingGui_internal(ItemMode itemMode, WorkAreaSize workAreaSize) {
-        Minecraft.getInstance().setScreen(new BookOfCallingGui(itemMode, workAreaSize));
+    public static void openBookOfCallingGui_internal(ItemMode itemMode, WorkAreaSize workAreaSize, InteractionHand hand) {
+        Minecraft.getInstance().setScreen(new BookOfCallingGui(itemMode, workAreaSize, hand));
     }
     //endregion Static Methods
 }

@@ -21,6 +21,7 @@ public final class OccultismGuiStyles {
     private static final int BUTTON_TINT = 0xFF5D6878;
     private static final int BUTTON_HOVER_TINT = 0xFF707C8D;
     private static final int FIELD_TINT = 0xFF596474;
+    private static final int SELECTION_TINT = 0xFF667487;
     private static final int BLACK = 0xFF000000;
 
     public static final GuiStyleKey FILTER_LIST = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/list"));
@@ -73,11 +74,14 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
+                .set(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_TITLE, GuiStyleProperties.TEXT_COLOR, 0x303030)
+                .set(OccultismGuiParts.BOOK_OF_CALLING_LABEL, GuiStyleProperties.TEXT_COLOR, 0xFFF3EBDE)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_FIELD, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(FIELD_TINT))
-                .set(OccultismGuiParts.BOOK_OF_CALLING_BUTTON, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT))
-                .set(OccultismGuiParts.BOOK_OF_CALLING_BUTTON, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT))
-                .set(OccultismGuiParts.BOOK_OF_CALLING_BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT));
+                .set(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SELECTION_TINT))
+                .set(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT))
+                .set(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT))
+                .set(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT));
     }
 
     public static void register() {

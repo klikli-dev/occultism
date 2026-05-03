@@ -848,8 +848,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addGuiTranslations() {
+        this.add("gui.occultism.book_of_calling.confirm", "Done");
+        this.add("gui.occultism.book_of_calling.confirm.tooltip", "Save book settings");
         this.add("gui.occultism.book_of_calling.mode", "Mode");
+        this.add("gui.occultism.book_of_calling.scroll_to_select", "Scroll to select");
+        this.add("gui.occultism.book_of_calling.unavailable", "Unavailable");
         this.add("gui.occultism.book_of_calling.work_area", "Work Area");
+        this.add("gui.occultism.book_of_calling.work_area.not_applicable", "Not used in this mode");
         this.add("gui.occultism.book_of_calling.manage_machine.insert", "Insert Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.extract", "Extract Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.custom_name", "Custom Name");
