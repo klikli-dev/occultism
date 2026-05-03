@@ -87,7 +87,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.SPIRIT_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.SPIRIT_TITLE, GuiStyleProperties.TEXT_COLOR, 0x303030)
+                .set(OccultismGuiParts.SPIRIT_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
                 .build());
 
         GuiStyleRegistry.register(FILTER_LIST, filterBaseStyle()
@@ -113,7 +113,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE, GuiStyleProperties.TEXT_COLOR, 0x303030)
+                .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
                 .build());
     }
 }

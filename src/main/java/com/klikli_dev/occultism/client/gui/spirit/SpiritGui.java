@@ -61,6 +61,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected static final int ENTITY_HEIGHT = 50;
     protected static final int NAME_LABEL_X = MAIN_LEFT + 8;
     protected static final int NAME_LABEL_Y = MAIN_TOP + 6;
+    protected static final int AGE_LABEL_X = ENTITY_X + ENTITY_WIDTH + 8;
     protected static final int INVENTORY_BACKGROUND_LEFT = 3;
     protected static final int INVENTORY_BACKGROUND_TOP = 89;
     protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
@@ -104,8 +105,10 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                 this.guiY(this.inventoryBackgroundTop()), this.inventoryBackgroundWidth(), this.inventoryBackgroundHeight(),
                 this.partSprite(this.inventoryBackgroundPart(),
                         this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
-        this.root.addChild(new VerticalSeparatorWidget(this.guiX(this.verticalSeparatorX()), this.guiY(this.mainTop()),
-                this.mainHeight(), this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
+        this.root.addChild(new VerticalSeparatorWidget(this.guiX(this.verticalSeparatorX()),
+                this.guiY(this.topBarHeight()),
+                this.mainHeight() - (this.topBarHeight() - this.mainTop()),
+                this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
         this.root.addChild(new LivingEntityWidget(this, this.entityX(), this.entityY(), this.entityWidth(),
                 this.entityHeight(), () -> this.spirit.getEntity(), this.entityPreviewMouseOffsetX(),
                 this.entityPreviewMouseOffsetY()));
@@ -132,6 +135,13 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X,
                 NAME_LABEL_Y, this.infoLabelColor(), false);
+
+        if (this.spirit instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0) {
+            int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
+            guiGraphics.text(this.font, I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent), AGE_LABEL_X,
+                    this.mainTop() + (this.mainHeight() - this.font.lineHeight) / 2, this.infoLabelColor(), false);
+        }
+
         guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX(), this.inventoryLabelY(), 0x303030, false);
     }
 
