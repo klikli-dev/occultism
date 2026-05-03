@@ -8,12 +8,19 @@ package com.klikli_dev.occultism.client.gui.widget;
 
 import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
 import com.klikli_dev.codedefinedgui.gui.core.GuiSyncable;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
@@ -86,6 +93,41 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
 
     private void extractEntity(GuiGraphicsExtractor guiGraphics, int x0, int y0, int x1, int y1, int size,
                                float mouseX, float mouseY, float partialTick, LivingEntity entity) {
-        InventoryScreen.extractEntityInInventoryFollowsMouse(guiGraphics, x0, y0, x1, y1, size, 0.0625F, mouseX, mouseY, entity);
+        float centerX = (x0 + x1) / 2.0F;
+        float centerY = (y0 + y1) / 2.0F;
+        float xAngle = (float) Math.atan((centerX - mouseX) / 40.0F);
+        float yAngle = (float) Math.atan((centerY - mouseY) / 40.0F);
+        Quaternionf rotation = new Quaternionf().rotateZ((float) Math.PI);
+        Quaternionf xRotation = new Quaternionf().rotateX(yAngle * 20.0F * ((float) Math.PI / 180.0F));
+        rotation.mul(xRotation);
+        EntityRenderState renderState = this.extractRenderState(entity);
+        if (renderState instanceof LivingEntityRenderState livingRenderState) {
+            livingRenderState.bodyRot = 180.0F + xAngle * 20.0F;
+            livingRenderState.yRot = xAngle * 20.0F;
+            if (livingRenderState.pose != Pose.FALL_FLYING) {
+                livingRenderState.xRot = -yAngle * 20.0F;
+            } else {
+                livingRenderState.xRot = 0.0F;
+            }
+
+            livingRenderState.boundingBoxWidth = livingRenderState.boundingBoxWidth / livingRenderState.scale;
+            livingRenderState.boundingBoxHeight = livingRenderState.boundingBoxHeight / livingRenderState.scale;
+            livingRenderState.scale = 1.0F;
+        }
+
+        Vector3f translation = new Vector3f(0.0F, renderState.boundingBoxHeight / 2.0F + 0.0625F, 0.0F);
+        guiGraphics.entity(renderState, size, translation, rotation, xRotation, x0, y0, x1, y1);
+    }
+
+    private EntityRenderState extractRenderState(LivingEntity entity) {
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        EntityRenderer<? super LivingEntity, ?> renderer = entityRenderDispatcher.getRenderer(entity);
+        EntityRenderState renderState = renderer.createRenderState(entity, 1.0F);
+        renderState.shadowPieces.clear();
+        renderState.outlineColor = 0;
+        renderState.nameTag = null;
+        renderState.scoreText = null;
+        renderState.nameTagAttachment = null;
+        return renderState;
     }
 }
