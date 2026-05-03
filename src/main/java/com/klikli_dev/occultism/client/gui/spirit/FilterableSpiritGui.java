@@ -43,7 +43,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     protected static final int TITLE_X = 11;
     protected static final int TITLE_Y = 6;
     protected static final int ENTITY_X = 8;
-    protected static final int ENTITY_Y = 24;
+    protected static final int ENTITY_Y = 29;
     protected static final int ENTITY_WIDTH = 50;
     protected static final int ENTITY_HEIGHT = 50;
     protected static final int GUI_WIDTH = 182;
