@@ -98,8 +98,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
         this.root.syncWithHost();
 
-        LabelWidget titleLabel = new LabelWidget(this.leftPos + TITLE_X, this.topPos + TITLE_Y, false, -1, 2,
-                2, this.partColor(this.titlePart(), 0x303030));
+        LabelWidget titleLabel = new LabelWidget(this.leftPos + this.imageWidth / 2, this.topPos + TITLE_Y - 1, true,
+                -1, 2, 2, 0x000000);
         titleLabel.addLine(this.topBarTitle());
         this.addRenderableWidget(titleLabel);
     }
