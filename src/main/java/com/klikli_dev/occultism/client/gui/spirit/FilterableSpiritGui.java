@@ -198,7 +198,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
         this.tooltip.clear();
 
         if (this.isFilterSlotEmpty()) {
-            FILTER_HINT_SPRITE.extractRenderState(guiGraphics, this.guiX(FILTER_SLOT_LEFT), this.guiY(FILTER_SLOT_TOP));
+            FILTER_HINT_SPRITE.extractRenderState(guiGraphics, this.guiX(FILTER_SLOT_LEFT), this.guiY(FILTER_SLOT_TOP - 1));
         }
 
         if (!this.spirit.isInventorySlotActive()) {
