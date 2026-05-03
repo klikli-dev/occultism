@@ -28,10 +28,13 @@ import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
+
+import java.util.regex.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +75,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     protected static final int VERTICAL_SEPARATOR_X = 140;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
     protected static final String INVENTORY_SLOT_TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.inventory_slot";
+    protected static final Pattern TIER_SUFFIX = Pattern.compile("_tier\\d+$");
 
     protected final GuiRootWidget root;
     protected final List<Component> tooltip = new ArrayList<>();
@@ -246,31 +250,38 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     }
 
     protected String inventorySlotTranslationKey() {
-        if (this.spirit.getEntity() instanceof SpiritEntity spiritEntity) {
-            String jobId = spiritEntity.getJobID();
+        if (this.spirit.getEntity() instanceof SpiritEntity spiritEntity && !spiritEntity.getJobID().isBlank()) {
+            String jobKey = spiritEntity.getJobID().replace(':', '.');
+            String exactKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + jobKey;
 
-            if (jobId.startsWith(Occultism.MODID + ":crush_")) {
-                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".crusher";
+            if (I18n.exists(exactKey)) {
+                return exactKey;
             }
 
-            if (jobId.startsWith(Occultism.MODID + ":crystal_")) {
-                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".crystallizer";
-            }
+            int namespaceSeparator = jobKey.indexOf('.');
+            if (namespaceSeparator >= 0) {
+                String namespace = jobKey.substring(0, namespaceSeparator + 1);
+                String path = jobKey.substring(namespaceSeparator + 1);
+                String tierlessPath = TIER_SUFFIX.matcher(path).replaceFirst("");
 
-            if (jobId.startsWith(Occultism.MODID + ":smelt_")) {
-                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".smelter";
-            }
+                if (!tierlessPath.equals(path)) {
+                    String tierlessKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + namespace + tierlessPath;
+                    if (I18n.exists(tierlessKey)) {
+                        return tierlessKey;
+                    }
+                }
 
-            if (jobId.startsWith(Occultism.MODID + ":trader_") || jobId.equals(Occultism.MODID + ":gambler")) {
-                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".trader";
-            }
-
-            if (jobId.equals(Occultism.MODID + ":cleaner")) {
-                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".cleaner";
+                int pathSeparator = tierlessPath.indexOf('_');
+                if (pathSeparator >= 0) {
+                    String familyKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + namespace + tierlessPath.substring(0, pathSeparator);
+                    if (I18n.exists(familyKey)) {
+                        return familyKey;
+                    }
+                }
             }
         }
 
-        return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".transporter";
+        return INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + Occultism.MODID + ".transport_items";
     }
 
     protected GuiStyle style() {
