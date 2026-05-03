@@ -71,6 +71,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     protected static final int FILTER_SLOT_TOP = SLOT_STACK_TOP + INVENTORY_SLOT_SIZE + SLOT_VERTICAL_GAP;
     protected static final int VERTICAL_SEPARATOR_X = 140;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
+    protected static final String INVENTORY_SLOT_TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.inventory_slot";
 
     protected final GuiRootWidget root;
     protected final List<Component> tooltip = new ArrayList<>();
@@ -220,7 +221,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
                 this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.disabled")
                         .withStyle(ChatFormatting.GRAY));
             } else if (!this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX).hasItem()) {
-                this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot")
+                this.tooltip.add(Component.translatable(this.inventorySlotTranslationKey())
                         .withStyle(ChatFormatting.GRAY));
             }
         }
@@ -242,6 +243,34 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
 
     protected boolean isFilterSlotEmpty() {
         return !this.menu.getSlot(this.menu.getFilterSlotIndex()).hasItem();
+    }
+
+    protected String inventorySlotTranslationKey() {
+        if (this.spirit.getEntity() instanceof SpiritEntity spiritEntity) {
+            String jobId = spiritEntity.getJobID();
+
+            if (jobId.startsWith(Occultism.MODID + ":crush_")) {
+                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".crusher";
+            }
+
+            if (jobId.startsWith(Occultism.MODID + ":crystal_")) {
+                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".crystallizer";
+            }
+
+            if (jobId.startsWith(Occultism.MODID + ":smelt_")) {
+                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".smelter";
+            }
+
+            if (jobId.startsWith(Occultism.MODID + ":trader_") || jobId.equals(Occultism.MODID + ":gambler")) {
+                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".trader";
+            }
+
+            if (jobId.equals(Occultism.MODID + ":cleaner")) {
+                return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".cleaner";
+            }
+        }
+
+        return INVENTORY_SLOT_TRANSLATION_KEY_BASE + ".transporter";
     }
 
     protected GuiStyle style() {

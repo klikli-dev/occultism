@@ -862,7 +862,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.spirit.transporter.filter_item", "Filter Item");
         this.add("gui.occultism.spirit.transporter.filter_item.empty", "Insert a list filter or attribute filter.");
         this.add("gui.occultism.spirit.transporter.inventory_slot.disabled", "Requires blacksmith upgrade");
-        this.add("gui.occultism.spirit.transporter.inventory_slot", "Slot for the transported item.");
+        this.add("gui.occultism.spirit.inventory_slot.transporter", "Slot for the transported item.");
+        this.add("gui.occultism.spirit.inventory_slot.crusher", "Item to crush.");
+        this.add("gui.occultism.spirit.inventory_slot.crystallizer", "Item to crystallize.");
+        this.add("gui.occultism.spirit.inventory_slot.smelter", "Item to smelt.");
+        this.add("gui.occultism.spirit.inventory_slot.trader", "Item to trade.");
+        this.add("gui.occultism.spirit.inventory_slot.cleaner", "Item to clean up.");
 
         // Storage Controller GUI
         this.add("gui.occultism.storage_controller.display.rows", "Change rows quantity.");
