@@ -22,6 +22,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
+import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.item.filter.FilterUiStyles;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -108,9 +109,17 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, this.title, TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
+        guiGraphics.text(this.font, this.topBarTitle(), TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
         guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X, NAME_LABEL_Y, 0xFF303030, false);
         guiGraphics.text(this.font, this.playerInventoryTitle, INVENTORY_LABEL_X, INVENTORY_LABEL_Y, 0x303030, false);
+    }
+
+    protected Component topBarTitle() {
+        if (this.spirit.getEntity() instanceof SpiritEntity spiritEntity && !spiritEntity.getJobID().isBlank()) {
+            return Component.translatable("gui.occultism.spirit.job", Component.translatable("job." + spiritEntity.getJobID().replace(':', '.')));
+        }
+
+        return this.title;
     }
 
     @Override
