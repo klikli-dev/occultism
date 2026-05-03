@@ -109,7 +109,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, this.topBarTitle(), TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
         guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X, NAME_LABEL_Y, 0xFF303030, false);
         guiGraphics.text(this.font, this.playerInventoryTitle, INVENTORY_LABEL_X, INVENTORY_LABEL_Y, 0x303030, false);
     }
@@ -188,6 +187,9 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.text(this.font, this.topBarTitle(), this.leftPos + TITLE_X, this.topPos + TITLE_Y,
+                this.partColor(this.titlePart(), 0x303030), false);
+
         this.tooltip.clear();
 
         if (this.isFilterSlotEmpty()) {
