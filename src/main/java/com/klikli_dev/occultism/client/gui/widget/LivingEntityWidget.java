@@ -101,7 +101,7 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         Quaternionf xRotation = new Quaternionf().rotateX(yAngle * 20.0F * (float) (Math.PI / 180.0));
         rotation.mul(xRotation);
 
-        EntityRenderState renderState = this.createEntityRenderState(entity);
+        EntityRenderState renderState = this.createEntityRenderState(entity, partialTick);
         if (renderState instanceof LivingEntityRenderState livingRenderState) {
             livingRenderState.bodyRot = 180.0F + xAngle * 20.0F;
             livingRenderState.yRot = xAngle * 20.0F;
@@ -115,10 +115,10 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         guiGraphics.entity(renderState, size, translation, rotation, xRotation, x0, y0, x1, y1);
     }
 
-    private EntityRenderState createEntityRenderState(LivingEntity entity) {
+    private EntityRenderState createEntityRenderState(LivingEntity entity, float partialTick) {
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         EntityRenderer<? super LivingEntity, ?> renderer = entityRenderDispatcher.getRenderer(entity);
-        EntityRenderState renderState = renderer.createRenderState(entity, 1.0F);
+        EntityRenderState renderState = renderer.createRenderState(entity, partialTick);
         renderState.shadowPieces.clear();
         renderState.outlineColor = 0;
         renderState.lightCoords = 15728880;
