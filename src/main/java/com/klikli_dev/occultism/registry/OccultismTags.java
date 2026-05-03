@@ -242,6 +242,7 @@ public class OccultismTags {
         public static final TagKey<Item> DROPS_WILD_HORDE_CREEPER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_creeper"));
         public static final TagKey<Item> DROPS_WILD_HORDE_DROWNED = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_drowned"));
         public static final TagKey<Item> DROPS_WILD_HORDE_HUSK = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_husk"));
+        public static final TagKey<Item> DROPS_WILD_HORDE_PARCHED = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_parched"));
         public static final TagKey<Item> DROPS_WILD_HORDE_SILVERFISH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_silverfish"));
         public static final TagKey<Item> RANDOM_SPAWN_COMMON = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/common"));
         public static final TagKey<Item> RANDOM_SPAWN_RIDEABLE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/rideable"));
@@ -307,6 +308,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));
         public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_hunt"));
         public static final TagKey<EntityType<?>> WILD_TRIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_trial"));
+        public static final TagKey<EntityType<?>> WILD_DESERT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_desert"));
         public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "healed_by_demons_dream_fruit"));
         public static final TagKey<EntityType<?>> CUBEMOB = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "cubemob"));
         public static final TagKey<EntityType<?>> CREEPER = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "creepers"));

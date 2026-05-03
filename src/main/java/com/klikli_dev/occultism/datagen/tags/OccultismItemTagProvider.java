@@ -704,6 +704,14 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.MINER_POTTERY_SHERD)
                 .add(Items.BREWER_POTTERY_SHERD)
                 .add(Items.ARMS_UP_POTTERY_SHERD);
+        this.tag(OccultismTags.Items.DROPS_WILD_HORDE_PARCHED)
+                .add(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)
+                .add(Items.SKULL_POTTERY_SHERD)
+                .add(Items.ARCHER_POTTERY_SHERD)
+                .add(Items.PRIZE_POTTERY_SHERD)
+                .add(Items.MINER_POTTERY_SHERD)
+                .add(Items.BREWER_POTTERY_SHERD)
+                .add(Items.ARMS_UP_POTTERY_SHERD);
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_SILVERFISH)
                 .add(Items.MUSIC_DISC_RELIC)

@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "wild_parched": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/wild_parched"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.wild_parched.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.wild_parched.title"
+    }
+  },
+  "requirements": [
+    [
+      "wild_parched"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

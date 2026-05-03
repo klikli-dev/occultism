@@ -2,19 +2,7 @@
   "values": [
     "occultism:beaver_familiar",
     "occultism:cthulhu_familiar",
-    "occultism:wild_hunt_wither_skeleton",
-    "occultism:wild_hunt_skeleton",
-    "occultism:wild_skeleton",
-    "occultism:possessed_skeleton",
-    "occultism:possessed_phantom",
-    "occultism:possessed_guardian",
     "occultism:possessed_elder_guardian",
-    "occultism:possessed_zombie_piglin",
-    "occultism:wild_horde_husk",
-    "occultism:wild_husk",
-    "occultism:wild_horde_drowned",
-    "occultism:wild_zombie",
-    "occultism:wild_bogged",
-    "occultism:wild_stray"
+    "occultism:possessed_guardian"
   ]
 }

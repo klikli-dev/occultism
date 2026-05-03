@@ -1,16 +1,16 @@
 {
   "values": [
-    "occultism:possessed_ghast",
-    "occultism:possessed_phantom",
-    "occultism:possessed_shulker",
-    "occultism:possessed_weak_shulker",
-    "occultism:possessed_blaze",
-    "occultism:possessed_bee",
-    "occultism:otherworld_bird",
     "occultism:bat_familiar",
-    "occultism:iesnium_golem",
+    "occultism:possessed_bee",
+    "occultism:possessed_blaze",
     "occultism:possessed_weak_breeze",
     "occultism:possessed_breeze",
-    "occultism:possessed_strong_breeze"
+    "occultism:possessed_strong_breeze",
+    "occultism:possessed_ghast",
+    "occultism:iesnium_golem",
+    "occultism:otherworld_bird",
+    "occultism:possessed_phantom",
+    "occultism:possessed_shulker",
+    "occultism:possessed_weak_shulker"
   ]
 }

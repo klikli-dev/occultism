@@ -14,7 +14,7 @@
   "icon": {
     "id": "minecraft:dune_armor_trim_smithing_template"
   },
-  "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_husk.name",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_desert.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -28,7 +28,7 @@
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_husk.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_desert.husk.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -42,13 +42,38 @@
       "title2": ""
     },
     {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "occultism:wild_horde_parched",
+      "name": "",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_desert.parched.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/wild_parched",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_husk.description.text",
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_desert.description.text",
       "title": "",
       "use_markdown_in_title": false
     }

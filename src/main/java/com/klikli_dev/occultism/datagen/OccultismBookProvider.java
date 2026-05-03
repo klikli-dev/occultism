@@ -686,8 +686,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var hordeIllager = this.makeHordeIllagerEntry(entryMap, 'V');
         hordeIllager.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var hordeHusk = this.makeHordeHuskEntry(entryMap, 'W');
-        hordeHusk.withParent(BookEntryParentModel.create(overview.getId()))
+        var hordeDesert = this.makeHordeDesertEntry(entryMap, 'W');
+        hordeDesert.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
         var hordeDrowned = this.makeHordeDrownedEntry(entryMap, 'X');
         hordeDrowned.withParent(BookEntryParentModel.create(overview.getId()))
@@ -744,7 +744,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessWitch,
                         possessBlaze,
                         possessWitherSkeleton,
-                        hordeHusk,
+                        hordeDesert,
                         hordeDrowned,
                         hordeCreeper,
                         hordeSilverfish,
@@ -1400,12 +1400,12 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeHordeHuskEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("horde_husk");
-        this.lang().add(this.context().entryName(), "Wild Horde Husk");
+    private BookEntryModel makeHordeDesertEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("horde_desert");
+        this.lang().add(this.context().entryName(), "Wild Horde Desert");
 
-        this.context().page("entity");
-        var entity = BookEntityPageModel.create()
+        this.context().page("husk");
+        var husk = BookEntityPageModel.create()
                 .withEntityId("occultism:wild_horde_husk")
                 .withScale(1f)
                 .withText(this.context().pageText());
@@ -1418,20 +1418,36 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/wild_husk"));
 
+        this.context().page("parched");
+        var parched = BookEntityPageModel.create()
+                .withEntityId("occultism:wild_horde_parched")
+                .withScale(1f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        **Drops**: Items related to desert trials (See next page);
+                        """);
+
+        this.context().page("ritual2");
+        var ritual2 = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_parched"));
+
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        Husks summoned by this way can drop: [](item://minecraft:dune_armor_trim_smithing_template), [](item://minecraft:archer_pottery_sherd), [](item://minecraft:miner_pottery_sherd), [](item://minecraft:prize_pottery_sherd), [](item://minecraft:skull_pottery_sherd), [](item://minecraft:arms_up_pottery_sherd), [](item://minecraft:brewer_pottery_sherd).
+                        Husks and Parcheds summoned by any of this rituals can drop: [](item://minecraft:dune_armor_trim_smithing_template), [](item://minecraft:archer_pottery_sherd), [](item://minecraft:miner_pottery_sherd), [](item://minecraft:prize_pottery_sherd), [](item://minecraft:skull_pottery_sherd), [](item://minecraft:arms_up_pottery_sherd), [](item://minecraft:brewer_pottery_sherd).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)
                 .withLocation(entryMap.get(icon))
                 .withPages(
-                        entity,
+                        husk,
                         ritual,
+                        parched,
+                        ritual2,
                         description
                 );
     }

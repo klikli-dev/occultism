@@ -430,6 +430,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_IESNIUM_GOLEM, "Iesnium Golem Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Wild Horde Husk Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_PARCHED, "Wild Horde Parched Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
@@ -686,6 +687,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
         this.addEntityType(OccultismEntities.IESNIUM_GOLEM, "Iesnium Golem");
         this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
+        this.addEntityType(OccultismEntities.WILD_HORDE_PARCHED, "Wild Horde Parched");
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
         this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
         this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
@@ -2026,6 +2028,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "Invoke a Horde of Creeper", "Wild", "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_DROWNED, "Invoke a Horde of Drowned", "Wild", "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUSK, "Invoke a Horde of Husk", "Wild", "The Wild Horde Husk consists of a few husks that drop items related to desert trails.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_PARCHED, "Invoke a Horde of Parched", "Wild", "The Wild Horde Parched consists of a few parcheds that drop items related to desert trails.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH, "Invoke a Horde of Silverfish", "Wild", "The Wild Horde Silverfish consists of a few silverfishs that drop items related to ruins trails.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE, "Invoke Wild Weak Breeze", "Wild", "The Wild Weak Breeze will drop a Trial Key and trial chamber related items.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_BREEZE, "Invoke Wild Breeze", "Wild", "The Wild Breeze will drop a Ominous Trial Key and trial chamber related items.");
@@ -2234,6 +2237,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");
         this.addItemTag(Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");
         this.addItemTag(Items.DROPS_WILD_HORDE_HUSK, "Drop from Wild Horde Husk");
+        this.addItemTag(Items.DROPS_WILD_HORDE_PARCHED, "Drop from Wild Horde Parched");
         this.addItemTag(Items.DROPS_WILD_HORDE_SILVERFISH, "Drop from Wild Horde Silverfish");
         this.addItemTag(Items.RANDOM_SPAWN_COMMON, "Can spawn as Common Random Animal");
         this.addItemTag(Items.RANDOM_SPAWN_RIDEABLE, "Can spawn as Rideable Random Animal");

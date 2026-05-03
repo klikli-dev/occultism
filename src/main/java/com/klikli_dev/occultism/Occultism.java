@@ -196,6 +196,7 @@ public class Occultism {
         event.put(OccultismEntities.IESNIUM_GOLEM_TYPE.get(), IesniumGolemEntity.createAttributes().build());
 
         event.put(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), WildHordeHuskEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_HORDE_PARCHED_TYPE.get(), WildHordeParchedEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), WildHordeDrownedEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), WildHordeCreeperEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), WildHordeSilverfishEntity.createAttributes().build());

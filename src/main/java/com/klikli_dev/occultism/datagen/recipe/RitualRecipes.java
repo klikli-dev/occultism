@@ -2082,6 +2082,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.camel")
                 .entityToSacrifice(Entities.CAMEL)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_husk")));
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, ItemTags.PICKAXES),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_WILD_HORDE_PARCHED.get(), "item.occultism.ritual_dummy.wild_parched"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_PARCHED.get()),
+                        BASE_TIME * INVOKE_MULT * WILD_TIER,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        Ingredient.of(Items.SANDSTONE),
+                        Ingredient.of(Items.DEAD_BUSH),
+                        Ingredient.of(Items.BONE),
+                        Ingredient.of(Items.GOLD_INGOT))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.WILD_HORDE_PARCHED.get())
+                .summonNumber(5)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.camel")
+                .entityToSacrifice(Entities.CAMEL)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_parched")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.FISHING_ROD),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED.get(), "item.occultism.ritual_dummy.wild_drowned"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_DROWNED.get()),

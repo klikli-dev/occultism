@@ -377,6 +377,7 @@ public class OccultismItemModelSubProvider {
             case "spawn_egg/possessed_warden" -> new SpawnEggColors(0x0f4649, 0x39d6e0);
             case "spawn_egg/possessed_hoglin" -> new SpawnEggColors(0x592a10, 0xf9f3a4);
             case "spawn_egg/wild_horde_husk" -> new SpawnEggColors(0x5f584c, 0x92815e);
+            case "spawn_egg/wild_horde_parched" -> new SpawnEggColors(0x92815e, 0x5f584c);
             case "spawn_egg/wild_horde_drowned" -> new SpawnEggColors(0x7bcfb9, 0x577148);
             case "spawn_egg/wild_horde_creeper" -> new SpawnEggColors(0x577148, 0x111111);
             case "spawn_egg/wild_horde_silverfish" -> new SpawnEggColors(0x666666, 0x262626);

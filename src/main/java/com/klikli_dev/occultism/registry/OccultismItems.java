@@ -479,6 +479,8 @@ public class OccultismItems {
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_HOGLIN_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_HUSK = ITEMS.registerItem("spawn_egg/wild_horde_husk",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WILD_HORDE_HUSK_TYPE.get()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_PARCHED = ITEMS.registerItem("spawn_egg/wild_horde_parched",
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WILD_HORDE_PARCHED_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_DROWNED = ITEMS.registerItem("spawn_egg/wild_horde_drowned",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_CREEPER = ITEMS.registerItem("spawn_egg/wild_horde_creeper",
@@ -684,6 +686,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_CREEPER = ITEMS.registerItem("ritual_dummy/wild_creeper", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_DROWNED = ITEMS.registerItem("ritual_dummy/wild_drowned", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUSK = ITEMS.registerItem("ritual_dummy/wild_husk", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_PARCHED = ITEMS.registerItem("ritual_dummy/wild_parched", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_SILVERFISH = ITEMS.registerItem("ritual_dummy/wild_silverfish", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_WEAK_BREEZE = ITEMS.registerItem("ritual_dummy/wild_weak_breeze", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_BREEZE = ITEMS.registerItem("ritual_dummy/wild_breeze", DummyTooltipItem::new, () -> new Properties());

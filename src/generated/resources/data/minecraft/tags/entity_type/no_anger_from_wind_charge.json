@@ -1,18 +1,18 @@
 {
   "values": [
-    "occultism:wild_hunt_skeleton",
-    "occultism:wild_skeleton",
-    "occultism:possessed_skeleton",
-    "occultism:wild_horde_husk",
-    "occultism:wild_husk",
+    "occultism:wild_bogged",
     "occultism:possessed_weak_breeze",
     "occultism:possessed_breeze",
     "occultism:possessed_strong_breeze",
-    "occultism:wild_zombie",
-    "occultism:wild_spider",
     "occultism:wild_cave_spider",
+    "occultism:wild_horde_husk",
+    "occultism:wild_husk",
+    "occultism:wild_hunt_skeleton",
+    "occultism:wild_skeleton",
+    "occultism:possessed_skeleton",
     "occultism:wild_slime",
-    "occultism:wild_bogged",
-    "occultism:wild_stray"
+    "occultism:wild_spider",
+    "occultism:wild_stray",
+    "occultism:wild_zombie"
   ]
 }
