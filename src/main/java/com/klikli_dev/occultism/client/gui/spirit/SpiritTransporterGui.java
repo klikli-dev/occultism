@@ -36,31 +36,31 @@ import java.util.List;
 import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> implements GuiHost {
-    protected static final GuiSprite FILTER_HINT_SPRITE = new GuiSprite(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/transporter_filter_hint"), 18, 18);
+    protected static final GuiSprite FILTER_HINT_SPRITE = new GuiSprite(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/transporter_filter_hint"), 18, 18).tinted(0x4DFFFFFF);
     protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
     protected static final int TITLE_X = 11;
     protected static final int TITLE_Y = 6;
     protected static final int ENTITY_X = 8;
-    protected static final int ENTITY_Y = 24;
+    protected static final int ENTITY_Y = 21;
     protected static final int ENTITY_WIDTH = 50;
     protected static final int ENTITY_HEIGHT = 50;
     protected static final int GUI_WIDTH = 182;
-    protected static final int GUI_HEIGHT = 166;
+    protected static final int GUI_HEIGHT = 179;
     protected static final int MAIN_LEFT = 3;
-    protected static final int MAIN_TOP = 18;
+    protected static final int MAIN_TOP = 15;
     protected static final int MAIN_WIDTH = 176;
     protected static final int MAIN_HEIGHT = 58;
     protected static final int INVENTORY_BACKGROUND_LEFT = 3;
-    protected static final int INVENTORY_BACKGROUND_TOP = 76;
+    protected static final int INVENTORY_BACKGROUND_TOP = 89;
     protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
     protected static final int INVENTORY_BACKGROUND_HEIGHT = 90;
     protected static final int INVENTORY_LABEL_X = 11;
-    protected static final int INVENTORY_LABEL_Y = 66;
+    protected static final int INVENTORY_LABEL_Y = 102;
     protected static final int INVENTORY_SLOT_LEFT = 152;
-    protected static final int INVENTORY_SLOT_TOP = 28;
+    protected static final int INVENTORY_SLOT_TOP = 25;
     protected static final int INVENTORY_SLOT_SIZE = 18;
     protected static final int FILTER_SLOT_LEFT = 152;
-    protected static final int FILTER_SLOT_TOP = 52;
+    protected static final int FILTER_SLOT_TOP = 49;
     protected static final int TOP_BAR_HEIGHT = 18;
     protected static final int VERTICAL_SEPARATOR_X = 140;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
@@ -115,7 +115,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     @Override
     protected int infoLabelTop() {
-        return this.topPos + 28;
+        return this.topPos + 25;
     }
 
     @Override
