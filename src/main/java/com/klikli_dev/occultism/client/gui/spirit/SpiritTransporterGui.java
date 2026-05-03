@@ -17,7 +17,6 @@ import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
@@ -37,20 +36,31 @@ import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> implements GuiHost {
     protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
-    protected static final int TITLE_X = 8;
+    protected static final int TITLE_X = 11;
     protected static final int TITLE_Y = 6;
     protected static final int ENTITY_X = 8;
     protected static final int ENTITY_Y = 24;
     protected static final int ENTITY_WIDTH = 50;
     protected static final int ENTITY_HEIGHT = 50;
+    protected static final int GUI_WIDTH = 182;
+    protected static final int GUI_HEIGHT = 211;
+    protected static final int MAIN_LEFT = 3;
+    protected static final int MAIN_TOP = 12;
+    protected static final int MAIN_WIDTH = 176;
+    protected static final int MAIN_HEIGHT = 87;
+    protected static final int INVENTORY_BACKGROUND_LEFT = 3;
+    protected static final int INVENTORY_BACKGROUND_TOP = 115;
+    protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
+    protected static final int INVENTORY_BACKGROUND_HEIGHT = 90;
+    protected static final int INVENTORY_LABEL_X = 11;
+    protected static final int INVENTORY_LABEL_Y = 128;
     protected static final int INVENTORY_SLOT_LEFT = 152;
     protected static final int INVENTORY_SLOT_TOP = 28;
     protected static final int INVENTORY_SLOT_SIZE = 18;
     protected static final int FILTER_SLOT_LEFT = 152;
     protected static final int FILTER_SLOT_TOP = 52;
-    protected static final int CONTENT_TOP = 18;
-    protected static final int CONTENT_HEIGHT = 58;
-    protected static final int INVENTORY_TOP = 84;
+    protected static final int TOP_BAR_HEIGHT = 15;
+    protected static final int VERTICAL_SEPARATOR_X = 140;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
 
     protected final GuiRootWidget root;
@@ -59,7 +69,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
                                 Component titleIn) {
-        super(container, playerInventory, titleIn, 176, 166);
+        super(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT);
         this.root = new GuiRootWidget(this);
     }
 
@@ -69,12 +79,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(CONTENT_TOP), this.imageWidth, CONTENT_HEIGHT, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth, CONTENT_TOP, this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(INVENTORY_TOP - 1), this.imageWidth, this.imageHeight - INVENTORY_TOP + 1, this.partSprite(BuiltinFilterParts.PLAYER_INVENTORY_BACKGROUND, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(0), this.guiY(CONTENT_TOP), this.imageWidth, this.partColor(this.separatorPart(), 0xFF000000)));
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(0), this.guiY(INVENTORY_TOP - 8), this.imageWidth, this.partColor(this.separatorPart(), 0xFF000000)));
-        this.root.addChild(new VerticalSeparatorWidget(this.guiX(140), this.guiY(CONTENT_TOP + 8), CONTENT_HEIGHT - 8, this.partColor(this.separatorPart(), 0xFF000000)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(MAIN_LEFT), this.guiY(MAIN_TOP), MAIN_WIDTH, MAIN_HEIGHT, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth, TOP_BAR_HEIGHT, this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(INVENTORY_BACKGROUND_LEFT), this.guiY(INVENTORY_BACKGROUND_TOP), INVENTORY_BACKGROUND_WIDTH, INVENTORY_BACKGROUND_HEIGHT, this.partSprite(BuiltinFilterParts.PLAYER_INVENTORY_BACKGROUND, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
+        this.root.addChild(new VerticalSeparatorWidget(this.guiX(VERTICAL_SEPARATOR_X), this.guiY(MAIN_TOP), MAIN_HEIGHT, this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
         this.root.addChild(new LivingEntityWidget(this, ENTITY_X, ENTITY_Y, ENTITY_WIDTH, ENTITY_HEIGHT, () -> this.spirit.getEntity()));
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
@@ -95,7 +103,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         guiGraphics.text(this.font, this.title, TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
-        guiGraphics.text(this.font, this.playerInventoryTitle, 8, INVENTORY_TOP - 18, 0x303030, false);
+        guiGraphics.text(this.font, this.playerInventoryTitle, INVENTORY_LABEL_X, INVENTORY_LABEL_Y, 0x303030, false);
     }
 
     @Override
@@ -227,10 +235,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
                 : BuiltinFilterParts.LIST_PANEL;
     }
 
-    protected GuiPartKey separatorPart() {
+    protected GuiPartKey verticalSeparatorPart() {
         return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
-                ? BuiltinFilterParts.ATTRIBUTE_HORIZONTAL_SEPARATOR
-                : BuiltinFilterParts.LIST_HORIZONTAL_SEPARATOR;
+                ? BuiltinFilterParts.ATTRIBUTE_VERTICAL_SEPARATOR
+                : BuiltinFilterParts.LIST_VERTICAL_SEPARATOR;
     }
 
     protected GuiPartKey titlePart() {

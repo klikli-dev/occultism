@@ -57,8 +57,8 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 84;
-        int playerInventoryLeft = 8;
+        int playerInventoryTop = 123;
+        int playerInventoryLeft = 11;
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
@@ -68,8 +68,8 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 142;
-        int hotbarLeft = 8;
+        int hotbarTop = 181;
+        int hotbarLeft = 11;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
