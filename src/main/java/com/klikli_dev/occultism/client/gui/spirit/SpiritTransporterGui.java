@@ -109,14 +109,17 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         guiGraphics.text(this.font, this.title, TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
+        guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X, NAME_LABEL_Y, 0xFF303030, false);
         guiGraphics.text(this.font, this.playerInventoryTitle, INVENTORY_LABEL_X, INVENTORY_LABEL_Y, 0x303030, false);
     }
 
     @Override
     protected void addSpiritNameWidget() {
-        LabelWidget nameLabel = new LabelWidget(this.leftPos + NAME_LABEL_X, this.topPos + NAME_LABEL_Y, false, -1, 2, this.infoLabelColor());
-        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()));
-        this.addRenderableWidget(nameLabel);
+    }
+
+    @Override
+    protected int infoLabelColor() {
+        return 0xFF303030;
     }
 
     @Override
@@ -127,11 +130,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     protected int infoLabelTop() {
         return this.topPos + 25;
-    }
-
-    @Override
-    protected int infoLabelColor() {
-        return 0x303030;
     }
 
     @Override
