@@ -31,13 +31,22 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
     private final int relativeX;
     private final int relativeY;
     private final Supplier<LivingEntity> entitySupplier;
+    private final float previewMouseOffsetX;
+    private final float previewMouseOffsetY;
 
     public LivingEntityWidget(GuiHost host, int x, int y, int width, int height, Supplier<LivingEntity> entitySupplier) {
+        this(host, x, y, width, height, entitySupplier, 0.0F, 0.0F);
+    }
+
+    public LivingEntityWidget(GuiHost host, int x, int y, int width, int height, Supplier<LivingEntity> entitySupplier,
+                              float previewMouseOffsetX, float previewMouseOffsetY) {
         super(host.guiX(x), host.guiY(y), width, height, Component.empty());
         this.host = host;
         this.relativeX = x;
         this.relativeY = y;
         this.entitySupplier = entitySupplier;
+        this.previewMouseOffsetX = previewMouseOffsetX;
+        this.previewMouseOffsetY = previewMouseOffsetY;
         this.active = false;
     }
 
@@ -51,7 +60,10 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         int size = this.getEntityScale(entity);
         float centerX = this.getX() + this.getWidth() / 2.0F;
         float centerY = this.getY() + this.getHeight() / 2.0F;
-        this.extractEntity(guiGraphics, this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), size, centerX, centerY, entity);
+        float previewMouseX = centerX - this.previewMouseOffsetX;
+        float previewMouseY = centerY - this.previewMouseOffsetY;
+        this.extractEntity(guiGraphics, this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), size,
+                previewMouseX, previewMouseY, partialTick, entity);
     }
 
     @Override
@@ -80,7 +92,7 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
     }
 
     private void extractEntity(GuiGraphicsExtractor guiGraphics, int x0, int y0, int x1, int y1, int size,
-                               float mouseX, float mouseY, LivingEntity entity) {
+                               float mouseX, float mouseY, float partialTick, LivingEntity entity) {
         float centerX = (x0 + x1) / 2.0F;
         float centerY = (y0 + y1) / 2.0F;
         float xAngle = (float) Math.atan((centerX - mouseX) / 40.0F);
@@ -89,7 +101,7 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         Quaternionf xRotation = new Quaternionf().rotateX(yAngle * 20.0F * (float) (Math.PI / 180.0));
         rotation.mul(xRotation);
 
-        EntityRenderState renderState = this.createEntityRenderState(entity);
+        EntityRenderState renderState = this.createEntityRenderState(entity, partialTick);
         if (renderState instanceof LivingEntityRenderState livingRenderState) {
             livingRenderState.bodyRot = 180.0F + xAngle * 20.0F;
             livingRenderState.yRot = xAngle * 20.0F;
@@ -103,10 +115,10 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         guiGraphics.entity(renderState, size, translation, rotation, xRotation, x0, y0, x1, y1);
     }
 
-    private EntityRenderState createEntityRenderState(LivingEntity entity) {
+    private EntityRenderState createEntityRenderState(LivingEntity entity, float partialTick) {
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         EntityRenderer<? super LivingEntity, ?> renderer = entityRenderDispatcher.getRenderer(entity);
-        EntityRenderState renderState = renderer.createRenderState(entity, 1.0F);
+        EntityRenderState renderState = renderer.createRenderState(entity, partialTick);
         renderState.shadowPieces.clear();
         renderState.outlineColor = 0;
         renderState.lightCoords = 15728880;

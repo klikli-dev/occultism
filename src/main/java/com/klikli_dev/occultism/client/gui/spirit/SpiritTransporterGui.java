@@ -90,7 +90,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth, TOP_BAR_HEIGHT, this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(INVENTORY_BACKGROUND_LEFT), this.guiY(INVENTORY_BACKGROUND_TOP), INVENTORY_BACKGROUND_WIDTH, INVENTORY_BACKGROUND_HEIGHT, this.partSprite(BuiltinFilterParts.PLAYER_INVENTORY_BACKGROUND, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
         this.root.addChild(new VerticalSeparatorWidget(this.guiX(VERTICAL_SEPARATOR_X), this.guiY(MAIN_TOP), MAIN_HEIGHT, this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
-        this.root.addChild(new LivingEntityWidget(this, ENTITY_X, ENTITY_Y, ENTITY_WIDTH, ENTITY_HEIGHT, () -> this.spirit.getEntity()));
+        this.root.addChild(new LivingEntityWidget(this, ENTITY_X, ENTITY_Y, ENTITY_WIDTH, ENTITY_HEIGHT,
+                () -> this.spirit.getEntity(), 14.0F, -3.0F));
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
