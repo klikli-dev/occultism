@@ -98,7 +98,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
         this.root.syncWithHost();
 
-        LabelWidget titleLabel = new LabelWidget(this.leftPos + this.imageWidth / 2, this.topPos + TITLE_Y - 1, true,
+        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth / 2), this.guiY(TITLE_Y - 1), true,
                 -1, 2, 2, 0x000000);
         titleLabel.addLine(this.topBarTitle());
         this.addRenderableWidget(titleLabel);
@@ -195,13 +195,13 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.tooltip.clear();
 
         if (this.isFilterSlotEmpty()) {
-            FILTER_HINT_SPRITE.extractRenderState(guiGraphics, this.leftPos + FILTER_SLOT_LEFT, this.topPos + FILTER_SLOT_TOP);
+            FILTER_HINT_SPRITE.extractRenderState(guiGraphics, this.guiX(FILTER_SLOT_LEFT), this.guiY(FILTER_SLOT_TOP));
         }
 
         if (!this.spirit.isInventorySlotActive()) {
-            guiGraphics.fillGradient(this.leftPos + INVENTORY_SLOT_LEFT + 1, this.topPos + INVENTORY_SLOT_TOP + 1,
-                    this.leftPos + INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 1,
-                    this.topPos + INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 1, 0xAA555555, 0xAA555555);
+            guiGraphics.fillGradient(this.guiX(INVENTORY_SLOT_LEFT + 1), this.guiY(INVENTORY_SLOT_TOP + 1),
+                    this.guiX(INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 1),
+                    this.guiY(INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 1), 0xAA555555, 0xAA555555);
         }
 
         if (this.isPointInFilterSlot(mouseX, mouseY)) {
