@@ -13,7 +13,6 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.network.chat.Component;
@@ -117,8 +116,7 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
 
     private EntityRenderState createEntityRenderState(LivingEntity entity, float partialTick) {
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        EntityRenderer<? super LivingEntity, ?> renderer = entityRenderDispatcher.getRenderer(entity);
-        EntityRenderState renderState = renderer.createRenderState(entity, partialTick);
+        EntityRenderState renderState = entityRenderDispatcher.extractEntity(entity, partialTick);
         renderState.shadowPieces.clear();
         renderState.outlineColor = 0;
         renderState.lightCoords = 15728880;
