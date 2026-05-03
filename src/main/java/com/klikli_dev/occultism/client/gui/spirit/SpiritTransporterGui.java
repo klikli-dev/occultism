@@ -19,10 +19,12 @@ import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.item.filter.FilterUiStyles;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -50,6 +52,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected static final int MAIN_TOP = 15;
     protected static final int MAIN_WIDTH = 176;
     protected static final int MAIN_HEIGHT = 58;
+    protected static final int NAME_LABEL_X = MAIN_LEFT + 5;
+    protected static final int NAME_LABEL_Y = MAIN_TOP + 5;
     protected static final int INVENTORY_BACKGROUND_LEFT = 3;
     protected static final int INVENTORY_BACKGROUND_TOP = 89;
     protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
@@ -106,6 +110,13 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         guiGraphics.text(this.font, this.title, TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
         guiGraphics.text(this.font, this.playerInventoryTitle, INVENTORY_LABEL_X, INVENTORY_LABEL_Y, 0x303030, false);
+    }
+
+    @Override
+    protected void addSpiritNameWidget() {
+        LabelWidget nameLabel = new LabelWidget(this.leftPos + NAME_LABEL_X, this.topPos + NAME_LABEL_Y, false, -1, 2, this.infoLabelColor());
+        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()));
+        this.addRenderableWidget(nameLabel);
     }
 
     @Override

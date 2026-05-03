@@ -71,9 +71,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.clearWidgets();
 
         int labelHeight = 9;
-        LabelWidget nameLabel = new LabelWidget(this.infoLabelLeft(), this.infoLabelTop(), false, -1, 2, this.infoLabelColor());
-        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()));
-        this.addRenderableWidget(nameLabel);
+        this.addSpiritNameWidget();
 
         if (this.spirit instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0) {
             int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
@@ -95,6 +93,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
             this.addRenderableWidget(jobLabel);
 
         }
+    }
+
+    protected void addSpiritNameWidget() {
+        LabelWidget nameLabel = new LabelWidget(this.infoLabelLeft(), this.infoLabelTop(), false, -1, 2, this.infoLabelColor());
+        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()));
+        this.addRenderableWidget(nameLabel);
     }
 
     @Override
