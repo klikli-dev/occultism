@@ -33,7 +33,7 @@ import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import com.klikli_dev.occultism.util.GuiGraphicsExt;
+import com.klikli_dev.occultism.util.StringRenderHelper;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -109,11 +109,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
-        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
+        StringRenderHelper.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, int x, int y) {
-        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
+        StringRenderHelper.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     @Override

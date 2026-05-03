@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.crafting.recipe.TraderRecipeInput;
 import com.klikli_dev.occultism.integration.jei.impl.JeiPlugin;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.util.GuiGraphicsExt;
+import com.klikli_dev.occultism.util.StringRenderHelper;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
@@ -63,7 +63,7 @@ public class SpiritTradeRecipeCategory implements IRecipeCategory<RecipeHolder<S
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
-        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
+        StringRenderHelper.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     @Override

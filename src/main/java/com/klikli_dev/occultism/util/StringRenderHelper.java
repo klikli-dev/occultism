@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
  * Note: In 26.1, the rendering API changed significantly.
  * For custom rendering, use the native GuiGraphicsExtractor methods directly.
  */
-public class GuiGraphicsExt {
+public class StringRenderHelper {
 
     public static int withOpaqueAlpha(int color) {
         return (color & 0xFF000000) == 0 ? color | 0xFF000000 : color;

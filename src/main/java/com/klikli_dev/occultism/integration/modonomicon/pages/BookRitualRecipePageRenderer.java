@@ -12,7 +12,7 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.display.RitualRecipeDisplay;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.util.GuiGraphicsExt;
+import com.klikli_dev.occultism.util.StringRenderHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -115,7 +115,7 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
         final int recipeBaseY = recipeY;
         var level = Minecraft.getInstance().level;
         if (level == null) {
-            guiGraphics.text(this.font, "[Ritual recipe unavailable]", recipeX, recipeY, GuiGraphicsExt.withOpaqueAlpha(0x000000), false);
+            guiGraphics.text(this.font, "[Ritual recipe unavailable]", recipeX, recipeY, StringRenderHelper.withOpaqueAlpha(0x000000), false);
             return;
         }
         var context = SlotDisplayContext.fromLevel(level);
@@ -188,7 +188,7 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
             if (!itemToUseStacks.isEmpty()) {
                 this.parentScreen.renderItemStacks(guiGraphics, recipeX + 50, recipeBaseY + 21, mouseX, mouseY, itemToUseStacks);
             }
-            guiGraphics.text(this.font, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE), recipeX - 15, recipeBaseY + 25, GuiGraphicsExt.withOpaqueAlpha(0x000000), false);
+            guiGraphics.text(this.font, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE), recipeX - 15, recipeBaseY + 25, StringRenderHelper.withOpaqueAlpha(0x000000), false);
         });
 
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 30, recipeY + 70, mouseX, mouseY, this.goldenSacrificialBowl);
@@ -266,10 +266,10 @@ public class BookRitualRecipePageRenderer extends BookRecipePageRenderer<RitualR
     }
 
     private void drawScaledStringNoShadow(GuiGraphicsExtractor guiGraphics, String text, int x, int y, int color, float scale) {
-        guiGraphics.text(this.font, text, x, (int) (y + (this.font.lineHeight * (1 - scale))), GuiGraphicsExt.withOpaqueAlpha(color), false);
+        guiGraphics.text(this.font, text, x, (int) (y + (this.font.lineHeight * (1 - scale))), StringRenderHelper.withOpaqueAlpha(color), false);
     }
 
     private void drawScaledStringNoShadow(GuiGraphicsExtractor guiGraphics, Component text, int x, int y, int color, float scale) {
-        guiGraphics.text(this.font, text.getVisualOrderText(), x, (int) (y + (this.font.lineHeight * (1 - scale))), GuiGraphicsExt.withOpaqueAlpha(color), false);
+        guiGraphics.text(this.font, text.getVisualOrderText(), x, (int) (y + (this.font.lineHeight * (1 - scale))), StringRenderHelper.withOpaqueAlpha(color), false);
     }
 }

@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
-import com.klikli_dev.occultism.util.GuiGraphicsExt;
+import com.klikli_dev.occultism.util.StringRenderHelper;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -56,7 +56,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
-        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
+        StringRenderHelper.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     @Override
