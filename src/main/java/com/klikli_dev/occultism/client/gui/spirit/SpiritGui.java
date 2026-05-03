@@ -35,7 +35,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +59,18 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected static final int ENTITY_Y = 29;
     protected static final int ENTITY_WIDTH = 50;
     protected static final int ENTITY_HEIGHT = 50;
-    protected static final int DETAILS_X = MAIN_LEFT + 64;
-    protected static final int DETAILS_Y = MAIN_TOP + 10;
-    protected static final int DETAILS_LINE_SPACING = 14;
+    protected static final int NAME_LABEL_X = MAIN_LEFT + 8;
+    protected static final int NAME_LABEL_Y = MAIN_TOP + 6;
     protected static final int INVENTORY_BACKGROUND_LEFT = 3;
     protected static final int INVENTORY_BACKGROUND_TOP = 89;
     protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
     protected static final int INVENTORY_BACKGROUND_HEIGHT = 90;
     protected static final int INVENTORY_LABEL_X = 11;
     protected static final int INVENTORY_LABEL_Y = 102;
+    protected static final int SLOT_STACK_TOP = 27;
     protected static final int VERTICAL_SEPARATOR_X = 140;
     protected static final int INVENTORY_SLOT_LEFT = 152;
-    protected static final int INVENTORY_SLOT_TOP = 38;
+    protected static final int INVENTORY_SLOT_TOP = SLOT_STACK_TOP;
     protected static final int INVENTORY_SLOT_SIZE = 18;
 
     protected final GuiRootWidget root;
@@ -131,29 +130,8 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        int y = this.detailsY();
-        int color = this.infoLabelColor();
-        guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), this.detailsX(),
-                y, color, false);
-        y += this.detailsLineSpacing();
-
-        if (this.spirit instanceof SpiritEntity spiritEntity && spiritEntity.getSpiritMaxAge() >= 0) {
-            int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
-            guiGraphics.text(this.font, I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent), this.detailsX(), y, color,
-                    false);
-            y += this.detailsLineSpacing();
-        }
-
-        String jobID = this.spirit instanceof SpiritEntity spiritEntity ? spiritEntity.getJobID() : "";
-        if (!StringUtils.isBlank(jobID)) {
-            String jobText = I18n.get(TRANSLATION_KEY_BASE + ".job", I18n.get("job." + jobID.replace(':', '.')));
-            for (String line : WordUtils.wrap(jobText, 18, "\n", true).split("[\\r\\n]+")) {
-                guiGraphics.text(this.font, ChatFormatting.ITALIC + line + ChatFormatting.RESET, this.detailsX(), y, color,
-                        false);
-                y += this.font.lineHeight + 2;
-            }
-        }
-
+        guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X,
+                NAME_LABEL_Y, this.infoLabelColor(), false);
         guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX(), this.inventoryLabelY(), 0x303030, false);
     }
 
@@ -288,18 +266,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         return 7.0F;
     }
 
-    protected int detailsX() {
-        return DETAILS_X;
-    }
-
-    protected int detailsY() {
-        return DETAILS_Y;
-    }
-
-    protected int detailsLineSpacing() {
-        return DETAILS_LINE_SPACING;
-    }
-
     protected int inventoryBackgroundLeft() {
         return INVENTORY_BACKGROUND_LEFT;
     }
@@ -333,6 +299,11 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected Component topBarTitle() {
+        if (this.spirit instanceof SpiritEntity spiritEntity && !StringUtils.isBlank(spiritEntity.getJobID())) {
+            return Component.translatable(TRANSLATION_KEY_BASE + ".job",
+                    Component.translatable("job." + spiritEntity.getJobID().replace(':', '.')));
+        }
+
         return this.spirit.getEntity().getType().getDescription();
     }
 
