@@ -123,7 +123,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             return Component.translatable("gui.occultism.spirit.job", Component.translatable("job." + spiritEntity.getJobID().replace(':', '.')));
         }
 
-        return this.title;
+        return this.spirit.getEntity().getType().getDescription();
     }
 
     @Override
@@ -199,9 +199,9 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.spirit.isInventorySlotActive()) {
-            guiGraphics.fillGradient(this.leftPos + INVENTORY_SLOT_LEFT, this.topPos + INVENTORY_SLOT_TOP,
-                    this.leftPos + INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 2,
-                    this.topPos + INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 2, 0xAA555555, 0xAA555555);
+            guiGraphics.fillGradient(this.leftPos + INVENTORY_SLOT_LEFT + 1, this.topPos + INVENTORY_SLOT_TOP + 1,
+                    this.leftPos + INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 1,
+                    this.topPos + INVENTORY_SLOT_TOP + INVENTORY_SLOT_SIZE - 1, 0xAA555555, 0xAA555555);
         }
 
         if (this.isPointInFilterSlot(mouseX, mouseY)) {
@@ -217,7 +217,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
                 this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.disabled")
                         .withStyle(ChatFormatting.GRAY));
             } else if (!this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX).hasItem()) {
-                this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot.block_only")
+                this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".inventory_slot")
                         .withStyle(ChatFormatting.GRAY));
             }
         }
