@@ -1,126 +1,71 @@
 /*
- * MIT License
+ * SPDX-FileCopyrightText: 2026 klikli-dev
  *
- * Copyright 2020 klikli-dev
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * SPDX-License-Identifier: MIT
  */
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants.Color;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
-import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetItemMode;
 import com.klikli_dev.occultism.network.messages.MessageSetWorkAreaSize;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
 
-public class BookOfCallingGui extends Screen {
-
+public class BookOfCallingGui extends BookOfCallingScreenBase {
     public ItemMode mode;
     public WorkAreaSize workAreaSize;
 
     public BookOfCallingGui(ItemMode mode, WorkAreaSize workAreaSize) {
-        super(Component.literal(""));
-
         this.mode = mode;
         this.workAreaSize = workAreaSize;
-        this.init();
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-//        this.renderBackground(guiGraphics); //called by super
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-    }
-
-    @Override
-    public boolean shouldCloseOnEsc() {
-        return true;
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        this.clearWidgets();
-        int guiLeft = (this.width) / 2;
-        int guiTop = (this.height - 166) / 2;
-        int buttonWidth = 150;
-
-
-        LabelWidget modeLabel = new LabelWidget(guiLeft - 80,
-                guiTop + 66, false, -1, 2, Color.WHITE).alignRight(true);
-        modeLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.mode", true);
-        this.addRenderableWidget(modeLabel);
-
-        //Item mode button
-        this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                Component.translatable(this.mode.translationKey()), (b) -> {
+    protected void initContents() {
+        this.addLabelRow(CONTENT_TOP + 7, "gui." + Occultism.MODID + ".book_of_calling.mode");
+        this.addRenderableWidget(new ExtendedButton(this.guiX(BUTTON_LEFT), this.guiY(CONTENT_TOP), BUTTON_WIDTH,
+                BUTTON_HEIGHT, Component.translatable(this.mode.translationKey()), (button) -> {
             LocalPlayer player = Minecraft.getInstance().player;
-            ItemStack stack = player.getMainHandItem(); //important: use main hand otherwise we may get a shield or other non-book item here
-
-            if (stack.getItem() instanceof BookOfCallingItem bookOfCallingItem) {
-                this.mode = bookOfCallingItem.nextItemMode(stack);
-                Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
-                this.init();
+            if (player == null) {
+                return;
             }
 
-        })));
+            ItemStack stack = player.getMainHandItem();
+            if (stack.getItem() instanceof BookOfCallingItem bookOfCallingItem) {
+                this.mode = bookOfCallingItem.nextItemMode(stack);
+                Networking.sendToServer(new MessageSetItemMode(bookOfCallingItem.modeValue(this.mode)));
+                this.init();
+            }
+        }));
 
         boolean showSize = this.mode.hasSize();
         if (showSize) {
-            LabelWidget workAreaLabel = new LabelWidget(
-                    guiLeft - 80, guiTop + 91, true, -1, 2, Color.WHITE).alignRight(true);
-            workAreaLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.work_area", true);
-            this.addRenderableWidget(workAreaLabel);
-
-            //Work area size button
-            this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
-                    Component.translatable(this.workAreaSize.getDescriptionId()), (b) -> {
+            int sizeTop = CONTENT_TOP + ROW_HEIGHT;
+            this.addLabelRow(sizeTop + 7, "gui." + Occultism.MODID + ".book_of_calling.work_area");
+            this.addRenderableWidget(new ExtendedButton(this.guiX(BUTTON_LEFT), this.guiY(sizeTop), BUTTON_WIDTH,
+                    BUTTON_HEIGHT, Component.translatable(this.workAreaSize.getDescriptionId()), (button) -> {
                 this.workAreaSize = this.workAreaSize.next();
                 Networking.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize));
                 this.init();
             }));
-
         }
 
-        //Exit button
-        int exitButtonWidth = 20;
-        this.addRenderableWidget(
-                new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + (showSize ? 110 : 85), exitButtonWidth, 20,
-                        Component.literal("X"), (b) -> {
-                    this.minecraft.setScreen(null);
-                    this.init();
-                }));
+        int exitTop = showSize ? CONTENT_TOP + ROW_HEIGHT * 2 + 6 : CONTENT_TOP + ROW_HEIGHT + 6;
+        this.addRenderableWidget(new ExtendedButton(this.guiX((this.imageWidth() - EXIT_BUTTON_SIZE) / 2),
+                this.guiY(exitTop), EXIT_BUTTON_SIZE, EXIT_BUTTON_SIZE, Component.literal("X"),
+                (button) -> this.onClose()));
     }
 
     @Override
-    public boolean isPauseScreen() {
-        return false;
+    protected Component title() {
+        return Component.translatable("item." + Occultism.MODID + ".book_of_calling");
     }
-
 }

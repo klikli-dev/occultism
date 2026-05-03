@@ -17,6 +17,12 @@ public final class OccultismGuiParts {
     public static final GuiPartKey SPIRIT_HORIZONTAL_SEPARATOR = key("spirit/horizontal_separator");
     public static final GuiPartKey SPIRIT_VERTICAL_SEPARATOR = key("spirit/vertical_separator");
     public static final GuiPartKey SPIRIT_TITLE = key("spirit/title");
+    public static final GuiPartKey BOOK_OF_CALLING_PANEL = key("book_of_calling/panel");
+    public static final GuiPartKey BOOK_OF_CALLING_TOP_BAR = key("book_of_calling/top_bar");
+    public static final GuiPartKey BOOK_OF_CALLING_HORIZONTAL_SEPARATOR = key("book_of_calling/horizontal_separator");
+    public static final GuiPartKey BOOK_OF_CALLING_TITLE = key("book_of_calling/title");
+    public static final GuiPartKey BOOK_OF_CALLING_FIELD = key("book_of_calling/field");
+    public static final GuiPartKey BOOK_OF_CALLING_BUTTON = key("book_of_calling/button");
     public static final GuiPartKey FILTER_PLAYER_SLOT = key("filter/player_slot");
     public static final GuiPartKey FILTER_PLAYER_INVENTORY_BACKGROUND = key("filter/player_inventory_background");
     public static final GuiPartKey FILTER_FILTER_SLOT = key("filter/filter_slot");
