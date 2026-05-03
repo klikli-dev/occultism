@@ -4,6 +4,7 @@
 
 package com.klikli_dev.occultism.client.gui;
 
+import com.klikli_dev.codedefinedgui.filter.core.layout.BuiltinFilterParts;
 import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
 import com.klikli_dev.codedefinedgui.gui.style.GuiStyleKey;
 import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
@@ -32,16 +33,16 @@ public final class OccultismGuiStyles {
 
     private static GuiStyle.Builder filterBaseStyle() {
         return GuiStyle.builder()
-                .set(OccultismGuiParts.FILTER_PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
-                .set(OccultismGuiParts.FILTER_PLAYER_SLOT, GuiStyleProperties.OFFSET_X, 1)
-                .set(OccultismGuiParts.FILTER_PLAYER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
-                .set(OccultismGuiParts.FILTER_PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
-                .set(OccultismGuiParts.FILTER_FILTER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
-                .set(OccultismGuiParts.FILTER_FILTER_SLOT, GuiStyleProperties.OFFSET_X, 1)
-                .set(OccultismGuiParts.FILTER_FILTER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
-                .set(OccultismGuiParts.FILTER_BUTTON, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT))
-                .set(OccultismGuiParts.FILTER_BUTTON, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT))
-                .set(OccultismGuiParts.FILTER_BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT));
+                .set(BuiltinFilterParts.PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(BuiltinFilterParts.PLAYER_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(BuiltinFilterParts.PLAYER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(BuiltinFilterParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(BuiltinFilterParts.FILTER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON.tinted(BUTTON_TINT))
+                .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN.tinted(BUTTON_TINT))
+                .set(BuiltinFilterParts.BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT));
     }
 
     private static GuiStyle.Builder transporterBaseStyle() {
@@ -90,21 +91,21 @@ public final class OccultismGuiStyles {
                 .build());
 
         GuiStyleRegistry.register(FILTER_LIST, filterBaseStyle()
-                .set(OccultismGuiParts.FILTER_LIST_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
-                .set(OccultismGuiParts.FILTER_LIST_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
-                .set(OccultismGuiParts.FILTER_LIST_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.FILTER_LIST_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.FILTER_LIST_TITLE, GuiStyleProperties.TEXT_COLOR, 0x303030)
+                .set(BuiltinFilterParts.LIST_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(BuiltinFilterParts.LIST_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
+                .set(BuiltinFilterParts.LIST_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
+                .set(BuiltinFilterParts.LIST_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
+                .set(BuiltinFilterParts.LIST_TITLE, GuiStyleProperties.TEXT_COLOR, 0x303030)
                 .build());
 
         GuiStyleRegistry.register(FILTER_ATTRIBUTE, filterBaseStyle()
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_TITLE, GuiStyleProperties.TEXT_COLOR, 0x592424)
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SLOT_TINT))
-                .set(OccultismGuiParts.FILTER_ATTRIBUTE_SUMMARY, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT).sized(24, 24))
+                .set(BuiltinFilterParts.ATTRIBUTE_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(BuiltinFilterParts.ATTRIBUTE_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
+                .set(BuiltinFilterParts.ATTRIBUTE_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
+                .set(BuiltinFilterParts.ATTRIBUTE_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
+                .set(BuiltinFilterParts.ATTRIBUTE_TITLE, GuiStyleProperties.TEXT_COLOR, 0x592424)
+                .set(BuiltinFilterParts.ATTRIBUTE_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SLOT_TINT))
+                .set(BuiltinFilterParts.ATTRIBUTE_SUMMARY, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT).sized(24, 24))
                 .build());
 
         GuiStyleRegistry.register(SPIRIT_TRANSPORTER, transporterBaseStyle()
