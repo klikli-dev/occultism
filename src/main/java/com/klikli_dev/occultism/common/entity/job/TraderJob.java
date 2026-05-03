@@ -59,7 +59,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class TraderJob extends SpiritJob {
+public class TraderJob extends FilterableProcessingSpiritJob {
     public static final String DROPPED_BY_TRADER = "occultism:dropped_by_trader";
 
     /**
@@ -245,8 +245,7 @@ public class TraderJob extends SpiritJob {
                 && entity.getAge() < Occultism.SERVER_CONFIG.spiritJobs.traderResultPickupDelay.get())
             return false; //cannot pick up items a trader (most likely *this* one) dropped util delay elapsed.
 
-        ItemStack stack = entity.getItem();
-        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+        return this.matchesPickupItem(entity, this.itemsToPickUp);
     }
 
     @Override

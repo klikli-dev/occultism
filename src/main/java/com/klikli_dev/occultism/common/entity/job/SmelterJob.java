@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class SmelterJob extends SpiritJob {
+public class SmelterJob extends FilterableProcessingSpiritJob {
 
 
     public static final String DROPPED_BY_SMELTER = "occultism:dropped_by_smelter";
@@ -267,8 +267,7 @@ public class SmelterJob extends SpiritJob {
                 Occultism.SERVER_CONFIG.spiritJobs.smelterResultPickupDelay.get())
             return false; //cannot pick up items a smelter (most likely *this* one) dropped util delay elapsed.
 
-        ItemStack stack = entity.getItem();
-        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+        return this.matchesPickupItem(entity, this.itemsToPickUp);
     }
 
     @Override
