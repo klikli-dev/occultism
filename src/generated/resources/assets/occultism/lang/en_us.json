@@ -1639,7 +1639,7 @@
   "gui.occultism.spirit.job": "%s",
   "gui.occultism.spirit.transporter.filter_item": "Filter Item",
   "gui.occultism.spirit.transporter.filter_item.empty": "Insert a list filter or attribute filter.",
-  "gui.occultism.spirit.transporter.inventory_slot.block_only": "Accepts block items only",
+  "gui.occultism.spirit.transporter.inventory_slot": "Slot for the transported item.",
   "gui.occultism.spirit.transporter.inventory_slot.disabled": "Requires blacksmith upgrade",
   "gui.occultism.spirit_grindstone.container": "Repair & Uncurse",
   "gui.occultism.storage_controller.display.rows": "Change rows quantity.",
