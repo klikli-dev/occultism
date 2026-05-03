@@ -23,8 +23,7 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.common.item.filter.FilterUiStyles;
-import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.common.item.filter.OccultismUiStyles;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -243,9 +242,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     protected GuiStyle style() {
-        return GuiStyleRegistry.get(this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
-                ? FilterUiStyles.OCCULTISM_ATTRIBUTE
-                : FilterUiStyles.OCCULTISM_LIST);
+        return GuiStyleRegistry.get(OccultismUiStyles.SPIRIT_TRANSPORTER);
     }
 
     protected GuiSprite partSprite(GuiPartKey part, GuiSprite fallback) {
@@ -257,27 +254,19 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     protected GuiPartKey topBarPart() {
-        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
-                ? BuiltinFilterParts.ATTRIBUTE_TOP_BAR
-                : BuiltinFilterParts.LIST_TOP_BAR;
+        return BuiltinFilterParts.LIST_TOP_BAR;
     }
 
     protected GuiPartKey panelPart() {
-        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
-                ? BuiltinFilterParts.ATTRIBUTE_PANEL
-                : BuiltinFilterParts.LIST_PANEL;
+        return BuiltinFilterParts.LIST_PANEL;
     }
 
     protected GuiPartKey verticalSeparatorPart() {
-        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
-                ? BuiltinFilterParts.ATTRIBUTE_VERTICAL_SEPARATOR
-                : BuiltinFilterParts.LIST_VERTICAL_SEPARATOR;
+        return BuiltinFilterParts.LIST_VERTICAL_SEPARATOR;
     }
 
     protected GuiPartKey titlePart() {
-        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
-                ? BuiltinFilterParts.ATTRIBUTE_TITLE
-                : BuiltinFilterParts.LIST_TITLE;
+        return BuiltinFilterParts.LIST_TITLE;
     }
 
     protected GuiSprite slotSprite(int slotIndex) {
