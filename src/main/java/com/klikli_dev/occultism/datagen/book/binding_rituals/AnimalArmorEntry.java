@@ -11,11 +11,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class HorseArmorEntry extends EntryProvider {
+public class AnimalArmorEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "horse_armor";
+    public static final String ENTRY_ID = "animal_armor";
 
-    public HorseArmorEntry(CategoryProvider parent) {
+    public AnimalArmorEntry(CategoryProvider parent) {
         super(parent);
     }
 
@@ -28,13 +28,16 @@ public class HorseArmorEntry extends EntryProvider {
                         Like forging the wild armor trim, upgrading a [](item://minecraft:leather_horse_armor)
                          is a service provided by {0} and not bound any spirit to the final object.
                          You sacrifice the items and the {0} uses his power to forge that item for you.
-                         Use the respective materials to obtain [](item://minecraft:iron_horse_armor),
-                         [](item://minecraft:golden_horse_armor) or [](item://minecraft:diamond_horse_armor).
-                        
+                         Use the respective materials to obtain [](item://minecraft:copper_horse_armor),
+                         [](item://minecraft:iron_horse_armor), [](item://minecraft:golden_horse_armor)
+                         or [](item://minecraft:diamond_horse_armor).
                         """,
                 this.color("Wild Spirits", ChatFormatting.DARK_PURPLE)
         );
 
+        this.page("ritual_copper", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_copper_horse_armor"))
+        );
         this.page("ritual_iron", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/misc_iron_horse_armor"))
         );
@@ -45,11 +48,35 @@ public class HorseArmorEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/misc_diamond_horse_armor"))
         );
         //no text
+
+        this.page("spotlight_nautilus", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(Items.NAUTILUS_SHELL))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Another feat of the {0} is the transformation of horse armor into their respective nautilus armor.
+                         However, netherite armor cannot be transformed in this way,
+                         you must perform the ritual at diamond level and then upgrade it.
+                        """,
+                this.color("Wild Spirits", ChatFormatting.DARK_PURPLE)
+        );
+        this.page("ritual_copper_nautilus", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_copper_nautilus_armor"))
+        );
+        this.page("ritual_iron_nautilus", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_iron_nautilus_armor"))
+        );
+        this.page("ritual_golden_nautilus", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_golden_nautilus_armor"))
+        );
+        this.page("ritual_diamond_nautilus", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_diamond_nautilus_armor"))
+        );
+        //no text
     }
 
     @Override
     protected String entryName() {
-        return "Forge Horse Armors";
+        return "Forge Animal Armors";
     }
 
     @Override

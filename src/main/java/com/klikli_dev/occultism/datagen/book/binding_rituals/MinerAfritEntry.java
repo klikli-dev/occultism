@@ -41,8 +41,8 @@ public class MinerAfritEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                         The {0} miner harvests ores, like djinni miners, and additionally
-                         mines some deepslate ores. This miner is faster and more efficient
-                         than the djinnis, thus damaging the magic lamp even more slowly.
+                         mines harder ores. This miner is faster and more efficient
+                         than the djinnis, causing less damage to the magic lamp with each use.
                         """,
                 this.color("Afrit", ChatFormatting.DARK_PURPLE)
         );

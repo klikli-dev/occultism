@@ -8,10 +8,10 @@
       "occultism:otherrock_pedestal"
     ],
     "minecraft:hopper",
-    "#c:storage_blocks/iesnium",
+    "#c:storage_blocks/gold",
     "occultism:spirit_attuned_crystal",
-    "#c:ingots/gold",
-    "#c:ingots/gold"
+    "#c:ingots/iesnium",
+    "#c:ingots/iesnium"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {

@@ -8,10 +8,13 @@
   },
   "entity_to_summon": "occultism:possessed_guardian",
   "ingredients": [
-    "minecraft:tropical_fish",
+    [
+      "minecraft:ink_sac",
+      "minecraft:glow_ink_sac"
+    ],
     "minecraft:seagrass",
     "#c:storage_blocks/lapis",
-    "minecraft:turtle_scute",
+    "minecraft:sea_lantern",
     "#c:buckets/water"
   ],
   "pentacle_id": "occultism:possess_unbound_afrit",

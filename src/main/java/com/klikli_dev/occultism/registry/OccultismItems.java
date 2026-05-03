@@ -701,9 +701,14 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.registerItem("ritual_dummy/misc_budding_amethyst", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.registerItem("ritual_dummy/misc_reinforced_deepslate", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.registerItem("ritual_dummy/misc_wild_trim", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_horse_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_horse_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_horse_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_horse_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.registerItem("ritual_dummy/misc_eldritch_chalice", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.registerItem("ritual_dummy/misc_celestial_chalice", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, () -> new Properties());
