@@ -2129,11 +2129,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.BOOK_OF_CALLING_FOLIOT, "Book of Calling Foliot");
         this.addItemTag(Items.BOOKS_OF_BINDING, "Books of Binding");
         this.addItemTag(Items.BOOKS_FOR_EMPTY, "Books for Empty Binding Book");
-        this.addItemTag(Miners.BASIC_RESOURCES, "Basic Resource Miners");
-        this.addItemTag(Miners.DEEPS, "Deepslate Miners");
-        this.addItemTag(Miners.MASTER, "Rare Resource Miners");
-        this.addItemTag(Miners.ELDRITCH, "Eldritch Miners");
-        this.addItemTag(Miners.ORES, "General Miners");
+        this.addItemTag(Miners.BASIC, "Miners Basic Tier");
+        this.addItemTag(Miners.IRON, "Miners Iron Tier");
+        this.addItemTag(Miners.DIAMOND, "Miners Diamond Tier");
+        this.addItemTag(Miners.NETHERITE, "Miners Netherite Tier");
+        this.addItemTag(Miners.ELDRITCH, "Miners Eldritch Tier");
         this.addItemTag(Items.ELYTRA, "Elytras");
         this.addItemTag(Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
         this.addItemTag(Items.DATURA_SEEDS, "Demon's Dream Seeds");

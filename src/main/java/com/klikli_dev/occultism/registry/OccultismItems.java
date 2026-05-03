@@ -250,30 +250,35 @@ public class OccultismItems {
                     .durability(1000),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.registerItem("miner_djinni_ores",
             properties -> new MinerSpiritItem(properties.durability(400)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_AFRIT_DEEPS = ITEMS.registerItem("miner_afrit_deeps",
             properties -> new MinerSpiritItem(properties.durability(800).rarity(Rarity.UNCOMMON).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_MARID_MASTER = ITEMS.registerItem("miner_marid_master",
             properties -> new MinerSpiritItem(properties.durability(1600).rarity(Rarity.RARE).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("miner_ancient_eldritch",
             properties -> new MinerSpiritItem(properties.durability(3200).rarity(Rarity.EPIC).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.durability));
     //Crops and food
     public static final DeferredItem<BlockItem> DATURA_SEEDS = ITEMS.registerItem("datura_seeds",
@@ -739,7 +744,7 @@ public class OccultismItems {
             ITEMS.registerItem("miner_debug_unspecialized",
                     properties -> new MinerSpiritItem(properties
                             .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
-                            .durability(10000), () -> 100, () -> 10, () -> 10000));
+                            .durability(10000), () -> 100, () -> 10, () -> 1, () -> 10000));
     //Placeholders
     public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
             ITEMS.registerItem("dictionary_of_spirits_icon", Item::new, () -> new Properties());

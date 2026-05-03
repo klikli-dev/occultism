@@ -181,19 +181,34 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
                 .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
 
-        this.tag(Miners.BASIC_RESOURCES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
-                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()).replace(false);
-        this.tag(Miners.DEEPS).add(OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
-        this.tag(Miners.MASTER).add(OccultismItems.MINER_MARID_MASTER.get()).replace(false);
-        this.tag(Miners.ORES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
-                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get(), OccultismItems.MINER_DJINNI_ORES.get()).replace(false);
-        this.tag(Miners.ELDRITCH).add(OccultismItems.MINER_ANCIENT_ELDRITCH.get()).replace(false);
+        this.tag(Miners.BASIC).add(
+                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(),
+                OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
+                OccultismItems.MINER_DJINNI_ORES.get(),
+                OccultismItems.MINER_AFRIT_DEEPS.get(),
+                OccultismItems.MINER_MARID_MASTER.get(),
+                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+        this.tag(Miners.IRON).add(
+                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(),
+                OccultismItems.MINER_DJINNI_ORES.get(),
+                OccultismItems.MINER_AFRIT_DEEPS.get(),
+                OccultismItems.MINER_MARID_MASTER.get(),
+                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+        this.tag(Miners.DIAMOND).add(
+                OccultismItems.MINER_AFRIT_DEEPS.get(),
+                OccultismItems.MINER_MARID_MASTER.get(),
+                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+        this.tag(Miners.NETHERITE).add(
+                OccultismItems.MINER_MARID_MASTER.get(),
+                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+        this.tag(Miners.ELDRITCH).add(
+                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
 
         this.tag(Miners.MINERS)
-                .addTag(Miners.BASIC_RESOURCES)
-                .addTag(Miners.DEEPS)
-                .addTag(Miners.MASTER)
-                .addTag(Miners.ORES)
+                .addTag(Miners.BASIC)
+                .addTag(Miners.IRON)
+                .addTag(Miners.DIAMOND)
+                .addTag(Miners.NETHERITE)
                 .addTag(Miners.ELDRITCH).replace(false);
 
         this.tag(OccultismTags.Items.TOOLS_CHALK)

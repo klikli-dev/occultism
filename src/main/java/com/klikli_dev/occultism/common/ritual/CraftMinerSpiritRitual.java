@@ -26,12 +26,18 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class CraftMinerSpiritRitual extends Ritual {
 
@@ -52,10 +58,21 @@ public class CraftMinerSpiritRitual extends Ritual {
         ItemStack result = this.recipe.getResult().copy();
 
         //sets up nbt configuration for miner
-        result.getItem().onCraftedBy(result, castingPlayer); //handing over a null player should be fine here
+        if (castingPlayer == null)
+            castingPlayer = FakePlayerFactory.getMinecraft((ServerLevel) level);
+        result.getItem().onCraftedBy(result, castingPlayer); //handing over a null player is not fine here
 
         //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
+
+        //Keep Enchantments from used items
+        List<ItemStack> consumed = blockEntity.consumedIngredients;
+        ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+        consumed.forEach(stack -> { if (stack.isEnchanted()) {
+                stack.get(DataComponents.ENCHANTMENTS).entrySet().forEach(e -> enchantments.upgrade(e.getKey(), e.getIntValue()));
+        }});
+        DataComponentMap map = DataComponentMap.builder().set(DataComponents.ENCHANTMENTS, enchantments.toImmutable()).build();
+        result.applyComponents(map);
 
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
     }

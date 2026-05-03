@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:miners/netherite"
+      }
+    }
+  ],
+  "type": "occultism:miner",
+  "ingredient": "#occultism:miners/netherite",
+  "result": {
+    "type": "occultism:weighted_item",
+    "stack": {
+      "id": "occultism:mining_dim_core"
+    },
+    "weight": 1
+  }
+}

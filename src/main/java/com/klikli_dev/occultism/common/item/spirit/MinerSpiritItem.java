@@ -42,13 +42,15 @@ public class MinerSpiritItem extends Item {
 
     private final Supplier<Integer> maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
+    private final Supplier<Integer> outputMultiplier;
     private final Supplier<Integer> maxDamage;
 
-    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> maxDamage) {
+    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> outputMultiplier, Supplier<Integer> maxDamage) {
         super(properties.component(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY)
                 .component(DataComponents.ENCHANTABLE, new Enchantable(9)));
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
+        this.outputMultiplier = outputMultiplier;
         this.maxDamage = maxDamage;
     }
 
@@ -57,6 +59,7 @@ public class MinerSpiritItem extends Item {
         super.onCraftedBy(stack, playerIn);
         stack.set(OccultismDataComponents.MAX_MINING_TIME, this.maxMiningTime.get());
         stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
+        stack.set(OccultismDataComponents.MINER_OUTPUT_MULTIPLIER, this.outputMultiplier.get());
     }
 
     @Override
@@ -78,6 +81,8 @@ public class MinerSpiritItem extends Item {
             stack.set(OccultismDataComponents.MAX_MINING_TIME, this.maxMiningTime.get());
         if (!stack.has(OccultismDataComponents.ROLLS_PER_OPERATION))
             stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
+        if (!stack.has(OccultismDataComponents.MINER_OUTPUT_MULTIPLIER))
+            stack.set(OccultismDataComponents.MINER_OUTPUT_MULTIPLIER, this.outputMultiplier.get());
         return super.getMaxStackSize(stack);
     }
 }

@@ -253,10 +253,10 @@ public class OccultismTags {
         public static class Miners {
             public static final TagKey<Item> MINERS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners"));
 
-            public static final TagKey<Item> BASIC_RESOURCES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/basic_resources"));
-            public static final TagKey<Item> DEEPS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/deeps"));
-            public static final TagKey<Item> MASTER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/master"));
-            public static final TagKey<Item> ORES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/ores"));
+            public static final TagKey<Item> BASIC = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/basic"));
+            public static final TagKey<Item> IRON = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/iron"));
+            public static final TagKey<Item> DIAMOND = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/diamond"));
+            public static final TagKey<Item> NETHERITE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/netherite"));
             public static final TagKey<Item> ELDRITCH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/eldritch"));
         }
     }

@@ -87,19 +87,19 @@ public class OccultismStartupConfig {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
             this.minerFoliotUnspecialized =
-                    new MinerSpiritSettings("miner_foliot_unspecialized", builder, 400, 1, 1000);
+                    new MinerSpiritSettings("miner_foliot_unspecialized", builder, 400, 1, 1, 1000);
 
             this.minerDjinniOres =
-                    new MinerSpiritSettings("miner_djinni_ores", builder, 300, 1, 400);
+                    new MinerSpiritSettings("miner_djinni_ores", builder, 300, 1, 1, 400);
 
             this.minerAfritDeeps =
-                    new MinerSpiritSettings("miner_afrit_deeps", builder, 200, 1, 800);
+                    new MinerSpiritSettings("miner_afrit_deeps", builder, 200, 1, 1, 800);
 
             this.minerMaridMaster =
-                    new MinerSpiritSettings("miner_marid_master", builder, 100, 1, 1600);
+                    new MinerSpiritSettings("miner_marid_master", builder, 100, 1, 1, 1600);
 
             this.minerAncientEldritch =
-                    new MinerSpiritSettings("miner_ancient_eldritch", builder, 15, 1, 3200);
+                    new MinerSpiritSettings("miner_ancient_eldritch", builder, 15, 1, 9, 3200);
 
             builder.pop();
         }
@@ -107,18 +107,22 @@ public class OccultismStartupConfig {
         public static class MinerSpiritSettings {
             public final IntValue maxMiningTime;
             public final IntValue rollsPerOperation;
+            public final IntValue outputMultiplier;
             public final IntValue durability;
 
             public MinerSpiritSettings(String oreName, Builder builder,
-                                       int maxMiningTime, int rollsPerOperation, int durability) {
+                                       int maxMiningTime, int rollsPerOperation, int outputMultiplier, int durability) {
                 builder.comment("Miner Spirit Settings").push(oreName);
 
                 this.maxMiningTime =
                         builder.comment("The amount of time it takes the spirit to perform one mining operation.")
                                 .defineInRange("maxMiningTime", maxMiningTime, 0, Integer.MAX_VALUE);
                 this.rollsPerOperation =
-                        builder.comment("The amount of blocks the spirit will obtain per mining operation")
+                        builder.comment("The amount of random blocks the spirit will obtain per mining operation")
                                 .defineInRange("rollsPerOperation", rollsPerOperation, 0, Integer.MAX_VALUE);
+                this.outputMultiplier =
+                        builder.comment("The amount of same block the spirit will obtain per mining operation")
+                                .defineInRange("outputMultiplier", outputMultiplier, 0, Integer.MAX_VALUE);
                 this.durability =
                         builder.comment("The amount of mining operations the spirit can perform before breaking.")
                                 .defineInRange("durability", durability, 0, Integer.MAX_VALUE);
