@@ -57,7 +57,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 138;
+        int playerInventoryTop = 84;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
@@ -68,15 +68,31 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 196;
+        int hotbarTop = 142;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
+    @Override
+    protected void setupEntityInventory() {
+        this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 153, 29) {
+
+            @Override
+            public boolean isActive() {
+                return SpiritTransporterContainer.this.spirit.isInventorySlotActive();
+            }
+
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return SpiritTransporterContainer.this.spirit.canPlaceInInventory(stack) && super.mayPlace(stack);
+            }
+        });
+    }
+
     protected void setupFilterSlots() {
-        int x = 152;
-        int y = 84;
+        int x = 153;
+        int y = 53;
         ItemStacksResourceHandler filterItems = this.spirit.getFilterItems();
         this.filterSlotIndex = this.slots.size();
         this.addSlot(new FilterSlot(filterItems, 0, x, y));

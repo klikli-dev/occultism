@@ -6,16 +6,24 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
+import com.klikli_dev.codedefinedgui.filter.core.layout.BuiltinFilterParts;
 import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
 import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.gui.style.GuiPartKey;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.FrameWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
+import com.klikli_dev.occultism.common.item.filter.FilterUiStyles;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -29,11 +37,20 @@ import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> implements GuiHost {
     protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
+    protected static final int TITLE_X = 8;
+    protected static final int TITLE_Y = 6;
+    protected static final int ENTITY_X = 8;
+    protected static final int ENTITY_Y = 24;
+    protected static final int ENTITY_WIDTH = 50;
+    protected static final int ENTITY_HEIGHT = 50;
     protected static final int INVENTORY_SLOT_LEFT = 152;
-    protected static final int INVENTORY_SLOT_TOP = 54;
+    protected static final int INVENTORY_SLOT_TOP = 28;
     protected static final int INVENTORY_SLOT_SIZE = 18;
     protected static final int FILTER_SLOT_LEFT = 152;
-    protected static final int FILTER_SLOT_TOP = 84;
+    protected static final int FILTER_SLOT_TOP = 52;
+    protected static final int CONTENT_TOP = 18;
+    protected static final int CONTENT_HEIGHT = 58;
+    protected static final int INVENTORY_TOP = 84;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
 
     protected final GuiRootWidget root;
@@ -42,7 +59,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
                                 Component titleIn) {
-        super(container, playerInventory, titleIn, 176, 220);
+        super(container, playerInventory, titleIn, 176, 166);
         this.root = new GuiRootWidget(this);
     }
 
@@ -52,23 +69,48 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this));
-        this.root.addChild(new FrameWidget(this.guiX(7), this.guiY(7), this.imageWidth - 14, 96, 0xFF101010));
-        this.root.addChild(new FrameWidget(this.guiX(7), this.guiY(131), this.imageWidth - 14, 76, 0xFF101010));
-        this.root.addChild(new VerticalSeparatorWidget(this.guiX(61), this.guiY(8), 94, 0xFF101010));
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(8), this.guiY(102), this.imageWidth - 16, 0xFF101010));
-        this.root.addChild(new FrameWidget(this.guiX(143), this.guiY(44), 26, 58, 0xFF101010));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(CONTENT_TOP), this.imageWidth, CONTENT_HEIGHT, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth, CONTENT_TOP, this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(INVENTORY_TOP - 1), this.imageWidth, this.imageHeight - INVENTORY_TOP + 1, this.partSprite(BuiltinFilterParts.PLAYER_INVENTORY_BACKGROUND, this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
+        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(0), this.guiY(CONTENT_TOP), this.imageWidth, this.partColor(this.separatorPart(), 0xFF000000)));
+        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(0), this.guiY(INVENTORY_TOP - 8), this.imageWidth, this.partColor(this.separatorPart(), 0xFF000000)));
+        this.root.addChild(new VerticalSeparatorWidget(this.guiX(140), this.guiY(CONTENT_TOP + 8), CONTENT_HEIGHT - 8, this.partColor(this.separatorPart(), 0xFF000000)));
+        this.root.addChild(new LivingEntityWidget(this, ENTITY_X, ENTITY_Y, ENTITY_WIDTH, ENTITY_HEIGHT, () -> this.spirit.getEntity()));
 
-        for (Slot slot : this.menu.slots) {
-            this.root.addChild(new GuiSpriteWidget(this.guiX(slot.x - 1), this.guiY(slot.y - 1), GuiSprites.INVENTORY_SLOT));
+        for (int i = 0; i < this.menu.slots.size(); i++) {
+            Slot slot = this.menu.slots.get(i);
+            this.root.addChild(new GuiSpriteWidget(this.guiX(slot.x - 1), this.guiY(slot.y - 1), this.slotSprite(i)));
         }
-
-        this.root.addChild(new FrameWidget(this.guiX(FILTER_SLOT_LEFT - 2), this.guiY(FILTER_SLOT_TOP - 2), 22, 22, 0xFF592424));
         this.root.syncWithHost();
     }
 
     @Override
     protected void extractBackground(GuiGraphicsExtractor guiGraphics) {
+    }
+
+    @Override
+    protected void extractSpiritEntity(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
+    }
+
+    @Override
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        guiGraphics.text(this.font, this.title, TITLE_X, TITLE_Y, this.partColor(this.titlePart(), 0x303030), false);
+        guiGraphics.text(this.font, this.playerInventoryTitle, 8, INVENTORY_TOP - 18, 0x303030, false);
+    }
+
+    @Override
+    protected int infoLabelLeft() {
+        return this.leftPos + 68;
+    }
+
+    @Override
+    protected int infoLabelTop() {
+        return this.topPos + 28;
+    }
+
+    @Override
+    protected int infoLabelColor() {
+        return 0x303030;
     }
 
     @Override
@@ -157,5 +199,51 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected boolean isPointInFilterSlot(double mouseX, double mouseY) {
         return this.isHovering(FILTER_SLOT_LEFT, FILTER_SLOT_TOP, INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
                 mouseX, mouseY);
+    }
+
+    protected GuiStyle style() {
+        return GuiStyleRegistry.get(this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
+                ? FilterUiStyles.OCCULTISM_ATTRIBUTE
+                : FilterUiStyles.OCCULTISM_LIST);
+    }
+
+    protected GuiSprite partSprite(GuiPartKey part, GuiSprite fallback) {
+        return this.style().get(part, GuiStyleProperties.SPRITE, fallback);
+    }
+
+    protected int partColor(GuiPartKey part, int fallback) {
+        return this.style().get(part, GuiStyleProperties.COLOR, fallback);
+    }
+
+    protected GuiPartKey topBarPart() {
+        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
+                ? BuiltinFilterParts.ATTRIBUTE_TOP_BAR
+                : BuiltinFilterParts.LIST_TOP_BAR;
+    }
+
+    protected GuiPartKey panelPart() {
+        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
+                ? BuiltinFilterParts.ATTRIBUTE_PANEL
+                : BuiltinFilterParts.LIST_PANEL;
+    }
+
+    protected GuiPartKey separatorPart() {
+        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
+                ? BuiltinFilterParts.ATTRIBUTE_HORIZONTAL_SEPARATOR
+                : BuiltinFilterParts.LIST_HORIZONTAL_SEPARATOR;
+    }
+
+    protected GuiPartKey titlePart() {
+        return this.spirit.getFilterItem().is(OccultismItems.ATTRIBUTE_FILTER.get())
+                ? BuiltinFilterParts.ATTRIBUTE_TITLE
+                : BuiltinFilterParts.LIST_TITLE;
+    }
+
+    protected GuiSprite slotSprite(int slotIndex) {
+        if (slotIndex == this.menu.getFilterSlotIndex() || slotIndex == ENTITY_INVENTORY_SLOT_INDEX) {
+            return this.partSprite(BuiltinFilterParts.FILTER_SLOT, GuiSprites.INVENTORY_SLOT);
+        }
+
+        return this.partSprite(BuiltinFilterParts.PLAYER_SLOT, GuiSprites.INVENTORY_SLOT);
     }
 }
