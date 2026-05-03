@@ -44,7 +44,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected static final int TITLE_X = 11;
     protected static final int TITLE_Y = 6;
     protected static final int ENTITY_X = 8;
-    protected static final int ENTITY_Y = 21;
+    protected static final int ENTITY_Y = 24;
     protected static final int ENTITY_WIDTH = 50;
     protected static final int ENTITY_HEIGHT = 50;
     protected static final int GUI_WIDTH = 182;
@@ -53,8 +53,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected static final int MAIN_TOP = 15;
     protected static final int MAIN_WIDTH = 176;
     protected static final int MAIN_HEIGHT = 58;
-    protected static final int NAME_LABEL_X = MAIN_LEFT + 5;
-    protected static final int NAME_LABEL_Y = MAIN_TOP + 5;
+    protected static final int NAME_LABEL_X = MAIN_LEFT + 8;
+    protected static final int NAME_LABEL_Y = MAIN_TOP + 8;
     protected static final int INVENTORY_BACKGROUND_LEFT = 3;
     protected static final int INVENTORY_BACKGROUND_TOP = 89;
     protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
