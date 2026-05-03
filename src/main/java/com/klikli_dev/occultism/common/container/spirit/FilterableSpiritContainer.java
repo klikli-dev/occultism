@@ -59,7 +59,7 @@ public class FilterableSpiritContainer extends SpiritContainer {
 
     @Override
     protected void setupEntityInventory() {
-        this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 153, 26) {
+        this.addSlot(new ResourceHandlerSlot(this.inventory, this.inventory::set, 0, 153, 27) {
 
             @Override
             public boolean isActive() {
@@ -75,7 +75,7 @@ public class FilterableSpiritContainer extends SpiritContainer {
 
     protected void setupFilterSlots() {
         int x = 153;
-        int y = 50;
+        int y = 51;
         ItemStacksResourceHandler filterItems = this.spirit.getFilterItems();
         this.filterSlotIndex = this.slots.size();
         this.addSlot(new FilterSlot(filterItems, 0, x, y));
