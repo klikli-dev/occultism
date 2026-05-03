@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.network.chat.Component;
@@ -100,7 +101,7 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         Quaternionf xRotation = new Quaternionf().rotateX(yAngle * 20.0F * (float) (Math.PI / 180.0));
         rotation.mul(xRotation);
 
-        EntityRenderState renderState = this.createEntityRenderState(entity, partialTick);
+        EntityRenderState renderState = this.createEntityRenderState(entity);
         if (renderState instanceof LivingEntityRenderState livingRenderState) {
             livingRenderState.bodyRot = 180.0F + xAngle * 20.0F;
             livingRenderState.yRot = xAngle * 20.0F;
@@ -114,9 +115,10 @@ public class LivingEntityWidget extends AbstractWidget implements GuiSyncable {
         guiGraphics.entity(renderState, size, translation, rotation, xRotation, x0, y0, x1, y1);
     }
 
-    private EntityRenderState createEntityRenderState(LivingEntity entity, float partialTick) {
+    private EntityRenderState createEntityRenderState(LivingEntity entity) {
         EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        EntityRenderState renderState = entityRenderDispatcher.extractEntity(entity, partialTick);
+        EntityRenderer<? super LivingEntity, ?> renderer = entityRenderDispatcher.getRenderer(entity);
+        EntityRenderState renderState = renderer.createRenderState(entity, 1.0F);
         renderState.shadowPieces.clear();
         renderState.outlineColor = 0;
         renderState.lightCoords = 15728880;
