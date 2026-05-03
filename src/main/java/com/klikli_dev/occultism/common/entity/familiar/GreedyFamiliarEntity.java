@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.container.spirit.FilterableSpiritContainer;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -88,7 +89,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
         }
     };
 
-    public ItemStacksResourceHandler filterItemStackHandler = new ItemStacksResourceHandler(SpiritTransporterContainer.FILTER_SIZE) {
+    public ItemStacksResourceHandler filterItemStackHandler = new ItemStacksResourceHandler(FilterableSpiritContainer.FILTER_SIZE) {
         @Override
         protected void onContentsChanged(int slot, ItemStack previousContents) {
             super.onContentsChanged(slot, previousContents);
@@ -135,7 +136,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             String compoundStr = this.entityData.get(FILTER_ITEM);
             try {
                 var compound = compoundStr.isEmpty() ? new CompoundTag() : TagParser.parseCompoundFully(compoundStr);
-                compound.putInt("Size", SpiritTransporterContainer.FILTER_SIZE);
+                compound.putInt("Size", FilterableSpiritContainer.FILTER_SIZE);
                 ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
                 this.filterItemStackHandler.deserialize(valueInput);
             } catch (Exception ignored) {
@@ -342,7 +343,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
         });
 
         input.read("filterItem", CompoundTag.CODEC).ifPresent(tag -> {
-            tag.putInt("Size", SpiritTransporterContainer.FILTER_SIZE);
+            tag.putInt("Size", FilterableSpiritContainer.FILTER_SIZE);
             ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
             this.filterItemStackHandler.deserialize(filterInput);
         });
