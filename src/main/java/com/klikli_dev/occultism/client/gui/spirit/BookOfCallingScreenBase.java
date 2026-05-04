@@ -31,6 +31,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 
 public abstract class BookOfCallingScreenBase extends Screen implements GuiHost {
     protected static final int GUI_WIDTH = 241;
+    protected static final int TOP_BAR_Y = -1;
     protected static final int TOP_BAR_HEIGHT = 15;
     protected static final int MAIN_LEFT = 3;
     protected static final int MAIN_TOP = 12;
@@ -63,12 +64,12 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
         this.root.clearChildren();
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(MAIN_LEFT), this.guiY(MAIN_TOP), this.imageWidth() - 6,
                 this.imageHeight() - MAIN_TOP, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth(),
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(TOP_BAR_Y), this.imageWidth(),
                 TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiSprites.GUI_BACKGROUND)));
         this.addBackgroundChildren();
         this.root.syncWithHost();
 
-        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y - 1), true,
+        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y), true,
                 -1, 2, 2, this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0xFF000000));
         titleLabel.addLine(this.title);
         this.addRenderableWidget(titleLabel);
