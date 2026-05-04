@@ -30,6 +30,7 @@ public final class OccultismGuiStyles {
     public static final GuiStyleKey SATCHEL = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "satchel/default"));
     public static final GuiStyleKey SPIRIT = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/default"));
     public static final GuiStyleKey SPIRIT_TRANSPORTER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/transporter"));
+    public static final GuiStyleKey STORAGE_CONTROLLER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "storage_controller/default"));
 
     private OccultismGuiStyles() {
     }
@@ -68,6 +69,33 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_INVENTORY_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(OccultismGuiParts.SPIRIT_INVENTORY_SLOT, GuiStyleProperties.OFFSET_X, 1)
                 .set(OccultismGuiParts.SPIRIT_INVENTORY_SLOT, GuiStyleProperties.OFFSET_Y, 1);
+    }
+
+    private static GuiStyle.Builder storageControllerBaseStyle() {
+        return GuiStyle.builder()
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, GuiStyleProperties.SPRITE,
+                        GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_STORAGE_SLOT, GuiStyleProperties.SPRITE,
+                        GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_STORAGE_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_STORAGE_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiStyleProperties.SPRITE,
+                        GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_ORDER_SLOT, GuiStyleProperties.SPRITE,
+                        GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_ORDER_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_ORDER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK);
     }
 
     private static GuiStyle.Builder satchelBaseStyle() {
@@ -138,5 +166,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
                 .build());
+
+        GuiStyleRegistry.register(STORAGE_CONTROLLER, storageControllerBaseStyle().build());
     }
 }

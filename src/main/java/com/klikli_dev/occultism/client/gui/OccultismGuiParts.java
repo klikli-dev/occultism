@@ -58,6 +58,14 @@ public final class OccultismGuiParts {
     public static final GuiPartKey SPIRIT_TRANSPORTER_HORIZONTAL_SEPARATOR = key("spirit/transporter/horizontal_separator");
     public static final GuiPartKey SPIRIT_TRANSPORTER_VERTICAL_SEPARATOR = key("spirit/transporter/vertical_separator");
     public static final GuiPartKey SPIRIT_TRANSPORTER_TITLE = key("spirit/transporter/title");
+    public static final GuiPartKey STORAGE_CONTROLLER_PLAYER_SLOT = key("storage_controller/player_slot");
+    public static final GuiPartKey STORAGE_CONTROLLER_STORAGE_SLOT = key("storage_controller/storage_slot");
+    public static final GuiPartKey STORAGE_CONTROLLER_CRAFTING_SLOT = key("storage_controller/crafting_slot");
+    public static final GuiPartKey STORAGE_CONTROLLER_ORDER_SLOT = key("storage_controller/order_slot");
+    public static final GuiPartKey STORAGE_CONTROLLER_TOP_BAR = key("storage_controller/top_bar");
+    public static final GuiPartKey STORAGE_CONTROLLER_MAIN_PANEL = key("storage_controller/main_panel");
+    public static final GuiPartKey STORAGE_CONTROLLER_INVENTORY_PANEL = key("storage_controller/inventory_panel");
+    public static final GuiPartKey STORAGE_CONTROLLER_HORIZONTAL_SEPARATOR = key("storage_controller/horizontal_separator");
 
     private OccultismGuiParts() {
     }
