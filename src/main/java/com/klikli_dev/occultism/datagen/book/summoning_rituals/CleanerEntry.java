@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.datagen.book.SummoningRitualCategory;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
@@ -52,7 +53,7 @@ public class CleanerEntry extends EntryProvider {
                 ,
                 this.itemLink(OccultismItems.LIST_FILTER),
                 this.itemLink(OccultismItems.ATTRIBUTE_FILTER),
-                this.entryLink("Spirit Filters", "summoning_rituals", TransporterFiltersEntry.ENTRY_ID)
+                this.entryLink("Spirit Filters", SummoningRitualCategory.CATEGORY_ID, TransporterFiltersEntry.ENTRY_ID)
         );
 
         this.page("intro2", () -> BookTextPageModel.create()
@@ -63,11 +64,7 @@ public class CleanerEntry extends EntryProvider {
                 also interact with a block while holding the janitor book of
                 calling to have it deposit items there. You can also have it
                 wander around a select area by pulling up that interface.
-                To configure an inserted filter, open that filter item from the janitor UI.
-                See {0} for the available filter types.
                 """
-                ,
-                this.entryLink("Spirit Filters", "summoning_rituals", TransporterFiltersEntry.ENTRY_ID)
         );
 
         this.page("tip", () -> BookTextPageModel.create()

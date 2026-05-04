@@ -34,6 +34,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.usage.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.list_filter.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.list_filter.title",
       "use_markdown_in_title": false
@@ -57,7 +68,7 @@
       },
       "recipe_id_1": "occultism:crafting/list_filter",
       "recipe_id_2": "occultism:crafting/attribute_filter",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.recipes.text",
+      "text": "",
       "title1": "",
       "title2": ""
     }

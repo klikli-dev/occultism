@@ -45,14 +45,20 @@ public class TransporterFiltersEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spirit Filters");
         this.pageText("""
-                Spirits that pick up or extract items now use a filter item instead of an internal allow/block list.
-                Put either a {0} or {1} into the filter slot in the spirit UI, then configure that filter.
-                \
-                \
-                If the filter slot is empty, transporters will move anything they can reach. Janitors still wait for a filter before picking up items.
+                Spirits that pick up or extract items can use filter item to determine which items to take/process.
+                Put either a {0} or {1} into the filter slot in the spirit UI.
                 """,
                 this.itemLink(OccultismItems.LIST_FILTER),
                 this.itemLink(OccultismItems.ATTRIBUTE_FILTER)
+        );
+
+        this.page("usage", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Usage");
+        this.pageText("""
+                Right-click with a filter item to open the UI, then configure the filter as desired.
+                """
         );
 
         this.page("list_filter", () -> BookTextPageModel.create()
@@ -85,13 +91,7 @@ public class TransporterFiltersEntry extends EntryProvider {
 
         this.page("recipes", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/list_filter"))
-                .withRecipeId2(this.modLoc("crafting/attribute_filter"))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                Both filters are crafted from paper, sticks and Demon's Dream fruit.
-                Keep a few around when setting up spirit automation.
-                """
-        );
+                .withRecipeId2(this.modLoc("crafting/attribute_filter")));
     }
 
     @Override
