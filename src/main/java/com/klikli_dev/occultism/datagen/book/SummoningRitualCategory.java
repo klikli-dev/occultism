@@ -39,7 +39,7 @@ public class SummoningRitualCategory extends CategoryProvider {
         return new String[]{
                 "______________________",
                 "____________h_________",
-                "_______j_c_d_b_k_l____", //Specialized works (farmer, lumber, storage, time, weather)
+                "_______j_c_dxb_k_l____", //Specialized works (farmer, lumber, storage, time, weather)
                 "______________________",
                 "__9_o_________________",
                 "______________________",
@@ -118,6 +118,9 @@ public class SummoningRitualCategory extends CategoryProvider {
 
         var summonTransportItems = this.add(new TransporterEntry(this).generate('d'));
         summonTransportItems.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        var transporterFilters = this.add(new TransporterFiltersEntry(this).generate('x'));
+        transporterFilters.withParent(BookEntryParentModel.create(summonTransportItems.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonCleaner = this.add(new CleanerEntry(this).generate('b'));
         summonCleaner.withParent(BookEntryParentModel.create(overview.getId()))

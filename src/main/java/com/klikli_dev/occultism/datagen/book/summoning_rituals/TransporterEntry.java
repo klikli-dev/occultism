@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 
@@ -80,12 +81,16 @@ public class TransporterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Item Filters");
         this.pageText("""
-                By default the Transporter is in "Whitelist" mode and will not move anything.
-                Shift-click the transporter to open the config UI. You can then add items to
-                the filter list to make it move only those items, or set it to "Blacklist"
-                to move everything *except* the filtered items. You can also enter a tag in
-                the text field below to filter by tag.
+                Shift-click the transporter to open the config UI.
+                The filter slot accepts a {0} or {1}, which control what the transporter extracts or inserts.
+                \
+                \
+                A transporter without a filter will move any items it can reach. See {2} for details and recipes.
                 """
+                ,
+                this.itemLink(OccultismItems.LIST_FILTER),
+                this.itemLink(OccultismItems.ATTRIBUTE_FILTER),
+                this.entryLink("Spirit Filters", "summoning_rituals", TransporterFiltersEntry.ENTRY_ID)
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()

@@ -1,0 +1,77 @@
+{
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "summoning_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
+  },
+  "description": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "occultism:list_filter"
+  },
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.list_filter.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.list_filter.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.attribute_filter.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.attribute_filter.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/list_filter",
+      "recipe_id_2": "occultism:crafting/attribute_filter",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.recipes.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "summoning_rituals/summon_transport_items",
+      "line_enabled": true,
+      "line_reversed": true
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 17,
+  "x": 1,
+  "y": -5
+}

@@ -742,6 +742,26 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_SEEDS))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/dictionary_of_spirits")));
 
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, OccultismItems.LIST_FILTER.get())
+                .pattern(" p ")
+                .pattern("sds")
+                .pattern(" s ")
+                .define('p', Items.PAPER)
+                .define('s', Tags.Items.RODS_WOODEN)
+                .define('d', Ingredient.of(items.getOrThrow(OccultismTags.Items.DATURA_CROP)))
+                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_CROP))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/list_filter")));
+
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, OccultismItems.ATTRIBUTE_FILTER.get())
+                .pattern(" s ")
+                .pattern("pdp")
+                .pattern(" s ")
+                .define('p', Items.PAPER)
+                .define('s', Tags.Items.RODS_WOODEN)
+                .define('d', Ingredient.of(items.getOrThrow(OccultismTags.Items.DATURA_CROP)))
+                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_CROP))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/attribute_filter")));
+
         ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, OccultismItems.DIVINATION_ROD.get())
                 .pattern(" g ")
                 .pattern("xyx")
