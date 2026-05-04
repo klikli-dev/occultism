@@ -162,7 +162,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
     }
 
     protected int topBarHeight() {
-        return 15;
+        return 16;
     }
 
     protected int topBarY() {
