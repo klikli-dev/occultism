@@ -40,7 +40,15 @@ public class SmelterMaridEntry extends EntryProvider {
         this.pageTitle("Marid Smelter");
         this.pageText("""
                 The marid smelter is extremely faster, doing the process in one percent of the time.
-                """
+                \\
+                \\
+                This spirit already only picks up items it has recipes for.
+                Put a {0} or {1} into its filter slot to further restrict which valid inputs it will take.
+                See {2} for filter details.
+                """,
+                this.itemLink(OccultismItems.LIST_FILTER),
+                this.itemLink(OccultismItems.ATTRIBUTE_FILTER),
+                this.entryLink("Spirit Filters", "summoning_rituals", TransporterFiltersEntry.ENTRY_ID)
         );
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
