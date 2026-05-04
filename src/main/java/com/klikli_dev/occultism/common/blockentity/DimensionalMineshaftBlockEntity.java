@@ -44,6 +44,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -74,7 +75,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
+public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider, Clearable {
 
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
@@ -112,6 +113,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     private BlockState cachedStateBelow = null;
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < combinedHandler.getSlots(); i++) {
+            combinedHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
