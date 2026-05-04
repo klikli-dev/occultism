@@ -161,7 +161,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
     }
 
     protected int titleY() {
-        return 5;
+        return 4;
     }
 
     protected int topBarHeight() {
@@ -177,7 +177,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
     }
 
     protected int mainTop() {
-        return this.topBarHeight() - 2;
+        return this.topBarHeight() - 3;
     }
 
     protected int mainWidth() {
