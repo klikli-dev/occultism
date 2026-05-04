@@ -2286,7 +2286,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         new ItemStackTemplate(Items.BEE_NEST),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST.get()),
                         BASE_TIME * FORGE_MULT * WILD_TIER,
-                        RITUAL_CRAFT,
+                        RITUAL_UPGRADE,
                         PENTACLE_CONTACT_WILD_SPIRIT, registries,
                         Ingredient.of(Items.HONEYCOMB_BLOCK),
                         Ingredient.of(Items.HONEYCOMB_BLOCK),

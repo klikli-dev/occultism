@@ -19,5 +19,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/misc_bee_nest"
   },
-  "ritual_type": "occultism:craft"
+  "ritual_type": "occultism:upgrade"
 }

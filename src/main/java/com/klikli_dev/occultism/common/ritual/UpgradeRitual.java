@@ -28,12 +28,12 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,27 +50,56 @@ public class UpgradeRitual extends Ritual {
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
-        ItemStack base = blockEntity.consumedIngredients.getFirst().copy();
+        ItemStack baseStack = blockEntity.consumedIngredients.getFirst().copy();
 
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         ItemStack result = this.recipe.getResult().copy();
-        Rarity rarity = result.getRarity();
 
-        result.applyComponents(base.getComponents());
-        if (result.has(DataComponents.MAX_DAMAGE)) {
-            int maxDurability = result.getMaxDamage();
-            result.applyComponents(DataComponentMap.builder()
-                    .set(DataComponents.MAX_DAMAGE, maxDurability)
-                    .build());
-        }
+        //Only keep selected components
+        DataComponentMap baseMap = baseStack.getComponents();
+        baseMap.forEach(component -> {
+            DataComponentType<?> type = component.type();
+            if(type != DataComponents.DAMAGE
+                    && type != DataComponents.UNBREAKABLE
+                    && type != DataComponents.ENCHANTMENTS
+                    && type != DataComponents.DYED_COLOR
+                    && type != DataComponents.BUNDLE_CONTENTS
+                    && type != DataComponents.POTION_CONTENTS
+                    && type != DataComponents.POTION_DURATION_SCALE
+                    && type != DataComponents.WRITABLE_BOOK_CONTENT
+                    && type != DataComponents.WRITTEN_BOOK_CONTENT
+                    && type != DataComponents.TRIM
+                    && type != DataComponents.ENTITY_DATA
+                    && type != DataComponents.BUCKET_ENTITY_DATA
+                    && type != DataComponents.BLOCK_ENTITY_DATA
+                    && type != DataComponents.LODESTONE_TRACKER
+                    && type != DataComponents.BANNER_PATTERNS
+                    && type != DataComponents.BASE_COLOR
+                    && type != DataComponents.CONTAINER
+                    && type != DataComponents.BLOCK_STATE
+                    && type != DataComponents.BEES
+                    && type != DataComponents.LOCK
+                    && type != DataComponents.CONTAINER_LOOT
+                    && type != OccultismDataComponents.OCCUPIED.get()
+                    && type != OccultismDataComponents.FAMILIAR_TYPE.get()
+                    && type != OccultismDataComponents.FAMILIAR_DATA.get()
+                    && type != OccultismDataComponents.OTHERWORLD_GOGGLES.get()
+                    && type != OccultismDataComponents.OTHERWORLD_TOOL_TIER.get()
+                    && type != OccultismDataComponents.STORED_XP.get()
+                    && type != OccultismDataComponents.LINKED_PLAYER_NAME.get()
+                    && type != OccultismDataComponents.LINKED_PLAYER_UUID.get()
+                    && type != OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()
+                    && type != OccultismDataComponents.CRAFTING_MATRIX.get()) {
+                baseStack.remove(type);
+            }
+        });
+        baseMap = baseStack.getComponents();
+
+        result.applyComponents(baseMap);
         if (copy.has(OccultismDataComponents.SPIRIT_NAME))
             ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
-
-        result.applyComponents(DataComponentMap.builder()
-                .set(DataComponents.RARITY, rarity)
-                .build());
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
     }
 }
