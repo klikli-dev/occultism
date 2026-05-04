@@ -13,7 +13,7 @@ public class StorageSatchelContainer extends AbstractSatchelContainer {
     private static final int SATCHEL_FULL_ROWS = 6;
     private static final int SATCHEL_LAST_ROW_OFFSET = 1;
     private static final int SATCHEL_LEFT = 8;
-    private static final int SATCHEL_TOP = 19;
+    private static final int SATCHEL_TOP = 18;
     private static final int PLAYER_INVENTORY_LEFT = 77;
     private static final int PLAYER_INVENTORY_TOP = 161;
     private static final int HOTBAR_LEFT = 77;

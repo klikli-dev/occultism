@@ -30,6 +30,8 @@ public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContaine
     private static final int GUI_WIDTH = 320;
     private static final int GUI_HEIGHT = 248;
     private static final int MAIN_HEIGHT = 138;
+    private static final int MAIN_TOP = 11;
+    private static final int MAIN_WIDTH = 315;
     private static final int INVENTORY_BACKGROUND_LEFT = 69;
     private static final int INVENTORY_BACKGROUND_TOP = 153;
     private static final int INVENTORY_BACKGROUND_WIDTH = 176;
@@ -44,6 +46,16 @@ public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContaine
     @Override
     protected int mainHeight() {
         return MAIN_HEIGHT;
+    }
+
+    @Override
+    protected int mainTop() {
+        return MAIN_TOP;
+    }
+
+    @Override
+    protected int mainWidth() {
+        return MAIN_WIDTH;
     }
 
     @Override
