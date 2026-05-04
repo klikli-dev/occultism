@@ -45,10 +45,6 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
 
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth,
-                this.topBarHeight(), this.partSprite(OccultismGuiParts.SATCHEL_TOP_BAR, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(this.mainLeft()), this.guiY(this.topBarHeight() - 1),
-                this.mainWidth(), this.partColor(OccultismGuiParts.SATCHEL_HORIZONTAL_SEPARATOR, 0xFF000000)));
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(this.mainLeft()), this.guiY(this.mainTop()),
                 this.mainWidth(), this.mainHeight(), this.partSprite(OccultismGuiParts.SATCHEL_PANEL,
                 GuiSprites.GUI_BACKGROUND)));
@@ -56,6 +52,10 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
                 this.guiY(this.inventoryBackgroundTop()), this.inventoryBackgroundWidth(),
                 this.inventoryBackgroundHeight(), this.partSprite(OccultismGuiParts.SATCHEL_PLAYER_INVENTORY_BACKGROUND,
                 GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(this.topBarY()), this.imageWidth,
+                this.topBarHeight(), this.partSprite(OccultismGuiParts.SATCHEL_TOP_BAR, GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(this.mainLeft()), this.guiY(this.topBarHeight() - 1),
+                this.mainWidth(), this.partColor(OccultismGuiParts.SATCHEL_HORIZONTAL_SEPARATOR, 0xFF000000)));
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
@@ -65,7 +65,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
 
         LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth / 2), this.guiY(this.titleY() - 1), true,
                 -1, 2, 2, this.partTextColor(OccultismGuiParts.SATCHEL_TITLE, 0x303030));
-        titleLabel.addLine(this.topBarTitle());
+        titleLabel.addLine(this.topBarTitleText());
         this.addRenderableWidget(titleLabel);
     }
 
@@ -125,6 +125,15 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
         return this.title;
     }
 
+    protected String topBarTitleText() {
+        String titleText = this.topBarTitle().getString();
+        if (titleText.length() >= 2 && titleText.startsWith("[") && titleText.endsWith("]")) {
+            return titleText.substring(1, titleText.length() - 1);
+        }
+
+        return titleText;
+    }
+
     protected GuiStyle style() {
         return GuiStyleRegistry.get(OccultismGuiStyles.SATCHEL);
     }
@@ -152,11 +161,15 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
     }
 
     protected int titleY() {
-        return 6;
+        return 5;
     }
 
     protected int topBarHeight() {
         return 15;
+    }
+
+    protected int topBarY() {
+        return -1;
     }
 
     protected int mainLeft() {
@@ -164,7 +177,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
     }
 
     protected int mainTop() {
-        return this.topBarHeight();
+        return this.topBarHeight() - 2;
     }
 
     protected int mainWidth() {

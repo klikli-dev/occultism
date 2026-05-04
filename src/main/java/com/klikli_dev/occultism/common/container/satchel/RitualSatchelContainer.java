@@ -9,12 +9,12 @@ import javax.annotation.Nullable;
 
 public abstract class RitualSatchelContainer extends AbstractSatchelContainer {
     public static final int SATCHEL_SIZE = 4 * 9;
-    private static final int SATCHEL_LEFT = 10;
-    private static final int SATCHEL_TOP = 21;
-    private static final int PLAYER_INVENTORY_LEFT = 10;
-    private static final int PLAYER_INVENTORY_TOP = 112;
-    private static final int HOTBAR_LEFT = 10;
-    private static final int HOTBAR_TOP = 170;
+    private static final int SATCHEL_LEFT = 8;
+    private static final int SATCHEL_TOP = 19;
+    private static final int PLAYER_INVENTORY_LEFT = 8;
+    private static final int PLAYER_INVENTORY_TOP = 106;
+    private static final int HOTBAR_LEFT = 8;
+    private static final int HOTBAR_TOP = 164;
 
     public RitualSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(menuType, id, playerInventory, satchelInventory, selectedSlot);

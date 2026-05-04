@@ -30,10 +30,12 @@ public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContaine
     private static final int GUI_WIDTH = 320;
     private static final int GUI_HEIGHT = 248;
     private static final int MAIN_HEIGHT = 138;
-    private static final int INVENTORY_BACKGROUND_TOP = 157;
-    private static final int INVENTORY_BACKGROUND_HEIGHT = 88;
-    private static final int INVENTORY_LABEL_X = 87;
-    private static final int INVENTORY_LABEL_Y = 160;
+    private static final int INVENTORY_BACKGROUND_LEFT = 72;
+    private static final int INVENTORY_BACKGROUND_TOP = 154;
+    private static final int INVENTORY_BACKGROUND_WIDTH = 176;
+    private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
+    private static final int INVENTORY_LABEL_X = 80;
+    private static final int INVENTORY_LABEL_Y = 167;
 
     public SatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);
@@ -47,6 +49,16 @@ public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContaine
     @Override
     protected int inventoryBackgroundTop() {
         return INVENTORY_BACKGROUND_TOP;
+    }
+
+    @Override
+    protected int inventoryBackgroundLeft() {
+        return INVENTORY_BACKGROUND_LEFT;
+    }
+
+    @Override
+    protected int inventoryBackgroundWidth() {
+        return INVENTORY_BACKGROUND_WIDTH;
     }
 
     @Override

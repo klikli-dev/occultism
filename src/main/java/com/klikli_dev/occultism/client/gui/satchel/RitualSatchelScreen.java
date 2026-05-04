@@ -30,10 +30,10 @@ public class RitualSatchelScreen extends AbstractSatchelScreen<AbstractSatchelCo
     private static final int GUI_WIDTH = 182;
     private static final int GUI_HEIGHT = 194;
     private static final int MAIN_HEIGHT = 82;
-    private static final int INVENTORY_BACKGROUND_TOP = 101;
+    private static final int INVENTORY_BACKGROUND_TOP = 99;
     private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
-    private static final int INVENTORY_LABEL_X = 10;
-    private static final int INVENTORY_LABEL_Y = 105;
+    private static final int INVENTORY_LABEL_X = 11;
+    private static final int INVENTORY_LABEL_Y = 112;
 
     public RitualSatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);

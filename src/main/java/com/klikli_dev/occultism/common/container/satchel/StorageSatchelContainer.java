@@ -13,11 +13,11 @@ public class StorageSatchelContainer extends AbstractSatchelContainer {
     private static final int SATCHEL_FULL_ROWS = 6;
     private static final int SATCHEL_LAST_ROW_OFFSET = 1;
     private static final int SATCHEL_LEFT = 7;
-    private static final int SATCHEL_TOP = 21;
-    private static final int PLAYER_INVENTORY_LEFT = 79;
-    private static final int PLAYER_INVENTORY_TOP = 167;
-    private static final int HOTBAR_LEFT = 79;
-    private static final int HOTBAR_TOP = 225;
+    private static final int SATCHEL_TOP = 19;
+    private static final int PLAYER_INVENTORY_LEFT = 77;
+    private static final int PLAYER_INVENTORY_TOP = 161;
+    private static final int HOTBAR_LEFT = 77;
+    private static final int HOTBAR_TOP = 219;
 
     public StorageSatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id, playerInventory, satchelInventory, selectedSlot);
