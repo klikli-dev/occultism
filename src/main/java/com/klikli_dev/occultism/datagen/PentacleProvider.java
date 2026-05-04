@@ -34,6 +34,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -620,7 +621,7 @@ public class PentacleProvider implements DataProvider {
                     .block('g', () -> Blocks.AMETHYST_CLUSTER)
                     .tag('h', Tags.Blocks.GLASS_PANES)
                     .block('i', () -> Blocks.BEACON)
-                    .tag('j', OccultismTags.Blocks.LIGHTNING_RODS)
+                    .tag('j', BlockTags.LIGHTNING_RODS)
                     .tag('k', OccultismTags.Blocks.ENCHANTING_TABLES)
                     .tag('l', OccultismTags.Blocks.IRON_BARS);
 

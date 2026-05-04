@@ -405,7 +405,6 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(Tags.Items.STORAGE_BLOCKS).addTags(OccultismTags.Items.STORAGE_BLOCK_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_SILVER,
                 OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).replace(false);
         this.copy(Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
-        this.copy(Blocks.LIGHTNING_RODS, OccultismTags.Items.LIGHTNING_RODS);
         this.copy(Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
         this.copy(Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);
         this.tag(OccultismTags.Items.TUBE_CORALS).add(Items.TUBE_CORAL).add(Items.TUBE_CORAL_FAN);

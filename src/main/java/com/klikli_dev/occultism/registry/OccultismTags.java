@@ -121,7 +121,6 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_STABILIZER = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "storage_stabilizer"));
         public static final TagKey<Block> OTHERWORLD_LOGS = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
         public static final TagKey<Block> MUSHROOM_BLOCKS = makeBlockTag(Identifier.fromNamespaceAndPath("c", "mushroom_blocks"));
-        public static final TagKey<Block> LIGHTNING_RODS = makeBlockTag(Identifier.fromNamespaceAndPath("c", "lightning_rods"));
         public static final TagKey<Block> ENCHANTING_TABLES = makeBlockTag(Identifier.fromNamespaceAndPath("c", "enchanting_tables"));
         public static final TagKey<Block> IRON_BARS = makeBlockTag(Identifier.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Block> BLOCKED_PASTE = makeBlockTag(Identifier.fromNamespaceAndPath("c", "blocked_for_paste_replicate"));
@@ -147,7 +146,6 @@ public class OccultismTags {
         public static final TagKey<Item> STORAGE_BLOCK_RAW_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
 
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(Identifier.fromNamespaceAndPath("c", "mushroom_blocks"));
-        public static final TagKey<Item> LIGHTNING_RODS = makeItemTag(Identifier.fromNamespaceAndPath("c", "lightning_rods"));
         public static final TagKey<Item> ENCHANTING_TABLES = makeItemTag(Identifier.fromNamespaceAndPath("c", "enchanting_tables"));
         public static final TagKey<Item> IRON_BARS = makeItemTag(Identifier.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Item> TUBE_CORALS = makeItemTag(Identifier.fromNamespaceAndPath("c", "tube_corals"));

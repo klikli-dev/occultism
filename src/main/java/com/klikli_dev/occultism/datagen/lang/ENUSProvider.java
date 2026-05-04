@@ -2169,7 +2169,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.STORAGE_BLOCK_RAW_SILVER, "Raw Silver Storage Blocks");
         this.addItemTag(Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
         this.addItemTag(Items.TUBE_CORALS, "Tube Coral");
-        this.addItemTag(Items.LIGHTNING_RODS, "Lightning Rods");
         this.addItemTag(Items.ENCHANTING_TABLES, "Enchanting Tables");
         this.addItemTag(Items.IRON_BARS, "Iron bars");
         this.addItemTag(Items.TALLOW, "Tallow");
