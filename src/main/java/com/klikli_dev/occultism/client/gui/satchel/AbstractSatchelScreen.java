@@ -16,7 +16,6 @@ import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
@@ -54,8 +53,6 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
                 GuiSprites.GUI_BACKGROUND)));
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(this.topBarY()), this.imageWidth,
                 this.topBarHeight(), this.partSprite(OccultismGuiParts.SATCHEL_TOP_BAR, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(this.mainLeft()), this.guiY(this.topBarHeight() - 1),
-                this.mainWidth(), this.partColor(OccultismGuiParts.SATCHEL_HORIZONTAL_SEPARATOR, 0xFF000000)));
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
@@ -161,7 +158,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
     }
 
     protected int titleY() {
-        return 4;
+        return 5;
     }
 
     protected int topBarHeight() {
