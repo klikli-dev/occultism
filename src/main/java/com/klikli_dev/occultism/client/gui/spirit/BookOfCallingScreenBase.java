@@ -32,7 +32,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 public abstract class BookOfCallingScreenBase extends Screen implements GuiHost {
     protected static final int GUI_WIDTH = 241;
     protected static final int TOP_BAR_Y = -4;
-    protected static final int TOP_BAR_HEIGHT = 15;
+    protected static final int TOP_BAR_HEIGHT = 16;
     protected static final int MAIN_LEFT = 3;
     protected static final int MAIN_TOP = 10;
     protected static final int TITLE_Y = 2;
