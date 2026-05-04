@@ -9,6 +9,15 @@ import net.minecraft.world.inventory.Slot;
 
 public class StorageSatchelContainer extends AbstractSatchelContainer {
     public static final int SATCHEL_SIZE = 13 * 9;
+    private static final int SATCHEL_ROW_LENGTH = 17;
+    private static final int SATCHEL_FULL_ROWS = 6;
+    private static final int SATCHEL_LAST_ROW_OFFSET = 1;
+    private static final int SATCHEL_LEFT = 7;
+    private static final int SATCHEL_TOP = 21;
+    private static final int PLAYER_INVENTORY_LEFT = 79;
+    private static final int PLAYER_INVENTORY_TOP = 167;
+    private static final int HOTBAR_LEFT = 79;
+    private static final int HOTBAR_TOP = 225;
 
     public StorageSatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id, playerInventory, satchelInventory, selectedSlot);
@@ -21,37 +30,37 @@ public class StorageSatchelContainer extends AbstractSatchelContainer {
 
     @Override
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 174;
-        int playerInventoryLeft = 44;
         int hotbarSlots = 9;
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
-                this.addSlot(new Slot(this.playerInventory, j + i * 9 + hotbarSlots, playerInventoryLeft + j * 18,
-                        playerInventoryTop + i * 18));
+                this.addSlot(new Slot(this.playerInventory, j + i * 9 + hotbarSlots, PLAYER_INVENTORY_LEFT + j * 18,
+                        PLAYER_INVENTORY_TOP + i * 18));
     }
 
     @Override
     protected void setupPlayerHotbar() {
-        int hotbarTop = 232;
-        int hotbarLeft = 44;
         for (int i = 0; i < 9; i++) {
-            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+            this.addSlot(new Slot(this.playerInventory, i, HOTBAR_LEFT + i * 18, HOTBAR_TOP));
         }
     }
 
     @Override
     protected void setupSatchelSlots() {
-        //8x 8y for satchel
-        int height = 9;
-        int width = 13;
-        int x = 8;
-        int y = 8;
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                this.addSlot(new StorageSatchelSlot(this.satchelInventory, j + i * width, x + j * 18, y + i * 18));
+        for (int slotIndex = 0; slotIndex < SATCHEL_SIZE; slotIndex++) {
+            int row;
+            int column;
+            if (slotIndex < SATCHEL_ROW_LENGTH * SATCHEL_FULL_ROWS) {
+                row = slotIndex / SATCHEL_ROW_LENGTH;
+                column = slotIndex % SATCHEL_ROW_LENGTH;
+            } else {
+                row = SATCHEL_FULL_ROWS;
+                column = slotIndex - SATCHEL_ROW_LENGTH * SATCHEL_FULL_ROWS + SATCHEL_LAST_ROW_OFFSET;
             }
+
+            this.addSlot(new StorageSatchelSlot(this.satchelInventory, slotIndex,
+                    SATCHEL_LEFT + column * 18,
+                    SATCHEL_TOP + row * 18));
         }
     }
 }

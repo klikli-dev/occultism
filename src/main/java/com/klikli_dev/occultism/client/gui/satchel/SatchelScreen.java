@@ -22,47 +22,45 @@
 
 package com.klikli_dev.occultism.client.gui.satchel;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
-public class SatchelScreen extends AbstractContainerScreen<AbstractSatchelContainer> {
-    protected static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/inventory_satchel.png");
+public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContainer> {
+    private static final int GUI_WIDTH = 320;
+    private static final int GUI_HEIGHT = 248;
+    private static final int MAIN_HEIGHT = 138;
+    private static final int INVENTORY_BACKGROUND_TOP = 157;
+    private static final int INVENTORY_BACKGROUND_HEIGHT = 88;
+    private static final int INVENTORY_LABEL_X = 87;
+    private static final int INVENTORY_LABEL_Y = 160;
 
-    public SatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv,
-                         Component titleIn) {
-        super(screenContainer, inv, titleIn, 247, 256);
+    public SatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
+        super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);
     }
 
     @Override
-    protected void init() {
-        super.init();
-        this.leftPos = (this.width - this.imageWidth) / 2;
-        this.topPos = Math.max(0, (this.height - this.imageHeight) / 2);
+    protected int mainHeight() {
+        return MAIN_HEIGHT;
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-//        this.renderBackground(guiGraphics); called in super
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.extractTooltip(guiGraphics, mouseX, mouseY);
+    protected int inventoryBackgroundTop() {
+        return INVENTORY_BACKGROUND_TOP;
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
-        //prevent default labels being rendered
+    protected int inventoryBackgroundHeight() {
+        return INVENTORY_BACKGROUND_HEIGHT;
     }
 
     @Override
-    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth,
-                this.imageHeight, 256, 256);
-        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
+    protected int inventoryLabelX() {
+        return INVENTORY_LABEL_X;
+    }
+
+    @Override
+    protected int inventoryLabelY() {
+        return INVENTORY_LABEL_Y;
     }
 }

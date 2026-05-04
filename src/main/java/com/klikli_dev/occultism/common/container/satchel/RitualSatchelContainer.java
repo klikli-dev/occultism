@@ -9,6 +9,12 @@ import javax.annotation.Nullable;
 
 public abstract class RitualSatchelContainer extends AbstractSatchelContainer {
     public static final int SATCHEL_SIZE = 4 * 9;
+    private static final int SATCHEL_LEFT = 10;
+    private static final int SATCHEL_TOP = 21;
+    private static final int PLAYER_INVENTORY_LEFT = 10;
+    private static final int PLAYER_INVENTORY_TOP = 112;
+    private static final int HOTBAR_LEFT = 10;
+    private static final int HOTBAR_TOP = 170;
 
     public RitualSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(menuType, id, playerInventory, satchelInventory, selectedSlot);
@@ -16,36 +22,30 @@ public abstract class RitualSatchelContainer extends AbstractSatchelContainer {
 
     @Override
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 84;
-        int playerInventoryLeft = 8;
         int hotbarSlots = 9;
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
-                this.addSlot(new Slot(this.playerInventory, j + i * 9 + hotbarSlots, playerInventoryLeft + j * 18,
-                        playerInventoryTop + i * 18));
+                this.addSlot(new Slot(this.playerInventory, j + i * 9 + hotbarSlots, PLAYER_INVENTORY_LEFT + j * 18,
+                        PLAYER_INVENTORY_TOP + i * 18));
     }
 
     @Override
     protected void setupPlayerHotbar() {
-        int hotbarTop = 142;
-        int hotbarLeft = 8;
         for (int i = 0; i < 9; i++) {
-            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+            this.addSlot(new Slot(this.playerInventory, i, HOTBAR_LEFT + i * 18, HOTBAR_TOP));
         }
     }
 
     @Override
     protected void setupSatchelSlots() {
-        //8x 8y for satchel
         int height = 4;
         int width = 9;
-        int x = 8;
-        int y = 8;
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.addSlot(new RitualSatchelSlot(this.satchelInventory, j + i * width, x + j * 18, y + i * 18));
+                this.addSlot(new RitualSatchelSlot(this.satchelInventory, j + i * width, SATCHEL_LEFT + j * 18,
+                        SATCHEL_TOP + i * 18));
             }
         }
     }

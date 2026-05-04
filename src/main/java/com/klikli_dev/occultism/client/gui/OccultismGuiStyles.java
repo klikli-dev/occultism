@@ -27,6 +27,7 @@ public final class OccultismGuiStyles {
     public static final GuiStyleKey FILTER_LIST = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/list"));
     public static final GuiStyleKey FILTER_ATTRIBUTE = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/attribute"));
     public static final GuiStyleKey BOOK_OF_CALLING = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "book_of_calling/default"));
+    public static final GuiStyleKey SATCHEL = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "satchel/default"));
     public static final GuiStyleKey SPIRIT = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/default"));
     public static final GuiStyleKey SPIRIT_TRANSPORTER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/transporter"));
 
@@ -69,6 +70,21 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_INVENTORY_SLOT, GuiStyleProperties.OFFSET_Y, 1);
     }
 
+    private static GuiStyle.Builder satchelBaseStyle() {
+        return GuiStyle.builder()
+                .set(OccultismGuiParts.SATCHEL_PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.SATCHEL_PLAYER_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(OccultismGuiParts.SATCHEL_PLAYER_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(OccultismGuiParts.SATCHEL_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.SATCHEL_SLOT, GuiStyleProperties.OFFSET_X, 1)
+                .set(OccultismGuiParts.SATCHEL_SLOT, GuiStyleProperties.OFFSET_Y, 1)
+                .set(OccultismGuiParts.SATCHEL_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.SATCHEL_PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.SATCHEL_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
+                .set(OccultismGuiParts.SATCHEL_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
+                .set(OccultismGuiParts.SATCHEL_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK);
+    }
+
     private static GuiStyle.Builder bookOfCallingBaseStyle() {
         return GuiStyle.builder()
                 .set(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
@@ -86,6 +102,7 @@ public final class OccultismGuiStyles {
 
     public static void register() {
         GuiStyleRegistry.register(BOOK_OF_CALLING, bookOfCallingBaseStyle().build());
+        GuiStyleRegistry.register(SATCHEL, satchelBaseStyle().build());
 
         GuiStyleRegistry.register(SPIRIT, spiritBaseStyle()
                 .set(OccultismGuiParts.SPIRIT_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))

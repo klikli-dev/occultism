@@ -9,6 +9,13 @@ import com.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.Identifier;
 
 public final class OccultismGuiParts {
+    public static final GuiPartKey SATCHEL_PLAYER_SLOT = key("satchel/player_slot");
+    public static final GuiPartKey SATCHEL_SLOT = key("satchel/slot");
+    public static final GuiPartKey SATCHEL_PANEL = key("satchel/panel");
+    public static final GuiPartKey SATCHEL_PLAYER_INVENTORY_BACKGROUND = key("satchel/player_inventory_background");
+    public static final GuiPartKey SATCHEL_TOP_BAR = key("satchel/top_bar");
+    public static final GuiPartKey SATCHEL_HORIZONTAL_SEPARATOR = key("satchel/horizontal_separator");
+    public static final GuiPartKey SATCHEL_TITLE = key("satchel/title");
     public static final GuiPartKey SPIRIT_PLAYER_SLOT = key("spirit/player_slot");
     public static final GuiPartKey SPIRIT_PLAYER_INVENTORY_BACKGROUND = key("spirit/player_inventory_background");
     public static final GuiPartKey SPIRIT_INVENTORY_SLOT = key("spirit/inventory_slot");
