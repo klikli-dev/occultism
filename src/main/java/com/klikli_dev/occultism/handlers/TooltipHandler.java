@@ -23,14 +23,20 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.gui.DimensionalBattlefieldScreen;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -40,6 +46,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class TooltipHandler {
@@ -58,6 +65,19 @@ public class TooltipHandler {
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+
+        Screen screen = Minecraft.getInstance().screen;
+        if (screen instanceof DimensionalBattlefieldScreen && stack.has(OccultismDataComponents.SOUL_VALUE)) {
+            event.getToolTip().add(
+                Component.translatable("tooltip.occultism.soul_value",
+                    stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0))
+                .withStyle(ChatFormatting.LIGHT_PURPLE));
+            event.getToolTip().add(
+                    Component.translatable("tooltip.occultism.soul_value_stack",
+                                    stack.count() * stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0))
+                            .withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+
         if (stack.has(OccultismDataComponents.SPIRIT_NAME)) {
             String translationKey = stack.getItem().getDescriptionId() + ".occultism_spirit_tooltip";
 
@@ -68,10 +88,15 @@ public class TooltipHandler {
 
         if (Occultism.CLIENT_CONFIG.visuals.showItemTagsInTooltip.get() && event.getFlags().isAdvanced()) {
             var tooltips = event.getToolTip();
-            // 26.1 removed ItemStack.getItemHolder() and the old tag iteration API
-            // Simplified to just show the item key instead of all tags
-            var itemKey = BuiltInRegistries.ITEM.getKey(stack.getItem());
-            tooltips.add(Component.literal(itemKey.toString()).withStyle(ChatFormatting.DARK_GRAY));
+            //Item key is already displayed by the advanced tooltips in the base game.
+                // 26.1 removed ItemStack.getItemHolder() and the old tag iteration API
+                // Simplified to just show the item key instead of all tags
+                //var itemKey = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                //tooltips.add(Component.literal(itemKey.toString()).withStyle(ChatFormatting.DARK_GRAY));
+            Stream<TagKey<Item>> tagStream = stack.tags();
+            tagStream.forEach(tag -> {
+                tooltips.add(Component.literal(tag.location().toString()).withStyle(ChatFormatting.DARK_GRAY));
+            });
         }
 
         var namespace = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();

@@ -410,7 +410,7 @@ public class OccultismItems {
             SoulShardItem::new, () -> new Properties().stacksTo(1));
     public static final DeferredItem<SoulShardItem> SOUL_SHATTERED_ITEM = ITEMS.registerItem("soul_shattered",
             SoulShardItem::new, () -> new Properties().stacksTo(1)
-                    .component(OccultismDataComponents.SOUL_VALUE, 1).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F));
+                    .component(OccultismDataComponents.SOUL_VALUE, 1000000).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F));
     //Machines
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
             ITEMS.registerItem("spirit_fire", properties -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), properties.useBlockDescriptionPrefix()));
