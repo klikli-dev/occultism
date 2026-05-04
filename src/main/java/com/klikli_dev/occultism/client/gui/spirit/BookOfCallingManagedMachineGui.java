@@ -29,12 +29,12 @@ import net.minecraft.world.InteractionHand;
 
 public class BookOfCallingManagedMachineGui extends BookOfCallingScreenBase {
     private static final int GUI_HEIGHT = 112;
-    private static final int INSERT_ROW_Y = 23;
-    private static final int EXTRACT_ROW_Y = 55;
-    private static final int NAME_ROW_Y = 80;
-    private static final int FIRST_DIVIDER_Y = 48;
-    private static final int SECOND_DIVIDER_Y = 73;
-    private static final int CONFIRM_BUTTON_Y = 86;
+    private static final int INSERT_ROW_Y = 22;
+    private static final int EXTRACT_ROW_Y = 54;
+    private static final int NAME_ROW_Y = 79;
+    private static final int FIRST_DIVIDER_Y = 47;
+    private static final int SECOND_DIVIDER_Y = 72;
+    private static final int CONFIRM_BUTTON_Y = 85;
 
     private final InteractionHand hand;
     private final List<Direction> directions = Arrays.asList(Direction.values());

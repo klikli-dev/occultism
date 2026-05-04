@@ -27,11 +27,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class BookOfCallingGui extends BookOfCallingScreenBase {
     private static final int GUI_HEIGHT = 86;
-    private static final int MODE_ROW_Y = 23;
-    private static final int WORK_AREA_ROW_Y = 55;
-    private static final int DIVIDER_Y = 48;
+    private static final int MODE_ROW_Y = 22;
+    private static final int WORK_AREA_ROW_Y = 54;
+    private static final int DIVIDER_Y = 47;
     private static final int DIVIDER_HEIGHT = 38;
-    private static final int CONFIRM_BUTTON_Y = 55;
+    private static final int CONFIRM_BUTTON_Y = 54;
 
     private final InteractionHand hand;
     private final ItemMode initialMode;
