@@ -69,7 +69,7 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
         this.addBackgroundChildren();
         this.root.syncWithHost();
 
-        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y), true,
+        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y - 1), true,
                 -1, 2, 2, this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0xFF000000));
         titleLabel.addLine(this.title);
         this.addRenderableWidget(titleLabel);
