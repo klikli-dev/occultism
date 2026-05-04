@@ -8,10 +8,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
 public class StorageSatchelContainer extends AbstractSatchelContainer {
-    public static final int SATCHEL_SIZE = 13 * 9;
+    public static final int SATCHEL_SIZE = 119;
     private static final int SATCHEL_ROW_LENGTH = 17;
-    private static final int SATCHEL_FULL_ROWS = 6;
-    private static final int SATCHEL_LAST_ROW_OFFSET = 1;
     private static final int SATCHEL_LEFT = 8;
     private static final int SATCHEL_TOP = 23;
     private static final int PLAYER_INVENTORY_LEFT = 77;
@@ -48,15 +46,8 @@ public class StorageSatchelContainer extends AbstractSatchelContainer {
     @Override
     protected void setupSatchelSlots() {
         for (int slotIndex = 0; slotIndex < SATCHEL_SIZE; slotIndex++) {
-            int row;
-            int column;
-            if (slotIndex < SATCHEL_ROW_LENGTH * SATCHEL_FULL_ROWS) {
-                row = slotIndex / SATCHEL_ROW_LENGTH;
-                column = slotIndex % SATCHEL_ROW_LENGTH;
-            } else {
-                row = SATCHEL_FULL_ROWS;
-                column = slotIndex - SATCHEL_ROW_LENGTH * SATCHEL_FULL_ROWS + SATCHEL_LAST_ROW_OFFSET;
-            }
+            int row = slotIndex / SATCHEL_ROW_LENGTH;
+            int column = slotIndex % SATCHEL_ROW_LENGTH;
 
             this.addSlot(new StorageSatchelSlot(this.satchelInventory, slotIndex,
                     SATCHEL_LEFT + column * 18,
