@@ -45,6 +45,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -85,7 +86,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity implements MenuProvider {
+public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity implements MenuProvider, Clearable {
 
     private final float BUTCHER_HURT_CHANCE = (float) Occultism.SERVER_CONFIG.itemSettings.butcherHurtChance.getAsDouble();
     private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
@@ -563,6 +564,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         return this.outputHandler;
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < combinedHandler.getSlots(); i++) {
+            combinedHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 
     // region Inner Classes
