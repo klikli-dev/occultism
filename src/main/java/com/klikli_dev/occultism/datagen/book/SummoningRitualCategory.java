@@ -37,9 +37,9 @@ public class SummoningRitualCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "______________________",
+                "___________x__________",
                 "____________h_________",
-                "_______j_c_dxb_k_l____", //Specialized works (farmer, lumber, storage, time, weather)
+                "_______j_c_d_b_k_l____", //Specialized works (farmer, lumber, storage, time, weather)
                 "______________________",
                 "__9_o_________________",
                 "______________________",
