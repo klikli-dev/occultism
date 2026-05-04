@@ -30,14 +30,19 @@ public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContaine
     private static final int GUI_WIDTH = 320;
     private static final int GUI_HEIGHT = 248;
     private static final int MAIN_HEIGHT = 138;
-    private static final int MAIN_TOP = 11;
+    private static final int MAIN_TOP = 16;
     private static final int MAIN_WIDTH = 315;
     private static final int INVENTORY_BACKGROUND_LEFT = 69;
-    private static final int INVENTORY_BACKGROUND_TOP = 153;
+    private static final int INVENTORY_BACKGROUND_TOP = 158;
     private static final int INVENTORY_BACKGROUND_WIDTH = 176;
     private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
     private static final int INVENTORY_LABEL_X = 77;
-    private static final int INVENTORY_LABEL_Y = 166;
+    private static final int INVENTORY_LABEL_Y = 171;
+
+    @Override
+    protected int topBarY() {
+        return 4;
+    }
 
     public SatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);
