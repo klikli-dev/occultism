@@ -44,8 +44,14 @@ public class CrystallizerMaridEntry extends EntryProvider {
                 \\
                 \\
                 They also can transform amethyst cluster in budding amethyst and obsidian in crying obsidian.
-                \\
-                \\
+                """
+        );
+
+        this.page("filters", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Filters");
+        this.pageText("""
                 This spirit already only picks up items it has recipes for.
                 Put a {0} or {1} into its filter slot to further restrict which valid inputs it will take.
                 See {2} for filter details.

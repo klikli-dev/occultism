@@ -50,6 +50,17 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.filters.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.filters.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {

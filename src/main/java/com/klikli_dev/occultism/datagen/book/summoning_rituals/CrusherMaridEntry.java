@@ -43,8 +43,14 @@ public class CrusherMaridEntry extends EntryProvider {
                 Allowing crushing the echo shard while maintaining its properties.
                 \\
                 It will crush **one** ore into **six** corresponding dusts.
-                \\
-                \\
+                """
+        );
+
+        this.page("filters", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Filters");
+        this.pageText("""
                 This spirit already only picks up items it has recipes for.
                 Put a {0} or {1} into its filter slot to further restrict which valid inputs it will take.
                 See {2} for filter details.

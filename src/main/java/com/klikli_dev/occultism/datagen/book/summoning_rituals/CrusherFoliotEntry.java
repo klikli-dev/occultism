@@ -66,11 +66,17 @@ public class CrusherFoliotEntry extends EntryProvider {
                  \\
                  \\
                  It will crush **one** ore into **two** corresponding dusts.
-                 \\
-                 \\
-                 This spirit already only picks up items it has recipes for.
-                 Put a {0} or {1} into its filter slot to further restrict which valid inputs it will take.
-                 See {2} for filter details.
+                """
+        );
+
+        this.page("filters", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Filters");
+        this.pageText("""
+                This spirit already only picks up items it has recipes for.
+                Put a {0} or {1} into its filter slot to further restrict which valid inputs it will take.
+                See {2} for filter details.
                 """,
                 this.itemLink(OccultismItems.LIST_FILTER),
                 this.itemLink(OccultismItems.ATTRIBUTE_FILTER),
