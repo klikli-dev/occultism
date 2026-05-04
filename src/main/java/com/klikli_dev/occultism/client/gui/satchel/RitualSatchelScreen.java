@@ -30,7 +30,7 @@ public class RitualSatchelScreen extends AbstractSatchelScreen<AbstractSatchelCo
     private static final int GUI_WIDTH = 182;
     private static final int GUI_HEIGHT = 194;
     private static final int MAIN_HEIGHT = 88;
-    private static final int MAIN_TOP = 10;
+    private static final int MAIN_TOP = 9;
     private static final int INVENTORY_BACKGROUND_TOP = 98;
     private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
     private static final int INVENTORY_LABEL_X = 11;
