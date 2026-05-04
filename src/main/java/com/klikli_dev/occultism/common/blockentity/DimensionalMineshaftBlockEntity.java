@@ -80,6 +80,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
             .create(Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
+    public static int DEFAULT_OUTPUT_MULTIPLIER = 1;
     private final boolean bonusEfficiency = Occultism.SERVER_CONFIG.itemSettings.minerEfficiency.getAsBoolean();
     private final boolean bonusFortune = Occultism.SERVER_CONFIG.itemSettings.minerFortune.getAsBoolean();
     private final boolean bonusSilk = Occultism.SERVER_CONFIG.itemSettings.minerSilk.getAsBoolean();
@@ -95,6 +96,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public int miningTime;
     public int maxMiningTime = 0;
     public int rollsPerOperation = 0;
+    public int outputMultiplier = 0;
     // Sync tracking
     public int lastSyncedMiningTime = -1;
     public int lastSyncedMaxMiningTime = -1;
@@ -131,6 +133,10 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     public static int getRollsPerOperation(ItemStack stack) {
         return stack.getOrDefault(OccultismDataComponents.ROLLS_PER_OPERATION, DEFAULT_ROLLS_PER_OPERATION);
+    }
+
+    public static int getOutputMultiplier(ItemStack stack) {
+        return stack.getOrDefault(OccultismDataComponents.MINER_OUTPUT_MULTIPLIER, DEFAULT_OUTPUT_MULTIPLIER);
     }
     // endregion Inner Classes
 
@@ -225,6 +231,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 forceInitStackNBT(input, (ServerLevel) this.level);
                 this.maxMiningTime = getMaxMiningTime(input);
                 this.rollsPerOperation = getRollsPerOperation(input);
+                this.outputMultiplier = getOutputMultiplier(input);
                 this.miningTime = this.maxMiningTime;
             }
 
@@ -309,7 +316,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
             result.ifPresent(r -> {
                 ItemStack finalResult = r.getStack().copy();
-                finalResult.setCount(finalResult.getCount() * finalSilk);
+                finalResult.setCount(finalResult.getCount() * this.outputMultiplier * finalSilk);
 
                 // Batching Logic: Check if we can merge with existing drop
                 boolean merged = false;

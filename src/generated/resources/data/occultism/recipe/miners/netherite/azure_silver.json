@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:miners/netherite"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/azure_silver"
+      }
+    }
+  ],
+  "type": "occultism:miner",
+  "ingredient": "#occultism:miners/netherite",
+  "result": {
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:ores/azure_silver",
+    "weight": 352
+  }
+}

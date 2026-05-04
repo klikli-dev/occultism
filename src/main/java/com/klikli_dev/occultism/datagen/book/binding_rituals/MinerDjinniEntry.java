@@ -40,8 +40,8 @@ public class MinerDjinniEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.MINER_DJINNI_ORES))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        The {0} miner harvests ores specifically. By discarding other blocks it is able to mine faster and
-                         more efficiently. The greater power of the djinni it damages the magic lamp relatively quickly.
+                        The {0} miner harvests most general ores. It is able to mine faster and more efficiently.
+                         The greater power of the djinni it damages the magic lamp relatively quickly.
                         """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );

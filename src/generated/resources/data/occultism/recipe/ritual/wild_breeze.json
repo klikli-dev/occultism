@@ -1,21 +1,27 @@
 {
   "type": "occultism:ritual",
   "activation_item": "minecraft:trial_key",
-  "duration": 90,
+  "duration": 96,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.humans",
-    "tag": "occultism:humans"
+    "display_name": "ritual.occultism.sacrifice.copper_golem",
+    "tag": "c:golems/copper"
   },
   "entity_to_summon": "occultism:possessed_breeze",
   "ingredients": [
-    "minecraft:copper_bulb",
-    "minecraft:copper_bulb",
-    "minecraft:copper_bulb",
-    "minecraft:copper_bulb",
+    [
+      "minecraft:copper_grate",
+      "minecraft:waxed_copper_grate"
+    ],
     "minecraft:tuff_bricks",
+    [
+      "minecraft:copper_grate",
+      "minecraft:waxed_copper_grate"
+    ],
     "minecraft:tuff_bricks",
-    "minecraft:tuff_bricks",
-    "minecraft:tuff_bricks"
+    "minecraft:wind_charge",
+    "minecraft:gunpowder",
+    "minecraft:ghast_tear",
+    "minecraft:phantom_membrane"
   ],
   "pentacle_id": "occultism:contact_wild_spirit",
   "result": {

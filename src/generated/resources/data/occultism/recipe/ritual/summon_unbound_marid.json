@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": "occultism:book_of_binding_bound_marid",
-  "duration": 210,
+  "duration": 140,
   "entity_to_summon": "occultism:marid_unbound",
   "ingredients": [
     "minecraft:conduit",

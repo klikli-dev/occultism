@@ -19,7 +19,7 @@
     "minecraft:lodestone",
     "minecraft:amethyst_cluster",
     "minecraft:end_rod",
-    "#c:lightning_rods",
+    "#minecraft:lightning_rods",
     "#c:iron_bars",
     {
       "id": "#occultism:chalk_glyphs",

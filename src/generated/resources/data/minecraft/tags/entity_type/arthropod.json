@@ -1,10 +1,10 @@
 {
   "values": [
-    "occultism:possessed_endermite",
     "occultism:possessed_bee",
+    "occultism:wild_cave_spider",
+    "occultism:possessed_endermite",
     "occultism:wild_horde_silverfish",
     "occultism:wild_silverfish",
-    "occultism:wild_spider",
-    "occultism:wild_cave_spider"
+    "occultism:wild_spider"
   ]
 }

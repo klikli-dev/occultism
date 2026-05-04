@@ -216,7 +216,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftBell = this.add(new BellEntry(this).generate('H'));
         craftBell.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftHorseArmor = this.add(new HorseArmorEntry(this).generate('ĥ'));
+        var craftHorseArmor = this.add(new AnimalArmorEntry(this).generate('ĥ'));
         craftHorseArmor.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
         var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate('t'));

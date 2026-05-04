@@ -66,7 +66,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWaterloggedBlock {
-    public static final IntegerProperty CANDLES = BlockStateProperties.CANDLES; //This is defining the fire type since I can create a new property without errors
+    public static final IntegerProperty FLAME = IntegerProperty.create("flame", 0, 5);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final MapCodec<LargeCandleBlock> CODEC = simpleCodec(LargeCandleBlock::new);
@@ -105,7 +105,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
                 this.stateDefinition
                         .any()
                         .setValue(LIT, Boolean.valueOf(false))
-                        .setValue(CANDLES, 1)
+                        .setValue(FLAME, 0)
                         .setValue(WATERLOGGED, Boolean.valueOf(false))
         );
     }
@@ -125,30 +125,44 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.TORCH.asItem()) {
                 if (this.canBeLit(state)) {
-                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 1), 1);
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(FLAME, 0), 1);
                 } else {
-                    level.setBlock(pos, state.setValue(CANDLES, 1), 11);
+                    level.setBlock(pos, state.setValue(FLAME, 0), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.SOUL_TORCH.asItem()) {
                 if (this.canBeLit(state)) {
-                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 2), 1);
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(FLAME, 1), 1);
                 } else {
-                    level.setBlock(pos, state.setValue(CANDLES, 2), 11);
+                    level.setBlock(pos, state.setValue(FLAME, 1), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == Items.REDSTONE_TORCH.asItem()) {
                 if (this.canBeLit(state)) {
-                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 3), 1);
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(FLAME, 2), 1);
                 } else {
-                    level.setBlock(pos, state.setValue(CANDLES, 3), 11);
+                    level.setBlock(pos, state.setValue(FLAME, 2), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.getItem() == OccultismItems.SPIRIT_TORCH.asItem()) {
                 if (this.canBeLit(state)) {
-                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 4), 1);
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(FLAME, 3), 1);
                 } else {
-                    level.setBlock(pos, state.setValue(CANDLES, 4), 11);
+                    level.setBlock(pos, state.setValue(FLAME, 3), 11);
+                }
+                return InteractionResult.SUCCESS;
+            } else if (stack.getItem() == Items.COPPER_TORCH.asItem()) {
+                if (this.canBeLit(state)) {
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(FLAME, 4), 1);
+                } else {
+                    level.setBlock(pos, state.setValue(FLAME, 4), 11);
+                }
+                return InteractionResult.SUCCESS;
+            }  else if (stack.getItem() == Items.TORCHFLOWER.asItem()) { //you found an Easter egg
+                if (this.canBeLit(state)) {
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(FLAME, 5), 1);
+                } else {
+                    level.setBlock(pos, state.setValue(FLAME, 5), 11);
                 }
                 return InteractionResult.SUCCESS;
             } else {
@@ -189,7 +203,7 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
 
     @Override
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
-        builder.add(LIT, WATERLOGGED, CANDLES);
+        builder.add(LIT, WATERLOGGED, FLAME);
         super.createBlockStateDefinition(builder);
     }
 
@@ -251,29 +265,41 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
             double d2 = (double) blockPos.getZ() + 0.5D;
             float f = rand.nextFloat();
             if (f < 0.9F) {
-                switch (state.getValue(CANDLES)) {
-                    case 1:
+                switch (state.getValue(FLAME)) {
+                    case 0:
                         level.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         if (f < 0.24F) {
                             level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         }
                         break;
-                    case 2:
+                    case 1:
                         level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         if (f < 0.24F) {
                             level.addParticle(ParticleTypes.SOUL, d0, d1, d2, 0.0D, 0.09D, 0.0D);
                         }
                         break;
-                    case 3:
+                    case 2:
                         level.addParticle(OccultismParticles.RED_FIRE_FLAME.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         if (f < 0.24F) {
                             level.addParticle(ParticleTypes.TRIAL_SPAWNER_DETECTED_PLAYER, d0, d1, d2, 0.0D, -0.03D, 0.0D);
                         }
                         break;
-                    case 4:
+                    case 3:
                         level.addParticle(OccultismParticles.SPIRIT_FIRE_FLAME.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         if (f < 0.24F) {
                             level.addParticle(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), d0, d1, d2, 0.0D, 0.02D, 0.0D);
+                        }
+                        break;
+                    case 4:
+                        level.addParticle(ParticleTypes.COPPER_FIRE_FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                        if (f < 0.24F) {
+                            level.addParticle(ParticleTypes.HAPPY_VILLAGER, d0, d1, d2, 0.0D, 2.4D, 0.0D);
+                        }
+                        break;
+                    case 5: //TORCH-flower
+                        level.addParticle(ParticleTypes.CHERRY_LEAVES, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                        if (f < 0.24F) {
+                            level.addParticle(ParticleTypes.BUBBLE_POP, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                         }
                         break;
                 }

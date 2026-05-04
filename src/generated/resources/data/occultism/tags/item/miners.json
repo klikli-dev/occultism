@@ -1,9 +1,9 @@
 {
   "values": [
-    "#occultism:miners/basic_resources",
-    "#occultism:miners/deeps",
-    "#occultism:miners/master",
-    "#occultism:miners/ores",
+    "#occultism:miners/basic",
+    "#occultism:miners/iron",
+    "#occultism:miners/diamond",
+    "#occultism:miners/netherite",
     "#occultism:miners/eldritch"
   ]
 }

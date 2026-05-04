@@ -50,7 +50,8 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get(), this.weakShulkerTable());
         this.add(OccultismEntities.POSSESSED_GHAST_TYPE.get(), this.ghastLootTable());
         this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), this.elderGuardianLootTable());
-        this.add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), this.huskLootTable());
+        this.add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), this.desertLootTable());
+        this.add(OccultismEntities.WILD_HORDE_PARCHED_TYPE.get(), this.desertLootTable());
         this.add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), this.drownedLootTable());
         this.add(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), this.creeperLootTable());
         this.add(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), this.silverfishLootTable());
@@ -307,6 +308,14 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))
                                                 )
                                 )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_TEARS))
+                                .add(LootItem.lootTableItem(Items.DRIED_GHAST))
+                                .when(LootItemRandomChanceWithEnchantedBonusCondition
+                                        .randomChanceAndLootingBoost(registries, 0.2F, 0.05F))
                 );
 
     }
@@ -405,7 +414,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 );
     }
 
-    public Builder huskLootTable() {
+    public Builder desertLootTable() {
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -530,7 +539,8 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(EmptyLootItem.emptyItem().setWeight(7))
+                                .add(EmptyLootItem.emptyItem().setWeight(5))
+                                .add(LootItem.lootTableItem(Items.WIND_CHARGE).setWeight(3))
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR_MUSIC_BOX).setWeight(1))
                 );
     }

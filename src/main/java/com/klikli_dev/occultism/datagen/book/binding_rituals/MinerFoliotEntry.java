@@ -67,7 +67,7 @@ public class MinerFoliotEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        The {0} miner harvests block without much aim and returns anything it finds.
+                        The {0} miner harvests only resources considered more basic and less precious.
                          The mining process is quite slow, due to this the Foliot expends only minor
                          amounts of energy, damaging the lamp it is housed in slowly over time.
                         """,

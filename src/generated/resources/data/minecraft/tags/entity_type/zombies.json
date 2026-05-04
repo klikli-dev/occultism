@@ -1,9 +1,9 @@
 {
   "values": [
-    "occultism:possessed_zombie_piglin",
+    "occultism:wild_horde_drowned",
     "occultism:wild_horde_husk",
     "occultism:wild_husk",
-    "occultism:wild_horde_drowned",
-    "occultism:wild_zombie"
+    "occultism:wild_zombie",
+    "occultism:possessed_zombie_piglin"
   ]
 }

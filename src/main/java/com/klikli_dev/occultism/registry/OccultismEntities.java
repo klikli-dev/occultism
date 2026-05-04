@@ -200,6 +200,11 @@ public class OccultismEntities {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_horde_husk"))));
+    public static final Lazy<EntityType<WildHordeParchedEntity>> WILD_HORDE_PARCHED_TYPE =
+            Lazy.of(() -> Builder.of(WildHordeParchedEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(12)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_horde_parched"))));
     public static final Lazy<EntityType<WildHordeDrownedEntity>> WILD_HORDE_DROWNED_TYPE =
             Lazy.of(() -> Builder.of(WildHordeDrownedEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -440,6 +445,8 @@ public class OccultismEntities {
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
     public static final Supplier<EntityType<WildHordeHuskEntity>> WILD_HORDE_HUSK =
             ENTITIES.register("wild_horde_husk", WILD_HORDE_HUSK_TYPE::get);
+    public static final Supplier<EntityType<WildHordeParchedEntity>> WILD_HORDE_PARCHED =
+            ENTITIES.register("wild_horde_parched", WILD_HORDE_PARCHED_TYPE::get);
     public static final Supplier<EntityType<WildHordeDrownedEntity>> WILD_HORDE_DROWNED =
             ENTITIES.register("wild_horde_drowned", WILD_HORDE_DROWNED_TYPE::get);
     public static final Supplier<EntityType<WildHordeCreeperEntity>> WILD_HORDE_CREEPER =

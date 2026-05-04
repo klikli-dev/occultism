@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:miners/iron"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/heliodor"
+      }
+    }
+  ],
+  "type": "occultism:miner",
+  "ingredient": "#occultism:miners/iron",
+  "result": {
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:ores/heliodor",
+    "weight": 39
+  }
+}

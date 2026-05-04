@@ -182,6 +182,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_HUSK.get(), HuskRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HORDE_PARCHED.get(), ParchedRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_DROWNED.get(), DrownedRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_CREEPER.get(), CreeperRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_SILVERFISH.get(), SilverfishRenderer::new);

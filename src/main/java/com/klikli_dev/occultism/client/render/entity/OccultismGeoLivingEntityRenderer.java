@@ -12,6 +12,9 @@ import com.geckolib.renderer.GeoEntityRenderer;
 import com.geckolib.renderer.base.BoneSnapshots;
 import com.geckolib.renderer.base.RenderPassInfo;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import org.jspecify.annotations.Nullable;
 
@@ -31,5 +34,13 @@ public abstract class OccultismGeoLivingEntityRenderer<T extends LivingEntity & 
 
         DefaultAnimations.hardcodedHeadRotation(renderPassInfo, snapshots, "head");
         DefaultAnimations.hardcodedHeadRotation(renderPassInfo, snapshots, "Head");
+    }
+
+    @Override
+    public @Nullable RenderType getRenderType(OccultismGeoLivingEntityRenderState renderState, Identifier texture) {
+        if (!renderState.isInvisible)
+            return RenderTypes.entityTranslucent(texture, false);
+
+        return renderState.appearsGlowing() ? RenderTypes.outline(texture) : null;
     }
 }

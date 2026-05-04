@@ -1,10 +1,10 @@
 {
   "type": "occultism:ritual",
   "activation_item": "occultism:brush",
-  "duration": 780,
+  "duration": 412,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.humans",
-    "tag": "occultism:humans"
+    "display_name": "ritual.occultism.sacrifice.squid",
+    "tag": "c:squids"
   },
   "ingredients": [
     "occultism:chalk_white",

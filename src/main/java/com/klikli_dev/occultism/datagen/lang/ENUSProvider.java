@@ -151,12 +151,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
         this.add(OccultismItems.DIMENSIONAL_MATRIX.get().getDescriptionId() + ".tooltip", "%s is bound to this dimensional matrix.");
         this.add(OccultismItems.INFUSED_PICKAXE.get().getDescriptionId() + ".tooltip", "%s is bound to this pickaxe.");
-        this.add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "%s will mine random blocks in the mining dimension.");
-        this.add(OccultismItems.MINER_DJINNI_ORES.get().getDescriptionId() + ".tooltip", "%s will mine random ores in the mining dimension.");
-        this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner will mine random blocks in the mining dimension.");
-        this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s will mine random ores and deepslate ores in the mining dimension.");
-        this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s will mine random ores, deepslate ores and rare ores in the mining dimension.");
-        this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine random raw ores blocks, gems blocks and rare ores in the mining dimension.");
+        this.add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "%s randomly mines basic ores in the Mining Dimension.");
+        this.add(OccultismItems.MINER_DJINNI_ORES.get().getDescriptionId() + ".tooltip", "%s randomly mines general ores in the Mining Dimension.");
+        this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner mines random blocks in the Mining Dimension.");
+        this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s randomly mines most ores in the Mining Dimension.");
+        this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s randomly mines ores, including rare ones, in the Mining Dimension.");
+        this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine every ores in the mining dimension.");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_filled", "%s is bound to this lamp.\n %s: %s");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_empty", "Use on a spirit worker to capture it.");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_0", "<%s> Release me immediately!");
@@ -430,6 +430,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_IESNIUM_GOLEM, "Iesnium Golem Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Wild Horde Husk Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_PARCHED, "Wild Horde Parched Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
@@ -686,6 +687,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
         this.addEntityType(OccultismEntities.IESNIUM_GOLEM, "Iesnium Golem");
         this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
+        this.addEntityType(OccultismEntities.WILD_HORDE_PARCHED, "Wild Horde Parched");
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
         this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
         this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
@@ -709,6 +711,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //"(.*?)": "(.*)",
         //this.add\("\1", "\2"\);
 
+        this.add("tooltip.occultism.soul_value", "Spiritual fuel value: %s");
+        this.add("tooltip.occultism.soul_value_stack", "Stacked spiritual fuel value: %s");
         this.add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
         this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacles:");
 
@@ -769,6 +773,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         //Ritual Sacrifices
         this.add("ritual.occultism.sacrifice.cows", "Cow");
+        this.add("ritual.occultism.sacrifice.creeper", "Creeper");
         this.add("ritual.occultism.sacrifice.bats", "Bat");
         this.add("ritual.occultism.sacrifice.bees", "Bee");
         this.add("ritual.occultism.sacrifice.zombies", "Zombie");
@@ -782,6 +787,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.llamas", "Llama");
         this.add("ritual.occultism.sacrifice.goats", "Goat");
         this.add("ritual.occultism.sacrifice.snow_golem", "Snow Golem");
+        this.add("ritual.occultism.sacrifice.copper_golem", "Copper Golem");
         this.add("ritual.occultism.sacrifice.iron_golem", "Iron Golem");
         this.add("ritual.occultism.sacrifice.spiders", "Spider");
         this.add("ritual.occultism.sacrifice.flying_passive", "Allay, Bat, Bee or Parrot");
@@ -1952,10 +1958,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GOAT, "Summon Goat of Mercy", "Marid", "The Goat of Mercy will drop the Cruelty Essence.");
         //Random
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON, "Summon Common Random Animal", "Foliot", "Summons a common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "Summon Water Random Animal", "Foliot", "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "Summon Water Random Animal", "Foliot", "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem, nautilus, zombie nautilus)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL, "Summon Small Random Animal", "Foliot", "Summons a small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL, "Summon Special Random Animal", "Djinni", "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "Summon Rideable Random Animal", "Djinni", "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL, "Summon Special Random Animal", "Djinni", "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, copper golem, sniffer)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "Summon Rideable Random Animal", "Djinni", "Summons a rideable random passive animal. (Possibilities: pig, camel, camel husk, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider, happy ghast, nautilus, zombie nautilus)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER, "Summon Villager", "Djinni", "Summons a villager or wandering Trader.");
         //CRAFT
         //Tools
@@ -2024,6 +2030,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "Invoke a Horde of Creeper", "Wild", "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_DROWNED, "Invoke a Horde of Drowned", "Wild", "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUSK, "Invoke a Horde of Husk", "Wild", "The Wild Horde Husk consists of a few husks that drop items related to desert trails.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_PARCHED, "Invoke a Horde of Parched", "Wild", "The Wild Horde Parched consists of a few parcheds that drop items related to desert trails.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH, "Invoke a Horde of Silverfish", "Wild", "The Wild Horde Silverfish consists of a few silverfishs that drop items related to ruins trails.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE, "Invoke Wild Weak Breeze", "Wild", "The Wild Weak Breeze will drop a Trial Key and trial chamber related items.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_BREEZE, "Invoke Wild Breeze", "Wild", "The Wild Breeze will drop a Ominous Trial Key and trial chamber related items.");
@@ -2040,9 +2047,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "Forge Bell", "Wild", "Wild Spirits will forge a bell.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "Forge Budding Amethyst", "Wild", "Wild Spirits will forge a Budding Amethyst.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM, "Forge Wild Armor Trim Smithing Template", "Wild", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_COPPER_HORSE_ARMOR, "Forge Copper Horse Armor", "Wild", "Wild Spirits will forge a Copper Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR, "Forge Iron Horse Armor", "Wild", "Wild Spirits will forge a Iron Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR, "Forge Golden Horse Armor", "Wild", "Wild Spirits will forge a Golden Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR, "Forge Diamond Horse Armor", "Wild", "Wild Spirits will forge a Diamond Horse Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR, "Forge Copper Nautilus Armor", "Wild", "Wild Spirits will forge a Copper Nautilus Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR, "Forge Iron Nautilus Armor", "Wild", "Wild Spirits will forge a Iron Nautilus Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR, "Forge Golden Nautilus Armor", "Wild", "Wild Spirits will forge a Golden Nautilus Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR, "Forge Diamond Nautilus Armor", "Wild", "Wild Spirits will forge a Diamond Nautilus Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE, "Forge Celestial Chalice", "Eldritch", "Eldritch Spirits will forge an Celestial Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
@@ -2129,11 +2141,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.BOOK_OF_CALLING_FOLIOT, "Book of Calling Foliot");
         this.addItemTag(Items.BOOKS_OF_BINDING, "Books of Binding");
         this.addItemTag(Items.BOOKS_FOR_EMPTY, "Books for Empty Binding Book");
-        this.addItemTag(Miners.BASIC_RESOURCES, "Basic Resource Miners");
-        this.addItemTag(Miners.DEEPS, "Deepslate Miners");
-        this.addItemTag(Miners.MASTER, "Rare Resource Miners");
-        this.addItemTag(Miners.ELDRITCH, "Eldritch Miners");
-        this.addItemTag(Miners.ORES, "General Miners");
+        this.addItemTag(Miners.BASIC, "Miners Basic Tier");
+        this.addItemTag(Miners.IRON, "Miners Iron Tier");
+        this.addItemTag(Miners.DIAMOND, "Miners Diamond Tier");
+        this.addItemTag(Miners.NETHERITE, "Miners Netherite Tier");
+        this.addItemTag(Miners.ELDRITCH, "Miners Eldritch Tier");
         this.addItemTag(Items.ELYTRA, "Elytras");
         this.addItemTag(Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
         this.addItemTag(Items.DATURA_SEEDS, "Demon's Dream Seeds");
@@ -2159,7 +2171,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.STORAGE_BLOCK_RAW_SILVER, "Raw Silver Storage Blocks");
         this.addItemTag(Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
         this.addItemTag(Items.TUBE_CORALS, "Tube Coral");
-        this.addItemTag(Items.LIGHTNING_RODS, "Lightning Rods");
         this.addItemTag(Items.ENCHANTING_TABLES, "Enchanting Tables");
         this.addItemTag(Items.IRON_BARS, "Iron bars");
         this.addItemTag(Items.TALLOW, "Tallow");
@@ -2227,6 +2238,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");
         this.addItemTag(Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");
         this.addItemTag(Items.DROPS_WILD_HORDE_HUSK, "Drop from Wild Horde Husk");
+        this.addItemTag(Items.DROPS_WILD_HORDE_PARCHED, "Drop from Wild Horde Parched");
         this.addItemTag(Items.DROPS_WILD_HORDE_SILVERFISH, "Drop from Wild Horde Silverfish");
         this.addItemTag(Items.RANDOM_SPAWN_COMMON, "Can spawn as Common Random Animal");
         this.addItemTag(Items.RANDOM_SPAWN_RIDEABLE, "Can spawn as Rideable Random Animal");

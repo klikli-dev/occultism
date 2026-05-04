@@ -121,7 +121,6 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_STABILIZER = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "storage_stabilizer"));
         public static final TagKey<Block> OTHERWORLD_LOGS = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
         public static final TagKey<Block> MUSHROOM_BLOCKS = makeBlockTag(Identifier.fromNamespaceAndPath("c", "mushroom_blocks"));
-        public static final TagKey<Block> LIGHTNING_RODS = makeBlockTag(Identifier.fromNamespaceAndPath("c", "lightning_rods"));
         public static final TagKey<Block> ENCHANTING_TABLES = makeBlockTag(Identifier.fromNamespaceAndPath("c", "enchanting_tables"));
         public static final TagKey<Block> IRON_BARS = makeBlockTag(Identifier.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Block> BLOCKED_PASTE = makeBlockTag(Identifier.fromNamespaceAndPath("c", "blocked_for_paste_replicate"));
@@ -147,7 +146,6 @@ public class OccultismTags {
         public static final TagKey<Item> STORAGE_BLOCK_RAW_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
 
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(Identifier.fromNamespaceAndPath("c", "mushroom_blocks"));
-        public static final TagKey<Item> LIGHTNING_RODS = makeItemTag(Identifier.fromNamespaceAndPath("c", "lightning_rods"));
         public static final TagKey<Item> ENCHANTING_TABLES = makeItemTag(Identifier.fromNamespaceAndPath("c", "enchanting_tables"));
         public static final TagKey<Item> IRON_BARS = makeItemTag(Identifier.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Item> TUBE_CORALS = makeItemTag(Identifier.fromNamespaceAndPath("c", "tube_corals"));
@@ -242,6 +240,7 @@ public class OccultismTags {
         public static final TagKey<Item> DROPS_WILD_HORDE_CREEPER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_creeper"));
         public static final TagKey<Item> DROPS_WILD_HORDE_DROWNED = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_drowned"));
         public static final TagKey<Item> DROPS_WILD_HORDE_HUSK = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_husk"));
+        public static final TagKey<Item> DROPS_WILD_HORDE_PARCHED = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_parched"));
         public static final TagKey<Item> DROPS_WILD_HORDE_SILVERFISH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_silverfish"));
         public static final TagKey<Item> RANDOM_SPAWN_COMMON = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/common"));
         public static final TagKey<Item> RANDOM_SPAWN_RIDEABLE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/rideable"));
@@ -253,10 +252,10 @@ public class OccultismTags {
         public static class Miners {
             public static final TagKey<Item> MINERS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners"));
 
-            public static final TagKey<Item> BASIC_RESOURCES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/basic_resources"));
-            public static final TagKey<Item> DEEPS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/deeps"));
-            public static final TagKey<Item> MASTER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/master"));
-            public static final TagKey<Item> ORES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/ores"));
+            public static final TagKey<Item> BASIC = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/basic"));
+            public static final TagKey<Item> IRON = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/iron"));
+            public static final TagKey<Item> DIAMOND = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/diamond"));
+            public static final TagKey<Item> NETHERITE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/netherite"));
             public static final TagKey<Item> ELDRITCH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/eldritch"));
         }
     }
@@ -272,6 +271,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "bats"));
         public static final TagKey<EntityType<?>> BEES = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "bees"));
         public static final TagKey<EntityType<?>> SNOW_GOLEM = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/snow"));
+        public static final TagKey<EntityType<?>> COPPER_GOLEM = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/copper"));
         public static final TagKey<EntityType<?>> IRON_GOLEM = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "golems/iron"));
         public static final TagKey<EntityType<?>> DONKEYS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "donkeys"));
         public static final TagKey<EntityType<?>> FISH = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "fish"));
@@ -306,8 +306,10 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));
         public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_hunt"));
         public static final TagKey<EntityType<?>> WILD_TRIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_trial"));
+        public static final TagKey<EntityType<?>> WILD_DESERT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_desert"));
         public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "healed_by_demons_dream_fruit"));
         public static final TagKey<EntityType<?>> CUBEMOB = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "cubemob"));
+        public static final TagKey<EntityType<?>> CREEPER = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "creepers"));
         public static final TagKey<EntityType<?>> FLYING_PASSIVE = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "flying_passive"));
         public static final TagKey<EntityType<?>> HUMANS = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "humans"));
 

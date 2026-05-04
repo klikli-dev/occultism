@@ -82,7 +82,13 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, duration, ritualType, pentacleId, registries);
     }
 
-    @Override
+    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, float duration, Identifier ritualType, Identifier pentacleId, Provider registries, Ingredient... ingredients) {
+        NonNullList<Ingredient> ingredientsList = NonNullList.create();
+        Collections.addAll(ingredientsList, ingredients);
+        return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, (int) duration, ritualType, pentacleId, registries);
+    }
+
+        @Override
     public @NotNull RitualRecipeBuilder unlockedBy(@NotNull String s, @NotNull Criterion<?> criterion) {
         this.criteria.put(s, criterion);
         return this;

@@ -1,10 +1,10 @@
 {
   "type": "occultism:ritual",
   "activation_item": "occultism:mining_dim_core",
-  "duration": 780,
+  "duration": 412,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.humans",
-    "tag": "occultism:humans"
+    "display_name": "ritual.occultism.sacrifice.creeper",
+    "tag": "occultism:creepers"
   },
   "ingredients": [
     "occultism:miner_marid_master",

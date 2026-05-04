@@ -250,30 +250,35 @@ public class OccultismItems {
                     .durability(1000),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.registerItem("miner_djinni_ores",
             properties -> new MinerSpiritItem(properties.durability(400)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_AFRIT_DEEPS = ITEMS.registerItem("miner_afrit_deeps",
             properties -> new MinerSpiritItem(properties.durability(800).rarity(Rarity.UNCOMMON).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_MARID_MASTER = ITEMS.registerItem("miner_marid_master",
             properties -> new MinerSpiritItem(properties.durability(1600).rarity(Rarity.RARE).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("miner_ancient_eldritch",
             properties -> new MinerSpiritItem(properties.durability(3200).rarity(Rarity.EPIC).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.maxMiningTime,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.outputMultiplier,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.durability));
     //Crops and food
     public static final DeferredItem<BlockItem> DATURA_SEEDS = ITEMS.registerItem("datura_seeds",
@@ -405,7 +410,7 @@ public class OccultismItems {
             SoulShardItem::new, () -> new Properties().stacksTo(1));
     public static final DeferredItem<SoulShardItem> SOUL_SHATTERED_ITEM = ITEMS.registerItem("soul_shattered",
             SoulShardItem::new, () -> new Properties().stacksTo(1)
-                    .component(OccultismDataComponents.SOUL_VALUE, 1).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F));
+                    .component(OccultismDataComponents.SOUL_VALUE, 1000000).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F));
     //Machines
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
             ITEMS.registerItem("spirit_fire", properties -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), properties.useBlockDescriptionPrefix()));
@@ -474,6 +479,8 @@ public class OccultismItems {
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_HOGLIN_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_HUSK = ITEMS.registerItem("spawn_egg/wild_horde_husk",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WILD_HORDE_HUSK_TYPE.get()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_PARCHED = ITEMS.registerItem("spawn_egg/wild_horde_parched",
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WILD_HORDE_PARCHED_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_DROWNED = ITEMS.registerItem("spawn_egg/wild_horde_drowned",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_CREEPER = ITEMS.registerItem("spawn_egg/wild_horde_creeper",
@@ -679,6 +686,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_CREEPER = ITEMS.registerItem("ritual_dummy/wild_creeper", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_DROWNED = ITEMS.registerItem("ritual_dummy/wild_drowned", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUSK = ITEMS.registerItem("ritual_dummy/wild_husk", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_PARCHED = ITEMS.registerItem("ritual_dummy/wild_parched", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_SILVERFISH = ITEMS.registerItem("ritual_dummy/wild_silverfish", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_WEAK_BREEZE = ITEMS.registerItem("ritual_dummy/wild_weak_breeze", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_BREEZE = ITEMS.registerItem("ritual_dummy/wild_breeze", DummyTooltipItem::new, () -> new Properties());
@@ -696,9 +704,14 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.registerItem("ritual_dummy/misc_budding_amethyst", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.registerItem("ritual_dummy/misc_reinforced_deepslate", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.registerItem("ritual_dummy/misc_wild_trim", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_horse_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_horse_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_horse_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_horse_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.registerItem("ritual_dummy/misc_eldritch_chalice", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.registerItem("ritual_dummy/misc_celestial_chalice", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, () -> new Properties());
@@ -739,7 +752,7 @@ public class OccultismItems {
             ITEMS.registerItem("miner_debug_unspecialized",
                     properties -> new MinerSpiritItem(properties
                             .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
-                            .durability(10000), () -> 100, () -> 10, () -> 10000));
+                            .durability(10000), () -> 100, () -> 10, () -> 1, () -> 10000));
     //Placeholders
     public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
             ITEMS.registerItem("dictionary_of_spirits_icon", Item::new, () -> new Properties());

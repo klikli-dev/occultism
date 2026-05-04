@@ -51,15 +51,15 @@ public class GoldenSacrificialBowlHUD implements GuiLayer {
                 int i = ritualName.indexOf(":");
                 pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.current_ritual",
                                 Component.literal(ritualName.substring(i + 2))), x, y,
-                        bowl.getSignal() == 8 ? ChatFormatting.GREEN.getColor() : ChatFormatting.GRAY.getColor());
+                        bowl.getSignal() == 8 ? 0xFF000000 + ChatFormatting.GREEN.getColor() : 0xFF000000 + ChatFormatting.GRAY.getColor());
                 y += 9;
                 if (!bowl.sacrificeFulfilled()) {
-                    pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.no_sacrifice"), x, y, ChatFormatting.RED.getColor());
+                    pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.no_sacrifice"), x, y, 0xFF000000 + ChatFormatting.RED.getColor());
                     y += 9;
                     pGuiGraphics.centeredText(font, Component.translatable(bowl.currentRitualRecipe.value().getEntityToSacrificeDisplayName()), x, y, -1);
                 }
                 if (!bowl.itemUseFulfilled()) {
-                    pGuiGraphics.centeredText(font, Component.translatable("ritual.occultism.use_item"), x, y, -1);
+                    pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.no_item_use"), x, y, 0xFF000000 + ChatFormatting.RED.getColor());
                     var itemToUse = bowl.currentRitualRecipe.value().getItemToUse();
                     ItemStack[] stacks = itemToUse != null ? itemToUse.items().map(holder -> new ItemStack(holder.value())).toArray(ItemStack[]::new) : new ItemStack[0];
                     if (stacks.length > 0) {
@@ -70,7 +70,7 @@ public class GoldenSacrificialBowlHUD implements GuiLayer {
                 }
             } else {
                 if (!ClientPentacleManager.lastPentacles.isEmpty()) {
-                    pGuiGraphics.centeredText(font, Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND), x, y, ChatFormatting.GOLD.getColor());
+                    pGuiGraphics.centeredText(font, Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND), x, y,  0xFF000000 + ChatFormatting.GOLD.getColor());
                     y += 9;
                     for (var text : ClientPentacleManager.lastPentacles) {
                         pGuiGraphics.centeredText(font, text, x, y, -1);

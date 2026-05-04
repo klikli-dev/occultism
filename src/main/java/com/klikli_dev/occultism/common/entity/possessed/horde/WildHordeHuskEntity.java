@@ -23,6 +23,11 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
+import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -55,5 +60,20 @@ public class WildHordeHuskEntity extends Husk implements PossessedMob {
     @Override
     public EntityType basedMob() {
         return EntityType.HUSK;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
+        TagKey<EntityType<?>> wildDesertTag = OccultismTags.Entities.WILD_DESERT;
+
+        Entity trueSource = source.getEntity();
+        if (trueSource != null && trueSource.getType().builtInRegistryHolder().is(wildDesertTag))
+            return true;
+
+        Entity immediateSource = source.getDirectEntity();
+        if (immediateSource != null && immediateSource.getType().builtInRegistryHolder().is(wildDesertTag))
+            return true;
+
+        return super.isInvulnerableTo(level, source);
     }
 }
