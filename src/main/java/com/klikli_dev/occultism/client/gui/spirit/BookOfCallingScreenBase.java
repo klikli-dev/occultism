@@ -35,7 +35,7 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
     protected static final int TOP_BAR_HEIGHT = 15;
     protected static final int MAIN_LEFT = 3;
     protected static final int MAIN_TOP = 12;
-    protected static final int TITLE_Y = 4;
+    protected static final int TITLE_Y = 2;
     protected static final int LABEL_RIGHT_X = 66;
     protected static final int SELECTION_LEFT = 72;
     protected static final int SELECTION_WIDTH = 120;
