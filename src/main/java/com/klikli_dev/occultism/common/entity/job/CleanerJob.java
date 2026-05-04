@@ -68,7 +68,7 @@ public class CleanerJob extends SpiritJob implements MenuProvider {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        return EntityItemFilter.matches(this.entity.level(), this.entity, entity.getItem());
+        return EntityItemFilter.matches(this.entity.level(), this.entity.getFilterItem(), entity.getItem(), true);
     }
 
     @Nullable
