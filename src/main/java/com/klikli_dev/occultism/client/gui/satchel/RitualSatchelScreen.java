@@ -29,7 +29,8 @@ import net.minecraft.world.entity.player.Inventory;
 public class RitualSatchelScreen extends AbstractSatchelScreen<AbstractSatchelContainer> {
     private static final int GUI_WIDTH = 182;
     private static final int GUI_HEIGHT = 194;
-    private static final int MAIN_HEIGHT = 82;
+    private static final int MAIN_HEIGHT = 85;
+    private static final int MAIN_TOP = 11;
     private static final int INVENTORY_BACKGROUND_TOP = 98;
     private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
     private static final int INVENTORY_LABEL_X = 11;
@@ -42,6 +43,11 @@ public class RitualSatchelScreen extends AbstractSatchelScreen<AbstractSatchelCo
     @Override
     protected int mainHeight() {
         return MAIN_HEIGHT;
+    }
+
+    @Override
+    protected int mainTop() {
+        return MAIN_TOP;
     }
 
     @Override
