@@ -42,12 +42,12 @@ public class CleanerEntry extends EntryProvider {
         this.pageTitle("Foliot Janitor");
         this.pageText("""
                 The janitor will pick up dropped items and deposit them into a target
-                inventory. Put a {0} or {1} into its filter slot to control
-                which items it picks up.
+                inventory.
                 \
                 \
-                **Warning**: without a filter item, the janitor will not pick up anything.
-                See {2} for details and recipes.
+                If the filter slot is empty, the janitor will pick up everything in its work area.
+                Put a {0} or {1} into its filter slot to control which items it picks up instead.
+                See {2} for filter details and recipes.
                 """
                 ,
                 this.itemLink(OccultismItems.LIST_FILTER),
@@ -63,8 +63,11 @@ public class CleanerEntry extends EntryProvider {
                 also interact with a block while holding the janitor book of
                 calling to have it deposit items there. You can also have it
                 wander around a select area by pulling up that interface.
-                To configure the inserted filter, open that filter item from the janitor UI.
+                To configure an inserted filter, open that filter item from the janitor UI.
+                See {0} for the available filter types.
                 """
+                ,
+                this.entryLink("Spirit Filters", "summoning_rituals", TransporterFiltersEntry.ENTRY_ID)
         );
 
         this.page("tip", () -> BookTextPageModel.create()
