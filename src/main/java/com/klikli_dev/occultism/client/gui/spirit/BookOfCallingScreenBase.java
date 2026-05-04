@@ -34,7 +34,7 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
     protected static final int TOP_BAR_HEIGHT = 15;
     protected static final int MAIN_LEFT = 3;
     protected static final int MAIN_TOP = 12;
-    protected static final int TITLE_Y = 6;
+    protected static final int TITLE_Y = 4;
     protected static final int LABEL_RIGHT_X = 66;
     protected static final int SELECTION_LEFT = 72;
     protected static final int SELECTION_WIDTH = 120;
@@ -69,7 +69,7 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
         this.root.syncWithHost();
 
         LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y - 1), true,
-                -1, 2, 2, this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0x303030));
+                -1, 2, 2, this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0xFF000000));
         titleLabel.addLine(this.title);
         this.addRenderableWidget(titleLabel);
 

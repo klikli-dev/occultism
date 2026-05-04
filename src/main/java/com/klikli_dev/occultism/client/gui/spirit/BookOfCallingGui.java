@@ -26,11 +26,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 public class BookOfCallingGui extends BookOfCallingScreenBase {
-    private static final int GUI_HEIGHT = 87;
+    private static final int GUI_HEIGHT = 86;
     private static final int MODE_ROW_Y = 23;
     private static final int WORK_AREA_ROW_Y = 55;
     private static final int DIVIDER_Y = 48;
-    private static final int CONFIRM_BUTTON_Y = 61;
+    private static final int DIVIDER_HEIGHT = 38;
+    private static final int CONFIRM_BUTTON_Y = 55;
 
     private final InteractionHand hand;
     private final ItemMode initialMode;
@@ -43,7 +44,7 @@ public class BookOfCallingGui extends BookOfCallingScreenBase {
     private BookOfCallingSelectionWidget<WorkAreaSize> workAreaSelectionWidget;
 
     public BookOfCallingGui(ItemMode mode, WorkAreaSize workAreaSize, InteractionHand hand) {
-        super(Component.translatable("item." + Occultism.MODID + ".book_of_calling"), GUI_HEIGHT);
+        super(resolveTitle(hand), GUI_HEIGHT);
         this.hand = hand;
         this.initialMode = mode;
         this.initialWorkAreaSize = workAreaSize;
@@ -71,7 +72,7 @@ public class BookOfCallingGui extends BookOfCallingScreenBase {
         ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.mode")));
 
         this.addHorizontalSeparator(DIVIDER_Y);
-        this.addVerticalSeparator(202, DIVIDER_Y, 36);
+        this.addVerticalSeparator(202, DIVIDER_Y, DIVIDER_HEIGHT);
 
         this.addLabelRow(WORK_AREA_ROW_Y + 5, "gui." + Occultism.MODID + ".book_of_calling.work_area");
         this.workAreaSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
@@ -175,5 +176,19 @@ public class BookOfCallingGui extends BookOfCallingScreenBase {
 
         ItemStack stack = player.getItemInHand(this.hand);
         return stack.getItem() instanceof BookOfCallingItem book ? book : null;
+    }
+
+    private static Component resolveTitle(InteractionHand hand) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player == null) {
+            return Component.translatable("item." + Occultism.MODID + ".book_of_calling");
+        }
+
+        ItemStack stack = player.getItemInHand(hand);
+        if (!stack.isEmpty()) {
+            return stack.getHoverName();
+        }
+
+        return Component.translatable("item." + Occultism.MODID + ".book_of_calling");
     }
 }

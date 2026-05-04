@@ -1640,6 +1640,7 @@
   "gui.occultism.book_of_calling.unavailable": "Unavailable",
   "gui.occultism.book_of_calling.work_area": "Work Area",
   "gui.occultism.book_of_calling.work_area.not_applicable": "Not used in this mode",
+  "item.occultism.book_of_calling": "Book of Calling",
   "gui.occultism.spirit.age": "Essence Decay: %d%%",
   "gui.occultism.spirit.inventory_slot.occultism.cleaner": "Item to clean up.",
   "gui.occultism.spirit.inventory_slot.occultism.crush": "Item to crush.",

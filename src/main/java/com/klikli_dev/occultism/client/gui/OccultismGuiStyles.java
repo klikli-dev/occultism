@@ -75,7 +75,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.BOOK_OF_CALLING_TITLE, GuiStyleProperties.TEXT_COLOR, 0x303030)
+                .set(OccultismGuiParts.BOOK_OF_CALLING_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_LABEL, GuiStyleProperties.TEXT_COLOR, 0xFFF3EBDE)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_FIELD, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(FIELD_TINT))
                 .set(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SELECTION_TINT))

@@ -848,6 +848,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addGuiTranslations() {
+        this.add("item.occultism.book_of_calling", "Book of Calling");
         this.add("gui.occultism.book_of_calling.confirm", "Done");
         this.add("gui.occultism.book_of_calling.confirm.tooltip", "Save book settings");
         this.add("gui.occultism.book_of_calling.mode", "Mode");
