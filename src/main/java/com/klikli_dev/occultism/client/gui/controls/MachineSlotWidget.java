@@ -69,7 +69,7 @@ public class MachineSlotWidget {
     //endregion Getter / Setter
 
     public boolean isMouseOverSlot(double mouseX, double mouseY) {
-        return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
+        return this.parent.isPointInRegionController(this.x - this.guiLeft - 1, this.y - this.guiTop - 1, 18, 18, mouseX, mouseY);
     }
 
     public void drawSlot(GuiGraphicsExtractor guiGraphics, int mx, int my) {

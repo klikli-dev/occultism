@@ -24,15 +24,28 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
+import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
+import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.api.common.data.*;
+import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
+import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
+import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.client.gui.controls.ItemSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
-import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
+import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
@@ -45,22 +58,21 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag.Default;
@@ -74,17 +86,36 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
+public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener, GuiHost {
 
     public static final int ORDER_AREA_OFFSET = 48;
-    protected static final Identifier TEXTURE_TOP = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/storage_controller_top.png");
-    protected static final Identifier TEXTURE_ROW = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/storage_controller_row.png");
-    protected static final Identifier TEXTURE_BOTTOM = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/storage_controller_bottom.png");
-    protected static final Identifier BUTTONS = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
+    protected static final int TOP_BAR_HEIGHT = 15;
+    protected static final int MAIN_PANEL_TOP = 12;
+    protected static final int ITEM_AREA_LEFT = 8 + ORDER_AREA_OFFSET;
+    protected static final int ITEM_AREA_TOP = 24;
+    protected static final int SEARCH_BAR_LEFT = 9 + ORDER_AREA_OFFSET;
+    protected static final int SEARCH_BAR_TOP = 7;
+    protected static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
+    protected static final int SEARCH_FIELD_TOP = 4;
+    protected static final int STORAGE_INFO_LABEL_LEFT = 186;
+    protected static final int CONTROL_BUTTON_TOP = 5;
+    protected static final int CONTROL_BUTTON_SIZE = 12;
+    protected static final int CONTROL_BUTTON_LEFT = 99 + ORDER_AREA_OFFSET;
+    protected static final int ORDER_PANEL_LEFT = 0;
+    protected static final int ORDER_PANEL_TOP_OFFSET = 5;
+    protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
+    protected static final int CRAFTING_ARROW_TOP = 19;
+    protected static final int INVENTORY_PANEL_TOP_OFFSET = 54;
+    protected static final int INVENTORY_PANEL_LEFT = 3 + ORDER_AREA_OFFSET;
+    protected static final int INVENTORY_PANEL_WIDTH = 176;
+    protected static final int INVENTORY_PANEL_HEIGHT = 90;
+    protected static final int INVENTORY_LABEL_X = 11 + ORDER_AREA_OFFSET;
+    protected static final int INVENTORY_LABEL_TOP_OFFSET = 61;
+    protected static final int TAB_LEFT = 27;
+    protected static final int TAB_TOP_OFFSET = 72;
+    protected static final int TAB_HEIGHT = 29;
+
     public int lastStacksCount;
     public ClientStorageCache clientStorageCache;
     public List<MachineReference> linkedMachines;
@@ -98,19 +129,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected EditBox searchBar;
     protected List<ItemSlotWidget> itemSlots = new ArrayList<>();
     protected List<MachineSlotWidget> machineSlots = new ArrayList<>();
-    protected Button clearTextButton;
-    protected Button clearRecipeButton;
-    protected Button sortTypeButton;
-    protected Button sortDirectionButton;
-    protected Button jeiSyncButton;
-    protected Button rowCountButton;
-    protected Button autocraftingModeButton;
-    protected Button inventoryModeButton;
+    protected AbstractWidget clearTextButton;
+    protected AbstractWidget clearRecipeButton;
+    protected AbstractWidget sortTypeButton;
+    protected AbstractWidget sortDirectionButton;
+    protected AbstractWidget jeiSyncButton;
+    protected AbstractWidget rowCountButton;
+    protected AbstractWidget autocraftingModeButton;
+    protected AbstractWidget inventoryModeButton;
     protected LabelWidget storageSpaceLabel;
     protected LabelWidget storageTypesLabel;
     protected LabelWidget rowLabel;
     protected LabelWidget filledLabel;
     protected LabelWidget typesLabel;
+    protected final GuiRootWidget root;
     protected int rows;
     protected int columns;
 
@@ -129,6 +161,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         super(container, playerInventory, name, 224, 256);
         this.storageControllerContainer = container;
         // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
+        this.root = new GuiRootWidget(this);
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = 9;
@@ -255,8 +288,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.clearWidgets();
 
-        int searchBarLeft = 9 + ORDER_AREA_OFFSET;
-        int searchBarTop = 7;
+        this.initRootWidgets();
+
         boolean focus = false;
 
         String searchBarText = "";
@@ -268,8 +301,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
 
-        this.searchBar = new EditBox(this.font, this.leftPos + searchBarLeft,
-                this.realTopPos + searchBarTop, 90, this.font.lineHeight, Component.literal("search"));
+        this.searchBar = new EditBox(this.font, this.leftPos + SEARCH_BAR_LEFT,
+                this.realTopPos + SEARCH_BAR_TOP, 90, this.font.lineHeight, Component.literal("search"));
         this.searchBar.setMaxLength(30);
 
         this.searchBar.setBordered(false);
@@ -284,10 +317,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         this.addRenderableWidget(this.searchBar);
 
-        int storageSpaceInfoLabelLeft = 186;
         int storageSpaceInfoLabelTop = 35 + 18 * this.rows;
         this.storageSpaceLabel =
-                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.realTopPos + storageSpaceInfoLabelTop, true,
+                new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT, this.realTopPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
                 .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
@@ -297,7 +329,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.storageSpaceLabel);
 
         this.storageTypesLabel =
-                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft - 7, this.realTopPos + storageSpaceInfoLabelTop + 40, true,
+                new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT - 7, this.realTopPos + storageSpaceInfoLabelTop + 40, true,
                         -1, 2, 0x404040);
         this.storageTypesLabel
                 .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double) this.usedItemTypes / (double) this.maxItemTypes * 100)), false);
@@ -356,7 +388,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return;
         }
 
-        this.drawBackgroundTexture(guiGraphics);
         super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
 
         switch (this.guiMode) {
@@ -455,7 +486,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     // SimpleContainer.addListener was removed in 26.1; poll the order slot each frame instead
     public void containerChanged(Container inventory) {
-        if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getItem(0).isEmpty()) {
+        if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getItem(0).isEmpty()
+                && this.guiMode != StorageControllerGuiMode.AUTOCRAFTING) {
             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
             this.init();
         }
@@ -501,36 +533,34 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     public void initButtons() {
-        int controlButtonSize = 12;
-
-        int clearRecipeButtonLeft = 93 + ORDER_AREA_OFFSET;
         int clearRecipeButtonTop = 32 + 18 * this.rows;
-        this.clearRecipeButton = new SizedImageButton(this.leftPos + clearRecipeButtonLeft,
-                this.realTopPos + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
-                BUTTONS, (button) -> {
+        this.clearRecipeButton = new SpriteButtonWidget(this.leftPos + 93 + ORDER_AREA_OFFSET,
+                this.realTopPos + clearRecipeButtonTop,
+                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR,
+                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR_HOVER,
+                Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
             Networking.sendToServer(new MessageClearCraftingMatrix());
             Networking.sendToServer(new MessageRequestStacks());
             this.init();
         });
         this.addRenderableWidget(this.clearRecipeButton);
 
-        int controlButtonTop = 5;
-
-        int clearTextButtonLeft = 99 + ORDER_AREA_OFFSET;
-        this.clearTextButton = new SizedImageButton(this.leftPos + clearTextButtonLeft,
-                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
-                BUTTONS, (button) -> {
+        this.clearTextButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT,
+                this.realTopPos + CONTROL_BUTTON_TOP,
+                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR,
+                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR_HOVER,
+                Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
             this.clearSearch();
             this.forceFocus = true;
             this.init();
         });
         this.addRenderableWidget(this.clearTextButton);
 
-
-        int sortTypeOffset = this.getSortType().ordinal() * 28;
-        this.sortTypeButton = new SizedImageButton(this.leftPos + clearTextButtonLeft + controlButtonSize + 3,
-                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
-                256, 256, BUTTONS, (button) -> {
+        this.sortTypeButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE + 3,
+                this.realTopPos + CONTROL_BUTTON_TOP,
+                this.sortTypeSprite(false),
+                this.sortTypeSprite(true),
+                Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
             this.setSortType(this.getSortType().next());
             Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
@@ -538,11 +568,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addRenderableWidget(this.sortTypeButton);
 
-        int sortDirectionOffset = 84 + (1 - this.getSortDirection().ordinal()) * 28;
-        this.sortDirectionButton = new SizedImageButton(
-                this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
-                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
-                28, 256, 256, BUTTONS, (button) -> {
+        this.sortDirectionButton = new SpriteButtonWidget(
+                this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 2 + 6,
+                this.realTopPos + CONTROL_BUTTON_TOP,
+                this.sortDirectionSprite(false),
+                this.sortDirectionSprite(true),
+                Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
             this.setSortDirection(this.getSortDirection().next());
             Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
@@ -552,11 +583,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         // OccultismEmiIntegration excluded from build - EMI sync disabled; show button if JEI is loaded
         if (OccultismJeiIntegration.get().isLoaded()) {
-            int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
-            this.jeiSyncButton = new SizedImageButton(
-                    this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
-                    this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
-                    256, 256, BUTTONS, (button) -> {
+            this.jeiSyncButton = new SpriteButtonWidget(
+                    this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 3 + 9,
+                    this.realTopPos + CONTROL_BUTTON_TOP,
+                    this.jeiSyncSprite(false),
+                    this.jeiSyncSprite(true),
+                    Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
             });
@@ -564,56 +596,55 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.addRenderableWidget(this.jeiSyncButton);
         }
 
-        int rowsCountOffset = 224;
-        this.rowCountButton = new SizedImageButton(
-                this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize + 3,
-                this.realTopPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, rowsCountOffset, 28, 28, 28,
-                256, 256, BUTTONS, (button) -> {
+        this.rowCountButton = new SpriteButtonWidget(
+                this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 4 + 12,
+                this.realTopPos + CONTROL_BUTTON_TOP,
+                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_ROWS,
+                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_ROWS_HOVER,
+                Component.translatable(TRANSLATION_KEY_BASE + ".display.rows"), () -> {
             if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
                 Occultism.CLIENT_CONFIG.misc.storageRows.set(1);
             } else {
                 Occultism.CLIENT_CONFIG.misc.storageRows.set((Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() + 1));
             }
+            this.init();
         });
 
         this.addRenderableWidget(this.rowCountButton);
 
-        int guiModeButtonTop = 18 * 4;
-        int guiModeButtonLeft = 27;
-        int guiModeButtonHeight = 29;
-        int guiModeButtonWidth = 24;
-
         switch (this.guiMode) {
             case INVENTORY:
-                //active tab button for inventory
-                this.inventoryModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + guiModeButtonTop, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
-                        guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
+                this.inventoryModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
+                        this.topPos + TAB_TOP_OFFSET,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE,
+                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"), () -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
                 });
-                //inactive tab button for crafting
-                this.autocraftingModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
-                        160, 174, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
-                        (button) -> {
+                this.autocraftingModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
+                        this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE,
+                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"), () -> {
                             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
                             this.init();
                         });
                 break;
             case AUTOCRAFTING:
-                //inactive tab button for inventory
-                this.inventoryModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + guiModeButtonTop, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
-                        guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
+                this.inventoryModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
+                        this.topPos + TAB_TOP_OFFSET,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE,
+                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"), () -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
                 });
-                //active tab button for crafting
-                this.autocraftingModeButton = new SizedImageButton(this.leftPos + guiModeButtonLeft,
-                        this.topPos + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
-                        160, 116, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
-                        (button) -> {
+                this.autocraftingModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
+                        this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE,
+                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"), () -> {
                             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
                             this.init();
                         });
@@ -763,14 +794,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void drawBackgroundTexture(GuiGraphicsExtractor guiGraphics) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_TOP, this.leftPos, this.realTopPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-        for (int i = 0; i < this.rows; i++) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_ROW, this.leftPos, this.realTopPos + i * 18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-        }
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE_BOTTOM, this.leftPos, this.realTopPos + this.rows * 18 + 25, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-    }
-
     protected void drawItemSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
@@ -783,10 +806,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void buildItemSlots(List<ItemStack> stacksToDisplay) {
-
-        int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
-        int itemAreaTop = 24;
-
         this.itemSlots = new ArrayList<>();
         int index = (this.currentPage - 1) * (this.columns);
         for (int row = 0; row < this.rows; row++) {
@@ -799,8 +818,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 this.itemSlots
                         .add(new ItemSlotWidget(this, stacksToDisplay.get(index),
-                                this.leftPos + itemAreaLeft + col * 18,
-                                this.realTopPos + itemAreaTop + row * 18, stacksToDisplay.get(index).getCount(),
+                                this.leftPos + ITEM_AREA_LEFT + col * 18,
+                                this.realTopPos + ITEM_AREA_TOP + row * 18, stacksToDisplay.get(index).getCount(),
                                 this.leftPos, this.topPos, true));
                 index++;
             }
@@ -963,10 +982,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void buildMachineSlots(List<MachineReference> machinesToDisplay) {
-
-        int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
-        int itemAreaTop = 24;
-
         this.machineSlots = new ArrayList<>();
         int index = (this.currentPage - 1) * (this.columns);
         for (int row = 0; row < this.rows; row++) {
@@ -975,7 +990,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     break;
                 }
                 this.machineSlots.add(new MachineSlotWidget(this, machinesToDisplay.get(index),
-                        this.leftPos + itemAreaLeft + col * 18, this.realTopPos + itemAreaTop + row * 18, this.leftPos,
+                        this.leftPos + ITEM_AREA_LEFT + col * 18, this.realTopPos + ITEM_AREA_TOP + row * 18, this.leftPos,
                         this.topPos));
                 index++;
             }
@@ -994,5 +1009,181 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             OccultismJeiIntegration.get().setFilterText("");
         }
+    }
+
+    protected void initRootWidgets() {
+        this.addRenderableWidget(this.root);
+        this.root.clearChildren();
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.guiTop(), this.imageWidth,
+                TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR,
+                GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.guiTop() + MAIN_PANEL_TOP,
+                this.imageWidth, this.mainPanelHeight(), this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL,
+                GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + INVENTORY_PANEL_LEFT,
+                this.menuTop() + INVENTORY_PANEL_TOP_OFFSET, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT,
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new HorizontalSeparatorWidget(this.leftPos, this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - 1,
+                this.imageWidth, this.partColor(OccultismGuiParts.STORAGE_CONTROLLER_HORIZONTAL_SEPARATOR,
+                0xFF000000)));
+        this.root.addChild(new GuiSpriteWidget(this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP,
+                OccultismGuiSprites.STORAGE_CONTROLLER_SEARCH_FIELD));
+        this.root.addChild(new GuiSpriteWidget(this.leftPos + ORDER_PANEL_LEFT,
+                this.menuTop() + ORDER_PANEL_TOP_OFFSET, OccultismGuiSprites.STORAGE_CONTROLLER_ORDER_PANEL));
+        this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT, this.menuTop() + CRAFTING_ARROW_TOP,
+                GuiSprites.CRAFTING_ARROW));
+
+        for (int row = 0; row < this.rows; row++) {
+            for (int col = 0; col < this.columns; col++) {
+                this.root.addChild(new GuiSpriteWidget(this.leftPos + ITEM_AREA_LEFT + col * 18 - 1,
+                        this.guiTop() + ITEM_AREA_TOP + row * 18 - 1,
+                        this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_STORAGE_SLOT,
+                                GuiSprites.INVENTORY_SLOT)));
+            }
+        }
+
+        for (int i = 0; i < this.menu.slots.size(); i++) {
+            Slot slot = this.menu.slots.get(i);
+            this.root.addChild(new GuiSpriteWidget(this.leftPos + slot.x + this.menuSlotOffsetX(i),
+                    this.menuTop() + slot.y + this.menuSlotOffsetY(i), this.menuSlotSprite(i)));
+        }
+
+        LabelWidget titleLabel = new LabelWidget(this.leftPos + this.imageWidth / 2, this.guiTop() + 5, true,
+                -1, 2, 2, 0x303030);
+        titleLabel.addLine(this.topBarTitleText());
+        this.addRenderableWidget(titleLabel);
+
+        LabelWidget inventoryLabel = new LabelWidget(this.leftPos + INVENTORY_LABEL_X,
+                this.menuTop() + INVENTORY_LABEL_TOP_OFFSET, false, -1, 2, 0x303030);
+        inventoryLabel.addLine(this.playerInventoryTitle);
+        this.addRenderableWidget(inventoryLabel);
+
+        this.root.syncWithHost();
+    }
+
+    protected int mainPanelHeight() {
+        return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - this.guiTop() - MAIN_PANEL_TOP - 1;
+    }
+
+    protected int guiTop() {
+        return this.realTopPos;
+    }
+
+    protected int menuTop() {
+        return this.topPos;
+    }
+
+    protected String topBarTitleText() {
+        String titleText = this.title.getString();
+        if (titleText.length() >= 2 && titleText.startsWith("[") && titleText.endsWith("]")) {
+            return titleText.substring(1, titleText.length() - 1);
+        }
+
+        return titleText;
+    }
+
+    protected GuiStyle style() {
+        return GuiStyleRegistry.get(OccultismGuiStyles.STORAGE_CONTROLLER);
+    }
+
+    protected GuiSprite partSprite(com.klikli_dev.codedefinedgui.gui.style.GuiPartKey part, GuiSprite fallback) {
+        return this.style().get(part, GuiStyleProperties.SPRITE, fallback);
+    }
+
+    protected int partColor(com.klikli_dev.codedefinedgui.gui.style.GuiPartKey part, int fallback) {
+        return this.style().get(part, GuiStyleProperties.COLOR, fallback);
+    }
+
+    protected GuiSprite sortTypeSprite(boolean hovered) {
+        return switch (this.getSortType()) {
+            case AMOUNT -> hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_AMOUNT_HOVER
+                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_AMOUNT;
+            case NAME -> hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_NAME_HOVER
+                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_NAME;
+            case MOD -> hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_MOD_HOVER
+                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_MOD;
+        };
+    }
+
+    protected GuiSprite sortDirectionSprite(boolean hovered) {
+        if (this.getSortDirection().isDown()) {
+            return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_DOWN_HOVER
+                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_DOWN;
+        }
+
+        return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_UP_HOVER
+                : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_UP;
+    }
+
+    protected GuiSprite jeiSyncSprite(boolean hovered) {
+        if (JeiSettings.isJeiSearchSynced()) {
+            return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_ON_HOVER
+                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_ON;
+        }
+
+        return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_OFF_HOVER
+                : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_OFF;
+    }
+
+    protected GuiSprite menuSlotSprite(int slotIndex) {
+        if (slotIndex == 0) {
+            return GuiSprites.CRAFTING_RESULT_SLOT;
+        }
+        if (slotIndex >= 1 && slotIndex <= 9) {
+            return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiSprites.INVENTORY_SLOT);
+        }
+        if (slotIndex == 10) {
+            return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_ORDER_SLOT, GuiSprites.INVENTORY_SLOT);
+        }
+
+        return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, GuiSprites.INVENTORY_SLOT);
+    }
+
+    protected int menuSlotOffsetX(int slotIndex) {
+        return slotIndex == 0 ? -4 : -1;
+    }
+
+    protected int menuSlotOffsetY(int slotIndex) {
+        return slotIndex == 0 ? -4 : -1;
+    }
+
+    @Override
+    public <W extends AbstractWidget> W addGuiWidget(W widget) {
+        return this.addRenderableWidget(widget);
+    }
+
+    @Override
+    public void removeGuiWidget(AbstractWidget widget) {
+        this.removeWidget(widget);
+    }
+
+    @Override
+    public int leftPos() {
+        return this.leftPos;
+    }
+
+    @Override
+    public int topPos() {
+        return this.guiTop();
+    }
+
+    @Override
+    public int width() {
+        return this.width;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
+    }
+
+    @Override
+    public int imageWidth() {
+        return this.imageWidth;
+    }
+
+    @Override
+    public int imageHeight() {
+        return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET + INVENTORY_PANEL_HEIGHT - this.guiTop();
     }
 }
