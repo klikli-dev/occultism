@@ -59,11 +59,18 @@ public class SpriteButtonWidget extends AbstractWidget {
     }
 
     public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> offsetText(String text, int offsetX, int offsetY) {
+        return offsetText(text, (float) offsetX, (float) offsetY);
+    }
+
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> offsetText(String text, float offsetX, float offsetY) {
         return (button, graphics) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            int x = button.getX() + (button.getWidth() - minecraft.font.width(text)) / 2 + offsetX;
-            int y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2 + button.foregroundInsetY + 2 + offsetY;
-            graphics.text(minecraft.font, text, x, y, 0xFF000000, false);
+            float x = button.getX() + (button.getWidth() - minecraft.font.width(text)) / 2.0F + offsetX;
+            float y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2.0F + button.foregroundInsetY + 2.0F + offsetY;
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(x, y);
+            graphics.text(minecraft.font, text, 0, 0, 0xFF000000, false);
+            graphics.pose().popMatrix();
         };
     }
 
@@ -83,12 +90,16 @@ public class SpriteButtonWidget extends AbstractWidget {
     }
 
     public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> scaledText(String text, float scale, int offsetY) {
+        return scaledText(text, scale, 0.0F, (float) offsetY);
+    }
+
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> scaledText(String text, float scale, float offsetX, float offsetY) {
         return (button, graphics) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            int textWidth = Math.round(minecraft.font.width(text) * scale);
-            int textHeight = Math.round(minecraft.font.lineHeight * scale);
-            int x = button.getX() + (button.getWidth() - textWidth) / 2;
-            int y = button.getY() + (button.getHeight() - textHeight) / 2 + button.foregroundInsetY + offsetY;
+            float textWidth = minecraft.font.width(text) * scale;
+            float textHeight = minecraft.font.lineHeight * scale;
+            float x = button.getX() + (button.getWidth() - textWidth) / 2.0F + offsetX;
+            float y = button.getY() + (button.getHeight() - textHeight) / 2.0F + button.foregroundInsetY + offsetY;
             graphics.pose().pushMatrix();
             graphics.pose().translate(x, y);
             graphics.pose().scale(scale, scale);

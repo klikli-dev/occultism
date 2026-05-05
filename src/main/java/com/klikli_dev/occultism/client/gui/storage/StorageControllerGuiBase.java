@@ -539,7 +539,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             Networking.sendToServer(new MessageClearCraftingMatrix());
             Networking.sendToServer(new MessageRequestStacks());
             this.init();
-        }, SpriteButtonWidget.offsetText("X", 1, 0));
+        }, SpriteButtonWidget.offsetText("X", 0.5F, 0.0F));
         this.addRenderableWidget(this.clearRecipeButton);
 
         this.clearTextButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT,
@@ -549,7 +549,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.clearSearch();
             this.forceFocus = true;
             this.init();
-        }, SpriteButtonWidget.offsetText("X", 1, 0));
+        }, SpriteButtonWidget.offsetText("X", 0.5F, 0.0F));
         this.addRenderableWidget(this.clearTextButton);
 
         this.sortTypeButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE + 3,
@@ -1091,9 +1091,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> sortTypeRenderer() {
         return switch (this.getSortType()) {
-            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.52F, 2);
-            case NAME -> SpriteButtonWidget.scaledText("A-Z", 0.58F, 0);
-            case MOD -> SpriteButtonWidget.text("M");
+            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.52F, 0.5F, 1.0F);
+            case NAME -> SpriteButtonWidget.scaledText("A-Z", 0.52F, 0.0F, 1.0F);
+            case MOD -> SpriteButtonWidget.offsetText("M", 0.5F, 0.0F);
         };
     }
 
