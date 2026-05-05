@@ -182,7 +182,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 18 * 3 + 7;
+        int playerInventoryTop = 18 * 3 + 17;
         int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++)
@@ -192,7 +192,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerHotbar() {
-        int hotbarTop = 18 * 3 + 7 + 18 * 3 + 4;
+        int hotbarTop = 18 * 3 + 17 + 18 * 3 + 4;
         int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));

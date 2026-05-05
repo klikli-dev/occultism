@@ -33,7 +33,6 @@ import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
@@ -95,7 +94,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int VISIBLE_COLUMNS = 11;
     protected static final int TOP_BAR_HEIGHT = 15;
     protected static final int MAIN_PANEL_TOP = 12;
-    protected static final int ITEM_AREA_LEFT = 8 + ORDER_AREA_OFFSET - 18;
+    protected static final int ITEM_AREA_LEFT = 32;
     protected static final int ITEM_AREA_TOP = 33;
     protected static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
     protected static final int SEARCH_BAR_TOP = 20;
@@ -109,12 +108,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int ORDER_PANEL_TOP_OFFSET = 5;
     protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
     protected static final int CRAFTING_ARROW_TOP = 19;
-    protected static final int INVENTORY_PANEL_TOP_OFFSET = 54;
-    protected static final int INVENTORY_PANEL_LEFT = 3 + ORDER_AREA_OFFSET;
+    protected static final int INVENTORY_PANEL_TOP_OFFSET = 64;
+    protected static final int INVENTORY_PANEL_LEFT = 48;
     protected static final int INVENTORY_PANEL_WIDTH = 176;
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
-    protected static final int INVENTORY_LABEL_X = 11 + ORDER_AREA_OFFSET;
-    protected static final int INVENTORY_LABEL_TOP_OFFSET = 61;
+    protected static final int INVENTORY_LABEL_X = 56;
+    protected static final int INVENTORY_LABEL_TOP_OFFSET = 71;
     protected static final int TAB_LEFT = 27;
     protected static final int TAB_TOP_OFFSET = 72;
     protected static final int TAB_HEIGHT = 29;
@@ -987,9 +986,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + INVENTORY_PANEL_LEFT,
                 this.menuTop() + INVENTORY_PANEL_TOP_OFFSET, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT,
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new HorizontalSeparatorWidget(this.leftPos, this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - 1,
-                this.imageWidth, this.partColor(OccultismGuiParts.STORAGE_CONTROLLER_HORIZONTAL_SEPARATOR,
-                0xFF000000)));
         this.root.addChild(new GuiSpriteWidget(this.leftPos + ORDER_PANEL_LEFT,
                 this.menuTop() + ORDER_PANEL_TOP_OFFSET, OccultismGuiSprites.STORAGE_CONTROLLER_ORDER_PANEL));
         this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT, this.menuTop() + CRAFTING_ARROW_TOP,
@@ -1029,7 +1025,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected int mainPanelLeft() {
-        return this.leftPos + 3;
+        return this.leftPos + (this.imageWidth - this.mainPanelWidth()) / 2;
     }
 
     protected int mainPanelWidth() {
