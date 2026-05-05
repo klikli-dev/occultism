@@ -887,6 +887,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.storage_controller.search.tooltip$", "Prefix $: Search for Tag.");
         this.add("gui.occultism.storage_controller.search.tooltip_rightclick", "Clear the text with a right-click.");
         this.add("gui.occultism.storage_controller.search.tooltip_clear", "Clear search.");
+        this.add("gui.occultism.storage_controller.crafting.tooltip_clear", "Clear the crafting area.");
         this.add("gui.occultism.storage_controller.search.tooltip_jei_on", "Sync search with JEI.");
         this.add("gui.occultism.storage_controller.search.tooltip_jei_off", "Do not sync search with JEI.");
         this.add("gui.occultism.storage_controller.search.tooltip_sort_type_amount", "Sort by amount.");

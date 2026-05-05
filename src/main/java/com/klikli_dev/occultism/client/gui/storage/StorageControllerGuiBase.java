@@ -734,6 +734,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             guiGraphics.setComponentTooltipForNextFrame(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, this.topControlTooltipY(mouseY));
         }
+        if (this.clearRecipeButton != null && this.clearRecipeButton.isMouseOver(mouseX, mouseY)) {
+            guiGraphics.setComponentTooltipForNextFrame(this.font,
+                    Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".crafting.tooltip_clear")),
+                    mouseX, mouseY);
+        }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
             switch (this.guiMode) {

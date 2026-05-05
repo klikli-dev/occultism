@@ -1687,6 +1687,7 @@
   "gui.occultism.spirit.transporter.filter_item.empty": "Insert a list filter or attribute filter.",
   "gui.occultism.spirit.transporter.inventory_slot.disabled": "Requires blacksmith upgrade",
   "gui.occultism.spirit_grindstone.container": "Repair & Uncurse",
+  "gui.occultism.storage_controller.crafting.tooltip_clear": "Clear the crafting area.",
   "gui.occultism.storage_controller.display.rows": "Change rows quantity.",
   "gui.occultism.storage_controller.mode.autocrafting.tooltip": "View linked machines that a machine operator spirit can bring items to and carry crafting results from.",
   "gui.occultism.storage_controller.mode.inventory.tooltip": "Access the items stored in this storage network.",
