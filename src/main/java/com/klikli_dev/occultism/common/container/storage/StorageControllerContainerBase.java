@@ -182,7 +182,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = StorageControllerGuiBase.CRAFTING_GRID_TOP + 18 * 4 + 3;
+        int playerInventoryTop = 72;
         int playerInventoryLeft = 3 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++)
@@ -192,7 +192,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerHotbar() {
-        int hotbarTop = StorageControllerGuiBase.CRAFTING_GRID_TOP + 18 * 4 + 3 + 18 * 3 + 4;
+        int hotbarTop = 130;
         int hotbarLeft = 3 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
@@ -540,4 +540,3 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
 }
-

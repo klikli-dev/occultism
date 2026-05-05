@@ -108,16 +108,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int CONTROL_BUTTON_LEFT = SEARCH_BAR_LEFT + 98;
     protected static final int ORDER_PANEL_LEFT = 0;
     protected static final int ORDER_PANEL_TOP_OFFSET = 5;
-    public static final int CRAFTING_GRID_TOP = 1;
+    public static final int CRAFTING_GRID_TOP = 4;
     public static final int CRAFTING_OUTPUT_TOP = CRAFTING_GRID_TOP + 18;
     protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
     protected static final int CRAFTING_ARROW_TOP = CRAFTING_OUTPUT_TOP + 1;
-    protected static final int INVENTORY_PANEL_TOP_OFFSET = 69;
+    protected static final int INVENTORY_PANEL_TOP_OFFSET = 66;
     protected static final int INVENTORY_PANEL_LEFT = 43;
     protected static final int INVENTORY_PANEL_WIDTH = 176;
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
     protected static final int INVENTORY_LABEL_X = 51;
-    protected static final int INVENTORY_LABEL_TOP_OFFSET = 76;
+    protected static final int INVENTORY_LABEL_TOP_OFFSET = 73;
     protected static final int TAB_TOP_OFFSET = 5;
     protected static final int TAB_WIDTH = 34;
     protected static final int TAB_HEIGHT = 29;
@@ -1042,7 +1042,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected int mainPanelHeight() {
-        return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - this.guiTop() - MAIN_PANEL_TOP - 1;
+        return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - this.guiTop() - MAIN_PANEL_TOP - 3;
     }
 
     protected int mainPanelLeft() {
