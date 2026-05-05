@@ -90,18 +90,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
+    protected static final int GUI_WIDTH = 260;
+    protected static final int VISIBLE_COLUMNS = 11;
     protected static final int TOP_BAR_HEIGHT = 15;
     protected static final int MAIN_PANEL_TOP = 12;
-    protected static final int ITEM_AREA_LEFT = 8 + ORDER_AREA_OFFSET;
-    protected static final int ITEM_AREA_TOP = 24;
-    protected static final int SEARCH_BAR_LEFT = 9 + ORDER_AREA_OFFSET;
-    protected static final int SEARCH_BAR_TOP = 7;
+    protected static final int ITEM_AREA_LEFT = 8 + ORDER_AREA_OFFSET - 18;
+    protected static final int ITEM_AREA_TOP = 33;
+    protected static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
+    protected static final int SEARCH_BAR_TOP = 20;
     protected static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
-    protected static final int SEARCH_FIELD_TOP = 4;
+    protected static final int SEARCH_FIELD_TOP = SEARCH_BAR_TOP - 3;
     protected static final int STORAGE_INFO_LABEL_LEFT = 186;
-    protected static final int CONTROL_BUTTON_TOP = 5;
+    protected static final int CONTROL_BUTTON_TOP = SEARCH_BAR_TOP - 2;
     protected static final int CONTROL_BUTTON_SIZE = 12;
-    protected static final int CONTROL_BUTTON_LEFT = 99 + ORDER_AREA_OFFSET;
+    protected static final int CONTROL_BUTTON_LEFT = SEARCH_BAR_LEFT + 98;
     protected static final int ORDER_PANEL_LEFT = 0;
     protected static final int ORDER_PANEL_TOP_OFFSET = 5;
     protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
@@ -158,13 +160,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     private String cachedSearchString;
 
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
-        super(container, playerInventory, name, 224, 256);
+        super(container, playerInventory, name, GUI_WIDTH, 256);
         this.storageControllerContainer = container;
         // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
         this.root = new GuiRootWidget(this);
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
-        this.columns = 9;
+        this.columns = VISIBLE_COLUMNS;
 
         this.currentPage = 1;
         this.totalPages = 1;
@@ -281,10 +283,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public void init() {
         super.init();
-        this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
+        this.rows = this.visibleRows();
         this.leftPos = (this.width - this.imageWidth) / 2 - ORDER_AREA_OFFSET;
-        this.realTopPos = Math.max(0, (this.height - (175 + 18 * this.rows)) / 2);
-        this.topPos = this.realTopPos + 24 + 9 + 18 * this.rows;
+        this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
+        this.topPos = this.realTopPos + ITEM_AREA_TOP + 18 * this.rows;
 
         this.clearWidgets();
 
@@ -338,10 +340,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.initButtons();
 
         this.rowLabel =
-                new LabelWidget(this.leftPos + 213, this.realTopPos + 7, true,
+                new LabelWidget(this.leftPos + this.imageWidth - 11, this.realTopPos + SEARCH_BAR_TOP, true,
                         -1, 2, 0x404040);
         this.rowLabel
-                .addLine(String.valueOf(Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt()), false);
+                .addLine(String.valueOf(this.rows), false);
         this.addRenderableWidget(this.rowLabel);
     }
 
@@ -694,9 +696,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
         int itemAreaHeight = 4 + 18 * this.rows;
-        int itemAreaWidth = 160;
-        int itemAreaTop = 24;
-        int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
+        int itemAreaWidth = this.columns * 18 - 2;
+        int itemAreaTop = ITEM_AREA_TOP;
+        int itemAreaLeft = ITEM_AREA_LEFT;
         return mouseX > (this.leftPos + itemAreaLeft) && mouseX < (this.leftPos + itemAreaWidth + itemAreaLeft) &&
                 mouseY > (this.realTopPos + itemAreaTop) && mouseY < (this.realTopPos + itemAreaTop + itemAreaHeight);
     }
@@ -1014,11 +1016,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void initRootWidgets() {
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.guiTop(), this.imageWidth,
-                TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR,
-                GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos, this.guiTop() + MAIN_PANEL_TOP,
-                this.imageWidth, this.mainPanelHeight(), this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL,
+        this.root.addChild(new GuiBackgroundWidget(this, this.mainPanelLeft(), this.guiTop() + MAIN_PANEL_TOP,
+                this.mainPanelWidth(), this.mainPanelHeight(), this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL,
                 GuiSprites.GUI_BACKGROUND)));
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + INVENTORY_PANEL_LEFT,
                 this.menuTop() + INVENTORY_PANEL_TOP_OFFSET, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT,
@@ -1026,8 +1025,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new HorizontalSeparatorWidget(this.leftPos, this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - 1,
                 this.imageWidth, this.partColor(OccultismGuiParts.STORAGE_CONTROLLER_HORIZONTAL_SEPARATOR,
                 0xFF000000)));
-        this.root.addChild(new GuiSpriteWidget(this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP,
-                OccultismGuiSprites.STORAGE_CONTROLLER_SEARCH_FIELD));
         this.root.addChild(new GuiSpriteWidget(this.leftPos + ORDER_PANEL_LEFT,
                 this.menuTop() + ORDER_PANEL_TOP_OFFSET, OccultismGuiSprites.STORAGE_CONTROLLER_ORDER_PANEL));
         this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT, this.menuTop() + CRAFTING_ARROW_TOP,
@@ -1058,11 +1055,41 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         inventoryLabel.addLine(this.playerInventoryTitle);
         this.addRenderableWidget(inventoryLabel);
 
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + this.topBarLeft(), this.guiTop(),
+                this.topBarWidth(), TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR,
+                GuiSprites.GUI_BACKGROUND)));
+        this.root.addChild(new GuiSpriteWidget(this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP,
+                OccultismGuiSprites.STORAGE_CONTROLLER_SEARCH_FIELD));
+
         this.root.syncWithHost();
     }
 
     protected int mainPanelHeight() {
         return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - this.guiTop() - MAIN_PANEL_TOP - 1;
+    }
+
+    protected int mainPanelLeft() {
+        return this.leftPos + 3;
+    }
+
+    protected int mainPanelWidth() {
+        return this.columns * 18 + 14;
+    }
+
+    protected int topBarLeft() {
+        return this.mainPanelLeft() - this.leftPos - 3;
+    }
+
+    protected int topBarWidth() {
+        return this.mainPanelWidth() + 6;
+    }
+
+    protected int totalGuiHeight() {
+        return ITEM_AREA_TOP + this.rows * 18 + INVENTORY_PANEL_TOP_OFFSET + INVENTORY_PANEL_HEIGHT;
+    }
+
+    protected int visibleRows() {
+        return Math.max(1, Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() - 1);
     }
 
     protected int guiTop() {
