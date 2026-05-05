@@ -90,7 +90,7 @@ import java.util.stream.Collectors;
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener, GuiHost {
 
     public static final int ORDER_AREA_OFFSET = 48;
-    protected static final int ORDER_INPUT_SLOT_INDEX = 10;
+    public static final int ORDER_INPUT_SLOT_INDEX = 10;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     protected static final int GUI_WIDTH = 260;
     protected static final int VISIBLE_COLUMNS = 11;
@@ -120,6 +120,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int TAB_WIDTH = 24;
     protected static final int TAB_HEIGHT = 29;
     protected static final int TAB_HIDDEN_OVERLAP = 3;
+    public static final int ORDER_INPUT_SLOT_LEFT = -10;
+    public static final int ORDER_INPUT_SLOT_TOP = -85;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
 
@@ -1089,10 +1091,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 0.0F, -0.5F);
     }
 
-    protected IconButtonBackgroundSprites tabBackgroundSprites(GuiSprite sprite) {
-        return new IconButtonBackgroundSprites(sprite, sprite, sprite);
-    }
-
     protected AbstractWidget createTabButton(boolean inventoryTab, boolean active, int row) {
         Component tooltip = Component.translatable(TRANSLATION_KEY_BASE + (inventoryTab ? ".mode.inventory" : ".mode.autocrafting"));
         Runnable onPress = () -> {
@@ -1101,17 +1099,28 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         };
         ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
         return new SpriteButtonWidget(this.tabLeft(), this.topPos + TAB_TOP_OFFSET + row * TAB_HEIGHT, TAB_WIDTH, TAB_HEIGHT,
-                tooltip, onPress, this.tabBackgroundRenderer(active), SpriteButtonWidget.item(icon));
+                tooltip, onPress, this.tabBackgroundRenderer(active), this.tabIconRenderer(icon, active));
     }
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabBackgroundRenderer(boolean active) {
         GuiSprite mainPanelBackground = this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND);
-        GuiSprite visibleBackground = active ? mainPanelBackground : mainPanelBackground.tinted(this.darkenColor(0xFFFFFFFF, 18));
+        GuiSprite visibleBackground = active ? mainPanelBackground : this.darkenSprite(mainPanelBackground, 0.82F);
         GuiSprite hiddenBackground = mainPanelBackground;
         return (button, graphics) -> {
             visibleBackground.extractRenderState(graphics, button.getX(), button.getY(), button.getWidth(), button.getHeight());
             hiddenBackground.extractRenderState(graphics, button.getX() + button.getWidth() - TAB_HIDDEN_OVERLAP, button.getY(),
                     TAB_HIDDEN_OVERLAP, button.getHeight());
+        };
+    }
+
+    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabIconRenderer(ItemStack icon, boolean active) {
+        return (button, graphics) -> {
+            int x = button.getX() + (button.getWidth() - 16) / 2;
+            int y = button.getY() + (button.getHeight() - 16) / 2;
+            graphics.fakeItem(icon, x, y);
+            if (!active) {
+                graphics.fill(x, y, x + 16, y + 16, 0x66000000);
+            }
         };
     }
 
@@ -1125,6 +1134,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int green = Math.max(0, ((color >> 8) & 0xFF) - amount);
         int blue = Math.max(0, (color & 0xFF) - amount);
         return alpha | red << 16 | green << 8 | blue;
+    }
+
+    protected GuiSprite darkenSprite(GuiSprite sprite, float brightness) {
+        int channel = Math.max(0, Math.min(255, Math.round(255 * brightness)));
+        int tint = 0xFF000000 | channel << 16 | channel << 8 | channel;
+        return sprite.tinted(tint);
     }
 
     protected GuiSprite menuSlotSprite(int slotIndex) {

@@ -220,8 +220,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupOrderInventorySlot() {
-        int orderSlotTop = 18;
-        int orderSlotLeft = 4;
+        int orderSlotTop = StorageControllerGuiBase.ORDER_INPUT_SLOT_TOP;
+        int orderSlotLeft = StorageControllerGuiBase.ORDER_INPUT_SLOT_LEFT;
         this.addSlot(new Slot(this.orderInventory, 0, orderSlotLeft, orderSlotTop));
     }
 

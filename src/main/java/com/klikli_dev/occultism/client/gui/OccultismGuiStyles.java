@@ -94,8 +94,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiStyleProperties.SPRITE,
                         GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiStyleProperties.SPRITE,
-                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
-                .set(OccultismGuiParts.STORAGE_CONTROLLER_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK);
+                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT));
     }
 
     private static GuiStyle.Builder satchelBaseStyle() {
