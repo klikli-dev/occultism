@@ -11,6 +11,7 @@ import net.minecraft.resources.Identifier;
 public final class OccultismGuiSprites {
     public static final GuiSprite STORAGE_CONTROLLER_SEARCH_FIELD = sprite("storage_controller/search_field", 96, 14);
     public static final GuiSprite STORAGE_CONTROLLER_ORDER_PANEL = sprite("storage_controller/order_panel", 42, 42);
+    public static final GuiSprite STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND = sprite("storage_controller/storage_controller_item_area_bg", 10, 10);
 
     public static final GuiSprite STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE = sprite("storage_controller/tab/inventory_active", 24, 29);
     public static final GuiSprite STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE = sprite("storage_controller/tab/inventory_inactive", 24, 29);

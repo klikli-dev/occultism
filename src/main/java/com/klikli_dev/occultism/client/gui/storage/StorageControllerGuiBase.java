@@ -1016,14 +1016,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT, this.menuTop() + CRAFTING_ARROW_TOP,
                 GuiSprites.CRAFTING_ARROW));
 
-        for (int row = 0; row < this.rows; row++) {
-            for (int col = 0; col < this.columns; col++) {
-                this.root.addChild(new GuiSpriteWidget(this.leftPos + ITEM_AREA_LEFT + col * 18 - 1,
-                        this.guiTop() + ITEM_AREA_TOP + row * 18 - 1,
-                        this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_STORAGE_SLOT,
-                                GuiSprites.INVENTORY_SLOT)));
-            }
-        }
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + ITEM_AREA_LEFT - 1,
+                this.guiTop() + ITEM_AREA_TOP - 1, this.itemAreaBackgroundWidth(), this.itemAreaBackgroundHeight(),
+                OccultismGuiSprites.STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND));
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
@@ -1060,6 +1055,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected int mainPanelWidth() {
         return this.columns * 18 + 14;
+    }
+
+    protected int itemAreaBackgroundWidth() {
+        return this.columns * 18;
+    }
+
+    protected int itemAreaBackgroundHeight() {
+        return this.rows * 18;
     }
 
     protected int topBarLeft() {
