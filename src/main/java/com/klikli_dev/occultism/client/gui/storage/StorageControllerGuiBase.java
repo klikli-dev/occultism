@@ -317,13 +317,17 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
 
+        int searchBarRenderedWidth = 90;
+        int searchBarRenderedHeight = this.font.lineHeight;
+        int searchBarWidgetWidth = Math.max(1, Math.round(searchBarRenderedWidth * SEARCH_BAR_SCALE));
+        int searchBarWidgetHeight = Math.max(1, Math.round(searchBarRenderedHeight * SEARCH_BAR_SCALE));
         this.searchBar = new EditBox(this.font, this.leftPos + SEARCH_BAR_LEFT,
-                this.realTopPos + SEARCH_BAR_TOP, 90, this.font.lineHeight, Component.literal("search")) {
+                this.realTopPos + SEARCH_BAR_TOP, searchBarWidgetWidth, searchBarWidgetHeight, Component.literal("search")) {
             @Override
             public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
                 guiGraphics.pose().pushMatrix();
                 guiGraphics.pose().translate(this.getX(), this.getY() + 3);
-                guiGraphics.pose().scale(SEARCH_BAR_SCALE, SEARCH_BAR_SCALE);
+                guiGraphics.pose().scale(1.0F / SEARCH_BAR_SCALE, 1.0F / SEARCH_BAR_SCALE);
                 guiGraphics.pose().translate(-this.getX(), -(this.getY() + 3));
                 super.extractWidgetRenderState(guiGraphics, mouseX, mouseY, partialTick);
                 guiGraphics.pose().popMatrix();
@@ -335,8 +339,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.setVisible(true);
         this.searchBar.setTextColor(0xFFFFFFFF);
         this.searchBar.setFocused(focus);
-        this.searchBar.setWidth(Math.round(90 / SEARCH_BAR_SCALE));
-        this.searchBar.setHeight(Math.max(1, Math.round(this.font.lineHeight / SEARCH_BAR_SCALE)));
 
         this.searchBar.setValue(searchBarText);
         // OccultismEmiIntegration excluded from build - EMI sync disabled
@@ -667,8 +669,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
         return this.isHovering(this.searchBar.getX() - this.leftPos, this.searchBar.getY() - this.topPos - 3,
-                Math.round(this.searchBar.getWidth() * SEARCH_BAR_SCALE) - 5,
-                Math.round(this.searchBar.getHeight() * SEARCH_BAR_SCALE) + 4, mouseX, mouseY);
+                this.searchBar.getWidth() - 5,
+                this.searchBar.getHeight() + 4, mouseX, mouseY);
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
