@@ -97,7 +97,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int TOP_BAR_HEIGHT = 21;
     protected static final int MAIN_PANEL_TOP = 12;
     protected static final int ITEM_AREA_LEFT = 32;
-    protected static final int ITEM_AREA_TOP = 33;
+    protected static final int ITEM_AREA_TOP = TOP_BAR_HEIGHT + 3;
     protected static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
     protected static final int SEARCH_BAR_TOP = 7;
     protected static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
@@ -108,8 +108,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int CONTROL_BUTTON_LEFT = SEARCH_BAR_LEFT + 98;
     protected static final int ORDER_PANEL_LEFT = 0;
     protected static final int ORDER_PANEL_TOP_OFFSET = 5;
+    public static final int CRAFTING_GRID_TOP = 1;
+    public static final int CRAFTING_OUTPUT_TOP = CRAFTING_GRID_TOP + 18;
     protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
-    protected static final int CRAFTING_ARROW_TOP = 24;
+    protected static final int CRAFTING_ARROW_TOP = CRAFTING_OUTPUT_TOP + 1;
     protected static final int INVENTORY_PANEL_TOP_OFFSET = 69;
     protected static final int INVENTORY_PANEL_LEFT = 43;
     protected static final int INVENTORY_PANEL_WIDTH = 176;
@@ -343,9 +345,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         this.addRenderableWidget(this.searchBar);
 
-        int storageSpaceInfoLabelTop = 40 + 18 * this.rows;
+        int storageSpaceInfoLabelTop = this.topPos + 7;
         this.storageSpaceLabel =
-                new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT, this.realTopPos + storageSpaceInfoLabelTop, true,
+                new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT, storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
                 .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
@@ -355,7 +357,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.storageSpaceLabel);
 
         this.storageTypesLabel =
-                new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT - 7, this.realTopPos + storageSpaceInfoLabelTop + 40, true,
+                new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT - 7, storageSpaceInfoLabelTop + 40, true,
                         -1, 2, 0x404040);
         this.storageTypesLabel
                 .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double) this.usedItemTypes / (double) this.maxItemTypes * 100)), false);
@@ -553,9 +555,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     public void initButtons() {
-        int clearRecipeButtonTop = 37 + 18 * this.rows;
+        int clearRecipeButtonTop = this.topPos + CRAFTING_GRID_TOP - 1;
         this.clearRecipeButton = new SpriteButtonWidget(this.leftPos + 93 + ORDER_AREA_OFFSET,
-                this.realTopPos + clearRecipeButtonTop,
+                clearRecipeButtonTop,
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
@@ -1070,7 +1072,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected int visibleRows() {
-        return Math.max(1, Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() - 1);
+        return Math.max(1, Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt());
     }
 
     protected int guiTop() {

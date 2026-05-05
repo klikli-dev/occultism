@@ -182,7 +182,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 18 * 3 + 22;
+        int playerInventoryTop = StorageControllerGuiBase.CRAFTING_GRID_TOP + 18 * 4 + 3;
         int playerInventoryLeft = 3 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++)
@@ -192,14 +192,14 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerHotbar() {
-        int hotbarTop = 18 * 3 + 22 + 18 * 3 + 4;
+        int hotbarTop = StorageControllerGuiBase.CRAFTING_GRID_TOP + 18 * 4 + 3 + 18 * 3 + 4;
         int hotbarLeft = 3 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
     }
 
     protected void setupCraftingGrid() {
-        int craftingGridTop = 5;
+        int craftingGridTop = StorageControllerGuiBase.CRAFTING_GRID_TOP;
         int craftingGridLeft = 37 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         int index = 0;
         //3x3 crafting grid
@@ -212,7 +212,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupCraftingOutput() {
-        int craftingOutputTop = 23;
+        int craftingOutputTop = StorageControllerGuiBase.CRAFTING_OUTPUT_TOP;
         int craftingOutputLeft = 133 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         StorageControllerSlot slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
                 this.result, this, 0, craftingOutputLeft, craftingOutputTop);
