@@ -540,6 +540,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int clearRecipeButtonTop = 32 + 18 * this.rows;
         this.clearRecipeButton = new SpriteButtonWidget(this.leftPos + 93 + ORDER_AREA_OFFSET,
                 this.realTopPos + clearRecipeButtonTop,
+                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
             Networking.sendToServer(new MessageClearCraftingMatrix());
             Networking.sendToServer(new MessageRequestStacks());
@@ -549,6 +550,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.clearTextButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT,
                 this.realTopPos + CONTROL_BUTTON_TOP,
+                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
             this.clearSearch();
             this.forceFocus = true;
@@ -558,6 +560,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.sortTypeButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE + 3,
                 this.realTopPos + CONTROL_BUTTON_TOP,
+                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
             this.setSortType(this.getSortType().next());
             Networking.sendToServer(
@@ -569,6 +572,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.sortDirectionButton = new SpriteButtonWidget(
                 this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 2 + 6,
                 this.realTopPos + CONTROL_BUTTON_TOP,
+                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
             this.setSortDirection(this.getSortDirection().next());
             Networking.sendToServer(
@@ -582,6 +586,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.jeiSyncButton = new SpriteButtonWidget(
                     this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 3 + 9,
                     this.realTopPos + CONTROL_BUTTON_TOP,
+                    CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                     Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
@@ -593,6 +598,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.rowCountButton = new SpriteButtonWidget(
                 this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 4 + 12,
                 this.realTopPos + CONTROL_BUTTON_TOP,
+                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 Component.translatable(TRANSLATION_KEY_BASE + ".display.rows"), () -> {
             if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
                 Occultism.CLIENT_CONFIG.misc.storageRows.set(1);

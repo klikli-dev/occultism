@@ -18,8 +18,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public class SpriteButtonWidget extends AbstractWidget {
-    private static final int WIDTH = 18;
-    private static final int HEIGHT = 18;
+    private final int foregroundInsetY;
 
     private final Runnable onPress;
     private final BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer;
@@ -27,22 +26,34 @@ public class SpriteButtonWidget extends AbstractWidget {
 
     public SpriteButtonWidget(int x, int y, Component message, Runnable onPress,
                               BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer) {
-        this(x, y, IconButtonBackgroundSprites.DEFAULT, message, onPress, foregroundRenderer);
+        this(x, y, 12, 12, IconButtonBackgroundSprites.DEFAULT, message, onPress, foregroundRenderer);
+    }
+
+    public SpriteButtonWidget(int x, int y, int width, int height, Component message, Runnable onPress,
+                              BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer) {
+        this(x, y, width, height, IconButtonBackgroundSprites.DEFAULT, message, onPress, foregroundRenderer);
     }
 
     public SpriteButtonWidget(int x, int y, IconButtonBackgroundSprites backgroundSprites, Component message,
                               Runnable onPress, BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer) {
-        super(x, y, WIDTH, HEIGHT, message);
+        this(x, y, backgroundSprites.normal().width(), backgroundSprites.normal().height(), backgroundSprites, message,
+                onPress, foregroundRenderer);
+    }
+
+    public SpriteButtonWidget(int x, int y, int width, int height, IconButtonBackgroundSprites backgroundSprites, Component message,
+                              Runnable onPress, BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer) {
+        super(x, y, width, height, message);
         this.backgroundSprites = Objects.requireNonNull(backgroundSprites);
         this.onPress = Objects.requireNonNull(onPress);
         this.foregroundRenderer = Objects.requireNonNull(foregroundRenderer);
+        this.foregroundInsetY = height < 18 ? 0 : 1;
     }
 
     public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> text(String text) {
         return (button, graphics) -> {
             Minecraft minecraft = Minecraft.getInstance();
             int x = button.getX() + (button.getWidth() - minecraft.font.width(text)) / 2;
-            int y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2 + 1;
+            int y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2 + button.foregroundInsetY;
             graphics.text(minecraft.font, text, x, y, 0xFF000000, false);
         };
     }
@@ -61,8 +72,8 @@ public class SpriteButtonWidget extends AbstractWidget {
             float centerX = button.getX() + button.getWidth() / 2.0F;
             float centerY = button.getY() + button.getHeight() / 2.0F;
             graphics.pose().translate(centerX, centerY);
-            graphics.pose().rotate(down ? 90.0F : -90.0F);
-            graphics.pose().scale(0.6F, 0.6F);
+            graphics.pose().rotate(down ? (float) (Math.PI / 2.0) : (float) (-Math.PI / 2.0));
+            graphics.pose().scale(button.getWidth() / 18.0F * 0.6F, button.getHeight() / 18.0F * 0.6F);
             GuiSprites.CRAFTING_ARROW.extractRenderState(graphics,
                     Math.round(-GuiSprites.CRAFTING_ARROW.width() / 2.0F),
                     Math.round(-GuiSprites.CRAFTING_ARROW.height() / 2.0F),
