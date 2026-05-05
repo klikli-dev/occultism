@@ -64,7 +64,9 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.util.Mth;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -319,21 +321,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
         int searchBarRenderedWidth = 90;
-        int searchBarRenderedHeight = this.font.lineHeight;
-        int searchBarWidgetWidth = Math.max(1, Math.round(searchBarRenderedWidth * SEARCH_BAR_SCALE));
-        int searchBarWidgetHeight = Math.max(1, Math.round(searchBarRenderedHeight * SEARCH_BAR_SCALE));
-        this.searchBar = new EditBox(this.font, this.leftPos + SEARCH_BAR_LEFT,
-                this.realTopPos + SEARCH_BAR_TOP, searchBarWidgetWidth, searchBarWidgetHeight, Component.literal("search")) {
-            @Override
-            public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-                guiGraphics.pose().pushMatrix();
-                guiGraphics.pose().translate(this.getX(), this.getY() + 3);
-                guiGraphics.pose().scale(1.0F / SEARCH_BAR_SCALE, 1.0F / SEARCH_BAR_SCALE);
-                guiGraphics.pose().translate(-this.getX(), -(this.getY() + 3));
-                super.extractWidgetRenderState(guiGraphics, mouseX, mouseY, partialTick);
-                guiGraphics.pose().popMatrix();
-            }
-        };
+        int searchBarRenderedHeight = Math.max(9, this.font.lineHeight);
+        this.searchBar = new ScaledEditBox(this.font, this.leftPos + SEARCH_BAR_LEFT,
+                this.realTopPos + SEARCH_BAR_TOP, searchBarRenderedWidth, searchBarRenderedHeight,
+                Component.literal("search"), SEARCH_BAR_SCALE);
         this.searchBar.setMaxLength(30);
 
         this.searchBar.setBordered(false);
@@ -669,9 +660,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isHovering(this.searchBar.getX() - this.leftPos, this.searchBar.getY() - this.topPos - 3,
-                this.searchBar.getWidth() - 5,
-                this.searchBar.getHeight() + 4, mouseX, mouseY);
+        return this.searchBar != null && this.searchBar.isMouseOver(mouseX, mouseY);
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
@@ -1229,5 +1218,66 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public int imageHeight() {
         return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET + INVENTORY_PANEL_HEIGHT - this.guiTop();
+    }
+
+    protected static class ScaledEditBox extends EditBox {
+
+        private static final int CURSOR_HEIGHT = 10;
+        private final float renderScale;
+        private final int baseTextHeight;
+
+        protected ScaledEditBox(Font font, int x, int y, int width, int height, Component message, float renderScale) {
+            super(font, x, y, width, height, message);
+            this.renderScale = renderScale;
+            this.baseTextHeight = Math.max(9, height);
+            this.setHeight(Math.max(1, Math.round(this.baseTextHeight * this.renderScale)));
+        }
+
+        @Override
+        public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+            guiGraphics.pose().pushMatrix();
+            guiGraphics.pose().translate(this.getX(), this.getY());
+            guiGraphics.pose().scale(this.renderScale, this.renderScale);
+            guiGraphics.pose().translate(-this.getX(), -this.getY());
+            super.extractWidgetRenderState(guiGraphics, this.scaleMouseX(mouseX), this.scaleMouseY(mouseY), partialTick);
+            guiGraphics.pose().popMatrix();
+        }
+
+        @Override
+        public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+            return super.mouseClicked(this.scaleMouseEvent(event), doubleClick);
+        }
+
+        @Override
+        public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
+            return super.mouseDragged(this.scaleMouseEvent(event), dx / this.renderScale, dy / this.renderScale);
+        }
+
+        @Override
+        public boolean isMouseOver(double mouseX, double mouseY) {
+            return this.isActive() && mouseX >= this.getX() && mouseX < this.getX() + this.getWidth()
+                    && mouseY >= this.getY() && mouseY < this.getY() + this.getHeight();
+        }
+
+        @Override
+        public int getInnerWidth() {
+            return Math.max(1, Math.round(super.getInnerWidth() / this.renderScale));
+        }
+
+        private MouseButtonEvent scaleMouseEvent(MouseButtonEvent event) {
+            return new MouseButtonEvent(this.scaleMouseX(event.x()), this.scaleMouseY(event.y()),
+                    new MouseButtonInfo(event.button(), event.modifiers()));
+        }
+
+        private int scaleMouseX(double mouseX) {
+            return Mth.floor(this.getX() + (mouseX - this.getX()) / this.renderScale);
+        }
+
+        private int scaleMouseY(double mouseY) {
+            double scaledHeight = this.baseTextHeight * this.renderScale;
+            double centeredOffset = (scaledHeight - CURSOR_HEIGHT) / 2.0D;
+            return Mth.floor(this.getY() + (mouseY - this.getY() - centeredOffset) / this.renderScale
+                    + (this.baseTextHeight - CURSOR_HEIGHT) / 2.0D);
+        }
     }
 }
