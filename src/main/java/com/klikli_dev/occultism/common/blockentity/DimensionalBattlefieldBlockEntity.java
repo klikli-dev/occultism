@@ -354,19 +354,22 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         BlockPos pos = this.worldPosition;
         entity.moveTo(pos.getCenter());
         if (this.storedLootTable != null) {
-            for (int i = 0; i < rolls; i++) {
-                Collection<ItemEntity> dropsCollection = new ArrayList<>();
-                ObjectArrayList<ItemStack> loot = this.storedLootTable.getRandomItems(lootparams);
-                for (ItemStack itemStack : loot) {
-                    ItemEntity itemEntity = new ItemEntity(this.level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
-                    dropsCollection.add(itemEntity);
+            NeoForge.EVENT_BUS.addListener(this.entityJoinLevelEventListener);
+            try {
+                for (int i = 0; i < rolls; i++) {
+                    Collection<ItemEntity> dropsCollection = new ArrayList<>();
+                    ObjectArrayList<ItemStack> loot = this.storedLootTable.getRandomItems(lootparams);
+                    for (ItemStack itemStack : loot) {
+                        ItemEntity itemEntity = new ItemEntity(this.level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+                        dropsCollection.add(itemEntity);
+                    }
+                    LivingDropsEvent event = new LivingDropsEvent(entity, lootparams.getParameter(LootContextParams.DAMAGE_SOURCE), dropsCollection, true);
+                    NeoForge.EVENT_BUS.post(event);
+                    if (!event.isCanceled())
+                        for (ItemEntity item : event.getDrops())
+                            ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
                 }
-                LivingDropsEvent event = new LivingDropsEvent(entity, lootparams.getParameter(LootContextParams.DAMAGE_SOURCE), dropsCollection, true);
-                NeoForge.EVENT_BUS.post(event);
-                NeoForge.EVENT_BUS.addListener(this.entityJoinLevelEventListener);
-                if (!event.isCanceled())
-                    for (ItemEntity item : event.getDrops())
-                        ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
+            } finally {
                 NeoForge.EVENT_BUS.unregister(this.entityJoinLevelEventListener);
             }
         }
