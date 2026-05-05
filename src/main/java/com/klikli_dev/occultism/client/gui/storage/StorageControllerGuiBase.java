@@ -672,6 +672,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 mouseY > (this.realTopPos + itemAreaTop) && mouseY < (this.realTopPos + itemAreaTop + itemAreaHeight);
     }
 
+    protected boolean isPointInOrderSlotArea(double mouseX, double mouseY) {
+        int slotX = this.leftPos + ORDER_INPUT_SLOT_LEFT - 5;
+        int slotY = this.menuTop() + ORDER_INPUT_SLOT_TOP - 5;
+        return mouseX >= slotX && mouseX < slotX + 28 && mouseY >= slotY && mouseY < slotY + 28;
+    }
+
     protected boolean isPointInSpaceText(double mouseX, double mouseY) {
         return this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32, this.storageSpaceLabel.getY() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
@@ -748,6 +754,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
+        }
+        if (this.isPointInOrderSlotArea(mouseX, mouseY)) {
+            guiGraphics.setComponentTooltipForNextFrame(this.font,
+                    List.of(Component.translatable(TRANSLATION_KEY_BASE + ".order_slot.tooltip")), mouseX, mouseY);
+        }
+        if (this.inventoryModeButton != null && this.inventoryModeButton.isMouseOver(mouseX, mouseY)) {
+            guiGraphics.setComponentTooltipForNextFrame(this.font,
+                    List.of(Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory.tooltip")), mouseX, mouseY);
+        }
+        if (this.autocraftingModeButton != null && this.autocraftingModeButton.isMouseOver(mouseX, mouseY)) {
+            guiGraphics.setComponentTooltipForNextFrame(this.font,
+                    List.of(Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting.tooltip")), mouseX, mouseY);
         }
         if (this.isPointInSpaceText(mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.literal(

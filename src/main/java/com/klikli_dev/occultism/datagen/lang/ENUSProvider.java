@@ -898,6 +898,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_amount", "Sort by distance.");
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_name", "Sort by machine name.");
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod", "Sort by mod name.");
+        this.add("gui.occultism.storage_controller.order_slot.tooltip", "Place items here for machine operator spirits to bring to a linked machine.");
+        this.add("gui.occultism.storage_controller.mode.inventory.tooltip", "Access the items stored in this storage network.");
+        this.add("gui.occultism.storage_controller.mode.autocrafting.tooltip", "View linked machines that a machine operator spirit can bring items to and carry crafting results from.");
 
         // Others
         this.add("gui.occultism.spirit_grindstone.container", "Repair & Uncurse");
