@@ -1091,8 +1091,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> sortTypeRenderer() {
         return switch (this.getSortType()) {
-            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.7F);
-            case NAME -> SpriteButtonWidget.text("A-Z");
+            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.58F);
+            case NAME -> SpriteButtonWidget.scaledText("A-Z", 0.72F);
             case MOD -> SpriteButtonWidget.text("M");
         };
     }
