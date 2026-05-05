@@ -30,6 +30,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.FishingRodItem;
@@ -45,7 +46,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = Occultism.MODID)
-public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
+public class EntityWormholeBlockEntity extends NetworkedBlockEntity implements Clearable {
 
     public long lastChangeTime;
     public ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
@@ -127,6 +128,13 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
             if (state.getBlock() instanceof EntityWormholeBlock wormhole) {
                 wormhole.pullEntity((ServerLevel) event.getLevel(), hook.blockPosition(), state);
             }
+        }
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
+            itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
 }

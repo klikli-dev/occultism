@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.215.0] - 2026-05-04
+### :sparkles: New Features
+- [`67149c9`](https://github.com/klikli-dev/occultism/commit/67149c9d1e4d08bd3db4b34e03bb4099525d7355) - Implement Clearable interface to some blocks to made it work with Sable *(PR [#1604](https://github.com/klikli-dev/occultism/pull/1604) by [@Daudeuf](https://github.com/Daudeuf))*
+
+
+## [release/v1.21.1-1.214.1] - 2026-05-02
+### :bug: Bug Fixes
+- [`d095193`](https://github.com/klikli-dev/occultism/commit/d095193b5794ac6862a7aaaf79a34922eaa76b19) - port safe wormhole exit search to 1.21.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.214.0] - 2026-04-21
 ### :recycle: Refactors
 - [`59ae8bf`](https://github.com/klikli-dev/occultism/commit/59ae8bf24199c5994c4d9276dcb68cbda94c6197) - make emi ritual recipe category work properly with AE2 autocrafting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2402,3 +2412,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.210.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.209.3...release/v1.21.1-1.210.0
 [release/v1.21.1-1.212.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.211.0...release/v1.21.1-1.212.0
 [release/v1.21.1-1.214.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.213.0...release/v1.21.1-1.214.0
+[release/v1.21.1-1.214.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.214.0...release/v1.21.1-1.214.1
+[release/v1.21.1-1.215.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.214.1...release/v1.21.1-1.215.0

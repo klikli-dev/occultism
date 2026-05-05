@@ -45,6 +45,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -71,7 +72,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
+public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider, Clearable {
 
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
             .create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
@@ -117,6 +118,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < combinedHandler.getSlots(); i++) {
+            combinedHandler.setStackInSlot( i, ItemStack.EMPTY);
+        }
     }
 
     // region Inner Classes
