@@ -129,6 +129,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int MAIN_PANEL_TINT_FALLBACK = 0xFF4B5563;
     protected static final int STORAGE_BUTTON_TINT = 0xFF5D6878;
     protected static final int STORAGE_BUTTON_HOVER_TINT = 0xFF707C8D;
+    protected static final int TOP_CONTROL_TOOLTIP_OFFSET_Y = 18;
     public static final int ORDER_INPUT_SLOT_LEFT = -10;
     public static final int ORDER_INPUT_SLOT_TOP = -61;
     protected static final float SEARCH_BAR_SCALE = 0.75F;
@@ -688,6 +689,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
+    protected int topControlTooltipY(int mouseY) {
+        return Math.min(this.height - 8, mouseY + TOP_CONTROL_TOOLTIP_OFFSET_Y);
+    }
+
     protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
@@ -723,11 +728,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, this.topControlTooltipY(mouseY));
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
             guiGraphics.setComponentTooltipForNextFrame(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
-                    mouseX, mouseY);
+                    mouseX, this.topControlTooltipY(mouseY));
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
@@ -742,18 +747,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                     this.getSortType().getSerializedName();
                     break;
             }
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(translationKey), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(translationKey), mouseX, this.topControlTooltipY(mouseY));
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
-                    mouseX, mouseY);
+                    mouseX, this.topControlTooltipY(mouseY));
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
-                    mouseX, mouseY);
+                    mouseX, this.topControlTooltipY(mouseY));
         }
         if (this.isPointInOrderSlotArea(mouseX, mouseY)) {
             guiGraphics.setComponentTooltipForNextFrame(this.font,
