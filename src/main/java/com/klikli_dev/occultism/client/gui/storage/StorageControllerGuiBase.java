@@ -99,7 +99,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int ITEM_AREA_LEFT = 32;
     protected static final int ITEM_AREA_TOP = 33;
     protected static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
-    protected static final int SEARCH_BAR_TOP = 4;
+    protected static final int SEARCH_BAR_TOP = 7;
     protected static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
     protected static final int SEARCH_FIELD_TOP = SEARCH_BAR_TOP - 3;
     protected static final int STORAGE_INFO_LABEL_LEFT = 186;
@@ -111,10 +111,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
     protected static final int CRAFTING_ARROW_TOP = 24;
     protected static final int INVENTORY_PANEL_TOP_OFFSET = 69;
-    protected static final int INVENTORY_PANEL_LEFT = 48;
+    protected static final int INVENTORY_PANEL_LEFT = 43;
     protected static final int INVENTORY_PANEL_WIDTH = 176;
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
-    protected static final int INVENTORY_LABEL_X = 56;
+    protected static final int INVENTORY_LABEL_X = 51;
     protected static final int INVENTORY_LABEL_TOP_OFFSET = 76;
     protected static final int TAB_TOP_OFFSET = 5;
     protected static final int TAB_WIDTH = 34;
@@ -126,7 +126,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int STORAGE_BUTTON_TINT = 0xFF5D6878;
     protected static final int STORAGE_BUTTON_HOVER_TINT = 0xFF707C8D;
     public static final int ORDER_INPUT_SLOT_LEFT = -10;
-    public static final int ORDER_INPUT_SLOT_TOP = -66;
+    public static final int ORDER_INPUT_SLOT_TOP = -61;
     protected static final float SEARCH_BAR_SCALE = 0.75F;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
@@ -320,9 +320,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             @Override
             public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
                 guiGraphics.pose().pushMatrix();
-                guiGraphics.pose().translate(this.getX(), this.getY());
+                guiGraphics.pose().translate(this.getX(), this.getY() + 3);
                 guiGraphics.pose().scale(SEARCH_BAR_SCALE, SEARCH_BAR_SCALE);
-                guiGraphics.pose().translate(-this.getX(), -this.getY());
+                guiGraphics.pose().translate(-this.getX(), -(this.getY() + 3));
                 super.extractWidgetRenderState(guiGraphics, mouseX, mouseY, partialTick);
                 guiGraphics.pose().popMatrix();
             }
@@ -1031,8 +1031,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + this.topBarLeft(), this.guiTop(),
                 this.topBarWidth(), TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR,
                 GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP,
-                96, 14, GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP + 1,
+                96, CONTROL_BUTTON_SIZE, GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)));
 
         this.root.syncWithHost();
     }
