@@ -94,7 +94,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     protected static final int GUI_WIDTH = 260;
     protected static final int VISIBLE_COLUMNS = 11;
-    protected static final int TOP_BAR_HEIGHT = 15;
+    protected static final int TOP_BAR_HEIGHT = 21;
     protected static final int MAIN_PANEL_TOP = 12;
     protected static final int ITEM_AREA_LEFT = 32;
     protected static final int ITEM_AREA_TOP = 33;
@@ -126,7 +126,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int STORAGE_BUTTON_TINT = 0xFF5D6878;
     protected static final int STORAGE_BUTTON_HOVER_TINT = 0xFF707C8D;
     public static final int ORDER_INPUT_SLOT_LEFT = -10;
-    public static final int ORDER_INPUT_SLOT_TOP = -65;
+    public static final int ORDER_INPUT_SLOT_TOP = -66;
+    protected static final float SEARCH_BAR_SCALE = 0.75F;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
 
@@ -315,13 +316,25 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
         this.searchBar = new EditBox(this.font, this.leftPos + SEARCH_BAR_LEFT,
-                this.realTopPos + SEARCH_BAR_TOP, 90, this.font.lineHeight, Component.literal("search"));
+                this.realTopPos + SEARCH_BAR_TOP, 90, this.font.lineHeight, Component.literal("search")) {
+            @Override
+            protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+                guiGraphics.pose().pushMatrix();
+                guiGraphics.pose().translate(this.getX(), this.getY());
+                guiGraphics.pose().scale(SEARCH_BAR_SCALE, SEARCH_BAR_SCALE);
+                guiGraphics.pose().translate(-this.getX(), -this.getY());
+                super.extractWidgetRenderState(guiGraphics, mouseX, mouseY, partialTick);
+                guiGraphics.pose().popMatrix();
+            }
+        };
         this.searchBar.setMaxLength(30);
 
         this.searchBar.setBordered(false);
         this.searchBar.setVisible(true);
         this.searchBar.setTextColor(0xFFFFFFFF);
         this.searchBar.setFocused(focus);
+        this.searchBar.setWidth(Math.round(90 / SEARCH_BAR_SCALE));
+        this.searchBar.setHeight(Math.max(1, Math.round(this.font.lineHeight / SEARCH_BAR_SCALE)));
 
         this.searchBar.setValue(searchBarText);
         // OccultismEmiIntegration excluded from build - EMI sync disabled
@@ -652,7 +665,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
         return this.isHovering(this.searchBar.getX() - this.leftPos, this.searchBar.getY() - this.topPos - 3,
-                this.searchBar.getWidth() - 5, this.font.lineHeight + 4, mouseX, mouseY);
+                Math.round(this.searchBar.getWidth() * SEARCH_BAR_SCALE) - 5,
+                Math.round(this.searchBar.getHeight() * SEARCH_BAR_SCALE) + 4, mouseX, mouseY);
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
