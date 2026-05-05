@@ -58,6 +58,15 @@ public class SpriteButtonWidget extends AbstractWidget {
         };
     }
 
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> offsetText(String text, int offsetX, int offsetY) {
+        return (button, graphics) -> {
+            Minecraft minecraft = Minecraft.getInstance();
+            int x = button.getX() + (button.getWidth() - minecraft.font.width(text)) / 2 + offsetX;
+            int y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2 + button.foregroundInsetY + 2 + offsetY;
+            graphics.text(minecraft.font, text, x, y, 0xFF000000, false);
+        };
+    }
+
     public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> scaledText(String text, float scale) {
         return (button, graphics) -> {
             Minecraft minecraft = Minecraft.getInstance();
@@ -65,6 +74,21 @@ public class SpriteButtonWidget extends AbstractWidget {
             int textHeight = Math.round(minecraft.font.lineHeight * scale);
             int x = button.getX() + (button.getWidth() - textWidth) / 2;
             int y = button.getY() + (button.getHeight() - textHeight) / 2 + button.foregroundInsetY;
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(x, y);
+            graphics.pose().scale(scale, scale);
+            graphics.text(minecraft.font, text, 0, 0, 0xFF000000, false);
+            graphics.pose().popMatrix();
+        };
+    }
+
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> scaledText(String text, float scale, int offsetY) {
+        return (button, graphics) -> {
+            Minecraft minecraft = Minecraft.getInstance();
+            int textWidth = Math.round(minecraft.font.width(text) * scale);
+            int textHeight = Math.round(minecraft.font.lineHeight * scale);
+            int x = button.getX() + (button.getWidth() - textWidth) / 2;
+            int y = button.getY() + (button.getHeight() - textHeight) / 2 + button.foregroundInsetY + offsetY;
             graphics.pose().pushMatrix();
             graphics.pose().translate(x, y);
             graphics.pose().scale(scale, scale);
@@ -89,7 +113,7 @@ public class SpriteButtonWidget extends AbstractWidget {
             float centerY = button.getY() + button.getHeight() / 2.0F;
             graphics.pose().translate(centerX, centerY);
             graphics.pose().rotate(down ? (float) (Math.PI / 2.0) : (float) (-Math.PI / 2.0));
-            graphics.pose().scale(button.getWidth() / 18.0F * 0.4F, button.getHeight() / 18.0F * 0.4F);
+            graphics.pose().scale(button.getWidth() / 18.0F * 0.45F, button.getHeight() / 18.0F * 0.45F);
             arrow.extractRenderState(graphics,
                     Math.round(-arrow.width() / 2.0F),
                     Math.round(-arrow.height() / 2.0F),
