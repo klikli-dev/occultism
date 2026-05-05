@@ -118,7 +118,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int TAB_LEFT = 27;
     protected static final int TAB_TOP_OFFSET = 72;
     protected static final int TAB_HEIGHT = 29;
-    protected static final String SORT_TEXT_MOD = "MOD";
+    protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
+    protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
 
     public int lastStacksCount;
     public ClientStorageCache clientStorageCache;
@@ -138,7 +139,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected AbstractWidget sortTypeButton;
     protected AbstractWidget sortDirectionButton;
     protected AbstractWidget jeiSyncButton;
-    protected AbstractWidget rowCountButton;
     protected AbstractWidget autocraftingModeButton;
     protected AbstractWidget inventoryModeButton;
     protected LabelWidget storageSpaceLabel;
@@ -341,12 +341,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.initButtons();
 
-        this.rowLabel =
-                new LabelWidget(this.leftPos + this.imageWidth - 11, this.realTopPos + SEARCH_BAR_TOP, true,
-                        -1, 2, 0x404040);
-        this.rowLabel
-                .addLine(String.valueOf(this.rows), false);
-        this.addRenderableWidget(this.rowLabel);
     }
 
     @Override
@@ -590,25 +584,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
-            }, SpriteButtonWidget.text("J"));
+            }, this.jeiRenderer());
 
             this.addRenderableWidget(this.jeiSyncButton);
         }
-
-        this.rowCountButton = new SpriteButtonWidget(
-                this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 4 + 12,
-                this.realTopPos + CONTROL_BUTTON_TOP,
-                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
-                Component.translatable(TRANSLATION_KEY_BASE + ".display.rows"), () -> {
-            if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
-                Occultism.CLIENT_CONFIG.misc.storageRows.set(1);
-            } else {
-                Occultism.CLIENT_CONFIG.misc.storageRows.set((Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() + 1));
-            }
-            this.init();
-        }, SpriteButtonWidget.text(Integer.toString(this.rows)));
-
-        this.addRenderableWidget(this.rowCountButton);
 
         switch (this.guiMode) {
             case INVENTORY:
@@ -772,12 +751,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
-        if (this.rowCountButton != null && this.rowCountButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
-                            TRANSLATION_KEY_BASE + ".display.rows"),
-                    mouseX, mouseY);
-        }
-
         if (this.isPointInSpaceText(mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
                     this.usedTotalItemCount + " / " + this.maxTotalItemCount), mouseX, mouseY);
@@ -1118,10 +1091,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> sortTypeRenderer() {
         return switch (this.getSortType()) {
-            case AMOUNT -> SpriteButtonWidget.text("123");
+            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.7F);
             case NAME -> SpriteButtonWidget.text("A-Z");
-            case MOD -> SpriteButtonWidget.text(SORT_TEXT_MOD);
+            case MOD -> SpriteButtonWidget.text("M");
         };
+    }
+
+    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> jeiRenderer() {
+        return SpriteButtonWidget.coloredText("J", JeiSettings.isJeiSearchSynced() ? JEI_ACTIVE_COLOR : JEI_INACTIVE_COLOR);
     }
 
     protected IconButtonBackgroundSprites tabBackgroundSprites(GuiSprite sprite) {
