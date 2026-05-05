@@ -120,6 +120,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int TAB_WIDTH = 34;
     protected static final int TAB_HEIGHT = 29;
     protected static final int TAB_HIDDEN_OVERLAP = 3;
+    protected static final int TAB_LEFT_SHIFT = 5;
+    protected static final int TAB_ICON_OFFSET_X = -3;
     protected static final int MAIN_PANEL_TINT_FALLBACK = 0xFF4B5563;
     public static final int ORDER_INPUT_SLOT_LEFT = -10;
     public static final int ORDER_INPUT_SLOT_TOP = -85;
@@ -1110,14 +1112,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabIconRenderer(ItemStack icon) {
         return (button, graphics) -> {
-            int x = button.getX() + (button.getWidth() - 16) / 2;
+            int x = button.getX() + (button.getWidth() - 16) / 2 + TAB_ICON_OFFSET_X;
             int y = button.getY() + (button.getHeight() - 16) / 2;
             graphics.fakeItem(icon, x, y);
         };
     }
 
     protected int tabLeft() {
-        return this.mainPanelLeft() - (TAB_WIDTH - TAB_HIDDEN_OVERLAP);
+        return this.mainPanelLeft() - (TAB_WIDTH - TAB_HIDDEN_OVERLAP) + TAB_LEFT_SHIFT;
     }
 
     protected int darkenColor(int color, int amount) {
