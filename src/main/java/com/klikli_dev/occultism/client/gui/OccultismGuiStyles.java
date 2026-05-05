@@ -93,6 +93,7 @@ public final class OccultismGuiStyles {
                         GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiStyleProperties.SPRITE,
                         GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiStyleProperties.COLOR, BACKGROUND_TINT)
                 .set(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiStyleProperties.SPRITE,
                         GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT));
     }

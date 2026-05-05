@@ -117,9 +117,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int INVENTORY_LABEL_X = 56;
     protected static final int INVENTORY_LABEL_TOP_OFFSET = 76;
     protected static final int TAB_TOP_OFFSET = 5;
-    protected static final int TAB_WIDTH = 24;
+    protected static final int TAB_WIDTH = 34;
     protected static final int TAB_HEIGHT = 29;
     protected static final int TAB_HIDDEN_OVERLAP = 3;
+    protected static final int MAIN_PANEL_TINT_FALLBACK = 0xFF4B5563;
     public static final int ORDER_INPUT_SLOT_LEFT = -10;
     public static final int ORDER_INPUT_SLOT_TOP = -85;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
@@ -967,8 +968,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + INVENTORY_PANEL_LEFT,
                 this.menuTop() + INVENTORY_PANEL_TOP_OFFSET, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT,
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiSpriteWidget(this.leftPos + ORDER_PANEL_LEFT,
-                this.menuTop() + ORDER_PANEL_TOP_OFFSET, OccultismGuiSprites.STORAGE_CONTROLLER_ORDER_PANEL));
         this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT, this.menuTop() + CRAFTING_ARROW_TOP,
                 GuiSprites.CRAFTING_ARROW));
 
@@ -1101,8 +1100,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabBackgroundRenderer(boolean active) {
-        GuiSprite mainPanelBackground = this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND);
-        GuiSprite visibleBackground = active ? mainPanelBackground : this.darkenSprite(mainPanelBackground, 0.82F);
+        int mainPanelTint = this.partColor(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, MAIN_PANEL_TINT_FALLBACK);
+        GuiSprite visibleBackground = GuiSprites.GUI_BACKGROUND.tinted(active ? mainPanelTint : this.darkenColor(mainPanelTint, 24));
         return (button, graphics) -> {
             visibleBackground.extractRenderState(graphics, button.getX(), button.getY(), button.getWidth() - TAB_HIDDEN_OVERLAP,
                     button.getHeight());
@@ -1127,12 +1126,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int green = Math.max(0, ((color >> 8) & 0xFF) - amount);
         int blue = Math.max(0, (color & 0xFF) - amount);
         return alpha | red << 16 | green << 8 | blue;
-    }
-
-    protected GuiSprite darkenSprite(GuiSprite sprite, float brightness) {
-        int channel = Math.max(0, Math.min(255, Math.round(255 * brightness)));
-        int tint = 0xFF000000 | channel << 16 | channel << 8 | channel;
-        return sprite.tinted(tint);
     }
 
     protected GuiSprite menuSlotSprite(int slotIndex) {
