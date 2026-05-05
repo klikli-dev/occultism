@@ -99,7 +99,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int ITEM_AREA_LEFT = 32;
     protected static final int ITEM_AREA_TOP = 33;
     protected static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
-    protected static final int SEARCH_BAR_TOP = 20;
+    protected static final int SEARCH_BAR_TOP = 4;
     protected static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
     protected static final int SEARCH_FIELD_TOP = SEARCH_BAR_TOP - 3;
     protected static final int STORAGE_INFO_LABEL_LEFT = 186;
@@ -123,8 +123,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int TAB_LEFT_SHIFT = 5;
     protected static final int TAB_ICON_OFFSET_X = -3;
     protected static final int MAIN_PANEL_TINT_FALLBACK = 0xFF4B5563;
+    protected static final int STORAGE_BUTTON_TINT = 0xFF5D6878;
+    protected static final int STORAGE_BUTTON_HOVER_TINT = 0xFF707C8D;
     public static final int ORDER_INPUT_SLOT_LEFT = -10;
-    public static final int ORDER_INPUT_SLOT_TOP = -85;
+    public static final int ORDER_INPUT_SLOT_TOP = -65;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
 
@@ -542,6 +544,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.clearRecipeButton = new SpriteButtonWidget(this.leftPos + 93 + ORDER_AREA_OFFSET,
                 this.realTopPos + clearRecipeButtonTop,
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
+                this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
             Networking.sendToServer(new MessageClearCraftingMatrix());
             Networking.sendToServer(new MessageRequestStacks());
@@ -552,6 +555,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.clearTextButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT,
                 this.realTopPos + CONTROL_BUTTON_TOP,
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
+                this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
             this.clearSearch();
             this.forceFocus = true;
@@ -562,6 +566,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.sortTypeButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE + 3,
                 this.realTopPos + CONTROL_BUTTON_TOP,
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
+                this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
             this.setSortType(this.getSortType().next());
             Networking.sendToServer(
@@ -574,6 +579,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 2 + 6,
                 this.realTopPos + CONTROL_BUTTON_TOP,
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
+                this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
             this.setSortDirection(this.getSortDirection().next());
             Networking.sendToServer(
@@ -588,6 +594,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 3 + 9,
                     this.realTopPos + CONTROL_BUTTON_TOP,
                     CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
+                    this.storageButtonBackgroundSprites(),
                     Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
@@ -974,7 +981,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + INVENTORY_PANEL_LEFT,
                 this.menuTop() + INVENTORY_PANEL_TOP_OFFSET, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT,
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT, this.menuTop() + CRAFTING_ARROW_TOP,
+        this.root.addChild(new GuiSpriteWidget(this.leftPos + CRAFTING_ARROW_LEFT - 5, this.menuTop() + CRAFTING_ARROW_TOP,
                 GuiSprites.CRAFTING_ARROW));
 
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + ITEM_AREA_LEFT - 1,
@@ -986,11 +993,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             if (i == ORDER_INPUT_SLOT_INDEX) {
                 int slotX = this.leftPos + slot.x + this.menuSlotOffsetX(i);
                 int slotY = this.menuTop() + slot.y + this.menuSlotOffsetY(i);
-                this.root.addChild(new GuiBackgroundWidget(this, slotX - 2, slotY - 2, 22, 22,
+                this.root.addChild(new GuiBackgroundWidget(this, slotX - 5, slotY - 5, 28, 28,
                         this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)));
                 this.root.addChild(new GuiSpriteWidget(slotX, slotY, this.orderInputSlotSprite()));
-                this.root.addChild(new GuiSpriteWidget(slotX - 2, slotY - 2,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF)));
+                this.root.addChild(new GuiSpriteWidget(slotX + 2, slotY + 2,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF).sized(14, 14)));
                 continue;
             }
             this.root.addChild(new GuiSpriteWidget(this.leftPos + slot.x + this.menuSlotOffsetX(i),
@@ -1010,8 +1017,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + this.topBarLeft(), this.guiTop(),
                 this.topBarWidth(), TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR,
                 GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiSpriteWidget(this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP,
-                OccultismGuiSprites.STORAGE_CONTROLLER_SEARCH_FIELD));
+        this.root.addChild(new GuiBackgroundWidget(this, this.leftPos + SEARCH_FIELD_LEFT, this.guiTop() + SEARCH_FIELD_TOP,
+                96, 14, GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)));
 
         this.root.syncWithHost();
     }
@@ -1094,6 +1101,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 0.0F, -0.5F);
     }
 
+    protected IconButtonBackgroundSprites storageButtonBackgroundSprites() {
+        return new IconButtonBackgroundSprites(
+                GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT),
+                GuiSprites.FILTER_BUTTON_DOWN.tinted(STORAGE_BUTTON_TINT),
+                GuiSprites.FILTER_BUTTON_HOVER.tinted(STORAGE_BUTTON_HOVER_TINT)
+        );
+    }
+
     protected AbstractWidget createTabButton(boolean inventoryTab, boolean active, int row) {
         Component tooltip = Component.translatable(TRANSLATION_KEY_BASE + (inventoryTab ? ".mode.inventory" : ".mode.autocrafting"));
         Runnable onPress = () -> {
@@ -1133,7 +1148,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected GuiSprite menuSlotSprite(int slotIndex) {
         if (slotIndex == 0) {
-            return GuiSprites.CRAFTING_RESULT_SLOT;
+            return GuiSprites.CRAFTING_RESULT_SLOT.tinted(STORAGE_BUTTON_TINT);
         }
         if (slotIndex >= 1 && slotIndex <= 9) {
             return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiSprites.INVENTORY_SLOT);
@@ -1150,11 +1165,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected int menuSlotOffsetX(int slotIndex) {
-        return slotIndex == 0 ? -4 : -1;
+        return slotIndex == 0 ? -5 : -1;
     }
 
     protected int menuSlotOffsetY(int slotIndex) {
-        return slotIndex == 0 ? -4 : -1;
+        return slotIndex == 0 ? -5 : -1;
     }
 
     @Override
