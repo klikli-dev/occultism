@@ -34,6 +34,7 @@ import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
 import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
@@ -117,6 +118,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int TAB_LEFT = 27;
     protected static final int TAB_TOP_OFFSET = 72;
     protected static final int TAB_HEIGHT = 29;
+    protected static final String SORT_TEXT_MOD = "MOD";
 
     public int lastStacksCount;
     public ClientStorageCache clientStorageCache;
@@ -538,49 +540,41 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int clearRecipeButtonTop = 32 + 18 * this.rows;
         this.clearRecipeButton = new SpriteButtonWidget(this.leftPos + 93 + ORDER_AREA_OFFSET,
                 this.realTopPos + clearRecipeButtonTop,
-                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR,
-                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR_HOVER,
                 Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
             Networking.sendToServer(new MessageClearCraftingMatrix());
             Networking.sendToServer(new MessageRequestStacks());
             this.init();
-        });
+        }, SpriteButtonWidget.text("X"));
         this.addRenderableWidget(this.clearRecipeButton);
 
         this.clearTextButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT,
                 this.realTopPos + CONTROL_BUTTON_TOP,
-                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR,
-                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_CLEAR_HOVER,
                 Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
             this.clearSearch();
             this.forceFocus = true;
             this.init();
-        });
+        }, SpriteButtonWidget.text("X"));
         this.addRenderableWidget(this.clearTextButton);
 
         this.sortTypeButton = new SpriteButtonWidget(this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE + 3,
                 this.realTopPos + CONTROL_BUTTON_TOP,
-                this.sortTypeSprite(false),
-                this.sortTypeSprite(true),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
             this.setSortType(this.getSortType().next());
             Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
             this.init();
-        });
+        }, this.sortTypeRenderer());
         this.addRenderableWidget(this.sortTypeButton);
 
         this.sortDirectionButton = new SpriteButtonWidget(
                 this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 2 + 6,
                 this.realTopPos + CONTROL_BUTTON_TOP,
-                this.sortDirectionSprite(false),
-                this.sortDirectionSprite(true),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
             this.setSortDirection(this.getSortDirection().next());
             Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
             this.init();
-        });
+        }, SpriteButtonWidget.arrow(this.getSortDirection().isDown()));
         this.addRenderableWidget(this.sortDirectionButton);
 
         // OccultismEmiIntegration excluded from build - EMI sync disabled; show button if JEI is loaded
@@ -588,12 +582,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.jeiSyncButton = new SpriteButtonWidget(
                     this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 3 + 9,
                     this.realTopPos + CONTROL_BUTTON_TOP,
-                    this.jeiSyncSprite(false),
-                    this.jeiSyncSprite(true),
                     Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
-            });
+            }, SpriteButtonWidget.text("J"));
 
             this.addRenderableWidget(this.jeiSyncButton);
         }
@@ -601,8 +593,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.rowCountButton = new SpriteButtonWidget(
                 this.leftPos + CONTROL_BUTTON_LEFT + CONTROL_BUTTON_SIZE * 4 + 12,
                 this.realTopPos + CONTROL_BUTTON_TOP,
-                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_ROWS,
-                OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_ROWS_HOVER,
                 Component.translatable(TRANSLATION_KEY_BASE + ".display.rows"), () -> {
             if (Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() == 9) {
                 Occultism.CLIENT_CONFIG.misc.storageRows.set(1);
@@ -610,7 +600,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 Occultism.CLIENT_CONFIG.misc.storageRows.set((Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt() + 1));
             }
             this.init();
-        });
+        }, SpriteButtonWidget.text(Integer.toString(this.rows)));
 
         this.addRenderableWidget(this.rowCountButton);
 
@@ -618,38 +608,34 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             case INVENTORY:
                 this.inventoryModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
                         this.topPos + TAB_TOP_OFFSET,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE,
+                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE),
                         Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"), () -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
-                });
+                }, SpriteButtonWidget.text(""));
                 this.autocraftingModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
                         this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE,
+                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE),
                         Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"), () -> {
                             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
                             this.init();
-                        });
+                        }, SpriteButtonWidget.text(""));
                 break;
             case AUTOCRAFTING:
                 this.inventoryModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
                         this.topPos + TAB_TOP_OFFSET,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE,
+                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE),
                         Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"), () -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
-                });
+                }, SpriteButtonWidget.text(""));
                 this.autocraftingModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
                         this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE,
+                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE),
                         Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"), () -> {
                             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
                             this.init();
-                        });
+                        }, SpriteButtonWidget.text(""));
                 break;
         }
         this.addRenderableWidget(this.inventoryModeButton);
@@ -1121,35 +1107,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         return this.style().get(part, GuiStyleProperties.COLOR, fallback);
     }
 
-    protected GuiSprite sortTypeSprite(boolean hovered) {
+    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> sortTypeRenderer() {
         return switch (this.getSortType()) {
-            case AMOUNT -> hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_AMOUNT_HOVER
-                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_AMOUNT;
-            case NAME -> hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_NAME_HOVER
-                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_NAME;
-            case MOD -> hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_MOD_HOVER
-                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_MOD;
+            case AMOUNT -> SpriteButtonWidget.text("123");
+            case NAME -> SpriteButtonWidget.text("A-Z");
+            case MOD -> SpriteButtonWidget.text(SORT_TEXT_MOD);
         };
     }
 
-    protected GuiSprite sortDirectionSprite(boolean hovered) {
-        if (this.getSortDirection().isDown()) {
-            return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_DOWN_HOVER
-                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_DOWN;
-        }
-
-        return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_UP_HOVER
-                : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_SORT_DIRECTION_UP;
-    }
-
-    protected GuiSprite jeiSyncSprite(boolean hovered) {
-        if (JeiSettings.isJeiSearchSynced()) {
-            return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_ON_HOVER
-                    : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_ON;
-        }
-
-        return hovered ? OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_OFF_HOVER
-                : OccultismGuiSprites.STORAGE_CONTROLLER_BUTTON_JEI_OFF;
+    protected IconButtonBackgroundSprites tabBackgroundSprites(GuiSprite sprite) {
+        return new IconButtonBackgroundSprites(sprite, sprite, sprite);
     }
 
     protected GuiSprite menuSlotSprite(int slotIndex) {
