@@ -9,6 +9,7 @@ import com.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.Identifier;
 
 public final class OccultismGuiSprites {
+    public static final GuiSprite STORAGE_CONTROLLER_ANVIL_IMPACT = sprite("storage_controller/anvil_impact", 22, 22);
     public static final GuiSprite STORAGE_CONTROLLER_SEARCH_FIELD = sprite("storage_controller/search_field", 96, 14);
     public static final GuiSprite STORAGE_CONTROLLER_ORDER_PANEL = sprite("storage_controller/order_panel", 42, 42);
     public static final GuiSprite STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND = sprite("storage_controller/storage_controller_item_area_bg", 10, 10);

@@ -77,6 +77,7 @@ import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag.Default;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import org.apache.commons.lang3.StringUtils;
 
@@ -89,6 +90,7 @@ import java.util.stream.Collectors;
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener, GuiHost {
 
     public static final int ORDER_AREA_OFFSET = 48;
+    protected static final int ORDER_INPUT_SLOT_INDEX = 10;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     protected static final int GUI_WIDTH = 260;
     protected static final int VISIBLE_COLUMNS = 11;
@@ -114,9 +116,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
     protected static final int INVENTORY_LABEL_X = 56;
     protected static final int INVENTORY_LABEL_TOP_OFFSET = 76;
-    protected static final int TAB_LEFT = 27;
-    protected static final int TAB_TOP_OFFSET = 72;
+    protected static final int TAB_TOP_OFFSET = 5;
+    protected static final int TAB_WIDTH = 24;
     protected static final int TAB_HEIGHT = 29;
+    protected static final int TAB_HIDDEN_OVERLAP = 3;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
 
@@ -590,36 +593,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         switch (this.guiMode) {
             case INVENTORY:
-                this.inventoryModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
-                        this.topPos + TAB_TOP_OFFSET,
-                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_ACTIVE),
-                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"), () -> {
-                    this.guiMode = StorageControllerGuiMode.INVENTORY;
-                    this.init();
-                }, SpriteButtonWidget.text(""));
-                this.autocraftingModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
-                        this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
-                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE),
-                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"), () -> {
-                            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
-                            this.init();
-                        }, SpriteButtonWidget.text(""));
+                this.inventoryModeButton = this.createTabButton(true, true, 0);
+                this.autocraftingModeButton = this.createTabButton(false, false, 1);
                 break;
             case AUTOCRAFTING:
-                this.inventoryModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
-                        this.topPos + TAB_TOP_OFFSET,
-                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_INVENTORY_INACTIVE),
-                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"), () -> {
-                    this.guiMode = StorageControllerGuiMode.INVENTORY;
-                    this.init();
-                }, SpriteButtonWidget.text(""));
-                this.autocraftingModeButton = new SpriteButtonWidget(this.leftPos + TAB_LEFT,
-                        this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
-                        this.tabBackgroundSprites(OccultismGuiSprites.STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE),
-                        Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"), () -> {
-                            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
-                            this.init();
-                        }, SpriteButtonWidget.text(""));
+                this.inventoryModeButton = this.createTabButton(true, false, 0);
+                this.autocraftingModeButton = this.createTabButton(false, true, 1);
                 break;
         }
         this.addRenderableWidget(this.inventoryModeButton);
@@ -997,8 +976,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
+            if (i == ORDER_INPUT_SLOT_INDEX) {
+                int slotX = this.leftPos + slot.x + this.menuSlotOffsetX(i);
+                int slotY = this.menuTop() + slot.y + this.menuSlotOffsetY(i);
+                this.root.addChild(new GuiBackgroundWidget(this, slotX - 2, slotY - 2, 22, 22,
+                        this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)));
+            }
             this.root.addChild(new GuiSpriteWidget(this.leftPos + slot.x + this.menuSlotOffsetX(i),
                     this.menuTop() + slot.y + this.menuSlotOffsetY(i), this.menuSlotSprite(i)));
+            if (i == ORDER_INPUT_SLOT_INDEX) {
+                int slotX = this.leftPos + slot.x + this.menuSlotOffsetX(i);
+                int slotY = this.menuTop() + slot.y + this.menuSlotOffsetY(i);
+                this.root.addChild(new GuiSpriteWidget(slotX - 2, slotY - 2,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF)));
+            }
         }
 
         LabelWidget titleLabel = new LabelWidget(this.leftPos + this.imageWidth / 2, this.guiTop() + 5, true,
@@ -1102,6 +1093,40 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         return new IconButtonBackgroundSprites(sprite, sprite, sprite);
     }
 
+    protected AbstractWidget createTabButton(boolean inventoryTab, boolean active, int row) {
+        Component tooltip = Component.translatable(TRANSLATION_KEY_BASE + (inventoryTab ? ".mode.inventory" : ".mode.autocrafting"));
+        Runnable onPress = () -> {
+            this.guiMode = inventoryTab ? StorageControllerGuiMode.INVENTORY : StorageControllerGuiMode.AUTOCRAFTING;
+            this.init();
+        };
+        ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
+        return new SpriteButtonWidget(this.tabLeft(), this.topPos + TAB_TOP_OFFSET + row * TAB_HEIGHT, TAB_WIDTH, TAB_HEIGHT,
+                tooltip, onPress, this.tabBackgroundRenderer(active), SpriteButtonWidget.item(icon));
+    }
+
+    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabBackgroundRenderer(boolean active) {
+        GuiSprite mainPanelBackground = this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND);
+        GuiSprite visibleBackground = active ? mainPanelBackground : mainPanelBackground.tinted(this.darkenColor(0xFFFFFFFF, 18));
+        GuiSprite hiddenBackground = mainPanelBackground;
+        return (button, graphics) -> {
+            visibleBackground.extractRenderState(graphics, button.getX(), button.getY(), button.getWidth(), button.getHeight());
+            hiddenBackground.extractRenderState(graphics, button.getX() + button.getWidth() - TAB_HIDDEN_OVERLAP, button.getY(),
+                    TAB_HIDDEN_OVERLAP, button.getHeight());
+        };
+    }
+
+    protected int tabLeft() {
+        return this.mainPanelLeft() - (TAB_WIDTH - TAB_HIDDEN_OVERLAP);
+    }
+
+    protected int darkenColor(int color, int amount) {
+        int alpha = color & 0xFF000000;
+        int red = Math.max(0, ((color >> 16) & 0xFF) - amount);
+        int green = Math.max(0, ((color >> 8) & 0xFF) - amount);
+        int blue = Math.max(0, (color & 0xFF) - amount);
+        return alpha | red << 16 | green << 8 | blue;
+    }
+
     protected GuiSprite menuSlotSprite(int slotIndex) {
         if (slotIndex == 0) {
             return GuiSprites.CRAFTING_RESULT_SLOT;
@@ -1109,7 +1134,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (slotIndex >= 1 && slotIndex <= 9) {
             return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiSprites.INVENTORY_SLOT);
         }
-        if (slotIndex == 10) {
+        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
             return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_ORDER_SLOT, GuiSprites.INVENTORY_SLOT);
         }
 

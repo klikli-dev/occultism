@@ -13,6 +13,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -21,6 +22,7 @@ public class SpriteButtonWidget extends AbstractWidget {
     private final int foregroundInsetY;
 
     private final Runnable onPress;
+    private final BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> backgroundRenderer;
     private final BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer;
     private final IconButtonBackgroundSprites backgroundSprites;
 
@@ -44,6 +46,18 @@ public class SpriteButtonWidget extends AbstractWidget {
                               Runnable onPress, BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer) {
         super(x, y, width, height, message);
         this.backgroundSprites = Objects.requireNonNull(backgroundSprites);
+        this.backgroundRenderer = null;
+        this.onPress = Objects.requireNonNull(onPress);
+        this.foregroundRenderer = Objects.requireNonNull(foregroundRenderer);
+        this.foregroundInsetY = height < 18 ? 0 : 1;
+    }
+
+    public SpriteButtonWidget(int x, int y, int width, int height, Component message, Runnable onPress,
+                              BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> backgroundRenderer,
+                              BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> foregroundRenderer) {
+        super(x, y, width, height, message);
+        this.backgroundSprites = null;
+        this.backgroundRenderer = Objects.requireNonNull(backgroundRenderer);
         this.onPress = Objects.requireNonNull(onPress);
         this.foregroundRenderer = Objects.requireNonNull(foregroundRenderer);
         this.foregroundInsetY = height < 18 ? 0 : 1;
@@ -116,6 +130,18 @@ public class SpriteButtonWidget extends AbstractWidget {
         };
     }
 
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> item(ItemStack stack) {
+        return item(stack, 0, 0);
+    }
+
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> item(ItemStack stack, int offsetX, int offsetY) {
+        return (button, graphics) -> {
+            int x = button.getX() + (button.getWidth() - 16) / 2 + offsetX;
+            int y = button.getY() + (button.getHeight() - 16) / 2 + offsetY;
+            graphics.fakeItem(stack, x, y);
+        };
+    }
+
     public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> arrow(boolean down) {
         return (button, graphics) -> {
             GuiSprite arrow = GuiSprites.CRAFTING_ARROW.tinted(0xFF000000);
@@ -151,8 +177,12 @@ public class SpriteButtonWidget extends AbstractWidget {
 
     @Override
     protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.currentSprite(mouseX, mouseY).extractRenderState(guiGraphics, this.getX(), this.getY(), this.getWidth(),
-                this.getHeight());
+        if (this.backgroundRenderer != null) {
+            this.backgroundRenderer.accept(this, guiGraphics);
+        } else {
+            this.currentSprite(mouseX, mouseY).extractRenderState(guiGraphics, this.getX(), this.getY(), this.getWidth(),
+                    this.getHeight());
+        }
         this.foregroundRenderer.accept(this, guiGraphics);
     }
 
