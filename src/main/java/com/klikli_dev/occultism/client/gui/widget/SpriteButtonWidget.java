@@ -134,11 +134,18 @@ public class SpriteButtonWidget extends AbstractWidget {
     }
 
     public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> coloredText(String text, int color) {
+        return coloredText(text, color, 0.0F, 0.0F);
+    }
+
+    public static BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> coloredText(String text, int color, float offsetX, float offsetY) {
         return (button, graphics) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            int x = button.getX() + (button.getWidth() - minecraft.font.width(text)) / 2;
-            int y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2 + button.foregroundInsetY + 2;
-            graphics.text(minecraft.font, text, x, y, color, false);
+            float x = button.getX() + (button.getWidth() - minecraft.font.width(text)) / 2.0F + offsetX;
+            float y = button.getY() + (button.getHeight() - minecraft.font.lineHeight) / 2.0F + button.foregroundInsetY + 2.0F + offsetY;
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(x, y);
+            graphics.text(minecraft.font, text, 0, 0, color, false);
+            graphics.pose().popMatrix();
         };
     }
 

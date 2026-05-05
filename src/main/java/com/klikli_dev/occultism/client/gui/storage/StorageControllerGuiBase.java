@@ -584,7 +584,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
                 JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                 this.init();
-            }, this.jeiRenderer());
+            }, this.jeiSyncRenderer());
 
             this.addRenderableWidget(this.jeiSyncButton);
         }
@@ -1091,14 +1091,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> sortTypeRenderer() {
         return switch (this.getSortType()) {
-            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.52F, 0.5F, 0.5F);
-            case NAME -> SpriteButtonWidget.scaledText("A-Z", 0.52F, 0.0F, 0.5F);
+            case AMOUNT -> SpriteButtonWidget.scaledText("123", 0.52F, 0.25F, 0.5F);
+            case NAME -> SpriteButtonWidget.scaledText("A-Z", 0.52F, 0.25F, 0.5F);
             case MOD -> SpriteButtonWidget.offsetText("M", 0.5F, -0.5F);
         };
     }
 
-    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> jeiRenderer() {
-        return SpriteButtonWidget.coloredText("J", JeiSettings.isJeiSearchSynced() ? JEI_ACTIVE_COLOR : JEI_INACTIVE_COLOR);
+    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> jeiSyncRenderer() {
+        return SpriteButtonWidget.coloredText("J", JeiSettings.isJeiSearchSynced() ? JEI_ACTIVE_COLOR : JEI_INACTIVE_COLOR,
+                0.0F, -0.5F);
     }
 
     protected IconButtonBackgroundSprites tabBackgroundSprites(GuiSprite sprite) {
