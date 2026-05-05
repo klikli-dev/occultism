@@ -297,6 +297,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public void init() {
         super.init();
+        this.resetDisplayCaches();
         this.rows = this.visibleRows();
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
