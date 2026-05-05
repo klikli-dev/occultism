@@ -983,15 +983,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 int slotY = this.menuTop() + slot.y + this.menuSlotOffsetY(i);
                 this.root.addChild(new GuiBackgroundWidget(this, slotX - 2, slotY - 2, 22, 22,
                         this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)));
+                this.root.addChild(new GuiSpriteWidget(slotX, slotY, this.orderInputSlotSprite()));
+                this.root.addChild(new GuiSpriteWidget(slotX - 2, slotY - 2,
+                        OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF)));
+                continue;
             }
             this.root.addChild(new GuiSpriteWidget(this.leftPos + slot.x + this.menuSlotOffsetX(i),
                     this.menuTop() + slot.y + this.menuSlotOffsetY(i), this.menuSlotSprite(i)));
-            if (i == ORDER_INPUT_SLOT_INDEX) {
-                int slotX = this.leftPos + slot.x + this.menuSlotOffsetX(i);
-                int slotY = this.menuTop() + slot.y + this.menuSlotOffsetY(i);
-                this.root.addChild(new GuiSpriteWidget(slotX - 2, slotY - 2,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF)));
-            }
         }
 
         LabelWidget titleLabel = new LabelWidget(this.leftPos + this.imageWidth / 2, this.guiTop() + 5, true,
@@ -1099,28 +1097,23 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         };
         ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
         return new SpriteButtonWidget(this.tabLeft(), this.topPos + TAB_TOP_OFFSET + row * TAB_HEIGHT, TAB_WIDTH, TAB_HEIGHT,
-                tooltip, onPress, this.tabBackgroundRenderer(active), this.tabIconRenderer(icon, active));
+                tooltip, onPress, this.tabBackgroundRenderer(active), this.tabIconRenderer(icon));
     }
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabBackgroundRenderer(boolean active) {
         GuiSprite mainPanelBackground = this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND);
         GuiSprite visibleBackground = active ? mainPanelBackground : this.darkenSprite(mainPanelBackground, 0.82F);
-        GuiSprite hiddenBackground = mainPanelBackground;
         return (button, graphics) -> {
-            visibleBackground.extractRenderState(graphics, button.getX(), button.getY(), button.getWidth(), button.getHeight());
-            hiddenBackground.extractRenderState(graphics, button.getX() + button.getWidth() - TAB_HIDDEN_OVERLAP, button.getY(),
-                    TAB_HIDDEN_OVERLAP, button.getHeight());
+            visibleBackground.extractRenderState(graphics, button.getX(), button.getY(), button.getWidth() - TAB_HIDDEN_OVERLAP,
+                    button.getHeight());
         };
     }
 
-    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabIconRenderer(ItemStack icon, boolean active) {
+    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabIconRenderer(ItemStack icon) {
         return (button, graphics) -> {
             int x = button.getX() + (button.getWidth() - 16) / 2;
             int y = button.getY() + (button.getHeight() - 16) / 2;
             graphics.fakeItem(icon, x, y);
-            if (!active) {
-                graphics.fill(x, y, x + 16, y + 16, 0x66000000);
-            }
         };
     }
 
@@ -1154,6 +1147,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, GuiSprites.INVENTORY_SLOT);
+    }
+
+    protected GuiSprite orderInputSlotSprite() {
+        return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiSprites.INVENTORY_SLOT);
     }
 
     protected int menuSlotOffsetX(int slotIndex) {
