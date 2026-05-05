@@ -118,7 +118,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
     protected static final int INVENTORY_LABEL_X = 51;
     protected static final int INVENTORY_LABEL_TOP_OFFSET = 73;
-    protected static final int TAB_TOP_OFFSET = 5;
+    protected static final int TAB_TOP_OFFSET = 0;
     protected static final int TAB_WIDTH = 34;
     protected static final int TAB_HEIGHT = 29;
     protected static final int TAB_HIDDEN_OVERLAP = 3;
