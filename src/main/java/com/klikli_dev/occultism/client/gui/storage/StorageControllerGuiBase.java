@@ -1223,6 +1223,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static class ScaledEditBox extends EditBox {
 
         private static final int CURSOR_HEIGHT = 10;
+        private static final float TEXT_OFFSET_Y = 2.0F;
         private final float renderScale;
         private final int baseTextHeight;
 
@@ -1239,6 +1240,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             guiGraphics.pose().translate(this.getX(), this.getY());
             guiGraphics.pose().scale(this.renderScale, this.renderScale);
             guiGraphics.pose().translate(-this.getX(), -this.getY());
+            guiGraphics.pose().translate(0.0F, TEXT_OFFSET_Y);
             super.extractWidgetRenderState(guiGraphics, this.scaleMouseX(mouseX), this.scaleMouseY(mouseY), partialTick);
             guiGraphics.pose().popMatrix();
         }
