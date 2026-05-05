@@ -964,6 +964,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void initRootWidgets() {
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
+        this.root.addChild(new GuiBackgroundWidget(this, this.tabLeft(), this.topPos + TAB_TOP_OFFSET,
+                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.guiMode == StorageControllerGuiMode.INVENTORY)));
+        this.root.addChild(new GuiBackgroundWidget(this, this.tabLeft(), this.topPos + TAB_TOP_OFFSET + TAB_HEIGHT,
+                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.guiMode == StorageControllerGuiMode.AUTOCRAFTING)));
         this.root.addChild(new GuiBackgroundWidget(this, this.mainPanelLeft(), this.guiTop() + MAIN_PANEL_TOP,
                 this.mainPanelWidth(), this.mainPanelHeight(), this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL,
                 GuiSprites.GUI_BACKGROUND)));
@@ -1098,16 +1102,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         };
         ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
         return new SpriteButtonWidget(this.tabLeft(), this.topPos + TAB_TOP_OFFSET + row * TAB_HEIGHT, TAB_WIDTH, TAB_HEIGHT,
-                tooltip, onPress, this.tabBackgroundRenderer(active), this.tabIconRenderer(icon));
+                tooltip, onPress, (button, graphics) -> {
+                }, this.tabIconRenderer(icon));
     }
 
-    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabBackgroundRenderer(boolean active) {
+    protected GuiSprite tabBackgroundSprite(boolean active) {
         int mainPanelTint = this.partColor(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, MAIN_PANEL_TINT_FALLBACK);
-        GuiSprite visibleBackground = GuiSprites.GUI_BACKGROUND.tinted(active ? mainPanelTint : this.darkenColor(mainPanelTint, 24));
-        return (button, graphics) -> {
-            visibleBackground.extractRenderState(graphics, button.getX(), button.getY(), button.getWidth() - TAB_HIDDEN_OVERLAP,
-                    button.getHeight());
-        };
+        return GuiSprites.GUI_BACKGROUND.tinted(active ? mainPanelTint : this.darkenColor(mainPanelTint, 24));
     }
 
     protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabIconRenderer(ItemStack icon) {
