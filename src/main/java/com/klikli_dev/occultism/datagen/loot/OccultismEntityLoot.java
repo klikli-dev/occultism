@@ -14,11 +14,13 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
@@ -66,7 +68,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get(), this.weakShulkerTable());
         this.add(OccultismEntities.POSSESSED_GHAST_TYPE.get(), this.ghastLootTable());
         this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), this.elderGuardianLootTable());
-        this.add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), this.desertLootTable());
+        this.add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), this.huskLootTable());
         this.add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), this.drownedLootTable());
         this.add(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), this.creeperLootTable());
         this.add(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), this.silverfishLootTable());
@@ -230,7 +232,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
      *
      * @return
      */
-    public Builder elderGuardianLootTable() {
+    public LootTable.Builder elderGuardianLootTable() {
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -268,12 +270,12 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(LootItem.lootTableItem(Items.COD).setWeight(2)
-                                        .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))
-                                .add(LootItem.lootTableItem(Items.SALMON).setWeight(2)
-                                        .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))
-                                .add(LootItem.lootTableItem(Items.TROPICAL_FISH))
-                                .add(LootItem.lootTableItem(Items.PUFFERFISH))
+                                .add(
+                                        NestedLootTable.lootTableReference(BuiltInLootTables.FISHING_FISH)
+                                                .apply(
+                                                        SmeltItemFunction.smelted().when(this.shouldSmeltLoot())
+                                                )
+                                )
                                 .when(LootItemKilledByPlayerCondition.killedByPlayer())
                                 .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.025F, 0.01F))
                 )
@@ -304,7 +306,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 );
     }
 
-    public Builder ghastLootTable() {
+    public LootTable.Builder ghastLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -327,7 +329,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
     }
 
-    public Builder hoglinLootTable() {
+    public LootTable.Builder hoglinLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -341,7 +343,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 );
     }
 
-    public Builder shulkerLootTable() {
+    public LootTable.Builder shulkerLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -368,7 +370,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 );
     }
 
-    public Builder wardenLootTable() {
+    public LootTable.Builder wardenLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -405,7 +407,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 );
     }
 
-    public Builder weakShulkerTable() {
+    public LootTable.Builder weakShulkerTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -413,15 +415,14 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.SHULKER_SHELL)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F))))
                                 .when(LootItemRandomChanceCondition.randomChance(0.1F))
-                ).withPool(
+                ) .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .add(LootItem.lootTableItem(Items.CHORUS_FRUIT)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
                 );
     }
-
-    public Builder desertLootTable() {
+    public LootTable.Builder huskLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -440,8 +441,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(1))
                 );
     }
-
-    public Builder drownedLootTable() {
+    public LootTable.Builder drownedLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -464,7 +464,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 )
                 .withPool(
                         LootPool.lootPool()
-                                .setRolls(UniformGenerator.between(1.0F, 2.0F))
+                                .setRolls(UniformGenerator.between(1.0F,2.0F))
                                 .add(EmptyLootItem.emptyItem().setWeight(2))
                                 .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(3))
                                 .add(LootItem.lootTableItem(Items.PRISMARINE_SHARD).setWeight(6))
@@ -472,8 +472,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, ConstantValue.exactly(1.0F)))
                 );
     }
-
-    public Builder creeperLootTable() {
+    public LootTable.Builder creeperLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -492,8 +491,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_WAIT).setWeight(1))
                 );
     }
-
-    public Builder silverfishLootTable() {
+    public LootTable.Builder silverfishLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -522,8 +520,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD).setWeight(1))
                 );
     }
-
-    public Builder weakBreezeTable() {
+    public LootTable.Builder weakBreezeTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -546,13 +543,11 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(EmptyLootItem.emptyItem().setWeight(5))
-                                .add(LootItem.lootTableItem(Items.WIND_CHARGE).setWeight(3))
+                                .add(EmptyLootItem.emptyItem().setWeight(7))
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR_MUSIC_BOX).setWeight(1))
                 );
     }
-
-    public Builder breezeTable() {
+    public LootTable.Builder breezeTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -574,8 +569,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_PRECIPICE).setWeight(1))
                 );
     }
-
-    public Builder strongBreezeTable() {
+    public LootTable.Builder strongBreezeTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -592,8 +586,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR).setWeight(1))
                 );
     }
-
-    public Builder evokerTable() {
+    public LootTable.Builder evokerTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -614,8 +607,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 2.0F)))
                 );
     }
-
-    public Builder witchLootTable() {
+    public LootTable.Builder witchLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -624,23 +616,23 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.HONEY_BOTTLE).setWeight(4))
                                 .add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE).setWeight(2))
                                 .add(LootItem.lootTableItem(Items.POTION).setWeight(1).apply(SetPotionFunction.setPotion(Potions.WATER)))
-                ).apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0, 2)));
+                ).apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,2)));
     }
 
-    public Builder blazeLootTable() {
+    public LootTable.Builder blazeLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .add(LootItem.lootTableItem(Items.BLAZE_ROD))
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0, 2)))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2,6)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,2)))
                 )
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .add(LootItem.lootTableItem(Items.BLAZE_POWDER))
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 13))))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0,13))))
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
@@ -653,7 +645,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.WARPED_ROOTS).setWeight(5))
                                 .add(LootItem.lootTableItem(Items.WEEPING_VINES).setWeight(5))
                                 .add(LootItem.lootTableItem(Items.TWISTING_VINES).setWeight(5))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(1, 3)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(1,3)))
                 )
                 .withPool(
                         LootPool.lootPool()
@@ -665,7 +657,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.WARPED_NYLIUM).setWeight(9))
                                 .add(LootItem.lootTableItem(Items.NETHER_WART_BLOCK).setWeight(1))
                                 .add(LootItem.lootTableItem(Items.WARPED_WART_BLOCK).setWeight(1))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0, 1)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,1)))
                 )
                 .withPool(
                         LootPool.lootPool()
@@ -678,17 +670,17 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.GRAVEL).setWeight(9))
                                 .add(LootItem.lootTableItem(Items.BONE_BLOCK).setWeight(5))
                                 .add(LootItem.lootTableItem(Items.GILDED_BLACKSTONE).setWeight(1))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0, 1)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,1)))
                 )
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .add(EmptyLootItem.emptyItem().setWeight(50))
-                                .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(25).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 6))))
+                                .add(LootItem.lootTableItem(Items.GLOWSTONE_DUST).setWeight(25).apply(SetItemCountFunction.setCount(UniformGenerator.between(1,6))))
                                 .add(LootItem.lootTableItem(Items.MAGMA_BLOCK).setWeight(15))
                                 .add(LootItem.lootTableItem(Items.GLOWSTONE).setWeight(9))
                                 .add(LootItem.lootTableItem(Items.SHROOMLIGHT).setWeight(1))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0, 1)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,1)))
                 )
                 .withPool(
                         LootPool.lootPool()
@@ -697,11 +689,11 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.OBSIDIAN).setWeight(20))
                                 .add(LootItem.lootTableItem(Items.CRYING_OBSIDIAN).setWeight(4))
                                 .add(LootItem.lootTableItem(Items.ANCIENT_DEBRIS).setWeight(1))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, ConstantValue.exactly(1)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,ConstantValue.exactly(1)))
                 );
     }
 
-    public Builder guardianLootTable() {
+    public LootTable.Builder guardianLootTable(){
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -728,7 +720,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.BUBBLE_CORAL))
                                 .add(LootItem.lootTableItem(Items.FIRE_CORAL))
                                 .add(LootItem.lootTableItem(Items.HORN_CORAL))
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0, 1)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0,1)))
                 )
                 .withPool(
                         LootPool.lootPool()
