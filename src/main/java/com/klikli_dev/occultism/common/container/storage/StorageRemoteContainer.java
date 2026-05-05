@@ -60,11 +60,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                 this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
         this.orderInventory.setItem(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
 
-        this.setupCraftingOutput();
-        this.setupCraftingGrid();
-        this.setupOrderInventorySlot();
-        this.setupPlayerInventorySlots();
-        this.setupPlayerHotbar();
+        this.setupStorageControllerSlots();
 
         this.slotsChanged(this.matrix);
     }
@@ -88,70 +84,50 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    protected void setupPlayerHotbar() {
-        int hotbarTop = 18 * 3 + 7 + 18 * 3 + 4;
-        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        for (int i = 0; i < 9; i++) {
-            if (i == this.selectedSlot) {
-                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
-
-                    @Override
-                    public boolean mayPlace(ItemStack stack) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean hasItem() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean mayPickup(Player playerIn) {
-                        return false;
-                    }
-
-                });
-            } else {
-                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
-            }
-        }
+    protected SlotLayout slotLayout() {
+        return new SlotLayout(
+                8 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                18 * 3 + 7,
+                8 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                18 * 3 + 7 + 18 * 3 + 4,
+                37 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                StorageControllerGuiBase.CRAFTING_GRID_TOP,
+                133 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                StorageControllerGuiBase.CRAFTING_OUTPUT_TOP,
+                StorageControllerGuiBase.ORDER_INPUT_SLOT_LEFT,
+                StorageControllerGuiBase.ORDER_INPUT_SLOT_TOP
+        );
     }
 
     @Override
-    protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 18 * 3 + 7;
-        int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
+    protected Slot createPlayerInventorySlot(int slotIndex, int x, int y) {
+        return slotIndex == this.selectedSlot ? this.createLockedSlot(slotIndex, x, y) : super.createPlayerInventorySlot(slotIndex, x, y);
+    }
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (j + i * 9 + 9 == this.selectedSlot) {
-                    this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
-                            playerInventoryTop + i * 18) {
+    @Override
+    protected Slot createHotbarSlot(int slotIndex, int x, int y) {
+        return slotIndex == this.selectedSlot ? this.createLockedSlot(slotIndex, x, y) : super.createHotbarSlot(slotIndex, x, y);
+    }
 
-                        @Override
-                        public boolean mayPlace(ItemStack stack) {
-                            return false;
-                        }
+    protected Slot createLockedSlot(int slotIndex, int x, int y) {
+        return new Slot(this.playerInventory, slotIndex, x, y) {
 
-                        @Override
-                        public boolean hasItem() {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean mayPickup(Player playerIn) {
-                            return false;
-                        }
-
-                    });
-                } else {
-                    this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
-                            playerInventoryTop + i * 18));
-                }
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
             }
-        }
 
+            @Override
+            public boolean hasItem() {
+                return false;
+            }
 
+            @Override
+            public boolean mayPickup(Player playerIn) {
+                return false;
+            }
+
+        };
     }
 
     @Override

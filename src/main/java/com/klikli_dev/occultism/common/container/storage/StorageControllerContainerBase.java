@@ -182,47 +182,75 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 72;
-        int playerInventoryLeft = 3 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 9; j++)
-                this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
-                        playerInventoryTop + i * 18));
+        SlotLayout layout = this.slotLayout();
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 9; col++) {
+                int slotIndex = col + row * 9 + 9;
+                this.addSlot(this.createPlayerInventorySlot(slotIndex, layout.playerInventoryX(col), layout.playerInventoryY(row)));
+            }
+        }
     }
 
     protected void setupPlayerHotbar() {
-        int hotbarTop = 130;
-        int hotbarLeft = 3 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        for (int i = 0; i < 9; i++)
-            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+        SlotLayout layout = this.slotLayout();
+        for (int col = 0; col < 9; col++) {
+            this.addSlot(this.createHotbarSlot(col, layout.hotbarX(col), layout.hotbarY()));
+        }
     }
 
     protected void setupCraftingGrid() {
-        int craftingGridTop = StorageControllerGuiBase.CRAFTING_GRID_TOP;
-        int craftingGridLeft = 37 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
+        SlotLayout layout = this.slotLayout();
         int index = 0;
         //3x3 crafting grid
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 3; ++col) {
                 this.addSlot(
-                        new Slot(this.matrix, index++, craftingGridLeft + j * 18, craftingGridTop + i * 18));
+                        new Slot(this.matrix, index++, layout.craftingGridX(col), layout.craftingGridY(row)));
             }
         }
     }
 
     protected void setupCraftingOutput() {
-        int craftingOutputTop = StorageControllerGuiBase.CRAFTING_OUTPUT_TOP;
-        int craftingOutputLeft = 133 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
+        SlotLayout layout = this.slotLayout();
         StorageControllerSlot slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
-                this.result, this, 0, craftingOutputLeft, craftingOutputTop);
+                this.result, this, 0, layout.craftingOutputX(), layout.craftingOutputY());
         this.addSlot(slotCraftOutput);
     }
 
     protected void setupOrderInventorySlot() {
-        int orderSlotTop = StorageControllerGuiBase.ORDER_INPUT_SLOT_TOP;
-        int orderSlotLeft = StorageControllerGuiBase.ORDER_INPUT_SLOT_LEFT;
-        this.addSlot(new Slot(this.orderInventory, 0, orderSlotLeft, orderSlotTop));
+        SlotLayout layout = this.slotLayout();
+        this.addSlot(new Slot(this.orderInventory, 0, layout.orderSlotX(), layout.orderSlotY()));
+    }
+
+    protected void setupStorageControllerSlots() {
+        this.setupCraftingOutput();
+        this.setupCraftingGrid();
+        this.setupOrderInventorySlot();
+        this.setupPlayerInventorySlots();
+        this.setupPlayerHotbar();
+    }
+
+    protected Slot createPlayerInventorySlot(int slotIndex, int x, int y) {
+        return new Slot(this.playerInventory, slotIndex, x, y);
+    }
+
+    protected Slot createHotbarSlot(int slotIndex, int x, int y) {
+        return new Slot(this.playerInventory, slotIndex, x, y);
+    }
+
+    protected SlotLayout slotLayout() {
+        return new SlotLayout(
+                3 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                72,
+                3 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                130,
+                37 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                StorageControllerGuiBase.CRAFTING_GRID_TOP,
+                133 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
+                StorageControllerGuiBase.CRAFTING_OUTPUT_TOP,
+                StorageControllerGuiBase.ORDER_INPUT_SLOT_LEFT,
+                StorageControllerGuiBase.ORDER_INPUT_SLOT_TOP
+        );
     }
 
     protected void findRecipeForMatrixClient() {
@@ -536,6 +564,59 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
         public boolean anyCraftable() {
             return !this.craftableSlots.isEmpty();
+        }
+    }
+
+    protected record SlotLayout(
+            int playerInventoryLeft,
+            int playerInventoryTop,
+            int hotbarLeft,
+            int hotbarTop,
+            int craftingGridLeft,
+            int craftingGridTop,
+            int craftingOutputLeft,
+            int craftingOutputTop,
+            int orderSlotLeft,
+            int orderSlotTop) {
+
+        public int playerInventoryX(int column) {
+            return this.playerInventoryLeft + column * 18;
+        }
+
+        public int playerInventoryY(int row) {
+            return this.playerInventoryTop + row * 18;
+        }
+
+        public int hotbarX(int column) {
+            return this.hotbarLeft + column * 18;
+        }
+
+        public int hotbarY() {
+            return this.hotbarTop;
+        }
+
+        public int craftingGridX(int column) {
+            return this.craftingGridLeft + column * 18;
+        }
+
+        public int craftingGridY(int row) {
+            return this.craftingGridTop + row * 18;
+        }
+
+        public int craftingOutputX() {
+            return this.craftingOutputLeft;
+        }
+
+        public int craftingOutputY() {
+            return this.craftingOutputTop;
+        }
+
+        public int orderSlotX() {
+            return this.orderSlotLeft;
+        }
+
+        public int orderSlotY() {
+            return this.orderSlotTop;
         }
     }
 

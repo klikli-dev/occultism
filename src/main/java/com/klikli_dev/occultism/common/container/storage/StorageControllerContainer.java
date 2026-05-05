@@ -48,12 +48,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         this.matrix = new StorageControllerCraftingInventory(this, storageController.getMatrix());
         this.orderInventory.setItem(0, storageController.getOrderStack());
 
-        this.setupCraftingOutput(); //output is slot 0
-
-        this.setupCraftingGrid(); //crafting grid is slots 1-9
-        this.setupOrderInventorySlot(); //order slot is slot 10
-        this.setupPlayerInventorySlots(); //player inventory is slots 11-47
-        this.setupPlayerHotbar();  //player hotbar is slots 48-56
+        this.setupStorageControllerSlots();
 
         this.slotsChanged(this.matrix);
     }

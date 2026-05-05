@@ -52,12 +52,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.matrix = new StorageControllerCraftingInventory(this, stableWormhole.getMatrix());
         this.orderInventory.setItem(0, this.stableWormhole.getOrderStack());
 
-        this.setupCraftingOutput(); //output is slot 0
-
-        this.setupCraftingGrid();
-        this.setupOrderInventorySlot();
-        this.setupPlayerInventorySlots();
-        this.setupPlayerHotbar();
+        this.setupStorageControllerSlots();
 
         this.slotsChanged(this.matrix);
     }
