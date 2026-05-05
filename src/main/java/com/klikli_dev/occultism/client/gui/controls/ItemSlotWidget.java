@@ -89,30 +89,22 @@ public class ItemSlotWidget {
         if (!this.getStack().isEmpty()) {
             //RenderHelper.enableGUIStandardItemLighting();
 
-            if (this.showStackSize) {
-
-                //get amount to show
-                String amount = this.minecraft.hasShiftDown() ? Integer.toString(this.stackSize) : TextUtil.formatLargeNumber(
-                        this.stackSize);
-
-                //render item overlay
-                guiGraphics.pose().pushMatrix();
-
-//                this.minecraft.getItemRenderer()
-//                        .blitOffset = 0.1f;
-                //we ended up not using any translate and it was fine
-
-                guiGraphics.pose().scale(.5f, .5f);
-
-                guiGraphics.itemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
-                guiGraphics.pose().popMatrix();
-            }
-
-            //this.minecraft.getItemRenderer().blitOffset = -100F;
             guiGraphics.pose().pushMatrix();
             guiGraphics.pose().translate(0, 0);
             guiGraphics.fakeItem(this.getStack(), this.x, this.y);
             guiGraphics.pose().popMatrix();
+
+            if (this.showStackSize) {
+
+                // Draw the stack size after the item so item models do not cover the text.
+                String amount = this.minecraft.hasShiftDown() ? Integer.toString(this.stackSize) : TextUtil.formatLargeNumber(
+                        this.stackSize);
+
+                guiGraphics.pose().pushMatrix();
+                guiGraphics.pose().scale(.5f, .5f);
+                guiGraphics.itemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
+                guiGraphics.pose().popMatrix();
+            }
 
             if (this.isMouseOverSlot(mx, my)) {
                 this.parent.drawGradientRect(guiGraphics, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
