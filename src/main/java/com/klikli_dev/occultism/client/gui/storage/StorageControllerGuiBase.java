@@ -107,13 +107,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final int ORDER_PANEL_LEFT = 0;
     protected static final int ORDER_PANEL_TOP_OFFSET = 5;
     protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
-    protected static final int CRAFTING_ARROW_TOP = 19;
-    protected static final int INVENTORY_PANEL_TOP_OFFSET = 64;
+    protected static final int CRAFTING_ARROW_TOP = 24;
+    protected static final int INVENTORY_PANEL_TOP_OFFSET = 69;
     protected static final int INVENTORY_PANEL_LEFT = 48;
     protected static final int INVENTORY_PANEL_WIDTH = 176;
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
     protected static final int INVENTORY_LABEL_X = 56;
-    protected static final int INVENTORY_LABEL_TOP_OFFSET = 71;
+    protected static final int INVENTORY_LABEL_TOP_OFFSET = 76;
     protected static final int TAB_LEFT = 27;
     protected static final int TAB_TOP_OFFSET = 72;
     protected static final int TAB_HEIGHT = 29;
@@ -285,7 +285,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public void init() {
         super.init();
         this.rows = this.visibleRows();
-        this.leftPos = (this.width - this.imageWidth) / 2 - ORDER_AREA_OFFSET;
+        this.leftPos = (this.width - this.imageWidth) / 2;
         this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
         this.topPos = this.realTopPos + ITEM_AREA_TOP + 18 * this.rows;
 
@@ -320,7 +320,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         this.addRenderableWidget(this.searchBar);
 
-        int storageSpaceInfoLabelTop = 35 + 18 * this.rows;
+        int storageSpaceInfoLabelTop = 40 + 18 * this.rows;
         this.storageSpaceLabel =
                 new LabelWidget(this.leftPos + STORAGE_INFO_LABEL_LEFT, this.realTopPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
@@ -530,7 +530,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     public void initButtons() {
-        int clearRecipeButtonTop = 32 + 18 * this.rows;
+        int clearRecipeButtonTop = 37 + 18 * this.rows;
         this.clearRecipeButton = new SpriteButtonWidget(this.leftPos + 93 + ORDER_AREA_OFFSET,
                 this.realTopPos + clearRecipeButtonTop,
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
