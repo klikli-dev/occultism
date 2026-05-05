@@ -318,7 +318,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar = new EditBox(this.font, this.leftPos + SEARCH_BAR_LEFT,
                 this.realTopPos + SEARCH_BAR_TOP, 90, this.font.lineHeight, Component.literal("search")) {
             @Override
-            protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+            public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
                 guiGraphics.pose().pushMatrix();
                 guiGraphics.pose().translate(this.getX(), this.getY());
                 guiGraphics.pose().scale(SEARCH_BAR_SCALE, SEARCH_BAR_SCALE);
