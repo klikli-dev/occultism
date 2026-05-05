@@ -367,7 +367,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                 if (!event.isCanceled())
                     for (ItemEntity item : event.getDrops())
                         ItemHandlerHelper.insertItemStacked(currentHandler, item.getItem(), false);
-                NeoForge.EVENT_BUS.addListener(this.entityJoinLevelEventListener);
+                NeoForge.EVENT_BUS.unregister(this.entityJoinLevelEventListener);
             }
         }
     }
@@ -512,7 +512,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
 
         Entity entity = event.getEntity();
-        if (entity.position().distanceTo(this.getBlockPos().getCenter()) > 1)
+        if (entity.position().distanceToSqr(this.getBlockPos().getCenter()) > 1)
             return;
 
         if (entity instanceof ExperienceOrb orb) {
