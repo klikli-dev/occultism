@@ -1,10 +1,15 @@
 package com.klikli_dev.occultism.datagen.loot;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
@@ -12,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
@@ -28,12 +34,12 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.function.BiConsumer;
 
 public class OccultismEntityLoot extends EntityLootSubProvider {
-    public OccultismEntityLoot(HolderLookup.Provider pRegistries) {
+    public OccultismEntityLoot(Provider pRegistries) {
         super(FeatureFlags.REGISTRY.allFlags(), pRegistries);
     }
 
     @Override
-    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, Builder> pGenerator) {
         this.generate();
         this.map.forEach((key, entityType) -> {
             entityType.forEach(pGenerator::accept);
@@ -43,6 +49,17 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
     @Override
     public void generate() {
+        this.battlefieldLoot(EntityType.WITHER, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.NETHER_STAR)))
+        );
+        this.battlefieldLoot(EntityType.ENDER_DRAGON, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.DRAGON_BREATH).setWeight(3))
+                        .add(LootItem.lootTableItem(Items.DRAGON_EGG)))
+        );
+
+
         this.add(OccultismEntities.POSSESSED_SHULKER_TYPE.get(), this.shulkerLootTable());
         this.add(OccultismEntities.POSSESSED_WARDEN_TYPE.get(), this.wardenLootTable());
         this.add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get(), this.hoglinLootTable());
@@ -62,21 +79,21 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get(), this.guardianLootTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
-                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Items.END_STONE).setWeight(99)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0F)))
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(Items.END_STONE).setWeight(99)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                        .add(LootItem.lootTableItem(Items.END_STONE_BRICKS).setWeight(1)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(Items.FERMENTED_SPIDER_EYE).setWeight(2)
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
-                                .add(LootItem.lootTableItem(Items.END_STONE_BRICKS).setWeight(1)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0F)))
-                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                        .add(LootItem.lootTableItem(Items.FERMENTED_SPIDER_EYE).setWeight(2)
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
-                        .add(LootItem.lootTableItem(Items.SPIDER_EYE).setWeight(2)
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
-                        .add(LootItem.lootTableItem(Items.ENDER_EYE).setWeight(1)
-                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
-                        .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.25F)))));
+                                .add(LootItem.lootTableItem(Items.SPIDER_EYE).setWeight(2)
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                .add(LootItem.lootTableItem(Items.ENDER_EYE).setWeight(1)
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.25F)))));
 
         //Guaranteed ender pearl drop for enderman
         this.add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),
@@ -112,14 +129,14 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get(),
                 LootTable.lootTable()
                         .withPool(
-                            LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Items.PHANTOM_MEMBRANE)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 4.0F)))
-                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.5F, 2.0F)))))
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(Items.PHANTOM_MEMBRANE)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 4.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.5F, 2.0F)))))
                         .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(Items.WIND_CHARGE)
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
-                                        .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.05F))))
+                                .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.05F))))
         );
 
         //Essence drop from wild afrit
@@ -182,10 +199,10 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
         this.add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get(),
                 LootTable.lootTable().withPool(
-                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
-                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
                         .withPool(
                                 LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                         .add(LootItem.lootTableItem(OccultismItems.TALLOW)
@@ -730,5 +747,13 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 )
                                 .add(EmptyLootItem.emptyItem().setWeight(3))
                 );
+    }
+
+    public void battlefieldLoot(EntityType<?> type, LootTable.Builder builder) {
+        ResourceKey<LootTable> customLootTable =  ResourceKey.create(Registries.LOOT_TABLE,
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "battlefield/"
+                        + BuiltInRegistries.ENTITY_TYPE.getKey(type).toString().replace(":","/")));
+
+        this.add(type, customLootTable, builder);
     }
 }
