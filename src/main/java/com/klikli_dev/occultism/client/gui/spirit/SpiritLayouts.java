@@ -8,6 +8,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
+import java.util.function.Consumer;
 
 final class SpiritLayouts {
     private static final int GUI_WIDTH = 182;
@@ -50,30 +51,24 @@ final class SpiritLayouts {
 
     public static LayoutSpec standard(boolean hasAgeBar) {
         int inventoryOffset = hasAgeBar ? AGED_INVENTORY_OFFSET : 0;
-        return LayoutSpec.create(root -> {
-            defineCommonFrame(root, inventoryOffset);
-            root.group("frame", frame -> frame.group("main", main -> {
-                main.at(0, MAIN_TOP);
+        return LayoutSpec.create(root -> defineCommonFrame(root, inventoryOffset, main -> {
                 main.node("inventory_slot").at(ENTITY_SLOT_X, STANDARD_ENTITY_SLOT_Y - MAIN_TOP).size(SLOT_SIZE, SLOT_SIZE);
                 if (hasAgeBar) {
                     main.node("age_bar").at(0, AGE_BAR_Y - MAIN_TOP).size(GUI_WIDTH, AGE_BAR_HEIGHT);
                 }
-            }));
-        });
+            })
+        );
     }
 
     public static LayoutSpec transporter() {
-        return LayoutSpec.create(root -> {
-            defineCommonFrame(root, 0);
-            root.group("frame", frame -> frame.group("main", main -> {
-                main.at(0, MAIN_TOP);
+        return LayoutSpec.create(root -> defineCommonFrame(root, 0, main -> {
                 main.node("inventory_slot").at(ENTITY_SLOT_X, TRANSPORTER_ENTITY_SLOT_Y - MAIN_TOP).size(SLOT_SIZE, SLOT_SIZE);
                 main.node("filter_slot").at(ENTITY_SLOT_X, FILTER_SLOT_Y - MAIN_TOP).size(SLOT_SIZE, SLOT_SIZE);
-            }));
-        });
+            })
+        );
     }
 
-    private static void defineCommonFrame(LayoutGroupBuilder root, int inventoryOffset) {
+    private static void defineCommonFrame(LayoutGroupBuilder root, int inventoryOffset, Consumer<LayoutGroupBuilder> mainContent) {
         root.group("frame", frame -> {
             frame.group("top_bar", topBar -> {
                 topBar.node("background").at(0, 0).size(GUI_WIDTH, TOP_BAR_HEIGHT);
@@ -85,31 +80,36 @@ final class SpiritLayouts {
                 main.node("name_label").at(NAME_LABEL_X, NAME_LABEL_Y - MAIN_TOP);
                 main.node("entity_preview").at(ENTITY_PREVIEW_X, ENTITY_PREVIEW_Y - MAIN_TOP).size(ENTITY_PREVIEW_WIDTH, ENTITY_PREVIEW_HEIGHT);
                 main.node("vertical_separator").at(VERTICAL_SEPARATOR_X, VERTICAL_SEPARATOR_Y - MAIN_TOP).size(1, VERTICAL_SEPARATOR_HEIGHT);
+                mainContent.accept(main);
             });
             frame.group("player_inventory", inventory -> {
                 inventory.at(PLAYER_INVENTORY_X, PLAYER_INVENTORY_Y + inventoryOffset);
                 inventory.node("background").at(-PLAYER_INVENTORY_BACKGROUND_INSET, -PLAYER_INVENTORY_BACKGROUND_INSET)
                         .size(PLAYER_INVENTORY_BACKGROUND_WIDTH, PLAYER_INVENTORY_BACKGROUND_HEIGHT);
                 inventory.node("label").at(0, PLAYER_INVENTORY_LABEL_Y);
-                defineInventoryGrid(inventory.group("main", main -> main.at(0, 0)));
-                defineHotbar(inventory.group("hotbar", hotbar -> hotbar.at(0, INVENTORY_HOTBAR_Y)));
+                inventory.group("main", main -> {
+                    main.at(0, 0);
+                    defineInventoryGrid(main);
+                });
+                inventory.group("hotbar", hotbar -> {
+                    hotbar.at(0, INVENTORY_HOTBAR_Y);
+                    defineHotbar(hotbar);
+                });
             });
         });
     }
 
-    private static LayoutGroupBuilder defineInventoryGrid(LayoutGroupBuilder group) {
+    private static void defineInventoryGrid(LayoutGroupBuilder group) {
         for (int row = 0; row < INVENTORY_MAIN_ROWS; row++) {
             for (int column = 0; column < INVENTORY_COLUMNS; column++) {
                 group.node("slot_" + (row * INVENTORY_COLUMNS + column)).at(column * SLOT_SIZE, row * SLOT_SIZE).size(SLOT_SIZE, SLOT_SIZE);
             }
         }
-        return group;
     }
 
-    private static LayoutGroupBuilder defineHotbar(LayoutGroupBuilder group) {
+    private static void defineHotbar(LayoutGroupBuilder group) {
         for (int column = 0; column < INVENTORY_COLUMNS; column++) {
             group.node("slot_" + column).at(column * SLOT_SIZE, 0).size(SLOT_SIZE, SLOT_SIZE);
         }
-        return group;
     }
 }

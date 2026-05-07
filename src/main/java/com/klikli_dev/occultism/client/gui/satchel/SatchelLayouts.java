@@ -31,7 +31,10 @@ final class SatchelLayouts {
                 definePlayerInventory(frame, 69, 158, 176, 90, 77, 171);
             });
 
-            root.group("content", content -> defineGrid(content.group("satchel", satchel -> satchel.at(8, 23)), 17, 7));
+            root.group("content", content -> content.group("satchel", satchel -> {
+                satchel.at(8, 23);
+                defineGrid(satchel, 17, 7);
+            }));
         });
     }
 
@@ -46,7 +49,10 @@ final class SatchelLayouts {
                 definePlayerInventory(frame, 3, 103, 176, 90, 11, 116);
             });
 
-            root.group("content", content -> defineGrid(content.group("satchel", satchel -> satchel.at(11, 19)), 9, 4));
+            root.group("content", content -> content.group("satchel", satchel -> {
+                satchel.at(11, 19);
+                defineGrid(satchel, 9, 4);
+            }));
         });
     }
 
