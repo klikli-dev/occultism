@@ -45,6 +45,7 @@ import com.klikli_dev.occultism.client.gui.storage.component.StorageItemGridWidg
 import com.klikli_dev.occultism.client.gui.storage.component.StorageMenuControlsWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageMachineGridWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageTopBarWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageTooltipOverlay;
 import com.klikli_dev.occultism.client.gui.storage.component.ScaledSearchFieldWidget;
 import com.klikli_dev.occultism.client.gui.storage.logic.StorageScreenActions;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
@@ -160,6 +161,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageMachineGridWidget machineGrid;
     protected StorageTopBarWidget topBarWidget;
     protected StorageMenuControlsWidget menuControlsWidget;
+    protected final StorageTooltipOverlay tooltipOverlay;
     protected int rows;
     protected int columns;
     protected int realTopPos;
@@ -177,6 +179,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.actions = new StorageScreenActions();
         this.itemGrid = new StorageItemGridWidget(this);
         this.machineGrid = new StorageMachineGridWidget(this);
+        this.tooltipOverlay = new StorageTooltipOverlay(TRANSLATION_KEY_BASE, TOP_CONTROL_TOOLTIP_OFFSET_Y);
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = VISIBLE_COLUMNS;
@@ -651,10 +654,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
-    protected int topControlTooltipY(int mouseY) {
-        return Math.min(this.height - 8, mouseY + TOP_CONTROL_TOOLTIP_OFFSET_Y);
-    }
-
     protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         switch (this.state.mode()) {
             case INVENTORY:
@@ -664,81 +663,31 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.machineGrid.drawTooltips(guiGraphics, mouseX, mouseY);
                 break;
         }
-
-        if (this.isPointInSearchbar(mouseX, mouseY)) {
-            List<Component> tooltip = new ArrayList<>();
-            if (!Minecraft.getInstance().hasShiftDown()) {
-                tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".shift"));
-            } else {
-                switch (this.state.mode()) {
-                    case INVENTORY:
-                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip@"));
-                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip#"));
-                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip$"));
-                        break;
-                    case AUTOCRAFTING:
-                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
-                        break;
-                }
-                tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
-            }
-            guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, this.topControlTooltipY(mouseY));
-        }
-        if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setComponentTooltipForNextFrame(this.font, Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
-                    mouseX, this.topControlTooltipY(mouseY));
-        }
-        if (this.clearRecipeButton != null && this.clearRecipeButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setComponentTooltipForNextFrame(this.font,
-                    Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".crafting.tooltip_clear")),
-                    mouseX, mouseY);
-        }
-        if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
-            String translationKey = "";
-            switch (this.state.mode()) {
-                case INVENTORY:
-                    translationKey =
-                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getSerializedName();
-                    break;
-                case AUTOCRAFTING:
-                    translationKey =
-                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" +
-                                    this.getSortType().getSerializedName();
-                    break;
-            }
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(translationKey), mouseX, this.topControlTooltipY(mouseY));
-        }
-        if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
-                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
-                    mouseX, this.topControlTooltipY(mouseY));
-        }
-        if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable(
-                            TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
-                                    (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
-                    mouseX, this.topControlTooltipY(mouseY));
-        }
-        if (this.isPointInOrderSlotArea(mouseX, mouseY)) {
-            guiGraphics.setComponentTooltipForNextFrame(this.font,
-                    List.of(Component.translatable(TRANSLATION_KEY_BASE + ".order_slot.tooltip")), mouseX, mouseY);
-        }
-        if (this.inventoryModeButton != null && this.inventoryModeButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setComponentTooltipForNextFrame(this.font,
-                    List.of(Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory.tooltip")), mouseX, mouseY);
-        }
-        if (this.autocraftingModeButton != null && this.autocraftingModeButton.isMouseOver(mouseX, mouseY)) {
-            guiGraphics.setComponentTooltipForNextFrame(this.font,
-                    List.of(Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting.tooltip")), mouseX, mouseY);
-        }
-        if (this.isPointInSpaceText(mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
-                    this.usedTotalItemCount + " / " + this.maxTotalItemCount), mouseX, mouseY);
-        }
-        if (this.isPointInTypesText(mouseX, mouseY)) {
-            guiGraphics.setTooltipForNextFrame(this.font, Component.literal(
-                    this.usedItemTypes + " / " + this.maxItemTypes), mouseX, mouseY);
-        }
+        this.tooltipOverlay.drawChromeTooltips(
+                guiGraphics,
+                this.font,
+                mouseX,
+                mouseY,
+                this.height,
+                this.state.mode(),
+                this.isPointInSearchbar(mouseX, mouseY),
+                this.clearTextButton,
+                this.clearRecipeButton,
+                this.sortTypeButton,
+                this.getSortType().getSerializedName(),
+                this.sortDirectionButton,
+                this.getSortDirection().getSerializedName(),
+                this.jeiSyncButton,
+                this.isPointInOrderSlotArea(mouseX, mouseY),
+                this.inventoryModeButton,
+                this.autocraftingModeButton,
+                this.isPointInSpaceText(mouseX, mouseY),
+                this.usedTotalItemCount,
+                this.maxTotalItemCount,
+                this.isPointInTypesText(mouseX, mouseY),
+                this.usedItemTypes,
+                this.maxItemTypes
+        );
     }
 
     protected void drawItemSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
