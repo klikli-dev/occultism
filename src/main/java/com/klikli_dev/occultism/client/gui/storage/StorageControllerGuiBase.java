@@ -40,6 +40,7 @@ import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
+import com.klikli_dev.occultism.client.gui.storage.logic.StorageScreenActions;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
@@ -50,7 +51,6 @@ import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
-import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.*;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -164,6 +164,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageScreenBackend backend;
     protected final StorageScreenState state;
     protected final StorageDisplayQuery displayQuery;
+    protected final StorageScreenActions actions;
     protected int rows;
     protected int columns;
     protected int realTopPos;
@@ -180,6 +181,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root = new GuiRootWidget(this);
         this.state = new StorageScreenState();
         this.displayQuery = new StorageDisplayQuery();
+        this.actions = new StorageScreenActions();
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = VISIBLE_COLUMNS;
@@ -193,7 +195,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.resetDisplayCaches();
 
-        Networking.sendToServer(new MessageRequestStacks());
+        this.actions.requestStacks();
     }
 
     public static void onScreenMouseClickedPre(Pre event) {
@@ -445,14 +447,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
-                Networking.sendToServer(
-                        new MessageTakeItem(this.stackUnderMouse, mouseButton, Minecraft.getInstance().hasShiftDown(),
-                                Minecraft.getInstance().hasControlDown()));
-                this.state.markInteraction(System.currentTimeMillis());
+                this.actions.takeStack(this.stackUnderMouse, mouseButton,
+                        () -> this.state.markInteraction(System.currentTimeMillis()));
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
-                Networking.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
-                this.state.markInteraction(System.currentTimeMillis());
+                this.actions.insertCarriedItem(mouseButton,
+                        () -> this.state.markInteraction(System.currentTimeMillis()));
             }
         } else if (this.state.isAutocraftingMode()) {
             for (MachineSlotWidget slot : this.machineSlots) {
@@ -460,22 +460,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                         ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
                         if (Minecraft.getInstance().hasShiftDown()) {
-                            long time = System.currentTimeMillis() + 5000;
-                            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().insertGlobalPos.getPos(), time, Color.GREEN);
-                            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().extractGlobalPos.getPos(), time, Color.YELLOW);
+                            this.actions.highlightMachine(slot.getMachine());
                         } else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order
-                            GlobalBlockPos storageControllerPos = this.storageControllerContainer.getStorageControllerGlobalBlockPos();
-                            if (storageControllerPos != null) {
-                                Networking.sendToServer(new MessageRequestOrder(
-                                        storageControllerPos,
-                                        slot.getMachine().insertGlobalPos, orderStack));
-                            } else {
-                                Occultism.LOGGER.warn("Linked Storage Controller Position null.");
-                            }
-
-                            //now switch back gui mode.
-                            this.state.setMode(StorageControllerGuiMode.INVENTORY);
+                            this.actions.requestMachineOrder(
+                                    this.storageControllerContainer::getStorageControllerGlobalBlockPos,
+                                    slot.getMachine(),
+                                    () -> this.storageControllerContainer.getOrderSlot().getItem(0),
+                                    component -> Occultism.LOGGER.warn(component.getString()),
+                                    () -> this.state.setMode(StorageControllerGuiMode.INVENTORY)
+                            );
                         }
                     }
                     break;
@@ -546,7 +540,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public boolean charTyped(CharacterEvent event) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(event)) {
             this.state.setSearchText(this.searchBar.getValue());
-            Networking.sendToServer(new MessageRequestStacks());
+            this.actions.requestStacks();
             // OccultismEmiIntegration excluded from build - EMI sync disabled
             if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
                 OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
@@ -562,9 +556,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
-            Networking.sendToServer(new MessageClearCraftingMatrix());
-            Networking.sendToServer(new MessageRequestStacks());
-            this.init();
+            this.actions.clearCraftingMatrixAndRefresh(this::init);
         }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
         this.addRenderableWidget(this.clearRecipeButton);
 
@@ -585,8 +577,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
             this.setSortType(this.getSortType().next());
-            Networking.sendToServer(
-                    new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
+            this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
             this.init();
         }, this.sortTypeRenderer());
         this.addRenderableWidget(this.sortTypeButton);
@@ -598,8 +589,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
             this.setSortDirection(this.getSortDirection().next());
-            Networking.sendToServer(
-                    new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
+            this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
             this.init();
         }, SpriteButtonWidget.arrow(this.getSortDirection().isDown()));
         this.addRenderableWidget(this.sortDirectionButton);
