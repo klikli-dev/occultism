@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
@@ -883,22 +884,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void initRootWidgets() {
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.tab(0).left(), this.layout.tab(0).top(),
-                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.state.isInventoryMode())));
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.tab(1).left(), this.layout.tab(1).top(),
-                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.state.isAutocraftingMode())));
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.mainPanel().left(), this.layout.mainPanel().top(),
-                this.mainPanelWidth(), this.mainPanelHeight(), this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL,
-                GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.inventoryPanel().left(),
-                this.layout.inventoryPanel().top(), INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT,
-                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiSpriteWidget(this.layout.craftingArrow().left(), this.layout.craftingArrow().top(),
-                GuiSprites.CRAFTING_ARROW));
-
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.itemAreaBackground().left(),
-                this.layout.itemAreaBackground().top(), this.itemAreaBackgroundWidth(), this.itemAreaBackgroundHeight(),
-                OccultismGuiSprites.STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND));
+        this.layoutController.init();
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
@@ -931,6 +917,71 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 96, CONTROL_BUTTON_SIZE, GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)));
 
         this.root.syncWithHost();
+    }
+
+    @Override
+    public void registerResolvers(LayoutResolverRegistry registry) {
+        registry.resolve("frame.main.tabs.inventory", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                this.tabBackgroundSprite(this.state.isInventoryMode())
+        )));
+        registry.resolve("frame.main.tabs.autocrafting", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                this.tabBackgroundSprite(this.state.isAutocraftingMode())
+        )));
+        registry.resolve("frame.main.panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.menu.inventory_panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.menu.crafting_arrow", ctx -> ctx.addWidget(new GuiSpriteWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                GuiSprites.CRAFTING_ARROW
+        )));
+        registry.resolve("frame.main.item_area_background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                OccultismGuiSprites.STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND
+        )));
+        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.search_field", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)
+        )));
     }
 
     protected int mainPanelHeight() {
