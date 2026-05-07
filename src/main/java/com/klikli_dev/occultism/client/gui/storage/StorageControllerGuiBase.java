@@ -39,6 +39,7 @@ import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.api.common.data.*;
+import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
@@ -162,6 +163,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected LabelWidget filledLabel;
     protected LabelWidget typesLabel;
     protected final GuiRootWidget root;
+    protected final StorageScreenBackend backend;
     protected int rows;
     protected int columns;
 
@@ -177,9 +179,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     private List<ItemStack> cachedStacksToDisplay;
     private String cachedSearchString;
 
-    public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
+    public StorageControllerGuiBase(T container, Inventory playerInventory, Component name, StorageScreenBackend backend) {
         super(container, playerInventory, name, GUI_WIDTH, 256);
         this.storageControllerContainer = container;
+        this.backend = backend;
         // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
         this.root = new GuiRootWidget(this);
 
@@ -211,19 +214,31 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     //region Getter / Setter
-    protected abstract boolean isGuiValid();
-
-    protected abstract BlockPos getEntityPosition();
-
-    public abstract SortDirection getSortDirection();
-
-    public abstract void setSortDirection(SortDirection sortDirection);
-
-    public abstract SortType getSortType();
-
     //endregion Getter / Setter
 
-    public abstract void setSortType(SortType sortType);
+    protected boolean isGuiValid() {
+        return this.backend.isValid();
+    }
+
+    protected BlockPos getEntityPosition() {
+        return this.backend.actionPosition();
+    }
+
+    public SortDirection getSortDirection() {
+        return this.backend.sortDirection();
+    }
+
+    public void setSortDirection(SortDirection sortDirection) {
+        this.backend.setSortDirection(sortDirection);
+    }
+
+    public SortType getSortType() {
+        return this.backend.sortType();
+    }
+
+    public void setSortType(SortType sortType) {
+        this.backend.setSortType(sortType);
+    }
 
     @Override
     public Font getFontRenderer() {

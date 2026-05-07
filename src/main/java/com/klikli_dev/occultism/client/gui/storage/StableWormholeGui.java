@@ -22,58 +22,16 @@
 
 package com.klikli_dev.occultism.client.gui.storage;
 
-import com.klikli_dev.occultism.api.common.data.SortDirection;
-import com.klikli_dev.occultism.api.common.data.SortType;
-import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.client.gui.storage.adapter.StableWormholeScreenBackend;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
-import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.network.messages.MessageUpdateStorageSettings;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeContainer> {
 
-    protected StorageControllerBlockEntity storageController;
-    protected StableWormholeContainer container;
-
     public StableWormholeGui(StableWormholeContainer container, Inventory playerInventory,
                              Component name) {
-        super(container, playerInventory, name);
-        this.container = container;
-        this.storageController = container.getStorageController();
-    }
-
-    @Override
-    protected boolean isGuiValid() {
-        return true;
-    }
-
-    @Override
-    protected BlockPos getEntityPosition() {
-        return this.container.getStableWormhole().getBlockPos();
-    }
-
-    @Override
-    public SortDirection getSortDirection() {
-        return this.container.getStableWormhole().getSortDirection();
-    }
-
-    @Override
-    public void setSortDirection(SortDirection sortDirection) {
-        this.container.getStableWormhole().setSortDirection(sortDirection);
-        Networking.sendToServer(new MessageUpdateStorageSettings(sortDirection, this.getSortType()));
-    }
-
-    @Override
-    public SortType getSortType() {
-        return this.container.getStableWormhole().getSortType();
-    }
-
-    @Override
-    public void setSortType(SortType sortType) {
-        this.container.getStableWormhole().setSortType(sortType);
-        Networking.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
+        super(container, playerInventory, name, new StableWormholeScreenBackend(container));
     }
 
 }

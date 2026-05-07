@@ -22,56 +22,16 @@
 
 package com.klikli_dev.occultism.client.gui.storage;
 
-import com.klikli_dev.occultism.api.common.data.SortDirection;
-import com.klikli_dev.occultism.api.common.data.SortType;
-import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.client.gui.storage.adapter.ControllerScreenBackend;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
-import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.network.messages.MessageUpdateStorageSettings;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StorageControllerGui extends StorageControllerGuiBase<StorageControllerContainer> {
 
-    protected StorageControllerBlockEntity storageController;
-
     public StorageControllerGui(StorageControllerContainer container, Inventory playerInventory,
                                 Component name) {
-        super(container, playerInventory, name);
-        this.storageController = container.getStorageController();
-    }
-
-    @Override
-    protected boolean isGuiValid() {
-        return true;
-    }
-
-    @Override
-    protected BlockPos getEntityPosition() {
-        return this.storageController.getBlockPos();
-    }
-
-    @Override
-    public SortDirection getSortDirection() {
-        return this.storageController.getSortDirection();
-    }
-
-    @Override
-    public void setSortDirection(SortDirection sortDirection) {
-        this.storageController.setSortDirection(sortDirection);
-        Networking.sendToServer(new MessageUpdateStorageSettings(sortDirection, this.getSortType()));
-    }
-
-    @Override
-    public SortType getSortType() {
-        return this.storageController.getSortType();
-    }
-
-    @Override
-    public void setSortType(SortType sortType) {
-        this.storageController.setSortType(sortType);
-        Networking.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
+        super(container, playerInventory, name, new ControllerScreenBackend(container.getStorageController()));
     }
 
 }
