@@ -43,6 +43,8 @@ import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageItemGridWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageMachineGridWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageTopBarWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.ScaledSearchFieldWidget;
 import com.klikli_dev.occultism.client.gui.storage.logic.StorageScreenActions;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
@@ -61,13 +63,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.util.Mth;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -146,7 +145,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected long maxTotalItemCount;
     protected long usedTotalItemCount;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
-    protected EditBox searchBar;
+    protected ScaledSearchFieldWidget searchBar;
     protected AbstractWidget clearTextButton;
     protected AbstractWidget clearRecipeButton;
     protected AbstractWidget sortTypeButton;
@@ -163,6 +162,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageScreenActions actions;
     protected final StorageItemGridWidget itemGrid;
     protected final StorageMachineGridWidget machineGrid;
+    protected StorageTopBarWidget topBarWidget;
     protected int rows;
     protected int columns;
     protected int realTopPos;
@@ -332,23 +332,61 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int searchBarRenderedWidth = 90;
         int searchBarRenderedHeight = Math.max(9, this.font.lineHeight);
-        this.searchBar = new ScaledEditBox(this.font, this.topBarSearchBarX(),
-                this.topBarSearchBarY(), searchBarRenderedWidth, searchBarRenderedHeight,
-                Component.literal("search"), SEARCH_BAR_SCALE);
-        this.searchBar.setMaxLength(30);
-
-        this.searchBar.setBordered(false);
-        this.searchBar.setVisible(true);
-        this.searchBar.setTextColor(0xFFFFFFFF);
-        this.searchBar.setFocused(focus);
-
-        this.searchBar.setValue(searchBarText);
         // OccultismEmiIntegration excluded from build - EMI sync disabled
         if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
+            searchBarText = OccultismJeiIntegration.get().getFilterText();
         }
+        this.topBarWidget = StorageTopBarWidget.create(
+                this.font,
+                this.topBarSearchBarX(),
+                this.topBarSearchBarY(),
+                searchBarRenderedWidth,
+                searchBarRenderedHeight,
+                SEARCH_BAR_SCALE,
+                searchBarText,
+                focus,
+                CONTROL_BUTTON_SIZE,
+                this.storageButtonBackgroundSprites(),
+                this.topBarControlButtonX(0),
+                this.topBarControlButtonY(0),
+                () -> {
+                    this.clearSearch();
+                    this.state.requestSearchFocus();
+                    this.init();
+                },
+                this.topBarControlButtonX(1),
+                this.topBarControlButtonY(1),
+                () -> {
+                    this.setSortType(this.getSortType().next());
+                    this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
+                    this.init();
+                },
+                this.sortTypeRenderer(),
+                this.topBarControlButtonX(2),
+                this.topBarControlButtonY(2),
+                () -> {
+                    this.setSortDirection(this.getSortDirection().next());
+                    this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
+                    this.init();
+                },
+                SpriteButtonWidget.arrow(this.getSortDirection().isDown()),
+                OccultismJeiIntegration.get().isLoaded(),
+                this.topBarControlButtonX(3),
+                this.topBarControlButtonY(3),
+                () -> {
+                    JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
+                    this.init();
+                },
+                this.jeiSyncRenderer(),
+                TRANSLATION_KEY_BASE
+        );
+        this.searchBar = this.topBarWidget.searchBar();
+        this.clearTextButton = this.topBarWidget.clearSearchButton();
+        this.sortTypeButton = this.topBarWidget.sortTypeButton();
+        this.sortDirectionButton = this.topBarWidget.sortDirectionButton();
+        this.jeiSyncButton = this.topBarWidget.jeiSyncButton();
         this.state.setSearchText(this.searchBar.getValue());
-        this.addRenderableWidget(this.searchBar);
+        this.topBarWidget.addTo(this::addRenderableWidget);
 
         this.initButtons();
 
@@ -535,55 +573,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.actions.clearCraftingMatrixAndRefresh(this::init);
         }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
         this.addRenderableWidget(this.clearRecipeButton);
-
-        this.clearTextButton = new SpriteButtonWidget(this.topBarControlButtonX(0),
-                this.topBarControlButtonY(0),
-                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
-                this.storageButtonBackgroundSprites(),
-                Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
-            this.clearSearch();
-            this.state.requestSearchFocus();
-            this.init();
-        }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
-        this.addRenderableWidget(this.clearTextButton);
-
-        this.sortTypeButton = new SpriteButtonWidget(this.topBarControlButtonX(1),
-                this.topBarControlButtonY(1),
-                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
-                this.storageButtonBackgroundSprites(),
-                Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
-            this.setSortType(this.getSortType().next());
-            this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
-            this.init();
-        }, this.sortTypeRenderer());
-        this.addRenderableWidget(this.sortTypeButton);
-
-        this.sortDirectionButton = new SpriteButtonWidget(
-                this.topBarControlButtonX(2),
-                this.topBarControlButtonY(2),
-                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
-                this.storageButtonBackgroundSprites(),
-                Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
-            this.setSortDirection(this.getSortDirection().next());
-            this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
-            this.init();
-        }, SpriteButtonWidget.arrow(this.getSortDirection().isDown()));
-        this.addRenderableWidget(this.sortDirectionButton);
-
-        // OccultismEmiIntegration excluded from build - EMI sync disabled; show button if JEI is loaded
-        if (OccultismJeiIntegration.get().isLoaded()) {
-            this.jeiSyncButton = new SpriteButtonWidget(
-                    this.topBarControlButtonX(3),
-                    this.topBarControlButtonY(3),
-                    CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
-                    this.storageButtonBackgroundSprites(),
-                    Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
-                JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
-                this.init();
-            }, this.jeiSyncRenderer());
-
-            this.addRenderableWidget(this.jeiSyncButton);
-        }
 
         switch (this.state.mode()) {
             case INVENTORY:
@@ -1281,69 +1270,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public int imageHeight() {
         return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET + INVENTORY_PANEL_HEIGHT - this.guiTop();
-    }
-
-    protected static class ScaledEditBox extends EditBox {
-
-        private static final int CURSOR_HEIGHT = 10;
-        private static final float TEXT_OFFSET_Y = 2.0F;
-        private final float renderScale;
-        private final int baseTextHeight;
-
-        protected ScaledEditBox(Font font, int x, int y, int width, int height, Component message, float renderScale) {
-            super(font, x, y, width, height, message);
-            this.renderScale = renderScale;
-            this.baseTextHeight = Math.max(9, height);
-            this.setHeight(Math.max(1, Math.round(this.baseTextHeight * this.renderScale)));
-        }
-
-        @Override
-        public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-            guiGraphics.pose().pushMatrix();
-            guiGraphics.pose().translate(this.getX(), this.getY());
-            guiGraphics.pose().scale(this.renderScale, this.renderScale);
-            guiGraphics.pose().translate(-this.getX(), -this.getY());
-            guiGraphics.pose().translate(0.0F, TEXT_OFFSET_Y);
-            super.extractWidgetRenderState(guiGraphics, this.scaleMouseX(mouseX), this.scaleMouseY(mouseY), partialTick);
-            guiGraphics.pose().popMatrix();
-        }
-
-        @Override
-        public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-            return super.mouseClicked(this.scaleMouseEvent(event), doubleClick);
-        }
-
-        @Override
-        public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
-            return super.mouseDragged(this.scaleMouseEvent(event), dx / this.renderScale, dy / this.renderScale);
-        }
-
-        @Override
-        public boolean isMouseOver(double mouseX, double mouseY) {
-            return this.isActive() && mouseX >= this.getX() && mouseX < this.getX() + this.getWidth()
-                    && mouseY >= this.getY() && mouseY < this.getY() + this.getHeight();
-        }
-
-        @Override
-        public int getInnerWidth() {
-            return Math.max(1, Math.round(super.getInnerWidth() / this.renderScale));
-        }
-
-        private MouseButtonEvent scaleMouseEvent(MouseButtonEvent event) {
-            return new MouseButtonEvent(this.scaleMouseX(event.x()), this.scaleMouseY(event.y()),
-                    new MouseButtonInfo(event.button(), event.modifiers()));
-        }
-
-        private int scaleMouseX(double mouseX) {
-            return Mth.floor(this.getX() + (mouseX - this.getX()) / this.renderScale);
-        }
-
-        private int scaleMouseY(double mouseY) {
-            double scaledHeight = this.baseTextHeight * this.renderScale;
-            double centeredOffset = (scaledHeight - CURSOR_HEIGHT) / 2.0D;
-            return Mth.floor(this.getY() + (mouseY - this.getY() - centeredOffset) / this.renderScale
-                    + (this.baseTextHeight - CURSOR_HEIGHT) / 2.0D);
-        }
     }
 
     protected record Position(int left, int top) {
