@@ -74,7 +74,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.FOLIOT_TYPE.get())
                 .add(OccultismEntities.DJINNI_TYPE.get())
                 .add(OccultismEntities.AFRIT_TYPE.get())
-                .add(OccultismEntities.AFRIT_WILD_TYPE.get())
+                .add(OccultismEntities.AFRIT_UNBOUND_TYPE.get())
                 .add(OccultismEntities.MARID_TYPE.get())
                 .add(OccultismEntities.MARID_UNBOUND_TYPE.get())
                 .add(OccultismEntities.DEMONIC_WIFE.get())
@@ -96,7 +96,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_WARDEN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get())
                 .add(OccultismEntities.POSSESSED_WITCH_TYPE.get())
-                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get())
                 //Horde
                 .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_EVOKER_TYPE.get())
@@ -391,7 +391,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
                 .add(OccultismEntities.WILD_HUSK_TYPE.get())
                 .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
-                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get());
+                .add(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get());
 
     }
 }

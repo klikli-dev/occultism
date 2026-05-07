@@ -632,7 +632,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.FLINT_AND_STEEL),
                         ofTag(registries, Tags.Items.GUNPOWDERS))
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
-                .entityToSummon(OccultismEntities.AFRIT_WILD.get())
+                .entityToSummon(OccultismEntities.AFRIT_UNBOUND.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.cows")
                 .entityToSacrifice(Entities.COWS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_unbound_afrit")));
@@ -725,8 +725,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.POSSESSED_WARDEN_TYPE.get())
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_warden")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
-                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN.get(), "item.occultism.ritual_dummy.possess_zombie_piglin"),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIFIED_PIGLIN.get(), "item.occultism.ritual_dummy.possess_zombified_piglin"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIFIED_PIGLIN.get()),
                         BASE_TIME * POSSESS_MULT * UNBOUND_AFRIT_TIER,
                         RITUAL_SUMMON,
                         PENTACLE_POSSESS_UNBOUND_AFRIT, registries,
@@ -735,10 +735,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.CRIMSON_FUNGUS),
                         Ingredient.of(Items.QUARTZ))
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
-                .entityToSummon(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .entityToSummon(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.pigs")
                 .entityToSacrifice(Entities.PIGS)
-                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_zombie_piglin")));
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_zombified_piglin")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_GUARDIAN.get(), "item.occultism.ritual_dummy.possess_guardian"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_GUARDIAN.get()),

@@ -57,10 +57,10 @@ import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
-public class AfritWildEntity extends Monster implements GeoEntity {
+public class AfritUnboundEntity extends Monster implements GeoEntity {
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
-    public AfritWildEntity(EntityType<? extends AfritWildEntity> type, Level level) {
+    public AfritUnboundEntity(EntityType<? extends AfritUnboundEntity> type, Level level) {
         super(type, level);
     }
 

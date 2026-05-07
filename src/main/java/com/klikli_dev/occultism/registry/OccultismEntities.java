@@ -64,12 +64,12 @@ public class OccultismEntities {
                     .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit"))));
-    public static final Lazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
-            Lazy.of(() -> Builder.of(AfritWildEntity::new, MobCategory.CREATURE)
+    public static final Lazy<EntityType<AfritUnboundEntity>> AFRIT_UNBOUND_TYPE =
+            Lazy.of(() -> Builder.of(AfritUnboundEntity::new, MobCategory.CREATURE)
                     .fireImmune()
                     .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit_wild"))));
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit_unbound"))));
     public static final Lazy<EntityType<MaridEntity>> MARID_TYPE =
             Lazy.of(() -> Builder.of(MaridEntity::new, MobCategory.CREATURE)
                     .sized(1.0f, 2.4f)
@@ -157,8 +157,8 @@ public class OccultismEntities {
                     .fireImmune()
                     .clientTrackingRange(48)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "possessed_blaze"))));
-    public static final Lazy<EntityType<PossessedZombiePiglinEntity>> POSSESSED_ZOMBIE_PIGLIN_TYPE =
-            Lazy.of(() -> Builder.of(PossessedZombiePiglinEntity::new, MobCategory.MONSTER)
+    public static final Lazy<EntityType<PossessedZombifiedPiglinEntity>> POSSESSED_ZOMBIFIED_PIGLIN_TYPE =
+            Lazy.of(() -> Builder.of(PossessedZombifiedPiglinEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .fireImmune()
                     .clientTrackingRange(32)
@@ -399,7 +399,7 @@ public class OccultismEntities {
     public static final Supplier<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final Supplier<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
     public static final Supplier<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
-    public static final Supplier<EntityType<AfritWildEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
+    public static final Supplier<EntityType<AfritUnboundEntity>> AFRIT_UNBOUND = ENTITIES.register("afrit_unbound", AFRIT_UNBOUND_TYPE::get);
     public static final Supplier<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
     public static final Supplier<EntityType<MaridUnboundEntity>> MARID_UNBOUND = ENTITIES.register("marid_unbound", MARID_UNBOUND_TYPE::get);
     public static final Supplier<EntityType<WonderingTraderEntity>> WONDERING_TRADER = ENTITIES.register("wondering_trader", WONDERING_TRADER_TYPE::get);
@@ -431,8 +431,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_witch", POSSESSED_WITCH_TYPE::get);
     public static final Supplier<EntityType<PossessedBlazeEntity>> POSSESSED_BLAZE =
             ENTITIES.register("possessed_blaze", POSSESSED_BLAZE_TYPE::get);
-    public static final Supplier<EntityType<PossessedZombiePiglinEntity>> POSSESSED_ZOMBIE_PIGLIN =
-            ENTITIES.register("possessed_zombie_piglin", POSSESSED_ZOMBIE_PIGLIN_TYPE::get);
+    public static final Supplier<EntityType<PossessedZombifiedPiglinEntity>> POSSESSED_ZOMBIFIED_PIGLIN =
+            ENTITIES.register("possessed_zombie_piglin", POSSESSED_ZOMBIFIED_PIGLIN_TYPE::get);
     public static final Supplier<EntityType<PossessedGuardianEntity>> POSSESSED_GUARDIAN =
             ENTITIES.register("possessed_guardian", POSSESSED_GUARDIAN_TYPE::get);
     public static final Supplier<EntityType<PossessedBeeEntity>> POSSESSED_BEE =

@@ -29,7 +29,7 @@ public class OccultismModelLayers {
     public static ModelLayerLocation FOLIOT = new ModelLayerLocation(Identifier.parse("occultism:folit"), "main");
     public static ModelLayerLocation DJINNI = new ModelLayerLocation(Identifier.parse("occultism:djinni"), "main");
     public static ModelLayerLocation AFRIT = new ModelLayerLocation(Identifier.parse("occultism:afrit"), "main");
-    public static ModelLayerLocation AFRIT_WILD = new ModelLayerLocation(Identifier.parse("occultism:afrit_wild"), "main");
+    public static ModelLayerLocation AFRIT_UNBOUND = new ModelLayerLocation(Identifier.parse("occultism:afrit_unbound"), "main");
 
     public static ModelLayerLocation MARID = new ModelLayerLocation(Identifier.parse("occultism:marid"), "main");
     public static ModelLayerLocation FAMILIAR_BAT = new ModelLayerLocation(Identifier.parse("occultism:familiar_bat"), "main");

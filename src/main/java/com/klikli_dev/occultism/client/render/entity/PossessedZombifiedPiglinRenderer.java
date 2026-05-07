@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.minecraft.resources.Identifier;
 
-public class PossessedZombiePiglinRenderer extends ZombieRenderer {
+public class PossessedZombifiedPiglinRenderer extends ZombieRenderer {
     private static final Identifier ZOMBIE_PIGLIN_LOCATION = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/entity/old_zombie_piglin.png");
 
-    public PossessedZombiePiglinRenderer(Context p_174180_) {
+    public PossessedZombifiedPiglinRenderer(Context p_174180_) {
         super(p_174180_);
     }
 

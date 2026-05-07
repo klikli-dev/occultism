@@ -123,7 +123,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         );
 
         //Essence drop from wild afrit
-        this.add(OccultismEntities.AFRIT_WILD_TYPE.get(),
+        this.add(OccultismEntities.AFRIT_UNBOUND_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(OccultismItems.AFRIT_ESSENCE.get())
@@ -180,7 +180,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(OccultismItems.CRUELTY_ESSENCE)
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
 
-        this.add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get(),
+        this.add(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get(),
                 LootTable.lootTable().withPool(
                                 LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                         .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)

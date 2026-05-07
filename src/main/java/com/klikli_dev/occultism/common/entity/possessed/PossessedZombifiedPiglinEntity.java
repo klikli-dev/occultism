@@ -31,10 +31,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.Level;
 
-public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob {
+public class PossessedZombifiedPiglinEntity extends Zombie implements PossessedMob {
 
-    public PossessedZombiePiglinEntity(EntityType<? extends PossessedZombiePiglinEntity> type,
-                                       Level worldIn) {
+    public PossessedZombifiedPiglinEntity(EntityType<? extends PossessedZombifiedPiglinEntity> type,
+                                          Level worldIn) {
         super(type, worldIn);
     }
 

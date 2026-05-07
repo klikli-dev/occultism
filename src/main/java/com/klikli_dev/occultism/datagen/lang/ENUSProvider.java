@@ -403,7 +403,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BLAZE, "Possessed Blaze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIFIED_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GUARDIAN, "Possessed Guardian Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
@@ -642,7 +642,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.FOLIOT, "Foliot");
         this.addEntityType(OccultismEntities.DJINNI, "Djinni");
         this.addEntityType(OccultismEntities.AFRIT, "Afrit");
-        this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
+        this.addEntityType(OccultismEntities.AFRIT_UNBOUND, "Unbound Afrit");
         this.addEntityType(OccultismEntities.MARID, "Marid");
         this.addEntityType(OccultismEntities.MARID_UNBOUND, "Unbound Marid");
         this.addEntityType(OccultismEntities.WONDERING_TRADER, "Wondering Trader");
@@ -658,7 +658,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
         this.addEntityType(OccultismEntities.POSSESSED_BLAZE, "Possessed Blaze");
-        this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
+        this.addEntityType(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN, "Possessed Zombified Piglin");
         this.addEntityType(OccultismEntities.POSSESSED_GUARDIAN, "Possessed Guardian");
         this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
         this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
@@ -1949,7 +1949,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "Summon Possessed Ghast", "Djinni", "The Possessed Ghast will always drop at least one ghast tear when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "Summon Possessed Weak Shulker", "Djinni", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE, "Summon Possessed Blaze", "Djinni", "The Possessed Blaze will drop at least two blaze rods and various nether-related items, including blocks, plants, and (very rarely) ancient debris.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit (Unbound)", "The Possessed Zombified Piglin will drop demonic meat.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIFIED_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit (Unbound)", "The Possessed Zombified Piglin will drop demonic meat.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GUARDIAN, "Summon Possessed Guardian", "Afrit (Unbound)", "The Possessed Guardian will drop stuff from coral reef.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "Summon Possessed Warden", "Afrit", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "Summon Possessed Elder Guardian", "Afrit", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the common drops.");
@@ -2232,7 +2232,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.DROPS_POSSESSED_WEAK_BREEZE, "Drop from Possessed Weak Breeze");
         this.addItemTag(Items.DROPS_POSSESSED_WEAK_SHULKER, "Drop from Possessed Weak Shulker");
         this.addItemTag(Items.DROPS_POSSESSED_WITCH, "Drop from Possessed Witch");
-        this.addItemTag(Items.DROPS_POSSESSED_ZOMBIE_PIGLIN, "Drop from Possessed Zombified Piglin");
+        this.addItemTag(Items.DROPS_POSSESSED_ZOMBIFIED_PIGLIN, "Drop from Possessed Zombified Piglin");
         this.addItemTag(Items.DROPS_POSSESSED_GUARDIAN, "Drop from Possessed Guardian");
         this.addItemTag(Items.DROPS_WILD_HUNT, "Drop from Wild Hunt");
         this.addItemTag(Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");

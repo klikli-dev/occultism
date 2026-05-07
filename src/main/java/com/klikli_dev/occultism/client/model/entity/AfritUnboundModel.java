@@ -24,12 +24,12 @@ package com.klikli_dev.occultism.client.model.entity;
 
 import com.geckolib.model.DefaultedGeoModel;
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
+import com.klikli_dev.occultism.common.entity.spirit.AfritUnboundEntity;
 import net.minecraft.resources.Identifier;
 
-public class AfritWildModel extends DefaultedGeoModel<AfritWildEntity> {
+public class AfritUnboundModel extends DefaultedGeoModel<AfritUnboundEntity> {
 
-    public AfritWildModel() {
+    public AfritUnboundModel() {
         super(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit"));
     }
 

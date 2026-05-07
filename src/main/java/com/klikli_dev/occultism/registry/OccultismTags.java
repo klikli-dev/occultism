@@ -234,7 +234,7 @@ public class OccultismTags {
         public static final TagKey<Item> DROPS_POSSESSED_WEAK_BREEZE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_breeze"));
         public static final TagKey<Item> DROPS_POSSESSED_WEAK_SHULKER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_shulker"));
         public static final TagKey<Item> DROPS_POSSESSED_WITCH = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_witch"));
-        public static final TagKey<Item> DROPS_POSSESSED_ZOMBIE_PIGLIN = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_zombie_piglin"));
+        public static final TagKey<Item> DROPS_POSSESSED_ZOMBIFIED_PIGLIN = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_zombified_piglin"));
         public static final TagKey<Item> DROPS_POSSESSED_GUARDIAN = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_guardian"));
         public static final TagKey<Item> DROPS_WILD_HUNT = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_hunt_wither_skeleton"));
         public static final TagKey<Item> DROPS_WILD_HORDE_CREEPER = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_creeper"));
@@ -298,11 +298,11 @@ public class OccultismTags {
 
         public static final TagKey<EntityType<?>> ENDERMEN = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "endermen"));
         public static final TagKey<EntityType<?>> SHULKER = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "shulkers"));
-        public static final TagKey<EntityType<?>> FRAGILE_SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "fragile_soul_gem_deny_list"));
-        public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "soul_gem_deny_list"));
-        public static final TagKey<EntityType<?>> TRINITY_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "trinity_gem_deny_list"));
-        public static final TagKey<EntityType<?>> SOUL_SHATTERED_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "soul_shattered_deny_list"));
-        public static final TagKey<EntityType<?>> VITALITY_COMPASS_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "vitality_compass_deny_list"));
+        public static final TagKey<EntityType<?>> FRAGILE_SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_fragile_soul_gem"));
+        public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_soul_gem"));
+        public static final TagKey<EntityType<?>> TRINITY_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_trinity_gem"));
+        public static final TagKey<EntityType<?>> SOUL_SHATTERED_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_fracture_soul"));
+        public static final TagKey<EntityType<?>> VITALITY_COMPASS_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_vitality_compass"));
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));
         public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_hunt"));
         public static final TagKey<EntityType<?>> WILD_TRIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_trial"));

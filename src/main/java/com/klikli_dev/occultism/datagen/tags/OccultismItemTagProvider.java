@@ -631,7 +631,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.OMINOUS_BOTTLE)
                 .add(Items.HONEY_BOTTLE);
 
-        this.tag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN)
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIFIED_PIGLIN)
                 .add(OccultismItems.DEMONIC_MEAT.get())
                 .add(OccultismItems.TALLOW.get())
                 .add(Items.PORKCHOP)

@@ -138,7 +138,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
         event.registerEntityRenderer(OccultismEntities.AFRIT.get(), AfritRenderer::new);
-        event.registerEntityRenderer(OccultismEntities.AFRIT_WILD.get(), AfritWildRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.AFRIT_UNBOUND.get(), AfritUnboundRenderer::new);
         event.registerEntityRenderer(OccultismEntities.MARID.get(), MaridRenderer::new);
         event.registerEntityRenderer(OccultismEntities.MARID_UNBOUND.get(), MaridUnboundRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WONDERING_TRADER.get(), WonderingTraderRenderer::new);
@@ -173,7 +173,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.POSSESSED_HOGLIN.get(), HoglinRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_WITCH.get(), WitchRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_BLAZE.get(), BlazeRenderer::new);
-        event.registerEntityRenderer(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN.get(), PossessedZombiePiglinRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN.get(), PossessedZombifiedPiglinRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_GUARDIAN.get(), GuardianRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_BEE.get(), BeeRenderer::new);
         event.registerEntityRenderer(OccultismEntities.GOAT_OF_MERCY.get(), GoatRenderer::new);

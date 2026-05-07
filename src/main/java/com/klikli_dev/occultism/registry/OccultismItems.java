@@ -434,7 +434,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT = ITEMS.registerItem("spawn_egg/afrit",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.AFRIT_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT_UNBOUND = ITEMS.registerItem("spawn_egg/afrit_unbound",
-            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.AFRIT_WILD_TYPE.get()));
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.AFRIT_UNBOUND_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID = ITEMS.registerItem("spawn_egg/marid",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.MARID_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID_UNBOUND = ITEMS.registerItem("spawn_egg/marid_unbound",
@@ -461,8 +461,8 @@ public class OccultismItems {
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_WITCH_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BLAZE = ITEMS.registerItem("spawn_egg/possessed_blaze",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_BLAZE_TYPE.get()));
-    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN = ITEMS.registerItem("spawn_egg/possessed_zombie_piglin",
-            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ZOMBIFIED_PIGLIN = ITEMS.registerItem("spawn_egg/possessed_zombified_piglin",
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BEE = ITEMS.registerItem("spawn_egg/possessed_bee",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_BEE_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_GUARDIAN = ITEMS.registerItem("spawn_egg/possessed_guardian",
@@ -605,7 +605,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GHAST = ITEMS.registerItem("ritual_dummy/possess_ghast", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.registerItem("ritual_dummy/possess_weak_shulker", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BLAZE = ITEMS.registerItem("ritual_dummy/possess_blaze", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN = ITEMS.registerItem("ritual_dummy/possess_zombie_piglin", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIFIED_PIGLIN = ITEMS.registerItem("ritual_dummy/possess_zombified_piglin", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GUARDIAN = ITEMS.registerItem("ritual_dummy/possess_guardian", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.registerItem("ritual_dummy/possess_warden", DummyTooltipItem::new, () -> new Properties());
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.registerItem("ritual_dummy/possess_elder_guardian", DummyTooltipItem::new, () -> new Properties());
