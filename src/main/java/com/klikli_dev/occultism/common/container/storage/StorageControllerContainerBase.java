@@ -27,7 +27,9 @@ import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
-import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuLayout;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuLayouts;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuVariant;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.common.misc.StorageControllerSlot;
@@ -182,7 +184,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerInventorySlots() {
-        SlotLayout layout = this.slotLayout();
+        StorageMenuLayout layout = this.menuLayout();
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 int slotIndex = col + row * 9 + 9;
@@ -192,14 +194,14 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupPlayerHotbar() {
-        SlotLayout layout = this.slotLayout();
+        StorageMenuLayout layout = this.menuLayout();
         for (int col = 0; col < 9; col++) {
             this.addSlot(this.createHotbarSlot(col, layout.hotbarX(col), layout.hotbarY()));
         }
     }
 
     protected void setupCraftingGrid() {
-        SlotLayout layout = this.slotLayout();
+        StorageMenuLayout layout = this.menuLayout();
         int index = 0;
         //3x3 crafting grid
         for (int row = 0; row < 3; ++row) {
@@ -211,14 +213,14 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void setupCraftingOutput() {
-        SlotLayout layout = this.slotLayout();
+        StorageMenuLayout layout = this.menuLayout();
         StorageControllerSlot slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
                 this.result, this, 0, layout.craftingOutputX(), layout.craftingOutputY());
         this.addSlot(slotCraftOutput);
     }
 
     protected void setupOrderInventorySlot() {
-        SlotLayout layout = this.slotLayout();
+        StorageMenuLayout layout = this.menuLayout();
         this.addSlot(new Slot(this.orderInventory, 0, layout.orderSlotX(), layout.orderSlotY()));
     }
 
@@ -238,19 +240,12 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         return new Slot(this.playerInventory, slotIndex, x, y);
     }
 
-    protected SlotLayout slotLayout() {
-        return new SlotLayout(
-                3 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                72,
-                3 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                130,
-                37 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                StorageControllerGuiBase.CRAFTING_GRID_TOP,
-                133 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                StorageControllerGuiBase.CRAFTING_OUTPUT_TOP,
-                StorageControllerGuiBase.ORDER_INPUT_SLOT_LEFT,
-                StorageControllerGuiBase.ORDER_INPUT_SLOT_TOP
-        );
+    protected StorageMenuVariant menuVariant() {
+        return StorageMenuVariant.CONTROLLER;
+    }
+
+    protected final StorageMenuLayout menuLayout() {
+        return StorageMenuLayouts.layout(this.menuVariant());
     }
 
     protected void findRecipeForMatrixClient() {
@@ -564,59 +559,6 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
         public boolean anyCraftable() {
             return !this.craftableSlots.isEmpty();
-        }
-    }
-
-    protected record SlotLayout(
-            int playerInventoryLeft,
-            int playerInventoryTop,
-            int hotbarLeft,
-            int hotbarTop,
-            int craftingGridLeft,
-            int craftingGridTop,
-            int craftingOutputLeft,
-            int craftingOutputTop,
-            int orderSlotLeft,
-            int orderSlotTop) {
-
-        public int playerInventoryX(int column) {
-            return this.playerInventoryLeft + column * 18;
-        }
-
-        public int playerInventoryY(int row) {
-            return this.playerInventoryTop + row * 18;
-        }
-
-        public int hotbarX(int column) {
-            return this.hotbarLeft + column * 18;
-        }
-
-        public int hotbarY() {
-            return this.hotbarTop;
-        }
-
-        public int craftingGridX(int column) {
-            return this.craftingGridLeft + column * 18;
-        }
-
-        public int craftingGridY(int row) {
-            return this.craftingGridTop + row * 18;
-        }
-
-        public int craftingOutputX() {
-            return this.craftingOutputLeft;
-        }
-
-        public int craftingOutputY() {
-            return this.craftingOutputTop;
-        }
-
-        public int orderSlotX() {
-            return this.orderSlotLeft;
-        }
-
-        public int orderSlotY() {
-            return this.orderSlotTop;
         }
     }
 

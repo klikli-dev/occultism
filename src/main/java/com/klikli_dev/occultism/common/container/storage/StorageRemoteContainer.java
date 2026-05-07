@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.common.container.storage;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuVariant;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.network.Networking;
@@ -84,19 +84,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    protected SlotLayout slotLayout() {
-        return new SlotLayout(
-                8 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                18 * 3 + 7,
-                8 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                18 * 3 + 7 + 18 * 3 + 4,
-                37 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                StorageControllerGuiBase.CRAFTING_GRID_TOP,
-                133 + StorageControllerGuiBase.ORDER_AREA_OFFSET,
-                StorageControllerGuiBase.CRAFTING_OUTPUT_TOP,
-                StorageControllerGuiBase.ORDER_INPUT_SLOT_LEFT,
-                StorageControllerGuiBase.ORDER_INPUT_SLOT_TOP
-        );
+    protected StorageMenuVariant menuVariant() {
+        return StorageMenuVariant.REMOTE;
     }
 
     @Override
