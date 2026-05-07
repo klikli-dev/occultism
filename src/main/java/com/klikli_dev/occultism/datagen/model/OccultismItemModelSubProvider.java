@@ -330,10 +330,15 @@ public class OccultismItemModelSubProvider {
 
     private void registerSpawnEgg(ItemModelGenerators itemModels, Item item) {
         var colors = this.getSpawnEggColors(item);
-        var modelId = this.modLoc("item/template_spawn_egg");
-        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelId,
-                ItemModelUtils.constantTint(opaque(colors.primaryColor())),
-                ItemModelUtils.constantTint(opaque(colors.secondaryColor()))));
+
+        if (colors.primaryColor() != 0x000000 && colors.secondaryColor() != 0x000000) {
+            var modelId = this.modLoc("item/template_spawn_egg");
+            itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelId,
+                    ItemModelUtils.constantTint(opaque(colors.primaryColor())),
+                    ItemModelUtils.constantTint(opaque(colors.secondaryColor()))));
+        } else {
+            registerItemGenerated(itemModels, item);
+        }
     }
 
     private void registerSpawnEggTemplate(ItemModelGenerators itemModels) {
@@ -357,35 +362,6 @@ public class OccultismItemModelSubProvider {
             case "spawn_egg/afrit_unbound" -> new SpawnEggColors(0x4d140a, 0x744500);
             case "spawn_egg/marid" -> new SpawnEggColors(0x396265, 0x57c786);
             case "spawn_egg/marid_unbound" -> new SpawnEggColors(0x394245, 0x57a766);
-            case "spawn_egg/wondering_trader" -> new SpawnEggColors(0x375482, 0xbf886d);
-            case "spawn_egg/possessed_endermite" -> new SpawnEggColors(0x161616, 0x6e6e6e);
-            case "spawn_egg/possessed_skeleton" -> new SpawnEggColors(0xc1c1c1, 0x494949);
-            case "spawn_egg/possessed_enderman" -> new SpawnEggColors(0x161616, 0x000000);
-            case "spawn_egg/possessed_ghast" -> new SpawnEggColors(0xe2e2e2, 0xc1c1c1);
-            case "spawn_egg/possessed_phantom" -> new SpawnEggColors(0x3f4c81, 0x6ccc00);
-            case "spawn_egg/possessed_weak_shulker" -> new SpawnEggColors(0x8c628c, 0x342638);
-            case "spawn_egg/possessed_shulker" -> new SpawnEggColors(0x8c628c, 0x342638);
-            case "spawn_egg/possessed_elder_guardian" -> new SpawnEggColors(0xb5b3a3, 0x4b4d60);
-            case "spawn_egg/possessed_witch" -> new SpawnEggColors(0x280000, 0x346828);
-            case "spawn_egg/possessed_blaze" -> new SpawnEggColors(0xe8a700, 0xb4af58);
-            case "spawn_egg/possessed_zombie_piglin" -> new SpawnEggColors(0xdb8a8a, 0x6a8c46);
-            case "spawn_egg/possessed_bee" -> new SpawnEggColors(0xd6b03c, 0x060606);
-            case "spawn_egg/possessed_guardian" -> new SpawnEggColors(0x70978a, 0xff9233);
-            case "spawn_egg/possessed_goat" -> new SpawnEggColors(0xa0a0a0, 0x835432);
-            case "spawn_egg/wild_hunt_skeleton" -> new SpawnEggColors(0xc1c1c1, 0x494949);
-            case "spawn_egg/wild_hunt_wither_skeleton" -> new SpawnEggColors(0x141414, 0x474d4d);
-            case "spawn_egg/possessed_warden" -> new SpawnEggColors(0x0f4649, 0x39d6e0);
-            case "spawn_egg/possessed_hoglin" -> new SpawnEggColors(0x592a10, 0xf9f3a4);
-            case "spawn_egg/wild_horde_husk" -> new SpawnEggColors(0x5f584c, 0x92815e);
-            case "spawn_egg/wild_horde_parched" -> new SpawnEggColors(0x92815e, 0x5f584c);
-            case "spawn_egg/wild_horde_drowned" -> new SpawnEggColors(0x7bcfb9, 0x577148);
-            case "spawn_egg/wild_horde_creeper" -> new SpawnEggColors(0x577148, 0x111111);
-            case "spawn_egg/wild_horde_silverfish" -> new SpawnEggColors(0x666666, 0x262626);
-            case "spawn_egg/wild_weak_breeze" -> new SpawnEggColors(0xa289cf, 0x5d428f);
-            case "spawn_egg/wild_breeze" -> new SpawnEggColors(0x9279bf, 0x4d327f);
-            case "spawn_egg/wild_strong_breeze" -> new SpawnEggColors(0x8269af, 0x3d226f);
-            case "spawn_egg/wild_evoker" -> new SpawnEggColors(0x8e9494, 0xcbc786);
-            case "spawn_egg/otherworld_bird" -> new SpawnEggColors(0x221269, 0x6b56c4);
             case "spawn_egg/familiar_greedy" -> new SpawnEggColors(0x54990f, 0x725025);
             case "spawn_egg/familiar_bat" -> new SpawnEggColors(0x434343, 0xda95de);
             case "spawn_egg/familiar_deer" -> new SpawnEggColors(0xc9833e, 0xfffdf2);
@@ -404,9 +380,8 @@ public class OccultismItemModelSubProvider {
             case "spawn_egg/familiar_beaver" -> new SpawnEggColors(0x824a2b, 0xdd9973);
             case "spawn_egg/demonic_wife" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
             case "spawn_egg/demonic_husband" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
-            case "spawn_egg/iesnium_golem" -> new SpawnEggColors(0x94d4db, 0x345f7c);
-            default ->
-                    throw new IllegalArgumentException("Missing spawn egg colors for " + BuiltInRegistries.ITEM.getKey(item));
+            default -> new SpawnEggColors(0x000000, 0x000000);
+                    //throw new IllegalArgumentException("Missing spawn egg colors for " + BuiltInRegistries.ITEM.getKey(item));
         };
     }
 
