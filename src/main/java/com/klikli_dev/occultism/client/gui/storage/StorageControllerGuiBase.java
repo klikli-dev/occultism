@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
@@ -32,6 +33,7 @@ import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
 import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
@@ -152,8 +154,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected AbstractWidget jeiSyncButton;
     protected AbstractWidget autocraftingModeButton;
     protected AbstractWidget inventoryModeButton;
-    protected LabelWidget storageSpaceLabel;
-    protected LabelWidget storageTypesLabel;
     protected LabelWidget rowLabel;
     protected LabelWidget filledLabel;
     protected LabelWidget typesLabel;
@@ -351,23 +351,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         this.state.setSearchText(this.searchBar.getValue());
         this.addRenderableWidget(this.searchBar);
-
-        this.storageSpaceLabel =
-                new LabelWidget(this.layout.storageSpaceLabel().left(), this.layout.storageSpaceLabel().top(), true,
-                        -1, 2, 0x404040);
-        this.storageSpaceLabel
-                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
-                        String.format("%.2f", (double) this.usedTotalItemCount / (double) this.maxTotalItemCount * 100)
-
-                ), false);
-        this.addRenderableWidget(this.storageSpaceLabel);
-
-        this.storageTypesLabel =
-                new LabelWidget(this.layout.storageTypesLabel().left(), this.layout.storageTypesLabel().top(), true,
-                        -1, 2, 0x404040);
-        this.storageTypesLabel
-                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double) this.usedItemTypes / (double) this.maxItemTypes * 100)), false);
-        this.addRenderableWidget(this.storageTypesLabel);
 
         this.initButtons();
 
@@ -666,12 +649,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSpaceText(double mouseX, double mouseY) {
-        return this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32, this.storageSpaceLabel.getY() - this.topPos - 2,
+        var node = this.resolvedLayout.node("frame.menu.storage_space_label");
+        return this.isHovering(node.x() - this.leftPos - 32, node.y() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
     protected boolean isPointInTypesText(double mouseX, double mouseY) {
-        return this.isHovering(this.storageTypesLabel.getX() - this.leftPos - 32, this.storageTypesLabel.getY() - this.topPos - 2,
+        var node = this.resolvedLayout.node("frame.menu.storage_types_label");
+        return this.isHovering(node.x() - this.leftPos - 32, node.y() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
@@ -886,36 +871,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.root.clearChildren();
         this.layoutController.init();
 
-        for (int i = 0; i < this.menu.slots.size(); i++) {
-            Slot slot = this.menu.slots.get(i);
-            Position menuSlotPosition = this.layout.menuSlot(slot, i);
-            if (i == ORDER_INPUT_SLOT_INDEX) {
-                this.root.addChild(new GuiBackgroundWidget(this, menuSlotPosition.left() - 5, menuSlotPosition.top() - 5, 28, 28,
-                        this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)));
-                this.root.addChild(new GuiSpriteWidget(menuSlotPosition.left(), menuSlotPosition.top(), this.orderInputSlotSprite()));
-                this.root.addChild(new GuiSpriteWidget(menuSlotPosition.left() + 2, menuSlotPosition.top() + 2,
-                        OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF).sized(14, 14)));
-                continue;
-            }
-            this.root.addChild(new GuiSpriteWidget(menuSlotPosition.left(), menuSlotPosition.top(), this.menuSlotSprite(i)));
-        }
-
-        LabelWidget titleLabel = new LabelWidget(this.layout.titleLabel().left(), this.layout.titleLabel().top(), true,
-                -1, 2, 2, 0x303030);
-        titleLabel.addLine(this.topBarTitleText());
-        this.addRenderableWidget(titleLabel);
-
-        LabelWidget inventoryLabel = new LabelWidget(this.layout.inventoryLabel().left(),
-                this.layout.inventoryLabel().top(), false, -1, 2, 0x303030);
-        inventoryLabel.addLine(this.playerInventoryTitle);
-        this.addRenderableWidget(inventoryLabel);
-
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.topBar().left(), this.layout.topBar().top(),
-                this.topBarWidth(), TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR,
-                GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.layout.searchField().left(), this.layout.searchField().top(),
-                96, CONTROL_BUTTON_SIZE, GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)));
-
         this.root.syncWithHost();
     }
 
@@ -982,6 +937,101 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)
         )));
+        registry.resolve("frame.top_bar.title", ctx -> {
+            String titleText = this.topBarTitleText();
+            int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(titleText)) / 2;
+            ctx.addWidget(new GuiTextWidget(
+                    titleX,
+                    ctx.node().y(),
+                    () -> Component.literal(this.topBarTitleText()),
+                    () -> 0x303030,
+                    false
+            ));
+        });
+        registry.resolve("frame.menu.inventory_label", ctx -> ctx.addWidget(new GuiTextWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                () -> this.playerInventoryTitle,
+                () -> ctx.style().textColor(BuiltinGuiParts.PLAYER_INVENTORY_LABEL, 0x303030),
+                false
+        )));
+        registry.resolve("frame.menu.storage_space_label", ctx -> ctx.addWidget(new GuiTextWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                this::storageSpaceText,
+                () -> 0x404040,
+                false
+        )));
+        registry.resolve("frame.menu.storage_types_label", ctx -> ctx.addWidget(new GuiTextWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                this::storageTypesText,
+                () -> 0x404040,
+                false
+        )));
+        this.registerSlotResolvers(registry);
+    }
+
+    protected void registerSlotResolvers(LayoutResolverRegistry registry) {
+        registry.resolve("frame.menu.order.slot_background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.add("frame.menu.order.slot", -25, ctx -> {
+            ctx.addWidget(new GuiSpriteWidget(ctx.node().x(), ctx.node().y(), this.orderInputSlotSprite()));
+            ctx.addWidget(new GuiSpriteWidget(ctx.node().x() + 2, ctx.node().y() + 2,
+                    OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF).sized(14, 14)));
+        });
+
+        for (int slotIndex = 0; slotIndex < this.menu.slots.size(); slotIndex++) {
+            String nodePath = this.slotNodePath(slotIndex);
+            if (nodePath == null || slotIndex == ORDER_INPUT_SLOT_INDEX) {
+                continue;
+            }
+
+            int currentSlotIndex = slotIndex;
+            registry.add(nodePath, -25, ctx -> ctx.addWidget(new GuiSpriteWidget(
+                    ctx.node().x() + this.menuSlotOffsetX(currentSlotIndex),
+                    ctx.node().y() + this.menuSlotOffsetY(currentSlotIndex),
+                    this.menuSlotSprite(currentSlotIndex)
+            )));
+        }
+    }
+
+    protected String slotNodePath(int slotIndex) {
+        if (slotIndex == 0) {
+            return "frame.menu.crafting.output";
+        }
+        if (slotIndex >= 1 && slotIndex <= 9) {
+            return "frame.menu.crafting.grid.slot_" + (slotIndex - 1);
+        }
+        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
+            return "frame.menu.order.slot";
+        }
+
+        int playerSlotIndex = slotIndex - 11;
+        if (playerSlotIndex >= 0 && playerSlotIndex < 27) {
+            return "frame.menu.player_inventory.main.slot_" + playerSlotIndex;
+        }
+        if (playerSlotIndex >= 27 && playerSlotIndex < 36) {
+            return "frame.menu.player_inventory.hotbar.slot_" + (playerSlotIndex - 27);
+        }
+
+        return null;
+    }
+
+    protected Component storageSpaceText() {
+        return Component.literal(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
+                String.format("%.2f", (double) this.usedTotalItemCount / (double) this.maxTotalItemCount * 100)));
+    }
+
+    protected Component storageTypesText() {
+        return Component.literal(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types",
+                String.format("%.0f", (double) this.usedItemTypes / (double) this.maxItemTypes * 100)));
     }
 
     protected int mainPanelHeight() {
