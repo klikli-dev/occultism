@@ -166,7 +166,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected int rows;
     protected int columns;
     protected int realTopPos;
-    protected Layout layout;
     private int lastCachedStacksToDisplayCount;
     private List<ItemStack> cachedStacksToDisplay;
     private String cachedSearchString;
@@ -315,7 +314,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
         this.topPos = this.realTopPos + ITEM_AREA_TOP + 18 * this.rows;
-        this.layout = this.createLayout();
 
         this.clearWidgets();
 
@@ -334,8 +332,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int searchBarRenderedWidth = 90;
         int searchBarRenderedHeight = Math.max(9, this.font.lineHeight);
-        this.searchBar = new ScaledEditBox(this.font, this.layout.searchBar().left(),
-                this.layout.searchBar().top(), searchBarRenderedWidth, searchBarRenderedHeight,
+        this.searchBar = new ScaledEditBox(this.font, this.topBarSearchBarX(),
+                this.topBarSearchBarY(), searchBarRenderedWidth, searchBarRenderedHeight,
                 Component.literal("search"), SEARCH_BAR_SCALE);
         this.searchBar.setMaxLength(30);
 
@@ -529,8 +527,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     public void initButtons() {
-        this.clearRecipeButton = new SpriteButtonWidget(this.layout.clearRecipeButton().left(),
-                this.layout.clearRecipeButton().top(),
+        this.clearRecipeButton = new SpriteButtonWidget(this.clearRecipeButtonX(),
+                this.clearRecipeButtonY(),
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
@@ -538,8 +536,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
         this.addRenderableWidget(this.clearRecipeButton);
 
-        this.clearTextButton = new SpriteButtonWidget(this.layout.controlButton(0).left(),
-                this.layout.controlButton(0).top(),
+        this.clearTextButton = new SpriteButtonWidget(this.topBarControlButtonX(0),
+                this.topBarControlButtonY(0),
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
@@ -549,8 +547,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
         this.addRenderableWidget(this.clearTextButton);
 
-        this.sortTypeButton = new SpriteButtonWidget(this.layout.controlButton(1).left(),
-                this.layout.controlButton(1).top(),
+        this.sortTypeButton = new SpriteButtonWidget(this.topBarControlButtonX(1),
+                this.topBarControlButtonY(1),
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_type"), () -> {
@@ -561,8 +559,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.sortTypeButton);
 
         this.sortDirectionButton = new SpriteButtonWidget(
-                this.layout.controlButton(2).left(),
-                this.layout.controlButton(2).top(),
+                this.topBarControlButtonX(2),
+                this.topBarControlButtonY(2),
                 CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".sort_direction"), () -> {
@@ -575,8 +573,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         // OccultismEmiIntegration excluded from build - EMI sync disabled; show button if JEI is loaded
         if (OccultismJeiIntegration.get().isLoaded()) {
             this.jeiSyncButton = new SpriteButtonWidget(
-                    this.layout.controlButton(3).left(),
-                    this.layout.controlButton(3).top(),
+                    this.topBarControlButtonX(3),
+                    this.topBarControlButtonY(3),
                     CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
                     this.storageButtonBackgroundSprites(),
                     Component.translatable(TRANSLATION_KEY_BASE + ".search.jei"), () -> {
@@ -638,13 +636,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
-        Bounds itemAreaBounds = this.layout.itemAreaHoverBounds();
+        Bounds itemAreaBounds = this.itemAreaHoverBounds();
         return mouseX > itemAreaBounds.left() && mouseX < itemAreaBounds.right() &&
                 mouseY > itemAreaBounds.top() && mouseY < itemAreaBounds.bottom();
     }
 
     protected boolean isPointInOrderSlotArea(double mouseX, double mouseY) {
-        Bounds bounds = this.layout.orderSlotHoverBounds();
+        Bounds bounds = this.orderSlotHoverBounds();
         return mouseX >= bounds.left() && mouseX < bounds.right() && mouseY >= bounds.top() && mouseY < bounds.bottom();
     }
 
@@ -853,7 +851,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected Point gridCellPoint(int column, int row) {
-        Position position = this.layout.itemCell(column, row);
+        Position position = this.itemCellPosition(column, row);
         return new Point(position.left(), position.top());
     }
 
@@ -1127,7 +1125,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.init();
         };
         ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
-        Position tabPosition = this.layout.tab(row);
+        Position tabPosition = this.tabPosition(row);
         return new SpriteButtonWidget(tabPosition.left(), tabPosition.top(), TAB_WIDTH, TAB_HEIGHT,
                 tooltip, onPress, (button, graphics) -> {
                 }, this.tabIconRenderer(icon));
@@ -1148,10 +1146,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected int tabLeft() {
         return this.mainPanelLeft() - (TAB_WIDTH - TAB_HIDDEN_OVERLAP) + TAB_LEFT_SHIFT;
-    }
-
-    protected Layout createLayout() {
-        return new Layout();
     }
 
     protected int darkenColor(int color, int amount) {
@@ -1186,6 +1180,67 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected int menuSlotOffsetY(int slotIndex) {
         return slotIndex == 0 ? -5 : -1;
+    }
+
+    protected Position topBarSearchBarPosition() {
+        return this.nodePosition("frame.top_bar.search_bar");
+    }
+
+    protected int topBarSearchBarX() {
+        return this.topBarSearchBarPosition().left();
+    }
+
+    protected int topBarSearchBarY() {
+        return this.topBarSearchBarPosition().top();
+    }
+
+    protected Position topBarControlButtonPosition(int index) {
+        return this.nodePosition("frame.top_bar.controls.button_" + index);
+    }
+
+    protected int topBarControlButtonX(int index) {
+        return this.topBarControlButtonPosition(index).left();
+    }
+
+    protected int topBarControlButtonY(int index) {
+        return this.topBarControlButtonPosition(index).top();
+    }
+
+    protected Position clearRecipeButtonPosition() {
+        return this.nodePosition("frame.menu.clear_recipe_button");
+    }
+
+    protected int clearRecipeButtonX() {
+        return this.clearRecipeButtonPosition().left();
+    }
+
+    protected int clearRecipeButtonY() {
+        return this.clearRecipeButtonPosition().top();
+    }
+
+    protected Position itemCellPosition(int column, int row) {
+        return this.nodePosition("frame.main.item_area.slot_" + (row * this.columns + column));
+    }
+
+    protected Position tabPosition(int row) {
+        return this.nodePosition(row == 0 ? "frame.main.tabs.inventory" : "frame.main.tabs.autocrafting");
+    }
+
+    protected Bounds itemAreaHoverBounds() {
+        var itemAreaNode = this.resolvedLayout.node("frame.main.item_area.slot_0");
+        return new Bounds(itemAreaNode.x(), itemAreaNode.y(),
+                itemAreaNode.x() + this.columns * 18 - 2,
+                itemAreaNode.y() + 4 + 18 * this.rows);
+    }
+
+    protected Bounds orderSlotHoverBounds() {
+        var node = this.resolvedLayout.node("frame.menu.order.slot_background");
+        return new Bounds(node.x(), node.y(), node.maxX(), node.maxY());
+    }
+
+    protected Position nodePosition(String path) {
+        var node = this.resolvedLayout.node(path);
+        return new Position(node.x(), node.y());
     }
 
     @Override
@@ -1295,111 +1350,5 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected record Bounds(int left, int top, int right, int bottom) {
-    }
-
-    protected class Layout {
-
-        protected Position root() {
-            return this.nodePosition("frame.top_bar.title", -StorageControllerGuiBase.this.imageWidth / 2, -5);
-        }
-
-        protected Position menuRoot() {
-            return this.nodePosition("frame.menu.inventory_panel", -INVENTORY_PANEL_LEFT, -INVENTORY_PANEL_TOP_OFFSET);
-        }
-
-        protected Position itemArea() {
-            return this.nodePosition("frame.main.item_area.slot_0", 0, 0);
-        }
-
-        protected Position itemAreaBackground() {
-            return this.nodePosition("frame.main.item_area_background", 0, 0);
-        }
-
-        protected Position searchBar() {
-            return this.nodePosition("frame.top_bar.search_bar", 0, 0);
-        }
-
-        protected Position searchField() {
-            return this.nodePosition("frame.top_bar.search_field", 0, 0);
-        }
-
-        protected Position searchControls() {
-            return this.nodePosition("frame.top_bar.controls.button_0", 0, 0);
-        }
-
-        protected Position controlButton(int index) {
-            return this.nodePosition("frame.top_bar.controls.button_" + index, 0, 0);
-        }
-
-        protected Position storageInfoAnchor() {
-            return this.nodePosition("frame.menu.storage_space_label", 0, 0);
-        }
-
-        protected Position storageSpaceLabel() {
-            return this.storageInfoAnchor();
-        }
-
-        protected Position storageTypesLabel() {
-            return this.nodePosition("frame.menu.storage_types_label", 0, 0);
-        }
-
-        protected Position clearRecipeButton() {
-            return this.nodePosition("frame.menu.clear_recipe_button", 0, 0);
-        }
-
-        protected Position mainPanel() {
-            return this.nodePosition("frame.main.panel", 0, 0);
-        }
-
-        protected Position inventoryPanel() {
-            return this.nodePosition("frame.menu.inventory_panel", 0, 0);
-        }
-
-        protected Position topBar() {
-            return this.nodePosition("frame.top_bar.background", 0, 0);
-        }
-
-        protected Position craftingArrow() {
-            return this.nodePosition("frame.menu.crafting_arrow", 0, 0);
-        }
-
-        protected Position tab(int row) {
-            return this.nodePosition(row == 0 ? "frame.main.tabs.inventory" : "frame.main.tabs.autocrafting", 0, 0);
-        }
-
-        protected Position titleLabel() {
-            return this.nodePosition("frame.top_bar.title", StorageControllerGuiBase.this.imageWidth / 2, 0);
-        }
-
-        protected Position inventoryLabel() {
-            return this.nodePosition("frame.menu.inventory_label", 0, 0);
-        }
-
-        protected Position itemCell(int column, int row) {
-            return this.nodePosition("frame.main.item_area.slot_" + (row * StorageControllerGuiBase.this.columns + column), 0, 0);
-        }
-
-        protected Position menuSlot(Slot slot, int slotIndex) {
-            Position menuRoot = this.menuRoot();
-            return new Position(menuRoot.left() + slot.x + StorageControllerGuiBase.this.menuSlotOffsetX(slotIndex),
-                    menuRoot.top() + slot.y + StorageControllerGuiBase.this.menuSlotOffsetY(slotIndex));
-        }
-
-        protected Bounds itemAreaHoverBounds() {
-            Position itemArea = this.itemArea();
-            return new Bounds(itemArea.left(), itemArea.top(),
-                    itemArea.left() + StorageControllerGuiBase.this.columns * 18 - 2,
-                    itemArea.top() + 4 + 18 * StorageControllerGuiBase.this.rows);
-        }
-
-        protected Bounds orderSlotHoverBounds() {
-            var node = StorageControllerGuiBase.this.resolvedLayout.node("frame.menu.order.slot_background");
-            return new Bounds(node.x(), node.y(), node.maxX(), node.maxY());
-        }
-
-        private Position nodePosition(String path, int offsetX, int offsetY) {
-            var node = StorageControllerGuiBase.this.resolvedLayout.node(path);
-            return new Position(node.x() + offsetX, node.y() + offsetY);
-        }
     }
 }
