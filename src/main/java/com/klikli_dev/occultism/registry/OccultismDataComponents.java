@@ -49,6 +49,12 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.INT)
             .cacheEncoding()
     );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MINER_OPERATION_LIMIT = DATA_COMPONENTS.registerComponentType("miner_max_count", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortDirection>> SORT_DIRECTION = DATA_COMPONENTS.registerComponentType("sort_direction", builder -> builder
             .persistent(SortDirection.CODEC)
             .networkSynchronized(SortDirection.STREAM_CODEC)

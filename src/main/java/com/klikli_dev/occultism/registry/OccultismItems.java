@@ -404,7 +404,8 @@ public class OccultismItems {
             DimensionalMatrixItem::new, () -> new Properties().component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.registerItem("mining_dim_core",
             DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "Something"));
+                    .component(OccultismDataComponents.SPIRIT_NAME, "Something")
+                    .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1));
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.registerItem("soul_shard",
             SoulShardItem::new, () -> new Properties().stacksTo(1));
