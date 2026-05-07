@@ -40,13 +40,13 @@ import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageItemGridWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageMachineGridWidget;
 import com.klikli_dev.occultism.client.gui.storage.logic.StorageScreenActions;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
-import com.klikli_dev.occultism.client.gui.controls.ItemSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
-import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
@@ -84,6 +84,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import org.apache.commons.lang3.StringUtils;
 
+import java.awt.Point;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,8 +147,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected long usedTotalItemCount;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
     protected EditBox searchBar;
-    protected List<ItemSlotWidget> itemSlots = new ArrayList<>();
-    protected List<MachineSlotWidget> machineSlots = new ArrayList<>();
     protected AbstractWidget clearTextButton;
     protected AbstractWidget clearRecipeButton;
     protected AbstractWidget sortTypeButton;
@@ -165,6 +164,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageScreenState state;
     protected final StorageDisplayQuery displayQuery;
     protected final StorageScreenActions actions;
+    protected final StorageItemGridWidget itemGrid;
+    protected final StorageMachineGridWidget machineGrid;
     protected int rows;
     protected int columns;
     protected int realTopPos;
@@ -182,6 +183,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.state = new StorageScreenState();
         this.displayQuery = new StorageDisplayQuery();
         this.actions = new StorageScreenActions();
+        this.itemGrid = new StorageItemGridWidget(this);
+        this.machineGrid = new StorageMachineGridWidget(this);
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = VISIBLE_COLUMNS;
@@ -455,24 +458,19 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         () -> this.state.markInteraction(System.currentTimeMillis()));
             }
         } else if (this.state.isAutocraftingMode()) {
-            for (MachineSlotWidget slot : this.machineSlots) {
-                if (slot.isMouseOverSlot(mouseX, mouseY)) {
-                    if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
-                        ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
-                        if (Minecraft.getInstance().hasShiftDown()) {
-                            this.actions.highlightMachine(slot.getMachine());
-                        } else if (!orderStack.isEmpty()) {
-                            //this message both clears the order slot and creates the order
-                            this.actions.requestMachineOrder(
-                                    this.storageControllerContainer::getStorageControllerGlobalBlockPos,
-                                    slot.getMachine(),
-                                    () -> this.storageControllerContainer.getOrderSlot().getItem(0),
-                                    component -> Occultism.LOGGER.warn(component.getString()),
-                                    () -> this.state.setMode(StorageControllerGuiMode.INVENTORY)
-                            );
-                        }
-                    }
-                    break;
+            MachineReference hoveredMachine = this.machineGrid.hoveredMachine(mouseX, mouseY);
+            if (hoveredMachine != null && mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
+                ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
+                if (Minecraft.getInstance().hasShiftDown()) {
+                    this.actions.highlightMachine(hoveredMachine);
+                } else if (!orderStack.isEmpty()) {
+                    this.actions.requestMachineOrder(
+                            this.storageControllerContainer::getStorageControllerGlobalBlockPos,
+                            hoveredMachine,
+                            () -> this.storageControllerContainer.getOrderSlot().getItem(0),
+                            component -> Occultism.LOGGER.warn(component.getString()),
+                            () -> this.state.setMode(StorageControllerGuiMode.INVENTORY)
+                    );
                 }
             }
         }
@@ -687,18 +685,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         switch (this.state.mode()) {
             case INVENTORY:
-                for (ItemSlotWidget s : this.itemSlots) {
-                    if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
-                        s.drawTooltip(guiGraphics, mouseX, mouseY);
-                    }
-                }
+                this.itemGrid.drawTooltips(guiGraphics, mouseX, mouseY);
                 break;
             case AUTOCRAFTING:
-                for (MachineSlotWidget s : this.machineSlots) {
-                    if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
-                        s.drawTooltip(guiGraphics, mouseX, mouseY);
-                    }
-                }
+                this.machineGrid.drawTooltips(guiGraphics, mouseX, mouseY);
                 break;
         }
 
@@ -779,35 +769,17 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void drawItemSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        this.stackUnderMouse = ItemStack.EMPTY;
-        for (ItemSlotWidget slot : this.itemSlots) {
-            slot.drawSlot(guiGraphics, mouseX, mouseY);
-            if (slot.isMouseOverSlot(mouseX, mouseY)) {
-                this.stackUnderMouse = slot.getStack();
-                //        break;
-            }
-        }
+        this.stackUnderMouse = this.itemGrid.drawAndGetHoveredStack(guiGraphics, mouseX, mouseY);
     }
 
     protected void buildItemSlots(List<ItemStack> stacksToDisplay) {
-        this.itemSlots = new ArrayList<>();
-        int index = this.displayQuery.firstVisibleIndex(this.state.firstVisibleRow(), this.columns);
-        for (int row = 0; row < this.rows; row++) {
-            if (index >= stacksToDisplay.size()) {
-                break;
-            }
-            for (int col = 0; col < this.columns; col++) {
-                if (index >= stacksToDisplay.size()) {
-                    break;
-                }
-                this.itemSlots
-                        .add(new ItemSlotWidget(this, stacksToDisplay.get(index),
-                                this.layout.itemCell(col, row).left(),
-                                this.layout.itemCell(col, row).top(), stacksToDisplay.get(index).getCount(),
-                                this.leftPos, this.topPos, true));
-                index++;
-            }
-        }
+        this.itemGrid.rebuild(stacksToDisplay,
+                this.displayQuery.firstVisibleIndex(this.state.firstVisibleRow(), this.columns),
+                this.rows,
+                this.columns,
+                this::gridCellPoint,
+                this.leftPos,
+                this.topPos);
     }
 
     protected void sortItemStacks(List<ItemStack> stacksToDisplay) {
@@ -885,25 +857,22 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void buildMachineSlots(List<MachineReference> machinesToDisplay) {
-        this.machineSlots = new ArrayList<>();
-        int index = this.displayQuery.firstVisibleIndex(this.state.firstVisibleRow(), this.columns);
-        for (int row = 0; row < this.rows; row++) {
-            for (int col = 0; col < this.columns; col++) {
-                if (index >= machinesToDisplay.size()) {
-                    break;
-                }
-                this.machineSlots.add(new MachineSlotWidget(this, machinesToDisplay.get(index),
-                        this.layout.itemCell(col, row).left(), this.layout.itemCell(col, row).top(), this.leftPos,
-                        this.topPos));
-                index++;
-            }
-        }
+        this.machineGrid.rebuild(machinesToDisplay,
+                this.displayQuery.firstVisibleIndex(this.state.firstVisibleRow(), this.columns),
+                this.rows,
+                this.columns,
+                this::gridCellPoint,
+                this.leftPos,
+                this.topPos);
     }
 
     protected void drawMachineSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        for (MachineSlotWidget slot : this.machineSlots) {
-            slot.drawSlot(guiGraphics, mouseX, mouseY);
-        }
+        this.machineGrid.draw(guiGraphics, mouseX, mouseY);
+    }
+
+    protected Point gridCellPoint(int column, int row) {
+        Position position = this.layout.itemCell(column, row);
+        return new Point(position.left(), position.top());
     }
 
     protected void clearSearch() {
