@@ -24,8 +24,6 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
-import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
@@ -61,7 +59,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -90,7 +87,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener, GuiHost {
+public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractStorageTerminalScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
 
     public static final int ORDER_AREA_OFFSET = 48;
     public static final int ORDER_INPUT_SLOT_INDEX = 10;
@@ -159,7 +156,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected LabelWidget rowLabel;
     protected LabelWidget filledLabel;
     protected LabelWidget typesLabel;
-    protected final GuiRootWidget root;
     protected final StorageScreenBackend backend;
     protected final StorageScreenState state;
     protected final StorageDisplayQuery displayQuery;
@@ -179,7 +175,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.storageControllerContainer = container;
         this.backend = backend;
         // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
-        this.root = new GuiRootWidget(this);
         this.state = new StorageScreenState();
         this.displayQuery = new StorageDisplayQuery();
         this.actions = new StorageScreenActions();
