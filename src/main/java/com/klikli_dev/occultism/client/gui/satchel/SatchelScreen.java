@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.gui.satchel;
 
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,67 +30,13 @@ import net.minecraft.world.entity.player.Inventory;
 public class SatchelScreen extends AbstractSatchelScreen<AbstractSatchelContainer> {
     private static final int GUI_WIDTH = 320;
     private static final int GUI_HEIGHT = 248;
-    private static final int MAIN_HEIGHT = 138;
-    private static final int MAIN_TOP = 16;
-    private static final int MAIN_WIDTH = 315;
-    private static final int INVENTORY_BACKGROUND_LEFT = 69;
-    private static final int INVENTORY_BACKGROUND_TOP = 158;
-    private static final int INVENTORY_BACKGROUND_WIDTH = 176;
-    private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
-    private static final int INVENTORY_LABEL_X = 77;
-    private static final int INVENTORY_LABEL_Y = 171;
-
-    @Override
-    protected int topBarY() {
-        return 4;
-    }
 
     public SatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);
     }
 
     @Override
-    protected int mainHeight() {
-        return MAIN_HEIGHT;
-    }
-
-    @Override
-    protected int mainTop() {
-        return MAIN_TOP;
-    }
-
-    @Override
-    protected int mainWidth() {
-        return MAIN_WIDTH;
-    }
-
-    @Override
-    protected int inventoryBackgroundTop() {
-        return INVENTORY_BACKGROUND_TOP;
-    }
-
-    @Override
-    protected int inventoryBackgroundLeft() {
-        return INVENTORY_BACKGROUND_LEFT;
-    }
-
-    @Override
-    protected int inventoryBackgroundWidth() {
-        return INVENTORY_BACKGROUND_WIDTH;
-    }
-
-    @Override
-    protected int inventoryBackgroundHeight() {
-        return INVENTORY_BACKGROUND_HEIGHT;
-    }
-
-    @Override
-    protected int inventoryLabelX() {
-        return INVENTORY_LABEL_X;
-    }
-
-    @Override
-    protected int inventoryLabelY() {
-        return INVENTORY_LABEL_Y;
+    public LayoutSpec layoutSpec() {
+        return SatchelLayouts.storage();
     }
 }

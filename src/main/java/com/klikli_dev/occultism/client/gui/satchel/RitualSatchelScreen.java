@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.gui.satchel;
 
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,44 +30,13 @@ import net.minecraft.world.entity.player.Inventory;
 public class RitualSatchelScreen extends AbstractSatchelScreen<AbstractSatchelContainer> {
     private static final int GUI_WIDTH = 182;
     private static final int GUI_HEIGHT = 194;
-    private static final int MAIN_HEIGHT = 88;
-    private static final int MAIN_TOP = 9;
-    private static final int INVENTORY_BACKGROUND_TOP = 103;
-    private static final int INVENTORY_BACKGROUND_HEIGHT = 90;
-    private static final int INVENTORY_LABEL_X = 11;
-    private static final int INVENTORY_LABEL_Y = 116;
 
     public RitualSatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);
     }
 
     @Override
-    protected int mainHeight() {
-        return MAIN_HEIGHT;
-    }
-
-    @Override
-    protected int mainTop() {
-        return MAIN_TOP;
-    }
-
-    @Override
-    protected int inventoryBackgroundTop() {
-        return INVENTORY_BACKGROUND_TOP;
-    }
-
-    @Override
-    protected int inventoryBackgroundHeight() {
-        return INVENTORY_BACKGROUND_HEIGHT;
-    }
-
-    @Override
-    protected int inventoryLabelX() {
-        return INVENTORY_LABEL_X;
-    }
-
-    @Override
-    protected int inventoryLabelY() {
-        return INVENTORY_LABEL_Y;
+    public LayoutSpec layoutSpec() {
+        return SatchelLayouts.ritual();
     }
 }
