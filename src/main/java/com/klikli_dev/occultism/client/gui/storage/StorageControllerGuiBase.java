@@ -310,6 +310,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         super.init();
         this.resetDisplayCaches();
         this.rows = this.visibleRows();
+        this.resolveLayout();
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
         this.topPos = this.realTopPos + ITEM_AREA_TOP + 18 * this.rows;
@@ -1198,46 +1199,39 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected class Layout {
 
         protected Position root() {
-            return new Position(StorageControllerGuiBase.this.leftPos, StorageControllerGuiBase.this.guiTop());
+            return this.nodePosition("frame.top_bar.title", -StorageControllerGuiBase.this.imageWidth / 2, -5);
         }
 
         protected Position menuRoot() {
-            return new Position(StorageControllerGuiBase.this.leftPos, StorageControllerGuiBase.this.menuTop());
+            return this.nodePosition("frame.menu.inventory_panel", -INVENTORY_PANEL_LEFT, -INVENTORY_PANEL_TOP_OFFSET);
         }
 
         protected Position itemArea() {
-            Position root = this.root();
-            return new Position(root.left() + ITEM_AREA_LEFT, root.top() + ITEM_AREA_TOP);
+            return this.nodePosition("frame.main.item_area.slot_0", 0, 0);
         }
 
         protected Position itemAreaBackground() {
-            Position itemArea = this.itemArea();
-            return new Position(itemArea.left() - 1, itemArea.top() - 1);
+            return this.nodePosition("frame.main.item_area_background", 0, 0);
         }
 
         protected Position searchBar() {
-            Position root = this.root();
-            return new Position(root.left() + SEARCH_BAR_LEFT, root.top() + SEARCH_BAR_TOP);
+            return this.nodePosition("frame.top_bar.search_bar", 0, 0);
         }
 
         protected Position searchField() {
-            Position root = this.root();
-            return new Position(root.left() + SEARCH_FIELD_LEFT, root.top() + SEARCH_FIELD_TOP + 1);
+            return this.nodePosition("frame.top_bar.search_field", 0, 0);
         }
 
         protected Position searchControls() {
-            Position root = this.root();
-            return new Position(root.left() + CONTROL_BUTTON_LEFT, root.top() + CONTROL_BUTTON_TOP);
+            return this.nodePosition("frame.top_bar.controls.button_0", 0, 0);
         }
 
         protected Position controlButton(int index) {
-            Position anchor = this.searchControls();
-            return new Position(anchor.left() + index * (CONTROL_BUTTON_SIZE + 3), anchor.top());
+            return this.nodePosition("frame.top_bar.controls.button_" + index, 0, 0);
         }
 
         protected Position storageInfoAnchor() {
-            Position menuRoot = this.menuRoot();
-            return new Position(menuRoot.left() + STORAGE_INFO_LABEL_LEFT, menuRoot.top() + 7);
+            return this.nodePosition("frame.menu.storage_space_label", 0, 0);
         }
 
         protected Position storageSpaceLabel() {
@@ -1245,53 +1239,43 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         protected Position storageTypesLabel() {
-            Position anchor = this.storageInfoAnchor();
-            return new Position(anchor.left() - 7, anchor.top() + 40);
+            return this.nodePosition("frame.menu.storage_types_label", 0, 0);
         }
 
         protected Position clearRecipeButton() {
-            Position menuRoot = this.menuRoot();
-            return new Position(menuRoot.left() + 93 + ORDER_AREA_OFFSET, menuRoot.top() + CRAFTING_GRID_TOP - 1);
+            return this.nodePosition("frame.menu.clear_recipe_button", 0, 0);
         }
 
         protected Position mainPanel() {
-            Position root = this.root();
-            return new Position(root.left() + (StorageControllerGuiBase.this.imageWidth - StorageControllerGuiBase.this.mainPanelWidth()) / 2,
-                    root.top() + MAIN_PANEL_TOP);
+            return this.nodePosition("frame.main.panel", 0, 0);
         }
 
         protected Position inventoryPanel() {
-            Position menuRoot = this.menuRoot();
-            return new Position(menuRoot.left() + INVENTORY_PANEL_LEFT, menuRoot.top() + INVENTORY_PANEL_TOP_OFFSET);
+            return this.nodePosition("frame.menu.inventory_panel", 0, 0);
         }
 
         protected Position topBar() {
-            return new Position(StorageControllerGuiBase.this.leftPos + StorageControllerGuiBase.this.topBarLeft(), StorageControllerGuiBase.this.guiTop());
+            return this.nodePosition("frame.top_bar.background", 0, 0);
         }
 
         protected Position craftingArrow() {
-            Position menuRoot = this.menuRoot();
-            return new Position(menuRoot.left() + CRAFTING_ARROW_LEFT - 5, menuRoot.top() + CRAFTING_ARROW_TOP);
+            return this.nodePosition("frame.menu.crafting_arrow", 0, 0);
         }
 
         protected Position tab(int row) {
-            Position menuRoot = this.menuRoot();
-            return new Position(StorageControllerGuiBase.this.tabLeft(), menuRoot.top() + TAB_TOP_OFFSET + row * TAB_HEIGHT);
+            return this.nodePosition(row == 0 ? "frame.main.tabs.inventory" : "frame.main.tabs.autocrafting", 0, 0);
         }
 
         protected Position titleLabel() {
-            Position root = this.root();
-            return new Position(root.left() + StorageControllerGuiBase.this.imageWidth / 2, root.top() + 5);
+            return this.nodePosition("frame.top_bar.title", StorageControllerGuiBase.this.imageWidth / 2, 0);
         }
 
         protected Position inventoryLabel() {
-            Position menuRoot = this.menuRoot();
-            return new Position(menuRoot.left() + INVENTORY_LABEL_X, menuRoot.top() + INVENTORY_LABEL_TOP_OFFSET);
+            return this.nodePosition("frame.menu.inventory_label", 0, 0);
         }
 
         protected Position itemCell(int column, int row) {
-            Position itemArea = this.itemArea();
-            return new Position(itemArea.left() + column * 18, itemArea.top() + row * 18);
+            return this.nodePosition("frame.main.item_area.slot_" + (row * StorageControllerGuiBase.this.columns + column), 0, 0);
         }
 
         protected Position menuSlot(Slot slot, int slotIndex) {
@@ -1308,10 +1292,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         protected Bounds orderSlotHoverBounds() {
-            Position menuRoot = this.menuRoot();
-            int left = menuRoot.left() + ORDER_INPUT_SLOT_LEFT - 5;
-            int top = menuRoot.top() + ORDER_INPUT_SLOT_TOP - 5;
-            return new Bounds(left, top, left + 28, top + 28);
+            var node = StorageControllerGuiBase.this.resolvedLayout.node("frame.menu.order.slot_background");
+            return new Bounds(node.x(), node.y(), node.maxX(), node.maxY());
+        }
+
+        private Position nodePosition(String path, int offsetX, int offsetY) {
+            var node = StorageControllerGuiBase.this.resolvedLayout.node(path);
+            return new Position(node.x() + offsetX, node.y() + offsetY);
         }
     }
 }
