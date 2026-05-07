@@ -6,8 +6,12 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.api.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.api.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
@@ -29,12 +33,6 @@ import net.minecraft.world.InteractionHand;
 
 public class BookOfCallingManagedMachineGui extends BookOfCallingScreenBase {
     private static final int GUI_HEIGHT = 112;
-    private static final int INSERT_ROW_Y = 22;
-    private static final int EXTRACT_ROW_Y = 54;
-    private static final int NAME_ROW_Y = 79;
-    private static final int FIRST_DIVIDER_Y = 47;
-    private static final int SECOND_DIVIDER_Y = 72;
-    private static final int CONFIRM_BUTTON_Y = 85;
 
     private final InteractionHand hand;
     private final List<Direction> directions = Arrays.asList(Direction.values());
@@ -60,59 +58,88 @@ public class BookOfCallingManagedMachineGui extends BookOfCallingScreenBase {
     }
 
     @Override
-    protected void addBackgroundChildren() {
-        this.addHorizontalSeparator(FIRST_DIVIDER_Y);
-        this.addHorizontalSeparator(SECOND_DIVIDER_Y);
-        this.addVerticalSeparator(202, SECOND_DIVIDER_Y, 36);
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(SELECTION_LEFT - 2), this.guiY(NAME_ROW_Y - 2),
-                SELECTION_WIDTH + 4, SELECTION_HEIGHT + 4, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_FIELD,
-                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, com.klikli_dev.codedefinedgui.api.texture.GuiSprites.GUI_BACKGROUND))));
+    public LayoutSpec layoutSpec() {
+        return BookOfCallingLayouts.managedMachine(this.imageHeight());
     }
 
     @Override
-    protected void initContents() {
-        this.addLabelRow(INSERT_ROW_Y + 5, "gui." + Occultism.MODID + ".book_of_calling.manage_machine.insert");
-        this.insertSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
-                this.guiX(SELECTION_LEFT),
-                this.guiY(INSERT_ROW_Y),
-                SELECTION_WIDTH,
-                SELECTION_HEIGHT,
-                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
+    protected void registerContentResolvers(LayoutResolverRegistry registry) {
+        registry.resolve("insert.label", ctx -> this.addLabel(ctx, Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.insert")));
+        registry.resolve("insert.selection", ctx -> this.insertSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
                 () -> this.directions,
                 this::selectedInsertIndex,
                 this::changeInsertFacing,
                 this::facingLabel,
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.unavailable"),
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.scroll_to_select")
-        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.insert")));
+        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.insert"))));
 
-        this.addLabelRow(EXTRACT_ROW_Y + 5, "gui." + Occultism.MODID + ".book_of_calling.manage_machine.extract");
-        this.extractSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
-                this.guiX(SELECTION_LEFT),
-                this.guiY(EXTRACT_ROW_Y),
-                SELECTION_WIDTH,
-                SELECTION_HEIGHT,
-                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
+        registry.resolve("divider_horizontal_top", ctx -> this.addRootChild(new HorizontalSeparatorWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.style().color(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, 0xFF000000)
+        )));
+        registry.resolve("extract.label", ctx -> this.addLabel(ctx, Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.extract")));
+        registry.resolve("extract.selection", ctx -> this.extractSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
                 () -> this.directions,
                 this::selectedExtractIndex,
                 this::changeExtractFacing,
                 this::facingLabel,
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.unavailable"),
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.scroll_to_select")
-        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.extract")));
+        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.extract"))));
 
-        this.addLabelRow(NAME_ROW_Y + 5, "gui." + Occultism.MODID + ".book_of_calling.manage_machine.custom_name");
-        this.text = new EditBox(this.font, this.guiX(SELECTION_LEFT), this.guiY(NAME_ROW_Y), SELECTION_WIDTH, SELECTION_HEIGHT,
-                Component.empty());
-        this.text.setMaxLength(30);
-        this.text.setBordered(false);
-        this.text.setTextColor(0xFFFFFFFF);
-        this.text.setFocused(true);
-        this.text.setValue(this.customName);
-        this.addRenderableWidget(this.text);
-        this.setInitialFocus(this.text);
+        registry.resolve("divider_horizontal_bottom", ctx -> this.addRootChild(new HorizontalSeparatorWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.style().color(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, 0xFF000000)
+        )));
+        registry.resolve("divider_vertical", ctx -> this.addRootChild(new VerticalSeparatorWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().heightOrThrow(),
+                ctx.style().color(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, 0xFF000000)
+        )));
 
-        this.addConfirmButton(CONFIRM_BUTTON_Y);
+        registry.resolve("name.label", ctx -> this.addLabel(ctx, Component.translatable("gui." + Occultism.MODID + ".book_of_calling.manage_machine.custom_name")));
+        registry.resolve("name.field_background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_FIELD, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("name.field", ctx -> {
+            this.text = new EditBox(this.font, ctx.node().x(), ctx.node().y(), ctx.node().widthOrThrow(), ctx.node().heightOrThrow(), Component.empty());
+            this.text.setMaxLength(30);
+            this.text.setBordered(false);
+            this.text.setTextColor(0xFFFFFFFF);
+            this.text.setFocused(true);
+            this.text.setValue(this.customName);
+            ctx.addWidget(this.text);
+        });
+
+        registry.resolve("confirm_button", ctx -> this.addConfirmButton(ctx));
+    }
+
+    @Override
+    protected void afterLayoutInit() {
+        if (this.text != null) {
+            this.setInitialFocus(this.text);
+        }
     }
 
     @Override

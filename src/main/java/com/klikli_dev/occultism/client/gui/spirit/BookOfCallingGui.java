@@ -6,7 +6,11 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.api.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
@@ -52,44 +56,59 @@ public class BookOfCallingGui extends BookOfCallingScreenBase {
     }
 
     @Override
-    protected void initContents() {
+    public LayoutSpec layoutSpec() {
+        return BookOfCallingLayouts.standard(this.imageHeight());
+    }
+
+    @Override
+    protected void registerContentResolvers(LayoutResolverRegistry registry) {
         this.modeOptions = this.availableModes();
         this.selectedModeIndex = this.indexOfMode(this.initialMode);
 
-        this.addLabelRow(MODE_ROW_Y + 5, "gui." + Occultism.MODID + ".book_of_calling.mode");
-        this.modeSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
-                this.guiX(SELECTION_LEFT),
-                this.guiY(MODE_ROW_Y),
-                SELECTION_WIDTH,
-                SELECTION_HEIGHT,
-                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
+        registry.resolve("mode.label", ctx -> this.addLabel(ctx, Component.translatable("gui." + Occultism.MODID + ".book_of_calling.mode")));
+        registry.resolve("mode.selection", ctx -> this.modeSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
                 () -> this.modeOptions,
                 () -> this.selectedModeIndex,
                 this::changeModeSelection,
                 mode -> Component.translatable(mode.translationKey()),
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.unavailable"),
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.scroll_to_select")
-        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.mode")));
+        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.mode"))));
 
-        this.addHorizontalSeparator(DIVIDER_Y);
-        this.addVerticalSeparator(202, DIVIDER_Y, DIVIDER_HEIGHT);
+        registry.resolve("divider_horizontal", ctx -> this.addRootChild(new HorizontalSeparatorWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.style().color(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, 0xFF000000)
+        )));
+        registry.resolve("divider_vertical", ctx -> this.addRootChild(new VerticalSeparatorWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().heightOrThrow(),
+                ctx.style().color(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, 0xFF000000)
+        )));
 
-        this.addLabelRow(WORK_AREA_ROW_Y + 5, "gui." + Occultism.MODID + ".book_of_calling.work_area");
-        this.workAreaSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
-                this.guiX(SELECTION_LEFT),
-                this.guiY(WORK_AREA_ROW_Y),
-                SELECTION_WIDTH,
-                SELECTION_HEIGHT,
-                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
+        registry.resolve("work_area.label", ctx -> this.addLabel(ctx, Component.translatable("gui." + Occultism.MODID + ".book_of_calling.work_area")));
+        registry.resolve("work_area.selection", ctx -> this.workAreaSelectionWidget = this.addRootChild(new BookOfCallingSelectionWidget<>(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiSprites.ATTRIBUTE_FILTER_SELECTION),
                 this::availableWorkAreas,
                 () -> this.selectedWorkAreaIndex,
                 this::changeWorkAreaSelection,
                 size -> Component.translatable(size.getDescriptionId()),
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.work_area.not_applicable"),
                 Component.translatable("gui." + Occultism.MODID + ".book_of_calling.scroll_to_select")
-        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.work_area")));
+        ).withTitle(Component.translatable("gui." + Occultism.MODID + ".book_of_calling.work_area"))));
 
-        this.addConfirmButton(CONFIRM_BUTTON_Y);
+        registry.resolve("confirm_button", ctx -> this.addConfirmButton(ctx));
     }
 
     @Override
