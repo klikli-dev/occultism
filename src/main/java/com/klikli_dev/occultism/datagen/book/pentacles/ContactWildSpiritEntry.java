@@ -47,7 +47,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
         this.pageTitle("Uses");
         this.pageText("""
                 - [Wither Skeleton Skull](entry://possession_rituals/wither_skull)
-                - [Horde Husk](entry://possession_rituals/horde_husk)
+                - [Horde Husk](entry://possession_rituals/horde_desert)
                 - [Horde Drowned](entry://possession_rituals/horde_drowned)
                 - [Horde Creeper](entry://possession_rituals/horde_creeper)
                 - [Horde Silverfish](entry://possession_rituals/horde_silverfish)
@@ -69,7 +69,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - [Reinforced Deepslate](entry://crafting_rituals/craft_reinforced_deepslate)
                 - [Bee Nest](entry://crafting_rituals/bee_nest)
                 - [Bell](entry://crafting_rituals/bell)
-                - [Horse Armors](entry://crafting_rituals/horse_armor)
+                - [Horse Armors](entry://crafting_rituals/animal_armor)
                 """
         );
     }
