@@ -86,7 +86,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -141,7 +140,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public ClientStorageCache clientStorageCache;
     public List<MachineReference> linkedMachines;
     public IStorageControllerContainer storageControllerContainer;
-    public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
     protected int maxItemTypes;
     protected int usedItemTypes;
     protected long maxTotalItemCount;
@@ -164,15 +162,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected LabelWidget typesLabel;
     protected final GuiRootWidget root;
     protected final StorageScreenBackend backend;
+    protected final StorageScreenState state;
+    protected final StorageDisplayQuery displayQuery;
     protected int rows;
     protected int columns;
-
-    protected int previousPage;
-    protected int currentPage;
-    protected int totalPages;
-
-    protected boolean forceFocus;
-    protected long lastClick;
     protected int realTopPos;
     protected Layout layout;
     private int lastCachedStacksToDisplayCount;
@@ -185,19 +178,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.backend = backend;
         // SimpleContainer.addListener was removed in 26.1 - using containerChanged polling instead
         this.root = new GuiRootWidget(this);
+        this.state = new StorageScreenState();
+        this.displayQuery = new StorageDisplayQuery();
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
         this.columns = VISIBLE_COLUMNS;
-
-        this.currentPage = 1;
-        this.totalPages = 1;
 
         this.clientStorageCache = new ClientStorageCache();
         this.storageControllerContainer.setClientStorageCache(this.clientStorageCache);
 
         this.linkedMachines = new ArrayList<>();
 
-        this.lastClick = System.currentTimeMillis();
+        this.state.markInteraction(System.currentTimeMillis());
 
         this.resetDisplayCaches();
 
@@ -355,6 +347,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
         }
+        this.state.setSearchText(this.searchBar.getValue());
         this.addRenderableWidget(this.searchBar);
 
         this.storageSpaceLabel =
@@ -401,11 +394,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (!this.isGuiValid()) {
             return;
         }
-        if (this.forceFocus) {
+        if (this.state.consumeSearchFocusRequest()) {
             this.searchBar.setFocused(true);
-            if (this.searchBar.isFocused()) {
-                this.forceFocus = false;
-            }
         }
     }
 
@@ -423,7 +413,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
 
-        switch (this.guiMode) {
+        switch (this.state.mode()) {
             case INVENTORY:
                 this.drawItems(guiGraphics, partialTicks, mouseX, mouseY);
                 break;
@@ -449,7 +439,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
                 this.clearSearch();
             }
-        } else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
+        } else if (this.state.isInventoryMode()) {
             ItemStack stackCarriedByMouse = this.minecraft.player.containerMenu.getCarried();
             if (!this.stackUnderMouse.isEmpty() &&
                     (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
@@ -458,13 +448,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 Networking.sendToServer(
                         new MessageTakeItem(this.stackUnderMouse, mouseButton, Minecraft.getInstance().hasShiftDown(),
                                 Minecraft.getInstance().hasControlDown()));
-                this.lastClick = System.currentTimeMillis();
+                this.state.markInteraction(System.currentTimeMillis());
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
                 Networking.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
-                this.lastClick = System.currentTimeMillis();
+                this.state.markInteraction(System.currentTimeMillis());
             }
-        } else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
+        } else if (this.state.isAutocraftingMode()) {
             for (MachineSlotWidget slot : this.machineSlots) {
                 if (slot.isMouseOverSlot(mouseX, mouseY)) {
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
@@ -485,7 +475,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                             }
 
                             //now switch back gui mode.
-                            this.guiMode = StorageControllerGuiMode.INVENTORY;
+                            this.state.setMode(StorageControllerGuiMode.INVENTORY);
                         }
                     }
                     break;
@@ -520,8 +510,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     // SimpleContainer.addListener was removed in 26.1; poll the order slot each frame instead
     public void containerChanged(Container inventory) {
         if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getItem(0).isEmpty()
-                && this.guiMode != StorageControllerGuiMode.AUTOCRAFTING) {
-            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
+                && !this.state.isAutocraftingMode()) {
+            this.state.setMode(StorageControllerGuiMode.AUTOCRAFTING);
             this.init();
         }
     }
@@ -542,11 +532,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         //check if mouse is over item area, then handle scrolling
         if (this.isPointInItemArea(pMouseX, pMouseY)) {
-            if (pScrollY > 0 && this.currentPage > 1) {
-                this.currentPage--;
+            if (pScrollY > 0) {
+                this.state.scrollUp();
             }
-            if (pScrollY < 0 && this.currentPage < this.totalPages) {
-                this.currentPage++;
+            if (pScrollY < 0) {
+                this.state.scrollDown();
             }
         }
         return true;
@@ -555,6 +545,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public boolean charTyped(CharacterEvent event) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(event)) {
+            this.state.setSearchText(this.searchBar.getValue());
             Networking.sendToServer(new MessageRequestStacks());
             // OccultismEmiIntegration excluded from build - EMI sync disabled
             if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
@@ -583,7 +574,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.storageButtonBackgroundSprites(),
                 Component.translatable(TRANSLATION_KEY_BASE + ".search.clear"), () -> {
             this.clearSearch();
-            this.forceFocus = true;
+            this.state.requestSearchFocus();
             this.init();
         }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
         this.addRenderableWidget(this.clearTextButton);
@@ -628,7 +619,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.addRenderableWidget(this.jeiSyncButton);
         }
 
-        switch (this.guiMode) {
+        switch (this.state.mode()) {
             case INVENTORY:
                 this.inventoryModeButton = this.createTabButton(true, true, 0);
                 this.autocraftingModeButton = this.createTabButton(false, false, 1);
@@ -645,8 +636,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void drawItems(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
 
-        var changedPage = this.previousPage != this.currentPage;
-        this.previousPage = this.currentPage;
+        this.state.setMaxFirstVisibleRow(this.displayQuery.maxFirstVisibleRow(stacksToDisplay.size(), this.columns, this.rows));
+        boolean changedFirstVisibleRow = this.state.trackFirstVisibleRowChange();
 
         var changedStacksToDisplay = this.lastCachedStacksToDisplayCount != stacksToDisplay.size();
         this.lastCachedStacksToDisplayCount = stacksToDisplay.size();
@@ -654,9 +645,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         var changedStacks = this.lastStacksCount != this.getClientStorageCache().stacks().size();
         this.lastStacksCount = this.getClientStorageCache().stacks().size();
 
-        if (changedPage || changedStacksToDisplay || changedStacks) {
+        if (changedFirstVisibleRow || changedStacksToDisplay || changedStacks) {
             this.sortItemStacks(stacksToDisplay);
-            this.buildPage(stacksToDisplay);
             this.buildItemSlots(stacksToDisplay);
         }
 
@@ -665,14 +655,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void drawMachines(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<MachineReference> machinesToDisplay = this.applySearchToMachines();
+        this.state.setMaxFirstVisibleRow(this.displayQuery.maxFirstVisibleRow(machinesToDisplay.size(), this.columns, this.rows));
         this.sortMachines(machinesToDisplay);
-        this.buildPage(machinesToDisplay);
         this.buildMachineSlots(machinesToDisplay);
         this.drawMachineSlots(guiGraphics, mouseX, mouseY);
     }
 
     protected boolean canClick() {
-        return System.currentTimeMillis() > this.lastClick + 100L;
+        return this.state.canInteract(System.currentTimeMillis(), 100L);
     }
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
@@ -705,7 +695,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        switch (this.guiMode) {
+        switch (this.state.mode()) {
             case INVENTORY:
                 for (ItemSlotWidget s : this.itemSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
@@ -727,7 +717,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             if (!Minecraft.getInstance().hasShiftDown()) {
                 tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".shift"));
             } else {
-                switch (this.guiMode) {
+                switch (this.state.mode()) {
                     case INVENTORY:
                         tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip@"));
                         tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip#"));
@@ -752,7 +742,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
-            switch (this.guiMode) {
+            switch (this.state.mode()) {
                 case INVENTORY:
                     translationKey =
                             TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getSerializedName();
@@ -811,7 +801,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void buildItemSlots(List<ItemStack> stacksToDisplay) {
         this.itemSlots = new ArrayList<>();
-        int index = (this.currentPage - 1) * (this.columns);
+        int index = this.displayQuery.firstVisibleIndex(this.state.firstVisibleRow(), this.columns);
         for (int row = 0; row < this.rows; row++) {
             if (index >= stacksToDisplay.size()) {
                 break;
@@ -830,66 +820,25 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void buildPage(List<?> objectsToDisplay) {
-        this.totalPages = objectsToDisplay.size() / this.columns;
-        if (objectsToDisplay.size() % this.columns != 0) {
-            this.totalPages++;
-        }
-        this.totalPages -= (this.rows - 1);
-        if (this.totalPages < 1) {
-            this.totalPages = 1;
-        }
-        if (this.currentPage < 1) {
-            this.currentPage = 1;
-        }
-        if (this.currentPage > this.totalPages) {
-            this.currentPage = this.totalPages;
-        }
-    }
-
     protected void sortItemStacks(List<ItemStack> stacksToDisplay) {
-        stacksToDisplay.sort(new Comparator<ItemStack>() {
-
-            final int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
-
-            @Override
-            public int compare(ItemStack a, ItemStack b) {
-                switch (StorageControllerGuiBase.this.getSortType()) {
-                    case AMOUNT:
-                        return Integer.compare(b.getCount(), a.getCount()) * this.direction;
-                    case NAME:
-                        return a.getDisplayName().getString()
-                                .compareToIgnoreCase(b.getDisplayName().getString()) *
-                                this.direction;
-                    case MOD:
-                        return TextUtil.getModNameForGameObject(a.getItem())
-                                .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
-                                this.direction;
-                }
-                return 0;
-            }
-
-        });
+        this.displayQuery.sortItems(stacksToDisplay, this.getSortDirection(), this.getSortType());
     }
 
     protected void resetDisplayCaches() {
         this.lastStacksCount = 0;
         this.cachedStacksToDisplay = null;
-        this.previousPage = -1;
+        this.state.resetDisplayTracking();
     }
 
     protected List<ItemStack> applySearchToItems() {
-        String searchText = this.searchBar.getValue();
+        String searchText = this.state.searchText();
 
         if (!searchText.equals("")) {
             if (this.cachedStacksToDisplay != null && this.cachedSearchString != null && this.cachedSearchString.equals(searchText))
                 return this.cachedStacksToDisplay;
 
-            List<ItemStack> stacksToDisplay = new ArrayList<>();
-            for (ItemStack stack : this.getClientStorageCache().stacks()) {
-                if (this.itemMatchesSearch(stack))
-                    stacksToDisplay.add(stack);
-            }
+            List<ItemStack> stacksToDisplay = this.displayQuery.filterItems(this.getClientStorageCache().stacks(), searchText,
+                    this::itemMatchesSearch);
 
             this.cachedStacksToDisplay = stacksToDisplay;
             this.cachedSearchString = searchText;
@@ -900,22 +849,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected List<MachineReference> applySearchToMachines() {
-        String searchText = this.searchBar.getValue();
-
-        if (!searchText.equals("")) {
-            List<MachineReference> machinesToDisplay = new ArrayList<>();
-            for (MachineReference machine : this.linkedMachines) {
-                if (this.machineMatchesSearch(machine))
-                    machinesToDisplay.add(machine);
-            }
-            return machinesToDisplay;
-        }
-
-        return new ArrayList<>(this.linkedMachines);
+        return this.displayQuery.filterMachines(this.linkedMachines, this.state.searchText(), this::machineMatchesSearch);
     }
 
     protected boolean itemMatchesSearch(ItemStack stack) {
-        String searchText = this.searchBar.getValue();
+        String searchText = this.state.searchText();
         if (searchText.startsWith("@")) {
             String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
@@ -939,7 +877,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean machineMatchesSearch(MachineReference machine) {
-        String searchText = this.searchBar.getValue();
+        String searchText = this.state.searchText();
         if (searchText.startsWith("@")) {
             String name = TextUtil.getModNameForGameObject(machine.getInsertItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
@@ -952,42 +890,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void sortMachines(List<MachineReference> machinesToDisplay) {
-        BlockPos entityPosition = this.getEntityPosition();
-        ResourceKey<Level> dimensionKey = this.minecraft.player.level().dimension();
-        machinesToDisplay.sort(new Comparator<MachineReference>() {
-
-            final int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
-
-            @Override
-            public int compare(MachineReference a, MachineReference b) {
-                switch (StorageControllerGuiBase.this.getSortType()) {
-                    case AMOUNT: //use distance in this case
-                        double distanceA =
-                                a.insertGlobalPos.getDimensionKey() == dimensionKey ? a.insertGlobalPos.getPos().distSqr(
-                                        entityPosition) : Double.MAX_VALUE;
-                        double distanceB =
-                                b.insertGlobalPos.getDimensionKey() == dimensionKey ? b.insertGlobalPos.getPos().distSqr(
-                                        entityPosition) : Double.MAX_VALUE;
-                        return Double.compare(distanceB, distanceA) * this.direction;
-                    case NAME:
-                        return a.getInsertItemStack().getDisplayName().getString()
-                                .compareToIgnoreCase(
-                                        b.getInsertItemStack().getDisplayName().getString()) *
-                                this.direction;
-                    case MOD:
-                        return TextUtil.getModNameForGameObject(a.getInsertItem())
-                                .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getInsertItem())) *
-                                this.direction;
-                }
-                return 0;
-            }
-
-        });
+        this.displayQuery.sortMachines(machinesToDisplay, this.getSortDirection(), this.getSortType(),
+                this.getEntityPosition(), this.minecraft.player.level().dimension());
     }
 
     protected void buildMachineSlots(List<MachineReference> machinesToDisplay) {
         this.machineSlots = new ArrayList<>();
-        int index = (this.currentPage - 1) * (this.columns);
+        int index = this.displayQuery.firstVisibleIndex(this.state.firstVisibleRow(), this.columns);
         for (int row = 0; row < this.rows; row++) {
             for (int col = 0; col < this.columns; col++) {
                 if (index >= machinesToDisplay.size()) {
@@ -1009,6 +918,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void clearSearch() {
         this.searchBar.setValue("");
+        this.state.setSearchText("");
         // OccultismEmiIntegration excluded from build - EMI sync disabled
         if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
             OccultismJeiIntegration.get().setFilterText("");
@@ -1019,9 +929,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
         this.root.addChild(new GuiBackgroundWidget(this, this.layout.tab(0).left(), this.layout.tab(0).top(),
-                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.guiMode == StorageControllerGuiMode.INVENTORY)));
+                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.state.isInventoryMode())));
         this.root.addChild(new GuiBackgroundWidget(this, this.layout.tab(1).left(), this.layout.tab(1).top(),
-                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.guiMode == StorageControllerGuiMode.AUTOCRAFTING)));
+                TAB_WIDTH, TAB_HEIGHT, this.tabBackgroundSprite(this.state.isAutocraftingMode())));
         this.root.addChild(new GuiBackgroundWidget(this, this.layout.mainPanel().left(), this.layout.mainPanel().top(),
                 this.mainPanelWidth(), this.mainPanelHeight(), this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL,
                 GuiSprites.GUI_BACKGROUND)));
@@ -1157,7 +1067,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected AbstractWidget createTabButton(boolean inventoryTab, boolean active, int row) {
         Component tooltip = Component.translatable(TRANSLATION_KEY_BASE + (inventoryTab ? ".mode.inventory" : ".mode.autocrafting"));
         Runnable onPress = () -> {
-            this.guiMode = inventoryTab ? StorageControllerGuiMode.INVENTORY : StorageControllerGuiMode.AUTOCRAFTING;
+            this.state.setMode(inventoryTab ? StorageControllerGuiMode.INVENTORY : StorageControllerGuiMode.AUTOCRAFTING);
             this.init();
         };
         ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
