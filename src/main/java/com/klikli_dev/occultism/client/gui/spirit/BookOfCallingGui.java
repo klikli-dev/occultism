@@ -6,7 +6,7 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;

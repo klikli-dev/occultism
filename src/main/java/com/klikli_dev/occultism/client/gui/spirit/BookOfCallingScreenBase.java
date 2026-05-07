@@ -6,19 +6,19 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
-import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
-import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
-import com.klikli_dev.codedefinedgui.gui.style.GuiPartKey;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.IconButtonWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.api.style.GuiPartKey;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
+import com.klikli_dev.codedefinedgui.api.widget.IconButtonWidget;
+import com.klikli_dev.codedefinedgui.api.widget.HorizontalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.api.widget.VerticalSeparatorWidget;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;

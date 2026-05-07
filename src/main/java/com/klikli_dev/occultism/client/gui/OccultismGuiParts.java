@@ -4,7 +4,7 @@
 
 package com.klikli_dev.occultism.client.gui;
 
-import com.klikli_dev.codedefinedgui.gui.style.GuiPartKey;
+import com.klikli_dev.codedefinedgui.api.style.GuiPartKey;
 import com.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.Identifier;
 

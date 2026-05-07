@@ -6,8 +6,8 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
@@ -66,7 +66,7 @@ public class BookOfCallingManagedMachineGui extends BookOfCallingScreenBase {
         this.addVerticalSeparator(202, SECOND_DIVIDER_Y, 36);
         this.root.addChild(new GuiBackgroundWidget(this, this.guiX(SELECTION_LEFT - 2), this.guiY(NAME_ROW_Y - 2),
                 SELECTION_WIDTH + 4, SELECTION_HEIGHT + 4, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_FIELD,
-                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, com.klikli_dev.codedefinedgui.gui.texture.GuiSprites.GUI_BACKGROUND))));
+                this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, com.klikli_dev.codedefinedgui.api.texture.GuiSprites.GUI_BACKGROUND))));
     }
 
     @Override

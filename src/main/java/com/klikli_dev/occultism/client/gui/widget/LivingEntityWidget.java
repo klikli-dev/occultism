@@ -6,8 +6,8 @@
 
 package com.klikli_dev.occultism.client.gui.widget;
 
-import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
-import com.klikli_dev.codedefinedgui.gui.core.GuiSyncable;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.screen.GuiSyncable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;

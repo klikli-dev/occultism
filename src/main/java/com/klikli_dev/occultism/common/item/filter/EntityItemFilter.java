@@ -6,11 +6,12 @@
 
 package com.klikli_dev.occultism.common.item.filter;
 
-import com.klikli_dev.codedefinedgui.filter.attribute.AttributeFilterDefinition;
-import com.klikli_dev.codedefinedgui.filter.core.FilterMatchContext;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterMode;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterState;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterStateAccessor;
+import com.klikli_dev.codedefinedgui.premade.filter.attribute.AttributeFilterDefinition;
+import com.klikli_dev.codedefinedgui.premade.filter.core.FilterMatchContext;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterDefinition;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterMode;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterState;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterStateAccessor;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -40,7 +41,7 @@ public final class EntityItemFilter {
 
         FilterMatchContext context = new FilterMatchContext(level);
         if (filterStack.is(OccultismItems.LIST_FILTER.get())) {
-            return com.klikli_dev.codedefinedgui.filter.list.ListFilterDefinition.INSTANCE.matches(filterStack, candidate, context);
+            return ListFilterDefinition.INSTANCE.matches(filterStack, candidate, context);
         }
 
         if (filterStack.is(OccultismItems.ATTRIBUTE_FILTER.get())) {

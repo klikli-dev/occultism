@@ -24,16 +24,16 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
-import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
@@ -1110,11 +1110,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         return GuiStyleRegistry.get(OccultismGuiStyles.STORAGE_CONTROLLER);
     }
 
-    protected GuiSprite partSprite(com.klikli_dev.codedefinedgui.gui.style.GuiPartKey part, GuiSprite fallback) {
+    protected GuiSprite partSprite(com.klikli_dev.codedefinedgui.api.style.GuiPartKey part, GuiSprite fallback) {
         return this.style().get(part, GuiStyleProperties.SPRITE, fallback);
     }
 
-    protected int partColor(com.klikli_dev.codedefinedgui.gui.style.GuiPartKey part, int fallback) {
+    protected int partColor(com.klikli_dev.codedefinedgui.api.style.GuiPartKey part, int fallback) {
         return this.style().get(part, GuiStyleProperties.COLOR, fallback);
     }
 

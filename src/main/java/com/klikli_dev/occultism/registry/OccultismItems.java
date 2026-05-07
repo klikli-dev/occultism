@@ -24,8 +24,8 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
-import com.klikli_dev.codedefinedgui.filter.attribute.AttributeFilterItem;
-import com.klikli_dev.codedefinedgui.filter.list.ListFilterItem;
+import com.klikli_dev.codedefinedgui.premade.filter.attribute.AttributeFilterItem;
+import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterItem;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.FlameAutomationItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
