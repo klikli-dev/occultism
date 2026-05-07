@@ -42,6 +42,7 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageItemGridWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageMenuControlsWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageMachineGridWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageTopBarWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.ScaledSearchFieldWidget;
@@ -49,7 +50,6 @@ import com.klikli_dev.occultism.client.gui.storage.logic.StorageScreenActions;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
-import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
@@ -79,7 +79,6 @@ import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag.Default;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
 import org.apache.commons.lang3.StringUtils;
 
@@ -153,9 +152,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected AbstractWidget jeiSyncButton;
     protected AbstractWidget autocraftingModeButton;
     protected AbstractWidget inventoryModeButton;
-    protected LabelWidget rowLabel;
-    protected LabelWidget filledLabel;
-    protected LabelWidget typesLabel;
     protected final StorageScreenBackend backend;
     protected final StorageScreenState state;
     protected final StorageDisplayQuery displayQuery;
@@ -163,6 +159,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageItemGridWidget itemGrid;
     protected final StorageMachineGridWidget machineGrid;
     protected StorageTopBarWidget topBarWidget;
+    protected StorageMenuControlsWidget menuControlsWidget;
     protected int rows;
     protected int columns;
     protected int realTopPos;
@@ -565,27 +562,34 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     public void initButtons() {
-        this.clearRecipeButton = new SpriteButtonWidget(this.clearRecipeButtonX(),
-                this.clearRecipeButtonY(),
-                CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE,
+        this.menuControlsWidget = StorageMenuControlsWidget.create(
+                CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
-                Component.translatable(TRANSLATION_KEY_BASE + ".crafting.clear"), () -> {
-            this.actions.clearCraftingMatrixAndRefresh(this::init);
-        }, SpriteButtonWidget.offsetText("X", 0.5F, -0.5F));
-        this.addRenderableWidget(this.clearRecipeButton);
-
-        switch (this.state.mode()) {
-            case INVENTORY:
-                this.inventoryModeButton = this.createTabButton(true, true, 0);
-                this.autocraftingModeButton = this.createTabButton(false, false, 1);
-                break;
-            case AUTOCRAFTING:
-                this.inventoryModeButton = this.createTabButton(true, false, 0);
-                this.autocraftingModeButton = this.createTabButton(false, true, 1);
-                break;
-        }
-        this.addRenderableWidget(this.inventoryModeButton);
-        this.addRenderableWidget(this.autocraftingModeButton);
+                this.clearRecipeButtonX(),
+                this.clearRecipeButtonY(),
+                () -> this.actions.clearCraftingMatrixAndRefresh(this::init),
+                this.tabPosition(0).left(),
+                this.tabPosition(0).top(),
+                TAB_WIDTH,
+                TAB_HEIGHT,
+                () -> {
+                    this.state.setMode(StorageControllerGuiMode.INVENTORY);
+                    this.init();
+                },
+                Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"),
+                this.tabPosition(1).left(),
+                this.tabPosition(1).top(),
+                () -> {
+                    this.state.setMode(StorageControllerGuiMode.AUTOCRAFTING);
+                    this.init();
+                },
+                Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"),
+                TAB_ICON_OFFSET_X
+        );
+        this.clearRecipeButton = this.menuControlsWidget.clearRecipeButton();
+        this.inventoryModeButton = this.menuControlsWidget.inventoryModeButton();
+        this.autocraftingModeButton = this.menuControlsWidget.autocraftingModeButton();
+        this.menuControlsWidget.addTo(this::addRenderableWidget);
     }
 
     protected void drawItems(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
@@ -1107,34 +1111,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         );
     }
 
-    protected AbstractWidget createTabButton(boolean inventoryTab, boolean active, int row) {
-        Component tooltip = Component.translatable(TRANSLATION_KEY_BASE + (inventoryTab ? ".mode.inventory" : ".mode.autocrafting"));
-        Runnable onPress = () -> {
-            this.state.setMode(inventoryTab ? StorageControllerGuiMode.INVENTORY : StorageControllerGuiMode.AUTOCRAFTING);
-            this.init();
-        };
-        ItemStack icon = new ItemStack((inventoryTab ? Blocks.CHEST : Blocks.FURNACE).asItem());
-        Position tabPosition = this.tabPosition(row);
-        return new SpriteButtonWidget(tabPosition.left(), tabPosition.top(), TAB_WIDTH, TAB_HEIGHT,
-                tooltip, onPress, (button, graphics) -> {
-                }, this.tabIconRenderer(icon));
-    }
-
     protected GuiSprite tabBackgroundSprite(boolean active) {
         int mainPanelTint = this.partColor(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, MAIN_PANEL_TINT_FALLBACK);
         return GuiSprites.GUI_BACKGROUND.tinted(active ? mainPanelTint : this.darkenColor(mainPanelTint, 24));
-    }
-
-    protected java.util.function.BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> tabIconRenderer(ItemStack icon) {
-        return (button, graphics) -> {
-            int x = button.getX() + (button.getWidth() - 16) / 2 + TAB_ICON_OFFSET_X;
-            int y = button.getY() + (button.getHeight() - 16) / 2;
-            graphics.fakeItem(icon, x, y);
-        };
-    }
-
-    protected int tabLeft() {
-        return this.mainPanelLeft() - (TAB_WIDTH - TAB_HIDDEN_OVERLAP) + TAB_LEFT_SHIFT;
     }
 
     protected int darkenColor(int color, int amount) {
