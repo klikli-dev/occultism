@@ -15,7 +15,6 @@ import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
 import com.klikli_dev.codedefinedgui.api.layout.BuiltinLayoutSlotRoles;
 import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
 import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
-import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleContext;
 import com.klikli_dev.codedefinedgui.api.style.GuiPartKey;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
@@ -283,13 +282,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
             ));
         });
         this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
-        registry.resolve("frame.player_inventory.label", ctx -> ctx.addWidget(new GuiTextWidget(
-                ctx.node().x(),
-                ctx.node().y(),
-                () -> this.playerInventoryTitle,
-                () -> ctx.style().textColor(BuiltinGuiParts.PLAYER_INVENTORY_LABEL, 0x303030),
-                false
-        )));
         registry.resolve("frame.main.vertical_separator", ctx -> this.root.addChild(new VerticalSeparatorWidget(
                 ctx.node().x(),
                 ctx.node().y(),
@@ -334,7 +326,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
             }
 
             int currentSlotIndex = slotIndex;
-            registry.add(nodePath, -25, ctx -> ctx.addWidget(new GuiSpriteWidget(
+            registry.add(nodePath, 25, ctx -> ctx.addWidget(new GuiSpriteWidget(
                     ctx.node().x() - 1,
                     ctx.node().y() - 1,
                     ctx.style().sprite(this.slotPart(currentSlotIndex), GuiSprites.INVENTORY_SLOT)
