@@ -35,7 +35,13 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
     public FilterableSpiritGui(T container,
                                Inventory playerInventory,
                                Component titleIn) {
-        super(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT, SpiritLayouts.transporter(), OccultismGuiStyles.SPIRIT_TRANSPORTER);
+        super(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT, SpiritLayouts.transporter(), OccultismGuiStyles.SPIRIT_TRANSPORTER,
+                OccultismGuiParts.SPIRIT_TRANSPORTER_PLAYER_INVENTORY_BACKGROUND,
+                OccultismGuiParts.SPIRIT_AGE_BAR,
+                OccultismGuiParts.SPIRIT_TRANSPORTER_TOP_BAR,
+                OccultismGuiParts.SPIRIT_TRANSPORTER_PANEL,
+                OccultismGuiParts.SPIRIT_TRANSPORTER_VERTICAL_SEPARATOR,
+                OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE);
     }
 
     protected Component topBarTitle() {
@@ -44,11 +50,6 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
         }
 
         return this.spirit.getEntity().getType().getDescription();
-    }
-
-    @Override
-    protected GuiPartKey inventoryBackgroundPart() {
-        return OccultismGuiParts.SPIRIT_TRANSPORTER_PLAYER_INVENTORY_BACKGROUND;
     }
 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
@@ -138,22 +139,6 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
         }
 
         return INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + Occultism.MODID + ".transport_items";
-    }
-
-    protected GuiPartKey topBarPart() {
-        return OccultismGuiParts.SPIRIT_TRANSPORTER_TOP_BAR;
-    }
-
-    protected GuiPartKey panelPart() {
-        return OccultismGuiParts.SPIRIT_TRANSPORTER_PANEL;
-    }
-
-    protected GuiPartKey verticalSeparatorPart() {
-        return OccultismGuiParts.SPIRIT_TRANSPORTER_VERTICAL_SEPARATOR;
-    }
-
-    protected GuiPartKey titlePart() {
-        return OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE;
     }
 
     @Override
