@@ -48,6 +48,7 @@ public final class OccultismGuiStyles {
 
     private static GuiStyle.Builder transporterBaseStyle() {
         return GuiStyle.builder()
+                .set(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_FILTER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT));
@@ -55,6 +56,7 @@ public final class OccultismGuiStyles {
 
     private static GuiStyle.Builder spiritBaseStyle() {
         return GuiStyle.builder()
+                .set(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.SPIRIT_PLAYER_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(OccultismGuiParts.SPIRIT_PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.SPIRIT_INVENTORY_SLOT, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT));

@@ -8,9 +8,11 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import java.util.function.Consumer;
 
 final class SpiritLayouts {
+    private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
     private static final int GUI_WIDTH = 182;
     private static final int TOP_BAR_HEIGHT = 18;
     private static final int TITLE_Y = 6;
@@ -36,14 +38,7 @@ final class SpiritLayouts {
     private static final int AGE_BAR_HEIGHT = 16;
     private static final int PLAYER_INVENTORY_X = 11;
     private static final int PLAYER_INVENTORY_Y = 97;
-    private static final int PLAYER_INVENTORY_BACKGROUND_INSET = 8;
-    private static final int PLAYER_INVENTORY_BACKGROUND_WIDTH = 176;
-    private static final int PLAYER_INVENTORY_BACKGROUND_HEIGHT = 90;
-    private static final int PLAYER_INVENTORY_LABEL_Y = 5;
-    private static final int INVENTORY_HOTBAR_Y = 58;
     private static final int SLOT_SIZE = 18;
-    private static final int INVENTORY_COLUMNS = 9;
-    private static final int INVENTORY_MAIN_ROWS = 3;
     private static final int AGED_INVENTORY_OFFSET = 13;
 
     private SpiritLayouts() {
@@ -84,32 +79,8 @@ final class SpiritLayouts {
             });
             frame.group("player_inventory", inventory -> {
                 inventory.at(PLAYER_INVENTORY_X, PLAYER_INVENTORY_Y + inventoryOffset);
-                inventory.node("background").at(-PLAYER_INVENTORY_BACKGROUND_INSET, -PLAYER_INVENTORY_BACKGROUND_INSET)
-                        .size(PLAYER_INVENTORY_BACKGROUND_WIDTH, PLAYER_INVENTORY_BACKGROUND_HEIGHT);
-                inventory.node("label").at(0, PLAYER_INVENTORY_LABEL_Y);
-                inventory.group("main", main -> {
-                    main.at(0, 0);
-                    defineInventoryGrid(main);
-                });
-                inventory.group("hotbar", hotbar -> {
-                    hotbar.at(0, INVENTORY_HOTBAR_Y);
-                    defineHotbar(hotbar);
-                });
+                PLAYER_INVENTORY.define(inventory);
             });
         });
-    }
-
-    private static void defineInventoryGrid(LayoutGroupBuilder group) {
-        for (int row = 0; row < INVENTORY_MAIN_ROWS; row++) {
-            for (int column = 0; column < INVENTORY_COLUMNS; column++) {
-                group.node("slot_" + (row * INVENTORY_COLUMNS + column)).at(column * SLOT_SIZE, row * SLOT_SIZE).size(SLOT_SIZE, SLOT_SIZE);
-            }
-        }
-    }
-
-    private static void defineHotbar(LayoutGroupBuilder group) {
-        for (int column = 0; column < INVENTORY_COLUMNS; column++) {
-            group.node("slot_" + column).at(column * SLOT_SIZE, 0).size(SLOT_SIZE, SLOT_SIZE);
-        }
     }
 }

@@ -8,9 +8,11 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutScreenView;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSlotView;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.codedefinedgui.api.layout.ResolvedLayout;
 import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
+import com.klikli_dev.codedefinedgui.api.layout.BuiltinLayoutSlotRoles;
 import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
 import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
 import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
@@ -22,6 +24,8 @@ import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
 import com.klikli_dev.codedefinedgui.api.widget.VerticalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
@@ -45,7 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> implements GuiHost, LayoutScreenView {
+public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> implements GuiHost, LayoutScreenView, PlayerInventoryScreenHost {
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected static final String INVENTORY_SLOT_TRANSLATION_KEY_BASE = TRANSLATION_KEY_BASE + ".inventory_slot";
     protected static final String DISABLED_SLOT_TRANSLATION_KEY = "gui." + Occultism.MODID + ".spirit.transporter.inventory_slot.disabled";
@@ -55,11 +59,14 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected static final int GUI_HEIGHT = 179;
     protected static final int SLOT_SIZE = 18;
     protected static final int AGED_INVENTORY_OFFSET = 13;
+    private static final int PLAYER_SLOT_COUNT = 36;
 
     protected final GuiRootWidget root;
     protected final List<Component> tooltip = new ArrayList<>();
     protected final IFilterConfigurable spirit;
     protected final T container;
+    private final PlayerInventorySection playerInventorySection;
+    private final List<LayoutSlotView> playerInventorySlots;
     private final GuiPartKey inventoryBackgroundPart;
     private final GuiPartKey ageBarPart;
     private final GuiPartKey topBarPart;
@@ -95,6 +102,8 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.container = container;
         this.spirit = this.container.spirit;
         this.root = new GuiRootWidget(this);
+        this.playerInventorySection = PlayerInventorySection.standard();
+        this.playerInventorySlots = this.createPlayerInventorySlots();
         this.inventoryBackgroundPart = inventoryBackgroundPart;
         this.ageBarPart = ageBarPart;
         this.topBarPart = topBarPart;
@@ -273,14 +282,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                     false
             ));
         });
-        registry.resolve("frame.player_inventory.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
-                this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                ctx.style().sprite(this.inventoryBackgroundPart, ctx.style().sprite(this.panelPart, GuiSprites.GUI_BACKGROUND))
-        )));
+        this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
         registry.resolve("frame.player_inventory.label", ctx -> ctx.addWidget(new GuiTextWidget(
                 ctx.node().x(),
                 ctx.node().y(),
@@ -325,7 +327,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected void registerSlotResolvers(LayoutResolverRegistry registry) {
-        for (int slotIndex = 0; slotIndex < this.menu.slots.size(); slotIndex++) {
+        for (int slotIndex = ENTITY_INVENTORY_SLOT_INDEX; slotIndex < this.menu.slots.size(); slotIndex++) {
             String nodePath = this.slotNodePath(slotIndex);
             if (nodePath == null) {
                 continue;
@@ -341,14 +343,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected String slotNodePath(int slotIndex) {
-        if (slotIndex < 27) {
-            return "frame.player_inventory.main.slot_" + slotIndex;
-        }
-
-        if (slotIndex < ENTITY_INVENTORY_SLOT_INDEX) {
-            return "frame.player_inventory.hotbar.slot_" + (slotIndex - 27);
-        }
-
         if (slotIndex == ENTITY_INVENTORY_SLOT_INDEX) {
             return "frame.main.inventory_slot";
         }
@@ -364,6 +358,26 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     protected Slot entityInventorySlot() {
         return this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX);
+    }
+
+    @Override
+    public List<LayoutSlotView> layoutSlots() {
+        return this.playerInventorySlots;
+    }
+
+    private List<LayoutSlotView> createPlayerInventorySlots() {
+        List<LayoutSlotView> layoutSlots = new ArrayList<>(PLAYER_SLOT_COUNT);
+        for (int slotIndex = 0; slotIndex < PLAYER_SLOT_COUNT; slotIndex++) {
+            Slot slot = this.menu.getSlot(slotIndex);
+            if (slotIndex < 27) {
+                layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_MAIN, this.slotPart(slotIndex), "main.slot_" + slotIndex));
+                continue;
+            }
+
+            layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_HOTBAR, this.slotPart(slotIndex), "hotbar.slot_" + (slotIndex - 27)));
+        }
+
+        return List.copyOf(layoutSlots);
     }
 
     @Override
