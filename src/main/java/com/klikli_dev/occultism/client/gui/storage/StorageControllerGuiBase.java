@@ -1185,7 +1185,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public int topPos() {
-        return this.topPos;
+        return this.guiTop();
     }
 
     @Override
