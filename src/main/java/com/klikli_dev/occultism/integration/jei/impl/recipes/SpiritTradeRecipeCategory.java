@@ -42,7 +42,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -58,8 +57,7 @@ public class SpiritTradeRecipeCategory implements IRecipeCategory<RecipeHolder<S
     public SpiritTradeRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 44); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.spirit_trader");
-        this.overlay = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+        this.overlay = guiHelper.getRecipeArrow();
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
@@ -93,16 +91,16 @@ public class SpiritTradeRecipeCategory implements IRecipeCategory<RecipeHolder<S
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<SpiritTradeRecipe> recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
+        builder.addSlot(RecipeIngredientRole.INPUT, 38, 12)
                 .add(recipe.value().getIngredients().get(0));
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 112, 12)
                 .add(recipe.value().getResultItem());
     }
 
     @Override
     public void draw(RecipeHolder<SpiritTradeRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
+        this.overlay.draw(guiGraphics, 73, 13);
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(
                 "job." + recipe.value().getTrader().replace(":", ".")), 84, 0);
 

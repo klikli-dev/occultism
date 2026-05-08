@@ -38,7 +38,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRecipe>> {
@@ -50,8 +49,7 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
     public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.miner");
-        this.overlay = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+        this.overlay = guiHelper.getRecipeArrow();
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
@@ -94,7 +92,7 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
 
     @Override
     public void draw(RecipeHolder<MinerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
+        this.overlay.draw(guiGraphics, 73, 13);
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                 Component.translatable(Occultism.MODID + ".jei.miner.chance", (float) recipe.value().getWeightedResult().weight() / 100), 84, 0);
     }

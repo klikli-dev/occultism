@@ -69,7 +69,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     private final IDrawable arrow;
     private final IDrawable eye;
     private final IDrawable goldenEye;
-    private final IDrawable checklist;
     private final IDrawable goldenSacrificialBowlDrawable;
     private final IDrawable sacrificialBowlDrawable;
     private final Component localizedName;
@@ -89,17 +88,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
 //        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
 //        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
-        this.arrow = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+        this.arrow = guiHelper.getRecipeArrow();
         this.eye = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/sprites/jei/eye.png"), 0, 0, 16, 16);
         this.goldenEye = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/sprites/jei/golden_eye.png"), 0, 0, 16, 16);
         this.goldenSacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.goldenSacrificialBowl);
         this.sacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.sacrificialBowl);
-
-        this.checklist = guiHelper.drawableBuilder(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
     }
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
@@ -268,7 +263,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
     @Override
     public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+        this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 23, this.ritualCenterY - 1);
 
         this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX, this.ritualCenterY);
         this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
