@@ -12,12 +12,14 @@ public final class StorageMenuLayouts {
     private static final int CRAFTING_OUTPUT_TOP = CRAFTING_GRID_TOP + 18;
     private static final int ORDER_INPUT_SLOT_LEFT = -10;
     private static final int ORDER_INPUT_SLOT_TOP = -61;
+    private static final int PLAYER_INVENTORY_TOP = 71;
+    private static final int HOTBAR_TOP = 129;
 
     private static final StorageMenuLayout STANDARD = new StorageMenuLayout(
             3 + ORDER_AREA_OFFSET,
-            71,
+            PLAYER_INVENTORY_TOP,
             3 + ORDER_AREA_OFFSET,
-            129,
+            HOTBAR_TOP,
             37 + ORDER_AREA_OFFSET,
             CRAFTING_GRID_TOP,
             133 + ORDER_AREA_OFFSET,
@@ -28,9 +30,9 @@ public final class StorageMenuLayouts {
 
     private static final StorageMenuLayout REMOTE = new StorageMenuLayout(
             8 + ORDER_AREA_OFFSET,
-            18 * 3 + 6,
+            PLAYER_INVENTORY_TOP,
             8 + ORDER_AREA_OFFSET,
-            18 * 3 + 6 + 18 * 3 + 4,
+            HOTBAR_TOP,
             37 + ORDER_AREA_OFFSET,
             CRAFTING_GRID_TOP,
             133 + ORDER_AREA_OFFSET,
