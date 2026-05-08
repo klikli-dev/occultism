@@ -10,12 +10,12 @@ import net.minecraft.resources.Identifier;
 
 public final class OccultismGuiSprites {
     public static final GuiSprite CRAFTING_PROGRESS_BAR_BACKGROUND = sprite("crafting/crafting_progress_bar", 19, 6);
-    public static final GuiSprite OTHERWORLD_BUTCHER_PROGRESS_FILL = sprite("otherworld_butcher/progress_fill", 35, 4);
-    public static final GuiSprite OTHERWORLD_BUTCHER_SOUL_SLOT_HINT = sprite("otherworld_butcher/soul_slot_hint", 16, 16);
-    public static final GuiSprite OTHERWORLD_BUTCHER_WEAPON_SLOT_HINT = sprite("otherworld_butcher/weapon_slot_hint", 16, 16);
-    public static final GuiSprite OTHERWORLD_BUTCHER_FUEL_SLOT_HINT = sprite("otherworld_butcher/fuel_slot_hint", 16, 16);
-    public static final GuiSprite OTHERWORLD_MINER_PROGRESS_FILL = sprite("otherworld_miner/progress_fill", 19, 4);
-    public static final GuiSprite OTHERWORLD_MINER_INPUT_SLOT_HINT = sprite("otherworld_miner/input_slot_hint", 16, 16);
+    public static final GuiSprite OTHERWORLD_BUTCHER_PROGRESS_FILL = sprite("crafting/otherworld_butcher_progress_fill", 35, 4);
+    public static final GuiSprite OTHERWORLD_BUTCHER_SOUL_SLOT_HINT = sprite("crafting/otherworld_butcher_soul_slot_hint", 16, 16);
+    public static final GuiSprite OTHERWORLD_BUTCHER_WEAPON_SLOT_HINT = sprite("crafting/otherworld_butcher_weapon_slot_hint", 16, 16);
+    public static final GuiSprite OTHERWORLD_BUTCHER_FUEL_SLOT_HINT = sprite("crafting/otherworld_butcher_fuel_slot_hint", 16, 16);
+    public static final GuiSprite OTHERWORLD_MINER_PROGRESS_FILL = sprite("crafting/otherworld_miner_progress_fill", 19, 4);
+    public static final GuiSprite OTHERWORLD_MINER_INPUT_SLOT_HINT = sprite("crafting/otherworld_miner_input_slot_hint", 16, 16);
 
     public static final GuiSprite STORAGE_CONTROLLER_ANVIL_IMPACT = sprite("storage_controller/anvil_impact", 22, 22);
     public static final GuiSprite STORAGE_CONTROLLER_SEARCH_FIELD = sprite("storage_controller/search_field", 96, 14);
