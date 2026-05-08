@@ -55,7 +55,7 @@ final class StorageTerminalLayouts {
                     topBar.node("background").at(topBarLeft, 0).size(mainPanelWidth + 6, TOP_BAR_HEIGHT);
                     topBar.node("title").at(0, 5).size(GUI_WIDTH, 8);
                     topBar.group("search", search -> {
-                        search.at(SEARCH_FIELD_LEFT, SEARCH_FIELD_TOP);
+                        search.at(SEARCH_FIELD_LEFT, SEARCH_FIELD_TOP + 1);
                         search.node("background").at(0, 0).size(96, CONTROL_BUTTON_SIZE);
                         search.node("input").at(SEARCH_BAR_LEFT - SEARCH_FIELD_LEFT, SEARCH_BAR_TOP - SEARCH_FIELD_TOP + 2)
                                 .size(90, 9);
