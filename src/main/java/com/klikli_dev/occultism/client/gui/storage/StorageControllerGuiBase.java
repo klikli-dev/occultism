@@ -52,6 +52,7 @@ import com.klikli_dev.occultism.client.gui.storage.logic.StorageScreenActions;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiSprites;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
+import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
@@ -154,6 +155,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected AbstractWidget jeiSyncButton;
     protected AbstractWidget autocraftingModeButton;
     protected AbstractWidget inventoryModeButton;
+    protected LabelWidget storageSpaceLabel;
+    protected LabelWidget storageTypesLabel;
     protected final StorageScreenBackend backend;
     protected final StorageScreenState state;
     protected final StorageDisplayQuery displayQuery;
@@ -390,6 +393,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.state.setSearchText(this.searchBar.getValue());
         this.topBarWidget.addTo(this::addRenderableWidget);
 
+        this.storageSpaceLabel = new LabelWidget(this.storageSpaceLabelPosition().left(), this.storageSpaceLabelPosition().top(),
+                true, -1, 2, 0xFFFFFF);
+        this.storageSpaceLabel.addLine(this.storageSpaceText());
+        this.addRenderableWidget(this.storageSpaceLabel);
+
+        this.storageTypesLabel = new LabelWidget(this.storageTypesLabelPosition().left(), this.storageTypesLabelPosition().top(),
+                true, -1, 2, 0xFFFFFF);
+        this.storageTypesLabel.addLine(this.storageTypesText());
+        this.addRenderableWidget(this.storageTypesLabel);
+
         this.initButtons();
 
     }
@@ -573,10 +586,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.clearRecipeButtonX(),
                 this.clearRecipeButtonY(),
                 () -> this.actions.clearCraftingMatrixAndRefresh(this::init),
-                TRANSLATION_KEY_BASE,
-                this.nodePosition("frame.menu.crafting_arrow").left(),
-                this.nodePosition("frame.menu.crafting_arrow").top(),
-                GuiSprites.CRAFTING_ARROW
+                TRANSLATION_KEY_BASE
         );
         this.clearRecipeButton = this.craftingAreaWidget.clearRecipeButton();
         this.craftingAreaWidget.addTo(this::addRenderableWidget);
@@ -653,14 +663,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSpaceText(double mouseX, double mouseY) {
-        var node = this.resolvedLayout.node("frame.menu.storage_space_label");
-        return this.isHovering(node.x() - this.leftPos - 32, node.y() - this.topPos - 2,
+        return this.storageSpaceLabel != null && this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32,
+                this.storageSpaceLabel.getY() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
     protected boolean isPointInTypesText(double mouseX, double mouseY) {
-        var node = this.resolvedLayout.node("frame.menu.storage_types_label");
-        return this.isHovering(node.x() - this.leftPos - 32, node.y() - this.topPos - 2,
+        return this.storageTypesLabel != null && this.isHovering(this.storageTypesLabel.getX() - this.leftPos - 32,
+                this.storageTypesLabel.getY() - this.topPos - 2,
                 64, this.font.lineHeight + 2, mouseX, mouseY);
     }
 
@@ -858,11 +868,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)
         )));
-        registry.resolve("frame.menu.crafting_arrow", ctx -> ctx.addWidget(new GuiSpriteWidget(
-                ctx.node().x(),
-                ctx.node().y(),
-                GuiSprites.CRAFTING_ARROW
-        )));
         registry.resolve("frame.main.item_area_background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
@@ -887,38 +892,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)
         )));
-        registry.resolve("frame.top_bar.title", ctx -> {
-            String titleText = this.topBarTitleText();
-            int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(titleText)) / 2;
-            ctx.addWidget(new GuiTextWidget(
-                    titleX,
-                    ctx.node().y(),
-                    () -> Component.literal(this.topBarTitleText()),
-                    () -> 0x303030,
-                    false
-            ));
-        });
-        registry.resolve("frame.menu.inventory_label", ctx -> ctx.addWidget(new GuiTextWidget(
-                ctx.node().x(),
-                ctx.node().y(),
-                () -> this.playerInventoryTitle,
-                () -> ctx.style().textColor(BuiltinGuiParts.PLAYER_INVENTORY_LABEL, 0x303030),
-                false
-        )));
-        registry.resolve("frame.menu.storage_space_label", ctx -> ctx.addWidget(new GuiTextWidget(
-                ctx.node().x(),
-                ctx.node().y(),
-                this::storageSpaceText,
-                () -> 0x404040,
-                false
-        )));
-        registry.resolve("frame.menu.storage_types_label", ctx -> ctx.addWidget(new GuiTextWidget(
-                ctx.node().x(),
-                ctx.node().y(),
-                this::storageTypesText,
-                () -> 0x404040,
-                false
-        )));
+        StorageCraftingAreaWidget.registerResolvers(registry, GuiSprites.CRAFTING_ARROW, this::menuSlotSprite);
         this.registerSlotResolvers(registry);
     }
 
@@ -939,7 +913,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         for (int slotIndex = 0; slotIndex < this.menu.slots.size(); slotIndex++) {
             String nodePath = this.slotNodePath(slotIndex);
-            if (nodePath == null || slotIndex == ORDER_INPUT_SLOT_INDEX) {
+            if (nodePath == null || slotIndex == ORDER_INPUT_SLOT_INDEX || (slotIndex >= 0 && slotIndex <= 9)) {
                 continue;
             }
 
@@ -1154,20 +1128,29 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected Bounds itemAreaHoverBounds() {
-        var itemAreaNode = this.resolvedLayout.node("frame.main.item_area.slot_0");
-        return new Bounds(itemAreaNode.x(), itemAreaNode.y(),
-                itemAreaNode.x() + this.columns * 18 - 2,
-                itemAreaNode.y() + 4 + 18 * this.rows);
+        Position itemAreaNode = this.nodePosition("frame.main.item_area.slot_0");
+        return new Bounds(itemAreaNode.left(), itemAreaNode.top(),
+                itemAreaNode.left() + this.columns * 18 - 2,
+                itemAreaNode.top() + 4 + 18 * this.rows);
     }
 
     protected Bounds orderSlotHoverBounds() {
         var node = this.resolvedLayout.node("frame.menu.order.slot_background");
-        return new Bounds(node.x(), node.y(), node.maxX(), node.maxY());
+        Position position = this.nodePosition("frame.menu.order.slot_background");
+        return new Bounds(position.left(), position.top(), position.left() + node.widthOrThrow(), position.top() + node.heightOrThrow());
     }
 
     protected Position nodePosition(String path) {
         var node = this.resolvedLayout.node(path);
-        return new Position(node.x(), node.y());
+        return new Position(this.leftPos + node.x(), this.guiTop() + node.y());
+    }
+
+    protected Position storageSpaceLabelPosition() {
+        return this.nodePosition("frame.menu.storage_space_label");
+    }
+
+    protected Position storageTypesLabelPosition() {
+        return this.nodePosition("frame.menu.storage_types_label");
     }
 
     @Override
