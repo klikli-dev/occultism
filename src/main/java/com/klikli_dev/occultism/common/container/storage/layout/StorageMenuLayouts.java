@@ -29,9 +29,9 @@ public final class StorageMenuLayouts {
     );
 
     private static final StorageMenuLayout REMOTE = new StorageMenuLayout(
-            8 + ORDER_AREA_OFFSET,
+            3 + ORDER_AREA_OFFSET,
             PLAYER_INVENTORY_TOP,
-            8 + ORDER_AREA_OFFSET,
+            3 + ORDER_AREA_OFFSET,
             HOTBAR_TOP,
             37 + ORDER_AREA_OFFSET,
             CRAFTING_GRID_TOP,
