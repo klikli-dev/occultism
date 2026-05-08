@@ -110,7 +110,7 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
                 ctx.node().heightOrThrow(),
                 ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_TOP_BAR, GuiSprites.GUI_BACKGROUND)
         )));
-        registry.resolve("frame.top_bar.title", ctx -> {
+        registry.resolve("frame.top_bar.title", 20, ctx -> {
             Component title = this.topBarTitle();
             int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(title)) / 2;
             ctx.addWidget(new GuiTextWidget(
@@ -174,7 +174,7 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
     protected abstract String machineSlotNodePath(int slotIndex);
 
     protected Component topBarTitle() {
-        return Component.translatable(this.title.getString());
+        return this.title;
     }
 
     protected abstract void renderDynamicContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
