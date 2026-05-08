@@ -6,6 +6,10 @@
 
 package com.klikli_dev.occultism.client.gui.storage.component;
 
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import net.minecraft.client.gui.Font;
@@ -98,5 +102,25 @@ public record StorageTopBarWidget(
         if (this.jeiSyncButton != null) {
             adder.accept(this.jeiSyncButton);
         }
+    }
+
+    public static void registerResolvers(LayoutResolverRegistry registry, GuiHost host, GuiSprite backgroundSprite,
+                                         GuiSprite searchBackgroundSprite) {
+        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                host,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                backgroundSprite
+        )));
+        registry.resolve("frame.top_bar.search.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                host,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                searchBackgroundSprite
+        )));
     }
 }

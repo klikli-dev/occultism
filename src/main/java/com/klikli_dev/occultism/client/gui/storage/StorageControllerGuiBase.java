@@ -46,6 +46,7 @@ import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageItemGridWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageCraftingAreaWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageInfoWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageMachineGridWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageModeTabsWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageTopBarWidget;
@@ -96,47 +97,20 @@ import java.util.stream.Collectors;
 
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractStorageTerminalScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener, PlayerInventoryScreenHost {
 
-    public static final int ORDER_AREA_OFFSET = 48;
     public static final int ORDER_INPUT_SLOT_INDEX = 10;
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     protected static final int GUI_WIDTH = 260;
     protected static final int VISIBLE_COLUMNS = 11;
-    protected static final int TOP_BAR_HEIGHT = 21;
-    protected static final int MAIN_PANEL_TOP = 12;
-    protected static final int ITEM_AREA_LEFT = 32;
-    protected static final int ITEM_AREA_TOP = TOP_BAR_HEIGHT + 3;
-    protected static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
-    protected static final int SEARCH_BAR_TOP = 7;
-    protected static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
-    protected static final int SEARCH_FIELD_TOP = SEARCH_BAR_TOP - 3;
-    protected static final int STORAGE_INFO_LABEL_LEFT = 186;
-    protected static final int CONTROL_BUTTON_TOP = SEARCH_BAR_TOP - 2;
     protected static final int CONTROL_BUTTON_SIZE = 12;
-    protected static final int CONTROL_BUTTON_LEFT = SEARCH_BAR_LEFT + 98;
-    protected static final int ORDER_PANEL_LEFT = 0;
-    protected static final int ORDER_PANEL_TOP_OFFSET = 5;
-    public static final int CRAFTING_GRID_TOP = 4;
-    public static final int CRAFTING_OUTPUT_TOP = CRAFTING_GRID_TOP + 18;
-    protected static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET;
-    protected static final int CRAFTING_ARROW_TOP = CRAFTING_OUTPUT_TOP + 1;
     protected static final int INVENTORY_PANEL_TOP_OFFSET = 66;
-    protected static final int INVENTORY_PANEL_LEFT = 43;
-    protected static final int INVENTORY_PANEL_WIDTH = 176;
     protected static final int INVENTORY_PANEL_HEIGHT = 90;
-    protected static final int INVENTORY_LABEL_X = 51;
-    protected static final int INVENTORY_LABEL_TOP_OFFSET = 73;
-    protected static final int TAB_TOP_OFFSET = 0;
     protected static final int TAB_WIDTH = 34;
     protected static final int TAB_HEIGHT = 29;
-    protected static final int TAB_HIDDEN_OVERLAP = 3;
-    protected static final int TAB_LEFT_SHIFT = 5;
     protected static final int TAB_ICON_OFFSET_X = -3;
     protected static final int MAIN_PANEL_TINT_FALLBACK = 0xFF4B5563;
     protected static final int STORAGE_BUTTON_TINT = 0xFF5D6878;
     protected static final int STORAGE_BUTTON_HOVER_TINT = 0xFF707C8D;
     protected static final int TOP_CONTROL_TOOLTIP_OFFSET_Y = 18;
-    public static final int ORDER_INPUT_SLOT_LEFT = -10;
-    public static final int ORDER_INPUT_SLOT_TOP = -61;
     protected static final float SEARCH_BAR_SCALE = 0.75F;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
@@ -171,6 +145,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected StorageTopBarWidget topBarWidget;
     protected StorageModeTabsWidget modeTabsWidget;
     protected StorageCraftingAreaWidget craftingAreaWidget;
+    protected StorageInfoWidget storageInfoWidget;
     protected final StorageTooltipOverlay tooltipOverlay;
     protected int rows;
     protected int columns;
@@ -323,93 +298,17 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.rows = this.visibleRows();
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
-        this.topPos = this.realTopPos + ITEM_AREA_TOP + 18 * this.rows;
+        this.topPos = this.realTopPos + StorageTerminalLayouts.menuTop(this.rows);
         this.resolveLayout();
 
         this.clearWidgets();
 
         this.initRootWidgets();
 
-        boolean focus = false;
-
-        String searchBarText = "";
-        if (this.searchBar != null) {
-            searchBarText = this.searchBar.getValue();
-            if (this.searchBar.isFocused()) {
-                focus = true;
-            }
-        }
-
-
-        int searchBarRenderedWidth = 90;
-        int searchBarRenderedHeight = Math.max(9, this.font.lineHeight);
-        // OccultismEmiIntegration excluded from build - EMI sync disabled
-        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
-            searchBarText = OccultismJeiIntegration.get().getFilterText();
-        }
-        this.topBarWidget = StorageTopBarWidget.create(
-                this.font,
-                this.topBarSearchBarX(),
-                this.topBarSearchBarY(),
-                searchBarRenderedWidth,
-                searchBarRenderedHeight,
-                SEARCH_BAR_SCALE,
-                searchBarText,
-                focus,
-                CONTROL_BUTTON_SIZE,
-                this.storageButtonBackgroundSprites(),
-                this.topBarControlButtonX(0),
-                this.topBarControlButtonY(0),
-                () -> {
-                    this.clearSearch();
-                    this.state.requestSearchFocus();
-                    this.init();
-                },
-                this.topBarControlButtonX(1),
-                this.topBarControlButtonY(1),
-                () -> {
-                    this.setSortType(this.getSortType().next());
-                    this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
-                    this.init();
-                },
-                this.sortTypeRenderer(),
-                this.topBarControlButtonX(2),
-                this.topBarControlButtonY(2),
-                () -> {
-                    this.setSortDirection(this.getSortDirection().next());
-                    this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
-                    this.init();
-                },
-                SpriteButtonWidget.arrow(this.getSortDirection().isDown()),
-                OccultismJeiIntegration.get().isLoaded(),
-                this.topBarControlButtonX(3),
-                this.topBarControlButtonY(3),
-                () -> {
-                    JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
-                    this.init();
-                },
-                this.jeiSyncRenderer(),
-                TRANSLATION_KEY_BASE
-        );
-        this.searchBar = this.topBarWidget.searchBar();
-        this.clearTextButton = this.topBarWidget.clearSearchButton();
-        this.sortTypeButton = this.topBarWidget.sortTypeButton();
-        this.sortDirectionButton = this.topBarWidget.sortDirectionButton();
-        this.jeiSyncButton = this.topBarWidget.jeiSyncButton();
-        this.state.setSearchText(this.searchBar.getValue());
-        this.topBarWidget.addTo(this::addRenderableWidget);
-
-        this.storageSpaceLabel = new LabelWidget(this.storageSpaceLabelPosition().left(), this.storageSpaceLabelPosition().top(),
-                true, -1, 2, 0xFFFFFF);
-        this.storageSpaceLabel.addLine(this.storageSpaceText());
-        this.addRenderableWidget(this.storageSpaceLabel);
-
-        this.storageTypesLabel = new LabelWidget(this.storageTypesLabelPosition().left(), this.storageTypesLabelPosition().top(),
-                true, -1, 2, 0xFFFFFF);
-        this.storageTypesLabel.addLine(this.storageTypesText());
-        this.addRenderableWidget(this.storageTypesLabel);
-
-        this.initButtons();
+        this.initTopBar();
+        this.initStorageInfo();
+        this.initCraftingSection();
+        this.initModeTabs();
 
     }
 
@@ -585,7 +484,89 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         return false;
     }
 
-    public void initButtons() {
+    protected void initTopBar() {
+        boolean focus = false;
+        String searchBarText = "";
+        if (this.searchBar != null) {
+            searchBarText = this.searchBar.getValue();
+            if (this.searchBar.isFocused()) {
+                focus = true;
+            }
+        }
+
+        int searchBarRenderedWidth = 90;
+        int searchBarRenderedHeight = Math.max(9, this.font.lineHeight);
+        if (OccultismJeiIntegration.get().isLoaded() && JeiSettings.isJeiSearchSynced()) {
+            searchBarText = OccultismJeiIntegration.get().getFilterText();
+        }
+        this.topBarWidget = StorageTopBarWidget.create(
+                this.font,
+                this.topBarSearchBarX(),
+                this.topBarSearchBarY(),
+                searchBarRenderedWidth,
+                searchBarRenderedHeight,
+                SEARCH_BAR_SCALE,
+                searchBarText,
+                focus,
+                CONTROL_BUTTON_SIZE,
+                this.storageButtonBackgroundSprites(),
+                this.topBarControlButtonX(0),
+                this.topBarControlButtonY(0),
+                () -> {
+                    this.clearSearch();
+                    this.state.requestSearchFocus();
+                    this.init();
+                },
+                this.topBarControlButtonX(1),
+                this.topBarControlButtonY(1),
+                () -> {
+                    this.setSortType(this.getSortType().next());
+                    this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
+                    this.init();
+                },
+                this.sortTypeRenderer(),
+                this.topBarControlButtonX(2),
+                this.topBarControlButtonY(2),
+                () -> {
+                    this.setSortDirection(this.getSortDirection().next());
+                    this.actions.syncSort(this.getEntityPosition(), this.getSortDirection(), this.getSortType());
+                    this.init();
+                },
+                SpriteButtonWidget.arrow(this.getSortDirection().isDown()),
+                OccultismJeiIntegration.get().isLoaded(),
+                this.topBarControlButtonX(3),
+                this.topBarControlButtonY(3),
+                () -> {
+                    JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
+                    this.init();
+                },
+                this.jeiSyncRenderer(),
+                TRANSLATION_KEY_BASE
+        );
+        this.searchBar = this.topBarWidget.searchBar();
+        this.clearTextButton = this.topBarWidget.clearSearchButton();
+        this.sortTypeButton = this.topBarWidget.sortTypeButton();
+        this.sortDirectionButton = this.topBarWidget.sortDirectionButton();
+        this.jeiSyncButton = this.topBarWidget.jeiSyncButton();
+        this.state.setSearchText(this.searchBar.getValue());
+        this.topBarWidget.addTo(this::addRenderableWidget);
+    }
+
+    protected void initStorageInfo() {
+        this.storageInfoWidget = StorageInfoWidget.create(
+                this.storageSpaceLabelPosition().left(),
+                this.storageSpaceLabelPosition().top(),
+                this.storageSpaceText(),
+                this.storageTypesLabelPosition().left(),
+                this.storageTypesLabelPosition().top(),
+                this.storageTypesText()
+        );
+        this.storageSpaceLabel = this.storageInfoWidget.storageSpaceLabel();
+        this.storageTypesLabel = this.storageInfoWidget.storageTypesLabel();
+        this.storageInfoWidget.addTo(this::addRenderableWidget);
+    }
+
+    protected void initCraftingSection() {
         this.craftingAreaWidget = StorageCraftingAreaWidget.create(
                 CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
@@ -596,7 +577,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         );
         this.clearRecipeButton = this.craftingAreaWidget.clearRecipeButton();
         this.craftingAreaWidget.addTo(this::addRenderableWidget);
+    }
 
+    protected void initModeTabs() {
         this.modeTabsWidget = StorageModeTabsWidget.create(
                 this.tabPosition(0).left(),
                 this.tabPosition(0).top(),
@@ -669,15 +652,25 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSpaceText(double mouseX, double mouseY) {
-        return this.storageSpaceLabel != null && this.isHovering(this.storageSpaceLabel.getX() - this.leftPos - 32,
-                this.storageSpaceLabel.getY() - this.topPos - 2,
-                64, this.font.lineHeight + 2, mouseX, mouseY);
+        return this.storageInfoWidget != null && this.storageInfoWidget.isStorageSpaceTextHovered(
+                this::isHovering,
+                this.leftPos,
+                this.topPos,
+                this.font.lineHeight,
+                mouseX,
+                mouseY
+        );
     }
 
     protected boolean isPointInTypesText(double mouseX, double mouseY) {
-        return this.storageTypesLabel != null && this.isHovering(this.storageTypesLabel.getX() - this.leftPos - 32,
-                this.storageTypesLabel.getY() - this.topPos - 2,
-                64, this.font.lineHeight + 2, mouseX, mouseY);
+        return this.storageInfoWidget != null && this.storageInfoWidget.isStorageTypesTextHovered(
+                this::isHovering,
+                this.leftPos,
+                this.topPos,
+                this.font.lineHeight,
+                mouseX,
+                mouseY
+        );
     }
 
     protected void drawTooltips(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
@@ -842,22 +835,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void registerResolvers(LayoutResolverRegistry registry) {
-        registry.resolve("frame.main.tabs.inventory", ctx -> ctx.addWidget(new GuiBackgroundWidget(
-                this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                this.tabBackgroundSprite(this.state.isInventoryMode())
-        )));
-        registry.resolve("frame.main.tabs.autocrafting", ctx -> ctx.addWidget(new GuiBackgroundWidget(
-                this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                this.tabBackgroundSprite(this.state.isAutocraftingMode())
-        )));
+        this.registerMainPanelResolvers(registry);
+        this.registerTopBarResolvers(registry);
+        this.registerPlayerInventoryResolvers(registry);
+        this.registerCraftingResolvers(registry);
+    }
+
+    protected void registerMainPanelResolvers(LayoutResolverRegistry registry) {
         registry.resolve("frame.main.panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
@@ -874,22 +858,24 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 OccultismGuiSprites.STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND
         )));
-        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+        StorageModeTabsWidget.registerResolvers(
+                registry,
                 this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR, GuiSprites.GUI_BACKGROUND)
-        )));
-        registry.resolve("frame.top_bar.search.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this.tabBackgroundSprite(this.state.isInventoryMode()),
+                this.tabBackgroundSprite(this.state.isAutocraftingMode())
+        );
+    }
+
+    protected void registerTopBarResolvers(LayoutResolverRegistry registry) {
+        StorageTopBarWidget.registerResolvers(
+                registry,
                 this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR, GuiSprites.GUI_BACKGROUND),
                 GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)
-        )));
+        );
+    }
+
+    protected void registerPlayerInventoryResolvers(LayoutResolverRegistry registry) {
         this.playerInventorySection.registerResolvers(registry.scope("frame.menu.player_inventory"), this);
         registry.resolve("frame.menu.player_inventory.background", -100, ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
@@ -899,54 +885,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow() - 4,
                 this.style().get(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND)
         )));
-        StorageCraftingAreaWidget.registerResolvers(registry, GuiSprites.CRAFTING_ARROW, this::menuSlotSprite);
-        this.registerSlotResolvers(registry);
     }
 
-    protected void registerSlotResolvers(LayoutResolverRegistry registry) {
-        registry.resolve("frame.menu.order.slot_background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+    protected void registerCraftingResolvers(LayoutResolverRegistry registry) {
+        StorageCraftingAreaWidget.registerResolvers(
+                registry,
                 this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)
-        )));
-        registry.add("frame.menu.order.slot", 25, ctx -> {
-            int offsetX = this.menuSlotOffsetX(ORDER_INPUT_SLOT_INDEX);
-            int offsetY = this.menuSlotOffsetY(ORDER_INPUT_SLOT_INDEX);
-            ctx.addWidget(new GuiSpriteWidget(ctx.node().x() + offsetX, ctx.node().y() + offsetY, this.orderInputSlotSprite()));
-            ctx.addWidget(new GuiSpriteWidget(ctx.node().x() + offsetX + 2, ctx.node().y() + offsetY + 2,
-                    OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF).sized(14, 14)));
-        });
-
-        for (int slotIndex = 0; slotIndex < this.menu.slots.size(); slotIndex++) {
-            String nodePath = this.slotNodePath(slotIndex);
-            if (nodePath == null || slotIndex == ORDER_INPUT_SLOT_INDEX || (slotIndex >= 0 && slotIndex <= 9)) {
-                continue;
-            }
-
-            int currentSlotIndex = slotIndex;
-            registry.add(nodePath, 25, ctx -> ctx.addWidget(new GuiSpriteWidget(
-                    ctx.node().x() + this.menuSlotOffsetX(currentSlotIndex),
-                    ctx.node().y() + this.menuSlotOffsetY(currentSlotIndex),
-                    this.menuSlotSprite(currentSlotIndex)
-            )));
-        }
-    }
-
-    protected String slotNodePath(int slotIndex) {
-        if (slotIndex == 0) {
-            return "frame.menu.crafting.output";
-        }
-        if (slotIndex >= 1 && slotIndex <= 9) {
-            return "frame.menu.crafting.grid.slot_" + (slotIndex - 1);
-        }
-        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
-            return "frame.menu.order.slot";
-        }
-
-        return null;
+                GuiSprites.CRAFTING_ARROW,
+                this::menuSlotSprite,
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND),
+                this.orderInputSlotSprite(),
+                OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF).sized(14, 14)
+        );
     }
 
     protected Component storageSpaceText() {
@@ -959,36 +909,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 String.format("%.0f", (double) this.usedItemTypes / (double) this.maxItemTypes * 100)));
     }
 
-    protected int mainPanelHeight() {
-        return this.menuTop() + INVENTORY_PANEL_TOP_OFFSET - this.guiTop() - MAIN_PANEL_TOP - 3;
-    }
-
-    protected int mainPanelLeft() {
-        return this.leftPos + (this.imageWidth - this.mainPanelWidth()) / 2;
-    }
-
-    protected int mainPanelWidth() {
-        return this.columns * 18 + 14;
-    }
-
-    protected int itemAreaBackgroundWidth() {
-        return this.columns * 18;
-    }
-
-    protected int itemAreaBackgroundHeight() {
-        return this.rows * 18;
-    }
-
-    protected int topBarLeft() {
-        return this.mainPanelLeft() - this.leftPos - 3;
-    }
-
-    protected int topBarWidth() {
-        return this.mainPanelWidth() + 6;
-    }
-
     protected int totalGuiHeight() {
-        return ITEM_AREA_TOP + this.rows * 18 + INVENTORY_PANEL_TOP_OFFSET + INVENTORY_PANEL_HEIGHT;
+        return StorageTerminalLayouts.totalGuiHeight(this.rows);
     }
 
     protected int visibleRows() {
@@ -1001,15 +923,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected int menuTop() {
         return this.topPos;
-    }
-
-    protected String topBarTitleText() {
-        String titleText = this.title.getString();
-        if (titleText.length() >= 2 && titleText.startsWith("[") && titleText.endsWith("]")) {
-            return titleText.substring(1, titleText.length() - 1);
-        }
-
-        return titleText;
     }
 
     protected GuiStyle style() {
@@ -1074,20 +987,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected GuiSprite orderInputSlotSprite() {
         return this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_CRAFTING_SLOT, GuiSprites.INVENTORY_SLOT);
-    }
-
-    protected int menuSlotOffsetX(int slotIndex) {
-        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
-            return 0;
-        }
-        return slotIndex == 0 ? -5 : -1;
-    }
-
-    protected int menuSlotOffsetY(int slotIndex) {
-        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
-            return 0;
-        }
-        return slotIndex == 0 ? -5 : -1;
     }
 
     protected Position topBarSearchBarPosition() {

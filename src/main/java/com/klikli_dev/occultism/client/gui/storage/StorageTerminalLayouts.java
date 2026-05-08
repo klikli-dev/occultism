@@ -15,7 +15,7 @@ import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuVaria
 
 final class StorageTerminalLayouts {
     private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
-    private static final int SLOT_SIZE = 18;
+    private static final int SLOT_SIZE = StorageMenuLayout.SLOT_SIZE;
     private static final int GUI_WIDTH = 260;
     private static final int TOP_BAR_HEIGHT = 21;
     private static final int MAIN_PANEL_TOP = 12;
@@ -29,22 +29,10 @@ final class StorageTerminalLayouts {
     private static final int CONTROL_BUTTON_TOP = SEARCH_BAR_TOP - 2;
     private static final int CONTROL_BUTTON_LEFT = SEARCH_BAR_LEFT + 98;
     private static final int CONTROL_BUTTON_SIZE = 12;
-    private static final int INVENTORY_PANEL_TOP_OFFSET = 66;
-    private static final int INVENTORY_PANEL_LEFT = 43;
-    private static final int ORDER_AREA_OFFSET = 48;
-    private static final int CRAFTING_GRID_LEFT = 37 + ORDER_AREA_OFFSET;
-    private static final int CRAFTING_GRID_TOP = 4;
-    private static final int CRAFTING_OUTPUT_LEFT = 133 + ORDER_AREA_OFFSET;
-    private static final int CRAFTING_OUTPUT_TOP = CRAFTING_GRID_TOP + 18;
-    private static final int CRAFTING_ARROW_LEFT = 103 + ORDER_AREA_OFFSET - 5;
-    private static final int CRAFTING_ARROW_TOP = CRAFTING_OUTPUT_TOP + 1;
-    private static final int ORDER_SLOT_LEFT = -10;
-    private static final int ORDER_SLOT_TOP = -61;
     private static final int TAB_WIDTH = 34;
     private static final int TAB_HEIGHT = 29;
     private static final int TAB_LEFT_SHIFT = 5;
     private static final int TAB_HIDDEN_OVERLAP = 3;
-    private static final int TAB_TOP_OFFSET = 0;
 
     private StorageTerminalLayouts() {
     }
@@ -96,25 +84,35 @@ final class StorageTerminalLayouts {
                         inventory.at(menuLayout.playerInventoryLeft(), menuLayout.playerInventoryTop());
                         PLAYER_INVENTORY.define(inventory);
                     });
-                    menu.node("crafting_arrow").at(CRAFTING_ARROW_LEFT, CRAFTING_ARROW_TOP);
+                    menu.node("crafting_arrow").at(menuLayout.craftingArrowX(), menuLayout.craftingArrowY());
                     menu.node("storage_space_label").at(STORAGE_INFO_LABEL_LEFT, 6);
-                    menu.node("storage_types_label").at(CRAFTING_OUTPUT_LEFT + SLOT_SIZE / 2, 47);
-                    menu.node("clear_recipe_button").at(93 + ORDER_AREA_OFFSET, CRAFTING_GRID_TOP - 1)
+                    menu.node("storage_types_label").at(menuLayout.storageTypesLabelX(), menuLayout.storageTypesLabelY());
+                    menu.node("clear_recipe_button").at(menuLayout.clearRecipeButtonX(), menuLayout.clearRecipeButtonY())
                             .size(CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE);
                     menu.group("crafting", crafting -> {
-                        crafting.node("output").at(CRAFTING_OUTPUT_LEFT, CRAFTING_OUTPUT_TOP).size(SLOT_SIZE, SLOT_SIZE);
+                        crafting.node("output").at(menuLayout.craftingOutputX(), menuLayout.craftingOutputY()).size(SLOT_SIZE, SLOT_SIZE);
                         crafting.group("grid", grid -> {
-                            grid.at(CRAFTING_GRID_LEFT, CRAFTING_GRID_TOP);
+                            grid.at(menuLayout.craftingGridLeft(), menuLayout.craftingGridTop());
                             defineGrid(grid, 3, 3);
                         });
                     });
                     menu.group("order", order -> {
-                        order.node("slot_background").at(ORDER_SLOT_LEFT - 5, ORDER_SLOT_TOP - 5).size(28, 28);
-                        order.node("slot").at(ORDER_SLOT_LEFT, ORDER_SLOT_TOP).size(SLOT_SIZE, SLOT_SIZE);
+                        order.node("slot_background").at(menuLayout.orderSlotBackgroundX(), menuLayout.orderSlotBackgroundY())
+                                .size(StorageMenuLayout.ORDER_SLOT_BACKGROUND_SIZE, StorageMenuLayout.ORDER_SLOT_BACKGROUND_SIZE);
+                        order.node("slot").at(menuLayout.orderSlotX(), menuLayout.orderSlotY()).size(SLOT_SIZE, SLOT_SIZE);
                     });
                 });
             });
         });
+    }
+
+    public static int totalGuiHeight(int visibleRows) {
+        return ITEM_AREA_TOP + visibleRows * SLOT_SIZE + StorageControllerGuiBase.INVENTORY_PANEL_TOP_OFFSET
+                + StorageControllerGuiBase.INVENTORY_PANEL_HEIGHT;
+    }
+
+    public static int menuTop(int visibleRows) {
+        return ITEM_AREA_TOP + visibleRows * SLOT_SIZE;
     }
 
     private static int visibleColumns() {

@@ -6,6 +6,10 @@
 
 package com.klikli_dev.occultism.client.gui.storage.component;
 
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.occultism.client.gui.widget.SpriteButtonWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -44,6 +48,26 @@ public record StorageModeTabsWidget(
     public void addTo(Consumer<AbstractWidget> adder) {
         adder.accept(this.inventoryModeButton);
         adder.accept(this.autocraftingModeButton);
+    }
+
+    public static void registerResolvers(LayoutResolverRegistry registry, GuiHost host, GuiSprite inventoryTabSprite,
+                                         GuiSprite autocraftingTabSprite) {
+        registry.resolve("frame.main.tabs.inventory", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                host,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                inventoryTabSprite
+        )));
+        registry.resolve("frame.main.tabs.autocrafting", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                host,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                autocraftingTabSprite
+        )));
     }
 
     private static AbstractWidget createTabButton(int x, int y, int width, int height, Runnable onPress,
