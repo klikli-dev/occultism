@@ -94,7 +94,15 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
 
     @Override
     public void registerResolvers(LayoutResolverRegistry registry) {
-        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+        registry.resolve("frame.machine_panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_PANEL, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.background", 10, ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
                 ctx.node().y(),
@@ -113,14 +121,6 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
                     false
             ));
         });
-        registry.resolve("frame.machine_panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
-                this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_PANEL, GuiSprites.GUI_BACKGROUND)
-        )));
         this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
         registry.resolve("frame.progress.background", ctx -> ctx.addWidget(new GuiSpriteWidget(
                 ctx.node().x(),
@@ -174,7 +174,7 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
     protected abstract String machineSlotNodePath(int slotIndex);
 
     protected Component topBarTitle() {
-        return this.title;
+        return Component.translatable(this.title.getString());
     }
 
     protected abstract void renderDynamicContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
