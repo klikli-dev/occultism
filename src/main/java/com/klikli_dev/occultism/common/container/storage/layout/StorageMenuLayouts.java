@@ -15,9 +15,9 @@ public final class StorageMenuLayouts {
 
     private static final StorageMenuLayout STANDARD = new StorageMenuLayout(
             3 + ORDER_AREA_OFFSET,
-            72,
+            71,
             3 + ORDER_AREA_OFFSET,
-            130,
+            129,
             37 + ORDER_AREA_OFFSET,
             CRAFTING_GRID_TOP,
             133 + ORDER_AREA_OFFSET,
@@ -28,9 +28,9 @@ public final class StorageMenuLayouts {
 
     private static final StorageMenuLayout REMOTE = new StorageMenuLayout(
             8 + ORDER_AREA_OFFSET,
-            18 * 3 + 7,
+            18 * 3 + 6,
             8 + ORDER_AREA_OFFSET,
-            18 * 3 + 7 + 18 * 3 + 4,
+            18 * 3 + 6 + 18 * 3 + 4,
             37 + ORDER_AREA_OFFSET,
             CRAFTING_GRID_TOP,
             133 + ORDER_AREA_OFFSET,

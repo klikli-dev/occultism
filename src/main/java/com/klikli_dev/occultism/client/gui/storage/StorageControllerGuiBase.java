@@ -891,6 +891,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)
         )));
         this.playerInventorySection.registerResolvers(registry.scope("frame.menu.player_inventory"), this);
+        registry.resolve("frame.menu.player_inventory.background", 1, ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x() + 2,
+                ctx.node().y() + 2,
+                ctx.node().widthOrThrow() - 4,
+                ctx.node().heightOrThrow() - 4,
+                this.style().get(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND)
+        )));
         StorageCraftingAreaWidget.registerResolvers(registry, GuiSprites.CRAFTING_ARROW, this::menuSlotSprite);
         this.registerSlotResolvers(registry);
     }

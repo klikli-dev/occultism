@@ -89,7 +89,7 @@ final class StorageTerminalLayouts {
                     int menuTop = ITEM_AREA_TOP + SLOT_SIZE * visibleRows;
                     menu.at(0, menuTop);
                     menu.group("player_inventory", inventory -> {
-                        inventory.at(3 + ORDER_AREA_OFFSET, 72);
+                        inventory.at(3 + ORDER_AREA_OFFSET, 71);
                         PLAYER_INVENTORY.define(inventory);
                     });
                     menu.node("crafting_arrow").at(CRAFTING_ARROW_LEFT, CRAFTING_ARROW_TOP);
