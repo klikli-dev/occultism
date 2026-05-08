@@ -8,8 +8,10 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 
 final class StorageTerminalLayouts {
+    private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
     private static final int SLOT_SIZE = 18;
     private static final int GUI_WIDTH = 260;
     private static final int TOP_BAR_HEIGHT = 21;
@@ -26,8 +28,6 @@ final class StorageTerminalLayouts {
     private static final int CONTROL_BUTTON_SIZE = 12;
     private static final int INVENTORY_PANEL_TOP_OFFSET = 66;
     private static final int INVENTORY_PANEL_LEFT = 43;
-    private static final int INVENTORY_PANEL_WIDTH = 172;
-    private static final int INVENTORY_PANEL_HEIGHT = 85;
     private static final int INVENTORY_LABEL_X = 51;
     private static final int INVENTORY_LABEL_TOP_OFFSET = 73;
     private static final int ORDER_AREA_OFFSET = 48;
@@ -86,8 +86,10 @@ final class StorageTerminalLayouts {
                 frame.group("menu", menu -> {
                     int menuTop = ITEM_AREA_TOP + SLOT_SIZE * visibleRows;
                     menu.at(0, menuTop);
-                    menu.node("inventory_panel").at(INVENTORY_PANEL_LEFT, INVENTORY_PANEL_TOP_OFFSET)
-                            .size(INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT);
+                    menu.group("player_inventory", inventory -> {
+                        inventory.at(3 + ORDER_AREA_OFFSET, 72);
+                        PLAYER_INVENTORY.define(inventory);
+                    });
                     menu.node("inventory_label").at(INVENTORY_LABEL_X, INVENTORY_LABEL_TOP_OFFSET);
                     menu.node("crafting_arrow").at(CRAFTING_ARROW_LEFT, CRAFTING_ARROW_TOP);
                     menu.node("storage_space_label").at(STORAGE_INFO_LABEL_LEFT, 7);
@@ -104,16 +106,6 @@ final class StorageTerminalLayouts {
                     menu.group("order", order -> {
                         order.node("slot_background").at(ORDER_SLOT_LEFT - 5, ORDER_SLOT_TOP - 5).size(28, 28);
                         order.node("slot").at(ORDER_SLOT_LEFT, ORDER_SLOT_TOP).size(SLOT_SIZE, SLOT_SIZE);
-                    });
-                    menu.group("player_inventory", inventory -> {
-                        inventory.group("main", main -> {
-                            main.at(3 + ORDER_AREA_OFFSET, 72);
-                            defineGrid(main, 3, 9);
-                        });
-                        inventory.group("hotbar", hotbar -> {
-                            hotbar.at(3 + ORDER_AREA_OFFSET, 130);
-                            defineGrid(hotbar, 1, 9);
-                        });
                     });
                 });
             });

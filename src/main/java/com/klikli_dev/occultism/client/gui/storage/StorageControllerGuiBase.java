@@ -24,7 +24,9 @@ package com.klikli_dev.occultism.client.gui.storage;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.klikli_dev.codedefinedgui.api.layout.BuiltinLayoutSlotRoles;
 import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSlotView;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
@@ -33,8 +35,9 @@ import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
 import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
@@ -91,7 +94,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractStorageTerminalScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
+public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractStorageTerminalScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener, PlayerInventoryScreenHost {
 
     public static final int ORDER_AREA_OFFSET = 48;
     public static final int ORDER_INPUT_SLOT_INDEX = 10;
@@ -137,6 +140,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final float SEARCH_BAR_SCALE = 0.75F;
     protected static final int JEI_ACTIVE_COLOR = 0xFF20A020;
     protected static final int JEI_INACTIVE_COLOR = 0xFFC03030;
+    private static final int PLAYER_SLOT_COUNT = 36;
 
     public int lastStacksCount;
     public ClientStorageCache clientStorageCache;
@@ -163,6 +167,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageScreenActions actions;
     protected final StorageItemGridWidget itemGrid;
     protected final StorageMachineGridWidget machineGrid;
+    protected final PlayerInventorySection playerInventorySection;
+    protected final List<LayoutSlotView> playerInventorySlots;
     protected StorageTopBarWidget topBarWidget;
     protected StorageModeTabsWidget modeTabsWidget;
     protected StorageCraftingAreaWidget craftingAreaWidget;
@@ -184,6 +190,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.actions = new StorageScreenActions();
         this.itemGrid = new StorageItemGridWidget(this);
         this.machineGrid = new StorageMachineGridWidget(this);
+        this.playerInventorySection = PlayerInventorySection.standard();
+        this.playerInventorySlots = this.createPlayerInventorySlots();
         this.tooltipOverlay = new StorageTooltipOverlay(TRANSLATION_KEY_BASE, TOP_CONTROL_TOOLTIP_OFFSET_Y);
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
@@ -860,14 +868,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_MAIN_PANEL, GuiSprites.GUI_BACKGROUND)
         )));
-        registry.resolve("frame.menu.inventory_panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
-                this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)
-        )));
         registry.resolve("frame.main.item_area_background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
@@ -892,6 +892,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 GuiSprites.FILTER_BUTTON.tinted(STORAGE_BUTTON_TINT)
         )));
+        this.playerInventorySection.registerResolvers(registry.scope("frame.menu.player_inventory"), this);
         StorageCraftingAreaWidget.registerResolvers(registry, GuiSprites.CRAFTING_ARROW, this::menuSlotSprite);
         this.registerSlotResolvers(registry);
     }
@@ -935,14 +936,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
             return "frame.menu.order.slot";
-        }
-
-        int playerSlotIndex = slotIndex - 11;
-        if (playerSlotIndex >= 0 && playerSlotIndex < 27) {
-            return "frame.menu.player_inventory.main.slot_" + playerSlotIndex;
-        }
-        if (playerSlotIndex >= 27 && playerSlotIndex < 36) {
-            return "frame.menu.player_inventory.hotbar.slot_" + (playerSlotIndex - 27);
         }
 
         return null;
@@ -1151,6 +1144,28 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected Position storageTypesLabelPosition() {
         return this.nodePosition("frame.menu.storage_types_label");
+    }
+
+    @Override
+    public List<LayoutSlotView> layoutSlots() {
+        return this.playerInventorySlots;
+    }
+
+    protected List<LayoutSlotView> createPlayerInventorySlots() {
+        List<LayoutSlotView> layoutSlots = new ArrayList<>(PLAYER_SLOT_COUNT);
+        for (int slotIndex = 0; slotIndex < PLAYER_SLOT_COUNT; slotIndex++) {
+            Slot slot = this.menu.getSlot(slotIndex + 11);
+            if (slotIndex < 27) {
+                layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_MAIN,
+                        OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, "main.slot_" + slotIndex));
+                continue;
+            }
+
+            layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_HOTBAR,
+                    OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, "hotbar.slot_" + (slotIndex - 27)));
+        }
+
+        return List.copyOf(layoutSlots);
     }
 
     @Override
