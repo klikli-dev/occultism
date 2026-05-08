@@ -842,6 +842,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void registerMainPanelResolvers(LayoutResolverRegistry registry) {
+        StorageModeTabsWidget.registerResolvers(
+                registry,
+                this,
+                this.tabBackgroundSprite(this.state.isInventoryMode()),
+                this.tabBackgroundSprite(this.state.isAutocraftingMode())
+        );
         registry.resolve("frame.main.panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
@@ -858,12 +864,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 OccultismGuiSprites.STORAGE_CONTROLLER_ITEM_AREA_BACKGROUND
         )));
-        StorageModeTabsWidget.registerResolvers(
-                registry,
-                this,
-                this.tabBackgroundSprite(this.state.isInventoryMode()),
-                this.tabBackgroundSprite(this.state.isAutocraftingMode())
-        );
     }
 
     protected void registerTopBarResolvers(LayoutResolverRegistry registry) {
