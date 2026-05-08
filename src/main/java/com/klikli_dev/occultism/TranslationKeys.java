@@ -41,6 +41,9 @@ public class TranslationKeys {
     public static final String JEI_CRUSHING_RECIPE_MAX_TIER = JEI + ".crushing.max_tier";
     public static final String JEI_CRYSTALLIZE_RECIPE_MIN_TIER = JEI + ".crystallize.min_tier";
     public static final String JEI_CRYSTALLIZE_RECIPE_MAX_TIER = JEI + ".crystallize.max_tier";
+    protected static final String GUI = "gui." + Occultism.MODID;
+    public static final String GUI_DIMENSIONAL_BATTLEFIELD_TITLE = GUI + ".dimensional_battlefield.title";
+    public static final String GUI_DIMENSIONAL_MINESHAFT_TITLE = GUI + ".dimensional_mineshaft.title";
 
     public static class Condition {
         protected static final String PREFIX = "condition." + Occultism.MODID + ".";

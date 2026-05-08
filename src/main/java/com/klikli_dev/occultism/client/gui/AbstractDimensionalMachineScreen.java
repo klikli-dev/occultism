@@ -174,8 +174,10 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
     protected abstract String machineSlotNodePath(int slotIndex);
 
     protected Component topBarTitle() {
-        return this.title;
+        return Component.translatable(this.topBarTranslationKey());
     }
+
+    protected abstract String topBarTranslationKey();
 
     protected abstract void renderDynamicContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
                                                   float partialTicks);

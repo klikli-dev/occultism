@@ -7,6 +7,7 @@
 package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -37,6 +38,11 @@ public class DimensionalMineshaftScreen extends AbstractDimensionalMachineScreen
         }
 
         return slotIndex == OUTPUT_SLOT_COUNT ? "frame.machine.input" : null;
+    }
+
+    @Override
+    protected String topBarTranslationKey() {
+        return TranslationKeys.GUI_DIMENSIONAL_MINESHAFT_TITLE;
     }
 
     @Override

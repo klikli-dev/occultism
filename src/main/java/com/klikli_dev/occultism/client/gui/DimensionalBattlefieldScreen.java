@@ -7,6 +7,7 @@
 package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -48,6 +49,11 @@ public class DimensionalBattlefieldScreen extends AbstractDimensionalMachineScre
             case OUTPUT_SLOT_COUNT + 2 -> "frame.machine.input_weapon";
             default -> null;
         };
+    }
+
+    @Override
+    protected String topBarTranslationKey() {
+        return TranslationKeys.GUI_DIMENSIONAL_BATTLEFIELD_TITLE;
     }
 
     @Override
