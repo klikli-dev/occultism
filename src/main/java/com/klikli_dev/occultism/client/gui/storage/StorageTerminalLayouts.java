@@ -9,6 +9,9 @@ package com.klikli_dev.occultism.client.gui.storage;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuLayout;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuLayouts;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuVariant;
 
 final class StorageTerminalLayouts {
     private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
@@ -46,7 +49,8 @@ final class StorageTerminalLayouts {
     private StorageTerminalLayouts() {
     }
 
-    public static LayoutSpec create(int visibleRows) {
+    public static LayoutSpec create(StorageMenuVariant variant, int visibleRows) {
+        StorageMenuLayout menuLayout = StorageMenuLayouts.layout(variant);
         return LayoutSpec.create(root -> {
             root.group("frame", frame -> {
                 frame.group("top_bar", topBar -> {
@@ -89,7 +93,7 @@ final class StorageTerminalLayouts {
                     int menuTop = ITEM_AREA_TOP + SLOT_SIZE * visibleRows;
                     menu.at(0, menuTop);
                     menu.group("player_inventory", inventory -> {
-                        inventory.at(3 + ORDER_AREA_OFFSET, 71);
+                        inventory.at(menuLayout.playerInventoryLeft(), menuLayout.playerInventoryTop());
                         PLAYER_INVENTORY.define(inventory);
                     });
                     menu.node("crafting_arrow").at(CRAFTING_ARROW_LEFT, CRAFTING_ARROW_TOP);

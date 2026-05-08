@@ -38,7 +38,7 @@ public abstract class AbstractStorageTerminalScreen<T extends StorageControllerC
 
     @Override
     public LayoutSpec layoutSpec() {
-        return StorageTerminalLayouts.create(this.visibleRows());
+        return StorageTerminalLayouts.create(this.menu.layoutVariant(), this.visibleRows());
     }
 
     protected final void resolveLayout() {

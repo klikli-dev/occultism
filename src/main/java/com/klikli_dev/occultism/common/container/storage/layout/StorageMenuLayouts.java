@@ -22,8 +22,8 @@ public final class StorageMenuLayouts {
             CRAFTING_GRID_TOP,
             133 + ORDER_AREA_OFFSET,
             CRAFTING_OUTPUT_TOP,
-            ORDER_INPUT_SLOT_LEFT,
-            ORDER_INPUT_SLOT_TOP
+            ORDER_INPUT_SLOT_LEFT + 1,
+            ORDER_INPUT_SLOT_TOP + 1
     );
 
     private static final StorageMenuLayout REMOTE = new StorageMenuLayout(
@@ -35,8 +35,8 @@ public final class StorageMenuLayouts {
             CRAFTING_GRID_TOP,
             133 + ORDER_AREA_OFFSET,
             CRAFTING_OUTPUT_TOP,
-            ORDER_INPUT_SLOT_LEFT,
-            ORDER_INPUT_SLOT_TOP
+            ORDER_INPUT_SLOT_LEFT + 1,
+            ORDER_INPUT_SLOT_TOP + 1
     );
 
     private StorageMenuLayouts() {

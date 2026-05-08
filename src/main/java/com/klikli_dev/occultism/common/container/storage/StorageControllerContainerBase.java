@@ -244,6 +244,10 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         return StorageMenuVariant.CONTROLLER;
     }
 
+    public final StorageMenuVariant layoutVariant() {
+        return this.menuVariant();
+    }
+
     protected final StorageMenuLayout menuLayout() {
         return StorageMenuLayouts.layout(this.menuVariant());
     }
