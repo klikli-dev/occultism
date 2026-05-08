@@ -96,23 +96,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         this.sacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.sacrificialBowl);
     }
 
-    private record SpriteDrawable(Identifier sprite, int width, int height) implements IDrawable {
-        @Override
-        public int getWidth() {
-            return this.width;
-        }
-
-        @Override
-        public int getHeight() {
-            return this.height;
-        }
-
-        @Override
-        public void draw(GuiGraphicsExtractor guiGraphics, int xOffset, int yOffset) {
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, xOffset, yOffset, this.width, this.height);
-        }
-    }
-
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
         int width = font.width(text);
         int actualX = (int) (x - width / 2.0f);
@@ -397,5 +380,22 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                 }
             }
         });
+    }
+
+    private record SpriteDrawable(Identifier sprite, int width, int height) implements IDrawable {
+        @Override
+        public int getWidth() {
+            return this.width;
+        }
+
+        @Override
+        public int getHeight() {
+            return this.height;
+        }
+
+        @Override
+        public void draw(GuiGraphicsExtractor guiGraphics, int xOffset, int yOffset) {
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, xOffset, yOffset, this.width, this.height);
+        }
     }
 }
