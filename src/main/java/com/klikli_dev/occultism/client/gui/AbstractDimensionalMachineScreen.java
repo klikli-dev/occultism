@@ -6,6 +6,8 @@
 
 package com.klikli_dev.occultism.client.gui;
 
+import com.klikli_dev.codedefinedgui.api.layout.BuiltinLayoutSlotRoles;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSlotView;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutScreenView;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
@@ -13,26 +15,36 @@ import com.klikli_dev.codedefinedgui.api.layout.ResolvedLayout;
 import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
 import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
 import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleContext;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T>
-        implements GuiHost, LayoutScreenView {
+        implements GuiHost, LayoutScreenView, PlayerInventoryScreenHost {
     private static final int PLAYER_SLOT_COUNT = 36;
+    private static final int PROGRESS_BACKGROUND_TINT = 0xFF697586;
 
     protected final GuiRootWidget root;
     protected final LayoutSpec layoutSpec;
     protected final ScreenLayoutController layoutController;
+    protected final PlayerInventorySection playerInventorySection;
+    protected final List<LayoutSlotView> playerInventorySlots;
     protected ResolvedLayout resolvedLayout;
 
     protected AbstractDimensionalMachineScreen(T menu, Inventory playerInventory, Component title, int imageWidth,
@@ -40,6 +52,8 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
         super(menu, playerInventory, title, imageWidth, imageHeight);
         this.root = new GuiRootWidget(this);
         this.layoutSpec = layoutSpec;
+        this.playerInventorySection = PlayerInventorySection.standard();
+        this.playerInventorySlots = this.createPlayerInventorySlots();
         this.layoutController = new ScreenLayoutController(this, this, this.root,
                 new GuiStyleContext(GuiStyleRegistry.get(OccultismGuiStyles.DIMENSIONAL_MACHINE)));
     }
@@ -87,27 +101,20 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
                 ctx.node().heightOrThrow(),
                 ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_PANEL, GuiSprites.GUI_BACKGROUND)
         )));
-        registry.resolve("frame.player_inventory.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
-                this,
-                ctx.node().x(),
-                ctx.node().y(),
-                ctx.node().widthOrThrow(),
-                ctx.node().heightOrThrow(),
-                ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_INVENTORY_BACKGROUND,
-                        GuiSprites.GUI_BACKGROUND)
-        )));
+        this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
         registry.resolve("frame.progress.background", ctx -> ctx.addWidget(new GuiSpriteWidget(
                 ctx.node().x(),
                 ctx.node().y(),
-                OccultismGuiSprites.CRAFTING_PROGRESS_BAR_BACKGROUND
+                ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_PROGRESS_BACKGROUND,
+                                OccultismGuiSprites.CRAFTING_PROGRESS_BAR_BACKGROUND.tinted(PROGRESS_BACKGROUND_TINT))
                         .sized(ctx.node().widthOrThrow(), ctx.node().heightOrThrow())
         )));
         this.registerSlotResolvers(registry);
     }
 
     protected void registerSlotResolvers(LayoutResolverRegistry registry) {
-        for (int slotIndex = 0; slotIndex < this.menu.slots.size(); slotIndex++) {
-            String nodePath = this.slotNodePath(slotIndex);
+        for (int slotIndex = 0; slotIndex < this.machineSlotCount(); slotIndex++) {
+            String nodePath = this.machineSlotNodePath(slotIndex);
             if (nodePath == null) {
                 continue;
             }
@@ -139,9 +146,7 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
     }
 
     protected com.klikli_dev.codedefinedgui.api.style.GuiPartKey slotPart(int slotIndex) {
-        return slotIndex < this.machineSlotCount()
-                ? OccultismGuiParts.DIMENSIONAL_MACHINE_SLOT
-                : OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_SLOT;
+        return OccultismGuiParts.DIMENSIONAL_MACHINE_SLOT;
     }
 
     protected abstract int machineSlotCount();
@@ -162,7 +167,29 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
         }
 
         var node = this.resolvedLayout.node(nodePath);
-        sprite.extractRenderState(guiGraphics, node.x(), node.y(), width, height);
+        sprite.extractRenderState(guiGraphics, this.guiX(node.x()), this.guiY(node.y()), width, height);
+    }
+
+    @Override
+    public List<LayoutSlotView> layoutSlots() {
+        return this.playerInventorySlots;
+    }
+
+    private List<LayoutSlotView> createPlayerInventorySlots() {
+        List<LayoutSlotView> layoutSlots = new ArrayList<>(PLAYER_SLOT_COUNT);
+        for (int slotIndex = 0; slotIndex < PLAYER_SLOT_COUNT; slotIndex++) {
+            Slot slot = this.menu.getSlot(slotIndex + this.machineSlotCount());
+            if (slotIndex < 27) {
+                layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_MAIN,
+                        BuiltinGuiParts.PLAYER_SLOT, "main.slot_" + slotIndex));
+                continue;
+            }
+
+            layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_HOTBAR,
+                    BuiltinGuiParts.PLAYER_SLOT, "hotbar.slot_" + (slotIndex - 27)));
+        }
+
+        return List.copyOf(layoutSlots);
     }
 
     @Override

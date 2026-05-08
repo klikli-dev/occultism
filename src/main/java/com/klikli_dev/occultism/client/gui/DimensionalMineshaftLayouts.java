@@ -8,8 +8,10 @@ package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 
 final class DimensionalMineshaftLayouts {
+    private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
     private static final int SLOT_SIZE = 18;
 
     private DimensionalMineshaftLayouts() {
@@ -30,15 +32,8 @@ final class DimensionalMineshaftLayouts {
                 machine.node("input").at(26, 35).size(SLOT_SIZE, SLOT_SIZE);
             });
             frame.group("player_inventory", inventory -> {
-                inventory.node("background").at(0, 80).size(176, 86);
-                inventory.group("main", main -> {
-                    main.at(8, 84);
-                    defineGrid(main, 9, 3);
-                });
-                inventory.group("hotbar", hotbar -> {
-                    hotbar.at(8, 142);
-                    defineGrid(hotbar, 9, 1);
-                });
+                inventory.at(8, 94);
+                PLAYER_INVENTORY.define(inventory);
             });
         }));
     }

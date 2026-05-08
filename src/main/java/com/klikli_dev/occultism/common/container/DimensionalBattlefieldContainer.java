@@ -105,7 +105,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 17 + 18 * 5 + 4;
+        int playerInventoryTop = 17 + 18 * 5 + 4 + 10;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
@@ -115,7 +115,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 17 + 18 * 5 + 4 + 18 * 3 + 4;
+        int hotbarTop = 17 + 18 * 5 + 4 + 18 * 3 + 4 + 10;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));

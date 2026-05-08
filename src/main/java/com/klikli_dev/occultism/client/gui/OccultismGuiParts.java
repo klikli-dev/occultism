@@ -70,6 +70,7 @@ public final class OccultismGuiParts {
     public static final GuiPartKey DIMENSIONAL_MACHINE_SLOT = key("dimensional_machine/slot");
     public static final GuiPartKey DIMENSIONAL_MACHINE_PANEL = key("dimensional_machine/panel");
     public static final GuiPartKey DIMENSIONAL_MACHINE_PLAYER_INVENTORY_BACKGROUND = key("dimensional_machine/player_inventory_background");
+    public static final GuiPartKey DIMENSIONAL_MACHINE_PROGRESS_BACKGROUND = key("dimensional_machine/progress_background");
 
     private OccultismGuiParts() {
     }

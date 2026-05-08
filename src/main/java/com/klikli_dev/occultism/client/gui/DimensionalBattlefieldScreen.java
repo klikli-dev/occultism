@@ -16,7 +16,7 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 public class DimensionalBattlefieldScreen extends AbstractDimensionalMachineScreen<DimensionalBattlefieldContainer> {
     private static final int IMAGE_WIDTH = 176;
-    private static final int IMAGE_HEIGHT = 192;
+    private static final int IMAGE_HEIGHT = 202;
     private static final int OUTPUT_SLOT_COUNT = 25;
     private static final int MACHINE_SLOT_COUNT = OUTPUT_SLOT_COUNT + 3;
 

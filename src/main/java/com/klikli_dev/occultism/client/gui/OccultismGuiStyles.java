@@ -19,6 +19,7 @@ public final class OccultismGuiStyles {
     private static final int TOP_BAR_TINT = 0xFF9C0393;
     private static final int AGE_BAR_TINT = 0xFFBB7DB8;
     private static final int SLOT_TINT = 0xFF697586;
+    private static final int PROGRESS_BACKGROUND_TINT = SLOT_TINT;
     private static final int BUTTON_TINT = 0xFF5D6878;
     private static final int BUTTON_HOVER_TINT = 0xFF707C8D;
     private static final int FIELD_TINT = 0xFF596474;
@@ -99,14 +100,18 @@ public final class OccultismGuiStyles {
 
     private static GuiStyle.Builder dimensionalMachineBaseStyle() {
         return GuiStyle.builder()
-                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_SLOT, GuiStyleProperties.SPRITE,
+                .set(BuiltinGuiParts.PLAYER_SLOT, GuiStyleProperties.SPRITE,
                         GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_SLOT, GuiStyleProperties.SPRITE,
                         GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PANEL, GuiStyleProperties.SPRITE,
                         GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_INVENTORY_BACKGROUND,
-                        GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT));
+                        GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PROGRESS_BACKGROUND, GuiStyleProperties.SPRITE,
+                        OccultismGuiSprites.CRAFTING_PROGRESS_BAR_BACKGROUND.tinted(PROGRESS_BACKGROUND_TINT));
     }
 
     private static GuiStyle.Builder bookOfCallingBaseStyle() {

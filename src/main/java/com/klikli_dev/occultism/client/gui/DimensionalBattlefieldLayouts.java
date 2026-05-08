@@ -8,8 +8,10 @@ package com.klikli_dev.occultism.client.gui;
 
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 
 final class DimensionalBattlefieldLayouts {
+    private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
     private static final int SLOT_SIZE = 18;
 
     private DimensionalBattlefieldLayouts() {
@@ -24,7 +26,7 @@ final class DimensionalBattlefieldLayouts {
             });
             frame.group("machine", machine -> {
                 machine.group("output", output -> {
-                    output.at(80, 17);
+                    output.at(80, 16);
                     defineGrid(output, 5, 5);
                 });
                 machine.node("input_soul").at(27, 37).size(SLOT_SIZE, SLOT_SIZE);
@@ -32,15 +34,8 @@ final class DimensionalBattlefieldLayouts {
                 machine.node("input_weapon").at(14, 59).size(SLOT_SIZE, SLOT_SIZE);
             });
             frame.group("player_inventory", inventory -> {
-                inventory.node("background").at(0, 108).size(176, 84);
-                inventory.group("main", main -> {
-                    main.at(8, 111);
-                    defineGrid(main, 9, 3);
-                });
-                inventory.group("hotbar", hotbar -> {
-                    hotbar.at(8, 169);
-                    defineGrid(hotbar, 9, 1);
-                });
+                inventory.at(8, 121);
+                PLAYER_INVENTORY.define(inventory);
             });
         }));
     }
