@@ -52,8 +52,8 @@ public class DimensionalMineshaftScreen extends AbstractDimensionalMachineScreen
                 ? (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime))
                 : 0;
         if (progress > 0 && miningTime > 0) {
-            this.renderSpriteAtNode(guiGraphics, "frame.progress.fill",
-                    OccultismGuiSprites.OTHERWORLD_MINER_PROGRESS_FILL, progress + 1, 4);
+            this.renderSpriteSliceAtNode(guiGraphics, "frame.progress.fill",
+                    OccultismGuiSprites.OTHERWORLD_MINER_PROGRESS_FILL, 19, 4, 0, 0, progress + 1, 4);
         }
 
         if (this.otherworldMiner.inputHandler.getStackInSlot(0).isEmpty()) {

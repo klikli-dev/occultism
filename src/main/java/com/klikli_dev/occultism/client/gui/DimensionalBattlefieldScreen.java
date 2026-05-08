@@ -62,8 +62,8 @@ public class DimensionalBattlefieldScreen extends AbstractDimensionalMachineScre
         int progress = this.otherworldButcher.maxMobLife > 0 ?
                 (int) (34 * (1.0F - (float) mobHealth / this.otherworldButcher.maxMobLife)) : 0;
         if (progress > 0 && mobHealth > 0) {
-            this.renderSpriteAtNode(guiGraphics, "frame.progress.fill",
-                    OccultismGuiSprites.OTHERWORLD_BUTCHER_PROGRESS_FILL, progress + 1, 4);
+            this.renderSpriteSliceAtNode(guiGraphics, "frame.progress.fill",
+                    OccultismGuiSprites.OTHERWORLD_BUTCHER_PROGRESS_FILL, 35, 4, 0, 0, progress + 1, 4);
         }
 
         if (isEmpty(this.otherworldButcher.inputSoulHandler)) {

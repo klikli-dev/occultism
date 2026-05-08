@@ -196,6 +196,17 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
         sprite.extractRenderState(guiGraphics, this.guiX(node.x()), this.guiY(node.y()), width, height);
     }
 
+    protected void renderSpriteSliceAtNode(GuiGraphicsExtractor guiGraphics, String nodePath, GuiSprite sprite,
+                                           int spriteWidth, int spriteHeight, int u, int v, int width, int height) {
+        if (this.resolvedLayout == null) {
+            return;
+        }
+
+        var node = this.resolvedLayout.node(nodePath);
+        sprite.extractRenderState(guiGraphics, spriteWidth, spriteHeight, u, v,
+                this.guiX(node.x()), this.guiY(node.y()), width, height);
+    }
+
     @Override
     public List<LayoutSlotView> layoutSlots() {
         return this.playerInventorySlots;

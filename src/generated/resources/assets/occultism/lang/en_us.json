@@ -1674,6 +1674,8 @@
   "gui.occultism.book_of_calling.unavailable": "Unavailable",
   "gui.occultism.book_of_calling.work_area": "Work Area",
   "gui.occultism.book_of_calling.work_area.not_applicable": "Not used in this mode",
+  "gui.occultism.dimensional_battlefield.title": "Otherworld Butcher",
+  "gui.occultism.dimensional_mineshaft.title": "Dimensional Mineshaft",
   "gui.occultism.spirit.age": "Essence Decay: %d%%",
   "gui.occultism.spirit.inventory_slot.occultism.cleaner": "Item to clean up.",
   "gui.occultism.spirit.inventory_slot.occultism.crush": "Item to crush.",
