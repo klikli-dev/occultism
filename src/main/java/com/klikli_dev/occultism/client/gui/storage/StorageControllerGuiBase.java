@@ -882,7 +882,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_TOP_BAR, GuiSprites.GUI_BACKGROUND)
         )));
-        registry.resolve("frame.top_bar.search_field", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+        registry.resolve("frame.top_bar.search.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
                 ctx.node().y(),
@@ -1069,15 +1069,21 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected int menuSlotOffsetX(int slotIndex) {
+        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
+            return 0;
+        }
         return slotIndex == 0 ? -5 : -1;
     }
 
     protected int menuSlotOffsetY(int slotIndex) {
+        if (slotIndex == ORDER_INPUT_SLOT_INDEX) {
+            return 0;
+        }
         return slotIndex == 0 ? -5 : -1;
     }
 
     protected Position topBarSearchBarPosition() {
-        return this.nodePosition("frame.top_bar.search_bar");
+        return this.nodePosition("frame.top_bar.search.input");
     }
 
     protected int topBarSearchBarX() {

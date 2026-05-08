@@ -54,8 +54,12 @@ final class StorageTerminalLayouts {
                     int topBarLeft = (GUI_WIDTH - mainPanelWidth) / 2 - 3;
                     topBar.node("background").at(topBarLeft, 0).size(mainPanelWidth + 6, TOP_BAR_HEIGHT);
                     topBar.node("title").at(0, 5).size(GUI_WIDTH, 8);
-                    topBar.node("search_field").at(SEARCH_FIELD_LEFT, SEARCH_FIELD_TOP).size(96, CONTROL_BUTTON_SIZE);
-                    topBar.node("search_bar").at(SEARCH_BAR_LEFT, SEARCH_BAR_TOP + 2).size(90, 9);
+                    topBar.group("search", search -> {
+                        search.at(SEARCH_FIELD_LEFT, SEARCH_FIELD_TOP);
+                        search.node("background").at(0, 0).size(96, CONTROL_BUTTON_SIZE);
+                        search.node("input").at(SEARCH_BAR_LEFT - SEARCH_FIELD_LEFT, SEARCH_BAR_TOP - SEARCH_FIELD_TOP + 2)
+                                .size(90, 9);
+                    });
                     topBar.group("controls", controls -> {
                         controls.at(CONTROL_BUTTON_LEFT, CONTROL_BUTTON_TOP);
                         for (int index = 0; index < 4; index++) {
@@ -89,8 +93,8 @@ final class StorageTerminalLayouts {
                         PLAYER_INVENTORY.define(inventory);
                     });
                     menu.node("crafting_arrow").at(CRAFTING_ARROW_LEFT, CRAFTING_ARROW_TOP);
-                    menu.node("storage_space_label").at(STORAGE_INFO_LABEL_LEFT, 7);
-                    menu.node("storage_types_label").at(STORAGE_INFO_LABEL_LEFT - 7, 47);
+                    menu.node("storage_space_label").at(STORAGE_INFO_LABEL_LEFT, 6);
+                    menu.node("storage_types_label").at(CRAFTING_OUTPUT_LEFT + SLOT_SIZE / 2, 47);
                     menu.node("clear_recipe_button").at(93 + ORDER_AREA_OFFSET, CRAFTING_GRID_TOP - 1)
                             .size(CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE);
                     menu.group("crafting", crafting -> {
