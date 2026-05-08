@@ -168,7 +168,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageItemGridWidget itemGrid;
     protected final StorageMachineGridWidget machineGrid;
     protected final PlayerInventorySection playerInventorySection;
-    protected final List<LayoutSlotView> playerInventorySlots;
     protected StorageTopBarWidget topBarWidget;
     protected StorageModeTabsWidget modeTabsWidget;
     protected StorageCraftingAreaWidget craftingAreaWidget;
@@ -191,7 +190,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.itemGrid = new StorageItemGridWidget(this);
         this.machineGrid = new StorageMachineGridWidget(this);
         this.playerInventorySection = PlayerInventorySection.standard();
-        this.playerInventorySlots = this.createPlayerInventorySlots();
         this.tooltipOverlay = new StorageTooltipOverlay(TRANSLATION_KEY_BASE, TOP_CONTROL_TOOLTIP_OFFSET_Y);
 
         this.rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
@@ -906,9 +904,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().heightOrThrow(),
                 this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)
         )));
-        registry.add("frame.menu.order.slot", -25, ctx -> {
-            ctx.addWidget(new GuiSpriteWidget(ctx.node().x(), ctx.node().y(), this.orderInputSlotSprite()));
-            ctx.addWidget(new GuiSpriteWidget(ctx.node().x() + 2, ctx.node().y() + 2,
+        registry.add("frame.menu.order.slot", 25, ctx -> {
+            int offsetX = this.menuSlotOffsetX(ORDER_INPUT_SLOT_INDEX);
+            int offsetY = this.menuSlotOffsetY(ORDER_INPUT_SLOT_INDEX);
+            ctx.addWidget(new GuiSpriteWidget(ctx.node().x() + offsetX, ctx.node().y() + offsetY, this.orderInputSlotSprite()));
+            ctx.addWidget(new GuiSpriteWidget(ctx.node().x() + offsetX + 2, ctx.node().y() + offsetY + 2,
                     OccultismGuiSprites.STORAGE_CONTROLLER_ANVIL_IMPACT.tinted(0x80FFFFFF).sized(14, 14)));
         });
 
@@ -1148,20 +1148,22 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public List<LayoutSlotView> layoutSlots() {
-        return this.playerInventorySlots;
+        return this.createPlayerInventorySlots();
     }
 
     protected List<LayoutSlotView> createPlayerInventorySlots() {
+        int playerInventoryHostOffsetY = this.menuTop() - this.guiTop();
         List<LayoutSlotView> layoutSlots = new ArrayList<>(PLAYER_SLOT_COUNT);
         for (int slotIndex = 0; slotIndex < PLAYER_SLOT_COUNT; slotIndex++) {
             Slot slot = this.menu.getSlot(slotIndex + 11);
+            Slot renderedSlot = new Slot(slot.container, slot.getSlotIndex(), slot.x, slot.y + playerInventoryHostOffsetY);
             if (slotIndex < 27) {
-                layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_MAIN,
+                layoutSlots.add(new LayoutSlotView(renderedSlot, BuiltinLayoutSlotRoles.PLAYER_MAIN,
                         OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, "main.slot_" + slotIndex));
                 continue;
             }
 
-            layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_HOTBAR,
+            layoutSlots.add(new LayoutSlotView(renderedSlot, BuiltinLayoutSlotRoles.PLAYER_HOTBAR,
                     OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, "hotbar.slot_" + (slotIndex - 27)));
         }
 
