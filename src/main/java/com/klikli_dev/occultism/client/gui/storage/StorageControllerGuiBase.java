@@ -42,8 +42,9 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.api.common.data.*;
 import com.klikli_dev.occultism.client.gui.storage.adapter.StorageScreenBackend;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageItemGridWidget;
-import com.klikli_dev.occultism.client.gui.storage.component.StorageMenuControlsWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageCraftingAreaWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageMachineGridWidget;
+import com.klikli_dev.occultism.client.gui.storage.component.StorageModeTabsWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageTopBarWidget;
 import com.klikli_dev.occultism.client.gui.storage.component.StorageTooltipOverlay;
 import com.klikli_dev.occultism.client.gui.storage.component.ScaledSearchFieldWidget;
@@ -160,7 +161,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected final StorageItemGridWidget itemGrid;
     protected final StorageMachineGridWidget machineGrid;
     protected StorageTopBarWidget topBarWidget;
-    protected StorageMenuControlsWidget menuControlsWidget;
+    protected StorageModeTabsWidget modeTabsWidget;
+    protected StorageCraftingAreaWidget craftingAreaWidget;
     protected final StorageTooltipOverlay tooltipOverlay;
     protected int rows;
     protected int columns;
@@ -310,10 +312,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         super.init();
         this.resetDisplayCaches();
         this.rows = this.visibleRows();
-        this.resolveLayout();
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.realTopPos = Math.max(0, (this.height - this.totalGuiHeight()) / 2);
         this.topPos = this.realTopPos + ITEM_AREA_TOP + 18 * this.rows;
+        this.resolveLayout();
 
         this.clearWidgets();
 
@@ -565,34 +567,42 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     public void initButtons() {
-        this.menuControlsWidget = StorageMenuControlsWidget.create(
+        this.craftingAreaWidget = StorageCraftingAreaWidget.create(
                 CONTROL_BUTTON_SIZE,
                 this.storageButtonBackgroundSprites(),
                 this.clearRecipeButtonX(),
                 this.clearRecipeButtonY(),
                 () -> this.actions.clearCraftingMatrixAndRefresh(this::init),
+                TRANSLATION_KEY_BASE,
+                this.nodePosition("frame.menu.crafting_arrow").left(),
+                this.nodePosition("frame.menu.crafting_arrow").top(),
+                GuiSprites.CRAFTING_ARROW
+        );
+        this.clearRecipeButton = this.craftingAreaWidget.clearRecipeButton();
+        this.craftingAreaWidget.addTo(this::addRenderableWidget);
+
+        this.modeTabsWidget = StorageModeTabsWidget.create(
                 this.tabPosition(0).left(),
                 this.tabPosition(0).top(),
+                this.tabPosition(1).left(),
+                this.tabPosition(1).top(),
                 TAB_WIDTH,
                 TAB_HEIGHT,
+                TAB_ICON_OFFSET_X,
                 () -> {
                     this.state.setMode(StorageControllerGuiMode.INVENTORY);
                     this.init();
                 },
-                Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"),
-                this.tabPosition(1).left(),
-                this.tabPosition(1).top(),
                 () -> {
                     this.state.setMode(StorageControllerGuiMode.AUTOCRAFTING);
                     this.init();
                 },
-                Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting"),
-                TAB_ICON_OFFSET_X
+                Component.translatable(TRANSLATION_KEY_BASE + ".mode.inventory"),
+                Component.translatable(TRANSLATION_KEY_BASE + ".mode.autocrafting")
         );
-        this.clearRecipeButton = this.menuControlsWidget.clearRecipeButton();
-        this.inventoryModeButton = this.menuControlsWidget.inventoryModeButton();
-        this.autocraftingModeButton = this.menuControlsWidget.autocraftingModeButton();
-        this.menuControlsWidget.addTo(this::addRenderableWidget);
+        this.inventoryModeButton = this.modeTabsWidget.inventoryModeButton();
+        this.autocraftingModeButton = this.modeTabsWidget.autocraftingModeButton();
+        this.modeTabsWidget.addTo(this::addRenderableWidget);
     }
 
     protected void drawItems(GuiGraphicsExtractor guiGraphics, float partialTicks, int mouseX, int mouseY) {
@@ -934,7 +944,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             }
 
             int currentSlotIndex = slotIndex;
-            registry.add(nodePath, -25, ctx -> ctx.addWidget(new GuiSpriteWidget(
+            registry.add(nodePath, 25, ctx -> ctx.addWidget(new GuiSpriteWidget(
                     ctx.node().x() + this.menuSlotOffsetX(currentSlotIndex),
                     ctx.node().y() + this.menuSlotOffsetY(currentSlotIndex),
                     this.menuSlotSprite(currentSlotIndex)

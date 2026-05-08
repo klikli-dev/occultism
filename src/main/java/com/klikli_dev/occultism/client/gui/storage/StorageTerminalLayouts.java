@@ -19,7 +19,7 @@ final class StorageTerminalLayouts {
     private static final int SEARCH_BAR_LEFT = ITEM_AREA_LEFT + 1;
     private static final int SEARCH_BAR_TOP = 7;
     private static final int SEARCH_FIELD_LEFT = SEARCH_BAR_LEFT - 3;
-    private static final int SEARCH_FIELD_TOP = SEARCH_BAR_TOP - 2;
+    private static final int SEARCH_FIELD_TOP = SEARCH_BAR_TOP - 3;
     private static final int STORAGE_INFO_LABEL_LEFT = 186;
     private static final int CONTROL_BUTTON_TOP = SEARCH_BAR_TOP - 2;
     private static final int CONTROL_BUTTON_LEFT = SEARCH_BAR_LEFT + 98;
@@ -77,7 +77,7 @@ final class StorageTerminalLayouts {
                         defineGrid(itemArea, visibleRows, visibleColumns());
                     });
                     main.group("tabs", tabs -> {
-                        tabs.at(tabLeft(), TAB_TOP_OFFSET);
+                        tabs.at(tabLeft(), ITEM_AREA_TOP + SLOT_SIZE * visibleRows - MAIN_PANEL_TOP);
                         tabs.node("inventory").at(0, 0).size(TAB_WIDTH, TAB_HEIGHT);
                         tabs.node("autocrafting").at(0, TAB_HEIGHT).size(TAB_WIDTH, TAB_HEIGHT);
                     });
@@ -137,7 +137,7 @@ final class StorageTerminalLayouts {
     }
 
     private static int mainPanelHeight(int visibleRows) {
-        return SLOT_SIZE * visibleRows + 54;
+        return SLOT_SIZE * visibleRows + 75;
     }
 
     private static int tabLeft() {
