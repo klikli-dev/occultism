@@ -28,8 +28,6 @@ final class StorageTerminalLayouts {
     private static final int CONTROL_BUTTON_SIZE = 12;
     private static final int INVENTORY_PANEL_TOP_OFFSET = 66;
     private static final int INVENTORY_PANEL_LEFT = 43;
-    private static final int INVENTORY_LABEL_X = 51;
-    private static final int INVENTORY_LABEL_TOP_OFFSET = 73;
     private static final int ORDER_AREA_OFFSET = 48;
     private static final int CRAFTING_GRID_LEFT = 37 + ORDER_AREA_OFFSET;
     private static final int CRAFTING_GRID_TOP = 4;
@@ -90,7 +88,6 @@ final class StorageTerminalLayouts {
                         inventory.at(3 + ORDER_AREA_OFFSET, 72);
                         PLAYER_INVENTORY.define(inventory);
                     });
-                    menu.node("inventory_label").at(INVENTORY_LABEL_X, INVENTORY_LABEL_TOP_OFFSET);
                     menu.node("crafting_arrow").at(CRAFTING_ARROW_LEFT, CRAFTING_ARROW_TOP);
                     menu.node("storage_space_label").at(STORAGE_INFO_LABEL_LEFT, 7);
                     menu.node("storage_types_label").at(STORAGE_INFO_LABEL_LEFT - 7, 47);

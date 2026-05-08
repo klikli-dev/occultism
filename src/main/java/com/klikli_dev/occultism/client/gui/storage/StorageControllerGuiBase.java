@@ -904,7 +904,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 ctx.node().y(),
                 ctx.node().widthOrThrow(),
                 ctx.node().heightOrThrow(),
-                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_ORDER_SLOT, GuiSprites.INVENTORY_SLOT)
+                this.partSprite(OccultismGuiParts.STORAGE_CONTROLLER_INVENTORY_PANEL, GuiSprites.GUI_BACKGROUND)
         )));
         registry.add("frame.menu.order.slot", -25, ctx -> {
             ctx.addWidget(new GuiSpriteWidget(ctx.node().x(), ctx.node().y(), this.orderInputSlotSprite()));
@@ -1185,7 +1185,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public int topPos() {
-        return this.guiTop();
+        return this.topPos;
     }
 
     @Override

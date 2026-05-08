@@ -64,6 +64,8 @@ public final class OccultismGuiStyles {
 
     private static GuiStyle.Builder storageControllerBaseStyle() {
         return GuiStyle.builder()
+                .set(BuiltinGuiParts.PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.STORAGE_CONTROLLER_PLAYER_SLOT, GuiStyleProperties.SPRITE,
                         GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(OccultismGuiParts.STORAGE_CONTROLLER_STORAGE_SLOT, GuiStyleProperties.SPRITE,
