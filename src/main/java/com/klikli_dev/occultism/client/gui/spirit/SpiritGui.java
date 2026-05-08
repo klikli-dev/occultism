@@ -6,21 +6,28 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
-import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
-import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
-import com.klikli_dev.codedefinedgui.gui.style.GuiPartKey;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutScreenView;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSlotView;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
+import com.klikli_dev.codedefinedgui.api.layout.ResolvedLayout;
+import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
+import com.klikli_dev.codedefinedgui.api.layout.BuiltinLayoutSlotRoles;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleContext;
+import com.klikli_dev.codedefinedgui.api.style.GuiPartKey;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
+import com.klikli_dev.codedefinedgui.api.widget.VerticalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
-import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
@@ -41,7 +48,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> implements GuiHost {
+public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> implements GuiHost, LayoutScreenView, PlayerInventoryScreenHost {
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected static final String INVENTORY_SLOT_TRANSLATION_KEY_BASE = TRANSLATION_KEY_BASE + ".inventory_slot";
     protected static final String DISABLED_SLOT_TRANSLATION_KEY = "gui." + Occultism.MODID + ".spirit.transporter.inventory_slot.disabled";
@@ -49,42 +56,35 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected static final int ENTITY_INVENTORY_SLOT_INDEX = 36;
     protected static final int GUI_WIDTH = 182;
     protected static final int GUI_HEIGHT = 179;
-    protected static final int TITLE_Y = 6;
-    protected static final int TOP_BAR_HEIGHT = 18;
-    protected static final int MAIN_LEFT = 3;
-    protected static final int MAIN_TOP = 15;
-    protected static final int MAIN_WIDTH = 176;
-    protected static final int MAIN_HEIGHT = 63;
-    protected static final int ENTITY_X = 8;
-    protected static final int ENTITY_Y = 29;
-    protected static final int ENTITY_WIDTH = 50;
-    protected static final int ENTITY_HEIGHT = 50;
-    protected static final int NAME_LABEL_X = MAIN_LEFT + 8;
-    protected static final int NAME_LABEL_Y = MAIN_TOP + 6;
-    protected static final int AGE_BAR_LEFT = MAIN_LEFT;
-    protected static final int AGE_BAR_WIDTH = MAIN_WIDTH;
-    protected static final int AGE_BAR_HEIGHT = 16;
-    protected static final int AGE_BAR_OVERLAP = 3;
-    protected static final int AGED_INVENTORY_OFFSET = AGE_BAR_HEIGHT - AGE_BAR_OVERLAP;
-    protected static final int INVENTORY_BACKGROUND_LEFT = 3;
-    protected static final int INVENTORY_BACKGROUND_TOP = 89;
-    protected static final int INVENTORY_BACKGROUND_WIDTH = 176;
-    protected static final int INVENTORY_BACKGROUND_HEIGHT = 90;
-    protected static final int INVENTORY_LABEL_X = 11;
-    protected static final int INVENTORY_LABEL_Y = 102;
-    protected static final int SLOT_STACK_TOP = 27;
-    protected static final int VERTICAL_SEPARATOR_X = 140;
-    protected static final int INVENTORY_SLOT_LEFT = 152;
-    protected static final int INVENTORY_SLOT_TOP = SLOT_STACK_TOP;
-    protected static final int INVENTORY_SLOT_SIZE = 18;
+    protected static final int SLOT_SIZE = 18;
+    protected static final int AGED_INVENTORY_OFFSET = 13;
+    private static final int PLAYER_SLOT_COUNT = 36;
 
     protected final GuiRootWidget root;
     protected final List<Component> tooltip = new ArrayList<>();
     protected final IFilterConfigurable spirit;
     protected final T container;
+    private final PlayerInventorySection playerInventorySection;
+    private final List<LayoutSlotView> playerInventorySlots;
+    private final GuiPartKey inventoryBackgroundPart;
+    private final GuiPartKey ageBarPart;
+    private final GuiPartKey topBarPart;
+    private final GuiPartKey panelPart;
+    private final GuiPartKey verticalSeparatorPart;
+    private final GuiPartKey titlePart;
+    private final LayoutSpec layoutSpec;
+    private final ScreenLayoutController layoutController;
+    protected ResolvedLayout resolvedLayout;
 
     public SpiritGui(T container, Inventory playerInventory, Component titleIn) {
-        this(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT + inventoryOffsetFor(container));
+        this(container, playerInventory, titleIn, GUI_WIDTH, GUI_HEIGHT + inventoryOffsetFor(container),
+                SpiritLayouts.standard(inventoryOffsetFor(container) > 0), OccultismGuiStyles.SPIRIT,
+                OccultismGuiParts.SPIRIT_PLAYER_INVENTORY_BACKGROUND,
+                OccultismGuiParts.SPIRIT_AGE_BAR,
+                OccultismGuiParts.SPIRIT_TOP_BAR,
+                OccultismGuiParts.SPIRIT_PANEL,
+                OccultismGuiParts.SPIRIT_VERTICAL_SEPARATOR,
+                OccultismGuiParts.SPIRIT_TITLE);
     }
 
     protected static int inventoryOffsetFor(SpiritContainer container) {
@@ -93,51 +93,37 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                 : 0;
     }
 
-    public SpiritGui(T container, Inventory playerInventory, Component titleIn, int imageWidth, int imageHeight) {
+    protected SpiritGui(T container, Inventory playerInventory, Component titleIn, int imageWidth, int imageHeight,
+                        LayoutSpec layoutSpec, com.klikli_dev.codedefinedgui.api.style.GuiStyleKey styleKey,
+                        GuiPartKey inventoryBackgroundPart, GuiPartKey ageBarPart, GuiPartKey topBarPart,
+                        GuiPartKey panelPart, GuiPartKey verticalSeparatorPart, GuiPartKey titlePart) {
         super(container, playerInventory, titleIn, imageWidth, imageHeight);
         this.container = container;
         this.spirit = this.container.spirit;
         this.root = new GuiRootWidget(this);
+        this.playerInventorySection = PlayerInventorySection.standard();
+        this.playerInventorySlots = this.createPlayerInventorySlots();
+        this.inventoryBackgroundPart = inventoryBackgroundPart;
+        this.ageBarPart = ageBarPart;
+        this.topBarPart = topBarPart;
+        this.panelPart = panelPart;
+        this.verticalSeparatorPart = verticalSeparatorPart;
+        this.titlePart = titlePart;
+        this.layoutSpec = layoutSpec;
+        this.layoutController = new ScreenLayoutController(this, this, this.root,
+                new GuiStyleContext(GuiStyleRegistry.get(styleKey)));
     }
 
     @Override
     public void init() {
         super.init();
+        this.resolvedLayout = this.layoutSpec.resolve();
         this.clearWidgets();
 
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(this.mainLeft()), this.guiY(this.mainTop()),
-                this.mainWidth(), this.mainHeight(), this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(0), this.imageWidth,
-                this.topBarHeight(), this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND)));
-        if (this.hasAgeBar()) {
-            this.root.addChild(new GuiBackgroundWidget(this, this.guiX(this.ageBarLeft()), this.guiY(this.ageBarTop()),
-                    this.ageBarWidth(), this.ageBarHeight(), this.partSprite(this.ageBarPart(),
-                    this.partSprite(this.topBarPart(), GuiSprites.GUI_BACKGROUND))));
-        }
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(this.inventoryBackgroundLeft()),
-                this.guiY(this.inventoryBackgroundTop()), this.inventoryBackgroundWidth(), this.inventoryBackgroundHeight(),
-                this.partSprite(this.inventoryBackgroundPart(),
-                        this.partSprite(this.panelPart(), GuiSprites.GUI_BACKGROUND))));
-        this.root.addChild(new VerticalSeparatorWidget(this.guiX(this.verticalSeparatorX()),
-                this.guiY(this.topBarHeight()),
-                this.ageBarTop() - this.topBarHeight(),
-                this.partColor(this.verticalSeparatorPart(), 0xFF000000)));
-        this.root.addChild(new LivingEntityWidget(this, this.entityX(), this.entityY(), this.entityWidth(),
-                this.entityHeight(), () -> this.spirit.getEntity(), this.entityPreviewMouseOffsetX(),
-                this.entityPreviewMouseOffsetY()));
-
-        for (int i = 0; i < this.menu.slots.size(); i++) {
-            Slot slot = this.menu.slots.get(i);
-            this.root.addChild(new GuiSpriteWidget(this.guiX(slot.x - 1), this.guiY(slot.y - 1), this.slotSprite(i)));
-        }
+        this.layoutController.init();
         this.root.syncWithHost();
-
-        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth / 2), this.guiY(this.titleY() - 1), true,
-                -1, 2, 2, this.partTextColor(this.titlePart(), 0x303030));
-        titleLabel.addLine(this.topBarTitle());
-        this.addRenderableWidget(titleLabel);
     }
 
     @Override
@@ -148,41 +134,27 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.text(this.font, TextUtil.formatDemonName(this.spirit.getEntity().getName().getString()), NAME_LABEL_X,
-                NAME_LABEL_Y, this.infoLabelColor(), false);
-
         SpiritEntity spiritEntity = this.spiritEntityWithAge();
-        if (spiritEntity != null) {
+        if (spiritEntity != null && this.resolvedLayout != null) {
+            var ageBar = this.resolvedLayout.node("frame.main.age_bar");
             int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
             String ageText = I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent);
-            int ageLabelX = this.ageBarLeft() + (this.ageBarWidth() - this.font.width(ageText)) / 2;
-            int ageLabelY = this.ageBarTop() + (this.ageBarHeight() - this.font.lineHeight) / 2 + 1;
+            int ageLabelX = ageBar.x() + (ageBar.widthOrThrow() - this.font.width(ageText)) / 2;
+            int ageLabelY = ageBar.y() + (ageBar.heightOrThrow() - this.font.lineHeight) / 2 + 1;
             guiGraphics.text(this.font, ageText, ageLabelX, ageLabelY, 0xFF000000, false);
         }
-
-        guiGraphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX(), this.inventoryLabelY(), 0x303030, false);
-    }
-
-    @Override
-    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.extractBackground(guiGraphics);
-        this.extractSpiritEntity(guiGraphics, mouseX, mouseY, partialTicks);
-        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
-    }
-
-    protected void extractBackground(GuiGraphicsExtractor guiGraphics) {
-    }
-
-    protected void extractSpiritEntity(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
     }
 
     protected void renderFg(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (!this.spirit.isInventorySlotActive()) {
-            guiGraphics.fillGradient(this.guiX(INVENTORY_SLOT_LEFT + 1), this.guiY(this.inventorySlotTop()),
-                    this.guiX(INVENTORY_SLOT_LEFT + INVENTORY_SLOT_SIZE - 1),
-                    this.guiY(this.inventorySlotTop() + INVENTORY_SLOT_SIZE - 2), 0xAA555555, 0xAA555555);
+            Slot inventorySlot = this.entityInventorySlot();
+            int slotLeft = inventorySlot.x - 1;
+            int slotTop = inventorySlot.y - 1;
+            guiGraphics.fillGradient(this.guiX(slotLeft + 1), this.guiY(slotTop + 1),
+                    this.guiX(slotLeft + SLOT_SIZE - 1),
+                    this.guiY(slotTop + SLOT_SIZE - 1), 0xAA555555, 0xAA555555);
         }
 
         if (this.isPointInInventorySlot(mouseX, mouseY)) {
@@ -202,8 +174,8 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     protected boolean isPointInInventorySlot(double mouseX, double mouseY) {
-        return this.isHovering(INVENTORY_SLOT_LEFT, this.inventorySlotTop(), INVENTORY_SLOT_SIZE, INVENTORY_SLOT_SIZE,
-                mouseX, mouseY);
+        Slot inventorySlot = this.entityInventorySlot();
+        return this.isHovering(inventorySlot.x - 1, inventorySlot.y - 1, SLOT_SIZE, SLOT_SIZE, mouseX, mouseY);
     }
 
     protected String inventorySlotTranslationKey() {
@@ -246,92 +218,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         return 0xFF303030;
     }
 
-    protected int titleY() {
-        return TITLE_Y;
-    }
-
-    protected int topBarHeight() {
-        return TOP_BAR_HEIGHT;
-    }
-
-    protected int mainLeft() {
-        return MAIN_LEFT;
-    }
-
-    protected int mainTop() {
-        return MAIN_TOP;
-    }
-
-    protected int mainWidth() {
-        return MAIN_WIDTH;
-    }
-
-    protected int mainHeight() {
-        return MAIN_HEIGHT;
-    }
-
-    protected int entityX() {
-        return ENTITY_X;
-    }
-
-    protected int entityY() {
-        return ENTITY_Y;
-    }
-
-    protected int entityWidth() {
-        return ENTITY_WIDTH;
-    }
-
-    protected int entityHeight() {
-        return ENTITY_HEIGHT;
-    }
-
     protected float entityPreviewMouseOffsetX() {
         return 14.0F;
     }
 
     protected float entityPreviewMouseOffsetY() {
         return 7.0F;
-    }
-
-    protected int inventoryBackgroundLeft() {
-        return INVENTORY_BACKGROUND_LEFT;
-    }
-
-    protected int inventoryBackgroundTop() {
-        return INVENTORY_BACKGROUND_TOP + this.inventoryOffsetY();
-    }
-
-    protected int inventoryBackgroundWidth() {
-        return INVENTORY_BACKGROUND_WIDTH;
-    }
-
-    protected int inventoryBackgroundHeight() {
-        return INVENTORY_BACKGROUND_HEIGHT;
-    }
-
-    protected GuiPartKey inventoryBackgroundPart() {
-        return OccultismGuiParts.SPIRIT_PLAYER_INVENTORY_BACKGROUND;
-    }
-
-    protected int inventoryLabelX() {
-        return INVENTORY_LABEL_X;
-    }
-
-    protected int inventoryLabelY() {
-        return INVENTORY_LABEL_Y + this.inventoryOffsetY();
-    }
-
-    protected int verticalSeparatorX() {
-        return VERTICAL_SEPARATOR_X;
-    }
-
-    protected int inventoryOffsetY() {
-        return this.hasAgeBar() ? AGED_INVENTORY_OFFSET : 0;
-    }
-
-    protected int inventorySlotTop() {
-        return this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX).y;
     }
 
     protected boolean hasAgeBar() {
@@ -346,30 +238,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         return null;
     }
 
-    protected int ageBarLeft() {
-        return AGE_BAR_LEFT;
-    }
-
-    protected int ageBarTop() {
-        return this.mainTop() + this.mainHeight() - this.ageBarOverlap() - 1;
-    }
-
-    protected int ageBarWidth() {
-        return AGE_BAR_WIDTH;
-    }
-
-    protected int ageBarHeight() {
-        return AGE_BAR_HEIGHT;
-    }
-
-    protected int ageBarOverlap() {
-        return AGE_BAR_OVERLAP;
-    }
-
-    protected GuiPartKey ageBarPart() {
-        return OccultismGuiParts.SPIRIT_AGE_BAR;
-    }
-
     protected Component topBarTitle() {
         if (this.spirit instanceof SpiritEntity spiritEntity && !StringUtils.isBlank(spiritEntity.getJobID())) {
             return Component.translatable(TRANSLATION_KEY_BASE + ".job",
@@ -379,44 +247,129 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         return this.spirit.getEntity().getType().getDescription();
     }
 
-    protected GuiStyle style() {
-        return GuiStyleRegistry.get(OccultismGuiStyles.SPIRIT);
+    @Override
+    public LayoutSpec layoutSpec() {
+        return this.layoutSpec;
     }
 
-    protected GuiSprite partSprite(GuiPartKey part, GuiSprite fallback) {
-        return this.style().get(part, GuiStyleProperties.SPRITE, fallback);
+    @Override
+    public void registerResolvers(LayoutResolverRegistry registry) {
+        registry.resolve("frame.main.panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(this.panelPart, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(this.topBarPart, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.title", ctx -> {
+            Component title = this.topBarTitle();
+            int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(title)) / 2;
+            ctx.addWidget(new GuiTextWidget(
+                    titleX,
+                    ctx.node().y(),
+                    this::topBarTitle,
+                    () -> ctx.style().textColor(this.titlePart, 0x303030),
+                    false
+            ));
+        });
+        this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
+        registry.resolve("frame.main.vertical_separator", ctx -> this.root.addChild(new VerticalSeparatorWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().heightOrThrow(),
+                ctx.style().color(this.verticalSeparatorPart, 0xFF000000)
+        )));
+        registry.resolve("frame.main.entity_preview", ctx -> this.root.addChild(new LivingEntityWidget(
+                this,
+                ctx.node().x() - this.leftPos,
+                ctx.node().y() - this.topPos,
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                () -> this.spirit.getEntity(),
+                this.entityPreviewMouseOffsetX(),
+                this.entityPreviewMouseOffsetY()
+        )));
+        registry.resolve("frame.main.name_label", ctx -> ctx.addWidget(new GuiTextWidget(
+                ctx.node().x(),
+                ctx.node().y(),
+                () -> Component.literal(TextUtil.formatDemonName(this.spirit.getEntity().getName().getString())),
+                this::infoLabelColor,
+                false
+        )));
+        if (this.hasAgeBar()) {
+            registry.resolve("frame.main.age_bar", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                    this,
+                    ctx.node().x(),
+                    ctx.node().y(),
+                    ctx.node().widthOrThrow(),
+                    ctx.node().heightOrThrow(),
+                    ctx.style().sprite(this.ageBarPart, ctx.style().sprite(this.topBarPart, GuiSprites.GUI_BACKGROUND))
+            )));
+        }
+        this.registerSlotResolvers(registry);
     }
 
-    protected int partColor(GuiPartKey part, int fallback) {
-        return this.style().get(part, GuiStyleProperties.COLOR, fallback);
+    protected void registerSlotResolvers(LayoutResolverRegistry registry) {
+        for (int slotIndex = ENTITY_INVENTORY_SLOT_INDEX; slotIndex < this.menu.slots.size(); slotIndex++) {
+            String nodePath = this.slotNodePath(slotIndex);
+            if (nodePath == null) {
+                continue;
+            }
+
+            int currentSlotIndex = slotIndex;
+            registry.add(nodePath, 25, ctx -> ctx.addWidget(new GuiSpriteWidget(
+                    ctx.node().x() - 1,
+                    ctx.node().y() - 1,
+                    ctx.style().sprite(this.slotPart(currentSlotIndex), GuiSprites.INVENTORY_SLOT)
+            )));
+        }
     }
 
-    protected int partTextColor(GuiPartKey part, int fallback) {
-        return this.style().get(part, GuiStyleProperties.TEXT_COLOR, fallback);
-    }
-
-    protected GuiPartKey topBarPart() {
-        return OccultismGuiParts.SPIRIT_TOP_BAR;
-    }
-
-    protected GuiPartKey panelPart() {
-        return OccultismGuiParts.SPIRIT_PANEL;
-    }
-
-    protected GuiPartKey verticalSeparatorPart() {
-        return OccultismGuiParts.SPIRIT_VERTICAL_SEPARATOR;
-    }
-
-    protected GuiPartKey titlePart() {
-        return OccultismGuiParts.SPIRIT_TITLE;
-    }
-
-    protected GuiSprite slotSprite(int slotIndex) {
+    protected String slotNodePath(int slotIndex) {
         if (slotIndex == ENTITY_INVENTORY_SLOT_INDEX) {
-            return this.partSprite(OccultismGuiParts.SPIRIT_INVENTORY_SLOT, GuiSprites.INVENTORY_SLOT);
+            return "frame.main.inventory_slot";
         }
 
-        return this.partSprite(OccultismGuiParts.SPIRIT_PLAYER_SLOT, GuiSprites.INVENTORY_SLOT);
+        return null;
+    }
+
+    protected GuiPartKey slotPart(int slotIndex) {
+        return slotIndex == ENTITY_INVENTORY_SLOT_INDEX
+                ? OccultismGuiParts.SPIRIT_INVENTORY_SLOT
+                : OccultismGuiParts.SPIRIT_PLAYER_SLOT;
+    }
+
+    protected Slot entityInventorySlot() {
+        return this.container.getSlot(ENTITY_INVENTORY_SLOT_INDEX);
+    }
+
+    @Override
+    public List<LayoutSlotView> layoutSlots() {
+        return this.playerInventorySlots;
+    }
+
+    private List<LayoutSlotView> createPlayerInventorySlots() {
+        List<LayoutSlotView> layoutSlots = new ArrayList<>(PLAYER_SLOT_COUNT);
+        for (int slotIndex = 0; slotIndex < PLAYER_SLOT_COUNT; slotIndex++) {
+            Slot slot = this.menu.getSlot(slotIndex);
+            if (slotIndex < 27) {
+                layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_MAIN, this.slotPart(slotIndex), "main.slot_" + slotIndex));
+                continue;
+            }
+
+            layoutSlots.add(new LayoutSlotView(slot, BuiltinLayoutSlotRoles.PLAYER_HOTBAR, this.slotPart(slotIndex), "hotbar.slot_" + (slotIndex - 27)));
+        }
+
+        return List.copyOf(layoutSlots);
     }
 
     @Override

@@ -10,12 +10,12 @@ plugins {
 
 rootProject.name = 'Occultism ' + minecraft_version
 
-def localLibraryPath = file('../code-defined-gui')
-if (localLibraryPath.exists()) {
-    println "Using local composite build for code-defined-gui"
-    includeBuild(localLibraryPath) {
-        dependencySubstitution {
-            substitute module("com.klikli_dev:codedefinedgui-${minecraft_version}-neoforge:${code_defined_gui_version}") using project(':')
-        }
-    }
-}
+//def localLibraryPath = file('../code-defined-gui')
+//if (localLibraryPath.exists()) {
+//    println "Using local composite build for code-defined-gui"
+//    includeBuild(localLibraryPath) {
+//        dependencySubstitution {
+//            substitute module("com.klikli_dev:codedefinedgui-${minecraft_version}-neoforge:${code_defined_gui_version}") using project(':')
+//        }
+//    }
+//}

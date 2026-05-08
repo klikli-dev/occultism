@@ -105,7 +105,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 17 + 18 * 5 + 4;
+        int playerInventoryTop = 17 + 18 * 5 + 4 + 25;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
@@ -115,14 +115,14 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 17 + 18 * 5 + 4 + 18 * 3 + 4;
+        int hotbarTop = 17 + 18 * 5 + 4 + 18 * 3 + 4 + 25;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
     protected void setupButcherInventory() {
-        int outputGridTop = 17;
+        int outputGridTop = 27;
         int outputGridLeft = 8 + 18 * 4;
         int index = 0;
 
@@ -133,9 +133,9 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
             }
         }
 
-        this.addSlot(new InputSoulSlot(this.otherworldButcher.inputSoulHandler, 0, 27, 37, this.otherworldButcher));
-        this.addSlot(new InputFuelSlot(this.otherworldButcher.inputFuelHandler, 0, 40, 59));
-        this.addSlot(new InputWeaponSlot(this.otherworldButcher.inputWeaponHandler, 0, 14, 59, this.otherworldButcher));
+        this.addSlot(new InputSoulSlot(this.otherworldButcher.inputSoulHandler, 0, 27, 52, this.otherworldButcher));
+        this.addSlot(new InputFuelSlot(this.otherworldButcher.inputFuelHandler, 0, 40, 74));
+        this.addSlot(new InputWeaponSlot(this.otherworldButcher.inputWeaponHandler, 0, 14, 74, this.otherworldButcher));
     }
 
     public static class InputWeaponSlot extends ResourceHandlerSlot {

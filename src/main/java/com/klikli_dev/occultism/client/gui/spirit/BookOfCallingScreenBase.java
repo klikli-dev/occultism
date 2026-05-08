@@ -6,43 +6,34 @@
 
 package com.klikli_dev.occultism.client.gui.spirit;
 
-import com.klikli_dev.codedefinedgui.gui.core.GuiHost;
-import com.klikli_dev.codedefinedgui.gui.core.GuiRootWidget;
-import com.klikli_dev.codedefinedgui.gui.style.GuiPartKey;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyle;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleProperties;
-import com.klikli_dev.codedefinedgui.gui.style.GuiStyleRegistry;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.GuiBackgroundWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.IconButtonBackgroundSprites;
-import com.klikli_dev.codedefinedgui.gui.widget.IconButtonWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.HorizontalSeparatorWidget;
-import com.klikli_dev.codedefinedgui.gui.widget.VerticalSeparatorWidget;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolveContext;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutScreenView;
+import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
+import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
+import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleContext;
+import com.klikli_dev.codedefinedgui.api.style.GuiPartKey;
+import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
+import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
+import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
+import com.klikli_dev.codedefinedgui.api.widget.IconButtonWidget;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
-import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.network.chat.Component;
 
-public abstract class BookOfCallingScreenBase extends Screen implements GuiHost {
+public abstract class BookOfCallingScreenBase extends Screen implements GuiHost, LayoutScreenView {
     protected static final int GUI_WIDTH = 241;
-    protected static final int TOP_BAR_Y = -4;
-    protected static final int TOP_BAR_HEIGHT = 16;
-    protected static final int MAIN_LEFT = 3;
-    protected static final int MAIN_TOP = 9;
-    protected static final int TITLE_Y = 1;
-    protected static final int LABEL_RIGHT_X = 66;
-    protected static final int SELECTION_LEFT = 72;
-    protected static final int SELECTION_WIDTH = 120;
-    protected static final int SELECTION_HEIGHT = 18;
-    protected static final int CONFIRM_BUTTON_X = 208;
 
     protected final GuiRootWidget root = new GuiRootWidget(this);
+    private final ScreenLayoutController layoutController;
     private final int imageHeight;
     protected int leftPos;
     protected int topPos;
@@ -51,6 +42,8 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
     protected BookOfCallingScreenBase(Component title, int imageHeight) {
         super(title);
         this.imageHeight = imageHeight;
+        this.layoutController = new ScreenLayoutController(this, this, this.root,
+                new GuiStyleContext(GuiStyleRegistry.get(OccultismGuiStyles.BOOK_OF_CALLING)));
     }
 
     @Override
@@ -62,26 +55,47 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
 
         this.addRenderableWidget(this.root);
         this.root.clearChildren();
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(MAIN_LEFT), this.guiY(MAIN_TOP), this.imageWidth() - 6,
-                this.imageHeight() - MAIN_TOP, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiSprites.GUI_BACKGROUND)));
-        this.root.addChild(new GuiBackgroundWidget(this, this.guiX(0), this.guiY(TOP_BAR_Y), this.imageWidth(),
-                TOP_BAR_HEIGHT, this.partSprite(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiSprites.GUI_BACKGROUND)));
-        this.addBackgroundChildren();
+        this.layoutController.init();
         this.root.syncWithHost();
-
-        LabelWidget titleLabel = new LabelWidget(this.guiX(this.imageWidth() / 2), this.guiY(TITLE_Y - 1), true,
-                -1, 2, 2, this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0xFF000000));
-        titleLabel.addLine(this.title);
-        this.addRenderableWidget(titleLabel);
-
-        this.initContents();
+        this.afterLayoutInit();
         this.refreshWidgetState();
     }
 
-    protected void addBackgroundChildren() {
+    @Override
+    public void registerResolvers(LayoutResolverRegistry registry) {
+        registry.resolve("frame.panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.title", ctx -> {
+            int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(this.title)) / 2;
+            ctx.addWidget(new GuiTextWidget(
+                    titleX,
+                    ctx.node().y(),
+                    () -> this.title,
+                    () -> ctx.style().textColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0xFF000000),
+                    false
+            ));
+        });
+        this.registerContentResolvers(registry.scope("content"));
     }
 
-    protected abstract void initContents();
+    protected abstract void registerContentResolvers(LayoutResolverRegistry registry);
+
+    protected void afterLayoutInit() {
+    }
 
     protected void refreshWidgetState() {
     }
@@ -89,59 +103,30 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost 
     protected void applyChanges() {
     }
 
-    protected void addLabelRow(int y, String translationKey) {
-        LabelWidget label = new LabelWidget(this.guiX(LABEL_RIGHT_X), this.guiY(y), false, -1, 2, 2,
-                this.partTextColor(OccultismGuiParts.BOOK_OF_CALLING_LABEL, 0xFFFFFFFF))
-                .alignRight(true);
-        label.addLine(Component.translatable(translationKey).copy().withStyle(ChatFormatting.WHITE));
-        this.addRenderableWidget(label);
-    }
-
-    protected void addHorizontalSeparator(int y) {
-        this.root.addChild(new HorizontalSeparatorWidget(this.guiX(MAIN_LEFT), this.guiY(y), this.imageWidth() - 6,
-                this.partColor(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, 0xFF000000)));
-    }
-
-    protected void addVerticalSeparator(int x, int y, int height) {
-        this.root.addChild(new VerticalSeparatorWidget(this.guiX(x), this.guiY(y), height,
-                this.partColor(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, 0xFF000000)));
+    protected final void addLabel(LayoutResolveContext ctx, Component text) {
+        int labelX = ctx.node().maxX() - this.font.width(text);
+        ctx.addWidget(new GuiTextWidget(
+                labelX,
+                ctx.node().y(),
+                () -> text,
+                () -> ctx.style().textColor(OccultismGuiParts.BOOK_OF_CALLING_LABEL, 0xFFFFFFFF),
+                false
+        ));
     }
 
     protected <W extends AbstractWidget> W addRootChild(W widget) {
         return this.root.addChild(widget);
     }
 
-    protected IconButtonWidget addConfirmButton(int y) {
-        return this.addRootChild(new IconButtonWidget(this.guiX(CONFIRM_BUTTON_X), this.guiY(y),
+    protected final IconButtonWidget addConfirmButton(LayoutResolveContext ctx) {
+        return this.addRootChild(new IconButtonWidget(
+                ctx.node().x(),
+                ctx.node().y(),
                 GuiSprites.FILTER_ICON_CONFIRM,
-                this.buttonBackgroundSprites(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON),
+                ctx.style().iconButtonBackgroundSprites(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON, IconButtonBackgroundSprites.DEFAULT),
                 Component.translatable("gui.occultism.book_of_calling.confirm"),
                 () -> this.closeScreen(true)))
                 .withTooltip(Component.translatable("gui.occultism.book_of_calling.confirm.tooltip"));
-    }
-
-    protected IconButtonBackgroundSprites buttonBackgroundSprites(GuiPartKey part) {
-        return new IconButtonBackgroundSprites(
-                this.style().get(part, GuiStyleProperties.SPRITE, GuiSprites.FILTER_BUTTON),
-                this.style().get(part, GuiStyleProperties.PRESSED_SPRITE, GuiSprites.FILTER_BUTTON_DOWN),
-                this.style().get(part, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER)
-        );
-    }
-
-    protected GuiStyle style() {
-        return GuiStyleRegistry.get(OccultismGuiStyles.BOOK_OF_CALLING);
-    }
-
-    protected GuiSprite partSprite(GuiPartKey part, GuiSprite fallback) {
-        return this.style().get(part, GuiStyleProperties.SPRITE, fallback);
-    }
-
-    protected int partColor(GuiPartKey part, int fallback) {
-        return this.style().get(part, GuiStyleProperties.COLOR, fallback);
-    }
-
-    protected int partTextColor(GuiPartKey part, int fallback) {
-        return this.style().get(part, GuiStyleProperties.TEXT_COLOR, fallback);
     }
 
     @Override

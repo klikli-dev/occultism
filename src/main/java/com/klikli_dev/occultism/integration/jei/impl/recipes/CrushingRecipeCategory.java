@@ -39,7 +39,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<CrushingRecipe>> {
@@ -51,8 +50,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
     public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 56); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
-        this.overlay = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+        this.overlay = guiHelper.getRecipeArrow();
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
@@ -95,7 +93,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
 
     @Override
     public void draw(RecipeHolder<CrushingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
+        this.overlay.draw(guiGraphics, 73, 13);
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, this.getTitle(), 84, 0);
         int y = 35;
         if (recipe.value().getMinTier() >= 0) {

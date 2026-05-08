@@ -6,8 +6,8 @@
 
 package com.klikli_dev.occultism.client.gui.widget;
 
-import com.klikli_dev.codedefinedgui.gui.texture.GuiSprite;
-import com.klikli_dev.codedefinedgui.gui.widget.AbstractScrollSelectionWidget;
+import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
+import com.klikli_dev.codedefinedgui.api.widget.AbstractScrollSelectionWidget;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
