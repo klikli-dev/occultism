@@ -52,7 +52,12 @@ public record StorageModeTabsWidget(
 
     public static void registerResolvers(LayoutResolverRegistry registry, GuiHost host, GuiSprite inventoryTabSprite,
                                          GuiSprite autocraftingTabSprite) {
-        registry.resolve("frame.main.tabs.inventory", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+        registerResolvers(registry, 0, host, inventoryTabSprite, autocraftingTabSprite);
+    }
+
+    public static void registerResolvers(LayoutResolverRegistry registry, int priority, GuiHost host,
+                                         GuiSprite inventoryTabSprite, GuiSprite autocraftingTabSprite) {
+        registry.resolve("frame.main.tabs.inventory", priority, ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 host,
                 ctx.node().x(),
                 ctx.node().y(),
@@ -60,7 +65,7 @@ public record StorageModeTabsWidget(
                 ctx.node().heightOrThrow(),
                 inventoryTabSprite
         )));
-        registry.resolve("frame.main.tabs.autocrafting", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+        registry.resolve("frame.main.tabs.autocrafting", priority, ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 host,
                 ctx.node().x(),
                 ctx.node().y(),

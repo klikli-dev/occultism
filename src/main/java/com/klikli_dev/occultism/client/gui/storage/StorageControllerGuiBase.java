@@ -844,6 +844,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void registerMainPanelResolvers(LayoutResolverRegistry registry) {
         StorageModeTabsWidget.registerResolvers(
                 registry,
+                -10,
                 this,
                 this.tabBackgroundSprite(this.state.isInventoryMode()),
                 this.tabBackgroundSprite(this.state.isAutocraftingMode())
