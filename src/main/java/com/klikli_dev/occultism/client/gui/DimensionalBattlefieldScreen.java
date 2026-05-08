@@ -1,23 +1,7 @@
 /*
- * MIT License
+ * SPDX-FileCopyrightText: 2026 klikli-dev
  *
- * Copyright 2020 klikli-dev
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * SPDX-License-Identifier: MIT
  */
 
 package com.klikli_dev.occultism.client.gui;
@@ -26,23 +10,21 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
-import org.jetbrains.annotations.NotNull;
 
-public class DimensionalBattlefieldScreen extends AbstractContainerScreen<DimensionalBattlefieldContainer> {
+public class DimensionalBattlefieldScreen extends AbstractDimensionalMachineScreen<DimensionalBattlefieldContainer> {
+    private static final int IMAGE_WIDTH = 176;
+    private static final int IMAGE_HEIGHT = 192;
+    private static final int OUTPUT_SLOT_COUNT = 25;
+    private static final int MACHINE_SLOT_COUNT = OUTPUT_SLOT_COUNT + 3;
 
-    public static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_butcher.png");
-    public DimensionalBattlefieldBlockEntity otherworldButcher;
+    public final DimensionalBattlefieldBlockEntity otherworldButcher;
 
     public DimensionalBattlefieldScreen(DimensionalBattlefieldContainer screenContainer, Inventory inv,
                                         Component titleIn) {
-        super(screenContainer, inv, titleIn, 176, 192);
+        super(screenContainer, inv, titleIn, IMAGE_WIDTH, IMAGE_HEIGHT, DimensionalBattlefieldLayouts.create());
         this.otherworldButcher = screenContainer.otherworldButcher;
     }
 
@@ -50,36 +32,45 @@ public class DimensionalBattlefieldScreen extends AbstractContainerScreen<Dimens
         return handler.getResource(0).isEmpty();
     }
 
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        //this.renderBackground(guiGraphics); //called by super
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.extractTooltip(guiGraphics, mouseX, mouseY);
+    protected int machineSlotCount() {
+        return MACHINE_SLOT_COUNT;
     }
 
     @Override
-    protected void extractLabels(@NotNull GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
-        //prevent default labels being rendered
+    protected String machineSlotNodePath(int slotIndex) {
+        if (slotIndex < OUTPUT_SLOT_COUNT) {
+            return "frame.machine.output.slot_" + slotIndex;
+        }
+
+        return switch (slotIndex) {
+            case OUTPUT_SLOT_COUNT -> "frame.machine.input_soul";
+            case OUTPUT_SLOT_COUNT + 1 -> "frame.machine.input_fuel";
+            case OUTPUT_SLOT_COUNT + 2 -> "frame.machine.input_weapon";
+            default -> null;
+        };
     }
 
     @Override
-    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); //It is not necessary, keeping this for future reference if needed
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth, this.imageHeight, 256, 256);
-
+    protected void renderDynamicContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
         int mobHealth = this.otherworldButcher.mobHealth;
         int progress = this.otherworldButcher.maxMobLife > 0 ?
                 (int) (34 * (1.0F - (float) mobHealth / this.otherworldButcher.maxMobLife)) : 0;
         if (progress > 0 && mobHealth > 0) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 18, this.topPos + 81, (float) 176, (float) 0, progress + 1, 4, 256, 256);
+            this.renderSpriteAtNode(guiGraphics, "frame.progress.fill",
+                    OccultismGuiSprites.OTHERWORLD_BUTCHER_PROGRESS_FILL, progress + 1, 4);
         }
-        if (isEmpty(this.otherworldButcher.inputSoulHandler))
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 27, this.topPos + 37, (float) 176, (float) 4, 16, 16, 256, 256);
-        if (isEmpty(this.otherworldButcher.inputWeaponHandler))
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 14, this.topPos + 59, (float) 176, (float) 20, 16, 16, 256, 256);
-        if (isEmpty(this.otherworldButcher.inputFuelHandler))
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 40, this.topPos + 59, (float) 176, (float) 36, 16, 16, 256, 256);
 
-        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
+        if (isEmpty(this.otherworldButcher.inputSoulHandler)) {
+            this.renderSpriteAtNode(guiGraphics, "frame.machine.input_soul",
+                    OccultismGuiSprites.OTHERWORLD_BUTCHER_SOUL_SLOT_HINT);
+        }
+        if (isEmpty(this.otherworldButcher.inputWeaponHandler)) {
+            this.renderSpriteAtNode(guiGraphics, "frame.machine.input_weapon",
+                    OccultismGuiSprites.OTHERWORLD_BUTCHER_WEAPON_SLOT_HINT);
+        }
+        if (isEmpty(this.otherworldButcher.inputFuelHandler)) {
+            this.renderSpriteAtNode(guiGraphics, "frame.machine.input_fuel",
+                    OccultismGuiSprites.OTHERWORLD_BUTCHER_FUEL_SLOT_HINT);
+        }
     }
-
 }

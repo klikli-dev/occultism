@@ -1,23 +1,7 @@
 /*
- * MIT License
+ * SPDX-FileCopyrightText: 2026 klikli-dev
  *
- * Copyright 2020 klikli-dev
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial
- * portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
+ * SPDX-License-Identifier: MIT
  */
 
 package com.klikli_dev.occultism.client.gui;
@@ -26,49 +10,49 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
-public class DimensionalMineshaftScreen extends AbstractContainerScreen<DimensionalMineshaftContainer> {
+public class DimensionalMineshaftScreen extends AbstractDimensionalMachineScreen<DimensionalMineshaftContainer> {
+    private static final int OUTPUT_SLOT_COUNT = 9;
+    private static final int MACHINE_SLOT_COUNT = OUTPUT_SLOT_COUNT + 1;
 
-    public static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_miner.png");
-
-    public DimensionalMineshaftBlockEntity otherworldMiner;
+    public final DimensionalMineshaftBlockEntity otherworldMiner;
 
     public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, Inventory inv,
                                       Component titleIn) {
-        super(screenContainer, inv, titleIn);
+        super(screenContainer, inv, titleIn, 176, 166, DimensionalMineshaftLayouts.create());
         this.otherworldMiner = screenContainer.otherworldMiner;
     }
 
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        //this.renderBackground(guiGraphics); //called by super
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.extractTooltip(guiGraphics, mouseX, mouseY);
+    @Override
+    protected int machineSlotCount() {
+        return MACHINE_SLOT_COUNT;
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
-        //prevent default labels being rendered
-    }
-
-    @Override
-    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth, this.imageHeight, 256, 256);
-
-        int miningTime = this.otherworldMiner.miningTime;
-        int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
-        if (progress > 0 && miningTime > 0) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 61, this.topPos + 41, (float) 176, (float) 0, progress + 1, 4, 256, 256);
+    protected String machineSlotNodePath(int slotIndex) {
+        if (slotIndex < OUTPUT_SLOT_COUNT) {
+            return "frame.machine.output.slot_" + slotIndex;
         }
-        if (this.otherworldMiner.inputHandler.getStackInSlot(0).isEmpty())
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos + 26, this.topPos + 35, (float) 176, (float) 4, 16, 16, 256, 256);
 
-        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
+        return slotIndex == OUTPUT_SLOT_COUNT ? "frame.machine.input" : null;
     }
 
+    @Override
+    protected void renderDynamicContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        int miningTime = this.otherworldMiner.miningTime;
+        int progress = this.otherworldMiner.maxMiningTime > 0
+                ? (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime))
+                : 0;
+        if (progress > 0 && miningTime > 0) {
+            this.renderSpriteAtNode(guiGraphics, "frame.progress.fill",
+                    OccultismGuiSprites.OTHERWORLD_MINER_PROGRESS_FILL, progress + 1, 4);
+        }
+
+        if (this.otherworldMiner.inputHandler.getStackInSlot(0).isEmpty()) {
+            this.renderSpriteAtNode(guiGraphics, "frame.machine.input",
+                    OccultismGuiSprites.OTHERWORLD_MINER_INPUT_SLOT_HINT);
+        }
+    }
 }

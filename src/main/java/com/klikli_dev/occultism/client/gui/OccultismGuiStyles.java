@@ -32,6 +32,7 @@ public final class OccultismGuiStyles {
     public static final GuiStyleKey SPIRIT = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/default"));
     public static final GuiStyleKey SPIRIT_TRANSPORTER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/transporter"));
     public static final GuiStyleKey STORAGE_CONTROLLER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "storage_controller/default"));
+    public static final GuiStyleKey DIMENSIONAL_MACHINE = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "dimensional_machine/default"));
 
     private OccultismGuiStyles() {
     }
@@ -96,6 +97,18 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SATCHEL_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK);
     }
 
+    private static GuiStyle.Builder dimensionalMachineBaseStyle() {
+        return GuiStyle.builder()
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_SLOT, GuiStyleProperties.SPRITE,
+                        GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_SLOT, GuiStyleProperties.SPRITE,
+                        GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PANEL, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_INVENTORY_BACKGROUND,
+                        GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT));
+    }
+
     private static GuiStyle.Builder bookOfCallingBaseStyle() {
         return GuiStyle.builder()
                 .set(OccultismGuiParts.BOOK_OF_CALLING_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
@@ -151,5 +164,6 @@ public final class OccultismGuiStyles {
                 .build());
 
         GuiStyleRegistry.register(STORAGE_CONTROLLER, storageControllerBaseStyle().build());
+        GuiStyleRegistry.register(DIMENSIONAL_MACHINE, dimensionalMachineBaseStyle().build());
     }
 }
