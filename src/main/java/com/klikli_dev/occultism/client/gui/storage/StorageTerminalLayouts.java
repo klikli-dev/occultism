@@ -26,8 +26,8 @@ final class StorageTerminalLayouts {
     private static final int CONTROL_BUTTON_SIZE = 12;
     private static final int INVENTORY_PANEL_TOP_OFFSET = 66;
     private static final int INVENTORY_PANEL_LEFT = 43;
-    private static final int INVENTORY_PANEL_WIDTH = 176;
-    private static final int INVENTORY_PANEL_HEIGHT = 90;
+    private static final int INVENTORY_PANEL_WIDTH = 172;
+    private static final int INVENTORY_PANEL_HEIGHT = 85;
     private static final int INVENTORY_LABEL_X = 51;
     private static final int INVENTORY_LABEL_TOP_OFFSET = 73;
     private static final int ORDER_AREA_OFFSET = 48;
@@ -57,7 +57,7 @@ final class StorageTerminalLayouts {
                     topBar.node("background").at(topBarLeft, 0).size(mainPanelWidth + 6, TOP_BAR_HEIGHT);
                     topBar.node("title").at(0, 5).size(GUI_WIDTH, 8);
                     topBar.node("search_field").at(SEARCH_FIELD_LEFT, SEARCH_FIELD_TOP).size(96, CONTROL_BUTTON_SIZE);
-                    topBar.node("search_bar").at(SEARCH_BAR_LEFT, SEARCH_BAR_TOP).size(90, 9);
+                    topBar.node("search_bar").at(SEARCH_BAR_LEFT, SEARCH_BAR_TOP + 1).size(90, 9);
                     topBar.group("controls", controls -> {
                         controls.at(CONTROL_BUTTON_LEFT, CONTROL_BUTTON_TOP);
                         for (int index = 0; index < 4; index++) {
