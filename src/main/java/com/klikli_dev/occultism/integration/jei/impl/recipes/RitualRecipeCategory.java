@@ -49,6 +49,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -89,12 +90,27 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 //        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
 //        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.getRecipeArrow();
-        this.eye = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/sprites/jei/eye.png"), 0, 0, 16, 16);
-        this.goldenEye = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/sprites/jei/golden_eye.png"), 0, 0, 16, 16);
+        this.eye = new SpriteDrawable(Identifier.fromNamespaceAndPath(Occultism.MODID, "jei/eye"), 16, 16);
+        this.goldenEye = new SpriteDrawable(Identifier.fromNamespaceAndPath(Occultism.MODID, "jei/golden_eye"), 16, 16);
         this.goldenSacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.goldenSacrificialBowl);
         this.sacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.sacrificialBowl);
+    }
+
+    private record SpriteDrawable(Identifier sprite, int width, int height) implements IDrawable {
+        @Override
+        public int getWidth() {
+            return this.width;
+        }
+
+        @Override
+        public int getHeight() {
+            return this.height;
+        }
+
+        @Override
+        public void draw(GuiGraphicsExtractor guiGraphics, int xOffset, int yOffset) {
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, xOffset, yOffset, this.width, this.height);
+        }
     }
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
