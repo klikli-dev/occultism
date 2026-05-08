@@ -19,22 +19,26 @@ final class DimensionalBattlefieldLayouts {
 
     public static LayoutSpec create() {
         return LayoutSpec.create(root -> root.group("frame", frame -> {
-            frame.node("machine_panel").at(0, 0).size(176, 108);
+            frame.group("top_bar", topBar -> {
+                topBar.node("background").at(0, 0).size(176, 18);
+                topBar.node("title").at(0, 6).size(176, 8);
+            });
+            frame.node("machine_panel").at(0, 15).size(176, 108);
             frame.group("progress", progress -> {
-                progress.node("background").at(18, 80).size(35, 6);
-                progress.node("fill").at(18, 81).size(35, 4);
+                progress.node("background").at(18, 95).size(35, 6);
+                progress.node("fill").at(18, 96).size(35, 4);
             });
             frame.group("machine", machine -> {
                 machine.group("output", output -> {
-                    output.at(80, 16);
+                    output.at(80, 27);
                     defineGrid(output, 5, 5);
                 });
-                machine.node("input_soul").at(27, 37).size(SLOT_SIZE, SLOT_SIZE);
-                machine.node("input_fuel").at(40, 59).size(SLOT_SIZE, SLOT_SIZE);
-                machine.node("input_weapon").at(14, 59).size(SLOT_SIZE, SLOT_SIZE);
+                machine.node("input_soul").at(27, 52).size(SLOT_SIZE, SLOT_SIZE);
+                machine.node("input_fuel").at(40, 74).size(SLOT_SIZE, SLOT_SIZE);
+                machine.node("input_weapon").at(14, 74).size(SLOT_SIZE, SLOT_SIZE);
             });
             frame.group("player_inventory", inventory -> {
-                inventory.at(8, 121);
+                inventory.at(8, 136);
                 PLAYER_INVENTORY.define(inventory);
             });
         }));

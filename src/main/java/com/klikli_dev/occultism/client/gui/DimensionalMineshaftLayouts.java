@@ -19,20 +19,24 @@ final class DimensionalMineshaftLayouts {
 
     public static LayoutSpec create() {
         return LayoutSpec.create(root -> root.group("frame", frame -> {
-            frame.node("machine_panel").at(0, 0).size(176, 80);
+            frame.group("top_bar", topBar -> {
+                topBar.node("background").at(0, 0).size(176, 18);
+                topBar.node("title").at(0, 6).size(176, 8);
+            });
+            frame.node("machine_panel").at(0, 15).size(176, 80);
             frame.group("progress", progress -> {
-                progress.node("background").at(61, 40).size(19, 6);
-                progress.node("fill").at(61, 41).size(19, 4);
+                progress.node("background").at(61, 55).size(19, 6);
+                progress.node("fill").at(61, 56).size(19, 4);
             });
             frame.group("machine", machine -> {
                 machine.group("output", output -> {
-                    output.at(98, 17);
+                    output.at(98, 32);
                     defineGrid(output, 3, 3);
                 });
-                machine.node("input").at(26, 35).size(SLOT_SIZE, SLOT_SIZE);
+                machine.node("input").at(26, 50).size(SLOT_SIZE, SLOT_SIZE);
             });
             frame.group("player_inventory", inventory -> {
-                inventory.at(8, 94);
+                inventory.at(8, 109);
                 PLAYER_INVENTORY.define(inventory);
             });
         }));

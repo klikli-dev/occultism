@@ -108,10 +108,13 @@ public final class OccultismGuiStyles {
                         GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PANEL, GuiStyleProperties.SPRITE,
                         GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_TOP_BAR, GuiStyleProperties.SPRITE,
+                        GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PLAYER_INVENTORY_BACKGROUND,
                         GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PROGRESS_BACKGROUND, GuiStyleProperties.SPRITE,
-                        OccultismGuiSprites.CRAFTING_PROGRESS_BAR_BACKGROUND.tinted(PROGRESS_BACKGROUND_TINT));
+                        OccultismGuiSprites.CRAFTING_PROGRESS_BAR_BACKGROUND.tinted(PROGRESS_BACKGROUND_TINT))
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK);
     }
 
     private static GuiStyle.Builder bookOfCallingBaseStyle() {

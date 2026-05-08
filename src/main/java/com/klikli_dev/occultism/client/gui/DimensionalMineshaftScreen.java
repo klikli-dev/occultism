@@ -21,7 +21,7 @@ public class DimensionalMineshaftScreen extends AbstractDimensionalMachineScreen
 
     public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, Inventory inv,
                                       Component titleIn) {
-        super(screenContainer, inv, titleIn, 176, 176, DimensionalMineshaftLayouts.create());
+        super(screenContainer, inv, titleIn, 176, 199, DimensionalMineshaftLayouts.create());
         this.otherworldMiner = screenContainer.otherworldMiner;
     }
 

@@ -22,6 +22,7 @@ import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
+import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -82,8 +83,8 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
 
     @Override
     public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderDynamicContents(guiGraphics, mouseX, mouseY, partialTicks);
         super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
+        this.renderDynamicContents(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -93,6 +94,25 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
 
     @Override
     public void registerResolvers(LayoutResolverRegistry registry) {
+        registry.resolve("frame.top_bar.background", ctx -> ctx.addWidget(new GuiBackgroundWidget(
+                this,
+                ctx.node().x(),
+                ctx.node().y(),
+                ctx.node().widthOrThrow(),
+                ctx.node().heightOrThrow(),
+                ctx.style().sprite(OccultismGuiParts.DIMENSIONAL_MACHINE_TOP_BAR, GuiSprites.GUI_BACKGROUND)
+        )));
+        registry.resolve("frame.top_bar.title", ctx -> {
+            Component title = this.topBarTitle();
+            int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(title)) / 2;
+            ctx.addWidget(new GuiTextWidget(
+                    titleX,
+                    ctx.node().y(),
+                    this::topBarTitle,
+                    () -> ctx.style().textColor(OccultismGuiParts.DIMENSIONAL_MACHINE_TITLE, 0x303030),
+                    false
+            ));
+        });
         registry.resolve("frame.machine_panel", ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x(),
@@ -152,6 +172,10 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
     protected abstract int machineSlotCount();
 
     protected abstract String machineSlotNodePath(int slotIndex);
+
+    protected Component topBarTitle() {
+        return this.title;
+    }
 
     protected abstract void renderDynamicContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY,
                                                   float partialTicks);
