@@ -1,10 +1,15 @@
 package com.klikli_dev.occultism.datagen.loot;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
@@ -42,6 +47,16 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
     @Override
     public void generate() {
+        this.battlefieldLoot(EntityType.WITHER, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.NETHER_STAR)))
+        );
+        this.battlefieldLoot(EntityType.ENDER_DRAGON, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.DRAGON_BREATH).setWeight(3))
+                        .add(LootItem.lootTableItem(Items.DRAGON_EGG)))
+        );
+
         this.add(OccultismEntities.POSSESSED_SHULKER_TYPE.get(), this.shulkerLootTable());
         this.add(OccultismEntities.POSSESSED_WARDEN_TYPE.get(), this.wardenLootTable());
         this.add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get(), this.hoglinLootTable());
@@ -748,5 +763,13 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 )
                                 .add(EmptyLootItem.emptyItem().setWeight(3))
                 );
+    }
+
+    public void battlefieldLoot(EntityType<?> type, LootTable.Builder builder) {
+        ResourceKey<LootTable> customLootTable =  ResourceKey.create(Registries.LOOT_TABLE,
+                Identifier.fromNamespaceAndPath(Occultism.MODID, "battlefield/"
+                        + BuiltInRegistries.ENTITY_TYPE.getKey(type).toString().replace(":","/")));
+
+        this.add(type, customLootTable, builder);
     }
 }

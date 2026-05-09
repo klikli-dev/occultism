@@ -318,7 +318,5 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SMALL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_small"));
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SPECIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_special"));
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_RIDEABLE = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_rideable"));
-
-        public static final TagKey<EntityType<?>> FORCE_KILL_SIMULATION = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "force_kill_simulation"));
     }
 }

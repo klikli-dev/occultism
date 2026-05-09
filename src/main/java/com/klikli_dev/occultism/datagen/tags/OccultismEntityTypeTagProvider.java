@@ -228,9 +228,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.NAUTILUS)
                 .add(EntityType.ZOMBIE_NAUTILUS)
                 .add(EntityType.CAMEL_HUSK);
-
-        this.tag(Entities.FORCE_KILL_SIMULATION)
-                .add(EntityType.WITHER);
     }
 
     private void addCommonTags() {
