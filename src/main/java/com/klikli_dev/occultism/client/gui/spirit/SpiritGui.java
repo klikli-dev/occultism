@@ -281,7 +281,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                     false
             ));
         });
-        this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
+        this.playerInventorySection.client().registerResolvers(registry.scope("frame.player_inventory"), this);
         registry.resolve("frame.main.vertical_separator", ctx -> this.root.addChild(new VerticalSeparatorWidget(
                 ctx.node().x(),
                 ctx.node().y(),

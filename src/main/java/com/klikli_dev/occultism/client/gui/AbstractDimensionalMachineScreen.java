@@ -121,7 +121,7 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
                     false
             ));
         });
-        this.playerInventorySection.registerResolvers(registry.scope("frame.player_inventory"), this);
+        this.playerInventorySection.client().registerResolvers(registry.scope("frame.player_inventory"), this);
         registry.resolve("frame.progress.background", ctx -> ctx.addWidget(new GuiSpriteWidget(
                 ctx.node().x(),
                 ctx.node().y(),

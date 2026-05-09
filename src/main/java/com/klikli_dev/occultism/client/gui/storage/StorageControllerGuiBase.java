@@ -877,7 +877,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void registerPlayerInventoryResolvers(LayoutResolverRegistry registry) {
-        this.playerInventorySection.registerResolvers(registry.scope("frame.menu.player_inventory"), this);
+        this.playerInventorySection.client().registerResolvers(registry.scope("frame.menu.player_inventory"), this);
         registry.resolve("frame.menu.player_inventory.background", -100, ctx -> ctx.addWidget(new GuiBackgroundWidget(
                 this,
                 ctx.node().x() + 2,
