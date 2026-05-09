@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.container.storage;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.common.container.storage.layout.StorageMenuVariant;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageUpdateLinkedMachines;
@@ -52,12 +53,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.matrix = new StorageControllerCraftingInventory(this, stableWormhole.getMatrix());
         this.orderInventory.setItem(0, this.stableWormhole.getOrderStack());
 
-        this.setupCraftingOutput(); //output is slot 0
-
-        this.setupCraftingGrid();
-        this.setupOrderInventorySlot();
-        this.setupPlayerInventorySlots();
-        this.setupPlayerHotbar();
+        this.setupStorageControllerSlots();
 
         this.slotsChanged(this.matrix);
     }
@@ -81,6 +77,11 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     @Override
     public boolean isContainerItem() {
         return false;
+    }
+
+    @Override
+    protected StorageMenuVariant menuVariant() {
+        return StorageMenuVariant.STABLE_WORMHOLE;
     }
 
     @Override

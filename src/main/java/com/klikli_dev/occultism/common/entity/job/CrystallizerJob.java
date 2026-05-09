@@ -58,7 +58,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class CrystallizerJob extends SpiritJob {
+public class CrystallizerJob extends FilterableProcessingSpiritJob {
 
 
     public static final String DROPPED_BY_CRYSTALLIZER = "occultism:dropped_by_crystallizer";
@@ -221,8 +221,7 @@ public class CrystallizerJob extends SpiritJob {
                 Occultism.SERVER_CONFIG.spiritJobs.crystallizerResultPickupDelay.get())
             return false; //cannot pick up items a crystallizer (most likely *this* one) dropped util delay elapsed.
 
-        ItemStack stack = entity.getItem();
-        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+        return this.matchesPickupItem(entity, this.itemsToPickUp);
     }
 
     @Override

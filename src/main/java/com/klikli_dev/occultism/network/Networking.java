@@ -47,13 +47,11 @@ public class Networking {
         registrar.playToServer(MessageRequestOrder.TYPE, MessageRequestOrder.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageRequestStacks.TYPE, MessageRequestStacks.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetDivinationResult.TYPE, MessageSetDivinationResult.STREAM_CODEC, MessageHandler::handle);
-        registrar.playToServer(MessageSetFilterMode.TYPE, MessageSetFilterMode.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetItemMode.TYPE, MessageSetItemMode.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetManagedMachine.TYPE, MessageSetManagedMachine.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetRecipe.TYPE, MessageSetRecipe.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetRecipeByTemplate.TYPE, MessageSetRecipeByTemplate.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetRecipeByID.TYPE, MessageSetRecipeByID.STREAM_CODEC, MessageHandler::handle);
-        registrar.playToServer(MessageSetTagFilterText.TYPE, MessageSetTagFilterText.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetWorkAreaSize.TYPE, MessageSetWorkAreaSize.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSortItems.TYPE, MessageSortItems.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageTakeItem.TYPE, MessageTakeItem.STREAM_CODEC, MessageHandler::handle);

@@ -42,7 +42,13 @@ type = "required"
 versionRange = "[${modonomicon_version},)"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
+[[dependencies.${mod_id}]]
+modId = "codedefinedgui"
+type = "required"
+versionRange = "[${code_defined_gui_version},)"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
 modId = "theurgy"
 type = "optional"
 versionRange = "[${theurgy_version},)"

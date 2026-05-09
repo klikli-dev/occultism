@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "d": "#c:crops/datura",
+    "p": "minecraft:paper",
+    "s": "#c:rods/wooden"
+  },
+  "pattern": [
+    " s ",
+    "pdp",
+    " s "
+  ],
+  "result": {
+    "id": "occultism:attribute_filter"
+  }
+}

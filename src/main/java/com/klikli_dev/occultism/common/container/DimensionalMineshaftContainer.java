@@ -96,7 +96,7 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 84;
+        int playerInventoryTop = 109;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
@@ -106,14 +106,14 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
     }
 
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 142;
+        int hotbarTop = 167;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
     protected void setupMinerInventory() {
-        int outputGridTop = 17;
+        int outputGridTop = 32;
         int outputGridLeft = 98;
         int index = 0;
 
@@ -124,7 +124,7 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
             }
         }
 
-        this.addSlot(new InputSlot(this.otherworldMiner.inputHandler, 0, 26, 35));
+        this.addSlot(new InputSlot(this.otherworldMiner.inputHandler, 0, 26, 50));
     }
 
     public class InputSlot extends ResourceHandlerSlot {

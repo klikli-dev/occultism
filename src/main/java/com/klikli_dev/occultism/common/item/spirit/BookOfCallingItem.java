@@ -121,7 +121,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         if (!pPlayer.isShiftKeyDown() && pLevel.isClientSide()) {
             ItemMode curr = this.getCurrentItemMode(itemStack);
             WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-            GuiHelper.openBookOfCallingGui(curr, workAreaSize);
+            GuiHelper.openBookOfCallingGui(curr, workAreaSize, pUsedHand);
         }
         return super.use(pLevel, pPlayer, pUsedHand);
 
@@ -192,12 +192,12 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             //if there are no entities stored, we can either open the ui or perform the action
             if (player.isShiftKeyDown()) {
                 //when sneaking, perform action based on mode
-                return this.handleItemMode(player, world, pos, itemStack, facing);
+                return this.handleItemMode(player, world, pos, itemStack, facing, context.getHand());
             } else if (world.isClientSide()) {
                 //if not sneaking, open general ui
                 ItemMode curr = this.getCurrentItemMode(itemStack);
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-                GuiHelper.openBookOfCallingGui(curr, workAreaSize);
+                GuiHelper.openBookOfCallingGui(curr, workAreaSize, context.getHand());
             }
         }
 
@@ -358,7 +358,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
-                                            Direction facing) {
+                                            Direction facing, InteractionHand hand) {
         ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         //handle the serverside item modes

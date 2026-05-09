@@ -43,18 +43,20 @@ public class MessageSetManagedMachine implements IMessage {
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetManagedMachine> STREAM_CODEC = CustomPacketPayload.codec(MessageSetManagedMachine::encode, MessageSetManagedMachine::new);
 
     public MachineReference managedMachine;
+    public InteractionHand hand;
 
     public MessageSetManagedMachine(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetManagedMachine(MachineReference managedMachine) {
+    public MessageSetManagedMachine(MachineReference managedMachine, InteractionHand hand) {
         this.managedMachine = managedMachine;
+        this.hand = hand;
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(this.hand);
         if (stack.getItem() instanceof BookOfCallingItem) {
             ItemNBTUtil.getSpiritEntity(stack).ifPresent(spirit -> {
                 spirit.getJob().filter(ManageMachineJob.class::isInstance).map(ManageMachineJob.class::cast)
@@ -76,11 +78,13 @@ public class MessageSetManagedMachine implements IMessage {
     @Override
     public void encode(RegistryFriendlyByteBuf buf) {
         MachineReference.STREAM_CODEC.encode(buf, this.managedMachine);
+        buf.writeEnum(this.hand);
     }
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
         this.managedMachine = MachineReference.STREAM_CODEC.decode(buf);
+        this.hand = buf.readEnum(InteractionHand.class);
     }
 
     @Override

@@ -22,47 +22,21 @@
 
 package com.klikli_dev.occultism.client.gui.satchel;
 
-import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
-public class RitualSatchelScreen extends AbstractContainerScreen<AbstractSatchelContainer> {
-    protected static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/inventory_ritual_satchel.png");
+public class RitualSatchelScreen extends AbstractSatchelScreen<AbstractSatchelContainer> {
+    private static final int GUI_WIDTH = 182;
+    private static final int GUI_HEIGHT = 194;
 
-    public RitualSatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv,
-                               Component titleIn) {
-        super(screenContainer, inv, titleIn);
+    public RitualSatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv, Component titleIn) {
+        super(screenContainer, inv, titleIn, GUI_WIDTH, GUI_HEIGHT);
     }
 
     @Override
-    protected void init() {
-        super.init();
-        this.leftPos = (this.width - this.imageWidth) / 2;
-        this.topPos = Math.max(0, (this.height - this.imageHeight) / 2);
-    }
-
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-//        this.renderBackground(guiGraphics); called in super
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
-        this.extractTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int pMouseX, int pMouseY) {
-        //prevent default labels being rendered
-    }
-
-    @Override
-    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.leftPos, this.topPos, (float) 0, (float) 0, this.imageWidth,
-                this.imageHeight, 256, 256);
-        super.extractContents(guiGraphics, mouseX, mouseY, partialTicks);
+    public LayoutSpec layoutSpec() {
+        return SatchelLayouts.ritual();
     }
 }

@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.datagen.book.SummoningRitualCategory;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
@@ -42,11 +43,17 @@ public class CleanerEntry extends EntryProvider {
         this.pageTitle("Foliot Janitor");
         this.pageText("""
                 The janitor will pick up dropped items and deposit them into a target
-                inventory. You can configure an allow/block list to specify which
-                items to pick up or ignore. **Warning**: By default it is set to
-                "allow" mode, so it will only pick up items you specify in the
-                allow list. You can use tags to handle whole groups of items.
+                inventory.
+                \
+                \
+                If the filter slot is empty, the janitor will pick up everything in its work area.
+                Put a {0} or {1} into its filter slot to control which items it picks up instead.
+                See {2} for filter details and recipes.
                 """
+                ,
+                this.itemLink(OccultismItems.LIST_FILTER),
+                this.itemLink(OccultismItems.ATTRIBUTE_FILTER),
+                this.entryLink("Spirit Filters", SummoningRitualCategory.CATEGORY_ID, TransporterFiltersEntry.ENTRY_ID)
         );
 
         this.page("intro2", () -> BookTextPageModel.create()
@@ -57,7 +64,6 @@ public class CleanerEntry extends EntryProvider {
                 also interact with a block while holding the janitor book of
                 calling to have it deposit items there. You can also have it
                 wander around a select area by pulling up that interface.
-                To configure an allow/block list sneak and interact with the janitor.
                 """
         );
 

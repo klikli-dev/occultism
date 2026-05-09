@@ -36,6 +36,7 @@ import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +54,7 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
 
 
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
-                                            Direction facing) {
+                                            Direction facing, InteractionHand hand) {
         ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (!world.isClientSide()) {
@@ -72,12 +73,12 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
                     MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                     if (machine != null) {
                         GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
-                                machine.customName);
+                                machine.customName, hand);
                     }
                 }
             }
         }
-        return super.handleItemMode(player, world, pos, stack, facing);
+        return super.handleItemMode(player, world, pos, stack, facing, hand);
     }
 
     public boolean setSpiritManagedMachineExtractLocation(Player player, Level world, BlockPos pos, ItemStack stack,

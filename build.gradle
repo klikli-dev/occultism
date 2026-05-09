@@ -207,6 +207,9 @@ dependencies {
     //modonomicon
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
+    //code-defined-gui
+    implementation ("com.klikli_dev:codedefinedgui-${minecraft_version}-neoforge:${code_defined_gui_version}") {transitive=false}
+
     //theurgy
     compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 //    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
@@ -263,6 +266,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_description        : mod_description,
 
             modonomicon_version    : modonomicon_version,
+            code_defined_gui_version: code_defined_gui_version,
             theurgy_version        : theurgy_version,
             curios_version         : curios_version,
             geckolib_version       : geckolib_version,

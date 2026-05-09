@@ -249,6 +249,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
         this.add(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM, "Some item is breaking, repair it!");
 
+        this.addItem(OccultismItems.LIST_FILTER, "Spirit List Filter");
+        this.addItem(OccultismItems.ATTRIBUTE_FILTER, "Spirit Attribute Filter");
         this.addItem(OccultismItems.KNOWLEDGE_TABLET, "Knowledge Tablet");
         this.addAutoTooltip(OccultismItems.KNOWLEDGE_TABLET.get(),
                 """
@@ -852,23 +854,35 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addGuiTranslations() {
+        this.add("item.occultism.book_of_calling", "Book of Calling");
+        this.add("gui.occultism.book_of_calling.confirm", "Done");
+        this.add("gui.occultism.book_of_calling.confirm.tooltip", "Save book settings");
         this.add("gui.occultism.book_of_calling.mode", "Mode");
+        this.add("gui.occultism.book_of_calling.scroll_to_select", "Scroll to select");
+        this.add("gui.occultism.book_of_calling.unavailable", "Unavailable");
         this.add("gui.occultism.book_of_calling.work_area", "Work Area");
+        this.add("gui.occultism.book_of_calling.work_area.not_applicable", "Not used in this mode");
         this.add("gui.occultism.book_of_calling.manage_machine.insert", "Insert Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.extract", "Extract Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.custom_name", "Custom Name");
+        this.add(TranslationKeys.GUI_DIMENSIONAL_BATTLEFIELD_TITLE, "Otherworld Butcher");
+        this.add(TranslationKeys.GUI_DIMENSIONAL_MINESHAFT_TITLE, "Dimensional Mineshaft");
 
         // Spirit GUI
         this.add("gui.occultism.spirit.age", "Essence Decay: %d%%");
         this.add("gui.occultism.spirit.job", "%s");
 
         // Spirit Transporter GUI
-        this.add("gui.occultism.spirit.transporter.filter_mode", "Filter Mode");
-        this.add("gui.occultism.spirit.transporter.filter_mode.blacklist", "Blacklist");
-        this.add("gui.occultism.spirit.transporter.filter_mode.whitelist", "Whitelist");
-        this.add("gui.occultism.spirit.transporter.tag_filter", "Enter the tags to filter for separated by \";\".\nE.g.: \"c:ores;*logs*\".\nUse \"*\" to match any character, e.g. \"*ore*\" to match ore tags from any mod. To filter for items, prefix the item id with \"item:\", E.g.: \"item:minecraft:chest\".");
+        this.add("gui.occultism.spirit.transporter.filter_item", "Filter Item");
+        this.add("gui.occultism.spirit.transporter.filter_item.empty", "Insert a list filter or attribute filter.");
         this.add("gui.occultism.spirit.transporter.inventory_slot.disabled", "Requires blacksmith upgrade");
-        this.add("gui.occultism.spirit.transporter.inventory_slot.block_only", "Accepts block items only");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.transport_items", "Slot for the transported item.");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.crush", "Item to crush.");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.crystal", "Item to crystallize.");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.smelt", "Item to smelt.");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.trader", "Item to trade.");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.gambler", "Item to trade.");
+        this.add("gui.occultism.spirit.inventory_slot.occultism.cleaner", "Item to clean up.");
 
         // Storage Controller GUI
         this.add("gui.occultism.storage_controller.display.rows", "Change rows quantity.");
@@ -881,6 +895,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.storage_controller.search.tooltip$", "Prefix $: Search for Tag.");
         this.add("gui.occultism.storage_controller.search.tooltip_rightclick", "Clear the text with a right-click.");
         this.add("gui.occultism.storage_controller.search.tooltip_clear", "Clear search.");
+        this.add("gui.occultism.storage_controller.crafting.tooltip_clear", "Clear the crafting area.");
         this.add("gui.occultism.storage_controller.search.tooltip_jei_on", "Sync search with JEI.");
         this.add("gui.occultism.storage_controller.search.tooltip_jei_off", "Do not sync search with JEI.");
         this.add("gui.occultism.storage_controller.search.tooltip_sort_type_amount", "Sort by amount.");
@@ -892,6 +907,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_amount", "Sort by distance.");
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_name", "Sort by machine name.");
         this.add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod", "Sort by mod name.");
+        this.add("gui.occultism.storage_controller.order_slot.tooltip", "Place items here for machine operator spirits to bring to a linked machine.");
+        this.add("gui.occultism.storage_controller.mode.inventory.tooltip", "Access the items stored in this storage network.");
+        this.add("gui.occultism.storage_controller.mode.autocrafting.tooltip", "View linked machines that a machine operator spirit can bring items to and carry crafting results from.");
 
         // Others
         this.add("gui.occultism.spirit_grindstone.container", "Repair & Uncurse");

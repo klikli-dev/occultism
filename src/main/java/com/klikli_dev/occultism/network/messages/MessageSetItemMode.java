@@ -40,18 +40,20 @@ public class MessageSetItemMode implements IMessage {
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetItemMode> STREAM_CODEC = CustomPacketPayload.codec(MessageSetItemMode::encode, MessageSetItemMode::new);
 
     public int mode;
+    public InteractionHand hand;
 
     public MessageSetItemMode(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetItemMode(int mode) {
+    public MessageSetItemMode(int mode, InteractionHand hand) {
         this.mode = mode;
+        this.hand = hand;
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(this.hand);
         if (stack.getItem() instanceof IHandleItemMode itemModeHandler) {
             itemModeHandler.setItemMode(stack, this.mode);
             player.inventoryMenu.broadcastChanges();
@@ -61,11 +63,13 @@ public class MessageSetItemMode implements IMessage {
     @Override
     public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.mode);
+        buf.writeEnum(this.hand);
     }
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
         this.mode = buf.readInt();
+        this.hand = buf.readEnum(InteractionHand.class);
     }
 
     @Override
