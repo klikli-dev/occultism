@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.225.0] - 2026-05-09
+### :sparkles: New Features
+- [`68ba0c4`](https://github.com/klikli-dev/occultism/commit/68ba0c4c90ba04eea48dde276141dcb324728c41) - Changes & balances 26.1.2 *(PR [#1605](https://github.com/klikli-dev/occultism/pull/1605) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+- [`e486e1e`](https://github.com/klikli-dev/occultism/commit/e486e1eb99b4b73eb002d9ae8b15159596cbf703) - Add new GUI style and create-style filter items *(PR [#1606](https://github.com/klikli-dev/occultism/pull/1606) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4752c91`](https://github.com/klikli-dev/occultism/commit/4752c9178c31d3765ed7d7a02341c47e7f1ddb11) - Implement Clearable interface to some blocks to made it work with Sable *(PR [#1604](https://github.com/klikli-dev/occultism/pull/1604) by [@Daudeuf](https://github.com/Daudeuf))*
+- [`81b1fa8`](https://github.com/klikli-dev/occultism/commit/81b1fa83fc3fa5adbdc4ccc6d26d123a364f7baf) - Updated PT_BR localization *(commit by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+### :bug: Bug Fixes
+- [`e8f8e0c`](https://github.com/klikli-dev/occultism/commit/e8f8e0c69580ba39187e0f49a2649b21760e33d6) - normalize spirit arm bone names *(PR [#1608](https://github.com/klikli-dev/occultism/pull/1608) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bf06b09`](https://github.com/klikli-dev/occultism/commit/bf06b095d31a680c086cea5f36994be7e00344ec) - adapt clearable port to transfer handlers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :recycle: Refactors
+- [`c5dca8c`](https://github.com/klikli-dev/occultism/commit/c5dca8c5715d3bc5cc592d79199fc33645b1c142) - use resource handlers directly in dimensional block entities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b0dbf0a`](https://github.com/klikli-dev/occultism/commit/b0dbf0a3a16c1d139da09a00afe929c48e092aef) - remove crowdin integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.224.0] - 2026-05-02
 ### :sparkles: New Features
 - [`74f58d9`](https://github.com/klikli-dev/occultism/commit/74f58d97503fa175603030c5f3c453afa90dc196) - New Crowdin updates *(PR [#1602](https://github.com/klikli-dev/occultism/pull/1602) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2561,3 +2579,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.222.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.222.0...release/v26.1.2-1.222.1
 [release/v26.1.2-1.223.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.222.1...release/v26.1.2-1.223.0
 [release/v26.1.2-1.224.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.223.0...release/v26.1.2-1.224.0
+[release/v26.1.2-1.225.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.224.0...release/v26.1.2-1.225.0
