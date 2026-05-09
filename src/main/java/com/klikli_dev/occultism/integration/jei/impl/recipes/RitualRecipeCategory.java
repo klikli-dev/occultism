@@ -33,7 +33,7 @@ import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import com.klikli_dev.occultism.util.GuiGraphicsExt;
+import com.klikli_dev.occultism.util.StringRenderHelper;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -49,6 +49,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -69,7 +70,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     private final IDrawable arrow;
     private final IDrawable eye;
     private final IDrawable goldenEye;
-    private final IDrawable checklist;
     private final IDrawable goldenSacrificialBowlDrawable;
     private final IDrawable sacrificialBowlDrawable;
     private final Component localizedName;
@@ -89,17 +89,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
 //        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
 //        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
-        this.arrow = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
-        this.eye = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
-        this.goldenEye = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
+        this.arrow = guiHelper.getRecipeArrow();
+        this.eye = new SpriteDrawable(Identifier.fromNamespaceAndPath(Occultism.MODID, "jei/eye"), 16, 16);
+        this.goldenEye = new SpriteDrawable(Identifier.fromNamespaceAndPath(Occultism.MODID, "jei/golden_eye"), 16, 16);
         this.goldenSacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.goldenSacrificialBowl);
         this.sacrificialBowlDrawable = guiHelper.createDrawableItemStack(this.sacrificialBowl);
-
-        this.checklist = guiHelper.drawableBuilder(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
     }
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
@@ -109,11 +103,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y) {
-        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
+        StringRenderHelper.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     protected void drawStringCentered(GuiGraphicsExtractor guiGraphics, Font font, FormattedCharSequence text, int x, int y) {
-        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
+        StringRenderHelper.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     @Override
@@ -268,7 +262,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
     @Override
     public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+        this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 23, this.ritualCenterY - 1);
 
         this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX, this.ritualCenterY);
         this.goldenSacrificialBowlDrawable.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
@@ -386,5 +380,22 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                 }
             }
         });
+    }
+
+    private record SpriteDrawable(Identifier sprite, int width, int height) implements IDrawable {
+        @Override
+        public int getWidth() {
+            return this.width;
+        }
+
+        @Override
+        public int getHeight() {
+            return this.height;
+        }
+
+        @Override
+        public void draw(GuiGraphicsExtractor guiGraphics, int xOffset, int yOffset) {
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, xOffset, yOffset, this.width, this.height);
+        }
     }
 }

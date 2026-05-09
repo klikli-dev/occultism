@@ -45,18 +45,20 @@ public class MessageSetWorkAreaSize implements IMessage {
     public static final Type<MessageSetWorkAreaSize> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetWorkAreaSize> STREAM_CODEC = CustomPacketPayload.codec(MessageSetWorkAreaSize::encode, MessageSetWorkAreaSize::new);
     public byte workAreaSize;
+    public InteractionHand hand;
 
     public MessageSetWorkAreaSize(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetWorkAreaSize(WorkAreaSize workAreaSize) {
+    public MessageSetWorkAreaSize(WorkAreaSize workAreaSize, InteractionHand hand) {
         this.workAreaSize = (byte) workAreaSize.ordinal();
+        this.hand = hand;
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(this.hand);
         if (stack.getItem() instanceof BookOfCallingItem) {
             ItemNBTUtil.getSpiritEntity(stack).ifPresent(spirit -> {
                 WorkAreaSize workAreaSize = WorkAreaSize.get(this.workAreaSize);
@@ -78,11 +80,13 @@ public class MessageSetWorkAreaSize implements IMessage {
     @Override
     public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeByte(this.workAreaSize);
+        buf.writeEnum(this.hand);
     }
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
         this.workAreaSize = buf.readByte();
+        this.hand = buf.readEnum(InteractionHand.class);
     }
 
     @Override

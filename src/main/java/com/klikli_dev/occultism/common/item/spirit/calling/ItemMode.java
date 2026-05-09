@@ -5,6 +5,7 @@ import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.GuiHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -102,8 +103,8 @@ public class ItemMode {
         return this;
     }
 
-    public void openGUI(WorkAreaSize workAreaSize) {
-        GuiHelper.openBookOfCallingGui_internal(this, workAreaSize);
+    public void openGUI(WorkAreaSize workAreaSize, InteractionHand hand) {
+        GuiHelper.openBookOfCallingGui_internal(this, workAreaSize, hand);
     }
 
     /**

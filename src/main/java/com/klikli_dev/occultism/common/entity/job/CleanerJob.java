@@ -26,15 +26,14 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContain
 import com.klikli_dev.occultism.common.entity.ai.goal.DepositItemsGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.ReturnToWorkAreaGoal;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -69,13 +68,7 @@ public class CleanerJob extends SpiritJob implements MenuProvider {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        ItemStack stack = entity.getItem();
-        boolean matches = StorageUtil.matchesFilter(stack,
-                this.entity.getFilterItems()) ||
-                StorageUtil.matchesFilter(stack, this.entity.getTagFilter());
-
-        boolean isBlacklist = this.entity.isFilterBlacklist();
-        return ((!isBlacklist && matches) || (isBlacklist && !matches));
+        return EntityItemFilter.matches(this.entity.level(), this.entity.getFilterItem(), entity.getItem(), true);
     }
 
     @Nullable

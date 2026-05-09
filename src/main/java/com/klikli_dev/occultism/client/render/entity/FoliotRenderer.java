@@ -86,7 +86,8 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
             @Override
             protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
-                poseStack.translate(0, -0.65, 0);
+                poseStack.translate(-0.06, -0.2, 0);
+                poseStack.scale(0.4F, 0.4F, 0.4F);
                 if (Objects.equals(renderState.jobID, OccultismSpiritJobs.CLEANER.getId().toString())) {
                     poseStack.translate(-0.3, -0.35, 0.35);
                     poseStack.scale(0.5F, 0.5F, 0.5F);

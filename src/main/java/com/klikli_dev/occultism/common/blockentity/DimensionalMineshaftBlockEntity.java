@@ -44,6 +44,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -74,7 +75,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
+public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider, Clearable {
 
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey
@@ -114,12 +115,18 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
 
-    private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
-        return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.inputHandler.size(); i++) {
+            this.inputHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
+        for (int i = 0; i < this.outputHandler.size(); i++) {
+            this.outputHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
     }
 
-    private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
-        handler.set(slot, ItemResource.of(stack), stack.getCount());
+    private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
+        return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
     }
 
     // region Static Methods
@@ -357,7 +364,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
             });
         }
-        setStack(this.inputHandler, 0, input);
+        this.inputHandler.set(0, ItemResource.of(input), input.getCount());
     }
 
     public int getRedstoneSignal() {

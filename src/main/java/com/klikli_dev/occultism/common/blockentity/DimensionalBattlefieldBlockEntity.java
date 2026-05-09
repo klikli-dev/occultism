@@ -45,6 +45,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.*;
@@ -90,7 +91,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity implements MenuProvider {
+public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity implements MenuProvider, Clearable {
 
     private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
     private static final int DEFAULT_MAX_LUCK = 16;
@@ -170,10 +171,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
         return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
-    }
-
-    private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
-        handler.set(slot, ItemResource.of(stack), stack.getCount());
     }
 
     @Override
@@ -301,13 +298,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (level.getRandom().nextFloat() < this.BUTCHER_HURT_CHANCE) {
             weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {
             });
-            setStack(this.inputWeaponHandler, 0, weapon);
+            this.inputWeaponHandler.set(0, ItemResource.of(weapon), weapon.getCount());
         }
 
         if (this.mobHealth <= 0) {
             if (!soul.has(OccultismDataComponents.SOUL_VALUE)) {
                 fuel.shrink(1 + (this.soulValue / Math.max(fuelValue, 1)));
-                setStack(this.inputFuelHandler, 0, fuel);
+                this.inputFuelHandler.set(0, ItemResource.of(fuel), fuel.getCount());
             }
 
             this.defeat(soul, fuel.getOrDefault(OccultismDataComponents.LUCK_VALUE, 1));
@@ -356,7 +353,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F) / luck) {
             soul.shrink(1);
-            setStack(this.inputSoulHandler, 0, soul);
+            this.inputSoulHandler.set(0, ItemResource.of(soul), soul.getCount());
         }
 
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
@@ -588,6 +585,22 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         return this.outputHandler;
     }
 
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.inputSoulHandler.size(); i++) {
+            this.inputSoulHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
+        for (int i = 0; i < this.inputWeaponHandler.size(); i++) {
+            this.inputWeaponHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
+        for (int i = 0; i < this.inputFuelHandler.size(); i++) {
+            this.inputFuelHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
+        for (int i = 0; i < this.outputHandler.size(); i++) {
+            this.outputHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
+    }
+
     // region Inner Classes
     public class BattlefieldInventory extends ItemStacksResourceHandler {
         private final boolean isInput;
@@ -614,10 +627,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         @Override
         protected void onContentsChanged(int slot, ItemStack previousContents) {
             DimensionalBattlefieldBlockEntity.this.setChanged();
-        }
-
-        public void setStackInSlotDirect(int slot, ItemStack stack) {
-            this.set(slot, ItemResource.of(stack), stack.getCount());
         }
     }
 

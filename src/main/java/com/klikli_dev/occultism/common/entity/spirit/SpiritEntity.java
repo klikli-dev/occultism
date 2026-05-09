@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.spirit;
 
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
@@ -82,7 +83,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      * The default max age in seconds.
      */
     public static final int DEFAULT_MAX_AGE = -1;//default age is unlimited.
-    public static final int MAX_FILTER_SLOTS = 14;
     /**
      * The spirit job registry name/id.
      */
@@ -112,32 +112,17 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      */
     private static final EntityDataAccessor<Integer> SPIRIT_MAX_AGE = SynchedEntityData.defineId(SpiritEntity.class,
             EntityDataSerializers.INT);
-    /**
-     * The filter mode (blacklist/whitelist)
-     */
-    private static final EntityDataAccessor<Boolean> IS_FILTER_BLACKLIST = SynchedEntityData
-            .defineId(SpiritEntity.class, EntityDataSerializers.BOOLEAN);
-
-    /**
-     * The filter item list
-     */
-    private static final EntityDataAccessor<String> FILTER_ITEMS = SynchedEntityData
-            .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
-
-    /**
-     * The filter for tags
-     */
-    private static final EntityDataAccessor<String> TAG_FILTER = SynchedEntityData
+    private static final EntityDataAccessor<String> FILTER_ITEM = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
 
     public ItemStacksResourceHandler inventory;
-    public ItemStacksResourceHandler filterItemStackHandler = new ItemStacksResourceHandler(MAX_FILTER_SLOTS) {
+    public ItemStacksResourceHandler filterItemStackHandler = new ItemStacksResourceHandler(1) {
         @Override
         protected void onContentsChanged(int slot, @NotNull ItemStack previousContents) {
             super.onContentsChanged(slot, previousContents);
             TagValueOutput tagOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, SpiritEntity.this.level().registryAccess());
             this.serialize(tagOutput);
-            SpiritEntity.this.entityData.set(FILTER_ITEMS, tagOutput.buildResult().toString());
+            SpiritEntity.this.entityData.set(FILTER_ITEM, tagOutput.buildResult().toString());
         }
     };
 
@@ -194,18 +179,16 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
-        if (key == FILTER_ITEMS) {
-            //restore filter item handler from data param on client
+        if (key == FILTER_ITEM) {
             if (this.level().isClientSide()) {
-                String compoundStr = this.entityData.get(FILTER_ITEMS);
-                if (!compoundStr.isEmpty()) {
-                    try {
-                        CompoundTag compound = TagParser.parseCompoundFully(compoundStr);
-                        ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
-                        this.filterItemStackHandler.deserialize(valueInput);
-                    } catch (Exception e) {
-                        // ignore parse errors
-                    }
+                String compoundStr = this.entityData.get(FILTER_ITEM);
+                try {
+                    CompoundTag compound = compoundStr.isEmpty() ? new CompoundTag() : TagParser.parseCompoundFully(compoundStr);
+                    compound.putInt("Size", 1);
+                    ValueInput valueInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), compound);
+                    this.filterItemStackHandler.deserialize(valueInput);
+                } catch (Exception e) {
+                    // ignore parse errors
                 }
             }
         }
@@ -334,46 +317,20 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.entityData.set(JOB_ID, id);
     }
 
-    /**
-     * @return the filter mode
-     */
-    @Override
-    public boolean isFilterBlacklist() {
-        return this.entityData.get(IS_FILTER_BLACKLIST);
-    }
-
-    /**
-     * Sets the filter mode
-     *
-     * @param isFilterBlacklist the filter mode
-     */
-    @Override
-    public void setFilterBlacklist(boolean isFilterBlacklist) {
-        this.entityData.set(IS_FILTER_BLACKLIST, isFilterBlacklist);
-    }
-
-    /**
-     * Gets the tag filter string
-     */
-    @Override
-    public String getTagFilter() {
-        return this.entityData.get(TAG_FILTER);
-    }
-
-    /**
-     * Sets the tag filter string
-     */
-    @Override
-    public void setTagFilter(String tagFilter) {
-        this.entityData.set(TAG_FILTER, tagFilter);
-    }
-
-    /**
-     * @return the filter mode
-     */
     @Override
     public ItemStacksResourceHandler getFilterItems() {
         return this.filterItemStackHandler;
+    }
+
+    private void setFilterItem(ItemStack stack) {
+        try (var tx = Transaction.openRoot()) {
+            if (stack.isEmpty()) {
+                this.filterItemStackHandler.set(0, ItemResource.EMPTY, 0);
+            } else {
+                this.filterItemStackHandler.set(0, ItemResource.of(stack.copyWithCount(1)), 1);
+            }
+            tx.commit();
+        }
     }
 
     @Override
@@ -538,9 +495,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         builder.define(SPIRIT_AGE, 0);
         builder.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
         builder.define(JOB_ID, "");
-        builder.define(IS_FILTER_BLACKLIST, false);
-        builder.define(FILTER_ITEMS, "");
-        builder.define(TAG_FILTER, "");
+        builder.define(FILTER_ITEM, "");
     }
 
     @Override
@@ -574,14 +529,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         //store job
         this.getJob().ifPresent(job -> output.store("spiritJob", CompoundTag.CODEC, job.writeJobToNBT(new CompoundTag(), this.level().registryAccess())));
 
-        output.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
         {
             TagValueOutput filterOut = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.level().registryAccess());
             this.filterItemStackHandler.serialize(filterOut);
-            output.store("filterItems", CompoundTag.CODEC, filterOut.buildResult());
+            output.store("filterItem", CompoundTag.CODEC, filterOut.buildResult());
         }
-
-        output.putString("tagFilter", this.getTagFilter());
     }
 
     @Override
@@ -620,15 +572,12 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             this.brain = this.makeBrain(packedBrain);
         });
 
-        this.setFilterBlacklist(input.getBooleanOr("isFilterBlacklist", this.isFilterBlacklist()));
-
-        input.read("filterItems", CompoundTag.CODEC).ifPresent(tag -> {
-            tag.putInt("Size", MAX_FILTER_SLOTS); //override legacy filter size
+        input.read("filterItem", CompoundTag.CODEC).ifPresent(tag -> {
+            tag.putInt("Size", 1);
             ValueInput filterInput = TagValueInput.create(ProblemReporter.DISCARDING, this.level().registryAccess(), tag);
             this.filterItemStackHandler.deserialize(filterInput);
         });
 
-        input.getString("tagFilter").ifPresent(this::setTagFilter);
     }
 
     @Override
@@ -646,6 +595,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (!itemstack.isEmpty()) {
                 this.spawnAtLocation(level, itemstack, 0.0F);
             }
+        }
+
+        ItemStack filterItem = this.getFilterItem();
+        if (!filterItem.isEmpty()) {
+            this.spawnAtLocation(level, filterItem.copy(), 0.0F);
         }
     }
 

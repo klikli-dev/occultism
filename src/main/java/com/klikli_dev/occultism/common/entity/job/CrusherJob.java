@@ -58,7 +58,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class CrusherJob extends SpiritJob {
+public class CrusherJob extends FilterableProcessingSpiritJob {
 
 
     public static final String DROPPED_BY_CRUSHER = "occultism:dropped_by_crusher";
@@ -224,8 +224,7 @@ public class CrusherJob extends SpiritJob {
                 && entity.getAge() < Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
             return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
 
-        ItemStack stack = entity.getItem();
-        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+        return this.matchesPickupItem(entity, this.itemsToPickUp);
     }
 
     @Override

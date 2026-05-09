@@ -60,9 +60,9 @@ public class DjinniRenderer extends OccultismGeoLivingEntityRenderer<DjinniEntit
 
                 String boneName;
                 if (Objects.equals(jobId, OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
-                    boneName = "RARM";
+                    boneName = "arm_right";
                 } else if (Objects.equals(jobId, OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
-                    boneName = "LARM";
+                    boneName = "arm_left";
                 } else {
                     boneName = "bone2";
                 }

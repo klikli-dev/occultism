@@ -37,23 +37,19 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<SpiritFireRecipe>> {
 
-    private final IDrawable background;
     private final Component localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
     private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
 
     public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.spirit_fire");
-        this.overlay = guiHelper.createDrawable(
-                Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
+        this.overlay = guiHelper.getRecipeArrow();
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, this.renderStack);
 //        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
     }
@@ -85,18 +81,19 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<SpiritFireRecipe> recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 40, 12)
+        builder.addSlot(RecipeIngredientRole.INPUT, 22, 12)
                 .add(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.INPUT, 75, 12)
                 .add(this.renderStack);
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 110, 12)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 128, 12)
                 .add(recipe.value().assemble(null));
     }
 
     @Override
     public void draw(RecipeHolder<SpiritFireRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        this.overlay.draw(guiGraphics, 48, 0);
+        this.overlay.draw(guiGraphics, 46, 12);
+        this.overlay.draw(guiGraphics, 99, 12);
     }
 }

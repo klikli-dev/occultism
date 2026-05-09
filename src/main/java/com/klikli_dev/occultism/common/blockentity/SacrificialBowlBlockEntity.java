@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
@@ -45,7 +46,7 @@ import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
-public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
+public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements Clearable {
 
     public long lastChangeTime;
     public ItemStacksResourceHandler itemStackHandler = new ItemStacksResourceHandler(1) {
@@ -152,5 +153,12 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     public void saveNetwork(ValueOutput output) {
         this.itemStackHandler.serialize(output.child("inventory"));
         output.putLong("lastChangeTime", this.lastChangeTime);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.itemStackHandler.size(); i++) {
+            this.itemStackHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
+        }
     }
 }

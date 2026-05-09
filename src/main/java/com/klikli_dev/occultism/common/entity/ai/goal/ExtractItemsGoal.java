@@ -24,11 +24,9 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.common.misc.ItemStackKey;
-import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
-import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
@@ -39,7 +37,6 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -130,12 +127,11 @@ public class ExtractItemsGoal extends PausableGoal {
                     var entityHandler = this.entity.getCapability(Item.ENTITY);
 
                     if (this.tryPerformStorageActuatorExtraction(blockEntityHandler, entityHandler,
-                            this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist())) {
+                            this.entity.getFilterItem())) {
                         //if the block entity is a storage actuator we use special optimized logic that can access the internal hashmap of item storage
                     } else {
                         //if not a storage actuator, just use item handler defaults
-                        int slot = StorageUtil.getFirstMatchingSlot(blockEntityHandler,
-                                this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
+                        int slot = EntityItemFilter.getFirstMatchingSlot(this.entity.level(), blockEntityHandler, this.entity);
                         if (slot >= 0) {
                             //simulate extraction
                             ItemStack toExtract = ItemTransferUtil.extractItem(blockEntityHandler, slot, Integer.MAX_VALUE, true);
@@ -161,36 +157,8 @@ public class ExtractItemsGoal extends PausableGoal {
         }
     }
 
-    public boolean tryPerformStorageActuatorExtraction(ResourceHandler<ItemResource> blockEntityHandler, ResourceHandler<ItemResource> entityHandler, ItemStacksResourceHandler itemFilter, String tagFilter, boolean isFilterBlacklist) {
-        if (!(blockEntityHandler instanceof MapItemResourceHandler mapItemStackHandler))
-            return false;
-
-        if (isFilterBlacklist)
-            return false;
-
-
-        boolean filterEmpty = true;
-        for (int i = 0; i < itemFilter.size(); i++) {
-            var filterItem = itemFilter.getResource(i).toStack();
-            if (filterItem.isEmpty()) {
-                continue;
-            }
-
-            filterEmpty = false;
-
-            var extractStack = mapItemStackHandler.extractItemIgnoreComponents(filterItem, Integer.MAX_VALUE, true);
-            if (!extractStack.isEmpty()) {
-                var inserted = ItemTransferUtil.insertItemStacked(entityHandler, extractStack, true);
-
-                if (inserted.getCount() != extractStack.getCount()) {
-                    ItemStack remaining = ItemTransferUtil.insertItemStacked(entityHandler, extractStack, false);
-                    mapItemStackHandler.extractItem(ItemStackKey.of(extractStack), extractStack.getCount() - remaining.getCount(), false);
-                    return true;
-                }
-            }
-        }
-
-        return !filterEmpty;
+    public boolean tryPerformStorageActuatorExtraction(ResourceHandler<ItemResource> blockEntityHandler, ResourceHandler<ItemResource> entityHandler, ItemStack filterItem) {
+        return EntityItemFilter.tryPerformStorageActuatorExtraction(this.entity.level(), blockEntityHandler, entityHandler, filterItem);
     }
 
 

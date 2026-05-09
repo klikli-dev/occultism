@@ -362,7 +362,7 @@
           ]
         },
         {
-          "name": "LARM",
+          "name": "arm_left",
           "parent": "Torso",
           "pivot": [
             -5,
@@ -405,7 +405,7 @@
         },
         {
           "name": "bone3",
-          "parent": "LARM",
+          "parent": "arm_left",
           "pivot": [
             -3.56,
             4.8,
@@ -622,7 +622,7 @@
           ]
         },
         {
-          "name": "RARM",
+          "name": "arm_right",
           "parent": "Torso",
           "pivot": [
             3,

@@ -46,6 +46,20 @@ public class CrusherDjinniEntry extends EntryProvider {
                 """
         );
 
+        this.page("filters", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Filters");
+        this.pageText("""
+                This spirit already only picks up items it has recipes for.
+                Put a {0} or {1} into its filter slot to further restrict which valid inputs it will take.
+                See {2} for filter details.
+                """,
+                this.itemLink(OccultismItems.LIST_FILTER),
+                this.itemLink(OccultismItems.ATTRIBUTE_FILTER),
+                this.entryLink("Spirit Filters", "summoning_rituals", TransporterFiltersEntry.ENTRY_ID)
+        );
+
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_crusher")));
         //no text
