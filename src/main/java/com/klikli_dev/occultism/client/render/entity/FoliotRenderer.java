@@ -64,10 +64,10 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
                 if (Objects.equals(jobId, OccultismSpiritJobs.FARMER.getId().toString())
                         || Objects.equals(jobId, OccultismSpiritJobs.LUMBERJACK.getId().toString())
                         || Objects.equals(jobId, OccultismSpiritJobs.CLEANER.getId().toString())) {
-                    boneName = "LARM";
+                    boneName = "arm_left";
                     displayContext = ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
                 } else {
-                    boneName = "RARM";
+                    boneName = "arm_right";
                     displayContext = ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
                 }
                 ItemStackRenderState stackState = RenderUtil.createRenderStateForItem(mainHandStack, this.itemModelResolver, displayContext, animatable);

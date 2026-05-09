@@ -67,7 +67,7 @@
             }
           }
         },
-        "RARM": {
+        "arm_right": {
           "rotation": {
             "0.0": {
               "vector": [
@@ -335,7 +335,7 @@
             }
           }
         },
-        "LARM": {
+        "arm_left": {
           "rotation": {
             "0.0": {
               "vector": [
@@ -440,7 +440,7 @@
             }
           }
         },
-        "RARM": {
+        "arm_right": {
           "rotation": {
             "0.0": {
               "vector": [
@@ -465,7 +465,7 @@
             }
           }
         },
-        "LARM": {
+        "arm_left": {
           "rotation": {
             "0.0": {
               "vector": [
