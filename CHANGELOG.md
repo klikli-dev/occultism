@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.226.0] - 2026-05-09
+### :sparkles: New Features
+- [`255c9dd`](https://github.com/klikli-dev/occultism/commit/255c9ddeae759edeb5097fec189ead54301a8be3) - update to latest dependecy versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.225.0] - 2026-05-09
 ### :sparkles: New Features
 - [`68ba0c4`](https://github.com/klikli-dev/occultism/commit/68ba0c4c90ba04eea48dde276141dcb324728c41) - Changes & balances 26.1.2 *(PR [#1605](https://github.com/klikli-dev/occultism/pull/1605) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2580,3 +2585,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.223.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.222.1...release/v26.1.2-1.223.0
 [release/v26.1.2-1.224.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.223.0...release/v26.1.2-1.224.0
 [release/v26.1.2-1.225.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.224.0...release/v26.1.2-1.225.0
+[release/v26.1.2-1.226.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.225.0...release/v26.1.2-1.226.0
