@@ -191,7 +191,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     protected static void otherflowerDye(ItemLike result, TagKey<Item> colorTag, RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
-        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, result, 3)
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, result, 4)
                 .requires(OccultismBlocks.OTHERFLOWER.asItem())
                 .requires(colorTag)
                 .unlockedBy("has_otherflower", TriggerInstance.hasItems(OccultismBlocks.OTHERFLOWER.asItem()))
