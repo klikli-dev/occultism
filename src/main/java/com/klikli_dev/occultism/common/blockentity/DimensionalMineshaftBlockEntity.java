@@ -118,19 +118,15 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     @Override
     public void clearContent() {
         for (int i = 0; i < this.inputHandler.size(); i++) {
-            setStack(this.inputHandler, i, ItemStack.EMPTY);
+            this.inputHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
         for (int i = 0; i < this.outputHandler.size(); i++) {
-            setStack(this.outputHandler, i, ItemStack.EMPTY);
+            this.outputHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
     }
 
     private static ItemStack getStack(ResourceHandler<ItemResource> handler, int slot) {
         return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
-    }
-
-    private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
-        handler.set(slot, ItemResource.of(stack), stack.getCount());
     }
 
     // region Static Methods
@@ -358,7 +354,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
             });
         }
-        setStack(this.inputHandler, 0, input);
+        this.inputHandler.set(0, ItemResource.of(input), input.getCount());
     }
 
     public int getRedstoneSignal() {

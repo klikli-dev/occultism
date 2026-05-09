@@ -169,10 +169,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         return handler.getResource(slot).toStack(handler.getAmountAsInt(slot));
     }
 
-    private static void setStack(ItemStacksResourceHandler handler, int slot, ItemStack stack) {
-        handler.set(slot, ItemResource.of(stack), stack.getCount());
-    }
-
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         StorageUtil.dropInventoryItems(this);
@@ -298,7 +294,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (level.getRandom().nextFloat() < this.BUTCHER_HURT_CHANCE) {
             weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {
             });
-            setStack(this.inputWeaponHandler, 0, weapon);
+            this.inputWeaponHandler.set(0, ItemResource.of(weapon), weapon.getCount());
         }
 
         if (this.mobHealth <= 0) {
@@ -306,7 +302,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
             if (!soul.has(OccultismDataComponents.SOUL_VALUE)) {
                 fuel.shrink(1 + (this.soulValue / Math.max(fuelValue, 1)));
-                setStack(this.inputFuelHandler, 0, fuel);
+                this.inputFuelHandler.set(0, ItemResource.of(fuel), fuel.getCount());
             }
 
             this.defeat(soul, luck);
@@ -356,7 +352,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F) / luck)
             soul.shrink(1);
-        setStack(this.inputSoulHandler, 0, soul);
+        this.inputSoulHandler.set(0, ItemResource.of(soul), soul.getCount());
 
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         if (this.xpStored > 9) {
@@ -589,16 +585,16 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     @Override
     public void clearContent() {
         for (int i = 0; i < this.inputSoulHandler.size(); i++) {
-            setStack(this.inputSoulHandler, i, ItemStack.EMPTY);
+            this.inputSoulHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
         for (int i = 0; i < this.inputWeaponHandler.size(); i++) {
-            setStack(this.inputWeaponHandler, i, ItemStack.EMPTY);
+            this.inputWeaponHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
         for (int i = 0; i < this.inputFuelHandler.size(); i++) {
-            setStack(this.inputFuelHandler, i, ItemStack.EMPTY);
+            this.inputFuelHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
         for (int i = 0; i < this.outputHandler.size(); i++) {
-            setStack(this.outputHandler, i, ItemStack.EMPTY);
+            this.outputHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
     }
 
@@ -628,10 +624,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         @Override
         protected void onContentsChanged(int slot, ItemStack previousContents) {
             DimensionalBattlefieldBlockEntity.this.setChanged();
-        }
-
-        public void setStackInSlotDirect(int slot, ItemStack stack) {
-            this.set(slot, ItemResource.of(stack), stack.getCount());
         }
     }
 
