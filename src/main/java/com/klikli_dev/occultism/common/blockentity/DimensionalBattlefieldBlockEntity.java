@@ -588,8 +588,17 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < combinedHandler.getSlots(); i++) {
-            combinedHandler.setStackInSlot(i, ItemStack.EMPTY);
+        for (int i = 0; i < this.inputSoulHandler.size(); i++) {
+            setStack(this.inputSoulHandler, i, ItemStack.EMPTY);
+        }
+        for (int i = 0; i < this.inputWeaponHandler.size(); i++) {
+            setStack(this.inputWeaponHandler, i, ItemStack.EMPTY);
+        }
+        for (int i = 0; i < this.inputFuelHandler.size(); i++) {
+            setStack(this.inputFuelHandler, i, ItemStack.EMPTY);
+        }
+        for (int i = 0; i < this.outputHandler.size(); i++) {
+            setStack(this.outputHandler, i, ItemStack.EMPTY);
         }
     }
 

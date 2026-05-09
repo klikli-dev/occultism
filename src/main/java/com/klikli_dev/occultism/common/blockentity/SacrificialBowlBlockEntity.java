@@ -157,8 +157,8 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements 
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
-            itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
+        for (int i = 0; i < this.itemStackHandler.size(); i++) {
+            this.itemStackHandler.set(i, ItemResource.of(ItemStack.EMPTY), 0);
         }
     }
 }

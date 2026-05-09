@@ -117,8 +117,11 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < combinedHandler.getSlots(); i++) {
-            combinedHandler.setStackInSlot(i, ItemStack.EMPTY);
+        for (int i = 0; i < this.inputHandler.size(); i++) {
+            setStack(this.inputHandler, i, ItemStack.EMPTY);
+        }
+        for (int i = 0; i < this.outputHandler.size(); i++) {
+            setStack(this.outputHandler, i, ItemStack.EMPTY);
         }
     }
 
