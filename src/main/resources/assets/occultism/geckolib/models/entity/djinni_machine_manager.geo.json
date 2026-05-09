@@ -510,7 +510,7 @@
           ]
         },
         {
-          "name": "LARM",
+          "name": "arm_left",
           "parent": "Torso",
           "pivot": [
             -5,
@@ -552,7 +552,7 @@
           ]
         },
         {
-          "name": "RARM",
+          "name": "arm_right",
           "parent": "Torso",
           "pivot": [
             3,
