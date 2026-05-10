@@ -130,6 +130,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected AbstractWidget clearRecipeButton;
     protected AbstractWidget sortTypeButton;
     protected AbstractWidget sortDirectionButton;
+    protected AbstractWidget rowsCountButton;
     protected AbstractWidget jeiSyncButton;
     protected AbstractWidget autocraftingModeButton;
     protected AbstractWidget inventoryModeButton;
@@ -533,9 +534,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     this.init();
                 },
                 SpriteButtonWidget.arrow(this.getSortDirection().isDown()),
-                OccultismJeiIntegration.get().isLoaded(),
                 this.topBarControlButtonX(3),
                 this.topBarControlButtonY(3),
+                () -> {
+                    int rows = Occultism.CLIENT_CONFIG.misc.storageRows.getAsInt();
+                    rows = rows == 9 ? 1 : rows + 1;
+                    Occultism.CLIENT_CONFIG.misc.storageRows.set(rows);
+                    this.init();
+                },
+                SpriteButtonWidget.offsetText(Integer.toString(this.visibleRows()), 0.5F, -0.5F),
+                OccultismJeiIntegration.get().isLoaded(),
+                this.topBarControlButtonX(4),
+                this.topBarControlButtonY(4),
                 () -> {
                     JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
                     this.init();
@@ -547,6 +557,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.clearTextButton = this.topBarWidget.clearSearchButton();
         this.sortTypeButton = this.topBarWidget.sortTypeButton();
         this.sortDirectionButton = this.topBarWidget.sortDirectionButton();
+        this.rowsCountButton = this.topBarWidget.rowsCountButton();
         this.jeiSyncButton = this.topBarWidget.jeiSyncButton();
         this.state.setSearchText(this.searchBar.getValue());
         this.topBarWidget.addTo(this::addRenderableWidget);
@@ -696,6 +707,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.getSortType().getSerializedName(),
                 this.sortDirectionButton,
                 this.getSortDirection().getSerializedName(),
+                this.rowsCountButton,
                 this.jeiSyncButton,
                 this.isPointInOrderSlotArea(mouseX, mouseY),
                 this.inventoryModeButton,
