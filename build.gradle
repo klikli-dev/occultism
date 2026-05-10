@@ -208,7 +208,12 @@ dependencies {
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //code-defined-gui
-    implementation ("com.klikli_dev:codedefinedgui-${minecraft_version}-neoforge:${code_defined_gui_version}") {transitive=false}
+    jarJar(implementation(group: "com.klikli_dev", name: "codedefinedgui-${minecraft_version}-neoforge")) {
+        version {
+            prefer code_defined_gui_version
+        }
+        transitive(false)
+    }
 
     //theurgy
     compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}

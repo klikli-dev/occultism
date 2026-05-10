@@ -114,7 +114,7 @@ jobs:
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
           dependencies: |
             modonomicon(required)
-            codedefinedgui(required)
+            codedefinedgui(optional)
             geckolib(required)
             curios(required)
             theurgy(optional)
@@ -122,6 +122,7 @@ jobs:
             emi(optional)
             almost-unified(optional)
             perviaminvenire(optional)
+          # cdg is supplied via jar in jar and thus optional
       # Publish at the end because it creates a non reobfed jarjar which otherwise would be distributed
       - name: Publish
         run: ./gradlew publish
