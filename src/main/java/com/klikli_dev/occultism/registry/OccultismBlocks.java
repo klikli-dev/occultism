@@ -198,12 +198,6 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
             (p) -> new NonPathfindableBlock(p),
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion());
-    public static final DeferredBlock<Block> OTHERROCK_PEDESTAL = register("otherrock_pedestal",
-            (p) -> new NonPathfindableBlock(p),
-            () -> Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion());
-    public static final DeferredBlock<Block> DIMENSIONAL_EXTRACTOR = register("dimensional_extractor",
-            (p) -> new NonPathfindableBlock(p, true),
-            () -> Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion());
     public static final DeferredBlock<PressurePlateBlock> OTHERSTONE_PRESSURE_PLATE = register("otherstone_pressure_plate",
             (p) -> new PressurePlateBlock(BlockSetType.STONE, p),
             () -> Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
@@ -260,6 +254,9 @@ public class OccultismBlocks {
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
     public static final DeferredBlock<Block> CRACKED_OTHERROCK_BRICKS = register("cracked_otherrock_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
+    public static final DeferredBlock<Block> OTHERROCK_PEDESTAL = register("otherrock_pedestal",
+            (p) -> new NonPathfindableBlock(p),
+            () -> Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion());
     public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE_DARK = register("storage_controller_base_dark",
             (p) -> new NonPathfindableBlock(p),
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()).noOcclusion());
@@ -729,6 +726,9 @@ public class OccultismBlocks {
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
                             .noOcclusion());
+    public static final DeferredBlock<Block> DIMENSIONAL_EXTRACTOR = register("dimensional_extractor",
+            (p) -> new NonPathfindableBlock(p, true),
+            () -> Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion());
     public static final DeferredBlock<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
             register("dimensional_mineshaft", DimensionalMineshaftBlock::new,
                     () -> Block.Properties.of().sound(SoundType.STONE)

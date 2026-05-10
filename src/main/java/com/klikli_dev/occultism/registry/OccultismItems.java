@@ -98,10 +98,6 @@ public class OccultismItems {
             KnowledgeTabletItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .component(OccultismDataComponents.STORED_XP, 0));
-    public static final DeferredItem<ListFilterItem> LIST_FILTER = ITEMS.registerItem("list_filter",
-            properties -> new ListFilterItem(properties, OccultismGuiStyles.FILTER_LIST), () -> new Properties());
-    public static final DeferredItem<AttributeFilterItem> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter",
-            properties -> new AttributeFilterItem(properties, OccultismGuiStyles.FILTER_ATTRIBUTE), () -> new Properties());
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.registerItem("storage_remote",
             StorageRemoteItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
@@ -159,6 +155,12 @@ public class OccultismItems {
             ITEMS.registerItem("book_of_calling_djinni_manage_machine",
                     properties -> new BookOfCallingManageMachineItem(properties.stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
+    //Filters
+    public static final DeferredItem<ListFilterItem> LIST_FILTER = ITEMS.registerItem("list_filter",
+            properties -> new ListFilterItem(properties, OccultismGuiStyles.FILTER_LIST), () -> new Properties());
+    public static final DeferredItem<AttributeFilterItem> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter",
+            properties -> new AttributeFilterItem(properties, OccultismGuiStyles.FILTER_ATTRIBUTE), () -> new Properties());
+
     //Brush. Chalks and Impure Chalks
     public static final DeferredItem<BrushItem> BRUSH = ITEMS.registerItem("brush",
             BrushItem::new, () -> new Properties().stacksTo(1));
