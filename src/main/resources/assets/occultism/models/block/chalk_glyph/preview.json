@@ -1,0 +1,44 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"render_type": "cutout",
+	"textures": {
+		"1": "occultism:block/chalk_glyph/blank",
+		"particle": "occultism:block/chalk_glyph/blank"
+	},
+	"elements": [
+		{
+			"from": [1, 0.05, 1],
+			"to": [15, 0.05, 15],
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#1", "tintindex": 0},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#1", "tintindex": 0}
+			}
+		},
+		{
+			"from": [6.5, 3.5, 6.5],
+			"to": [9.5, 6.5, 9.5],
+			"faces": {
+				"north": {"uv": [5, 4, 8, 7], "texture": "#1", "tintindex": 0},
+				"east": {"uv": [2, 4, 5, 7], "texture": "#1", "tintindex": 0},
+				"south": {"uv": [11, 4, 14, 7], "texture": "#1", "tintindex": 0},
+				"west": {"uv": [8, 4, 11, 7], "texture": "#1", "tintindex": 0},
+				"up": {"uv": [8, 4, 5, 1], "texture": "#1", "tintindex": 0},
+				"down": {"uv": [11, 1, 8, 4], "texture": "#1", "tintindex": 0}
+			}
+		},
+		{
+			"from": [6.5, 8, 6.5],
+			"to": [9.5, 18, 9.5],
+			"faces": {
+				"north": {"uv": [5, 4, 8, 14], "texture": "#1", "tintindex": 0},
+				"east": {"uv": [2, 4, 5, 14], "texture": "#1", "tintindex": 0},
+				"south": {"uv": [11, 4, 14, 14], "texture": "#1", "tintindex": 0},
+				"west": {"uv": [8, 4, 11, 14], "texture": "#1", "tintindex": 0},
+				"up": {"uv": [8, 4, 5, 1], "texture": "#1", "tintindex": 0},
+				"down": {"uv": [11, 1, 8, 4], "texture": "#1", "tintindex": 0}
+			}
+		}
+	]
+}
