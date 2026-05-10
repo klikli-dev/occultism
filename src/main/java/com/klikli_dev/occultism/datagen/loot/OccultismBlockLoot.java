@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -106,12 +108,16 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 });
 
         this.add(OccultismBlocks.OTHERWORLD_LEAVES.get(),
-                (block) -> this.createLeavesDrops(block, OccultismBlocks.OTHERWORLD_SAPLING.get(),
-                        DEFAULT_SAPLING_DROP_RATES));
+                (block) -> this.createLeavesDrops(block, OccultismBlocks.OTHERWORLD_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES)
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                                .when(this.doesNotHaveShearsOrSilkTouch())
+                                .add((this.applyExplosionCondition(block, LootItem.lootTableItem(OccultismItems.PITAYA.asItem())))
+                                        .when(BonusLevelTableCondition.bonusLevelFlatChance(registries.getOrThrow(Enchantments.FORTUNE),
+                                                INCREASED_SAPLING_DROP_RATES)))));
 
         this.add(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
                 (block) -> this.createOtherworldLeavesDrops(block, Blocks.OAK_SAPLING, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
-                        INCREASED_SAPLING_DROP_RATES));
+                        Items.APPLE, OccultismItems.PITAYA.asItem(), INCREASED_SAPLING_DROP_RATES));
 
         this.add(OccultismBlocks.OTHERGLASS_NATURAL.get(),
                 (block) -> this.createOtherworldBlockTable(block, OccultismItems.CRUSHED_END_STONE.get(), block));
@@ -207,13 +213,16 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     protected LootTable.Builder createOtherworldLeavesDrops(Block leavesBlock, Block coveredSapling,
-                                                            Block uncoveredSapling,
+                                                            Block uncoveredSapling, Item coveredFruit,
+                                                            Item uncoveredFruit,
                                                             float... chances) {
         RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
         var saplingLootItem = LootItem.lootTableItem(uncoveredSapling)
                 .when(this.uncoveredCondition(leavesBlock)).otherwise(LootItem.lootTableItem(coveredSapling));
         var coveredLeaves = leavesBlock instanceof IOtherworldBlock ? ((IOtherworldBlock) leavesBlock).getCoveredBlock() : Blocks.AIR;
+        var fruitLootItem = LootItem.lootTableItem(uncoveredFruit)
+                .when(this.uncoveredCondition(leavesBlock)).otherwise(LootItem.lootTableItem(coveredFruit));
 
         return LootTable.lootTable()
                 .withPool(LootPool.lootPool()
@@ -229,6 +238,11 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                         .when(this.doesNotHaveShearsOrSilkTouch())
                         .add(this.applyExplosionCondition(leavesBlock, saplingLootItem)
                                 .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), chances))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .when(this.doesNotHaveShearsOrSilkTouch())
+                        .add((this.applyExplosionCondition(leavesBlock, fruitLootItem))
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(registries.getOrThrow(Enchantments.FORTUNE),
+                                        DEFAULT_SAPLING_DROP_RATES))))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .when(this.doesNotHaveShearsOrSilkTouch())

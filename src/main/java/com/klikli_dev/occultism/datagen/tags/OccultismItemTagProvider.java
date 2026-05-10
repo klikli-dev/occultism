@@ -391,9 +391,44 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CURSED_HONEY.get())
                 .add(OccultismItems.SWEET_HONEY_HEART.get())
                 .add(OccultismItems.DEMONIC_MEAT.get())
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
                 .replace(false);
         this.tag(ItemTags.MEAT)
                 .add(OccultismItems.DEMONIC_MEAT.get())
+                .replace(false);
+        this.tag(Tags.Items.FOODS_FRUIT)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(Tags.Items.ANIMAL_FOODS)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.HORSE_FOOD)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.ZOMBIE_HORSE_FOOD)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.HORSE_TEMPT_ITEMS)
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(Tags.Items.FOODS_GOLDEN)
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.PIGLIN_LOVED)
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
                 .replace(false);
 
         // Storage Blocks
