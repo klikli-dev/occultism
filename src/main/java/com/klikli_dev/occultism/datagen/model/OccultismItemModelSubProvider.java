@@ -330,19 +330,6 @@ public class OccultismItemModelSubProvider {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(itemModel));
     }
 
-    private void registerSpawnEgg(ItemModelGenerators itemModels, Item item) {
-        var colors = this.getSpawnEggColors(item);
-
-        if (colors.primaryColor() != 0x000000 && colors.secondaryColor() != 0x000000) {
-            var modelId = this.modLoc("item/template_spawn_egg");
-            itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(modelId,
-                    ItemModelUtils.constantTint(opaque(colors.primaryColor())),
-                    ItemModelUtils.constantTint(opaque(colors.secondaryColor()))));
-        } else {
-            registerItemGenerated(itemModels, item);
-        }
-    }
-
     private void registerSpawnEggTemplate(ItemModelGenerators itemModels) {
         Identifier modelId = this.modLoc("item/template_spawn_egg");
         itemModels.modelOutput.accept(modelId, () -> {
@@ -356,37 +343,6 @@ public class OccultismItemModelSubProvider {
         });
     }
 
-    private SpawnEggColors getSpawnEggColors(Item item) {
-        return switch (BuiltInRegistries.ITEM.getKey(item).getPath()) {
-            case "spawn_egg/foliot" -> new SpawnEggColors(0x8d5454, 0x1f1f1f);
-            case "spawn_egg/djinni" -> new SpawnEggColors(0x073f7c, 0xc9d631);
-            case "spawn_egg/afrit" -> new SpawnEggColors(0x5d241a, 0x946510);
-            case "spawn_egg/afrit_unbound" -> new SpawnEggColors(0x4d140a, 0x744500);
-            case "spawn_egg/marid" -> new SpawnEggColors(0x396265, 0x57c786);
-            case "spawn_egg/marid_unbound" -> new SpawnEggColors(0x394245, 0x57a766);
-            case "spawn_egg/familiar_greedy" -> new SpawnEggColors(0x54990f, 0x725025);
-            case "spawn_egg/familiar_bat" -> new SpawnEggColors(0x434343, 0xda95de);
-            case "spawn_egg/familiar_deer" -> new SpawnEggColors(0xc9833e, 0xfffdf2);
-            case "spawn_egg/familiar_cthulhu" -> new SpawnEggColors(0x00cdc2, 0x4ae7c0);
-            case "spawn_egg/familiar_devil" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
-            case "spawn_egg/familiar_dragon" -> new SpawnEggColors(0x18780f, 0x76c47b);
-            case "spawn_egg/familiar_blacksmith" -> new SpawnEggColors(0x06bc64, 0x2b2b2b);
-            case "spawn_egg/familiar_guardian" -> new SpawnEggColors(0x787878, 0x515151);
-            case "spawn_egg/familiar_headless" -> new SpawnEggColors(0x0c0606, 0xde7900);
-            case "spawn_egg/familiar_chimera" -> new SpawnEggColors(0xcf8441, 0x3e7922);
-            case "spawn_egg/familiar_goat" -> new SpawnEggColors(0xe2e2e2, 0x0f0f0e);
-            case "spawn_egg/familiar_shub_niggurath" -> new SpawnEggColors(0x362836, 0x594a3a);
-            case "spawn_egg/familiar_beholder" -> new SpawnEggColors(0x340a09, 0xfffbff);
-            case "spawn_egg/familiar_fairy" -> new SpawnEggColors(0xbd674c, 0xcca896);
-            case "spawn_egg/familiar_mummy" -> new SpawnEggColors(0xcbb76a, 0xe0d4a3);
-            case "spawn_egg/familiar_beaver" -> new SpawnEggColors(0x824a2b, 0xdd9973);
-            case "spawn_egg/demonic_wife" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
-            case "spawn_egg/demonic_husband" -> new SpawnEggColors(0xf2f0d7, 0xa01d1d);
-            default -> new SpawnEggColors(0x000000, 0x000000);
-                    //throw new IllegalArgumentException("Missing spawn egg colors for " + BuiltInRegistries.ITEM.getKey(item));
-        };
-    }
-
     public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerSpawnEggTemplate(itemModels);
 
@@ -396,7 +352,7 @@ public class OccultismItemModelSubProvider {
             if (key.getPath().startsWith("ritual_dummy/")) {
                 this.registerRitualDummy(itemModels, item);
             } else if (key.getPath().startsWith("spawn_egg/")) {
-                this.registerSpawnEgg(itemModels, item);
+                this.registerItemGenerated(itemModels, item);
             }
         });
 
@@ -802,8 +758,5 @@ public class OccultismItemModelSubProvider {
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_14")), 29.5F),
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_15")), 30.5F),
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 31.5F)));
-    }
-
-    private record SpawnEggColors(int primaryColor, int secondaryColor) {
     }
 }
