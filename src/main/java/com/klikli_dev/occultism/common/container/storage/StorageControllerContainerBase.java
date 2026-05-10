@@ -221,7 +221,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     protected void setupOrderInventorySlot() {
         StorageMenuLayout layout = this.menuLayout();
-        this.addSlot(new Slot(this.orderInventory, 0, layout.orderSlotX(), layout.orderSlotY()));
+        this.addSlot(new Slot(this.orderInventory, 0, layout.orderSlotX() + 1, layout.orderSlotY() + 1));
     }
 
     protected void setupStorageControllerSlots() {

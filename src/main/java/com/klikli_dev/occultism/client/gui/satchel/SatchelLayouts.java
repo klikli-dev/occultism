@@ -25,7 +25,7 @@ final class SatchelLayouts {
             root.group("frame", frame -> {
                 frame.group("top_bar", topBar -> {
                     topBar.node("background").at(0, 4).size(320, TOP_BAR_HEIGHT);
-                    topBar.node("title").at(0, 9).size(320, TITLE_HEIGHT);
+                    topBar.node("title").at(0, 8).size(320, TITLE_HEIGHT);
                 });
                 frame.node("panel").at(3, 16).size(315, 138);
                 definePlayerInventory(frame, 69, 158, 176, 90, 77, 171);
@@ -43,7 +43,7 @@ final class SatchelLayouts {
             root.group("frame", frame -> {
                 frame.group("top_bar", topBar -> {
                     topBar.node("background").at(0, -1).size(182, TOP_BAR_HEIGHT);
-                    topBar.node("title").at(0, 9).size(182, TITLE_HEIGHT);
+                    topBar.node("title").at(0, 3).size(182, TITLE_HEIGHT);
                 });
                 frame.node("panel").at(3, 9).size(176, 88);
                 definePlayerInventory(frame, 3, 103, 176, 90, 11, 116);
