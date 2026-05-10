@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.227.0] - 2026-05-10
+### :sparkles: New Features
+- [`949045b`](https://github.com/klikli-dev/occultism/commit/949045bc17742dc3b51b301809c0951d60448822) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0df75de`](https://github.com/klikli-dev/occultism/commit/0df75defafb0c4110c30ddac6b7707a9c626f9b6) - include cdg via jarinjar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.226.0] - 2026-05-09
 ### :sparkles: New Features
 - [`255c9dd`](https://github.com/klikli-dev/occultism/commit/255c9ddeae759edeb5097fec189ead54301a8be3) - update to latest dependecy versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2586,3 +2592,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.224.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.223.0...release/v26.1.2-1.224.0
 [release/v26.1.2-1.225.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.224.0...release/v26.1.2-1.225.0
 [release/v26.1.2-1.226.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.225.0...release/v26.1.2-1.226.0
+[release/v26.1.2-1.227.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.226.0...release/v26.1.2-1.227.0
