@@ -55,6 +55,9 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.DRAGON_BREATH).setWeight(3))
                         .add(LootItem.lootTableItem(Items.DRAGON_EGG)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.ELYTRA))
+                        .when(LootItemRandomChanceCondition.randomChance(0.001F)))
         );
 
         this.add(OccultismEntities.POSSESSED_SHULKER_TYPE.get(), this.shulkerLootTable());

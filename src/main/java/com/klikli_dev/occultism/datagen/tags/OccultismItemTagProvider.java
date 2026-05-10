@@ -232,7 +232,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
-        this.tag(OccultismTags.Items.START_SPIRIT_FIRE).add(OccultismItems.DATURA.get());
+        this.tag(OccultismTags.Items.START_SPIRIT_FIRE)
+                .add(OccultismItems.DATURA.get())
+                .add(OccultismItems.PITAYA.get());
         this.copy(Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.copy(Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(OccultismTags.Items.TOOLS_KNIFE)

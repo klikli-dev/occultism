@@ -30,7 +30,9 @@ public class WonderingTrades {
     public static Int2ObjectMap<ItemListing[]> WONDERING_TRADES = new Int2ObjectOpenHashMap<>(Map.of(
             HINT, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.WHEAT_SEEDS, 1),
-                            new ItemStack(OccultismItems.DATURA.get()), 1, 1)},
+                            new ItemStack(OccultismItems.DATURA.get()), 1, 1),
+                    new ItemTrade(new ItemStack(Items.APPLE, 1),
+                            new ItemStack(OccultismItems.PITAYA.get()), 1, 1)},
             BOOK, new ItemListing[]{
                     new ItemTrade(new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get(), 1),
                             new ItemStack(Items.BOOK), 1, 1),
@@ -206,6 +208,8 @@ public class WonderingTrades {
                             new ItemStack(Items.ELYTRA), 1, 32),
                     new ItemTrade(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, 1),
                             new ItemStack(Items.TOTEM_OF_UNDYING), 1, 32),
+                    new ItemTrade(new ItemStack(OccultismItems.PITAYA_GOLDEN.get(), 1),
+                            new ItemStack(Items.TOTEM_OF_UNDYING), 1, 32),
                     new ItemTrade(new ItemStack(Items.ENDER_EYE, 1),
                             new ItemStack(Items.TURTLE_HELMET), 1, 32)},
             FAMILIAR, new ItemListing[]{
@@ -246,6 +250,8 @@ public class WonderingTrades {
                             new ItemStack(Items.NETHERITE_BLOCK), 1, 1),
                     new ItemTrade(new ItemStack(Items.BROWN_DYE, 64),
                             new ItemStack(Items.ENCHANTED_GOLDEN_APPLE), 1, 1),
+                    new ItemTrade(new ItemStack(Items.BROWN_DYE, 64),
+                            new ItemStack(OccultismItems.PITAYA_ENCHANTED.get()), 1, 1),
                     new ItemTrade(new ItemStack(Items.RED_DYE, 64),
                             new ItemStack(Items.BELL), 1, 1),
                     new ItemTrade(new ItemStack(Items.ORANGE_DYE, 64),
