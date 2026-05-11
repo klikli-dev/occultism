@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.datafixers.util.Function4;
@@ -35,6 +36,15 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
 
     @Override
     protected InteractionResult useOnServerSide(UseOnContext context) {
+        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismTags.Blocks.CHALK_GLYPHS)) {
+            if (this.tryErase(context)) {
+                return InteractionResult.SUCCESS;
+            } else {
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_VALID_BRUSH_IN_SATCHEL).withStyle(ChatFormatting.YELLOW));
+                return InteractionResult.FAIL;
+            }
+        }
+
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());
         if (targetPentacle == null || targetPentacle.timeWhenAdded() < context.getLevel().getGameTime() - 5) {
             //no or outdated info

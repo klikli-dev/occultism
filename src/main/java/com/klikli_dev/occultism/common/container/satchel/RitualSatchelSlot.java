@@ -38,7 +38,7 @@ public class RitualSatchelSlot extends Slot {
         if (stack.is(OccultismItems.RITUAL_SATCHEL_T1) || stack.is(OccultismItems.RITUAL_SATCHEL_T2))
             return false; //technically not necessary because they are not in pentacle materials, but just to make sure no datapack messes it up by accident.
 
-        if (!stack.is(Items.PENTACLE_MATERIALS))
+        if (!stack.is(Items.PENTACLE_MATERIALS) && !stack.is(Items.TOOLS_BRUSH))
             return false;
 
         return super.mayPlace(stack);

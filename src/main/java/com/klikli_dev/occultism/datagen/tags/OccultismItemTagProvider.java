@@ -232,6 +232,13 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
+        this.tag(OccultismTags.Items.TOOLS_BRUSH)
+                .add(OccultismItems.BRUSH.get())
+                .add(OccultismItems.CHALK_RAINBOW.get())
+                .add(OccultismItems.CHALK_VOID.get())
+                .replace(false);
+
+
         this.tag(OccultismTags.Items.START_SPIRIT_FIRE)
                 .add(OccultismItems.DATURA.get())
                 .add(OccultismItems.PITAYA.get());
