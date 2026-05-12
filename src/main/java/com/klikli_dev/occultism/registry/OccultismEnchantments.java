@@ -30,9 +30,9 @@ public class OccultismEnchantments {
                 items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                 items.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
                 1, // weight
-                5, // max level
-                Enchantment.dynamicCost(10, 2),
-                Enchantment.dynamicCost(18, 3),
+                9, // max level
+                Enchantment.dynamicCost(24, 4),
+                Enchantment.dynamicCost(27, 3),
                 8, // anvil cost
                 EquipmentSlotGroup.MAINHAND
         )));

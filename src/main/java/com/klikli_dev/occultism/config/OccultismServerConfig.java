@@ -106,7 +106,7 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "Chance per level of the Fracture Soul enchantment to drop a Shattered Soul."
                             )
-                            .defineInRange("shatteredSoulChance", 0.17F, 0.0F, 1.0F);
+                            .defineInRange("shatteredSoulChance", 0.10F, 0.0F, 1.0F);
             this.unbreakableChalks =
                     builder.comment(
                                     "Don't damage chalks on use"
