@@ -194,8 +194,8 @@ dependencies {
     localRuntime ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
 
     //curios
-    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api") {transitive=false}
-    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}") {transitive=false}
+    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}:api") {transitive=false}
+    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}") {transitive=false}
 
     //geckolib
     implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
