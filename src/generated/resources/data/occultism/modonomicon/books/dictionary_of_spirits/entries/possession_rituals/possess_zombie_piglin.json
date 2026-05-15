@@ -36,7 +36,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/possess_zombie_piglin",
+      "recipe_id_1": "occultism:ritual/possess_zombified_piglin",
       "text": "",
       "title1": "",
       "title2": ""

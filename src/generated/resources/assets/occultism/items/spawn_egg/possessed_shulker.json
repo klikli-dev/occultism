@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -7576948
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -13359560
-      }
-    ]
+    "model": "occultism:item/spawn_egg/possessed_shulker"
   }
 }

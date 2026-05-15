@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bound_afrit": {
+    "has_pitaya": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:book_of_binding_bound_afrit"
+            "items": "occultism:pitaya"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/possess_zombie_piglin"
+        "recipe": "occultism:crafting/golden_pitaya"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_bound_afrit"
+      "has_pitaya"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:ritual/possess_zombie_piglin"
+      "occultism:crafting/golden_pitaya"
     ]
   }
 }

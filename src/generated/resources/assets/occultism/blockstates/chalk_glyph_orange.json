@@ -1,8 +1,7 @@
 {
   "variants": {
     "facing=east,sign=0": {
-      "model": "occultism:block/chalk_glyph/0",
-      "y": 270
+      "model": "occultism:block/chalk_glyph/preview"
     },
     "facing=east,sign=1": {
       "model": "occultism:block/chalk_glyph/1",
@@ -22,6 +21,10 @@
     },
     "facing=east,sign=13": {
       "model": "occultism:block/chalk_glyph/13",
+      "y": 270
+    },
+    "facing=east,sign=14": {
+      "model": "occultism:block/chalk_glyph/14",
       "y": 270
     },
     "facing=east,sign=2": {
@@ -57,8 +60,7 @@
       "y": 270
     },
     "facing=north,sign=0": {
-      "model": "occultism:block/chalk_glyph/0",
-      "y": 180
+      "model": "occultism:block/chalk_glyph/preview"
     },
     "facing=north,sign=1": {
       "model": "occultism:block/chalk_glyph/1",
@@ -78,6 +80,10 @@
     },
     "facing=north,sign=13": {
       "model": "occultism:block/chalk_glyph/13",
+      "y": 180
+    },
+    "facing=north,sign=14": {
+      "model": "occultism:block/chalk_glyph/14",
       "y": 180
     },
     "facing=north,sign=2": {
@@ -113,7 +119,7 @@
       "y": 180
     },
     "facing=south,sign=0": {
-      "model": "occultism:block/chalk_glyph/0"
+      "model": "occultism:block/chalk_glyph/preview"
     },
     "facing=south,sign=1": {
       "model": "occultism:block/chalk_glyph/1"
@@ -129,6 +135,9 @@
     },
     "facing=south,sign=13": {
       "model": "occultism:block/chalk_glyph/13"
+    },
+    "facing=south,sign=14": {
+      "model": "occultism:block/chalk_glyph/14"
     },
     "facing=south,sign=2": {
       "model": "occultism:block/chalk_glyph/2"
@@ -155,8 +164,7 @@
       "model": "occultism:block/chalk_glyph/9"
     },
     "facing=west,sign=0": {
-      "model": "occultism:block/chalk_glyph/0",
-      "y": 90
+      "model": "occultism:block/chalk_glyph/preview"
     },
     "facing=west,sign=1": {
       "model": "occultism:block/chalk_glyph/1",
@@ -176,6 +184,10 @@
     },
     "facing=west,sign=13": {
       "model": "occultism:block/chalk_glyph/13",
+      "y": 90
+    },
+    "facing=west,sign=14": {
+      "model": "occultism:block/chalk_glyph/14",
       "y": 90
     },
     "facing=west,sign=2": {

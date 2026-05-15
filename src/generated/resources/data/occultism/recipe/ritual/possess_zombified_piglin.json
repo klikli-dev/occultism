@@ -17,18 +17,18 @@
   "result": {
     "components": {
       "minecraft:item_name": {
-        "translate": "item.occultism.ritual_dummy.possess_zombie_piglin"
+        "translate": "item.occultism.ritual_dummy.possess_zombified_piglin"
       },
       "minecraft:lore": [
         {
-          "translate": "item.occultism.ritual_dummy.possess_zombie_piglin.tooltip"
+          "translate": "item.occultism.ritual_dummy.possess_zombified_piglin.tooltip"
         }
       ]
     },
-    "id": "occultism:spawn_egg/possessed_zombie_piglin"
+    "id": "occultism:spawn_egg/possessed_zombified_piglin"
   },
   "ritual_dummy": {
-    "id": "occultism:ritual_dummy/possess_zombie_piglin"
+    "id": "occultism:ritual_dummy/possess_zombified_piglin"
   },
   "ritual_type": "occultism:summon"
 }
