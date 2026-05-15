@@ -308,7 +308,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_hunt"));
         public static final TagKey<EntityType<?>> WILD_TRIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_trial"));
         public static final TagKey<EntityType<?>> WILD_DESERT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_desert"));
-        public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "healed_by_demons_dream_fruit"));
+        public static final TagKey<EntityType<?>> HEALED_BY_OTHERWORLD_FRUIT = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "healed_by_otherworld_fruit"));
         public static final TagKey<EntityType<?>> CUBEMOB = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "cubemob"));
         public static final TagKey<EntityType<?>> CREEPER = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "creepers"));
         public static final TagKey<EntityType<?>> FLYING_PASSIVE = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "flying_passive"));

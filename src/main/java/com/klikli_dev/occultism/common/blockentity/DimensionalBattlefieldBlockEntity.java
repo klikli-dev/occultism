@@ -514,7 +514,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                 attackDamage += 2.5 * weapon.getEnchantmentLevel(this.IMPALING);
         }
         if (weapon.is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM) &&
-                (entityTypeHolder.is(Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+                (entityTypeHolder.is(Entities.HEALED_BY_OTHERWORLD_FRUIT)
                         || entityTypeHolder.is(EntityTypes.BOSSES))) {
             attackDamage *= 3;
         }

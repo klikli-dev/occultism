@@ -69,7 +69,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
                 .add(OccultismEntities.BAT_FAMILIAR_TYPE.get())
                 .replace(false);
-        this.tag(Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+        this.tag(Entities.HEALED_BY_OTHERWORLD_FRUIT)
                 //Spirit
                 .add(OccultismEntities.FOLIOT_TYPE.get())
                 .add(OccultismEntities.DJINNI_TYPE.get())
