@@ -347,6 +347,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
 
         luck = Math.min(luck, DEFAULT_MAX_LUCK); //Cap luck
+        luck = Math.max(luck, 1); //Always positive
         rolls = rolls + (int) (luck * luck / 100F);
         if (RandomSource.create().nextIntBetweenInclusive(0, 99) < (luck * luck) % 100)
             rolls++;

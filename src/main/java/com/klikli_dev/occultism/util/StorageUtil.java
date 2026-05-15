@@ -298,7 +298,7 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
-        var resourceHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,null); // -> always returning null
+        var resourceHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,null);
         if (resourceHandler != null) {
             dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), resourceHandler);
         }
