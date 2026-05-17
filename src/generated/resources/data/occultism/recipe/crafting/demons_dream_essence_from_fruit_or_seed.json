@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": "#c:crops/datura"
+    "p": "#occultism:datura"
   },
   "pattern": [
     "ppp",

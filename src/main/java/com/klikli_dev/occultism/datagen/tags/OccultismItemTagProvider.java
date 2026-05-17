@@ -369,11 +369,6 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         //Random spawn egg
         this.addRandomEggs(provider);
 
-        // Crops
-        this.tag(OccultismTags.Items.DATURA_CROP).add(OccultismItems.DATURA.get()).replace(false);
-        //noinspection unchecked
-        this.tag(Tags.Items.CROPS).addTags(OccultismTags.Items.DATURA_CROP).replace(false);
-
         // Ingots
         this.tag(OccultismTags.Items.IESNIUM_INGOT).add(OccultismItems.IESNIUM_INGOT.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_INGOT).add(OccultismItems.SILVER_INGOT.get()).replace(false);
@@ -390,6 +385,13 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA_SEEDS.get()).replace(false);
         //noinspection unchecked
         this.tag(Tags.Items.SEEDS).addTags(OccultismTags.Items.DATURA_SEEDS).replace(false);
+        // Crops
+        this.tag(OccultismTags.Items.DATURA_CROP).add(OccultismItems.DATURA.get()).replace(false);
+        //noinspection unchecked
+        this.tag(Tags.Items.CROPS).addTags(OccultismTags.Items.DATURA_CROP).replace(false);
+        //Both datura
+        // Crops
+        this.tag(OccultismTags.Items.DATURA).addTag(OccultismTags.Items.DATURA_SEEDS).addTag(OccultismTags.Items.DATURA_CROP).replace(false);
 
         //Foods
         this.tag(Tags.Items.FOODS)

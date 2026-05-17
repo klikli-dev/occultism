@@ -2171,7 +2171,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.ELYTRA, "Elytras");
         this.addItemTag(Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
         this.addItemTag(Items.DATURA_SEEDS, "Demon's Dream Seeds");
-        this.addItemTag(Items.DATURA_CROP, "Demon's Dream");
+        this.addItemTag(Items.DATURA_CROP, "Demon's Dream Fruit");
+        this.addItemTag(Items.DATURA, "Demon's Dream");
         this.addItemTag(Items.COPPER_DUST, "Copper Dust");
         this.addItemTag(Items.GOLD_DUST, "Gold Dust");
         this.addItemTag(Items.IESNIUM_DUST, "Iesnium Dust");

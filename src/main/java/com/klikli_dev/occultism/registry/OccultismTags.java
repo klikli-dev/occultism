@@ -179,7 +179,6 @@ public class OccultismTags {
         public static final TagKey<Item> CHALK_BASE_DUST = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "dusts/chalk_base"));
         public static final TagKey<Item> OTHERWORLD_WOOD_DUST = makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/otherworld_wood"));
 
-        public static final TagKey<Item> DATURA_CROP = makeItemTag(Identifier.fromNamespaceAndPath("c", "crops/datura"));
 
         // Ingots
         public static final TagKey<Item> SPIRIT_ATTUNED_GEM_MATERIALS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_attuned_gem_materials"));
@@ -192,6 +191,8 @@ public class OccultismTags {
 
         // Seeds
         public static final TagKey<Item> DATURA_SEEDS = makeItemTag(Identifier.fromNamespaceAndPath("c", "seeds/datura"));
+        public static final TagKey<Item> DATURA_CROP = makeItemTag(Identifier.fromNamespaceAndPath("c", "crops/datura"));
+        public static final TagKey<Item> DATURA = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "datura"));
 
         //Item Tags
         public static final TagKey<Item> TOOLS_KNIFE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/knife"));

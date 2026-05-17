@@ -727,8 +727,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
-                .define('p', Ingredient.of(items.getOrThrow(OccultismTags.Items.DATURA_CROP)))
-                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_CROP))
+                .define('p', Ingredient.of(items.getOrThrow(OccultismTags.Items.DATURA)))
+                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/demons_dream_essence_from_fruit_or_seed")));
         ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, OccultismItems.PITAYA_GOLDEN.get())
                 .pattern("ggg")
