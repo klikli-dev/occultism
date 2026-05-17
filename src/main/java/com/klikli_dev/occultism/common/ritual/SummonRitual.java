@@ -215,7 +215,7 @@ public class SummonRitual extends Ritual {
             livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,
                     level.getRandom().nextInt(360), 0);
         } else {
-            livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY(), goldenBowlPosition.getZ() + 0.5,
+            livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5,
                     level.getRandom().nextInt(360), 0);
         }
         if (!spiritName.isEmpty())
