@@ -17,6 +17,15 @@
     },
     "occultism:datura": {
       "chance": 0.65
+    },
+    "occultism:pitaya": {
+      "chance": 0.65
+    },
+    "occultism:otherflower": {
+      "chance": 0.65
+    },
+    "occultism:otherflower_natural": {
+      "chance": 0.65
     }
   }
 }
