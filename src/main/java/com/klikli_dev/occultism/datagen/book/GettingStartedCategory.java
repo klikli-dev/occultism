@@ -629,8 +629,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        After the animation finishes, the closest **found block will be highlighted
-                        with white lines and can be seen through other blocks**.
+                        After the animation finishes, a particle will fly toward the closest found block.
                         Additionally you can watch the crystals for hints: a white crystal indicates no target blocks found,
                         a fully purple block means the found block is nearby. Mixes between white and purple show
                         that the target is rather far away.""");
@@ -640,10 +639,10 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        [#](%1$s)Right-clicking[#]() without holding after a successful search will show the last found target block again.
+                        [#](%1$s)Right-clicking[#]() without holding after a successful search will send another particle toward the last found target block.
                         \\
                         \\
-                        If the mod *"Theurgy"* is installed the rod will not highlight the target block, but instead send a particle effect in the direction of the target block.
+                        If you prefer the old target highlight, open occultism-client.toml and set useAlternativeDivinationRodRenderer = true.
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("divination_rod_screenshots");
@@ -667,9 +666,9 @@ public class GettingStartedCategory extends CategoryProvider {
         this.lang().add(this.context().pageTitle(), "Troubleshooting");
         this.lang().add(this.context().pageText(),
                 """
-                        If the rod does not create highlighted blocks for you, you can try to:
-                        - If you have theurgy mod installed, then a particle effect will be used instead, set the particles to all or decreased in the video settings
-                        - Open occultism-client.toml in your instance's /config folder and set dontUseTheurgyDivinationRodParticle = true to keep using Occultism's own block outline renderer even if Theurgy is installed
+                        If the rod does not create visible particles for you, you can try to:
+                        - Set particles to all or decreased in the video settings
+                        - Open occultism-client.toml in your instance's /config folder and set useAlternativeDivinationRodRenderer = true to switch back to Occultism's old block outline renderer
                         """);
 
 

@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.client.divination;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.integration.theurgy.TheurgyIntegration;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -50,8 +49,6 @@ public class ScanManager {
 
         this.scanner = new Scanner(target);
         this.scanner.initialize(player, player.position(), Occultism.CLIENT_CONFIG.misc.divinationRodScanRange.get(), SCAN_DURATION_TICKS);
-        if (!TheurgyIntegration.isLoaded()) //only use if theurgy not used, because if it is, we use a particle effect that only goes to the closest target
-            this.scanner.setHighlightAllResults(Occultism.CLIENT_CONFIG.misc.divinationRodHighlightAllResults.get());
     }
 
     public void updateScan(Player player, boolean forceFinish) {

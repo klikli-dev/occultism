@@ -49,7 +49,7 @@ public class OccultismClientConfig {
     public static class VisualSettings {
         public final BooleanValue showItemTagsInTooltip;
         public final BooleanValue disableHolidayTheming;
-        public final BooleanValue dontUseTheurgyDivinationRodParticle;
+        public final BooleanValue useAlternativeDivinationRodRenderer;
 
         public final IntValue whiteChalkGlyphColor;
         public final IntValue yellowChalkGlyphColor;
@@ -75,10 +75,10 @@ public class OccultismClientConfig {
                     .define("showItemTagsInTooltip", false);
             this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")
                     .define("disableHolidayTheming", false);
-            this.dontUseTheurgyDivinationRodParticle = builder.comment(
-                            "When true occultism will continue using it's own Block Outline renderer, even if Theurgy is present.",
-                            "When false, only if Theurgy is present, it will use the more immersive Theurgy renderer that sends a particle to the target block.")
-                    .define("dontUseTheurgyDivinationRodParticle", false);
+            this.useAlternativeDivinationRodRenderer = builder.comment(
+                            "When true, the divination rod uses Occultism's old block outline renderer instead of the particle trail effect.",
+                            "When false, the divination rod sends a particle trail toward the target block.")
+                    .define("useAlternativeDivinationRodRenderer", false);
 
             this.whiteChalkGlyphColor = builder.comment(
                     "The integer code of the color of the white chalk glyph in world.",
@@ -183,7 +183,6 @@ public class OccultismClientConfig {
         public final BooleanValue syncJeiSearch;
         public final BooleanValue enableEMISync;
         public final IntValue storageRows;
-        public final BooleanValue divinationRodHighlightAllResults;
         public final IntValue divinationRodScanRange;
         public final BooleanValue disableSpiritFireSuccessSound;
         public final IntValue pentagramInBowlInfoCount;
@@ -199,10 +198,6 @@ public class OccultismClientConfig {
             this.storageRows = builder.comment(
                     "How many rows show at one time on storage controller"
             ).defineInRange("storageRows", 4, 1, 9);
-            this.divinationRodHighlightAllResults = builder.comment(
-                            "If true, divination rod will render all matching blocks with an outline. Disable if it causes lag.",
-                            "This setting will be unused, if Theurgy is installed alongside, as Occultism will use Theurgy's divination rod result rendering instead.")
-                    .define("divinationRodHighlightAllResults", false);
             this.divinationRodScanRange = builder.comment("The scan range in blocks for the divination rod. Too high might cause lags")
                     .defineInRange("divinationRodScanRange", 129, 1, Integer.MAX_VALUE);
             this.disableSpiritFireSuccessSound = builder.comment(

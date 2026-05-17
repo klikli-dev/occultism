@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.client.divination;
 
-import com.klikli_dev.occultism.Occultism;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -53,15 +52,10 @@ public class Scanner {
     protected int x;
     protected int y;
     protected int z;
-    protected boolean highlightAllResults;
     private int blocksPerTick;
 
     public Scanner(Block target) {
         this.target = target;
-    }
-
-    public void setHighlightAllResults(boolean highlightAllResults) {
-        this.highlightAllResults = highlightAllResults;
     }
 
     public void initialize(Player player, Vec3 center, float radius, int totalTicks) {
@@ -107,9 +101,6 @@ public class Scanner {
 
             //if this is the block we search for, consume it.
             if (this.isValidBlock(state)) {
-                if (this.highlightAllResults) {
-                    Occultism.SELECTED_BLOCK_RENDERER.selectBlock(pos, System.currentTimeMillis() + 10000);
-                }
                 resultConsumer.accept(pos);
             }
         }

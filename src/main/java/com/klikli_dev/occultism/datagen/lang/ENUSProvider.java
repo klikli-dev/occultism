@@ -2339,7 +2339,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("showItemTagsInTooltip", "Show Item Tags in Tooltips");
         this.addConfig("disableDemonsDreamShaders", "Disable Demon's Dream Shaders");
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
-        this.addConfig("dontUseTheurgyDivinationRodParticle", "Don't Use Theurgy Divination Rod Particle");
+        this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
         this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
         this.addConfig("yellowChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
@@ -2361,7 +2361,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("syncJeiSearch", "Sync JEI Search");
         this.addConfig("enableEMISync", "Sync EMI Search");
         this.addConfig("storageRows", "Number of rows in the storage system");
-        this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
         this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
         this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
         this.addConfig("pentagramInBowlInfoCount", "Max pentacles names per page");

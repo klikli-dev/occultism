@@ -215,8 +215,14 @@ dependencies {
         transitive(false)
     }
 
+    //magic particles lib
+    jarJar(implementation(group: "com.klikli_dev", name: "magicparticleslib-${minecraft_version}-neoforge")) {
+        version {
+            prefer magic_particles_lib_version
+        }
+    }
+
     //theurgy
-    compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 //    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
