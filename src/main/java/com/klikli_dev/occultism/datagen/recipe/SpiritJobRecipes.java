@@ -441,6 +441,36 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         crushingOreRecipe("monazite", 2, pRecipeOutput, registries);
         crushingOreRecipe("bauxite", 2, pRecipeOutput, registries);
         crushingOreRecipe("salt", 2, pRecipeOutput, registries);
+        //GeOre decompress compatibility
+        crystallizerGeOre("coal", pRecipeOutput, registries);
+        crystallizerGeOre("copper", pRecipeOutput, registries);
+        crystallizerGeOre("diamond", pRecipeOutput, registries);
+        crystallizerGeOre("emerald", pRecipeOutput, registries);
+        crystallizerGeOre("gold", pRecipeOutput, registries);
+        crystallizerGeOre("iron", pRecipeOutput, registries);
+        crystallizerGeOre("lapis", pRecipeOutput, registries);
+        crystallizerGeOre("quartz", pRecipeOutput, registries);
+        crystallizerGeOre("redstone", pRecipeOutput, registries);
+        crystallizerGeOre("ancient_debris", pRecipeOutput, registries);
+        crystallizerGeOre("ruby", pRecipeOutput, registries);
+        crystallizerGeOre("sapphire", pRecipeOutput, registries);
+        crystallizerGeOre("topaz", pRecipeOutput, registries);
+        crystallizerGeOre("zinc", pRecipeOutput, registries);
+        crystallizerGeOre("uraninite", pRecipeOutput, registries);
+        crystallizerGeOre("black_quartz", pRecipeOutput, registries);
+        crystallizerGeOre("monazite", pRecipeOutput, registries);
+        crystallizerGeOre("aluminum", pRecipeOutput, registries);
+        crystallizerGeOre("lead", pRecipeOutput, registries);
+        crystallizerGeOre("nickel", pRecipeOutput, registries);
+        crystallizerGeOre("osmium", pRecipeOutput, registries);
+        crystallizerGeOre("platinum", pRecipeOutput, registries);
+        crystallizerGeOre("silver", pRecipeOutput, registries);
+        crystallizerGeOre("tin", pRecipeOutput, registries);
+        crystallizerGeOre("tungsten", pRecipeOutput, registries);
+        crystallizerGeOre("uranium", pRecipeOutput, registries);
+        crystallizerGeOre("allthemodium", pRecipeOutput, registries);
+        crystallizerGeOre("vibranium", pRecipeOutput, registries);
+        crystallizerGeOre("unobtainium", pRecipeOutput, registries);
 
         CrushingRecipeBuilder.crushingRecipe(Items.COAL, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + "coal")), 200, registries)
                 .setAllowEmpty(false)
@@ -611,5 +641,19 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     private static void tripleCrushSmeltBlastRecipe(String input, Item output, RecipeOutput recipeOutput, Provider registries) {
         crushingIngotRecipe(input, recipeOutput, registries);
         doubleCookingRecipe(input, output, recipeOutput, registries);
+    }
+
+    private static void crystallizerGeOre(String ore, RecipeOutput recipeOutput, Provider registries) {
+        CrystallizeRecipeBuilder.crystallizeRecipe(
+                        OccultismTags.makeItemTag("geore:storage_blocks/geore_" + ore),
+                        OccultismTags.makeItemTag("geore:geore_shards/" + ore),
+                        200, registries)
+                .setResultAmount(4)
+                .setMinTier(2)
+                .setIgnoreCrystallizeMultiplier(true)
+                .unlockedBy("has_geore_" + ore + "_block",
+                        hasTag(OccultismTags.makeItemTag("geore:storage_blocks/geore_" + ore), registries))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath(Occultism.MODID, "crystallize/geore_" + ore)));
     }
 }

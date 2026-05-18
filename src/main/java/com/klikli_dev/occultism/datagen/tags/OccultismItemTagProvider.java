@@ -232,7 +232,16 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
-        this.tag(OccultismTags.Items.START_SPIRIT_FIRE).add(OccultismItems.DATURA.get());
+        this.tag(OccultismTags.Items.TOOLS_BRUSH)
+                .add(OccultismItems.BRUSH.get())
+                .add(OccultismItems.CHALK_RAINBOW.get())
+                .add(OccultismItems.CHALK_VOID.get())
+                .replace(false);
+
+
+        this.tag(OccultismTags.Items.START_SPIRIT_FIRE)
+                .add(OccultismItems.DATURA.get())
+                .add(OccultismItems.PITAYA.get());
         this.copy(Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.copy(Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(OccultismTags.Items.TOOLS_KNIFE)
@@ -360,11 +369,6 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         //Random spawn egg
         this.addRandomEggs(provider);
 
-        // Crops
-        this.tag(OccultismTags.Items.DATURA_CROP).add(OccultismItems.DATURA.get()).replace(false);
-        //noinspection unchecked
-        this.tag(Tags.Items.CROPS).addTags(OccultismTags.Items.DATURA_CROP).replace(false);
-
         // Ingots
         this.tag(OccultismTags.Items.IESNIUM_INGOT).add(OccultismItems.IESNIUM_INGOT.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_INGOT).add(OccultismItems.SILVER_INGOT.get()).replace(false);
@@ -381,6 +385,13 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA_SEEDS.get()).replace(false);
         //noinspection unchecked
         this.tag(Tags.Items.SEEDS).addTags(OccultismTags.Items.DATURA_SEEDS).replace(false);
+        // Crops
+        this.tag(OccultismTags.Items.DATURA_CROP).add(OccultismItems.DATURA.get()).replace(false);
+        //noinspection unchecked
+        this.tag(Tags.Items.CROPS).addTags(OccultismTags.Items.DATURA_CROP).replace(false);
+        //Both datura
+        // Crops
+        this.tag(OccultismTags.Items.DATURA).addTag(OccultismTags.Items.DATURA_SEEDS).addTag(OccultismTags.Items.DATURA_CROP).replace(false);
 
         //Foods
         this.tag(Tags.Items.FOODS)
@@ -391,9 +402,44 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CURSED_HONEY.get())
                 .add(OccultismItems.SWEET_HONEY_HEART.get())
                 .add(OccultismItems.DEMONIC_MEAT.get())
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
                 .replace(false);
         this.tag(ItemTags.MEAT)
                 .add(OccultismItems.DEMONIC_MEAT.get())
+                .replace(false);
+        this.tag(Tags.Items.FOODS_FRUIT)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(Tags.Items.ANIMAL_FOODS)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.HORSE_FOOD)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.ZOMBIE_HORSE_FOOD)
+                .add(OccultismItems.PITAYA.get())
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.HORSE_TEMPT_ITEMS)
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(Tags.Items.FOODS_GOLDEN)
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .replace(false);
+        this.tag(ItemTags.PIGLIN_LOVED)
+                .add(OccultismItems.PITAYA_GOLDEN.get())
+                .add(OccultismItems.PITAYA_ENCHANTED.get())
                 .replace(false);
 
         // Storage Blocks
@@ -631,7 +677,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.OMINOUS_BOTTLE)
                 .add(Items.HONEY_BOTTLE);
 
-        this.tag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN)
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIFIED_PIGLIN)
                 .add(OccultismItems.DEMONIC_MEAT.get())
                 .add(OccultismItems.TALLOW.get())
                 .add(Items.PORKCHOP)

@@ -227,6 +227,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         List<Ingredient> ritualDiff = null;
         List<Ingredient> bestRitualDiff = null;
         RitualRecipe bestRitual = null;
+        float diffPercent = 0F;
 
         var pentacleMultiblocks = getAllRitualRecipes(level)
                 .stream().map(r -> r.value().getPentacleId()).distinct().map(ModonomiconAPI.get()::getMultiblock);
@@ -240,6 +241,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (!pentacle.contains(recipe.value().getPentacle()))
                 continue;
 
+            if (!recipe.value().getActivationItem().getValues().contains(activationItem.typeHolder()))
+                continue;
+
             ritualDiff = new ArrayList<>(recipe.value().getIngredients());
             List<ItemStack> items = recipe.value().getRitual().getItemsOnSacrificialBowls(level, pos);
 
@@ -248,8 +252,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 return true;
             }
 
-            boolean found = false;
-            for (int i = ritualDiff.size() - 1; i >= 0; i--) {
+            boolean found;
+            int initDiffSize = ritualDiff.size();
+            for (int i = initDiffSize - 1; i >= 0; i--) {
                 found = false;
                 for (int j = 0; j < items.size(); j++) {
                     if (ritualDiff.get(i).test(items.get(j))) {
@@ -262,13 +267,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     ritualDiff.remove(i);
             }
 
-            if (bestRitualDiff == null || bestRitualDiff.size() > ritualDiff.size()) {
+            if (bestRitualDiff == null || diffPercent > (float) ritualDiff.size() / initDiffSize) {
                 bestRitualDiff = ritualDiff;
                 bestRitual = recipe.value();
+                diffPercent = (float) ritualDiff.size() / initDiffSize;
             }
         }
 
-        if (bestRitualDiff != null && !bestRitualDiff.isEmpty() && bestRitualDiff.size() < 3) {
+        if (bestRitualDiff != null && !bestRitualDiff.isEmpty() && diffPercent < 0.5) {
             player.sendSystemMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".ritual_help", Component.translatable(bestRitual.getRitual().getStartedMessage(player)), ritualDiffToComponent(bestRitualDiff)));
 

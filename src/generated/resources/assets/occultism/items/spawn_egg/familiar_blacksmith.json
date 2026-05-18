@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -16335772
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -13948117
-      }
-    ]
+    "model": "occultism:item/spawn_egg/familiar_blacksmith"
   }
 }

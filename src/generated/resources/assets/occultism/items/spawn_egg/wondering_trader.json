@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -13151102
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -4224915
-      }
-    ]
+    "model": "occultism:item/spawn_egg/wondering_trader"
   }
 }

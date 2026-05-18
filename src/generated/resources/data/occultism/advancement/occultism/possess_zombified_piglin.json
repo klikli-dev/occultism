@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "possess_zombified_piglin": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/possess_zombified_piglin"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.possess_zombified_piglin.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.possess_zombified_piglin.title"
+    }
+  },
+  "requirements": [
+    [
+      "possess_zombified_piglin"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

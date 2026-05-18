@@ -54,7 +54,7 @@ final class StorageTerminalLayouts {
                     });
                     topBar.group("controls", controls -> {
                         controls.at(CONTROL_BUTTON_LEFT, CONTROL_BUTTON_TOP);
-                        for (int index = 0; index < 4; index++) {
+                        for (int index = 0; index < 5; index++) {
                             controls.node("button_" + index).at(index * (CONTROL_BUTTON_SIZE + 3), 0)
                                     .size(CONTROL_BUTTON_SIZE, CONTROL_BUTTON_SIZE);
                         }

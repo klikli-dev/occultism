@@ -37,8 +37,8 @@
           "parent": "Torso",
           "pivot": [
             0,
-            0,
-            0
+            32,
+            -2
           ],
           "cubes": [
             {

@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -10528692
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -7175842
-      }
-    ]
+    "model": "occultism:item/spawn_egg/wild_horde_husk"
   }
 }

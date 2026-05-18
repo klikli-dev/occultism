@@ -4,13 +4,13 @@
     "translate": "enchantment.occultism.fracture_soul"
   },
   "max_cost": {
-    "base": 18,
+    "base": 27,
     "per_level_above_first": 3
   },
-  "max_level": 5,
+  "max_level": 9,
   "min_cost": {
-    "base": 10,
-    "per_level_above_first": 2
+    "base": 24,
+    "per_level_above_first": 4
   },
   "primary_items": "#minecraft:enchantable/sharp_weapon",
   "slots": [

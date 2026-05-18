@@ -324,6 +324,16 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             result.ifPresent(r -> {
                 ItemStack finalResult = r.getStack().copy();
                 finalResult.setCount(finalResult.getCount() * this.outputMultiplier * finalSilk);
+                //Check if recipe has custom limit
+                if (finalResult.has(OccultismDataComponents.MINER_OPERATION_LIMIT)) {
+                    finalResult.setCount(Math.min(finalResult.getCount(), finalResult.get(OccultismDataComponents.MINER_OPERATION_LIMIT)));
+                    //Now make stackable again with the default item
+                    if (finalResult.getItem().getDefaultInstance().has(OccultismDataComponents.MINER_OPERATION_LIMIT)) {
+                        finalResult.set(OccultismDataComponents.MINER_OPERATION_LIMIT, finalResult.getItem().getDefaultInstance().get(OccultismDataComponents.MINER_OPERATION_LIMIT));
+                    } else {
+                        finalResult.remove(OccultismDataComponents.MINER_OPERATION_LIMIT);
+                    }
+                }
 
                 // Batching Logic: Check if we can merge with existing drop
                 boolean merged = false;

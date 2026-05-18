@@ -1291,7 +1291,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_zombie_piglin"));
+                .withRecipeId1(this.modLoc("ritual/possess_zombified_piglin"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()

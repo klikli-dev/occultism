@@ -5,12 +5,14 @@ import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.klikli_dev.modonomicon.multiblock.matcher.AnyMatcher;
 import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.common.item.tool.ChalkItem;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedPentacle;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.mojang.datafixers.util.Function4;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
@@ -20,6 +22,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -137,6 +140,9 @@ public abstract class RitualSatchelItem extends Item {
         Player player = context.getPlayer();
         var preview = ModonomiconAPI.get().getCurrentPreviewMultiblock();
 
+        if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock)
+            return InteractionResult.PASS;
+
         //First, verify if we have a valid preview in the world
         if (preview == null || !preview.isAnchored()) {
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD).withStyle(ChatFormatting.YELLOW));
@@ -216,6 +222,19 @@ public abstract class RitualSatchelItem extends Item {
         } else {
             return this.useOnServerSide(context);
         }
+    }
+
+    public boolean tryErase(UseOnContext context) {
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            var stack = inventory.getItem(i);
+            if (stack.is(OccultismTags.Items.TOOLS_BRUSH)) {
+                // Simulate item use
+                stack.useOn(new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), OccultismItems.BRUSH.toStack(), context.getHitResult()));
+                return true;
+            }
+        }
+        return false;
     }
 
     public enum PlacementResult {

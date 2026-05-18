@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -12369085
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -2452002
-      }
-    ]
+    "model": "occultism:item/spawn_egg/familiar_bat"
   }
 }

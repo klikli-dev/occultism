@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
@@ -297,7 +298,7 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
-        var resourceHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), null);
+        var resourceHandler = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,null);
         if (resourceHandler != null) {
             dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), resourceHandler);
         }

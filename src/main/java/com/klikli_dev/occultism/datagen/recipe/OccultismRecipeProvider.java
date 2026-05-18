@@ -191,7 +191,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     protected static void otherflowerDye(ItemLike result, TagKey<Item> colorTag, RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
-        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, result, 3)
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, result, 4)
                 .requires(OccultismBlocks.OTHERFLOWER.asItem())
                 .requires(colorTag)
                 .unlockedBy("has_otherflower", TriggerInstance.hasItems(OccultismBlocks.OTHERFLOWER.asItem()))
@@ -727,9 +727,18 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
-                .define('p', Ingredient.of(items.getOrThrow(OccultismTags.Items.DATURA_CROP)))
-                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_CROP))
+                .define('p', Ingredient.of(items.getOrThrow(OccultismTags.Items.DATURA)))
+                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/demons_dream_essence_from_fruit_or_seed")));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.FOOD, OccultismItems.PITAYA_GOLDEN.get())
+                .pattern("ggg")
+                .pattern("gdg")
+                .pattern("ggg")
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('d', OccultismItems.PITAYA)
+                .unlockedBy("has_pitaya", this.has(OccultismItems.PITAYA))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/golden_pitaya")));
+
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, OccultismItems.DICTIONARY_OF_SPIRITS.get())
                 .requires(OccultismTags.Items.DATURA_SEEDS)
                 .requires(OccultismTags.Items.BOOKS)

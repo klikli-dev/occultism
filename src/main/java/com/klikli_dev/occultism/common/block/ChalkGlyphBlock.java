@@ -51,8 +51,8 @@ public class ChalkGlyphBlock extends Block {
     /**
      * The glyph sign (the typeface)
      */
-    public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 13);
-    public static final int MAX_SIGN = 13;
+    public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 14);
+    public static final int MAX_SIGN = 14;
 
     private static final VoxelShape SHAPE = Block.box(1.5, 0, 1.5, 14.5, 0.04, 14.5);
 
@@ -123,7 +123,7 @@ public class ChalkGlyphBlock extends Block {
             sign = (current.getValue(SIGN) + 1) % (MAX_SIGN + 1);
         }
 
-        return this.defaultBlockState().setValue(SIGN, sign)
+        return this.defaultBlockState().setValue(SIGN, Math.max(sign, 1))
                 .setValue(BlockStateProperties.HORIZONTAL_FACING,
                         context.getHorizontalDirection().getOpposite());
     }

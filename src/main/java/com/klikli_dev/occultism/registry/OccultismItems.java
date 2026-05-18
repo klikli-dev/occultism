@@ -98,10 +98,6 @@ public class OccultismItems {
             KnowledgeTabletItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .component(OccultismDataComponents.STORED_XP, 0));
-    public static final DeferredItem<ListFilterItem> LIST_FILTER = ITEMS.registerItem("list_filter",
-            properties -> new ListFilterItem(properties, OccultismGuiStyles.FILTER_LIST), () -> new Properties());
-    public static final DeferredItem<AttributeFilterItem> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter",
-            properties -> new AttributeFilterItem(properties, OccultismGuiStyles.FILTER_ATTRIBUTE), () -> new Properties());
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.registerItem("storage_remote",
             StorageRemoteItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
@@ -159,6 +155,12 @@ public class OccultismItems {
             ITEMS.registerItem("book_of_calling_djinni_manage_machine",
                     properties -> new BookOfCallingManageMachineItem(properties.stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
+    //Filters
+    public static final DeferredItem<ListFilterItem> LIST_FILTER = ITEMS.registerItem("list_filter",
+            properties -> new ListFilterItem(properties, OccultismGuiStyles.FILTER_LIST), Properties::new);
+    public static final DeferredItem<AttributeFilterItem> ATTRIBUTE_FILTER = ITEMS.registerItem("attribute_filter",
+            properties -> new AttributeFilterItem(properties, OccultismGuiStyles.FILTER_ATTRIBUTE), Properties::new);
+
     //Brush. Chalks and Impure Chalks
     public static final DeferredItem<BrushItem> BRUSH = ITEMS.registerItem("brush",
             BrushItem::new, () -> new Properties().stacksTo(1));
@@ -217,11 +219,11 @@ public class OccultismItems {
             properties -> new ChalkItem(properties.stacksTo(1).rarity(Rarity.EPIC).fireResistant(),
                     OccultismBlocks.CHALK_GLYPH_VOID.get(), true));
     public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.registerItem("chalk_white_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY_IMPURE = ITEMS.registerItem("chalk_light_gray_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_GRAY_IMPURE = ITEMS.registerItem("chalk_gray_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_BLACK_IMPURE = ITEMS.registerItem("chalk_black_impure",
             Item::new, () -> new Properties().rarity(Rarity.UNCOMMON).fireResistant());
     public static final DeferredItem<Item> CHALK_BROWN_IMPURE = ITEMS.registerItem("chalk_brown_impure",
@@ -229,21 +231,21 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_RED_IMPURE = ITEMS.registerItem("chalk_red_impure",
             Item::new, () -> new Properties().rarity(Rarity.UNCOMMON).fireResistant());
     public static final DeferredItem<Item> CHALK_ORANGE_IMPURE = ITEMS.registerItem("chalk_orange_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_YELLOW_IMPURE = ITEMS.registerItem("chalk_yellow_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_LIME_IMPURE = ITEMS.registerItem("chalk_lime_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_GREEN_IMPURE = ITEMS.registerItem("chalk_green_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_CYAN_IMPURE = ITEMS.registerItem("chalk_cyan_impure",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> CHALK_LIGHT_BLUE_IMPURE = ITEMS.registerItem("chalk_light_blue_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_BLUE_IMPURE = ITEMS.registerItem("chalk_blue_impure",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> CHALK_PURPLE_IMPURE = ITEMS.registerItem("chalk_purple_impure",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CHALK_MAGENTA_IMPURE = ITEMS.registerItem("chalk_magenta_impure",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> CHALK_PINK_IMPURE = ITEMS.registerItem("chalk_pink_impure",
@@ -300,6 +302,16 @@ public class OccultismItems {
     public static final DeferredItem<Item> OTHERWORLD_ESSENCE = ITEMS.registerItem("otherworld_essence",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.OTHERWORLD_ESSENCE.get(), OccultismFoods.OTHERWORLD_ESSENCE_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 32).component(OccultismDataComponents.LUCK_VALUE, 2));
+    public static final DeferredItem<Item> PITAYA = ITEMS.registerItem("pitaya",
+            SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.PITAYA.get(), OccultismFoods.PITAYA_CONSUMABLE)
+                    .component(OccultismDataComponents.SOUL_VALUE, 8));
+    public static final DeferredItem<Item> PITAYA_GOLDEN = ITEMS.registerItem("golden_pitaya",
+            SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.PITAYA_GOLDEN.get(), OccultismFoods.PITAYA_GOLDEN_CONSUMABLE)
+                    .component(OccultismDataComponents.SOUL_VALUE, 24));
+    public static final DeferredItem<Item> PITAYA_ENCHANTED = ITEMS.registerItem("enchanted_golden_pitaya",
+            SpiritHealingItem::new, () -> new Properties().rarity(Rarity.RARE)
+                    .food(OccultismFoods.PITAYA_ENCHANTED.get(), OccultismFoods.PITAYA_ENCHANTED_CONSUMABLE)
+                    .component(OccultismDataComponents.SOUL_VALUE, 96));
     public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.registerItem("beaver_nugget",
             Item::new, () -> new Properties().food(OccultismFoods.BEAVER_NUGGET.get(), OccultismFoods.BEAVER_NUGGET_CONSUMABLE));
     public static final DeferredItem<Item> CURSED_HONEY = ITEMS.registerItem("cursed_honey",
@@ -310,7 +322,7 @@ public class OccultismItems {
             Item::new, () -> new Properties().food(OccultismFoods.DEMONIC_MEAT.get(), OccultismFoods.DEMONIC_MEAT_CONSUMABLE).rarity(Rarity.UNCOMMON).fireResistant());
     //Resources and materials
     public static final DeferredItem<Item> TALLOW = ITEMS.registerItem("tallow",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> AFRIT_ESSENCE = ITEMS.registerItem("afrit_essence",
             Item::new, () -> new Properties().rarity(Rarity.UNCOMMON).fireResistant());
     public static final DeferredItem<Item> MARID_ESSENCE = ITEMS.registerItem("marid_essence",
@@ -318,100 +330,101 @@ public class OccultismItems {
     public static final DeferredItem<Item> CRUELTY_ESSENCE = ITEMS.registerItem("cruelty_essence",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.registerItem("spirit_attuned_gem",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> RAW_SILVER = ITEMS.registerItem("raw_silver",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> RAW_IESNIUM = ITEMS.registerItem("raw_iesnium",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> SILVER_INGOT = ITEMS.registerItem("silver_ingot",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> IESNIUM_INGOT = ITEMS.registerItem("iesnium_ingot",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> SILVER_NUGGET = ITEMS.registerItem("silver_nugget",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> IESNIUM_NUGGET = ITEMS.registerItem("iesnium_nugget",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     //Dusts
     public static final DeferredItem<Item> SILVER_DUST = ITEMS.registerItem("silver_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> IESNIUM_DUST = ITEMS.registerItem("iesnium_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> COPPER_DUST = ITEMS.registerItem("copper_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> IRON_DUST = ITEMS.registerItem("iron_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> GOLD_DUST = ITEMS.registerItem("gold_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> NETHERITE_SCRAP_DUST = ITEMS.registerItem("netherite_scrap_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> NETHERITE_DUST = ITEMS.registerItem("netherite_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> OBSIDIAN_DUST = ITEMS.registerItem("obsidian_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> LAPIS_DUST = ITEMS.registerItem("lapis_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> AMETHYST_DUST = ITEMS.registerItem("amethyst_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> EMERALD_DUST = ITEMS.registerItem("emerald_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> ECHO_DUST = ITEMS.registerItem("echo_dust",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> RESEARCH_FRAGMENT_DUST = ITEMS.registerItem("research_fragment_dust",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> WITHERITE_DUST = ITEMS.registerItem("witherite_dust",
             Item::new, () -> new Properties().rarity(Rarity.UNCOMMON).fireResistant());
     public static final DeferredItem<Item> DRAGONYST_DUST = ITEMS.registerItem("dragonyst_dust",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> CRUSHED_END_STONE = ITEMS.registerItem("crushed_end_stone",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CRUSHED_CALCITE = ITEMS.registerItem("crushed_calcite",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CRUSHED_BLACKSTONE = ITEMS.registerItem("crushed_blackstone",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CRUSHED_ICE = ITEMS.registerItem("crushed_ice",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CRUSHED_PACKED_ICE = ITEMS.registerItem("crushed_packed_ice",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> CRUSHED_BLUE_ICE = ITEMS.registerItem("crushed_blue_ice",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> BURNT_OTHERSTONE = ITEMS.registerItem("burnt_otherstone",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> BURNT_OTHERROCK = ITEMS.registerItem("burnt_otherrock",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.registerItem("otherworld_ashes",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> GRAY_PASTE = ITEMS.registerItem("gray_paste",
             DamageInCraftingItem::new, () -> new Properties().durability(64));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.registerItem("nature_paste",
             NaturePasteItem::new, () -> new Properties().durability(64));
     //Components
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.registerItem("purified_ink",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> AWAKENED_FEATHER = ITEMS.registerItem("awakened_feather",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> TABOO_BOOK = ITEMS.registerItem("taboo_book",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.registerItem("spirit_attuned_pickaxe_head",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> LENSES = ITEMS.registerItem("lenses",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> INFUSED_LENSES = ITEMS.registerItem("infused_lenses",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> LENS_FRAME = ITEMS.registerItem("lens_frame",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> OTHERSTONE_FRAME = ITEMS.registerItem("otherstone_frame",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> OTHERROCK_FRAME = ITEMS.registerItem("otherrock_frame",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> OTHERWORLDLY_TABLET = ITEMS.registerItem("otherworldly_tablet",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.registerItem("storage_remote_inert",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.registerItem("dimensional_matrix",
             DimensionalMatrixItem::new, () -> new Properties().component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.registerItem("mining_dim_core",
             DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "Something"));
+                    .component(OccultismDataComponents.SPIRIT_NAME, "Something")
+                    .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1));
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.registerItem("soul_shard",
             SoulShardItem::new, () -> new Properties().stacksTo(1));
@@ -441,7 +454,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT = ITEMS.registerItem("spawn_egg/afrit",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.AFRIT_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT_UNBOUND = ITEMS.registerItem("spawn_egg/afrit_unbound",
-            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.AFRIT_WILD_TYPE.get()));
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.AFRIT_UNBOUND_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID = ITEMS.registerItem("spawn_egg/marid",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.MARID_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID_UNBOUND = ITEMS.registerItem("spawn_egg/marid_unbound",
@@ -468,8 +481,8 @@ public class OccultismItems {
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_WITCH_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BLAZE = ITEMS.registerItem("spawn_egg/possessed_blaze",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_BLAZE_TYPE.get()));
-    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN = ITEMS.registerItem("spawn_egg/possessed_zombie_piglin",
-            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ZOMBIFIED_PIGLIN = ITEMS.registerItem("spawn_egg/possessed_zombified_piglin",
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BEE = ITEMS.registerItem("spawn_egg/possessed_bee",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_BEE_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_GUARDIAN = ITEMS.registerItem("spawn_egg/possessed_guardian",
@@ -545,195 +558,195 @@ public class OccultismItems {
     //Ritual Dummy Items
     //SUMMON
     //Crusher
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_foliot_crusher", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_djinni_crusher", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_afrit_crusher", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_marid_crusher", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_foliot_crusher", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_djinni_crusher", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_afrit_crusher", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRUSHER = ITEMS.registerItem("ritual_dummy/summon_marid_crusher", DummyTooltipItem::new, Properties::new);
     //Smelter
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER = ITEMS.registerItem("ritual_dummy/summon_foliot_smelter", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_SMELTER = ITEMS.registerItem("ritual_dummy/summon_djinni_smelter", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_SMELTER = ITEMS.registerItem("ritual_dummy/summon_afrit_smelter", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_SMELTER = ITEMS.registerItem("ritual_dummy/summon_marid_smelter", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER = ITEMS.registerItem("ritual_dummy/summon_foliot_smelter", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_SMELTER = ITEMS.registerItem("ritual_dummy/summon_djinni_smelter", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_SMELTER = ITEMS.registerItem("ritual_dummy/summon_afrit_smelter", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_SMELTER = ITEMS.registerItem("ritual_dummy/summon_marid_smelter", DummyTooltipItem::new, Properties::new);
     //Crystallizer
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_foliot_crystallizer", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_djinni_crystallizer", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_afrit_crystallizer", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_marid_crystallizer", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_foliot_crystallizer", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_djinni_crystallizer", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_afrit_crystallizer", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER = ITEMS.registerItem("ritual_dummy/summon_marid_crystallizer", DummyTooltipItem::new, Properties::new);
     //Partner
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.registerItem("ritual_dummy/summon_demonic_wife", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.registerItem("ritual_dummy/summon_demonic_husband", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.registerItem("ritual_dummy/summon_demonic_wife", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.registerItem("ritual_dummy/summon_demonic_husband", DummyTooltipItem::new, Properties::new);
     //One tier worker
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK = ITEMS.registerItem("ritual_dummy/summon_foliot_lumberjack", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_FARMER = ITEMS.registerItem("ritual_dummy/summon_foliot_farmer", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER = ITEMS.registerItem("ritual_dummy/summon_foliot_otherstone_trader", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER = ITEMS.registerItem("ritual_dummy/summon_foliot_otherrock_trader", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER = ITEMS.registerItem("ritual_dummy/summon_foliot_sapling_trader", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS = ITEMS.registerItem("ritual_dummy/summon_foliot_transport_items", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER = ITEMS.registerItem("ritual_dummy/summon_foliot_cleaner", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE = ITEMS.registerItem("ritual_dummy/summon_djinni_manage_machine", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER = ITEMS.registerItem("ritual_dummy/summon_djinni_gambler", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_WONDERING_TRADER = ITEMS.registerItem("ritual_dummy/summon_wondering_trader", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME = ITEMS.registerItem("ritual_dummy/summon_djinni_day_time", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME = ITEMS.registerItem("ritual_dummy/summon_djinni_night_time", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER = ITEMS.registerItem("ritual_dummy/summon_djinni_clear_weather", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER = ITEMS.registerItem("ritual_dummy/summon_afrit_rain_weather", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER = ITEMS.registerItem("ritual_dummy/summon_afrit_thunder_weather", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK = ITEMS.registerItem("ritual_dummy/summon_foliot_lumberjack", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_FARMER = ITEMS.registerItem("ritual_dummy/summon_foliot_farmer", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER = ITEMS.registerItem("ritual_dummy/summon_foliot_otherstone_trader", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER = ITEMS.registerItem("ritual_dummy/summon_foliot_otherrock_trader", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER = ITEMS.registerItem("ritual_dummy/summon_foliot_sapling_trader", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS = ITEMS.registerItem("ritual_dummy/summon_foliot_transport_items", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER = ITEMS.registerItem("ritual_dummy/summon_foliot_cleaner", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE = ITEMS.registerItem("ritual_dummy/summon_djinni_manage_machine", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER = ITEMS.registerItem("ritual_dummy/summon_djinni_gambler", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_WONDERING_TRADER = ITEMS.registerItem("ritual_dummy/summon_wondering_trader", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME = ITEMS.registerItem("ritual_dummy/summon_djinni_day_time", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME = ITEMS.registerItem("ritual_dummy/summon_djinni_night_time", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER = ITEMS.registerItem("ritual_dummy/summon_djinni_clear_weather", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER = ITEMS.registerItem("ritual_dummy/summon_afrit_rain_weather", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER = ITEMS.registerItem("ritual_dummy/summon_afrit_thunder_weather", DummyTooltipItem::new, Properties::new);
     //Unbound
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT = ITEMS.registerItem("ritual_dummy/summon_unbound_afrit", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_UNBOUND_MARID = ITEMS.registerItem("ritual_dummy/summon_unbound_marid", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT = ITEMS.registerItem("ritual_dummy/summon_unbound_afrit", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_UNBOUND_MARID = ITEMS.registerItem("ritual_dummy/summon_unbound_marid", DummyTooltipItem::new, Properties::new);
     //POSSESS
     //Familiar
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEAVER = ITEMS.registerItem("ritual_dummy/familiar_beaver", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BLACKSMITH = ITEMS.registerItem("ritual_dummy/familiar_blacksmith", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEER = ITEMS.registerItem("ritual_dummy/familiar_deer", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GREEDY = ITEMS.registerItem("ritual_dummy/familiar_greedy", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_PARROT = ITEMS.registerItem("ritual_dummy/familiar_parrot", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_PARROT = ITEMS.registerItem("ritual_dummy/possess_unbound_parrot", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BAT = ITEMS.registerItem("ritual_dummy/familiar_bat", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEHOLDER = ITEMS.registerItem("ritual_dummy/familiar_beholder", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CHIMERA = ITEMS.registerItem("ritual_dummy/familiar_chimera", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CTHULHU = ITEMS.registerItem("ritual_dummy/familiar_cthulhu", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEVIL = ITEMS.registerItem("ritual_dummy/familiar_devil", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DRAGON = ITEMS.registerItem("ritual_dummy/familiar_dragon", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_FAIRY = ITEMS.registerItem("ritual_dummy/familiar_fairy", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_HEADLESS = ITEMS.registerItem("ritual_dummy/familiar_headless", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_MUMMY = ITEMS.registerItem("ritual_dummy/familiar_mummy", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD = ITEMS.registerItem("ritual_dummy/familiar_otherworld_bird", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD = ITEMS.registerItem("ritual_dummy/possess_unbound_otherworld_bird", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GUARDIAN = ITEMS.registerItem("ritual_dummy/familiar_guardian", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM = ITEMS.registerItem("ritual_dummy/possess_iesnium_golem", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEAVER = ITEMS.registerItem("ritual_dummy/familiar_beaver", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BLACKSMITH = ITEMS.registerItem("ritual_dummy/familiar_blacksmith", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEER = ITEMS.registerItem("ritual_dummy/familiar_deer", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GREEDY = ITEMS.registerItem("ritual_dummy/familiar_greedy", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_PARROT = ITEMS.registerItem("ritual_dummy/familiar_parrot", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_PARROT = ITEMS.registerItem("ritual_dummy/possess_unbound_parrot", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BAT = ITEMS.registerItem("ritual_dummy/familiar_bat", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEHOLDER = ITEMS.registerItem("ritual_dummy/familiar_beholder", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CHIMERA = ITEMS.registerItem("ritual_dummy/familiar_chimera", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CTHULHU = ITEMS.registerItem("ritual_dummy/familiar_cthulhu", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEVIL = ITEMS.registerItem("ritual_dummy/familiar_devil", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DRAGON = ITEMS.registerItem("ritual_dummy/familiar_dragon", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_FAIRY = ITEMS.registerItem("ritual_dummy/familiar_fairy", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_HEADLESS = ITEMS.registerItem("ritual_dummy/familiar_headless", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_MUMMY = ITEMS.registerItem("ritual_dummy/familiar_mummy", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD = ITEMS.registerItem("ritual_dummy/familiar_otherworld_bird", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD = ITEMS.registerItem("ritual_dummy/possess_unbound_otherworld_bird", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GUARDIAN = ITEMS.registerItem("ritual_dummy/familiar_guardian", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM = ITEMS.registerItem("ritual_dummy/possess_iesnium_golem", DummyTooltipItem::new, Properties::new);
     //Possessed
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ENDERMITE = ITEMS.registerItem("ritual_dummy/possess_endermite", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_PHANTOM = ITEMS.registerItem("ritual_dummy/possess_phantom", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_SKELETON = ITEMS.registerItem("ritual_dummy/possess_skeleton", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WITCH = ITEMS.registerItem("ritual_dummy/possess_witch", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ENDERMAN = ITEMS.registerItem("ritual_dummy/possess_enderman", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BEE = ITEMS.registerItem("ritual_dummy/possess_bee", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GHAST = ITEMS.registerItem("ritual_dummy/possess_ghast", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.registerItem("ritual_dummy/possess_weak_shulker", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BLAZE = ITEMS.registerItem("ritual_dummy/possess_blaze", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN = ITEMS.registerItem("ritual_dummy/possess_zombie_piglin", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GUARDIAN = ITEMS.registerItem("ritual_dummy/possess_guardian", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.registerItem("ritual_dummy/possess_warden", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.registerItem("ritual_dummy/possess_elder_guardian", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_HOGLIN = ITEMS.registerItem("ritual_dummy/possess_hoglin", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_SHULKER = ITEMS.registerItem("ritual_dummy/possess_shulker", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GOAT = ITEMS.registerItem("ritual_dummy/possess_goat", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ENDERMITE = ITEMS.registerItem("ritual_dummy/possess_endermite", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_PHANTOM = ITEMS.registerItem("ritual_dummy/possess_phantom", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_SKELETON = ITEMS.registerItem("ritual_dummy/possess_skeleton", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WITCH = ITEMS.registerItem("ritual_dummy/possess_witch", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ENDERMAN = ITEMS.registerItem("ritual_dummy/possess_enderman", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BEE = ITEMS.registerItem("ritual_dummy/possess_bee", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GHAST = ITEMS.registerItem("ritual_dummy/possess_ghast", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.registerItem("ritual_dummy/possess_weak_shulker", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BLAZE = ITEMS.registerItem("ritual_dummy/possess_blaze", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIFIED_PIGLIN = ITEMS.registerItem("ritual_dummy/possess_zombified_piglin", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GUARDIAN = ITEMS.registerItem("ritual_dummy/possess_guardian", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.registerItem("ritual_dummy/possess_warden", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.registerItem("ritual_dummy/possess_elder_guardian", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_HOGLIN = ITEMS.registerItem("ritual_dummy/possess_hoglin", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_SHULKER = ITEMS.registerItem("ritual_dummy/possess_shulker", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GOAT = ITEMS.registerItem("ritual_dummy/possess_goat", DummyTooltipItem::new, Properties::new);
     //Random
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON = ITEMS.registerItem("ritual_dummy/possess_random_animal_common", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER = ITEMS.registerItem("ritual_dummy/possess_random_animal_water", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL = ITEMS.registerItem("ritual_dummy/possess_random_animal_small", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE = ITEMS.registerItem("ritual_dummy/possess_random_animal_rideable", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL = ITEMS.registerItem("ritual_dummy/possess_random_animal_special", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_VILLAGER = ITEMS.registerItem("ritual_dummy/possess_villager", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON = ITEMS.registerItem("ritual_dummy/possess_random_animal_common", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER = ITEMS.registerItem("ritual_dummy/possess_random_animal_water", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL = ITEMS.registerItem("ritual_dummy/possess_random_animal_small", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE = ITEMS.registerItem("ritual_dummy/possess_random_animal_rideable", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL = ITEMS.registerItem("ritual_dummy/possess_random_animal_special", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_VILLAGER = ITEMS.registerItem("ritual_dummy/possess_villager", DummyTooltipItem::new, Properties::new);
     // CRAFT
     //Tools
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_LENSES = ITEMS.registerItem("ritual_dummy/craft_infused_lenses", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE = ITEMS.registerItem("ritual_dummy/craft_infused_pickaxe", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_satchel", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENDER_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_ender_satchel", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.registerItem("ritual_dummy/craft_ritual_satchel_t1", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.registerItem("ritual_dummy/craft_ritual_satchel_t2", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_upgrade_ritual_satchel", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET = ITEMS.registerItem("ritual_dummy/craft_knowledge_tablet", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_VITALITY_COMPASS = ITEMS.registerItem("ritual_dummy/craft_vitality_compass", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_fragile_soul_gem", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_soul_gem", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.registerItem("ritual_dummy/craft_familiar_ring", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE = ITEMS.registerItem("ritual_dummy/craft_iesnium_butcher_knife", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF = ITEMS.registerItem("ritual_dummy/craft_true_sight_staff", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_LENSES = ITEMS.registerItem("ritual_dummy/craft_infused_lenses", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE = ITEMS.registerItem("ritual_dummy/craft_infused_pickaxe", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_satchel", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENDER_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_ender_satchel", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.registerItem("ritual_dummy/craft_ritual_satchel_t1", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.registerItem("ritual_dummy/craft_ritual_satchel_t2", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_upgrade_ritual_satchel", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET = ITEMS.registerItem("ritual_dummy/craft_knowledge_tablet", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_VITALITY_COMPASS = ITEMS.registerItem("ritual_dummy/craft_vitality_compass", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_fragile_soul_gem", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_soul_gem", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.registerItem("ritual_dummy/craft_familiar_ring", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_BUTCHER_KNIFE = ITEMS.registerItem("ritual_dummy/craft_iesnium_butcher_knife", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF = ITEMS.registerItem("ritual_dummy/craft_true_sight_staff", DummyTooltipItem::new, Properties::new);
     //Miners
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_EXTRACTOR = ITEMS.registerItem("ritual_dummy/craft_dimensional_extractor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT = ITEMS.registerItem("ritual_dummy/craft_dimensional_mineshaft", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_BATTLEFIELD = ITEMS.registerItem("ritual_dummy/craft_dimensional_battlefield", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED = ITEMS.registerItem("ritual_dummy/craft_miner_foliot_unspecialized", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES = ITEMS.registerItem("ritual_dummy/craft_miner_djinni_ores", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS = ITEMS.registerItem("ritual_dummy/craft_miner_afrit_deeps", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER = ITEMS.registerItem("ritual_dummy/craft_miner_marid_master", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_EXTRACTOR = ITEMS.registerItem("ritual_dummy/craft_dimensional_extractor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT = ITEMS.registerItem("ritual_dummy/craft_dimensional_mineshaft", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_BATTLEFIELD = ITEMS.registerItem("ritual_dummy/craft_dimensional_battlefield", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED = ITEMS.registerItem("ritual_dummy/craft_miner_foliot_unspecialized", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES = ITEMS.registerItem("ritual_dummy/craft_miner_djinni_ores", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS = ITEMS.registerItem("ritual_dummy/craft_miner_afrit_deeps", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER = ITEMS.registerItem("ritual_dummy/craft_miner_marid_master", DummyTooltipItem::new, Properties::new);
     //Storage
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE = ITEMS.registerItem("ritual_dummy/craft_storage_controller_base", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK = ITEMS.registerItem("ritual_dummy/craft_storage_controller_base_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.registerItem("ritual_dummy/craft_dimensional_matrix", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER1 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier1", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER2 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier2", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER3 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier3", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER4 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier4", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER1_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier1_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER2_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier2_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER3_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier3_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER4_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier4_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE = ITEMS.registerItem("ritual_dummy/craft_stable_wormhole", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE_DARK = ITEMS.registerItem("ritual_dummy/craft_stable_wormhole_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_REMOTE = ITEMS.registerItem("ritual_dummy/craft_storage_remote", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE = ITEMS.registerItem("ritual_dummy/craft_storage_controller_base", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK = ITEMS.registerItem("ritual_dummy/craft_storage_controller_base_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.registerItem("ritual_dummy/craft_dimensional_matrix", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER1 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier1", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER2 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier2", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER3 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier3", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER4 = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier4", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER1_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier1_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER2_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier2_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER3_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier3_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER4_DARK = ITEMS.registerItem("ritual_dummy/craft_stabilizer_tier4_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE = ITEMS.registerItem("ritual_dummy/craft_stable_wormhole", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE_DARK = ITEMS.registerItem("ritual_dummy/craft_stable_wormhole_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_REMOTE = ITEMS.registerItem("ritual_dummy/craft_storage_remote", DummyTooltipItem::new, Properties::new);
     //Materials
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST = ITEMS.registerItem("ritual_dummy/craft_research_fragment_dust", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_NATURE_PASTE = ITEMS.registerItem("ritual_dummy/craft_nature_paste", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_GRAY_PASTE = ITEMS.registerItem("ritual_dummy/craft_gray_paste", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_WITHERITE_DUST = ITEMS.registerItem("ritual_dummy/craft_witherite_dust", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DRAGONYST_DUST = ITEMS.registerItem("ritual_dummy/craft_dragonyst_dust", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST = ITEMS.registerItem("ritual_dummy/craft_research_fragment_dust", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_NATURE_PASTE = ITEMS.registerItem("ritual_dummy/craft_nature_paste", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_GRAY_PASTE = ITEMS.registerItem("ritual_dummy/craft_gray_paste", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_WITHERITE_DUST = ITEMS.registerItem("ritual_dummy/craft_witherite_dust", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DRAGONYST_DUST = ITEMS.registerItem("ritual_dummy/craft_dragonyst_dust", DummyTooltipItem::new, Properties::new);
     //Blocks
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.registerItem("ritual_dummy/craft_entity_wormhole", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK = ITEMS.registerItem("ritual_dummy/craft_entity_wormhole_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE = ITEMS.registerItem("ritual_dummy/craft_spirit_grindstone", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.registerItem("ritual_dummy/craft_iesnium_sacrificial_bowl", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.registerItem("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.registerItem("ritual_dummy/craft_iesnium_anvil", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.registerItem("ritual_dummy/craft_entity_wormhole", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK = ITEMS.registerItem("ritual_dummy/craft_entity_wormhole_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE = ITEMS.registerItem("ritual_dummy/craft_spirit_grindstone", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.registerItem("ritual_dummy/craft_iesnium_sacrificial_bowl", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.registerItem("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.registerItem("ritual_dummy/craft_iesnium_anvil", DummyTooltipItem::new, Properties::new);
     //Repair
-    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_CHALKS = ITEMS.registerItem("ritual_dummy/repair_chalks", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_TOOLS = ITEMS.registerItem("ritual_dummy/repair_tools", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_ARMORS = ITEMS.registerItem("ritual_dummy/repair_armors", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_MINERS = ITEMS.registerItem("ritual_dummy/repair_miners", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_CHALKS = ITEMS.registerItem("ritual_dummy/repair_chalks", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_TOOLS = ITEMS.registerItem("ritual_dummy/repair_tools", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_ARMORS = ITEMS.registerItem("ritual_dummy/repair_armors", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_REPAIR_MINERS = ITEMS.registerItem("ritual_dummy/repair_miners", DummyTooltipItem::new, Properties::new);
     //MISC
     //Resurrect
-    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.registerItem("ritual_dummy/resurrect_familiar", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ALLAY = ITEMS.registerItem("ritual_dummy/resurrect_allay", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_MOB = ITEMS.registerItem("ritual_dummy/resurrect_mob", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.registerItem("ritual_dummy/resurrect_familiar", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ALLAY = ITEMS.registerItem("ritual_dummy/resurrect_allay", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_MOB = ITEMS.registerItem("ritual_dummy/resurrect_mob", DummyTooltipItem::new, Properties::new);
     //Wild (group possess)
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUNT = ITEMS.registerItem("ritual_dummy/wild_hunt", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_CREEPER = ITEMS.registerItem("ritual_dummy/wild_creeper", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_DROWNED = ITEMS.registerItem("ritual_dummy/wild_drowned", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUSK = ITEMS.registerItem("ritual_dummy/wild_husk", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_PARCHED = ITEMS.registerItem("ritual_dummy/wild_parched", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_SILVERFISH = ITEMS.registerItem("ritual_dummy/wild_silverfish", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_WEAK_BREEZE = ITEMS.registerItem("ritual_dummy/wild_weak_breeze", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_BREEZE = ITEMS.registerItem("ritual_dummy/wild_breeze", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_STRONG_BREEZE = ITEMS.registerItem("ritual_dummy/wild_strong_breeze", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_ILLAGER = ITEMS.registerItem("ritual_dummy/wild_horde_illager", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON = ITEMS.registerItem("ritual_dummy/wild_random_animal_common", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER = ITEMS.registerItem("ritual_dummy/wild_random_animal_water", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL = ITEMS.registerItem("ritual_dummy/wild_random_animal_small", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE = ITEMS.registerItem("ritual_dummy/wild_random_animal_rideable", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL = ITEMS.registerItem("ritual_dummy/wild_random_animal_special", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_VILLAGER = ITEMS.registerItem("ritual_dummy/wild_villager", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUNT = ITEMS.registerItem("ritual_dummy/wild_hunt", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_CREEPER = ITEMS.registerItem("ritual_dummy/wild_creeper", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_DROWNED = ITEMS.registerItem("ritual_dummy/wild_drowned", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUSK = ITEMS.registerItem("ritual_dummy/wild_husk", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_PARCHED = ITEMS.registerItem("ritual_dummy/wild_parched", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_SILVERFISH = ITEMS.registerItem("ritual_dummy/wild_silverfish", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_WEAK_BREEZE = ITEMS.registerItem("ritual_dummy/wild_weak_breeze", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_BREEZE = ITEMS.registerItem("ritual_dummy/wild_breeze", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_STRONG_BREEZE = ITEMS.registerItem("ritual_dummy/wild_strong_breeze", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_ILLAGER = ITEMS.registerItem("ritual_dummy/wild_horde_illager", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON = ITEMS.registerItem("ritual_dummy/wild_random_animal_common", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER = ITEMS.registerItem("ritual_dummy/wild_random_animal_water", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL = ITEMS.registerItem("ritual_dummy/wild_random_animal_small", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE = ITEMS.registerItem("ritual_dummy/wild_random_animal_rideable", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL = ITEMS.registerItem("ritual_dummy/wild_random_animal_special", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_VILLAGER = ITEMS.registerItem("ritual_dummy/wild_villager", DummyTooltipItem::new, Properties::new);
     //Forge (cursed craft) misc in ID
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BEE_NEST = ITEMS.registerItem("ritual_dummy/misc_bee_nest", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BELL = ITEMS.registerItem("ritual_dummy/misc_bell", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.registerItem("ritual_dummy/misc_budding_amethyst", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.registerItem("ritual_dummy/misc_reinforced_deepslate", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.registerItem("ritual_dummy/misc_wild_trim", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_horse_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_horse_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_horse_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_horse_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_nautilus_armor", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.registerItem("ritual_dummy/misc_eldritch_chalice", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.registerItem("ritual_dummy/misc_celestial_chalice", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.registerItem("ritual_dummy/misc_chalk_void", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.registerItem("ritual_dummy/misc_trinity_gem", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage_dark", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("ritual_dummy/misc_miner_ancient_eldritch", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER5 = ITEMS.registerItem("ritual_dummy/misc_stabilizer_tier5", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER5_DARK = ITEMS.registerItem("ritual_dummy/misc_stabilizer_tier5_dark", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BEE_NEST = ITEMS.registerItem("ritual_dummy/misc_bee_nest", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BELL = ITEMS.registerItem("ritual_dummy/misc_bell", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.registerItem("ritual_dummy/misc_budding_amethyst", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.registerItem("ritual_dummy/misc_reinforced_deepslate", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.registerItem("ritual_dummy/misc_wild_trim", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_horse_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_horse_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_horse_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_horse_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_nautilus_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_nautilus_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_nautilus_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_nautilus_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.registerItem("ritual_dummy/misc_eldritch_chalice", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.registerItem("ritual_dummy/misc_celestial_chalice", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.registerItem("ritual_dummy/misc_chalk_void", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.registerItem("ritual_dummy/misc_trinity_gem", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage_dark", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("ritual_dummy/misc_miner_ancient_eldritch", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER5 = ITEMS.registerItem("ritual_dummy/misc_stabilizer_tier5", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER5_DARK = ITEMS.registerItem("ritual_dummy/misc_stabilizer_tier5_dark", DummyTooltipItem::new, Properties::new);
     // CUSTOM
-    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_SUMMON = ITEMS.registerItem("ritual_dummy/custom_ritual_summon", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_POSSESS = ITEMS.registerItem("ritual_dummy/custom_ritual_possess", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_CRAFT = ITEMS.registerItem("ritual_dummy/custom_ritual_craft", DummyTooltipItem::new, () -> new Properties());
-    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_MISC = ITEMS.registerItem("ritual_dummy/custom_ritual_misc", DummyTooltipItem::new, () -> new Properties());
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_SUMMON = ITEMS.registerItem("ritual_dummy/custom_ritual_summon", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_POSSESS = ITEMS.registerItem("ritual_dummy/custom_ritual_possess", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_CRAFT = ITEMS.registerItem("ritual_dummy/custom_ritual_craft", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_MISC = ITEMS.registerItem("ritual_dummy/custom_ritual_misc", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<FlameAutomationItem> FLAME_AUTOMATION = ITEMS.registerItem(
             "flame_of_automation", FlameAutomationItem::new, () -> new Properties().component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
     //DEBUG
@@ -762,32 +775,32 @@ public class OccultismItems {
                             .durability(10000), () -> 100, () -> 10, () -> 1, () -> 10000));
     //Placeholders
     public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
-            ITEMS.registerItem("dictionary_of_spirits_icon", Item::new, () -> new Properties());
+            ITEMS.registerItem("dictionary_of_spirits_icon", Item::new, Properties::new);
     public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.registerItem("pentacle_summon",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> PENTACLE_POSSESS = ITEMS.registerItem("pentacle_possess",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.registerItem("pentacle_craft",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> PENTACLE_MISC = ITEMS.registerItem("pentacle_misc",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> WORMHOLE_PORTAL = ITEMS.registerItem("entity_wormhole_portal",
-            Item::new, () -> new Properties());
+            Item::new, Properties::new);
     public static final DeferredItem<Item> ADVANCEMENT_ICON =
-            ITEMS.registerItem("advancement_icon", Item::new, () -> new Properties());
+            ITEMS.registerItem("advancement_icon", Item::new, Properties::new);
     public static final DeferredItem<Item> REPAIR_ICON =
-            ITEMS.registerItem("repair_icon", Item::new, () -> new Properties());
+            ITEMS.registerItem("repair_icon", Item::new, Properties::new);
     public static final DeferredItem<Item> RESURRECT_ICON =
-            ITEMS.registerItem("resurrect_icon", Item::new, () -> new Properties());
+            ITEMS.registerItem("resurrect_icon", Item::new, Properties::new);
     public static final DeferredItem<Item> MYSTERIOUS_EGG_ICON =
-            ITEMS.registerItem("mysterious_egg_icon", Item::new, () -> new Properties());
+            ITEMS.registerItem("mysterious_egg_icon", Item::new, Properties::new);
     //JEI Dummy Items
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.registerItem(
-            "jei_dummy/none", DummyTooltipItem::new, () -> new Properties());
+            "jei_dummy/none", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.registerItem(
-            "jei_dummy/require_sacrifice", DummyTooltipItem::new, () -> new Properties());
+            "jei_dummy/require_sacrifice", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.registerItem(
-            "jei_dummy/require_item_use", DummyTooltipItem::new, () -> new Properties());
+            "jei_dummy/require_item_use", DummyTooltipItem::new, Properties::new);
     private static final ResourceKey<EquipmentAsset> OTHERWORLD_GOGGLES_EQUIPMENT_ASSET = ResourceKey.create(
             EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_goggles"));
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.registerItem("otherworld_goggles",

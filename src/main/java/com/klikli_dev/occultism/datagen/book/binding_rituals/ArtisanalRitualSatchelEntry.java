@@ -98,6 +98,19 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 this.color("Right-Click", ChatFormatting.GREEN),
                 this.itemLink(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL)
         );
+
+
+        this.page("brush", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Chalk Brush");
+        this.pageText("""
+                        The ritual satchel can also store your {0}.
+                        The stored brush will be selected and used automatically when you {1} on chalk glyphs.
+                        """,
+                this.itemLink(OccultismItems.BRUSH),
+                this.color("Right-Click", ChatFormatting.GREEN)
+        );
     }
 
     @Override

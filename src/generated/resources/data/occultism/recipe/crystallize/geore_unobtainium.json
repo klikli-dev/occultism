@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "geore:storage_blocks/geore_unobtainium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "geore:geore_shards/unobtainium"
+      }
+    }
+  ],
+  "type": "occultism:crystallize",
+  "ignore_crystallize_multiplier": true,
+  "ingredient": "#geore:storage_blocks/geore_unobtainium",
+  "min_tier": 2,
+  "result": {
+    "type": "occultism:tag",
+    "count": 4,
+    "tag": "geore:geore_shards/unobtainium"
+  }
+}

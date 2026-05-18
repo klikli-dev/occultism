@@ -32,7 +32,7 @@ public class StorageTooltipOverlay {
                                    AbstractWidget clearSearchButton, AbstractWidget clearRecipeButton,
                                    AbstractWidget sortTypeButton, String sortTypeSerializedName,
                                    AbstractWidget sortDirectionButton, String sortDirectionSerializedName,
-                                   AbstractWidget jeiSyncButton, boolean orderSlotHovered,
+                                   AbstractWidget rowsCountButton, AbstractWidget jeiSyncButton, boolean orderSlotHovered,
                                    AbstractWidget inventoryModeButton, AbstractWidget autocraftingModeButton,
                                    boolean spaceTextHovered, long usedTotalItemCount, long maxTotalItemCount,
                                    boolean typesTextHovered, int usedItemTypes, int maxItemTypes) {
@@ -75,6 +75,11 @@ public class StorageTooltipOverlay {
         if (this.isHovered(sortDirectionButton, mouseX, mouseY)) {
             guiGraphics.setTooltipForNextFrame(font,
                     Component.translatable(this.translationKeyBase + ".search.tooltip_sort_direction_" + sortDirectionSerializedName),
+                    mouseX, topControlTooltipY);
+        }
+        if (this.isHovered(rowsCountButton, mouseX, mouseY)) {
+            guiGraphics.setTooltipForNextFrame(font,
+                    Component.translatable(this.translationKeyBase + ".display.rows"),
                     mouseX, topControlTooltipY);
         }
         if (this.isHovered(jeiSyncButton, mouseX, mouseY)) {

@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -3570882
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -526
-      }
-    ]
+    "model": "occultism:item/spawn_egg/familiar_deer"
   }
 }

@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -13227978
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -10925510
-      }
-    ]
+    "model": "occultism:item/spawn_egg/familiar_shub_niggurath"
   }
 }

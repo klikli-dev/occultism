@@ -6,7 +6,7 @@
     "display_name": "ritual.occultism.sacrifice.cows",
     "tag": "c:cows"
   },
-  "entity_to_summon": "occultism:afrit_wild",
+  "entity_to_summon": "occultism:afrit_unbound",
   "ingredients": [
     "#c:netherracks",
     "#c:ingots/iesnium",

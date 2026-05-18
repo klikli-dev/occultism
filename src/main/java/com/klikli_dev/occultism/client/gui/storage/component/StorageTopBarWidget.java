@@ -25,6 +25,7 @@ public record StorageTopBarWidget(
         AbstractWidget clearSearchButton,
         AbstractWidget sortTypeButton,
         AbstractWidget sortDirectionButton,
+        AbstractWidget rowsCountButton,
         AbstractWidget jeiSyncButton) {
 
     public static StorageTopBarWidget create(
@@ -49,6 +50,10 @@ public record StorageTopBarWidget(
             int sortDirectionButtonY,
             Runnable onSortDirection,
             BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> sortDirectionRenderer,
+            int rowsCountButtonX,
+            int rowsCountButtonY,
+            Runnable onRowsCountChange,
+            BiConsumer<SpriteButtonWidget, GuiGraphicsExtractor> rowsCountRenderer,
             boolean showJeiSyncButton,
             int jeiSyncButtonX,
             int jeiSyncButtonY,
@@ -83,6 +88,12 @@ public record StorageTopBarWidget(
                 onSortDirection,
                 sortDirectionRenderer);
 
+        AbstractWidget rowsCountButton = new SpriteButtonWidget(rowsCountButtonX, rowsCountButtonY,
+                controlSize, controlSize, buttonSprites,
+                Component.translatable(translationKeyBase + ".display.rows"),
+                onRowsCountChange,
+                rowsCountRenderer);
+
         AbstractWidget jeiSyncButton = showJeiSyncButton
                 ? new SpriteButtonWidget(jeiSyncButtonX, jeiSyncButtonY,
                 controlSize, controlSize, buttonSprites,
@@ -91,7 +102,7 @@ public record StorageTopBarWidget(
                 jeiSyncRenderer)
                 : null;
 
-        return new StorageTopBarWidget(searchBar, clearSearchButton, sortTypeButton, sortDirectionButton, jeiSyncButton);
+        return new StorageTopBarWidget(searchBar, clearSearchButton, sortTypeButton, sortDirectionButton, rowsCountButton, jeiSyncButton);
     }
 
     public void addTo(Consumer<AbstractWidget> adder) {
@@ -99,6 +110,7 @@ public record StorageTopBarWidget(
         adder.accept(this.clearSearchButton);
         adder.accept(this.sortTypeButton);
         adder.accept(this.sortDirectionButton);
+        adder.accept(this.rowsCountButton);
         if (this.jeiSyncButton != null) {
             adder.accept(this.jeiSyncButton);
         }

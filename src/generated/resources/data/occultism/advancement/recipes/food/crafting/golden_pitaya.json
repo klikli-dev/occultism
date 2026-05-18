@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pitaya": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:pitaya"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/golden_pitaya"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pitaya"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/golden_pitaya"
+    ]
+  }
+}

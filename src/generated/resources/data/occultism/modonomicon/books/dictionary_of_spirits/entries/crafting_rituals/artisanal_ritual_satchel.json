@@ -91,6 +91,17 @@
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.usage_cleaning.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.usage_cleaning.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.brush.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.brush.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

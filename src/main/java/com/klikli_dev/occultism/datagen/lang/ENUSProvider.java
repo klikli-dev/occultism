@@ -243,6 +243,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD, " You need to preview a pentacle using the Dictionary of Spirits.");
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED, "You need to aim the ritual satchel at a preview block.");
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL, "There is no valid item in the satchel for this previewed block.");
+        this.add(TranslationKeys.RITUAL_SATCHEL_NO_VALID_BRUSH_IN_SATCHEL, "There is no chalk brush in the satchel to erase this glyph.");
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_ABOVE_NOT_AIR, "The block above the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR, "The block at the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER, "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher");
@@ -329,6 +330,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects. (Grants Third Eye when eating)");
         this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Otherworld Essence");
         this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects. (Grants Third Eye when eating)");
+        this.addItem(OccultismItems.PITAYA, "Dragon's Dream Fruit");
+        this.addItem(OccultismItems.PITAYA_GOLDEN, "Golden Dragon's Dream Fruit");
+        this.addItem(OccultismItems.PITAYA_ENCHANTED, "Enchanted Golden Dragon's Dream Fruit");
         this.addItem(OccultismItems.BEAVER_NUGGET, "Beaver Nugget");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
         this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
@@ -405,7 +409,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BLAZE, "Possessed Blaze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIFIED_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GUARDIAN, "Possessed Guardian Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
@@ -644,7 +648,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.FOLIOT, "Foliot");
         this.addEntityType(OccultismEntities.DJINNI, "Djinni");
         this.addEntityType(OccultismEntities.AFRIT, "Afrit");
-        this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
+        this.addEntityType(OccultismEntities.AFRIT_UNBOUND, "Unbound Afrit");
         this.addEntityType(OccultismEntities.MARID, "Marid");
         this.addEntityType(OccultismEntities.MARID_UNBOUND, "Unbound Marid");
         this.addEntityType(OccultismEntities.WONDERING_TRADER, "Wondering Trader");
@@ -660,7 +664,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
         this.addEntityType(OccultismEntities.POSSESSED_BLAZE, "Possessed Blaze");
-        this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
+        this.addEntityType(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN, "Possessed Zombified Piglin");
         this.addEntityType(OccultismEntities.POSSESSED_GUARDIAN, "Possessed Guardian");
         this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
         this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
@@ -1418,7 +1422,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
-                        Enchants a Golden Apple when right-click, but has large time interval.
+                        Enchants a Golden Apple or a Golden Dragon's Dream Fruit when right-click, but has large time interval.
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_dragon");
@@ -1967,7 +1971,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "Summon Possessed Ghast", "Djinni", "The Possessed Ghast will always drop at least one ghast tear when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "Summon Possessed Weak Shulker", "Djinni", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE, "Summon Possessed Blaze", "Djinni", "The Possessed Blaze will drop at least two blaze rods and various nether-related items, including blocks, plants, and (very rarely) ancient debris.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit (Unbound)", "The Possessed Zombified Piglin will drop demonic meat.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIFIED_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit (Unbound)", "The Possessed Zombified Piglin will drop demonic meat.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GUARDIAN, "Summon Possessed Guardian", "Afrit (Unbound)", "The Possessed Guardian will drop stuff from coral reef.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "Summon Possessed Warden", "Afrit", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "Summon Possessed Elder Guardian", "Afrit", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the common drops.");
@@ -2167,7 +2171,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.ELYTRA, "Elytras");
         this.addItemTag(Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
         this.addItemTag(Items.DATURA_SEEDS, "Demon's Dream Seeds");
-        this.addItemTag(Items.DATURA_CROP, "Demon's Dream");
+        this.addItemTag(Items.DATURA_CROP, "Demon's Dream Fruit");
+        this.addItemTag(Items.DATURA, "Demon's Dream");
         this.addItemTag(Items.COPPER_DUST, "Copper Dust");
         this.addItemTag(Items.GOLD_DUST, "Gold Dust");
         this.addItemTag(Items.IESNIUM_DUST, "Iesnium Dust");
@@ -2232,6 +2237,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.OTHERWORLD_LOGS, "Otherworld Logs");
         this.addItemTag(Items.PENTACLE_MATERIALS, "Pentacle Materials");
         this.addItemTag(Items.TOOLS_CHALK, "Chalks");
+        this.addItemTag(Items.TOOLS_BRUSH, "Brush");
         this.addItemTag(Items.CLAY, "Clay");
 
         this.addItemTag(Items.DROPS_POSSESSED_BLAZE, "Drop from Possessed Blaze");
@@ -2250,7 +2256,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.DROPS_POSSESSED_WEAK_BREEZE, "Drop from Possessed Weak Breeze");
         this.addItemTag(Items.DROPS_POSSESSED_WEAK_SHULKER, "Drop from Possessed Weak Shulker");
         this.addItemTag(Items.DROPS_POSSESSED_WITCH, "Drop from Possessed Witch");
-        this.addItemTag(Items.DROPS_POSSESSED_ZOMBIE_PIGLIN, "Drop from Possessed Zombified Piglin");
+        this.addItemTag(Items.DROPS_POSSESSED_ZOMBIFIED_PIGLIN, "Drop from Possessed Zombified Piglin");
         this.addItemTag(Items.DROPS_POSSESSED_GUARDIAN, "Drop from Possessed Guardian");
         this.addItemTag(Items.DROPS_WILD_HUNT, "Drop from Wild Hunt");
         this.addItemTag(Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");

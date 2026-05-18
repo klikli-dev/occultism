@@ -33,6 +33,7 @@ import com.geckolib.util.GeckoLibUtil;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
@@ -137,6 +138,20 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
                     this.setSinTime(this.level().getGameTime());
                     itemstack.shrink(1);
                     ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE));
+                } else {
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time));
+                }
+                //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+            }
+            if (itemstack.is(OccultismItems.PITAYA_GOLDEN)) {
+                long time = this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
+                if (!this.hasBlacksmithUpgrade()) {
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
+                } else if (time < 0) {
+                    this.setSinTime(this.level().getGameTime());
+                    itemstack.shrink(1);
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.PITAYA_ENCHANTED.get()));
                 } else {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time));
                 }

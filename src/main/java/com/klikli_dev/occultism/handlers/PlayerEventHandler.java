@@ -205,7 +205,7 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void spiritIesniumDamage(LivingIncomingDamageEvent event) {
         var entity = event.getEntity();
-        if (entity.getType().builtInRegistryHolder().is(Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
+        if (entity.getType().builtInRegistryHolder().is(Entities.HEALED_BY_OTHERWORLD_FRUIT)
                 && event.getSource().getWeaponItem() != null
                 && event.getSource().getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)) {
             event.setAmount(event.getAmount() * 3);

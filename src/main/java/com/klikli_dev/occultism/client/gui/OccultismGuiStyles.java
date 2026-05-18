@@ -25,6 +25,7 @@ public final class OccultismGuiStyles {
     private static final int FIELD_TINT = 0xFF596474;
     private static final int SELECTION_TINT = 0xFF667487;
     private static final int BLACK = 0xFF000000;
+    private static final int WHITE = 0xFFFFFFFF;
 
     public static final GuiStyleKey FILTER_LIST = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/list"));
     public static final GuiStyleKey FILTER_ATTRIBUTE = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "filter/attribute"));
@@ -95,7 +96,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SATCHEL_PLAYER_INVENTORY_BACKGROUND, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.SATCHEL_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.SATCHEL_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.SATCHEL_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK);
+                .set(OccultismGuiParts.SATCHEL_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE);
     }
 
     private static GuiStyle.Builder dimensionalMachineBaseStyle() {
@@ -114,7 +115,7 @@ public final class OccultismGuiStyles {
                         GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
                 .set(OccultismGuiParts.DIMENSIONAL_MACHINE_PROGRESS_BACKGROUND, GuiStyleProperties.SPRITE,
                         OccultismGuiSprites.CRAFTING_PROGRESS_BAR_BACKGROUND.tinted(PROGRESS_BACKGROUND_TINT))
-                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK);
+                .set(OccultismGuiParts.DIMENSIONAL_MACHINE_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE);
     }
 
     private static GuiStyle.Builder bookOfCallingBaseStyle() {
@@ -123,7 +124,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.BOOK_OF_CALLING_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.BOOK_OF_CALLING_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.BOOK_OF_CALLING_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
+                .set(OccultismGuiParts.BOOK_OF_CALLING_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_LABEL, GuiStyleProperties.TEXT_COLOR, 0xFFF3EBDE)
                 .set(OccultismGuiParts.BOOK_OF_CALLING_FIELD, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(FIELD_TINT))
                 .set(OccultismGuiParts.BOOK_OF_CALLING_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SELECTION_TINT))
@@ -142,7 +143,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_AGE_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(AGE_BAR_TINT))
                 .set(OccultismGuiParts.SPIRIT_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.SPIRIT_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
+                .set(OccultismGuiParts.SPIRIT_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE)
                 .build());
 
         GuiStyleRegistry.register(FILTER_LIST, filterBaseStyle()
@@ -150,7 +151,7 @@ public final class OccultismGuiStyles {
                 .set(BuiltinFilterParts.LIST_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(BuiltinFilterParts.LIST_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(BuiltinFilterParts.LIST_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(BuiltinFilterParts.LIST_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
+                .set(BuiltinFilterParts.LIST_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE)
                 .build());
 
         GuiStyleRegistry.register(FILTER_ATTRIBUTE, filterBaseStyle()
@@ -158,7 +159,7 @@ public final class OccultismGuiStyles {
                 .set(BuiltinFilterParts.ATTRIBUTE_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(BuiltinFilterParts.ATTRIBUTE_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(BuiltinFilterParts.ATTRIBUTE_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(BuiltinFilterParts.ATTRIBUTE_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
+                .set(BuiltinFilterParts.ATTRIBUTE_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE)
                 .set(BuiltinFilterParts.ATTRIBUTE_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SLOT_TINT))
                 .set(BuiltinFilterParts.ATTRIBUTE_SUMMARY, GuiStyleProperties.SPRITE, GuiSprites.INVENTORY_SLOT.tinted(SLOT_TINT).sized(24, 24))
                 .build());
@@ -168,7 +169,7 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_HORIZONTAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
                 .set(OccultismGuiParts.SPIRIT_TRANSPORTER_VERTICAL_SEPARATOR, GuiStyleProperties.COLOR, BLACK)
-                .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE, GuiStyleProperties.TEXT_COLOR, BLACK)
+                .set(OccultismGuiParts.SPIRIT_TRANSPORTER_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE)
                 .build());
 
         GuiStyleRegistry.register(STORAGE_CONTROLLER, storageControllerBaseStyle().build());

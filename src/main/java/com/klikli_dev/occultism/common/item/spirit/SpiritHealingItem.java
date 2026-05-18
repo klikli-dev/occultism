@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.common.item.spirit;
 
-import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,23 +38,16 @@ public class SpiritHealingItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-        if (pInteractionTarget.getType().builtInRegistryHolder().is(Entities.HEALED_BY_DEMONS_DREAM_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()) {
-            pInteractionTarget.heal(this.getHealAmount(pStack));
+        if (pInteractionTarget.typeHolder().is(Entities.HEALED_BY_OTHERWORLD_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()) {
+            pInteractionTarget.heal(pStack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0));
             pStack.shrink(1);
             return InteractionResult.SUCCESS;
         }
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
     }
 
-    protected int getHealAmount(ItemStack pStack) {
-        if (pStack.is(OccultismItems.DATURA.get())) {
-            return 2;
-        } else if (pStack.is(OccultismItems.DEMONS_DREAM_ESSENCE.get())) {
-            return 10;
-        } else if (pStack.is(OccultismItems.OTHERWORLD_ESSENCE.get())) {
-            return 20;
-        } else {
-            return 0;
-        }
+    @Override
+    public boolean isFoil(ItemStack pStack){
+        return pStack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0) > 50;
     }
 }

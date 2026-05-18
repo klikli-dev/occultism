@@ -153,7 +153,7 @@ public class Occultism {
         event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.createAttributes().build());
         event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.createAttributes().build());
         event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.createAttributes().build());
-        event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.createAttributes().build());
+        event.put(OccultismEntities.AFRIT_UNBOUND_TYPE.get(), AfritUnboundEntity.createAttributes().build());
         event.put(OccultismEntities.MARID_TYPE.get(), MaridEntity.createAttributes().build());
         event.put(OccultismEntities.MARID_UNBOUND_TYPE.get(), MaridUnboundEntity.createAttributes().build());
         event.put(OccultismEntities.WONDERING_TRADER_TYPE.get(), WonderingTraderEntity.createMobAttributes().build());
@@ -169,7 +169,7 @@ public class Occultism {
         event.put(OccultismEntities.POSSESSED_HOGLIN_TYPE.get(), PossessedHoglinEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_WITCH_TYPE.get(), PossessedWitchEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_BLAZE_TYPE.get(), PossessedBlazeEntity.createAttributes().build());
-        event.put(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get(), PossessedZombiePiglinEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get(), PossessedZombifiedPiglinEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get(), PossessedGuardianEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_BEE_TYPE.get(), PossessedBeeEntity.createAttributes().build());
         event.put(OccultismEntities.GOAT_OF_MERCY_TYPE.get(), GoatOfMercyEntity.createAttributes().build());

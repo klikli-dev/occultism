@@ -3,8 +3,9 @@
   "activation_item": "occultism:book_of_binding_bound_foliot",
   "duration": 60,
   "ingredients": [
-    "#c:dusts/emerald",
+    "#c:dusts",
     "minecraft:experience_bottle",
+    "minecraft:enchanted_book",
     "minecraft:experience_bottle"
   ],
   "pentacle_id": "occultism:craft_foliot",

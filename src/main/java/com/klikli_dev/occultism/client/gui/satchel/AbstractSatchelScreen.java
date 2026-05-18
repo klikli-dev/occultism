@@ -120,7 +120,7 @@ public abstract class AbstractSatchelScreen<T extends AbstractSatchelContainer> 
             }
 
             int currentSlotIndex = slotIndex;
-            registry.add(nodePath, -25, ctx -> ctx.addWidget(new GuiSpriteWidget(
+            registry.add(nodePath, 0, ctx -> ctx.addWidget(new GuiSpriteWidget(
                     ctx.node().x() - 1,
                     ctx.node().y() - 1,
                     ctx.style().sprite(this.slotPart(currentSlotIndex), GuiSprites.INVENTORY_SLOT)

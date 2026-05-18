@@ -130,7 +130,7 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
                 cc = false;
             }
         }
-        return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
+        return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, Math.max(sign, 1))
                 .setValue(BlockStateProperties.HORIZONTAL_FACING,
                         context.getHorizontalDirection().getOpposite());
     }

@@ -377,7 +377,9 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, ChalkGlyphBlock.SIGN)
-                                .generate((facing, sign) -> BlockModelGenerators.plainVariant(this.modLoc("block/chalk_glyph/" + sign))
+                                .generate((facing, sign) -> sign == 0 ?
+                                        BlockModelGenerators.plainVariant(this.modLoc("block/chalk_glyph/preview")):
+                                        BlockModelGenerators.plainVariant(this.modLoc("block/chalk_glyph/" + sign))
                                         .with(switch (facing) {
                                             case SOUTH -> BlockModelGenerators.NOP;
                                             case WEST -> BlockModelGenerators.Y_ROT_90;

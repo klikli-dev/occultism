@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "occultism:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -11725814
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -9157376
-      }
-    ]
+    "model": "occultism:item/spawn_egg/afrit_unbound"
   }
 }

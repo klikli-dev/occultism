@@ -121,13 +121,17 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
     @Override
     protected InteractionResult useOnServerSide(UseOnContext context) {
-        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
-                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
-                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
-                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
-                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
-                || context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
+        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL))
             return this.collectPentacle(context);
+
+        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismTags.Blocks.CHALK_GLYPHS)) {
+            if (this.tryErase(context)) {
+                return InteractionResult.SUCCESS;
+            } else {
+                context.getPlayer().sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_VALID_BRUSH_IN_SATCHEL).withStyle(ChatFormatting.YELLOW));
+                return InteractionResult.FAIL;
+            }
+        }
 
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());
         if (targetPentacle == null || targetPentacle.timeWhenAdded() < context.getLevel().getGameTime() - 5) {
