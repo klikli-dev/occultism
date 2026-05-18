@@ -23,9 +23,9 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.divination.DivinationRodParticleEffect;
 import com.klikli_dev.occultism.client.divination.ScanManager;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
-import com.klikli_dev.occultism.integration.theurgy.TheurgyIntegration;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -148,14 +148,7 @@ public class DivinationRodItem extends Item {
 
             if (result != null) {
                 stack.set(OccultismDataComponents.DIVINATION_POS, result);
-
-                if (TheurgyIntegration.isLoaded() && !Occultism.CLIENT_CONFIG.visuals.dontUseTheurgyDivinationRodParticle.get()) {
-                    //show nice particle if possible
-                    TheurgyIntegration.spawnDivinationResultParticle(result, level, entityLiving);
-                } else {
-                    //otherwise fall back to our old renderer
-                    Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
-                }
+                this.showDivinationResult(result, level, entityLiving);
             }
         }
         return stack;
@@ -187,13 +180,7 @@ public class DivinationRodItem extends Item {
             //re-use old result
             if (stack.has(OccultismDataComponents.DIVINATION_POS)) {
                 BlockPos result = stack.get(OccultismDataComponents.DIVINATION_POS);
-                if (TheurgyIntegration.isLoaded()) {
-                    //show nice particle if possible
-                    TheurgyIntegration.spawnDivinationResultParticle(result, level, pLivingEntity);
-                } else {
-                    //otherwise fall back to our old renderer
-                    Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
-                }
+                this.showDivinationResult(result, level, pLivingEntity);
             }
         }
 
@@ -295,6 +282,15 @@ public class DivinationRodItem extends Item {
         if (distance < 65)
             return 5.0f;
         return 6.0f;
+    }
+
+    private void showDivinationResult(BlockPos result, Level level, LivingEntity entity) {
+        if (Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get()) {
+            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
+            return;
+        }
+
+        DivinationRodParticleEffect.spawn(result, level, entity);
     }
 }
 
