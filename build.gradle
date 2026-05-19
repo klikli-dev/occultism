@@ -260,6 +260,10 @@ dependencies {
 
     // Immersive Engineering
     //runtimeOnly("curse.maven:immersive-engineering-231951:${ie_id}")
+
+    //Iris
+//    implementation "curse.maven:irisshaders-455508:7867946"
+//    implementation "curse.maven:sodium-394468:8111040"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
