@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.client.model.entity.MaridModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -72,6 +73,8 @@ public class MaridRenderer extends OccultismGeoLivingEntityRenderer<MaridEntity>
             protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
+                poseStack.scale(0.7F, 0.7F, 0.7F);
+                poseStack.mulPose(Axis.XN.rotationDegrees(90));
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();
             }

@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowin
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -72,6 +73,7 @@ public class DjinniRenderer extends OccultismGeoLivingEntityRenderer<DjinniEntit
 
             @Override
             public void addRenderData(DjinniEntity animatable, @Nullable Void relatedObject, OccultismGeoLivingEntityRenderState renderState, float partialTick) {
+                renderState.jobID = animatable.getJobID();
                 List<RenderData> bones = this.getRelevantBones(animatable, relatedObject, renderState, partialTick);
                 if (!bones.isEmpty()) {
                     renderState.addGeckolibData(CONTENTS, bones);
@@ -81,11 +83,20 @@ public class DjinniRenderer extends OccultismGeoLivingEntityRenderer<DjinniEntit
             @Override
             protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
-                poseStack.translate(0, -0.4, 0);
-                // TODO: get jobId from renderState data if needed; using best-effort approach
-                // Djinni MANAGE_MACHINE: scale + rotate for machine part
-                // Djinni TRADE_GAMBLER: scale + translate for gambling item
-                // For now apply the general translate; job-specific transforms require render state data
+                // TODO: make it less hardcoded
+                if (Objects.equals(renderState.jobID, OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
+                    poseStack.translate(0, -0.25, 0.11);
+                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                    poseStack.mulPose(Axis.XN.rotationDegrees(25));
+                } else if (Objects.equals(renderState.jobID, OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
+                    poseStack.translate(-0.05, -0.24, 0);
+                    poseStack.scale(0.4F, 0.4F, 0.4F);
+                    poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                } else {
+                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                    poseStack.translate(0, -0.4, 0);
+                    poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                }
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();
             }
