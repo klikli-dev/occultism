@@ -53,7 +53,7 @@
     },
     "Y": {
       "type": "modonomicon:tag",
-      "display": "occultism:chalk_glyph_gold",
+      "display": "occultism:chalk_glyph_yellow",
       "tag": "#occultism:glyphs_yellow"
     }
   },

@@ -59,7 +59,6 @@ public class OccultismItemModelSubProvider {
             Map.entry("chalk_brown", 0x835432),
             Map.entry("chalk_red", 0xB02E26),
             Map.entry("chalk_orange", 0xF9801D),
-            Map.entry("chalk_gold", 0xFED83D),
             Map.entry("chalk_yellow", 0xFED83D),
             Map.entry("chalk_lime", 0x80C71F),
             Map.entry("chalk_green", 0x5E7C16),

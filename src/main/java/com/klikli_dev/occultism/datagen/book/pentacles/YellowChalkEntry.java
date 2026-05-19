@@ -50,7 +50,7 @@ public class YellowChalkEntry extends EntryProvider {
         );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"))
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_yellow"))
         );
     }
 
