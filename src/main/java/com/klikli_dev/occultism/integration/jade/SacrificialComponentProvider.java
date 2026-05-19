@@ -29,7 +29,7 @@ public class SacrificialComponentProvider implements IBlockComponentProvider {
 
                 String ritualID = I18n.get("item.occultism.ritual_dummy." + goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
-                int i = ritualName.indexOf(":");
+                int i = Math.max(ritualName.indexOf(":"), ritualName.indexOf("："));
                 iTooltip.add(Component.translatable("occultism.jade.current_ritual", Component.literal(ritualName.substring(i + 2)).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
                 if (!goldenSacrificialBowlBlockEntity.sacrificeFulfilled()) {
                     iTooltip.add(Component.translatable("occultism.jade.no_sacrifice").withStyle(ChatFormatting.RED));
