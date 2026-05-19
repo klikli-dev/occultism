@@ -49,7 +49,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/blacksmith_familiar.png");
 
-    private static final ContextKey<Byte> BARS = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "blacksmith_bars"));
+    //private static final ContextKey<Byte> BARS = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "blacksmith_bars"));
 
     private final ItemModelResolver itemModelResolver;
 
@@ -68,7 +68,8 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
         reusedState.hasMarioMoustache = entity.hasMarioMoustache();
         reusedState.hasEarring = entity.hasEarring();
         reusedState.isChristmas = FamiliarUtil.isChristmas();
-        reusedState.setRenderData(BARS, entity.getBars());
+        reusedState.bars = entity.getBars();
+        //reusedState.setRenderData(BARS, entity.getBars());
     }
 
     @Override
@@ -99,8 +100,8 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
 
         @Override
         public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, BlacksmithFamiliarRenderState state, float yRot, float xRot) {
-            Byte barsData = state.getRenderData(BlacksmithFamiliarRenderer.BARS);
-            int bars = barsData != null ? barsData : 0;
+            //Byte barsData = state.getRenderData(BlacksmithFamiliarRenderer.BARS);
+            int bars = state.bars; //barsData != null ? barsData : 0;
             if (bars <= 0) return;
 
             pMatrixStack.pushPose();
@@ -110,7 +111,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
             ItemStack ingotStack = new ItemStack(Items.IRON_INGOT);
             for (int i = 0; i < bars; i++) {
                 pMatrixStack.pushPose();
-                pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
+                pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - (double) i / 2 * 0.04, -0.15);
                 pMatrixStack.mulPose(new Quaternionf().rotateXYZ(-90 * ((float) Math.PI / 180F), 0, i * ((float) Math.PI / 180F)));
 
                 ItemStackRenderState stackState = new ItemStackRenderState();

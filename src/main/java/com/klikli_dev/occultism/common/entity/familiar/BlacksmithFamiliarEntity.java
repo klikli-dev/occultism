@@ -93,7 +93,6 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        Item item = stack.getItem();
         if (playerIn == this.getFamiliarOwner() && this.ironCount < getMaxIron()
                 && (stack.is(Items.INGOTS_IRON) || stack.is(Items.STORAGE_BLOCKS_IRON))) {
             if (!this.level().isClientSide()) {
