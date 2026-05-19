@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.229.0] - 2026-05-19
+### :wrench: Chores
+- [`b6b5666`](https://github.com/klikli-dev/occultism/commit/b6b5666f431e86e7369b492adce9028697b4f7ec) - bump MPL to latest *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.228.0] - 2026-05-18
 ### :sparkles: New Features
 - [`4d6c75b`](https://github.com/klikli-dev/occultism/commit/4d6c75b2888b6a537088776dbf84f8ef1c007846) - Omnibus may-26 *(PR [#1610](https://github.com/klikli-dev/occultism/pull/1610) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2606,3 +2611,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.227.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.226.0...release/v26.1.2-1.227.0
 [release/v26.1.2-1.227.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.227.0...release/v26.1.2-1.227.1
 [release/v26.1.2-1.228.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.227.1...release/v26.1.2-1.228.0
+[release/v26.1.2-1.229.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.228.0...release/v26.1.2-1.229.0
