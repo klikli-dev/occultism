@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.229.2] - 2026-05-20
+### :bug: Bug Fixes
+- [`72b91d5`](https://github.com/klikli-dev/occultism/commit/72b91d5e54a882cef93f994860f99be6323441b5) - access ritual dummy directly in golden bowl HUD *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.229.1] - 2026-05-20
 ### :bug: Bug Fixes
 - [`dbaaab3`](https://github.com/klikli-dev/occultism/commit/dbaaab309fd4fc12f7f466b4092926aa7eb50cea) - 1613, entity item stack render, yellow glyph id *(PR [#1614](https://github.com/klikli-dev/occultism/pull/1614) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2619,3 +2624,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.228.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.227.1...release/v26.1.2-1.228.0
 [release/v26.1.2-1.229.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.228.0...release/v26.1.2-1.229.0
 [release/v26.1.2-1.229.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.0...release/v26.1.2-1.229.1
+[release/v26.1.2-1.229.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.1...release/v26.1.2-1.229.2
