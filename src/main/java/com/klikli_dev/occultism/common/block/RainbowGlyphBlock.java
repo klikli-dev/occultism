@@ -153,40 +153,40 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
                 }
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_BROWN)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 4));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 4).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_RED)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 5));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 5).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_ORANGE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 6));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 6).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_YELLOW)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 7));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 7).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_LIME)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 8));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 8).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_GREEN)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 9));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 9).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_CYAN)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 10));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 10).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_LIGHT_BLUE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 11));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 11).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_BLUE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 12));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 12).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_PURPLE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 13));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 13).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_MAGENTA)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 14));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 14).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             } else if (stack.is(Items.DYES_PINK)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 15));
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 15).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             }
         }
