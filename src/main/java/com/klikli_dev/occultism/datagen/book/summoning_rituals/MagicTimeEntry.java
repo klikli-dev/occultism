@@ -39,13 +39,13 @@ public class MagicTimeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Time Magic");
         this.pageText("""
-                        Time magic is limited in scope, it cannot send the magician back
-                         or forth in time, but rather allows to change the time of day.
-                         This is especially useful for rituals or other tasks requiring day
-                         or nighttime specifically.
-                        \\
-                        \\
-                        Time spirits will only modify the time once and then vanish.
+                Time magic is limited in scope, it cannot send the magician back
+                 or forth in time, but rather allows to change the time of day.
+                 This is especially useful for rituals or other tasks requiring day
+                 or nighttime specifically.
+                \\
+                \\
+                Time spirits will only modify the time once and then vanish.
                 """
         );
 
