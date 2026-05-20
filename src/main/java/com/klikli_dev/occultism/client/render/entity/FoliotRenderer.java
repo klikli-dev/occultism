@@ -86,12 +86,19 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
             @Override
             protected void submitItemStackRender(PoseStack poseStack, GeoBone bone, ItemStackRenderState stackState, ItemDisplayContext displayContext, OccultismGeoLivingEntityRenderState renderState, SubmitNodeCollector renderTasks, int packedLight) {
                 poseStack.pushPose();
-                poseStack.translate(-0.06, -0.2, 0);
-                poseStack.scale(0.4F, 0.4F, 0.4F);
-                if (Objects.equals(renderState.jobID, OccultismSpiritJobs.CLEANER.getId().toString())) {
-                    poseStack.translate(-0.3, -0.35, 0.35);
-                    poseStack.scale(0.5F, 0.5F, 0.5F);
+                // TODO: make it less hardcoded
+                if (Objects.equals(renderState.jobID, OccultismSpiritJobs.FARMER.getId().toString())
+                        || Objects.equals(renderState.jobID, OccultismSpiritJobs.LUMBERJACK.getId().toString())) {
+                    poseStack.translate(-0.06, -0.6, 0);
+                } else if (Objects.equals(renderState.jobID, OccultismSpiritJobs.TRANSPORT_ITEMS.getId().toString())) {
+                    poseStack.translate(-0.06, -0.2, 0);
+                } else if (Objects.equals(renderState.jobID, OccultismSpiritJobs.CLEANER.getId().toString())) {
+                    poseStack.translate(-0.3, -0.6, 0.3);
+                    poseStack.scale(0.7F, 0.7F, 0.7F);
+                } else {
+                    poseStack.translate(0.06, -0.6, 0);
                 }
+                poseStack.scale(0.4F, 0.4F, 0.4F);
                 poseStack.mulPose(Axis.XN.rotationDegrees(90));
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();

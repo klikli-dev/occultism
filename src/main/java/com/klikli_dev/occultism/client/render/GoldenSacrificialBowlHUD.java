@@ -48,7 +48,7 @@ public class GoldenSacrificialBowlHUD implements GuiLayer {
             if (bowl.ritualActive) {
                 String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().identifier().getPath().substring(7));
                 String ritualName = Component.translatable(ritualID).getString();
-                int i = ritualName.indexOf(":");
+                int i = Math.max(ritualName.indexOf(":"), ritualName.indexOf("："));
                 pGuiGraphics.centeredText(font, Component.translatable("occultism.jade.current_ritual",
                                 Component.literal(ritualName.substring(i + 2))), x, y,
                         bowl.getSignal() == 8 ? 0xFF000000 + ChatFormatting.GREEN.getColor() : 0xFF000000 + ChatFormatting.GRAY.getColor());

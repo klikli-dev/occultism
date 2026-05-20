@@ -319,7 +319,7 @@ public class OccultismServerConfig {
                     .defineInRange("blacksmithFamiliarRepairChance", 0.33, 0.0, Double.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCost = builder.comment(
                             "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
-                    .defineInRange("blacksmithFamiliarUpgradeCost", 18, 0, Integer.MAX_VALUE);
+                    .defineInRange("blacksmithFamiliarUpgradeCost", 18, 1, Integer.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCooldown = builder.comment(
                             "The cooldown for a blacksmith familiar to upgrade another familiar.")
                     .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
