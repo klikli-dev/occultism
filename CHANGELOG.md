@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.229.1] - 2026-05-20
+### :bug: Bug Fixes
+- [`dbaaab3`](https://github.com/klikli-dev/occultism/commit/dbaaab309fd4fc12f7f466b4092926aa7eb50cea) - 1613, entity item stack render, yellow glyph id *(PR [#1614](https://github.com/klikli-dev/occultism/pull/1614) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *fixes issue [#1613](https://github.com/klikli-dev/occultism/issues/1613) opened by [@FutureLin-JM](https://github.com/FutureLin-JM)*
+
+
 ## [release/v26.1.2-1.229.0] - 2026-05-19
 ### :wrench: Chores
 - [`b6b5666`](https://github.com/klikli-dev/occultism/commit/b6b5666f431e86e7369b492adce9028697b4f7ec) - bump MPL to latest *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2612,3 +2618,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.227.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.227.0...release/v26.1.2-1.227.1
 [release/v26.1.2-1.228.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.227.1...release/v26.1.2-1.228.0
 [release/v26.1.2-1.229.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.228.0...release/v26.1.2-1.229.0
+[release/v26.1.2-1.229.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.0...release/v26.1.2-1.229.1
