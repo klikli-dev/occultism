@@ -356,13 +356,11 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             ItemTransferUtil.insertItemStacked(currentHandler, drop, false);
         }
 
-        boolean shouldSaveMiner = this.saveMiner && input.isDamageableItem() && input.nextDamageWillBreak();
-        if (shouldSaveMiner) {
+        input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
+        //Check if the next operation will break the miner
+        if (this.saveMiner && input.nextDamageWillBreak()) {
             ItemTransferUtil.insertItemStacked(currentHandler, input.copy(), false);
             input.shrink(1);
-        } else {
-            input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {
-            });
         }
         this.inputHandler.set(0, ItemResource.of(input), input.getCount());
     }
