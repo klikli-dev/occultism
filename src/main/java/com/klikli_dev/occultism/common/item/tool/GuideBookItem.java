@@ -44,7 +44,7 @@ public class GuideBookItem extends ModonomiconCustomItemBase {
     public @Nullable ItemStackTemplate getCraftingRemainder(@NonNull ItemInstance instance) {
         DataComponentPatch componentPatch = instance.has(DataComponents.CUSTOM_NAME) ?
                 DataComponentPatch.builder().set(DataComponents.CUSTOM_NAME, instance.get(DataComponents.CUSTOM_NAME)).build() :
-                DataComponentPatch.builder().build() ;
+                DataComponentPatch.EMPTY;
         return new ItemStackTemplate(this, componentPatch);
     }
 }
