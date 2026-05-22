@@ -24,6 +24,8 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.modonomicon.item.ModonomiconCustomItemBase;
 import com.klikli_dev.occultism.Occultism;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -40,6 +42,9 @@ public class GuideBookItem extends ModonomiconCustomItemBase {
 
     @Override
     public @Nullable ItemStackTemplate getCraftingRemainder(@NonNull ItemInstance instance) {
-        return new ItemStackTemplate(this);
+        DataComponentPatch componentPatch = instance.has(DataComponents.CUSTOM_NAME) ?
+                DataComponentPatch.builder().set(DataComponents.CUSTOM_NAME, instance.get(DataComponents.CUSTOM_NAME)).build() :
+                DataComponentPatch.builder().build() ;
+        return new ItemStackTemplate(this, componentPatch);
     }
 }
