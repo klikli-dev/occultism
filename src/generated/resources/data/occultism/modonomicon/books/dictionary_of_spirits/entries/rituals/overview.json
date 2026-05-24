@@ -1,55 +1,46 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
     "width": 26
   },
-  "category": "rituals",
-  "description": "",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/robe.png",
-    "width": 16
+  "category": "occultism:rituals",
+  "condition": {
+    "type": "modonomicon:none"
   },
+  "icon": "occultism:textures/gui/book/robe.png",
+  "id": "occultism:rituals/overview",
   "name": "book.occultism.dictionary_of_spirits.rituals.overview.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.rituals.overview.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.rituals.overview.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.rituals.overview.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.rituals.overview.steps.text",
-      "title": "book.occultism.dictionary_of_spirits.rituals.overview.steps.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.rituals.overview.steps.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.text",
-      "title": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.title"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": -1,
   "y": 0
 }

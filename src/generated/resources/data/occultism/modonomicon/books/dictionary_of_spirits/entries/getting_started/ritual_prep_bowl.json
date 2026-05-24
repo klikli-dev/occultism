@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/ritual_prep_chalk"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:golden_sacrificial_bowl"
   },
+  "id": "occultism:getting_started/ritual_prep_bowl",
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,30 +28,22 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/sacrificial_bowl",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl_recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl_recipe.text"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/copper_sacrificial_bowl",
-      "recipe_id_2": "occultism:crafting/silver_sacrificial_bowl",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_2": "occultism:crafting/silver_sacrificial_bowl"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -57,7 +53,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -67,25 +62,17 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/golden_sacrificial_bowl",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/golden_sacrificial_bowl"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/ritual_prep_chalk",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/ritual_prep_chalk"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 10,
   "x": -1,
   "y": 0

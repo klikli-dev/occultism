@@ -1,204 +1,155 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/candle"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:book_of_binding_bound_foliot"
   },
+  "id": "occultism:getting_started/books_of_binding",
   "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.intro2.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:spirit_fire/purified_ink",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.purified_ink_recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.purified_ink_recipe.text"
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:spirit_fire/awakened_feather",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.awakened_feather_recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.awakened_feather_recipe.text"
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:spirit_fire/taboo_book",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.taboo_book_recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.taboo_book_recipe.text"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/book_of_binding_foliot",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_foliot_recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_foliot_recipe.text"
     },
     {
       "type": "occultism:book_binding_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/bound_book_of_binding",
       "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_bound_foliot_recipe.text",
-      "title1": "",
-      "title2": "",
       "unbound_book": {
         "id": "occultism:book_of_binding_foliot"
       }
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/book_of_binding_djinni",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/book_of_binding_djinni"
     },
     {
       "type": "occultism:book_binding_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/bound_book_of_binding",
-      "text": "",
-      "title1": "",
-      "title2": "",
       "unbound_book": {
         "id": "occultism:book_of_binding_djinni"
       }
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/book_of_binding_afrit",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/book_of_binding_afrit"
     },
     {
       "type": "occultism:book_binding_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/bound_book_of_binding",
-      "text": "",
-      "title1": "",
-      "title2": "",
       "unbound_book": {
         "id": "occultism:book_of_binding_afrit"
       }
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/book_of_binding_marid",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/book_of_binding_marid"
     },
     {
       "type": "occultism:book_binding_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/bound_book_of_binding",
-      "text": "",
-      "title1": "",
-      "title2": "",
       "unbound_book": {
         "id": "occultism:book_of_binding_marid"
       }
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:spirit_fire/book_of_binding_empty",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_empty.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_empty.text"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_2": "occultism:crafting/book_of_binding_empty",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_2": "occultism:crafting/book_of_binding_empty"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/candle",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/candle"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 11,
   "x": -3,
   "y": 4

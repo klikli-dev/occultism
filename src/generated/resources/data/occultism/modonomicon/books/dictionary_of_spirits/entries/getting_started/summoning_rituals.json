@@ -1,55 +1,44 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gray",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_foliot"
+    "entry_id": "occultism:pentacles/summon_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.description",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/summoning.png",
-    "width": 16
-  },
+  "icon": "occultism:textures/gui/book/summoning.png",
+  "id": "occultism:getting_started/summoning_rituals",
   "name": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.more.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.more.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.more.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/more_rituals",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/more_rituals"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 31,
   "x": 13,
   "y": 6

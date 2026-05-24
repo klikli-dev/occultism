@@ -1,69 +1,50 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "familiar_rituals",
+  "category": "occultism:familiar_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/possess_djinni"
+    "entry_id": "occultism:pentacles/possess_djinni"
   },
-  "description": "",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/familiar_mummy.png",
-    "width": 16
-  },
+  "icon": "occultism:textures/gui/book/familiar_mummy.png",
+  "id": "occultism:familiar_rituals/familiar_mummy",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.name",
   "pages": [
     {
       "type": "modonomicon:entity",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "default_rotation": -45.0,
       "entity_id": "occultism:mummy_familiar",
-      "name": "",
-      "offset": 0.0,
-      "rotate": true,
-      "scale": 1.0,
+      "entity_name": "",
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/familiar_mummy",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/familiar_mummy"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "familiar_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:familiar_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 18,
   "x": -1,
   "y": 4

@@ -1,54 +1,43 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "possession_rituals",
+  "category": "occultism:possession_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_wild_spirit"
+    "entry_id": "occultism:pentacles/contact_wild_spirit"
   },
-  "description": "",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:wither_skeleton_skull"
   },
+  "id": "occultism:possession_rituals/wither_skull",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.intro.title"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_hunt",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_hunt"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "possession_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:possession_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": -6,
   "y": 1
 }

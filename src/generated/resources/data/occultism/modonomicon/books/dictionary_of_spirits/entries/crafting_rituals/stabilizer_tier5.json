@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "crafting_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_eldritch_spirit"
+    "entry_id": "occultism:pentacles/contact_eldritch_spirit"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.stabilizer_tier5.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:storage_stabilizer_tier5"
   },
+  "id": "occultism:crafting_rituals/stabilizer_tier5",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.stabilizer_tier5.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -28,36 +28,24 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5_dark",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5_dark"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "crafting_rituals/craft_stabilizer_tier4",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:crafting_rituals/craft_stabilizer_tier4"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 19,
   "x": 6,
   "y": 8

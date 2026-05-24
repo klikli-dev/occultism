@@ -1,20 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/iesnium"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:miner_foliot_unspecialized"
   },
+  "id": "occultism:getting_started/spirit_miners",
   "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -24,25 +28,19 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.crafting.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.crafting.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.crafting.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/iesnium",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/iesnium"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 26,
   "x": 11,
   "y": -2

@@ -1,64 +1,56 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "pentacles",
+  "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/red_chalk"
+    "entry_id": "occultism:pentacles/red_chalk"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:pentacle_summon"
   },
+  "id": "occultism:pentacles/summon_afrit",
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.intro.title"
     },
     {
       "type": "modonomicon:multiblock",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "summon_afrit",
+      "multiblock_id": "occultism:summon_afrit",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.uses.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.uses.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "pentacles/summon_unbound_afrit",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:pentacles/summon_unbound_afrit"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 24,
   "x": 4,
   "y": -4

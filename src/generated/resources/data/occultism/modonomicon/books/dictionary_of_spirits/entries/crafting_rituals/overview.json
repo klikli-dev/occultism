@@ -1,36 +1,30 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
     "width": 26
   },
-  "category": "crafting_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_foliot"
+    "entry_id": "occultism:pentacles/craft_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.description",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/infusion.png",
-    "width": 16
-  },
+  "icon": "occultism:textures/gui/book/infusion.png",
+  "id": "occultism:crafting_rituals/overview",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.intro.title"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 0,
   "x": -10,
   "y": 0

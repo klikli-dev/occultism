@@ -1,37 +1,29 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
     "width": 26
   },
-  "category": "possession_rituals",
+  "category": "occultism:possession_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/possess_foliot"
+    "entry_id": "occultism:pentacles/possess_foliot"
   },
-  "description": "",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/possession.png",
-    "width": 16
-  },
+  "icon": "occultism:textures/gui/book/possession.png",
+  "id": "occultism:possession_rituals/overview",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.overview.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.overview.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.possession_rituals.overview.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.possession_rituals.overview.intro.title"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": -8,
   "y": -1
 }

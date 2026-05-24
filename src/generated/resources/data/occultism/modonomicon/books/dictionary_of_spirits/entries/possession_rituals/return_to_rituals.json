@@ -1,33 +1,24 @@
 {
+  "type": "modonomicon:category_link",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/circle_gray",
     "width": 26
   },
-  "category": "possession_rituals",
-  "category_to_open": "rituals",
+  "category": "occultism:possession_rituals",
+  "category_to_open": "occultism:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/possess_foliot"
+    "entry_id": "occultism:pentacles/possess_foliot"
   },
-  "description": "",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/robe.png",
-    "width": 16
-  },
+  "icon": "occultism:textures/gui/book/robe.png",
+  "id": "occultism:possession_rituals/return_to_rituals",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.return_to_rituals.name",
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "possession_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:possession_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": -10,
   "y": -1
 }

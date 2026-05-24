@@ -1,65 +1,52 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "familiar_rituals",
-  "description": "",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/familiar_shub_niggurath.png",
-    "width": 16
+  "category": "occultism:familiar_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:familiar_rituals/familiar_chimera"
   },
+  "icon": "occultism:textures/gui/book/familiar_shub_niggurath.png",
+  "id": "occultism:familiar_rituals/familiar_shub_niggurath",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.name",
   "pages": [
     {
       "type": "modonomicon:entity",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "default_rotation": -45.0,
       "entity_id": "occultism:shub_niggurath_familiar",
-      "name": "",
-      "offset": 0.0,
-      "rotate": true,
-      "scale": 1.0,
+      "entity_name": "",
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.entity.text"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.ritual.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.ritual.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.ritual.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.description.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.description.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "familiar_rituals/familiar_chimera",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:familiar_rituals/familiar_chimera"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 21,
   "x": 0,
   "y": -4

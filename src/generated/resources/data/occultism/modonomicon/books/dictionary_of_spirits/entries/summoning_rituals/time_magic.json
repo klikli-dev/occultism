@@ -1,31 +1,30 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "summoning_rituals",
+  "category": "occultism:summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_djinni"
+    "entry_id": "occultism:pentacles/summon_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:clock"
   },
+  "id": "occultism:summoning_rituals/time_magic",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -33,10 +32,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_djinni_day_time",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_djinni_day_time"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -44,21 +40,14 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_djinni_night_time",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_djinni_night_time"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "summoning_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:summoning_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 27,
   "x": 6,
   "y": -5

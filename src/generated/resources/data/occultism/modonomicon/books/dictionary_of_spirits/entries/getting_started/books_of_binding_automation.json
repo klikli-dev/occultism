@@ -1,49 +1,46 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/books_of_binding"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:crafter"
   },
+  "id": "occultism:getting_started/books_of_binding_automation",
   "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/books_of_binding",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/books_of_binding"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 12,
   "x": -3,
   "y": 6

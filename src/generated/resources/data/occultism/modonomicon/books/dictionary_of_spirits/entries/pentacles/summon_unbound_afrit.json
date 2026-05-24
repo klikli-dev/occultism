@@ -1,73 +1,65 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "pentacles",
+  "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:and",
     "children": [
       {
         "type": "modonomicon:entry_read",
-        "entry_id": "pentacles/gray_chalk"
+        "entry_id": "occultism:pentacles/gray_chalk"
       },
       {
         "type": "modonomicon:entry_read",
-        "entry_id": "pentacles/orange_chalk"
+        "entry_id": "occultism:pentacles/orange_chalk"
       }
     ]
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:pentacle_summon"
   },
+  "id": "occultism:pentacles/summon_unbound_afrit",
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.intro.title"
     },
     {
       "type": "modonomicon:multiblock",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "summon_unbound_afrit",
+      "multiblock_id": "occultism:summon_unbound_afrit",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.uses.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.uses.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "pentacles/summon_djinni",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:pentacles/summon_djinni"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 19,
   "x": 1,
   "y": -4

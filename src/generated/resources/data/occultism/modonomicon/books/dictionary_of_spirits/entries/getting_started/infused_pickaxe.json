@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_djinni"
+    "entry_id": "occultism:pentacles/craft_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:infused_pickaxe"
   },
+  "id": "occultism:getting_started/infused_pickaxe",
   "name": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -28,47 +28,34 @@
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.gem_recipe.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.gem_recipe.text"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/spirit_attuned_pickaxe_head",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/spirit_attuned_pickaxe_head"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/otherworld_goggles",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/otherworld_goggles"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 22,
   "x": 7,
   "y": -2

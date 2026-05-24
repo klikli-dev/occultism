@@ -1,46 +1,41 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "crafting_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_djinni"
+    "entry_id": "occultism:pentacles/craft_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:miner_foliot_unspecialized"
   },
+  "id": "occultism:crafting_rituals/craft_foliot_miner",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.title"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/magic_lamp_empty",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.text"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -50,25 +45,18 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_miner_foliot_unspecialized",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_miner_foliot_unspecialized"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "crafting_rituals/craft_dimensional_mineshaft",
-      "line_enabled": true,
+      "entry": "occultism:crafting_rituals/craft_dimensional_mineshaft",
       "line_reversed": true
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 5,
   "x": -6,
   "y": -8

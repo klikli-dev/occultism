@@ -1,35 +1,33 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "pentacles",
+  "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_foliot"
+    "entry_id": "occultism:pentacles/craft_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:chalk_green"
   },
+  "id": "occultism:pentacles/green_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.lore.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.lore.title"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -39,47 +37,32 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_nature_paste",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_nature_paste"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/chalk_green_impure",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/chalk_green_impure"
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:spirit_fire/chalk_green",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:spirit_fire/chalk_green"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "pentacles/craft_foliot",
-      "line_enabled": false,
-      "line_reversed": false
+      "entry": "occultism:pentacles/craft_foliot",
+      "line_enabled": false
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 11,
   "x": 1,
   "y": 4

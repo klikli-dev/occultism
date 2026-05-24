@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "storage",
+  "category": "occultism:storage",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_djinni"
+    "entry_id": "occultism:pentacles/craft_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.storage.storage_controller.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:storage_controller"
   },
+  "id": "occultism:storage/storage_controller",
   "name": "book.occultism.dictionary_of_spirits.storage.storage_controller.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -30,113 +30,86 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.usage.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.title"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_dimensional_matrix",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_dimensional_matrix"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_storage_controller_base",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_storage_controller_base"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/storage_controller",
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.base_ritual.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.base_ritual.text"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "storage/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:storage/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 2,
   "x": -2,
   "y": 1

@@ -1,64 +1,53 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "summoning_rituals",
+  "category": "occultism:summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_djinni"
+    "entry_id": "occultism:pentacles/summon_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:iron_dust"
   },
+  "id": "occultism:summoning_rituals/summon_crusher_t2",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.filters.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.filters.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.filters.title"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_djinni_crusher",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_djinni_crusher"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "summoning_rituals/summon_crusher_t1",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:summoning_rituals/summon_crusher_t1"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 3,
   "x": -4,
   "y": 1

@@ -1,31 +1,30 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "summoning_rituals",
+  "category": "occultism:summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_djinni"
+    "entry_id": "occultism:pentacles/summon_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:wheat"
   },
+  "id": "occultism:summoning_rituals/weather_magic",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.title"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -33,45 +32,32 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_djinni_clear_weather",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_djinni_clear_weather"
     },
     {
       "type": "occultism:ritual_recipe",
       "anchor": "rain",
       "condition": {
         "type": "modonomicon:entry_read",
-        "entry_id": "pentacles/summon_afrit"
+        "entry_id": "occultism:pentacles/summon_afrit"
       },
-      "recipe_id_1": "occultism:ritual/summon_afrit_rain_weather",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_afrit_rain_weather"
     },
     {
       "type": "occultism:ritual_recipe",
       "anchor": "thunder",
       "condition": {
         "type": "modonomicon:entry_read",
-        "entry_id": "pentacles/summon_afrit"
+        "entry_id": "occultism:pentacles/summon_afrit"
       },
-      "recipe_id_1": "occultism:ritual/summon_afrit_thunder_weather",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_afrit_thunder_weather"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "summoning_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:summoning_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 26,
   "x": 4,
   "y": -5

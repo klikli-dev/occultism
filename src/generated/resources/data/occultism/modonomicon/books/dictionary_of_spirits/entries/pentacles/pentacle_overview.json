@@ -1,65 +1,56 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
     "width": 26
   },
-  "category": "pentacles",
-  "description": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.description",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/pentacle.png",
-    "width": 16
+  "category": "occultism:pentacles",
+  "condition": {
+    "type": "modonomicon:none"
   },
+  "description": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.description",
+  "icon": "occultism:textures/gui/book/pentacle.png",
+  "id": "occultism:pentacles/pentacle_overview",
   "name": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro1.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro1.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro1.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro2.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro2.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro2.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro3.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro3.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro3.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro4.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro4.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro4.title"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 0,
   "x": -11,
   "y": -3

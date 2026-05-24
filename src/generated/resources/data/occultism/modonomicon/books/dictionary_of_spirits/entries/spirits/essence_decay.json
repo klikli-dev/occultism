@@ -1,61 +1,55 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "spirits",
+  "category": "occultism:spirits",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:spirits/overview"
+  },
   "description": "book.occultism.dictionary_of_spirits.spirits.essence_decay.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:rotten_flesh"
   },
+  "id": "occultism:spirits/essence_decay",
   "name": "book.occultism.dictionary_of_spirits.spirits.essence_decay.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "spirits/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:spirits/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": -8,
   "y": 1
 }

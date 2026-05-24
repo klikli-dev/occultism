@@ -1,35 +1,33 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "pentacles",
+  "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/pentacle_overview"
+    "entry_id": "occultism:pentacles/pentacle_overview"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:skeleton_skull"
   },
+  "id": "occultism:pentacles/paraphernalia",
   "name": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.title"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -39,7 +37,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -49,7 +46,6 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -59,29 +55,20 @@
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/spirit_attuned_crystal",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/spirit_attuned_crystal"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -94,13 +81,10 @@
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "pentacles/pentacle_overview",
-      "line_enabled": true,
+      "entry": "occultism:pentacles/pentacle_overview",
       "line_reversed": true
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 1,
   "x": -11,
   "y": -1

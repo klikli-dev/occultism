@@ -1,30 +1,25 @@
 {
+  "type": "modonomicon:category_link",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/circle_gray",
     "width": 26
   },
-  "category": "spirits",
-  "category_to_open": "getting_started",
+  "category": "occultism:spirits",
+  "category_to_open": "occultism:getting_started",
   "condition": {
     "type": "modonomicon:true"
   },
-  "description": "",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:dictionary_of_spirits_icon"
   },
+  "id": "occultism:spirits/return_to_getting_started",
   "name": "book.occultism.dictionary_of_spirits.spirits.return_to_getting_started.name",
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "spirits/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:spirits/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": -10,
   "y": -1
 }

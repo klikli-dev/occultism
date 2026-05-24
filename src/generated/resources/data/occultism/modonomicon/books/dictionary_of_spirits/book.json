@@ -1,6 +1,5 @@
 {
   "allow_open_book_with_invalid_links": true,
-  "auto_add_read_conditions": true,
   "creative_tab": "modonomicon:modonomicon",
   "custom_book_item": "occultism:dictionary_of_spirits",
   "description": "",

@@ -1,93 +1,79 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "storage",
+  "category": "occultism:storage",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:storage/storage_controller"
+  },
   "description": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:lever"
   },
+  "id": "occultism:storage/summon_manage_machine",
   "name": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.tutorial.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.tutorial2.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/book_of_calling_djinni_manage_machine",
-      "text": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.book_of_calling.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.book_of_calling.text"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.usage.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.usage.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "storage/storage_controller",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:storage/storage_controller"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 5,
   "x": -2,
   "y": 3

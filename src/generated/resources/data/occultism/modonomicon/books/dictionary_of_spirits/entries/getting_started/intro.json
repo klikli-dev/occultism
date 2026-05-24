@@ -1,41 +1,40 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gray",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.intro.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:dictionary_of_spirits_icon"
   },
+  "id": "occultism:getting_started/intro",
   "name": "book.occultism.dictionary_of_spirits.getting_started.intro.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.intro.help.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.help.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.help.title"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 0,
   "x": -11,
   "y": 0

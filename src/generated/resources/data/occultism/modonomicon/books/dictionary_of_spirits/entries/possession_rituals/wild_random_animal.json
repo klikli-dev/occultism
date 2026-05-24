@@ -1,109 +1,78 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "possession_rituals",
+  "category": "occultism:possession_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_wild_spirit"
+    "entry_id": "occultism:pentacles/contact_wild_spirit"
   },
-  "description": "",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:mysterious_egg_icon"
   },
+  "id": "occultism:possession_rituals/wild_random_animal",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.description.text",
-      "title": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.description.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.description.title"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_common",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_random_animal_common"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_water",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_random_animal_water"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_small",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_random_animal_small"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_rideable",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_random_animal_rideable"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_villager",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_villager"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_special",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/wild_random_animal_special"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "possession_rituals/possess_random_animal",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:possession_rituals/possess_random_animal"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": 7,
   "y": 3
 }

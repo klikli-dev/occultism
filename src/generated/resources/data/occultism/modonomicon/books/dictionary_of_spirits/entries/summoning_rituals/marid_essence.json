@@ -1,53 +1,44 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "summoning_rituals",
+  "category": "occultism:summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_unbound_marid"
+    "entry_id": "occultism:pentacles/summon_unbound_marid"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:marid_essence"
   },
+  "id": "occultism:summoning_rituals/marid_essence",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.title"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_unbound_marid",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_unbound_marid"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "summoning_rituals/afrit_essence",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:summoning_rituals/afrit_essence"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 29,
   "x": 6,
   "y": 1

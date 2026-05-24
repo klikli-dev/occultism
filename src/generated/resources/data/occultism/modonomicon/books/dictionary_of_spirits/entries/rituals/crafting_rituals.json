@@ -1,33 +1,24 @@
 {
+  "type": "modonomicon:category_link",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gray",
     "width": 26
   },
-  "category": "rituals",
-  "category_to_open": "crafting_rituals",
+  "category": "occultism:rituals",
+  "category_to_open": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_foliot"
+    "entry_id": "occultism:pentacles/craft_foliot"
   },
-  "description": "",
-  "hide_while_locked": false,
-  "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/infusion.png",
-    "width": 16
-  },
+  "icon": "occultism:textures/gui/book/infusion.png",
+  "id": "occultism:rituals/crafting_rituals",
   "name": "book.occultism.dictionary_of_spirits.rituals.crafting_rituals.name",
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "rituals/sacrifice",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:rituals/sacrifice"
     }
   ],
-  "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
   "x": 5,
   "y": 2
 }

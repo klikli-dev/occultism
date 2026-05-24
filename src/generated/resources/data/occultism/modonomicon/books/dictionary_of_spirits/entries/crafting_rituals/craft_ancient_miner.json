@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "crafting_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_eldritch_spirit"
+    "entry_id": "occultism:pentacles/contact_eldritch_spirit"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_ancient_miner.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:miner_ancient_eldritch"
   },
+  "id": "occultism:crafting_rituals/craft_ancient_miner",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_ancient_miner.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -28,25 +28,17 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_miner_ancient_eldritch",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/misc_miner_ancient_eldritch"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "crafting_rituals/craft_marid_miner",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:crafting_rituals/craft_marid_miner"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 9,
   "x": 2,
   "y": -8

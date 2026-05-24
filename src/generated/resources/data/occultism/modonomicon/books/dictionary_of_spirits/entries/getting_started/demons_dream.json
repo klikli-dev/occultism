@@ -1,42 +1,42 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "getting_started",
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/intro"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:datura"
   },
+  "id": "occultism:getting_started/demons_dream",
   "name": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro2.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -46,18 +46,15 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.harvest_effect.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "modonomicon:image",
-      "anchor": "",
       "border": true,
       "condition": {
         "type": "modonomicon:none"
@@ -66,23 +63,19 @@
         "occultism:textures/gui/book/datura_effect.png"
       ],
       "text": "",
-      "title": "",
-      "use_legacy_rendering": false
+      "title": ""
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.note_on_spirit_fire.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -92,18 +85,14 @@
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit_or_seed",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.recipe_essence.text",
-      "title1": "",
-      "title2": ""
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.recipe_essence.text"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -113,25 +102,17 @@
     },
     {
       "type": "occultism:spirit_fire_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:spirit_fire/otherworld_essence",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:spirit_fire/otherworld_essence"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "getting_started/intro",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:getting_started/intro"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 1,
   "x": -11,
   "y": 2

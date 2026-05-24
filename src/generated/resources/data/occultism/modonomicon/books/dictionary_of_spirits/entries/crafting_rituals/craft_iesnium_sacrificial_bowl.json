@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "crafting_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_afrit"
+    "entry_id": "occultism:pentacles/craft_afrit"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:iesnium_sacrificial_bowl"
   },
+  "id": "occultism:crafting_rituals/craft_iesnium_sacrificial_bowl",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -28,18 +28,13 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_iesnium_sacrificial_bowl",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_iesnium_sacrificial_bowl"
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -49,25 +44,17 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_dark_iesnium_sacrificial_bowl",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_dark_iesnium_sacrificial_bowl"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "crafting_rituals/craft_infused_pickaxe",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:crafting_rituals/craft_infused_pickaxe"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 35,
   "x": 4,
   "y": -6

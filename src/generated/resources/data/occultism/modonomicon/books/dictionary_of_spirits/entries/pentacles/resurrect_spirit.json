@@ -1,64 +1,57 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "pentacles",
+  "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/possess_foliot"
+    "entry_id": "occultism:pentacles/possess_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:pentacle_misc"
   },
+  "id": "occultism:pentacles/resurrect_spirit",
   "name": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.title"
     },
     {
       "type": "modonomicon:multiblock",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "resurrect_spirit",
+      "multiblock_id": "occultism:resurrect_spirit",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.uses.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.uses.title"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "pentacles/possess_foliot",
-      "line_enabled": false,
-      "line_reversed": false
+      "entry": "occultism:pentacles/possess_foliot",
+      "line_enabled": false
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 12,
   "x": -5,
   "y": 5

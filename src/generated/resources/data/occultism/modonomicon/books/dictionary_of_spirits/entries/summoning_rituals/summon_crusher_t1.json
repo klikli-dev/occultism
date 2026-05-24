@@ -1,86 +1,71 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "summoning_rituals",
+  "category": "occultism:summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_foliot"
+    "entry_id": "occultism:pentacles/summon_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:copper_dust"
   },
+  "id": "occultism:summoning_rituals/summon_crusher_t1",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.name",
   "pages": [
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.automation.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.automation.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.automation.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.title"
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.filters.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.filters.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.filters.title"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/summon_foliot_crusher"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "summoning_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:summoning_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 2,
   "x": -4,
   "y": -1

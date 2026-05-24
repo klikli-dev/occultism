@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "crafting_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_foliot"
+    "entry_id": "occultism:pentacles/craft_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:otherworld_goggles"
   },
+  "id": "occultism:crafting_rituals/craft_otherworld_goggles",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -28,18 +28,15 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.goggles_more.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -49,70 +46,48 @@
     },
     {
       "type": "modonomicon:text",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.lenses_more.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.lenses_more.title",
-      "use_markdown_in_title": false
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.lenses_more.title"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/lenses",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/lenses"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_infused_lenses",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_infused_lenses"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/lens_frame",
-      "recipe_id_2": "occultism:crafting/lens_frame_alt",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_2": "occultism:crafting/lens_frame_alt"
     },
     {
       "type": "modonomicon:crafting_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/goggles",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:crafting/goggles"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "crafting_rituals/overview",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:crafting_rituals/overview"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 3,
   "x": -6,
   "y": -2

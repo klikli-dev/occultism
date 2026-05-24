@@ -1,24 +1,24 @@
 {
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26
   },
-  "category": "storage",
+  "category": "occultism:storage",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_foliot"
+    "entry_id": "occultism:pentacles/craft_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier1.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "occultism:storage_stabilizer_tier1"
   },
+  "id": "occultism:storage/craft_stabilizer_tier1",
   "name": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier1.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
@@ -28,36 +28,24 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier1",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier1"
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier1_dark",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier1_dark"
     }
   ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "storage/storage_stabilizer",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "occultism:storage/storage_stabilizer"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 9,
   "x": 2,
   "y": -1
