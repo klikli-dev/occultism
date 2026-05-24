@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.230.0] - 2026-05-24
+### :sparkles: New Features
+- [`8597e8e`](https://github.com/klikli-dev/occultism/commit/8597e8e3e94ad7c414c5d0cacd14ead5c1e336e6) - update to modo codecs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`1978056`](https://github.com/klikli-dev/occultism/commit/19780561df93f8b1d5537f5e9a0303a71288a520) - runData *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e165613`](https://github.com/klikli-dev/occultism/commit/e16561300902a281c710639be1e5f0cefef10c79) - update to latest modo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.229.3] - 2026-05-21
 ### :bug: Bug Fixes
 - [`e54b21a`](https://github.com/klikli-dev/occultism/commit/e54b21ac4f8febfee4f2d7783b76f4c7652cf99d) - infinite loop miner with one durability *(PR [#1616](https://github.com/klikli-dev/occultism/pull/1616) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2631,3 +2640,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.229.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.0...release/v26.1.2-1.229.1
 [release/v26.1.2-1.229.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.1...release/v26.1.2-1.229.2
 [release/v26.1.2-1.229.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.2...release/v26.1.2-1.229.3
+[release/v26.1.2-1.230.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.229.4...release/v26.1.2-1.230.0
