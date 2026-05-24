@@ -1,8 +1,7 @@
 package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.multiblock.matcher.AnyMatcher;
-import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
+import com.klikli_dev.modonomicon.registry.StateMatcherTypeRegistry;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT2Container;
@@ -84,7 +83,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
             for (var targetMatcher : simulation.getSecond()) {
 
-                if (targetMatcher.stateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.stateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
+                if (targetMatcher.stateMatcher().type() == StateMatcherTypeRegistry.ANY || targetMatcher.stateMatcher().type() == StateMatcherTypeRegistry.DISPLAY)
                     continue;
 
                 //if we got here it means the block at the location of the matcher is a valid block for the pentacle.

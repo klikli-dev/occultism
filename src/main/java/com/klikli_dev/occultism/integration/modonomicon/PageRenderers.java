@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.integration.modonomicon;
 
 import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import com.klikli_dev.occultism.integration.modonomicon.pages.*;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -9,16 +8,16 @@ public class PageRenderers {
 
     public static void onClientSetup(FMLClientSetupEvent event) {
         PageRendererRegistry.registerPageRenderer(
-                Page.SPIRIT_FIRE_RECIPE,
+                BookSpiritFireRecipePage.ID,
                 p -> new BookSpiritFireRecipePageRenderer((BookSpiritFireRecipePage) p));
         PageRendererRegistry.registerPageRenderer(
-                Page.SPIRIT_TRADE_RECIPE,
+                BookSpiritTradeRecipePage.ID,
                 p -> new BookSpiritTradeRecipePageRenderer((BookSpiritTradeRecipePage) p));
         PageRendererRegistry.registerPageRenderer(
-                Page.RITUAL_RECIPE,
+                BookRitualRecipePage.ID,
                 p -> new BookRitualRecipePageRenderer((BookRitualRecipePage) p));
         PageRendererRegistry.registerPageRenderer(
-                Page.BOOK_BINDING_RECIPE,
+                BookBindingCraftingRecipePage.ID,
                 p -> new BookBindingCraftingRecipePageRenderer((BookBindingCraftingRecipePage) p));
     }
 

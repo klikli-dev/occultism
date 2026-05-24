@@ -6,16 +6,21 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
-import net.minecraft.core.HolderLookup.Provider;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTradeRecipe> {
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade_recipe");
+    public static final MapCodec<BookSpiritTradeRecipePage> CODEC = codec(BookSpiritTradeRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookSpiritTradeRecipePage> STREAM_CODEC = streamCodec(BookSpiritTradeRecipePage::new);
+
     public BookSpiritTradeRecipePage(JsonDataHolder data) {
         super(data);
     }
@@ -24,18 +29,8 @@ public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTr
         super(data);
     }
 
-    public static BookSpiritTradeRecipePage fromJson(Identifier entryId, JsonObject json, Provider provider) {
-        var common = BookRecipePage.commonFromJson(entryId, json, provider);
-        return new BookSpiritTradeRecipePage(common);
-    }
-
-    public static BookSpiritTradeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        return new BookSpiritTradeRecipePage(common);
-    }
-
     @Override
-    public Identifier getType() {
-        return Page.SPIRIT_TRADE_RECIPE;
+    public BookPageType<?> type() {
+        return OccultismModonomiconPageTypeRegistry.SPIRIT_TRADE_RECIPE;
     }
 }

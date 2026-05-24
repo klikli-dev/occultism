@@ -6,15 +6,21 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
-import net.minecraft.core.HolderLookup.Provider;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual_recipe");
+    public static final MapCodec<BookRitualRecipePage> CODEC = codec(BookRitualRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookRitualRecipePage> STREAM_CODEC = streamCodec(BookRitualRecipePage::new);
+
     public BookRitualRecipePage(JsonDataHolder data) {
         super(data);
     }
@@ -23,18 +29,8 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
         super(data);
     }
 
-    public static BookRitualRecipePage fromJson(Identifier entryId, JsonObject json, Provider provider) {
-        var common = BookRecipePage.commonFromJson(entryId, json, provider);
-        return new BookRitualRecipePage(common);
-    }
-
-    public static BookRitualRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        return new BookRitualRecipePage(common);
-    }
-
     @Override
-    public Identifier getType() {
-        return Page.RITUAL_RECIPE;
+    public BookPageType<?> type() {
+        return OccultismModonomiconPageTypeRegistry.RITUAL_RECIPE;
     }
 }

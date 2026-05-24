@@ -6,16 +6,21 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
-import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.data.BookPageType;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
-import net.minecraft.core.HolderLookup.Provider;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFireRecipe> {
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire_recipe");
+    public static final MapCodec<BookSpiritFireRecipePage> CODEC = codec(BookSpiritFireRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookSpiritFireRecipePage> STREAM_CODEC = streamCodec(BookSpiritFireRecipePage::new);
+
     public BookSpiritFireRecipePage(JsonDataHolder data) {
         super(data);
     }
@@ -24,18 +29,8 @@ public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFir
         super(data);
     }
 
-    public static BookSpiritFireRecipePage fromJson(Identifier conditionParentId, JsonObject json, Provider provider) {
-        var common = BookRecipePage.commonFromJson(conditionParentId, json, provider);
-        return new BookSpiritFireRecipePage(common);
-    }
-
-    public static BookSpiritFireRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        return new BookSpiritFireRecipePage(common);
-    }
-
     @Override
-    public Identifier getType() {
-        return Page.SPIRIT_FIRE_RECIPE;
+    public BookPageType<?> type() {
+        return OccultismModonomiconPageTypeRegistry.SPIRIT_FIRE_RECIPE;
     }
 }

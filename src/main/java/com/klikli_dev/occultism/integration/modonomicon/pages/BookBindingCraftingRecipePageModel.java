@@ -8,7 +8,8 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
+import com.klikli_dev.modonomicon.book.page.BookPage;
+import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.resources.Identifier;
@@ -22,11 +23,16 @@ public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<Book
     protected ItemStackTemplate unboundBook;
 
     protected BookBindingCraftingRecipePageModel() {
-        super(Page.BOOK_BINDING_RECIPE);
+        super(BookBindingCraftingRecipePage.ID);
     }
 
     public static BookBindingCraftingRecipePageModel create() {
         return new BookBindingCraftingRecipePageModel();
+    }
+
+    @Override
+    protected BookPage createPage(BookRecipePage.JsonDataHolder common) {
+        return new BookBindingCraftingRecipePage(common, this.unboundBook);
     }
 
     public @Nullable ItemStackTemplate getUnboundBook() {

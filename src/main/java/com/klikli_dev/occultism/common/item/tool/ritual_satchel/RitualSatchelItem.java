@@ -2,8 +2,7 @@ package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
-import com.klikli_dev.modonomicon.multiblock.matcher.AnyMatcher;
-import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
+import com.klikli_dev.modonomicon.registry.StateMatcherTypeRegistry;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
@@ -75,7 +74,7 @@ public abstract class RitualSatchelItem extends Item {
     }
 
     protected PlacementResult tryPlaceBlockForMatcher(UseOnContext context, SimulateResult targetMatcher) {
-        if (targetMatcher.stateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.stateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
+        if (targetMatcher.stateMatcher().type() == StateMatcherTypeRegistry.ANY || targetMatcher.stateMatcher().type() == StateMatcherTypeRegistry.DISPLAY)
             return PlacementResult.ERROR_INVALID_MATCHER;
 
         var statePredicate = targetMatcher.stateMatcher().getStatePredicate();
@@ -154,8 +153,8 @@ public abstract class RitualSatchelItem extends Item {
         //Then, check if we are targeting any block of the preview
         var targetMatcher = simulation.getSecond().stream().filter(p -> p.worldPosition().equals(pos)).findFirst();
         if (targetMatcher.isEmpty() ||
-                targetMatcher.get().stateMatcher().getType() == AnyMatcher.TYPE ||
-                targetMatcher.get().stateMatcher().getType() == DisplayOnlyMatcher.TYPE) {
+                targetMatcher.get().stateMatcher().type() == StateMatcherTypeRegistry.ANY ||
+                targetMatcher.get().stateMatcher().type() == StateMatcherTypeRegistry.DISPLAY) {
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }
