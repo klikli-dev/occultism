@@ -45,11 +45,10 @@ public class SummonMaridEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Marid Crusher](entry://summoning_rituals/summon_crusher_t4)
-                - [Marid Smelter](entry://summoning_rituals/summon_smelter_t4)
-                - [Marid Crystallizer](entry://summoning_rituals/summon_crystallizer_t4)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                """, this.entryLink("Marid Crusher", "summoning_rituals", "summon_crusher_t4"), this.entryLink("Marid Smelter", "summoning_rituals", "summon_smelter_t4"), this.entryLink("Marid Crystallizer", "summoning_rituals", "summon_crystallizer_t4"));
 
     }
 

@@ -7,6 +7,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.datagen.book.FamiliarRitualsCategory;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectFamiliarEntry;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.ChatFormatting;
 
@@ -44,11 +46,12 @@ public class ResurrectSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Resurrect Familiar](entry://familiar_rituals/resurrection)
-                - [Purify Vex to Allay](entry://familiar_rituals/resurrect_allay)
-                - [Resurrect Mobs](entry://familiar_rituals/great_resurrection)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                """, this.entryLink("Resurrect Familiar", FamiliarRitualsCategory.CATEGORY_ID, ResurrectFamiliarEntry.ENTRY_ID),
+                this.entryLink("Purify Vex to Allay", "familiar_rituals", "resurrect_allay"),
+                this.entryLink("Resurrect Mobs", "familiar_rituals", "great_resurrection"));
 
     }
 

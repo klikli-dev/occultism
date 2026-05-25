@@ -45,13 +45,12 @@ public class PossessAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
-                - [Possessed Shulker](entry://possession_rituals/possess_shulker)
-                - [Possessed Elder Guardian](entry://possession_rituals/possess_elder_guardian)
-                - [Possessed Hoglin](entry://possession_rituals/possess_hoglin)
-                - [Possessed Warden](entry://possession_rituals/possess_warden)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                """, this.entryLink("Guardian Familiar", "familiar_rituals", "familiar_guardian"), this.entryLink("Possessed Shulker", "possession_rituals", "possess_shulker"), this.entryLink("Possessed Elder Guardian", "possession_rituals", "possess_elder_guardian"), this.entryLink("Possessed Hoglin", "possession_rituals", "possess_hoglin"), this.entryLink("Possessed Warden", "possession_rituals", "possess_warden"));
 
     }
 

@@ -46,15 +46,14 @@ public class CraftFoliotEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Research Fragment Dust](entry://pentacles/lime_chalk)
-                - [Nature Paste](entry://pentacles/green_chalk)
-                - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
-                - [Fragile Soul Gem](entry://crafting_rituals/fragile_soul_gem)
-                - [Vitality Compass](entry://crafting_rituals/vitality_compass)
-                - [Knowledge Tablet](entry://crafting_rituals/knowledge_tablet)
-                - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                """, this.entryLink("Research Fragment Dust", "pentacles", "lime_chalk"), this.entryLink("Nature Paste", "pentacles", "green_chalk"), this.entryLink("Infused Lenses", "crafting_rituals", "craft_otherworld_goggles"), this.entryLink("Fragile Soul Gem", "crafting_rituals", "fragile_soul_gem"), this.entryLink("Vitality Compass", "crafting_rituals", "vitality_compass"), this.entryLink("Knowledge Tablet", "crafting_rituals", "knowledge_tablet"), this.entryLink("Foliot Miner", "crafting_rituals", "craft_foliot_miner"));
 
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -62,13 +61,12 @@ public class CraftFoliotEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Surprisingsly Substantial Satchel](entry://crafting_rituals/craft_satchel)
-                - [Apprentice Ritual Satchel](entry://crafting_rituals/apprentice_ritual_satchel)
-                - [Storage Actuator Base](entry://crafting_rituals/craft_storage_controller_base)
-                - [Stable Wormhole](entry://crafting_rituals/craft_stable_wormhole)
-                - [Storage Stabilizer Tier 1](entry://crafting_rituals/craft_stabilizer_tier1)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                """, this.entryLink("Surprisingsly Substantial Satchel", "crafting_rituals", "craft_satchel"), this.entryLink("Apprentice Ritual Satchel", "crafting_rituals", "apprentice_ritual_satchel"), this.entryLink("Storage Actuator Base", "crafting_rituals", "craft_storage_controller_base"), this.entryLink("Stable Wormhole", "crafting_rituals", "craft_stable_wormhole"), this.entryLink("Storage Stabilizer Tier 1", "crafting_rituals", "craft_stabilizer_tier1"));
 
     }
 

@@ -48,18 +48,17 @@ public class SummonFoliotEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Foliot Crusher](entry://summoning_rituals/summon_crusher_t1)
-                - [Foliot Smelter](entry://summoning_rituals/summon_smelter_t1)
-                - [Foliot Crystallizer](entry://summoning_rituals/summon_crystallizer_t1)
-                - [Foliot Lumberjack](entry://summoning_rituals/summon_lumberjack)
-                - [Foliot Farmer](entry://summoning_rituals/summon_farmer)
-                - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
-                - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
-                - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
-                - [Otherrock Trader](entry://summoning_rituals/summon_otherrock_trader)
-                - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                - {8}
+                - {9}
+                """, this.entryLink("Foliot Crusher", "summoning_rituals", "summon_crusher_t1"), this.entryLink("Foliot Smelter", "summoning_rituals", "summon_smelter_t1"), this.entryLink("Foliot Crystallizer", "summoning_rituals", "summon_crystallizer_t1"), this.entryLink("Foliot Lumberjack", "summoning_rituals", "summon_lumberjack"), this.entryLink("Foliot Farmer", "summoning_rituals", "summon_farmer"), this.entryLink("Foliot Transporter", "summoning_rituals", "summon_transport_items"), this.entryLink("Foliot Janitor", "summoning_rituals", "summon_cleaner"), this.entryLink("Otherstone Trader", "summoning_rituals", "summon_otherstone_trader"), this.entryLink("Otherrock Trader", "summoning_rituals", "summon_otherrock_trader"), this.entryLink("Otherworld Sapling Trader", "summoning_rituals", "summon_otherworld_sapling_trader"));
 
     }
 

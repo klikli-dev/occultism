@@ -51,9 +51,8 @@ public class PurpleChalkEntry extends EntryProvider {
                 .withText(this.context.pageText()));
         this.pageText("""
                         You do not need to visit the {0} to obtain Endstone. You can summon a
-                         [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
-                        """,
-                this.color("The End", ChatFormatting.LIGHT_PURPLE));
+                         {1} which has a high chance to drop it.
+                        """, this.color("The End", ChatFormatting.LIGHT_PURPLE), this.entryLink("Possessed Endermite", "possession_rituals", "possess_endermite"));
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))

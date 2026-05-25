@@ -46,15 +46,14 @@ public class CraftDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Infused Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
-                - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
-                - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
-                - [Entity Wormhole](entry://crafting_rituals/entity_wormhole)
-                - [Dimensional Extractor](entry://crafting_rituals/dimensional_extractor)
-                - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
-                - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                """, this.entryLink("Infused Pickaxe", "crafting_rituals", "craft_infused_pickaxe"), this.entryLink("Soul Gem", "crafting_rituals", "craft_soul_gem"), this.entryLink("Familiar Ring", "crafting_rituals", "craft_familiar_ring"), this.entryLink("Entity Wormhole", "crafting_rituals", "entity_wormhole"), this.entryLink("Dimensional Extractor", "crafting_rituals", "dimensional_extractor"), this.entryLink("Dimensional Mineshaft", "crafting_rituals", "craft_dimensional_mineshaft"), this.entryLink("Djinni Ore Miner", "crafting_rituals", "craft_djinni_miner"));
 
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -62,15 +61,14 @@ public class CraftDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Ender Satchel](entry://crafting_rituals/ender_satchel)
-                - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
-                - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
-                - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
-                - [Spirit Grindstone](entry://crafting_rituals/spirit_grindstone)
-                - [Repair Chalks](entry://crafting_rituals/repair)
-                - [Gray Paste](entry://pentacles/gray_chalk)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                """, this.entryLink("Ender Satchel", "crafting_rituals", "ender_satchel"), this.entryLink("Dimensional Matrix", "crafting_rituals", "craft_dimensional_matrix"), this.entryLink("Storage Accessor", "crafting_rituals", "craft_storage_remote"), this.entryLink("Storage Stabilizer Tier 2", "crafting_rituals", "craft_stabilizer_tier2"), this.entryLink("Spirit Grindstone", "crafting_rituals", "spirit_grindstone"), this.entryLink("Repair Chalks", "crafting_rituals", "repair"), this.entryLink("Gray Paste", "pentacles", "gray_chalk"));
 
     }
 

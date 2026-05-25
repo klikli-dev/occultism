@@ -46,16 +46,15 @@ public class CraftAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Dimensional Battlefield](entry://crafting_rituals/dimensional_battlefield)
-                - [Iesnium Ritual Bowl](entry://crafting_rituals/craft_iesnium_sacrificial_bowl)
-                - [Iesnium Butcher Knife](entry://crafting_rituals/iesnium_butcher_knife)
-                - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
-                - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
-                - [Artisanal Ritual Satchel](entry://crafting_rituals/artisanal_ritual_satchel)
-                - [Repair Items](entry://crafting_rituals/repair)
-                - [Whiterite Dust](entry://pentacles/black_chalk)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                """, this.entryLink("Dimensional Battlefield", "crafting_rituals", "dimensional_battlefield"), this.entryLink("Iesnium Ritual Bowl", "crafting_rituals", "craft_iesnium_sacrificial_bowl"), this.entryLink("Iesnium Butcher Knife", "crafting_rituals", "iesnium_butcher_knife"), this.entryLink("Storage Stabilizer Tier 3", "crafting_rituals", "craft_stabilizer_tier3"), this.entryLink("Afrit Deep Ore Miner", "crafting_rituals", "craft_afrit_miner"), this.entryLink("Artisanal Ritual Satchel", "crafting_rituals", "artisanal_ritual_satchel"), this.entryLink("Repair Items", "crafting_rituals", "repair"), this.entryLink("Whiterite Dust", "pentacles", "black_chalk"));
 
     }
 

@@ -50,9 +50,8 @@ public class PinkChalkEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                 To obtain the [](item://occultism:demonic_meat) for [](item://occultism:chalk_pink) you need to
-                 [summon and kill a Possessed Zombified Piglin](entry://possession_rituals/possess_zombie_piglin)
-                """
-        );
+                 {0}
+                """, this.entryLink("summon and kill a Possessed Zombified Piglin", "possession_rituals", "possess_zombie_piglin"));
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_pink_impure"))

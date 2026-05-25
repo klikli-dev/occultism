@@ -49,9 +49,8 @@ public class SummonUnboundAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Afrit Essence](entry://summoning_rituals/afrit_essence)
-                """
-        );
+                - {0}
+                """, this.entryLink("Afrit Essence", "summoning_rituals", "afrit_essence"));
 
     }
 

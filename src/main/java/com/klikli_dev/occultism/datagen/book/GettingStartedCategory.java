@@ -515,25 +515,24 @@ public class GettingStartedCategory extends CategoryProvider {
         this.context().page("how_to_obtain");
         var howToObtain = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         The most comfortable, and most *expensive*, way to obtain this ability, is to wear spectacles
                         infused with spirits, that *lend* their sight to the wearer.
                         A slightly more nauseating, but **very affordable** alternative is the consumption of certain herbs,
-                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) most prominent among them.
-                        """.formatted(DEMONS_DREAM));
+                        {0} most prominent among them.
+                        """, this.entryLink(DEMONS_DREAM, "getting_started", "demons_dream")));
 
         this.context().page("otherworld_goggles");
         var otherworldGoggles = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
-                        [These goggles](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
+        this.lang().add(this.context().pageText(), this.format("""
+                        {0} allow to see even more hidden Otherworld blocks,
                         however they do not allow harvesting those materials.
-                        Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
+                        Low-tier materials can be harvested by consuming {1},
                         but more valuable materials require special tools.
-                        """.formatted(DEMONS_DREAM));
+                        """, this.entryLink("These goggles", "crafting_rituals", "craft_otherworld_goggles"),
+                this.entryLink(DEMONS_DREAM, "getting_started", "demons_dream")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -552,12 +551,11 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Divination");
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         To make it easier to get started, the materials obtained by divination now also have crafting recipes.
                         **If you want the full experience, skip the following recipe page and move on to the
-                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
-                        """);
+                        {0}.**
+                        """, this.entryLink("divination instructions", "getting_started", "divination_rod@divination_instructions")));
 
         this.context().page("otherstone_recipe");
         var otherstoneRecipe = BookSpiritFireRecipePageModel.create()
@@ -568,12 +566,11 @@ public class GettingStartedCategory extends CategoryProvider {
         var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         **Beware**: the tree growing from the sapling will look like a normal oak tree.
-                        You need to activate the [Third Eye](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                        You need to activate the {0}
                         to harvest the Otherworld Logs and Leaves.
-                        """);
+                        """, this.entryLink("Third Eye", "getting_started", "demons_dream")));
 
         this.context().page("divination_rod");
         var divinationRod = BookSpotlightPageModel.create()
@@ -783,11 +780,10 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withText(this.context().pageText());
 
         this.lang().add(this.context().pageTitle(), "More Information");
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         To find out more about the Theurgy Divination Rod, check out *"The Hermetica"*, the Guidebook for Theurgy.
-                        [This Entry](entry://theurgy:the_hermetica/getting_started/about_divination_rods) has more information about the Theurgy Divination Rod.
-                        """);
+                        {0} has more information about the Theurgy Divination Rod.
+                        """, "[This Entry](entry://theurgy:the_hermetica/getting_started/about_divination_rods)"));
 
         this.context().page("recipe_hermetica");
         var recipeHermetica = BookCraftingRecipePageModel.create()
@@ -900,13 +896,12 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
                 .withText(this.context().pageText())
                 .withAnchor("white_chalk");
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         White chalk is used to draw the most basic pentacles, such as for our first ritual.
                         \\
                         \\
-                        More powerful summonings require appropriate more advanced chalk, see [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks) for more information.
-                        """);
+                        More powerful summonings require appropriate more advanced chalk, see {0} for more information.
+                        """, this.entryLink("Chalks", "getting_started", "chalks")));
 
         this.context().page("burnt_otherstone_recipe");
         var burntOtherstoneRecipe = BookSmeltingRecipePageModel.create()
@@ -1000,11 +995,10 @@ public class GettingStartedCategory extends CategoryProvider {
         var goldenSacrificialBowlSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
-                        Once everything has been set up and you are ready to start, this special ritual bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
-                        usually a [Book of Binding](entry://getting_started/books_of_binding).
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        Once everything has been set up and you are ready to start, this special ritual bowl is used to activate the ritual by [#]({0})right-clicking[#]() it with the activation item,
+                        usually a {1}.
+                        """, COLOR_PURPLE, this.entryLink("Book of Binding", "getting_started", "books_of_binding")));
 
         this.context().page("golden_sacrificial_bowl_recipe");
         var goldenSacrificialBowlRecipe = BookCraftingRecipePageModel.create()
@@ -1268,11 +1262,10 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Storing Spirits");
-        this.lang().add(this.context().pageText(),
-                """
-                        To store spirits that do not have a fitting book of calling, you can use a [Soul Gem](entry://crafting_rituals/craft_soul_gem).
+        this.lang().add(this.context().pageText(), this.format("""
+                        To store spirits that do not have a fitting book of calling, you can use a {0}.
                         Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
-                        """);
+                        """, this.entryLink("Soul Gem", "crafting_rituals", "craft_soul_gem")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1297,12 +1290,13 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "The Ritual (tm)");
-        this.lang().add(this.context().pageText(),
-                """
-                        These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
+        this.lang().add(this.context().pageText(), this.format("""
+                        These pages will walk the gentle reader through the process of the {1} step by step.
                         \\
-                        We **start** by placing the [](item://occultism:golden_sacrificial_bowl) and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot) as seen on the left around it.
-                        """.formatted(COLOR_PURPLE));
+                        We **start** by placing the [](item://occultism:golden_sacrificial_bowl) and drawing the appropriate pentacle, {2} as seen on the left around it.
+                        """, COLOR_PURPLE,
+                this.entryLink("first ritual", "summoning_rituals", "summon_crusher_t1"),
+                this.entryLink("Aviar's Circle", "pentacles", "summon_foliot")));
 
         this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.create()
@@ -1521,13 +1515,14 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Ritual stuck?");
-        this.lang().add(this.context().pageText(),
-                """
-                        If a ritual appears stuck - no items being consumed - you should see grey particles around the [](item://occultism:golden_sacrificial_bowl). If this is the case the ritual requires you to either [use a specific item](entry://rituals/item_use) or [sacrifice a specific mob](entry://rituals/sacrifice).
+        this.lang().add(this.context().pageText(), this.format("""
+                        If a ritual appears stuck - no items being consumed - you should see grey particles around the [](item://occultism:golden_sacrificial_bowl). If this is the case the ritual requires you to either {0} or {1}.
                         \\
                         \\
-                        Find the ritual in the [Rituals](category://rituals) category and check for instructions.
-                        """);
+                        Find the ritual in the {2} category and check for instructions.
+                        """, this.entryLink("use a specific item", "rituals", "item_use"),
+                this.entryLink("sacrifice a specific mob", "rituals", "sacrifice"),
+                this.categoryLink("Rituals", "rituals")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1558,20 +1553,18 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Chalks");
-        this.lang().add(this.context().pageText(),
-                """
-                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
-                        """);
+        this.lang().add(this.context().pageText(), this.format("""
+                        For more advanced rituals the basic {0} is not sufficient. Instead chalks made from more arcane materials are required.
+                        """, this.entryLink("White Chalk", "getting_started", "ritual_prep_chalk")));
 
         this.context().page("more");
         var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Pentacle Category");
-        this.lang().add(this.context().pageText(),
-                """
-                        Follow the progression in [Pentacle page](category://pentacles) to get the 16 chalks and do all pentacles,
-                        """);
+        this.lang().add(this.context().pageText(), this.format("""
+                        Follow the progression in {0} to get the 16 chalks and do all pentacles,
+                        """, this.categoryLink("Pentacle page", "pentacles")));
 
         this.context().page("fire");
         var fire = BookTextPageModel.create()
@@ -1606,23 +1599,21 @@ public class GettingStartedCategory extends CategoryProvider {
         var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
-                        The [](item://occultism:otherworld_goggles) are what advanced summoners use to see the [#](%1$s)Otherworld[#](), to avoid the negative side effects of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream).
+        this.lang().add(this.context().pageText(), this.format("""
+                        The [](item://occultism:otherworld_goggles) are what advanced summoners use to see the [#]({0})Otherworld[#](), to avoid the negative side effects of {1}.
                         \\
                         \\
                         Making your first pair of these is seen by many as a rite of passage.
-                        """.formatted(COLOR_PURPLE));
+                        """, COLOR_PURPLE, this.entryLink("", "getting_started", "demons_dream")));
 
         this.context().page("crafting");
         var crafting = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting Goggles");
-        this.lang().add(this.context().pageText(),
-                """
-                        Crafting these goggles is a multi-step process described in detail in the Entry about [Crafting Otherworld Goggles](entry://crafting_rituals/craft_otherworld_goggles).
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        Crafting these goggles is a multi-step process described in detail in the Entry about {1}.
+                        """, COLOR_PURPLE, this.entryLink("Crafting Otherworld Goggles", "crafting_rituals", "craft_otherworld_goggles")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1670,13 +1661,12 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting");
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         After preparing the raw materials, the pickaxe needs to be infused with a spirit.
                         \\
                         \\
-                        Follow the instructions at [Craft Infuse Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
-                        """.formatted(COLOR_PURPLE));
+                        Follow the instructions at {1}
+                        """, COLOR_PURPLE, this.entryLink("Craft Infuse Pickaxe", "crafting_rituals", "craft_infused_pickaxe")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1712,26 +1702,26 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Where to find it");
-        this.lang().add(this.context().pageText(),
-                """
-                        Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
+        this.lang().add(this.context().pageText(), this.format("""
+                        Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear {1}.
                         \\
                         \\
-                        To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
-                        """.formatted(COLOR_PURPLE));
+                        To make searching for it simpler, attune a {2} to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
+                        """, COLOR_PURPLE,
+                this.entryLink("Otherworld Goggles", "getting_started", "otherworld_goggles"),
+                this.entryLink("Divination Rod", "getting_started", "divination_rod")));
 
         this.context().page("how");
         var how = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "How to mine it");
-        this.lang().add(this.context().pageText(),
-                """
-                        Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
+        this.lang().add(this.context().pageText(), this.format("""
+                        Iesnium can only be mined with the {1} or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
                         \\
                         \\
                         After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
-                        """.formatted(COLOR_PURPLE));
+                        """, COLOR_PURPLE, this.entryLink("Infused Pickaxe", "getting_started", "infused_pickaxe")));
 
         this.context().page("processing");
         var processing = BookTextPageModel.create()
@@ -1788,10 +1778,9 @@ public class GettingStartedCategory extends CategoryProvider {
         var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()))
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
-                        Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        Like the {1}, this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
+                        """, COLOR_PURPLE, this.entryLink("Infused Pickaxe", "getting_started", "infused_pickaxe")));
 
         this.context().page("crafting");
         var crafting = BookCraftingRecipePageModel.create()
@@ -1860,11 +1849,12 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting");
-        this.lang().add(this.context().pageText(),
-                """
-                        By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#]().
-                        See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        By summoning a spirit into a Magic Lamp and placing it in a {1} it can be made to mine for you in a [#]({0})Mining Dimension[#]().
+                        See {2} and the subsequent entries for information on how to craft spirit miners.
+                        """, COLOR_PURPLE,
+                this.entryLink("Dimensional Mineshaft (see next step)", "getting_started", "mineshaft"),
+                this.entryLink("Foliot Miner", "crafting_rituals", "craft_foliot_miner")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1895,10 +1885,11 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting");
-        this.lang().add(this.context().pageText(),
-                """
-                        See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        See {1} in the {2} Category.
+                        """, COLOR_PURPLE,
+                this.entryLink("Dimensional Mineshaft", "crafting_rituals", "craft_dimensional_mineshaft"),
+                this.categoryLink("Binding Rituals", "crafting_rituals")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1933,23 +1924,23 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Possession Rituals");
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
                         \\
                         \\
-                        You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
-                        """.formatted(COLOR_PURPLE));
+                        You probably will want to start by summoning a {1} to get [](item://minecraft:end_stone) to craft {2}.
+                        """, COLOR_PURPLE,
+                this.entryLink("Possessed Endermite", "possession_rituals", "possess_endermite"),
+                this.entryLink("Advanced Chalks", "getting_started", "chalks")));
 
         this.context().page("more");
         var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
-        this.lang().add(this.context().pageText(),
-                """
-                        To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        To find out more about Possession Rituals, see the {1} Category.
+                        """, COLOR_PURPLE, this.categoryLink("Possession Rituals", "possession_rituals")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1972,23 +1963,21 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Familiar Rituals");
-        this.lang().add(this.context().pageText(),
-                """
+        this.lang().add(this.context().pageText(), this.format("""
                         Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
                         \\
                         \\
-                        Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
-                        """.formatted(COLOR_PURPLE));
+                        Store them in a {1} to equip them as a curio.
+                        """, COLOR_PURPLE, this.entryLink("Familiar Ring", "crafting_rituals", "craft_familiar_ring")));
 
         this.context().page("more");
         var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
-        this.lang().add(this.context().pageText(),
-                """
-                        To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        To find more about Familiars, see the {1} Category.
+                        """, COLOR_PURPLE, this.categoryLink("Familiar Rituals", "familiar_rituals")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -2011,20 +2000,18 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Summoning Rituals");
-        this.lang().add(this.context().pageText(),
-                """
-                        Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the {1}, was a summoning ritual.
+                        """, COLOR_PURPLE, this.entryLink("Foliot Crusher", "getting_started", "first_ritual")));
 
         this.context().page("more");
         var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
-        this.lang().add(this.context().pageText(),
-                """
-                        To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        To find more about Summoning Rituals, see the {1} Category.
+                        """, COLOR_PURPLE, this.categoryLink("Summoning Rituals", "summoning_rituals")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -2057,10 +2044,9 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
-        this.lang().add(this.context().pageText(),
-                """
-                        To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+        this.lang().add(this.context().pageText(), this.format("""
+                        To find more about Infusing items, see the {1} Category.
+                        """, COLOR_PURPLE, this.categoryLink("Infusion Rituals", "crafting_rituals")));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())

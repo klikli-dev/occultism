@@ -43,14 +43,13 @@ public class ContactEldritchSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Eldritch Ancient Miner](entry://crafting_rituals/craft_ancient_miner)
-                - [Storage Stabilizer Tier 5](entry://crafting_rituals/stabilizer_tier5)
-                - [Stabilized Storage](entry://crafting_rituals/craft_stabilized_storage)
-                - [Eldritch Chalice](entry://crafting_rituals/craft_eldritch_chalice)
-                - [Mastery Chalks](entry://crafting_rituals/craft_master_chalks)
-                - [Trinity Gem](entry://crafting_rituals/trinity_gem)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                """, this.entryLink("Eldritch Ancient Miner", "crafting_rituals", "craft_ancient_miner"), this.entryLink("Storage Stabilizer Tier 5", "crafting_rituals", "stabilizer_tier5"), this.entryLink("Stabilized Storage", "crafting_rituals", "craft_stabilized_storage"), this.entryLink("Eldritch Chalice", "crafting_rituals", "craft_eldritch_chalice"), this.entryLink("Mastery Chalks", "crafting_rituals", "craft_master_chalks"), this.entryLink("Trinity Gem", "crafting_rituals", "trinity_gem"));
 
     }
 

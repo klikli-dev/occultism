@@ -45,16 +45,15 @@ public class PossessDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Possessed Enderman](entry://possession_rituals/possess_enderman)
-                - [Possessed Ghast](entry://possession_rituals/possess_ghast)
-                - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)
-                - [Possessed Bee](entry://possession_rituals/possess_bee)
-                - [Possessed Blaze](entry://possession_rituals/possess_blaze)
-                - [Random Animal (Rideable, Special, Villager)](entry://possession_rituals/possess_random_animal)
-                - [Unbound Drikwing](entry://possession_rituals/possess_unbound_otherworld_bird)
-                - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                """, this.entryLink("Possessed Enderman", "possession_rituals", "possess_enderman"), this.entryLink("Possessed Ghast", "possession_rituals", "possess_ghast"), this.entryLink("Possessed Weak Shulker", "possession_rituals", "possess_weak_shulker"), this.entryLink("Possessed Bee", "possession_rituals", "possess_bee"), this.entryLink("Possessed Blaze", "possession_rituals", "possess_blaze"), this.entryLink("Random Animal (Rideable, Special, Villager)", "possession_rituals", "possess_random_animal"), this.entryLink("Unbound Drikwing", "possession_rituals", "possess_unbound_otherworld_bird"), this.entryLink("Drikwing Familiar", "familiar_rituals", "familiar_otherworld_bird"));
 
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -62,17 +61,16 @@ public class PossessDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Bat Familiar](entry://familiar_rituals/familiar_bat)
-                - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
-                - [Devil Familiar](entry://familiar_rituals/familiar_devil)
-                - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
-                - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
-                - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)
-                - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
-                - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
-                - [Mummy Familiar](entry://familiar_rituals/familiar_mummy)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                - {8}
+                """, this.entryLink("Bat Familiar", "familiar_rituals", "familiar_bat"), this.entryLink("Cthulhu Familiar", "familiar_rituals", "familiar_cthulhu"), this.entryLink("Devil Familiar", "familiar_rituals", "familiar_devil"), this.entryLink("Dragon Familiar", "familiar_rituals", "familiar_dragon"), this.entryLink("Headless Ratman Familiar", "familiar_rituals", "familiar_headless"), this.entryLink("Beholder Familiar", "familiar_rituals", "familiar_beholder"), this.entryLink("Fairy Familiar", "familiar_rituals", "familiar_fairy"), this.entryLink("Chimera Familiar", "familiar_rituals", "familiar_chimera"), this.entryLink("Mummy Familiar", "familiar_rituals", "familiar_mummy"));
 
     }
 

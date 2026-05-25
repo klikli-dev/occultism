@@ -13,12 +13,12 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireReci
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class ResurrectionEntry extends EntryProvider {
+public class ResurrectFamiliarEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "resurrection";
 
 
-    public ResurrectionEntry(CategoryProvider parent) {
+    public ResurrectFamiliarEntry(CategoryProvider parent) {
         super(parent);
     }
 

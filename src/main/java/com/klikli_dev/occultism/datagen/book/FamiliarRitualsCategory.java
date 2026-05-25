@@ -13,7 +13,7 @@ import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.DemonicPartnerEntry;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.GreatResurrectionEntry;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.IesniumGolemEntry;
-import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectionEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectFamiliarEntry;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 
@@ -55,7 +55,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
 
-        var resurrection = new ResurrectionEntry(this).generate('a');
+        var resurrection = new ResurrectFamiliarEntry(this).generate('a');
         resurrection.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(resurrectionID));
         var resurrectAllay = this.add(this.makeResurrectAllayEntry(this.entryMap, 'H'));

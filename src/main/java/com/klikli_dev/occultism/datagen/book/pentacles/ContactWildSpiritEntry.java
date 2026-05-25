@@ -46,32 +46,30 @@ public class ContactWildSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Wither Skeleton Skull](entry://possession_rituals/wither_skull)
-                - [Horde Husk](entry://possession_rituals/horde_desert)
-                - [Horde Drowned](entry://possession_rituals/horde_drowned)
-                - [Horde Creeper](entry://possession_rituals/horde_creeper)
-                - [Horde Silverfish](entry://possession_rituals/horde_silverfish)
-                - [Trial Key](entry://possession_rituals/possess_weak_breeze)
-                - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
-                - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
-                - [Wild Illager Invasion](entry://possession_rituals/horde_illager)
-                - [Group of Random Animal](entry://possession_rituals/wild_random_animal)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                - {8}
+                - {9}
+                """, this.entryLink("Wither Skeleton Skull", "possession_rituals", "wither_skull"), this.entryLink("Horde Husk", "possession_rituals", "horde_desert"), this.entryLink("Horde Drowned", "possession_rituals", "horde_drowned"), this.entryLink("Horde Creeper", "possession_rituals", "horde_creeper"), this.entryLink("Horde Silverfish", "possession_rituals", "horde_silverfish"), this.entryLink("Trial Key", "possession_rituals", "possess_weak_breeze"), this.entryLink("Ominous Trial Key", "possession_rituals", "possess_breeze"), this.entryLink("Heavy Core", "possession_rituals", "possess_strong_breeze"), this.entryLink("Wild Illager Invasion", "possession_rituals", "horde_illager"), this.entryLink("Group of Random Animal", "possession_rituals", "wild_random_animal"));
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
-                - [Budding Amethyst](entry://crafting_rituals/craft_budding_amethyst)
-                - [Reinforced Deepslate](entry://crafting_rituals/craft_reinforced_deepslate)
-                - [Bee Nest](entry://crafting_rituals/bee_nest)
-                - [Bell](entry://crafting_rituals/bell)
-                - [Horse Armors](entry://crafting_rituals/animal_armor)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                """, this.entryLink("Wild Armor Trim Smithing Template", "crafting_rituals", "craft_wild_trim"), this.entryLink("Budding Amethyst", "crafting_rituals", "craft_budding_amethyst"), this.entryLink("Reinforced Deepslate", "crafting_rituals", "craft_reinforced_deepslate"), this.entryLink("Bee Nest", "crafting_rituals", "bee_nest"), this.entryLink("Bell", "crafting_rituals", "bell"), this.entryLink("Horse Armors", "crafting_rituals", "animal_armor"));
     }
 
     @Override

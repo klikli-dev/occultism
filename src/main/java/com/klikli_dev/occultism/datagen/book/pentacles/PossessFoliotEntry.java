@@ -45,19 +45,18 @@ public class PossessFoliotEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Possessed Endermite](entry://possession_rituals/possess_endermite)
-                - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
-                - [Possessed Witch](entry://possession_rituals/possess_witch)
-                - [Possessed Phantom](entry://possession_rituals/possess_phantom)
-                - [Unbound Parrot](entry://possession_rituals/possess_unbound_parrot)
-                - [Random Animal (Common, Water, Small)](entry://possession_rituals/possess_random_animal)
-                - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
-                - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
-                - [Deer Familiar](entry://familiar_rituals/familiar_deer)
-                - [Blacksmith Familiar](entry://familiar_rituals/familiar_blacksmith)
-                - [Beaver Familiar](entry://familiar_rituals/familiar_beaver)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                - {8}
+                - {9}
+                - {10}
+                """, this.entryLink("Possessed Endermite", "possession_rituals", "possess_endermite"), this.entryLink("Possessed Skeleton", "possession_rituals", "possess_skeleton"), this.entryLink("Possessed Witch", "possession_rituals", "possess_witch"), this.entryLink("Possessed Phantom", "possession_rituals", "possess_phantom"), this.entryLink("Unbound Parrot", "possession_rituals", "possess_unbound_parrot"), this.entryLink("Random Animal (Common, Water, Small)", "possession_rituals", "possess_random_animal"), this.entryLink("Parrot Familiar", "familiar_rituals", "familiar_parrot"), this.entryLink("Greedy Familiar", "familiar_rituals", "familiar_greedy"), this.entryLink("Deer Familiar", "familiar_rituals", "familiar_deer"), this.entryLink("Blacksmith Familiar", "familiar_rituals", "familiar_blacksmith"), this.entryLink("Beaver Familiar", "familiar_rituals", "familiar_beaver"));
 
     }
 

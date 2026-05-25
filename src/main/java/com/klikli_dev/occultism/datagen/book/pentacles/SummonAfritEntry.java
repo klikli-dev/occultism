@@ -47,13 +47,12 @@ public class SummonAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Afrit Crusher](entry://summoning_rituals/summon_crusher_t3)
-                - [Afrit Smelter](entry://summoning_rituals/summon_smelter_t3)
-                - [Afrit Crystallizer](entry://summoning_rituals/summon_crystallizer_t3)
-                - [Thunderstorm](entry://summoning_rituals/weather_magic@thunder)
-                - [Rainy Weather](entry://summoning_rituals/weather_magic@rain)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                """, this.entryLink("Afrit Crusher", "summoning_rituals", "summon_crusher_t3"), this.entryLink("Afrit Smelter", "summoning_rituals", "summon_smelter_t3"), this.entryLink("Afrit Crystallizer", "summoning_rituals", "summon_crystallizer_t3"), this.entryLink("Thunderstorm", "summoning_rituals", "weather_magic@thunder"), this.entryLink("Rainy Weather", "summoning_rituals", "weather_magic@rain"));
 
     }
 

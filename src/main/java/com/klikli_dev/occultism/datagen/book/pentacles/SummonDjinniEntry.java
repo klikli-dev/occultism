@@ -31,16 +31,15 @@ public class SummonDjinniEntry extends EntryProvider {
                         **Purpose:** Summon a {0}\\
                         \\
                         Developed by {1} during the Third Era, the {2} is the go-to pentacle for {3} summonings ever since.
-                         Skeleton skulls ([Obtain here](entry://possession_rituals/possess_skeleton))
+                         Skeleton skulls ({5})
                          and {4} provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
                         
-                        """,
-                this.color("Djinni", ChatFormatting.DARK_PURPLE),
+                        """, this.color("Djinni", ChatFormatting.DARK_PURPLE),
                 this.color("Ophyx", ChatFormatting.LIGHT_PURPLE),
                 this.color("Calling", ChatFormatting.LIGHT_PURPLE),
                 this.color("Djinni", ChatFormatting.DARK_PURPLE),
-                this.color("Lime Chalk", ChatFormatting.DARK_PURPLE)
-        );
+                this.color("Lime Chalk", ChatFormatting.DARK_PURPLE),
+                this.entryLink("Obtain here", "possession_rituals", "possess_skeleton"));
 
         this.page("multiblock", () -> BookMultiblockPageModel.create().withMultiblockId(this.modLoc(ENTRY_ID)));
 
@@ -50,17 +49,16 @@ public class SummonDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Djinni Crusher](entry://summoning_rituals/summon_crusher_t2)
-                - [Djinni Smelter](entry://summoning_rituals/summon_smelter_t2)
-                - [Djinni Crystallizer](entry://summoning_rituals/summon_crystallizer_t2)
-                - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
-                - [Gem Gambler](entry://summoning_rituals/summon_gambler)
-                - [Wondering Trader](entry://summoning_rituals/summon_wondering)
-                - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
-                - [Time Magic](entry://summoning_rituals/time_magic)
-                - [Demonic Partner](entry://familiar_rituals/demonic_partner)
-                """
-        );
+                - {0}
+                - {1}
+                - {2}
+                - {3}
+                - {4}
+                - {5}
+                - {6}
+                - {7}
+                - {8}
+                """, this.entryLink("Djinni Crusher", "summoning_rituals", "summon_crusher_t2"), this.entryLink("Djinni Smelter", "summoning_rituals", "summon_smelter_t2"), this.entryLink("Djinni Crystallizer", "summoning_rituals", "summon_crystallizer_t2"), this.entryLink("Djinni Machine Operator", "summoning_rituals", "summon_manage_machine"), this.entryLink("Gem Gambler", "summoning_rituals", "summon_gambler"), this.entryLink("Wondering Trader", "summoning_rituals", "summon_wondering"), this.entryLink("Clear Weather", "summoning_rituals", "weather_magic@clear"), this.entryLink("Time Magic", "summoning_rituals", "time_magic"), this.entryLink("Demonic Partner", "familiar_rituals", "demonic_partner"));
 
     }
 

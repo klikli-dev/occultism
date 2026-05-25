@@ -49,9 +49,8 @@ public class BrownChalkEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                 To obtain the [](item://occultism:cruelty_essence) for [](item://occultism:chalk_brown) you need to
-                 [summon and kill a Mercy Goat](entry://possession_rituals/possess_goat)
-                """
-        );
+                 {0}
+                """, this.entryLink("summon and kill a Mercy Goat", "possession_rituals", "possess_goat"));
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_brown_impure"))

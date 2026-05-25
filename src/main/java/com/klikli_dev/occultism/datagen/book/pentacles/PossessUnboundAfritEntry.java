@@ -46,10 +46,9 @@ public class PossessUnboundAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Possessed Zombified Piglin](entry://possession_rituals/possess_zombie_piglin)
-                - [Possessed Guardian](entry://possession_rituals/possess_guardian)
-                """
-        );
+                - {0}
+                - {1}
+                """, this.entryLink("Possessed Zombified Piglin", "possession_rituals", "possess_zombie_piglin"), this.entryLink("Possessed Guardian", "possession_rituals", "possess_guardian"));
 
     }
 
