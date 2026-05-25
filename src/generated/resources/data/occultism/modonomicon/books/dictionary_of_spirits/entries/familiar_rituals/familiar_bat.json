@@ -10,6 +10,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_djinni"
   },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_bat.description",
   "icon": "occultism:textures/gui/book/bat_familiar.png",
   "id": "occultism:familiar_rituals/familiar_bat",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_bat.name",

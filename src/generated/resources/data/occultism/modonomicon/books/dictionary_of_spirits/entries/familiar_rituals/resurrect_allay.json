@@ -10,6 +10,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/resurrect_spirit"
   },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.description",
   "icon": "occultism:textures/gui/book/allay.png",
   "id": "occultism:familiar_rituals/resurrect_allay",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.name",

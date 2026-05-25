@@ -1,9 +1,6 @@
 package com.klikli_dev.occultism.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
-import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
@@ -64,7 +61,8 @@ public class StorageCategory extends CategoryProvider {
 
         var overview = this.add(new StorageOverviewEntry(this).generate('0'))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var returnToCrafting = this.add(this.makeReturnToCraftingEntry(this.entryMap));
+        var returnToCrafting = this.add(new ReturnToCraftingEntry(this).generate('9'));
+        returnToCrafting.withCategoryToOpen(this.modLoc("crafting_rituals"));
         returnToCrafting.withParent(BookEntryParentModel.create(overview.getId()));
 
         var storageController = this.add(new ControllerEntry(this).generate('c'));
@@ -107,14 +105,4 @@ public class StorageCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
     }
 
-    private BookEntryModel makeReturnToCraftingEntry(CategoryEntryMap entryMap) {
-        this.context().entry("return_to_crafting");
-        this.lang().add(this.context().entryName(), "Return to Binding Rituals Category");
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(this.modLoc("textures/gui/book/infusion.png"))
-                .withCategoryToOpen(this.modLoc("crafting_rituals"))
-                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
-                .withLocation(entryMap.get('9'));
-    }
 }

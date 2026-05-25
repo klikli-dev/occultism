@@ -1,9 +1,6 @@
 package com.klikli_dev.occultism.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
-import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
@@ -66,7 +63,8 @@ public class SummoningRitualCategory extends CategoryProvider {
 
         var overview = this.add(new SummoningOverviewEntry(this).generate('o'));
         overview.withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var returnToRituals = this.add(this.makeReturnToRitualsEntry(this.entryMap));
+        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate('9'));
+        returnToRituals.withCategoryToOpen(this.modLoc("rituals"));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
 
@@ -162,17 +160,6 @@ public class SummoningRitualCategory extends CategoryProvider {
         maridEssence.withParent(BookEntryParentModel.create(afritEssence.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonUnboundMaridID));
 
-    }
-
-    private BookEntryModel makeReturnToRitualsEntry(CategoryEntryMap entryMap) {
-        this.context().entry("return_to_rituals");
-        this.lang().add(this.context().entryName(), "Return to Rituals Category");
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(this.modLoc("textures/gui/book/robe.png"))
-                .withCategoryToOpen(this.modLoc("rituals"))
-                .withEntryBackground(EntryBackground.CIRCLE_GRAY)
-                .withLocation(entryMap.get('9'));
     }
 
 }

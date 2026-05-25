@@ -11,6 +11,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.return_to_rituals.description",
   "icon": "occultism:textures/gui/book/robe.png",
   "id": "occultism:familiar_rituals/return_to_rituals",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.return_to_rituals.name",

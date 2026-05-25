@@ -10,6 +10,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.description",
   "icon": "occultism:textures/gui/book/familiar_blacksmith.png",
   "id": "occultism:familiar_rituals/familiar_blacksmith",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.name",

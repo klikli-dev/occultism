@@ -10,6 +10,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_afrit"
   },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.description",
   "icon": "occultism:textures/gui/book/familiar_guardian.png",
   "id": "occultism:familiar_rituals/familiar_guardian",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.name",

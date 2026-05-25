@@ -1,0 +1,63 @@
+package com.klikli_dev.occultism.datagen.book.getting_started;
+
+import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
+import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
+import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookBindingCraftingRecipePageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+
+public class BrushEntry extends EntryProvider {
+
+    public static final String ENTRY_ID = "brush";
+
+    public BrushEntry(CategoryProvider parent) {
+        super(parent);
+    }
+
+    @Override
+    protected void generatePages() {
+        this.page("intro", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Next Steps");
+        this.pageText("Chalk is a pain to clean up, by [#](ad03fc)right-clicking[#]() with a brush you can remove it from the world much more easily.\n");
+
+        this.page("brushRecipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/brush")));
+    }
+
+    @Override
+    protected String entryName() {
+        return "Brush";
+    }
+
+    @Override
+    protected String entryDescription() {
+        return "Cleaning up!";
+    }
+
+    @Override
+    protected GuiSprite entryBackground() {
+        return EntryBackground.DEFAULT;
+    }
+
+    @Override
+    protected BookIconModel entryIcon() {
+        return BookIconModel.create(OccultismItems.BRUSH.get());
+    }
+
+    @Override
+    protected String entryId() {
+        return ENTRY_ID;
+    }
+}

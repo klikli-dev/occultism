@@ -11,6 +11,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:storage/overview"
   },
+  "description": "book.occultism.dictionary_of_spirits.storage.return_to_crafting.description",
   "icon": "occultism:textures/gui/book/infusion.png",
   "id": "occultism:storage/return_to_crafting",
   "name": "book.occultism.dictionary_of_spirits.storage.return_to_crafting.name",

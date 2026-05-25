@@ -11,6 +11,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/craft_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.return_to_rituals.description",
   "icon": "occultism:textures/gui/book/robe.png",
   "id": "occultism:crafting_rituals/return_to_rituals",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.return_to_rituals.name",
