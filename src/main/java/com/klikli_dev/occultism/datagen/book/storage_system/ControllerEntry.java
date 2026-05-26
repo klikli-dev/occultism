@@ -132,13 +132,13 @@ public class ControllerEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base")));
         //no text
 
-        this.page("base_ritual", () -> BookCraftingRecipePageModel.create()
+        this.page("controller_ritual", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/storage_controller"))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        This is the actual block that works as a storage, make sure to craft it!
-                         Placing just the {0} from the previous step won't work.
-                        """,
+                   This is the actual block that works as a storage, make sure to craft it!
+                    Placing just the {0} from the previous step won't work.
+                    """,
                 this.itemLink(OccultismBlocks.STORAGE_CONTROLLER_BASE)
         );
     }

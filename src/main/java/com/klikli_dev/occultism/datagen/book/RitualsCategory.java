@@ -31,38 +31,37 @@ public class RitualsCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "___________________",
-                "______________p_s__",
-                "___________________",
-                "________o_i_k______",
-                "___________________",
-                "______________c_f__",
-                "___________________"
-        };
-    }
-
-    @Override
     protected void generateEntries() {
-        var overview = this.add(new RitualOverviewEntry(this).generate('o'));
-        var itemUse = this.add(new ItemUseEntry(this).generate('i'));
-        itemUse.withParent(BookEntryParentModel.create(overview.getId()));
-        var sacrifice = this.add(new SacrificeEntry(this).generate('k'));
-        sacrifice.withParent(BookEntryParentModel.create(itemUse.getId()));
+        var overview = this.add(new RitualOverviewEntry(this).generate());
+        this.layout().entry(overview).at(-1, 0);
 
-        var summoning = this.add(new SummoningRitualsSubcategoryEntry(this).generate('s'));
+        var itemUse = this.add(new ItemUseEntry(this).generate());
+        itemUse.withParent(BookEntryParentModel.create(overview.getId()));
+        this.layout().entry(itemUse).rightOf(overview, 2);
+
+        var sacrifice = this.add(new SacrificeEntry(this).generate());
+        sacrifice.withParent(BookEntryParentModel.create(itemUse.getId()));
+        this.layout().entry(sacrifice).rightOf(itemUse, 2);
+
+        var summoning = this.add(new SummoningRitualsSubcategoryEntry(this).generate());
         summoning.withParent(BookEntryParentModel.create(sacrifice.getId()));
         summoning.withCategoryToOpen(this.modLoc("summoning_rituals")).withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
-        var possession = this.add(new PossessionRitualsSubcategoryEntry(this).generate('p'));
+        this.layout().entry(summoning).rightOf(sacrifice, 4).above(2);
+
+        var possession = this.add(new PossessionRitualsSubcategoryEntry(this).generate());
         possession.withParent(BookEntryParentModel.create(sacrifice.getId()));
         possession.withCategoryToOpen(this.modLoc("possession_rituals")).withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
-        var crafting = this.add(new CraftingRitualsSubcategoryEntry(this).generate('c'));
+        this.layout().entry(possession).rightOf(sacrifice, 2).above(2);
+
+        var crafting = this.add(new CraftingRitualsSubcategoryEntry(this).generate());
         crafting.withParent(BookEntryParentModel.create(sacrifice.getId()));
         crafting.withCategoryToOpen(this.modLoc("crafting_rituals")).withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
-        var familiars = this.add(new FamiliarRitualsSubcategoryEntry(this).generate('f'));
+        this.layout().entry(crafting).rightOf(sacrifice, 2).below(2);
+
+        var familiars = this.add(new FamiliarRitualsSubcategoryEntry(this).generate());
         familiars.withParent(BookEntryParentModel.create(sacrifice.getId()));
         familiars.withCategoryToOpen(this.modLoc("familiar_rituals")).withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+        this.layout().entry(familiars).rightOf(sacrifice, 4).below(2);
 
         itemUse.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
         sacrifice.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));

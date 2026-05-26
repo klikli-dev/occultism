@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "controller_ritual",
+  "recipe_id_1": "occultism:crafting/storage_controller",
+  "sort_number": 9,
+  "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.controller_ritual.text"
+}

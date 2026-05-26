@@ -22,23 +22,6 @@ public class PossessionRitualsCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "________I_A_B_J_P_L_K_C____",
-                "___________________________",
-                "_______D_G_E_F_Q_R_M_N_____",
-                "___________________________",
-                "___r_o_____________________",
-                "___________________________",
-                "_______H_W_Y__S___p_a______",
-                "___________________________",
-                "________V_X_Z_T___d_b______",
-                "___________________________",
-                "______________U____________"
-        };
-    }
-
-    @Override
     protected void generateEntries() {
         String possessFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessFoliotEntry.ENTRY_ID;
         String possessDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID;
@@ -47,104 +30,135 @@ public class PossessionRitualsCategory extends CategoryProvider {
         String possessMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID;
         String possessWildID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID;
 
-        var overview = this.add(new PossessionOverviewEntry(this).generate('o'));
+        var overview = this.add(new PossessionOverviewEntry(this).generate());
         overview.withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        this.layout().entry(overview).at(-8, -1);
 
-        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate('r'));
+        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate());
         returnToRituals.withCategoryToOpen(this.modLoc("rituals"));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        this.layout().entry(returnToRituals).leftOf(overview, 2);
 
-        var possessEndermite = this.add(new PossessEndermiteEntry(this).generate('D'));
+        var possessEndermite = this.add(new PossessEndermiteEntry(this).generate());
         possessEndermite.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        var possessPhantom = this.add(new PossessPhantomEntry(this).generate('I'));
+        this.layout().entry(possessEndermite).rightOf(overview, 2).above(2);
+        var possessPhantom = this.add(new PossessPhantomEntry(this).generate());
         possessPhantom.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        var possessSkeleton = this.add(new PossessSkeletonEntry(this).generate('G'));
+        this.layout().entry(possessPhantom).rightOf(overview, 3).above(4);
+        var possessSkeleton = this.add(new PossessSkeletonEntry(this).generate());
         possessSkeleton.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        var possessWitch = this.add(new PossessWitchEntry(this).generate('A'));
+        this.layout().entry(possessSkeleton).rightOf(overview, 4).above(2);
+        var possessWitch = this.add(new PossessWitchEntry(this).generate());
         possessWitch.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        var possessEnderman = this.add(new PossessEndermanEntry(this).generate('E'));
+        this.layout().entry(possessWitch).rightOf(overview, 5).above(4);
+        var possessEnderman = this.add(new PossessEndermanEntry(this).generate());
         possessEnderman.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        var possessBee = this.add(new PossessBeeEntry(this).generate('B'));
+        this.layout().entry(possessEnderman).rightOf(overview, 6).above(2);
+        var possessBee = this.add(new PossessBeeEntry(this).generate());
         possessBee.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        var possessGhast = this.add(new PossessGhastEntry(this).generate('F'));
+        this.layout().entry(possessBee).rightOf(overview, 7).above(4);
+        var possessGhast = this.add(new PossessGhastEntry(this).generate());
         possessGhast.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        var possessWeakShulker = this.add(new PossessWeakShulkerEntry(this).generate('J'));
+        this.layout().entry(possessGhast).rightOf(overview, 8).above(2);
+        var possessWeakShulker = this.add(new PossessWeakShulkerEntry(this).generate());
         possessWeakShulker.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        var possessBlaze = this.add(new PossessBlazeEntry(this).generate('Q'));
+        this.layout().entry(possessWeakShulker).rightOf(overview, 9).above(4);
+        var possessBlaze = this.add(new PossessBlazeEntry(this).generate());
         possessBlaze.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        var possessZombiePiglin = this.add(new PossessZombiePiglinEntry(this).generate('P'));
+        this.layout().entry(possessBlaze).rightOf(overview, 10).above(2);
+        var possessZombiePiglin = this.add(new PossessZombiePiglinEntry(this).generate());
         possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
-        var possessGuardian = this.add(new PossessGuardianEntry(this).generate('R'));
+        this.layout().entry(possessZombiePiglin).rightOf(overview, 11).above(4);
+        var possessGuardian = this.add(new PossessGuardianEntry(this).generate());
         possessGuardian.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
-        var possessWarden = this.add(new PossessWardenEntry(this).generate('M'));
+        this.layout().entry(possessGuardian).rightOf(overview, 12).above(2);
+        var possessWarden = this.add(new PossessWardenEntry(this).generate());
         possessWarden.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
-        var possessElderGuardian = this.add(new PossessElderGuardianEntry(this).generate('L'));
+        this.layout().entry(possessWarden).rightOf(overview, 14).above(2);
+        var possessElderGuardian = this.add(new PossessElderGuardianEntry(this).generate());
         possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
-        var possessHoglin = this.add(new PossessHoglinEntry(this).generate('N'));
+        this.layout().entry(possessElderGuardian).rightOf(overview, 13).above(4);
+        var possessHoglin = this.add(new PossessHoglinEntry(this).generate());
         possessHoglin.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
-        var possessShulker = this.add(new PossessShulkerEntry(this).generate('K'));
+        this.layout().entry(possessHoglin).rightOf(overview, 16).above(2);
+        var possessShulker = this.add(new PossessShulkerEntry(this).generate());
         possessShulker.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
-        var mercyGoat = this.add(new MercyGoatEntry(this).generate('C'));
+        this.layout().entry(possessShulker).rightOf(overview, 15).above(4);
+        var mercyGoat = this.add(new MercyGoatEntry(this).generate());
         mercyGoat.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessMaridID));
+        this.layout().entry(mercyGoat).rightOf(overview, 17).above(4);
 
-        var witherSkull = this.add(new WitherSkullEntry(this).generate('H'));
+        var witherSkull = this.add(new WitherSkullEntry(this).generate());
         witherSkull.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var hordeIllager = this.add(new HordeIllagerEntry(this).generate('V'));
+        this.layout().entry(witherSkull).rightOf(overview, 2).below(2);
+        var hordeIllager = this.add(new HordeIllagerEntry(this).generate());
         hordeIllager.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var hordeDesert = this.add(new HordeDesertEntry(this).generate('W'));
+        this.layout().entry(hordeIllager).rightOf(overview, 3).below(4);
+        var hordeDesert = this.add(new HordeDesertEntry(this).generate());
         hordeDesert.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var hordeDrowned = this.add(new HordeDrownedEntry(this).generate('X'));
+        this.layout().entry(hordeDesert).rightOf(overview, 4).below(2);
+        var hordeDrowned = this.add(new HordeDrownedEntry(this).generate());
         hordeDrowned.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var hordeCreeper = this.add(new HordeCreeperEntry(this).generate('Y'));
+        this.layout().entry(hordeDrowned).rightOf(overview, 5).below(4);
+        var hordeCreeper = this.add(new HordeCreeperEntry(this).generate());
         hordeCreeper.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var hordeSilverfish = this.add(new HordeSilverfishEntry(this).generate('Z'));
+        this.layout().entry(hordeCreeper).rightOf(overview, 6).below(2);
+        var hordeSilverfish = this.add(new HordeSilverfishEntry(this).generate());
         hordeSilverfish.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var possessWeakBreeze = this.add(new PossessWeakBreezeEntry(this).generate('S'));
+        this.layout().entry(hordeSilverfish).rightOf(overview, 7).below(4);
+        var possessWeakBreeze = this.add(new PossessWeakBreezeEntry(this).generate());
         possessWeakBreeze.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
-        var possessBreeze = this.add(new PossessBreezeEntry(this).generate('T'));
+        this.layout().entry(possessWeakBreeze).rightOf(overview, 9).below(2);
+        var possessBreeze = this.add(new PossessBreezeEntry(this).generate());
         possessBreeze.withParent(BookEntryParentModel.create(possessWeakBreeze.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWeakBreeze.getId()));
-        var possessStrongBreeze = this.add(new PossessStrongBreezeEntry(this).generate('U'));
+        this.layout().entry(possessBreeze).below(possessWeakBreeze, 2);
+        var possessStrongBreeze = this.add(new PossessStrongBreezeEntry(this).generate());
         possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessBreeze.getId()));
+        this.layout().entry(possessStrongBreeze).below(possessBreeze, 2);
 
-        var possessUnboundParrot = this.add(new PossessUnboundParrotEntry(this).generate('p'));
+        var possessUnboundParrot = this.add(new PossessUnboundParrotEntry(this).generate());
         possessUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        var possessUnboundOtherworldBird = this.add(new PossessUnboundOtherworldBirdEntry(this).generate('d'));
+        this.layout().entry(possessUnboundParrot).rightOf(overview, 13).below(2);
+        var possessUnboundOtherworldBird = this.add(new PossessUnboundOtherworldBirdEntry(this).generate());
         possessUnboundOtherworldBird.withParent(BookEntryParentModel.create(possessUnboundParrot.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        this.layout().entry(possessUnboundOtherworldBird).below(possessUnboundParrot, 2);
 
-        var possessRandomAnimal = this.add(new PossessRandomAnimalEntry(this).generate('a'));
+        var possessRandomAnimal = this.add(new PossessRandomAnimalEntry(this).generate());
         possessRandomAnimal.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        var wildRandomAnimal = this.add(new WildRandomAnimalEntry(this).generate('b'));
+        this.layout().entry(possessRandomAnimal).rightOf(overview, 15).below(2);
+        var wildRandomAnimal = this.add(new WildRandomAnimalEntry(this).generate());
         wildRandomAnimal.withParent(BookEntryParentModel.create(possessRandomAnimal.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        this.layout().entry(wildRandomAnimal).below(possessRandomAnimal, 2);
     }
 
     @Override

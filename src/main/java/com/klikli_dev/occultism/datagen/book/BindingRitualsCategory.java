@@ -31,31 +31,6 @@ public class BindingRitualsCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "___________________________",
-                "_______e_x_p_q_r_t_Ť_______",
-                "___________________________",
-                "_____b_M_X_ᑬ_____u_c_h_____",
-                "___________________________",
-                "_____d_______________é_____",
-                "___________________________",
-                "_______f_F_Ċ_K___A_G_______",
-                "___________________________",
-                "_9_0___________________y___",
-                "___________________________",
-                "_____z_g_ĝ_Y_ã_Ж___Č_______",
-                "___________________________",
-                "_____a_ģ_ğ___________w_____",
-                "___________________________",
-                "_______m_o_ĥ_H_B_v_s_ç_____",
-                "___________________________",
-                "_______n___i_j_k_l_á_______",
-                "___________________________"
-        };
-    }
-
-    @Override
     protected void generateEntries() {
         //Pentacle parents ID
         String craftFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftFoliotEntry.ENTRY_ID;
@@ -66,168 +41,216 @@ public class BindingRitualsCategory extends CategoryProvider {
         String contactEldritchID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactEldritchSpiritEntry.ENTRY_ID;
 
         //Basic Entries
-        var overview = this.add(new CraftingOverviewEntry(this).generate('0'));
+        var overview = this.add(new CraftingOverviewEntry(this).generate());
         overview.withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate('9'));
+        this.layout().entry(overview).at(-10, 0);
+        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate());
         returnToRituals.withCategoryToOpen(this.modLoc("rituals"));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        this.layout().entry(returnToRituals).leftOf(overview, 2);
 
-        var craftInfusedPickaxe = this.add(new InfusedPickaxeEntry(this).generate('d'));
+        var craftInfusedPickaxe = this.add(new InfusedPickaxeEntry(this).generate());
         craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftOtherworldGoggles = this.add(new OtherworldGogglesEntry(this).generate('f'));
+        this.layout().entry(craftInfusedPickaxe).rightOf(overview, 2).above(4);
+        var craftOtherworldGoggles = this.add(new OtherworldGogglesEntry(this).generate());
         craftOtherworldGoggles.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        this.layout().entry(craftOtherworldGoggles).rightOf(overview, 4).above(2);
 
         //Dimensional Mining Entries
-        var craftDimensionalMineshaft = this.add(new DimensionalMineshaftEntry(this).generate('b'));
+        var craftDimensionalMineshaft = this.add(new DimensionalMineshaftEntry(this).generate());
         craftDimensionalMineshaft.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftFoliotMiner = this.add(new MinerFoliotEntry(this).generate('e'));
+        this.layout().entry(craftDimensionalMineshaft).above(craftInfusedPickaxe, 2);
+        var craftFoliotMiner = this.add(new MinerFoliotEntry(this).generate());
         craftFoliotMiner.withParent(BookEntryParentModel.create(craftDimensionalMineshaft.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftDjinniMiner = this.add(new MinerDjinniEntry(this).generate('x'));
+        this.layout().entry(craftFoliotMiner).rightOf(craftDimensionalMineshaft, 2).above(2);
+        var craftDjinniMiner = this.add(new MinerDjinniEntry(this).generate());
         craftDjinniMiner.withParent(BookEntryParentModel.create(craftFoliotMiner.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftAfritMiner = this.add(new MinerAfritEntry(this).generate('p'));
+        this.layout().entry(craftDjinniMiner).rightOf(craftFoliotMiner, 2);
+        var craftAfritMiner = this.add(new MinerAfritEntry(this).generate());
         craftAfritMiner.withParent(BookEntryParentModel.create(craftDjinniMiner.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
-        var craftMaridMiner = this.add(new MinerMaridEntry(this).generate('q'));
+        this.layout().entry(craftAfritMiner).rightOf(craftDjinniMiner, 2);
+        var craftMaridMiner = this.add(new MinerMaridEntry(this).generate());
         craftMaridMiner.withParent(BookEntryParentModel.create(craftAfritMiner.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
-        var craftAncientMiner = this.add(new MinerAncientEntry(this).generate('r'));
+        this.layout().entry(craftMaridMiner).rightOf(craftAfritMiner, 2);
+        var craftAncientMiner = this.add(new MinerAncientEntry(this).generate());
         craftAncientMiner.withParent(BookEntryParentModel.create(craftMaridMiner.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(craftAncientMiner).rightOf(craftMaridMiner, 2);
         //Dimensional Battlefield
-        var craftDimensionalBattlefield = this.add(new DimensionalBattlefieldEntry(this).generate('M'));
+        var craftDimensionalBattlefield = this.add(new DimensionalBattlefieldEntry(this).generate());
         craftDimensionalBattlefield.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
+        this.layout().entry(craftDimensionalBattlefield).rightOf(craftInfusedPickaxe, 2).above(2);
         //Dimensional Extractor
-        var craftDimensionalExtractor = this.add(new DimensionalExtractorEntry(this).generate('X'));
+        var craftDimensionalExtractor = this.add(new DimensionalExtractorEntry(this).generate());
         craftDimensionalExtractor.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(craftDimensionalExtractor).rightOf(craftInfusedPickaxe, 4).above(2);
 
         //Storage Entries
         //Start
-        var craftStorageSystem = this.add(new StorageSystemEntry(this).generate('z'));
+        var craftStorageSystem = this.add(new StorageSystemEntry(this).generate());
         craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var craftDimensionalMatrix = this.add(new DimensionalMatrixEntry(this).generate('a'));
+        this.layout().entry(craftStorageSystem).rightOf(overview, 2).below(2);
+        var craftDimensionalMatrix = this.add(new DimensionalMatrixEntry(this).generate());
         craftDimensionalMatrix.withParent(BookEntryParentModel.create(craftStorageSystem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftStorageControllerBase = this.add(new StorageControllerBaseEntry(this).generate('n'));
+        this.layout().entry(craftDimensionalMatrix).below(craftStorageSystem, 2);
+        var craftStorageControllerBase = this.add(new StorageControllerBaseEntry(this).generate());
         craftStorageControllerBase.withParent(BookEntryParentModel.create(craftDimensionalMatrix.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(craftStorageControllerBase).rightOf(craftDimensionalMatrix, 2).below(4);
         //Stabilizer
-        var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate('i'));
+        var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate());
         craftStabilizerTier1.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftStabilizerTier2 = this.add(new StabilizerTier2Entry(this).generate('j'));
+        this.layout().entry(craftStabilizerTier1).rightOf(craftStorageControllerBase, 4);
+        var craftStabilizerTier2 = this.add(new StabilizerTier2Entry(this).generate());
         craftStabilizerTier2.withParent(BookEntryParentModel.create(craftStabilizerTier1.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftStabilizerTier3 = this.add(new StabilizerTier3Entry(this).generate('k'));
+        this.layout().entry(craftStabilizerTier2).rightOf(craftStabilizerTier1, 2);
+        var craftStabilizerTier3 = this.add(new StabilizerTier3Entry(this).generate());
         craftStabilizerTier3.withParent(BookEntryParentModel.create(craftStabilizerTier2.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
-        var craftStabilizerTier4 = this.add(new StabilizerTier4Entry(this).generate('l'));
+        this.layout().entry(craftStabilizerTier3).rightOf(craftStabilizerTier2, 2);
+        var craftStabilizerTier4 = this.add(new StabilizerTier4Entry(this).generate());
         craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
-        var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate('á'));
+        this.layout().entry(craftStabilizerTier4).rightOf(craftStabilizerTier3, 2);
+        var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate());
         craftStabilizerTier5.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(craftStabilizerTier5).rightOf(craftStabilizerTier4, 2);
         //Distance Access
-        var craftStableWormhole = this.add(new StableWormholeEntry(this).generate('m'));
+        var craftStableWormhole = this.add(new StableWormholeEntry(this).generate());
         craftStableWormhole.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftStorageRemote = this.add(new StorageRemoteEntry(this).generate('o'));
+        this.layout().entry(craftStableWormhole).above(craftStorageControllerBase, 2);
+        var craftStorageRemote = this.add(new StorageRemoteEntry(this).generate());
         craftStorageRemote.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(craftStorageRemote).rightOf(craftStableWormhole, 2);
         //Final
-        var craftStabilizedStorage = this.add(new StabilizedStorageEntry(this).generate('ç'));
+        var craftStabilizedStorage = this.add(new StabilizedStorageEntry(this).generate());
         craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier5.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(craftStabilizedStorage).rightOf(craftStabilizerTier5, 2).above(2);
         //Satchels
-        var craftSatchel = this.add(new BackpackSatchelEntry(this).generate('g'));
+        var craftSatchel = this.add(new BackpackSatchelEntry(this).generate());
         craftSatchel.withParent(BookEntryParentModel.create(craftStorageSystem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var craftEnderSatchel = this.add(new EnderSatchelEntry(this).generate('ģ'));
+        this.layout().entry(craftSatchel).rightOf(craftStorageSystem, 2);
+        var craftEnderSatchel = this.add(new EnderSatchelEntry(this).generate());
         craftEnderSatchel.withParent(BookEntryParentModel.create(craftSatchel.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate('ĝ'));
+        this.layout().entry(craftEnderSatchel).below(craftSatchel, 2);
+        var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate());
         apprenticeRitualSatchel.withParent(craftSatchel)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var artisanalRitualSatchel = this.add(new ArtisanalRitualSatchelEntry(this).generate('ğ'));
+        this.layout().entry(apprenticeRitualSatchel).rightOf(craftSatchel, 2);
+        var artisanalRitualSatchel = this.add(new ArtisanalRitualSatchelEntry(this).generate());
         artisanalRitualSatchel.withParent(apprenticeRitualSatchel)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
+        this.layout().entry(artisanalRitualSatchel).below(apprenticeRitualSatchel, 2);
 
-        var craftFragileSoulGem = this.add(new FragileSoulGemEntry(this).generate('é'));
+        var craftFragileSoulGem = this.add(new FragileSoulGemEntry(this).generate());
         craftFragileSoulGem.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var craftSoulGem = this.add(new SoulGemEntry(this).generate('h'));
+        this.layout().entry(craftFragileSoulGem).rightOf(overview, 18).above(4);
+        var craftSoulGem = this.add(new SoulGemEntry(this).generate());
         craftSoulGem.withParent(BookEntryParentModel.create(craftFragileSoulGem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftFamiliarRing = this.add(new FamiliarRingEntry(this).generate('c'));
+        this.layout().entry(craftSoulGem).above(craftFragileSoulGem, 2);
+        var craftFamiliarRing = this.add(new FamiliarRingEntry(this).generate());
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftTrinityGem = this.add(new TrinityGemEntry(this).generate('Ť'));
+        this.layout().entry(craftFamiliarRing).leftOf(craftSoulGem, 2);
+        var craftTrinityGem = this.add(new TrinityGemEntry(this).generate());
         craftTrinityGem.withParent(BookEntryParentModel.create(craftSoulGem.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(craftTrinityGem).leftOf(craftSoulGem, 2).above(2);
 
-        var craftKnowledgeTablet = this.add(new KnowledgeTabletEntry(this).generate('ã'));
+        var craftKnowledgeTablet = this.add(new KnowledgeTabletEntry(this).generate());
         craftKnowledgeTablet.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var craftVitalityCompass = this.add(new VitalityCompassEntry(this).generate('Ж'));
+        this.layout().entry(craftKnowledgeTablet).rightOf(overview, 10).below(2);
+        var craftVitalityCompass = this.add(new VitalityCompassEntry(this).generate());
         craftVitalityCompass.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var craftEntityWormhole = this.add(new EntityWormholeEntry(this).generate('ᑬ'));
+        this.layout().entry(craftVitalityCompass).rightOf(craftKnowledgeTablet, 2);
+        var craftEntityWormhole = this.add(new EntityWormholeEntry(this).generate());
         craftEntityWormhole.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftSpiritGrindStone = this.add(new SpiritGrindstoneEntry(this).generate('G'));
+        this.layout().entry(craftEntityWormhole).rightOf(craftInfusedPickaxe, 6).above(2);
+        var craftSpiritGrindStone = this.add(new SpiritGrindstoneEntry(this).generate());
         craftSpiritGrindStone.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(craftSpiritGrindStone).rightOf(overview, 16).above(2);
 
-        var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
+        var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate());
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
-        var craftIesniumAnvil = this.add(new IesniumAnvilEntry(this).generate('A'));
+        this.layout().entry(craftIesniumSacrificialBowl).rightOf(craftInfusedPickaxe, 12).above(2);
+        var craftIesniumAnvil = this.add(new IesniumAnvilEntry(this).generate());
         craftIesniumAnvil.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
-        var craftIesniumButcherKnife = this.add(new IesniumButcherKnifeEntry(this).generate('K'));
+        this.layout().entry(craftIesniumAnvil).rightOf(craftInfusedPickaxe, 12).below(2);
+        var craftIesniumButcherKnife = this.add(new IesniumButcherKnifeEntry(this).generate());
         craftIesniumButcherKnife.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
-        var trueSightStaff = this.add(new TrueSightStaffEntry(this).generate('F'));
+        this.layout().entry(craftIesniumButcherKnife).rightOf(craftInfusedPickaxe, 8).below(2);
+        var trueSightStaff = this.add(new TrueSightStaffEntry(this).generate());
         trueSightStaff.withParent(craftOtherworldGoggles).withParent(craftInfusedPickaxe)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
+        this.layout().entry(trueSightStaff).rightOf(craftOtherworldGoggles, 2);
 
-        var craftWildTrim = this.add(new WildTrimEntry(this).generate('w'));
+        var craftWildTrim = this.add(new WildTrimEntry(this).generate());
         craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftAmethyst = this.add(new BuddingAmethystEntry(this).generate('v'));
+        this.layout().entry(craftWildTrim).rightOf(overview, 18).below(4);
+        var craftAmethyst = this.add(new BuddingAmethystEntry(this).generate());
         craftAmethyst.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftDeepslate = this.add(new ReinforcedDeepslateEntry(this).generate('s'));
+        this.layout().entry(craftAmethyst).leftOf(craftWildTrim, 4).below(2);
+        var craftDeepslate = this.add(new ReinforcedDeepslateEntry(this).generate());
         craftDeepslate.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftBeeNest = this.add(new BeeNestEntry(this).generate('B'));
+        this.layout().entry(craftDeepslate).leftOf(craftWildTrim, 2).below(2);
+        var craftBeeNest = this.add(new BeeNestEntry(this).generate());
         craftBeeNest.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftBell = this.add(new BellEntry(this).generate('H'));
+        this.layout().entry(craftBeeNest).leftOf(craftWildTrim, 6).below(2);
+        var craftBell = this.add(new BellEntry(this).generate());
         craftBell.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftHorseArmor = this.add(new AnimalArmorEntry(this).generate('ĥ'));
+        this.layout().entry(craftBell).leftOf(craftWildTrim, 8).below(2);
+        var craftHorseArmor = this.add(new AnimalArmorEntry(this).generate());
         craftHorseArmor.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
-        var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate('t'));
+        this.layout().entry(craftHorseArmor).leftOf(craftWildTrim, 10).below(2);
+        var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate());
         craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(craftEldritchChalice).above(craftIesniumSacrificialBowl, 2);
 
 
-        var craftMasterChalks = this.add(new MasterChalksEntry(this).generate('Č'));
+        var craftMasterChalks = this.add(new MasterChalksEntry(this).generate());
         craftMasterChalks.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
-        var repairRituals = this.add(new RepairEntry(this).generate('y'));
+        this.layout().entry(craftMasterChalks).rightOf(overview, 16).below(2);
+        var repairRituals = this.add(new RepairEntry(this).generate());
         repairRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(repairRituals).rightOf(overview, 20);
     }
 
 }

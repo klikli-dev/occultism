@@ -32,26 +32,6 @@ public class SummoningRitualCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "___________x__________",
-                "____________h_________",
-                "_______j_c_d_b_k_l____", //Specialized works (farmer, lumber, storage, time, weather)
-                "______________________",
-                "__9_o_________________",
-                "______________________",
-                "_______1_5_i__e__a____", //Tiered workers per column (crusher, smelter, crystallizer)
-                "______________________", //Traders and unbound spirits
-                "_______2_6_í_f_g_m____",
-                "______________________",
-                "_______3_7_ì_p_n______",
-                "______________________",
-                "_______4_8_î__w_______",
-                "______________________"
-        };
-    }
-
-    @Override
     protected void generateEntries() {
         //Pentacle parents
         String summonFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonFoliotEntry.ENTRY_ID;
@@ -61,104 +41,134 @@ public class SummoningRitualCategory extends CategoryProvider {
         String summonUnboundMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonUnboundMaridEntry.ENTRY_ID;
         String summonMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonMaridEntry.ENTRY_ID;
 
-        var overview = this.add(new SummoningOverviewEntry(this).generate('o'));
+        var overview = this.add(new SummoningOverviewEntry(this).generate());
         overview.withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate('9'));
+        this.layout().entry(overview).at(-7, -3);
+        var returnToRituals = this.add(new ReturnToRitualsEntry(this).generate());
         returnToRituals.withCategoryToOpen(this.modLoc("rituals"));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        this.layout().entry(returnToRituals).leftOf(overview, 2);
 
-        var summonT1Crusher = this.add(new CrusherFoliotEntry(this).generate('1'));
+        var summonT1Crusher = this.add(new CrusherFoliotEntry(this).generate());
         summonT1Crusher.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonT2Crusher = this.add(new CrusherDjinniEntry(this).generate('2'));
+        this.layout().entry(summonT1Crusher).rightOf(overview, 3).below(2);
+        var summonT2Crusher = this.add(new CrusherDjinniEntry(this).generate());
         summonT2Crusher.withParent(BookEntryParentModel.create(summonT1Crusher.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
-        var summonT3Crusher = this.add(new CrusherAfritEntry(this).generate('3'));
+        this.layout().entry(summonT2Crusher).below(summonT1Crusher, 2);
+        var summonT3Crusher = this.add(new CrusherAfritEntry(this).generate());
         summonT3Crusher.withParent(BookEntryParentModel.create(summonT2Crusher.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
-        var summonT4Crusher = this.add(new CrusherMaridEntry(this).generate('4'));
+        this.layout().entry(summonT3Crusher).below(summonT2Crusher, 2);
+        var summonT4Crusher = this.add(new CrusherMaridEntry(this).generate());
         summonT4Crusher.withParent(BookEntryParentModel.create(summonT3Crusher.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
+        this.layout().entry(summonT4Crusher).below(summonT3Crusher, 2);
 
-        var summonT1Smelter = this.add(new SmelterFoliotEntry(this).generate('5'));
+        var summonT1Smelter = this.add(new SmelterFoliotEntry(this).generate());
         summonT1Smelter.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonT2Smelter = this.add(new SmelterDjinniEntry(this).generate('6'));
+        this.layout().entry(summonT1Smelter).rightOf(overview, 5).below(2);
+        var summonT2Smelter = this.add(new SmelterDjinniEntry(this).generate());
         summonT2Smelter.withParent(BookEntryParentModel.create(summonT1Smelter.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
-        var summonT3Smelter = this.add(new SmelterAfritEntry(this).generate('7'));
+        this.layout().entry(summonT2Smelter).below(summonT1Smelter, 2);
+        var summonT3Smelter = this.add(new SmelterAfritEntry(this).generate());
         summonT3Smelter.withParent(BookEntryParentModel.create(summonT2Smelter.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
-        var summonT4Smelter = this.add(new SmelterMaridEntry(this).generate('8'));
+        this.layout().entry(summonT3Smelter).below(summonT2Smelter, 2);
+        var summonT4Smelter = this.add(new SmelterMaridEntry(this).generate());
         summonT4Smelter.withParent(BookEntryParentModel.create(summonT3Smelter.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
+        this.layout().entry(summonT4Smelter).below(summonT3Smelter, 2);
 
-        var summonT1Crystallizer = this.add(new CrystallizerFoliotEntry(this).generate('i'));
+        var summonT1Crystallizer = this.add(new CrystallizerFoliotEntry(this).generate());
         summonT1Crystallizer.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonT2Crystallizer = this.add(new CrystallizerDjinniEntry(this).generate('í'));
+        this.layout().entry(summonT1Crystallizer).rightOf(overview, 7).below(2);
+        var summonT2Crystallizer = this.add(new CrystallizerDjinniEntry(this).generate());
         summonT2Crystallizer.withParent(BookEntryParentModel.create(summonT1Crystallizer.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
-        var summonT3Crystallizer = this.add(new CrystallizerAfritEntry(this).generate('ì'));
+        this.layout().entry(summonT2Crystallizer).below(summonT1Crystallizer, 2);
+        var summonT3Crystallizer = this.add(new CrystallizerAfritEntry(this).generate());
         summonT3Crystallizer.withParent(BookEntryParentModel.create(summonT2Crystallizer.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
-        var summonT4Crystallizer = this.add(new CrystallizerMaridEntry(this).generate('î'));
+        this.layout().entry(summonT3Crystallizer).below(summonT2Crystallizer, 2);
+        var summonT4Crystallizer = this.add(new CrystallizerMaridEntry(this).generate());
         summonT4Crystallizer.withParent(BookEntryParentModel.create(summonT3Crystallizer.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
+        this.layout().entry(summonT4Crystallizer).below(summonT3Crystallizer, 2);
 
-        var summonLumberjack = this.add(new LumberjackEntry(this).generate('c'));
+        var summonLumberjack = this.add(new LumberjackEntry(this).generate());
         summonLumberjack.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonFarmer = this.add(new FarmerEntry(this).generate('j'));
+        this.layout().entry(summonLumberjack).rightOf(overview, 5).above(2);
+        var summonFarmer = this.add(new FarmerEntry(this).generate());
         summonFarmer.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        this.layout().entry(summonFarmer).rightOf(overview, 3).above(2);
 
-        var summonTransportItems = this.add(new TransporterEntry(this).generate('d'));
+        var summonTransportItems = this.add(new TransporterEntry(this).generate());
         summonTransportItems.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var transporterFilters = this.add(new TransporterFiltersEntry(this).generate('x'));
+        this.layout().entry(summonTransportItems).rightOf(overview, 7).above(2);
+        var transporterFilters = this.add(new TransporterFiltersEntry(this).generate());
         transporterFilters.withParent(BookEntryParentModel.create(summonTransportItems.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonCleaner = this.add(new CleanerEntry(this).generate('b'));
+        this.layout().entry(transporterFilters).above(summonTransportItems, 2);
+        var summonCleaner = this.add(new CleanerEntry(this).generate());
         summonCleaner.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonManageMachine = this.add(new ManageMachineEntry(this).generate('h'));
+        this.layout().entry(summonCleaner).rightOf(overview, 9).above(2);
+        var summonManageMachine = this.add(new ManageMachineEntry(this).generate());
         summonManageMachine.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        this.layout().entry(summonManageMachine).rightOf(overview, 8).above(3);
 
-        var tradeSpirits = this.add(new TraderSpiritsEntry(this).generate('e'));
+        var tradeSpirits = this.add(new TraderSpiritsEntry(this).generate());
         tradeSpirits.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonOtherworldSaplingTrader = this.add(new TraderSaplingEntry(this).generate('f'));
+        this.layout().entry(tradeSpirits).rightOf(overview, 10).below(2);
+        var summonOtherworldSaplingTrader = this.add(new TraderSaplingEntry(this).generate());
         summonOtherworldSaplingTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonOtherstoneTrader = this.add(new TraderOtherstoneEntry(this).generate('g'));
+        this.layout().entry(summonOtherworldSaplingTrader).leftOf(tradeSpirits, 1).below(2);
+        var summonOtherstoneTrader = this.add(new TraderOtherstoneEntry(this).generate());
         summonOtherstoneTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonOtherrockTrader = this.add(new TraderOtherrockEntry(this).generate('n'));
+        this.layout().entry(summonOtherstoneTrader).rightOf(tradeSpirits, 1).below(2);
+        var summonOtherrockTrader = this.add(new TraderOtherrockEntry(this).generate());
         summonOtherrockTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
-        var summonGambler = this.add(new TraderGemsEntry(this).generate('p'));
+        this.layout().entry(summonOtherrockTrader).rightOf(tradeSpirits, 1).below(4);
+        var summonGambler = this.add(new TraderGemsEntry(this).generate());
         summonGambler.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
-        var summonWondering = this.add(new TraderWonderingEntry(this).generate('w'));
+        this.layout().entry(summonGambler).leftOf(tradeSpirits, 1).below(4);
+        var summonWondering = this.add(new TraderWonderingEntry(this).generate());
         summonWondering.withParent(BookEntryParentModel.create(tradeSpirits.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        this.layout().entry(summonWondering).below(tradeSpirits, 6);
 
-        var weatherMagic = this.add(new MagicWeatherEntry(this).generate('k'));
+        var weatherMagic = this.add(new MagicWeatherEntry(this).generate());
         weatherMagic.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
-        var timeMagic = this.add(new MagicTimeEntry(this).generate('l'));
+        this.layout().entry(weatherMagic).rightOf(overview, 11).above(2);
+        var timeMagic = this.add(new MagicTimeEntry(this).generate());
         timeMagic.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        this.layout().entry(timeMagic).rightOf(overview, 13).above(2);
 
-        var afritEssence = this.add(new EssenceAfritEntry(this).generate('a'));
+        var afritEssence = this.add(new EssenceAfritEntry(this).generate());
         afritEssence.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonUnboundAfritID));
-        var maridEssence = this.add(new EssenceMaridEntry(this).generate('m'));
+        this.layout().entry(afritEssence).rightOf(overview, 13).below(2);
+        var maridEssence = this.add(new EssenceMaridEntry(this).generate());
         maridEssence.withParent(BookEntryParentModel.create(afritEssence.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonUnboundMaridID));
+        this.layout().entry(maridEssence).below(afritEssence, 2);
 
     }
 

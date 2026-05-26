@@ -36,21 +36,6 @@ public class StorageCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "___________________",
-                "_______t___________",
-                "___________________",
-                "_______a_w_1_2_____",
-                "___________________",
-                "___9_0_c___s_3_f___",
-                "___________________",
-                "_______m_r___4_5___",
-                "___________________"
-        };
-    }
-
-    @Override
     protected void generateEntries() {
         //Pentacle parents
         String craftFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftFoliotEntry.ENTRY_ID;
@@ -59,50 +44,74 @@ public class StorageCategory extends CategoryProvider {
         String craftMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftMaridEntry.ENTRY_ID;
         String contactEldritchID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactEldritchSpiritEntry.ENTRY_ID;
 
-        var overview = this.add(new StorageOverviewEntry(this).generate('0'))
+        var overview = this.add(new StorageOverviewEntry(this).generate())
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var returnToCrafting = this.add(new ReturnToCraftingEntry(this).generate('9'));
+        this.layout().entry(overview).at(-4, 1);
+
+        var returnToCrafting = this.add(new ReturnToCraftingEntry(this).generate());
         returnToCrafting.withCategoryToOpen(this.modLoc("crafting_rituals"));
         returnToCrafting.withParent(BookEntryParentModel.create(overview.getId()));
+        this.layout().entry(returnToCrafting).leftOf(overview, 2);
 
-        var storageController = this.add(new ControllerEntry(this).generate('c'));
+        var storageController = this.add(new ControllerEntry(this).generate());
         storageController.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(storageController).rightOf(overview, 2);
 
-        var storageSystemAutomation = this.add(new AutomationEntry(this).generate('a'));
+        var storageSystemAutomation = this.add(new AutomationEntry(this).generate());
         storageSystemAutomation.withParent(BookEntryParentModel.create(storageController.getId()));
-        var storageSystemAutomationTheurgy = this.add(new AutomationTheurgyEntry(this).generate('t'));
+        this.layout().entry(storageSystemAutomation).above(storageController, 2);
+
+        var storageSystemAutomationTheurgy = this.add(new AutomationTheurgyEntry(this).generate());
         storageSystemAutomationTheurgy.withParent(BookEntryParentModel.create(storageSystemAutomation.getId()));
         storageSystemAutomationTheurgy.withCondition(BookModLoadedConditionModel.create().withModId("theurgy"));
-        var summonManageMachine = this.add(new ManageMachineEntry(this).generate('m'));
+        this.layout().entry(storageSystemAutomationTheurgy).above(storageSystemAutomation, 2);
+
+        var summonManageMachine = this.add(new ManageMachineEntry(this).generate());
         summonManageMachine.withParent(BookEntryParentModel.create(storageController.getId()));
+        this.layout().entry(summonManageMachine).below(storageController, 2);
 
-        var craftStableWormhole = this.add(new StableWormholeEntry(this).generate('w'));
+        var craftStableWormhole = this.add(new StableWormholeEntry(this).generate());
         craftStableWormhole.withParent(BookEntryParentModel.create(storageController.getId()));
-        var craftStorageRemote = this.add(new StorageRemoteEntry(this).generate('r'));
-        craftStorageRemote.withParent(BookEntryParentModel.create(storageController.getId()));
-        var storageStabilizer = this.add(new StabilizerEntry(this).generate('s'));
-        storageStabilizer.withParent(BookEntryParentModel.create(storageController.getId()));
+        this.layout().entry(craftStableWormhole).rightOf(storageController, 2).above(2);
 
-        var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate('1'));
+        var craftStorageRemote = this.add(new StorageRemoteEntry(this).generate());
+        craftStorageRemote.withParent(BookEntryParentModel.create(storageController.getId()));
+        this.layout().entry(craftStorageRemote).rightOf(storageController, 2).below(2);
+
+        var storageStabilizer = this.add(new StabilizerEntry(this).generate());
+        storageStabilizer.withParent(BookEntryParentModel.create(storageController.getId()));
+        this.layout().entry(storageStabilizer).rightOf(storageController, 4);
+
+        var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate());
         craftStabilizerTier1.withParent(BookEntryParentModel.create(storageStabilizer.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-        var craftStabilizerTier2 = this.add(new StabilizerTier2Entry(this).generate('2'));
+        this.layout().entry(craftStabilizerTier1).above(storageStabilizer, 2);
+
+        var craftStabilizerTier2 = this.add(new StabilizerTier2Entry(this).generate());
         craftStabilizerTier2.withParent(BookEntryParentModel.create(craftStabilizerTier1.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftStabilizerTier3 = this.add(new StabilizerTier3Entry(this).generate('3'));
+        this.layout().entry(craftStabilizerTier2).rightOf(craftStabilizerTier1, 2);
+
+        var craftStabilizerTier3 = this.add(new StabilizerTier3Entry(this).generate());
         craftStabilizerTier3.withParent(BookEntryParentModel.create(craftStabilizerTier2.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
-        var craftStabilizerTier4 = this.add(new StabilizerTier4Entry(this).generate('4'));
+        this.layout().entry(craftStabilizerTier3).below(craftStabilizerTier2, 2);
+
+        var craftStabilizerTier4 = this.add(new StabilizerTier4Entry(this).generate());
         craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
-        var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate('5'));
+        this.layout().entry(craftStabilizerTier4).below(craftStabilizerTier3, 2);
+
+        var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate());
         craftStabilizerTier5.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(craftStabilizerTier5).rightOf(craftStabilizerTier4, 2);
 
-        var stabilizedStorage = this.add(new StabilizedStorageEntry(this).generate('f'));
+        var stabilizedStorage = this.add(new StabilizedStorageEntry(this).generate());
         stabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier5.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        this.layout().entry(stabilizedStorage).above(craftStabilizerTier5, 2);
     }
 
 }

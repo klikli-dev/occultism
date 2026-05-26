@@ -19,45 +19,31 @@ public class GettingStartedCategory extends CategoryProvider {
     }
 
     @Override
-    protected String[] generateEntryMap() {
-        return new String[]{
-                "__________________________________",
-                "__________________________________",
-                "__________________________________",
-                "__________________________P_D_____",
-                "__________________________________",
-                "______ŕ___t___B_____l_g_I_O_M_____",
-                "__________________________________",
-                "______i___r___ç_b_______s_________",
-                "__________________________________",
-                "______d___f_c_____R___a___ĝ_______",
-                "__________________________________",
-                "______e_h_____ạ_______m___________",
-                "__________________________________",
-                "______________Á_É_C_p_S___w_x_y_z_"
-        };
-    }
-
-    @Override
     protected void generateEntries() {
-        var introEntry = this.add(new IntroEntry(this).generate('i'));
+        var introEntry = this.add(new IntroEntry(this).generate());
+        this.layout().entry(introEntry).at(-11, 0);
 
-        var demonsDreamEntry = this.add(new DemonsDreamEntry(this).generate('d'));
+        var demonsDreamEntry = this.add(new DemonsDreamEntry(this).generate());
         demonsDreamEntry.withParent(BookEntryParentModel.create(introEntry.getId()));
+        this.layout().entry(demonsDreamEntry).below(introEntry, 2);
 
-        var spiritFireEntry = this.add(new SpiritFireEntry(this).generate('f'));
+        var spiritFireEntry = this.add(new SpiritFireEntry(this).generate());
         spiritFireEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
+        this.layout().entry(spiritFireEntry).rightOf(demonsDreamEntry, 4);
 
-        var healingSpiritsEntry = this.add(new HealingSpiritsEntry(this).generate('h'));
+        var healingSpiritsEntry = this.add(new HealingSpiritsEntry(this).generate());
         healingSpiritsEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
+        this.layout().entry(healingSpiritsEntry).rightOf(demonsDreamEntry, 2).below(2);
 
-        var thirdEyeEntry = this.add(new ThirdEyeEntry(this).generate('e'));
+        var thirdEyeEntry = this.add(new ThirdEyeEntry(this).generate());
         thirdEyeEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
+        this.layout().entry(thirdEyeEntry).below(demonsDreamEntry, 2);
 
-        var divinationRodEntry = this.add(new DivinationRodEntry(this).generate('r'));
+        var divinationRodEntry = this.add(new DivinationRodEntry(this).generate());
         divinationRodEntry.withParent(BookEntryParentModel.create(spiritFireEntry.getId()));
+        this.layout().entry(divinationRodEntry).above(spiritFireEntry, 2);
 
-        var theurgyDivinationRodEntry = this.add(new TheurgyDivinationRodsEntry(this).generate('t'));
+        var theurgyDivinationRodEntry = this.add(new TheurgyDivinationRodsEntry(this).generate());
         theurgyDivinationRodEntry
                 .withParent(BookEntryParentModel.create(divinationRodEntry.getId()))
                 .withCondition(
@@ -67,95 +53,122 @@ public class GettingStartedCategory extends CategoryProvider {
                         )
                 )
                 .hideWhileLocked(true);
+        this.layout().entry(theurgyDivinationRodEntry).above(divinationRodEntry, 2);
 
-        var candleEntry = this.add(new CandleEntry(this).generate('c'));
+        var candleEntry = this.add(new CandleEntry(this).generate());
         candleEntry.withParent(BookEntryParentModel.create(spiritFireEntry.getId()));
+        this.layout().entry(candleEntry).rightOf(spiritFireEntry, 2);
 
-        var ritualPrepChalkEntry = this.add(new RitualPrepChalkEntry(this).generate('ç'));
+        var ritualPrepChalkEntry = this.add(new RitualPrepChalkEntry(this).generate());
         ritualPrepChalkEntry.withParent(BookEntryParentModel.create(candleEntry.getId()));
+        this.layout().entry(ritualPrepChalkEntry).rightOf(candleEntry, 2).above(2);
 
-        var brushEntry = this.add(new BrushEntry(this).generate('B'));
+        var brushEntry = this.add(new BrushEntry(this).generate());
         brushEntry.withParent(BookEntryParentModel.create(ritualPrepChalkEntry.getId()));
+        this.layout().entry(brushEntry).above(ritualPrepChalkEntry, 2);
 
-        var ritualPrepBowlEntry = this.add(new RitualPrepBowlEntry(this).generate('b'));
+        var ritualPrepBowlEntry = this.add(new RitualPrepBowlEntry(this).generate());
         ritualPrepBowlEntry.withParent(BookEntryParentModel.create(ritualPrepChalkEntry.getId()));
+        this.layout().entry(ritualPrepBowlEntry).rightOf(ritualPrepChalkEntry, 2);
 
-        var booksOfBinding = this.add(new BooksOfBindingEntry(this).generate('ạ'));
+        var booksOfBinding = this.add(new BooksOfBindingEntry(this).generate());
         booksOfBinding.withParent(BookEntryParentModel.create(candleEntry.getId()));
+        this.layout().entry(booksOfBinding).rightOf(candleEntry, 2).below(2);
 
-        var booksOfBindingAutomation = this.add(new BooksOfBindingAutomationEntry(this).generate('Á'));
+        var booksOfBindingAutomation = this.add(new BooksOfBindingAutomationEntry(this).generate());
         booksOfBindingAutomation.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
+        this.layout().entry(booksOfBindingAutomation).below(booksOfBinding, 2);
 
-        var bookshelfBinding = this.add(new BookshelfBindingEntry(this).generate('É'));
+        var bookshelfBinding = this.add(new BookshelfBindingEntry(this).generate());
+        this.layout().entry(bookshelfBinding).rightOf(booksOfBinding, 2).below(2);
         bookshelfBinding.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
-        var booksOfCalling = this.add(new BooksOfCallingEntry(this).generate('C'));
+        var booksOfCalling = this.add(new BooksOfCallingEntry(this).generate());
+        this.layout().entry(booksOfCalling).rightOf(bookshelfBinding, 2);
         booksOfCalling.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
-        var ritualEntry = this.add(new FirstRitualEntry(this).generate('R'));
+        var ritualEntry = this.add(new FirstRitualEntry(this).generate());
+        this.layout().entry(ritualEntry).rightOf(ritualPrepBowlEntry, 2).below(2);
         ritualEntry
                 .withParent(BookEntryParentModel.create(ritualPrepBowlEntry.getId()))
                 .withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
-        var advancedChalksEntry = this.add(new ChalksEntry(this).generate('a'));
+        var advancedChalksEntry = this.add(new ChalksEntry(this).generate());
+        this.layout().entry(advancedChalksEntry).rightOf(ritualEntry, 4);
         advancedChalksEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
-        var ritualSatchelsEntry = this.add(new RitualSatchelsEntry(this).generate('ĝ'));
+        var ritualSatchelsEntry = this.add(new RitualSatchelsEntry(this).generate());
+        this.layout().entry(ritualSatchelsEntry).rightOf(advancedChalksEntry, 4);
         ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_djinni")));
 
-        var moreRitualsEntry = this.add(new MoreRitualsEntry(this).generate('m'));
+        var moreRitualsEntry = this.add(new MoreRitualsEntry(this).generate());
+        this.layout().entry(moreRitualsEntry).below(advancedChalksEntry, 2);
         moreRitualsEntry.withCategoryToOpen(this.modLoc("rituals"));
         moreRitualsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
 
-        var greyParticlesEntry = this.add(new GreyParticlesEntry(this).generate('p'));
+        var greyParticlesEntry = this.add(new GreyParticlesEntry(this).generate());
+        this.layout().entry(greyParticlesEntry).rightOf(ritualEntry, 2).below(4);
         greyParticlesEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
-        var spiritsSubcategory = this.add(new SpiritsEntry(this).generate('S'));
+        var spiritsSubcategory = this.add(new SpiritsEntry(this).generate());
+        this.layout().entry(spiritsSubcategory).rightOf(greyParticlesEntry, 2);
         spiritsSubcategory.withCategoryToOpen(this.modLoc("spirits"));
         spiritsSubcategory.withParent(BookEntryParentModel.create(greyParticlesEntry.getId()));
 
-        var otherworldGoggles = this.add(new OtherworldGogglesEntry(this).generate('g'));
+        var otherworldGoggles = this.add(new OtherworldGogglesEntry(this).generate());
+        this.layout().entry(otherworldGoggles).rightOf(advancedChalksEntry, 0).above(4);
         otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
 
-        var infusedPickaxe = this.add(new InfusedPickaxeEntry(this).generate('I'));
+        var infusedPickaxe = this.add(new InfusedPickaxeEntry(this).generate());
+        this.layout().entry(infusedPickaxe).rightOf(otherworldGoggles, 2);
         infusedPickaxe.withParent(BookEntryParentModel.create(otherworldGoggles.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_djinni")));
 
-        var iesnium = this.add(new IesniumEntry(this).generate('O'));
+        var iesnium = this.add(new IesniumEntry(this).generate());
+        this.layout().entry(iesnium).rightOf(infusedPickaxe, 2);
         iesnium.withParent(BookEntryParentModel.create(infusedPickaxe.getId()));
 
-        var iesniumPickaxe = this.add(new IesniumPickaxeEntry(this).generate('P'));
+        var iesniumPickaxe = this.add(new IesniumPickaxeEntry(this).generate());
+        this.layout().entry(iesniumPickaxe).above(iesnium, 2);
         iesniumPickaxe.withParent(BookEntryParentModel.create(iesnium.getId()));
 
-        var magicLampsEntry = this.add(new MagicLampsEntry(this).generate('l'));
+        var magicLampsEntry = this.add(new MagicLampsEntry(this).generate());
+        this.layout().entry(magicLampsEntry).rightOf(ritualEntry, 2).above(4);
         magicLampsEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
-        var spiritMinersEntry = this.add(new SpiritMinersEntry(this).generate('M'));
+        var spiritMinersEntry = this.add(new SpiritMinersEntry(this).generate());
+        this.layout().entry(spiritMinersEntry).rightOf(iesnium, 2);
         spiritMinersEntry.withParent(BookEntryParentModel.create(iesnium.getId()));
 
-        var mineshaftEntry = this.add(new MineshaftEntry(this).generate('D'));
+        var mineshaftEntry = this.add(new MineshaftEntry(this).generate());
+        this.layout().entry(mineshaftEntry).above(spiritMinersEntry, 2);
         mineshaftEntry.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
 
-        var storageEntry = this.add(new StorageEntry(this).generate('s'));
+        var storageEntry = this.add(new StorageEntry(this).generate());
+        this.layout().entry(storageEntry).rightOf(advancedChalksEntry, 2).above(2);
         storageEntry.withCategoryToOpen(this.modLoc("storage"));
         storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_djinni")));
 
-        var possessionRitualsEntry = this.add(new PossessionRitualsEntry(this).generate('w'));
+        var possessionRitualsEntry = this.add(new PossessionRitualsEntry(this).generate());
+        this.layout().entry(possessionRitualsEntry).rightOf(moreRitualsEntry, 4).below(2);
         possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
 
-        var familiarRitualsEntry = this.add(new FamiliarRitualsEntry(this).generate('x'));
+        var familiarRitualsEntry = this.add(new FamiliarRitualsEntry(this).generate());
+        this.layout().entry(familiarRitualsEntry).rightOf(moreRitualsEntry, 6).below(2);
         familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
 
-        var summoningRitualsEntry = this.add(new SummoningRitualsEntry(this).generate('y'));
+        var summoningRitualsEntry = this.add(new SummoningRitualsEntry(this).generate());
+        this.layout().entry(summoningRitualsEntry).rightOf(moreRitualsEntry, 8).below(2);
         summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
 
-        var craftingRitualsEntry = this.add(new CraftingRitualsEntry(this).generate('z'));
+        var craftingRitualsEntry = this.add(new CraftingRitualsEntry(this).generate());
+        this.layout().entry(craftingRitualsEntry).rightOf(moreRitualsEntry, 10).below(2);
         craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
     }
