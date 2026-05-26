@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.233.0] - 2026-05-26
+### :sparkles: New Features
+- [`e49dce2`](https://github.com/klikli-dev/occultism/commit/e49dce211c9ed7046931b70bc8d8941ceb9db261) - migrate to modonomicon layouts api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.232.0] - 2026-05-26
 ### :sparkles: New Features
 - [`a95e1bc`](https://github.com/klikli-dev/occultism/commit/a95e1bc21567861e2dfb26f9447d74aca87a332e) - update datagen to modern modonomicon api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2659,3 +2664,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.230.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.230.0...release/v26.1.2-1.230.1
 [release/v26.1.2-1.231.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.230.1...release/v26.1.2-1.231.0
 [release/v26.1.2-1.232.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.231.0...release/v26.1.2-1.232.0
+[release/v26.1.2-1.233.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.232.0...release/v26.1.2-1.233.0
