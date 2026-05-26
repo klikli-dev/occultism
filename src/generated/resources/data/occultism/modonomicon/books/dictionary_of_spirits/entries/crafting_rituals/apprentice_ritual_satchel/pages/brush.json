@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "brush",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.brush.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.brush.title"
+}

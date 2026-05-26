@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "familiar",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.familiar.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.familiar.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "shapes",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.spirits.overview.shapes.text",
+  "title": "book.occultism.dictionary_of_spirits.spirits.overview.shapes.title"
+}

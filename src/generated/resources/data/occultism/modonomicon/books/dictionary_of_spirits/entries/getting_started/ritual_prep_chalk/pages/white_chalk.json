@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "white_chalk",
+  "item": "occultism:chalk_white",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.white_chalk.text",
+  "title": ""
+}

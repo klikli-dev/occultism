@@ -1,0 +1,9 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "occultism:spirit_fire/chalk_cyan",
+  "sort_number": 3
+}

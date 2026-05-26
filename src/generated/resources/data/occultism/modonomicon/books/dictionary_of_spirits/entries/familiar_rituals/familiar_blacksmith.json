@@ -14,42 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_blacksmith.png",
   "id": "occultism:familiar_rituals/familiar_blacksmith",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:blacksmith_familiar",
-      "entity_name": "",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_blacksmith"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.description.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.description2.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.description2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

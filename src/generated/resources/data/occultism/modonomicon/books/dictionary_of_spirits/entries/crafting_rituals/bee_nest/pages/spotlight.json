@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "minecraft:bee_nest",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.bee_nest.spotlight.text",
+  "title": ""
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.crafting.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.crafting.title"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_rod",
+  "recipe_id_1": "theurgy:crafting/shaped/divination_rod_t1",
+  "sort_number": 1
+}

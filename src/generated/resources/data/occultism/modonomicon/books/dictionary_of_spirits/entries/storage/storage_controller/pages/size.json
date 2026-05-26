@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "size",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.text",
+  "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.title"
+}

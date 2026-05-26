@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spirit_inventories",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.text",
+  "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.title"
+}

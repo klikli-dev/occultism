@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "color_candle",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.candle.color_candle.text",
+  "title": ""
+}

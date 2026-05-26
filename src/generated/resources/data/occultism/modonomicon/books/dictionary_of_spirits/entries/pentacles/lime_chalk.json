@@ -16,47 +16,6 @@
   },
   "id": "occultism:pentacles/lime_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_lime",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_research_fragment_dust"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_lime_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_lime"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/purple_chalk",

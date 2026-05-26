@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "processing",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.title"
+}

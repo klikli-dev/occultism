@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:iesnium_golem",
+  "entity_name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.title",
+  "id": "golem",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.text"
+}

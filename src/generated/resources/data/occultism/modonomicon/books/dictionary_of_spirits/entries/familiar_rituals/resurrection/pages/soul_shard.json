@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "soul_shard",
+  "item": "occultism:soul_shard",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.soul_shard.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.soul_shard.title"
+}

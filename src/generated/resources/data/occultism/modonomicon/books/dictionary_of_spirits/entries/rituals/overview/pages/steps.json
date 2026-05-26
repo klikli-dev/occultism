@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "steps",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.rituals.overview.steps.text",
+  "title": "book.occultism.dictionary_of_spirits.rituals.overview.steps.title"
+}

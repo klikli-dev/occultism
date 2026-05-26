@@ -50,13 +50,11 @@ public class MagicTimeEntry extends EntryProvider {
         );
 
         this.page("ritual_day", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time"))
-                .withAnchor("day"));
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time")));
         //no text
 
         this.page("ritual_night", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time"))
-                .withAnchor("night"));
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time")));
         //no text
 
     }

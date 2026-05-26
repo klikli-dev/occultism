@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "config",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.config.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.config.title"
+}

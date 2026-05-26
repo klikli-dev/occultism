@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": {
+    "id": "occultism:storage_controller"
+  },
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.text",
+  "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.title"
+}

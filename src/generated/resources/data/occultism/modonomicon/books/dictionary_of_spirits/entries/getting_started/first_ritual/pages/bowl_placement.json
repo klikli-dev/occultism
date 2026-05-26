@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "bowl_placement",
+  "images": [
+    "occultism:textures/gui/book/bowl_placement.png"
+  ],
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_placement.text",
+  "title": ""
+}

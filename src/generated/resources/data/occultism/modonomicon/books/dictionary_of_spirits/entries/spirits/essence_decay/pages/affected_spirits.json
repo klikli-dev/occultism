@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "affected_spirits",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
+  "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title"
+}

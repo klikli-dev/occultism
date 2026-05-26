@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_dark",
+  "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5_dark",
+  "sort_number": 2
+}

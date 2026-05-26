@@ -1,15 +1,15 @@
 {
-  "type": "modonomicon:category_link",
+  "type": "modonomicon:content",
   "background": {
     "height": 26,
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/circle_gray",
     "width": 26
   },
   "category": "occultism:spirits",
-  "category_to_open": "occultism:getting_started",
   "condition": {
     "type": "modonomicon:true"
   },
+  "description": "book.occultism.dictionary_of_spirits.spirits.return_to_getting_started.description",
   "icon": {
     "id": "occultism:dictionary_of_spirits_icon"
   },
@@ -20,6 +20,7 @@
       "entry": "occultism:spirits/overview"
     }
   ],
+  "sort_number": 1,
   "x": -10,
   "y": -1
 }

@@ -16,31 +16,6 @@
   },
   "id": "occultism:storage/stabilizer_tier5",
   "name": "book.occultism.dictionary_of_spirits.storage.stabilizer_tier5.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:storage_stabilizer_tier5",
-      "text": "book.occultism.dictionary_of_spirits.storage.stabilizer_tier5.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/misc_stabilizer_tier5_dark"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:storage/craft_stabilizer_tier4"

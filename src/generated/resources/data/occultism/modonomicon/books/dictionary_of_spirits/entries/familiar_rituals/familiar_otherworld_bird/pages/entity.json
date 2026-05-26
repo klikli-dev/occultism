@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:otherworld_bird",
+  "entity_name": "",
+  "id": "entity",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.entity.text"
+}

@@ -10,44 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/contact_wild_spirit"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_weak_breeze.description",
   "icon": {
     "id": "minecraft:trial_key"
   },
   "id": "occultism:possession_rituals/possess_weak_breeze",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_weak_breeze.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:possessed_weak_breeze",
-      "entity_name": "",
-      "scale": 0.5,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_weak_breeze.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_weak_breeze"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_weak_breeze.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/overview"
     }
   ],
+  "sort_number": 24,
   "x": 1,
   "y": 1
 }

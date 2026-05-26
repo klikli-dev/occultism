@@ -15,26 +15,6 @@
   },
   "id": "occultism:getting_started/intro",
   "name": "book.occultism.dictionary_of_spirits.getting_started.intro.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.intro.help.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.help.title"
-    }
-  ],
   "sort_number": 0,
   "x": -11,
   "y": 0

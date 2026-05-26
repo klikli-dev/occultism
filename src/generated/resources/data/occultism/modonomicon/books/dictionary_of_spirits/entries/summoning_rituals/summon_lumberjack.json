@@ -16,59 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_lumberjack",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.prerequisites.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.prerequisites.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_foliot_lumberjack"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_lumberjack",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.book_of_calling.text"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

@@ -14,33 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_beaver.png",
   "id": "occultism:familiar_rituals/familiar_beaver",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:beaver_familiar",
-      "entity_name": "",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_beaver"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.description.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

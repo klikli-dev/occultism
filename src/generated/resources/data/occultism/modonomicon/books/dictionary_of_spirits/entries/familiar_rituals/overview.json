@@ -14,35 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar.png",
   "id": "occultism:familiar_rituals/overview",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.ring.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.ring.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.title"
-    }
-  ],
   "sort_number": 0,
   "x": -8,
   "y": 0

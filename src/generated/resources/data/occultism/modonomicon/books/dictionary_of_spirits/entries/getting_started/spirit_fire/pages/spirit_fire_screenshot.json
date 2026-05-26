@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spirit_fire_screenshot",
+  "images": [
+    "occultism:textures/gui/book/spiritfire_instructions.png"
+  ],
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.spirit_fire_screenshot.text",
+  "title": ""
+}

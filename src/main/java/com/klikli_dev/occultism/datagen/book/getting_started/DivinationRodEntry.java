@@ -30,7 +30,7 @@ public class DivinationRodEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Divination");
-        this.pageText("To make it easier to get started, the materials obtained by divination now also have crafting recipes.\n**If you want the full experience, skip the following recipe page and move on to the\n[divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**\n");
+        this.pageText("To make it easier to get started, the materials obtained by divination now also have crafting recipes.\n**If you want the full experience, skip the following recipe page and move on to the\n[divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_rod).**\n");
 
         this.page("otherstone_recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherstone")));
@@ -42,8 +42,7 @@ public class DivinationRodEntry extends EntryProvider {
 
         this.page("divination_rod", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.DIVINATION_ROD.get()))
-                .withText(this.context().pageText())
-                .withAnchor("divination_instructions"));
+                .withText(this.context().pageText()));
         this.pageText("Otherworld materials play an important role in interacting with spirits.\nAs they are rare and not visible to the naked eye, finding them requires special tools.\nThe divination rod allows to find Otherworld materials based on their similarities to materials common to our world.\n");
 
         this.page("spirit_attuned_gem_recipe", () -> BookSpiritFireRecipePageModel.create()

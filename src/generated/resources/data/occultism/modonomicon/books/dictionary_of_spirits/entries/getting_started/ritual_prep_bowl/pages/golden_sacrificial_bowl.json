@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "golden_sacrificial_bowl",
+  "item": "occultism:golden_sacrificial_bowl",
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.golden_sacrificial_bowl.text",
+  "title": ""
+}

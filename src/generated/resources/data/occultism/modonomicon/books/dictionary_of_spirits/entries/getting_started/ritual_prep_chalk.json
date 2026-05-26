@@ -16,64 +16,6 @@
   },
   "id": "occultism:getting_started/ritual_prep_chalk",
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.intro.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "anchor": "white_chalk",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_white",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.white_chalk.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:smelting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:smelting/burnt_otherstone"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/otherworld_ashes"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_white_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_white"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.usage.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/candle"

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_nautilus",
+  "item": "minecraft:nautilus_shell",
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.animal_armor.spotlight_nautilus.text",
+  "title": ""
+}

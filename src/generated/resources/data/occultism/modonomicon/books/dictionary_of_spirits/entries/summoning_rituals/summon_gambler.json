@@ -16,24 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_gambler",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_gambler.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_gambler.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_gambler.intro.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_djinni_gambler"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/trade_spirits",

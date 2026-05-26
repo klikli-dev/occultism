@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spirit_bowl",
+  "item": "occultism:spirit_fire",
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.title"
+}

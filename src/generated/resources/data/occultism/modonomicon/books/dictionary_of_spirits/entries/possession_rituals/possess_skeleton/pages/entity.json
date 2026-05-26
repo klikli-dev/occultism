@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:possessed_skeleton",
+  "entity_name": "",
+  "id": "entity",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.entity.text"
+}

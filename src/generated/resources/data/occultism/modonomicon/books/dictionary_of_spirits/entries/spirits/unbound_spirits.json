@@ -14,49 +14,12 @@
   "icon": "occultism:textures/gui/book/unbound_spirits.png",
   "id": "occultism:spirits/unbound_spirits",
   "name": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound2.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound2.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.essence.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.essence.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:spirits/true_names"
     }
   ],
+  "sort_number": 4,
   "x": -4,
   "y": -1
 }

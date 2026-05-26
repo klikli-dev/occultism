@@ -34,8 +34,7 @@ public class RitualPrepChalkEntry extends EntryProvider {
 
         this.page("white_chalk", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
-                .withText(this.context().pageText())
-                .withAnchor("white_chalk"));
+                .withText(this.context().pageText()));
         this.pageText("White chalk is used to draw the most basic pentacles, such as for our first ritual.\n\\\n\\\nMore powerful summonings require appropriate more advanced chalk, see [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks) for more information.\n");
 
         this.page("burnt_otherstone_recipe", () -> BookSmeltingRecipePageModel.create()

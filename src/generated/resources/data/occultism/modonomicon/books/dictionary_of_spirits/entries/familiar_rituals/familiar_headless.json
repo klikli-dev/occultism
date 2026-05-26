@@ -14,43 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_headless_ratman.png",
   "id": "occultism:familiar_rituals/familiar_headless",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:headless_familiar",
-      "entity_name": "",
-      "scale": 0.7,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_headless"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description2.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

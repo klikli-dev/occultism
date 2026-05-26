@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": {
+    "id": "minecraft:anvil"
+  },
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.title"
+}

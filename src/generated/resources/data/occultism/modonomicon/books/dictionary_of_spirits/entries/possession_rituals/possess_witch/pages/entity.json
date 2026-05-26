@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:possessed_witch",
+  "entity_name": "",
+  "id": "entity",
+  "offset": 0.8,
+  "scale": 0.4,
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_witch.entity.text"
+}

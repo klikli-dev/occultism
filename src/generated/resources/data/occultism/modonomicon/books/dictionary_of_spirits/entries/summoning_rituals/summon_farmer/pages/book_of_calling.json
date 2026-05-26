@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "book_of_calling",
+  "recipe_id_1": "occultism:crafting/book_of_calling_foliot_farmer",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.book_of_calling.text"
+}

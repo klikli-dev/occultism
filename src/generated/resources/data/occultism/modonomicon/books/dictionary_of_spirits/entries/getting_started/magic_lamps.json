@@ -16,24 +16,6 @@
   },
   "id": "occultism:getting_started/magic_lamps",
   "name": "book.occultism.dictionary_of_spirits.getting_started.magic_lamps.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:magic_lamp_empty",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.magic_lamps.spotlight.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.magic_lamps.spotlight.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/magic_lamp_empty"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/first_ritual"

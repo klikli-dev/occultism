@@ -14,42 +14,6 @@
   "icon": "occultism:textures/gui/book/iesnium_golem.png",
   "id": "occultism:familiar_rituals/iesnium_golem",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:iesnium_golem",
-      "entity_name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.title",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/possess_iesnium_golem"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.familiar.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.familiar.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

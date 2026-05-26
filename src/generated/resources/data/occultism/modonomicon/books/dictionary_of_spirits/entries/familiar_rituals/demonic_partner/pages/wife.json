@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:demonic_wife",
+  "entity_name": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.wife.title",
+  "id": "wife",
+  "sort_number": 8,
+  "text": ""
+}

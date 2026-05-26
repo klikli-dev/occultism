@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "book_of_binding_afrit_recipe",
+  "recipe_id_1": "occultism:crafting/book_of_binding_afrit",
+  "sort_number": 9
+}

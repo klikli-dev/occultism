@@ -16,24 +16,6 @@
   },
   "id": "occultism:getting_started/brush",
   "name": "book.occultism.dictionary_of_spirits.getting_started.brush.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.brush.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.brush.intro.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/brush"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/ritual_prep_chalk"

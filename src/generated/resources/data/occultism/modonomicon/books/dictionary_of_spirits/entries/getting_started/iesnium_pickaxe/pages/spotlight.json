@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:iesnium_pickaxe",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.spotlight.text",
+  "title": ""
+}

@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fishing",
+  "item": {
+    "id": "minecraft:fishing_rod"
+  },
+  "sort_number": 8,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.title"
+}

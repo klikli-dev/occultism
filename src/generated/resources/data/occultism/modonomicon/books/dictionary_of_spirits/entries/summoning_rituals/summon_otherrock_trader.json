@@ -16,32 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_otherrock_trader",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.intro.title"
-    },
-    {
-      "type": "occultism:spirit_trade_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_trade/stone_to_otherrock",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.trade.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_foliot_otherrock_trader"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/trade_spirits",

@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:smelting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "burnt_otherstone_recipe",
+  "recipe_id_1": "occultism:smelting/burnt_otherstone",
+  "sort_number": 2
+}

@@ -52,13 +52,11 @@ public class MagicWeatherEntry extends EntryProvider {
         );
 
         this.page("ritual_clear", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_djinni_clear_weather"))
-                .withAnchor("clear"));
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_clear_weather")));
         //no text
 
         this.page("ritual_rain", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_rain_weather"))
-                .withAnchor("rain")
                 .withCondition(BookEntryReadConditionModel.create().withEntry(
                         this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
                 ))
@@ -67,7 +65,6 @@ public class MagicWeatherEntry extends EntryProvider {
 
         this.page("ritual_thunder", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_thunder_weather"))
-                .withAnchor("thunder")
                 .withCondition(BookEntryReadConditionModel.create().withEntry(
                         this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
                 ))

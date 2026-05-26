@@ -16,33 +16,6 @@
   },
   "id": "occultism:crafting_rituals/dimensional_extractor",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_extractor.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:dimensional_extractor",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_extractor.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_dimensional_extractor"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_extractor.use.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_extractor.use.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/craft_infused_pickaxe"

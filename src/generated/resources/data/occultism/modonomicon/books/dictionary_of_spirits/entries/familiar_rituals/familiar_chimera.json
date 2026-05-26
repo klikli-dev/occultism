@@ -14,44 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_chimera.png",
   "id": "occultism:familiar_rituals/familiar_chimera",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:chimera_familiar",
-      "entity_name": "",
-      "offset": 0.3,
-      "scale": 0.7,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_chimera"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.description.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.description2.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

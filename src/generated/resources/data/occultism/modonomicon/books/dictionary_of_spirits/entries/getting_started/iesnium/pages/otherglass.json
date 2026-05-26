@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherglass",
+  "recipe_id_1": "occultism:crafting/otherglass",
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.otherglass.text"
+}

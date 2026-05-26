@@ -16,41 +16,6 @@
   },
   "id": "occultism:pentacles/cyan_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_cyan",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_cyan_impure",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.recipe_impure.text"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_cyan"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/summon_marid",

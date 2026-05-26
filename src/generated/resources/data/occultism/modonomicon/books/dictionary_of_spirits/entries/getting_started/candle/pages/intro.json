@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "occultism:large_candle",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.candle.intro.text",
+  "title": ""
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro3",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro3.text",
+  "title": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.intro3.title"
+}

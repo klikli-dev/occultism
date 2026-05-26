@@ -16,33 +16,6 @@
   },
   "id": "occultism:crafting_rituals/knowledge_tablet",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:knowledge_tablet",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_knowledge_tablet"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.use.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.knowledge_tablet.use.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/overview"

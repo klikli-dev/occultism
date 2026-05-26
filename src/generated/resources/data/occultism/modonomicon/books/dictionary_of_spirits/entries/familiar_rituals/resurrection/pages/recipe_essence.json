@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_essence",
+  "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit_or_seed",
+  "sort_number": 2
+}

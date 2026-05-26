@@ -22,26 +22,6 @@
   },
   "id": "occultism:storage/storage_system_automation_theurgy",
   "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.extraction.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.extraction.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:storage/storage_system_automation"

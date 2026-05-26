@@ -14,33 +14,6 @@
   "icon": "occultism:textures/gui/book/allay.png",
   "id": "occultism:familiar_rituals/resurrect_allay",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "minecraft:allay",
-      "entity_name": "",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/resurrect_allay"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

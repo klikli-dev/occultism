@@ -16,58 +16,6 @@
   },
   "id": "occultism:getting_started/candle",
   "name": "book.occultism.dictionary_of_spirits.getting_started.candle.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:large_candle",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.candle.intro.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:tallow",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.candle.tallow.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/butcher_knife"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/large_candle"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.candle.color_candle.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.candle.lit_candle.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/spirit_fire"

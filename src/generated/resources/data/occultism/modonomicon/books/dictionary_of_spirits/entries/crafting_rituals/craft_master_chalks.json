@@ -16,40 +16,6 @@
   },
   "id": "occultism:crafting_rituals/craft_master_chalks",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_rainbow",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/misc_chalk_rainbow"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_void",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight2.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/misc_chalk_void"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/overview"

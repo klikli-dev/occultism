@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.text",
+  "title": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.title"
+}

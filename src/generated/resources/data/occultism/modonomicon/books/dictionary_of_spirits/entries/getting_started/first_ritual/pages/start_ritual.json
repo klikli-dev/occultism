@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "start_ritual",
+  "show_title_separator": true,
+  "sort_number": 7,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.title"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_water",
+  "recipe_id_1": "occultism:ritual/possess_random_animal_water",
+  "sort_number": 2
+}

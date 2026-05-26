@@ -1,0 +1,16 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "divination_rod_screenshots",
+  "images": [
+    "occultism:textures/gui/book/rod_far.png",
+    "occultism:textures/gui/book/rod_mid.png",
+    "occultism:textures/gui/book/rod_near.png"
+  ],
+  "sort_number": 10,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod_screenshots.text",
+  "title": ""
+}

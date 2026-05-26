@@ -7,29 +7,21 @@
   },
   "category": "occultism:rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:pentacles/summon_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.rituals.sacrifice.description",
   "icon": {
     "id": "minecraft:iron_sword"
   },
   "id": "occultism:rituals/sacrifice",
   "name": "book.occultism.dictionary_of_spirits.rituals.sacrifice.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.rituals.sacrifice.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.rituals.sacrifice.intro.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:rituals/item_use"
     }
   ],
+  "sort_number": 2,
   "x": 3,
   "y": 0
 }

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherworld_goggles",
+  "item": "occultism:otherworld_goggles",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.otherworld_goggles.text",
+  "title": ""
+}

@@ -14,35 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_devil.png",
   "id": "occultism:familiar_rituals/familiar_devil",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:devil_familiar",
-      "entity_name": "",
-      "offset": 0.3,
-      "scale": 0.5,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_devil"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.description.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

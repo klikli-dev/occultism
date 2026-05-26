@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "wither_skull",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.wither_skull.text",
+  "title": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.wither_skull.title"
+}

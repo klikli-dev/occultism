@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": {
+    "id": "occultism:storage_stabilizer_tier0"
+  },
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.spotlight.text",
+  "title": ""
+}

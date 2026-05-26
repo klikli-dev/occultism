@@ -16,33 +16,6 @@
   },
   "id": "occultism:summoning_rituals/time_magic",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "day",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_djinni_day_time"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "night",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_djinni_night_time"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

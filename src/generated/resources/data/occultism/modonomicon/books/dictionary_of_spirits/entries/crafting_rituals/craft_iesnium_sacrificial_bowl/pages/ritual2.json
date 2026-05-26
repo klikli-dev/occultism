@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual2",
+  "recipe_id_1": "occultism:ritual/craft_dark_iesnium_sacrificial_bowl",
+  "sort_number": 3
+}

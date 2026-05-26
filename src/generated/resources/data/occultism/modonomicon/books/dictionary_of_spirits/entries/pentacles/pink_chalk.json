@@ -16,49 +16,6 @@
   },
   "id": "occultism:pentacles/pink_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_pink",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:demonic_meat",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.meat.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_pink_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_pink"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/possess_unbound_afrit",

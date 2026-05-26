@@ -14,26 +14,6 @@
   "icon": "occultism:textures/gui/book/cash.png",
   "id": "occultism:summoning_rituals/trade_spirits",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro2.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

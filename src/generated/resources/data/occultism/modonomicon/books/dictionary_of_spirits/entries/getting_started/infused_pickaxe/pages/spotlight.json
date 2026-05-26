@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:infused_pickaxe",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.spotlight.text",
+  "title": ""
+}

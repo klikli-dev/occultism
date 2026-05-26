@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting",
+  "recipe_id_1": "occultism:ritual/craft_ritual_satchel_t2",
+  "sort_number": 1
+}

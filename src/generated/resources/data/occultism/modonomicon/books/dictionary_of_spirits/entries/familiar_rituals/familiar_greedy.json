@@ -14,33 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_greedy.png",
   "id": "occultism:familiar_rituals/familiar_greedy",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_greedy.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:greedy_familiar",
-      "entity_name": "",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_greedy.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_greedy"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_greedy.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_greedy.description.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

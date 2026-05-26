@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "essence",
+  "item": "occultism:marid_essence",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.essence.text",
+  "title": ""
+}

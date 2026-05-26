@@ -16,61 +16,6 @@
   },
   "id": "occultism:getting_started/iesnium",
   "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:iesnium_ore",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/otherglass",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.otherglass.text"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/infused_pickaxe"

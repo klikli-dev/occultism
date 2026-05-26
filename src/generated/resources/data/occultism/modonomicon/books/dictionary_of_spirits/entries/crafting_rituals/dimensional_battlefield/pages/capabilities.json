@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "capabilities",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_battlefield.capabilities.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_battlefield.capabilities.title"
+}

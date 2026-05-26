@@ -25,45 +25,6 @@
   },
   "id": "occultism:pentacles/craft_djinni",
   "name": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.intro.title"
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "occultism:craft_djinni",
-      "multiblock_name": "",
-      "show_visualize_button": true,
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.uses.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.uses2.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.uses2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/craft_foliot"

@@ -16,41 +16,6 @@
   },
   "id": "occultism:crafting_rituals/craft_eldritch_chalice",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:eldritch_chalice",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/misc_eldritch_chalice"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:celestial_chalice",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight2.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/misc_celestial_chalice",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.ritual2.text"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/craft_iesnium_sacrificial_bowl"

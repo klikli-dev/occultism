@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "upgrade",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.upgrade.text",
+  "title": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.upgrade.title"
+}

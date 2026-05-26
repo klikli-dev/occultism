@@ -11,6 +11,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.rituals.familiar_rituals.description",
   "icon": "occultism:textures/gui/book/familiar.png",
   "id": "occultism:rituals/familiar_rituals",
   "name": "book.occultism.dictionary_of_spirits.rituals.familiar_rituals.name",
@@ -19,6 +20,7 @@
       "entry": "occultism:rituals/sacrifice"
     }
   ],
+  "sort_number": 6,
   "x": 7,
   "y": 2
 }

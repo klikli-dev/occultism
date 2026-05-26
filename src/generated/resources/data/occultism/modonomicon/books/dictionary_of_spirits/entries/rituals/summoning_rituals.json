@@ -11,6 +11,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/summon_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.rituals.summoning_rituals.description",
   "icon": "occultism:textures/gui/book/summoning.png",
   "id": "occultism:rituals/summoning_rituals",
   "name": "book.occultism.dictionary_of_spirits.rituals.summoning_rituals.name",
@@ -19,6 +20,7 @@
       "entry": "occultism:rituals/sacrifice"
     }
   ],
+  "sort_number": 3,
   "x": 7,
   "y": -2
 }

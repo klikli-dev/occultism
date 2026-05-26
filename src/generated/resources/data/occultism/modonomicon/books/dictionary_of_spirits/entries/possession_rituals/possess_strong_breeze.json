@@ -10,43 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:possession_rituals/possess_breeze"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_strong_breeze.description",
   "icon": {
     "id": "minecraft:heavy_core"
   },
   "id": "occultism:possession_rituals/possess_strong_breeze",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_strong_breeze.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:possessed_strong_breeze",
-      "entity_name": "",
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_strong_breeze.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_strong_breeze"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_strong_breeze.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/possess_breeze"
     }
   ],
+  "sort_number": 26,
   "x": 1,
   "y": 5
 }

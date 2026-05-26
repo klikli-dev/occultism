@@ -16,24 +16,6 @@
   },
   "id": "occultism:summoning_rituals/afrit_essence",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_unbound_afrit"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

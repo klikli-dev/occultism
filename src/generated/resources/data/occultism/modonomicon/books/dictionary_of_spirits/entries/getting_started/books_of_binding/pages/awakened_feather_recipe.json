@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "awakened_feather_recipe",
+  "recipe_id_1": "occultism:spirit_fire/awakened_feather",
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.awakened_feather_recipe.text"
+}

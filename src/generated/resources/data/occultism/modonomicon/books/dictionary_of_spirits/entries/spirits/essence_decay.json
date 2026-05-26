@@ -2,7 +2,7 @@
   "type": "modonomicon:content",
   "background": {
     "height": 26,
-    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gray",
     "width": 26
   },
   "category": "occultism:spirits",
@@ -16,40 +16,12 @@
   },
   "id": "occultism:spirits/essence_decay",
   "name": "book.occultism.dictionary_of_spirits.spirits.essence_decay.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:spirits/overview"
     }
   ],
+  "sort_number": 2,
   "x": -8,
   "y": 1
 }

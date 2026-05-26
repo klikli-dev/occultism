@@ -16,53 +16,6 @@
   },
   "id": "occultism:getting_started/books_of_calling",
   "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.obtaining.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.obtaining.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.obtaining2.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.storage.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.storage.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/books_of_binding"

@@ -16,51 +16,6 @@
   },
   "id": "occultism:crafting_rituals/apprentice_ritual_satchel",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:ritual_satchel_t1",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.about.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.about.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_ritual_satchel_t1"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.brush.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.brush.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/craft_satchel"

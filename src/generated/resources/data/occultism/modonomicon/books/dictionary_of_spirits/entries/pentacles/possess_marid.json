@@ -16,36 +16,6 @@
   },
   "id": "occultism:pentacles/possess_marid",
   "name": "book.occultism.dictionary_of_spirits.pentacles.possess_marid.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_marid.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_marid.intro.title"
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "occultism:possess_marid",
-      "multiblock_name": "",
-      "show_visualize_button": true,
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_marid.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_marid.uses.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/possess_afrit"

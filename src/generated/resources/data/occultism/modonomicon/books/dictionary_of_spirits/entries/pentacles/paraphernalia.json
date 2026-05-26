@@ -16,69 +16,6 @@
   },
   "id": "occultism:pentacles/paraphernalia",
   "name": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:large_candle",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "minecraft:skeleton_skull",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skull.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:spirit_attuned_crystal",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.crystal.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/spirit_attuned_crystal"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": {
-        "id": "minecraft:wither_skeleton_skull"
-      },
-      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.wither_skull.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/pentacle_overview",

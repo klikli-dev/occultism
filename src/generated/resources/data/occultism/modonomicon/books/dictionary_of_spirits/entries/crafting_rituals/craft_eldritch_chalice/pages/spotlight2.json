@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight2",
+  "item": "occultism:celestial_chalice",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight2.text",
+  "title": ""
+}

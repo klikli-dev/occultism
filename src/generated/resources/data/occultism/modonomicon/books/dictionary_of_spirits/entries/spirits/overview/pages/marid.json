@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "marid",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.spirits.overview.marid.text",
+  "title": "book.occultism.dictionary_of_spirits.spirits.overview.marid.title"
+}

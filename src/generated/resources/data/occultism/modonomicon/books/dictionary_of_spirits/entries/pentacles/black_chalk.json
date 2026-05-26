@@ -16,47 +16,6 @@
   },
   "id": "occultism:pentacles/black_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_black",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_witherite_dust"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_black_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_black"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/gray_chalk"

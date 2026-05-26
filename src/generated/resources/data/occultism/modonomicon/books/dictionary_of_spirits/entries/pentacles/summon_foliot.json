@@ -16,36 +16,6 @@
   },
   "id": "occultism:pentacles/summon_foliot",
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.intro.title"
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "occultism:summon_foliot",
-      "multiblock_name": "",
-      "show_visualize_button": true,
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.uses.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/didactics"

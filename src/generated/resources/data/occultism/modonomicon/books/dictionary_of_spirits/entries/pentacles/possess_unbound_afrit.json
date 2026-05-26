@@ -25,36 +25,6 @@
   },
   "id": "occultism:pentacles/possess_unbound_afrit",
   "name": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.intro.title"
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "occultism:possess_unbound_afrit",
-      "multiblock_name": "",
-      "show_visualize_button": true,
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.uses.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/possess_djinni"

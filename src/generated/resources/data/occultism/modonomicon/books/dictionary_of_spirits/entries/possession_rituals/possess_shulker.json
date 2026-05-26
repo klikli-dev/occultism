@@ -10,44 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_afrit"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.description",
   "icon": {
     "id": "minecraft:shulker_shell"
   },
   "id": "occultism:possession_rituals/possess_shulker",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:possessed_shulker",
-      "entity_name": "",
-      "scale": 0.5,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/possess_shulker"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/overview"
     }
   ],
+  "sort_number": 16,
   "x": 7,
   "y": -5
 }

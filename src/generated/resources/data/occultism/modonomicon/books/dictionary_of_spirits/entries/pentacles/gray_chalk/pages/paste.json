@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "paste",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.paste.text",
+  "title": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.paste.title"
+}

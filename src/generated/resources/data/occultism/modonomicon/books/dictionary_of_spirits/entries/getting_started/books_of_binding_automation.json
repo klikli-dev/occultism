@@ -16,26 +16,6 @@
   },
   "id": "occultism:getting_started/books_of_binding_automation",
   "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/books_of_binding"

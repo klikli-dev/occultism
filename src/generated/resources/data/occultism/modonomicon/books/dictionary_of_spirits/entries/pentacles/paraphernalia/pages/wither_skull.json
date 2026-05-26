@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "wither_skull",
+  "item": {
+    "id": "minecraft:wither_skeleton_skull"
+  },
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.wither_skull.text",
+  "title": ""
+}

@@ -16,33 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_smelter_t4",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.filters.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t4.filters.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_marid_smelter"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/summon_smelter_t3"

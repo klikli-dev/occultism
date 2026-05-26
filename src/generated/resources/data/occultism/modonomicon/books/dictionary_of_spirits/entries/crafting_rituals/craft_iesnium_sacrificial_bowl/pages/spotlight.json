@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:iesnium_sacrificial_bowl",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.spotlight.text",
+  "title": ""
+}

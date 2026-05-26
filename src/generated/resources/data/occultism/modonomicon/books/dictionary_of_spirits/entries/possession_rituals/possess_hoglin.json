@@ -10,44 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_afrit"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_hoglin.description",
   "icon": {
     "id": "minecraft:netherite_upgrade_smithing_template"
   },
   "id": "occultism:possession_rituals/possess_hoglin",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_hoglin.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:possessed_hoglin",
-      "entity_name": "",
-      "scale": 0.7,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_hoglin.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/possess_hoglin"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_hoglin.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/overview"
     }
   ],
+  "sort_number": 15,
   "x": 8,
   "y": -3
 }

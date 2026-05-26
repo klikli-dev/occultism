@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "heart",
+  "item": {
+    "id": "occultism:sweet_honey_heart"
+  },
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.heart.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.heart.title"
+}

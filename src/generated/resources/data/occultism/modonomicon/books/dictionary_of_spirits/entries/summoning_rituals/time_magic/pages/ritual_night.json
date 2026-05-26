@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_night",
+  "recipe_id_1": "occultism:ritual/summon_djinni_night_time",
+  "sort_number": 2
+}

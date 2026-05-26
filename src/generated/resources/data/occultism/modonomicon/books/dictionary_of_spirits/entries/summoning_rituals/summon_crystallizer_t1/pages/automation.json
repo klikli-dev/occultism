@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "automation",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t1.automation.text",
+  "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t1.automation.title"
+}

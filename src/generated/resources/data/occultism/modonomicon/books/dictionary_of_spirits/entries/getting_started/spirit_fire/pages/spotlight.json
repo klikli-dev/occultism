@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:spirit_fire",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.spotlight.text",
+  "title": ""
+}

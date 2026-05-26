@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "divination_rod",
+  "item": "occultism:divination_rod",
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod.text",
+  "title": ""
+}

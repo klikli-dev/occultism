@@ -16,27 +16,6 @@
   },
   "id": "occultism:crafting_rituals/craft_storage_system",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:satchel",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.satchels.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/craft_djinni"
-      },
-      "item": "occultism:storage_controller",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.spotlight.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/overview"

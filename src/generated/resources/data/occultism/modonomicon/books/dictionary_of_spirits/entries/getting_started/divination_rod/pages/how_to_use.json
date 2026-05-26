@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "how_to_use",
+  "show_title_separator": true,
+  "sort_number": 7,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use.title"
+}

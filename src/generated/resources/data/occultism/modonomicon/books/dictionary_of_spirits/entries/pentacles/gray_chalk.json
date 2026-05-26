@@ -16,65 +16,6 @@
   },
   "id": "occultism:pentacles/gray_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_gray",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_gray_paste"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.paste.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.paste.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.ore_dupe.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.ore_dupe.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_gray_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_gray"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/light_gray_chalk"

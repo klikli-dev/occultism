@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:ritual_satchel_t2",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.spotlight.text",
+  "title": ""
+}

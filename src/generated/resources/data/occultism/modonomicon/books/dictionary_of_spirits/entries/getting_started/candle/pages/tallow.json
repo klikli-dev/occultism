@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tallow",
+  "item": "occultism:tallow",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.candle.tallow.text",
+  "title": ""
+}

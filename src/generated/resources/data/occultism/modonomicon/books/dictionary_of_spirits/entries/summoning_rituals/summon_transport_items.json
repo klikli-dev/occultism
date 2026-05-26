@@ -16,68 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_transport_items",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.intro2.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.item_filters.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.item_filters.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_foliot_transport_items"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_transport_items",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.book_of_calling.text"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.usage.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

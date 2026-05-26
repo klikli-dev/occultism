@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "skull",
+  "item": "minecraft:skeleton_skull",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skull.text",
+  "title": ""
+}

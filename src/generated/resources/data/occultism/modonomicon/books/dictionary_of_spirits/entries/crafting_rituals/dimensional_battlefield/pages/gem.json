@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gem",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_battlefield.gem.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_battlefield.gem.title"
+}

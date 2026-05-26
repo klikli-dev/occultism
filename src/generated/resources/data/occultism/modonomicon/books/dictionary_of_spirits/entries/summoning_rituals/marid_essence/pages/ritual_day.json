@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_day",
+  "recipe_id_1": "occultism:ritual/summon_unbound_marid",
+  "sort_number": 1
+}

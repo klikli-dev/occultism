@@ -16,24 +16,6 @@
   },
   "id": "occultism:crafting_rituals/vitality_compass",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.vitality_compass.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:vitality_compass",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.vitality_compass.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_vitality_compass"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/overview"

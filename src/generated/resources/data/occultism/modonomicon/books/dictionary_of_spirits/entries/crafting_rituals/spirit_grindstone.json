@@ -16,24 +16,6 @@
   },
   "id": "occultism:crafting_rituals/spirit_grindstone",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.spirit_grindstone.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:spirit_grindstone",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.spirit_grindstone.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_spirit_grindstone"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/overview"

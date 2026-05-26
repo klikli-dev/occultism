@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_recipe",
+  "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
+  "sort_number": 5
+}

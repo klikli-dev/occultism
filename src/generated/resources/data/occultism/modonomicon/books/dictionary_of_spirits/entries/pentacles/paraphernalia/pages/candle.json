@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "candle",
+  "item": "occultism:large_candle",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text",
+  "title": ""
+}

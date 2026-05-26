@@ -10,44 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/contact_wild_spirit"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.horde_creeper.description",
   "icon": {
     "id": "minecraft:music_disc_cat"
   },
   "id": "occultism:possession_rituals/horde_creeper",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_creeper.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:wild_horde_creeper",
-      "entity_name": "",
-      "scale": 0.8,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_creeper.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_creeper"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_creeper.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/overview"
     }
   ],
+  "sort_number": 22,
   "x": -2,
   "y": 1
 }

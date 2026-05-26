@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "base_ritual",
+  "recipe_id_1": "occultism:ritual/craft_storage_controller_base",
+  "sort_number": 8
+}

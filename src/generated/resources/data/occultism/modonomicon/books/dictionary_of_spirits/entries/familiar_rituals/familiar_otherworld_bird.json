@@ -14,42 +14,6 @@
   "icon": "occultism:textures/gui/book/otherworld_bird.png",
   "id": "occultism:familiar_rituals/familiar_otherworld_bird",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:otherworld_bird",
-      "entity_name": "",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_otherworld_bird"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description2.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

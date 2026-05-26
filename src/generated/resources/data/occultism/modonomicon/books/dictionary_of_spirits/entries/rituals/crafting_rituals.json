@@ -11,6 +11,7 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/craft_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.rituals.crafting_rituals.description",
   "icon": "occultism:textures/gui/book/infusion.png",
   "id": "occultism:rituals/crafting_rituals",
   "name": "book.occultism.dictionary_of_spirits.rituals.crafting_rituals.name",
@@ -19,6 +20,7 @@
       "entry": "occultism:rituals/sacrifice"
     }
   ],
+  "sort_number": 5,
   "x": 5,
   "y": 2
 }

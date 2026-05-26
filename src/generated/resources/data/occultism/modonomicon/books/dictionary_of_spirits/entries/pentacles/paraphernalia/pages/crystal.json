@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crystal",
+  "item": "occultism:spirit_attuned_crystal",
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.crystal.text",
+  "title": ""
+}

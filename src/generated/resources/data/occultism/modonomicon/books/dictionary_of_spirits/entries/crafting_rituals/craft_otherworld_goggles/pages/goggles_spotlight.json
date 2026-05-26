@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "goggles_spotlight",
+  "item": "occultism:otherworld_goggles",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.goggles_spotlight.text",
+  "title": ""
+}

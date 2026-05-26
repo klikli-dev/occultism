@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual",
+  "recipe_id_1": "occultism:ritual/familiar_mummy",
+  "sort_number": 1
+}

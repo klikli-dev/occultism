@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_hermetica",
+  "recipe_id_1": "theurgy:crafting/shapeless/the_hermetica",
+  "sort_number": 3
+}

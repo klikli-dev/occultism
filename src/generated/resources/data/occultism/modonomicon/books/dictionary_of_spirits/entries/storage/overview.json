@@ -16,26 +16,6 @@
   },
   "id": "occultism:storage/overview",
   "name": "book.occultism.dictionary_of_spirits.storage.overview.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.overview.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.overview.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.overview.intro2.text",
-      "title": ""
-    }
-  ],
   "sort_number": 0,
   "x": -4,
   "y": 1

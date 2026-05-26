@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight3",
+  "item": "occultism:demons_dream_essence",
+  "sort_number": 8,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.spotlight3.text",
+  "title": ""
+}

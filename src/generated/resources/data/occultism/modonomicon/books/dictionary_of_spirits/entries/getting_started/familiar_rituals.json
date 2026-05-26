@@ -14,26 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar.png",
   "id": "occultism:getting_started/familiar_rituals",
   "name": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.more.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.more.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/more_rituals"

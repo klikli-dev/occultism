@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "info",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.info.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.info.title"
+}

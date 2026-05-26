@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "using_names",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.spirits.true_names.using_names.text",
+  "title": "book.occultism.dictionary_of_spirits.spirits.true_names.using_names.title"
+}

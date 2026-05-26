@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:wild_horde_parched",
+  "entity_name": "",
+  "id": "parched",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_desert.parched.text"
+}

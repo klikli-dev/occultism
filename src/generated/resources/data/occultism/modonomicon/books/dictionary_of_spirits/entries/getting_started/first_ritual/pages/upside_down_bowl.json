@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "upside_down_bowl",
+  "show_title_separator": true,
+  "sort_number": 9,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.upside_down_bowl.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.upside_down_bowl.title"
+}

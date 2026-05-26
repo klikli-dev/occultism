@@ -16,33 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_crystallizer_t2",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.filters.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.filters.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_djinni_crystallizer"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/summon_crystallizer_t1"

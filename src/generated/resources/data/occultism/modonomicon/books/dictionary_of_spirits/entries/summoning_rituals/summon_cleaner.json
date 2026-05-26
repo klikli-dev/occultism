@@ -16,59 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_cleaner",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.intro2.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.tip.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.tip.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_foliot_cleaner"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_cleaner",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.book_of_calling.text"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.usage.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

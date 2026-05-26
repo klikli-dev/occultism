@@ -16,24 +16,6 @@
   },
   "id": "occultism:getting_started/iesnium_pickaxe",
   "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:iesnium_pickaxe",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/iesnium_pickaxe"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/iesnium"

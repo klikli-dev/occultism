@@ -10,44 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/possess_marid"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_goat.description",
   "icon": {
     "id": "occultism:cruelty_essence"
   },
   "id": "occultism:possession_rituals/possess_goat",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_goat.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:mercy_goat",
-      "entity_name": "",
-      "scale": 0.7,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_goat.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/possess_goat"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_goat.description.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/overview"
     }
   ],
+  "sort_number": 17,
   "x": 9,
   "y": -5
 }

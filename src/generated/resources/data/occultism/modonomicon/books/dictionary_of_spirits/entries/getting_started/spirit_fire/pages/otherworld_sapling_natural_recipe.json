@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherworld_sapling_natural_recipe",
+  "recipe_id_1": "occultism:spirit_fire/otherworld_sapling_natural",
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherworld_sapling_natural_recipe.text"
+}

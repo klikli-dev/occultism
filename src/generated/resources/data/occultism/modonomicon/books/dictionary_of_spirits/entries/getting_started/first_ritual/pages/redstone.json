@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "redstone",
+  "show_title_separator": true,
+  "sort_number": 11,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.redstone.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.redstone.title"
+}

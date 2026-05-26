@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "unbound",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound.text",
+  "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound.title"
+}

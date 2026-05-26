@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "pentacle_link_hint",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.pentacle_link_hint.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.pentacle_link_hint.title"
+}

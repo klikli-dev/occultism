@@ -14,35 +14,6 @@
   "icon": "occultism:textures/gui/book/familiar_deer.png",
   "id": "occultism:familiar_rituals/familiar_deer",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.name",
-  "pages": [
-    {
-      "type": "modonomicon:entity",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "entity_id": "occultism:deer_familiar",
-      "entity_name": "",
-      "offset": 0.3,
-      "scale": 0.7,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/familiar_deer"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/overview"

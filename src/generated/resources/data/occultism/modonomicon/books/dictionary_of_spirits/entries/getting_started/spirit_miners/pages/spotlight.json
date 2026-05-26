@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:miner_foliot_unspecialized",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.spotlight.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.spotlight.title"
+}

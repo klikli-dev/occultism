@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_iron_nautilus",
+  "recipe_id_1": "occultism:ritual/misc_iron_nautilus_armor",
+  "sort_number": 7
+}

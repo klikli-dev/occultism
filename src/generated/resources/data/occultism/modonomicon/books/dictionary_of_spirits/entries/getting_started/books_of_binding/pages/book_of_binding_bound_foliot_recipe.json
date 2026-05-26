@@ -1,0 +1,13 @@
+{
+  "type": "occultism:book_binding_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "book_of_binding_bound_foliot_recipe",
+  "recipe_id_1": "occultism:crafting/bound_book_of_binding",
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_bound_foliot_recipe.text",
+  "unbound_book": {
+    "id": "occultism:book_of_binding_foliot"
+  }
+}

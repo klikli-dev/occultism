@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:chalk_light_blue",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.light_blue_chalk.spotlight.text",
+  "title": ""
+}

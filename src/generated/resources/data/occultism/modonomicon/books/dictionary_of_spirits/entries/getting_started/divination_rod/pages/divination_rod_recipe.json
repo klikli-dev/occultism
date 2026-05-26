@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "divination_rod_recipe",
+  "recipe_id_1": "occultism:crafting/divination_rod",
+  "sort_number": 5
+}

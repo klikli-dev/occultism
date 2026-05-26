@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_copper_nautilus",
+  "recipe_id_1": "occultism:ritual/misc_copper_nautilus_armor",
+  "sort_number": 6
+}

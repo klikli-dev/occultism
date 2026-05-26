@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "automation_flame",
+  "item": "occultism:flame_of_automation",
+  "sort_number": 10,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.automation_flame.text",
+  "title": ""
+}

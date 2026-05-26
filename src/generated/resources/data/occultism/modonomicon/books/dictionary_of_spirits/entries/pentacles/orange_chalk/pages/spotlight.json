@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:chalk_orange",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.spotlight.text",
+  "title": ""
+}

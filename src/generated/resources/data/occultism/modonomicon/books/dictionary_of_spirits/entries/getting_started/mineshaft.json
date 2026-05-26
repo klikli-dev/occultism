@@ -16,26 +16,6 @@
   },
   "id": "occultism:getting_started/mineshaft",
   "name": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:dimensional_mineshaft",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.crafting.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.crafting.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/spirit_miners"

@@ -10,69 +10,18 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:pentacles/contact_wild_spirit"
   },
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.description",
   "icon": {
     "id": "occultism:mysterious_egg_icon"
   },
   "id": "occultism:possession_rituals/wild_random_animal",
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.description.text",
-      "title": "book.occultism.dictionary_of_spirits.possession_rituals.wild_random_animal.description.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_common"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_water"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_small"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_rideable"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_villager"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/wild_random_animal_special"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:possession_rituals/possess_random_animal"
     }
   ],
+  "sort_number": 30,
   "x": 7,
   "y": 3
 }

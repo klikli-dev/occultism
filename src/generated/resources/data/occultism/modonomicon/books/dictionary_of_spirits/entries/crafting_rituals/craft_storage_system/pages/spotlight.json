@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:pentacles/craft_djinni"
+  },
+  "id": "spotlight",
+  "item": "occultism:storage_controller",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.spotlight.text",
+  "title": ""
+}

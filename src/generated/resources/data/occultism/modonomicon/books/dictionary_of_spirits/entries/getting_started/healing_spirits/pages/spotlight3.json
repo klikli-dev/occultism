@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight3",
+  "item": "occultism:otherworld_essence",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight3.text",
+  "title": ""
+}

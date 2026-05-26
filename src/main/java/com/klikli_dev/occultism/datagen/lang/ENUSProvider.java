@@ -975,8 +975,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Rituals");
         this.add(helper.pageText(),
                 """
-                        Rituals allow to summon spirits into our plane of existence, or bind them into objects or living beings. Every ritual consists of a [#](%1$s)Pentacle[#](), [#](%1$s)Ritual Ingredients[#]() provided via sacrificial bowls, a [#](%1$s)Starting Item[#]() and optionally the [#](%1$s)Sacrifice[#]() of living beings. A purple particle effect will show that the ritual is successful and in progress.
-                        """.formatted(COLOR_PURPLE));
+                        Rituals allow to summon spirits into our plane of existence, or bind them into objects or living beings. Every ritual consists of a [#]({0})Pentacle[#](), [#]({0})Ritual Ingredients[#]() provided via sacrificial bowls, a [#]({0})Starting Item[#]() and optionally the [#]({0})Sacrifice[#]() of living beings. A purple particle effect will show that the ritual is successful and in progress.
+                        """);
 
         helper.page("steps");
         this.add(helper.pageTitle(), "Performing a Ritual");
@@ -987,9 +987,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - Place a golden ritual bowl.
                         - Place sacrificial bowls.
                         - Put ingredients in bowls.
-                        - [#](%1$s)Right-click[#]()the golden bowl with the activation item.
+                        - [#]({0})Right-click[#]()the golden bowl with the activation item.
                         - *Optional: Perform a sacrifice close to the center of the pentacle.*
-                        """.formatted(COLOR_PURPLE));
+                        """);
 
         helper.page("additional_requirements");
         this.add(helper.pageTitle(), "Additional Requirements");
@@ -1073,8 +1073,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
-                        """.formatted(COLOR_PURPLE));
+                        In this ritual an [#]({0})Enderman[#]() is spawned using the life energy of a [#]({0})Pig[#]() and immediately possessed by the summoned [#]({0})Djinni[#](). The [#]({0})Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
+                        """);
 
         helper.entry("wither_skull");
         this.add(helper.entryName(), "Wild Hunt");
@@ -1083,8 +1083,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Wither Skeleton Skull");
         this.add(helper.pageText(),
                 """
-                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
-                        """.formatted(COLOR_PURPLE));
+                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#]({0})Wild Hunt[#]() consists of [#]({0})Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                        """);
 
         helper.page("ritual");
         //no text
@@ -1105,8 +1105,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                        In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
-                        """.formatted(COLOR_PURPLE));
+                        In this ritual an [#]({0})Endermite[#]() is tricked into spawning. The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. When the mite spawns, the summoned [#]({0})Foliot[#]() immediately possesses it, visits [#]({0})The End[#](), and returns. The [#]({0})Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
+                        """);
 
         helper.entry("possess_ghast");
         //moved to OccultismBookProvider#makePossessGhastEntry
@@ -1126,8 +1126,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                        In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
-                        """.formatted(COLOR_PURPLE));
+                        In this ritual an [#]({0})Skeleton[#]() is spawned using the life energy of a [#]({0})Chicken[#]() and possessed by a [#]({0})Foliot[#](). The [#]({0})Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
+                        """);
 
         helper.entry("possess_unbound_parrot");
         this.add(helper.entryName(), "Unbound Parrot");
@@ -1144,17 +1144,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
+                        In this ritual a [#]({0})Foliot[#]() is summoned **as an untamed spirit**.
                         \\
                         \\
-                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
-                        """.formatted(COLOR_PURPLE));
+                        The slaughter of a [#]({0})Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#]({0})Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                        """);
 
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
-                        """.formatted(COLOR_PURPLE));
+                        *This means, if a [#]({0})Chicken[#]() is spawned, that's not a bug, just bad luck!*
+                        """);
 
         helper.entry("possess_unbound_otherworld_bird");
         this.add(helper.entryName(), "Unbound Drikwing");
@@ -1996,7 +1996,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemMessages();
         this.addItemTooltips();
         this.addBlocks();
-        this.addBook();
         this.addEntities();
         this.addMiscTranslations();
         this.addRitualMessages();

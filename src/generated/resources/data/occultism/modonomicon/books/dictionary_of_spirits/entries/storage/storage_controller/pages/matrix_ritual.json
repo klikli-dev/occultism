@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "matrix_ritual",
+  "recipe_id_1": "occultism:ritual/craft_dimensional_matrix",
+  "sort_number": 7
+}

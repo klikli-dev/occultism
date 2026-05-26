@@ -16,49 +16,6 @@
   },
   "id": "occultism:pentacles/brown_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_brown",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:cruelty_essence",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.essence.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_brown_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_brown"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/possess_marid",

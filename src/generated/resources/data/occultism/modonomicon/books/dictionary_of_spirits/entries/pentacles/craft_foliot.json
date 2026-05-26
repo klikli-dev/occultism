@@ -16,45 +16,6 @@
   },
   "id": "occultism:pentacles/craft_foliot",
   "name": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.intro.title"
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "occultism:craft_foliot",
-      "multiblock_name": "",
-      "show_visualize_button": true,
-      "text": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.uses.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.uses2.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_foliot.uses2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/purple_chalk"

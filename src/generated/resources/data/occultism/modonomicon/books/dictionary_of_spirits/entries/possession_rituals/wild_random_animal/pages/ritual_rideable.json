@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_rideable",
+  "recipe_id_1": "occultism:ritual/wild_random_animal_rideable",
+  "sort_number": 4
+}

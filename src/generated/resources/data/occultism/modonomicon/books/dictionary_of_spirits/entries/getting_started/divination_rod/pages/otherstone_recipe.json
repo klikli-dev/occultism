@@ -1,0 +1,9 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherstone_recipe",
+  "recipe_id_1": "occultism:spirit_fire/otherstone",
+  "sort_number": 1
+}

@@ -16,26 +16,6 @@
   },
   "id": "occultism:getting_started/ritual_satchels",
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:ritual_satchel_t1",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.more.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.more.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/chalks"

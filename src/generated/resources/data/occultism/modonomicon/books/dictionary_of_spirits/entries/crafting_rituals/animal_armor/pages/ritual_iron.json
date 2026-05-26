@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_iron",
+  "recipe_id_1": "occultism:ritual/misc_iron_horse_armor",
+  "sort_number": 2
+}

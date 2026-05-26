@@ -16,31 +16,6 @@
   },
   "id": "occultism:storage/craft_stable_wormhole",
   "name": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:stable_wormhole",
-      "text": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_stable_wormhole"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_stable_wormhole_dark"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:storage/storage_controller"

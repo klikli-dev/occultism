@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_trade_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "trade",
+  "recipe_id_1": "occultism:spirit_trade/stone_to_otherrock",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherrock_trader.trade.text"
+}

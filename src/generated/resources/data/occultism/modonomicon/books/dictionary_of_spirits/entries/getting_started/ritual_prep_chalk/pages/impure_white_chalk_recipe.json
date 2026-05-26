@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "impure_white_chalk_recipe",
+  "recipe_id_1": "occultism:crafting/chalk_white_impure",
+  "sort_number": 4
+}

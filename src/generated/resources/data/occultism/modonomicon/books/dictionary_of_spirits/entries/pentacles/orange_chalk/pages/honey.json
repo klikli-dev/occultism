@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "honey",
+  "item": "occultism:cursed_honey",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.honey.text",
+  "title": ""
+}

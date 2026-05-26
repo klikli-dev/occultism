@@ -16,43 +16,6 @@
   },
   "id": "occultism:summoning_rituals/weather_magic",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "clear",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_djinni_clear_weather"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "rain",
-      "condition": {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/summon_afrit"
-      },
-      "recipe_id_1": "occultism:ritual/summon_afrit_rain_weather"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "thunder",
-      "condition": {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/summon_afrit"
-      },
-      "recipe_id_1": "occultism:ritual/summon_afrit_thunder_weather"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

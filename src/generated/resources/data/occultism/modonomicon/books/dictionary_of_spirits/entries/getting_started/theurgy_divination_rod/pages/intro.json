@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "item": "minecraft:stick",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.intro.text",
+  "title": ""
+}

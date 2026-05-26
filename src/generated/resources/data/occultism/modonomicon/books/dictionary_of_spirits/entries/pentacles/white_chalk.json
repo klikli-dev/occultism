@@ -16,40 +16,6 @@
   },
   "id": "occultism:pentacles/white_chalk",
   "name": "book.occultism.dictionary_of_spirits.pentacles.white_chalk.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.white_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.white_chalk.lore.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:chalk_white",
-      "text": "book.occultism.dictionary_of_spirits.pentacles.white_chalk.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/chalk_white_impure"
-    },
-    {
-      "type": "occultism:spirit_fire_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:spirit_fire/chalk_white"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:pentacles/didactics",

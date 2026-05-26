@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "multiblock",
+  "multiblock_id": "occultism:summon_unbound_marid",
+  "multiblock_name": "",
+  "show_visualize_button": true,
+  "sort_number": 1,
+  "text": ""
+}

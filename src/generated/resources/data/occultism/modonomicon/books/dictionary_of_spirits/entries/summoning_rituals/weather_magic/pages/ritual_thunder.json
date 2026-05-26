@@ -1,0 +1,10 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:pentacles/summon_afrit"
+  },
+  "id": "ritual_thunder",
+  "recipe_id_1": "occultism:ritual/summon_afrit_thunder_weather",
+  "sort_number": 3
+}

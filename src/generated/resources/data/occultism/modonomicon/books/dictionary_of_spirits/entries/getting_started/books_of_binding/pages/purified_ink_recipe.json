@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "purified_ink_recipe",
+  "recipe_id_1": "occultism:spirit_fire/purified_ink",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.purified_ink_recipe.text"
+}

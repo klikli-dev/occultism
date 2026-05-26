@@ -16,24 +16,6 @@
   },
   "id": "occultism:crafting_rituals/true_sight_staff",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:true_sight_staff",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_true_sight_staff"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/craft_otherworld_goggles"

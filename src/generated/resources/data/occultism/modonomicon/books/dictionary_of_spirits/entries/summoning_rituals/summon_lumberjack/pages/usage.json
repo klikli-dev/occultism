@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "usage",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.text",
+  "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.title"
+}

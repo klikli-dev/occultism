@@ -16,58 +16,6 @@
   },
   "id": "occultism:getting_started/ritual_prep_bowl",
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:sacrificial_bowl",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl.title"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/sacrificial_bowl",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.sacrificial_bowl_recipe.text"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/copper_sacrificial_bowl",
-      "recipe_id_2": "occultism:crafting/silver_sacrificial_bowl"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:spirit_fire",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.title"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:golden_sacrificial_bowl",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.golden_sacrificial_bowl.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/golden_sacrificial_bowl"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/ritual_prep_chalk"

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "note_on_spirit_fire",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.note_on_spirit_fire.text",
+  "title": ""
+}

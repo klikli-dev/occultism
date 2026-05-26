@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "description",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.description.text",
+  "title": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.description.title"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "book_of_binding_empty_recipe",
+  "recipe_id_2": "occultism:crafting/book_of_binding_empty",
+  "sort_number": 14
+}

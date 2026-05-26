@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "extra_uses",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.extra_uses.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.extra_uses.title"
+}

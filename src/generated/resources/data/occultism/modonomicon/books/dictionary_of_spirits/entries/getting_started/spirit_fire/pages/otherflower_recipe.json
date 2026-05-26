@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherflower_recipe",
+  "recipe_id_1": "occultism:spirit_fire/otherflower",
+  "sort_number": 8,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherflower_recipe.text"
+}

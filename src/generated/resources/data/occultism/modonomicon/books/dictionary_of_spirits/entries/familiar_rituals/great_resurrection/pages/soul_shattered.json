@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "soul_shattered",
+  "item": "occultism:soul_shattered",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.soul_shattered.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.soul_shattered.title"
+}

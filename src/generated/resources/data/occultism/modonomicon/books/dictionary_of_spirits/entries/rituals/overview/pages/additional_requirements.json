@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "additional_requirements",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.text",
+  "title": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.title"
+}

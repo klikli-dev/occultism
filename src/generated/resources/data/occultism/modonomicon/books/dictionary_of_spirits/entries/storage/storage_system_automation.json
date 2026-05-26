@@ -16,44 +16,6 @@
   },
   "id": "occultism:storage/storage_system_automation",
   "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.intro.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.performance.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.performance.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.extraction.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.extraction.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.insertion.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.insertion.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:storage/storage_controller"

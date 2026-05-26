@@ -16,24 +16,6 @@
   },
   "id": "occultism:familiar_rituals/great_resurrection",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:soul_shattered",
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.soul_shattered.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.soul_shattered.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/resurrect_mob"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:familiar_rituals/resurrection"

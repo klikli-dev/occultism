@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:magic_lamp_empty",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.magic_lamps.spotlight.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.magic_lamps.spotlight.title"
+}

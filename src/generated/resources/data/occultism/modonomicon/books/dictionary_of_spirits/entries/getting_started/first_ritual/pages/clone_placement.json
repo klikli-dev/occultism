@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "clone_placement",
+  "images": [
+    "occultism:textures/gui/book/redstone_clone.png"
+  ],
+  "sort_number": 13,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.clone_placement.text",
+  "title": ""
+}

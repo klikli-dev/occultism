@@ -1,0 +1,9 @@
+{
+  "type": "occultism:spirit_fire_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_gem",
+  "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
+  "sort_number": 4
+}

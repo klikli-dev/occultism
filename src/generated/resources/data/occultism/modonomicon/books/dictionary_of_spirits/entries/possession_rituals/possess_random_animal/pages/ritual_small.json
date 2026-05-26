@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_small",
+  "recipe_id_1": "occultism:ritual/possess_random_animal_small",
+  "sort_number": 3
+}

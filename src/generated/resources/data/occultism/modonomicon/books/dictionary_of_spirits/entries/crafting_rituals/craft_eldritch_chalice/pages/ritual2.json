@@ -1,0 +1,10 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual2",
+  "recipe_id_1": "occultism:ritual/misc_celestial_chalice",
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.ritual2.text"
+}

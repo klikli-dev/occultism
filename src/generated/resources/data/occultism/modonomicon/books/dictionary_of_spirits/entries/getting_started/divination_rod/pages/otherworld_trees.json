@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherworld_trees",
+  "show_title_separator": true,
+  "sort_number": 14,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.title"
+}

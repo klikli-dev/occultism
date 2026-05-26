@@ -7,29 +7,21 @@
   },
   "category": "occultism:rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:pentacles/summon_foliot"
   },
+  "description": "book.occultism.dictionary_of_spirits.rituals.item_use.description",
   "icon": {
     "id": "minecraft:flint_and_steel"
   },
   "id": "occultism:rituals/item_use",
   "name": "book.occultism.dictionary_of_spirits.rituals.item_use.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.rituals.item_use.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.rituals.item_use.intro.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:rituals/overview"
     }
   ],
+  "sort_number": 1,
   "x": 1,
   "y": 0
 }

@@ -16,50 +16,6 @@
   },
   "id": "occultism:summoning_rituals/summon_farmer",
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.intro.title"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_foliot_farmer"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_farmer",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.book_of_calling.text"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage2.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage2.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:summoning_rituals/overview"

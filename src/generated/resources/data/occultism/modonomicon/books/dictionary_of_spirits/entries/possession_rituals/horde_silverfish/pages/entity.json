@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:wild_horde_silverfish",
+  "entity_name": "",
+  "id": "entity",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_silverfish.entity.text"
+}

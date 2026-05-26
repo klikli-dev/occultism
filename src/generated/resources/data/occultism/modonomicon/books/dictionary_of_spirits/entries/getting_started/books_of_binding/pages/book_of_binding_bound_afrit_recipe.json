@@ -1,0 +1,12 @@
+{
+  "type": "occultism:book_binding_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "book_of_binding_bound_afrit_recipe",
+  "recipe_id_1": "occultism:crafting/bound_book_of_binding",
+  "sort_number": 10,
+  "unbound_book": {
+    "id": "occultism:book_of_binding_afrit"
+  }
+}

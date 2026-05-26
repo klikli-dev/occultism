@@ -16,24 +16,6 @@
   },
   "id": "occultism:crafting_rituals/craft_satchel",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_satchel.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:satchel",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_satchel.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_satchel"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/craft_storage_system"

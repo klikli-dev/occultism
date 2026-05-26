@@ -14,35 +14,6 @@
   "icon": "occultism:textures/mob_effect/third_eye.png",
   "id": "occultism:getting_started/third_eye",
   "name": "book.occultism.dictionary_of_spirits.getting_started.third_eye.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.about.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.third_eye.about.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.how_to_obtain.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:otherworld_goggles",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.otherworld_goggles.text",
-      "title": ""
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:getting_started/demons_dream"

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "about_crushers",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.text",
+  "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.title"
+}

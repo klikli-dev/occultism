@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_clear",
+  "recipe_id_1": "occultism:ritual/summon_djinni_clear_weather",
+  "sort_number": 1
+}

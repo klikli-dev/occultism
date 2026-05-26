@@ -16,33 +16,6 @@
   },
   "id": "occultism:crafting_rituals/craft_familiar_ring",
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.name",
-  "pages": [
-    {
-      "type": "modonomicon:spotlight",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": "occultism:familiar_ring",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.spotlight.text",
-      "title": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/craft_familiar_ring"
-    },
-    {
-      "type": "modonomicon:text",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.title"
-    }
-  ],
   "parents": [
     {
       "entry": "occultism:crafting_rituals/craft_soul_gem"
