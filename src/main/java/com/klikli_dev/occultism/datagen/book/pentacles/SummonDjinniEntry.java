@@ -58,7 +58,7 @@ public class SummonDjinniEntry extends EntryProvider {
                 - {6}
                 - {7}
                 - {8}
-                """, this.entryLink("Djinni Crusher", "summoning_rituals", "summon_crusher_t2"), this.entryLink("Djinni Smelter", "summoning_rituals", "summon_smelter_t2"), this.entryLink("Djinni Crystallizer", "summoning_rituals", "summon_crystallizer_t2"), this.entryLink("Djinni Machine Operator", "summoning_rituals", "summon_manage_machine"), this.entryLink("Gem Gambler", "summoning_rituals", "summon_gambler"), this.entryLink("Wondering Trader", "summoning_rituals", "summon_wondering"), this.entryLink("Clear Weather", "summoning_rituals", "weather_magic@clear"), this.entryLink("Time Magic", "summoning_rituals", "time_magic"), this.entryLink("Demonic Partner", "familiar_rituals", "demonic_partner"));
+                """, this.entryLink("Djinni Crusher", "summoning_rituals", "summon_crusher_t2"), this.entryLink("Djinni Smelter", "summoning_rituals", "summon_smelter_t2"), this.entryLink("Djinni Crystallizer", "summoning_rituals", "summon_crystallizer_t2"), this.entryLink("Djinni Machine Operator", "summoning_rituals", "summon_manage_machine"), this.entryLink("Gem Gambler", "summoning_rituals", "summon_gambler"), this.entryLink("Wondering Trader", "summoning_rituals", "summon_wondering"), this.entryLink("Clear Weather", "summoning_rituals", "weather_magic@ritual_clear"), this.entryLink("Time Magic", "summoning_rituals", "time_magic"), this.entryLink("Demonic Partner", "familiar_rituals", "demonic_partner"));
 
     }
 
