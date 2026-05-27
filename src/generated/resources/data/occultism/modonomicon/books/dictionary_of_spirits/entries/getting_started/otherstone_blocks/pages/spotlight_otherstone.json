@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_otherstone",
+  "item": "occultism:otherstone",
+  "sort_number": 0,
+  "text": "Otherstone is mined from the overworld mining dimension using Dimensional Mineshafts and miner spirits. It is the primary building material of the mod.\n",
+  "title": ""
+}

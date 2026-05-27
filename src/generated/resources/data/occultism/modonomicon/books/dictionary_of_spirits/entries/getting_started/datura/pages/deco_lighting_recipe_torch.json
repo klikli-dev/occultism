@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deco_lighting_recipe_torch",
+  "recipe_id_1": "occultism:crafting/spirit_torch",
+  "sort_number": 8
+}

@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting",
+  "recipe_id_1": "occultism:crafting/spirit_attuned_crystal",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_attuned_crystal.crafting.text"
+}

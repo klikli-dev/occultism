@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_seeds",
+  "item": "occultism:datura_seeds",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.datura.spotlight_seeds.text",
+  "title": ""
+}

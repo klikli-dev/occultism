@@ -1,0 +1,27 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/datura"
+  },
+  "description": "book.occultism.dictionary_of_spirits.getting_started.pitaya.description",
+  "icon": {
+    "id": "occultism:pitaya"
+  },
+  "id": "occultism:getting_started/pitaya",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.pitaya.name",
+  "parents": [
+    {
+      "entry": "occultism:getting_started/datura"
+    }
+  ],
+  "sort_number": 33,
+  "x": -7,
+  "y": 6
+}

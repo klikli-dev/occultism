@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_otherrock",
+  "item": "occultism:otherrock",
+  "sort_number": 2,
+  "text": "Otherrock is the nether variant, mined from the nether mining dimension. It has the same block variants as otherstone.\n",
+  "title": ""
+}

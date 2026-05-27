@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "otherstone_variants",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.otherstone_blocks.otherstone_variants.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.otherstone_blocks.otherstone_variants.title"
+}

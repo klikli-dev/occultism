@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_ore",
+  "item": "occultism:silver_ore",
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.silver.spotlight_ore.text",
+  "title": ""
+}

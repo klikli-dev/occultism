@@ -1,0 +1,39 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "occultism:getting_started/third_eye"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "occultism:getting_started/spirit_fire"
+      }
+    ]
+  },
+  "description": "book.occultism.dictionary_of_spirits.getting_started.otherworld_wood.description",
+  "icon": {
+    "id": "occultism:otherplanks"
+  },
+  "id": "occultism:getting_started/otherworld_wood",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.otherworld_wood.name",
+  "parents": [
+    {
+      "entry": "occultism:getting_started/third_eye"
+    },
+    {
+      "entry": "occultism:getting_started/spirit_fire"
+    }
+  ],
+  "sort_number": 30,
+  "x": -11,
+  "y": 6
+}

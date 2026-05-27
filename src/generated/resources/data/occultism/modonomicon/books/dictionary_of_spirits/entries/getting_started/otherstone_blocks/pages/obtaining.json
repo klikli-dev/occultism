@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "obtaining",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.otherstone_blocks.obtaining.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.otherstone_blocks.obtaining.title"
+}

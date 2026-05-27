@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "location",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_attuned_crystal.location.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_attuned_crystal.location.title"
+}

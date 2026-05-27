@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_ingot",
+  "item": "occultism:silver_ingot",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.silver.spotlight_ingot.text",
+  "title": ""
+}

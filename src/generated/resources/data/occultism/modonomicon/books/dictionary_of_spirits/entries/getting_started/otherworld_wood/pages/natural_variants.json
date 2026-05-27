@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "natural_variants",
+  "item": "occultism:otherworld_log_natural",
+  "sort_number": 3,
+  "text": "Natural variants of otherworld wood can be found in underground groves, already placed as part of the generation.\n",
+  "title": ""
+}

@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:smelting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "smelting",
+  "recipe_id_1": "occultism:smelting/silver_ingot",
+  "sort_number": 2
+}

@@ -1,0 +1,27 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:pentacles/craft_foliot"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_nature_paste.description",
+  "icon": {
+    "id": "occultism:nature_paste"
+  },
+  "id": "occultism:crafting_rituals/craft_nature_paste",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_nature_paste.name",
+  "parents": [
+    {
+      "entry": "occultism:crafting_rituals/overview"
+    }
+  ],
+  "sort_number": 47,
+  "x": 4,
+  "y": 2
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_log",
+  "item": "occultism:otherworld_log",
+  "sort_number": 1,
+  "text": "Otherworld logs can be stripped and crafted into otherplanks, the base material for the full otherworld wood set.\n",
+  "title": ""
+}

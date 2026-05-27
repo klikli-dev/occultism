@@ -208,6 +208,10 @@ public class BindingRitualsCategory extends CategoryProvider {
         craftIesniumButcherKnife.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
         this.layout().entry(craftIesniumButcherKnife).rightOf(craftInfusedPickaxe, 8).below(2);
+        var craftWithertiteDust = this.add(new WithertiteDustEntry(this).generate());
+        craftWithertiteDust.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
+        this.layout().entry(craftWithertiteDust).rightOf(craftInfusedPickaxe, 10).below(2);
         var trueSightStaff = this.add(new TrueSightStaffEntry(this).generate());
         trueSightStaff.withParent(craftOtherworldGoggles).withParent(craftInfusedPickaxe)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
@@ -242,6 +246,20 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
         this.layout().entry(craftEldritchChalice).above(craftIesniumSacrificialBowl, 2);
 
+
+        //Crafting Materials
+        var craftNaturePaste = this.add(new NaturePasteEntry(this).generate());
+        craftNaturePaste.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        this.layout().entry(craftNaturePaste).rightOf(overview, 14).below(2);
+        var craftGrayPaste = this.add(new GrayPasteEntry(this).generate());
+        craftGrayPaste.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
+        this.layout().entry(craftGrayPaste).rightOf(craftNaturePaste, 2);
+        var craftDragonystDust = this.add(new DragonystDustEntry(this).generate());
+        craftDragonystDust.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
+        this.layout().entry(craftDragonystDust).rightOf(craftGrayPaste, 2);
 
         var craftMasterChalks = this.add(new MasterChalksEntry(this).generate());
         craftMasterChalks.withParent(BookEntryParentModel.create(overview.getId()))

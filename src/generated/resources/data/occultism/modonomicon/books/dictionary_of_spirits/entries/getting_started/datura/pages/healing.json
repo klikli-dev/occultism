@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "healing",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.datura.healing.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.datura.healing.title"
+}

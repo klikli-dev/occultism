@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deco_lighting",
+  "item": "occultism:spirit_lantern",
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.datura.deco_lighting.text",
+  "title": ""
+}

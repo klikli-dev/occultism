@@ -138,6 +138,10 @@ public class GettingStartedCategory extends CategoryProvider {
         this.layout().entry(magicLampsEntry).rightOf(ritualEntry, 2).above(4);
         magicLampsEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
+        var silverEntry = this.add(new SilverEntry(this).generate());
+        this.layout().entry(silverEntry).below(iesnium, 2);
+        silverEntry.withParent(BookEntryParentModel.create(iesnium.getId()));
+
         var spiritMinersEntry = this.add(new SpiritMinersEntry(this).generate());
         this.layout().entry(spiritMinersEntry).rightOf(iesnium, 2);
         spiritMinersEntry.withParent(BookEntryParentModel.create(iesnium.getId()));
@@ -145,6 +149,31 @@ public class GettingStartedCategory extends CategoryProvider {
         var mineshaftEntry = this.add(new MineshaftEntry(this).generate());
         this.layout().entry(mineshaftEntry).above(spiritMinersEntry, 2);
         mineshaftEntry.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
+
+        var spiritAttunedCrystal = this.add(new SpiritAttunedCrystalEntry(this).generate());
+        this.layout().entry(spiritAttunedCrystal).rightOf(spiritMinersEntry, 2);
+        spiritAttunedCrystal.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
+
+        var otherworldWoodEntry = this.add(new OtherworldWoodEntry(this).generate());
+        this.layout().entry(otherworldWoodEntry).below(thirdEyeEntry, 2);
+        otherworldWoodEntry.withParent(BookEntryParentModel.create(thirdEyeEntry.getId()));
+        otherworldWoodEntry.withParent(BookEntryParentModel.create(spiritFireEntry.getId()));
+
+        var otherstoneBlocksEntry = this.add(new OtherstoneBlocksEntry(this).generate());
+        this.layout().entry(otherstoneBlocksEntry).above(infusedPickaxe, 2);
+        otherstoneBlocksEntry.withParent(BookEntryParentModel.create(infusedPickaxe.getId()));
+
+        var daturaEntry = this.add(new DaturaEntry(this).generate());
+        this.layout().entry(daturaEntry).below(healingSpiritsEntry, 2);
+        daturaEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
+
+        var pitayaEntry = this.add(new PitayaEntry(this).generate());
+        this.layout().entry(pitayaEntry).rightOf(daturaEntry, 2);
+        pitayaEntry.withParent(BookEntryParentModel.create(daturaEntry.getId()));
+
+        var modFoodEntry = this.add(new ModFoodEntry(this).generate());
+        this.layout().entry(modFoodEntry).rightOf(pitayaEntry, 2);
+        modFoodEntry.withParent(BookEntryParentModel.create(pitayaEntry.getId()));
 
         var storageEntry = this.add(new StorageEntry(this).generate());
         this.layout().entry(storageEntry).rightOf(advancedChalksEntry, 2).above(2);

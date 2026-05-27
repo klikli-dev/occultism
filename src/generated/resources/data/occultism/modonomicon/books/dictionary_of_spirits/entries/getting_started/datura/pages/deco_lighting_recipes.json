@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deco_lighting_recipes",
+  "recipe_id_1": "occultism:crafting/spirit_lantern",
+  "recipe_id_2": "occultism:crafting/spirit_campfire",
+  "sort_number": 7
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_sapling",
+  "item": "occultism:otherworld_sapling",
+  "sort_number": 0,
+  "text": "Otherworld saplings can be found in underground groves and traded by Otherworld Sapling Trader spirits. Plant them to grow otherworld trees.\n",
+  "title": ""
+}

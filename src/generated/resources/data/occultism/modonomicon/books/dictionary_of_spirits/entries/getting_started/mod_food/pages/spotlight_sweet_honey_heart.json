@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_sweet_honey_heart",
+  "item": "occultism:sweet_honey_heart",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.mod_food.spotlight_sweet_honey_heart.text",
+  "title": ""
+}

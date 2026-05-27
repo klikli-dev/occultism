@@ -1,0 +1,27 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/infused_pickaxe"
+  },
+  "description": "book.occultism.dictionary_of_spirits.getting_started.otherstone_blocks.description",
+  "icon": {
+    "id": "occultism:otherstone"
+  },
+  "id": "occultism:getting_started/otherstone_blocks",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.otherstone_blocks.name",
+  "parents": [
+    {
+      "entry": "occultism:getting_started/infused_pickaxe"
+    }
+  ],
+  "sort_number": 31,
+  "x": 7,
+  "y": -4
+}

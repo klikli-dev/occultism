@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_beaver_nugget",
+  "item": "occultism:beaver_nugget",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.mod_food.spotlight_beaver_nugget.text",
+  "title": ""
+}
