@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.234.0] - 2026-05-27
+### :sparkles: New Features
+- [`24038a6`](https://github.com/klikli-dev/occultism/commit/24038a6b8884707dd824f9031179af759d8d76e9) - add missing book entries *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ed0e0b2`](https://github.com/klikli-dev/occultism/commit/ed0e0b261b74c385ca1c28385798b19f64006db0) - restore theurgy references in book *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`73ad686`](https://github.com/klikli-dev/occultism/commit/73ad6866ac44ac43506867a710079f3a79336ae4) - correct book link anchors for weather_magic entry *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`4390d09`](https://github.com/klikli-dev/occultism/commit/4390d095f52a72d762a2e98a4862f9518060cbfa) - bump modo version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`fb6c080`](https://github.com/klikli-dev/occultism/commit/fb6c0807e695eb406210cf5b955744d02a76bd8c) - bump versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.233.0] - 2026-05-26
 ### :sparkles: New Features
 - [`e49dce2`](https://github.com/klikli-dev/occultism/commit/e49dce211c9ed7046931b70bc8d8941ceb9db261) - migrate to modonomicon layouts api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2665,3 +2678,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.231.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.230.1...release/v26.1.2-1.231.0
 [release/v26.1.2-1.232.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.231.0...release/v26.1.2-1.232.0
 [release/v26.1.2-1.233.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.232.0...release/v26.1.2-1.233.0
+[release/v26.1.2-1.234.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.233.0...release/v26.1.2-1.234.0
