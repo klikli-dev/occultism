@@ -12,6 +12,7 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePa
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,7 +28,7 @@ public class TheurgyDivinationRodsEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(Items.STICK)) // TODO: re-enable when Theurgy is available for 26.1 - was ItemRegistry.DIVINATION_ROD_T1.get()
+                .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T1.get()))
                 .withText(this.context().pageText()));
         this.pageText("While the [](item://occultism:divination_rod) is a great tool for finding [#](ad03fc)Otherworld Materials[#](), it would be useful to have a way to find *all other* ores and resources as well.\n\\\n\\\nThis is where the Theurgy Divination Rod comes in.\n");
 
