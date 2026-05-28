@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.235.0] - 2026-05-28
+### :sparkles: New Features
+- [`19f807b`](https://github.com/klikli-dev/occultism/commit/19f807b67d5d00b91697081cc74bd7ae076d495f) - update to latest theurgy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`94f88c7`](https://github.com/klikli-dev/occultism/commit/94f88c7e12a909dc42223925ced035d76af29426) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.234.0] - 2026-05-27
 ### :sparkles: New Features
 - [`24038a6`](https://github.com/klikli-dev/occultism/commit/24038a6b8884707dd824f9031179af759d8d76e9) - add missing book entries *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2679,3 +2687,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.232.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.231.0...release/v26.1.2-1.232.0
 [release/v26.1.2-1.233.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.232.0...release/v26.1.2-1.233.0
 [release/v26.1.2-1.234.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.233.0...release/v26.1.2-1.234.0
+[release/v26.1.2-1.235.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.234.0...release/v26.1.2-1.235.0
