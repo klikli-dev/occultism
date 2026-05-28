@@ -18,7 +18,7 @@
   },
   "description": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.description",
   "icon": {
-    "id": "minecraft:hopper"
+    "id": "theurgy:list_filter"
   },
   "id": "occultism:storage/storage_system_automation_theurgy",
   "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.name",

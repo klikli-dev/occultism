@@ -224,7 +224,7 @@ dependencies {
 
     //theurgy
     compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
-//    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
+    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
 //    compileOnly ("dev.emi:emi-neoforge:${emi_version}:api") {transitive=false}

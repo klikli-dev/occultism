@@ -4,7 +4,7 @@
     "type": "modonomicon:none"
   },
   "id": "intro",
-  "item": "minecraft:stick",
+  "item": "theurgy:divination_rod_t1",
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.intro.text",
   "title": ""
