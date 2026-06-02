@@ -23,16 +23,18 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.common.block.SpiritFireBlock;
-import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.StacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.RootCommitJournal;
@@ -150,9 +153,52 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements 
     }
 
     @Override
-    public void saveNetwork(ValueOutput output) {
+    protected void saveAdditional(ValueOutput output) {
         this.itemStackHandler.serialize(output.child("inventory"));
         output.putLong("lastChangeTime", this.lastChangeTime);
+
+        //BlockEntity#saveAdditional code -> we must skip networked blockentity to split network vs save
+//        if (this.customPersistentData != null) {
+//            output.store("NeoForgeData", CompoundTag.CODEC, this.customPersistentData.copy());
+//        }
+        if (this.level != null) {
+            this.level.registryAccess();
+        } else {
+            RegistryAccess.Frozen var10000 = RegistryAccess.EMPTY;
+        }
+
+        ValueOutput attachments = output.child("neoforge:attachments");
+        this.serializeAttachments(attachments);
+        if (attachments.isEmpty()) {
+            output.discard("neoforge:attachments");
+        }
+    }
+
+    @Override
+    public void saveNetwork(ValueOutput output) {
+        this.serializeInventoryForNetwork(output.child("inventory"));
+        output.putLong("lastChangeTime", this.lastChangeTime);
+    }
+
+    public void serializeInventoryForNetwork(ValueOutput output) {
+        //This avoids deep nested nbt issues if a storage controller is placed in a bowl.
+        //MC should really not freak out about it, yet it does :(
+        var copy = new ItemStacksResourceHandler(this.itemStackHandler.size());
+
+        for (int i = 0; i < this.itemStackHandler.size(); ++i) {
+            var resource = this.itemStackHandler.getResource(i);
+            if(resource.is(OccultismBlocks.STORAGE_CONTROLLER.get()) ||
+                    resource.is(OccultismBlocks.STORAGE_CONTROLLER_DARK.get()) ||
+                    resource.is(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get()) ||
+                    resource.is(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get())
+            ) {
+                var stack = resource.toStack(); //creates a copy, safe to modify
+                stack.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(), CustomData.EMPTY);
+                this.itemStackHandler.set(i, ItemResource.of(stack), this.itemStackHandler.getAmountAsInt(i));
+            }
+        }
+
+        copy.serialize(output);
     }
 
     @Override
