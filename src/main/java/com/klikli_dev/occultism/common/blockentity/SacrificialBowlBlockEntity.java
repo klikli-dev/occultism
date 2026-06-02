@@ -23,16 +23,15 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.common.block.SpiritFireBlock;
-import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -56,7 +55,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements 
 
             Level level = SacrificialBowlBlockEntity.this.level;
             if (level != null && !level.isClientSide) {
-                Block blockBellow = level.getBlockState(getBlockPos().below()).getBlock();
+                Block blockBellow = level.getBlockState(SacrificialBowlBlockEntity.this.getBlockPos().below()).getBlock();
                 if (!(SacrificialBowlBlockEntity.this instanceof GoldenSacrificialBowlBlockEntity)
                         && (blockBellow instanceof SpiritFireBlock || blockBellow == OccultismBlocks.SPIRIT_CAMPFIRE.get())) {
                     var recipeInput = new SingleRecipeInput(this.getStackInSlot(0));
@@ -65,7 +64,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements 
                         super.extractItem(0, 1, false);
                         ItemStack result = recipe.get().value().assemble(recipeInput, level.registryAccess());
                         super.setStackInSlot(0, result);
-                        level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
+                        level.playSound(null, SacrificialBowlBlockEntity.this.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS, 1, 1);
                     }
                 }
 
@@ -94,16 +93,61 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity implements 
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+
         compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
+        compound.putLong("lastChangeTime", this.lastChangeTime);
+
+        //BlockEntity#saveAdditional code -> we must skip networked blockentity to split network vs save
+        //super would call saveNetwork which would delete data for nbt heavy items
+//        if (this.customPersistentData != null) {
+//            tag.put("NeoForgeData", this.customPersistentData.copy());
+//        }
+
+        CompoundTag attachmentsTag = this.serializeAttachments(provider);
+        if (attachmentsTag != null) {
+            compound.put("neoforge:attachments", attachmentsTag);
+        }
+    }
+
+    @Override
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+        compound.put("inventory", this.serializeInventoryForNetwork(provider));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;
     }
 
+    public CompoundTag serializeInventoryForNetwork(HolderLookup.Provider provider) {
+        ListTag nbtTagList = new ListTag();
+
+        for (int i = 0; i < this.itemStackHandler.getSlots(); ++i) {
+            var stack = this.itemStackHandler.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                if (stack.getItem() == OccultismBlocks.STORAGE_CONTROLLER.asItem() ||
+                        stack.getItem() == OccultismBlocks.STORAGE_CONTROLLER_DARK.asItem() ||
+                        stack.getItem() == OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.asItem() ||
+                        stack.getItem() == OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.asItem()
+                ) {
+                    stack = stack.copy();
+                    stack.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(), CustomData.EMPTY);
+                }
+
+                CompoundTag itemTag = new CompoundTag();
+                itemTag.putInt("Slot", i);
+                nbtTagList.add(stack.save(provider, itemTag));
+            }
+        }
+
+        CompoundTag nbt = new CompoundTag();
+        nbt.put("Items", nbtTagList);
+        nbt.putInt("Size", this.itemStackHandler.getSlots());
+        return nbt;
+    }
+
     @Override
     public void clearContent() {
-        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
-            itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
+        for (int i = 0; i < this.itemStackHandler.getSlots(); i++) {
+            this.itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
 }
