@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.239.0] - 2026-06-09
+### :sparkles: New Features
+- [`0d9366d`](https://github.com/klikli-dev/occultism/commit/0d9366d26328897beb51d521f4ec3023998b3353) - Update ja_jp.json for 26.1 *(PR [#1638](https://github.com/klikli-dev/occultism/pull/1638) by [@Abbage230](https://github.com/Abbage230))*
+
+
 ## [release/v26.1.2-1.238.0] - 2026-06-09
 ### :sparkles: New Features
 - [`8c5c990`](https://github.com/klikli-dev/occultism/commit/8c5c99027fdd5329e5a8f77c19205e784acc159b) - allow chalk item pick block on items with damage *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2709,3 +2714,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.237.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.236.0...release/v26.1.2-1.237.0
 [release/v26.1.2-1.237.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.0...release/v26.1.2-1.237.1
 [release/v26.1.2-1.238.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.1...release/v26.1.2-1.238.0
+[release/v26.1.2-1.239.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.238.0...release/v26.1.2-1.239.0
