@@ -15,7 +15,7 @@ final class BookOfCallingLayouts {
     private static final int PANEL_LEFT = 3;
     private static final int PANEL_TOP = 9;
     private static final int PANEL_HORIZONTAL_MARGIN = 6;
-    private static final int TITLE_Y = 0;
+    private static final int TITLE_Y = 1;
     private static final int TITLE_HEIGHT = 8;
     private static final int LABEL_AREA_LEFT = 0;
     private static final int LABEL_AREA_WIDTH = 66;
