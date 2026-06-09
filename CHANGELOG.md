@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.237.1] - 2026-06-09
+### :bug: Bug Fixes
+- [`5d26dcd`](https://github.com/klikli-dev/occultism/commit/5d26dcd3fa4157c4440ab677689abcb841b98ca1) - vertically center all gui header text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.237.0] - 2026-06-02
 ### :sparkles: New Features
 - [`06d125b`](https://github.com/klikli-dev/occultism/commit/06d125b2aede8c3ca8b620c8b69cf71189fb9f2d) - forward port the fix to [#1630](https://github.com/klikli-dev/occultism/pull/1630) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2694,3 +2699,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.234.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.233.0...release/v26.1.2-1.234.0
 [release/v26.1.2-1.235.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.234.0...release/v26.1.2-1.235.0
 [release/v26.1.2-1.237.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.236.0...release/v26.1.2-1.237.0
+[release/v26.1.2-1.237.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.0...release/v26.1.2-1.237.1
