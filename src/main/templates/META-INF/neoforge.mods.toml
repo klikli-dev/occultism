@@ -30,6 +30,9 @@ authors = "${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''${mod_description}'''
 
+[[mixins]]
+config="occultism.mixins.json"
+
 [[dependencies.${ mod_id }]]
 modId = "neoforge"
 type = "required"
