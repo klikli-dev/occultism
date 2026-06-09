@@ -3,7 +3,7 @@
   "condition": {
     "type": "modonomicon:none"
   },
-  "id": "brushRecipe",
+  "id": "brush_recipe",
   "recipe_id_1": "occultism:crafting/brush",
   "sort_number": 1
 }
