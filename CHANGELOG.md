@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.238.0] - 2026-06-09
+### :sparkles: New Features
+- [`8c5c990`](https://github.com/klikli-dev/occultism/commit/8c5c99027fdd5329e5a8f77c19205e784acc159b) - allow chalk item pick block on items with damage *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`d9af1b1`](https://github.com/klikli-dev/occultism/commit/d9af1b1a99109b754851acab3473e9f979cdfcf5) - invalid page id *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.237.1] - 2026-06-09
 ### :bug: Bug Fixes
 - [`5d26dcd`](https://github.com/klikli-dev/occultism/commit/5d26dcd3fa4157c4440ab677689abcb841b98ca1) - vertically center all gui header text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2700,3 +2708,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.235.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.234.0...release/v26.1.2-1.235.0
 [release/v26.1.2-1.237.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.236.0...release/v26.1.2-1.237.0
 [release/v26.1.2-1.237.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.0...release/v26.1.2-1.237.1
+[release/v26.1.2-1.238.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.1...release/v26.1.2-1.238.0
