@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "p": "#c:ingots/silver"
+  },
+  "pattern": [
+    "p p",
+    "ppp",
+    "ppp"
+  ],
+  "result": {
+    "id": "occultism:silver_chestplate"
+  }
+}

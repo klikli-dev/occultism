@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "occultism:silver_block",
+  "result": {
+    "count": 4,
+    "id": "occultism:silver_grate"
+  }
+}

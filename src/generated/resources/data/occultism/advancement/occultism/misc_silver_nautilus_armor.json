@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_silver_nautilus_armor": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_silver_nautilus_armor"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_silver_nautilus_armor.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_silver_nautilus_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_silver_nautilus_armor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

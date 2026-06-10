@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": "occultism:silver_block"
+  },
+  "pattern": [
+    "oo",
+    "oo"
+  ],
+  "result": {
+    "count": 4,
+    "id": "occultism:cut_silver"
+  }
+}

@@ -2368,6 +2368,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
                 .entityToSacrifice(Entities.ARMADILLOS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_diamond_horse_armor")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.LEATHER_HORSE_ARMOR),
+                        new ItemStackTemplate(OccultismItems.SILVER_HORSE_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR.get()),
+                        BASE_TIME * FORGE_MULT * WILD_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
+                .entityToSacrifice(Entities.ARMADILLOS)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_silver_horse_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.COPPER_HORSE_ARMOR),
                         new ItemStackTemplate(Items.COPPER_NAUTILUS_ARMOR),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR.get()),
@@ -2424,6 +2438,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.squid")
                 .entityToSacrifice(Entities.SQUID)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_diamond_nautilus_armor")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SILVER_HORSE_ARMOR),
+                        new ItemStackTemplate(OccultismItems.SILVER_NAUTILUS_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR.get()),
+                        BASE_TIME * FORGE_MULT * WILD_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        Ingredient.of(Items.NAUTILUS_SHELL, Items.TURTLE_SCUTE),
+                        ofTag(registries, Tags.Items.FOODS_RAW_FISH),
+                        Ingredient.of(Items.PRISMARINE_SHARD, Items.PRISMARINE_CRYSTALS),
+                        Ingredient.of(Items.GLOW_INK_SAC, Items.INK_SAC))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.squid")
+                .entityToSacrifice(Entities.SQUID)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_silver_nautilus_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()),
                         new ItemStackTemplate(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get()),

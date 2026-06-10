@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_post_ends",
+  "textures": {
+    "bars": "occultism:block/silver_bars",
+    "edge": "occultism:block/silver_bars"
+  }
+}

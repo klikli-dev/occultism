@@ -211,8 +211,6 @@ public class OccultismTags {
         public static final TagKey<Item> CLAY = makeItemTag(Identifier.fromNamespaceAndPath("c", "clay"));
 
         public static final TagKey<Item> MANUALS = makeItemTag(Identifier.fromNamespaceAndPath("c", "manuals"));
-
-        public static final TagKey<Item> METAL_AXES = makeItemTag(Identifier.fromNamespaceAndPath("c", "tools/metal/axes"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS_NATURAL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
         public static final TagKey<Item> TOOLS_CHALK = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/chalk"));

@@ -32,7 +32,7 @@ public class BrushEntry extends EntryProvider {
         this.pageTitle("Next Steps");
         this.pageText("Chalk is a pain to clean up, by [#](ad03fc)right-clicking[#]() with a brush you can remove it from the world much more easily.\n");
 
-        this.page("brushRecipe", () -> BookCraftingRecipePageModel.create()
+        this.page("brush_recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/brush")));
     }
 

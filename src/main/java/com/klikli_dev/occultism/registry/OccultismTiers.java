@@ -22,9 +22,20 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.google.common.collect.Maps;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismTags.Items;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
+
+import java.util.Map;
 
 public class OccultismTiers {
     public static final ToolMaterial SPIRIT_ATTUNED = new ToolMaterial(
@@ -44,4 +55,30 @@ public class OccultismTiers {
             24,
             Items.IESNIUM_INGOT
     );
+
+    private static final ResourceKey<EquipmentAsset> SILVER_EQUIPMENT_ASSET = ResourceKey.create(
+            EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "silver"));
+
+    public static final ArmorMaterial SILVER_ARMOR = new ArmorMaterial(
+            13,
+            makeDefense(1, 4, 5, 2, 4),
+            20,
+            SoundEvents.ARMOR_EQUIP_IRON,
+            0.0F,
+            0.0F,
+            Items.SILVER_INGOT,
+            SILVER_EQUIPMENT_ASSET);
+
+    public static final ToolMaterial SILVER_TOOL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_IRON_TOOL,
+            200,
+            10.0F,
+            1.0F,
+            20,
+            Items.SILVER_INGOT
+    );
+
+    private static Map<ArmorType, Integer> makeDefense(int boots, int legs, int chest, int helm, int body) {
+        return Maps.newEnumMap(Map.of(ArmorType.BOOTS, boots, ArmorType.LEGGINGS, legs, ArmorType.CHESTPLATE, chest, ArmorType.HELMET, helm, ArmorType.BODY, body));
+    }
 }

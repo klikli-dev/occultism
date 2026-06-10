@@ -47,6 +47,9 @@ public class AnimalArmorEntry extends EntryProvider {
         this.page("ritual_diamond", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/misc_diamond_horse_armor"))
         );
+        this.page("ritual_silver", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_silver_horse_armor"))
+        );
         //no text
 
         this.page("spotlight_nautilus", () -> BookSpotlightPageModel.create()
@@ -70,6 +73,9 @@ public class AnimalArmorEntry extends EntryProvider {
         );
         this.page("ritual_diamond_nautilus", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/misc_diamond_nautilus_armor"))
+        );
+        this.page("ritual_silver_nautilus", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_silver_nautilus_armor"))
         );
         //no text
     }

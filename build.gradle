@@ -245,9 +245,10 @@ dependencies {
     //Apothic Enchanting
 //    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
 
-    // TODO: enable when needed for integration testing
 
     // Apotheosis
+    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
+    // Enable when needed for integration testing
     //implementation ("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${apothic_attributes_version}") {transitive=false}
     //implementation ("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}") {transitive=false}
     //localRuntime ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}

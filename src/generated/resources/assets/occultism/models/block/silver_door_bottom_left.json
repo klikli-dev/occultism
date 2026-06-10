@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "occultism:block/silver_door_bottom",
+    "top": "occultism:block/silver_door_top"
+  }
+}

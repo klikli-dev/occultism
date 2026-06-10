@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "p": "#c:ingots/silver"
+  },
+  "pattern": [
+    "ppp",
+    "p p",
+    "p p"
+  ],
+  "result": {
+    "id": "occultism:silver_leggings"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "occultism:block/cut_silver_slab"
+    },
+    "type=double": {
+      "model": "occultism:block/cut_silver"
+    },
+    "type=top": {
+      "model": "occultism:block/cut_silver_slab_top"
+    }
+  }
+}

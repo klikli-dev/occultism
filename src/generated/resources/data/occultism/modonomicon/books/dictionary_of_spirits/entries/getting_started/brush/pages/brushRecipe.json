@@ -1,9 +1,0 @@
-{
-  "type": "modonomicon:crafting_recipe",
-  "condition": {
-    "type": "modonomicon:none"
-  },
-  "id": "brushRecipe",
-  "recipe_id_1": "occultism:crafting/brush",
-  "sort_number": 1
-}

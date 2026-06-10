@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "occultism:otherstone_bricks",
+  "result": {
+    "id": "occultism:chiseled_otherstone_bricks"
+  }
+}

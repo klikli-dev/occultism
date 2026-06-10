@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": "#c:ingots/silver"
+  },
+  "pattern": [
+    "oo",
+    "oo"
+  ],
+  "result": {
+    "id": "occultism:silver_trapdoor"
+  }
+}

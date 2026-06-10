@@ -312,11 +312,6 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
          *        .add(OccultismBlocks.OTHERSTONE.asItem())
          *        .add(OccultismBlocks.OTHERSTONE_NATURAL.asItem());
          */
-        this.tag(ItemTags.STAIRS)
-                .add(OccultismBlocks.OTHERSTONE_STAIRS.asItem())
-                .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.asItem())
-                .add(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.asItem())
-                .add(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.asItem());
         this.tag(ItemTags.WALLS)
                 .add(OccultismBlocks.OTHERSTONE_WALL.asItem())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_WALL.asItem())
@@ -324,12 +319,58 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismBlocks.OTHERSTONE_BRICKS_WALL.asItem());
         this.tag(ItemTags.STONE_BUTTONS).add(OccultismBlocks.OTHERSTONE_BUTTON.asItem());
 
-        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES)
+                .add(OccultismItems.SILVER_PICKAXE.get())
+                .add(OccultismItems.INFUSED_PICKAXE.get())
+                .add(OccultismItems.IESNIUM_PICKAXE.get())
+                .replace(false);
+
+        this.tag(ItemTags.PICKAXES)
+                .add(OccultismItems.SILVER_PICKAXE.get())
+                .add(OccultismItems.INFUSED_PICKAXE.get())
+                .add(OccultismItems.IESNIUM_PICKAXE.get())
+                .replace(false);
+
+        this.tag(ItemTags.SHOVELS)
+                .add(OccultismItems.SILVER_SHOVEL.get())
+                .replace(false);
+
+        this.tag(ItemTags.AXES)
+                .add(OccultismItems.SILVER_AXE.get())
+                .replace(false);
+
+        this.tag(ItemTags.HOES)
+                .add(OccultismItems.SILVER_HOE.get())
+                .replace(false);
+
+        this.tag(ItemTags.SPEARS)
+                .add(OccultismItems.SILVER_SPEAR.get())
+                .replace(false);
+
+        this.tag(ItemTags.SWORDS)
+                .add(OccultismItems.SILVER_SWORD.get())
+                .replace(false);
+
+        this.tag(ItemTags.HEAD_ARMOR)
+                .add(OccultismItems.SILVER_HELMET.get())
+                .replace(false);
+
+        this.tag(ItemTags.CHEST_ARMOR)
+                .add(OccultismItems.SILVER_CHESTPLATE.get())
+                .replace(false);
+
+        this.tag(ItemTags.LEG_ARMOR)
+                .add(OccultismItems.SILVER_LEGGINGS.get())
+                .replace(false);
+
+        this.tag(ItemTags.FOOT_ARMOR)
+                .add(OccultismItems.SILVER_BOOTS.get())
+                .replace(false);
+
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.tag(this.cTag("tools/knife")).add(OccultismItems.BUTCHER_KNIFE.get()).add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
 
         this.tag(ItemTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.asItem()).add(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()).replace(false);
@@ -338,11 +379,35 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
     private void addCommonTags(Provider provider) {
         this.tag(Tags.Items.MINING_TOOL_TOOLS)
+                .add(OccultismItems.SILVER_PICKAXE.get())
                 .add(OccultismItems.INFUSED_PICKAXE.get())
                 .add(OccultismItems.IESNIUM_PICKAXE.get())
                 .replace(false);
 
+        this.tag(Tags.Items.MELEE_WEAPON_TOOLS)
+                .add(OccultismItems.BUTCHER_KNIFE.get())
+                .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get())
+                .add(OccultismItems.SILVER_AXE.get())
+                .add(OccultismItems.SILVER_SPEAR.get())
+                .add(OccultismItems.SILVER_SWORD.get())
+                .replace(false);
+
+        this.tag(Tags.Items.ARMORS_HORSE)
+                .add(OccultismItems.SILVER_HORSE_ARMOR.get())
+                .replace(false);
+
+        this.tag(Tags.Items.ARMORS_NAUTILUS)
+                .add(OccultismItems.SILVER_NAUTILUS_ARMOR.get())
+                .replace(false);
+
+        this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
         this.copy(BlockTags.SLABS, ItemTags.SLABS);
+        this.copy(BlockTags.BARS, ItemTags.BARS);
+        this.copy(Tags.Blocks.BARS, Tags.Items.BARS);
+        this.copy(BlockTags.CHAINS, ItemTags.CHAINS);
+        this.copy(Tags.Blocks.CHAINS, Tags.Items.CHAINS);
+        this.copy(BlockTags.DOORS, ItemTags.DOORS);
+        this.copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
 
         // Ore Blocks
         this.copy(Blocks.IESNIUM_ORE, OccultismTags.Items.IESNIUM_ORE);
@@ -374,6 +439,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(OccultismTags.Items.SILVER_INGOT).add(OccultismItems.SILVER_INGOT.get()).replace(false);
         //noinspection unchecked
         this.tag(Tags.Items.INGOTS).addTags(OccultismTags.Items.IESNIUM_INGOT, OccultismTags.Items.SILVER_INGOT).replace(false);
+        this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(OccultismItems.SILVER_INGOT.get()).add(OccultismItems.IESNIUM_INGOT.get());
 
         // Nuggets
         this.tag(OccultismTags.Items.IESNIUM_NUGGET).add(OccultismItems.IESNIUM_NUGGET.get()).replace(false);
@@ -454,9 +520,6 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.copy(Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
         this.copy(Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);
         this.tag(OccultismTags.Items.TUBE_CORALS).add(Items.TUBE_CORAL).add(Items.TUBE_CORAL_FAN);
-
-        // Metal Axes Tag
-        this.tag(OccultismTags.Items.METAL_AXES).add(Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE).replace(false);
 
         // Books
         this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get(), Items.BOOK).replace(false);

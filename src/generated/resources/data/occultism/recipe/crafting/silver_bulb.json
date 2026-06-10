@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "b": "#c:rods/blaze",
+    "o": "#c:storage_blocks/silver",
+    "r": "#c:dusts/redstone"
+  },
+  "pattern": [
+    " o ",
+    "obo",
+    " r "
+  ],
+  "result": {
+    "id": "occultism:silver_bulb"
+  }
+}

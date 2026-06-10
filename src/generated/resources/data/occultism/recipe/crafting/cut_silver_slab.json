@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": "occultism:cut_silver"
+  },
+  "pattern": [
+    "ooo"
+  ],
+  "result": {
+    "count": 6,
+    "id": "occultism:cut_silver_slab"
+  }
+}
