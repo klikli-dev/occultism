@@ -15,7 +15,7 @@ final class SpiritLayouts {
     private static final PlayerInventorySection PLAYER_INVENTORY = PlayerInventorySection.standard();
     private static final int GUI_WIDTH = 182;
     private static final int TOP_BAR_HEIGHT = 18;
-    private static final int TITLE_Y = 6;
+    private static final int TITLE_Y = 5;
     private static final int TITLE_HEIGHT = 8;
     private static final int MAIN_TOP = 15;
     private static final int MAIN_PANEL_LEFT = 3;

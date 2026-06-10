@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.client.gui.widget.LivingEntityWidget;
+import com.klikli_dev.occultism.client.gui.widget.VerticallyCenteredTextWidget;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -273,9 +274,10 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         registry.resolve("frame.top_bar.title", ctx -> {
             Component title = this.topBarTitle();
             int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(title)) / 2;
-            ctx.addWidget(new GuiTextWidget(
+            ctx.addWidget(new VerticallyCenteredTextWidget(
                     titleX,
                     ctx.node().y(),
+                    0.0F,
                     this::topBarTitle,
                     () -> ctx.style().textColor(this.titlePart, 0x303030),
                     false

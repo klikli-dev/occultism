@@ -21,7 +21,7 @@ final class DimensionalMineshaftLayouts {
         return LayoutSpec.create(root -> root.group("frame", frame -> {
             frame.group("top_bar", topBar -> {
                 topBar.node("background").at(-3, 1).size(182, 18);
-                topBar.node("title").at(0, 7).size(176, 8);
+                topBar.node("title").at(0, 5).size(176, 8);
             });
             frame.node("machine_panel").at(0, 15).size(176, 80);
             frame.group("progress", progress -> {

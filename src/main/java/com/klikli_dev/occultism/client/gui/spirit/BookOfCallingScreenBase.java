@@ -23,6 +23,7 @@ import com.klikli_dev.codedefinedgui.api.widget.IconButtonBackgroundSprites;
 import com.klikli_dev.codedefinedgui.api.widget.IconButtonWidget;
 import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
+import com.klikli_dev.occultism.client.gui.widget.VerticallyCenteredTextWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -81,9 +82,10 @@ public abstract class BookOfCallingScreenBase extends Screen implements GuiHost,
         )));
         registry.resolve("frame.top_bar.title", ctx -> {
             int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(this.title)) / 2;
-            ctx.addWidget(new GuiTextWidget(
+            ctx.addWidget(new VerticallyCenteredTextWidget(
                     titleX,
                     ctx.node().y(),
+                    -0.5F,
                     () -> this.title,
                     () -> ctx.style().textColor(OccultismGuiParts.BOOK_OF_CALLING_TITLE, 0xFF000000),
                     false

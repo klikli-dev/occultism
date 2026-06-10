@@ -25,6 +25,7 @@ import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
+import com.klikli_dev.occultism.client.gui.widget.VerticallyCenteredTextWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -40,6 +41,7 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
         implements GuiHost, LayoutScreenView, PlayerInventoryScreenHost {
     private static final int PLAYER_SLOT_COUNT = 36;
     private static final int PROGRESS_BACKGROUND_TINT = 0xFF697586;
+    private static final float TITLE_Y_OFFSET = 1.5F;
 
     protected final GuiRootWidget root;
     protected final LayoutSpec layoutSpec;
@@ -113,9 +115,10 @@ abstract class AbstractDimensionalMachineScreen<T extends AbstractContainerMenu>
         registry.resolve("frame.top_bar.title", 20, ctx -> {
             Component title = this.topBarTitle();
             int titleX = ctx.node().x() + (ctx.node().widthOrThrow() - this.font.width(title)) / 2;
-            ctx.addWidget(new GuiTextWidget(
+            ctx.addWidget(new VerticallyCenteredTextWidget(
                     titleX,
                     ctx.node().y(),
+                    TITLE_Y_OFFSET,
                     this::topBarTitle,
                     () -> ctx.style().textColor(OccultismGuiParts.DIMENSIONAL_MACHINE_TITLE, 0x303030),
                     false
