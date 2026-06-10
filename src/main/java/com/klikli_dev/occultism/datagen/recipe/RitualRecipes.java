@@ -2442,7 +2442,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_diamond_nautilus_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SILVER_HORSE_ARMOR),
                         new ItemStackTemplate(OccultismItems.SILVER_NAUTILUS_ARMOR),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_NAUTILUS_ARMOR.get()),
                         BASE_TIME * FORGE_MULT * WILD_TIER,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_WILD_SPIRIT, registries,
