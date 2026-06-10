@@ -19,9 +19,6 @@ import com.klikli_dev.occultism.client.gui.OccultismGuiParts;
 import com.klikli_dev.occultism.client.gui.widget.BookOfCallingSelectionWidget;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetManagedMachine;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
@@ -30,6 +27,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class BookOfCallingManagedMachineGui extends BookOfCallingScreenBase {
     private static final int GUI_HEIGHT = 112;

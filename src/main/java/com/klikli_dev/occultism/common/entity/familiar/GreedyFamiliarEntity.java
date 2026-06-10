@@ -23,12 +23,12 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.container.spirit.FilterableSpiritContainer;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;

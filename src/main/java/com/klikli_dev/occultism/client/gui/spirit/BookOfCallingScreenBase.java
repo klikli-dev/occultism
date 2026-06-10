@@ -13,9 +13,7 @@ import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
 import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
 import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleContext;
-import com.klikli_dev.codedefinedgui.api.style.GuiPartKey;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
-import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
@@ -27,7 +25,6 @@ import com.klikli_dev.occultism.client.gui.widget.VerticallyCenteredTextWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
 public abstract class BookOfCallingScreenBase extends Screen implements GuiHost, LayoutScreenView {

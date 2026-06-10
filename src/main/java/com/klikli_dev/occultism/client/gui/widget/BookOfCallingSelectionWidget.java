@@ -8,12 +8,13 @@ package com.klikli_dev.occultism.client.gui.widget;
 
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.widget.AbstractScrollSelectionWidget;
+import net.minecraft.network.chat.Component;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
-import net.minecraft.network.chat.Component;
 
 public class BookOfCallingSelectionWidget<T> extends AbstractScrollSelectionWidget<T> {
     private static final int HEADER_COLOR = 0xFFB0F4D6;

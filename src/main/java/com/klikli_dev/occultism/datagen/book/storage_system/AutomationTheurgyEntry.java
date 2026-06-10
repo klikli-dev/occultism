@@ -7,7 +7,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import net.minecraft.world.item.Items;
 
 public class AutomationTheurgyEntry extends EntryProvider {
 

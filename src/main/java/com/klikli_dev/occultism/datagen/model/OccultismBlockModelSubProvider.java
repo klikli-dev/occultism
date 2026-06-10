@@ -90,8 +90,8 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.SILVER_BARS_BLOCK.get(),
                         OccultismBlocks.SILVER_CHAIN_BLOCK.get(),
                         OccultismBlocks.SILVER_DOOR.get(),
-                        OccultismBlocks.SILVER_TRAPDOOR.get()//,
-                        //OccultismBlocks.SILVER_BULB.get()
+                        OccultismBlocks.SILVER_TRAPDOOR.get(),
+                        OccultismBlocks.SILVER_BULB.get()
                 ),
                 Stream.of(
                         OccultismBlocks.CHALK_GLYPH_WHITE.get(),

@@ -4,13 +4,9 @@
 
 package com.klikli_dev.occultism.client.gui;
 
-import com.klikli_dev.codedefinedgui.premade.filter.core.layout.BuiltinFilterParts;
-import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
-import com.klikli_dev.codedefinedgui.api.style.GuiStyle;
-import com.klikli_dev.codedefinedgui.api.style.GuiStyleKey;
-import com.klikli_dev.codedefinedgui.api.style.GuiStyleProperties;
-import com.klikli_dev.codedefinedgui.api.style.GuiStyleRegistry;
+import com.klikli_dev.codedefinedgui.api.style.*;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
+import com.klikli_dev.codedefinedgui.premade.filter.core.layout.BuiltinFilterParts;
 import com.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.Identifier;
 

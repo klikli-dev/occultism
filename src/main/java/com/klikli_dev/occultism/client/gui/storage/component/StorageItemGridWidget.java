@@ -11,7 +11,7 @@ import com.klikli_dev.occultism.client.gui.controls.ItemSlotWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;

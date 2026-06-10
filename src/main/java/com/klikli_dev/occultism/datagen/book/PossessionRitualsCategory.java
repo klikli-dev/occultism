@@ -5,12 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
-import com.klikli_dev.occultism.datagen.book.pentacles.ContactWildSpiritEntry;
-import com.klikli_dev.occultism.datagen.book.pentacles.PossessAfritEntry;
-import com.klikli_dev.occultism.datagen.book.pentacles.PossessDjinniEntry;
-import com.klikli_dev.occultism.datagen.book.pentacles.PossessFoliotEntry;
-import com.klikli_dev.occultism.datagen.book.pentacles.PossessMaridEntry;
-import com.klikli_dev.occultism.datagen.book.pentacles.PossessUnboundAfritEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.datagen.book.possession_rituals.*;
 
 public class PossessionRitualsCategory extends CategoryProvider {

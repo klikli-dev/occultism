@@ -6,13 +6,7 @@
 
 package com.klikli_dev.occultism.client.gui;
 
-import com.klikli_dev.codedefinedgui.api.layout.BuiltinLayoutSlotRoles;
-import com.klikli_dev.codedefinedgui.api.layout.LayoutSlotView;
-import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
-import com.klikli_dev.codedefinedgui.api.layout.LayoutScreenView;
-import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
-import com.klikli_dev.codedefinedgui.api.layout.ResolvedLayout;
-import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
+import com.klikli_dev.codedefinedgui.api.layout.*;
 import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
 import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
 import com.klikli_dev.codedefinedgui.api.style.BuiltinGuiParts;
@@ -22,7 +16,6 @@ import com.klikli_dev.codedefinedgui.api.texture.GuiSprite;
 import com.klikli_dev.codedefinedgui.api.texture.GuiSprites;
 import com.klikli_dev.codedefinedgui.api.widget.GuiBackgroundWidget;
 import com.klikli_dev.codedefinedgui.api.widget.GuiSpriteWidget;
-import com.klikli_dev.codedefinedgui.api.widget.GuiTextWidget;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventoryScreenHost;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
 import com.klikli_dev.occultism.client.gui.widget.VerticallyCenteredTextWidget;

@@ -1,25 +1,12 @@
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
-import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookOrConditionModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.book.*;
-import com.klikli_dev.occultism.datagen.book.pentacles.*;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 
 public class OccultismBookProvider extends SingleBookSubProvider {
 

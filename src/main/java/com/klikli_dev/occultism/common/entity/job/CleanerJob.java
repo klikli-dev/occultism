@@ -26,8 +26,8 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContain
 import com.klikli_dev.occultism.common.entity.ai.goal.DepositItemsGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.ReturnToWorkAreaGoal;
-import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
