@@ -426,6 +426,11 @@ public class OccultismItems {
             DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")
                     .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1));
+    public static final DeferredItem<Item> BEDROCK_SCRAP = ITEMS.registerItem("bedrock_scrap",
+            Item::new, () -> new Properties().rarity(Rarity.EPIC).fireResistant());
+    public static final DeferredItem<Item> BEDROCK_GEM_CLUSTER = ITEMS.registerItem("bedrock_gem_cluster",
+            Item::new, () -> new Properties().rarity(Rarity.EPIC).fireResistant());
+
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.registerItem("soul_shard",
             SoulShardItem::new, () -> new Properties().stacksTo(1));
@@ -740,6 +745,8 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.registerItem("ritual_dummy/misc_chalk_void", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.registerItem("ritual_dummy/misc_trinity_gem", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER = ITEMS.registerItem("ritual_dummy/misc_bedrock_gem_cluster", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_UNBREAKABLE = ITEMS.registerItem("ritual_dummy/misc_unbreakable", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage_dark", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("ritual_dummy/misc_miner_ancient_eldritch", DummyTooltipItem::new, Properties::new);

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bedrock_gem_cluster": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:bedrock_gem_cluster"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/misc_unbreakable"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bedrock_gem_cluster"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/misc_unbreakable"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_unbreakable": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_unbreakable"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_unbreakable.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_unbreakable.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_unbreakable"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

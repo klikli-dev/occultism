@@ -298,6 +298,8 @@ public class OccultismTags {
 
         public static final TagKey<EntityType<?>> ENDERMEN = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "endermen"));
         public static final TagKey<EntityType<?>> SHULKER = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "shulkers"));
+        public static final TagKey<EntityType<?>> WITCH = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "witches"));
+        public static final TagKey<EntityType<?>> EVOKER = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "evokers"));
         public static final TagKey<EntityType<?>> FRAGILE_SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_fragile_soul_gem"));
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_soul_gem"));
         public static final TagKey<EntityType<?>> TRINITY_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_trinity_gem"));

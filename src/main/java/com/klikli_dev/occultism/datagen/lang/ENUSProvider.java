@@ -394,6 +394,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_ANCIENT_ELDRITCH, "Eldritch Ancient Miner");
         this.addItem(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Mining Dimension Core Piece");
         this.addAutoTooltip(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Very durable fuel");
+        this.addItem(OccultismItems.BEDROCK_SCRAP, "Bedrock Scrap");
+        this.addItem(OccultismItems.BEDROCK_GEM_CLUSTER, "Bedrock Gem Cluster");
         this.addItem(OccultismItems.FRAGILE_SOUL_GEM_ITEM, "Fragile Soul Gem");
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Fragile Empty Soul Gem");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
@@ -840,6 +842,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.ravager", "Ravager");
         this.add("ritual.occultism.sacrifice.endermen", "Enderman");
         this.add("ritual.occultism.sacrifice.shulker", "Shulker");
+        this.add("ritual.occultism.sacrifice.witch", "Witch");
+        this.add("ritual.occultism.sacrifice.evoker", "Evoker");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -1632,6 +1636,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a void chalk, substitute any chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "Forge Trinity Gem", "Eldritch", "Eldritch Spirits will forge a trinity gem, upgrading a soul gem.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER, "Forge Bedrock Gem Cluster", "Eldritch", "Eldritch Spirits will forge a bedrock gem cluster, which can make an item unbreakable.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_UNBREAKABLE, "Infuse with Unbreakable", "Eldritch", "Eldritch Spirits will infuse the activation item to make it unbreakable.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "Forge Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK, "Forge Dark Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Dark Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH, "Infuse Eldritch Ancient Miner", "Eldritch", "Summon Eldritch Ancient Miner into a magic lamp.");
