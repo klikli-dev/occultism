@@ -185,6 +185,10 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.OTHERROCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLEROCK.asItem()));
         this.add(OccultismBlocks.SKELETON_SKULL_DUMMY.get(), block -> noDrop());
         this.add(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(), block -> noDrop());
+
+        this.add(OccultismBlocks.SILVER_CUT_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.SILVER_CUT_SLAB.get()));
+        this.add(OccultismBlocks.SILVER_DOOR.get(), block -> createDoorTable(OccultismBlocks.SILVER_DOOR.get()));
+
     }
 
     protected void registerOtherworldBlockTable(Block block) {
