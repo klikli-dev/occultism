@@ -830,9 +830,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> SILVER_PICKAXE = ITEMS.registerItem("silver_pickaxe",
             Item::new, () -> new Item.Properties().pickaxe(OccultismTiers.SILVER_TOOL, 1.0F, -2.8F));
     public static final DeferredItem<Item> SILVER_AXE = ITEMS.registerItem("silver_axe",
-            properties ->  new AxeItem(OccultismTiers.SILVER_TOOL, 6.0F, -3.1F, properties));
+            properties ->  new AxeItem(OccultismTiers.SILVER_TOOL, 7.5F, -3.1F, properties));
     public static final DeferredItem<Item> SILVER_HOE = ITEMS.registerItem("silver_hoe",
-            properties -> new HoeItem(OccultismTiers.SILVER_TOOL, -2.0F, -1.0F, properties));
+            properties -> new HoeItem(OccultismTiers.SILVER_TOOL, -1.0F, -1.0F, properties));
 
     public static final DeferredItem<Item> SILVER_HELMET = ITEMS.registerItem("silver_helmet",
             Item::new, () -> new Properties().stacksTo(1)
