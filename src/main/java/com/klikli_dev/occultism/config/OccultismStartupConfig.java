@@ -87,19 +87,19 @@ public class OccultismStartupConfig {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
             this.minerFoliotUnspecialized =
-                    new MinerSpiritSettings("miner_foliot_unspecialized", builder, 400, 1, 1, 1000);
+                    new MinerSpiritSettings("miner_foliot_unspecialized", builder, 400, 1, 1, 511);
 
             this.minerDjinniOres =
-                    new MinerSpiritSettings("miner_djinni_ores", builder, 300, 1, 1, 400);
+                    new MinerSpiritSettings("miner_djinni_ores", builder, 300, 1, 1, 1023);
 
             this.minerAfritDeeps =
-                    new MinerSpiritSettings("miner_afrit_deeps", builder, 200, 1, 1, 800);
+                    new MinerSpiritSettings("miner_afrit_deeps", builder, 200, 1, 1, 2047);
 
             this.minerMaridMaster =
-                    new MinerSpiritSettings("miner_marid_master", builder, 100, 1, 1, 1600);
+                    new MinerSpiritSettings("miner_marid_master", builder, 100, 1, 1, 4095);
 
             this.minerAncientEldritch =
-                    new MinerSpiritSettings("miner_ancient_eldritch", builder, 15, 1, 9, 3200);
+                    new MinerSpiritSettings("miner_ancient_eldritch", builder, 15, 1, 9, 8191);
 
             builder.pop();
         }
