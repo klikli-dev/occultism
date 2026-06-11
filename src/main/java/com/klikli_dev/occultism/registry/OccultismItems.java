@@ -40,6 +40,7 @@ import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitua
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -52,6 +53,8 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -331,15 +334,21 @@ public class OccultismItems {
     public static final DeferredItem<Item> CRUELTY_ESSENCE = ITEMS.registerItem("cruelty_essence",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.registerItem("spirit_attuned_gem",
-            Item::new, Properties::new);
+            Item::new, () ->new  Properties().trimMaterial(ResourceKey.create(
+                    Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_gem")))
+    );
     public static final DeferredItem<Item> RAW_SILVER = ITEMS.registerItem("raw_silver",
             Item::new, Properties::new);
     public static final DeferredItem<Item> RAW_IESNIUM = ITEMS.registerItem("raw_iesnium",
             Item::new, Properties::new);
     public static final DeferredItem<Item> SILVER_INGOT = ITEMS.registerItem("silver_ingot",
-            Item::new, Properties::new);
+            Item::new, () ->new  Properties().trimMaterial(ResourceKey.create(
+                    Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath(Occultism.MODID, "silver")))
+    );
     public static final DeferredItem<Item> IESNIUM_INGOT = ITEMS.registerItem("iesnium_ingot",
-            Item::new, Properties::new);
+            Item::new, () ->new  Properties().trimMaterial(ResourceKey.create(
+                    Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath(Occultism.MODID, "iesnium")))
+    );
     public static final DeferredItem<Item> SILVER_NUGGET = ITEMS.registerItem("silver_nugget",
             Item::new, Properties::new);
     public static final DeferredItem<Item> IESNIUM_NUGGET = ITEMS.registerItem("iesnium_nugget",

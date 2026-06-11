@@ -882,10 +882,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.subtitle.poof", "Poof!");
 
         //Dimension types
-
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.identifier()), "Overworld");
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.identifier()), "Nether");
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.identifier()), "The End");
+
+        //Trim material
+        this.add("trim_material.occultism.silver", "Silver Material");
+        this.add("trim_material.occultism.iesnium", "Iesnium Material");
+        this.add("trim_material.occultism.spirit_gem", "Spirit Attuned Material");
     }
 
     private void addGuiTranslations() {

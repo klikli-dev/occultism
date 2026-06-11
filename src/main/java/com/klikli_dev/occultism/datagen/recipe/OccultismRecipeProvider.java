@@ -1160,7 +1160,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('o', OccultismTags.Items.SILVER_INGOT)
                 .unlockedBy("has_silver", this.has(OccultismTags.Items.SILVER_INGOT))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_trapdoor")));
-        ShapedRecipeBuilder.shaped(items, RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.SILVER_BULB.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.SILVER_BULB.get(), 4)
                 .pattern(" o ")
                 .pattern("obo")
                 .pattern(" r ")

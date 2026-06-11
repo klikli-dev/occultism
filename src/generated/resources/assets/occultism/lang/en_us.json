@@ -3879,5 +3879,8 @@
   "tag.item.occultism.tools.knife": "Knives",
   "tag.item.occultism.tools.knife.iesnium": "Iesnium Knives",
   "tooltip.occultism.soul_value": "Spiritual fuel value: %s",
-  "tooltip.occultism.soul_value_stack": "Stacked spiritual fuel value: %s"
+  "tooltip.occultism.soul_value_stack": "Stacked spiritual fuel value: %s",
+  "trim_material.occultism.iesnium": "Iesnium Material",
+  "trim_material.occultism.silver": "Silver Material",
+  "trim_material.occultism.spirit_gem": "Spirit Attuned Material"
 }

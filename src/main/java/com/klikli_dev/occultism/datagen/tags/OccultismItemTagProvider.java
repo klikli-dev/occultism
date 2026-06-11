@@ -375,6 +375,11 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
         this.tag(ItemTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.asItem()).add(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()).replace(false);
         this.tag(ItemTags.COMPASSES).add(OccultismItems.VITALITY_COMPASS.asItem());
+
+        this.tag(ItemTags.TRIM_MATERIALS)
+                .add(OccultismItems.SPIRIT_ATTUNED_GEM.get())
+                .add(OccultismItems.SILVER_INGOT.get())
+                .add(OccultismItems.IESNIUM_INGOT.get());
     }
 
     private void addCommonTags(Provider provider) {
