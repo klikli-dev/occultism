@@ -282,6 +282,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
         this.addItem(OccultismItems.CHALK_RAINBOW, "Rainbow Chalk");
         this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any colored glyph.");
+        this.add(OccultismItems.CHALK_RAINBOW.get().getDescriptionId() + ".tooltip_pride",
+                ChatFormatting.DARK_RED + "H" +
+                        ChatFormatting.RED + "a" +
+                        ChatFormatting.GOLD + "p" +
+                        ChatFormatting.YELLOW + "p" +
+                        ChatFormatting.GREEN + "y " +
+                        ChatFormatting.DARK_GREEN + "P" +
+                        ChatFormatting.DARK_AQUA + "r" +
+                        ChatFormatting.AQUA + "i" +
+                        ChatFormatting.BLUE + "d" +
+                        ChatFormatting.DARK_BLUE + "e" +
+                        ChatFormatting.DARK_PURPLE + "!");
         this.addItem(OccultismItems.CHALK_VOID, "Void Chalk");
         this.addAutoTooltip(OccultismItems.CHALK_VOID, "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any foundation glyph.");
         this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");

@@ -1953,6 +1953,7 @@
   "item.occultism.chalk_purple_impure": "Impure Purple Chalk",
   "item.occultism.chalk_rainbow": "Rainbow Chalk",
   "item.occultism.chalk_rainbow.auto_tooltip": "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any colored glyph.",
+  "item.occultism.chalk_rainbow.tooltip_pride": "§4H§ca§6p§ep§ay §2P§3r§bi§9d§1e§5!",
   "item.occultism.chalk_red": "Red Chalk",
   "item.occultism.chalk_red_impure": "Impure Red Chalk",
   "item.occultism.chalk_void": "Void Chalk",

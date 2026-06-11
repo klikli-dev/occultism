@@ -24,20 +24,26 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Calendar;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class ChalkItem extends Item {
     ChalkGlyphBlock glyphBlock;
@@ -98,4 +104,25 @@ public class ChalkItem extends Item {
         }
         return InteractionResult.SUCCESS;
     }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
+
+        if (isPride(pStack)) {
+            pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip_pride"));
+        }
+    }
+
+    private static boolean isPride(ItemStack pStack) {
+        if (!pStack.is(OccultismItems.CHALK_RAINBOW))
+            return false;
+        if (Occultism.CLIENT_CONFIG.visuals.disableHolidayTheming.get())
+            return false;
+
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.MONTH) == Calendar.JUNE;
+    }
+
+
 }
