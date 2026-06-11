@@ -695,11 +695,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public boolean sacrificeFulfilled() {
-        return !this.getCurrentRitualRecipe().value().requiresSacrifice() || this.sacrificeProvided;
+        var currentRitualRecipe = this.getCurrentRitualRecipe();
+        if(currentRitualRecipe == null)
+            return false;
+        return !currentRitualRecipe.value().requiresSacrifice() || this.sacrificeProvided;
     }
 
     public boolean itemUseFulfilled() {
-        return !this.getCurrentRitualRecipe().value().requiresItemUse() || this.itemUseProvided;
+        var currentRitualRecipe = this.getCurrentRitualRecipe();
+        if(currentRitualRecipe == null)
+            return false;
+        return !currentRitualRecipe.value().requiresItemUse() || this.itemUseProvided;
     }
 
     public void notifySacrifice(LivingEntity entityLivingBase) {
