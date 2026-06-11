@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.239.1] - 2026-06-11
+### :bug: Bug Fixes
+- [`74397e2`](https://github.com/klikli-dev/occultism/commit/74397e2cb813cb48287d0bfb902aa96d264abbdf) - NPE on ritual condition check *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.239.0] - 2026-06-09
 ### :sparkles: New Features
 - [`0d9366d`](https://github.com/klikli-dev/occultism/commit/0d9366d26328897beb51d521f4ec3023998b3353) - Update ja_jp.json for 26.1 *(PR [#1638](https://github.com/klikli-dev/occultism/pull/1638) by [@Abbage230](https://github.com/Abbage230))*
@@ -2715,3 +2720,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.237.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.0...release/v26.1.2-1.237.1
 [release/v26.1.2-1.238.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.1...release/v26.1.2-1.238.0
 [release/v26.1.2-1.239.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.238.0...release/v26.1.2-1.239.0
+[release/v26.1.2-1.239.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.239.0...release/v26.1.2-1.239.1
