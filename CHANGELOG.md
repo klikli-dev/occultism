@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.240.0] - 2026-06-12
+### :sparkles: New Features
+- [`156377f`](https://github.com/klikli-dev/occultism/commit/156377f8fcbcb76e68090bcfc0a76651c24a40a9) - Silver update + Unbreakable ritual recipe *(PR [#1641](https://github.com/klikli-dev/occultism/pull/1641) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *addresses issue [#1640](https://github.com/klikli-dev/occultism/issues/1640) opened by [@spamtek](https://github.com/spamtek)*
+
+
 ## [release/v26.1.2-1.239.1] - 2026-06-11
 ### :bug: Bug Fixes
 - [`74397e2`](https://github.com/klikli-dev/occultism/commit/74397e2cb813cb48287d0bfb902aa96d264abbdf) - NPE on ritual condition check *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2721,3 +2727,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.238.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.237.1...release/v26.1.2-1.238.0
 [release/v26.1.2-1.239.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.238.0...release/v26.1.2-1.239.0
 [release/v26.1.2-1.239.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.239.0...release/v26.1.2-1.239.1
+[release/v26.1.2-1.240.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.239.1...release/v26.1.2-1.240.0
