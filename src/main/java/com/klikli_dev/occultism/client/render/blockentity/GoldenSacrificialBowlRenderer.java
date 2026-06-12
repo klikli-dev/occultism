@@ -114,7 +114,8 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                             combinedLight, combinedOverlay, modelItem);
                 }
             }
-            if (!goldenBowl.sacrificeFulfilled()) {
+            if (!goldenBowl.sacrificeFulfilled() && goldenBowl.getCurrentRitualRecipe() != null && goldenBowl.getCurrentRitualRecipe().value().getEntityToSacrifice() != null
+            ) {
                 LivingEntity pLivingEntity = (LivingEntity) EntityUtil.getEntityInTag(level, goldenBowl.currentRitualRecipe.value().getEntityToSacrifice()).create(level);
                 if (pLivingEntity == null)
                     return;
