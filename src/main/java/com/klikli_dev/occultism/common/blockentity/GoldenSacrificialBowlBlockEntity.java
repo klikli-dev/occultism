@@ -823,6 +823,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
+        input.getString("currentRitual").ifPresent(s -> this.currentRitualRecipeId = Identifier.parse(s));
+        input.read("castingPlayerId", UUIDUtil.CODEC).ifPresent(uuid -> this.castingPlayerId = uuid);
+        this.currentTime = input.getIntOr("currentTime", 0);
+        this.ritualActive = input.getBooleanOr("ritualActive", false);
+
         this.consumedIngredients.clear();
         if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
             input.listOrEmpty("consumedIngredients", ItemStack.OPTIONAL_CODEC).forEach(stack -> {
@@ -836,12 +841,20 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     @Override
     protected void saveAdditional(ValueOutput output) {
-        if (this.getCurrentRitualRecipe() != null) {
-            if (!this.consumedIngredients.isEmpty()) {
-                var list = output.list("consumedIngredients", ItemStack.OPTIONAL_CODEC);
-                for (ItemStack stack : this.consumedIngredients) {
-                    list.add(stack);
-                }
+        var recipe = this.getCurrentRitualRecipe();
+        if (recipe != null) {
+            output.putString("currentRitual", recipe.id().identifier().toString());
+        }
+        if (this.castingPlayerId != null) {
+            output.store("castingPlayerId", UUIDUtil.CODEC, this.castingPlayerId);
+        }
+        output.putInt("currentTime", this.currentTime);
+        output.putBoolean("ritualActive", this.ritualActive);
+
+        if (recipe != null) {
+            var list = output.list("consumedIngredients", ItemStack.OPTIONAL_CODEC);
+            for (ItemStack stack : this.consumedIngredients) {
+                list.add(stack);
             }
             output.putBoolean("sacrificeProvided", this.sacrificeProvided);
             output.putBoolean("requiredItemUsed", this.itemUseProvided);
