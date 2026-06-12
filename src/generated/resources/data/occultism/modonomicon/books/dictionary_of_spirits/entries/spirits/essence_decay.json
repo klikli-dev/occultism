@@ -7,8 +7,16 @@
   },
   "category": "occultism:spirits",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:spirits/overview"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_essence_decay",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.spirits.essence_decay.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.spirits.essence_decay.description",
   "icon": {

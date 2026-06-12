@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.datagen.lang;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.TranslationKeys.Condition.Ritual;
@@ -55,8 +56,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     public static final String DEMONS_DREAM = "Demon's Dream";
 
 
-    public ENUSProvider(PackOutput gen) {
-        super(gen, Occultism.MODID, "en_us");
+    public ENUSProvider(PackOutput gen, LanguageProviderCache langCache) {
+        super(gen, Occultism.MODID, "en_us", langCache);
     }
 
     public void addItemMessages() {

@@ -7,8 +7,8 @@
   },
   "category": "occultism:pentacles",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/pentacle_overview"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/overview"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.didactics.description",
   "icon": {

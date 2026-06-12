@@ -7,8 +7,16 @@
   },
   "category": "occultism:getting_started",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:getting_started/first_ritual"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_grey_particles",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.description",
   "icon": {

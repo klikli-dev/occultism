@@ -10,20 +10,20 @@
     "type": "modonomicon:and",
     "children": [
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/magenta_chalk"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/magenta_chalk"
       },
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/brown_chalk"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/brown_chalk"
       },
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/cyan_chalk"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/cyan_chalk"
       },
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/contact_wild_spirit"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/contact_wild_spirit"
       }
     ]
   },

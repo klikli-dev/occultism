@@ -1,0 +1,308 @@
+[
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/getting_started/intro",
+    "id": "occultism:occultism/research/entry_viewed/getting_started/intro_hook",
+    "trigger_target": "occultism:getting_started/intro",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/getting_started/divination_rod",
+    "id": "occultism:occultism/research/entry_viewed/getting_started/divination_rod_hook",
+    "trigger_target": "occultism:getting_started/divination_rod",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/overview",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/overview_hook",
+    "trigger_target": "occultism:pentacles/overview",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/summon_foliot",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/summon_foliot_hook",
+    "trigger_target": "occultism:pentacles/summon_foliot",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_foliot",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_foliot_hook",
+    "trigger_target": "occultism:pentacles/possess_foliot",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/craft_foliot",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/craft_foliot_hook",
+    "trigger_target": "occultism:pentacles/craft_foliot",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/summon_djinni",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/summon_djinni_hook",
+    "trigger_target": "occultism:pentacles/summon_djinni",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_djinni",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_djinni_hook",
+    "trigger_target": "occultism:pentacles/possess_djinni",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/craft_djinni",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/craft_djinni_hook",
+    "trigger_target": "occultism:pentacles/craft_djinni",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/summon_unbound_afrit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/summon_unbound_afrit_hook",
+    "trigger_target": "occultism:pentacles/summon_unbound_afrit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_unbound_afrit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_unbound_afrit_hook",
+    "trigger_target": "occultism:pentacles/possess_unbound_afrit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/summon_afrit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/summon_afrit_hook",
+    "trigger_target": "occultism:pentacles/summon_afrit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_afrit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_afrit_hook",
+    "trigger_target": "occultism:pentacles/possess_afrit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/craft_afrit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/craft_afrit_hook",
+    "trigger_target": "occultism:pentacles/craft_afrit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/summon_unbound_marid",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/summon_unbound_marid_hook",
+    "trigger_target": "occultism:pentacles/summon_unbound_marid",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_marid",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_marid_hook",
+    "trigger_target": "occultism:pentacles/possess_marid",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/craft_marid",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/craft_marid_hook",
+    "trigger_target": "occultism:pentacles/craft_marid",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/summon_marid",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/summon_marid_hook",
+    "trigger_target": "occultism:pentacles/summon_marid",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/contact_wild_spirit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/contact_wild_spirit_hook",
+    "trigger_target": "occultism:pentacles/contact_wild_spirit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/contact_eldritch_spirit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/contact_eldritch_spirit_hook",
+    "trigger_target": "occultism:pentacles/contact_eldritch_spirit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/didactics",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/didactics_hook",
+    "trigger_target": "occultism:pentacles/didactics",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/white_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/white_chalk_hook",
+    "trigger_target": "occultism:pentacles/white_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/light_gray_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/light_gray_chalk_hook",
+    "trigger_target": "occultism:pentacles/light_gray_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/yellow_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/yellow_chalk_hook",
+    "trigger_target": "occultism:pentacles/yellow_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/purple_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/purple_chalk_hook",
+    "trigger_target": "occultism:pentacles/purple_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/lime_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/lime_chalk_hook",
+    "trigger_target": "occultism:pentacles/lime_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/green_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/green_chalk_hook",
+    "trigger_target": "occultism:pentacles/green_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/light_blue_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/light_blue_chalk_hook",
+    "trigger_target": "occultism:pentacles/light_blue_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/orange_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/orange_chalk_hook",
+    "trigger_target": "occultism:pentacles/orange_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/gray_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/gray_chalk_hook",
+    "trigger_target": "occultism:pentacles/gray_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/red_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/red_chalk_hook",
+    "trigger_target": "occultism:pentacles/red_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/pink_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/pink_chalk_hook",
+    "trigger_target": "occultism:pentacles/pink_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/black_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/black_chalk_hook",
+    "trigger_target": "occultism:pentacles/black_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/blue_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/blue_chalk_hook",
+    "trigger_target": "occultism:pentacles/blue_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/cyan_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/cyan_chalk_hook",
+    "trigger_target": "occultism:pentacles/cyan_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/brown_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/brown_chalk_hook",
+    "trigger_target": "occultism:pentacles/brown_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/magenta_chalk",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/magenta_chalk_hook",
+    "trigger_target": "occultism:pentacles/magenta_chalk",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/resurrect_spirit",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/resurrect_spirit_hook",
+    "trigger_target": "occultism:pentacles/resurrect_spirit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_weak_breeze",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_weak_breeze_hook",
+    "trigger_target": "occultism:pentacles/possess_weak_breeze",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_breeze",
+    "id": "occultism:occultism/research/entry_viewed/pentacles/possess_breeze_hook",
+    "trigger_target": "occultism:pentacles/possess_breeze",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/binding_rituals/crafting_rituals_overview",
+    "id": "occultism:occultism/research/entry_viewed/binding_rituals/crafting_rituals_overview_hook",
+    "trigger_target": "occultism:binding_rituals/crafting_rituals_overview",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/binding_rituals/craft_storage_system",
+    "id": "occultism:occultism/research/entry_viewed/binding_rituals/craft_storage_system_hook",
+    "trigger_target": "occultism:binding_rituals/craft_storage_system",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/binding_rituals/repair",
+    "id": "occultism:occultism/research/entry_viewed/binding_rituals/repair_hook",
+    "trigger_target": "occultism:binding_rituals/repair",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/summoning_rituals/summoning_rituals_overview",
+    "id": "occultism:occultism/research/entry_viewed/summoning_rituals/summoning_rituals_overview_hook",
+    "trigger_target": "occultism:summoning_rituals/summoning_rituals_overview",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/possession_rituals/possession_rituals_overview",
+    "id": "occultism:occultism/research/entry_viewed/possession_rituals/possession_rituals_overview_hook",
+    "trigger_target": "occultism:possession_rituals/possession_rituals_overview",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/possession_rituals/possess_wild_spirit",
+    "id": "occultism:occultism/research/entry_viewed/possession_rituals/possess_wild_spirit_hook",
+    "trigger_target": "occultism:possession_rituals/possess_wild_spirit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/familiar_rituals/familiars_rituals_overview",
+    "id": "occultism:occultism/research/entry_viewed/familiar_rituals/familiars_rituals_overview_hook",
+    "trigger_target": "occultism:familiar_rituals/familiars_rituals_overview",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/familiar_rituals/resurrect_spirit",
+    "id": "occultism:occultism/research/entry_viewed/familiar_rituals/resurrect_spirit_hook",
+    "trigger_target": "occultism:familiar_rituals/resurrect_spirit",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/storage/overview",
+    "id": "occultism:occultism/research/entry_viewed/storage/overview_hook",
+    "trigger_target": "occultism:storage/overview",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/rituals/item_use",
+    "id": "occultism:occultism/research/entry_viewed/rituals/item_use_hook",
+    "trigger_target": "occultism:rituals/item_use",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:occultism/research/entry_viewed/rituals/sacrifice",
+    "id": "occultism:occultism/research/entry_viewed/rituals/sacrifice_hook",
+    "trigger_target": "occultism:rituals/sacrifice",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  }
+]

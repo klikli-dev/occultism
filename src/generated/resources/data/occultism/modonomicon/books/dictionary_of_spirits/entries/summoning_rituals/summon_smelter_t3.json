@@ -7,8 +7,8 @@
   },
   "category": "occultism:summoning_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/summon_afrit"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/summon_afrit"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t3.description",
   "icon": {

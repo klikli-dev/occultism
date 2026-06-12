@@ -5,8 +5,8 @@
   "background_texture_zoom_multiplier": 1.0,
   "background_width": 512,
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/possess_foliot"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/possess_foliot"
   },
   "description": "",
   "display_mode": "node",

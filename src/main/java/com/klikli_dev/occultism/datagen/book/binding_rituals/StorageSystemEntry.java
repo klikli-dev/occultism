@@ -4,11 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
+import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
-import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
-import com.klikli_dev.occultism.datagen.book.pentacles.CraftDjinniEntry;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.item.Items;
@@ -50,8 +48,7 @@ public class StorageSystemEntry extends EntryProvider {
         this.page("spotlight", () -> BookSpotlightPageModel.create()
                         .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER.get()))
                         .withText(this.context().pageText()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(
-                        this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftDjinniEntry.ENTRY_ID));
+                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
         this.pageText("""
                         The second option is to follow the entries below that show the rituals related to the Magic Storage system.
                          For full step-by-step instructions on building the storage system, see the {0} category.

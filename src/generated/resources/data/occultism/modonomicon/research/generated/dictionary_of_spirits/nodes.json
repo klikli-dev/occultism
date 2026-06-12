@@ -1,0 +1,250 @@
+[
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_demons_dream",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_intro"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_spirit_fire",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_demons_dream"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_healing_spirits",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_demons_dream"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_third_eye",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_demons_dream"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_divination_rod",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_spirit_fire"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_candle",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_spirit_fire"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_ritual_prep_chalk",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_candle"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_brush",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_ritual_prep_chalk"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_ritual_prep_bowl",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_ritual_prep_chalk"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_books_of_binding",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_candle"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_books_of_binding_automation",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_books_of_binding"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_bookshelf_binding",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_books_of_binding"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_books_of_calling",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_books_of_binding"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_first_ritual",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_ritual_prep_bowl",
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_books_of_binding"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_chalks",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_first_ritual"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_more_rituals",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_chalks"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_grey_particles",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_first_ritual"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_spirits",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_grey_particles"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_iesnium",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_infused_pickaxe"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_iesnium_pickaxe",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_iesnium"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_magic_lamps",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_first_ritual"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_silver",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_iesnium"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_spirit_miners",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_iesnium"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_mineshaft",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_spirit_miners"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_spirit_attuned_crystal",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_spirit_miners"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_otherworld_wood",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_third_eye",
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_spirit_fire"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_otherstone_blocks",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_infused_pickaxe"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_datura",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_demons_dream"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_pitaya",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_datura"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_mod_food",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_pitaya"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_essence_decay",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/spirits_overview"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_true_names",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/spirits_overview"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_unbound_spirits",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/spirits_true_names"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_wild_hunt",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/spirits_unbound_spirits"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/familiar_rituals_familiar_shub_niggurath",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/familiar_rituals_familiar_chimera"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_return_to_crafting",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_overview"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_storage_system_automation",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_summon_manage_machine",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_craft_stable_wormhole",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_craft_storage_remote",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller"
+    ]
+  },
+  {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_storage_stabilizer",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller"
+    ]
+  }
+]

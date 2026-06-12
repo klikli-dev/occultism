@@ -7,8 +7,8 @@
   },
   "category": "occultism:pentacles",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/possess_foliot"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/possess_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.purple_chalk.description",
   "icon": {

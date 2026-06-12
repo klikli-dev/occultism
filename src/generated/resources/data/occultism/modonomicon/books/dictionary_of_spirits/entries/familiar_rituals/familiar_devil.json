@@ -7,8 +7,8 @@
   },
   "category": "occultism:familiar_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/possess_djinni"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/possess_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.description",
   "icon": "occultism:textures/gui/book/familiar_devil.png",

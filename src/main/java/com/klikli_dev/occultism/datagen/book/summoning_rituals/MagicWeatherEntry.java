@@ -4,11 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
+import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
-import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
-import com.klikli_dev.occultism.datagen.book.pentacles.SummonAfritEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import net.minecraft.world.item.Items;
 
@@ -57,17 +55,13 @@ public class MagicWeatherEntry extends EntryProvider {
 
         this.page("ritual_rain", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_rain_weather"))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(
-                        this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
-                ))
+                .withCondition(OccultismResearch.PENTACLES_SUMMON_AFRIT)
         );
         //no text
 
         this.page("ritual_thunder", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_thunder_weather"))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(
-                        this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID
-                ))
+                .withCondition(OccultismResearch.PENTACLES_SUMMON_AFRIT)
         );
         //no text
 

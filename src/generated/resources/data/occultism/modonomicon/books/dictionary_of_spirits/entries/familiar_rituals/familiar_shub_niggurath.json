@@ -7,8 +7,16 @@
   },
   "category": "occultism:familiar_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:familiar_rituals/familiar_chimera"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/familiar_rituals_familiar_shub_niggurath",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_shub_niggurath.description",
   "icon": "occultism:textures/gui/book/familiar_shub_niggurath.png",

@@ -1,9 +1,7 @@
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookOrConditionModel;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.book.*;
@@ -12,8 +10,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
 
-    public OccultismBookProvider(ModonomiconLanguageProvider lang) {
-        super("dictionary_of_spirits", Occultism.MODID, lang);
+    public OccultismBookProvider() {
+        super("dictionary_of_spirits", Occultism.MODID);
     }
 
     @Override
@@ -31,26 +29,23 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var pentaclesCategory = this.add(new PentaclesCategory(this).generate().withSortNumber(sortNum++));
 
         var summoningRitualsCategory = this.add(new SummoningRitualCategory(this).generate().withSortNumber(sortNum++));
-        summoningRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
+        summoningRitualsCategory.withCondition(OccultismResearch.PENTACLES_SUMMON_FOLIOT);
         var possessionRitualsCategory = this.add(new PossessionRitualsCategory(this).generate().withSortNumber(sortNum++));
-        possessionRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+        possessionRitualsCategory.withCondition(OccultismResearch.PENTACLES_POSSESS_FOLIOT);
         var familiarRitualsCategory = this.add(new FamiliarRitualsCategory(this).generate().withSortNumber(sortNum++));
-        familiarRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+        familiarRitualsCategory.withCondition(OccultismResearch.PENTACLES_POSSESS_FOLIOT);
         var craftingRitualsCategory = this.add(new BindingRitualsCategory(this).generate().withSortNumber(sortNum++));
-        craftingRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
+        craftingRitualsCategory.withCondition(OccultismResearch.PENTACLES_CRAFT_FOLIOT);
 
         var storageCategory = this.add(new StorageCategory(this).generate().withSortNumber(sortNum++));
         storageCategory.withCondition(BookOrConditionModel.create().withChildren(
-                BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_dimensional_matrix")),
-                BookEntryReadConditionModel.create().withEntry(this.modLoc("getting_started/storage")),
-                BookEntryReadConditionModel.create().withEntry(this.modLoc("storage/overview"))
+                this.condition().researchNodeUnlocked(OccultismResearch.BINDING_STORAGE_SYSTEM),
+                this.condition().researchNodeUnlocked(OccultismResearch.STORAGE_OVERVIEW)
         ));
 
-        var introReadCondition = BookEntryReadConditionModel.create()
-                .withEntry(this.modLoc("getting_started/intro"));
-        spiritsCategory.withCondition(introReadCondition);
-        ritualsCategory.withCondition(introReadCondition);
-        pentaclesCategory.withCondition(introReadCondition);
+        spiritsCategory.withCondition(OccultismResearch.GETTING_STARTED_INTRO);
+        ritualsCategory.withCondition(OccultismResearch.GETTING_STARTED_INTRO);
+        pentaclesCategory.withCondition(OccultismResearch.GETTING_STARTED_INTRO);
     }
 
     @Override
@@ -69,7 +64,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
-                .withAutoAddReadConditions(true)
+                .withGenerateEntryHierarchyResearch(true)
                 .withAllowOpenBooksWithInvalidLinks(true)
                 ;
     }

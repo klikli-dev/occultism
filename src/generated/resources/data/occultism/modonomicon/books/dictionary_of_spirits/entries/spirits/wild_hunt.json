@@ -7,8 +7,16 @@
   },
   "category": "occultism:spirits",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:spirits/unbound_spirits"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_wild_hunt",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.description",
   "icon": "occultism:textures/gui/book/wild_hunt.png",

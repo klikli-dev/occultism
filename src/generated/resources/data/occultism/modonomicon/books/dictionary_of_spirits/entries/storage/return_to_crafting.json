@@ -8,8 +8,16 @@
   "category": "occultism:storage",
   "category_to_open": "occultism:crafting_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:storage/overview"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_return_to_crafting",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.storage.return_to_crafting.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.storage.return_to_crafting.description",
   "icon": "occultism:textures/gui/book/infusion.png",

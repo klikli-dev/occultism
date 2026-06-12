@@ -7,8 +7,8 @@
   },
   "category": "occultism:possession_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:possession_rituals/possess_weak_breeze"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/possess_weak_breeze"
   },
   "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_breeze.description",
   "icon": {

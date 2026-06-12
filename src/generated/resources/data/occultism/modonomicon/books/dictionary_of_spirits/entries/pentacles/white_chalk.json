@@ -7,8 +7,8 @@
   },
   "category": "occultism:pentacles",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/didactics"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/didactics"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.white_chalk.description",
   "icon": {

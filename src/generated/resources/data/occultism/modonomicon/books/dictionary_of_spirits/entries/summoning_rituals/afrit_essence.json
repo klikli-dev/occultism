@@ -7,8 +7,8 @@
   },
   "category": "occultism:summoning_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/summon_unbound_afrit"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/summon_unbound_afrit"
   },
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.description",
   "icon": {

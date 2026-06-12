@@ -7,8 +7,8 @@
   },
   "category": "occultism:storage",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/contact_eldritch_spirit"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/contact_eldritch_spirit"
   },
   "description": "book.occultism.dictionary_of_spirits.storage.craft_stabilized_storage.description",
   "icon": {

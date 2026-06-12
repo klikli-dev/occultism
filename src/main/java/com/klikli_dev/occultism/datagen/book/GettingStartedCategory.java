@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
+import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.occultism.datagen.book.getting_started.*;
 import com.klikli_dev.occultism.registry.OccultismItems;
 
@@ -48,7 +48,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withParent(BookEntryParentModel.create(divinationRodEntry.getId()))
                 .withCondition(
                         BookAndConditionModel.create().withChildren(
-                                BookEntryReadConditionModel.create().withEntry(divinationRodEntry.getId()),
+                                this.condition().researchNodeUnlocked(OccultismResearch.GETTING_STARTED_DIVINATION_ROD),
                                 BookModLoadedConditionModel.create().withModId("theurgy")
                         )
                 )
@@ -100,7 +100,7 @@ public class GettingStartedCategory extends CategoryProvider {
         var ritualSatchelsEntry = this.add(new RitualSatchelsEntry(this).generate());
         this.layout().entry(ritualSatchelsEntry).rightOf(advancedChalksEntry, 4);
         ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_djinni")));
+                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
 
         var moreRitualsEntry = this.add(new MoreRitualsEntry(this).generate());
         this.layout().entry(moreRitualsEntry).below(advancedChalksEntry, 2);
@@ -119,12 +119,12 @@ public class GettingStartedCategory extends CategoryProvider {
         var otherworldGoggles = this.add(new OtherworldGogglesEntry(this).generate());
         this.layout().entry(otherworldGoggles).rightOf(advancedChalksEntry, 0).above(4);
         otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
+                .withCondition(OccultismResearch.PENTACLES_CRAFT_FOLIOT);
 
         var infusedPickaxe = this.add(new InfusedPickaxeEntry(this).generate());
         this.layout().entry(infusedPickaxe).rightOf(otherworldGoggles, 2);
         infusedPickaxe.withParent(BookEntryParentModel.create(otherworldGoggles.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_djinni")));
+                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
 
         var iesnium = this.add(new IesniumEntry(this).generate());
         this.layout().entry(iesnium).rightOf(infusedPickaxe, 2);
@@ -179,27 +179,27 @@ public class GettingStartedCategory extends CategoryProvider {
         this.layout().entry(storageEntry).rightOf(advancedChalksEntry, 2).above(2);
         storageEntry.withCategoryToOpen(this.modLoc("storage"));
         storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_djinni")));
+                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
 
         var possessionRitualsEntry = this.add(new PossessionRitualsEntry(this).generate());
         this.layout().entry(possessionRitualsEntry).rightOf(moreRitualsEntry, 4).below(2);
         possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+                .withCondition(OccultismResearch.PENTACLES_POSSESS_FOLIOT);
 
         var familiarRitualsEntry = this.add(new FamiliarRitualsEntry(this).generate());
         this.layout().entry(familiarRitualsEntry).rightOf(moreRitualsEntry, 6).below(2);
         familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+                .withCondition(OccultismResearch.PENTACLES_POSSESS_FOLIOT);
 
         var summoningRitualsEntry = this.add(new SummoningRitualsEntry(this).generate());
         this.layout().entry(summoningRitualsEntry).rightOf(moreRitualsEntry, 8).below(2);
         summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
+                .withCondition(OccultismResearch.PENTACLES_SUMMON_FOLIOT);
 
         var craftingRitualsEntry = this.add(new CraftingRitualsEntry(this).generate());
         this.layout().entry(craftingRitualsEntry).rightOf(moreRitualsEntry, 10).below(2);
         craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
+                .withCondition(OccultismResearch.PENTACLES_CRAFT_FOLIOT);
     }
 
     @Override

@@ -7,8 +7,16 @@
   },
   "category": "occultism:spirits",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:spirits/overview"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_true_names",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.spirits.true_names.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.spirits.true_names.description",
   "icon": {
