@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.220.3] - 2026-06-12
+### :bug: Bug Fixes
+- [`2f3177b`](https://github.com/klikli-dev/occultism/commit/2f3177b00e94ff72679e051d9c856d7f1cb59724) - second npe on golden bowl render *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.220.2] - 2026-06-12
 ### :bug: Bug Fixes
 - [`2a74326`](https://github.com/klikli-dev/occultism/commit/2a74326ced9474cfaa3c3af617e299bd11a169b6) - null recipe on item use / living death *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2448,3 +2453,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.220.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.219.0...release/v1.21.1-1.220.0
 [release/v1.21.1-1.220.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.220.0...release/v1.21.1-1.220.1
 [release/v1.21.1-1.220.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.220.1...release/v1.21.1-1.220.2
+[release/v1.21.1-1.220.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.220.2...release/v1.21.1-1.220.3
