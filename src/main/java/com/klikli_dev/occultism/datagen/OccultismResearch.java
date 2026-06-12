@@ -272,6 +272,67 @@ public class OccultismResearch extends SingleResearchSubProvider {
                 .onEntryViewedOnce(this.modLoc("rituals/sacrifice"))
                 .declareFact("occultism/research/entry_viewed/rituals/sacrifice"));
         //endregion
+
+        //region Node names
+        this.researchNodeName(GETTING_STARTED_INTRO, "About");
+        this.researchNodeName(GETTING_STARTED_DIVINATION_ROD, "Divination Rod");
+
+        this.researchNodeName(PENTACLES_OVERVIEW, "On Pentacles");
+        this.researchNodeName(PENTACLES_SUMMON_FOLIOT, "Aviar's Circle");
+        this.researchNodeName(PENTACLES_POSSESS_FOLIOT, "Hedyrin's Lure");
+        this.researchNodeName(PENTACLES_CRAFT_FOLIOT, "Eziveus' Spectral Compulsion");
+        this.researchNodeName(PENTACLES_SUMMON_DJINNI, "Ophyx' Calling");
+        this.researchNodeName(PENTACLES_POSSESS_DJINNI, "Ihagan's Enthrallment");
+        this.researchNodeName(PENTACLES_CRAFT_DJINNI, "Strigeor's Higher Binding");
+        this.researchNodeName(PENTACLES_SUMMON_UNBOUND_AFRIT, "Kandar's Open Conjure");
+        this.researchNodeName(PENTACLES_POSSESS_UNBOUND_AFRIT, "Odus' Open Convocation");
+        this.researchNodeName(PENTACLES_SUMMON_AFRIT, "Abras' Conjure");
+        this.researchNodeName(PENTACLES_POSSESS_AFRIT, "Posuc's Convocation");
+        this.researchNodeName(PENTACLES_CRAFT_AFRIT, "Sevira's Permanent Confinement");
+        this.researchNodeName(PENTACLES_SUMMON_UNBOUND_MARID, "Tibira's Attraction");
+        this.researchNodeName(PENTACLES_POSSESS_MARID, "Xeovrenth Adjure");
+        this.researchNodeName(PENTACLES_CRAFT_MARID, "Uphyxes Inverted Tower");
+        this.researchNodeName(PENTACLES_SUMMON_MARID, "Fatma's Incentivized Attraction");
+        this.researchNodeName(PENTACLES_CONTACT_WILD, "Osorin's Unbound Calling");
+        this.researchNodeName(PENTACLES_CONTACT_ELDRITCH, "Ronaza's Contact");
+        this.researchNodeName(PENTACLES_DIDACTICS, "Reading this Section");
+        this.researchNodeName(PENTACLES_WHITE_CHALK, "The Most Basic Chalk");
+        this.researchNodeName(PENTACLES_LIGHT_GRAY_CHALK, "Decent Foundation Chalk");
+        this.researchNodeName(PENTACLES_YELLOW_CHALK, "The Chalk of Possession");
+        this.researchNodeName(PENTACLES_PURPLE_CHALK, "The Chalk of Infusion");
+        this.researchNodeName(PENTACLES_LIME_CHALK, "The Knowledge Chalk");
+        this.researchNodeName(PENTACLES_GREEN_CHALK, "The Plant Chalk");
+        this.researchNodeName(PENTACLES_LIGHT_BLUE_CHALK, "The Glacial Chalk");
+        this.researchNodeName(PENTACLES_ORANGE_CHALK, "The Tangy Chalk");
+        this.researchNodeName(PENTACLES_GRAY_CHALK, "Improved Foundation Chalk");
+        this.researchNodeName(PENTACLES_RED_CHALK, "The Afrit Control Chalk");
+        this.researchNodeName(PENTACLES_PINK_CHALK, "The Meat Chalk");
+        this.researchNodeName(PENTACLES_BLACK_CHALK, "Perfect Foundation Chalk");
+        this.researchNodeName(PENTACLES_BLUE_CHALK, "The Chalk of The Seven Seas");
+        this.researchNodeName(PENTACLES_CYAN_CHALK, "The Chalk From Ancients");
+        this.researchNodeName(PENTACLES_BROWN_CHALK, "The Cruelty Chalk");
+        this.researchNodeName(PENTACLES_MAGENTA_CHALK, "The Dragon Chalk");
+        this.researchNodeName(PENTACLES_RESURRECT_SPIRIT, "Susje's Simple Circle");
+        this.researchNodeName(PENTACLES_POSSESS_WEAK_BREEZE, "The first key");
+        this.researchNodeName(PENTACLES_POSSESS_BREEZE, "In the chamber");
+
+        this.researchNodeName(BINDING_OVERVIEW, "Binding Rituals");
+        this.researchNodeName(BINDING_STORAGE_SYSTEM, "Magic Storage");
+        this.researchNodeName(BINDING_REPAIR, "Repair Rituals");
+
+        this.researchNodeName(SUMMONING_OVERVIEW, "Summoning Rituals");
+
+        this.researchNodeName(POSSESSION_OVERVIEW, "Possession Rituals");
+        this.researchNodeName(POSSESSION_POSSESS_WILD, "Possess Wild Spirit");
+
+        this.researchNodeName(FAMILIAR_OVERVIEW, "Familiar Rituals");
+        this.researchNodeName(FAMILIAR_RESURRECTION, "Resurrecting Familiars");
+
+        this.researchNodeName(STORAGE_OVERVIEW, "Magic Storage");
+
+        this.researchNodeName(RITUALS_ITEM_USE, "Item Use");
+        this.researchNodeName(RITUALS_SACRIFICE, "Sacrifices");
+        //endregion
     }
 
     /**
