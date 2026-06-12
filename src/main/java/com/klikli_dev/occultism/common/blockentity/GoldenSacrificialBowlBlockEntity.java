@@ -727,7 +727,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         if (!player.level().isClientSide && this.getCurrentRitualRecipe() != null) {
 
             if (this.getBlockPos().distSqr(event.getPos()) <= Ritual.ITEM_USE_DETECTION_RANGE_SQUARE) {
-                if (this.getCurrentRitualRecipe().value().getRitual().isValidItemUse(event)) {
+                if (this.getCurrentRitualRecipe() != null && this.getCurrentRitualRecipe().value().getRitual().isValidItemUse(event)) {
                     this.notifyItemUse(event);
                 }
             }
@@ -740,7 +740,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             //Limit to player kills
             if (event.getSource().getEntity() instanceof Player) {
                 if (this.getBlockPos().distSqr(entityLivingBase.blockPosition()) <= Ritual.SACRIFICE_DETECTION_RANGE_SQUARE) {
-                    if (this.getCurrentRitualRecipe().value().getRitual().isValidSacrifice(entityLivingBase)) {
+                    if (this.getCurrentRitualRecipe() != null && this.getCurrentRitualRecipe().value().getRitual().isValidSacrifice(entityLivingBase)) {
                         this.notifySacrifice(entityLivingBase);
                     }
                 }
