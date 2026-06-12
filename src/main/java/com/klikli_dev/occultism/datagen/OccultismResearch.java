@@ -2,6 +2,22 @@ package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.modonomicon.api.datagen.research.ResearchNodeRef;
 import com.klikli_dev.modonomicon.api.datagen.research.SingleResearchSubProvider;
+import com.klikli_dev.occultism.datagen.book.*;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.CraftingOverviewEntry;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.RepairEntry;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.StorageSystemEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.FamiliarsRitualsOverviewEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectFamiliarEntry;
+import com.klikli_dev.occultism.datagen.book.getting_started.DivinationRodEntry;
+import com.klikli_dev.occultism.datagen.book.getting_started.IntroEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.*;
+import com.klikli_dev.occultism.datagen.book.possession_rituals.PossessBreezeEntry;
+import com.klikli_dev.occultism.datagen.book.possession_rituals.PossessionOverviewEntry;
+import com.klikli_dev.occultism.datagen.book.possession_rituals.PossessWeakBreezeEntry;
+import com.klikli_dev.occultism.datagen.book.rituals.ItemUseEntry;
+import com.klikli_dev.occultism.datagen.book.rituals.SacrificeEntry;
+import com.klikli_dev.occultism.datagen.book.storage_system.StorageOverviewEntry;
+import com.klikli_dev.occultism.datagen.book.summoning_rituals.SummoningOverviewEntry;
 import net.minecraft.resources.Identifier;
 
 /**
@@ -98,178 +114,178 @@ public class OccultismResearch extends SingleResearchSubProvider {
     protected void generateResearch() {
         //region Getting Started
         this.node(GETTING_STARTED_INTRO, this.ingress()
-                .onEntryViewedOnce(this.modLoc("getting_started/intro"))
+                .onEntryViewedOnce(this.modLoc(GettingStartedCategory.CATEGORY_ID + "/" + IntroEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/getting_started/intro"));
         this.node(GETTING_STARTED_DIVINATION_ROD, this.ingress()
-                .onEntryViewedOnce(this.modLoc("getting_started/divination_rod"))
+                .onEntryViewedOnce(this.modLoc(GettingStartedCategory.CATEGORY_ID + "/" + DivinationRodEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/getting_started/divination_rod"));
         //endregion
 
         //region Pentacles
         this.node(PENTACLES_OVERVIEW, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/overview"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PentaclesOverviewEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/overview"));
         this.node(PENTACLES_SUMMON_FOLIOT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/summon_foliot"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + SummonFoliotEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/summon_foliot"));
         this.node(PENTACLES_POSSESS_FOLIOT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_foliot"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PossessFoliotEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_foliot"));
         this.node(PENTACLES_CRAFT_FOLIOT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/craft_foliot"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + CraftFoliotEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/craft_foliot"));
         this.node(PENTACLES_SUMMON_DJINNI, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/summon_djinni"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + SummonDjinniEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/summon_djinni"));
         this.node(PENTACLES_POSSESS_DJINNI, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_djinni"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_djinni"));
         this.node(PENTACLES_CRAFT_DJINNI, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/craft_djinni"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + CraftDjinniEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/craft_djinni"));
         this.node(PENTACLES_SUMMON_UNBOUND_AFRIT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/summon_unbound_afrit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + SummonUnboundAfritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/summon_unbound_afrit"));
         this.node(PENTACLES_POSSESS_UNBOUND_AFRIT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_unbound_afrit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PossessUnboundAfritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_unbound_afrit"));
         this.node(PENTACLES_SUMMON_AFRIT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/summon_afrit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/summon_afrit"));
         this.node(PENTACLES_POSSESS_AFRIT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_afrit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_afrit"));
         this.node(PENTACLES_CRAFT_AFRIT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/craft_afrit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + CraftAfritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/craft_afrit"));
         this.node(PENTACLES_SUMMON_UNBOUND_MARID, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/summon_unbound_marid"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + SummonUnboundMaridEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/summon_unbound_marid"));
         this.node(PENTACLES_POSSESS_MARID, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_marid"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_marid"));
         this.node(PENTACLES_CRAFT_MARID, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/craft_marid"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + CraftMaridEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/craft_marid"));
         this.node(PENTACLES_SUMMON_MARID, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/summon_marid"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + SummonMaridEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/summon_marid"));
         this.node(PENTACLES_CONTACT_WILD, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/contact_wild_spirit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/contact_wild_spirit"));
         this.node(PENTACLES_CONTACT_ELDRITCH, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/contact_eldritch_spirit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + ContactEldritchSpiritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/contact_eldritch_spirit"));
         this.node(PENTACLES_DIDACTICS, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/didactics"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + DidacticsEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/didactics"));
         this.node(PENTACLES_WHITE_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/white_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + WhiteChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/white_chalk"));
         this.node(PENTACLES_LIGHT_GRAY_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/light_gray_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + LightGrayChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/light_gray_chalk"));
         this.node(PENTACLES_YELLOW_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/yellow_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + YellowChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/yellow_chalk"));
         this.node(PENTACLES_PURPLE_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/purple_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PurpleChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/purple_chalk"));
         this.node(PENTACLES_LIME_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/lime_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + LimeChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/lime_chalk"));
         this.node(PENTACLES_GREEN_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/green_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + GreenChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/green_chalk"));
         this.node(PENTACLES_LIGHT_BLUE_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/light_blue_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + LightBlueChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/light_blue_chalk"));
         this.node(PENTACLES_ORANGE_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/orange_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + OrangeChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/orange_chalk"));
         this.node(PENTACLES_GRAY_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/gray_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + GrayChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/gray_chalk"));
         this.node(PENTACLES_RED_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/red_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + RedChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/red_chalk"));
         this.node(PENTACLES_PINK_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/pink_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + PinkChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/pink_chalk"));
         this.node(PENTACLES_BLACK_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/black_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + BlackChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/black_chalk"));
         this.node(PENTACLES_BLUE_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/blue_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + BlueChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/blue_chalk"));
         this.node(PENTACLES_CYAN_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/cyan_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + CyanChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/cyan_chalk"));
         this.node(PENTACLES_BROWN_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/brown_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + BrownChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/brown_chalk"));
         this.node(PENTACLES_MAGENTA_CHALK, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/magenta_chalk"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + MagentaChalkEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/magenta_chalk"));
         this.node(PENTACLES_RESURRECT_SPIRIT, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/resurrect_spirit"))
+                .onEntryViewedOnce(this.modLoc(PentaclesCategory.CATEGORY_ID + "/" + ResurrectSpiritEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/resurrect_spirit"));
         this.node(PENTACLES_POSSESS_WEAK_BREEZE, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_weak_breeze"))
+                .onEntryViewedOnce(this.modLoc(PossessionRitualsCategory.CATEGORY_ID + "/" + PossessWeakBreezeEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_weak_breeze"));
         this.node(PENTACLES_POSSESS_BREEZE, this.ingress()
-                .onEntryViewedOnce(this.modLoc("pentacles/possess_breeze"))
+                .onEntryViewedOnce(this.modLoc(PossessionRitualsCategory.CATEGORY_ID + "/" + PossessBreezeEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/pentacles/possess_breeze"));
         //endregion
 
         //region Binding Rituals
         this.node(BINDING_OVERVIEW, this.ingress()
-                .onEntryViewedOnce(this.modLoc("binding_rituals/crafting_rituals_overview"))
+                .onEntryViewedOnce(this.modLoc(BindingRitualsCategory.CATEGORY_ID + "/" + CraftingOverviewEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/binding_rituals/crafting_rituals_overview"));
         this.node(BINDING_STORAGE_SYSTEM, this.ingress()
-                .onEntryViewedOnce(this.modLoc("binding_rituals/craft_storage_system"))
+                .onEntryViewedOnce(this.modLoc(BindingRitualsCategory.CATEGORY_ID + "/" + StorageSystemEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/binding_rituals/craft_storage_system"));
         this.node(BINDING_REPAIR, this.ingress()
-                .onEntryViewedOnce(this.modLoc("binding_rituals/repair"))
+                .onEntryViewedOnce(this.modLoc(BindingRitualsCategory.CATEGORY_ID + "/" + RepairEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/binding_rituals/repair"));
         //endregion
 
         //region Summoning Rituals
         this.node(SUMMONING_OVERVIEW, this.ingress()
-                .onEntryViewedOnce(this.modLoc("summoning_rituals/summoning_rituals_overview"))
+                .onEntryViewedOnce(this.modLoc(SummoningRitualCategory.CATEGORY_ID + "/" + SummoningOverviewEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/summoning_rituals/summoning_rituals_overview"));
         //endregion
 
         //region Possession Rituals
         this.node(POSSESSION_OVERVIEW, this.ingress()
-                .onEntryViewedOnce(this.modLoc("possession_rituals/possession_rituals_overview"))
+                .onEntryViewedOnce(this.modLoc(PossessionRitualsCategory.CATEGORY_ID + "/" + PossessionOverviewEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/possession_rituals/possession_rituals_overview"));
         this.node(POSSESSION_POSSESS_WILD, this.ingress()
-                .onEntryViewedOnce(this.modLoc("possession_rituals/possess_wild_spirit"))
+                .onEntryViewedOnce(this.modLoc(PossessionRitualsCategory.CATEGORY_ID + "/possess_wild_spirit"))
                 .declareFact("occultism/research/entry_viewed/possession_rituals/possess_wild_spirit"));
         //endregion
 
         //region Familiar Rituals
         this.node(FAMILIAR_OVERVIEW, this.ingress()
-                .onEntryViewedOnce(this.modLoc("familiar_rituals/familiars_rituals_overview"))
+                .onEntryViewedOnce(this.modLoc(FamiliarRitualsCategory.CATEGORY_ID + "/" + FamiliarsRitualsOverviewEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/familiar_rituals/familiars_rituals_overview"));
         this.node(FAMILIAR_RESURRECTION, this.ingress()
-                .onEntryViewedOnce(this.modLoc("familiar_rituals/resurrect_spirit"))
+                .onEntryViewedOnce(this.modLoc(FamiliarRitualsCategory.CATEGORY_ID + "/" + ResurrectFamiliarEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/familiar_rituals/resurrect_spirit"));
         //endregion
 
         //region Storage
         this.node(STORAGE_OVERVIEW, this.ingress()
-                .onEntryViewedOnce(this.modLoc("storage/overview"))
+                .onEntryViewedOnce(this.modLoc(StorageCategory.CATEGORY_ID + "/" + StorageOverviewEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/storage/overview"));
         //endregion
 
         //region Rituals
         this.node(RITUALS_ITEM_USE, this.ingress()
-                .onEntryViewedOnce(this.modLoc("rituals/item_use"))
+                .onEntryViewedOnce(this.modLoc(RitualsCategory.CATEGORY_ID + "/" + ItemUseEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/rituals/item_use"));
         this.node(RITUALS_SACRIFICE, this.ingress()
-                .onEntryViewedOnce(this.modLoc("rituals/sacrifice"))
+                .onEntryViewedOnce(this.modLoc(RitualsCategory.CATEGORY_ID + "/" + SacrificeEntry.ENTRY_ID))
                 .declareFact("occultism/research/entry_viewed/rituals/sacrifice"));
         //endregion
 

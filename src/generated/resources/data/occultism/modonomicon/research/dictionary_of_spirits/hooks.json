@@ -14,7 +14,7 @@
   {
     "fact_id": "occultism:occultism/research/entry_viewed/pentacles/overview",
     "id": "occultism:occultism/research/entry_viewed/pentacles/overview_hook",
-    "trigger_target": "occultism:pentacles/overview",
+    "trigger_target": "occultism:pentacles/pentacle_overview",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
@@ -230,43 +230,43 @@
   {
     "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_weak_breeze",
     "id": "occultism:occultism/research/entry_viewed/pentacles/possess_weak_breeze_hook",
-    "trigger_target": "occultism:pentacles/possess_weak_breeze",
+    "trigger_target": "occultism:possession_rituals/possess_weak_breeze",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/pentacles/possess_breeze",
     "id": "occultism:occultism/research/entry_viewed/pentacles/possess_breeze_hook",
-    "trigger_target": "occultism:pentacles/possess_breeze",
+    "trigger_target": "occultism:possession_rituals/possess_breeze",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/binding_rituals/crafting_rituals_overview",
     "id": "occultism:occultism/research/entry_viewed/binding_rituals/crafting_rituals_overview_hook",
-    "trigger_target": "occultism:binding_rituals/crafting_rituals_overview",
+    "trigger_target": "occultism:crafting_rituals/overview",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/binding_rituals/craft_storage_system",
     "id": "occultism:occultism/research/entry_viewed/binding_rituals/craft_storage_system_hook",
-    "trigger_target": "occultism:binding_rituals/craft_storage_system",
+    "trigger_target": "occultism:crafting_rituals/craft_storage_system",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/binding_rituals/repair",
     "id": "occultism:occultism/research/entry_viewed/binding_rituals/repair_hook",
-    "trigger_target": "occultism:binding_rituals/repair",
+    "trigger_target": "occultism:crafting_rituals/repair",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/summoning_rituals/summoning_rituals_overview",
     "id": "occultism:occultism/research/entry_viewed/summoning_rituals/summoning_rituals_overview_hook",
-    "trigger_target": "occultism:summoning_rituals/summoning_rituals_overview",
+    "trigger_target": "occultism:summoning_rituals/overview",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/possession_rituals/possession_rituals_overview",
     "id": "occultism:occultism/research/entry_viewed/possession_rituals/possession_rituals_overview_hook",
-    "trigger_target": "occultism:possession_rituals/possession_rituals_overview",
+    "trigger_target": "occultism:possession_rituals/overview",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
@@ -278,13 +278,13 @@
   {
     "fact_id": "occultism:occultism/research/entry_viewed/familiar_rituals/familiars_rituals_overview",
     "id": "occultism:occultism/research/entry_viewed/familiar_rituals/familiars_rituals_overview_hook",
-    "trigger_target": "occultism:familiar_rituals/familiars_rituals_overview",
+    "trigger_target": "occultism:familiar_rituals/overview",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
     "fact_id": "occultism:occultism/research/entry_viewed/familiar_rituals/resurrect_spirit",
     "id": "occultism:occultism/research/entry_viewed/familiar_rituals/resurrect_spirit_hook",
-    "trigger_target": "occultism:familiar_rituals/resurrect_spirit",
+    "trigger_target": "occultism:familiar_rituals/resurrection",
     "trigger_type": "modonomicon:entry_viewed_once"
   },
   {
