@@ -9,6 +9,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutGroupBuilder;
 import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
 import com.klikli_dev.codedefinedgui.premade.filter.core.layout.inventory.PlayerInventorySection;
+
 import java.util.function.Consumer;
 
 final class SpiritLayouts {

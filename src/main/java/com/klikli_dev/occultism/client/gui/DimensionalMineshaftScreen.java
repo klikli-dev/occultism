@@ -6,7 +6,6 @@
 
 package com.klikli_dev.occultism.client.gui;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;

@@ -24,6 +24,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
@@ -45,6 +46,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final Identifier RITUAL_CRAFT_MINER_SPIRIT = OccultismRituals.CRAFT_MINER_SPIRIT.getId();
     private static final Identifier RITUAL_REPAIR = OccultismRituals.REPAIR.getId();
     private static final Identifier RITUAL_UPGRADE = OccultismRituals.UPGRADE.getId();
+    private static final Identifier RITUAL_UNBREAKABLE = OccultismRituals.UNBREAKABLE.getId();
     private static final Identifier PENTACLE_SUMMON_FOLIOT = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
     private static final Identifier PENTACLE_SUMMON_DJINNI = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
     private static final Identifier PENTACLE_SUMMON_UNBOUND_AFRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_afrit");
@@ -2368,6 +2370,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
                 .entityToSacrifice(Entities.ARMADILLOS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_diamond_horse_armor")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.LEATHER_HORSE_ARMOR),
+                        new ItemStackTemplate(OccultismItems.SILVER_HORSE_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR.get()),
+                        BASE_TIME * FORGE_MULT * WILD_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
+                .entityToSacrifice(Entities.ARMADILLOS)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_silver_horse_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.COPPER_HORSE_ARMOR),
                         new ItemStackTemplate(Items.COPPER_NAUTILUS_ARMOR),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR.get()),
@@ -2424,6 +2440,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.squid")
                 .entityToSacrifice(Entities.SQUID)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_diamond_nautilus_armor")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SILVER_HORSE_ARMOR),
+                        new ItemStackTemplate(OccultismItems.SILVER_NAUTILUS_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_NAUTILUS_ARMOR.get()),
+                        BASE_TIME * FORGE_MULT * WILD_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        Ingredient.of(Items.NAUTILUS_SHELL, Items.TURTLE_SCUTE),
+                        ofTag(registries, Tags.Items.FOODS_RAW_FISH),
+                        Ingredient.of(Items.PRISMARINE_SHARD, Items.PRISMARINE_CRYSTALS),
+                        Ingredient.of(Items.GLOW_INK_SAC, Items.INK_SAC))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.squid")
+                .entityToSacrifice(Entities.SQUID)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_silver_nautilus_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()),
                         new ItemStackTemplate(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get()),
@@ -2523,6 +2553,44 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
                 .entityToSacrifice(Entities.HUMANS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_trinity_gem")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        new ItemStackTemplate(OccultismItems.BEDROCK_GEM_CLUSTER.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER.get()),
+                        BASE_TIME * FORGE_MULT * GREAT_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT, registries,
+                        Ingredient.of(OccultismItems.BEDROCK_SCRAP.get()),
+                        Ingredient.of(OccultismItems.BEDROCK_SCRAP.get()),
+                        Ingredient.of(OccultismItems.BEDROCK_SCRAP.get()),
+                        Ingredient.of(OccultismItems.BEDROCK_SCRAP.get()),
+                        ofTag(registries, Tags.Items.GEMS_EMERALD),
+                        ofTag(registries, Tags.Items.GEMS_DIAMOND),
+                        ofTag(registries, Tags.Items.GEMS_LAPIS),
+                        ofTag(registries, Tags.Items.GEMS_PRISMARINE),
+                        ofTag(registries, Tags.Items.DUSTS_REDSTONE),
+                        ofTag(registries, Tags.Items.GEMS_QUARTZ),
+                        ofTag(registries, Tags.Items.GEMS_AMETHYST),
+                        ofTag(registries, Tags.Items.DUSTS_GLOWSTONE))
+                .unlockedBy("has_bedrock_scrap", has(registries, OccultismItems.BEDROCK_SCRAP.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.witch")
+                .entityToSacrifice(OccultismTags.Entities.WITCH)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_bedrock_gem_cluster")));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, ItemTags.DURABILITY_ENCHANTABLE),
+                        makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.misc_unbreakable"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_UNBREAKABLE.get()),
+                        BASE_TIME * REPAIR_MULT * GREAT_TIER,
+                        RITUAL_UNBREAKABLE,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT, registries,
+                        Ingredient.of(OccultismItems.BEDROCK_GEM_CLUSTER),
+                        ofTag(registries, OccultismTags.Items.IESNIUM_INGOT),
+                        ofTag(registries, Tags.Items.NETHER_STARS),
+                        ofTag(registries, Tags.Items.INGOTS_NETHERITE)
+                )
+                .unlockedBy("has_bedrock_gem_cluster", has(registries, OccultismItems.BEDROCK_GEM_CLUSTER))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.evoker")
+                .entityToSacrifice(OccultismTags.Entities.EVOKER)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_unbreakable")));
     }
 
     private static void randomRituals(RecipeOutput recipeOutput, Provider registries) {

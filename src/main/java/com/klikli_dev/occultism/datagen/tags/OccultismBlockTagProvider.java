@@ -88,6 +88,16 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.IESNIUM_ORE_NATURAL.get())
                 .add(OccultismBlocks.SILVER_BLOCK.get())
                 .add(OccultismBlocks.RAW_SILVER_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CHISELED_BLOCK.get())
+                .add(OccultismBlocks.SILVER_GRATE_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CUT_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CUT_STAIRS.get())
+                .add(OccultismBlocks.SILVER_CUT_SLAB.get())
+                .add(OccultismBlocks.SILVER_BARS_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CHAIN_BLOCK.get())
+                .add(OccultismBlocks.SILVER_DOOR.get())
+                .add(OccultismBlocks.SILVER_TRAPDOOR.get())
+                .add(OccultismBlocks.SILVER_BULB.get())
                 .add(OccultismBlocks.IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
@@ -127,7 +137,9 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERROCK_STAIRS.get())
                 .add(OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get())
                 .add(OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get())
-                .add(OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get()).replace(false);
+                .add(OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get())
+                .add(OccultismBlocks.SILVER_CUT_STAIRS.get())
+                .replace(false);
         this.tag(BlockTags.SLABS)
                 .add(OccultismBlocks.OTHERSTONE_SLAB.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get())
@@ -136,7 +148,9 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERROCK_SLAB.get())
                 .add(OccultismBlocks.OTHERCOBBLEROCK_SLAB.get())
                 .add(OccultismBlocks.POLISHED_OTHERROCK_SLAB.get())
-                .add(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get()).replace(false);
+                .add(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get())
+                .add(OccultismBlocks.SILVER_CUT_SLAB.get())
+                .replace(false);
         this.tag(BlockTags.WALLS)
                 .add(OccultismBlocks.OTHERSTONE_WALL.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_WALL.get())
@@ -146,6 +160,10 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERCOBBLEROCK_WALL.get())
                 .add(OccultismBlocks.POLISHED_OTHERROCK_WALL.get())
                 .add(OccultismBlocks.OTHERROCK_BRICKS_WALL.get()).replace(false);
+        this.tag(BlockTags.BARS).add(OccultismBlocks.SILVER_BARS_BLOCK.get());
+        this.tag(BlockTags.CHAINS).add(OccultismBlocks.SILVER_CHAIN_BLOCK.get());
+        this.tag(BlockTags.DOORS).add(OccultismBlocks.SILVER_DOOR.get());
+        this.tag(BlockTags.TRAPDOORS).add(OccultismBlocks.SILVER_TRAPDOOR.get());
         this.tag(BlockTags.STONE_PRESSURE_PLATES).add(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get()).add(OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get()).replace(false);
         this.tag(BlockTags.STONE_BUTTONS).add(OccultismBlocks.OTHERSTONE_BUTTON.get()).add(OccultismBlocks.OTHERROCK_BUTTON.get()).replace(false);
         this.tag(BlockTags.CANDLES).addTags(OccultismTags.Blocks.OCCULTISM_CANDLES).replace(false);
@@ -169,11 +187,29 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.PIGLIN_REPELLENTS).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
         this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).replace(false);
         this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL).replace(false);
-        this.tag(BlockTags.NEEDS_IRON_TOOL).add(OccultismBlocks.SILVER_ORE.get()).add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get()).replace(false);
+        this.tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(OccultismBlocks.SILVER_ORE.get())
+                .add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get())
+                .add(OccultismBlocks.RAW_SILVER_BLOCK.get())
+                .add(OccultismBlocks.SILVER_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CHISELED_BLOCK.get())
+                .add(OccultismBlocks.SILVER_GRATE_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CUT_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CUT_STAIRS.get())
+                .add(OccultismBlocks.SILVER_CUT_SLAB.get())
+                .add(OccultismBlocks.SILVER_BARS_BLOCK.get())
+                .add(OccultismBlocks.SILVER_CHAIN_BLOCK.get())
+                .add(OccultismBlocks.SILVER_DOOR.get())
+                .add(OccultismBlocks.SILVER_TRAPDOOR.get())
+                .add(OccultismBlocks.SILVER_BULB.get())
+                .replace(false);
         this.tag(BlockTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.get()).add(OccultismBlocks.OTHERFLOWER_NATURAL.get()).replace(false);
         this.tag(BlockTags.FLOWER_POTS).add(OccultismBlocks.POTTED_OTHERFLOWER.get()).replace(false);
         this.tag(BlockTags.INFINIBURN_OVERWORLD).add(OccultismBlocks.TALLOW_BLOCK.get());
         this.tag(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).addTag(OccultismTags.Blocks.CHALK_GLYPHS);
+        this.tag(BlockTags.BEACON_BASE_BLOCKS)
+                .add(OccultismBlocks.SILVER_BLOCK.get())
+                .add(OccultismBlocks.IESNIUM_BLOCK.get());
     }
 
     @Override
@@ -379,7 +415,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(OccultismTags.Blocks.ENCHANTING_TABLES).add(Blocks.ENCHANTING_TABLE);
         this.tag(OccultismTags.Blocks.IRON_BARS).add(Blocks.IRON_BARS);
 
-
+        this.tag(Tags.Blocks.BARS).add(OccultismBlocks.SILVER_BARS_BLOCK.get());
+        this.tag(Tags.Blocks.CHAINS).add(OccultismBlocks.SILVER_CHAIN_BLOCK.get());
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()).replace(false);
     }
 

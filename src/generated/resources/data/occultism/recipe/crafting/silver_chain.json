@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "i": "#c:ingots/silver",
+    "n": "#c:nuggets/silver"
+  },
+  "pattern": [
+    "n",
+    "i",
+    "n"
+  ],
+  "result": {
+    "id": "occultism:silver_chain"
+  }
+}

@@ -12,18 +12,13 @@ import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.network.messages.MessageClearCraftingMatrix;
-import com.klikli_dev.occultism.network.messages.MessageInsertMouseHeldItem;
-import com.klikli_dev.occultism.network.messages.MessageRequestOrder;
-import com.klikli_dev.occultism.network.messages.MessageRequestStacks;
-import com.klikli_dev.occultism.network.messages.MessageSortItems;
-import com.klikli_dev.occultism.network.messages.MessageTakeItem;
+import com.klikli_dev.occultism.network.messages.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 

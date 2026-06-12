@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,powered=false": {
+      "model": "occultism:block/silver_bulb"
+    },
+    "lit=false,powered=true": {
+      "model": "occultism:block/silver_bulb_powered"
+    },
+    "lit=true,powered=false": {
+      "model": "occultism:block/silver_bulb_lit"
+    },
+    "lit=true,powered=true": {
+      "model": "occultism:block/silver_bulb_lit_powered"
+    }
+  }
+}

@@ -32,11 +32,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.neoforged.neoforge.event.EventHooks;
 
-public class SummonFoliotLumberjackItem extends Item {
+public class SummonFoliotLumberjackItem extends DebugSpawnEggItem {
 
     public SummonFoliotLumberjackItem(Properties properties) {
         super(properties);

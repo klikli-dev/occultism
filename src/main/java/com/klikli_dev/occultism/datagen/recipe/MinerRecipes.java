@@ -111,6 +111,7 @@ public class MinerRecipes {
 
         makeItemRecipe(Items.GLOWSTONE, 5360, pRecipeOutput, registries, Miners.BASIC); //copy quartz weight
         makeItemRecipe(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem(), 1, pRecipeOutput, registries, Miners.NETHERITE); //min weight possible
+        makeItemRecipe(OccultismItems.BEDROCK_SCRAP.asItem(), 1, pRecipeOutput, registries, Miners.ELDRITCH); //min weight possible
 
         MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERSTONE.get(), 200, registries)
                 .unlockedBy("has_miner", TriggerInstance.hasItems(OccultismItems.MAGIC_LAMP_EMPTY.get()))

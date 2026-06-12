@@ -211,8 +211,6 @@ public class OccultismTags {
         public static final TagKey<Item> CLAY = makeItemTag(Identifier.fromNamespaceAndPath("c", "clay"));
 
         public static final TagKey<Item> MANUALS = makeItemTag(Identifier.fromNamespaceAndPath("c", "manuals"));
-
-        public static final TagKey<Item> METAL_AXES = makeItemTag(Identifier.fromNamespaceAndPath("c", "tools/metal/axes"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS_NATURAL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
         public static final TagKey<Item> TOOLS_CHALK = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/chalk"));
@@ -300,6 +298,8 @@ public class OccultismTags {
 
         public static final TagKey<EntityType<?>> ENDERMEN = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "endermen"));
         public static final TagKey<EntityType<?>> SHULKER = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "shulkers"));
+        public static final TagKey<EntityType<?>> WITCH = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "witches"));
+        public static final TagKey<EntityType<?>> EVOKER = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "evokers"));
         public static final TagKey<EntityType<?>> FRAGILE_SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_fragile_soul_gem"));
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_soul_gem"));
         public static final TagKey<EntityType<?>> TRINITY_GEM_DENY_LIST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_trinity_gem"));

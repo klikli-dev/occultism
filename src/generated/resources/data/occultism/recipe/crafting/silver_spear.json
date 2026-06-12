@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "p": "#c:ingots/silver",
+    "s": "#c:rods/wooden"
+  },
+  "pattern": [
+    "  p",
+    " s ",
+    "s  "
+  ],
+  "result": {
+    "id": "occultism:silver_spear"
+  }
+}

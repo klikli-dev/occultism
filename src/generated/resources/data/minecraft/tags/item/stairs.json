@@ -3,6 +3,11 @@
     "occultism:otherstone_stairs",
     "occultism:othercobblestone_stairs",
     "occultism:polished_otherstone_stairs",
-    "occultism:otherstone_bricks_stairs"
+    "occultism:otherstone_bricks_stairs",
+    "occultism:otherrock_stairs",
+    "occultism:othercobblerock_stairs",
+    "occultism:polished_otherrock_stairs",
+    "occultism:otherrock_bricks_stairs",
+    "occultism:cut_silver_stairs"
   ]
 }

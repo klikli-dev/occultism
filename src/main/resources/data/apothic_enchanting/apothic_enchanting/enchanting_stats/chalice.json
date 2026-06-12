@@ -1,0 +1,13 @@
+{
+  "blocks": [
+    "occultism:eldritch_chalice",
+    "occultism:celestial_chalice"
+  ],
+  "stats": {
+    "maxEterna": 80,
+    "eterna": 50,
+    "quanta": 50,
+    "arcana": 50,
+    "clues": 3
+  }
+}

@@ -34,20 +34,26 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.model.item.TrimmedArmorModel;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import static net.minecraft.client.data.models.ItemModelGenerators.*;
 
 public class OccultismItemModelSubProvider {
 
@@ -181,6 +187,8 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.MINER_MARID_MASTER.get(),
                 OccultismItems.MINER_ANCIENT_ELDRITCH.get(),
                 OccultismItems.MINING_DIMENSION_CORE_PIECE.get(),
+                OccultismItems.BEDROCK_SCRAP.get(),
+                OccultismItems.BEDROCK_GEM_CLUSTER.get(),
                 OccultismItems.MYSTERIOUS_EGG_ICON.get(),
                 OccultismItems.NATURE_PASTE.get(),
                 OccultismItems.NETHERITE_DUST.get(),
@@ -381,12 +389,14 @@ public class OccultismItemModelSubProvider {
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_POSSESS.get(), "ritual_dummy_possess");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_CRAFT.get(), "ritual_dummy_craft");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_MISC.get(), "ritual_dummy_misc");
+
+        this.registerCustomSpear(OccultismItems.SILVER_SPEAR.get(), itemModels);
+        this.registerArmorItems(itemModels);
     }
 
     private void registerManualItemModels(ItemModelGenerators itemModels) {
         Item[] manualItems = {
                 OccultismItems.DICTIONARY_OF_SPIRITS.get(),
-                OccultismItems.OTHERWORLD_GOGGLES.get(),
                 OccultismItems.DIMENSIONAL_MATRIX.get(),
                 OccultismItems.DICTIONARY_OF_SPIRITS_ICON.get(),
                 OccultismItems.DEBUG_FOLIOT_LUMBERJACK.get(),
@@ -560,6 +570,8 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.MAGIC_LAMP_EMPTY.get(),
                 OccultismItems.MARID_ESSENCE.get(),
                 OccultismItems.MINING_DIMENSION_CORE_PIECE.get(),
+                OccultismItems.BEDROCK_SCRAP.get(),
+                OccultismItems.BEDROCK_GEM_CLUSTER.get(),
                 OccultismItems.MYSTERIOUS_EGG_ICON.get(),
                 OccultismItems.NATURE_PASTE.get(),
                 OccultismItems.NETHERITE_DUST.get(),
@@ -593,7 +605,11 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.TABOO_BOOK.get(),
                 OccultismItems.TALLOW.get(),
                 OccultismItems.WITHERITE_DUST.get(),
-                OccultismItems.WORMHOLE_PORTAL.get()
+                OccultismItems.WORMHOLE_PORTAL.get(),
+
+                OccultismItems.OTHERWORLD_GOGGLES.get(),
+                OccultismItems.SILVER_HORSE_ARMOR.get(),
+                OccultismItems.SILVER_NAUTILUS_ARMOR.get()
         };
         for (Item item : items) {
             this.registerItemGenerated(itemModels, item);
@@ -605,11 +621,23 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.BUTCHER_KNIFE.get(),
                 OccultismItems.IESNIUM_BUTCHER_KNIFE.get(),
                 OccultismItems.IESNIUM_PICKAXE.get(),
-                OccultismItems.INFUSED_PICKAXE.get()
+                OccultismItems.INFUSED_PICKAXE.get(),
+                OccultismItems.SILVER_SWORD.get(),
+                OccultismItems.SILVER_SHOVEL.get(),
+                OccultismItems.SILVER_PICKAXE.get(),
+                OccultismItems.SILVER_AXE.get(),
+                OccultismItems.SILVER_HOE.get()
         };
         for (Item item : items) {
             this.registerItemHandheld(itemModels, item);
         }
+    }
+
+    private void registerArmorItems(ItemModelGenerators itemModels) {
+        this.generateOccultismTrimmableItem(OccultismItems.SILVER_HELMET.get(), TRIM_PREFIX_HELMET,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.SILVER_CHESTPLATE.get(), TRIM_PREFIX_CHESTPLATE,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.SILVER_LEGGINGS.get(), TRIM_PREFIX_LEGGINGS,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.SILVER_BOOTS.get(), TRIM_PREFIX_BOOTS,itemModels);
     }
 
     private void registerItemMiners(ItemModelGenerators itemModels) {
@@ -764,4 +792,26 @@ public class OccultismItemModelSubProvider {
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_15")), 30.5F),
                 ItemModelUtils.override(ItemModelUtils.plainModel(this.modLoc("item/vitality_compass/compass_16")), 31.5F)));
     }
+
+    public void registerCustomSpear(Item item, ItemModelGenerators itemModels) {
+        ItemModel.Unbaked flatModel = ItemModelUtils.plainModel(
+                this.createFlatItemModel(item, itemModels));
+        ItemModel.Unbaked inHandModel = ItemModelUtils.plainModel(
+                ModelTemplates.SPEAR_IN_HAND.create(item,
+                        TextureMapping.layer0(TextureMapping.getItemTexture(item, "_in_hand")), itemModels.modelOutput)
+        );
+        itemModels.itemModelOutput.accept(item, createFlatModelDispatch(flatModel, inHandModel),
+                new ClientItem.Properties(true, false, 1.95F));
+    }
+
+    public Identifier createFlatItemModel(Item item, ItemModelGenerators itemModels) {
+        return ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(item), itemModels.modelOutput);
+    }
+
+
+    public void generateOccultismTrimmableItem(Item armor, Identifier slotTrimPrefix, ItemModelGenerators itemModels) {
+        ItemModel.Unbaked armorModel = ItemModelUtils.plainModel(this.createFlatItemModel(armor, itemModels));
+        itemModels.itemModelOutput.accept(armor, new TrimmedArmorModel.Unbaked(armorModel, slotTrimPrefix));
+    }
+
 }

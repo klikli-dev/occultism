@@ -6,9 +6,9 @@
 
 package com.klikli_dev.occultism.common.entity.job;
 
-import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;

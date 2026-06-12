@@ -269,6 +269,9 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(Entities.RAVAGER).add(EntityType.RAVAGER).replace(false);
         this.tag(Entities.ENDERMEN).add(EntityType.ENDERMAN).add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get()).replace(false);
         this.tag(Entities.SHULKER).add(EntityType.SHULKER).add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get()).add(OccultismEntities.POSSESSED_SHULKER_TYPE.get()).replace(false);
+        this.tag(Entities.WITCH).add(EntityType.WITCH).add(OccultismEntities.POSSESSED_WITCH_TYPE.get()).replace(false);
+        this.tag(Entities.EVOKER).add(EntityType.EVOKER).add(OccultismEntities.POSSESSED_EVOKER_TYPE.get()).replace(false);
+
     }
 
     private void addVanillaTags() {

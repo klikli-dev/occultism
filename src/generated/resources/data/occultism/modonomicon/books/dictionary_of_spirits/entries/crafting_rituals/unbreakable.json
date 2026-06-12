@@ -1,0 +1,27 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:crafting_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:pentacles/contact_eldritch_spirit"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.unbreakable.description",
+  "icon": {
+    "id": "occultism:bedrock_gem_cluster"
+  },
+  "id": "occultism:crafting_rituals/unbreakable",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.unbreakable.name",
+  "parents": [
+    {
+      "entry": "occultism:crafting_rituals/repair"
+    }
+  ],
+  "sort_number": 52,
+  "x": 12,
+  "y": 0
+}

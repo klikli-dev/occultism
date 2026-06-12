@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_cap",
+  "textures": {
+    "bars": "occultism:block/silver_bars",
+    "edge": "occultism:block/silver_bars"
+  }
+}

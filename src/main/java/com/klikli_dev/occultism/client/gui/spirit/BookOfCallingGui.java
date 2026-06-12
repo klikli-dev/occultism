@@ -20,14 +20,15 @@ import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetItemMode;
 import com.klikli_dev.occultism.network.messages.MessageSetWorkAreaSize;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class BookOfCallingGui extends BookOfCallingScreenBase {
     private static final int GUI_HEIGHT = 86;

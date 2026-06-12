@@ -431,10 +431,38 @@ public class OccultismBlocks {
                     () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE)
                             .overrideDescription("block.minecraft.netherrack"),
                     true, LootTableType.CUSTOM);
-    public static final DeferredBlock<Block> SILVER_BLOCK = register("silver_block", Block::new,
-            () -> Block.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final DeferredBlock<Block> RAW_SILVER_BLOCK = register("raw_silver_block", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK));
+    public static final DeferredBlock<Block> SILVER_BLOCK = register("silver_block", Block::new,
+            () -> Block.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+    public static final DeferredBlock<Block> SILVER_CHISELED_BLOCK = register("chiseled_silver", Block::new,
+            () -> Block.Properties.ofFullCopy(Blocks.CHISELED_COPPER));
+    public static final DeferredBlock<Block> SILVER_GRATE_BLOCK = register("silver_grate", Block::new,
+            () -> Block.Properties.ofFullCopy(Blocks.COPPER_GRATE));
+    public static final DeferredBlock<Block> SILVER_CUT_BLOCK = register("cut_silver", Block::new,
+            () -> Block.Properties.ofFullCopy(Blocks.CUT_COPPER));
+
+    public static final DeferredBlock<StairBlock> SILVER_CUT_STAIRS = register("cut_silver_stairs",
+            (p) -> new StairBlock(OccultismBlocks.SILVER_CUT_BLOCK.get().defaultBlockState(), p),
+            () -> Properties.ofFullCopy(Blocks.CUT_COPPER_STAIRS));
+    public static final DeferredBlock<SlabBlock> SILVER_CUT_SLAB = register("cut_silver_slab",
+            SlabBlock::new,
+            () -> Block.Properties.ofFullCopy(Blocks.CUT_COPPER_SLAB), true, LootTableType.CUSTOM);
+    public static final DeferredBlock<IronBarsBlock> SILVER_BARS_BLOCK = register("silver_bars", IronBarsBlock::new,
+            () -> Properties.ofFullCopy(Blocks.IRON_BARS));
+    public static final DeferredBlock<ChainBlock> SILVER_CHAIN_BLOCK = register("silver_chain", ChainBlock::new,
+            () -> Properties.ofFullCopy(Blocks.IRON_CHAIN));
+    public static final DeferredBlock<DoorBlock> SILVER_DOOR = register("silver_door",
+            (p) -> new DoorBlock(BlockSetType.COPPER, p),
+            () -> Properties.ofFullCopy(Blocks.COPPER_DOOR), true, LootTableType.CUSTOM);
+    public static final DeferredBlock<TrapDoorBlock> SILVER_TRAPDOOR = register("silver_trapdoor",
+            (p) -> new TrapDoorBlock(BlockSetType.COPPER, p),
+            () -> Properties.ofFullCopy(Blocks.COPPER_TRAPDOOR));
+    public static final DeferredBlock<CopperBulbBlock> SILVER_BULB = register("silver_bulb", CopperBulbBlock::new,
+            () -> Properties.ofFullCopy(Blocks.COPPER_BULB));
+    //public static final DeferredBlock<ChestBlock> SILVER_CHEST = register("silver_chest",
+    //        p -> new ChestBlock(() -> BlockEntityType.CHEST, SoundEvents.CHEST_OPEN, SoundEvents.CHEST_CLOSE, p),
+    //        () -> Properties.ofFullCopy(OccultismBlocks.SILVER_BLOCK.get()));
     public static final DeferredBlock<Block> IESNIUM_BLOCK = register("iesnium_block", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final DeferredBlock<Block> RAW_IESNIUM_BLOCK = register("raw_iesnium_block", Block::new,

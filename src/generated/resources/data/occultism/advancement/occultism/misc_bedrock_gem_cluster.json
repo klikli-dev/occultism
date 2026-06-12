@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_bedrock_gem_cluster": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_bedrock_gem_cluster"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_bedrock_gem_cluster.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_bedrock_gem_cluster.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_bedrock_gem_cluster"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

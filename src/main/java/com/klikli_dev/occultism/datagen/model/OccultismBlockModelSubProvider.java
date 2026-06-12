@@ -32,13 +32,13 @@ import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
-import net.minecraft.client.data.models.model.ItemModelUtils;
-import net.minecraft.client.data.models.model.ModelInstance;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -49,7 +49,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Stream;
+
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
 
 public class OccultismBlockModelSubProvider {
 
@@ -71,12 +74,24 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.POLISHED_OTHERSTONE.get(),
                         OccultismBlocks.POLISHED_OTHERROCK.get(),
                         OccultismBlocks.OTHERPLANKS.get(),
-                        OccultismBlocks.SILVER_BLOCK.get(),
-                        OccultismBlocks.RAW_SILVER_BLOCK.get(),
                         OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
                         OccultismBlocks.SILVER_ORE.get(),
                         OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
                         OccultismBlocks.TALLOW_BLOCK.get()
+                ),
+                Stream.of(
+                        OccultismBlocks.RAW_SILVER_BLOCK.get(),
+                        OccultismBlocks.SILVER_BLOCK.get(),
+                        OccultismBlocks.SILVER_CHISELED_BLOCK.get(),
+                        OccultismBlocks.SILVER_GRATE_BLOCK.get(),
+                        OccultismBlocks.SILVER_CUT_BLOCK.get(),
+                        OccultismBlocks.SILVER_CUT_STAIRS.get(),
+                        OccultismBlocks.SILVER_CUT_SLAB.get(),
+                        OccultismBlocks.SILVER_BARS_BLOCK.get(),
+                        OccultismBlocks.SILVER_CHAIN_BLOCK.get(),
+                        OccultismBlocks.SILVER_DOOR.get(),
+                        OccultismBlocks.SILVER_TRAPDOOR.get(),
+                        OccultismBlocks.SILVER_BULB.get()
                 ),
                 Stream.of(
                         OccultismBlocks.CHALK_GLYPH_WHITE.get(),
@@ -238,6 +253,9 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.POLISHED_OTHERROCK.get(),
                 OccultismBlocks.OTHERPLANKS.get(),
                 OccultismBlocks.SILVER_BLOCK.get(),
+                OccultismBlocks.SILVER_CHISELED_BLOCK.get(),
+                OccultismBlocks.SILVER_GRATE_BLOCK.get(),
+                OccultismBlocks.SILVER_CUT_BLOCK.get(),
                 OccultismBlocks.RAW_SILVER_BLOCK.get(),
                 OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
                 OccultismBlocks.SILVER_ORE.get(),
@@ -378,11 +396,11 @@ public class OccultismBlockModelSubProvider {
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, ChalkGlyphBlock.SIGN)
                                 .generate((facing, sign) -> sign == 0 ?
-                                        BlockModelGenerators.plainVariant(this.modLoc("block/chalk_glyph/preview")):
-                                        BlockModelGenerators.plainVariant(this.modLoc("block/chalk_glyph/" + sign))
+                                        plainVariant(this.modLoc("block/chalk_glyph/preview")):
+                                        plainVariant(this.modLoc("block/chalk_glyph/" + sign))
                                         .with(switch (facing) {
                                             case SOUTH -> BlockModelGenerators.NOP;
-                                            case WEST -> BlockModelGenerators.Y_ROT_90;
+                                            case WEST -> Y_ROT_90;
                                             case NORTH -> BlockModelGenerators.Y_ROT_180;
                                             case EAST -> BlockModelGenerators.Y_ROT_270;
                                             default -> BlockModelGenerators.NOP;
@@ -409,6 +427,8 @@ public class OccultismBlockModelSubProvider {
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_STAIRS.get(), OccultismBlocks.OTHERPLANKS.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERPLANKS_SLAB.get(), OccultismBlocks.OTHERPLANKS.get());
+        this.registerStairs(blockModels, itemModels, OccultismBlocks.SILVER_CUT_STAIRS.get(), OccultismBlocks.SILVER_CUT_BLOCK.get());
+        this.registerSlab(blockModels, itemModels, OccultismBlocks.SILVER_CUT_SLAB.get(), OccultismBlocks.SILVER_CUT_BLOCK.get());
     }
 
     private void registerStairs(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block stairs, Block parent) {
@@ -418,9 +438,9 @@ public class OccultismBlockModelSubProvider {
         Identifier outerModel = ModelTemplates.STAIRS_OUTER.create(stairs, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createStairs(stairs,
-                        BlockModelGenerators.plainVariant(innerModel),
-                        BlockModelGenerators.plainVariant(straightModel),
-                        BlockModelGenerators.plainVariant(outerModel))
+                        plainVariant(innerModel),
+                        plainVariant(straightModel),
+                        plainVariant(outerModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, stairs, straightModel);
     }
@@ -432,9 +452,9 @@ public class OccultismBlockModelSubProvider {
         Identifier fullModel = this.blockModel(parent);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createSlab(slab,
-                        BlockModelGenerators.plainVariant(bottomModel),
-                        BlockModelGenerators.plainVariant(topModel),
-                        BlockModelGenerators.plainVariant(fullModel))
+                        plainVariant(bottomModel),
+                        plainVariant(topModel),
+                        plainVariant(fullModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, slab, bottomModel);
     }
@@ -455,6 +475,12 @@ public class OccultismBlockModelSubProvider {
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_WALL.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERROCK_WALL.get(), OccultismBlocks.POLISHED_OTHERROCK.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERROCK_BRICKS_WALL.get(), OccultismBlocks.OTHERROCK_BRICKS.get());
+
+        this.registerDoor(blockModels, itemModels, OccultismBlocks.SILVER_DOOR.get());
+        this.registerTrapdoor(blockModels, itemModels, OccultismBlocks.SILVER_TRAPDOOR.get());
+        this.registerBars(blockModels, itemModels, OccultismBlocks.SILVER_BARS_BLOCK.get(), OccultismBlocks.SILVER_BARS_BLOCK.get());
+        this.registerChain(blockModels, itemModels, OccultismBlocks.SILVER_CHAIN_BLOCK.get());
+        this.registerBulb(blockModels, itemModels, OccultismBlocks.SILVER_BULB.get());
     }
 
     private void registerFence(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block fence, Block parent) {
@@ -462,9 +488,42 @@ public class OccultismBlockModelSubProvider {
         Identifier postModel = ModelTemplates.FENCE_POST.create(fence, textures, blockModels.modelOutput);
         Identifier sideModel = ModelTemplates.FENCE_SIDE.create(fence, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
-                BlockModelGenerators.createFence(fence, BlockModelGenerators.plainVariant(postModel), BlockModelGenerators.plainVariant(sideModel))
+                BlockModelGenerators.createFence(fence, plainVariant(postModel), plainVariant(sideModel))
         );
         this.registerExistingItemModel(itemModels, fence.asItem(), this.itemModel(fence));
+    }
+
+    private void registerBars(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block bars, Block parent) {
+        TextureMapping textures = TextureMapping.bars(parent);
+        MultiVariant postEnds = plainVariant(ModelTemplates.BARS_POST_ENDS.create(bars, textures, blockModels.modelOutput));
+        MultiVariant post = plainVariant(ModelTemplates.BARS_POST.create(bars, textures, blockModels.modelOutput));
+        MultiVariant cap = plainVariant(ModelTemplates.BARS_CAP.create(bars, textures, blockModels.modelOutput));
+        MultiVariant capAlt = plainVariant(ModelTemplates.BARS_CAP_ALT.create(bars, textures, blockModels.modelOutput));
+        MultiVariant side = plainVariant(ModelTemplates.BARS_POST_SIDE.create(bars, textures, blockModels.modelOutput));
+        MultiVariant sideAlt = plainVariant(ModelTemplates.BARS_POST_SIDE_ALT.create(bars, textures, blockModels.modelOutput));
+        blockModels.blockStateOutput.accept(
+                MultiPartGenerator.multiPart(bars).with(postEnds).with(condition().term(BlockStateProperties.NORTH, false).term(BlockStateProperties.EAST, false).term(BlockStateProperties.SOUTH, false).term(BlockStateProperties.WEST, false), post).with(condition().term(BlockStateProperties.NORTH, true).term(BlockStateProperties.EAST, false).term(BlockStateProperties.SOUTH, false).term(BlockStateProperties.WEST, false), cap).with(condition().term(BlockStateProperties.NORTH, false).term(BlockStateProperties.EAST, true).term(BlockStateProperties.SOUTH, false).term(BlockStateProperties.WEST, false), cap.with(Y_ROT_90)).with(condition().term(BlockStateProperties.NORTH, false).term(BlockStateProperties.EAST, false).term(BlockStateProperties.SOUTH, true).term(BlockStateProperties.WEST, false), capAlt).with(condition().term(BlockStateProperties.NORTH, false).term(BlockStateProperties.EAST, false).term(BlockStateProperties.SOUTH, false).term(BlockStateProperties.WEST, true), capAlt.with(Y_ROT_90)).with(condition().term(BlockStateProperties.NORTH, true), side).with(condition().term(BlockStateProperties.EAST, true), side.with(Y_ROT_90)).with(condition().term(BlockStateProperties.SOUTH, true), sideAlt).with(condition().term(BlockStateProperties.WEST, true), sideAlt.with(Y_ROT_90)));
+
+        this.registerExistingItemModel(itemModels, bars.asItem(), this.itemModel(bars));
+    }
+
+    private void registerChain(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block chain) {
+        blockModels.blockStateOutput.accept(createAxisAlignedPillarBlock(chain,
+                plainVariant(TexturedModel.CHAIN.create(chain, blockModels.modelOutput))));
+        itemModels.generateFlatItem(chain.asItem(), ModelTemplates.FLAT_ITEM);
+    }
+
+    public void registerBulb(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block bulb) {
+        MultiVariant baseModel = plainVariant(ModelTemplates.CUBE_ALL.create(bulb, TextureMapping.cube(bulb), blockModels.modelOutput));
+        MultiVariant baseModelPowered = plainVariant(this.createSuffixedVariant(blockModels, bulb, "_powered", ModelTemplates.CUBE_ALL, TextureMapping::cube));
+        MultiVariant litModel = plainVariant(this.createSuffixedVariant(blockModels, bulb, "_lit", ModelTemplates.CUBE_ALL, TextureMapping::cube));
+        MultiVariant litModelPowered = plainVariant(this.createSuffixedVariant(blockModels, bulb, "_lit_powered", ModelTemplates.CUBE_ALL, TextureMapping::cube));
+        blockModels.blockStateOutput.accept(createCopperBulb(bulb, baseModel, litModel, baseModelPowered, litModelPowered));
+        this.registerExistingItemModel(itemModels, bulb.asItem(), this.blockModel(bulb));
+    }
+
+    public Identifier createSuffixedVariant(BlockModelGenerators blockModels, Block block, String suffix, ModelTemplate template, Function<Material, TextureMapping> textureMapping) {
+        return template.createWithSuffix(block, suffix, textureMapping.apply(TextureMapping.getBlockTexture(block, suffix)), blockModels.modelOutput);
     }
 
     private void registerFenceGate(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block fenceGate, Block parent) {
@@ -475,10 +534,10 @@ public class OccultismBlockModelSubProvider {
         Identifier wallOpenModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGate, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createFenceGate(fenceGate,
-                        BlockModelGenerators.plainVariant(openModel),
-                        BlockModelGenerators.plainVariant(closedModel),
-                        BlockModelGenerators.plainVariant(wallOpenModel),
-                        BlockModelGenerators.plainVariant(wallClosedModel),
+                        plainVariant(openModel),
+                        plainVariant(closedModel),
+                        plainVariant(wallOpenModel),
+                        plainVariant(wallClosedModel),
                         false)
         );
         this.registerParentedItemModel(blockModels, itemModels, fenceGate, closedModel);
@@ -489,14 +548,14 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createDoor(
                         door,
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, textures, blockModels.modelOutput)),
-                        BlockModelGenerators.plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, textures, blockModels.modelOutput))
+                        plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_TOP_LEFT.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_TOP_LEFT_OPEN.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_TOP_RIGHT.create(door, textures, blockModels.modelOutput)),
+                        plainVariant(ModelTemplates.DOOR_TOP_RIGHT_OPEN.create(door, textures, blockModels.modelOutput))
                 )
         );
         this.registerExistingItemModel(itemModels, door.asItem(), this.itemModel(door));
@@ -510,9 +569,9 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createTrapdoor(
                         trapdoor,
-                        BlockModelGenerators.plainVariant(topModel),
-                        BlockModelGenerators.plainVariant(bottomModel),
-                        BlockModelGenerators.plainVariant(openModel)
+                        plainVariant(topModel),
+                        plainVariant(bottomModel),
+                        plainVariant(openModel)
                 )
         );
         this.registerExistingItemModel(itemModels, trapdoor.asItem(), this.itemModel(trapdoor));
@@ -525,8 +584,8 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createButton(
                         button,
-                        BlockModelGenerators.plainVariant(unpoweredModel),
-                        BlockModelGenerators.plainVariant(poweredModel)
+                        plainVariant(unpoweredModel),
+                        plainVariant(poweredModel)
                 )
         );
         this.registerExistingItemModel(itemModels, button.asItem(), this.itemModel(button));
@@ -540,9 +599,9 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createWall(
                         wall,
-                        BlockModelGenerators.plainVariant(postModel),
-                        BlockModelGenerators.plainVariant(lowSideModel),
-                        BlockModelGenerators.plainVariant(tallSideModel)
+                        plainVariant(postModel),
+                        plainVariant(lowSideModel),
+                        plainVariant(tallSideModel)
                 )
         );
         this.registerExistingItemModel(itemModels, wall.asItem(), this.itemModel(wall));
@@ -560,8 +619,8 @@ public class OccultismBlockModelSubProvider {
         Identifier downModel = ModelTemplates.PRESSURE_PLATE_DOWN.create(plate, textures, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(
                 BlockModelGenerators.createPressurePlate(plate,
-                        BlockModelGenerators.plainVariant(upModel),
-                        BlockModelGenerators.plainVariant(downModel))
+                        plainVariant(upModel),
+                        plainVariant(downModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, plate, upModel);
     }
@@ -600,14 +659,14 @@ public class OccultismBlockModelSubProvider {
     private void registerFacingBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
         Identifier model = this.blockModel(block);
         blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model))
+                MultiVariantGenerator.dispatch(block, plainVariant(model))
                         .with(PropertyDispatch.modify(BlockStateProperties.FACING)
                                 .select(Direction.UP, BlockModelGenerators.NOP)
                                 .select(Direction.DOWN, BlockModelGenerators.X_ROT_180)
                                 .select(Direction.NORTH, BlockModelGenerators.X_ROT_90)
                                 .select(Direction.SOUTH, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180))
                                 .select(Direction.WEST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270))
-                                .select(Direction.EAST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
+                                .select(Direction.EAST, BlockModelGenerators.X_ROT_90.then(Y_ROT_90))
                         )
         );
         this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
@@ -618,13 +677,13 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(EntityWormholeBlock.EXIT_ROTATION_X, EntityWormholeBlock.EXIT_ROTATION_Y, BlockStateProperties.FACING)
-                                .generate((rotationX, rotationY, facing) -> BlockModelGenerators.plainVariant(model).with(switch (facing) {
+                                .generate((rotationX, rotationY, facing) -> plainVariant(model).with(switch (facing) {
                                     case UP -> BlockModelGenerators.NOP;
                                     case DOWN -> BlockModelGenerators.X_ROT_180;
                                     case NORTH -> BlockModelGenerators.X_ROT_90;
                                     case SOUTH -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180);
                                     case WEST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
-                                    case EAST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
+                                    case EAST -> BlockModelGenerators.X_ROT_90.then(Y_ROT_90);
                                 })))
         );
         this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
@@ -637,7 +696,7 @@ public class OccultismBlockModelSubProvider {
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block)
                         .with(PropertyDispatch.initial(BlockStateProperties.FACING, StableWormholeBlock.LINKED)
-                                .generate((facing, linked) -> BlockModelGenerators.plainVariant(linked ? linkedModel : unlinkedModel)
+                                .generate((facing, linked) -> plainVariant(linked ? linkedModel : unlinkedModel)
                                         .with(switch (facing) {
                                             case UP -> BlockModelGenerators.NOP;
                                             case DOWN -> BlockModelGenerators.X_ROT_180;
@@ -647,7 +706,7 @@ public class OccultismBlockModelSubProvider {
                                             case WEST ->
                                                     BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
                                             case EAST ->
-                                                    BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90);
+                                                    BlockModelGenerators.X_ROT_90.then(Y_ROT_90);
                                         })))
         );
 
@@ -660,7 +719,7 @@ public class OccultismBlockModelSubProvider {
     }
 
     private void registerSimpleModelBlock(BlockModelGenerators blockModels, Block block) {
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(this.blockModel(block))));
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, plainVariant(this.blockModel(block))));
     }
 
     private void registerSimpleModelBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {

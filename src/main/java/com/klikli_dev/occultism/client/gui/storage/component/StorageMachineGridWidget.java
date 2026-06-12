@@ -11,7 +11,7 @@ import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;

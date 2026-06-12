@@ -6,11 +6,7 @@
 
 package com.klikli_dev.occultism.client.gui.storage;
 
-import com.klikli_dev.codedefinedgui.api.layout.LayoutResolverRegistry;
-import com.klikli_dev.codedefinedgui.api.layout.LayoutScreenView;
-import com.klikli_dev.codedefinedgui.api.layout.LayoutSpec;
-import com.klikli_dev.codedefinedgui.api.layout.ResolvedLayout;
-import com.klikli_dev.codedefinedgui.api.layout.ScreenLayoutController;
+import com.klikli_dev.codedefinedgui.api.layout.*;
 import com.klikli_dev.codedefinedgui.api.screen.GuiHost;
 import com.klikli_dev.codedefinedgui.api.screen.GuiRootWidget;
 import com.klikli_dev.codedefinedgui.api.style.GuiStyleContext;

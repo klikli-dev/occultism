@@ -6,7 +6,6 @@
 
 package com.klikli_dev.occultism.client.gui;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalBattlefieldContainer;

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight_cluster",
+  "item": "occultism:bedrock_gem_cluster",
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.unbreakable.spotlight_cluster.text",
+  "title": ""
+}

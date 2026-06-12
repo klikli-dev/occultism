@@ -197,6 +197,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //this.addItem\(OccultismItems.\U\1\E, "\2"\);
 
         this.add("itemGroup.occultism", "Occultism");
+        this.add("itemGroup.occultism_blocks", "Occultism: Blocks");
+        this.add("itemGroup.occultism_eggs", "Occultism: Spawn Eggs");
+        this.add("itemGroup.occultism_dummy", "Occultism: Ritual Dummy");
 
         this.addItem(OccultismItems.PENTACLE_SUMMON, "Pentacle Summon");
         this.addItem(OccultismItems.PENTACLE_POSSESS, "Pentacle Possess");
@@ -279,6 +282,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
         this.addItem(OccultismItems.CHALK_RAINBOW, "Rainbow Chalk");
         this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any colored glyph.");
+        this.add(OccultismItems.CHALK_RAINBOW.get().getDescriptionId() + ".tooltip_pride",
+                ChatFormatting.DARK_RED + "H" +
+                        ChatFormatting.RED + "a" +
+                        ChatFormatting.GOLD + "p" +
+                        ChatFormatting.YELLOW + "p" +
+                        ChatFormatting.GREEN + "y " +
+                        ChatFormatting.DARK_GREEN + "P" +
+                        ChatFormatting.DARK_AQUA + "r" +
+                        ChatFormatting.AQUA + "i" +
+                        ChatFormatting.BLUE + "d" +
+                        ChatFormatting.DARK_BLUE + "e" +
+                        ChatFormatting.DARK_PURPLE + "!");
         this.addItem(OccultismItems.CHALK_VOID, "Void Chalk");
         this.addAutoTooltip(OccultismItems.CHALK_VOID, "Can replace any chalk glyph.\nShift + Right Click in a glyph to erase.\nIt can take on the appearance of any foundation glyph.");
         this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
@@ -364,6 +379,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.INFUSED_LENSES, "Infused Lenses");
         this.addItem(OccultismItems.LENS_FRAME, "Lens Frame");
         this.addItem(OccultismItems.OTHERWORLD_GOGGLES, "Otherworld Goggles");
+
+        this.addItem(OccultismItems.SILVER_SPEAR, "Silver Spear");
+        this.addItem(OccultismItems.SILVER_SWORD, "Silver Sword");
+        this.addItem(OccultismItems.SILVER_SHOVEL, "Silver Shovel");
+        this.addItem(OccultismItems.SILVER_PICKAXE, "Silver Pickaxe");
+        this.addItem(OccultismItems.SILVER_AXE, "Silver Axe");
+        this.addItem(OccultismItems.SILVER_HOE, "Silver Hoe");
+        this.addItem(OccultismItems.SILVER_HELMET, "Silver Helmet");
+        this.addItem(OccultismItems.SILVER_CHESTPLATE, "Silver Chestplate");
+        this.addItem(OccultismItems.SILVER_LEGGINGS, "Silver Leggings");
+        this.addItem(OccultismItems.SILVER_BOOTS, "Silver Boots");
+        this.addItem(OccultismItems.SILVER_HORSE_ARMOR, "Silver Horse Armor");
+        this.addItem(OccultismItems.SILVER_NAUTILUS_ARMOR, "Silver Nautilus Armor");
+
         this.addItem(OccultismItems.INFUSED_PICKAXE, "Infused Pickaxe");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD, "Spirit Attuned Pickaxe Head");
         this.addItem(OccultismItems.IESNIUM_PICKAXE, "Iesnium Pickaxe");
@@ -377,6 +406,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_ANCIENT_ELDRITCH, "Eldritch Ancient Miner");
         this.addItem(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Mining Dimension Core Piece");
         this.addAutoTooltip(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Very durable fuel");
+        this.addItem(OccultismItems.BEDROCK_SCRAP, "Bedrock Scrap");
+        this.addItem(OccultismItems.BEDROCK_GEM_CLUSTER, "Bedrock Gem Cluster");
         this.addItem(OccultismItems.FRAGILE_SOUL_GEM_ITEM, "Fragile Soul Gem");
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Fragile Empty Soul Gem");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
@@ -623,6 +654,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.IESNIUM_ANVIL, "Iesnium Anvil");
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
         this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
+        this.addBlock(OccultismBlocks.SILVER_CHISELED_BLOCK, "Chiseled Silver");
+        this.addBlock(OccultismBlocks.SILVER_GRATE_BLOCK, "Silver Grate");
+        this.addBlock(OccultismBlocks.SILVER_CUT_BLOCK, "Cut Silver");
+        this.addBlock(OccultismBlocks.SILVER_CUT_STAIRS, "Cut Silver Stairs");
+        this.addBlock(OccultismBlocks.SILVER_CUT_SLAB, "Cut Silver Slab");
+        this.addBlock(OccultismBlocks.SILVER_BARS_BLOCK, "Silver Bars");
+        this.addBlock(OccultismBlocks.SILVER_CHAIN_BLOCK, "Silver Chain");
+        this.addBlock(OccultismBlocks.SILVER_DOOR, "Silver Door");
+        this.addBlock(OccultismBlocks.SILVER_TRAPDOOR, "Silver Trapdoor");
+        this.addBlock(OccultismBlocks.SILVER_BULB, "Silver Bulb");
         this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Block of Iesnium");
         this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
         this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
@@ -813,6 +854,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.ravager", "Ravager");
         this.add("ritual.occultism.sacrifice.endermen", "Enderman");
         this.add("ritual.occultism.sacrifice.shulker", "Shulker");
+        this.add("ritual.occultism.sacrifice.witch", "Witch");
+        this.add("ritual.occultism.sacrifice.evoker", "Evoker");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -851,10 +894,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.subtitle.poof", "Poof!");
 
         //Dimension types
-
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.identifier()), "Overworld");
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.identifier()), "Nether");
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.identifier()), "The End");
+
+        //Trim material
+        this.add("trim_material.occultism.silver", "Silver Material");
+        this.add("trim_material.occultism.iesnium", "Iesnium Material");
+        this.add("trim_material.occultism.spirit_gem", "Spirit Attuned Material");
     }
 
     private void addGuiTranslations() {
@@ -1593,16 +1640,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR, "Forge Iron Horse Armor", "Wild", "Wild Spirits will forge a Iron Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR, "Forge Golden Horse Armor", "Wild", "Wild Spirits will forge a Golden Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR, "Forge Diamond Horse Armor", "Wild", "Wild Spirits will forge a Diamond Horse Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR, "Forge Silver Horse Armor", "Wild", "Wild Spirits will forge a Silver Horse Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR, "Forge Copper Nautilus Armor", "Wild", "Wild Spirits will forge a Copper Nautilus Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR, "Forge Iron Nautilus Armor", "Wild", "Wild Spirits will forge a Iron Nautilus Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR, "Forge Golden Nautilus Armor", "Wild", "Wild Spirits will forge a Golden Nautilus Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR, "Forge Diamond Nautilus Armor", "Wild", "Wild Spirits will forge a Diamond Nautilus Armor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_SILVER_NAUTILUS_ARMOR, "Forge Silver Nautilus Armor", "Wild", "Wild Spirits will forge a Silver Nautilus Armor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE, "Forge Celestial Chalice", "Eldritch", "Eldritch Spirits will forge an Celestial Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a void chalk, substitute any chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "Forge Trinity Gem", "Eldritch", "Eldritch Spirits will forge a trinity gem, upgrading a soul gem.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER, "Forge Bedrock Gem Cluster", "Eldritch", "Eldritch Spirits will forge a bedrock gem cluster, which can make an item unbreakable.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_UNBREAKABLE, "Infuse with Unbreakable", "Eldritch", "Eldritch Spirits will infuse the activation item to make it unbreakable.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "Forge Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK, "Forge Dark Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Dark Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH, "Infuse Eldritch Ancient Miner", "Eldritch", "Summon Eldritch Ancient Miner into a magic lamp.");
@@ -1717,7 +1768,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.ENCHANTING_TABLES, "Enchanting Tables");
         this.addItemTag(Items.IRON_BARS, "Iron bars");
         this.addItemTag(Items.TALLOW, "Tallow");
-        this.addItemTag(Items.METAL_AXES, "Metal Axes");
         this.addItemTag(Items.MAGMA, "Magma");
         this.addItemTag(Items.BOOKS, "Books");
         this.addItemTag(Items.FRUITS, "Fruits");

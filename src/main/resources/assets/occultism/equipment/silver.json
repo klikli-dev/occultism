@@ -1,0 +1,29 @@
+{
+  "layers": {
+    "horse_body": [
+      {
+        "texture": "occultism:silver"
+      }
+    ],
+    "humanoid": [
+      {
+        "texture": "occultism:silver"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "occultism:silver"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "occultism:silver"
+      }
+    ],
+    "nautilus_body": [
+      {
+        "texture": "occultism:silver"
+      }
+    ]
+  }
+}

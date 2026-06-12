@@ -1,6 +1,18 @@
 {
   "values": [
     "occultism:silver_ore",
-    "occultism:silver_ore_deepslate"
+    "occultism:silver_ore_deepslate",
+    "occultism:raw_silver_block",
+    "occultism:silver_block",
+    "occultism:chiseled_silver",
+    "occultism:silver_grate",
+    "occultism:cut_silver",
+    "occultism:cut_silver_stairs",
+    "occultism:cut_silver_slab",
+    "occultism:silver_bars",
+    "occultism:silver_chain",
+    "occultism:silver_door",
+    "occultism:silver_trapdoor",
+    "occultism:silver_bulb"
   ]
 }

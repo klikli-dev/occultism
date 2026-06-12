@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.entity.spirit;
 
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
-import com.klikli_dev.occultism.common.item.filter.EntityItemFilter;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "occultism:cut_silver",
+  "result": {
+    "id": "occultism:chiseled_silver"
+  }
+}

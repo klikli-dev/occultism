@@ -27,19 +27,13 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.skeleton.Parched;
 import net.minecraft.world.entity.monster.zombie.Husk;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
-import net.minecraft.world.entity.projectile.arrow.Arrow;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
 
 public class WildHordeParchedEntity extends Parched implements PossessedMob {
 

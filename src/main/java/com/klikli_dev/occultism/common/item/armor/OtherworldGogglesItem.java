@@ -22,16 +22,12 @@
 
 package com.klikli_dev.occultism.common.item.armor;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags.Items;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class OtherworldGogglesItem extends Item {
-
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
 
     public OtherworldGogglesItem(Properties builder) {
         super(builder);

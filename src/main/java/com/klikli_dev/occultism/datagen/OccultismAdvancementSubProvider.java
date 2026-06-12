@@ -135,8 +135,8 @@ public class OccultismAdvancementSubProvider implements AdvancementSubProvider {
         this.addChalkAdvancement(chalkBlue, "cyan", OccultismItems.CHALK_CYAN.get());
         var chalkMagenta = this.addChalkAdvancement(chalkBlue, "magenta", OccultismItems.CHALK_MAGENTA.get());
         this.addChalkAdvancement(chalkOrange, "pink", OccultismItems.CHALK_PINK.get());
-        var chalkRainbow = this.addChalkAdvancement(chalkMagenta, "rainbow", OccultismItems.CHALK_RAINBOW.get());
-        this.addChalkAdvancement(chalkRainbow, "void", OccultismItems.CHALK_VOID.get(), AdvancementType.CHALLENGE);
+        this.addChalkAdvancement(chalkMagenta, "rainbow", OccultismItems.CHALK_RAINBOW.get(), AdvancementType.CHALLENGE);
+        this.addChalkAdvancement(chalkMagenta, "void", OccultismItems.CHALK_VOID.get(), AdvancementType.CHALLENGE);
 
         var familiarsRoot = this.add(Builder.advancement()
                 .display(OccultismItems.PENTACLE_POSSESS.get(),

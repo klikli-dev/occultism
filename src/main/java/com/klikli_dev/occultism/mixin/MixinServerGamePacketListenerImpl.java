@@ -7,7 +7,6 @@
 package com.klikli_dev.occultism.mixin;
 
 import com.klikli_dev.occultism.common.item.tool.ChalkItem;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.player.Inventory;

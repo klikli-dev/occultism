@@ -1,5 +1,5 @@
 {
-  "parent": "occultism:chalks/rainbow",
+  "parent": "occultism:chalks/magenta",
   "criteria": {
     "chalk_void": {
       "conditions": {

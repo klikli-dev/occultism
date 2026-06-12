@@ -20,6 +20,7 @@
       "color": "green",
       "translate": "advancements.occultism.chalks.rainbow.description"
     },
+    "frame": "challenge",
     "icon": {
       "id": "occultism:chalk_rainbow"
     },

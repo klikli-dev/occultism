@@ -22,24 +22,25 @@
 
 package com.klikli_dev.occultism.registry;
 
-import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.codedefinedgui.premade.filter.attribute.AttributeFilterItem;
 import com.klikli_dev.codedefinedgui.premade.filter.list.ListFilterItem;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.FlameAutomationItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
-import com.klikli_dev.occultism.client.gui.OccultismGuiStyles;
 import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
-import com.klikli_dev.occultism.common.item.tool.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
+import com.klikli_dev.occultism.common.item.tool.*;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitualSatchelItem;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -48,9 +49,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -330,15 +334,21 @@ public class OccultismItems {
     public static final DeferredItem<Item> CRUELTY_ESSENCE = ITEMS.registerItem("cruelty_essence",
             Item::new, () -> new Properties().rarity(Rarity.RARE).fireResistant());
     public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.registerItem("spirit_attuned_gem",
-            Item::new, Properties::new);
+            Item::new, () ->new  Properties().trimMaterial(ResourceKey.create(
+                    Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_gem")))
+    );
     public static final DeferredItem<Item> RAW_SILVER = ITEMS.registerItem("raw_silver",
             Item::new, Properties::new);
     public static final DeferredItem<Item> RAW_IESNIUM = ITEMS.registerItem("raw_iesnium",
             Item::new, Properties::new);
     public static final DeferredItem<Item> SILVER_INGOT = ITEMS.registerItem("silver_ingot",
-            Item::new, Properties::new);
+            Item::new, () ->new  Properties().trimMaterial(ResourceKey.create(
+                    Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath(Occultism.MODID, "silver")))
+    );
     public static final DeferredItem<Item> IESNIUM_INGOT = ITEMS.registerItem("iesnium_ingot",
-            Item::new, Properties::new);
+            Item::new, () ->new  Properties().trimMaterial(ResourceKey.create(
+                    Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath(Occultism.MODID, "iesnium")))
+    );
     public static final DeferredItem<Item> SILVER_NUGGET = ITEMS.registerItem("silver_nugget",
             Item::new, Properties::new);
     public static final DeferredItem<Item> IESNIUM_NUGGET = ITEMS.registerItem("iesnium_nugget",
@@ -425,6 +435,11 @@ public class OccultismItems {
             DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")
                     .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1));
+    public static final DeferredItem<Item> BEDROCK_SCRAP = ITEMS.registerItem("bedrock_scrap",
+            Item::new, () -> new Properties().rarity(Rarity.EPIC).fireResistant());
+    public static final DeferredItem<Item> BEDROCK_GEM_CLUSTER = ITEMS.registerItem("bedrock_gem_cluster",
+            Item::new, () -> new Properties().rarity(Rarity.EPIC).fireResistant());
+
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.registerItem("soul_shard",
             SoulShardItem::new, () -> new Properties().stacksTo(1));
@@ -728,15 +743,19 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_horse_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_horse_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_horse_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_silver_horse_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_nautilus_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_SILVER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_silver_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.registerItem("ritual_dummy/misc_eldritch_chalice", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.registerItem("ritual_dummy/misc_celestial_chalice", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.registerItem("ritual_dummy/misc_chalk_void", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.registerItem("ritual_dummy/misc_trinity_gem", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER = ITEMS.registerItem("ritual_dummy/misc_bedrock_gem_cluster", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_UNBREAKABLE = ITEMS.registerItem("ritual_dummy/misc_unbreakable", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage_dark", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.registerItem("ritual_dummy/misc_miner_ancient_eldritch", DummyTooltipItem::new, Properties::new);
@@ -810,6 +829,45 @@ public class OccultismItems {
                             .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER)
                             .build()));
 
+    public static final DeferredItem<Item> SILVER_SPEAR = ITEMS.registerItem("silver_spear",
+            Item::new, () -> new Item.Properties().spear(OccultismTiers.SILVER_TOOL,
+            0.95F, 0.95F, 0.6F, 2.5F, 11.0F, 6.75F, 5.1F, 11.25F, 4.6F));
+    public static final DeferredItem<Item> SILVER_SWORD = ITEMS.registerItem("silver_sword",
+            Item::new, () -> new Item.Properties().sword(OccultismTiers.SILVER_TOOL, 3.0F, -2.4F));
+    public static final DeferredItem<ShovelItem> SILVER_SHOVEL = ITEMS.registerItem("silver_shovel",
+            properties -> new ShovelItem(OccultismTiers.SILVER_TOOL, 1.5F, -3.0F, properties));
+    public static final DeferredItem<Item> SILVER_PICKAXE = ITEMS.registerItem("silver_pickaxe",
+            Item::new, () -> new Item.Properties().pickaxe(OccultismTiers.SILVER_TOOL, 1.0F, -2.8F));
+    public static final DeferredItem<Item> SILVER_AXE = ITEMS.registerItem("silver_axe",
+            properties ->  new AxeItem(OccultismTiers.SILVER_TOOL, 7.5F, -3.1F, properties));
+    public static final DeferredItem<Item> SILVER_HOE = ITEMS.registerItem("silver_hoe",
+            properties -> new HoeItem(OccultismTiers.SILVER_TOOL, -1.0F, -1.0F, properties));
+
+    public static final DeferredItem<Item> SILVER_HELMET = ITEMS.registerItem("silver_helmet",
+            Item::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.HELMET)
+    );
+    public static final DeferredItem<Item> SILVER_CHESTPLATE = ITEMS.registerItem("silver_chestplate",
+            Item::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.CHESTPLATE)
+    );
+    public static final DeferredItem<Item> SILVER_LEGGINGS = ITEMS.registerItem("silver_leggings",
+            Item::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.LEGGINGS)
+    );
+    public static final DeferredItem<Item> SILVER_BOOTS = ITEMS.registerItem("silver_boots",
+            Item::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.BOOTS)
+    );
+    public static final DeferredItem<Item> SILVER_HORSE_ARMOR = ITEMS.registerItem("silver_horse_armor",
+            Item::new, () -> new Properties().horseArmor(OccultismTiers.SILVER_ARMOR)
+    );
+    public static final DeferredItem<Item> SILVER_NAUTILUS_ARMOR = ITEMS.registerItem("silver_nautilus_armor",
+            Item::new, () -> new Properties().nautilusArmor(OccultismTiers.SILVER_ARMOR)
+    );
+
+
+
     public static boolean shouldSkipCreativeModTab(Item item) {
         if (item == PENTACLE_SUMMON.get()
                 || item == PENTACLE_POSSESS.get()
@@ -831,17 +889,6 @@ public class OccultismItems {
             return blockItem.getBlock() == OccultismBlocks.LIGHTED_AIR.get();
         }
         return false;
-    }
-
-    public static boolean laterCreativeModTab(Item item) {
-        return item.toString().contains("debug")
-                || item instanceof DummyTooltipItem
-                || item instanceof SpawnEggItem
-                || item instanceof StableWormholeBlockItem
-                || item == FLAME_AUTOMATION.get()
-                || item == SPIRIT_TORCH.get()
-                || item == OTHERPLANKS_SIGN.get()
-                || item == OTHERPLANKS_HANGING_SIGN.get();
     }
 
     public static boolean shouldPregenerateSpiritName(Item item) {

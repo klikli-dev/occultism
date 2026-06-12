@@ -1,0 +1,31 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": "occultism:spirit_attuned_gem",
+  "duration": 412,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.witch",
+    "tag": "c:witches"
+  },
+  "ingredients": [
+    "occultism:bedrock_scrap",
+    "occultism:bedrock_scrap",
+    "occultism:bedrock_scrap",
+    "occultism:bedrock_scrap",
+    "#c:gems/emerald",
+    "#c:gems/diamond",
+    "#c:gems/lapis",
+    "#c:gems/prismarine",
+    "#c:dusts/redstone",
+    "#c:gems/quartz",
+    "#c:gems/amethyst",
+    "#c:dusts/glowstone"
+  ],
+  "pentacle_id": "occultism:contact_eldritch_spirit",
+  "result": {
+    "id": "occultism:bedrock_gem_cluster"
+  },
+  "ritual_dummy": {
+    "id": "occultism:ritual_dummy/misc_bedrock_gem_cluster"
+  },
+  "ritual_type": "occultism:craft"
+}
