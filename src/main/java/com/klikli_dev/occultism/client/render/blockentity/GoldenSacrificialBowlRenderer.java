@@ -102,7 +102,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
 
         if (!stack.isEmpty() && blockEntity instanceof GoldenSacrificialBowlBlockEntity goldenBowl) {
             poseStack.translate(0, 3.2 -(0.5 + yOffset)/scale, 0);
-            if (!goldenBowl.itemUseFulfilled()){
+            if (!goldenBowl.itemUseFulfilled() && goldenBowl.getCurrentRitualRecipe() != null && goldenBowl.getCurrentRitualRecipe().value().getItemToUse() != null){
                 ItemStack[] itemStackList = goldenBowl.getCurrentRitualRecipe().value().getItemToUse().getItems();
                 if (itemStackList.length > 0) {
                     int index = itemStackList.length == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % itemStackList.length);
