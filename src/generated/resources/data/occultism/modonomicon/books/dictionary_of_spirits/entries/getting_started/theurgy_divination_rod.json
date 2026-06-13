@@ -11,7 +11,15 @@
     "children": [
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/getting_started/divination_rod"
+        "node_id": "occultism:research/entry_viewed/getting_started/divination_rod",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.name"
+            }
+          ]
+        }
       },
       {
         "type": "modonomicon:mod_loaded",

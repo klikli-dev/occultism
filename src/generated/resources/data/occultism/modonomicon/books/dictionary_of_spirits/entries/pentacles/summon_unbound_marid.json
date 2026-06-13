@@ -8,7 +8,15 @@
   "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/black_chalk"
+    "node_id": "occultism:research/entry_viewed/pentacles/black_chalk",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_marid.description",
   "icon": {

@@ -11,19 +11,51 @@
     "children": [
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/magenta_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/magenta_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.magenta_chalk.name"
+            }
+          ]
+        }
       },
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/brown_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/brown_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.name"
+            }
+          ]
+        }
       },
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/cyan_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/cyan_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.name"
+            }
+          ]
+        }
       },
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/contact_wild_spirit"
+        "node_id": "occultism:research/entry_viewed/pentacles/contact_wild_spirit",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.name"
+            }
+          ]
+        }
       }
     ]
   },

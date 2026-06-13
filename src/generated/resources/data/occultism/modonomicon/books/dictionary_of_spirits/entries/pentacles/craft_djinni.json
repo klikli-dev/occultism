@@ -11,11 +11,27 @@
     "children": [
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/light_gray_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/light_gray_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.name"
+            }
+          ]
+        }
       },
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/lime_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/lime_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.name"
+            }
+          ]
+        }
       }
     ]
   },

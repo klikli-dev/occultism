@@ -8,7 +8,15 @@
   "category": "occultism:pentacles",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/summon_djinni"
+    "node_id": "occultism:research/entry_viewed/pentacles/summon_djinni",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.summon_djinni.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.light_blue_chalk.description",
   "icon": {

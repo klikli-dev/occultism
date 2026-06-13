@@ -8,7 +8,15 @@
   "category": "occultism:getting_started",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/craft_djinni"
+    "node_id": "occultism:research/entry_viewed/pentacles/craft_djinni",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.description",
   "icon": {

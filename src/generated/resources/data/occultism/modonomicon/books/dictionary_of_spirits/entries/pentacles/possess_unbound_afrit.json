@@ -11,11 +11,27 @@
     "children": [
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/gray_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/gray_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.name"
+            }
+          ]
+        }
       },
       {
         "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/pentacles/orange_chalk"
+        "node_id": "occultism:research/entry_viewed/pentacles/orange_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.name"
+            }
+          ]
+        }
       }
     ]
   },

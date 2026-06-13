@@ -8,7 +8,15 @@
   "category": "occultism:storage",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/craft_marid"
+    "node_id": "occultism:research/entry_viewed/pentacles/craft_marid",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_marid.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier4.description",
   "icon": {

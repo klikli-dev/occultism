@@ -8,7 +8,15 @@
   "category": "occultism:familiar_rituals",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/possess_marid"
+    "node_id": "occultism:research/entry_viewed/pentacles/possess_marid",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.possess_marid.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description",
   "icon": "occultism:textures/gui/book/iesnium_golem.png",

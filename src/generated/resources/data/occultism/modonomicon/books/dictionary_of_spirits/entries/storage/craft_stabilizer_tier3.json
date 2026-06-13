@@ -8,7 +8,15 @@
   "category": "occultism:storage",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/craft_afrit"
+    "node_id": "occultism:research/entry_viewed/pentacles/craft_afrit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier3.description",
   "icon": {

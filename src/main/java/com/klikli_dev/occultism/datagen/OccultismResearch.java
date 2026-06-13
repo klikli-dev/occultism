@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.datagen;
 
+import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.research.ResearchNodeRef;
 import com.klikli_dev.modonomicon.api.datagen.research.SingleResearchSubProvider;
 import com.klikli_dev.occultism.datagen.book.*;
@@ -108,6 +109,18 @@ public class OccultismResearch extends SingleResearchSubProvider {
 
     public OccultismResearch(String modId) {
         super("dictionary_of_spirits", modId);
+    }
+
+    /**
+     * Creates a minimal BookEntryModel with just the correct name for tooltip purposes.
+     * Used for cross-category researchNodeEntryViewedOnce calls where the entry model
+     * is not available as a local variable.
+     */
+    public static BookEntryModel entryModel(String categoryId, String entryId) {
+        return BookEntryModel.create(
+                Identifier.fromNamespaceAndPath("occultism", categoryId + "/" + entryId),
+                "book.occultism.dictionary_of_spirits." + categoryId + "." + entryId + ".name"
+        );
     }
 
     @Override

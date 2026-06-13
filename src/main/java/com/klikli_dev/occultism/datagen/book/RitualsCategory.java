@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
+import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.datagen.book.rituals.*;
 
 public class RitualsCategory extends CategoryProvider {
@@ -45,25 +46,25 @@ public class RitualsCategory extends CategoryProvider {
 
         var summoning = this.add(new SummoningRitualsSubcategoryEntry(this).generate());
         summoning.withParent(BookEntryParentModel.create(sacrifice.getId()));
-        summoning.withCategoryToOpen(this.modLoc("summoning_rituals")).withCondition(OccultismResearch.PENTACLES_SUMMON_FOLIOT);
+        summoning.withCategoryToOpen(this.modLoc("summoning_rituals")).withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_SUMMON_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, SummonFoliotEntry.ENTRY_ID)));
         this.layout().entry(summoning).rightOf(sacrifice, 4).above(2);
 
         var possession = this.add(new PossessionRitualsSubcategoryEntry(this).generate());
         possession.withParent(BookEntryParentModel.create(sacrifice.getId()));
-        possession.withCategoryToOpen(this.modLoc("possession_rituals")).withCondition(OccultismResearch.PENTACLES_POSSESS_FOLIOT);
+        possession.withCategoryToOpen(this.modLoc("possession_rituals")).withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
         this.layout().entry(possession).rightOf(sacrifice, 2).above(2);
 
         var crafting = this.add(new CraftingRitualsSubcategoryEntry(this).generate());
         crafting.withParent(BookEntryParentModel.create(sacrifice.getId()));
-        crafting.withCategoryToOpen(this.modLoc("crafting_rituals")).withCondition(OccultismResearch.PENTACLES_CRAFT_FOLIOT);
+        crafting.withCategoryToOpen(this.modLoc("crafting_rituals")).withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
         this.layout().entry(crafting).rightOf(sacrifice, 2).below(2);
 
         var familiars = this.add(new FamiliarRitualsSubcategoryEntry(this).generate());
         familiars.withParent(BookEntryParentModel.create(sacrifice.getId()));
-        familiars.withCategoryToOpen(this.modLoc("familiar_rituals")).withCondition(OccultismResearch.PENTACLES_POSSESS_FOLIOT);
+        familiars.withCategoryToOpen(this.modLoc("familiar_rituals")).withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
         this.layout().entry(familiars).rightOf(sacrifice, 4).below(2);
 
-        itemUse.withCondition(OccultismResearch.PENTACLES_SUMMON_FOLIOT);
-        sacrifice.withCondition(OccultismResearch.PENTACLES_SUMMON_FOLIOT);
+        itemUse.withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_SUMMON_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, SummonFoliotEntry.ENTRY_ID)));
+        sacrifice.withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_SUMMON_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, SummonFoliotEntry.ENTRY_ID)));
     }
 }

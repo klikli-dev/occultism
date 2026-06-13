@@ -38,7 +38,7 @@ public class StorageCategory extends CategoryProvider {
     @Override
     protected void generateEntries() {
         var overview = this.add(new StorageOverviewEntry(this).generate())
-                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
         this.layout().entry(overview).at(-4, 1);
 
         var returnToCrafting = this.add(new ReturnToCraftingEntry(this).generate());
@@ -48,7 +48,7 @@ public class StorageCategory extends CategoryProvider {
 
         var storageController = this.add(new ControllerEntry(this).generate());
         storageController.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
         this.layout().entry(storageController).rightOf(overview, 2);
 
         var storageSystemAutomation = this.add(new AutomationEntry(this).generate());
@@ -78,32 +78,32 @@ public class StorageCategory extends CategoryProvider {
 
         var craftStabilizerTier1 = this.add(new StabilizerTier1Entry(this).generate());
         craftStabilizerTier1.withParent(BookEntryParentModel.create(storageStabilizer.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CRAFT_FOLIOT);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
         this.layout().entry(craftStabilizerTier1).above(storageStabilizer, 2);
 
         var craftStabilizerTier2 = this.add(new StabilizerTier2Entry(this).generate());
         craftStabilizerTier2.withParent(BookEntryParentModel.create(craftStabilizerTier1.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CRAFT_DJINNI);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
         this.layout().entry(craftStabilizerTier2).rightOf(craftStabilizerTier1, 2);
 
         var craftStabilizerTier3 = this.add(new StabilizerTier3Entry(this).generate());
         craftStabilizerTier3.withParent(BookEntryParentModel.create(craftStabilizerTier2.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CRAFT_AFRIT);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
         this.layout().entry(craftStabilizerTier3).below(craftStabilizerTier2, 2);
 
         var craftStabilizerTier4 = this.add(new StabilizerTier4Entry(this).generate());
         craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CRAFT_MARID);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_MARID, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftMaridEntry.ENTRY_ID)));
         this.layout().entry(craftStabilizerTier4).below(craftStabilizerTier3, 2);
 
         var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate());
         craftStabilizerTier5.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CONTACT_ELDRITCH);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactEldritchSpiritEntry.ENTRY_ID)));
         this.layout().entry(craftStabilizerTier5).rightOf(craftStabilizerTier4, 2);
 
         var stabilizedStorage = this.add(new StabilizedStorageEntry(this).generate());
         stabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier5.getId()))
-                .withCondition(OccultismResearch.PENTACLES_CONTACT_ELDRITCH);
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactEldritchSpiritEntry.ENTRY_ID)));
         this.layout().entry(stabilizedStorage).above(craftStabilizerTier5, 2);
     }
 

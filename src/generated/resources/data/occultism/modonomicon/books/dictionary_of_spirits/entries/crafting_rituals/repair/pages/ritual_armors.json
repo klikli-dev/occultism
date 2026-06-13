@@ -2,7 +2,15 @@
   "type": "occultism:ritual_recipe",
   "condition": {
     "type": "modonomicon:research_node_unlocked",
-    "node_id": "occultism:research/entry_viewed/pentacles/summon_afrit"
+    "node_id": "occultism:research/entry_viewed/pentacles/summon_afrit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.name"
+        }
+      ]
+    }
   },
   "id": "ritual_armors",
   "recipe_id_1": "occultism:ritual/repair_armors",
