@@ -105,11 +105,11 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
                             if (heldItem.isEmpty()) {
                                 //place it in the hand if possible
                                 pPlayer.setItemInHand(pHand, extracted);
+                                tx.commit();
                             } else {
                                 //and if not, just put it in the inventory
-                                ItemTransferUtil.giveItemToPlayer(pPlayer, extracted);
+                                ItemTransferUtil.giveItemToPlayer(pPlayer, extracted, tx);
                             }
-                            tx.commit();
                             pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                         }
                     }
