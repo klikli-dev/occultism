@@ -69,6 +69,7 @@ public class Networking {
         registrar.playToClient(MessageUpdateLinkedMachines.TYPE, MessageUpdateLinkedMachines.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageUpdateMouseHeldItem.TYPE, MessageUpdateMouseHeldItem.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageUpdateStacks.TYPE, MessageUpdateStacks.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageBattlefieldRecipeJEI.TYPE, MessageBattlefieldRecipeJEI.STREAM_CODEC, MessageHandler::handle);
     }
 
     public static <T extends IMessage> void sendTo(ServerPlayer player, T message) {
