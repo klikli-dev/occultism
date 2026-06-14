@@ -162,7 +162,7 @@ public class OccultismEntities {
                     .sized(0.6F, 1.95F)
                     .fireImmune()
                     .clientTrackingRange(32)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "possessed_zombie_piglin"))));
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "possessed_zombified_piglin"))));
 
     public static final Lazy<EntityType<PossessedGuardianEntity>> POSSESSED_GUARDIAN_TYPE =
             Lazy.of(() -> Builder.of(PossessedGuardianEntity::new, MobCategory.MONSTER)
@@ -432,7 +432,7 @@ public class OccultismEntities {
     public static final Supplier<EntityType<PossessedBlazeEntity>> POSSESSED_BLAZE =
             ENTITIES.register("possessed_blaze", POSSESSED_BLAZE_TYPE::get);
     public static final Supplier<EntityType<PossessedZombifiedPiglinEntity>> POSSESSED_ZOMBIFIED_PIGLIN =
-            ENTITIES.register("possessed_zombie_piglin", POSSESSED_ZOMBIFIED_PIGLIN_TYPE::get);
+            ENTITIES.register("possessed_zombified_piglin", POSSESSED_ZOMBIFIED_PIGLIN_TYPE::get);
     public static final Supplier<EntityType<PossessedGuardianEntity>> POSSESSED_GUARDIAN =
             ENTITIES.register("possessed_guardian", POSSESSED_GUARDIAN_TYPE::get);
     public static final Supplier<EntityType<PossessedBeeEntity>> POSSESSED_BEE =
