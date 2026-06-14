@@ -44,6 +44,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.InteractionHand;
@@ -60,6 +61,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -276,8 +278,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
 
-        if ((fuel.isEmpty() && !soul.has(OccultismDataComponents.SOUL_VALUE))
-                || fuelValue * fuel.getCount() < this.soulValue) {
+        if (fuel.isEmpty() || fuelValue * fuel.getCount() < this.soulValue) {
             this.mobHealth = 0;
             this.wait = true;
             return;
@@ -302,10 +303,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         if (this.mobHealth <= 0) {
-            if (!soul.has(OccultismDataComponents.SOUL_VALUE)) {
-                fuel.shrink(1 + (this.soulValue / Math.max(fuelValue, 1)));
-                this.inputFuelHandler.set(0, ItemResource.of(fuel), fuel.getCount());
-            }
+            fuel.shrink(1 + (this.soulValue / Math.max(fuelValue, 1)));
+            this.inputFuelHandler.set(0, ItemResource.of(fuel), fuel.getCount());
 
             this.defeat(soul, fuel.getOrDefault(OccultismDataComponents.LUCK_VALUE, 1));
             this.mobHealth = this.maxMobLife;
@@ -419,8 +418,10 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             var typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
             EntityType<?> entityType = typedEntityData.type();
             Entity tempEntity = entityType.create(this.level, EntitySpawnReason.MOB_SUMMONED);
-            if (tempEntity instanceof LivingEntity livingEntity)
+            if (tempEntity instanceof LivingEntity livingEntity) {
+                livingEntity.load(TagValueInput.create(ProblemReporter.DISCARDING, livingEntity.registryAccess(), typedEntityData.copyTagWithoutId()));
                 this.storedLivingEntity = livingEntity;
+            }
         }
         if (this.storedLivingEntity != null) {
             if (this.storedLivingEntity instanceof PossessedMob possessed && !stack.is(OccultismItems.TRINITY_GEM_ITEM)) {
@@ -480,7 +481,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                     }
                 }
             }
-            this.soulValue = soul.has(OccultismDataComponents.SOUL_VALUE) ? 0 : health;
+            this.soulValue = soul.has(OccultismDataComponents.SOUL_VALUE) ? (int) (health * 0.5) : health;
             health *= Occultism.SERVER_CONFIG.itemSettings.butcherLifeMultiplier.getAsInt();
         }
 
