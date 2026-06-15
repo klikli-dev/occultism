@@ -12,7 +12,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -25,8 +24,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 public class IesniumAnvilMenu extends AnvilMenu {
-    private final DataSlot cost = DataSlot.standalone();
-    public int repairItemCountCost;
     @Nullable
     private String itemName;
     private boolean freeRenaming;
@@ -38,8 +35,9 @@ public class IesniumAnvilMenu extends AnvilMenu {
 
     @Override
     protected boolean mayPickup(Player player, boolean hasStack) {
-        return (player.hasInfiniteMaterials() || player.experienceLevel >= this.cost.get() / 2)
-                && (this.cost.get() > 0 || this.freeRenaming);
+        final int cost = this.getCost();
+        return (player.hasInfiniteMaterials() || player.experienceLevel >= cost / 2)
+                && (cost > 0 || this.freeRenaming);
     }
 
     @Override
@@ -51,11 +49,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
         if (preEvent.isCanceled())
             return;
 
-        if (!player.getAbilities().instabuild) {
+        final int cost = this.getCost();
+        if (!player.hasInfiniteMaterials()) {
             if (ApothicEnchantingIntegration.isLoaded()) {
-                player.giveExperiencePoints(-ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(this.cost.get() / 2));
+                player.giveExperiencePoints(-ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(cost / 2));
             } else {
-                player.giveExperienceLevels(-this.cost.get() / 2);
+                player.giveExperienceLevels(-(cost / 2));
             }
         }
 
@@ -71,7 +70,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
             this.inputSlots.setItem(1, ItemStack.EMPTY);
         }
 
-        this.cost.set(0);
+        this.setCost(0);
         if (player instanceof ServerPlayer serverPlayer) {
             if (!StringUtil.isBlank(this.itemName) && !this.inputSlots.getItem(0).getHoverName().getString().equals(this.itemName)) {
                 serverPlayer.getTextFilter().processStreamMessage(this.itemName);
@@ -87,7 +86,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
     protected void createResultInternal() {
         ItemStack leftInput = this.inputSlots.getItem(0);
         this.freeRenaming = false;
-        this.cost.set(1);
+        this.setCost(1);
         int price = 0;
         long tax = 0L;
         int namingCost = 0;
@@ -105,7 +104,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                     int damage = Math.min(result.getDamageValue(), result.getMaxDamage() / 3);
                     if (damage <= 0) {
                         this.resultSlots.setItem(0, ItemStack.EMPTY);
-                        this.cost.set(0);
+                        this.setCost(0);
                         return;
                     }
 
@@ -122,7 +121,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                 } else {
                     if (!rightIsBook && (!result.is(rightInput.getItem()) || !result.isDamageableItem())) {
                         this.resultSlots.setItem(0, ItemStack.EMPTY);
-                        this.cost.set(0);
+                        this.setCost(0);
                         return;
                     }
 
@@ -184,7 +183,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             price += enchCost * resultEnchLvl;
                             if (leftInput.getCount() > 1) {
                                 this.resultSlots.setItem(0, ItemStack.EMPTY);
-                                this.cost.set(0);
+                                this.setCost(0);
                                 return;
                             }
                         }
@@ -192,7 +191,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
 
                     if (isAnyEnchantmentNotCompatible && !isAnyEnchantmentCompatible) {
                         this.resultSlots.setItem(0, ItemStack.EMPTY);
-                        this.cost.set(0);
+                        this.setCost(0);
                         return;
                     }
                 }
@@ -217,12 +216,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
                 tax = 0;
 
             int finalPrice = price <= 0 ? 0 : (int) Mth.clamp(tax + (long) price - namingCost, 0L, 2147483647L);
-            this.cost.set(finalPrice);
+            this.setCost(finalPrice);
             if (price <= 0) {
                 result = ItemStack.EMPTY;
             }
 
-            if (this.cost.get() >= 100 && !this.player.getAbilities().instabuild) {
+            if (this.getCost() >= 100 && !this.player.getAbilities().instabuild) {
                 result = ItemStack.EMPTY;
             }
 
@@ -246,7 +245,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
             this.broadcastChanges();
         } else {
             this.resultSlots.setItem(0, ItemStack.EMPTY);
-            this.cost.set(0);
+            this.setCost(0);
         }
 
     }
