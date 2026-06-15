@@ -33,8 +33,8 @@ import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
 import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
-import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.*;
+import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitualSatchelItem;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -53,8 +53,6 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.item.equipment.Equippable;
-import net.minecraft.world.item.equipment.trim.TrimMaterial;
-import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -444,7 +442,7 @@ public class OccultismItems {
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.registerItem("soul_shard",
             SoulShardItem::new, () -> new Properties().stacksTo(1));
     public static final DeferredItem<SoulShardItem> SOUL_SHATTERED_ITEM = ITEMS.registerItem("soul_shattered",
-            SoulShardItem::new, () -> new Properties().stacksTo(1)
+            SoulShardItem::new, () -> new Properties().stacksTo(16)
                     .component(OccultismDataComponents.SOUL_VALUE, 1000000).component(OccultismDataComponents.CONSUME_CHANCE, 0.33F));
     //Machines
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
