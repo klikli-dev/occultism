@@ -311,11 +311,11 @@ public class OccultismItems {
                     .component(OccultismDataComponents.SOUL_VALUE, 8));
     public static final DeferredItem<Item> PITAYA_GOLDEN = ITEMS.registerItem("golden_pitaya",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.PITAYA_GOLDEN.get(), OccultismFoods.PITAYA_GOLDEN_CONSUMABLE)
-                    .component(OccultismDataComponents.SOUL_VALUE, 24));
+                    .component(OccultismDataComponents.SOUL_VALUE, 24).component(OccultismDataComponents.LUCK_VALUE, 2));
     public static final DeferredItem<Item> PITAYA_ENCHANTED = ITEMS.registerItem("enchanted_golden_pitaya",
             SpiritHealingItem::new, () -> new Properties().rarity(Rarity.RARE)
                     .food(OccultismFoods.PITAYA_ENCHANTED.get(), OccultismFoods.PITAYA_ENCHANTED_CONSUMABLE)
-                    .component(OccultismDataComponents.SOUL_VALUE, 96));
+                    .component(OccultismDataComponents.SOUL_VALUE, 96).component(OccultismDataComponents.LUCK_VALUE, 5));
     public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.registerItem("beaver_nugget",
             Item::new, () -> new Properties().food(OccultismFoods.BEAVER_NUGGET.get(), OccultismFoods.BEAVER_NUGGET_CONSUMABLE));
     public static final DeferredItem<Item> CURSED_HONEY = ITEMS.registerItem("cursed_honey",
