@@ -3,6 +3,9 @@ package com.klikli_dev.occultism.datagen.loot;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.criterion.SlimePredicate;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -14,6 +17,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTable.Builder;
@@ -23,6 +27,7 @@ import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFu
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
@@ -58,6 +63,49 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.ELYTRA))
                         .when(LootItemRandomChanceCondition.randomChance(0.001F)))
+        );
+        this.battlefieldLoot(EntityType.CREAKING, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.RESIN_CLUMP))
+                        .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+        );
+        this.battlefieldLoot(EntityType.ARMADILLO, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.ARMADILLO_SCUTE))
+                        .when(LootItemRandomChanceCondition.randomChance(0.8F)))
+        );
+        this.battlefieldLoot(EntityType.TURTLE, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.TURTLE_SCUTE))
+                        .when(LootItemRandomChanceCondition.randomChance(0.1F)))
+        );
+        this.battlefieldLoot(EntityType.MAGMA_CUBE, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.MAGMA_CREAM))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(-2,1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+                                EntityPredicate.Builder.entity().subPredicate(SlimePredicate.sized(MinMaxBounds.Ints.atLeast(2)))))
+                )
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.OCHRE_FROGLIGHT))
+                        .add(LootItem.lootTableItem(Items.VERDANT_FROGLIGHT))
+                        .add(LootItem.lootTableItem(Items.PEARLESCENT_FROGLIGHT))
+                        .when(LootItemRandomChanceCondition.randomChance(0.03F))
+                )
+        );
+        this.battlefieldLoot(EntityType.CREEPER, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(Items.GUNPOWDER)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+                    )
+                )
+        );
+        this.battlefieldLoot(OccultismEntities.IESNIUM_GOLEM.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(OccultismItems.IESNIUM_NUGGET))
+                        .when(LootItemRandomChanceCondition.randomChance(0.33333F)))
         );
 
         this.add(OccultismEntities.POSSESSED_SHULKER_TYPE.get(), this.shulkerLootTable());
