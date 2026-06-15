@@ -13,6 +13,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 
@@ -73,5 +74,10 @@ public class BattlefieldRecipeCategory implements IRecipeCategory<BattlefieldRec
     public void draw(BattlefieldRecipeJEI recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
         arrow.draw(guiGraphics, 72, 4);
+    }
+
+    @Override
+    public Identifier getIdentifier(BattlefieldRecipeJEI recipe) {
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "battlefield/" + recipe.getSpawnEgg().getItem().toString().replace(":","/"));
     }
 }
