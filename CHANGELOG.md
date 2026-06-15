@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.241.0] - 2026-06-15
+### :sparkles: New Features
+- [`251ba4f`](https://github.com/klikli-dev/occultism/commit/251ba4f278f25921d7122b10f96c65a53a5d8646) - Update ja_jp.json *(PR [#1643](https://github.com/klikli-dev/occultism/pull/1643) by [@Abbage230](https://github.com/Abbage230))*
+
+### :bug: Bug Fixes
+- [`6d0494e`](https://github.com/klikli-dev/occultism/commit/6d0494e34878b3f8d1fd8adac7559a15baf3fa61) - fixes variable overshadowing in the iesnium anvil menu causing issues with the AnvilUpdateEvent *(PR [#1645](https://github.com/klikli-dev/occultism/pull/1645) by [@Satherov](https://github.com/Satherov))*
+
+
 ## [release/v26.1.2-1.240.1] - 2026-06-12
 ### :bug: Bug Fixes
 - [`28b8444`](https://github.com/klikli-dev/occultism/commit/28b844422252e0a455af1ae72c230da235a951c1) - ritual data saving/loading *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2734,3 +2742,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.239.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.239.0...release/v26.1.2-1.239.1
 [release/v26.1.2-1.240.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.239.1...release/v26.1.2-1.240.0
 [release/v26.1.2-1.240.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.240.0...release/v26.1.2-1.240.1
+[release/v26.1.2-1.241.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.240.1...release/v26.1.2-1.241.0
