@@ -760,6 +760,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add("tooltip.occultism.soul_value", "Spiritual fuel value: %s");
         this.add("tooltip.occultism.soul_value_stack", "Stacked spiritual fuel value: %s");
+        this.add("tooltip.occultism.luck_value", "Luck: %s");
         this.add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
         this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacles:");
 
