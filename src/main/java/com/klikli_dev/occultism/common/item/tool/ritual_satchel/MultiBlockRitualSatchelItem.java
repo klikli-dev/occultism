@@ -23,9 +23,11 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
@@ -98,7 +100,9 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
                 var blockEntity = context.getLevel().getBlockEntity(targetMatcher.worldPosition());
 
-                var drops = Block.getDrops(blockState, (ServerLevel) context.getLevel(), targetMatcher.worldPosition(), blockEntity, null, ItemStack.EMPTY);
+                ItemStack fakeSilk = new ItemStack(Items.STRING);
+                fakeSilk.enchant(context.getLevel().holderOrThrow(Enchantments.SILK_TOUCH), 1);
+                var drops = Block.getDrops(blockState, (ServerLevel) context.getLevel(), targetMatcher.worldPosition(), blockEntity, null, fakeSilk);
 
                 //we might want to use blockdropsevent here (CommonHooks.handleBlockDrops), but it handles item entities, not items ..
 
