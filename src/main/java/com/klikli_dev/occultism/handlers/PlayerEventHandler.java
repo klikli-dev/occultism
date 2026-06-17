@@ -28,10 +28,6 @@ import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
-import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
-import com.klikli_dev.occultism.integration.jei.impl.recipes.BattlefieldRecipeJEI;
-import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.network.messages.MessageBattlefieldRecipeJEI;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -41,7 +37,6 @@ import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -69,7 +64,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 
@@ -218,22 +212,6 @@ public class PlayerEventHandler {
             if (event.getEntity().getName().contains(Component.literal("EqisEdu"))) //You found an Easter Egg
                 event.setAmount(250918); //Instantly kill any spirit with this collaborator name
             //Release date (YY/MM/DD) of a video sacrificing EqisEdu with powerful butcher knife for a ritual
-        }
-    }
-
-    @SubscribeEvent
-    public static void join(PlayerEvent.PlayerLoggedInEvent event) {
-        if (OccultismJeiIntegration.get().isLoaded() && event.getEntity() instanceof ServerPlayer serverPlayer) {
-            // Send loot tables from server to client.
-            List<BattlefieldRecipeJEI> recipes = BattlefieldRecipeJEI.generateServerRecipes();
-            for (BattlefieldRecipeJEI recipe : recipes) {
-                try {
-                    Networking.sendTo(serverPlayer, new MessageBattlefieldRecipeJEI(recipe, recipes.size()));
-                } catch (UnsupportedOperationException e) {
-                    // Can occur during game testing
-                    e.printStackTrace();
-                }
-            }
         }
     }
     //endregion Static Methods

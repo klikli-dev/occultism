@@ -303,10 +303,11 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         if (this.mobHealth <= 0) {
+            int luck = fuel.getOrDefault(OccultismDataComponents.LUCK_VALUE, 1);
             fuel.shrink(1 + (this.soulValue / Math.max(fuelValue, 1)));
             this.inputFuelHandler.set(0, ItemResource.of(fuel), fuel.getCount());
 
-            this.defeat(soul, fuel.getOrDefault(OccultismDataComponents.LUCK_VALUE, 1));
+            this.defeat(soul, luck);
             this.mobHealth = this.maxMobLife;
         }
 

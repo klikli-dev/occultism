@@ -78,6 +78,6 @@ public class BattlefieldRecipeCategory implements IRecipeCategory<BattlefieldRec
 
     @Override
     public Identifier getIdentifier(BattlefieldRecipeJEI recipe) {
-        return Identifier.fromNamespaceAndPath(Occultism.MODID, "battlefield/" + recipe.getSpawnEgg().getItem().toString().replace(":","/"));
+        return Identifier.fromNamespaceAndPath(Occultism.MODID, "battlefield/" + recipe.getEntityType().toString());
     }
 }

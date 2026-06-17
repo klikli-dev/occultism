@@ -61,7 +61,7 @@ public class JeiPlugin implements IModPlugin {
 
     protected static IJeiRuntime runtime;
     private static RecipeMap syncedRecipes = RecipeMap.EMPTY;
-    public static List<BattlefieldRecipeJEI> BATTLEFIELD_RECIPES_LIST = new ArrayList<>();
+    private static List<BattlefieldRecipeJEI> battlefieldRecipeJEI = new ArrayList<>();
 
     public static IJeiRuntime getJeiRuntime() {
         return runtime;
@@ -97,7 +97,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.SPIRIT_TRADE, this.getRecipes(syncedRecipes, OccultismRecipes.SPIRIT_TRADE_TYPE.get()));
         registration.addRecipes(JeiRecipeTypes.MINER, this.getRecipes(syncedRecipes, OccultismRecipes.MINER_TYPE.get()));
         registration.addRecipes(JeiRecipeTypes.RITUAL, this.getRecipes(syncedRecipes, OccultismRecipes.RITUAL_TYPE.get()));
-        registration.addRecipes(BattlefieldRecipeCategory.TYPE, BATTLEFIELD_RECIPES_LIST);
+        registration.addRecipes(BattlefieldRecipeCategory.TYPE, battlefieldRecipeJEI);
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());
@@ -183,6 +183,7 @@ public class JeiPlugin implements IModPlugin {
     public static class ServerRecipeSync {
         @SubscribeEvent
         public static void onDatapackSync(OnDatapackSyncEvent event) {
+            BattlefieldRecipeJEI.reloadCache();
             event.sendRecipes(
                     OccultismRecipes.SPIRIT_FIRE_TYPE.get(),
                     OccultismRecipes.CRUSHING_TYPE.get(),
@@ -199,11 +200,7 @@ public class JeiPlugin implements IModPlugin {
         @SubscribeEvent
         public static void onRecipesReceived(RecipesReceivedEvent event) {
             syncedRecipes = event.getRecipeMap();
+            battlefieldRecipeJEI = BattlefieldRecipeJEI.getCachedRecipes();
         }
-    }
-
-    public static void receiveSpiritFurnaceRecipeOnClient(BattlefieldRecipeJEI recipe, int size) {
-        if (BATTLEFIELD_RECIPES_LIST.size() < size)
-            BATTLEFIELD_RECIPES_LIST.add(recipe);
     }
 }

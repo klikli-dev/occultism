@@ -46,12 +46,15 @@ public class BattlefieldRecipeJEI {
     private final ItemStack spawnEgg;
     private final List<ItemStack> outputItems;
     private final List<ItemStack> soulItems;
+    private final EntityType<?> entityType;
+    private static List<BattlefieldRecipeJEI> cachedRecipes = null;
 
-    public BattlefieldRecipeJEI(ItemStack inputItem, ItemStack egg, List<ItemStack> outputItems, List<ItemStack> soulItems) {
+    public BattlefieldRecipeJEI(ItemStack inputItem, ItemStack egg, List<ItemStack> outputItems, List<ItemStack> soulItems, EntityType<?> entityType) {
         this.inputItem = inputItem;
         this.spawnEgg = egg;
         this.outputItems = outputItems;
         this.soulItems = soulItems;
+        this.entityType = entityType;
     }
 
     public static BattlefieldRecipeJEI create(EntityType<?> entityType, LivingEntity entity, ServerLevel level, List<ItemStack> soul) {
@@ -59,8 +62,14 @@ public class BattlefieldRecipeJEI {
                 getGem(entityType, level),
                 getEgg(entityType),
                 getMobDrops(entityType, entity, level),
-                getSoulStack(entity, soul)
+                getSoulStack(entity, soul),
+                entityType
         );
+    }
+
+    public static void reloadCache() {
+        cachedRecipes = null;
+        generateServerRecipes();
     }
 
     public static ItemStack getGem(EntityType<?> entityType, ServerLevel level) {
@@ -112,7 +121,7 @@ public class BattlefieldRecipeJEI {
             lootTable = level.getServer().reloadableRegistries().getLootTable(entity.getLootTable().get());
         }
 
-        LootContext context = new LootContext.Builder(lootParams).create(Optional.of(entity.getLootTable().get().identifier()));
+        LootContext context = new LootContext.Builder(lootParams).create(Optional.empty());
         for (LootPool pool : lootTable.pools) {
             for (LootPoolEntryContainer entryContainer : pool.entries) {
                 entryContainer.expand(context, entry -> entry.createItemStack(item -> {
@@ -131,8 +140,10 @@ public class BattlefieldRecipeJEI {
 
     public static List<ItemStack> getSoulStack(LivingEntity entity, List<ItemStack> soulItems) {
         List<ItemStack> soulStacks = soulItems.stream().map(ItemStack::copy).toList();
-        for (ItemStack stack : soulStacks)
-            stack.setCount(1 + ((int) entity.getMaxHealth() / stack.get(OccultismDataComponents.SOUL_VALUE)));
+        for (ItemStack stack : soulStacks) {
+            int soulValue = stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
+            stack.setCount(1 + ((int) entity.getMaxHealth() / Math.max(soulValue, 1)));
+        }
         return soulStacks;
     }
 
@@ -152,6 +163,14 @@ public class BattlefieldRecipeJEI {
         return soulItems;
     }
 
+    public EntityType<?> getEntityType() {
+        return entityType;
+    }
+
+    public static List<BattlefieldRecipeJEI> getCachedRecipes() {
+        return cachedRecipes;
+    }
+
     public static void encode(BattlefieldRecipeJEI recipe, RegistryFriendlyByteBuf output) {
         ItemStack.OPTIONAL_STREAM_CODEC.encode(output, recipe.getInputItem());
         ItemStack.OPTIONAL_STREAM_CODEC.encode(output, recipe.getSpawnEgg());
@@ -163,6 +182,7 @@ public class BattlefieldRecipeJEI {
         for (ItemStack soulItem : recipe.getSoulItems()) {
             ItemStack.OPTIONAL_STREAM_CODEC.encode(output, soulItem);
         }
+        EntityType.STREAM_CODEC.encode(output, recipe.getEntityType());
     }
 
     public static BattlefieldRecipeJEI decode(RegistryFriendlyByteBuf input) {
@@ -178,10 +198,15 @@ public class BattlefieldRecipeJEI {
         for (int i = 0; i < soulItemsCount; ++i) {
             soulItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
-        return new BattlefieldRecipeJEI(inputItem, spawnEgg, outputItems, soulItems);
+        EntityType<?> entityType = EntityType.STREAM_CODEC.decode(input);
+        return new BattlefieldRecipeJEI(inputItem, spawnEgg, outputItems, soulItems, entityType);
     }
 
     public static List<BattlefieldRecipeJEI> generateServerRecipes() {
+        if (cachedRecipes != null) {
+            return cachedRecipes;
+        }
+
         ServerLevel level = ServerLifecycleHooks.getCurrentServer().overworld();
         List<BattlefieldRecipeJEI> recipes = new ArrayList<>();
         List<ItemStack> soul = new ArrayList<>();
@@ -190,6 +215,8 @@ public class BattlefieldRecipeJEI {
                 soul.add(item.getDefaultInstance());
         }
         for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
+            if (entityType == EntityType.PLAYER)
+                continue;
             try {
                 Entity entity = entityType.create(level, EntitySpawnReason.SPAWN_ITEM_USE);
                 if (entity instanceof LivingEntity livingEntity) {
@@ -201,6 +228,7 @@ public class BattlefieldRecipeJEI {
                 // Ignore errors during entity creation
             }
         }
+        cachedRecipes = recipes;
         return recipes;
     }
 }

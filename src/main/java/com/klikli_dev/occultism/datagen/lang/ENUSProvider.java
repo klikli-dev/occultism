@@ -917,7 +917,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.book_of_calling.manage_machine.insert", "Insert Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.extract", "Extract Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.custom_name", "Custom Name");
-        this.add(TranslationKeys.GUI_DIMENSIONAL_BATTLEFIELD_TITLE, "Otherworld Butcher");
+        this.add(TranslationKeys.GUI_DIMENSIONAL_BATTLEFIELD_TITLE, "Dimensional Battlefield");
         this.add(TranslationKeys.GUI_DIMENSIONAL_MINESHAFT_TITLE, "Dimensional Mineshaft");
 
         // Spirit GUI
