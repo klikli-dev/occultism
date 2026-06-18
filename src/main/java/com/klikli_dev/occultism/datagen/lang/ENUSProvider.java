@@ -1325,7 +1325,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addKeybinds() {
-        this.add("key.occultism.category", "Occultism");
+        this.add("key.category.occultism.category", "Occultism");
         this.add("key.occultism.backpack", "Open Satchel");
         this.add("key.occultism.ender_bag", "Open Ender Satchel");
         this.add("key.occultism.storage_remote", "Open Storage Accessor");
