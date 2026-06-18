@@ -51,8 +51,8 @@ public class DamageInCraftingItem extends Item {
             }
         });
 
-        boolean isDamageable = instance.has(DataComponents.MAX_DAMAGE) && !instance.has(DataComponents.UNBREAKABLE) && instance.has(DataComponents.DAMAGE);
-        if (eternal[0] || isDamageable) {
+        boolean isDamageable = instance.has(DataComponents.MAX_DAMAGE) && !instance.has(DataComponents.UNBREAKABLE);
+        if (eternal[0] || !isDamageable) {
             return new ItemStackTemplate(instance.typeHolder().value(), instance.count(), patch);
         }
 
