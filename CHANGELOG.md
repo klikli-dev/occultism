@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.242.0] - 2026-06-19
+### :sparkles: New Features
+- [`108eb3a`](https://github.com/klikli-dev/occultism/commit/108eb3a35e2243fa42477f1c392bb9e2116c939b) - Dimensional Battlefield uses in JEI *(PR [#1648](https://github.com/klikli-dev/occultism/pull/1648) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+### :bug: Bug Fixes
+- [`9d941ff`](https://github.com/klikli-dev/occultism/commit/9d941fff9d58c6836edea07a7945d2722723c0ca) - empty filter behaviour for transporter foliot *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.241.0] - 2026-06-15
 ### :sparkles: New Features
 - [`251ba4f`](https://github.com/klikli-dev/occultism/commit/251ba4f278f25921d7122b10f96c65a53a5d8646) - Update ja_jp.json *(PR [#1643](https://github.com/klikli-dev/occultism/pull/1643) by [@Abbage230](https://github.com/Abbage230))*
@@ -2743,3 +2751,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.240.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.239.1...release/v26.1.2-1.240.0
 [release/v26.1.2-1.240.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.240.0...release/v26.1.2-1.240.1
 [release/v26.1.2-1.241.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.240.1...release/v26.1.2-1.241.0
+[release/v26.1.2-1.242.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.241.0...release/v26.1.2-1.242.0
