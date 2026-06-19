@@ -168,6 +168,7 @@ public class LootEventHandler {
                 killed.saveWithoutId(output);
                 entityData = output.buildResult();
                 shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(killed.getType(), entityData));
+                shard.set(OccultismDataComponents.SOUL_VALUE, (int) killed.getMaxHealth());
                 killed.setHealth(health); //stop healthy simulation to mob die
                 event.getDrops().add(new ItemEntity(killed.level(), killed.getX(), killed.getY(), killed.getZ(), shard));
             }

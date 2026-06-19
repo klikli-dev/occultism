@@ -6,7 +6,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 
 public class PossessZombiePiglinEntry extends AbstractPossessionEntry {
 
-    public static final String ENTRY_ID = "possess_zombie_piglin";
+    public static final String ENTRY_ID = "possess_zombified_piglin";
 
     public PossessZombiePiglinEntry(CategoryProvider parent) {
         super(parent);
@@ -14,7 +14,7 @@ public class PossessZombiePiglinEntry extends AbstractPossessionEntry {
 
     @Override
     protected void generatePages() {
-        this.entityPage("entity", "occultism:possessed_zombie_piglin", 0.7f);
+        this.entityPage("entity", "occultism:possessed_zombified_piglin", 0.7f);
         this.pageText("""
                   **Drops**: 1-4x [](item://occultism:demonic_meat) and
                   other body parts;

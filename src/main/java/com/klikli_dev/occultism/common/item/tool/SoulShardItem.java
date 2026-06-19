@@ -27,6 +27,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -39,6 +40,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootParams.Builder;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -85,6 +87,7 @@ public class SoulShardItem extends Item {
             LivingEntity mob = tempEntity instanceof LivingEntity living ? living : null;
 
             if (mob != null) {
+                mob.load(TagValueInput.create(ProblemReporter.DISCARDING, mob.registryAccess(), entityData));
                 LootTable lootTable = mob.getLootTable()
                         .map(key -> level.getServer().reloadableRegistries().getLootTable(key))
                         .orElse(LootTable.EMPTY);

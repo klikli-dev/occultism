@@ -191,6 +191,18 @@ public class DemonicPartner extends TamableAnimal {
             return willInteract ? InteractionResult.CONSUME : InteractionResult.PASS;
         }
 
+        if (!this.isTame()) {
+            if (!EventHooks.onAnimalTame(this, pPlayer)) {
+                this.tame(pPlayer);
+                this.navigation.stop();
+                this.setTarget(null);
+                this.setOrderedToSit(true);
+                this.level().broadcastEntityEvent(this, (byte) 7);
+            } else {
+                this.level().broadcastEntityEvent(this, (byte) 6);
+            }
+        }
+
         if (this.isTame() && this.isOwnedBy(pPlayer)) {
 
             if (itemstack.is(OccultismItems.CURSED_HONEY.asItem())) {

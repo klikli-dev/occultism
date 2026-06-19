@@ -760,6 +760,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add("tooltip.occultism.soul_value", "Spiritual fuel value: %s");
         this.add("tooltip.occultism.soul_value_stack", "Stacked spiritual fuel value: %s");
+        this.add("tooltip.occultism.luck_value", "Luck: %s");
         this.add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
         this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacles:");
 
@@ -916,7 +917,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.book_of_calling.manage_machine.insert", "Insert Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.extract", "Extract Facing");
         this.add("gui.occultism.book_of_calling.manage_machine.custom_name", "Custom Name");
-        this.add(TranslationKeys.GUI_DIMENSIONAL_BATTLEFIELD_TITLE, "Otherworld Butcher");
+        this.add(TranslationKeys.GUI_DIMENSIONAL_BATTLEFIELD_TITLE, "Dimensional Battlefield");
         this.add(TranslationKeys.GUI_DIMENSIONAL_MINESHAFT_TITLE, "Dimensional Mineshaft");
 
         // Spirit GUI
@@ -1324,7 +1325,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addKeybinds() {
-        this.add("key.occultism.category", "Occultism");
+        this.add("key.category.occultism.category", "Occultism");
         this.add("key.occultism.backpack", "Open Satchel");
         this.add("key.occultism.ender_bag", "Open Ender Satchel");
         this.add("key.occultism.storage_remote", "Open Storage Accessor");

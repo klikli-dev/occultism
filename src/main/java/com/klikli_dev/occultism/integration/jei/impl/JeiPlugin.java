@@ -53,6 +53,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @mezz.jei.api.JeiPlugin
@@ -60,6 +61,7 @@ public class JeiPlugin implements IModPlugin {
 
     protected static IJeiRuntime runtime;
     private static RecipeMap syncedRecipes = RecipeMap.EMPTY;
+    private static List<BattlefieldRecipeJEI> battlefieldRecipeJEI = new ArrayList<>();
 
     public static IJeiRuntime getJeiRuntime() {
         return runtime;
@@ -82,6 +84,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new SpiritTradeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MinerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new BattlefieldRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -94,6 +97,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(JeiRecipeTypes.SPIRIT_TRADE, this.getRecipes(syncedRecipes, OccultismRecipes.SPIRIT_TRADE_TYPE.get()));
         registration.addRecipes(JeiRecipeTypes.MINER, this.getRecipes(syncedRecipes, OccultismRecipes.MINER_TYPE.get()));
         registration.addRecipes(JeiRecipeTypes.RITUAL, this.getRecipes(syncedRecipes, OccultismRecipes.RITUAL_TYPE.get()));
+        registration.addRecipes(BattlefieldRecipeCategory.TYPE, battlefieldRecipeJEI);
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());
@@ -145,6 +149,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER.get()));
         registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERROCK_TRADER.get()));
         registration.addCraftingStation(JeiRecipeTypes.SPIRIT_TRADE, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_GAMBLER.get()));
+        registration.addCraftingStation(BattlefieldRecipeCategory.TYPE, new ItemStack(OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get()));
 
         registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get()));
         registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get()));
@@ -178,6 +183,7 @@ public class JeiPlugin implements IModPlugin {
     public static class ServerRecipeSync {
         @SubscribeEvent
         public static void onDatapackSync(OnDatapackSyncEvent event) {
+            BattlefieldRecipeJEI.reloadCache();
             event.sendRecipes(
                     OccultismRecipes.SPIRIT_FIRE_TYPE.get(),
                     OccultismRecipes.CRUSHING_TYPE.get(),
@@ -194,6 +200,7 @@ public class JeiPlugin implements IModPlugin {
         @SubscribeEvent
         public static void onRecipesReceived(RecipesReceivedEvent event) {
             syncedRecipes = event.getRecipeMap();
+            battlefieldRecipeJEI = BattlefieldRecipeJEI.getCachedRecipes();
         }
     }
 }

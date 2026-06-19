@@ -3,10 +3,10 @@
   "condition": {
     "type": "modonomicon:none"
   },
-  "entity_id": "occultism:possessed_zombie_piglin",
+  "entity_id": "occultism:possessed_zombified_piglin",
   "entity_name": "",
   "id": "entity",
   "scale": 0.7,
   "sort_number": 0,
-  "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombie_piglin.entity.text"
+  "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombified_piglin.entity.text"
 }

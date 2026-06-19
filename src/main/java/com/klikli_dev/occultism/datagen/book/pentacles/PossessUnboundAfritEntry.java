@@ -48,7 +48,7 @@ public class PossessUnboundAfritEntry extends EntryProvider {
         this.pageText("""
                 - {0}
                 - {1}
-                """, this.entryLink("Possessed Zombified Piglin", "possession_rituals", "possess_zombie_piglin"), this.entryLink("Possessed Guardian", "possession_rituals", "possess_guardian"));
+                """, this.entryLink("Possessed Zombified Piglin", "possession_rituals", "possess_zombified_piglin"), this.entryLink("Possessed Guardian", "possession_rituals", "possess_guardian"));
 
     }
 

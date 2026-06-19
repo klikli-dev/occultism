@@ -33,12 +33,12 @@ public final class ItemTransferUtil {
         return ItemUtil.insertItemReturnRemaining(handler, index, stack, simulate, null);
     }
 
-    public static ItemStack insertItemStacked(@Nullable ResourceHandler<ItemResource> handler, ItemStack stack, boolean simulate) {
+    public static ItemStack insertItemStacked(@Nullable ResourceHandler<ItemResource> handler, ItemStack stack, boolean simulate, @Nullable Transaction transaction) {
         if (handler == null || stack.isEmpty()) {
             return stack;
         }
 
-        try (var tx = Transaction.openRoot()) {
+        try (var tx = transaction == null ? Transaction.openRoot() : transaction) {
             int inserted = ResourceHandlerUtil.insertStacking(handler, ItemResource.of(stack), stack.getCount(), tx);
             if (!simulate) {
                 tx.commit();
@@ -47,6 +47,10 @@ public final class ItemTransferUtil {
             int remainder = stack.getCount() - inserted;
             return remainder <= 0 ? ItemStack.EMPTY : stack.copyWithCount(remainder);
         }
+    }
+
+    public static ItemStack insertItemStacked(@Nullable ResourceHandler<ItemResource> handler, ItemStack stack, boolean simulate) {
+        return insertItemStacked(handler, stack, simulate, null);
     }
 
     public static int getFirstFilledSlot(ResourceHandler<ItemResource> handler) {
@@ -103,18 +107,22 @@ public final class ItemTransferUtil {
         }
     }
 
-    public static void giveItemToPlayer(Player player, ItemStack stack) {
+    public static void giveItemToPlayer(Player player, ItemStack stack, @Nullable Transaction transaction) {
         if (stack.isEmpty()) {
             return;
         }
 
         var handler = player.getCapability(Capabilities.Item.ENTITY);
         if (handler != null) {
-            stack = insertItemStacked(handler, stack, false);
+            stack = insertItemStacked(handler, stack, false, transaction);
         }
 
         if (!stack.isEmpty()) {
             player.getInventory().placeItemBackInInventory(stack);
         }
+    }
+
+    public static void giveItemToPlayer(Player player, ItemStack stack) {
+        giveItemToPlayer(player, stack, null);
     }
 }
