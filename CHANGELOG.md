@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.243.0] - 2026-06-20
+### :sparkles: New Features
+- [`24f642d`](https://github.com/klikli-dev/occultism/commit/24f642db618784c03bf3e8221e6a15b0c4d9bf46) - add lectern tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.242.0] - 2026-06-19
 ### :sparkles: New Features
 - [`108eb3a`](https://github.com/klikli-dev/occultism/commit/108eb3a35e2243fa42477f1c392bb9e2116c939b) - Dimensional Battlefield uses in JEI *(PR [#1648](https://github.com/klikli-dev/occultism/pull/1648) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2752,3 +2757,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.240.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.240.0...release/v26.1.2-1.240.1
 [release/v26.1.2-1.241.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.240.1...release/v26.1.2-1.241.0
 [release/v26.1.2-1.242.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.241.0...release/v26.1.2-1.242.0
+[release/v26.1.2-1.243.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.242.0...release/v26.1.2-1.243.0
