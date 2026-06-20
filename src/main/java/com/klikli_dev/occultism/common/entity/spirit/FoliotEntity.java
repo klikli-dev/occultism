@@ -129,6 +129,11 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
     }
 
     @Override
+    public boolean matchesWhenFilterEmpty() {
+        return true;
+    }
+
+    @Override
     public boolean isFood(ItemStack pStack) {
         return false;
     }

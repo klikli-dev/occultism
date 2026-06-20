@@ -66,15 +66,23 @@ public class TooltipHandler {
         ItemStack stack = event.getItemStack();
 
         Screen screen = Minecraft.getInstance().screen;
-        if (screen instanceof DimensionalBattlefieldScreen && stack.has(OccultismDataComponents.SOUL_VALUE)) {
-            event.getToolTip().add(
-                Component.translatable("tooltip.occultism.soul_value",
-                    stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0))
-                .withStyle(ChatFormatting.LIGHT_PURPLE));
-            event.getToolTip().add(
-                    Component.translatable("tooltip.occultism.soul_value_stack",
-                                    stack.count() * stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0))
-                            .withStyle(ChatFormatting.LIGHT_PURPLE));
+        if (screen instanceof DimensionalBattlefieldScreen) {
+            if (stack.has(OccultismDataComponents.SOUL_VALUE)) {
+                event.getToolTip().add(
+                        Component.translatable("tooltip.occultism.soul_value",
+                                        stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0))
+                                .withStyle(ChatFormatting.LIGHT_PURPLE));
+                event.getToolTip().add(
+                        Component.translatable("tooltip.occultism.soul_value_stack",
+                                        stack.count() * stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0))
+                                .withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
+            if (stack.has(OccultismDataComponents.LUCK_VALUE)) {
+                event.getToolTip().add(
+                        Component.translatable("tooltip.occultism.luck_value",
+                                        stack.getOrDefault(OccultismDataComponents.LUCK_VALUE, 0))
+                                .withStyle(ChatFormatting.DARK_GREEN));
+            }
         }
 
         if (stack.has(OccultismDataComponents.SPIRIT_NAME)) {

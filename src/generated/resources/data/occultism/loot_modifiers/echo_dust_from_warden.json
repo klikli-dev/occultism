@@ -1,0 +1,29 @@
+{
+  "type": "occultism:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "attacker",
+      "predicate": {
+        "equipment": {
+          "mainhand": {
+            "items": "#occultism:tools/knife/iesnium"
+          }
+        }
+      }
+    },
+    {
+      "chance": 1.0,
+      "condition": "minecraft:random_chance"
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "minecraft:warden"
+      }
+    }
+  ],
+  "count": 1,
+  "item": "occultism:echo_dust"
+}

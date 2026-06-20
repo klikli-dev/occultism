@@ -18,12 +18,12 @@
       ]
     }
   },
-  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombie_piglin.description",
+  "description": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombified_piglin.description",
   "icon": {
     "id": "occultism:demonic_meat"
   },
-  "id": "occultism:possession_rituals/possess_zombie_piglin",
-  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombie_piglin.name",
+  "id": "occultism:possession_rituals/possess_zombified_piglin",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombified_piglin.name",
   "parents": [
     {
       "entry": "occultism:possession_rituals/overview"

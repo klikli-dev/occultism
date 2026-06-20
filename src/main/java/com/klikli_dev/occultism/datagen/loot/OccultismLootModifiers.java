@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen.loot;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.loot.AddItemModifier;
+import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
@@ -108,5 +109,8 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         this.add("head_from_skeleton", this.head(EntityType.SKELETON, Items.SKELETON_SKULL, 0.25F));
         this.add("head_from_wither_skeleton", this.head(EntityType.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, 0.15F));
         this.add("head_from_dragon", this.head(EntityType.ENDER_DRAGON, Items.DRAGON_HEAD, 0.9F));
+
+        this.add("echo_dust_from_warden", this.head(EntityType.WARDEN, OccultismItems.ECHO_DUST.get(), 1F));
+        this.add("echo_dust_from_possessed_warden", this.head(OccultismEntities.POSSESSED_WARDEN_TYPE.get(), OccultismItems.ECHO_DUST.get(), 1F));
     }
 }

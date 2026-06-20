@@ -50,9 +50,12 @@ public class CyanChalkEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        "Pulverizing an {0} while retaining its properties is a job that only the best crushers can do.
+                        Pulverizing an {0} while retaining its properties is a job that only the best crushers can do.
+                        \\
+                        Alternatively, you can defeat the Warden with a {1} to obtain it.
                         """,
-                this.color("Echo Shard", ChatFormatting.LIGHT_PURPLE));
+                this.color("Echo Shard", ChatFormatting.LIGHT_PURPLE),
+                this.itemLink(OccultismItems.IESNIUM_BUTCHER_KNIFE));
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_cyan"))
