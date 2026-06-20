@@ -274,6 +274,8 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
                 .add(OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .add(OccultismItems.TABOO_BOOK.get());
+        this.tag(ItemTags.LECTERN_BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get());
+
 
         this.tag(ItemTags.MINING_ENCHANTABLE).addTag(Miners.MINERS);
         this.tag(ItemTags.MINING_LOOT_ENCHANTABLE).addTag(Miners.MINERS);
