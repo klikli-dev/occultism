@@ -7,8 +7,16 @@
   },
   "category": "occultism:getting_started",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:getting_started/books_of_binding"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_bookshelf_binding",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.description",
   "icon": {

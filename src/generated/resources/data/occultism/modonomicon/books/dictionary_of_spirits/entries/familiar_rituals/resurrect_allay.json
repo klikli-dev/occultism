@@ -7,8 +7,16 @@
   },
   "category": "occultism:familiar_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/resurrect_spirit"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/resurrect_spirit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.description",
   "icon": "occultism:textures/gui/book/allay.png",

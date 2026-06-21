@@ -7,8 +7,16 @@
   },
   "category": "occultism:storage",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:storage/storage_controller"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_craft_stable_wormhole",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.storage.craft_stable_wormhole.description",
   "icon": {

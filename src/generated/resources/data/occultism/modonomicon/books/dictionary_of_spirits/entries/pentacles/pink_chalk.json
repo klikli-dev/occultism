@@ -7,8 +7,16 @@
   },
   "category": "occultism:pentacles",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/possess_unbound_afrit"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/possess_unbound_afrit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.description",
   "icon": {

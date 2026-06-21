@@ -7,8 +7,16 @@
   },
   "category": "occultism:spirits",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:spirits/true_names"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/spirits_unbound_spirits",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.description",
   "icon": "occultism:textures/gui/book/unbound_spirits.png",

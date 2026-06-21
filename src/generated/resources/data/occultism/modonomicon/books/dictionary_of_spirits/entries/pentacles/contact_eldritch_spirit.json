@@ -10,20 +10,52 @@
     "type": "modonomicon:and",
     "children": [
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/magenta_chalk"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/magenta_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.magenta_chalk.name"
+            }
+          ]
+        }
       },
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/brown_chalk"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/brown_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.name"
+            }
+          ]
+        }
       },
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/cyan_chalk"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/cyan_chalk",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.name"
+            }
+          ]
+        }
       },
       {
-        "type": "modonomicon:entry_read",
-        "entry_id": "occultism:pentacles/contact_wild_spirit"
+        "type": "modonomicon:research_node_unlocked",
+        "node_id": "occultism:research/entry_viewed/pentacles/contact_wild_spirit",
+        "tooltip": {
+          "translate": "tooltip.modonomicon.condition.entry_unlocked",
+          "with": [
+            {
+              "translate": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.name"
+            }
+          ]
+        }
       }
     ]
   },

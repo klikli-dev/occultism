@@ -22,7 +22,10 @@
 
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
+import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider;
+import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
+import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
@@ -89,7 +92,8 @@ public class DataGenerators {
         generator.addProvider(true, new OccultismModelProvider(generator.getPackOutput()));
         generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
 
-        var enUSProvider = new ENUSProvider(generator.getPackOutput());
+        var langCache = new LanguageProviderCache("en_us");
+        var researchCache = new ResearchCache();
 
         // Generate recipes using RecipeProvider.Runner - the standard way in 26.1
         // RecipeProvider.Runner is an abstract runner that must be subclassed to provide the concrete provider.
@@ -105,12 +109,15 @@ public class DataGenerators {
             }
         });
 
-        generator.addProvider(true, new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(
-                new OccultismBookProvider(enUSProvider)
-        )));
+        generator.addProvider(true, NeoBookProvider.of(event, langCache, researchCache,
+                new OccultismBookProvider()
+        ));
+        generator.addProvider(true, NeoResearchProvider.of(event, langCache, researchCache,
+                new OccultismResearch(Occultism.MODID)
+        ));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
-        generator.addProvider(true, enUSProvider);
+        generator.addProvider(true, new ENUSProvider(generator.getPackOutput(), langCache));
     }
 
 }

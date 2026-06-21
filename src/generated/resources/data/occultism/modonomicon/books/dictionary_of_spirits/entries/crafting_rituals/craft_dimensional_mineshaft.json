@@ -7,8 +7,16 @@
   },
   "category": "occultism:crafting_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/craft_djinni"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/craft_djinni",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description",
   "icon": {

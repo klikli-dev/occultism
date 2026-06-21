@@ -7,8 +7,16 @@
   },
   "category": "occultism:possession_rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "occultism:pentacles/contact_wild_spirit"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/contact_wild_spirit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.name"
+        }
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.possession_rituals.horde_drowned.description",
   "icon": {
