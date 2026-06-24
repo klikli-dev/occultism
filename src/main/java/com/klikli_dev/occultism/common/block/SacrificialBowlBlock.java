@@ -86,7 +86,7 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
             var handler = bowl.itemStackHandler;
             if (!pPlayer.isShiftKeyDown()) {
                 ItemStack itemStack = handler.getResource(0).toStack();
-                if (itemStack.isEmpty()) {
+                if (itemStack.isEmpty() && !heldItem.isEmpty()) {
                     //if there is nothing in the bowl, put the hand held item in
                     try (var tx = Transaction.openRoot()) {
                         int inserted = handler.insert(0, ItemResource.of(heldItem), 1, tx);
