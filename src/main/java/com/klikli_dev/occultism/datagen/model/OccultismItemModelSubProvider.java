@@ -609,7 +609,9 @@ public class OccultismItemModelSubProvider {
 
                 OccultismItems.OTHERWORLD_GOGGLES.get(),
                 OccultismItems.SILVER_HORSE_ARMOR.get(),
-                OccultismItems.SILVER_NAUTILUS_ARMOR.get()
+                OccultismItems.SILVER_NAUTILUS_ARMOR.get(),
+                OccultismItems.OTHERPLANKS_BOAT.get(),
+                OccultismItems.OTHERPLANKS_BOAT_CHEST.get()
         };
         for (Item item : items) {
             this.registerItemGenerated(itemModels, item);

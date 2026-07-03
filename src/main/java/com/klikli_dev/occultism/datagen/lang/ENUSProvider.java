@@ -629,6 +629,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.OTHERPLANKS_BUTTON, "Otherplanks Button");
         this.addBlock(OccultismBlocks.OTHERPLANKS_SIGN, "Otherplanks Sign");
         this.addBlock(OccultismBlocks.OTHERPLANKS_HANGING_SIGN, "Otherplanks Hanging Sign");
+        this.addBlock(OccultismBlocks.OTHERPLANKS_SHELF, "Otherplanks Shelf");
+        this.addItem(OccultismItems.OTHERPLANKS_BOAT, "Otherplanks Boat");
+        this.addItem(OccultismItems.OTHERPLANKS_BOAT_CHEST, "Otherplanks Chest with Boat");
         this.addBlock(OccultismBlocks.TALLOW_BLOCK, "Tallow Block");
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");
@@ -734,6 +737,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Demonic Wife");
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
         this.addEntityType(OccultismEntities.IESNIUM_GOLEM, "Iesnium Golem");
+        this.addEntityType(OccultismEntities.OTHERPLANKS_BOAT, "Otherplanks Boat");
+        this.addEntityType(OccultismEntities.OTHERPLANKS_BOAT_CHEST, "Otherplanks Boat with Chest");
         this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
         this.addEntityType(OccultismEntities.WILD_HORDE_PARCHED, "Wild Horde Parched");
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");

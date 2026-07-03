@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.klikli_dev.occultism.Occultism;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.Identifier;
 
@@ -50,4 +51,6 @@ public class OccultismModelLayers {
     public static ModelLayerLocation KAPOW = new ModelLayerLocation(Identifier.parse("occultism:kapow"), "main");
     public static ModelLayerLocation FAMILIAR_SHUB_NIGGURATH = new ModelLayerLocation(Identifier.parse("occultism:familiar_shub_niggurath"), "main");
     public static ModelLayerLocation FAMILIAR_SHUB_NIGGURATH_SPAWN = new ModelLayerLocation(Identifier.parse("occultism:familiar_shub_niggurath_spawn"), "main");
+    public static ModelLayerLocation OTHERPLANKS_BOAT = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "boat/otherplanks"), "main");
+    public static ModelLayerLocation OTHERPLANKS_BOAT_CHEST = new ModelLayerLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "chest_boat/otherplanks"), "main");
 }

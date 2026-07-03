@@ -863,7 +863,12 @@ public class OccultismItems {
     public static final DeferredItem<Item> SILVER_NAUTILUS_ARMOR = ITEMS.registerItem("silver_nautilus_armor",
             Item::new, () -> new Properties().nautilusArmor(OccultismTiers.SILVER_ARMOR)
     );
-
+    public static final DeferredItem<BoatItem> OTHERPLANKS_BOAT = ITEMS.registerItem("otherplanks_boat",
+            properties -> new BoatItem(OccultismEntities.OTHERPLANKS_BOAT_TYPE.get(), properties.stacksTo(1))
+    );
+    public static final DeferredItem<BoatItem> OTHERPLANKS_BOAT_CHEST = ITEMS.registerItem("otherplanks_chest_boat",
+            properties -> new BoatItem(OccultismEntities.OTHERPLANKS_BOAT_CHEST_TYPE.get(), properties.stacksTo(1))
+    );
 
 
     public static boolean shouldSkipCreativeModTab(Item item) {

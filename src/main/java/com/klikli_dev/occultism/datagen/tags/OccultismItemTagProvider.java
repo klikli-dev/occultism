@@ -309,6 +309,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(ItemTags.WOODEN_BUTTONS).add(OccultismBlocks.OTHERPLANKS_BUTTON.asItem()).replace(false);
         this.tag(ItemTags.SIGNS).add(OccultismItems.OTHERPLANKS_SIGN.get()).replace(false);
         this.tag(ItemTags.HANGING_SIGNS).add(OccultismItems.OTHERPLANKS_HANGING_SIGN.get()).replace(false);
+        this.tag(ItemTags.WOODEN_SHELVES).add(OccultismBlocks.OTHERPLANKS_SHELF.asItem()).replace(false);
+        this.tag(ItemTags.BOATS).add(OccultismItems.OTHERPLANKS_BOAT.asItem()).add(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()).replace(false);
+        this.tag(ItemTags.CHEST_BOATS).add(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()).replace(false);
         /* OTHERSTONE CAN'T HAVE STONE TAG BECAUSE SPIRIT TRADER WILL DUPE
          *this.tag(Tags.Items.STONES)
          *        .add(OccultismBlocks.OTHERSTONE.asItem())

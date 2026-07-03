@@ -57,6 +57,7 @@ import net.minecraft.client.KeyMapping.Category;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -131,6 +132,8 @@ public class ClientSetupEventHandler {
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_MUMMY, MummyFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BEAVER, BeaverFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.KAPOW, KapowModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.OTHERPLANKS_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(OccultismModelLayers.OTHERPLANKS_BOAT_CHEST, BoatModel::createChestBoatModel);
     }
 
     @SubscribeEvent
@@ -205,6 +208,8 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.DEMONIC_WIFE.get(), DemonicWifeRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusbandRenderer::new);
 
+        event.registerEntityRenderer(OccultismEntities.OTHERPLANKS_BOAT.get(), context -> new BoatRenderer(context, OccultismModelLayers.OTHERPLANKS_BOAT));
+        event.registerEntityRenderer(OccultismEntities.OTHERPLANKS_BOAT_CHEST.get(), context -> new BoatRenderer(context, OccultismModelLayers.OTHERPLANKS_BOAT_CHEST));
 
     }
 
