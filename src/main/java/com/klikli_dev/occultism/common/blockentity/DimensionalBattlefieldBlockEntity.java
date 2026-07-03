@@ -358,9 +358,9 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         }
 
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
-        LootParams lootparams = this.setLootParams(entity, luck);
         BlockPos pos = this.getBlockPos();
         entity.setPos(pos.getCenter());
+        LootParams lootparams = this.setLootParams(entity, luck);
 
         if (this.storedLootTable != null) {
             NeoForge.EVENT_BUS.addListener(this.entityJoinLevelEventListener);
@@ -541,10 +541,14 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (entity.position().distanceToSqr(this.getBlockPos().getCenter()) > 1)
             return;
 
+        if (entity instanceof ItemEntity item) {
+            ItemTransferUtil.insertItemStacked(this.getCurrentHandler(), item.getItem(), false);
+            event.setCanceled(true);
+        }
+
         if (entity instanceof ExperienceOrb orb) {
             this.xpStored += orb.getValue();
             event.setCanceled(true);
-            entity.setPos(this.getBlockPos().getX(), -100, this.getBlockPos().getZ());
         }
     }
 
