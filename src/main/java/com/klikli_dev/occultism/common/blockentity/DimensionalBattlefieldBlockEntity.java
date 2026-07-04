@@ -542,8 +542,12 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
 
         if (entity instanceof ItemEntity item) {
-            ItemTransferUtil.insertItemStacked(this.getCurrentHandler(), item.getItem(), false);
-            event.setCanceled(true);
+            ItemStack remainder = ItemTransferUtil.insertItemStacked(this.getCurrentHandler(), item.getItem(), false);
+            if (remainder.isEmpty()) {
+                event.setCanceled(true);
+            } else {
+                item.setItem(remainder);
+            }
         }
 
         if (entity instanceof ExperienceOrb orb) {

@@ -631,7 +631,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.OTHERPLANKS_HANGING_SIGN, "Otherplanks Hanging Sign");
         this.addBlock(OccultismBlocks.OTHERPLANKS_SHELF, "Otherplanks Shelf");
         this.addItem(OccultismItems.OTHERPLANKS_BOAT, "Otherplanks Boat");
-        this.addItem(OccultismItems.OTHERPLANKS_BOAT_CHEST, "Otherplanks Chest with Boat");
+        this.addItem(OccultismItems.OTHERPLANKS_BOAT_CHEST, "Otherplanks Boat with Chest");
         this.addBlock(OccultismBlocks.TALLOW_BLOCK, "Tallow Block");
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");

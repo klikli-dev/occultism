@@ -33,6 +33,7 @@ import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -66,7 +67,7 @@ public class CommandRitual extends Ritual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
+                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 

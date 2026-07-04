@@ -53,6 +53,7 @@ import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
@@ -230,7 +231,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         //draw flame of automation item with NBT outside screen for ae2 compat
         ItemStack flame = new ItemStack(OccultismItems.FLAME_AUTOMATION.get());
         ItemNBTUtil.setBoundSpiritName(flame,
-                recipe.value().getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
+                BuiltInRegistries.ITEM.getKey(recipe.value().getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 10000, 0)
                 .add(flame);
 
