@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.StringRenderHelper;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -226,6 +227,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
                 .add(recipe.value().getRitualDummy());
 
+        //draw flame of automation item with NBT outside screen for ae2 compat
+        ItemStack flame = new ItemStack(OccultismItems.FLAME_AUTOMATION.get());
+        ItemNBTUtil.setBoundSpiritName(flame,
+                recipe.value().getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 10000, 0)
+                .add(flame);
 
         //draw item to use
         if (recipe.value().requiresItemUse()) {
