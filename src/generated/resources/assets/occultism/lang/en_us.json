@@ -2007,7 +2007,7 @@
   "item.occultism.ender_satchel.tooltip": "%s is bound to this satchel.",
   "item.occultism.ender_satchel.tooltip_linked": "Liked player: %s",
   "item.occultism.familiar_ring": "Familiar Ring",
-  "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s\n%s",
+  "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s",
   "item.occultism.familiar_ring.tooltip.empty": "Does not contain any familiar.",
   "item.occultism.familiar_ring.tooltip.familiar_type": "[Type: %s]",
   "item.occultism.flame_of_automation": "Flame of Automation",
