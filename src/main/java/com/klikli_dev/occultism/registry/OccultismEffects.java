@@ -45,6 +45,7 @@ public class OccultismEffects {
     public static final DeferredHolder<MobEffect, MobEffect> BAT_LIFESTEAL = EFFECTS.register("bat_lifesteal", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x960201));
     public static final DeferredHolder<MobEffect, MobEffect> BEAVER_HARVEST = EFFECTS.register("beaver_harvest", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x603613));
     public static final DeferredHolder<MobEffect, MobEffect> PUMPKIN_HEAD = EFFECTS.register("pumpkin_head", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xfc9102));
+    public static final DeferredHolder<MobEffect, MobEffect> OCCULT_UNDYING_COOLDOWN = EFFECTS.register("undying_cooldown", () -> new ModEffect(MobEffectCategory.HARMFUL, 0xcf947b));
     public static final DeferredHolder<MobEffect, StepHeightEffect> STEP_HEIGHT = EFFECTS.register("step_height", StepHeightEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> STEP_BLOCKED = EFFECTS.register("step_blocked", () -> new ModEffect(MobEffectCategory.HARMFUL, 3402751)
             .addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_blocked"), -1, Operation.ADD_MULTIPLIED_TOTAL));
