@@ -1254,8 +1254,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("LLL")
                 .define('S', Tags.Items.RODS_WOODEN)
                 .define('L', ItemTags.LOGS)
-                .define('#', OccultismTags.Items.DATURA_CROP)
-                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_CROP))
+                .define('#', OccultismTags.Items.START_SPIRIT_FIRE)
+                .unlockedBy("has_datura", this.has(OccultismTags.Items.START_SPIRIT_FIRE))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/spirit_campfire")));
 
         ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, OccultismBlocks.SPIRIT_LANTERN.get())
@@ -1272,9 +1272,9 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("#")
                 .pattern("S")
                 .define('X', ItemTags.COALS)
-                .define('#', OccultismTags.Items.DATURA_CROP)
+                .define('#', OccultismTags.Items.START_SPIRIT_FIRE)
                 .define('S', Tags.Items.RODS_WOODEN)
-                .unlockedBy("has_datura", this.has(OccultismTags.Items.DATURA_CROP))
+                .unlockedBy("has_datura", this.has(OccultismTags.Items.START_SPIRIT_FIRE))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/spirit_torch")));
 
         ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, OccultismBlocks.STORAGE_CONTROLLER.get())
