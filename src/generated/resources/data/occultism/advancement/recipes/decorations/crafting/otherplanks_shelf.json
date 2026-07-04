@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_datura": {
+    "has_stripped_otherworld_log": {
       "conditions": {
         "items": [
           {
-            "items": "#occultism:start_spiritfire"
+            "items": "occultism:stripped_otherworld_log"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/spirit_torch"
+        "recipe": "occultism:crafting/otherplanks_shelf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_datura"
+      "has_stripped_otherworld_log"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crafting/spirit_torch"
+      "occultism:crafting/otherplanks_shelf"
     ]
   }
 }

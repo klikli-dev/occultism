@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#c:crops/datura",
+    "#": "#occultism:start_spiritfire",
     "S": "#c:rods/wooden",
     "X": "#minecraft:coals"
   },
