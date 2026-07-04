@@ -17,8 +17,11 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 
 public class KnowledgeTabletItem extends Item {
+    private static final Pattern NEWLINE_PATTERN = Pattern.compile("\\\\n|\\R", Pattern.MULTILINE);
+
     public KnowledgeTabletItem(Properties properties) {
         super(properties);
     }
@@ -67,8 +70,14 @@ public class KnowledgeTabletItem extends Item {
                                 @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipComponents, pTooltipFlag);
 
-        pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
+        this.appendMultilineTooltip(pTooltipComponents, Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack)),
                 ChatFormatting.GREEN.toString() + ItemNBTUtil.getStoredXP(pStack) + ChatFormatting.RESET));
+    }
+
+    protected void appendMultilineTooltip(Consumer<Component> pTooltipAdder, Component pTooltip) {
+        for (String line : NEWLINE_PATTERN.split(pTooltip.getString(), -1)) {
+            pTooltipAdder.accept(Component.literal(line));
+        }
     }
 }

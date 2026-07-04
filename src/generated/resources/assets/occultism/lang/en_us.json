@@ -2042,7 +2042,7 @@
   "item.occultism.jei_dummy.require_sacrifice.tooltip": "This ritual requires a sacrifice to start. Please refer to the Dictionary of Spirits for detailed instructions.",
   "item.occultism.knowledge_tablet": "Knowledge Tablet",
   "item.occultism.knowledge_tablet.auto_tooltip": "Right-Click to store all your experience points.\nShift-Right-Click to receive all stored experience points.\nA small tax may apply due to numerical approximations.\n",
-  "item.occultism.knowledge_tablet.tooltip": "%s is bound to this tablet.\n Stored XP: %s",
+  "item.occultism.knowledge_tablet.tooltip": "%s is bound to this tablet.\nStored XP: %s",
   "item.occultism.lapis_dust": "Lapis Dust",
   "item.occultism.lens_frame": "Lens Frame",
   "item.occultism.lenses": "Glass Lenses",
