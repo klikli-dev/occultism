@@ -2059,7 +2059,7 @@
   "item.occultism.magic_lamp_empty.spirit_message_8": "<%s> You will regret it if you don't release me now!",
   "item.occultism.magic_lamp_empty.spirit_message_9": "<%s> What is your greatest wish?",
   "item.occultism.magic_lamp_empty.tooltip_empty": "Use on a spirit worker to capture it.",
-  "item.occultism.magic_lamp_empty.tooltip_filled": "%s is bound to this lamp.\n %s: %s",
+  "item.occultism.magic_lamp_empty.tooltip_filled": "%s is inhabiting this lamp.",
   "item.occultism.magic_lamp_filled": "Magic Lamp",
   "item.occultism.marid_essence": "Marid Essence",
   "item.occultism.miner_afrit_deeps": "Deep Ore Miner Afrit",
