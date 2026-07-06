@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.245.0] - 2026-07-06
+### :sparkles: New Features
+- [`745f2e4`](https://github.com/klikli-dev/occultism/commit/745f2e4ab3125ab39c0998783d628b2515182cf2) - Otherplanks Boats and Shelf *(PR [#1668](https://github.com/klikli-dev/occultism/pull/1668) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v26.1.2-1.244.1] - 2026-06-24
 ### :bug: Bug Fixes
 - [`f623f12`](https://github.com/klikli-dev/occultism/commit/f623f126873987b22e416374ec2133987434c24a) - prevent crash when inserting air into sacrificial bowl *(PR [#1663](https://github.com/klikli-dev/occultism/pull/1663) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2770,3 +2775,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.243.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.242.0...release/v26.1.2-1.243.0
 [release/v26.1.2-1.244.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.243.0...release/v26.1.2-1.244.0
 [release/v26.1.2-1.244.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.244.0...release/v26.1.2-1.244.1
+[release/v26.1.2-1.245.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.244.1...release/v26.1.2-1.245.0
