@@ -644,26 +644,23 @@ public abstract class Ritual {
                 && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getResource(0).isEmpty()) {
-            try (var tx = Transaction.openRoot()) {
-                sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
-                tx.commit();
-            }
+            sacrificialBowlBlockEntity.itemStackHandler.set(0, ItemResource.of(stack), stack.getCount());
+            //Note: handler.set() is used here to preserve the exact amount defined by the recipe, avoiding partial insertion.
+            //Using handler.insert() limit the inserted amount to 1, causing part of the recipe output to be lost in some cases.
+            //try (var tx = Transaction.openRoot()) {
+            //    sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
+            //    tx.commit();
+            //}
         } else if (level.getBlockEntity(goldenBowlPosition.above(2)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
                 && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getResource(0).isEmpty()) {
-            try (var tx = Transaction.openRoot()) {
-                sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
-                tx.commit();
-            }
+            sacrificialBowlBlockEntity.itemStackHandler.set(0, ItemResource.of(stack), stack.getCount());
         } else if (level.getBlockEntity(goldenBowlPosition.above(3)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
                 && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getResource(0).isEmpty()) {
-            try (var tx = Transaction.openRoot()) {
-                sacrificialBowlBlockEntity.itemStackHandler.insert(0, ItemResource.of(stack), stack.getCount(), tx);
-                tx.commit();
-            }
+            sacrificialBowlBlockEntity.itemStackHandler.set(0, ItemResource.of(stack), stack.getCount());
         } else if (realDrop) {
             double angle = level.getRandom().nextDouble() * Math.PI * 2;
             ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,

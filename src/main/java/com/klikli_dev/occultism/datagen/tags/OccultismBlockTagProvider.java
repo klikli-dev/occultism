@@ -30,6 +30,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get())
                 .add(OccultismBlocks.SPIRIT_CAMPFIRE.get())
                 .add(OccultismBlocks.TALLOW_BLOCK.get())
+                .add(OccultismBlocks.OTHERPLANKS_SHELF.get())
                 .replace(false);
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(OccultismBlocks.OTHERWORLD_LEAVES.get(), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()).replace(false);
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -128,6 +129,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.IESNIUM_ANVIL.get())
                 .add(OccultismBlocks.SPIRIT_GRINDSTONE.get());
         this.tag(BlockTags.CAMPFIRES).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
+        this.tag(BlockTags.WOODEN_SHELVES).add(OccultismBlocks.OTHERPLANKS_SHELF.get()).replace(false);
         this.tag(BlockTags.ANVIL).add(OccultismBlocks.IESNIUM_ANVIL.get()).replace(false);
         this.tag(BlockTags.STAIRS)
                 .add(OccultismBlocks.OTHERSTONE_STAIRS.get())

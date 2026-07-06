@@ -252,6 +252,8 @@ dependencies {
     //implementation ("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${apothic_attributes_version}") {transitive=false}
     //implementation ("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}") {transitive=false}
     //localRuntime ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
+    //implementation ("dev.shadowsoffire:ApothicSpawners:${minecraft_version}-${apothic_spawners_version}") {transitive=false}
+    //implementation ("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}") {transitive=false}
 
     // Create
     //implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }

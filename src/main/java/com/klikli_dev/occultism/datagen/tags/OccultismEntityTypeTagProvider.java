@@ -392,6 +392,10 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.WILD_HUSK_TYPE.get())
                 .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ZOMBIFIED_PIGLIN_TYPE.get());
-
+        this.tag(EntityTypeTags.BOAT)
+                .add(OccultismEntities.OTHERPLANKS_BOAT_TYPE.get());
+        this.tag(EntityTypes.BOATS)
+                .add(OccultismEntities.OTHERPLANKS_BOAT_TYPE.get())
+                .add(OccultismEntities.OTHERPLANKS_BOAT_CHEST_TYPE.get());
     }
 }

@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -102,7 +103,7 @@ public class ResurrectFamiliarRitual extends SummonRitual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
+                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 }

@@ -148,8 +148,10 @@ public class MagicLampItem extends Item {
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             EntityType<?> type = this.getType(pStack);
             pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip_filled",
-                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack)), type.getDescription(),
-                    Component.translatable("job.occultism." + ItemNBTUtil.getSpiritJob(pStack).split(":", 2)[1])));
+                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
+            pTooltipComponents.accept(
+                    type.getDescription().copy().append(": ").append(
+                    Component.translatable("job." + ItemNBTUtil.getSpiritJob(pStack).replace(":","."))));
         } else {
             pTooltipComponents.accept(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }

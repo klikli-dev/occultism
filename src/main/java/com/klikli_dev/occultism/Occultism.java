@@ -45,6 +45,8 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPage
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -142,6 +144,18 @@ public class Occultism {
                     BlockEntityType.CAMPFIRE.validBlocks.stream(),
                     Stream.of(OccultismBlocks.SPIRIT_CAMPFIRE.get())
             ).collect(ImmutableSet.toImmutableSet());
+            BlockEntityType.SHELF.validBlocks = Stream.concat(
+                    BlockEntityType.SHELF.validBlocks.stream(),
+                    Stream.of(OccultismBlocks.OTHERPLANKS_SHELF.get())
+            ).collect(ImmutableSet.toImmutableSet());
+            DispenserBlock.registerBehavior(
+                    OccultismItems.OTHERPLANKS_BOAT.get(),
+                    new BoatDispenseItemBehavior(OccultismEntities.OTHERPLANKS_BOAT.get())
+            );
+            DispenserBlock.registerBehavior(
+                    OccultismItems.OTHERPLANKS_BOAT_CHEST.get(),
+                    new BoatDispenseItemBehavior(OccultismEntities.OTHERPLANKS_BOAT_CHEST.get())
+            );
         });
 
         //Register entity attributes on single thread

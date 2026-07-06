@@ -37,6 +37,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityType.Builder;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -396,14 +398,35 @@ public class OccultismEntities {
                     .clientTrackingRange(24)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "iesnium_golem"))));
 
-    public static final Supplier<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
-    public static final Supplier<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
-    public static final Supplier<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
-    public static final Supplier<EntityType<AfritUnboundEntity>> AFRIT_UNBOUND = ENTITIES.register("afrit_unbound", AFRIT_UNBOUND_TYPE::get);
-    public static final Supplier<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
-    public static final Supplier<EntityType<MaridUnboundEntity>> MARID_UNBOUND = ENTITIES.register("marid_unbound", MARID_UNBOUND_TYPE::get);
-    public static final Supplier<EntityType<WonderingTraderEntity>> WONDERING_TRADER = ENTITIES.register("wondering_trader", WONDERING_TRADER_TYPE::get);
+    public static final Lazy<EntityType<Boat>> OTHERPLANKS_BOAT_TYPE =
+            Lazy.of(() -> Builder.of(EntityType.boatFactory(OccultismItems.OTHERPLANKS_BOAT::get), MobCategory.MISC)
+                    .noLootTable()
+                    .sized(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .clientTrackingRange(10)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherplanks_boat"))));
+    public static final Lazy<EntityType<ChestBoat>> OTHERPLANKS_BOAT_CHEST_TYPE =
+            Lazy.of(() -> Builder.of(EntityType.chestBoatFactory(OccultismItems.OTHERPLANKS_BOAT_CHEST::get), MobCategory.MISC)
+                    .noLootTable()
+                    .sized(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .clientTrackingRange(10)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherplanks_chest_boat"))));
 
+    public static final Supplier<EntityType<FoliotEntity>> FOLIOT =
+            ENTITIES.register("foliot", FOLIOT_TYPE::get);
+    public static final Supplier<EntityType<DjinniEntity>> DJINNI =
+            ENTITIES.register("djinni", DJINNI_TYPE::get);
+    public static final Supplier<EntityType<AfritEntity>> AFRIT =
+            ENTITIES.register("afrit", AFRIT_TYPE::get);
+    public static final Supplier<EntityType<AfritUnboundEntity>> AFRIT_UNBOUND =
+            ENTITIES.register("afrit_unbound", AFRIT_UNBOUND_TYPE::get);
+    public static final Supplier<EntityType<MaridEntity>> MARID =
+            ENTITIES.register("marid", MARID_TYPE::get);
+    public static final Supplier<EntityType<MaridUnboundEntity>> MARID_UNBOUND =
+            ENTITIES.register("marid_unbound", MARID_UNBOUND_TYPE::get);
+    public static final Supplier<EntityType<WonderingTraderEntity>> WONDERING_TRADER =
+            ENTITIES.register("wondering_trader", WONDERING_TRADER_TYPE::get);
 
     public static final Supplier<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
             ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);
@@ -517,6 +540,10 @@ public class OccultismEntities {
             ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
     public static final Supplier<EntityType<IesniumGolemEntity>> IESNIUM_GOLEM =
             ENTITIES.register("iesnium_golem", IESNIUM_GOLEM_TYPE::get);
+    public static final Supplier<EntityType<Boat>> OTHERPLANKS_BOAT =
+            ENTITIES.register("otherplanks_boat", OTHERPLANKS_BOAT_TYPE::get);
+    public static final Supplier<EntityType<ChestBoat>> OTHERPLANKS_BOAT_CHEST =
+            ENTITIES.register("otherplanks_chest_boat", OTHERPLANKS_BOAT_CHEST_TYPE::get);
 
     public static final Supplier<EntityType<DemonicWife>> DEMONIC_WIFE = ENTITIES.register(DemonicWife.ID.getPath(), DemonicWife.ENTITY_TYPE::get);
     public static final Supplier<EntityType<DemonicHusband>> DEMONIC_HUSBAND = ENTITIES.register(DemonicHusband.ID.getPath(), DemonicHusband.ENTITY_TYPE::get);

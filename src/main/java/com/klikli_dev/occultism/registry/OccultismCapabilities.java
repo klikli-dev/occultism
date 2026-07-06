@@ -29,6 +29,7 @@ import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 import top.theillusivec4.curios.api.CuriosCapability;
 
 public class OccultismCapabilities {
@@ -121,6 +122,14 @@ public class OccultismCapabilities {
                 OccultismEntities.MARID.get(),
                 (entity, side) -> (ResourceHandler<ItemResource>) entity.inventory);
 
+        event.registerEntity(
+                Item.ENTITY,
+                OccultismEntities.OTHERPLANKS_BOAT_CHEST_TYPE.get(),
+                (entity, ctx) -> VanillaContainerWrapper.of(entity));
+        event.registerEntity(
+                Item.ENTITY_AUTOMATION,
+                OccultismEntities.OTHERPLANKS_BOAT_CHEST_TYPE.get(),
+                (entity, ctx) -> VanillaContainerWrapper.of(entity));
     }
 
 }

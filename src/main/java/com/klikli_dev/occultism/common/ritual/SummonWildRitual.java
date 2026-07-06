@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -94,7 +95,7 @@ public class SummonWildRitual extends SummonRitual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
+                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
 
     }

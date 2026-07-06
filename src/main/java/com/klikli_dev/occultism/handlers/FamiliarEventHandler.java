@@ -25,31 +25,21 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.*;
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.klikli_dev.occultism.util.ItemNBTUtil;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -60,8 +50,6 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Result;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.List;
 
@@ -154,6 +142,15 @@ public class FamiliarEventHandler {
         if (fairy == null || !fairy.saveFamiliar(familiar))
             return;
 
+        if (!fairy.isAddedToLevel()) {
+            if (entity.hasEffect(OccultismEffects.OCCULT_UNDYING_COOLDOWN)) {
+                return;
+            } else {
+                int i = fairy.hasBlacksmithUpgrade() ? 1 : 2;
+                entity.addEffect(new MobEffectInstance(OccultismEffects.OCCULT_UNDYING_COOLDOWN, i * 20 * 20, 0));
+            }
+        }
+
         event.setCanceled(true);
         entity.setHealth(2);
         entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
@@ -212,38 +209,23 @@ public class FamiliarEventHandler {
         if (guardian == null)
             return;
 
+        if (!guardian.isAddedToLevel() && player.hasEffect(OccultismEffects.OCCULT_UNDYING_COOLDOWN)) {
+                return;
+        }
+
         if (!guardian.sacrifice())
             return;
-
-        CuriosApi.getCuriosInventory(event.getEntity()).ifPresent(handler -> {
-            List<SlotResult> equipped = handler.findCurios(itemStack -> itemStack.getItem() instanceof FamiliarRingItem);
-            for (SlotResult ring : equipped) {
-                if (!(FamiliarRingItem.getFamiliar(ring.stack(), event.getEntity().level()) instanceof GuardianFamiliarEntity familiar)) {
-                    continue;
-                }
-
-                var familiarTagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
-                familiar.getFamiliarEntity().saveAsPassenger(familiarTagOutput);
-                CompoundTag familiarTag = familiarTagOutput.buildResult();
-                EntityType.loadEntityRecursive(familiarTag, event.getEntity().level(), EntitySpawnReason.LOAD, e -> {
-                    e.setPos(player.getX(), player.getY(), player.getZ());
-                    ((IFamiliar) e).setFamiliarOwner(player);
-                    String ringName = ItemNBTUtil.getBoundSpiritName(ring.stack());
-                    e.setCustomName(Component.literal(ringName));
-                    event.getEntity().level().addFreshEntity(e);
-                    ((GuardianFamiliarEntity) e).sacrifice();
-                    ring.stack().shrink(1);
-                    ItemTransferUtil.giveItemToPlayer(player, new ItemStack(OccultismItems.FAMILIAR_RING.get()));
-                    return e;
-                });
-            }
-        });
 
         event.setCanceled(true);
         player.setHealth(1);
         player.removeAllEffects();
         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
+        if (!guardian.isAddedToLevel()) {
+            int i = guardian.hasBlacksmithUpgrade() ? 6 : 7;
+            i -= guardian.getLives();
+            player.addEffect(new MobEffectInstance(OccultismEffects.OCCULT_UNDYING_COOLDOWN, i * 60 * 20, 0, true, true));
+        }
     }
 
     @SubscribeEvent

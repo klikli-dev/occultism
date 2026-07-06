@@ -419,6 +419,9 @@ public class OccultismBlocks {
     public static final DeferredBlock<OtherWallHangingSignBlock> OTHERPLANKS_WALL_HANGING_SIGN = register("otherplanks_wall_hanging_sign",
             (p) -> new OtherWallHangingSignBlock(p, OtherWoodType.OTHERPLANKS),
             () -> Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), false, LootTableType.CUSTOM);
+    public static final DeferredBlock<ShelfBlock> OTHERPLANKS_SHELF = register("otherplanks_shelf",
+            ShelfBlock::new,
+            () -> Properties.ofFullCopy(Blocks.OAK_SHELF));
     //Ores
     public static final DeferredBlock<Block> SILVER_ORE = register("silver_ore", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE), true, LootTableType.CUSTOM);

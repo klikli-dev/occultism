@@ -163,7 +163,7 @@ public class SummonRitual extends Ritual {
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
-                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/", ""));
+                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 

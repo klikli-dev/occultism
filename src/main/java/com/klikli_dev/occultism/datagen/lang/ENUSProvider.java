@@ -124,7 +124,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.book_of_calling_djinni" + ".tooltip_dead", "%s has left this plane of existence.");
         this.add("item.occultism.book_of_calling_djinni" + ".tooltip.extract", "Extracts from: %s.");
         this.add("item.occultism.book_of_calling_djinni" + ".tooltip.deposit", "Deposits to: % s");
-        this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip", "Occupied by the familiar %s\n%s");
+        this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip", "Occupied by the familiar %s");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.familiar_type", "[Type: %s]");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.empty", "Does not contain any familiar.");
         this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".tooltip", "Looking for %s");
@@ -158,7 +158,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s randomly mines most ores in the Mining Dimension.");
         this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s randomly mines ores, including rare ones, in the Mining Dimension.");
         this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine every ores in the mining dimension.");
-        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_filled", "%s is bound to this lamp.\n %s: %s");
+        this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_filled", "%s is inhabiting this lamp.");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".tooltip_empty", "Use on a spirit worker to capture it.");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_0", "<%s> Release me immediately!");
         this.add(OccultismItems.MAGIC_LAMP_EMPTY.get().getDescriptionId() + ".spirit_message_1", "<%s> It's so cramped in here.");
@@ -182,7 +182,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.ENDER_SATCHEL.get().getDescriptionId() + ".chest_menu", "%s's Ender Chest");
         this.add(OccultismItems.RITUAL_SATCHEL_T1.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T2.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
-        this.add(OccultismItems.KNOWLEDGE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.\n Stored XP: %s");
+        this.add(OccultismItems.KNOWLEDGE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.\nStored XP: %s");
 
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used to resurrect it.");
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_empty", "Dropped by a Familiar after their untimely death. Can be used to resurrect it.");
@@ -629,6 +629,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.OTHERPLANKS_BUTTON, "Otherplanks Button");
         this.addBlock(OccultismBlocks.OTHERPLANKS_SIGN, "Otherplanks Sign");
         this.addBlock(OccultismBlocks.OTHERPLANKS_HANGING_SIGN, "Otherplanks Hanging Sign");
+        this.addBlock(OccultismBlocks.OTHERPLANKS_SHELF, "Otherplanks Shelf");
+        this.addItem(OccultismItems.OTHERPLANKS_BOAT, "Otherplanks Boat");
+        this.addItem(OccultismItems.OTHERPLANKS_BOAT_CHEST, "Otherplanks Boat with Chest");
         this.addBlock(OccultismBlocks.TALLOW_BLOCK, "Tallow Block");
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");
@@ -734,6 +737,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Demonic Wife");
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
         this.addEntityType(OccultismEntities.IESNIUM_GOLEM, "Iesnium Golem");
+        this.addEntityType(OccultismEntities.OTHERPLANKS_BOAT, "Otherplanks Boat");
+        this.addEntityType(OccultismEntities.OTHERPLANKS_BOAT_CHEST, "Otherplanks Boat with Chest");
         this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
         this.addEntityType(OccultismEntities.WILD_HORDE_PARCHED, "Wild Horde Parched");
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
@@ -876,6 +881,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("effect.occultism.step_height", "Step Height");
         this.add("effect.occultism.step_blocked", "Step Blocked");
         this.add("effect.occultism.pumpkin_head", "Pumpkin Head");
+        this.add("effect.occultism.undying_cooldown", "Occult Undying Cooldown");
 
         //Potions
         this.add("item.minecraft.potion.effect.third_eye_potion", "Potion of Third Eye");

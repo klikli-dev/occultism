@@ -171,7 +171,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     public void blacksmithUpgrade() {
         if (this.getOwner() instanceof Player player)
             player.sendSystemMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()));
-        if (!(this.getFamiliarEntity() instanceof GuardianFamiliarEntity))
+        if (!this.hasBlacksmithUpgrade())
             this.setCustomName(Component.empty().append(this.getName()).append(" ⛤"));
         this.setBlacksmithUpgrade(true);
     }

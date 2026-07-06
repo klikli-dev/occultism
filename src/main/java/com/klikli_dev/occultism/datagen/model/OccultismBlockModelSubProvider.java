@@ -30,13 +30,17 @@ import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.ConditionBuilder;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.client.renderer.block.dispatch.multipart.Condition;
 import net.minecraft.client.renderer.item.ConditionalItemModel.Unbaked;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
@@ -45,7 +49,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.SideChainPart;
+import org.jspecify.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -481,6 +488,7 @@ public class OccultismBlockModelSubProvider {
         this.registerBars(blockModels, itemModels, OccultismBlocks.SILVER_BARS_BLOCK.get(), OccultismBlocks.SILVER_BARS_BLOCK.get());
         this.registerChain(blockModels, itemModels, OccultismBlocks.SILVER_CHAIN_BLOCK.get());
         this.registerBulb(blockModels, itemModels, OccultismBlocks.SILVER_BULB.get());
+        this.createShelf(OccultismBlocks.OTHERPLANKS_SHELF.get(), OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get(), blockModels, itemModels);
     }
 
     private void registerFence(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block fence, Block parent) {
@@ -623,6 +631,46 @@ public class OccultismBlockModelSubProvider {
                         plainVariant(downModel))
         );
         this.registerParentedItemModel(blockModels, itemModels, plate, upModel);
+    }
+
+    public void createShelf(Block block, Block particle, BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        TextureMapping mapping = new TextureMapping()
+                .put(TextureSlot.ALL, TextureMapping.getBlockTexture(block))
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(particle));
+        MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
+        this.addShelfPart(block, mapping, generator, ModelTemplates.SHELF_BODY, null, null, blockModels);
+        this.addShelfPart(block, mapping, generator, ModelTemplates.SHELF_UNPOWERED, false, null, blockModels);
+        this.addShelfPart(block, mapping, generator, ModelTemplates.SHELF_UNCONNECTED, true, SideChainPart.UNCONNECTED, blockModels);
+        this.addShelfPart(block, mapping, generator, ModelTemplates.SHELF_LEFT, true, SideChainPart.LEFT, blockModels);
+        this.addShelfPart(block, mapping, generator, ModelTemplates.SHELF_CENTER, true, SideChainPart.CENTER, blockModels);
+        this.addShelfPart(block, mapping, generator, ModelTemplates.SHELF_RIGHT, true, SideChainPart.RIGHT, blockModels);
+        blockModels.blockStateOutput.accept(generator);
+        this.registerParentedItemModel(blockModels, itemModels, block, ModelTemplates.SHELF_INVENTORY.create(block, mapping, blockModels.modelOutput));
+    }
+
+    public void addShelfPart(Block block, TextureMapping mapping, MultiPartGenerator generator, ModelTemplate template,
+            @Nullable Boolean isPowered, @Nullable SideChainPart sideChainPart, BlockModelGenerators blockModels) {
+        MultiVariant variant = plainVariant(template.create(block, mapping, blockModels.modelOutput));
+        forEachHorizontalDirection((direction, rotation) -> generator.with(shelfCondition(direction, isPowered, sideChainPart), variant.with(rotation)));
+    }
+
+    public static void forEachHorizontalDirection(BiConsumer<Direction, VariantMutator> consumer) {
+        List.of(Pair.of(Direction.NORTH, NOP), Pair.of(Direction.EAST, Y_ROT_90), Pair.of(Direction.SOUTH, Y_ROT_180), Pair.of(Direction.WEST, Y_ROT_270))
+                .forEach(pair -> {
+                    Direction direction = pair.getFirst();
+                    VariantMutator rotation = pair.getSecond();
+                    consumer.accept(direction, rotation);
+                });
+    }
+
+    public static Condition shelfCondition(Direction direction, @Nullable Boolean isPowered, @Nullable SideChainPart sideChainPart) {
+        ConditionBuilder facing = condition(BlockStateProperties.HORIZONTAL_FACING, direction);
+        if (isPowered == null) {
+            return facing.build();
+        } else {
+            ConditionBuilder powered = condition(BlockStateProperties.POWERED, isPowered);
+            return sideChainPart != null ? and(facing, powered, condition(BlockStateProperties.SIDE_CHAIN_PART, sideChainPart)) : and(facing, powered);
+        }
     }
 
     private void registerSpecialBlocks(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
