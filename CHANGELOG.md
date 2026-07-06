@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.224.0] - 2026-07-06
+### :sparkles: New Features
+- [`b086f3b`](https://github.com/klikli-dev/occultism/commit/b086f3bb7784fc1dd9d10b7ec3b4bc1d5ecbe564) - Add French (fr_fr) translation *(PR [#1669](https://github.com/klikli-dev/occultism/pull/1669) by [@programgames](https://github.com/programgames))*
+
+
 ## [release/v1.21.1-1.223.0] - 2026-06-21
 ### :sparkles: New Features
 - [`82f4b1e`](https://github.com/klikli-dev/occultism/commit/82f4b1ea6cc86fe7b168899ebf4c4bc8ea5fadf5) - Revert "feat: Update Japanese localization for 1.21.1 (v1.221) ([#1656](https://github.com/klikli-dev/occultism/pull/1656))" *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2478,3 +2483,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.221.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.220.4...release/v1.21.1-1.221.0
 [release/v1.21.1-1.222.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.221.0...release/v1.21.1-1.222.0
 [release/v1.21.1-1.223.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.222.0...release/v1.21.1-1.223.0
+[release/v1.21.1-1.224.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.223.0...release/v1.21.1-1.224.0
