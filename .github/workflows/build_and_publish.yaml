@@ -86,13 +86,14 @@ jobs:
           commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
           file_pattern: CHANGELOG.md
       - name: Upload to Mod Platforms
-        uses: Kir-Antipov/mc-publish@v3.3.0
+        uses: Kir-Antipov/mc-publish@v3
         if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
           modrinth-id: sbJh4AZw
           modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
           curseforge-id: 361026
           curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
+          environment: client | server
 
           files: |
             build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
