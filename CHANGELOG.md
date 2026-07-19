@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.246.1] - 2026-07-19
+### :wrench: Chores
+- [`e8a703a`](https://github.com/klikli-dev/occultism/commit/e8a703a87c470240215dcdf608b30c657555887c) - update to latest cdg *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.245.0] - 2026-07-06
 ### :sparkles: New Features
 - [`745f2e4`](https://github.com/klikli-dev/occultism/commit/745f2e4ab3125ab39c0998783d628b2515182cf2) - Otherplanks Boats and Shelf *(PR [#1668](https://github.com/klikli-dev/occultism/pull/1668) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2776,3 +2781,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.244.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.243.0...release/v26.1.2-1.244.0
 [release/v26.1.2-1.244.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.244.0...release/v26.1.2-1.244.1
 [release/v26.1.2-1.245.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.244.1...release/v26.1.2-1.245.0
+[release/v26.1.2-1.246.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.246.0...release/v26.1.2-1.246.1
