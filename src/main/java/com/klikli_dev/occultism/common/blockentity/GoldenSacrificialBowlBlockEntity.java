@@ -691,11 +691,15 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         this.stopRitual(false);
+        // Defensive: ensure listeners are always unregistered when the block entity is removed,
+        // even if stopRitual() could not run (e.g. level is null during unload).
+        NeoForge.EVENT_BUS.unregister(this.rightClickItemListener);
+        NeoForge.EVENT_BUS.unregister(this.livingDeathEventListener);
         super.preRemoveSideEffects(pos, state);
     }
 
     public void stopRitual(boolean finished, boolean showInterruptedMessage) {
-        if (!this.level.isClientSide()) {
+        if (this.level != null && !this.level.isClientSide()) {
             var recipe = this.getCurrentRitualRecipe();
             if (recipe != null) {
                 if (finished) {
