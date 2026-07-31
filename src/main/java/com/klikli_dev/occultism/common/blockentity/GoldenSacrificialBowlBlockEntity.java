@@ -313,8 +313,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 var recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
                 recipe.map(r -> (RecipeHolder<RitualRecipe>) r).ifPresent(r -> this.currentRitualRecipe = r);
 
-                NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
-                NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
+                if (this.level instanceof ServerLevel) {
+                    NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
+                    NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
+                }
 
                 this.currentRitualRecipeId = null;
             }
@@ -654,8 +656,15 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         this.stopRitual(finished, true);
     }
 
+    @Override
+    public void onChunkUnloaded() {
+        super.onChunkUnloaded();
+        NeoForge.EVENT_BUS.unregister(this.rightClickItemListener);
+        NeoForge.EVENT_BUS.unregister(this.livingDeathEventListener);
+    }
+
     public void stopRitual(boolean finished, boolean showInterruptedMessage) {
-        if (!this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide) {
             var recipe = this.getCurrentRitualRecipe();
             if (recipe != null) {
                 IItemHandler handler = this.itemStackHandler;
