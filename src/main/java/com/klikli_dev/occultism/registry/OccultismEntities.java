@@ -399,14 +399,14 @@ public class OccultismEntities {
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "iesnium_golem"))));
 
     public static final Lazy<EntityType<Boat>> OTHERPLANKS_BOAT_TYPE =
-            Lazy.of(() -> Builder.of(EntityType.boatFactory(OccultismItems.OTHERPLANKS_BOAT::get), MobCategory.MISC)
+            Lazy.of(() -> Builder.of((EntityType<Boat> entityType, Level level) -> new Boat(entityType, level, () -> OccultismItems.OTHERPLANKS_BOAT.get()), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherplanks_boat"))));
     public static final Lazy<EntityType<ChestBoat>> OTHERPLANKS_BOAT_CHEST_TYPE =
-            Lazy.of(() -> Builder.of(EntityType.chestBoatFactory(OccultismItems.OTHERPLANKS_BOAT_CHEST::get), MobCategory.MISC)
+            Lazy.of(() -> Builder.of((EntityType<ChestBoat> entityType, Level level) -> new ChestBoat(entityType, level, () -> OccultismItems.OTHERPLANKS_BOAT_CHEST.get()), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
