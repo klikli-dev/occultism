@@ -27,6 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
@@ -62,6 +63,6 @@ public class WildHordeCreeperEntity extends Creeper implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.CREEPER;
+        return EntityTypes.CREEPER;
     }
 }

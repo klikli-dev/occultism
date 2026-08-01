@@ -29,6 +29,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Zombie;
@@ -82,6 +83,6 @@ public class WildZombieEntity extends Zombie implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.ZOMBIE;
+        return EntityTypes.ZOMBIE;
     }
 }

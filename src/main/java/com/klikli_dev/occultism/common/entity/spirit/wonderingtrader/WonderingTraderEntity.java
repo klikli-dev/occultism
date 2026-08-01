@@ -114,19 +114,19 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         if (spawnType == EntitySpawnReason.EVENT) {
             for (int t = 0; t < 2; t++) {
                 BlockPos blockpos = null;
-                SpawnPlacementType spawnplacementtype = SpawnPlacements.getPlacementType(EntityType.WANDERING_TRADER);
+                SpawnPlacementType spawnplacementtype = SpawnPlacements.getPlacementType(EntityTypes.WANDERING_TRADER);
                 for (int i = 0; i < 10; i++) {
                     int j = this.blockPosition().getX() + level.getRandom().nextInt(8) - 4;
                     int k = this.blockPosition().getZ() + level.getRandom().nextInt(8) - 4;
                     int l = level.getHeight(Types.WORLD_SURFACE, j, k);
                     BlockPos blockpos1 = new BlockPos(j, l, k);
-                    if (spawnplacementtype.isSpawnPositionOk(level, blockpos1, EntityType.WANDERING_TRADER)) {
+                    if (spawnplacementtype.isSpawnPositionOk(level, blockpos1, EntityTypes.WANDERING_TRADER)) {
                         blockpos = blockpos1;
                         break;
                     }
                 }
                 if (blockpos != null) {
-                    TraderLlama traderllama = EntityType.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, EntitySpawnReason.EVENT);
+                    TraderLlama traderllama = EntityTypes.TRADER_LLAMA.spawn((ServerLevel) level, blockpos, EntitySpawnReason.EVENT);
                     if (traderllama != null) {
                         traderllama.setLeashedTo(this, true);
                         traderllama.setPersistenceRequired();

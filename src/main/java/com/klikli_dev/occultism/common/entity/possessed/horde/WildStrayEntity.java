@@ -29,6 +29,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.skeleton.Stray;
@@ -83,6 +84,6 @@ public class WildStrayEntity extends Stray implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.STRAY;
+        return EntityTypes.STRAY;
     }
 }

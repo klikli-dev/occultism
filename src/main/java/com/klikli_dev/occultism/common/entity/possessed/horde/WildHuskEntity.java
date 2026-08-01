@@ -29,6 +29,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.Husk;
@@ -83,6 +84,6 @@ public class WildHuskEntity extends Husk implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.HUSK;
+        return EntityTypes.HUSK;
     }
 }

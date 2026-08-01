@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -215,7 +216,7 @@ public class BattlefieldRecipeJEI {
                 soul.add(item.getDefaultInstance());
         }
         for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
-            if (entityType == EntityType.PLAYER)
+            if (entityType == EntityTypes.PLAYER)
                 continue;
             try {
                 Entity entity = entityType.create(level, EntitySpawnReason.SPAWN_ITEM_USE);

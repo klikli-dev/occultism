@@ -36,6 +36,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -117,6 +118,6 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton implements Poss
 
     @Override
     public EntityType basedMob() {
-        return EntityType.WITHER_SKELETON;
+        return EntityTypes.WITHER_SKELETON;
     }
 }

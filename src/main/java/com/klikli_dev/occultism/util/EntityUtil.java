@@ -36,6 +36,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
@@ -106,7 +107,7 @@ public class EntityUtil {
         HolderLookup<EntityType<?>> lookup = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
         HolderSet<EntityType<?>> set = lookup.getOrThrow(tag);
         List<? extends EntityType<?>> list = set.stream().map(Holder::value)
-                .filter(type -> type != EntityType.PLAYER).toList();
+                .filter(type -> type != EntityTypes.PLAYER).toList();
         return list.get(list.size() == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % list.size()));
     }
 

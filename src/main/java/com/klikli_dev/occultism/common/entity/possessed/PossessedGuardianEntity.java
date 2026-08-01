@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Guardian;
@@ -44,7 +45,7 @@ public class PossessedGuardianEntity extends Guardian implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.GUARDIAN;
+        return EntityTypes.GUARDIAN;
     }
     //endregion Static Methods
 }

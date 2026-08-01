@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -58,6 +59,6 @@ public class PossessedHoglinEntity extends Hoglin implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.HOGLIN;
+        return EntityTypes.HOGLIN;
     }
 }
