@@ -548,7 +548,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                         break;
                     case GOAT_ATTACKER:
                         Vec3 direction = e.position().vectorTo(this.chimera.position());
-                        e.knockback(2, direction.x, direction.z);
+                        e.knockback(2, direction.x, direction.z, this.chimera.damageSources().playerAttack((Player) this.chimera.getFamiliarOwner()), (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
                         break;
                     case SNAKE_ATTACKER:
                         e.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
@@ -598,7 +598,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                     break;
                 case GOAT_ATTACKER:
                     Vec3 direction = target.position().vectorTo(this.chimera.position());
-                    target.knockback(2, direction.x, direction.z);
+                    target.knockback(2, direction.x, direction.z, this.chimera.damageSources().playerAttack((Player) this.chimera.getFamiliarOwner()), (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     break;
                 case SNAKE_ATTACKER:
                     target.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
