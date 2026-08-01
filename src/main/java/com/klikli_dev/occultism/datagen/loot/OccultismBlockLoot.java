@@ -8,7 +8,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks.BlockDataGenSettings;
 import com.klikli_dev.occultism.registry.OccultismBlocks.LootTableType;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate.Builder;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.component.DataComponentType;
