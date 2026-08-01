@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -171,7 +172,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.CROPS).add(this.key(OccultismBlocks.DATURA.get()));
         this.tag(BlockTags.LEAVES).add(this.key(OccultismBlocks.OTHERWORLD_LEAVES.get()), this.key(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()));
         this.tag(BlockTags.LOGS).addTag(OccultismTags.Blocks.OTHERWORLD_LOGS);
-        this.tag(BlockTags.LOGS_THAT_BURN).addTag(OccultismTags.Blocks.OTHERWORLD_LOGS);
+        this.tag(BlockItemTags.LOGS_THAT_BURN.block()).addTag(OccultismTags.Blocks.OTHERWORLD_LOGS);
         this.tag(BlockTags.PLANKS).add(this.key(OccultismBlocks.OTHERPLANKS.get()));
         this.tag(BlockTags.WOODEN_SLABS).add(this.key(OccultismBlocks.OTHERPLANKS_SLAB.get()));
         this.tag(BlockTags.WOODEN_STAIRS).add(this.key(OccultismBlocks.OTHERPLANKS_STAIRS.get()));
@@ -186,8 +187,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.CEILING_HANGING_SIGNS).add(this.key(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get()));
         this.tag(BlockTags.WALL_HANGING_SIGNS).add(this.key(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get()));
         this.tag(BlockTags.PIGLIN_REPELLENTS).add(this.key(OccultismBlocks.SPIRIT_CAMPFIRE.get()));
-        this.tag(BlockTags.SAPLINGS).addTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS);
-        this.tag(BlockTags.SAPLINGS).addTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL);
+        this.tag(BlockItemTags.SAPLINGS.block()).addTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS);
+        this.tag(BlockItemTags.SAPLINGS.block()).addTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(this.key(OccultismBlocks.SILVER_ORE.get()))
                 .add(this.key(OccultismBlocks.SILVER_ORE_DEEPSLATE.get()))

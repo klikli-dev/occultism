@@ -14,6 +14,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
@@ -277,9 +278,9 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
                 .addTag(Miners.MINERS)
                 .addTag(OccultismTags.Items.TOOLS_CHALK)
                 .addTag(OccultismTags.Items.TOOLS_KNIFE)
-                .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem())
-                .add(OccultismItems.GRAY_PASTE.asItem())
-                .add(OccultismItems.NATURE_PASTE.asItem());
+                .add(this.key(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem()))
+                .add(this.key(OccultismItems.GRAY_PASTE.asItem()))
+                .add(this.key(OccultismItems.NATURE_PASTE.asItem()));
         this.tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
@@ -304,8 +305,8 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.tag(ItemTags.SIGNS).add(this.key(OccultismItems.OTHERPLANKS_SIGN.get()));
         this.tag(ItemTags.HANGING_SIGNS).add(this.key(OccultismItems.OTHERPLANKS_HANGING_SIGN.get()));
         this.tag(ItemTags.WOODEN_SHELVES).add(this.key(OccultismBlocks.OTHERPLANKS_SHELF.asItem()));
-        this.tag(ItemTags.BOATS).add(OccultismItems.OTHERPLANKS_BOAT.asItem()).add(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem());
-        this.tag(ItemTags.CHEST_BOATS).add(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem());
+        this.tag(ItemTags.BOATS).add(this.key(OccultismItems.OTHERPLANKS_BOAT.asItem())).add(this.key(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()));
+        this.tag(ItemTags.CHEST_BOATS).add(this.key(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()));
         /* OTHERSTONE CAN'T HAVE STONE TAG BECAUSE SPIRIT TRADER WILL DUPE
          *this.tag(Tags.Items.STONES)
          *        .add(this.key(OccultismBlocks.OTHERSTONE.asItem()))
@@ -316,7 +317,7 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
                 .add(this.key(OccultismBlocks.OTHERCOBBLESTONE_WALL.asItem()))
                 .add(this.key(OccultismBlocks.POLISHED_OTHERSTONE_WALL.asItem()))
                 .add(this.key(OccultismBlocks.OTHERSTONE_BRICKS_WALL.asItem()));
-        this.tag(ItemTags.STONE_BUTTONS).add(this.key(OccultismBlocks.OTHERSTONE_BUTTON.asItem()));
+        this.tag(BlockItemTags.STONE_BUTTONS.item()).add(this.key(OccultismBlocks.OTHERSTONE_BUTTON.asItem()));
 
         this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES)
                 .add(this.key(OccultismItems.SILVER_PICKAXE.get()))
@@ -358,11 +359,11 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
-        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        this.copy(BlockItemTags.SAPLINGS.block(), BlockItemTags.SAPLINGS.item());
         this.tag(this.cTag("tools/knife")).add(this.key(OccultismItems.BUTCHER_KNIFE.get())).add(this.key(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()));
 
-        this.tag(ItemTags.SMALL_FLOWERS).add(this.key(OccultismBlocks.OTHERFLOWER.asItem())).add(this.key(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()));
-        this.tag(ItemTags.COMPASSES).add(OccultismItems.VITALITY_COMPASS.asItem());
+        this.tag(BlockItemTags.SMALL_FLOWERS.item()).add(this.key(OccultismBlocks.OTHERFLOWER.asItem())).add(this.key(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()));
+        this.tag(ItemTags.COMPASSES).add(this.key(OccultismItems.VITALITY_COMPASS.asItem()));
 
         this.tag(ItemTags.TRIM_MATERIALS)
                 .add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
@@ -389,14 +390,14 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.tag(Tags.Items.ARMORS_NAUTILUS)
                 .add(this.key(OccultismItems.SILVER_NAUTILUS_ARMOR.get()));
 
-        this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
-        this.copy(BlockTags.SLABS, ItemTags.SLABS);
-        this.copy(BlockTags.BARS, ItemTags.BARS);
+        this.copy(BlockTags.STAIRS, BlockItemTags.STAIRS.item());
+        this.copy(BlockTags.SLABS, BlockItemTags.SLABS.item());
+        this.copy(BlockTags.BARS, BlockItemTags.BARS.item());
         this.copy(Tags.Blocks.BARS, Tags.Items.BARS);
-        this.copy(BlockTags.CHAINS, ItemTags.CHAINS);
+        this.copy(BlockTags.CHAINS, BlockItemTags.CHAINS.item());
         this.copy(Tags.Blocks.CHAINS, Tags.Items.CHAINS);
-        this.copy(BlockTags.DOORS, ItemTags.DOORS);
-        this.copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
+        this.copy(BlockTags.DOORS, BlockItemTags.DOORS.item());
+        this.copy(BlockTags.TRAPDOORS, BlockItemTags.TRAPDOORS.item());
 
         // Ore Blocks
         this.copy(Blocks.IESNIUM_ORE, OccultismTags.Items.IESNIUM_ORE);
