@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     "occultism:book_of_binding_bound_djinni",
     "minecraft:furnace"

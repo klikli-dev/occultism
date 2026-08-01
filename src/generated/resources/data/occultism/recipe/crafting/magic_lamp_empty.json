@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "i": "occultism:spirit_attuned_gem",
     "s": "#c:ingots/silver"

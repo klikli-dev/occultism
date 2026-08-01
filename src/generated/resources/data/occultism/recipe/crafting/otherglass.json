@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "e": "#c:dusts/end_stone",
     "g": "#c:glass_blocks",

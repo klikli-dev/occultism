@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "b": "occultism:storage_controller_base",
     "d": "occultism:dimensional_matrix"
