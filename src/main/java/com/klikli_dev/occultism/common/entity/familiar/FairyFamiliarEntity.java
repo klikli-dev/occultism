@@ -56,7 +56,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -72,7 +71,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
+public class FairyFamiliarEntity extends FamiliarEntity {
 
     protected static final int BREATH_INTERVAL = 20 * 3;
     private static final EntityDataAccessor<Integer> MAGIC_TARGET = SynchedEntityData.defineId(FairyFamiliarEntity.class,
@@ -405,7 +404,6 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         this.supportAnim = 20;
     }
 
-    @Override
     public boolean isFlying() {
         return !this.onGround();
     }
