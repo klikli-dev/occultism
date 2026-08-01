@@ -11,7 +11,7 @@ public class EnderBagKeyConflictContext implements IKeyConflictContext {
 
     @Override
     public boolean isActive() {
-        return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().screen instanceof AbstractContainerScreen<?>;
+        return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().gui.screen() instanceof AbstractContainerScreen<?>;
     }
 
     @Override

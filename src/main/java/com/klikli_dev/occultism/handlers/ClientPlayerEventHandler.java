@@ -98,7 +98,7 @@ public class ClientPlayerEventHandler {
 
     public static void checkBackpackKey() {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null & minecraft.screen == null && ClientSetupEventHandler.KEY_BACKPACK.consumeClick()
+        if (minecraft.player != null & minecraft.gui.screen() == null && ClientSetupEventHandler.KEY_BACKPACK.consumeClick()
                 && (!CuriosUtil.getBackpack(minecraft.player).isEmpty() || CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0)) {
             Networking.sendToServer(new MessageOpenSatchel());
             minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 0.75F, 1.0F));
@@ -107,7 +107,7 @@ public class ClientPlayerEventHandler {
 
     public static void checkEnderBagKey() {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null & minecraft.screen == null && ClientSetupEventHandler.KEY_ENDER_BAG.consumeClick()
+        if (minecraft.player != null & minecraft.gui.screen() == null && ClientSetupEventHandler.KEY_ENDER_BAG.consumeClick()
                 && (!CuriosUtil.getEnderSatchel(minecraft.player).isEmpty() || CuriosUtil.getFirstEnderSatchelSlot(minecraft.player) > 0)) {
             Networking.sendToServer(new MessageOpenEnderSatchel());
             minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ENDER_CHEST_OPEN, 0.75F, 1.0F));
@@ -116,7 +116,7 @@ public class ClientPlayerEventHandler {
 
     public static void checkStorageRemoteKey() {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null & minecraft.screen == null && ClientSetupEventHandler.KEY_STORAGE_REMOTE.consumeClick()
+        if (minecraft.player != null & minecraft.gui.screen() == null && ClientSetupEventHandler.KEY_STORAGE_REMOTE.consumeClick()
                 && (!CuriosUtil.getStorageRemoteCurio(minecraft.player).isEmpty() || CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0)) {
             Networking.sendToServer(new MessageOpenStorageRemote());
             minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_DIAMOND.value(), 0.75F, 1.0F));
@@ -125,7 +125,7 @@ public class ClientPlayerEventHandler {
 
     public static void checkFamiliarSettingsKeys() {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null & minecraft.screen == null) {
+        if (minecraft.player != null & minecraft.gui.screen() == null) {
             boolean familiarKeyPressed = false;
             Map<EntityType<?>, Boolean> familiarsPressed = new HashMap<>();
 
@@ -162,13 +162,13 @@ public class ClientPlayerEventHandler {
         }
 
         if (event.getKeyCode() == ClientSetupEventHandler.KEY_BACKPACK.getKey().getValue()
-                && minecraft.screen instanceof SatchelScreen) {
+                && minecraft.gui.screen() instanceof SatchelScreen) {
             minecraft.player.closeContainer();
             event.setCanceled(true);
         }
 
         if (event.getKeyCode() == ClientSetupEventHandler.KEY_STORAGE_REMOTE.getKey().getValue()
-                && (minecraft.screen instanceof StorageRemoteGui || minecraft.screen instanceof StorageControllerGui)) {
+                && (minecraft.gui.screen() instanceof StorageRemoteGui || minecraft.gui.screen() instanceof StorageControllerGui)) {
             minecraft.player.closeContainer();
             event.setCanceled(true);
         }

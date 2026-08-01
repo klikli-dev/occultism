@@ -211,7 +211,7 @@ public class RitualRecipeCategory implements EmiRecipe {
             widgetHolder.addButton(this.getDisplayWidth() + 5, 2, 12, 12, 244, 0,
                     OccultismEmiPlugin.EMI_WIDGETS, () -> true,
                     (mouseX, mouseY, button) -> {
-                        Minecraft.getInstance().setScreen(null);
+                        Minecraft.getInstance().setScreenAndShow(null);
                         MultiblockPreviewRenderer.setMultiblock(pentacle,
                                 Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), true);
                     }

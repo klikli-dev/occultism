@@ -78,7 +78,7 @@ public class MessageUpdateStacks implements IMessage {
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
         this.uncompress(player.registryAccess());
-        if (minecraft.screen instanceof IStorageControllerGui gui) {
+        if (minecraft.gui.screen() instanceof IStorageControllerGui gui) {
             gui.setStacks(this.stacks);
             gui.setUsedStorageSize(this.usedItemTypes, this.usedTotalItemCount);
             gui.setMaxStorageSize(this.maxItemTypes, this.maxTotalItemCount);
