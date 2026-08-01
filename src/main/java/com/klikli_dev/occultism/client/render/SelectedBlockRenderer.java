@@ -25,18 +25,13 @@ package com.klikli_dev.occultism.client.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent.AfterTranslucentParticles;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 
 import java.awt.*;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class SelectedBlockRenderer {
@@ -78,7 +73,7 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void onRenderLevelStage(AfterTranslucentParticles event) {
+    public void onRenderLevelStage(SubmitCustomGeometryEvent event) {
         if (this.selectedBlocks.isEmpty())
             return;
 
@@ -87,59 +82,47 @@ public class SelectedBlockRenderer {
         if (this.selectedBlocks.isEmpty())
             return;
 
-        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        Vec3 camera = event.getLevelRenderState().cameraRenderState.pos;
         PoseStack poseStack = event.getPoseStack();
-        BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+        var collector = event.getSubmitNodeCollector();
 
         poseStack.pushPose();
         var renderType = OccultismRenderType.overlayLines();
-        this.renderSelectedBlocks(poseStack, buffer, renderType, camera);
-        buffer.endBatch(renderType);
+        poseStack.translate(-camera.x, -camera.y, -camera.z);
+        collector.submitCustomGeometry(poseStack, renderType, (pose, consumer) -> this.renderSelectedBlocks(pose, consumer));
         poseStack.popPose();
     }
 
-    protected void renderSelectedBlocks(PoseStack matrixStack, BufferSource buffer, RenderType renderType, Camera camera) {
-        if (!this.selectedBlocks.isEmpty()) {
-            VertexConsumer builder = buffer.getBuffer(renderType);
-            matrixStack.pushPose();
+    protected void renderSelectedBlocks(PoseStack.Pose pose, VertexConsumer builder) {
+        for (SelectionInfo info : this.selectedBlocks) {
+            if (info.selectedBlock == null)
+                continue;
 
-            Vec3 cameraPosition = camera.position();
-            matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
-            var last = matrixStack.last();
+            float x0 = info.selectedBlock.getX();
+            float y0 = info.selectedBlock.getY();
+            float z0 = info.selectedBlock.getZ();
+            float x1 = x0 + 1;
+            float y1 = y0 + 1;
+            float z1 = z0 + 1;
+            float r = info.color.getRed() / 255.0f;
+            float g = info.color.getGreen() / 255.0f;
+            float b = info.color.getBlue() / 255.0f;
+            float a = info.color.getAlpha() / 255.0f;
 
-            for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
-                SelectionInfo info = it.next();
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
 
-                if (info.selectedBlock != null) {
-                    float x0 = info.selectedBlock.getX();
-                    float y0 = info.selectedBlock.getY();
-                    float z0 = info.selectedBlock.getZ();
-                    float x1 = x0 + 1;
-                    float y1 = y0 + 1;
-                    float z1 = z0 + 1;
-                    float r = info.color.getRed() / 255.0f;
-                    float g = info.color.getGreen() / 255.0f;
-                    float b = info.color.getBlue() / 255.0f;
-                    float a = info.color.getAlpha() / 255.0f;
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x1 + EDGE_OFFSET - EDGE_THICKNESS, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
 
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y0 - EDGE_OFFSET + EDGE_THICKNESS, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y1 + EDGE_OFFSET - EDGE_THICKNESS, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-                    this.renderFrameEdge(builder, last, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
-                }
-            }
-
-            matrixStack.popPose();
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z0 - EDGE_OFFSET, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z0 - EDGE_OFFSET + EDGE_THICKNESS, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x0 - EDGE_OFFSET, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x0 - EDGE_OFFSET + EDGE_THICKNESS, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
+            this.renderFrameEdge(builder, pose, x1 + EDGE_OFFSET - EDGE_THICKNESS, y0 - EDGE_OFFSET, z1 + EDGE_OFFSET - EDGE_THICKNESS, x1 + EDGE_OFFSET, y1 + EDGE_OFFSET, z1 + EDGE_OFFSET, r, g, b, a);
         }
     }
 

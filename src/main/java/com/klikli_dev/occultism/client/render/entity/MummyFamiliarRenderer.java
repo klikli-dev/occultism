@@ -28,8 +28,6 @@ import com.klikli_dev.occultism.client.render.entity.state.MummyFamiliarRenderSt
 import com.klikli_dev.occultism.common.entity.familiar.MummyFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.model.Model;
@@ -39,7 +37,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -152,12 +149,9 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             poseStack.scale(scale, scale, scale);
             poseStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
 
-            // Render kapow sprite using bufferSource workaround for alpha-blended model
-            BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-            VertexConsumer kapowBuffer = bufferSource.getBuffer(model.renderType(KAPOW_TEXTURE));
-            model.kapow.render(poseStack, kapowBuffer, lightCoords, OverlayTexture.NO_OVERLAY,
-                    ((int) (alpha * 255) << 24) | 0x00FFFFFF);
-            bufferSource.endBatch(model.renderType(KAPOW_TEXTURE));
+            // Render kapow sprite as alpha-blended model
+            submitNodeCollector.submitModel(model, Unit.INSTANCE, poseStack, model.renderType(KAPOW_TEXTURE), lightCoords,
+                    OverlayTexture.NO_OVERLAY, ((int) (alpha * 255) << 24) | 0x00FFFFFF, null, 0, null);
 
             poseStack.pushPose();
             poseStack.scale(0.07f, 0.07f, 0.07f);
@@ -168,20 +162,16 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
             poseStack.pushPose();
             poseStack.translate(0, 0, -0.01);
-            var matrix = poseStack.last().pose();
-            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2f, 0, textColor, true,
-                    matrix, bufferSource, DisplayMode.NORMAL, 0, lightCoords);
+            submitNodeCollector.submitText(poseStack, -font.width(KAPOW_TEXT) / 2f, 0, KAPOW_TEXT.getVisualOrderText(), true,
+                    DisplayMode.NORMAL, lightCoords, textColor, 0, 0);
             poseStack.popPose();
 
             poseStack.pushPose();
             poseStack.translate(0, 0, 0.01);
             poseStack.mulPose(new Quaternionf().rotateXYZ(0, 180 * ((float) Math.PI / 180F), 0));
-            matrix = poseStack.last().pose();
-            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2f, 0, textColor, true,
-                    matrix, bufferSource, DisplayMode.NORMAL, 0, lightCoords);
+            submitNodeCollector.submitText(poseStack, -font.width(KAPOW_TEXT) / 2f, 0, KAPOW_TEXT.getVisualOrderText(), true,
+                    DisplayMode.NORMAL, lightCoords, textColor, 0, 0);
             poseStack.popPose();
-
-            bufferSource.endBatch();
 
             poseStack.popPose();
             poseStack.popPose();
