@@ -40,7 +40,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntitySpawnRequest;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -193,7 +195,7 @@ public class FamiliarRingItem extends Item {
                 this.getFamiliar(level).getFamiliarEntity().saveAsPassenger(familiarTagOutput);
                 var familiarTag = familiarTagOutput.buildResult();
 
-                EntityType.loadEntityRecursive(familiarTag, level, EntitySpawnReason.LOAD, e -> {
+                EntityType.loadEntityRecursive(familiarTag, level, new EntitySpawnRequest(EntitySpawnReason.LOAD, false), e -> {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar) e).setFamiliarOwner(player);
@@ -266,7 +268,7 @@ public class FamiliarRingItem extends Item {
             }
 
             if (this.cachedNbt != null) {
-                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.cachedNbt, level, EntitySpawnReason.LOAD, e -> e);
+                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.cachedNbt, level, new EntitySpawnRequest(EntitySpawnReason.LOAD, false), e -> e);
                 return this.familiar;
             }
 
