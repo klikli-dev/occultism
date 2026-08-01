@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -111,7 +110,7 @@ public class EntityUtil {
         return list.get(list.size() == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % list.size()));
     }
 
-    public static void renderEntity(PoseStack matrix, LivingEntity pLivingEntity, MultiBufferSource pBuffer, float partialTicks) {
+    public static void renderEntity(PoseStack matrix, LivingEntity pLivingEntity, float partialTicks) {
         // TODO: Update to new 26.1 rendering API - the old EntityRenderDispatcher.render() method no longer exists
         // New API uses GuiGraphicsExtractor.entity() with EntityRenderState
         // For now, we skip rendering as this is only used in a few places
