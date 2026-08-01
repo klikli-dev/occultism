@@ -34,6 +34,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.triggers.AnyBlockInteractionTrigger;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.PlayerTrigger;

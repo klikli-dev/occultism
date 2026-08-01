@@ -15,6 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -108,7 +109,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         spiritfireTransmute(Tags.Items.DYES_BLACK, OccultismItems.PURIFIED_INK.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(Items.BOOK, OccultismItems.TABOO_BOOK.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(OccultismTags.Items.BOOKS_FOR_EMPTY, OccultismItems.BOOK_OF_BINDING_EMPTY.asItem(), pRecipeOutput, registries);
-        spiritfireTransmute(ItemTags.FLOWERS, OccultismBlocks.OTHERFLOWER.asItem(), pRecipeOutput, registries);
+        spiritfireTransmute(BlockItemTags.FLOWERS.item(), OccultismBlocks.OTHERFLOWER.asItem(), pRecipeOutput, registries);
     }
 
     protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, Provider registries) {
@@ -186,22 +187,22 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     private static void otherflowerRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
-        otherflowerDye(Items.WHITE_DYE, Tags.Items.DYES_WHITE, pRecipeOutput, items);
-        otherflowerDye(Items.LIGHT_GRAY_DYE, Tags.Items.DYES_LIGHT_GRAY, pRecipeOutput, items);
-        otherflowerDye(Items.GRAY_DYE, Tags.Items.DYES_GRAY, pRecipeOutput, items);
-        otherflowerDye(Items.BLACK_DYE, Tags.Items.DYES_BLACK, pRecipeOutput, items);
-        otherflowerDye(Items.BROWN_DYE, Tags.Items.DYES_BROWN, pRecipeOutput, items);
-        otherflowerDye(Items.RED_DYE, Tags.Items.DYES_RED, pRecipeOutput, items);
-        otherflowerDye(Items.ORANGE_DYE, Tags.Items.DYES_ORANGE, pRecipeOutput, items);
-        otherflowerDye(Items.YELLOW_DYE, Tags.Items.DYES_YELLOW, pRecipeOutput, items);
-        otherflowerDye(Items.LIME_DYE, Tags.Items.DYES_LIME, pRecipeOutput, items);
-        otherflowerDye(Items.GREEN_DYE, Tags.Items.DYES_GREEN, pRecipeOutput, items);
-        otherflowerDye(Items.CYAN_DYE, Tags.Items.DYES_CYAN, pRecipeOutput, items);
-        otherflowerDye(Items.BLUE_DYE, Tags.Items.DYES_BLUE, pRecipeOutput, items);
-        otherflowerDye(Items.LIGHT_BLUE_DYE, Tags.Items.DYES_LIGHT_BLUE, pRecipeOutput, items);
-        otherflowerDye(Items.PINK_DYE, Tags.Items.DYES_PINK, pRecipeOutput, items);
-        otherflowerDye(Items.MAGENTA_DYE, Tags.Items.DYES_MAGENTA, pRecipeOutput, items);
-        otherflowerDye(Items.PURPLE_DYE, Tags.Items.DYES_PURPLE, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.white(), Tags.Items.DYES_WHITE, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.lightGray(), Tags.Items.DYES_LIGHT_GRAY, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.gray(), Tags.Items.DYES_GRAY, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.black(), Tags.Items.DYES_BLACK, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.brown(), Tags.Items.DYES_BROWN, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.red(), Tags.Items.DYES_RED, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.orange(), Tags.Items.DYES_ORANGE, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.yellow(), Tags.Items.DYES_YELLOW, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.lime(), Tags.Items.DYES_LIME, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.green(), Tags.Items.DYES_GREEN, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.cyan(), Tags.Items.DYES_CYAN, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.blue(), Tags.Items.DYES_BLUE, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.lightBlue(), Tags.Items.DYES_LIGHT_BLUE, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.pink(), Tags.Items.DYES_PINK, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.magenta(), Tags.Items.DYES_MAGENTA, pRecipeOutput, items);
+        otherflowerDye(Items.DYE.purple(), Tags.Items.DYES_PURPLE, pRecipeOutput, items);
     }
 
     protected static void otherflowerDye(ItemLike result, TagKey<Item> colorTag, RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
