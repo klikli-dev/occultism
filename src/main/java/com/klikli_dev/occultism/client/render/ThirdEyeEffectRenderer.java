@@ -66,7 +66,7 @@ public class ThirdEyeEffectRenderer implements GuiLayer {
     @Override
     public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         var minecraft = Minecraft.getInstance();
-        if (minecraft.player == null || minecraft.options.hideGui) {
+        if (minecraft.player == null || minecraft.gui.hud.isHidden()) {
             return;
         }
 
