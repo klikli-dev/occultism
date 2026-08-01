@@ -359,7 +359,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         BlockPos pos = this.getBlockPos();
-        entity.setPos(pos.getCenter());
+        entity.setPos(Vec3.atCenterOf(pos));
         LootParams lootparams = this.setLootParams(entity, luck);
 
         if (this.storedLootTable != null) {
@@ -538,7 +538,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
 
         Entity entity = event.getEntity();
-        if (entity.position().distanceToSqr(this.getBlockPos().getCenter()) > 1)
+        if (entity.position().distanceToSqr(Vec3.atCenterOf(this.getBlockPos())) > 1)
             return;
 
         if (entity instanceof ItemEntity item) {

@@ -47,6 +47,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -237,14 +238,14 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                                 BlockState blockstate = tempLevel.getBlockState(tempPos);
                                 Block block = blockstate.getBlock();
                                 if (block instanceof RespawnAnchorBlock && (blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0) && RespawnAnchorBlock.canSetSpawn(tempLevel, tempPos)) {
-                                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos);
+                                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityTypes.PLAYER, tempLevel, tempPos);
                                     if (optional.isPresent()) {
                                         destination = optional.get();
                                         resourcekey = tempKey;
                                     }
                                 } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
                                     float respawnAngle = respawnConfig.respawnData().yaw();
-                                    Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
+                                    Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityTypes.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
                                     if (optional.isPresent()) {
                                         destination = optional.get();
                                         resourcekey = tempKey;
@@ -283,7 +284,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             if (destination == null) {
                 if (targetPos == null)
                     targetPos = serverlevel.getRespawnData().pos();
-                destination = entity instanceof Projectile ? targetPos.getBottomCenter() : this.findSafeTeleportPosition(entity, serverlevel, targetPos);
+                destination = entity instanceof Projectile ? Vec3.atBottomCenterOf(targetPos) : this.findSafeTeleportPosition(entity, serverlevel, targetPos);
             }
             if (destination == null)
                 return null;
@@ -388,7 +389,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                     if (targetEntity != null && targetEntity.canUsePortal(false)) {
                         TeleportTransition transition = new TeleportTransition(
                                 level,
-                                pos.getBottomCenter(),
+                                Vec3.atBottomCenterOf(pos),
                                 targetEntity.getDeltaMovement(),
                                 state.getValue(EXIT_ROTATION_Y) == 0 ? targetEntity.getYHeadRot() : this.getExitRotY(state),
                                 state.getValue(EXIT_ROTATION_X) == 0 ? targetEntity.getXRot() : this.getExitRotX(state),

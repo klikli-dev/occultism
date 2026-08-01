@@ -31,6 +31,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -153,7 +154,7 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
         boolean placedAnything = false;
         for (var targetMatcher : simulation.getSecond()) {
             var localContext = new UseOnContext(context.getPlayer(), context.getHand(),
-                    new BlockHitResult(targetMatcher.worldPosition().getCenter(), context.getClickedFace(), targetMatcher.worldPosition().above(), false));
+                    new BlockHitResult(Vec3.atCenterOf(targetMatcher.worldPosition()), context.getClickedFace(), targetMatcher.worldPosition().above(), false));
             if (this.tryPlaceBlockForMatcher(localContext, targetMatcher) == PlacementResult.SUCCESS) {
                 placedAnything = true;
             }
