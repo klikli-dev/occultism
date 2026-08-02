@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
@@ -57,6 +58,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -202,7 +204,8 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
             for (ItemEntity e : wearer.level().getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
                 ItemStack stack = e.getItem();
 
-                boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                boolean isStackDemagnetized = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                        .copyTag().getBooleanOr("PreventRemoteMovement", false);
                 boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if (!isStackDemagnetized && !isEntityDemagnetized && this.canPickupItem(e)) {
@@ -423,7 +426,8 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
                     this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
                 ItemStack stack = item.getItem();
 
-                boolean isStackDemagnetized = false;//TODO: Find what the updated convention is for stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                boolean isStackDemagnetized = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                        .copyTag().getBooleanOr("PreventRemoteMovement", false);
                 boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement").orElse(false);
 
                 if ((!isStackDemagnetized && !isEntityDemagnetized)
