@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.util;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -37,7 +36,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
@@ -109,12 +107,6 @@ public class EntityUtil {
         List<? extends EntityType<?>> list = set.stream().map(Holder::value)
                 .filter(type -> type != EntityTypes.PLAYER).toList();
         return list.get(list.size() == 1 ? 0 : (int) ((System.currentTimeMillis() / 2880) % list.size()));
-    }
-
-    public static void renderEntity(PoseStack matrix, LivingEntity pLivingEntity, float partialTicks) {
-        // TODO: Update to new 26.1 rendering API - the old EntityRenderDispatcher.render() method no longer exists
-        // New API uses GuiGraphicsExtractor.entity() with EntityRenderState
-        // For now, we skip rendering as this is only used in a few places
     }
     //endregion Static Methods
 
