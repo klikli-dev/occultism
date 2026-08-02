@@ -47,6 +47,17 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
     public void extractRenderState(ChimeraFamiliarEntity entity, ChimeraFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.isSnakeAttacking = entity.getAttackProgress(0) > 0
+                && entity.getAttacker() == ChimeraFamiliarEntity.SNAKE_ATTACKER;
+        reusedState.noseGoatRot = entity.getNoseGoatRot(partialTick);
+        reusedState.attackProgress = entity.getAttackProgress(partialTick);
+        reusedState.attacker = entity.getAttacker();
+        reusedState.hasFlaps = entity.hasFlaps();
+        reusedState.hasRing = entity.hasRing();
+        reusedState.hasHat = entity.hasHat();
+        reusedState.hasGoat = entity.hasGoat();
+        reusedState.hasBeard = entity.hasBeard();
     }
 
     @Override

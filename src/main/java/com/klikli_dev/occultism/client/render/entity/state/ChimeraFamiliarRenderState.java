@@ -26,4 +26,14 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
 public class ChimeraFamiliarRenderState extends LivingEntityRenderState {
     public boolean isSitting;
+    public boolean isPartying;
+    public boolean isSnakeAttacking;
+    public float noseGoatRot;
+    public float attackProgress;
+    public byte attacker;
+    public boolean hasFlaps;
+    public boolean hasRing;
+    public boolean hasHat;
+    public boolean hasGoat;
+    public boolean hasBeard;
 }
