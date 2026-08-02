@@ -22,6 +22,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.block.Block;
@@ -291,6 +292,6 @@ public class OccultismDataComponents {
 
         CompoundTag invalidData = tagWithoutType.copy();
         invalidData.putBoolean(INVALID_SPIRIT_ENTITY_DATA_MARKER, true);
-        return TypedEntityData.of(EntityType.PIG, invalidData);
+        return TypedEntityData.of(EntityTypes.PIG, invalidData);
     }
 }

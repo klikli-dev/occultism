@@ -7,9 +7,9 @@ import com.klikli_dev.occultism.datagen.recipe.builders.SpiritTradeRecipeBuilder
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger.TriggerInstance;
-import net.minecraft.advancements.criterion.ItemPredicate.Builder;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance;
+import net.minecraft.advancements.predicates.ItemPredicate.Builder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;

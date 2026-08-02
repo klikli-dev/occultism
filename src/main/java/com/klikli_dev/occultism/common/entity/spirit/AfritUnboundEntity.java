@@ -41,6 +41,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -82,7 +83,7 @@ public class AfritUnboundEntity extends Monster implements GeoEntity {
         int maxBlazes = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
-            Blaze entity = EntityType.BLAZE.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
+            Blaze entity = EntityTypes.BLAZE.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
 
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 

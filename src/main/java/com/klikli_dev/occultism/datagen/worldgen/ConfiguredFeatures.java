@@ -49,7 +49,9 @@ public class ConfiguredFeatures {
                         new StraightTrunkPlacer(4, 2, 0),
                         BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
                         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+                        new TwoLayersFeatureSize(1, 0, 1),
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()))
+                        .ignoreVines().build());
 
         FeatureUtils.register(context, TREE_OTHERWORLD, Feature.TREE,
                 new TreeConfigurationBuilder(
@@ -57,7 +59,9 @@ public class ConfiguredFeatures {
                         new StraightTrunkPlacer(4, 2, 0),
                         BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
                         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+                        new TwoLayersFeatureSize(1, 0, 1),
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()))
+                        .ignoreVines().build());
 
         var placedTreeOtherworldNatural = placedFeatures.getOrThrow(PlacedFeatures.TREE_OTHERWORLD_NATURAL);
         FeatureUtils.register(context, GROVE_UNDERGROUND, OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),

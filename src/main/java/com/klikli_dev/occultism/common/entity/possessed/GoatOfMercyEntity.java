@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,7 +49,7 @@ public class GoatOfMercyEntity extends Goat implements PossessedMob {
 
     @Override
     public void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
-        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
+        LightningBolt lightningBolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
         if (lightningBolt != null) {
             lightningBolt.setVisualOnly(true);
             lightningBolt.snapTo(this.getX(), this.getY(), this.getZ());
@@ -59,6 +60,6 @@ public class GoatOfMercyEntity extends Goat implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.GOAT;
+        return EntityTypes.GOAT;
     }
 }

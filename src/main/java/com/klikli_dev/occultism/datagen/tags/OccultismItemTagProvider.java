@@ -7,11 +7,14 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Blocks;
 import com.klikli_dev.occultism.registry.OccultismTags.Items.Miners;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
@@ -27,14 +30,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
+public class OccultismItemTagProvider extends TagsProvider<Item> {
 
     private final CompletableFuture<TagLookup<Block>> blockTags;
     private final Map<TagKey<Block>, TagKey<Item>> tagsToCopy = new HashMap<>();
 
     public OccultismItemTagProvider(PackOutput p_275343_, CompletableFuture<Provider> p_275729_, CompletableFuture<TagLookup<Block>> p_275322_) {
         //noinspection deprecation
-        super(p_275343_, Registries.ITEM, p_275729_, item -> item.builtInRegistryHolder().key(), Occultism.MODID);
+        super(p_275343_, Registries.ITEM, p_275729_, Occultism.MODID);
         this.blockTags = p_275322_;
     }
 
@@ -118,10 +121,10 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
     }
 
     private void addCuriosTags(Provider provider) {
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt"))).add(this.key(OccultismItems.SATCHEL.get())).add(this.key(OccultismItems.ENDER_SATCHEL.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands"))).add(this.key(OccultismItems.STORAGE_REMOTE.get())).add(this.key(OccultismItems.TRUE_SIGHT_STAFF.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head"))).add(this.key(OccultismItems.OTHERWORLD_GOGGLES.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring"))).add(this.key(OccultismItems.FAMILIAR_RING.get()));
     }
 
     private void addOccultismTags(Provider provider) {
@@ -129,153 +132,145 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.copy(BlockTags.CANDLES, ItemTags.CANDLES);
 
         this.tag(OccultismTags.Items.SKULLS)
-                .add(Items.SKELETON_SKULL)
-                .add(Items.WITHER_SKELETON_SKULL)
-                .replace(false);
+                .add(this.key(Items.SKELETON_SKULL))
+                .add(this.key(Items.WITHER_SKELETON_SKULL));
 
         this.tag(OccultismTags.Items.SCUTESHELL)
-                .add(Items.ARMADILLO_SCUTE)
-                .add(Items.TURTLE_SCUTE)
-                .add(Items.SHULKER_SHELL)
-                .add(Items.NAUTILUS_SHELL)
-                .replace(false);
+                .add(this.key(Items.ARMADILLO_SCUTE))
+                .add(this.key(Items.TURTLE_SCUTE))
+                .add(this.key(Items.SHULKER_SHELL))
+                .add(this.key(Items.NAUTILUS_SHELL));
 
         this.copy(Blocks.PENTACLE_MATERIALS, OccultismTags.Items.PENTACLE_MATERIALS);
         this.tag(OccultismTags.Items.PENTACLE_MATERIALS)
-                .addOptionalTag(OccultismTags.Items.TOOLS_CHALK)
-                .replace(false);
-
+                .addOptionalTag(OccultismTags.Items.TOOLS_CHALK);
 
         this.tag(OccultismTags.Items.DEMONIC_PARTNER_FOOD)
                 .addTag(ItemTags.MEAT);
 
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT)
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()).replace(false);
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()));
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI)
-                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()).replace(false);
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()));
 
         this.tag(OccultismTags.Items.BOOKS_OF_BINDING)
-                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_MARID.get());
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_DJINNI.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_AFRIT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_MARID.get()));
 
         this.tag(OccultismTags.Items.BOOKS_FOR_EMPTY)
-                .add(Items.WRITABLE_BOOK)
-                .add(Items.WRITTEN_BOOK)
-                .add(Items.ENCHANTED_BOOK)
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
-                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_MARID.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
-                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
+                .add(this.key(Items.WRITABLE_BOOK))
+                .add(this.key(Items.WRITTEN_BOOK))
+                .add(this.key(Items.ENCHANTED_BOOK))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_DJINNI.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_AFRIT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_MARID.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()));
 
         this.tag(Miners.BASIC).add(
-                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(),
-                OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
-                OccultismItems.MINER_DJINNI_ORES.get(),
-                OccultismItems.MINER_AFRIT_DEEPS.get(),
-                OccultismItems.MINER_MARID_MASTER.get(),
-                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+                this.key(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()),
+                this.key(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()),
+                this.key(OccultismItems.MINER_DJINNI_ORES.get()),
+                this.key(OccultismItems.MINER_AFRIT_DEEPS.get()),
+                this.key(OccultismItems.MINER_MARID_MASTER.get()),
+                this.key(OccultismItems.MINER_ANCIENT_ELDRITCH.get()));
         this.tag(Miners.IRON).add(
-                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(),
-                OccultismItems.MINER_DJINNI_ORES.get(),
-                OccultismItems.MINER_AFRIT_DEEPS.get(),
-                OccultismItems.MINER_MARID_MASTER.get(),
-                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+                this.key(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()),
+                this.key(OccultismItems.MINER_DJINNI_ORES.get()),
+                this.key(OccultismItems.MINER_AFRIT_DEEPS.get()),
+                this.key(OccultismItems.MINER_MARID_MASTER.get()),
+                this.key(OccultismItems.MINER_ANCIENT_ELDRITCH.get()));
         this.tag(Miners.DIAMOND).add(
-                OccultismItems.MINER_AFRIT_DEEPS.get(),
-                OccultismItems.MINER_MARID_MASTER.get(),
-                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+                this.key(OccultismItems.MINER_AFRIT_DEEPS.get()),
+                this.key(OccultismItems.MINER_MARID_MASTER.get()),
+                this.key(OccultismItems.MINER_ANCIENT_ELDRITCH.get()));
         this.tag(Miners.NETHERITE).add(
-                OccultismItems.MINER_MARID_MASTER.get(),
-                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+                this.key(OccultismItems.MINER_MARID_MASTER.get()),
+                this.key(OccultismItems.MINER_ANCIENT_ELDRITCH.get()));
         this.tag(Miners.ELDRITCH).add(
-                OccultismItems.MINER_ANCIENT_ELDRITCH.get());
+                this.key(OccultismItems.MINER_ANCIENT_ELDRITCH.get()));
 
         this.tag(Miners.MINERS)
                 .addTag(Miners.BASIC)
                 .addTag(Miners.IRON)
                 .addTag(Miners.DIAMOND)
                 .addTag(Miners.NETHERITE)
-                .addTag(Miners.ELDRITCH).replace(false);
+                .addTag(Miners.ELDRITCH);
 
         this.tag(OccultismTags.Items.TOOLS_CHALK)
-                .add(OccultismItems.CHALK_YELLOW.get())
-                .add(OccultismItems.CHALK_WHITE.get())
-                .add(OccultismItems.CHALK_RED.get())
-                .add(OccultismItems.CHALK_PURPLE.get())
-                .add(OccultismItems.CHALK_LIGHT_GRAY.get())
-                .add(OccultismItems.CHALK_GRAY.get())
-                .add(OccultismItems.CHALK_BLACK.get())
-                .add(OccultismItems.CHALK_BROWN.get())
-                .add(OccultismItems.CHALK_ORANGE.get())
-                .add(OccultismItems.CHALK_LIME.get())
-                .add(OccultismItems.CHALK_GREEN.get())
-                .add(OccultismItems.CHALK_CYAN.get())
-                .add(OccultismItems.CHALK_LIGHT_BLUE.get())
-                .add(OccultismItems.CHALK_BLUE.get())
-                .add(OccultismItems.CHALK_MAGENTA.get())
-                .add(OccultismItems.CHALK_PINK.get())
-                .add(OccultismItems.CHALK_RAINBOW.get())
-                .add(OccultismItems.CHALK_VOID.get())
-                .replace(false);
+                .add(this.key(OccultismItems.CHALK_YELLOW.get()))
+                .add(this.key(OccultismItems.CHALK_WHITE.get()))
+                .add(this.key(OccultismItems.CHALK_RED.get()))
+                .add(this.key(OccultismItems.CHALK_PURPLE.get()))
+                .add(this.key(OccultismItems.CHALK_LIGHT_GRAY.get()))
+                .add(this.key(OccultismItems.CHALK_GRAY.get()))
+                .add(this.key(OccultismItems.CHALK_BLACK.get()))
+                .add(this.key(OccultismItems.CHALK_BROWN.get()))
+                .add(this.key(OccultismItems.CHALK_ORANGE.get()))
+                .add(this.key(OccultismItems.CHALK_LIME.get()))
+                .add(this.key(OccultismItems.CHALK_GREEN.get()))
+                .add(this.key(OccultismItems.CHALK_CYAN.get()))
+                .add(this.key(OccultismItems.CHALK_LIGHT_BLUE.get()))
+                .add(this.key(OccultismItems.CHALK_BLUE.get()))
+                .add(this.key(OccultismItems.CHALK_MAGENTA.get()))
+                .add(this.key(OccultismItems.CHALK_PINK.get()))
+                .add(this.key(OccultismItems.CHALK_RAINBOW.get()))
+                .add(this.key(OccultismItems.CHALK_VOID.get()));
 
         this.tag(OccultismTags.Items.TOOLS_BRUSH)
-                .add(OccultismItems.BRUSH.get())
-                .add(OccultismItems.CHALK_RAINBOW.get())
-                .add(OccultismItems.CHALK_VOID.get())
-                .replace(false);
-
+                .add(this.key(OccultismItems.BRUSH.get()))
+                .add(this.key(OccultismItems.CHALK_RAINBOW.get()))
+                .add(this.key(OccultismItems.CHALK_VOID.get()));
 
         this.tag(OccultismTags.Items.START_SPIRIT_FIRE)
-                .add(OccultismItems.DATURA.get())
-                .add(OccultismItems.PITAYA.get());
+                .add(this.key(OccultismItems.DATURA.get()))
+                .add(this.key(OccultismItems.PITAYA.get()));
         this.copy(Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.copy(Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(OccultismTags.Items.TOOLS_KNIFE)
-                .add(OccultismItems.BUTCHER_KNIFE.get())
-                .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
+                .add(this.key(OccultismItems.BUTCHER_KNIFE.get()))
+                .add(this.key(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()));
         this.tag(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)
-                .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
-        this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE).replace(false); //Don't place chalks
-        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).replace(false);
-        this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        this.tag(OccultismTags.Items.OTHERSTONE).add(OccultismBlocks.OTHERSTONE.asItem());
-        this.tag(OccultismTags.Items.OTHERCOBBLESTONE).add(OccultismBlocks.OTHERCOBBLESTONE.asItem());
+                .add(this.key(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()));
+        this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE); //Don't place chalks
+        this.tag(OccultismTags.Items.ELYTRA).add(this.key(Items.ELYTRA));
+        this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(this.key(OccultismItems.OTHERWORLD_GOGGLES.get()));
+        this.tag(OccultismTags.Items.OTHERSTONE).add(this.key(OccultismBlocks.OTHERSTONE.asItem()));
+        this.tag(OccultismTags.Items.OTHERCOBBLESTONE).add(this.key(OccultismBlocks.OTHERCOBBLESTONE.asItem()));
     }
 
     private void addMinecraftTags(Provider provider) {
         this.tag(ItemTags.BOOKSHELF_BOOKS)
-                .add(OccultismItems.DICTIONARY_OF_SPIRITS.get())
-                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_MARID.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
-                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
-                .add(OccultismItems.BOOK_OF_BINDING_EMPTY.get())
-                .add(OccultismItems.TABOO_BOOK.get());
-        this.tag(ItemTags.LECTERN_BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get());
-
+                .add(this.key(OccultismItems.DICTIONARY_OF_SPIRITS.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_AFRIT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_DJINNI.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_MARID.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()))
+                .add(this.key(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()))
+                .add(this.key(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
+                .add(this.key(OccultismItems.TABOO_BOOK.get()));
+        this.tag(ItemTags.LECTERN_BOOKS).add(this.key(OccultismItems.DICTIONARY_OF_SPIRITS.get()));
 
         this.tag(ItemTags.MINING_ENCHANTABLE).addTag(Miners.MINERS);
         this.tag(ItemTags.MINING_LOOT_ENCHANTABLE).addTag(Miners.MINERS);
@@ -283,157 +278,142 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .addTag(Miners.MINERS)
                 .addTag(OccultismTags.Items.TOOLS_CHALK)
                 .addTag(OccultismTags.Items.TOOLS_KNIFE)
-                .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem())
-                .add(OccultismItems.GRAY_PASTE.asItem())
-                .add(OccultismItems.NATURE_PASTE.asItem());
+                .add(this.key(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem()))
+                .add(this.key(OccultismItems.GRAY_PASTE.asItem()))
+                .add(this.key(OccultismItems.NATURE_PASTE.asItem()));
         this.tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
 
         this.tag(ItemTags.LOGS_THAT_BURN)
-                .add(OccultismBlocks.OTHERWORLD_LOG.asItem())
-                .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.asItem())
-                .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.asItem())
-                .add(OccultismBlocks.OTHERWORLD_WOOD.asItem())
-                .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem())
-                .add(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.asItem());
+                .add(this.key(OccultismBlocks.OTHERWORLD_LOG.asItem()))
+                .add(this.key(OccultismBlocks.OTHERWORLD_LOG_NATURAL.asItem()))
+                .add(this.key(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.asItem()))
+                .add(this.key(OccultismBlocks.OTHERWORLD_WOOD.asItem()))
+                .add(this.key(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem()))
+                .add(this.key(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.asItem()));
 
-        this.tag(ItemTags.PLANKS).add(OccultismBlocks.OTHERPLANKS.asItem());
-        this.tag(ItemTags.WOODEN_STAIRS).add(OccultismBlocks.OTHERPLANKS_STAIRS.asItem());
-        this.tag(ItemTags.WOODEN_SLABS).add(OccultismBlocks.OTHERPLANKS_SLAB.asItem());
-        this.tag(ItemTags.WOODEN_FENCES).add(OccultismBlocks.OTHERPLANKS_FENCE.asItem()).replace(false);
-        this.tag(ItemTags.FENCE_GATES).add(OccultismBlocks.OTHERPLANKS_FENCE_GATE.asItem()).replace(false);
-        this.tag(ItemTags.WOODEN_DOORS).add(OccultismBlocks.OTHERPLANKS_DOOR.asItem()).replace(false);
-        this.tag(ItemTags.WOODEN_TRAPDOORS).add(OccultismBlocks.OTHERPLANKS_TRAPDOOR.asItem()).replace(false);
-        this.tag(ItemTags.WOODEN_PRESSURE_PLATES).add(OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.asItem()).replace(false);
-        this.tag(ItemTags.WOODEN_BUTTONS).add(OccultismBlocks.OTHERPLANKS_BUTTON.asItem()).replace(false);
-        this.tag(ItemTags.SIGNS).add(OccultismItems.OTHERPLANKS_SIGN.get()).replace(false);
-        this.tag(ItemTags.HANGING_SIGNS).add(OccultismItems.OTHERPLANKS_HANGING_SIGN.get()).replace(false);
-        this.tag(ItemTags.WOODEN_SHELVES).add(OccultismBlocks.OTHERPLANKS_SHELF.asItem()).replace(false);
-        this.tag(ItemTags.BOATS).add(OccultismItems.OTHERPLANKS_BOAT.asItem()).add(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()).replace(false);
-        this.tag(ItemTags.CHEST_BOATS).add(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()).replace(false);
+        this.tag(ItemTags.PLANKS).add(this.key(OccultismBlocks.OTHERPLANKS.asItem()));
+        this.tag(ItemTags.WOODEN_STAIRS).add(this.key(OccultismBlocks.OTHERPLANKS_STAIRS.asItem()));
+        this.tag(ItemTags.WOODEN_SLABS).add(this.key(OccultismBlocks.OTHERPLANKS_SLAB.asItem()));
+        this.tag(ItemTags.WOODEN_FENCES).add(this.key(OccultismBlocks.OTHERPLANKS_FENCE.asItem()));
+        this.tag(ItemTags.FENCE_GATES).add(this.key(OccultismBlocks.OTHERPLANKS_FENCE_GATE.asItem()));
+        this.tag(ItemTags.WOODEN_DOORS).add(this.key(OccultismBlocks.OTHERPLANKS_DOOR.asItem()));
+        this.tag(ItemTags.WOODEN_TRAPDOORS).add(this.key(OccultismBlocks.OTHERPLANKS_TRAPDOOR.asItem()));
+        this.tag(ItemTags.WOODEN_PRESSURE_PLATES).add(this.key(OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.asItem()));
+        this.tag(ItemTags.WOODEN_BUTTONS).add(this.key(OccultismBlocks.OTHERPLANKS_BUTTON.asItem()));
+        this.tag(ItemTags.SIGNS).add(this.key(OccultismItems.OTHERPLANKS_SIGN.get()));
+        this.tag(ItemTags.HANGING_SIGNS).add(this.key(OccultismItems.OTHERPLANKS_HANGING_SIGN.get()));
+        this.tag(ItemTags.WOODEN_SHELVES).add(this.key(OccultismBlocks.OTHERPLANKS_SHELF.asItem()));
+        this.tag(ItemTags.BOATS).add(this.key(OccultismItems.OTHERPLANKS_BOAT.asItem())).add(this.key(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()));
+        this.tag(ItemTags.CHEST_BOATS).add(this.key(OccultismItems.OTHERPLANKS_BOAT_CHEST.asItem()));
         /* OTHERSTONE CAN'T HAVE STONE TAG BECAUSE SPIRIT TRADER WILL DUPE
          *this.tag(Tags.Items.STONES)
-         *        .add(OccultismBlocks.OTHERSTONE.asItem())
-         *        .add(OccultismBlocks.OTHERSTONE_NATURAL.asItem());
+         *        .add(this.key(OccultismBlocks.OTHERSTONE.asItem()))
+         *        .add(this.key(OccultismBlocks.OTHERSTONE_NATURAL.asItem()));
          */
         this.tag(ItemTags.WALLS)
-                .add(OccultismBlocks.OTHERSTONE_WALL.asItem())
-                .add(OccultismBlocks.OTHERCOBBLESTONE_WALL.asItem())
-                .add(OccultismBlocks.POLISHED_OTHERSTONE_WALL.asItem())
-                .add(OccultismBlocks.OTHERSTONE_BRICKS_WALL.asItem());
-        this.tag(ItemTags.STONE_BUTTONS).add(OccultismBlocks.OTHERSTONE_BUTTON.asItem());
+                .add(this.key(OccultismBlocks.OTHERSTONE_WALL.asItem()))
+                .add(this.key(OccultismBlocks.OTHERCOBBLESTONE_WALL.asItem()))
+                .add(this.key(OccultismBlocks.POLISHED_OTHERSTONE_WALL.asItem()))
+                .add(this.key(OccultismBlocks.OTHERSTONE_BRICKS_WALL.asItem()));
+        this.tag(BlockItemTags.STONE_BUTTONS.item()).add(this.key(OccultismBlocks.OTHERSTONE_BUTTON.asItem()));
 
         this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES)
-                .add(OccultismItems.SILVER_PICKAXE.get())
-                .add(OccultismItems.INFUSED_PICKAXE.get())
-                .add(OccultismItems.IESNIUM_PICKAXE.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_PICKAXE.get()))
+                .add(this.key(OccultismItems.INFUSED_PICKAXE.get()))
+                .add(this.key(OccultismItems.IESNIUM_PICKAXE.get()));
 
         this.tag(ItemTags.PICKAXES)
-                .add(OccultismItems.SILVER_PICKAXE.get())
-                .add(OccultismItems.INFUSED_PICKAXE.get())
-                .add(OccultismItems.IESNIUM_PICKAXE.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_PICKAXE.get()))
+                .add(this.key(OccultismItems.INFUSED_PICKAXE.get()))
+                .add(this.key(OccultismItems.IESNIUM_PICKAXE.get()));
 
         this.tag(ItemTags.SHOVELS)
-                .add(OccultismItems.SILVER_SHOVEL.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_SHOVEL.get()));
 
         this.tag(ItemTags.AXES)
-                .add(OccultismItems.SILVER_AXE.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_AXE.get()));
 
         this.tag(ItemTags.HOES)
-                .add(OccultismItems.SILVER_HOE.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_HOE.get()));
 
         this.tag(ItemTags.SPEARS)
-                .add(OccultismItems.SILVER_SPEAR.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_SPEAR.get()));
 
         this.tag(ItemTags.SWORDS)
-                .add(OccultismItems.SILVER_SWORD.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_SWORD.get()));
 
         this.tag(ItemTags.HEAD_ARMOR)
-                .add(OccultismItems.SILVER_HELMET.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_HELMET.get()));
 
         this.tag(ItemTags.CHEST_ARMOR)
-                .add(OccultismItems.SILVER_CHESTPLATE.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_CHESTPLATE.get()));
 
         this.tag(ItemTags.LEG_ARMOR)
-                .add(OccultismItems.SILVER_LEGGINGS.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_LEGGINGS.get()));
 
         this.tag(ItemTags.FOOT_ARMOR)
-                .add(OccultismItems.SILVER_BOOTS.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_BOOTS.get()));
 
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
-        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-        this.tag(this.cTag("tools/knife")).add(OccultismItems.BUTCHER_KNIFE.get()).add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get());
+        this.copy(BlockItemTags.SAPLINGS.block(), BlockItemTags.SAPLINGS.item());
+        this.tag(this.cTag("tools/knife")).add(this.key(OccultismItems.BUTCHER_KNIFE.get())).add(this.key(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()));
 
-        this.tag(ItemTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.asItem()).add(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()).replace(false);
-        this.tag(ItemTags.COMPASSES).add(OccultismItems.VITALITY_COMPASS.asItem());
+        this.tag(BlockItemTags.SMALL_FLOWERS.item()).add(this.key(OccultismBlocks.OTHERFLOWER.asItem())).add(this.key(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()));
+        this.tag(ItemTags.COMPASSES).add(this.key(OccultismItems.VITALITY_COMPASS.asItem()));
 
         this.tag(ItemTags.TRIM_MATERIALS)
-                .add(OccultismItems.SPIRIT_ATTUNED_GEM.get())
-                .add(OccultismItems.SILVER_INGOT.get())
-                .add(OccultismItems.IESNIUM_INGOT.get());
+                .add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
+                .add(this.key(OccultismItems.SILVER_INGOT.get()))
+                .add(this.key(OccultismItems.IESNIUM_INGOT.get()));
     }
 
     private void addCommonTags(Provider provider) {
         this.tag(Tags.Items.MINING_TOOL_TOOLS)
-                .add(OccultismItems.SILVER_PICKAXE.get())
-                .add(OccultismItems.INFUSED_PICKAXE.get())
-                .add(OccultismItems.IESNIUM_PICKAXE.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_PICKAXE.get()))
+                .add(this.key(OccultismItems.INFUSED_PICKAXE.get()))
+                .add(this.key(OccultismItems.IESNIUM_PICKAXE.get()));
 
         this.tag(Tags.Items.MELEE_WEAPON_TOOLS)
-                .add(OccultismItems.BUTCHER_KNIFE.get())
-                .add(OccultismItems.IESNIUM_BUTCHER_KNIFE.get())
-                .add(OccultismItems.SILVER_AXE.get())
-                .add(OccultismItems.SILVER_SPEAR.get())
-                .add(OccultismItems.SILVER_SWORD.get())
-                .replace(false);
+                .add(this.key(OccultismItems.BUTCHER_KNIFE.get()))
+                .add(this.key(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()))
+                .add(this.key(OccultismItems.SILVER_AXE.get()))
+                .add(this.key(OccultismItems.SILVER_SPEAR.get()))
+                .add(this.key(OccultismItems.SILVER_SWORD.get()));
 
         this.tag(Tags.Items.ARMORS_HORSE)
-                .add(OccultismItems.SILVER_HORSE_ARMOR.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_HORSE_ARMOR.get()));
 
         this.tag(Tags.Items.ARMORS_NAUTILUS)
-                .add(OccultismItems.SILVER_NAUTILUS_ARMOR.get())
-                .replace(false);
+                .add(this.key(OccultismItems.SILVER_NAUTILUS_ARMOR.get()));
 
-        this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
-        this.copy(BlockTags.SLABS, ItemTags.SLABS);
-        this.copy(BlockTags.BARS, ItemTags.BARS);
+        this.copy(BlockTags.STAIRS, BlockItemTags.STAIRS.item());
+        this.copy(BlockTags.SLABS, BlockItemTags.SLABS.item());
+        this.copy(BlockTags.BARS, BlockItemTags.BARS.item());
         this.copy(Tags.Blocks.BARS, Tags.Items.BARS);
-        this.copy(BlockTags.CHAINS, ItemTags.CHAINS);
+        this.copy(BlockTags.CHAINS, BlockItemTags.CHAINS.item());
         this.copy(Tags.Blocks.CHAINS, Tags.Items.CHAINS);
-        this.copy(BlockTags.DOORS, ItemTags.DOORS);
-        this.copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
+        this.copy(BlockTags.DOORS, BlockItemTags.DOORS.item());
+        this.copy(BlockTags.TRAPDOORS, BlockItemTags.TRAPDOORS.item());
 
         // Ore Blocks
         this.copy(Blocks.IESNIUM_ORE, OccultismTags.Items.IESNIUM_ORE);
         this.copy(Blocks.SILVER_ORE, OccultismTags.Items.SILVER_ORE);
         //noinspection unchecked
-        this.tag(Tags.Items.ORES).addTags(OccultismTags.Items.IESNIUM_ORE, OccultismTags.Items.SILVER_ORE).replace(false);
+        this.tag(Tags.Items.ORES).addTag(OccultismTags.Items.IESNIUM_ORE).addTag(OccultismTags.Items.SILVER_ORE);
 
         this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
         this.copy(Tags.Blocks.ORES_IN_GROUND_NETHERRACK, Tags.Items.ORES_IN_GROUND_NETHERRACK);
 
         // Raw Materials
-        this.tag(OccultismTags.Items.RAW_SILVER).add(OccultismItems.RAW_SILVER.get()).replace(false);
-        this.tag(OccultismTags.Items.RAW_IESNIUM).add(OccultismItems.RAW_IESNIUM.get()).replace(false);
+        this.tag(OccultismTags.Items.RAW_SILVER).add(this.key(OccultismItems.RAW_SILVER.get()));
+        this.tag(OccultismTags.Items.RAW_IESNIUM).add(this.key(OccultismItems.RAW_IESNIUM.get()));
         //noinspection unchecked
-        this.tag(Tags.Items.RAW_MATERIALS).addTags(OccultismTags.Items.RAW_IESNIUM, OccultismTags.Items.RAW_SILVER).replace(false);
+        this.tag(Tags.Items.RAW_MATERIALS).addTag(OccultismTags.Items.RAW_IESNIUM).addTag(OccultismTags.Items.RAW_SILVER);
 
         // Dusts
         this.addDusts(provider);
@@ -445,78 +425,69 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.addRandomEggs(provider);
 
         // Ingots
-        this.tag(OccultismTags.Items.IESNIUM_INGOT).add(OccultismItems.IESNIUM_INGOT.get()).replace(false);
-        this.tag(OccultismTags.Items.SILVER_INGOT).add(OccultismItems.SILVER_INGOT.get()).replace(false);
+        this.tag(OccultismTags.Items.IESNIUM_INGOT).add(this.key(OccultismItems.IESNIUM_INGOT.get()));
+        this.tag(OccultismTags.Items.SILVER_INGOT).add(this.key(OccultismItems.SILVER_INGOT.get()));
         //noinspection unchecked
-        this.tag(Tags.Items.INGOTS).addTags(OccultismTags.Items.IESNIUM_INGOT, OccultismTags.Items.SILVER_INGOT).replace(false);
-        this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(OccultismItems.SILVER_INGOT.get()).add(OccultismItems.IESNIUM_INGOT.get());
+        this.tag(Tags.Items.INGOTS).addTag(OccultismTags.Items.IESNIUM_INGOT).addTag(OccultismTags.Items.SILVER_INGOT);
+        this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(this.key(OccultismItems.SILVER_INGOT.get())).add(this.key(OccultismItems.IESNIUM_INGOT.get()));
 
         // Nuggets
-        this.tag(OccultismTags.Items.IESNIUM_NUGGET).add(OccultismItems.IESNIUM_NUGGET.get()).replace(false);
-        this.tag(OccultismTags.Items.SILVER_NUGGET).add(OccultismItems.SILVER_NUGGET.get()).replace(false);
+        this.tag(OccultismTags.Items.IESNIUM_NUGGET).add(this.key(OccultismItems.IESNIUM_NUGGET.get()));
+        this.tag(OccultismTags.Items.SILVER_NUGGET).add(this.key(OccultismItems.SILVER_NUGGET.get()));
         //noinspection unchecked
-        this.tag(Tags.Items.NUGGETS).addTags(OccultismTags.Items.IESNIUM_NUGGET, OccultismTags.Items.SILVER_NUGGET).replace(false);
+        this.tag(Tags.Items.NUGGETS).addTag(OccultismTags.Items.IESNIUM_NUGGET).addTag(OccultismTags.Items.SILVER_NUGGET);
 
         // Seeds
-        this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA_SEEDS.get()).replace(false);
+        this.tag(OccultismTags.Items.DATURA_SEEDS).add(this.key(OccultismItems.DATURA_SEEDS.get()));
         //noinspection unchecked
-        this.tag(Tags.Items.SEEDS).addTags(OccultismTags.Items.DATURA_SEEDS).replace(false);
+        this.tag(Tags.Items.SEEDS).addTag(OccultismTags.Items.DATURA_SEEDS);
         // Crops
-        this.tag(OccultismTags.Items.DATURA_CROP).add(OccultismItems.DATURA.get()).replace(false);
+        this.tag(OccultismTags.Items.DATURA_CROP).add(this.key(OccultismItems.DATURA.get()));
         //noinspection unchecked
-        this.tag(Tags.Items.CROPS).addTags(OccultismTags.Items.DATURA_CROP).replace(false);
+        this.tag(Tags.Items.CROPS).addTag(OccultismTags.Items.DATURA_CROP);
         //Both datura
         // Crops
-        this.tag(OccultismTags.Items.DATURA).addTag(OccultismTags.Items.DATURA_SEEDS).addTag(OccultismTags.Items.DATURA_CROP).replace(false);
+        this.tag(OccultismTags.Items.DATURA).addTag(OccultismTags.Items.DATURA_SEEDS).addTag(OccultismTags.Items.DATURA_CROP);
 
         //Foods
         this.tag(Tags.Items.FOODS)
-                .add(OccultismItems.DATURA.get())
-                .add(OccultismItems.DEMONS_DREAM_ESSENCE.get())
-                .add(OccultismItems.OTHERWORLD_ESSENCE.get())
-                .add(OccultismItems.BEAVER_NUGGET.get())
-                .add(OccultismItems.CURSED_HONEY.get())
-                .add(OccultismItems.SWEET_HONEY_HEART.get())
-                .add(OccultismItems.DEMONIC_MEAT.get())
-                .add(OccultismItems.PITAYA.get())
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.DATURA.get()))
+                .add(this.key(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
+                .add(this.key(OccultismItems.OTHERWORLD_ESSENCE.get()))
+                .add(this.key(OccultismItems.BEAVER_NUGGET.get()))
+                .add(this.key(OccultismItems.CURSED_HONEY.get()))
+                .add(this.key(OccultismItems.SWEET_HONEY_HEART.get()))
+                .add(this.key(OccultismItems.DEMONIC_MEAT.get()))
+                .add(this.key(OccultismItems.PITAYA.get()))
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(ItemTags.MEAT)
-                .add(OccultismItems.DEMONIC_MEAT.get())
-                .replace(false);
+                .add(this.key(OccultismItems.DEMONIC_MEAT.get()));
         this.tag(Tags.Items.FOODS_FRUIT)
-                .add(OccultismItems.PITAYA.get())
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA.get()))
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(Tags.Items.ANIMAL_FOODS)
-                .add(OccultismItems.PITAYA.get())
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA.get()))
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(ItemTags.HORSE_FOOD)
-                .add(OccultismItems.PITAYA.get())
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA.get()))
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(ItemTags.ZOMBIE_HORSE_FOOD)
-                .add(OccultismItems.PITAYA.get())
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA.get()))
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(ItemTags.HORSE_TEMPT_ITEMS)
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(Tags.Items.FOODS_GOLDEN)
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
         this.tag(ItemTags.PIGLIN_LOVED)
-                .add(OccultismItems.PITAYA_GOLDEN.get())
-                .add(OccultismItems.PITAYA_ENCHANTED.get())
-                .replace(false);
+                .add(this.key(OccultismItems.PITAYA_GOLDEN.get()))
+                .add(this.key(OccultismItems.PITAYA_ENCHANTED.get()));
 
         // Storage Blocks
         this.copy(Blocks.STORAGE_BLOCKS_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_IESNIUM);
@@ -524,90 +495,65 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.copy(Blocks.STORAGE_BLOCKS_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
         //noinspection unchecked
-        this.tag(Tags.Items.STORAGE_BLOCKS).addTags(OccultismTags.Items.STORAGE_BLOCK_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_SILVER,
-                OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).replace(false);
+        this.tag(Tags.Items.STORAGE_BLOCKS).addTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_SILVER).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
         this.copy(Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
         this.copy(Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);
-        this.tag(OccultismTags.Items.TUBE_CORALS).add(Items.TUBE_CORAL).add(Items.TUBE_CORAL_FAN);
+        this.tag(OccultismTags.Items.TUBE_CORALS).add(this.key(Items.TUBE_CORAL)).add(this.key(Items.TUBE_CORAL_FAN));
 
         // Books
-        this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get(), Items.BOOK).replace(false);
+        this.tag(OccultismTags.Items.BOOKS).add(this.key(OccultismItems.DICTIONARY_OF_SPIRITS.get()), this.key(Items.BOOK));
 
         // Fruits
-        this.tag(OccultismTags.Items.FRUITS).add(Items.APPLE).replace(false);
+        this.tag(OccultismTags.Items.FRUITS).add(this.key(Items.APPLE));
 
         // Gems
-        this.tag(Tags.Items.GEMS).add(OccultismItems.SPIRIT_ATTUNED_GEM.get()).replace(false);
+        this.tag(Tags.Items.GEMS).add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()));
 
         // Magma
-        this.tag(OccultismTags.Items.MAGMA).add(Items.MAGMA_BLOCK).replace(false);
+        this.tag(OccultismTags.Items.MAGMA).add(this.key(Items.MAGMA_BLOCK));
 
         // Manuals
-        this.tag(OccultismTags.Items.MANUALS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get()).replace(false);
+        this.tag(OccultismTags.Items.MANUALS).add(this.key(OccultismItems.DICTIONARY_OF_SPIRITS.get()));
 
         // Tallow
-        this.tag(OccultismTags.Items.TALLOW).add(OccultismItems.TALLOW.get()).replace(false);
+        this.tag(OccultismTags.Items.TALLOW).add(this.key(OccultismItems.TALLOW.get()));
 
         // Wood
         this.copy(Blocks.OTHERWORLD_LOGS, OccultismTags.Items.OTHERWORLD_LOGS);
 
         // Clay
-        this.tag(OccultismTags.Items.CLAY).add(Items.CLAY_BALL).replace(false);
+        this.tag(OccultismTags.Items.CLAY).add(this.key(Items.CLAY_BALL));
     }
 
     private void addDusts(Provider provider) {
-        this.tag(OccultismTags.Items.BLAZE_DUST).add(Items.BLAZE_POWDER).replace(false);
-        this.tag(OccultismTags.Items.COPPER_DUST).add(OccultismItems.COPPER_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.END_STONE_DUST).add(OccultismItems.CRUSHED_END_STONE.get()).replace(false);
-        this.tag(OccultismTags.Items.GOLD_DUST).add(OccultismItems.GOLD_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.IRON_DUST).add(OccultismItems.IRON_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.IESNIUM_DUST).add(OccultismItems.IESNIUM_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.SILVER_DUST).add(OccultismItems.SILVER_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.OBSIDIAN_DUST).add(OccultismItems.OBSIDIAN_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.AMETHYST_DUST).add(OccultismItems.AMETHYST_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.BLACKSTONE_DUST).add(OccultismItems.CRUSHED_BLACKSTONE.get()).replace(false);
-        this.tag(OccultismTags.Items.BLUE_ICE_DUST).add(OccultismItems.CRUSHED_BLUE_ICE.get()).replace(false);
-        this.tag(OccultismTags.Items.CALCITE_DUST).add(OccultismItems.CRUSHED_CALCITE.get()).replace(false);
-        this.tag(OccultismTags.Items.ICE_DUST).add(OccultismItems.CRUSHED_ICE.get()).replace(false);
-        this.tag(OccultismTags.Items.PACKED_ICE_DUST).add(OccultismItems.CRUSHED_PACKED_ICE.get()).replace(false);
-        this.tag(OccultismTags.Items.DRAGONYST_DUST).add(OccultismItems.DRAGONYST_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.ECHO_DUST).add(OccultismItems.ECHO_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.EMERALD_DUST).add(OccultismItems.EMERALD_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.LAPIS_DUST).add(OccultismItems.LAPIS_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.NETHERITE_DUST).add(OccultismItems.NETHERITE_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.NETHERITE_SCRAP_DUST).add(OccultismItems.NETHERITE_SCRAP_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.RESEARCH_DUST).add(OccultismItems.RESEARCH_FRAGMENT_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.WITHERITE_DUST).add(OccultismItems.WITHERITE_DUST.get()).replace(false);
-        this.tag(OccultismTags.Items.OTHERSTONE_DUST).add(OccultismItems.BURNT_OTHERSTONE.get()).replace(false);
-        this.tag(OccultismTags.Items.OTHERROCK_DUST).add(OccultismItems.BURNT_OTHERROCK.get()).replace(false);
-        this.tag(OccultismTags.Items.OTHERWORLD_WOOD_DUST).add(OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
+        this.tag(OccultismTags.Items.BLAZE_DUST).add(this.key(Items.BLAZE_POWDER));
+        this.tag(OccultismTags.Items.COPPER_DUST).add(this.key(OccultismItems.COPPER_DUST.get()));
+        this.tag(OccultismTags.Items.END_STONE_DUST).add(this.key(OccultismItems.CRUSHED_END_STONE.get()));
+        this.tag(OccultismTags.Items.GOLD_DUST).add(this.key(OccultismItems.GOLD_DUST.get()));
+        this.tag(OccultismTags.Items.IRON_DUST).add(this.key(OccultismItems.IRON_DUST.get()));
+        this.tag(OccultismTags.Items.IESNIUM_DUST).add(this.key(OccultismItems.IESNIUM_DUST.get()));
+        this.tag(OccultismTags.Items.SILVER_DUST).add(this.key(OccultismItems.SILVER_DUST.get()));
+        this.tag(OccultismTags.Items.OBSIDIAN_DUST).add(this.key(OccultismItems.OBSIDIAN_DUST.get()));
+        this.tag(OccultismTags.Items.AMETHYST_DUST).add(this.key(OccultismItems.AMETHYST_DUST.get()));
+        this.tag(OccultismTags.Items.BLACKSTONE_DUST).add(this.key(OccultismItems.CRUSHED_BLACKSTONE.get()));
+        this.tag(OccultismTags.Items.BLUE_ICE_DUST).add(this.key(OccultismItems.CRUSHED_BLUE_ICE.get()));
+        this.tag(OccultismTags.Items.CALCITE_DUST).add(this.key(OccultismItems.CRUSHED_CALCITE.get()));
+        this.tag(OccultismTags.Items.ICE_DUST).add(this.key(OccultismItems.CRUSHED_ICE.get()));
+        this.tag(OccultismTags.Items.PACKED_ICE_DUST).add(this.key(OccultismItems.CRUSHED_PACKED_ICE.get()));
+        this.tag(OccultismTags.Items.DRAGONYST_DUST).add(this.key(OccultismItems.DRAGONYST_DUST.get()));
+        this.tag(OccultismTags.Items.ECHO_DUST).add(this.key(OccultismItems.ECHO_DUST.get()));
+        this.tag(OccultismTags.Items.EMERALD_DUST).add(this.key(OccultismItems.EMERALD_DUST.get()));
+        this.tag(OccultismTags.Items.LAPIS_DUST).add(this.key(OccultismItems.LAPIS_DUST.get()));
+        this.tag(OccultismTags.Items.NETHERITE_DUST).add(this.key(OccultismItems.NETHERITE_DUST.get()));
+        this.tag(OccultismTags.Items.NETHERITE_SCRAP_DUST).add(this.key(OccultismItems.NETHERITE_SCRAP_DUST.get()));
+        this.tag(OccultismTags.Items.RESEARCH_DUST).add(this.key(OccultismItems.RESEARCH_FRAGMENT_DUST.get()));
+        this.tag(OccultismTags.Items.WITHERITE_DUST).add(this.key(OccultismItems.WITHERITE_DUST.get()));
+        this.tag(OccultismTags.Items.OTHERSTONE_DUST).add(this.key(OccultismItems.BURNT_OTHERSTONE.get()));
+        this.tag(OccultismTags.Items.OTHERROCK_DUST).add(this.key(OccultismItems.BURNT_OTHERROCK.get()));
+        this.tag(OccultismTags.Items.OTHERWORLD_WOOD_DUST).add(this.key(OccultismItems.OTHERWORLD_ASHES.get()));
         //noinspection unchecked
-        this.tag(Tags.Items.DUSTS).addTags(
-                OccultismTags.Items.COPPER_DUST,
-                OccultismTags.Items.END_STONE_DUST,
-                OccultismTags.Items.GOLD_DUST,
-                OccultismTags.Items.IRON_DUST,
-                OccultismTags.Items.IESNIUM_DUST,
-                OccultismTags.Items.SILVER_DUST,
-                OccultismTags.Items.OBSIDIAN_DUST,
-                OccultismTags.Items.AMETHYST_DUST,
-                OccultismTags.Items.BLACKSTONE_DUST,
-                OccultismTags.Items.BLUE_ICE_DUST,
-                OccultismTags.Items.CALCITE_DUST,
-                OccultismTags.Items.ICE_DUST,
-                OccultismTags.Items.PACKED_ICE_DUST,
-                OccultismTags.Items.DRAGONYST_DUST,
-                OccultismTags.Items.ECHO_DUST,
-                OccultismTags.Items.EMERALD_DUST,
-                OccultismTags.Items.LAPIS_DUST,
-                OccultismTags.Items.NETHERITE_DUST,
-                OccultismTags.Items.NETHERITE_SCRAP_DUST,
-                OccultismTags.Items.RESEARCH_DUST,
-                OccultismTags.Items.WITHERITE_DUST,
-                OccultismTags.Items.OTHERSTONE_DUST,
-                OccultismTags.Items.OTHERROCK_DUST,
-                OccultismTags.Items.OTHERWORLD_WOOD_DUST);
+        this.tag(Tags.Items.DUSTS).addTag(OccultismTags.Items.COPPER_DUST).addTag(OccultismTags.Items.END_STONE_DUST).addTag(OccultismTags.Items.GOLD_DUST).addTag(OccultismTags.Items.IRON_DUST).addTag(OccultismTags.Items.IESNIUM_DUST).addTag(OccultismTags.Items.SILVER_DUST).addTag(OccultismTags.Items.OBSIDIAN_DUST).addTag(OccultismTags.Items.AMETHYST_DUST).addTag(OccultismTags.Items.BLACKSTONE_DUST).addTag(OccultismTags.Items.BLUE_ICE_DUST).addTag(OccultismTags.Items.CALCITE_DUST).addTag(OccultismTags.Items.ICE_DUST).addTag(OccultismTags.Items.PACKED_ICE_DUST).addTag(OccultismTags.Items.DRAGONYST_DUST).addTag(OccultismTags.Items.ECHO_DUST).addTag(OccultismTags.Items.EMERALD_DUST).addTag(OccultismTags.Items.LAPIS_DUST).addTag(OccultismTags.Items.NETHERITE_DUST).addTag(OccultismTags.Items.NETHERITE_SCRAP_DUST).addTag(OccultismTags.Items.RESEARCH_DUST).addTag(OccultismTags.Items.WITHERITE_DUST).addTag(OccultismTags.Items.OTHERSTONE_DUST).addTag(OccultismTags.Items.OTHERROCK_DUST).addTag(OccultismTags.Items.OTHERWORLD_WOOD_DUST);
         this.tag(OccultismTags.Items.CHALK_BASE_DUST)
                 .addTag(OccultismTags.Items.OTHERSTONE_DUST)
                 .addTag(OccultismTags.Items.OTHERROCK_DUST);
@@ -615,297 +561,297 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
     private void addMobLoot(Provider provider) {
         this.tag(OccultismTags.Items.DROPS_POSSESSED_BLAZE)
-                .add(Items.BLAZE_ROD)
-                .add(Items.BLAZE_POWDER)
-                .add(Items.NETHER_WART)
-                .add(Items.CRIMSON_FUNGUS)
-                .add(Items.WARPED_FUNGUS)
-                .add(Items.RED_MUSHROOM)
-                .add(Items.BROWN_MUSHROOM)
-                .add(Items.CRIMSON_ROOTS)
-                .add(Items.WARPED_ROOTS)
-                .add(Items.WEEPING_VINES)
-                .add(Items.TWISTING_VINES)
-                .add(Items.NETHERRACK)
-                .add(Items.NETHER_QUARTZ_ORE)
-                .add(Items.CRIMSON_NYLIUM)
-                .add(Items.WARPED_NYLIUM)
-                .add(Items.NETHER_WART_BLOCK)
-                .add(Items.WARPED_WART_BLOCK)
-                .add(Items.SOUL_SAND)
-                .add(Items.SOUL_SOIL)
-                .add(Items.BASALT)
-                .add(Items.BLACKSTONE)
-                .add(Items.GRAVEL)
-                .add(Items.BONE_BLOCK)
-                .add(Items.GILDED_BLACKSTONE)
-                .add(Items.GLOWSTONE_DUST)
-                .add(Items.MAGMA_BLOCK)
-                .add(Items.GLOWSTONE)
-                .add(Items.SHROOMLIGHT)
-                .add(Items.OBSIDIAN)
-                .add(Items.CRYING_OBSIDIAN)
-                .add(Items.ANCIENT_DEBRIS);
+                .add(this.key(Items.BLAZE_ROD))
+                .add(this.key(Items.BLAZE_POWDER))
+                .add(this.key(Items.NETHER_WART))
+                .add(this.key(Items.CRIMSON_FUNGUS))
+                .add(this.key(Items.WARPED_FUNGUS))
+                .add(this.key(Items.RED_MUSHROOM))
+                .add(this.key(Items.BROWN_MUSHROOM))
+                .add(this.key(Items.CRIMSON_ROOTS))
+                .add(this.key(Items.WARPED_ROOTS))
+                .add(this.key(Items.WEEPING_VINES))
+                .add(this.key(Items.TWISTING_VINES))
+                .add(this.key(Items.NETHERRACK))
+                .add(this.key(Items.NETHER_QUARTZ_ORE))
+                .add(this.key(Items.CRIMSON_NYLIUM))
+                .add(this.key(Items.WARPED_NYLIUM))
+                .add(this.key(Items.NETHER_WART_BLOCK))
+                .add(this.key(Items.WARPED_WART_BLOCK))
+                .add(this.key(Items.SOUL_SAND))
+                .add(this.key(Items.SOUL_SOIL))
+                .add(this.key(Items.BASALT))
+                .add(this.key(Items.BLACKSTONE))
+                .add(this.key(Items.GRAVEL))
+                .add(this.key(Items.BONE_BLOCK))
+                .add(this.key(Items.GILDED_BLACKSTONE))
+                .add(this.key(Items.GLOWSTONE_DUST))
+                .add(this.key(Items.MAGMA_BLOCK))
+                .add(this.key(Items.GLOWSTONE))
+                .add(this.key(Items.SHROOMLIGHT))
+                .add(this.key(Items.OBSIDIAN))
+                .add(this.key(Items.CRYING_OBSIDIAN))
+                .add(this.key(Items.ANCIENT_DEBRIS));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_BREEZE)
-                .add(Items.OMINOUS_TRIAL_KEY)
-                .add(Items.BREEZE_ROD)
-                .add(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.GUSTER_BANNER_PATTERN)
-                .add(Items.MUSIC_DISC_PRECIPICE);
+                .add(this.key(Items.OMINOUS_TRIAL_KEY))
+                .add(this.key(Items.BREEZE_ROD))
+                .add(this.key(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.GUSTER_BANNER_PATTERN))
+                .add(this.key(Items.MUSIC_DISC_PRECIPICE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_ELDER_GUARDIAN)
-                .add(Items.HEART_OF_THE_SEA)
-                .add(Items.NAUTILUS_SHELL)
-                .add(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.WET_SPONGE)
-                .add(Items.TROPICAL_FISH)
-                .add(Items.COD)
-                .add(Items.SALMON)
-                .add(Items.PUFFERFISH)
-                .add(Items.COOKED_COD)
-                .add(Items.COOKED_SALMON)
-                .add(Items.PRISMARINE_SHARD)
-                .add(Items.PRISMARINE_CRYSTALS);
+                .add(this.key(Items.HEART_OF_THE_SEA))
+                .add(this.key(Items.NAUTILUS_SHELL))
+                .add(this.key(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.WET_SPONGE))
+                .add(this.key(Items.TROPICAL_FISH))
+                .add(this.key(Items.COD))
+                .add(this.key(Items.SALMON))
+                .add(this.key(Items.PUFFERFISH))
+                .add(this.key(Items.COOKED_COD))
+                .add(this.key(Items.COOKED_SALMON))
+                .add(this.key(Items.PRISMARINE_SHARD))
+                .add(this.key(Items.PRISMARINE_CRYSTALS));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_ENDERMAN)
-                .add(Items.ENDER_PEARL)
-                .add(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE);
+                .add(this.key(Items.ENDER_PEARL))
+                .add(this.key(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_ENDERMITE)
-                .add(Items.END_STONE)
-                .add(Items.END_STONE_BRICKS)
-                .add(Items.FERMENTED_SPIDER_EYE)
-                .add(Items.SPIDER_EYE)
-                .add(Items.ENDER_EYE);
+                .add(this.key(Items.END_STONE))
+                .add(this.key(Items.END_STONE_BRICKS))
+                .add(this.key(Items.FERMENTED_SPIDER_EYE))
+                .add(this.key(Items.SPIDER_EYE))
+                .add(this.key(Items.ENDER_EYE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_EVOKER)
-                .add(Items.TOTEM_OF_UNDYING)
-                .add(Items.OMINOUS_BOTTLE)
-                .add(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE);
+                .add(this.key(Items.TOTEM_OF_UNDYING))
+                .add(this.key(Items.OMINOUS_BOTTLE))
+                .add(this.key(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_GHAST)
-                .add(Items.GHAST_TEAR)
-                .add(Items.GUNPOWDER)
-                .add(Items.MUSIC_DISC_TEARS)
-                .add(Items.DRIED_GHAST);
+                .add(this.key(Items.GHAST_TEAR))
+                .add(this.key(Items.GUNPOWDER))
+                .add(this.key(Items.MUSIC_DISC_TEARS))
+                .add(this.key(Items.DRIED_GHAST));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_HOGLIN)
-                .add(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-                .add(Items.NETHERITE_SCRAP)
-                .add(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.PIGLIN_BANNER_PATTERN)
-                .add(Items.NETHER_BRICK);
+                .add(this.key(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
+                .add(this.key(Items.NETHERITE_SCRAP))
+                .add(this.key(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.PIGLIN_BANNER_PATTERN))
+                .add(this.key(Items.NETHER_BRICK));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_PHANTOM)
-                .add(Items.PHANTOM_MEMBRANE)
-                .add(Items.WIND_CHARGE);
+                .add(this.key(Items.PHANTOM_MEMBRANE))
+                .add(this.key(Items.WIND_CHARGE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SHULKER)
-                .add(Items.SHULKER_SHELL)
-                .add(Items.CHORUS_FLOWER)
-                .add(Items.CHORUS_FRUIT)
-                .add(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE);
+                .add(this.key(Items.SHULKER_SHELL))
+                .add(this.key(Items.CHORUS_FLOWER))
+                .add(this.key(Items.CHORUS_FRUIT))
+                .add(this.key(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SKELETON)
-                .add(Items.SKELETON_SKULL)
-                .add(Items.BONE)
-                .add(Items.ARROW);
+                .add(this.key(Items.SKELETON_SKULL))
+                .add(this.key(Items.BONE))
+                .add(this.key(Items.ARROW));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_STRONG_BREEZE)
-                .add(Items.HEAVY_CORE)
-                .add(Items.FLOW_BANNER_PATTERN)
-                .add(Items.FLOW_POTTERY_SHERD)
-                .add(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.MUSIC_DISC_CREATOR);
+                .add(this.key(Items.HEAVY_CORE))
+                .add(this.key(Items.FLOW_BANNER_PATTERN))
+                .add(this.key(Items.FLOW_POTTERY_SHERD))
+                .add(this.key(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.MUSIC_DISC_CREATOR));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_WARDEN)
-                .add(Items.ECHO_SHARD)
-                .add(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.MUSIC_DISC_OTHERSIDE)
-                .add(Items.DISC_FRAGMENT_5)
-                .add(Items.SCULK)
-                .add(Items.SCULK_VEIN)
-                .add(Items.SCULK_CATALYST)
-                .add(Items.SCULK_SHRIEKER)
-                .add(Items.SCULK_SENSOR);
+                .add(this.key(Items.ECHO_SHARD))
+                .add(this.key(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.MUSIC_DISC_OTHERSIDE))
+                .add(this.key(Items.DISC_FRAGMENT_5))
+                .add(this.key(Items.SCULK))
+                .add(this.key(Items.SCULK_VEIN))
+                .add(this.key(Items.SCULK_CATALYST))
+                .add(this.key(Items.SCULK_SHRIEKER))
+                .add(this.key(Items.SCULK_SENSOR));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE)
-                .add(Items.TRIAL_KEY)
-                .add(Items.WIND_CHARGE)
-                .add(Items.OMINOUS_BOTTLE)
-                .add(Items.MUSIC_DISC_CREATOR_MUSIC_BOX)
-                .add(Items.SCRAPE_POTTERY_SHERD)
-                .add(Items.GUSTER_POTTERY_SHERD);
+                .add(this.key(Items.TRIAL_KEY))
+                .add(this.key(Items.WIND_CHARGE))
+                .add(this.key(Items.OMINOUS_BOTTLE))
+                .add(this.key(Items.MUSIC_DISC_CREATOR_MUSIC_BOX))
+                .add(this.key(Items.SCRAPE_POTTERY_SHERD))
+                .add(this.key(Items.GUSTER_POTTERY_SHERD));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_WEAK_SHULKER)
-                .add(Items.CHORUS_FRUIT)
-                .add(Items.SHULKER_SHELL);
+                .add(this.key(Items.CHORUS_FRUIT))
+                .add(this.key(Items.SHULKER_SHELL));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_WITCH)
-                .add(Items.EXPERIENCE_BOTTLE)
-                .add(Items.OMINOUS_BOTTLE)
-                .add(Items.HONEY_BOTTLE);
+                .add(this.key(Items.EXPERIENCE_BOTTLE))
+                .add(this.key(Items.OMINOUS_BOTTLE))
+                .add(this.key(Items.HONEY_BOTTLE));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIFIED_PIGLIN)
-                .add(OccultismItems.DEMONIC_MEAT.get())
-                .add(OccultismItems.TALLOW.get())
-                .add(Items.PORKCHOP)
-                .add(Items.ROTTEN_FLESH);
+                .add(this.key(OccultismItems.DEMONIC_MEAT.get()))
+                .add(this.key(OccultismItems.TALLOW.get()))
+                .add(this.key(Items.PORKCHOP))
+                .add(this.key(Items.ROTTEN_FLESH));
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_GUARDIAN)
-                .add(Items.SEA_PICKLE)
-                .add(Items.KELP)
-                .add(Items.TUBE_CORAL)
-                .add(Items.BRAIN_CORAL)
-                .add(Items.BUBBLE_CORAL)
-                .add(Items.FIRE_CORAL)
-                .add(Items.HORN_CORAL)
-                .add(Items.TUBE_CORAL_BLOCK)
-                .add(Items.BRAIN_CORAL_BLOCK)
-                .add(Items.BUBBLE_CORAL_BLOCK)
-                .add(Items.FIRE_CORAL_BLOCK)
-                .add(Items.HORN_CORAL_BLOCK)
-                .add(Items.TUBE_CORAL_FAN)
-                .add(Items.BRAIN_CORAL_FAN)
-                .add(Items.BUBBLE_CORAL_FAN)
-                .add(Items.FIRE_CORAL_FAN)
-                .add(Items.HORN_CORAL_FAN)
-                .add(Items.PRISMARINE_SHARD)
-                .add(Items.PRISMARINE_CRYSTALS);
+                .add(this.key(Items.SEA_PICKLE))
+                .add(this.key(Items.KELP))
+                .add(this.key(Items.TUBE_CORAL))
+                .add(this.key(Items.BRAIN_CORAL))
+                .add(this.key(Items.BUBBLE_CORAL))
+                .add(this.key(Items.FIRE_CORAL))
+                .add(this.key(Items.HORN_CORAL))
+                .add(this.key(Items.TUBE_CORAL_BLOCK))
+                .add(this.key(Items.BRAIN_CORAL_BLOCK))
+                .add(this.key(Items.BUBBLE_CORAL_BLOCK))
+                .add(this.key(Items.FIRE_CORAL_BLOCK))
+                .add(this.key(Items.HORN_CORAL_BLOCK))
+                .add(this.key(Items.TUBE_CORAL_FAN))
+                .add(this.key(Items.BRAIN_CORAL_FAN))
+                .add(this.key(Items.BUBBLE_CORAL_FAN))
+                .add(this.key(Items.FIRE_CORAL_FAN))
+                .add(this.key(Items.HORN_CORAL_FAN))
+                .add(this.key(Items.PRISMARINE_SHARD))
+                .add(this.key(Items.PRISMARINE_CRYSTALS));
 
         this.tag(OccultismTags.Items.DROPS_WILD_HUNT)
-                .add(Items.WITHER_SKELETON_SKULL)
-                .add(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.WITHER_ROSE)
-                .add(Items.COAL)
-                .add(Items.BONE)
-                .add(Items.ARROW);
+                .add(this.key(Items.WITHER_SKELETON_SKULL))
+                .add(this.key(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.WITHER_ROSE))
+                .add(this.key(Items.COAL))
+                .add(this.key(Items.BONE))
+                .add(this.key(Items.ARROW));
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_CREEPER)
-                .add(Items.MUSIC_DISC_CAT)
-                .add(Items.MUSIC_DISC_13)
-                .add(Items.MUSIC_DISC_BLOCKS)
-                .add(Items.MUSIC_DISC_CHIRP)
-                .add(Items.MUSIC_DISC_FAR)
-                .add(Items.MUSIC_DISC_MALL)
-                .add(Items.MUSIC_DISC_MELLOHI)
-                .add(Items.MUSIC_DISC_STAL)
-                .add(Items.MUSIC_DISC_STRAD)
-                .add(Items.MUSIC_DISC_WARD)
-                .add(Items.MUSIC_DISC_11)
-                .add(Items.MUSIC_DISC_WAIT);
+                .add(this.key(Items.MUSIC_DISC_CAT))
+                .add(this.key(Items.MUSIC_DISC_13))
+                .add(this.key(Items.MUSIC_DISC_BLOCKS))
+                .add(this.key(Items.MUSIC_DISC_CHIRP))
+                .add(this.key(Items.MUSIC_DISC_FAR))
+                .add(this.key(Items.MUSIC_DISC_MALL))
+                .add(this.key(Items.MUSIC_DISC_MELLOHI))
+                .add(this.key(Items.MUSIC_DISC_STAL))
+                .add(this.key(Items.MUSIC_DISC_STRAD))
+                .add(this.key(Items.MUSIC_DISC_WARD))
+                .add(this.key(Items.MUSIC_DISC_11))
+                .add(this.key(Items.MUSIC_DISC_WAIT));
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED)
-                .add(Items.SNIFFER_EGG)
-                .add(Items.TRIDENT)
-                .add(Items.TURTLE_EGG)
-                .add(Items.SHELTER_POTTERY_SHERD)
-                .add(Items.SNORT_POTTERY_SHERD)
-                .add(Items.ANGLER_POTTERY_SHERD)
-                .add(Items.PLENTY_POTTERY_SHERD)
-                .add(Items.BLADE_POTTERY_SHERD)
-                .add(Items.EXPLORER_POTTERY_SHERD)
-                .add(Items.MOURNER_POTTERY_SHERD)
-                .add(Items.COPPER_INGOT)
-                .add(Items.PRISMARINE_SHARD)
-                .add(Items.PRISMARINE_CRYSTALS);
+                .add(this.key(Items.SNIFFER_EGG))
+                .add(this.key(Items.TRIDENT))
+                .add(this.key(Items.TURTLE_EGG))
+                .add(this.key(Items.SHELTER_POTTERY_SHERD))
+                .add(this.key(Items.SNORT_POTTERY_SHERD))
+                .add(this.key(Items.ANGLER_POTTERY_SHERD))
+                .add(this.key(Items.PLENTY_POTTERY_SHERD))
+                .add(this.key(Items.BLADE_POTTERY_SHERD))
+                .add(this.key(Items.EXPLORER_POTTERY_SHERD))
+                .add(this.key(Items.MOURNER_POTTERY_SHERD))
+                .add(this.key(Items.COPPER_INGOT))
+                .add(this.key(Items.PRISMARINE_SHARD))
+                .add(this.key(Items.PRISMARINE_CRYSTALS));
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK)
-                .add(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.SKULL_POTTERY_SHERD)
-                .add(Items.ARCHER_POTTERY_SHERD)
-                .add(Items.PRIZE_POTTERY_SHERD)
-                .add(Items.MINER_POTTERY_SHERD)
-                .add(Items.BREWER_POTTERY_SHERD)
-                .add(Items.ARMS_UP_POTTERY_SHERD);
+                .add(this.key(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.SKULL_POTTERY_SHERD))
+                .add(this.key(Items.ARCHER_POTTERY_SHERD))
+                .add(this.key(Items.PRIZE_POTTERY_SHERD))
+                .add(this.key(Items.MINER_POTTERY_SHERD))
+                .add(this.key(Items.BREWER_POTTERY_SHERD))
+                .add(this.key(Items.ARMS_UP_POTTERY_SHERD));
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_PARCHED)
-                .add(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.SKULL_POTTERY_SHERD)
-                .add(Items.ARCHER_POTTERY_SHERD)
-                .add(Items.PRIZE_POTTERY_SHERD)
-                .add(Items.MINER_POTTERY_SHERD)
-                .add(Items.BREWER_POTTERY_SHERD)
-                .add(Items.ARMS_UP_POTTERY_SHERD);
+                .add(this.key(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.SKULL_POTTERY_SHERD))
+                .add(this.key(Items.ARCHER_POTTERY_SHERD))
+                .add(this.key(Items.PRIZE_POTTERY_SHERD))
+                .add(this.key(Items.MINER_POTTERY_SHERD))
+                .add(this.key(Items.BREWER_POTTERY_SHERD))
+                .add(this.key(Items.ARMS_UP_POTTERY_SHERD));
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_SILVERFISH)
-                .add(Items.MUSIC_DISC_RELIC)
-                .add(Items.HEART_POTTERY_SHERD)
-                .add(Items.SHEAF_POTTERY_SHERD)
-                .add(Items.DANGER_POTTERY_SHERD)
-                .add(Items.BURN_POTTERY_SHERD)
-                .add(Items.HOWL_POTTERY_SHERD)
-                .add(Items.FRIEND_POTTERY_SHERD)
-                .add(Items.HEARTBREAK_POTTERY_SHERD)
-                .add(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE)
-                .add(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE);
+                .add(this.key(Items.MUSIC_DISC_RELIC))
+                .add(this.key(Items.HEART_POTTERY_SHERD))
+                .add(this.key(Items.SHEAF_POTTERY_SHERD))
+                .add(this.key(Items.DANGER_POTTERY_SHERD))
+                .add(this.key(Items.BURN_POTTERY_SHERD))
+                .add(this.key(Items.HOWL_POTTERY_SHERD))
+                .add(this.key(Items.FRIEND_POTTERY_SHERD))
+                .add(this.key(Items.HEARTBREAK_POTTERY_SHERD))
+                .add(this.key(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .add(this.key(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE));
     }
 
     private void addRandomEggs(Provider provider) {
         this.tag(OccultismTags.Items.RANDOM_SPAWN_COMMON)
-                .add(Items.CHICKEN_SPAWN_EGG)
-                .add(Items.COW_SPAWN_EGG)
-                .add(Items.PIG_SPAWN_EGG)
-                .add(Items.SHEEP_SPAWN_EGG)
-                .add(Items.SQUID_SPAWN_EGG)
-                .add(Items.WOLF_SPAWN_EGG);
+                .add(this.key(Items.CHICKEN_SPAWN_EGG))
+                .add(this.key(Items.COW_SPAWN_EGG))
+                .add(this.key(Items.PIG_SPAWN_EGG))
+                .add(this.key(Items.SHEEP_SPAWN_EGG))
+                .add(this.key(Items.SQUID_SPAWN_EGG))
+                .add(this.key(Items.WOLF_SPAWN_EGG));
         this.tag(OccultismTags.Items.RANDOM_SPAWN_RIDEABLE)
-                .add(Items.PIG_SPAWN_EGG)
-                .add(Items.CAMEL_SPAWN_EGG)
-                .add(Items.DONKEY_SPAWN_EGG)
-                .add(Items.HORSE_SPAWN_EGG)
-                .add(Items.SKELETON_HORSE_SPAWN_EGG)
-                .add(Items.ZOMBIE_HORSE_SPAWN_EGG)
-                .add(Items.LLAMA_SPAWN_EGG)
-                .add(Items.TRADER_LLAMA_SPAWN_EGG)
-                .add(Items.MULE_SPAWN_EGG)
-                .add(Items.STRIDER_SPAWN_EGG)
-                .add(Items.HAPPY_GHAST_SPAWN_EGG)
-                .add(Items.NAUTILUS_SPAWN_EGG)
-                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG)
-                .add(Items.CAMEL_HUSK_SPAWN_EGG);
+                .add(this.key(Items.PIG_SPAWN_EGG))
+                .add(this.key(Items.CAMEL_SPAWN_EGG))
+                .add(this.key(Items.DONKEY_SPAWN_EGG))
+                .add(this.key(Items.HORSE_SPAWN_EGG))
+                .add(this.key(Items.SKELETON_HORSE_SPAWN_EGG))
+                .add(this.key(Items.ZOMBIE_HORSE_SPAWN_EGG))
+                .add(this.key(Items.LLAMA_SPAWN_EGG))
+                .add(this.key(Items.TRADER_LLAMA_SPAWN_EGG))
+                .add(this.key(Items.MULE_SPAWN_EGG))
+                .add(this.key(Items.STRIDER_SPAWN_EGG))
+                .add(this.key(Items.HAPPY_GHAST_SPAWN_EGG))
+                .add(this.key(Items.NAUTILUS_SPAWN_EGG))
+                .add(this.key(Items.ZOMBIE_NAUTILUS_SPAWN_EGG))
+                .add(this.key(Items.CAMEL_HUSK_SPAWN_EGG));
         this.tag(OccultismTags.Items.RANDOM_SPAWN_SMALL)
-                .add(Items.ALLAY_SPAWN_EGG)
-                .add(Items.BAT_SPAWN_EGG)
-                .add(Items.BEE_SPAWN_EGG)
-                .add(Items.CAT_SPAWN_EGG)
-                .add(Items.FOX_SPAWN_EGG)
-                .add(Items.OCELOT_SPAWN_EGG)
-                .add(Items.PARROT_SPAWN_EGG)
-                .add(Items.RABBIT_SPAWN_EGG);
+                .add(this.key(Items.ALLAY_SPAWN_EGG))
+                .add(this.key(Items.BAT_SPAWN_EGG))
+                .add(this.key(Items.BEE_SPAWN_EGG))
+                .add(this.key(Items.CAT_SPAWN_EGG))
+                .add(this.key(Items.FOX_SPAWN_EGG))
+                .add(this.key(Items.OCELOT_SPAWN_EGG))
+                .add(this.key(Items.PARROT_SPAWN_EGG))
+                .add(this.key(Items.RABBIT_SPAWN_EGG));
         this.tag(OccultismTags.Items.RANDOM_SPAWN_SPECIAL)
-                .add(Items.ARMADILLO_SPAWN_EGG)
-                .add(Items.IRON_GOLEM_SPAWN_EGG)
-                .add(Items.MOOSHROOM_SPAWN_EGG)
-                .add(Items.PANDA_SPAWN_EGG)
-                .add(Items.POLAR_BEAR_SPAWN_EGG)
-                .add(Items.GOAT_SPAWN_EGG)
-                .add(Items.SNIFFER_SPAWN_EGG)
-                .add(Items.COPPER_GOLEM_SPAWN_EGG);
+                .add(this.key(Items.ARMADILLO_SPAWN_EGG))
+                .add(this.key(Items.IRON_GOLEM_SPAWN_EGG))
+                .add(this.key(Items.MOOSHROOM_SPAWN_EGG))
+                .add(this.key(Items.PANDA_SPAWN_EGG))
+                .add(this.key(Items.POLAR_BEAR_SPAWN_EGG))
+                .add(this.key(Items.GOAT_SPAWN_EGG))
+                .add(this.key(Items.SNIFFER_SPAWN_EGG))
+                .add(this.key(Items.COPPER_GOLEM_SPAWN_EGG));
         this.tag(OccultismTags.Items.RANDOM_SPAWN_WATER)
-                .add(Items.AXOLOTL_SPAWN_EGG)
-                .add(Items.FROG_SPAWN_EGG)
-                .add(Items.DOLPHIN_SPAWN_EGG)
-                .add(Items.SALMON_SPAWN_EGG)
-                .add(Items.COD_SPAWN_EGG)
-                .add(Items.TROPICAL_FISH_SPAWN_EGG)
-                .add(Items.PUFFERFISH_SPAWN_EGG)
-                .add(Items.SQUID_SPAWN_EGG)
-                .add(Items.SNOW_GOLEM_SPAWN_EGG)
-                .add(Items.GLOW_SQUID_SPAWN_EGG)
-                .add(Items.TADPOLE_SPAWN_EGG)
-                .add(Items.TURTLE_SPAWN_EGG)
-                .add(Items.NAUTILUS_SPAWN_EGG)
-                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG);
+                .add(this.key(Items.AXOLOTL_SPAWN_EGG))
+                .add(this.key(Items.FROG_SPAWN_EGG))
+                .add(this.key(Items.DOLPHIN_SPAWN_EGG))
+                .add(this.key(Items.SALMON_SPAWN_EGG))
+                .add(this.key(Items.COD_SPAWN_EGG))
+                .add(this.key(Items.TROPICAL_FISH_SPAWN_EGG))
+                .add(this.key(Items.PUFFERFISH_SPAWN_EGG))
+                .add(this.key(Items.SQUID_SPAWN_EGG))
+                .add(this.key(Items.SNOW_GOLEM_SPAWN_EGG))
+                .add(this.key(Items.GLOW_SQUID_SPAWN_EGG))
+                .add(this.key(Items.TADPOLE_SPAWN_EGG))
+                .add(this.key(Items.TURTLE_SPAWN_EGG))
+                .add(this.key(Items.NAUTILUS_SPAWN_EGG))
+                .add(this.key(Items.ZOMBIE_NAUTILUS_SPAWN_EGG));
         this.tag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER)
-                .add(Items.VILLAGER_SPAWN_EGG)
-                .add(Items.WANDERING_TRADER_SPAWN_EGG)
-                .add(OccultismItems.SPAWN_EGG_WONDERING_TRADER.get());
+                .add(this.key(Items.VILLAGER_SPAWN_EGG))
+                .add(this.key(Items.WANDERING_TRADER_SPAWN_EGG))
+                .add(this.key(OccultismItems.SPAWN_EGG_WONDERING_TRADER.get()));
     }
 
     private TagKey<Item> cTag(String path) {
@@ -920,4 +866,11 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         return Identifier.tryParse(namespaceAndPath);
     }
 
+    private ResourceKey<Item> key(Item item) {
+        return BuiltInRegistries.ITEM.getResourceKey(item).orElseThrow();
+    }
+
+    private ResourceKey<Item> key(Block block) {
+        return BuiltInRegistries.ITEM.getResourceKey(block.asItem()).orElseThrow();
+    }
 }

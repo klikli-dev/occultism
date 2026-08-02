@@ -29,10 +29,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.monster.cubemob.Slime;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -61,7 +62,7 @@ public class WildSlimeEntity extends Slime implements PossessedMob {
     }
 
     @Override
-    public void remove(RemovalReason reason) {
+    public void remove(Entity.RemovalReason reason) {
         this.master.ifPresent(boss -> {
             boss.notifyMinionDeath(this);
         });
@@ -90,6 +91,6 @@ public class WildSlimeEntity extends Slime implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.SLIME;
+        return EntityTypes.SLIME;
     }
 }

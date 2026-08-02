@@ -459,7 +459,7 @@ public abstract class Ritual {
                 //Show effect in level
                 double sin = Math.sin(gameTime) * 0.3;
                 double cos = Math.cos(gameTime) * 0.3;
-                Vec3 center = sacrificialBowl.getBlockPos().getCenter();
+                Vec3 center = Vec3.atCenterOf(sacrificialBowl.getBlockPos());
                 ((ServerLevel) level)
                         .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos, center.y + 0.2 + cos, center.z + sin,
                                 1, 0.0, 0.0, 0.0, 0.003);

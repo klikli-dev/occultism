@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism;
 
-import com.google.common.collect.ImmutableSet;
 import com.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
@@ -47,7 +46,7 @@ import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -58,10 +57,10 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
 
-import java.util.stream.Stream;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -117,6 +116,7 @@ public class Occultism {
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(Networking::register);
+        modEventBus.addListener(this::onBlockEntityTypeAddBlocks);
 
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
@@ -140,14 +140,6 @@ public class Occultism {
         OccultismModonomiconPageTypeRegistry.bootstrap();
 
         event.enqueueWork(() -> {
-            BlockEntityType.CAMPFIRE.validBlocks = Stream.concat(
-                    BlockEntityType.CAMPFIRE.validBlocks.stream(),
-                    Stream.of(OccultismBlocks.SPIRIT_CAMPFIRE.get())
-            ).collect(ImmutableSet.toImmutableSet());
-            BlockEntityType.SHELF.validBlocks = Stream.concat(
-                    BlockEntityType.SHELF.validBlocks.stream(),
-                    Stream.of(OccultismBlocks.OTHERPLANKS_SHELF.get())
-            ).collect(ImmutableSet.toImmutableSet());
             DispenserBlock.registerBehavior(
                     OccultismItems.OTHERPLANKS_BOAT.get(),
                     new BoatDispenseItemBehavior(OccultismEntities.OTHERPLANKS_BOAT.get())
@@ -161,6 +153,11 @@ public class Occultism {
         //Register entity attributes on single thread
 
         LOGGER.info("Common setup complete.");
+    }
+
+    private void onBlockEntityTypeAddBlocks(final BlockEntityTypeAddBlocksEvent event) {
+        event.modify(BlockEntityTypes.CAMPFIRE, OccultismBlocks.SPIRIT_CAMPFIRE.get());
+        event.modify(BlockEntityTypes.SHELF, OccultismBlocks.OTHERPLANKS_SHELF.get());
     }
 
     private void onEntityAttributeCreation(final EntityAttributeCreationEvent event) {

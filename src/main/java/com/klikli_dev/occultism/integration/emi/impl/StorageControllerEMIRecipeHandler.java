@@ -343,7 +343,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
         var result = this.transferRecipe(menu, holder, emiRecipe, context, doTransfer);
         if (result instanceof Success && doTransfer) {
-            Minecraft.getInstance().setScreen(context.getScreen());
+            Minecraft.getInstance().setScreenAndShow(context.getScreen());
         }
         return result;
     }

@@ -35,7 +35,7 @@ public class GuiHelper {
     //region Static Methods
     public static void openBookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing,
                                                           String customName, InteractionHand hand) {
-        Minecraft.getInstance().setScreen(
+        Minecraft.getInstance().setScreenAndShow(
                 new BookOfCallingManagedMachineGui(insertFacing, extractFacing, customName, hand));
     }
 
@@ -44,7 +44,7 @@ public class GuiHelper {
     }
 
     public static void openBookOfCallingGui_internal(ItemMode itemMode, WorkAreaSize workAreaSize, InteractionHand hand) {
-        Minecraft.getInstance().setScreen(new BookOfCallingGui(itemMode, workAreaSize, hand));
+        Minecraft.getInstance().setScreenAndShow(new BookOfCallingGui(itemMode, workAreaSize, hand));
     }
     //endregion Static Methods
 }

@@ -15,6 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EntityType.Builder;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.TamableAnimal;

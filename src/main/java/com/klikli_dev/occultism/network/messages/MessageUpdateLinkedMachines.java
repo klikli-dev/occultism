@@ -63,7 +63,7 @@ public class MessageUpdateLinkedMachines implements IMessage {
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
-        if (minecraft.screen instanceof IStorageControllerGui gui) {
+        if (minecraft.gui.screen() instanceof IStorageControllerGui gui) {
             if (gui != null) {
                 gui.setLinkedMachines(this.linkedMachines);
             }

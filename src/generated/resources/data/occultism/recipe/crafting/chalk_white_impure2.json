@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "x": "#c:dusts/otherworld_wood",
     "y": "#occultism:dusts/chalk_base"

@@ -45,6 +45,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -161,7 +162,6 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                         float maxSize = Math.max(entity.getBbWidth(), Math.max(entity.getBbHeight(), entity.getBbWidth()));
                         renderState.sacrificeEntityScale = maxSize > 0 ? 0.5F / maxSize : 1.0F;
                         renderState.sacrificeEntityRenderState = Minecraft.getInstance().getEntityRenderDispatcher().extractEntity(entity, partialTick);
-                        renderState.sacrificeEntityRenderState.lightCoords = LevelRenderer.getLightCoords(blockEntity.getLevel(), previewPos);
                     }
                 }
             } else {

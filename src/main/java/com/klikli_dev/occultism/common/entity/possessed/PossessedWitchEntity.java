@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Witch;
@@ -46,6 +47,6 @@ public class PossessedWitchEntity extends Witch implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.WITCH;
+        return EntityTypes.WITCH;
     }
 }

@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Blaze;
@@ -48,7 +49,7 @@ public class PossessedBlazeEntity extends Blaze implements PossessedMob {
 
     @Override
     protected void actuallyHurt(ServerLevel level, DamageSource source, float amount) {
-        if (source.getDirectEntity() != null && source.getDirectEntity().getType() == EntityType.SNOWBALL)
+        if (source.getDirectEntity() != null && source.getDirectEntity().getType() == EntityTypes.SNOWBALL)
             amount = 0;
 
         super.actuallyHurt(level, source, amount);
@@ -62,6 +63,6 @@ public class PossessedBlazeEntity extends Blaze implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.BLAZE;
+        return EntityTypes.BLAZE;
     }
 }

@@ -221,8 +221,8 @@ public class DemonicPartner extends TamableAnimal {
             var effects = itemstack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
             if (effects.hasEffects()) {
                 for (var instance : effects.getAllEffects()) {
-                    if (instance.getEffect().value().isInstantenous()) {
-                        instance.getEffect().value().applyInstantenousEffect((ServerLevel) this.level(), this, this, pPlayer, instance.getAmplifier() + 2, 1.0D);
+                    if (instance.getEffect().value().isInstantaneous()) {
+                        instance.getEffect().value().applyInstantaneousEffect((ServerLevel) this.level(), this, this, pPlayer, instance.getAmplifier() + 2, 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.getEffect(), instance.getDuration() * 5, instance.getAmplifier(), instance.isAmbient(), instance.isVisible()));
                     }
@@ -245,8 +245,8 @@ public class DemonicPartner extends TamableAnimal {
             if (!effectsStew.effects().isEmpty()) {
                 //Spoiler: int buff = hasCrown() ? 1 : 0;
                 for (var instance : effectsStew.effects()) {
-                    if (instance.effect().value().isInstantenous()) {
-                        instance.effect().value().applyInstantenousEffect((ServerLevel) this.level(), this, this, pPlayer, 1 /*+ buff*/, 1.0D);
+                    if (instance.effect().value().isInstantaneous()) {
+                        instance.effect().value().applyInstantaneousEffect((ServerLevel) this.level(), this, this, pPlayer, 1 /*+ buff*/, 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.effect(), instance.duration() * (50 /*+ 25*buff*/), 0 /*buff*/, false, false));
                     }

@@ -30,7 +30,7 @@ import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -65,7 +65,7 @@ public class TooltipHandler {
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
 
-        Screen screen = Minecraft.getInstance().screen;
+        Screen screen = Minecraft.getInstance().gui.screen();
         if (screen instanceof DimensionalBattlefieldScreen) {
             if (stack.has(OccultismDataComponents.SOUL_VALUE)) {
                 event.getToolTip().add(
@@ -88,7 +88,7 @@ public class TooltipHandler {
         if (stack.has(OccultismDataComponents.SPIRIT_NAME)) {
             String translationKey = stack.getItem().getDescriptionId() + ".occultism_spirit_tooltip";
 
-            if (I18n.exists(translationKey))
+            if (Language.getInstance().has(translationKey))
                 event.getToolTip().add(Component.translatable(translationKey,
                         TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
         }
@@ -110,10 +110,10 @@ public class TooltipHandler {
 
         if (namespacesToListenFor.contains(namespace)) {
             String tooltipKey = stack.getItem().getDescriptionId() + ".auto_tooltip";
-            boolean tooltipExists = I18n.exists(tooltipKey);
+            boolean tooltipExists = Language.getInstance().has(tooltipKey);
             if (tooltipExists) {
                 var tooltipStyle = Style.EMPTY.withColor(ChatFormatting.GRAY);
-                String localizedTooltip = I18n.get(tooltipKey);
+                String localizedTooltip = Component.translatable(tooltipKey).getString();
 
                 for (String line : NEWLINE_PATTERN.split(localizedTooltip, -1)) {
                     event.getToolTip().add(Component.literal(line).withStyle(tooltipStyle));

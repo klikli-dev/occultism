@@ -30,6 +30,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
@@ -197,45 +198,55 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
     @Override
     public void setupAnim(ChimeraFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // boolean isSnakeAttacking = pEntity.getAttackProgress(0) > 0
-        //         && pEntity.getAttacker() == ChimeraFamiliarEntity.SNAKE_ATTACKER;
+        this.showModels(state);
 
-        // this.showModels(pEntity);
+        this.goatMouth.zRot = state.noseGoatRot - 0.2f;
+
+        if (state.attackProgress > 0) {
+            switch (state.attacker) {
+                case ChimeraFamiliarEntity.GOAT_ATTACKER:
+                    this.goatNeck.zRot = -Mth.sin(state.attackProgress * PI * 2) * this.toRads(30) + 0.9f;
+                    break;
+                case ChimeraFamiliarEntity.SNAKE_ATTACKER:
+                    this.snake1.xRot = Mth.sin(state.attackProgress * PI) * this.toRads(25) - 0.66f;
+                    this.snake2.xRot = Mth.sin(state.attackProgress * PI) * this.toRads(25) + 0.47f;
+                    this.snake3.xRot = Mth.sin(state.attackProgress * PI) * this.toRads(25) + 0.47f;
+                    this.snake4.xRot = -Mth.sin(state.attackProgress * PI) * this.toRads(30) + 0.59f;
+                    break;
+            }
+        }
 
         this.snake2.yRot = 0;
         this.snake3.yRot = 0;
         this.leftLeg3.xRot = 0.31f;
         this.rightLeg3.xRot = 0.31f;
         this.body.xRot = 0;
-        // TODO: needs custom RenderState - isSnakeAttacking depends on pEntity
-        // if (!isSnakeAttacking) {
-        this.snake1.xRot = -0.66f;
-        this.snake2.xRot = 0.47f;
-        this.snake3.xRot = 0.47f;
-        this.snake4.xRot = 0.59f;
-        // }
+        if (!state.isSnakeAttacking) {
+            this.snake1.xRot = -0.66f;
+            this.snake2.xRot = 0.47f;
+            this.snake3.xRot = 0.47f;
+            this.snake4.xRot = 0.59f;
+        }
         this.goatHead.zRot = -0.94f;
         this.leftLeg1.yRot = 0;
         this.rightLeg1.yRot = 0;
 
-        // TODO: needs custom RenderState
-        // this.head.yRot = this.toRads(netHeadYaw) * 0.7f;
-        // this.head.xRot = this.toRads(headPitch) * 0.7f;
-        // this.snake4.yRot = this.toRads(netHeadYaw) * 0.3f;
-        // this.snake4.zRot = -this.toRads(netHeadYaw) * 0.3f;
+        this.head.yRot = this.toRads(state.yRot) * 0.7f;
+        this.head.xRot = this.toRads(state.xRot) * 0.7f;
+        this.snake4.yRot = this.toRads(state.yRot) * 0.3f;
+        this.snake4.zRot = -this.toRads(state.yRot) * 0.3f;
 
-        // this.snake1.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
-        // this.snake2.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
-        // this.snake3.zRot = Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount + this.toRads(0);
-        // this.snake4.zRot = -Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount;
+        this.snake1.zRot = Mth.cos(state.walkAnimationPos * 0.3f) * 0.1f * state.walkAnimationSpeed;
+        this.snake2.zRot = Mth.cos(state.walkAnimationPos * 0.3f) * 0.1f * state.walkAnimationSpeed;
+        this.snake3.zRot = Mth.cos(state.walkAnimationPos * 0.3f) * 0.25f * state.walkAnimationSpeed;
+        this.snake4.zRot = -Mth.cos(state.walkAnimationPos * 0.3f) * 0.25f * state.walkAnimationSpeed;
 
-        // this.snake5.xRot = Mth.cos(pAgeInTicks * 0.1f) * this.toRads(15) + this.toRads(15);
+        this.snake5.xRot = Mth.cos(state.ageInTicks * 0.1f) * this.toRads(15) + this.toRads(15);
 
-        // this.rightBackLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.23f;
-        // this.leftBackLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
-        // this.rightLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
-        // this.leftLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
+        this.rightBackLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.8f * state.walkAnimationSpeed - 0.23f;
+        this.leftBackLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 0.8f * state.walkAnimationSpeed - 0.23f;
+        this.rightLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 0.8f * state.walkAnimationSpeed + 0.43f;
+        this.leftLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.8f * state.walkAnimationSpeed + 0.43f;
 
         if (state.isSitting) {
             this.leftLeg1.xRot = -this.toRads(15);
@@ -259,21 +270,22 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
             this.snake4.xRot = this.toRads(60);
             this.snake5.xRot = this.toRads(7);
         }
-        // if (pEntity.isPartying()) { ... }
+
+        if (state.isPartying) {
+            this.head.xRot = Mth.cos(state.ageInTicks * 0.4f) * this.toRads(30);
+            this.goatHead.zRot = -Mth.cos(state.ageInTicks * 0.4f) * this.toRads(15) - 0.94f;
+            this.goatHead.yRot = -0.20f;
+            this.snake4.xRot = Mth.cos(state.ageInTicks * 0.4f) * this.toRads(30) + 0.59f;
+        }
     }
 
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // prepareMobModel set goatMouth.zRot, goatNeck.zRot, snake1/2/3/4.xRot based on entity attack data
-
-    private void showModels(ChimeraFamiliarEntity entityIn) {
-        boolean hasFlaps = entityIn.hasFlaps();
-
-        this.snakeFlap1.visible = hasFlaps;
-        this.snakeFlap2.visible = hasFlaps;
-        this.goatRing.visible = entityIn.hasRing();
-        this.snakeHat1.visible = entityIn.hasHat();
-        this.goatNeck.visible = entityIn.hasGoat();
-        this.goatBeard.visible = entityIn.hasBeard();
+    private void showModels(ChimeraFamiliarRenderState state) {
+        this.snakeFlap1.visible = state.hasFlaps;
+        this.snakeFlap2.visible = state.hasFlaps;
+        this.goatRing.visible = state.hasRing;
+        this.snakeHat1.visible = state.hasHat;
+        this.goatNeck.visible = state.hasGoat;
+        this.goatBeard.visible = state.hasBeard;
     }
 
     private float toRads(float deg) {

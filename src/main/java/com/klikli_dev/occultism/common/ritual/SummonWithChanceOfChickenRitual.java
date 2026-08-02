@@ -28,6 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -40,7 +41,7 @@ public class SummonWithChanceOfChickenRitual extends SummonRitual {
 
     @Override
     public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, @Nullable Player castingPlayer) {
-        return level.getRandom().nextInt(3) == 0 ? entityType.create(level, EntitySpawnReason.MOB_SUMMONED) : EntityType.CHICKEN.create(level, EntitySpawnReason.MOB_SUMMONED);
+        return level.getRandom().nextInt(3) == 0 ? entityType.create(level, EntitySpawnReason.MOB_SUMMONED) : EntityTypes.CHICKEN.create(level, EntitySpawnReason.MOB_SUMMONED);
     }
 
 }

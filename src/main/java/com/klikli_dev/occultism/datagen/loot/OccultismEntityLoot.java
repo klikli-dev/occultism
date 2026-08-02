@@ -3,9 +3,9 @@ package com.klikli_dev.occultism.datagen.loot;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.advancements.criterion.SlimePredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
+import net.minecraft.advancements.predicates.entity.CubeMobPredicate;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -13,6 +13,7 @@ import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
@@ -52,11 +53,11 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
     @Override
     public void generate() {
-        this.battlefieldLoot(EntityType.WITHER, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.WITHER, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.NETHER_STAR)))
         );
-        this.battlefieldLoot(EntityType.ENDER_DRAGON, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.ENDER_DRAGON, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.DRAGON_BREATH).setWeight(3))
                         .add(LootItem.lootTableItem(Items.DRAGON_EGG)))
@@ -64,28 +65,28 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         .add(LootItem.lootTableItem(Items.ELYTRA))
                         .when(LootItemRandomChanceCondition.randomChance(0.001F)))
         );
-        this.battlefieldLoot(EntityType.CREAKING, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.CREAKING, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.RESIN_CLUMP))
                         .when(LootItemRandomChanceCondition.randomChance(0.05F)))
         );
-        this.battlefieldLoot(EntityType.ARMADILLO, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.ARMADILLO, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.ARMADILLO_SCUTE))
                         .when(LootItemRandomChanceCondition.randomChance(0.8F)))
         );
-        this.battlefieldLoot(EntityType.TURTLE, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.TURTLE, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.TURTLE_SCUTE))
                         .when(LootItemRandomChanceCondition.randomChance(0.1F)))
         );
-        this.battlefieldLoot(EntityType.MAGMA_CUBE, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.MAGMA_CUBE, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.MAGMA_CREAM))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(-2,1)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-                                EntityPredicate.Builder.entity().subPredicate(SlimePredicate.sized(MinMaxBounds.Ints.atLeast(2)))))
+                                EntityPredicate.Builder.entity().cubeMob(CubeMobPredicate.sized(MinMaxBounds.Ints.atLeast(2)))))
                 )
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.OCHRE_FROGLIGHT))
@@ -94,7 +95,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         .when(LootItemRandomChanceCondition.randomChance(0.03F))
                 )
         );
-        this.battlefieldLoot(EntityType.CREEPER, LootTable.lootTable()
+        this.battlefieldLoot(EntityTypes.CREEPER, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                     .add(LootItem.lootTableItem(Items.GUNPOWDER)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))

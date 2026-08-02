@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "d": "occultism:pitaya",
     "g": "#c:ingots/gold"

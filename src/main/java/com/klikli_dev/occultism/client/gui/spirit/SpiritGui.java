@@ -32,7 +32,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
@@ -133,7 +133,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         if (spiritEntity != null && this.resolvedLayout != null) {
             var ageBar = this.resolvedLayout.node("frame.main.age_bar");
             int agePercent = (int) Math.floor(spiritEntity.getSpiritAge() / (float) spiritEntity.getSpiritMaxAge() * 100);
-            String ageText = I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent);
+            String ageText = Component.translatable(TRANSLATION_KEY_BASE + ".age", agePercent).getString();
             int ageLabelX = ageBar.x() + (ageBar.widthOrThrow() - this.font.width(ageText)) / 2;
             int ageLabelY = ageBar.y() + (ageBar.heightOrThrow() - this.font.lineHeight) / 2 + 1;
             guiGraphics.text(this.font, ageText, ageLabelX, ageLabelY, 0xFF000000, false);
@@ -178,7 +178,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
             String jobKey = spiritEntity.getJobID().replace(':', '.');
             String exactKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + jobKey;
 
-            if (I18n.exists(exactKey)) {
+            if (Language.getInstance().has(exactKey)) {
                 return exactKey;
             }
 
@@ -190,7 +190,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
                 if (!tierlessPath.equals(path)) {
                     String tierlessKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + namespace + tierlessPath;
-                    if (I18n.exists(tierlessKey)) {
+                    if (Language.getInstance().has(tierlessKey)) {
                         return tierlessKey;
                     }
                 }
@@ -199,7 +199,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
                 if (pathSeparator >= 0) {
                     String familyKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + namespace
                             + tierlessPath.substring(0, pathSeparator);
-                    if (I18n.exists(familyKey)) {
+                    if (Language.getInstance().has(familyKey)) {
                         return familyKey;
                     }
                 }

@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -68,8 +69,8 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends ExtendedSensor
             Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, Color.CYAN));
         }
 
-        var aabb = new AABB(workAreaCenter.getCenter().add(-workAreaSize / 2f, -workAreaSize / 2f, -workAreaSize / 2f),
-                workAreaCenter.getCenter().add(workAreaSize / 2f, workAreaSize / 2f, workAreaSize / 2f));
+        var aabb = new AABB(Vec3.atCenterOf(workAreaCenter).add(-workAreaSize / 2f, -workAreaSize / 2f, -workAreaSize / 2f),
+                Vec3.atCenterOf(workAreaCenter).add(workAreaSize / 2f, workAreaSize / 2f, workAreaSize / 2f));
 
         ItemEntity nearestEntity = null;
         double nearestDistance = Double.MAX_VALUE;

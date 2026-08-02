@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": "#occultism:start_spiritfire",
     "S": "#c:rods/wooden",

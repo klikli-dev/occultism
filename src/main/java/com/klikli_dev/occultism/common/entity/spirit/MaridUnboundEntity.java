@@ -38,6 +38,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -93,7 +94,7 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
         int maxGuardians = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxGuardians; i++) {
-            Guardian entity = EntityType.GUARDIAN.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
+            Guardian entity = EntityTypes.GUARDIAN.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
 
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 

@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.level.Level;
@@ -43,6 +44,6 @@ public class PossessedEndermiteEntity extends Endermite implements PossessedMob 
 
     @Override
     public EntityType basedMob() {
-        return EntityType.ENDERMITE;
+        return EntityTypes.ENDERMITE;
     }
 }

@@ -42,7 +42,7 @@ public class GreyParticlesEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(Items.GRAY_DYE);
+        return BookIconModel.create(Items.DYE.gray());
     }
 
     @Override

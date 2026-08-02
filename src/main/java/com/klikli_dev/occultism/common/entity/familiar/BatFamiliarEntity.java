@@ -46,7 +46,6 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ambient.Bat;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -58,7 +57,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
+public class BatFamiliarEntity extends FamiliarEntity {
 
     public BatFamiliarEntity(EntityType<? extends BatFamiliarEntity> type, Level worldIn) {
         super(type, worldIn);
@@ -135,7 +134,6 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         return Mth.cos((this.tickCount + partialTicks) / 5);
     }
 
-    @Override
     public boolean isFlying() {
         return !this.onGround();
     }

@@ -15,7 +15,7 @@ import com.klikli_dev.occultism.common.container.spirit.FilterableSpiritContaine
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -112,7 +112,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
             String jobKey = spiritEntity.getJobID().replace(':', '.');
             String exactKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + jobKey;
 
-            if (I18n.exists(exactKey)) {
+            if (Language.getInstance().has(exactKey)) {
                 return exactKey;
             }
 
@@ -124,7 +124,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
 
                 if (!tierlessPath.equals(path)) {
                     String tierlessKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + namespace + tierlessPath;
-                    if (I18n.exists(tierlessKey)) {
+                    if (Language.getInstance().has(tierlessKey)) {
                         return tierlessKey;
                     }
                 }
@@ -132,7 +132,7 @@ public class FilterableSpiritGui<T extends FilterableSpiritContainer> extends Sp
                 int pathSeparator = tierlessPath.indexOf('_');
                 if (pathSeparator >= 0) {
                     String familyKey = INVENTORY_SLOT_TRANSLATION_KEY_BASE + "." + namespace + tierlessPath.substring(0, pathSeparator);
-                    if (I18n.exists(familyKey)) {
+                    if (Language.getInstance().has(familyKey)) {
                         return familyKey;
                     }
                 }

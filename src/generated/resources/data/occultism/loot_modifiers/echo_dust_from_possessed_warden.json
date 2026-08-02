@@ -5,7 +5,7 @@
       "condition": "minecraft:entity_properties",
       "entity": "attacker",
       "predicate": {
-        "equipment": {
+        "minecraft:equipment": {
           "mainhand": {
             "items": "#occultism:tools/knife/iesnium"
           }
@@ -20,7 +20,7 @@
       "condition": "minecraft:entity_properties",
       "entity": "this",
       "predicate": {
-        "type": "occultism:possessed_warden"
+        "minecraft:entity_type": "occultism:possessed_warden"
       }
     }
   ],

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "o": "occultism:otherrock",
     "s": "#c:ingots/silver",

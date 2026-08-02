@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "p": "#minecraft:planks",
     "s": "#c:strings",

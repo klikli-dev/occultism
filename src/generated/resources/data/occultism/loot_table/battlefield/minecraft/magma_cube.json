@@ -2,14 +2,12 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "type_specific": {
-              "type": "minecraft:slime",
+            "minecraft:type_specific/cube_mob": {
               "size": {
                 "min": 2
               }
@@ -25,7 +23,6 @@
       ],
       "functions": [
         {
-          "add": false,
           "count": {
             "type": "minecraft:uniform",
             "max": 1.0,
@@ -46,7 +43,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "chance": 0.03,

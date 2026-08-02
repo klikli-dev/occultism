@@ -371,7 +371,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                         && recipe.value().getPentacleId() != null) {
                     var pentacle = ModonomiconAPI.get().getMultiblock(recipe.value().getPentacleId());
 
-                    Minecraft.getInstance().setScreen(null);
+                    Minecraft.getInstance().setScreenAndShow(null);
                     MultiblockPreviewRenderer.setMultiblock(pentacle,
                             Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), true);
                     return true;

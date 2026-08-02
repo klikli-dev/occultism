@@ -31,6 +31,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -96,6 +97,6 @@ public class WildHuntSkeletonEntity extends Skeleton implements PossessedMob {
 
     @Override
     public EntityType basedMob() {
-        return EntityType.SKELETON;
+        return EntityTypes.SKELETON;
     }
 }

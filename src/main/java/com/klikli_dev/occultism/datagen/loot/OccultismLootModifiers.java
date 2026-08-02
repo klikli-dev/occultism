@@ -5,14 +5,15 @@ import com.klikli_dev.occultism.loot.AddItemModifier;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate.Builder;
+import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate.Builder;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -103,14 +104,14 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         this.add("tallow_from_sheep", this.tallow("sheep", 2));
 
         // Head drops - simplified
-        this.add("head_from_zombie", this.head(EntityType.ZOMBIE, Items.ZOMBIE_HEAD, 0.25F));
-        this.add("head_from_creeper", this.head(EntityType.CREEPER, Items.CREEPER_HEAD, 0.25F));
-        this.add("head_from_piglin", this.head(EntityType.PIGLIN, Items.PIGLIN_HEAD, 0.25F));
-        this.add("head_from_skeleton", this.head(EntityType.SKELETON, Items.SKELETON_SKULL, 0.25F));
-        this.add("head_from_wither_skeleton", this.head(EntityType.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, 0.15F));
-        this.add("head_from_dragon", this.head(EntityType.ENDER_DRAGON, Items.DRAGON_HEAD, 0.9F));
+        this.add("head_from_zombie", this.head(EntityTypes.ZOMBIE, Items.ZOMBIE_HEAD, 0.25F));
+        this.add("head_from_creeper", this.head(EntityTypes.CREEPER, Items.CREEPER_HEAD, 0.25F));
+        this.add("head_from_piglin", this.head(EntityTypes.PIGLIN, Items.PIGLIN_HEAD, 0.25F));
+        this.add("head_from_skeleton", this.head(EntityTypes.SKELETON, Items.SKELETON_SKULL, 0.25F));
+        this.add("head_from_wither_skeleton", this.head(EntityTypes.WITHER_SKELETON, Items.WITHER_SKELETON_SKULL, 0.15F));
+        this.add("head_from_dragon", this.head(EntityTypes.ENDER_DRAGON, Items.DRAGON_HEAD, 0.9F));
 
-        this.add("echo_dust_from_warden", this.head(EntityType.WARDEN, OccultismItems.ECHO_DUST.get(), 1F));
+        this.add("echo_dust_from_warden", this.head(EntityTypes.WARDEN, OccultismItems.ECHO_DUST.get(), 1F));
         this.add("echo_dust_from_possessed_warden", this.head(OccultismEntities.POSSESSED_WARDEN_TYPE.get(), OccultismItems.ECHO_DUST.get(), 1F));
     }
 }
