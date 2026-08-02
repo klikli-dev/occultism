@@ -168,35 +168,112 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
     @Override
     public void setupAnim(DragonFamiliarRenderState state) {
         super.setupAnim(state);
-        DragonFamiliarEntity entityIn = state.dragonEntity instanceof DragonFamiliarEntity d ? d : null;
-        if (entityIn != null && entityIn.isPartying()) {
-            this.head.xRot = this.toRads(50) + Mth.sin(entityIn.tickCount) * this.toRads(20);
-            this.head.yRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
-            this.head.zRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
+        this.setEyeColor(state.eyeColorR, state.eyeColorG, state.eyeColorB);
+        this.showModels(state);
+
+        float ageInTicks = state.ageInTicks;
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+
+        this.tail1.zRot = 0;
+        this.tail2.zRot = 0;
+        this.tail3.zRot = 0;
+        this.jaw.zRot = 0;
+
+        if (state.isPartying) {
+            this.head.xRot = this.toRads(50) + Mth.sin(ageInTicks) * this.toRads(20);
+            this.head.yRot = Mth.sin(ageInTicks) * this.toRads(5);
+            this.head.zRot = Mth.sin(ageInTicks) * this.toRads(5);
+
+            this.tail1.zRot = Mth.sin(ageInTicks) * this.toRads(30);
+            this.tail2.zRot = -Mth.sin(ageInTicks) * this.toRads(60);
+            this.tail3.zRot = Mth.sin(ageInTicks) * this.toRads(90);
+
+            this.leftWing1.yRot = Mth.sin(ageInTicks) * this.toRads(20);
+            this.rightWing1.yRot = -Mth.sin(ageInTicks) * this.toRads(20);
+        } else {
+            this.head.xRot = this.toRads(50) + 0.03f + state.xRot * (PI / 180f) * 0.7f;
+            this.head.yRot = state.yRot * (PI / 180f) * 0.5f;
+            this.head.zRot = state.yRot * (PI / 180f) * 0.5f;
+
+            this.leftWing1.yRot = 0;
+            this.rightWing1.yRot = 0;
+        }
+
+        float petDuration = DragonFamiliarEntity.MAX_PET_TIMER / 2.0f;
+        if (state.petTimer < petDuration) {
+            this.tail1.zRot = Mth.sin(state.petTimer / petDuration * PI * 6) * this.toRads(20);
+            this.tail2.zRot = Mth.sin(state.petTimer / petDuration * PI * 6) * this.toRads(20);
+            this.tail3.zRot = Mth.sin(state.petTimer / petDuration * PI * 6) * this.toRads(20);
+            this.jaw.zRot = -Mth.sin(state.petTimer / petDuration * PI * 6) * this.toRads(10);
+        }
+
+        if (state.swinging) {
+            this.tail1.yRot = Mth.sin(state.attackProgress * PI * 4) * this.toRads(30);
+            this.tail2.yRot = Mth.sin(state.attackProgress * PI * 4) * this.toRads(30);
+            this.tail3.yRot = Mth.sin(state.attackProgress * PI * 4) * this.toRads(30);
+        } else {
+            this.tail1.yRot = 0;
+            this.tail2.yRot = 0;
+            this.tail3.yRot = 0;
+        }
+
+        if (!state.isSitting) {
+            this.leftLeg1.xRot = this.toRads(25) + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+            this.rightLeg1.xRot = this.toRads(25) + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+            this.leftLeg3.xRot = this.toRads(23);
+            this.rightLeg3.xRot = this.toRads(23);
+
+            float flyingWingRot = state.flyingTimer * 1.15f;
+            this.leftWing1.zRot = this.toRads(65)
+                    + Mth.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(state.wingspan));
+            this.leftWing2.zRot = this.toRads(50) + Mth.cos(limbSwing * 0.7f + flyingWingRot)
+                    * (limbSwingAmount * 0.2f + this.toRads(state.wingspan) * 0.5f);
+            this.rightWing1.zRot = -this.toRads(65)
+                    - Mth.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(state.wingspan));
+            this.rightWing2.zRot = -this.toRads(50) - Mth.cos(limbSwing * 0.7f + flyingWingRot)
+                    * (limbSwingAmount * 0.2f + this.toRads(state.wingspan) * 0.5f);
+
+            this.tail1.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
+            this.tail2.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
+            this.tail3.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
+
+            this.body.xRot = this.toRads(-4);
+            this.neck1.xRot = this.toRads(-30);
+            this.neck2.xRot = this.toRads(-9);
+        } else {
+            this.leftLeg1.xRot = this.toRads(15);
+            this.rightLeg1.xRot = this.toRads(15);
+            this.leftLeg3.xRot = this.toRads(26);
+            this.rightLeg3.xRot = this.toRads(26);
+
+            this.leftWing1.zRot = this.toRads(150);
+            this.leftWing2.zRot = this.toRads(20);
+            this.rightWing1.zRot = -this.toRads(150);
+            this.rightWing2.zRot = -this.toRads(20);
+
+            this.tail1.xRot = this.toRads(30);
+            this.tail2.xRot = this.toRads(30);
+            this.tail3.xRot = this.toRads(30);
+
+            this.body.xRot = this.toRads(-50);
+            this.neck1.xRot = this.toRads(10);
+            this.neck2.xRot = this.toRads(5);
         }
     }
-
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // this.setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick), entityIn.getEyeColorB(partialTick));
-    // this.showModels(entityIn);
-    // float ageInTicks = entityIn.tickCount + partialTick;
-    // ... (wing, tail, pet, attack, leg, sitting animations)
 
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
 
-    private void showModels(DragonFamiliarEntity entityIn) {
-        boolean hasEars = entityIn.hasEars();
-        boolean hasArms = entityIn.hasArms();
-
-        this.fez1.visible = entityIn.hasFez();
-        this.leftEar.visible = hasEars;
-        this.rightEar.visible = hasEars;
-        this.leftHorn1.visible = !hasEars;
-        this.rightHorn1.visible = !hasEars;
-        this.leftArm1.visible = hasArms;
-        this.rightArm1.visible = hasArms;
+    private void showModels(DragonFamiliarRenderState state) {
+        this.fez1.visible = state.hasFez;
+        this.leftEar.visible = state.hasEars;
+        this.rightEar.visible = state.hasEars;
+        this.leftHorn1.visible = !state.hasEars;
+        this.rightHorn1.visible = !state.hasEars;
+        this.leftArm1.visible = state.hasArms;
+        this.rightArm1.visible = state.hasArms;
     }
 
     private void setEyeColor(float r, float g, float b) {

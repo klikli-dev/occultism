@@ -29,4 +29,17 @@ import net.minecraft.world.entity.Entity;
 public class DragonFamiliarRenderState extends LivingEntityRenderState {
     public Entity dragonEntity;
     public ItemModelResolver itemModelResolver;
+    public boolean isSitting;
+    public boolean isPartying;
+    public boolean swinging;
+    public boolean hasEars;
+    public boolean hasArms;
+    public boolean hasFez;
+    public float eyeColorR;
+    public float eyeColorG;
+    public float eyeColorB;
+    public float petTimer;
+    public float attackProgress;
+    public float flyingTimer;
+    public float wingspan;
 }

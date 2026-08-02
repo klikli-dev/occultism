@@ -68,6 +68,19 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.dragonEntity = entity;
         reusedState.itemModelResolver = this.itemModelResolver;
+        reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.swinging = entity.swinging;
+        reusedState.hasEars = entity.hasEars();
+        reusedState.hasArms = entity.hasArms();
+        reusedState.hasFez = entity.hasFez();
+        reusedState.eyeColorR = entity.getEyeColorR(partialTick);
+        reusedState.eyeColorG = entity.getEyeColorG(partialTick);
+        reusedState.eyeColorB = entity.getEyeColorB(partialTick);
+        reusedState.petTimer = entity.getPetTimer() + partialTick;
+        reusedState.attackProgress = entity.getAttackProgress(partialTick);
+        reusedState.flyingTimer = entity.getFlyingTimer(partialTick);
+        reusedState.wingspan = entity.getWingspan(partialTick);
     }
 
     @Override
