@@ -182,7 +182,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return true;
+        return !this.hasBlacksmithUpgrade();
     }
 
     private static class ChopTreeGoal extends Goal {
