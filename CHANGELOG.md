@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.224.2] - 2026-08-07
+### :bug: Bug Fixes
+- [`186b6ad`](https://github.com/klikli-dev/occultism/commit/186b6adfeec47e9a8398d7cffe1437c8d6615b10) - [#1677](https://github.com/klikli-dev/occultism/pull/1677) *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.21.1-1.224.1] - 2026-07-31
 ### :bug: Bug Fixes
 - [`4c9ba6c`](https://github.com/klikli-dev/occultism/commit/4c9ba6c704a7fe5a63b978eb6b7bc3abaff69c9e) - prevent ClientLevel memory leak on dimension change/disconnect *(PR [#1675](https://github.com/klikli-dev/occultism/pull/1675) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2490,3 +2495,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.223.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.222.0...release/v1.21.1-1.223.0
 [release/v1.21.1-1.224.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.223.0...release/v1.21.1-1.224.0
 [release/v1.21.1-1.224.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.0...release/v1.21.1-1.224.1
+[release/v1.21.1-1.224.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.1...release/v1.21.1-1.224.2
