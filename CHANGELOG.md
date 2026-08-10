@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.250.0] - 2026-08-10
+### :bug: Bug Fixes
+- [`d893305`](https://github.com/klikli-dev/occultism/commit/d893305ad9bdb6f196d03fea1fa26c844bd1a4f3) - assign entity ids to golden sacrificial bowl sacrifice previews *(PR [#1684](https://github.com/klikli-dev/occultism/pull/1684) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.249.0] - 2026-08-08
 ### :wrench: Chores
 - [`ac7b79e`](https://github.com/klikli-dev/occultism/commit/ac7b79eb04967804e613cb4c05148944cdef9633) - update code defined gui and magic particles lib versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2813,3 +2818,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.247.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-0.0.0...release/v26.2-1.247.1
 [release/v26.2-1.248.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.247.1...release/v26.2-1.248.0
 [release/v26.2-1.249.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.248.0...release/v26.2-1.249.0
+[release/v26.2-1.250.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.249.0...release/v26.2-1.250.0
