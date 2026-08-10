@@ -63,6 +63,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
 
     private final ItemModelResolver itemModelResolver;
     private final Map<EntityType<?>, LivingEntity> sacrificePreviewEntities = new HashMap<>();
+    private int nextSacrificePreviewEntityId = -1;
     private @Nullable Level cachedLevel = null;
 
     public GoldenSacrificialBowlRenderer(Context context) {
@@ -195,6 +196,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
         }
 
         if (entityType.create(level, EntitySpawnReason.COMMAND) instanceof LivingEntity created) {
+            created.setId(this.nextSacrificePreviewEntityId--);
             this.sacrificePreviewEntities.put(entityType, created);
             return created;
         }
