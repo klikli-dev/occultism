@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.248.0] - 2026-08-10
+### :sparkles: New Features
+- [`7d9afa5`](https://github.com/klikli-dev/occultism/commit/7d9afa589759713b95780b1db51cad410ac376ff) - Update zh_cn.json *(PR [#1683](https://github.com/klikli-dev/occultism/pull/1683) by [@ZHAY10086](https://github.com/ZHAY10086))*
+
+
 ## [release/v26.1.2-1.247.1] - 2026-07-31
 ### :bug: Bug Fixes
 - [`f868a1d`](https://github.com/klikli-dev/occultism/commit/f868a1d3c924aa2e34146b120694132997b29e70) - prevent ClientLevel memory leak on dimension change/disconnect *(PR [#1674](https://github.com/klikli-dev/occultism/pull/1674) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2795,3 +2800,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.246.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.246.0...release/v26.1.2-1.246.1
 [release/v26.1.2-1.247.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.246.1...release/v26.1.2-1.247.0
 [release/v26.1.2-1.247.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.247.0...release/v26.1.2-1.247.1
+[release/v26.1.2-1.248.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.247.1...release/v26.1.2-1.248.0
