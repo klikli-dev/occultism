@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.251.0] - 2026-08-10
+### :sparkles: New Features
+- [`4712b95`](https://github.com/klikli-dev/occultism/commit/4712b9552a5d30ab566286c50aca0205fbafe6af) - Update zh_cn.json *(PR [#1683](https://github.com/klikli-dev/occultism/pull/1683) by [@ZHAY10086](https://github.com/ZHAY10086))*
+
+### :bug: Bug Fixes
+- [`0b53796`](https://github.com/klikli-dev/occultism/commit/0b53796d8015c49c7957291956f29ecf7ab19d36) - prevent flickering golden sacrificial bowl sacrifice preview *(PR [#1685](https://github.com/klikli-dev/occultism/pull/1685) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.250.0] - 2026-08-10
 ### :bug: Bug Fixes
 - [`d893305`](https://github.com/klikli-dev/occultism/commit/d893305ad9bdb6f196d03fea1fa26c844bd1a4f3) - assign entity ids to golden sacrificial bowl sacrifice previews *(PR [#1684](https://github.com/klikli-dev/occultism/pull/1684) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2819,3 +2827,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.248.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.247.1...release/v26.2-1.248.0
 [release/v26.2-1.249.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.248.0...release/v26.2-1.249.0
 [release/v26.2-1.250.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.249.0...release/v26.2-1.250.0
+[release/v26.2-1.251.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.250.0...release/v26.2-1.251.0
