@@ -158,7 +158,7 @@ public class GoldenSacrificialBowlRenderer implements BlockEntityRenderer<Sacrif
                         entity.yHeadRotO = 0;
 
                         BlockPos previewPos = blockEntity.getBlockPos().relative(facing, 2).above(3);
-                        entity.setPos(previewPos.getX() + 0.5, previewPos.getY(), previewPos.getZ() + 0.5);
+                        entity.snapTo(previewPos.getX() + 0.5, previewPos.getY(), previewPos.getZ() + 0.5, 0, 0);
 
                         float maxSize = Math.max(entity.getBbWidth(), Math.max(entity.getBbHeight(), entity.getBbWidth()));
                         renderState.sacrificeEntityScale = maxSize > 0 ? 0.5F / maxSize : 1.0F;
