@@ -23,9 +23,9 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.api.common.data.ColorBlockState;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.EnumUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.serialization.MapCodec;
@@ -42,7 +42,6 @@ import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
@@ -133,8 +132,8 @@ public class SpiritFireBlock extends BaseFireBlock {
     }
 
     public int getColor(BlockState state, int i) {
-        return i == 1 ? mixColors(this.getColor(state, 0), 0xFFFFFF, 0.4F) :
-                EnumUtil.getConfiguredColor(state.getValue(COLOR).getNumber());
+        return i == 1 ? mixColors(this.getColor(state, 0), 0xFFFFFF, 0.6F) :
+                EnumUtil.getConfiguredColor((byte) state.getValue(COLOR).ordinal());
     }
 
     @Override
@@ -142,60 +141,8 @@ public class SpiritFireBlock extends BaseFireBlock {
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
     ) {
         if (player.getAbilities().mayBuild) {
-            Item item = stack.getItem();
-            if (item.equals(OccultismItems.CHALK_WHITE.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.WHITE));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_LIGHT_GRAY.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.LIGHT_GRAY));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_GRAY.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.GRAY));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_BLACK.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.BLACK));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_BROWN.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.BROWN));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_RED.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.RED));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_ORANGE.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.ORANGE));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_YELLOW.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.YELLOW));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_LIME.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.LIME));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_GREEN.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.GREEN));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_CYAN.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.CYAN));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_LIGHT_BLUE.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.LIGHT_BLUE));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_BLUE.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.BLUE));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_PURPLE.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.PURPLE));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_MAGENTA.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.MAGENTA));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_PINK.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.PINK));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_RAINBOW.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.RAINBOW));
-                return InteractionResult.SUCCESS;
-            } else if (item.equals(OccultismItems.CHALK_VOID.get())) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.VOID));
+            if (stack.is(OccultismTags.Items.TOOLS_CHALK)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, ColorBlockState.fromChalk(stack.getItem())));
                 return InteractionResult.SUCCESS;
             }
         }
