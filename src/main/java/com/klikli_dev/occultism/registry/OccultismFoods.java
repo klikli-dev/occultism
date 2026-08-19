@@ -54,7 +54,7 @@ public class OccultismFoods {
             () -> new Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
 
     public static final Consumable DATURA_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 15 * 20, 1), 0.7f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 15 * 20, 0), 0.7f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 1), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20, 1), 0.3f))
             .build();
@@ -63,7 +63,7 @@ public class OccultismFoods {
             () -> new Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
 
     public static final Consumable DEMONS_DREAM_ESSENCE_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1), 1.0f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 0), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 1), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.DARKNESS, 15 * 20, 1), 0.2f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.GLOWING, 15 * 20, 1), 0.2f))
@@ -78,14 +78,14 @@ public class OccultismFoods {
             () -> new Builder().nutrition(0).saturationModifier(0).alwaysEdible().build());
 
     public static final Consumable OTHERWORLD_ESSENCE_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1), 1.0f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 0), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.LUCK, 5 * 60 * 20, 1), 1.0f))
             .build();
 
     public static final Lazy<FoodProperties> PITAYA = Lazy.of(
             () -> new Builder().nutrition(6).saturationModifier(3.6F).build());
     public static final Consumable PITAYA_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 30 * 20, 1), 1f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 30 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 15 * 20, 1), 0.05f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HASTE, 15 * 20, 1), 0.05f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.STRENGTH, 15 * 20, 1), 0.05f))
@@ -99,18 +99,18 @@ public class OccultismFoods {
     public static final Lazy<FoodProperties> PITAYA_GOLDEN = Lazy.of(
             () -> new Builder().nutrition(6).saturationModifier(14.4F).alwaysEdible().build());
     public static final Consumable PITAYA_GOLDEN_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 10 * 20, 1), 1f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 10 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 60 * 20, 4), 1f))
             .build();
 
     public static final Lazy<FoodProperties> PITAYA_ENCHANTED = Lazy.of(
             () -> new Builder().nutrition(6).saturationModifier(14.4F).alwaysEdible().build());
     public static final Consumable PITAYA_ENCHANTED_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 3 * 20, 1), 1f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 3 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 3 * 60 * 20, 4), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.RESISTANCE, 3 * 60 * 20, 2), 1f))
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3 * 60 * 20, 2), 1f))
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 3 * 60 * 20, 2), 1f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3 * 60 * 20, 0), 1f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 3 * 60 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.WIND_CHARGED, 3 * 60 * 20, 2), 1f))
             .build();
 
@@ -137,7 +137,7 @@ public class OccultismFoods {
             () -> new Builder().nutrition(11).saturationModifier(0.1F).build());
 
     public static final Consumable DEMONIC_MEAT_CONSUMABLE = Consumable.builder()
-            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3 * 60 * 20, 1), 1.0f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3 * 60 * 20, 0), 1.0f))
             .build();
 
     public static final Lazy<FoodProperties> NATURE_PASTE = Lazy.of(

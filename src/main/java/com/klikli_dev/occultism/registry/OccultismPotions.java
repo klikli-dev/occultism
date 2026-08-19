@@ -35,10 +35,10 @@ public class OccultismPotions {
             DeferredRegister.create(BuiltInRegistries.POTION, Occultism.MODID);
 
     public static final Holder<Potion> THIRD_EYE_POTION = POTIONS.register("third_eye_potion",
-            () -> new Potion("third_eye_potion", new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1)));
+            () -> new Potion("third_eye_potion", new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 0)));
 
     public static final Holder<Potion> LONG_THIRD_EYE_POTION = POTIONS.register("long_third_eye_potion",
-            () -> new Potion("long_third_eye_potion", new MobEffectInstance(OccultismEffects.THIRD_EYE, 5 * 60 * 20, 1)));
+            () -> new Potion("long_third_eye_potion", new MobEffectInstance(OccultismEffects.THIRD_EYE, 5 * 60 * 20, 0)));
 
     public static void register(IEventBus eventBus) {
         POTIONS.register(eventBus);
