@@ -400,10 +400,15 @@ public class OccultismItems {
             Item::new, Properties::new);
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.registerItem("otherworld_ashes",
             Item::new, Properties::new);
-    public static final DeferredItem<Item> GRAY_PASTE = ITEMS.registerItem("gray_paste",
-            DamageInCraftingItem::new, () -> new Properties().durability(64));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.registerItem("nature_paste",
-            NaturePasteItem::new, () -> new Properties().durability(64));
+            NaturePasteItem::new, () -> new Properties().durability(64)
+                    .food(OccultismFoods.NATURE_PASTE.get(), OccultismFoods.NATURE_PASTE_CONSUMABLE));
+    public static final DeferredItem<Item> GRAY_PASTE = ITEMS.registerItem("gray_paste",
+            DamageInCraftingItem::new, () -> new Properties().durability(64)
+                    .food(OccultismFoods.GRAY_PASTE.get(), OccultismFoods.GRAY_PASTE_CONSUMABLE));
+    public static final DeferredItem<Item> FLAMING_PASTE = ITEMS.registerItem("flaming_paste",
+            FlamingPasteItem::new, () -> new Properties().durability(256).rarity(Rarity.UNCOMMON).fireResistant()
+                    .food(OccultismFoods.FLAMING_PASTE.get(), OccultismFoods.FLAMING_PASTE_CONSUMABLE));
     //Components
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.registerItem("purified_ink",
             Item::new, Properties::new);
@@ -430,7 +435,7 @@ public class OccultismItems {
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.registerItem("dimensional_matrix",
             DimensionalMatrixItem::new, () -> new Properties().component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.registerItem("mining_dim_core",
-            DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
+            DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).durability(Integer.MAX_VALUE).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")
                     .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1));
     public static final DeferredItem<Item> BEDROCK_SCRAP = ITEMS.registerItem("bedrock_scrap",
@@ -695,6 +700,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST = ITEMS.registerItem("ritual_dummy/craft_research_fragment_dust", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_NATURE_PASTE = ITEMS.registerItem("ritual_dummy/craft_nature_paste", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_GRAY_PASTE = ITEMS.registerItem("ritual_dummy/craft_gray_paste", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FLAMING_PASTE = ITEMS.registerItem("ritual_dummy/craft_flaming_paste", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_WITHERITE_DUST = ITEMS.registerItem("ritual_dummy/craft_witherite_dust", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DRAGONYST_DUST = ITEMS.registerItem("ritual_dummy/craft_dragonyst_dust", DummyTooltipItem::new, Properties::new);
     //Blocks

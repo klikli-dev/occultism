@@ -213,7 +213,18 @@ public class OccultismRecipeProvider extends RecipeProvider {
                         "occultism:crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]", "_") + "dye")));
     }
 
-    private static void grayPasteRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
+    private static void pasteRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
+        naturePasting(Ingredient.of(Items.COBBLESTONE), Items.MOSSY_COBBLESTONE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.COBBLESTONE_STAIRS), Items.MOSSY_COBBLESTONE_STAIRS, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.COBBLESTONE_SLAB), Items.MOSSY_COBBLESTONE_SLAB, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.COBBLESTONE_WALL), Items.MOSSY_COBBLESTONE_WALL, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.STONE_BRICKS), Items.MOSSY_STONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.STONE_BRICK_STAIRS), Items.MOSSY_STONE_BRICK_STAIRS, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.STONE_BRICK_SLAB), Items.MOSSY_STONE_BRICK_SLAB, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.STONE_BRICK_WALL), Items.MOSSY_STONE_BRICK_WALL, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+        naturePasting(Ingredient.of(Items.CLAY_BALL), Items.SLIME_BALL, RecipeCategory.MISC, pRecipeOutput, items);
+        naturePasting(ofTag(items, Tags.Items.RODS_WOODEN), Items.BAMBOO, RecipeCategory.MISC, pRecipeOutput, items);
+
         grayPasting(OccultismTags.Items.ECHO_DUST, Items.ECHO_SHARD, RecipeCategory.MISC, pRecipeOutput, items);
         grayPasting(OccultismTags.Items.LAPIS_DUST, Items.LAPIS_LAZULI, RecipeCategory.MISC, pRecipeOutput, items);
         grayPasting(OccultismTags.Items.AMETHYST_DUST, Items.AMETHYST_SHARD, RecipeCategory.MISC, pRecipeOutput, items);
@@ -227,13 +238,33 @@ public class OccultismRecipeProvider extends RecipeProvider {
         grayPasting(OccultismTags.Items.BLACKSTONE_DUST, Items.BLACKSTONE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
         grayPasting(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
         grayPasting(OccultismTags.Items.OTHERROCK_DUST, OccultismBlocks.OTHERROCK.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput, items);
+
+        flamePasting(Tags.Items.SLIME_BALLS, Items.MAGMA_CREAM, 1, RecipeCategory.BREWING, pRecipeOutput, items);
+        flamePasting(Tags.Items.RODS_WOODEN, Items.BLAZE_ROD, 1, RecipeCategory.BREWING, pRecipeOutput, items);
+        flamePasting(Tags.Items.DUSTS_REDSTONE, Items.GLOWSTONE_DUST, 1, RecipeCategory.BREWING, pRecipeOutput, items);
+        flamePasting(Tags.Items.GUNPOWDERS, Items.FIRE_CHARGE, 4, RecipeCategory.MISC, pRecipeOutput, items);
+    }
+
+    protected static void pasting(Ingredient input, Item paste, Item output, int quantity, RecipeCategory category, RecipeOutput pRecipeOutput, HolderGetter<Item> items){
+        int i = output.toString().lastIndexOf(":") + 1;
+        String type = paste.toString().substring(paste.toString().lastIndexOf(":") + 1);
+        ShapelessRecipeBuilder.shapeless(items, category, output, quantity)
+                .requires(paste).requires(input)
+                .unlockedBy("has_" + type, TriggerInstance.hasItems(paste))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID,
+                        "crafting/" + type +"/" + output.toString().substring(i))));
+    }
+
+    protected static void naturePasting(Ingredient input, Item output, RecipeCategory category, RecipeOutput pRecipeOutput, HolderGetter<Item> items){
+        pasting(input, OccultismItems.NATURE_PASTE.get(), output, 1, category, pRecipeOutput, items);
     }
 
     protected static void grayPasting(TagKey<Item> input, Item output, RecipeCategory category, RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
-        ShapelessRecipeBuilder.shapeless(items, category, output)
-                .requires(OccultismItems.GRAY_PASTE).requires(input)
-                .unlockedBy("has_gray_paste", TriggerInstance.hasItems(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/" + output.toString().replace("minecraft:", "").replace("occultism:", ""))));
+        pasting(ofTag(items, input), OccultismItems.GRAY_PASTE.get(), output, 1, category, pRecipeOutput, items);
+    }
+
+    protected static void flamePasting(TagKey<Item> input, Item output, int amount, RecipeCategory category, RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
+        pasting(ofTag(items, input), OccultismItems.FLAMING_PASTE.get(), output, amount, category, pRecipeOutput, items);
     }
 
     @Override
@@ -249,7 +280,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         spiritFireRecipes(this.output, this.registries);
         stonecutterRecipes(this.output, this.registries);
         otherflowerRecipes(this.output, items);
-        grayPasteRecipes(this.output, items);
+        pasteRecipes(this.output, items);
     }
 
     private void ritualRecipes(RecipeOutput recipeOutput, Provider registries) {
@@ -1313,17 +1344,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_iesnium_nugget", TriggerInstance.hasItems(OccultismItems.IESNIUM_NUGGET.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherglass")));
 
-        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BUILDING_BLOCKS, Items.MOSSY_COBBLESTONE)
-                .requires(Items.COBBLESTONE)
-                .requires(OccultismItems.NATURE_PASTE)
-                .unlockedBy("has_nature_paste", TriggerInstance.hasItems(OccultismItems.NATURE_PASTE))
-                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/nature_paste_mossy_cobblestone")));
-        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BUILDING_BLOCKS, Items.MOSSY_STONE_BRICKS)
-                .requires(Items.STONE_BRICKS)
-                .requires(OccultismItems.NATURE_PASTE)
-                .unlockedBy("has_nature_paste", TriggerInstance.hasItems(OccultismItems.NATURE_PASTE))
-                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/nature_paste_mossy_stone_bricks")));
-    }
+        }
 
     private void woodRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS.get(), 4)
@@ -1399,5 +1420,10 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .group("chest_boat")
                 .unlockedBy("has_boat", this.has(ItemTags.BOATS))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_chest_boat")));
+    }
+
+    // Helper method to create Ingredient from TagKey
+    protected static Ingredient ofTag(HolderGetter<Item> items, TagKey<Item> tag) {
+        return Ingredient.of(items.getOrThrow(tag));
     }
 }

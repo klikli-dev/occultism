@@ -238,6 +238,15 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
+        this.tag(OccultismTags.Items.BYPASS_INTERACTION)
+                .add(OccultismItems.MAGIC_LAMP_EMPTY.get())
+                .add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get())
+                .add(OccultismItems.SOUL_GEM_ITEM.get())
+                .add(OccultismItems.TRINITY_GEM_ITEM.get())
+                .add(OccultismItems.NATURE_PASTE.get())
+                .add(OccultismItems.GRAY_PASTE.get())
+                .add(OccultismItems.FLAMING_PASTE.get())
+                .replace(false);
 
         this.tag(OccultismTags.Items.START_SPIRIT_FIRE)
                 .add(OccultismItems.DATURA.get())
@@ -284,6 +293,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .addTag(OccultismTags.Items.TOOLS_CHALK)
                 .addTag(OccultismTags.Items.TOOLS_KNIFE)
                 .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem())
+                .add(OccultismItems.FLAMING_PASTE.asItem())
                 .add(OccultismItems.GRAY_PASTE.asItem())
                 .add(OccultismItems.NATURE_PASTE.asItem());
         this.tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
@@ -372,6 +382,10 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.SILVER_BOOTS.get())
                 .replace(false);
 
+        this.tag(ItemTags.CREEPER_IGNITERS)
+                .add(OccultismItems.FLAMING_PASTE.get())
+                .replace(false);
+
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
@@ -408,6 +422,15 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
         this.tag(Tags.Items.ARMORS_NAUTILUS)
                 .add(OccultismItems.SILVER_NAUTILUS_ARMOR.get())
+                .replace(false);
+
+
+        this.tag(Tags.Items.TOOLS_IGNITER)
+                .add(OccultismItems.FLAMING_PASTE.get())
+                .replace(false);
+
+        this.tag(Tags.Items.BUCKETS_LAVA)
+                .add(OccultismItems.FLAMING_PASTE.get())
                 .replace(false);
 
         this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
@@ -481,6 +504,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.PITAYA.get())
                 .add(OccultismItems.PITAYA_GOLDEN.get())
                 .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .add(OccultismItems.NATURE_PASTE.get())
+                .add(OccultismItems.GRAY_PASTE.get())
+                .add(OccultismItems.FLAMING_PASTE.get())
                 .replace(false);
         this.tag(ItemTags.MEAT)
                 .add(OccultismItems.DEMONIC_MEAT.get())

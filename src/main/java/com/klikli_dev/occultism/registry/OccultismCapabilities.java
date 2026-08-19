@@ -24,7 +24,9 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem.Curio;
+import com.klikli_dev.occultism.common.misc.LavaResourceHandler;
 import net.minecraft.core.Direction;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
@@ -43,6 +45,12 @@ public class OccultismCapabilities {
                 },
                 // items to register for
                 OccultismItems.FAMILIAR_RING.get());
+
+        event.registerItem(
+                Capabilities.Fluid.ITEM,
+                LavaResourceHandler::new,
+                OccultismItems.FLAMING_PASTE.get()
+        );
 
         event.registerBlockEntity(
                 Item.BLOCK,

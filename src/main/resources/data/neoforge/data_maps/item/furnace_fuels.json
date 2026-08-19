@@ -2,6 +2,9 @@
   "values": {
     "occultism:mining_dim_core": {
       "burn_time": 200
+    },
+    "occultism:flaming_paste": {
+      "burn_time": 200
     }
   }
 }

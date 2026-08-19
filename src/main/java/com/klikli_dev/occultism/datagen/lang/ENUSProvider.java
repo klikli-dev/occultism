@@ -53,8 +53,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
-    public static final String DEMONS_DREAM = "Demon's Dream";
-
 
     public ENUSProvider(PackOutput gen, LanguageProviderCache langCache) {
         super(gen, Occultism.MODID, "en_us", langCache);
@@ -493,16 +491,40 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DRAGONYST_DUST, "Dragonyst Dust");
         this.addItem(OccultismItems.ECHO_DUST, "Echo Dust");
         this.addItem(OccultismItems.EMERALD_DUST, "Emerald Dust");
-        this.addItem(OccultismItems.GRAY_PASTE, "Gray Paste");
-        this.addAutoTooltip(OccultismItems.GRAY_PASTE, "Reacts with some dusts, returning to its original shape");
         this.addItem(OccultismItems.LAPIS_DUST, "Lapis Dust");
         this.addItem(OccultismItems.MARID_ESSENCE, "Marid Essence");
-        this.addItem(OccultismItems.NATURE_PASTE, "Nature Paste");
-        this.addAutoTooltip(OccultismItems.NATURE_PASTE, "Powerful and reusable bonemeal (instantly grow and affects more plants)");
         this.addItem(OccultismItems.NETHERITE_DUST, "Netherite Dust");
         this.addItem(OccultismItems.NETHERITE_SCRAP_DUST, "Netherite Scrap Dust");
         this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST, "Research Fragment Dust");
         this.addItem(OccultismItems.WITHERITE_DUST, "Witherite Dust");
+
+        this.addItem(OccultismItems.NATURE_PASTE, "Nature Paste");
+        this.addAutoTooltip(OccultismItems.NATURE_PASTE,
+                """
+                        Can be eaten, granting Haste and maybe Nausea, Oozing, Poison.
+                        Right-click a mob or hit it to apply those debuffs.
+                        Powerful and reusable bonemeal (instantly grow and affects more plants).
+                        """
+        );
+        this.addItem(OccultismItems.GRAY_PASTE, "Gray Paste");
+        this.addAutoTooltip(OccultismItems.GRAY_PASTE,
+                """
+                        Can be eaten, granting Resistance and Slowness.
+                        Reacts with some dusts, returning to its original shape.
+                        Holding this in your off hand allows Nature Paste to grow ores.
+                        Holding this in your off hand allows Flaming Paste to shot fireballs.
+                        """
+        );
+        this.addItem(OccultismItems.FLAMING_PASTE, "Flaming Paste");
+        this.addAutoTooltip(OccultismItems.FLAMING_PASTE.get(),
+                """
+                        Can be eaten, granting Strength and Fire Resistance.
+                        Can be used as a fuel, burns one item per durability point.
+                        Right-click a mob or hit it to set it on fire.
+                        Right-Click on a block acts like a Flint and Steel.
+                        Shift-Right-Click on a block acts like a Lava Bucket.
+                        """
+        );
     }
 
     private void addBlocks() {
@@ -1603,6 +1625,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST, "Craft Research Fragment Dust", "Foliot", "A Foliot will infuse experience in the emerald dust.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_NATURE_PASTE, "Craft Nature Paste", "Foliot", "A Foliot will craft the nature paste mixing ingredients.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "Craft Gray Paste", "Djinni", "A Djinni will craft the gray paste mixing ingredients.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FLAMING_PASTE, "Craft Flaming Paste", "Afrit", "An Afrit will craft the flaming paste mixing ingredients.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "Craft Witherite Dust", "Afrit", "An Afrit will infuse netherite dust with wither essence.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
         //Blocks

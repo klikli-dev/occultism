@@ -33,6 +33,8 @@ import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
+import com.klikli_dev.occultism.common.item.tool.NaturePasteItem;
+import com.klikli_dev.occultism.common.misc.FireballDispenseBehavior;
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
@@ -45,7 +47,13 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPage
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
@@ -59,6 +67,7 @@ import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 
 import java.util.stream.Stream;
@@ -105,6 +114,7 @@ public class Occultism {
         OccultismRecipeResults.RECIPE_RESULT_TYPES.register(modEventBus);
         OccultismConditionCodecs.CONDITION_CODECS.register(modEventBus);
         OccultismRecipeDisplays.RECIPE_DISPLAYS.register(modEventBus);
+        OccultismFoods.CONSUME_EFFECT_TYPES.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
@@ -155,6 +165,28 @@ public class Occultism {
             DispenserBlock.registerBehavior(
                     OccultismItems.OTHERPLANKS_BOAT_CHEST.get(),
                     new BoatDispenseItemBehavior(OccultismEntities.OTHERPLANKS_BOAT_CHEST.get())
+            );
+            DispenserBlock.registerBehavior(OccultismItems.NATURE_PASTE, new OptionalDispenseItemBehavior() {
+                @Override
+                protected @NonNull ItemStack execute(@NonNull BlockSource source, @NonNull ItemStack dispensed) {
+                    this.setSuccess(true);
+                    ServerLevel level = source.level();
+                    BlockPos target = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+                    if (!NaturePasteItem.growCustom(dispensed, level, target)
+                            && !NaturePasteItem.applyBonemeal(dispensed, level, target, null)
+                            && !NaturePasteItem.growWaterPlant(dispensed, level, target, null)) {
+                        this.setSuccess(false);
+                    } else if (!level.isClientSide()) {
+                        dispensed.hurtAndBreak(1, level, (LivingEntity) null, (item) -> {});
+                        level.levelEvent(1505, target, 15);
+                    }
+
+                    return dispensed;
+                }
+            });
+            DispenserBlock.registerBehavior(
+                    OccultismItems.FLAMING_PASTE.get(),
+                    new FireballDispenseBehavior(OccultismItems.FLAMING_PASTE.get())
             );
         });
 

@@ -184,17 +184,17 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void onPlayerRightClickEntity(EntityInteract event) {
         ItemStack stack = event.getItemStack();
-        if (stack.getItem() instanceof SoulGemItem soulGemItem) {
+        if (stack.is(OccultismTags.Items.BYPASS_INTERACTION)) {
             //called from here to bypass sitting entity's sit command.
             if (event.getTarget() instanceof LivingEntity livingEntity
-                    && soulGemItem.interactLivingEntity(stack, event.getEntity(),
+                    && stack.getItem().interactLivingEntity(stack, event.getEntity(),
                     livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
             //force for multipart entities
             if (event.getTarget() instanceof PartEntity<?> partEntity
                     && partEntity.getParent() instanceof LivingEntity livingEntity
-                    && soulGemItem.interactLivingEntity(stack, event.getEntity(),
+                    && stack.getItem().interactLivingEntity(stack, event.getEntity(),
                     livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }

@@ -1355,6 +1355,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.AFRIT_ESSENCE))
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_dimensional_battlefield")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        new ItemStackTemplate(OccultismItems.FLAMING_PASTE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_FLAMING_PASTE.get()),
+                        BASE_TIME * INFUSE_MULT * AFRIT_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_AFRIT, registries,
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE),
+                        ofTag(registries, Tags.Items.BUCKETS_LAVA),
+                        ofTag(registries, Tags.Items.RODS_BLAZE),
+                        ofTag(registries, Tags.Items.TOOLS_IGNITER),
+                        Ingredient.of(Items.MAGMA_CREAM),
+                        Ingredient.of(Items.FIRE_CHARGE),
+                        Ingredient.of(OccultismItems.DEMONIC_MEAT),
+                        ofTag(registries, Tags.Items.CLUMPS_RESIN))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_flaming_paste")));
 
         //Djinni
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),

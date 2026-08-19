@@ -195,6 +195,7 @@ public class OccultismTags {
         public static final TagKey<Item> DATURA = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "datura"));
 
         //Item Tags
+        public static final TagKey<Item> BYPASS_INTERACTION = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "bypass_interaction"));
         public static final TagKey<Item> TOOLS_KNIFE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/knife"));
         public static final TagKey<Item> TOOLS_KNIFE_IESNIUM = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/knife/iesnium"));
 
