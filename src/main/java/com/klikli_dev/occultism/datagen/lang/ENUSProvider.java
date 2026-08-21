@@ -1822,7 +1822,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.OTHERWORLD_WOOD_DUST, "Otherworld Wood Dust");
         this.addItemTag(Items.OCCULTISM_CANDLES, "Occultism Candles");
         this.addItemTag(Miners.MINERS, "Dimensional Miners");
-        this.addItemTag(Items.SCUTESHELL, "Scute or Shell");
+        this.addItemTag(Items.BATTLEFIELD_DENY_LIST, "Cannot generate in the Dimensional Battlefield");
         this.addItemTag(Items.BLAZE_DUST, "Blaze Dust");
         this.addItemTag(Items.MANUALS, "Manuals");
         this.addItemTag(Items.TOOLS_KNIFE, "Knives");
@@ -2060,6 +2060,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerSilk", "Silk miners");
         this.addConfig("butcherHurtChance", "Battlefield weapon breaking chance");
         this.addConfig("butcherLifeMultiplier", "Battlefield time multiplier");
+        this.addConfig("butcherFractureMultiplier", "Battlefield fracture soul time bonus");
         this.addConfig("shatteredSoulChance", "Shattered soul drop chance");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
         this.addConfig("maxDistanceRTP", "Max Distance RTP");

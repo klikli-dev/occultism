@@ -133,11 +133,8 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.WITHER_SKELETON_SKULL)
                 .replace(false);
 
-        this.tag(OccultismTags.Items.SCUTESHELL)
-                .add(Items.ARMADILLO_SCUTE)
-                .add(Items.TURTLE_SCUTE)
-                .add(Items.SHULKER_SHELL)
-                .add(Items.NAUTILUS_SHELL)
+        this.tag(OccultismTags.Items.BATTLEFIELD_DENY_LIST)
+                .add(OccultismItems.SOUL_SHATTERED_ITEM.get())
                 .replace(false);
 
         this.copy(Blocks.PENTACLE_MATERIALS, OccultismTags.Items.PENTACLE_MATERIALS);
