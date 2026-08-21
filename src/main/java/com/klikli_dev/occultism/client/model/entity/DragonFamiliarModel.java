@@ -169,10 +169,41 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
     public void setupAnim(DragonFamiliarRenderState state) {
         super.setupAnim(state);
         DragonFamiliarEntity entityIn = state.dragonEntity instanceof DragonFamiliarEntity d ? d : null;
-        if (entityIn != null && entityIn.isPartying()) {
-            this.head.xRot = this.toRads(50) + Mth.sin(entityIn.tickCount) * this.toRads(20);
-            this.head.yRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
-            this.head.zRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
+        if (entityIn != null) {
+            if (!entityIn.onGround()) {
+                float rot = 1 + Mth.sin(entityIn.tickCount % 40);
+                this.leftWing1.zRot = rot * this.toRads(50);
+                this.leftWing2.zRot = rot * this.toRads(20);
+                this.rightWing1.zRot = -rot * this.toRads(50);
+                this.rightWing2.zRot = -rot * this.toRads(20);
+            } else if (entityIn.isPartying()) {
+                this.head.xRot = this.toRads(50) + Mth.sin(entityIn.tickCount) * this.toRads(20);
+                this.head.yRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
+                this.head.zRot = Mth.sin(entityIn.tickCount) * this.toRads(5);
+            } else if (entityIn.isSitting()) {
+                this.leftLeg1.xRot = this.toRads(15);
+                this.rightLeg1.xRot = this.toRads(15);
+                this.leftLeg3.xRot = this.toRads(26);
+                this.rightLeg3.xRot = this.toRads(26);
+
+                this.leftWing1.zRot = this.toRads(150);
+                this.leftWing2.zRot = this.toRads(20);
+                this.rightWing1.zRot = -this.toRads(150);
+                this.rightWing2.zRot = -this.toRads(20);
+
+                this.tail1.xRot = this.toRads(30);
+                this.tail2.xRot = this.toRads(30);
+                this.tail3.xRot = this.toRads(30);
+
+                this.body.xRot = this.toRads(-50);
+                this.neck1.xRot = this.toRads(10);
+                this.neck2.xRot = this.toRads(5);
+            } else {
+                this.rightLeg1.xRot = this.toRads(45) + Mth.cos(state.walkAnimationPos * 0.7f) * 1.4f * state.walkAnimationSpeed;
+                this.leftLeg1.xRot = this.toRads(45) + Mth.cos(state.walkAnimationPos * 0.7f + PI) * 1.4f * state.walkAnimationSpeed;
+                this.rightArm1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 1.4f * state.walkAnimationSpeed;
+                this.leftArm1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 1.4f * state.walkAnimationSpeed;
+            }
         }
     }
 
