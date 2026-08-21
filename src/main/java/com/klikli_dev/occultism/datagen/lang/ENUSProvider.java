@@ -204,6 +204,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.PENTACLE_POSSESS, "Pentacle Possess");
         this.addItem(OccultismItems.PENTACLE_CRAFT, "Pentacle Craft");
         this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
+        this.addItem(OccultismItems.PENTACLE_ALT, "Pentacle Alt");
+        this.addItem(OccultismItems.PENTACLE_EYE, "Pentacle Eye");
+        this.addItem(OccultismItems.PENTACLE_GEAR, "Pentacle Gear");
         this.addItem(OccultismItems.REPAIR_ICON, "Repair Icon");
         this.addItem(OccultismItems.RESURRECT_ICON, "Resurrect Icon");
         this.addItem(OccultismItems.MYSTERIOUS_EGG_ICON, "Mysterious Egg Icon");
@@ -1498,6 +1501,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_CRAFT.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
         this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Custom Ritual Dummy");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_ALT.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_ALT.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_EYE.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_EYE.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_GEAR.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_GEAR.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
 
         //SUMMON
         //Crusher

@@ -770,6 +770,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_POSSESS = ITEMS.registerItem("ritual_dummy/custom_ritual_possess", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_CRAFT = ITEMS.registerItem("ritual_dummy/custom_ritual_craft", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_MISC = ITEMS.registerItem("ritual_dummy/custom_ritual_misc", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_ALT = ITEMS.registerItem("ritual_dummy/custom_ritual_alt", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_EYE = ITEMS.registerItem("ritual_dummy/custom_ritual_eye", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_GEAR = ITEMS.registerItem("ritual_dummy/custom_ritual_gear", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<FlameAutomationItem> FLAME_AUTOMATION = ITEMS.registerItem(
             "flame_of_automation", FlameAutomationItem::new, () -> new Properties().component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
     //DEBUG
@@ -806,6 +809,12 @@ public class OccultismItems {
     public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.registerItem("pentacle_craft",
             Item::new, Properties::new);
     public static final DeferredItem<Item> PENTACLE_MISC = ITEMS.registerItem("pentacle_misc",
+            Item::new, Properties::new);
+    public static final DeferredItem<Item> PENTACLE_ALT = ITEMS.registerItem("pentacle_alt",
+            Item::new, Properties::new);
+    public static final DeferredItem<Item> PENTACLE_EYE = ITEMS.registerItem("pentacle_eye",
+            Item::new, Properties::new);
+    public static final DeferredItem<Item> PENTACLE_GEAR = ITEMS.registerItem("pentacle_gear",
             Item::new, Properties::new);
     public static final DeferredItem<Item> WORMHOLE_PORTAL = ITEMS.registerItem("entity_wormhole_portal",
             Item::new, Properties::new);
@@ -882,6 +891,9 @@ public class OccultismItems {
                 || item == PENTACLE_POSSESS.get()
                 || item == PENTACLE_CRAFT.get()
                 || item == PENTACLE_MISC.get()
+                || item == PENTACLE_ALT.get()
+                || item == PENTACLE_EYE.get()
+                || item == PENTACLE_GEAR.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()
                 || item == ADVANCEMENT_ICON.get()
                 || item == JEI_DUMMY_NONE.get()

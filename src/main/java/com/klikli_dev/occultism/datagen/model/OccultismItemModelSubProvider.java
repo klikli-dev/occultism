@@ -204,6 +204,9 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.PENTACLE_POSSESS.get(),
                 OccultismItems.PENTACLE_CRAFT.get(),
                 OccultismItems.PENTACLE_MISC.get(),
+                OccultismItems.PENTACLE_ALT.get(),
+                OccultismItems.PENTACLE_EYE.get(),
+                OccultismItems.PENTACLE_GEAR.get(),
                 OccultismItems.PURIFIED_INK.get(),
                 OccultismItems.RAW_IESNIUM.get(),
                 OccultismItems.RAW_SILVER.get(),
@@ -329,8 +332,12 @@ public class OccultismItemModelSubProvider {
             parent = "occultism:item/pentacle_possess";
         } else if (path.contains("summon")) {
             parent = "occultism:item/pentacle_summon";
+        } else if (path.contains("eye")) {
+            parent = "occultism:item/pentacle_eye";
+        } else if (path.contains("gear")) {
+            parent = "occultism:item/pentacle_gear";
         } else {
-            parent = "occultism:item/pentacle_misc";
+            parent = "occultism:item/pentacle_alt";
         }
         Identifier itemModel = Identifier.fromNamespaceAndPath(Occultism.MODID, "item/" + path);
         itemModels.modelOutput.accept(itemModel, () -> {
@@ -390,6 +397,9 @@ public class OccultismItemModelSubProvider {
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_POSSESS.get(), "ritual_dummy_possess");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_CRAFT.get(), "ritual_dummy_craft");
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_MISC.get(), "ritual_dummy_misc");
+        this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_ALT.get(), "ritual_dummy_alt");
+        this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_EYE.get(), "ritual_dummy_eye");
+        this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_GEAR.get(), "ritual_dummy_gear");
 
         this.registerCustomSpear(OccultismItems.SILVER_SPEAR.get(), itemModels);
         this.registerArmorItems(itemModels);
