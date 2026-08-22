@@ -46,6 +46,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -76,6 +77,8 @@ public class SoulGemItem extends Item {
                 itemStack.remove(DataComponents.ENTITY_DATA); //delete entity from item right away to avoid duplicate in case of unexpected error
 
                 EntityType type = EntityUtil.entityTypeFromNbt(entityData);
+                if (type == null) //entity data from another mod or otherwise broken, discard it
+                    return InteractionResult.PASS;
 
                 facing = facing == null ? Direction.UP : facing;
 
@@ -92,6 +95,8 @@ public class SoulGemItem extends Item {
                 wrapper.put("EntityTag", entityData);
 
                 Entity entity = type.create(level);
+                if (entity == null)
+                    return InteractionResult.PASS;
                 entity.load(entityData);
                 entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
                 float yaw = player.getYHeadRot() + 180;
@@ -194,17 +199,22 @@ public class SoulGemItem extends Item {
                 this.getDescriptionId() + "_empty";
     }
 
+    /**
+     * @return the entity type stored on the stack, or null if the entity data is missing or invalid
+     * (e.g. written by another mod without an "id" tag).
+     */
+    @Nullable
     protected EntityType<?> getType(ItemStack pStack) {
         CustomData customdata = pStack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
-        return customdata.read(ENTITY_TYPE_FIELD_CODEC).getOrThrow();
+        return customdata.read(ENTITY_TYPE_FIELD_CODEC).result().orElse(null);
     }
 
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
-        if (pStack.has(DataComponents.ENTITY_DATA)) {
-            EntityType<?> type = this.getType(pStack);
+        EntityType<?> type = this.getType(pStack);
+        if (type != null) {
             pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         } else {
             pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));

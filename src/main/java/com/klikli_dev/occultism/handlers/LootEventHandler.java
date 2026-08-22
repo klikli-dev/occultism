@@ -152,15 +152,16 @@ public class LootEventHandler {
             }
 
             if (killed.level().random.nextFloat() < (float) (level * Occultism.SERVER_CONFIG.itemSettings.shatteredSoulChance.get())) {
+                var id = killed.getEncodeId();
+                if (id == null) //without an encode id the stored data would be invalid and break item saving
+                    return;
                 var shard = new ItemStack(OccultismItems.SOUL_SHATTERED_ITEM.get());
                 var health = killed.getHealth();
                 killed.setHealth(killed.getMaxHealth()); //simulate a healthy mob to avoid death on respawn
                 killed.resetFallDistance();
                 killed.removeAllEffects();
                 var entityData = new CompoundTag();
-                var id = killed.getEncodeId();
-                if(id != null)
-                    entityData.putString("id", id);
+                entityData.putString("id", id);
                 entityData = killed.saveWithoutId(entityData);
                 shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
                 killed.setHealth(health); //stop healthy simulation to mob die

@@ -127,6 +127,11 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isClientSide) {
                 EntityType type = EntityUtil.entityTypeFromNbt(entityData);
+                if (type == null) { //entity data from another mod or otherwise broken, discard it
+                    itemStack.remove(OccultismDataComponents.SPIRIT_ENTITY_DATA);
+                    player.inventoryMenu.broadcastChanges();
+                    return InteractionResult.PASS;
+                }
 
                 facing = facing == null ? Direction.UP : facing;
 

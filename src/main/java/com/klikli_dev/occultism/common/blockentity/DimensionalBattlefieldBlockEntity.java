@@ -399,7 +399,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         this.storedLivingEntity = null;
         if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA) && this.level != null) {
             CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTag();
-            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(this.level);
+            EntityType<?> type = EntityUtil.entityTypeFromNbt(entityData);
+            Entity tempEntity = type != null ? type.create(this.level) : null;
             if (tempEntity instanceof LivingEntity livingEntity)
                 this.storedLivingEntity = livingEntity;
         }

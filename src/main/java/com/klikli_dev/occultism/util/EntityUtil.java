@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.klikli_dev.occultism.Occultism;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,9 +30,11 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -40,6 +43,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
@@ -100,8 +105,34 @@ public class EntityUtil {
      * @return the entity type if successful or null otherwise.
      */
     public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
-        ResourceLocation typeId = ResourceLocation.parse(nbtTagCompound.getString("id"));
+        //entity data may originate from other mods and does not necessarily contain a valid "id" tag
+        if (!nbtTagCompound.contains("id", Tag.TAG_STRING))
+            return null;
+        ResourceLocation typeId = ResourceLocation.tryParse(nbtTagCompound.getString("id"));
+        if (typeId == null || !BuiltInRegistries.ENTITY_TYPE.containsKey(typeId))
+            return null;
         return BuiltInRegistries.ENTITY_TYPE.get(typeId);
+    }
+
+    /**
+     * Entity data written by other mods may lack the mandatory string "id" tag. Vanilla's entity_data
+     * component codec requires it, so affected stacks throw on save ("Missing id for entity"), which
+     * breaks saving of player data and chunks containing them. This method removes such broken data, so
+     * the stack can be saved again. Data that has an id but cannot be resolved to an entity type is left
+     * alone, as it does not break saving. Call on server side only.
+     *
+     * @param stack the stack to clean up.
+     * @return true if invalid data was removed.
+     */
+    public static boolean removeInvalidEntityData(ItemStack stack) {
+        CustomData entityData = stack.get(DataComponents.ENTITY_DATA);
+        if (entityData != null && !entityData.getUnsafe().contains("id", Tag.TAG_STRING)) {
+            Occultism.LOGGER.warn("Removing invalid entity data (missing \"id\" tag) from stack {}, " +
+                    "it would otherwise prevent world/player data from saving.", stack);
+            stack.remove(DataComponents.ENTITY_DATA);
+            return true;
+        }
+        return false;
     }
 
     public static EntityType<?> getEntityInTag(Level level, TagKey<EntityType<?>> tag) {

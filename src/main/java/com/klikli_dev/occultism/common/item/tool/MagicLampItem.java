@@ -73,6 +73,8 @@ public class MagicLampItem extends Item {
                 CompoundTag entityData = Objects.requireNonNull(itemStack.get(DataComponents.ENTITY_DATA)).copyTag();
                 itemStack.remove(DataComponents.ENTITY_DATA);
                 EntityType<?> type = EntityUtil.entityTypeFromNbt(entityData);
+                if (type == null) //entity data from another mod or otherwise broken, discard it
+                    return InteractionResult.PASS;
                 BlockPos spawnPos = pos.immutable();
                 if (!level.getBlockState(spawnPos).getCollisionShape(level, spawnPos).isEmpty())
                     spawnPos = spawnPos.relative(facing);
@@ -80,7 +82,8 @@ public class MagicLampItem extends Item {
                 CompoundTag wrapper = new CompoundTag();
                 wrapper.put("EntityTag", entityData);
                 Entity entity = type.create(level);
-                assert entity != null;
+                if (entity == null)
+                    return InteractionResult.PASS;
                 entity.load(entityData);
                 entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
                 float yaw = player.getYHeadRot() + 180;

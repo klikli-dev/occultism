@@ -60,10 +60,12 @@ public class SoulShardItem extends Item {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
         if (pStack.has(DataComponents.ENTITY_DATA)) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(pStack.get(DataComponents.ENTITY_DATA).getUnsafe());
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
-        } else {
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
+            if (type != null) {
+                pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+                return;
+            }
         }
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
     }
 
     @Override
@@ -74,10 +76,15 @@ public class SoulShardItem extends Item {
 
         if (level instanceof ServerLevel serverLevel) {
             CompoundTag entityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA)).copyTag();
-            Entity tempEntity = EntityUtil.entityTypeFromNbt(entityData).create(level);
+            EntityType<?> type = EntityUtil.entityTypeFromNbt(entityData);
+            Entity tempEntity = type != null ? type.create(level) : null;
             LivingEntity mob = tempEntity instanceof LivingEntity living ? living : null;
 
-            if (mob != null) {
+            if (mob == null) {
+                //data written by other mods may lack the "id" tag required by the entity_data component,
+                //which prevents saving - remove it exactly when we encounter it
+                EntityUtil.removeInvalidEntityData(stack);
+            } else {
                 LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(mob.getLootTable());
                 LootParams lootParams = new LootParams.Builder(serverLevel)
                         .withParameter(LootContextParams.THIS_ENTITY, mob)

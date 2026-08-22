@@ -83,17 +83,19 @@ public class ResurrectFamiliarRitual extends SummonRitual {
             CompoundTag wrapper = new CompoundTag();
             wrapper.put("EntityTag", entityData);
 
-            Entity entity = type.create(level);
-            entity.load(entityData);
-            entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
-            entity.setDeltaMovement(Vec3.ZERO);
-            level.addFreshEntity(entity);
+            Entity entity = type != null ? type.create(level) : null;
+            if (entity != null) {
+                entity.load(entityData);
+                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
+                entity.setDeltaMovement(Vec3.ZERO);
+                level.addFreshEntity(entity);
 
-            if (entity instanceof FamiliarEntity familiar && castingPlayer != null)
-                familiar.setFamiliarOwner(castingPlayer);
+                if (entity instanceof FamiliarEntity familiar && castingPlayer != null)
+                    familiar.setFamiliarOwner(castingPlayer);
 
-            if (entity instanceof DemonicPartner partner && castingPlayer != null)
-                partner.setOwnerUUID(castingPlayer.getUUID());
+                if (entity instanceof DemonicPartner partner && castingPlayer != null)
+                    partner.setOwnerUUID(castingPlayer.getUUID());
+            }
         }
         ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
         ItemNBTUtil.setBoundSpiritName(flame,
