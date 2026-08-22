@@ -235,7 +235,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             ItemStackRenderState stackState = new ItemStackRenderState();
             this.itemModelResolver.updateForTopItem(stackState, weaponItem, ItemDisplayContext.GROUND, null, null, 0);
-            stackState.submit(poseStack, collector, lightCoords, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
+            stackState.submit(poseStack, collector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 
             poseStack.popPose();
         }
