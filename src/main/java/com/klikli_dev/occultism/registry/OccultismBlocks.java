@@ -733,6 +733,18 @@ public class OccultismBlocks {
                     .mapColor(MapColor.STONE)
                     .sound(SoundType.STONE).strength(1.5f, 30)
                     .noOcclusion(), Rarity.EPIC);
+    public static final DeferredBlock<RitualCatcherBlock> RITUAL_CATCHER =
+            register("ritual_catcher", RitualCatcherBlock::new,
+                    () -> Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1f, 3)
+                            .noOcclusion());
+    public static final DeferredBlock<RitualCatcherBlock> RITUAL_CATCHER_DARK =
+            register("ritual_catcher_dark", RitualCatcherBlock::new,
+                    () -> Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1f, 3)
+                            .noOcclusion());
     public static final DeferredBlock<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
             StableWormholeBlock::new,
             () -> Block.Properties.of()

@@ -54,6 +54,11 @@ public class OccultismCapabilities {
 
         event.registerBlockEntity(
                 Item.BLOCK,
+                OccultismBlockEntities.RITUAL_CATCHER.get(),
+                (blockEntity, side) -> (ResourceHandler<ItemResource>) blockEntity.itemStackHandler);
+
+        event.registerBlockEntity(
+                Item.BLOCK,
                 OccultismBlockEntities.SACRIFICIAL_BOWL.get(),
                 (blockEntity, side) -> (ResourceHandler<ItemResource>) blockEntity.itemStackHandler);
 

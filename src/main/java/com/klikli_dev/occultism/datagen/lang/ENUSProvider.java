@@ -111,7 +111,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.BOOK_OF_BINDING_MARID.get().getDescriptionId() + ".tooltip", "This book has not been bound to a marid yet.");
         this.add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get().getDescriptionId() + ".tooltip", "Can be used to summon the marid %s");
         this.addTooltip(OccultismItems.FLAME_AUTOMATION.get(), "%s");
-        this.addAutoTooltip(OccultismItems.FLAME_AUTOMATION.get(), "Obtained when completing a ritual without an output item if there is an upside-down sacrificial bowl within three blocks above of the central ritual bowl.");
+        this.addAutoTooltip(OccultismItems.FLAME_AUTOMATION.get(), "Obtained by completing a ritual near a Ritual Catcher, or alternatively by placing an upside-down Sacrificial Bowl within three blocks above the central ritual bowl.");
+        this.addAutoTooltip(OccultismBlocks.RITUAL_CATCHER.get(), """
+                    Collects the results of nearby completed rituals. Creates a Flame of Automation if no output item is present or if it has already been collected.
+                    Working Area: 21x9x21""");
+        this.addAutoTooltip(OccultismBlocks.RITUAL_CATCHER_DARK.get(), """
+                    Collects the results of nearby completed rituals. Creates a Flame of Automation if no output item is present or if it has already been collected.
+                    Working Area: 21x9x21""");
 
         this.add("item.occultism.book_of_calling_foliot" + ".tooltip", "Foliot %s");
         this.add("item.occultism.book_of_calling_foliot" + ".tooltip_dead", "%s has left this plane of existence.");
@@ -617,6 +623,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Tier 3 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Tier 4 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER5, "Tier 5 Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.RITUAL_CATCHER, "Ritual Catcher");
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
         this.addBlock(OccultismBlocks.ENTITY_WORMHOLE, "Entity Wormhole");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_DARK, "Dark Dimensional Storage Actuator");
@@ -628,6 +635,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK, "Tier 3 Dark Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK, "Tier 4 Dark Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK, "Tier 5 Dark Dimensional Storage Stabilizer");
+        this.addBlock(OccultismBlocks.RITUAL_CATCHER_DARK, "Dark Ritual Catcher");
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE_DARK, "Dark Stable Wormhole");
         this.addBlock(OccultismBlocks.ENTITY_WORMHOLE_DARK, "Dark Entity Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");

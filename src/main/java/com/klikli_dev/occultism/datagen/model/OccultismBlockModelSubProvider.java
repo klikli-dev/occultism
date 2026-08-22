@@ -184,7 +184,9 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.ENTITY_WORMHOLE.get(),
                         OccultismBlocks.ENTITY_WORMHOLE_DARK.get(),
                         OccultismBlocks.STABLE_WORMHOLE.get(),
-                        OccultismBlocks.STABLE_WORMHOLE_DARK.get()
+                        OccultismBlocks.STABLE_WORMHOLE_DARK.get(),
+                        OccultismBlocks.RITUAL_CATCHER.get(),
+                        OccultismBlocks.RITUAL_CATCHER_DARK.get()
                 ),
                 Stream.of(
                         OccultismBlocks.LARGE_CANDLE.get(),
@@ -698,8 +700,10 @@ public class OccultismBlockModelSubProvider {
             this.registerFacingBlock(blockModels, itemModels, block);
         }
 
-        this.registerEntityWormholeBlock(blockModels, itemModels, OccultismBlocks.ENTITY_WORMHOLE.get());
-        this.registerEntityWormholeBlock(blockModels, itemModels, OccultismBlocks.ENTITY_WORMHOLE_DARK.get());
+        this.registerDirectionalFrameBlock(blockModels, itemModels, OccultismBlocks.RITUAL_CATCHER.get());
+        this.registerDirectionalFrameBlock(blockModels, itemModels, OccultismBlocks.RITUAL_CATCHER_DARK.get());
+        this.registerDirectionalFrameBlock(blockModels, itemModels, OccultismBlocks.ENTITY_WORMHOLE.get());
+        this.registerDirectionalFrameBlock(blockModels, itemModels, OccultismBlocks.ENTITY_WORMHOLE_DARK.get());
         this.registerLinkedBlock(blockModels, itemModels, OccultismBlocks.STABLE_WORMHOLE.get());
         this.registerLinkedBlock(blockModels, itemModels, OccultismBlocks.STABLE_WORMHOLE_DARK.get());
     }
@@ -716,6 +720,24 @@ public class OccultismBlockModelSubProvider {
                                 .select(Direction.WEST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270))
                                 .select(Direction.EAST, BlockModelGenerators.X_ROT_90.then(Y_ROT_90))
                         )
+        );
+        this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
+    }
+
+
+    private void registerDirectionalFrameBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
+        Identifier model = this.blockModel(block);
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block)
+                        .with(PropertyDispatch.initial(BlockStateProperties.FACING)
+                                .generate((facing) -> plainVariant(model).with(switch (facing) {
+                                    case UP -> BlockModelGenerators.NOP;
+                                    case DOWN -> BlockModelGenerators.X_ROT_180;
+                                    case NORTH -> BlockModelGenerators.X_ROT_90;
+                                    case SOUTH -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180);
+                                    case WEST -> BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270);
+                                    case EAST -> BlockModelGenerators.X_ROT_90.then(Y_ROT_90);
+                                })))
         );
         this.registerExistingItemModel(itemModels, block.asItem(), this.blockModel(block));
     }

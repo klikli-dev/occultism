@@ -109,6 +109,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
         spiritfireTransmute(Items.BOOK, OccultismItems.TABOO_BOOK.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(OccultismTags.Items.BOOKS_FOR_EMPTY, OccultismItems.BOOK_OF_BINDING_EMPTY.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(ItemTags.FLOWERS, OccultismBlocks.OTHERFLOWER.asItem(), pRecipeOutput, registries);
+        spiritfireTransmute(OccultismItems.OTHERSTONE_FRAME.get(), OccultismBlocks.RITUAL_CATCHER.asItem(), pRecipeOutput, registries);
+        spiritfireTransmute(OccultismItems.OTHERROCK_FRAME.get(), OccultismBlocks.RITUAL_CATCHER_DARK.asItem(), pRecipeOutput, registries);
     }
 
     protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, Provider registries) {

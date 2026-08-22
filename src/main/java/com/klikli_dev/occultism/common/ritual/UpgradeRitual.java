@@ -102,6 +102,6 @@ public class UpgradeRitual extends Ritual {
         result.applyComponents(baseMap);
         if (result.has(OccultismDataComponents.SPIRIT_NAME))
             ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }

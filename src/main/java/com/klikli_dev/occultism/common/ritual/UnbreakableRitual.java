@@ -74,6 +74,6 @@ public class UnbreakableRitual extends Ritual {
         result.set(DataComponents.RARITY, Rarity.EPIC);
         result.set(OccultismDataComponents.UNBREAKABLE, true);
 
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }

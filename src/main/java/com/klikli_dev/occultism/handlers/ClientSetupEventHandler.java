@@ -38,10 +38,7 @@ import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.OccultismRenderType;
-import com.klikli_dev.occultism.client.render.blockentity.EntityWormholeRenderer;
-import com.klikli_dev.occultism.client.render.blockentity.GoldenSacrificialBowlRenderer;
-import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
-import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
+import com.klikli_dev.occultism.client.render.blockentity.*;
 import com.klikli_dev.occultism.client.render.entity.*;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.ThrownSwordRenderer;
 import com.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
@@ -241,10 +238,11 @@ public class ClientSetupEventHandler {
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), GoldenSacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.RITUAL_CATCHER.get(), RitualCatcherRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
         // Use vanilla sign renderers for custom sign types
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), StandingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
-        BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
 
         PageRenderers.onClientSetup(event);
 

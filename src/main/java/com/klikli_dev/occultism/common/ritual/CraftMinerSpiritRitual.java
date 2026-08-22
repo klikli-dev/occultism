@@ -74,7 +74,7 @@ public class CraftMinerSpiritRitual extends Ritual {
         DataComponentMap map = DataComponentMap.builder().set(DataComponents.ENCHANTMENTS, enchantments.toImmutable()).build();
         result.applyComponents(map);
 
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 
 }

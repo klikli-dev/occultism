@@ -88,9 +88,6 @@ public class FamiliarRitual extends SummonRitual {
                 this.spawnEntity(familiar, level);
             }
         }
-        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
-        ItemNBTUtil.setBoundSpiritName(flame,
-                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, ItemStack.EMPTY);
     }
 }

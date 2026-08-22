@@ -51,6 +51,6 @@ public class CraftWithSpiritNameRitual extends Ritual {
 
         ItemStack result = this.recipe.getResult().copy();
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }
