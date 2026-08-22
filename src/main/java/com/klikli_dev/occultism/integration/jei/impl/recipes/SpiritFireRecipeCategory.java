@@ -84,7 +84,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
         builder.addSlot(RecipeIngredientRole.INPUT, 22, 12)
                 .add(recipe.value().getIngredients().get(0));
 
-        builder.addSlot(RecipeIngredientRole.INPUT, 75, 12)
+        builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 75, 12)
                 .add(this.renderStack);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 128, 12)
