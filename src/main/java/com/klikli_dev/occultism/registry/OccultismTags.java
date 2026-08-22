@@ -279,6 +279,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> GOATS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "goats"));
         public static final TagKey<EntityType<?>> HOGLINS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "hoglins"));
         public static final TagKey<EntityType<?>> HORSES = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "horses"));
+        public static final TagKey<EntityType<?>> NAUTILUS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "nautilus"));
         public static final TagKey<EntityType<?>> LLAMAS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "llamas"));
         public static final TagKey<EntityType<?>> MULES = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "mules"));
         public static final TagKey<EntityType<?>> PANDAS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "pandas"));

@@ -1997,7 +1997,66 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()))
                 .unlockedBy("has_otherworld_essence", has(registries, OccultismItems.OTHERWORLD_ESSENCE.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_familiar")));
-
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, Tags.Items.BONES),
+                        makeLoreSpawnEgg(Items.SKELETON_HORSE_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_skeleton_horse"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_SKELETON_HORSE.get()),
+                        BASE_TIME,
+                        RITUAL_SUMMON,
+                        PENTACLE_RESURRECT_SPIRIT, registries,
+                        ofTag(registries, Tags.Items.BRICKS),
+                        ofTag(registries, ItemTags.COALS),
+                        ofTag(registries, OccultismTags.Items.OBSIDIAN_DUST),
+                        Ingredient.of(Items.FLINT))
+                .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .entityToSummon(EntityType.SKELETON_HORSE)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.horses")
+                .entityToSacrifice(Entities.HORSES)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_skeleton_horse")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.ROTTEN_FLESH),
+                        makeLoreSpawnEgg(Items.ZOMBIE_HORSE_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_zombie_horse"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_ZOMBIE_HORSE.get()),
+                        BASE_TIME,
+                        RITUAL_SUMMON,
+                        PENTACLE_RESURRECT_SPIRIT, registries,
+                        ofTag(registries, Tags.Items.BRICKS),
+                        ofTag(registries, ItemTags.COALS),
+                        ofTag(registries, OccultismTags.Items.OBSIDIAN_DUST),
+                        Ingredient.of(Items.FLINT))
+                .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .entityToSummon(EntityType.ZOMBIE_HORSE)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.horses")
+                .entityToSacrifice(Entities.HORSES)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_zombie_horse")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.ROTTEN_FLESH),
+                        makeLoreSpawnEgg(Items.ZOMBIE_NAUTILUS_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_zombie_nautilus"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_ZOMBIE_NAUTILUS.get()),
+                        BASE_TIME,
+                        RITUAL_SUMMON,
+                        PENTACLE_RESURRECT_SPIRIT, registries,
+                        ofTag(registries, Tags.Items.BRICKS),
+                        ofTag(registries, ItemTags.COALS),
+                        ofTag(registries, OccultismTags.Items.OBSIDIAN_DUST),
+                        Ingredient.of(Items.DRIED_KELP))
+                .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .entityToSummon(EntityType.ZOMBIE_NAUTILUS)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.nautilus")
+                .entityToSacrifice(Entities.NAUTILUS)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_zombie_nautilus")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.ROTTEN_FLESH),
+                        makeLoreSpawnEgg(Items.CAMEL_HUSK_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_camel_husk"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_CAMEL_HUSK.get()),
+                        BASE_TIME,
+                        RITUAL_SUMMON,
+                        PENTACLE_RESURRECT_SPIRIT, registries,
+                        ofTag(registries, Tags.Items.BRICKS),
+                        ofTag(registries, ItemTags.COALS),
+                        ofTag(registries, OccultismTags.Items.OBSIDIAN_DUST),
+                        ofTag(registries, ItemTags.SAND))
+                .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .entityToSummon(EntityType.CAMEL_HUSK)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.camel")
+                .entityToSacrifice(Entities.CAMEL)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_camel_husk")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SUGAR),
                         makeLoreSpawnEgg(Items.ALLAY_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_allay"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY.get()),

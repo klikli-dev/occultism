@@ -877,6 +877,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.humans", "Villager or Player");
         this.add("ritual.occultism.sacrifice.squid", "Squid");
         this.add("ritual.occultism.sacrifice.horses", "Horse");
+        this.add("ritual.occultism.sacrifice.nautilus", "Nautilus");
         this.add("ritual.occultism.sacrifice.sheep", "Sheep");
         this.add("ritual.occultism.sacrifice.llamas", "Llama");
         this.add("ritual.occultism.sacrifice.goats", "Goat");
@@ -1603,10 +1604,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GOAT, "Summon Goat of Mercy", "Marid", "The Goat of Mercy will drop the Cruelty Essence.");
         //Random
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON, "Summon Common Random Animal", "Foliot", "Summons a common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "Summon Water Random Animal", "Foliot", "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem, nautilus, zombie nautilus)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "Summon Water Random Animal", "Foliot", "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem, nautilus)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL, "Summon Small Random Animal", "Foliot", "Summons a small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL, "Summon Special Random Animal", "Djinni", "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, copper golem, sniffer)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "Summon Rideable Random Animal", "Djinni", "Summons a rideable random passive animal. (Possibilities: pig, camel, camel husk, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider, happy ghast, nautilus, zombie nautilus)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "Summon Rideable Random Animal", "Djinni", "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, llama, trader llama, mule, strider, happy ghast, nautilus)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER, "Summon Villager", "Djinni", "Summons a villager or wandering Trader.");
         //CRAFT
         //Tools
@@ -1671,6 +1672,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //Resurrect
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR, "Resurrect Familiar", "Familiar", "Resurrects a Familiar from a Soul Shard.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY, "Purify Vex to Allay", "Familiar", "Purifies a Vex into an Allay through resurrection.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_SKELETON_HORSE, "Raise Horse as Skeleton Horse", "Familiar", "Raise a Horse as Skeleton Horse through corrupted resurrection.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ZOMBIE_HORSE, "Raise Horse as Zombie Horse", "Familiar", "Raise a Horse as Zombie Horse through corrupted resurrection.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ZOMBIE_NAUTILUS, "Raise Nautilus as Zombie Nautilus", "Familiar", "Raise a Nautilus as Zombie Nautilus through corrupted resurrection.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_CAMEL_HUSK, "Raise Camel as Camel Husk", "Familiar", "Raise a Camel as Camel Husk through corrupted resurrection.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_MOB, "Resurrect Mob", "Familiar", "Resurrects a Mob from a Shattered Soul Shard.");
         //Wild
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUNT, "Invoke The Wild Hunt", "Wild", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
@@ -1684,10 +1689,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE, "Invoke Wild Strong Breeze", "Wild", "The Wild Strong Breeze will drop a Heavy Core and trial chamber related items.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER, "Invoke Wild Illagers", "Wild", "Summon a Wild Evoker and his henchmen.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON, "Invoke Common Random Animal Group", "Wild", "Summons a group of common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER, "Invoke Water Random Animal Group", "Wild", "Summons a group of Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER, "Invoke Water Random Animal Group", "Wild", "Summons a group of Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem, nautilus)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL, "Invoke Small Random Animal Group", "Wild", "Summons a group of small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL, "Invoke Special Random Animal Group", "Wild", "Summons a group of special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE, "Invoke Rideable Random Animal Group", "Wild", "Summons a group of rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL, "Invoke Special Random Animal Group", "Wild", "Summons a group of special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer, copper golem)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE, "Invoke Rideable Random Animal Group", "Wild", "Summons a group of rideable random passive animal. (Possibilities: pig, camel, donkey, horse, llama, trader llama, mule, strider, happy ghast, nautilus)");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER, "Invoke Villager Group", "Wild", "Summons a group of villager and wandering Trader.");
         //Forge
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "Forge Bee Nest", "Wild", "Wild Spirits will forge a bee nest, more beautiful than beehive.");

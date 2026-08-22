@@ -190,8 +190,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.GLOW_SQUID)
                 .add(EntityType.TADPOLE)
                 .add(EntityType.TURTLE)
-                .add(EntityType.NAUTILUS)
-                .add(EntityType.ZOMBIE_NAUTILUS);
+                .add(EntityType.NAUTILUS);
 
         this.tag(Entities.RANDOM_ANIMALS_SMALL)
                 .add(EntityType.ALLAY)
@@ -218,16 +217,12 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.CAMEL)
                 .add(EntityType.DONKEY)
                 .add(EntityType.HORSE)
-                .add(EntityType.SKELETON_HORSE)
-                .add(EntityType.ZOMBIE_HORSE)
                 .add(EntityType.LLAMA)
                 .add(EntityType.TRADER_LLAMA)
                 .add(EntityType.MULE)
                 .add(EntityType.STRIDER)
                 .add(EntityType.HAPPY_GHAST)
-                .add(EntityType.NAUTILUS)
-                .add(EntityType.ZOMBIE_NAUTILUS)
-                .add(EntityType.CAMEL_HUSK);
+                .add(EntityType.NAUTILUS);
     }
 
     private void addCommonTags() {
@@ -246,7 +241,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(Entities.FISH).add(EntityType.COD).add(EntityType.SALMON).add(EntityType.TROPICAL_FISH).add(EntityType.PUFFERFISH).replace(false);
         this.tag(Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).add(OccultismEntities.GOAT_FAMILIAR_TYPE.get()).replace(false);
         this.tag(Entities.HOGLINS).add(EntityType.HOGLIN).add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get()).replace(false);
-        this.tag(Entities.HORSES).add(EntityType.HORSE).replace(false);
+        this.tag(Entities.HORSES).add(EntityType.HORSE).add(EntityType.MULE).add(EntityType.DONKEY).replace(false);
+        this.tag(Entities.NAUTILUS).add(EntityType.NAUTILUS).replace(false);
         this.tag(Entities.LLAMAS).add(EntityType.LLAMA).add(EntityType.TRADER_LLAMA).replace(false);
         this.tag(Entities.MULES).add(EntityType.MULE).replace(false);
         this.tag(Entities.PANDAS).add(EntityType.PANDA).replace(false);

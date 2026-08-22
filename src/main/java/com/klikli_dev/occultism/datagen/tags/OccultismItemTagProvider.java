@@ -882,16 +882,12 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.CAMEL_SPAWN_EGG)
                 .add(Items.DONKEY_SPAWN_EGG)
                 .add(Items.HORSE_SPAWN_EGG)
-                .add(Items.SKELETON_HORSE_SPAWN_EGG)
-                .add(Items.ZOMBIE_HORSE_SPAWN_EGG)
                 .add(Items.LLAMA_SPAWN_EGG)
                 .add(Items.TRADER_LLAMA_SPAWN_EGG)
                 .add(Items.MULE_SPAWN_EGG)
                 .add(Items.STRIDER_SPAWN_EGG)
                 .add(Items.HAPPY_GHAST_SPAWN_EGG)
-                .add(Items.NAUTILUS_SPAWN_EGG)
-                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG)
-                .add(Items.CAMEL_HUSK_SPAWN_EGG);
+                .add(Items.NAUTILUS_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_SMALL)
                 .add(Items.ALLAY_SPAWN_EGG)
                 .add(Items.BAT_SPAWN_EGG)
@@ -923,8 +919,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.GLOW_SQUID_SPAWN_EGG)
                 .add(Items.TADPOLE_SPAWN_EGG)
                 .add(Items.TURTLE_SPAWN_EGG)
-                .add(Items.NAUTILUS_SPAWN_EGG)
-                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG);
+                .add(Items.NAUTILUS_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER)
                 .add(Items.VILLAGER_SPAWN_EGG)
                 .add(Items.WANDERING_TRADER_SPAWN_EGG)

@@ -724,6 +724,10 @@ public class OccultismItems {
     //Resurrect
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.registerItem("ritual_dummy/resurrect_familiar", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ALLAY = ITEMS.registerItem("ritual_dummy/resurrect_allay", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_SKELETON_HORSE = ITEMS.registerItem("ritual_dummy/resurrect_skeleton_horse", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ZOMBIE_HORSE = ITEMS.registerItem("ritual_dummy/resurrect_zombie_horse", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ZOMBIE_NAUTILUS = ITEMS.registerItem("ritual_dummy/resurrect_zombie_nautilus", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_CAMEL_HUSK = ITEMS.registerItem("ritual_dummy/resurrect_camel_husk", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_MOB = ITEMS.registerItem("ritual_dummy/resurrect_mob", DummyTooltipItem::new, Properties::new);
     //Wild (group possess)
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUNT = ITEMS.registerItem("ritual_dummy/wild_hunt", DummyTooltipItem::new, Properties::new);
