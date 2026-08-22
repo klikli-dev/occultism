@@ -62,6 +62,7 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
@@ -86,7 +87,7 @@ public class PlayerEventHandler {
     }
 
     private static void spiritFire(RightClickBlock event) {
-        boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
+        boolean isFlintAndSteel = event.getItemStack().is(Tags.Items.TOOLS_IGNITER);
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
         boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE)
                 || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE)

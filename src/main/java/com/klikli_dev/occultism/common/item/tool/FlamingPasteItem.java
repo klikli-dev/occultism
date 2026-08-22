@@ -6,6 +6,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -20,18 +21,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball;
 import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemInstance;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ProjectileItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -40,6 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.common.extensions.IBlockStateExtension;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -116,6 +113,18 @@ public class FlamingPasteItem extends DamageInCraftingItem implements Projectile
         ItemStack itemStack = context.getItemInHand();
         BlockPos relativePos = pos.relative(context.getClickedFace());
         if (blockstate2 == null && player != null) {
+            if (state.getBlock() instanceof TntBlock tnt) {
+                if (tnt.onCaughtFire(state, level, pos, context.getHitResult().getDirection(), player)) {
+                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+                    itemStack.hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                } else if (level instanceof ServerLevel serverLevel && !serverLevel.getGameRules().get(GameRules.TNT_EXPLODES)) {
+                    player.sendOverlayMessage(Component.translatable("block.minecraft.tnt.disabled"));
+                    return InteractionResult.PASS;
+                }
+
+                return InteractionResult.SUCCESS;
+            }
             if (player.isShiftKeyDown()) {
                 SoundEvent soundEvent = SoundEvents.BUCKET_EMPTY_LAVA;
                 ResourceHandler<FluidResource> handleFluid = level.getCapability(Capabilities.Fluid.BLOCK, pos, context.getClickedFace());
