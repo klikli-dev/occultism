@@ -67,7 +67,7 @@ public class ClientPlayerEventHandler {
         if (event.getLevel().isClientSide() &&
                 Occultism.CLIENT_CONFIG.misc.disableSpiritFireSuccessSound.get() &&
                 event.getSound() != null &&
-                event.getSound().value() == OccultismSounds.START_RITUAL.get() &&
+                event.getSound().value() == OccultismSounds.SPIRIT_FIRE.get() &&
                 event.getLevel().getBlockState(BlockPos.containing(event.getPosition())).getBlock() == OccultismBlocks.SPIRIT_FIRE.get()) {
             event.setCanceled(true);
         }

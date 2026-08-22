@@ -121,7 +121,7 @@ public class SpiritFireBlock extends BaseFireBlock {
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 
-                pLevel.playSound(null, pPos, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
+                pLevel.playSound(null, pPos, OccultismSounds.SPIRIT_FIRE.get(), SoundSource.BLOCKS, 1, 1);
             }
         }
     }

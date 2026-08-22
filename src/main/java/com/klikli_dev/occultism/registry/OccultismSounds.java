@@ -40,6 +40,8 @@ public class OccultismSounds {
     public static final Supplier<SoundEvent> TUNING_FORK = SOUNDS.register("tuning_fork", () -> loadSoundEvent("tuning_fork"));
     public static final Supplier<SoundEvent> CRUNCHING = SOUNDS.register("crunching", () -> loadSoundEvent("crunching"));
     public static final Supplier<SoundEvent> POOF = SOUNDS.register("poof", () -> loadSoundEvent("poof"));
+    public static final Supplier<SoundEvent> COIN = SOUNDS.register("coin", () -> loadSoundEvent("coin"));
+    public static final Supplier<SoundEvent> SPIRIT_FIRE = SOUNDS.register("spirit_fire", () -> loadSoundEvent("spirit_fire"));
 
     /**
      * Creates the sound event object for the given sound event name, as specified in sounds.json Automatically appends

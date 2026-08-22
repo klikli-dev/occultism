@@ -925,6 +925,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.subtitle.tuning_fork", "Tuning Fork");
         this.add("occultism.subtitle.crunching", "Crunching");
         this.add("occultism.subtitle.poof", "Poof!");
+        this.add("occultism.subtitle.coin", "Trading");
+        this.add("occultism.subtitle.spirt_fire", "Spirit Fire Conversion");
 
         //Dimension types
         this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.identifier()), "Overworld");
