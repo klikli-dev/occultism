@@ -75,6 +75,7 @@ public class PlayerEventHandler {
 
     private static final ItemAbility LIGHT_FIRE = ItemAbility.get("light_fire");
     private static final ItemAbility LIGHT_CAMPFIRE = ItemAbility.get("light_campfire");
+    private static final ItemAbility LIGHT_STARTER = ItemAbility.get("firestarter_light");
 
     //region Static Methods
     @SubscribeEvent
@@ -87,7 +88,9 @@ public class PlayerEventHandler {
     private static void spiritFire(RightClickBlock event) {
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
-        boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE) || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE);
+        boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE)
+                || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE)
+                || event.getItemStack().canPerformAction(LIGHT_STARTER);
 
         if (isFlintAndSteel || isFireCharge || canLightFire) {
             //find if there is any datura
