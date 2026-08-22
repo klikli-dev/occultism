@@ -47,6 +47,7 @@ public class OccultismClientConfig {
     }
 
     public static class VisualSettings {
+        public final IntValue trueSightStaffRange;
         public final BooleanValue showItemTagsInTooltip;
         public final BooleanValue disableHolidayTheming;
         public final BooleanValue useAlternativeDivinationRodRenderer;
@@ -71,6 +72,8 @@ public class OccultismClientConfig {
 
         public VisualSettings(Builder builder) {
             builder.comment("Visual Settings").push("visual");
+            this.trueSightStaffRange = builder.comment("Reach of True Sight Staff uncover otherworld blocks. High values cause lag."
+            ).defineInRange("trueSightStaffRange", 30, 8, 16*16);
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
                     .define("showItemTagsInTooltip", false);
             this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")

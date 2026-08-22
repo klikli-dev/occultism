@@ -1952,6 +1952,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addConfigurationTranslations() {
 
         this.addConfig("visual", "Visual Settings");
+        this.addConfig("trueSightStaffRange", "True Sight Staff uncover range");
         this.addConfig("showItemTagsInTooltip", "Show Item Tags in Tooltips");
         this.addConfig("disableDemonsDreamShaders", "Disable Demon's Dream Shaders");
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
