@@ -174,6 +174,10 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()));
         this.add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()));
         this.add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()));
+        this.add(OccultismBlocks.OTHERROCK_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERROCK_SLAB.get()));
+        this.add(OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERCOBBLEROCK_SLAB.get()));
+        this.add(OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.POLISHED_OTHERROCK_SLAB.get()));
+        this.add(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get()));
         this.add(OccultismBlocks.OTHERPLANKS_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERPLANKS_SLAB.get()));
         this.add(OccultismBlocks.OTHERPLANKS_DOOR.get(), block -> this.createDoorTable(OccultismBlocks.OTHERPLANKS_DOOR.get()));
         this.add(OccultismBlocks.OTHERPLANKS_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
