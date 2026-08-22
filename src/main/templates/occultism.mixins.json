@@ -8,6 +8,7 @@
     "MixinServerGamePacketListenerImpl"
   ],
   "client": [
+    "MixinItemStack"
   ],
   "server": [
   ],

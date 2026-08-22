@@ -24,22 +24,29 @@ package com.klikli_dev.occultism.common.ritual;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import net.minecraft.ChatFormatting;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.fml.ModList;
 import org.jetbrains.annotations.Nullable;
 
 public class UnbreakableRitual extends Ritual {
+
+    private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey.create(
+            Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
 
     public UnbreakableRitual(RitualRecipe recipe) {
         super(recipe);
@@ -61,12 +68,11 @@ public class UnbreakableRitual extends Ritual {
         if (result.isEnchanted()) {
             EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(Enchantments.UNBREAKING)));
             EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(Enchantments.MENDING)));
+            if (ModList.get().isLoaded("evilcraft"))
+                EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(EVILCRAFT_UNUSING_ENCHANTMENT)));
         }
         result.set(DataComponents.RARITY, Rarity.EPIC);
-        result.set(DataComponents.CUSTOM_NAME, Component.empty()
-                .append(ChatFormatting.OBFUSCATED + "nice   " + ChatFormatting.RESET)
-                .append(result.getHoverName())
-                .append(ChatFormatting.OBFUSCATED + "   ecin" + ChatFormatting.RESET));
+        result.set(OccultismDataComponents.UNBREAKABLE, true);
 
         this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
     }

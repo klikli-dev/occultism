@@ -240,6 +240,11 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.FLOAT)
             .cacheEncoding()
     );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> UNBREAKABLE = DATA_COMPONENTS.registerComponentType("unbreakable", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
     private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {
         @Override
         public CustomData decode(RegistryFriendlyByteBuf buffer) {
