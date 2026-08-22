@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.occultism.client.render.entity;
+package com.klikli_dev.occultism.client.render.entity.state;
 
 import com.geckolib.constant.DataTickets;
 import com.geckolib.constant.dataticket.DataTicket;
