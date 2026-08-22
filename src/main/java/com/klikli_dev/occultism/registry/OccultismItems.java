@@ -103,6 +103,10 @@ public class OccultismItems {
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.registerItem("storage_remote",
             StorageRemoteItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
+    public static final DeferredItem<TeleportTabletItem> WORMHOLE_TABLET = ITEMS.registerItem("wormhole_tablet",
+            TeleportTabletItem::new, () -> new Properties().stacksTo(1)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
     public static final DeferredItem<SoulGemItem> FRAGILE_SOUL_GEM_ITEM = ITEMS.registerItem("fragile_soul_gem",
             SoulGemItem::new, () -> new Properties().stacksTo(1).component(OccultismDataComponents.FAIL_CHANCE, 0.8F));
     public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.registerItem("soul_gem",
@@ -667,6 +671,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.registerItem("ritual_dummy/craft_ritual_satchel_t2", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_upgrade_ritual_satchel", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET = ITEMS.registerItem("ritual_dummy/craft_knowledge_tablet", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_WORMHOLE_TABLET = ITEMS.registerItem("ritual_dummy/craft_wormhole_tablet", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_VITALITY_COMPASS = ITEMS.registerItem("ritual_dummy/craft_vitality_compass", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_fragile_soul_gem", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.registerItem("ritual_dummy/craft_soul_gem", DummyTooltipItem::new, Properties::new);
@@ -928,6 +933,7 @@ public class OccultismItems {
                 || item == RITUAL_SATCHEL_T1.get()
                 || item == RITUAL_SATCHEL_T2.get()
                 || item == KNOWLEDGE_TABLET.get()
+                || item == WORMHOLE_TABLET.get()
                 || item == STORAGE_REMOTE.get()
                 || item == FAMILIAR_RING.get()
                 || item == VITALITY_COMPASS.get()

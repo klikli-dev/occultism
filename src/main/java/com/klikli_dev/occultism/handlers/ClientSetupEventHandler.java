@@ -34,10 +34,12 @@ import com.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
+import com.klikli_dev.occultism.client.gui.tablet.TeleportTabletScreen;
 import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.OccultismRenderType;
+import com.klikli_dev.occultism.client.render.TeleportTabletHUD;
 import com.klikli_dev.occultism.client.render.blockentity.*;
 import com.klikli_dev.occultism.client.render.entity.*;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.ThrownSwordRenderer;
@@ -262,6 +264,7 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
+        event.register(OccultismContainers.TELEPORT_TABLET.get(), TeleportTabletScreen::new);
     }
 
     public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
@@ -307,5 +310,6 @@ public class ClientSetupEventHandler {
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), Occultism.THIRD_EYE_EFFECT_RENDERER);
         event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
+        event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "teleport_tablet_hud"), TeleportTabletHUD.get());
     }
 }

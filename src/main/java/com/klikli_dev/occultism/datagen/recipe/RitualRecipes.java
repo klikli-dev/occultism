@@ -1491,6 +1491,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_entity_wormhole_dark")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.WORMHOLE_TABLET.asItem()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_WORMHOLE_TABLET.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.OTHERWORLDLY_TABLET.get()),
+                        Ingredient.of(OccultismBlocks.ENTITY_WORMHOLE.get(), OccultismBlocks.ENTITY_WORMHOLE_DARK.get()),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()),
+                        ofTag(registries, OccultismTags.Items.OBSIDIAN_DUST),
+                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
+                        Ingredient.of(Items.ENDER_EYE),
+                        ofTag(registries, Tags.Items.DUSTS_REDSTONE),
+                        ofTag(registries, OccultismTags.Items.AMETHYST_DUST))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_wormhole_tablet")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStackTemplate(OccultismBlocks.SPIRIT_GRINDSTONE.get().asItem().asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_SPIRIT_GRINDSTONE.get()),
                         BASE_TIME * INFUSE_MULT * DJINNI_TIER,

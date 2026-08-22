@@ -31,6 +31,7 @@ public final class OccultismGuiStyles {
     public static final GuiStyleKey SPIRIT_TRANSPORTER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit/transporter"));
     public static final GuiStyleKey STORAGE_CONTROLLER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "storage_controller/default"));
     public static final GuiStyleKey DIMENSIONAL_MACHINE = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "dimensional_machine/default"));
+    public static final GuiStyleKey TABLET = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "tablet/default"));
 
     private OccultismGuiStyles() {
     }

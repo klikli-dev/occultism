@@ -187,6 +187,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_SATCHEL_T1.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T2.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.KNOWLEDGE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.\nStored XP: %s");
+        this.add(OccultismItems.WORMHOLE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.");
 
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used to resurrect it.");
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_empty", "Dropped by a Familiar after their untimely death. Can be used to resurrect it.");
@@ -268,8 +269,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         Right-Click to store all your experience points.
                         Shift-Right-Click to receive all stored experience points.
-                        A small tax may apply due to numerical approximations.
-                        """
+                        A small tax may apply due to numerical approximations."""
+        );
+        this.addItem(OccultismItems.WORMHOLE_TABLET, "Wormhole Tablet");
+        this.addAutoTooltip(OccultismItems.WORMHOLE_TABLET.get(),
+                """
+                        Right-click to teleport.
+                        Shift-right-click to open its inventory.
+                        Shift-scroll to change the selected location."""
         );
 
         this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
@@ -1611,6 +1618,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "Craft Artisanal Ritual Satchel", "Afrit", "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL, "Craft Artisanal Ritual Satchel", "Afrit", "An Afrit will upgrade the apprentice ritual satchel to build pentacles all at once for the summoner. This recipe keep the items inside the satchel.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET, "Craft Knowledge Tablet", "Foliot", "Binds a Foliot into a tablet to store experience points.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WORMHOLE_TABLET, "Craft Wormhole Tablet", "Djinni", "The Wormhole Tablet is a personal teleportation device. It can store up to 9 compasses and teleport the user to their bound locations.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_VITALITY_COMPASS, "Craft Vitality Compass", "Foliot", "Create a compass that can be linked to living entities to locate them.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "Craft Fragile Soul Gem", "Foliot", "The Fragile Soul Gem allows the temporary storage of living beings. It can only be used once.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
