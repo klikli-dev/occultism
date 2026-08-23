@@ -8,7 +8,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionMod
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
 import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.occultism.datagen.book.getting_started.*;
-import com.klikli_dev.occultism.datagen.book.pentacles.*;
+import com.klikli_dev.occultism.datagen.book.pentacles.CraftDjinniEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.CraftFoliotEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.PossessFoliotEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.SummonFoliotEntry;
 import com.klikli_dev.occultism.registry.OccultismItems;
 
 public class GettingStartedCategory extends CategoryProvider {
