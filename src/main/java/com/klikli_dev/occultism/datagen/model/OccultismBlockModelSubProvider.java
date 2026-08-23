@@ -84,7 +84,8 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
                         OccultismBlocks.SILVER_ORE.get(),
                         OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
-                        OccultismBlocks.TALLOW_BLOCK.get()
+                        OccultismBlocks.TALLOW_BLOCK.get(),
+                        OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get()
                 ),
                 Stream.of(
                         OccultismBlocks.RAW_SILVER_BLOCK.get(),
@@ -269,7 +270,8 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
                 OccultismBlocks.SILVER_ORE.get(),
                 OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
-                OccultismBlocks.TALLOW_BLOCK.get()
+                OccultismBlocks.TALLOW_BLOCK.get(),
+                OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get()
         };
         for (Block block : cubeAll) {
             blockModels.createTrivialCube(block);

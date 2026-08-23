@@ -103,6 +103,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         spiritfireTransmute(Items.ANDESITE, OccultismBlocks.OTHERSTONE.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(Items.DIORITE, OccultismBlocks.OTHERROCK.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(Tags.Items.GEMS_DIAMOND, OccultismItems.SPIRIT_ATTUNED_GEM.asItem(), pRecipeOutput, registries);
+        spiritfireTransmute(Tags.Items.STORAGE_BLOCKS_DIAMOND, OccultismBlocks.SPIRIT_ATTUNED_BLOCK.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(OccultismTags.Items.OTHERWORLD_LOGS, OccultismItems.OTHERWORLD_ASHES.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(Tags.Items.FEATHERS, OccultismItems.AWAKENED_FEATHER.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(Tags.Items.DYES_BLACK, OccultismItems.PURIFIED_INK.asItem(), pRecipeOutput, registries);
@@ -332,6 +333,17 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM)
                 .unlockedBy("has_raw_iesnium_block", this.has(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_iesnium_ingot_from_block")));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get())
+                .pattern("ppp")
+                .pattern("ppp")
+                .pattern("ppp")
+                .define('p', OccultismTags.Items.SPIRIT_ATTUNED_GEM)
+                .unlockedBy("has_spirit_attuned_gem", this.has(OccultismTags.Items.SPIRIT_ATTUNED_GEM))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/spirit_attuned_block")));
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, OccultismItems.SPIRIT_ATTUNED_GEM.get(), 9)
+                .requires(OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED)
+                .unlockedBy("has_spirit_attuned_block", this.has(OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/spirit_attuned_gem_from_block")));
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, OccultismItems.NETHERITE_DUST.get())
                 .requires(OccultismTags.Items.NETHERITE_SCRAP_DUST)
                 .requires(OccultismTags.Items.NETHERITE_SCRAP_DUST)

@@ -470,6 +470,8 @@ public class OccultismBlocks {
             () -> Block.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final DeferredBlock<Block> RAW_IESNIUM_BLOCK = register("raw_iesnium_block", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK));
+    public static final DeferredBlock<Block> SPIRIT_ATTUNED_BLOCK = register("spirit_attuned_block", Block::new,
+            () -> Block.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).noOcclusion());
     //Decorative and Ritual Blocks
     public static final DeferredBlock<Block> TALLOW_BLOCK = register("tallow_block", Block::new,
             () -> Block.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).sound(SoundType.HONEY_BLOCK).speedFactor(0.8F).jumpFactor(0.8F).strength(0.2f, 3));

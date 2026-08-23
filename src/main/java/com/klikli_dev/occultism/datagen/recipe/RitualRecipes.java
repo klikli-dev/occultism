@@ -1498,7 +1498,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_DJINNI, registries,
                         Ingredient.of(OccultismItems.OTHERWORLDLY_TABLET.get()),
                         Ingredient.of(OccultismBlocks.ENTITY_WORMHOLE.get(), OccultismBlocks.ENTITY_WORMHOLE_DARK.get()),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()),
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         ofTag(registries, OccultismTags.Items.OBSIDIAN_DUST),
                         ofTag(registries, OccultismTags.Items.SILVER_INGOT),
                         Ingredient.of(Items.ENDER_EYE),
@@ -1572,7 +1572,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_FOLIOT, registries,
                         Ingredient.of(OccultismItems.OTHERWORLDLY_TABLET),
                         ofTag(registries, OccultismTags.Items.RESEARCH_DUST),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         ofTag(registries, Tags.Items.ENDER_PEARLS))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_knowledge_tablet")));
@@ -1689,9 +1689,9 @@ public abstract class RitualRecipes extends RecipeProvider {
                         RITUAL_CRAFT,
                         PENTACLE_CRAFT_FOLIOT, registries,
                         ofTag(registries, Tags.Items.GEMS_AMETHYST),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         Ingredient.of(Items.COMPASS),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_vitality_compass")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
@@ -1764,7 +1764,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER0.get()),
                         ofTag(registries, Tags.Items.STORAGE_BLOCKS_COPPER),
                         ofTag(registries, OccultismTags.Items.BLAZE_DUST),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stabilizer_tier1")));
 
@@ -1777,7 +1777,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get()),
                         ofTag(registries, Tags.Items.STORAGE_BLOCKS_COPPER),
                         ofTag(registries, OccultismTags.Items.BLAZE_DUST),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stabilizer_tier1_dark")));
 
@@ -1790,8 +1790,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER1.get()),
                         ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_SILVER),
                         Ingredient.of(Items.GHAST_TEAR),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stabilizer_tier2")));
 
@@ -1804,8 +1804,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get()),
                         ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_SILVER),
                         Ingredient.of(Items.GHAST_TEAR),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stabilizer_tier2_dark")));
 
@@ -1876,8 +1876,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.STORAGE_BLOCKS_NETHERITE),
                         ofTag(registries, Tags.Items.OBSIDIANS_CRYING),
                         ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                        ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED),
                         Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE),
                         ofTag(registries, OccultismTags.Items.DRAGONYST_DUST))
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.endermen")
@@ -1894,8 +1893,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.STORAGE_BLOCKS_NETHERITE),
                         ofTag(registries, Tags.Items.OBSIDIANS_CRYING),
                         ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                        ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED),
                         Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE),
                         ofTag(registries, OccultismTags.Items.DRAGONYST_DUST))
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.endermen")
@@ -2097,7 +2095,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM)
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM)
                 )
                 .unlockedBy("has_white_chalk", has(registries, OccultismItems.CHALK_WHITE))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/repair_chalks")));
@@ -2110,7 +2108,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM)
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM)
                 )
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/repair_tools")));
@@ -2123,7 +2121,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM)
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM)
                 )
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/repair_armors")));
@@ -2136,7 +2134,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM)
+                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM)
                 )
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/repair_miners")));
@@ -2644,7 +2642,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
                 .entityToSacrifice(Entities.HUMANS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_trinity_gem")));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         new ItemStackTemplate(OccultismItems.BEDROCK_GEM_CLUSTER.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER.get()),
                         BASE_TIME * FORGE_MULT * GREAT_TIER,
@@ -2790,7 +2788,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_special")));
         //Group
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_common"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON),
                         BASE_TIME * INVOKE_MULT * WILD_TIER * HALF_MULT, //half because is random
@@ -2806,10 +2804,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.CROPS))
                 .entityTagToSummon(Entities.RANDOM_ANIMALS_COMMON)
                 .itemToUse(ofTag(registries, Tags.Items.EGGS))
-                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .summonNumber(7)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_common")));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_water"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER),
                         BASE_TIME * INVOKE_MULT * WILD_TIER * HALF_MULT, //half because is random
@@ -2825,10 +2823,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.CLAY))
                 .entityTagToSummon(Entities.RANDOM_ANIMALS_WATER)
                 .itemToUse(Ingredient.of(Items.SNOWBALL))
-                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .summonNumber(7)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_water")));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_small"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL),
                         BASE_TIME * INVOKE_MULT * WILD_TIER * HALF_MULT, //half because is random
@@ -2844,10 +2842,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.SUGAR))
                 .entityTagToSummon(Entities.RANDOM_ANIMALS_SMALL)
                 .itemToUse(ofTag(registries, Tags.Items.EGGS))
-                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .summonNumber(7)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_small")));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_rideable"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE),
                         BASE_TIME * INVOKE_MULT * WILD_TIER * HALF_MULT, //half because is random
@@ -2863,10 +2861,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.WARPED_FUNGUS))
                 .entityTagToSummon(Entities.RANDOM_ANIMALS_RIDEABLE)
                 .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
-                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .summonNumber(3)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_rideable")));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_villager"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER),
                         BASE_TIME * INVOKE_MULT * WILD_TIER * HALF_MULT, //half because is random
@@ -2877,10 +2875,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.FOODS_PIE))
                 .entityTagToSummon(Entities.VILLAGERS)
                 .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
-                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .summonNumber(3)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_villager")));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+        RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_special"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL),
                         BASE_TIME * INVOKE_MULT * WILD_TIER * HALF_MULT, //half because is random
@@ -2896,7 +2894,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(Entities.RANDOM_ANIMALS_SPECIAL)
                 .itemToUse(Ingredient.of(Items.WIND_CHARGE))
-                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_spirit_attuned_gem", has(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
                 .summonNumber(3)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_special")));
     }

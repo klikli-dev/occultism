@@ -711,6 +711,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Block of Iesnium");
         this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
         this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
+        this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_BLOCK, "Block of Spirit Attuned Gem");
         this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Dimensional Mineshaft");
         this.addBlock(OccultismBlocks.DIMENSIONAL_BATTLEFIELD, "Dimensional Battlefield");
         this.addBlock(OccultismBlocks.DIMENSIONAL_EXTRACTOR, "Dimensional Extractor");
@@ -1787,6 +1788,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlockTag(Blocks.STORAGE_BLOCKS_SILVER, "Silver Storage Blocks");
         this.addBlockTag(Blocks.STORAGE_BLOCKS_RAW_IESNIUM, "Raw Iesnium Storage Blocks");
         this.addBlockTag(Blocks.STORAGE_BLOCKS_RAW_SILVER, "Raw Silver Storage Blocks");
+        this.addBlockTag(Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, "Spirit Attuned Storage Blocks");
         this.addBlockTag(Blocks.OTHERWORLD_COLLECTS, "Otherworld can collect");
 
         // Item tags
@@ -1822,10 +1824,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(Items.SILVER_ORE, "Silver Ore");
         this.addItemTag(Items.RAW_IESNIUM, "Raw Iesnium");
         this.addItemTag(Items.RAW_SILVER, "Raw Silver");
+        this.addItemTag(Items.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
         this.addItemTag(Items.STORAGE_BLOCK_IESNIUM, "Iesnium Storage Blocks");
         this.addItemTag(Items.STORAGE_BLOCK_SILVER, "Silver Storage Blocks");
         this.addItemTag(Items.STORAGE_BLOCK_RAW_IESNIUM, "Raw Iesnium Storage Blocks");
         this.addItemTag(Items.STORAGE_BLOCK_RAW_SILVER, "Raw Silver Storage Blocks");
+        this.addItemTag(Items.STORAGE_BLOCK_SPIRIT_ATTUNED, "Spirit Attuned Gem Storage Blocks");
         this.addItemTag(Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
         this.addItemTag(Items.TUBE_CORALS, "Tube Coral");
         this.addItemTag(Items.ENCHANTING_TABLES, "Enchanting Tables");

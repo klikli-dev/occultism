@@ -44,7 +44,7 @@ public class OccultismTiers {
             9.0F,
             3.0F,
             22,
-            Items.SPIRIT_ATTUNED_GEM_MATERIALS
+            Items.SPIRIT_ATTUNED_GEM
     );
 
     public static final ToolMaterial IESNIUM = new ToolMaterial(

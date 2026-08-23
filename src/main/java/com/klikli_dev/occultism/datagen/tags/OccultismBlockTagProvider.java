@@ -103,6 +103,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.SILVER_BULB.get())
                 .add(OccultismBlocks.IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
+                .add(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get())
                 .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .add(OccultismBlocks.SPIRIT_LANTERN.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE.get())
@@ -206,14 +207,18 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.SILVER_DOOR.get())
                 .add(OccultismBlocks.SILVER_TRAPDOOR.get())
                 .add(OccultismBlocks.SILVER_BULB.get())
+                .add(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get())
                 .replace(false);
+        this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(OccultismBlocks.IESNIUM_BLOCK.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.get()).add(OccultismBlocks.OTHERFLOWER_NATURAL.get()).replace(false);
         this.tag(BlockTags.FLOWER_POTS).add(OccultismBlocks.POTTED_OTHERFLOWER.get()).replace(false);
         this.tag(BlockTags.INFINIBURN_OVERWORLD).add(OccultismBlocks.TALLOW_BLOCK.get());
         this.tag(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).addTag(OccultismTags.Blocks.CHALK_GLYPHS);
         this.tag(BlockTags.BEACON_BASE_BLOCKS)
                 .add(OccultismBlocks.SILVER_BLOCK.get())
-                .add(OccultismBlocks.IESNIUM_BLOCK.get());
+                .add(OccultismBlocks.IESNIUM_BLOCK.get())
+                .add(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get());
     }
 
     @Override
@@ -415,6 +420,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER, OccultismBlocks.SILVER_BLOCK.get());
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM, OccultismBlocks.RAW_IESNIUM_BLOCK.get());
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismBlocks.RAW_SILVER_BLOCK.get());
+        this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get());
         this.tag(OccultismTags.Blocks.MUSHROOM_BLOCKS).add(Blocks.MUSHROOM_STEM).add(Blocks.RED_MUSHROOM_BLOCK).add(Blocks.BROWN_MUSHROOM_BLOCK);
         this.tag(OccultismTags.Blocks.ENCHANTING_TABLES).add(Blocks.ENCHANTING_TABLE);
         this.tag(OccultismTags.Blocks.IRON_BARS).add(Blocks.IRON_BARS);

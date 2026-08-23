@@ -465,11 +465,15 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.addRandomEggs(provider);
 
         // Ingots
+        this.tag(OccultismTags.Items.SPIRIT_ATTUNED_GEM).add(OccultismItems.SPIRIT_ATTUNED_GEM.get()).replace(false);
         this.tag(OccultismTags.Items.IESNIUM_INGOT).add(OccultismItems.IESNIUM_INGOT.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_INGOT).add(OccultismItems.SILVER_INGOT.get()).replace(false);
         //noinspection unchecked
         this.tag(Tags.Items.INGOTS).addTags(OccultismTags.Items.IESNIUM_INGOT, OccultismTags.Items.SILVER_INGOT).replace(false);
-        this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(OccultismItems.SILVER_INGOT.get()).add(OccultismItems.IESNIUM_INGOT.get());
+        this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
+                .add(OccultismItems.SILVER_INGOT.get())
+                .add(OccultismItems.IESNIUM_INGOT.get())
+                .add(OccultismItems.SPIRIT_ATTUNED_GEM.get());
 
         // Nuggets
         this.tag(OccultismTags.Items.IESNIUM_NUGGET).add(OccultismItems.IESNIUM_NUGGET.get()).replace(false);
@@ -546,9 +550,10 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.copy(Blocks.STORAGE_BLOCKS_SILVER, OccultismTags.Items.STORAGE_BLOCK_SILVER);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
+        this.copy(Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         //noinspection unchecked
         this.tag(Tags.Items.STORAGE_BLOCKS).addTags(OccultismTags.Items.STORAGE_BLOCK_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_SILVER,
-                OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).replace(false);
+                OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         this.copy(Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
         this.copy(Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);

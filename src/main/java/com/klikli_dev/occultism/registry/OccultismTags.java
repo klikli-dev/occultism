@@ -114,6 +114,7 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_BLOCKS_SILVER = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/silver"));
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_IESNIUM = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_iesnium"));
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
+        public static final TagKey<Block> STORAGE_BLOCKS_SPIRIT_ATTUNED = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/spirit_attuned"));
 
         public static final TagKey<Block> OTHERWORLD_SAPLINGS = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
         public static final TagKey<Block> OTHERWORLD_SAPLINGS_NATURAL = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
@@ -144,6 +145,7 @@ public class OccultismTags {
         public static final TagKey<Item> STORAGE_BLOCK_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/silver"));
         public static final TagKey<Item> STORAGE_BLOCK_RAW_IESNIUM = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_iesnium"));
         public static final TagKey<Item> STORAGE_BLOCK_RAW_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
+        public static final TagKey<Item> STORAGE_BLOCK_SPIRIT_ATTUNED = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/spirit_attuned"));
 
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(Identifier.fromNamespaceAndPath("c", "mushroom_blocks"));
         public static final TagKey<Item> ENCHANTING_TABLES = makeItemTag(Identifier.fromNamespaceAndPath("c", "enchanting_tables"));
@@ -181,7 +183,7 @@ public class OccultismTags {
 
 
         // Ingots
-        public static final TagKey<Item> SPIRIT_ATTUNED_GEM_MATERIALS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_attuned_gem_materials"));
+        public static final TagKey<Item> SPIRIT_ATTUNED_GEM = makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/spirit_attuned"));
         public static final TagKey<Item> IESNIUM_INGOT = makeItemTag(Identifier.fromNamespaceAndPath("c", "ingots/iesnium"));
         public static final TagKey<Item> SILVER_INGOT = makeItemTag(Identifier.fromNamespaceAndPath("c", "ingots/silver"));
 
