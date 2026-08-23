@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
@@ -34,7 +33,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
@@ -99,16 +97,6 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
         if (pSource.getEntity() != null) {
             ringBell(this);
         }
-    }
-
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.klikli_dev.occultism.common.item.tool;
 
-//import com.klikli_dev.occultism.common.entity.familiar.DrikwingEntity;
+import com.klikli_dev.occultism.common.entity.familiar.DrikwingEntity;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -36,7 +36,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.extensions.IBlockStateExtension;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -67,10 +66,10 @@ public class FlamingPasteItem extends DamageInCraftingItem implements Projectile
         stack.hurtAndBreak(1 , player, hand.asEquipmentSlot());
         player.awardStat(Stats.ITEM_USED.get(this));
         player.getCooldowns().addCooldown(stack, 20);
-        //if (target instanceof DrikwingEntity bird) {
-        //    bird.setFlaming(true);
-        //    stack.hurtAndBreak(128 , player, hand.asEquipmentSlot());
-        //}
+        if (target instanceof DrikwingEntity bird) {
+            bird.setFlaming(true);
+            stack.hurtAndBreak(128 , player, hand.asEquipmentSlot());
+        }
         return InteractionResult.SUCCESS;
     }
 

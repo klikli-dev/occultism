@@ -23,18 +23,13 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageHeadlessDie;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -43,7 +38,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ARGB;
-import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -54,21 +48,16 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -131,10 +120,6 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         return typesLookup;
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createAttributes().add(Attributes.MAX_HEALTH, 40);
-    }
-
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FamiliarPanicGoal(this, 1.25));
@@ -195,18 +180,6 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return this.hasBlacksmithUpgrade() ?
-                ImmutableList.of(new MobEffectInstance(OccultismEffects.PUMPKIN_HEAD, 300, 0, false, false)) :
-                ImmutableList.of();
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
-    }
-
-    @Override
     protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(HEAD, NO_HEAD);
@@ -253,10 +226,8 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasGlasses())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasGlasses();
     }
 
     @Override
@@ -384,37 +355,9 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void dropFromLootTable(ServerLevel level, DamageSource pDamageSource, boolean pAttackedRecently) {
-        super.dropFromLootTable(level, pDamageSource, pAttackedRecently);
-
-        var owner = this.getFamiliarOwner();
-
-        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
-
-        var health = this.getHealth();
-        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-        this.resetFallDistance();
-        this.removeAllEffects();
+    protected void resetCustomFamiliarData() {
         this.setHeadlessDead(false);
         this.entityData.set(REBUILT, (byte) 0);
-
-        try (ScopedCollector reporter = new ScopedCollector(this.problemPath(), LOGGER)) {
-            TagValueOutput output = TagValueOutput.createWithContext(reporter, this.registryAccess());
-            this.saveWithoutId(output);
-            shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), output.buildResult()));
-        }
-
-        this.setHealth(health);
-
-        if (owner instanceof Player player) {
-            ItemTransferUtil.giveItemToPlayer(player, shard);
-        } else {
-            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
-            entityitem.setPickUpDelay(5);
-            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
-
-            this.level().addFreshEntity(entityitem);
-        }
     }
 
     public enum Rebuilt {

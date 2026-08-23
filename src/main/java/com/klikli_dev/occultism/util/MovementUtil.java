@@ -23,12 +23,17 @@
 package com.klikli_dev.occultism.util;
 
 import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
+import com.klikli_dev.occultism.common.entity.familiar.OtherworldBirdEntity;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
-import com.klikli_dev.occultism.registry.OccultismTags.Items;
+import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.Equippable;
 
 public class MovementUtil {
     public static boolean doubleJump(Player player) {
@@ -54,8 +59,27 @@ public class MovementUtil {
             return false;
         }
 
-        ItemStack itemstack = player.getItemBySlot(EquipmentSlot.CHEST);
-        //If player has a glider item equipped and it can still glide, no double jump
-        return !itemstack.is(Items.ELYTRA) || !itemstack.has(DataComponents.GLIDER) || itemstack.nextDamageWillBreak();
+        //If player is gliding and has no "wing" will still only glide, no double jump
+        boolean wing = player.hasEffect(OccultismEffects.FIRE_WING)
+                || FamiliarUtil.hasFamiliar(player, OccultismEntities.DRIKWING_FAMILIAR.get(), OtherworldBirdEntity::hasIesniumUpgrade);
+        return !player.isFallFlying() || wing;
+    }
+
+    public static boolean allowCustomGlide(LivingEntity livingEntity) {
+        if (livingEntity.onGround() || livingEntity.isPassenger() || livingEntity.hasEffect(MobEffects.LEVITATION)
+                || livingEntity.isInWater() || livingEntity.isInLava()) {
+            return false;
+        }
+
+        for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+            ItemStack itemStack = livingEntity.getItemBySlot(slot);
+            if (itemStack.has(DataComponents.GLIDER)) {
+                Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
+                if (equippable != null && slot == equippable.slot() && !itemStack.nextDamageWillBreak())
+                    return false;
+            }
+        }
+
+        return livingEntity.hasEffect(OccultismEffects.FIRE_WING);
     }
 }

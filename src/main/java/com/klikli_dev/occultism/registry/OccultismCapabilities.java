@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem.Curio;
+import com.klikli_dev.occultism.common.item.familiar.FamiliarCurio;
 import com.klikli_dev.occultism.common.misc.LavaResourceHandler;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -41,10 +41,21 @@ public class OccultismCapabilities {
         event.registerItem(
                 CuriosCapability.ITEM, // capability to register for
                 (itemStack, context) -> {
-                    return new Curio(itemStack);
+                    return new FamiliarCurio.Curio(itemStack);
                 },
                 // items to register for
-                OccultismItems.FAMILIAR_RING.get());
+                OccultismItems.FAMILIAR_RING.get(),
+                OccultismItems.FAMILIAR_GLOVE.get(),
+                OccultismItems.INFUSED_HELMET.get(),
+                OccultismItems.INFUSED_CHESTPLATE.get(),
+                OccultismItems.INFUSED_LEGGINGS.get(),
+                OccultismItems.INFUSED_BOOTS.get(),
+                OccultismItems.INFUSED_SPEAR.get(),
+                OccultismItems.INFUSED_SWORD.get(),
+                OccultismItems.INFUSED_SHOVEL.get(),
+                OccultismItems.INFUSED_PICKAXE.get(),
+                OccultismItems.INFUSED_AXE.get(),
+                OccultismItems.INFUSED_HOE.get());
 
         event.registerItem(
                 Capabilities.Fluid.ITEM,

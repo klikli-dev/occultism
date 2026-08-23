@@ -24,16 +24,12 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -54,7 +50,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -70,10 +65,8 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasRibbon())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasRibbon();
     }
 
     @Override
@@ -138,19 +131,6 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     @Override
     public boolean isFlying() {
         return !this.onGround();
-    }
-
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0, false, true));
-        if (this.hasBlacksmithUpgrade())
-            effects.add(new MobEffectInstance(OccultismEffects.BAT_LIFESTEAL, 300, 0, false, true));
-        return effects;
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     public boolean hasHair() {

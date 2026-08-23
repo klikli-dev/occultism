@@ -32,6 +32,7 @@ public final class OccultismGuiStyles {
     public static final GuiStyleKey STORAGE_CONTROLLER = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "storage_controller/default"));
     public static final GuiStyleKey DIMENSIONAL_MACHINE = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "dimensional_machine/default"));
     public static final GuiStyleKey TABLET = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "tablet/default"));
+    public static final GuiStyleKey FAMILIAR_TABLET = GuiStyleKey.of(Identifier.fromNamespaceAndPath(Occultism.MODID, "tablet/familiar"));
 
     private OccultismGuiStyles() {
     }
@@ -130,9 +131,18 @@ public final class OccultismGuiStyles {
                 .set(OccultismGuiParts.BOOK_OF_CALLING_CONFIRM_BUTTON, GuiStyleProperties.HOVER_SPRITE, GuiSprites.FILTER_BUTTON_HOVER.tinted(BUTTON_HOVER_TINT));
     }
 
+    private static GuiStyle.Builder familiarTabletStyle() {
+        return GuiStyle.builder()
+                .set(OccultismGuiParts.TABLET_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))
+                .set(OccultismGuiParts.TABLET_TOP_BAR, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(TOP_BAR_TINT))
+                .set(OccultismGuiParts.TABLET_TITLE, GuiStyleProperties.TEXT_COLOR, WHITE)
+                .set(OccultismGuiParts.TABLET_SELECTION, GuiStyleProperties.SPRITE, GuiSprites.ATTRIBUTE_FILTER_SELECTION.tinted(SELECTION_TINT));
+    }
+
     public static void register() {
         GuiStyleRegistry.register(BOOK_OF_CALLING, bookOfCallingBaseStyle().build());
         GuiStyleRegistry.register(SATCHEL, satchelBaseStyle().build());
+        GuiStyleRegistry.register(FAMILIAR_TABLET, familiarTabletStyle().build());
 
         GuiStyleRegistry.register(SPIRIT, spiritBaseStyle()
                 .set(OccultismGuiParts.SPIRIT_PANEL, GuiStyleProperties.SPRITE, GuiSprites.GUI_BACKGROUND.tinted(BACKGROUND_TINT))

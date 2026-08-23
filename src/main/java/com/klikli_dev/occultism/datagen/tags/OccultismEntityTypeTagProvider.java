@@ -134,7 +134,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.MUMMY_FAMILIAR_TYPE.get())
-                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get())
                 .add(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get())
                 .replace(false);
@@ -223,6 +224,33 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.STRIDER)
                 .add(EntityType.HAPPY_GHAST)
                 .add(EntityType.NAUTILUS);
+
+        this.tag(Entities.FRIENDS_AQUATIC)
+                .addTag(EntityTypeTags.AQUATIC);
+
+        this.tag(Entities.FRIENDS_FOREST)
+                .addTag(Entities.CREEPER)
+                .addTag(Entities.WITCH)
+                .addTag(EntityTypeTags.ILLAGER_FRIENDS)
+                .addTag(EntityTypeTags.ARTHROPOD);
+
+        this.tag(Entities.FRIENDS_ABERRATIONS)
+                .addTag(Entities.WARDEN)
+                .addTag(Entities.ENDERMEN)
+                .add(EntityType.CREAKING)
+                .add(EntityType.SHULKER)
+                .add(EntityType.VEX)
+                .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SHULKER_TYPE.get());
+
+        this.tag(Entities.FRIENDS_NETHER)
+                .addTag(EntityTypeTags.WITHER_FRIENDS)
+                .add(EntityType.PIGLIN)
+                .add(EntityType.PIGLIN_BRUTE)
+                .add(EntityType.GHAST)
+                .add(EntityType.BLAZE)
+                .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BLAZE_TYPE.get());
     }
 
     private void addCommonTags() {
@@ -314,7 +342,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())
                 .add(OccultismEntities.IESNIUM_GOLEM_TYPE.get())
-                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
                 .add(OccultismEntities.POSSESSED_SHULKER_TYPE.get())
                 .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get());
@@ -334,7 +363,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.MUMMY_FAMILIAR_TYPE.get())
-                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.POSSESSED_BEE_TYPE.get());
         this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)

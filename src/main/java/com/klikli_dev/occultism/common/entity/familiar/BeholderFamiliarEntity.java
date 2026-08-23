@@ -22,19 +22,13 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedWardenEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageBeholderAttack;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
@@ -45,16 +39,15 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -68,8 +61,6 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     private static final float DEG_30 = FamiliarUtil.toRads(30);
     private static final int EAT_EFFECT_DURATION = 20 * 60 * 10;
-    private static final EntityDataAccessor<Boolean> WARDEN_UPGRADE = SynchedEntityData.defineId(BeholderFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
     private final float heightOffset;
     private final Eye[] eyes = new Eye[]{new Eye(-0.2 + 0.07, 1.3, -0.2 + 0.07), new Eye(0.24 - 0.1, 1.3, -0.23 + 0.1),
             new Eye(0.28 - 0.1, 1.3, 0.23 - 0.07), new Eye(-0.15 + 0.06, 1.3, 0.2 - 0.09)};
@@ -84,50 +75,14 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData(Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(WARDEN_UPGRADE, false);
-    }
-
-    public boolean hasWardenUpgrade() {
-        return this.entityData.get(WARDEN_UPGRADE);
-    }
-
-    private void setWardenUpgrade(boolean b) {
-        this.entityData.set(WARDEN_UPGRADE, b);
-    }
-
-    @Override
-    public void readAdditionalSaveData(ValueInput input) {
-        super.readAdditionalSaveData(input);
-        this.setWardenUpgrade(input.getBooleanOr("hasWardenUpgrade", false));
-    }
-
-    @Override
-    public void addAdditionalSaveData(ValueOutput output) {
-        super.addAdditionalSaveData(output);
-        output.putBoolean("hasWardenUpgrade", this.hasWardenUpgrade());
-    }
-
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
-    }
-
-    @Override
     public void curioTick(LivingEntity wearer) {
-        if (this.getRandom().nextDouble() >= 0.98)
+        if (this.isEffectEnabled(wearer) && this.getRandom().nextDouble() >= 0.98)
             this.tickGlow(wearer);
     }
 
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pState) {
 
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     @Override
@@ -204,14 +159,12 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasTongue())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasTongue();
     }
 
     private void tickGlow(LivingEntity owner) {
-        if (!this.isEffectEnabled(owner))
+        if (!this.isEffectEnabled(owner) || this.isSitting())
             return;
 
         List<LivingEntity> nearby = owner.level().getEntitiesOfClass(LivingEntity.class,
@@ -222,10 +175,6 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
         LivingEntity mob = nearby.get(this.getRandom().nextInt(nearby.size()));
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 60, 0, false, false));
-
-        if (this.hasBlacksmithUpgrade() && (mob instanceof Warden || mob instanceof PossessedWardenEntity)) {
-            this.setWardenUpgrade(true);
-        }
     }
 
     public boolean hasBeard() {
@@ -358,12 +307,10 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
             for (int id : this.targetIds) {
                 Entity e = this.entity.level().getEntity(id);
-                float damage = 9;
-                if (this.entity.hasEffect(MobEffects.STRENGTH))
-                    damage *= this.entity.getEffect(MobEffects.STRENGTH).getAmplifier() + 2;
-
                 if (e == null)
                     continue;
+                AttributeInstance dmgInstance = this.entity.getAttribute(Attributes.ATTACK_DAMAGE);
+                float damage = dmgInstance == null ? 9 : (float) dmgInstance.getValue();
 
                 if (owner instanceof Player player) {
                     e.hurt(this.entity.damageSources().playerAttack(player), damage);

@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.container.spirit.FilterableSpiritContainer;
@@ -46,7 +45,6 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -189,11 +187,6 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
     }
 
     @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
-    }
-
-    @Override
     public void curioTick(LivingEntity wearer) {
         if (!(wearer instanceof Player))
             return;
@@ -283,11 +276,6 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
 
     public float getEarRotX(float partialTicks) {
         return Mth.lerp(partialTicks, this.earRotX0, this.earRotX);
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     @Override

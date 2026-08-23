@@ -162,7 +162,9 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.ECHO_DUST.get(),
                 OccultismItems.EMERALD_DUST.get(),
                 OccultismItems.ENDER_SATCHEL.get(),
+                OccultismItems.FAMILIAR_GLOVE.get(),
                 OccultismItems.FAMILIAR_RING.get(),
+                OccultismItems.FAMILIAR_TABLET.get(),
                 OccultismItems.FLAME_AUTOMATION.get(),
                 OccultismItems.GOLD_DUST.get(),
                 OccultismItems.GRAY_PASTE.get(),
@@ -223,7 +225,6 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.SOUL_SHARD_ITEM.get(),
                 OccultismItems.SOUL_SHATTERED_ITEM.get(),
                 OccultismItems.SPIRIT_ATTUNED_GEM.get(),
-                OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD.get(),
                 OccultismItems.STORAGE_REMOTE_INERT.get(),
                 OccultismItems.SWEET_HONEY_HEART.get(),
                 OccultismItems.TABOO_BOOK.get(),
@@ -403,6 +404,7 @@ public class OccultismItemModelSubProvider {
         this.registerItemGenerated(itemModels, OccultismItems.PENTACLE_GEAR.get(), "ritual_dummy_gear");
 
         this.registerCustomSpear(OccultismItems.SILVER_SPEAR.get(), itemModels);
+        this.registerCustomSpear(OccultismItems.INFUSED_SPEAR.get(), itemModels);
         this.registerArmorItems(itemModels);
     }
 
@@ -566,7 +568,9 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.ECHO_DUST.get(),
                 OccultismItems.EMERALD_DUST.get(),
                 OccultismItems.FLAME_AUTOMATION.get(),
+                OccultismItems.FAMILIAR_GLOVE.get(),
                 OccultismItems.FAMILIAR_RING.get(),
+                OccultismItems.FAMILIAR_TABLET.get(),
                 OccultismItems.FLAMING_PASTE.get(),
                 OccultismItems.GOLD_DUST.get(),
                 OccultismItems.GRAY_PASTE.get(),
@@ -611,7 +615,6 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.SOUL_SHARD_ITEM.get(),
                 OccultismItems.SOUL_SHATTERED_ITEM.get(),
                 OccultismItems.SPIRIT_ATTUNED_GEM.get(),
-                OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD.get(),
                 OccultismBlocks.SPIRIT_CAMPFIRE.asItem(),
                 OccultismBlocks.SPIRIT_LANTERN.asItem(),
                 OccultismItems.STORAGE_REMOTE_INERT.get(),
@@ -624,6 +627,8 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.OTHERWORLD_GOGGLES.get(),
                 OccultismItems.SILVER_HORSE_ARMOR.get(),
                 OccultismItems.SILVER_NAUTILUS_ARMOR.get(),
+                OccultismItems.INFUSED_HORSE_ARMOR.get(),
+                OccultismItems.INFUSED_NAUTILUS_ARMOR.get(),
                 OccultismItems.OTHERPLANKS_BOAT.get(),
                 OccultismItems.OTHERPLANKS_BOAT_CHEST.get()
         };
@@ -637,12 +642,16 @@ public class OccultismItemModelSubProvider {
                 OccultismItems.BUTCHER_KNIFE.get(),
                 OccultismItems.IESNIUM_BUTCHER_KNIFE.get(),
                 OccultismItems.IESNIUM_PICKAXE.get(),
-                OccultismItems.INFUSED_PICKAXE.get(),
                 OccultismItems.SILVER_SWORD.get(),
                 OccultismItems.SILVER_SHOVEL.get(),
                 OccultismItems.SILVER_PICKAXE.get(),
                 OccultismItems.SILVER_AXE.get(),
-                OccultismItems.SILVER_HOE.get()
+                OccultismItems.SILVER_HOE.get(),
+                OccultismItems.INFUSED_SWORD.get(),
+                OccultismItems.INFUSED_SHOVEL.get(),
+                OccultismItems.INFUSED_PICKAXE.get(),
+                OccultismItems.INFUSED_AXE.get(),
+                OccultismItems.INFUSED_HOE.get()
         };
         for (Item item : items) {
             this.registerItemHandheld(itemModels, item);
@@ -654,6 +663,10 @@ public class OccultismItemModelSubProvider {
         this.generateOccultismTrimmableItem(OccultismItems.SILVER_CHESTPLATE.get(), TRIM_PREFIX_CHESTPLATE,itemModels);
         this.generateOccultismTrimmableItem(OccultismItems.SILVER_LEGGINGS.get(), TRIM_PREFIX_LEGGINGS,itemModels);
         this.generateOccultismTrimmableItem(OccultismItems.SILVER_BOOTS.get(), TRIM_PREFIX_BOOTS,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.INFUSED_HELMET.get(), TRIM_PREFIX_HELMET,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.INFUSED_CHESTPLATE.get(), TRIM_PREFIX_CHESTPLATE,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.INFUSED_LEGGINGS.get(), TRIM_PREFIX_LEGGINGS,itemModels);
+        this.generateOccultismTrimmableItem(OccultismItems.INFUSED_BOOTS.get(), TRIM_PREFIX_BOOTS,itemModels);
     }
 
     private void registerItemMiners(ItemModelGenerators itemModels) {

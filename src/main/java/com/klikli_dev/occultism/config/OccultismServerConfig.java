@@ -307,28 +307,33 @@ public class OccultismServerConfig {
     }
 
     public static class FamiliarSettings {
-        public final IntValue drikwingFamiliarSlowFallingSeconds;
         public final DoubleValue blacksmithFamiliarRepairChance;
         public final IntValue blacksmithFamiliarUpgradeCost;
+        public final IntValue blacksmithFamiliarIesniumUpgradeCost;
         public final IntValue blacksmithFamiliarUpgradeCooldown;
+        public final IntValue blacksmithFamiliarPassiveRepairDelay;
         public final IntValue greedySearchRange;
         public final IntValue greedyVerticalSearchRange;
 
         public FamiliarSettings(Builder builder) {
             builder.comment("Familiar Settings").push("familiar");
 
-            this.drikwingFamiliarSlowFallingSeconds = builder.comment(
-                            "The duration of slow falling effect given by Drikwing Familiar in seconds.")
-                    .defineInRange("drikwingFamiliarSlowFallingSeconds", 15, 0, Integer.MAX_VALUE);
             this.blacksmithFamiliarRepairChance = builder.comment(
                             "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
                     .defineInRange("blacksmithFamiliarRepairChance", 0.33, 0.0, Double.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCost = builder.comment(
                             "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
                     .defineInRange("blacksmithFamiliarUpgradeCost", 18, 1, Integer.MAX_VALUE);
+            this.blacksmithFamiliarIesniumUpgradeCost = builder.comment(
+                            "The amount of iesnium required for an upgraded blacksmith familiar to iesnium upgrade another familiar.")
+                    .defineInRange("blacksmithFamiliarIesniumUpgradeCost", 32, 1, Integer.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCooldown = builder.comment(
                             "The cooldown for a blacksmith familiar to upgrade another familiar.")
                     .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
+            this.blacksmithFamiliarPassiveRepairDelay = builder.comment(
+                            "The cooldown for an upgraded blacksmith familiar to passively repair equipment in the owner's inventory.")
+                    .defineInRange("blacksmithFamiliarPassiveRepairDelay", 128, 0, Integer.MAX_VALUE);
+
 
             this.greedySearchRange = builder.comment(
                             "The horizontal value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")

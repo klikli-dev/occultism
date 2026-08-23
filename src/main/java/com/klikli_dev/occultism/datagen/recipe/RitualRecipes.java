@@ -759,21 +759,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_guardian")));
 
         //Djinni
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
-                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.possess_unbound_otherworld_bird"),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD.get()),
-                        BASE_TIME * POSSESS_MULT * DJINNI_TIER,
-                        RITUAL_SUMMON,
-                        PENTACLE_POSSESS_DJINNI, registries,
-                        ofTag(registries, Tags.Items.FEATHERS),
-                        ofTag(registries, Tags.Items.FEATHERS),
-                        ofTag(registries, ItemTags.LEAVES),
-                        ofTag(registries, Tags.Items.EGGS))
-                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
-                .entityToSummon(OccultismEntities.OTHERWORLD_BIRD.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.parrots")
-                .entityToSacrifice(Entities.PARROTS)
-                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_unbound_otherworld_bird")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN.get(), "item.occultism.ritual_dummy.possess_enderman"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMAN.get()),
@@ -856,22 +841,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_blaze")));
 
         //Foliot
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                        makeLoreSpawnEgg(Items.PARROT_SPAWN_EGG, "item.occultism.ritual_dummy.possess_unbound_parrot"),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_PARROT),
-                        BASE_TIME * POSSESS_MULT * FOLIOT_TIER,
-                        RITUAL_SUMMON,
-                        PENTACLE_POSSESS_FOLIOT, registries,
-                        ofTag(registries, Tags.Items.FEATHERS),
-                        ofTag(registries, Tags.Items.DYES_GREEN),
-                        ofTag(registries, Tags.Items.DYES_YELLOW),
-                        ofTag(registries, Tags.Items.DYES_RED),
-                        ofTag(registries, Tags.Items.DYES_BLUE))
-                .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
-                .entityToSummon(EntityType.PARROT)
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
-                .entityToSacrifice(Entities.CHICKEN)
-                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_unbound_parrot")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE.get(), "item.occultism.ritual_dummy.possess_endermite"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMITE.get()),
@@ -1164,8 +1133,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.llamas")
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_mummy")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
-                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.familiar_otherworld_bird"),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DRIKWING_FAMILIAR.get(), "item.occultism.ritual_dummy.familiar_drikwing"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FAMILIAR_DRIKWING.get()),
                         BASE_TIME * FAMILIAR_MULT * DJINNI_TIER,
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_DJINNI, registries,
@@ -1175,10 +1144,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, ItemTags.LEAVES),
                         ofTag(registries, Tags.Items.STRINGS))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
-                .entityToSummon(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .entityToSummon(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
                 .entityToSacrifice(Entities.PARROTS)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.parrots")
-                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_otherworld_bird")));
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_drikwing")));
 
         //Foliot
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
@@ -1417,15 +1386,132 @@ public abstract class RitualRecipes extends RecipeProvider {
                         new ItemStackTemplate(OccultismItems.INFUSED_PICKAXE.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE.get()),
                         BASE_TIME * INFUSE_MULT * DJINNI_TIER,
-                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        RITUAL_UPGRADE,
                         PENTACLE_CRAFT_DJINNI, registries,
-                        ofTag(registries, Tags.Items.RODS_WOODEN),
-                        ofTag(registries, Tags.Items.RODS_WOODEN),
-                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD.get()),
-                        ofTag(registries, OccultismTags.Items.SILVER_INGOT),
-                        ofTag(registries, OccultismTags.Items.SILVER_INGOT))
+                        Ingredient.of(OccultismItems.SILVER_PICKAXE.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_pickaxe")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_AXE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_AXE.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_AXE.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_axe")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_SHOVEL.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_SHOVEL.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_SHOVEL.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_shovel")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_HOE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_HOE.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_HOE.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_hoe")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_SWORD.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_SWORD.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_SWORD.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_sword")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_SPEAR.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_SPEAR.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_SPEAR.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_spear")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_HELMET.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_HELMET.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_HELMET.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_helmet")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_CHESTPLATE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_CHESTPLATE.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_CHESTPLATE.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_chestplate")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_LEGGINGS.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LEGGINGS.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_LEGGINGS.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_leggings")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStackTemplate(OccultismItems.INFUSED_BOOTS.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_BOOTS.get()),
+                        BASE_TIME * INFUSE_MULT * DJINNI_TIER,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_DJINNI, registries,
+                        Ingredient.of(OccultismItems.SILVER_BOOTS.get()),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_boots")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStackTemplate(OccultismItems.SOUL_GEM_ITEM.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM.get()),
@@ -2473,6 +2559,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
                 .entityToSacrifice(Entities.ARMADILLOS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_silver_horse_armor")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.LEATHER_HORSE_ARMOR),
+                        new ItemStackTemplate(OccultismItems.INFUSED_HORSE_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_INFUSED_HORSE_ARMOR.get()),
+                        BASE_TIME * FORGE_MULT * WILD_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.armadillos")
+                .entityToSacrifice(Entities.ARMADILLOS)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_infused_horse_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.COPPER_HORSE_ARMOR),
                         new ItemStackTemplate(Items.COPPER_NAUTILUS_ARMOR),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR.get()),
@@ -2543,6 +2643,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.squid")
                 .entityToSacrifice(Entities.SQUID)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_silver_nautilus_armor")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.INFUSED_HORSE_ARMOR),
+                        new ItemStackTemplate(OccultismItems.INFUSED_NAUTILUS_ARMOR),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_INFUSED_NAUTILUS_ARMOR.get()),
+                        BASE_TIME * FORGE_MULT * WILD_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT, registries,
+                        Ingredient.of(Items.NAUTILUS_SHELL, Items.TURTLE_SCUTE),
+                        ofTag(registries, Tags.Items.FOODS_RAW_FISH),
+                        Ingredient.of(Items.PRISMARINE_SHARD, Items.PRISMARINE_CRYSTALS),
+                        Ingredient.of(Items.GLOW_INK_SAC, Items.INK_SAC))
+                .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.squid")
+                .entityToSacrifice(Entities.SQUID)
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_infused_nautilus_armor")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()),
                         new ItemStackTemplate(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get()),
@@ -2642,6 +2756,19 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
                 .entityToSacrifice(Entities.HUMANS)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_trinity_gem")));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                        new ItemStackTemplate(OccultismItems.FAMILIAR_GLOVE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_FAMILIAR_GLOVE.get()),
+                        BASE_TIME * FORGE_MULT * GREAT_TIER,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT, registries,
+                        Ingredient.of(OccultismItems.TRINITY_GEM_ITEM.get()),
+                        ofTag(registries, Tags.Items.STORAGE_BLOCKS_GOLD),
+                        ofTag(registries, Tags.Items.STORAGE_BLOCKS_REDSTONE),
+                        ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_SILVER),
+                        ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_IESNIUM))
+                .unlockedBy("has_bound_marid", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_familiar_glove")));
         RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         new ItemStackTemplate(OccultismItems.BEDROCK_GEM_CLUSTER.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER.get()),

@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.FlameAutomationItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
+import com.klikli_dev.occultism.common.item.familiar.*;
 import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.*;
@@ -72,10 +73,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> IESNIUM_BUTCHER_KNIFE = ITEMS.registerItem("iesnium_butcher_knife",
             Item::new, () -> OccultismTiers.IESNIUM.applySwordProperties(new Properties().rarity(Rarity.UNCOMMON)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN), 10, -1.8F));
-    public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.registerItem("infused_pickaxe",
-            properties -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED.applyToolProperties(properties
-                            .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                    BlockTags.MINEABLE_WITH_PICKAXE, 1.0F, -2.8F, 0)));
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.registerItem("iesnium_pickaxe",
             properties -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM.applyToolProperties(properties,
                     BlockTags.MINEABLE_WITH_PICKAXE, 1.0F, -2.8F, 0)));
@@ -96,6 +93,8 @@ public class OccultismItems {
                     .stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
+    public static final DeferredItem<Item> FAMILIAR_TABLET = ITEMS.registerItem("familiar_tablet",
+            FamiliarTabletItem::new, () -> new Properties().stacksTo(1));
     public static final DeferredItem<KnowledgeTabletItem> KNOWLEDGE_TABLET = ITEMS.registerItem("knowledge_tablet",
             KnowledgeTabletItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
@@ -115,7 +114,11 @@ public class OccultismItems {
             SoulGemItem::new, () -> new Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()
                     .component(OccultismDataComponents.ROLLS_PER_OPERATION, 3));
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.registerItem("familiar_ring",
-            FamiliarRingItem::new, () -> new Properties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
+            FamiliarGenericItem::new, () -> new Properties().stacksTo(1)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> FAMILIAR_GLOVE = ITEMS.registerItem("familiar_glove",
+            FamiliarGenericItem::new, () -> new Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 6));
     public static final DeferredItem<Item> VITALITY_COMPASS = ITEMS.registerItem("vitality_compass",
             VitalityCompassItem::new, () -> new Properties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN));
@@ -420,8 +423,6 @@ public class OccultismItems {
             Item::new, Properties::new);
     public static final DeferredItem<Item> TABOO_BOOK = ITEMS.registerItem("taboo_book",
             Item::new, Properties::new);
-    public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.registerItem("spirit_attuned_pickaxe_head",
-            Item::new, Properties::new);
     public static final DeferredItem<Item> LENSES = ITEMS.registerItem("lenses",
             Item::new, Properties::new);
     public static final DeferredItem<Item> INFUSED_LENSES = ITEMS.registerItem("infused_lenses",
@@ -537,8 +538,10 @@ public class OccultismItems {
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_EVOKER = ITEMS.registerItem("spawn_egg/wild_evoker",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.POSSESSED_EVOKER_TYPE.get()));
-    public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.registerItem("spawn_egg/otherworld_bird",
-            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.OTHERWORLD_BIRD_TYPE.get()));
+    public static final DeferredItem<Item> SPAWN_EGG_DRIKWING_FAMILIAR = ITEMS.registerItem("spawn_egg/familiar_drikwing",
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get()));
+    public static final DeferredItem<Item> SPAWN_EGG_WINGNIS_FAMILIAR = ITEMS.registerItem("spawn_egg/familiar_wingnis",
+            SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_GREEDY_FAMILIAR = ITEMS.registerItem("spawn_egg/familiar_greedy",
             SpawnEggItem::new, () -> new Properties().spawnEgg(OccultismEntities.GREEDY_FAMILIAR_TYPE.get()));
     public static final DeferredItem<Item> SPAWN_EGG_BAT_FAMILIAR = ITEMS.registerItem("spawn_egg/familiar_bat",
@@ -623,7 +626,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEER = ITEMS.registerItem("ritual_dummy/familiar_deer", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GREEDY = ITEMS.registerItem("ritual_dummy/familiar_greedy", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_PARROT = ITEMS.registerItem("ritual_dummy/familiar_parrot", DummyTooltipItem::new, Properties::new);
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_PARROT = ITEMS.registerItem("ritual_dummy/possess_unbound_parrot", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BAT = ITEMS.registerItem("ritual_dummy/familiar_bat", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEHOLDER = ITEMS.registerItem("ritual_dummy/familiar_beholder", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CHIMERA = ITEMS.registerItem("ritual_dummy/familiar_chimera", DummyTooltipItem::new, Properties::new);
@@ -633,8 +635,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_FAIRY = ITEMS.registerItem("ritual_dummy/familiar_fairy", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_HEADLESS = ITEMS.registerItem("ritual_dummy/familiar_headless", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_MUMMY = ITEMS.registerItem("ritual_dummy/familiar_mummy", DummyTooltipItem::new, Properties::new);
-    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD = ITEMS.registerItem("ritual_dummy/familiar_otherworld_bird", DummyTooltipItem::new, Properties::new);
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD = ITEMS.registerItem("ritual_dummy/possess_unbound_otherworld_bird", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DRIKWING = ITEMS.registerItem("ritual_dummy/familiar_drikwing", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GUARDIAN = ITEMS.registerItem("ritual_dummy/familiar_guardian", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM = ITEMS.registerItem("ritual_dummy/possess_iesnium_golem", DummyTooltipItem::new, Properties::new);
     //Possessed
@@ -665,6 +666,15 @@ public class OccultismItems {
     //Tools
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_LENSES = ITEMS.registerItem("ritual_dummy/craft_infused_lenses", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE = ITEMS.registerItem("ritual_dummy/craft_infused_pickaxe", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_AXE = ITEMS.registerItem("ritual_dummy/craft_infused_axe", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_SHOVEL = ITEMS.registerItem("ritual_dummy/craft_infused_shovel", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_HOE = ITEMS.registerItem("ritual_dummy/craft_infused_hoe", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_SWORD = ITEMS.registerItem("ritual_dummy/craft_infused_sword", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_SPEAR = ITEMS.registerItem("ritual_dummy/craft_infused_spear", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_HELMET = ITEMS.registerItem("ritual_dummy/craft_infused_helmet", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_CHESTPLATE = ITEMS.registerItem("ritual_dummy/craft_infused_chestplate", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_LEGGINGS = ITEMS.registerItem("ritual_dummy/craft_infused_leggings", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_BOOTS = ITEMS.registerItem("ritual_dummy/craft_infused_boots", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_satchel", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENDER_SATCHEL = ITEMS.registerItem("ritual_dummy/craft_ender_satchel", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.registerItem("ritual_dummy/craft_ritual_satchel_t1", DummyTooltipItem::new, Properties::new);
@@ -757,16 +767,19 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_horse_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_horse_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_SILVER_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_silver_horse_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_INFUSED_HORSE_ARMOR = ITEMS.registerItem("ritual_dummy/misc_infused_horse_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_COPPER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_copper_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_IRON_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_iron_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_GOLDEN_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_golden_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_DIAMOND_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_diamond_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_SILVER_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_silver_nautilus_armor", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_INFUSED_NAUTILUS_ARMOR = ITEMS.registerItem("ritual_dummy/misc_infused_nautilus_armor", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.registerItem("ritual_dummy/misc_eldritch_chalice", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE = ITEMS.registerItem("ritual_dummy/misc_celestial_chalice", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.registerItem("ritual_dummy/misc_chalk_rainbow", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.registerItem("ritual_dummy/misc_chalk_void", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.registerItem("ritual_dummy/misc_trinity_gem", DummyTooltipItem::new, Properties::new);
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_FAMILIAR_GLOVE = ITEMS.registerItem("ritual_dummy/misc_familiar_glove", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BEDROCK_GEM_CLUSTER = ITEMS.registerItem("ritual_dummy/misc_bedrock_gem_cluster", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_UNBREAKABLE = ITEMS.registerItem("ritual_dummy/misc_unbreakable", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.registerItem("ritual_dummy/misc_stabilized_storage", DummyTooltipItem::new, Properties::new);
@@ -842,6 +855,15 @@ public class OccultismItems {
             "jei_dummy/require_sacrifice", DummyTooltipItem::new, Properties::new);
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.registerItem(
             "jei_dummy/require_item_use", DummyTooltipItem::new, Properties::new);
+
+    public static final DeferredItem<BoatItem> OTHERPLANKS_BOAT = ITEMS.registerItem("otherplanks_boat",
+            properties -> new BoatItem(OccultismEntities.OTHERPLANKS_BOAT_TYPE.get(), properties.stacksTo(1))
+    );
+    public static final DeferredItem<BoatItem> OTHERPLANKS_BOAT_CHEST = ITEMS.registerItem("otherplanks_chest_boat",
+            properties -> new BoatItem(OccultismEntities.OTHERPLANKS_BOAT_CHEST_TYPE.get(), properties.stacksTo(1))
+    );
+
+    //EQUIPMENT
     private static final ResourceKey<EquipmentAsset> OTHERWORLD_GOGGLES_EQUIPMENT_ASSET = ResourceKey.create(
             EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_goggles"));
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.registerItem("otherworld_goggles",
@@ -856,7 +878,7 @@ public class OccultismItems {
             0.95F, 0.95F, 0.6F, 2.5F, 11.0F, 6.75F, 5.1F, 11.25F, 4.6F));
     public static final DeferredItem<Item> SILVER_SWORD = ITEMS.registerItem("silver_sword",
             Item::new, () -> new Item.Properties().sword(OccultismTiers.SILVER_TOOL, 3.0F, -2.4F));
-    public static final DeferredItem<ShovelItem> SILVER_SHOVEL = ITEMS.registerItem("silver_shovel",
+    public static final DeferredItem<Item> SILVER_SHOVEL = ITEMS.registerItem("silver_shovel",
             properties -> new ShovelItem(OccultismTiers.SILVER_TOOL, 1.5F, -3.0F, properties));
     public static final DeferredItem<Item> SILVER_PICKAXE = ITEMS.registerItem("silver_pickaxe",
             Item::new, () -> new Item.Properties().pickaxe(OccultismTiers.SILVER_TOOL, 1.0F, -2.8F));
@@ -867,33 +889,61 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> SILVER_HELMET = ITEMS.registerItem("silver_helmet",
             Item::new, () -> new Properties().stacksTo(1)
-                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.HELMET)
-    );
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.HELMET));
     public static final DeferredItem<Item> SILVER_CHESTPLATE = ITEMS.registerItem("silver_chestplate",
             Item::new, () -> new Properties().stacksTo(1)
-                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.CHESTPLATE)
-    );
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.CHESTPLATE));
     public static final DeferredItem<Item> SILVER_LEGGINGS = ITEMS.registerItem("silver_leggings",
             Item::new, () -> new Properties().stacksTo(1)
-                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.LEGGINGS)
-    );
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.LEGGINGS));
     public static final DeferredItem<Item> SILVER_BOOTS = ITEMS.registerItem("silver_boots",
             Item::new, () -> new Properties().stacksTo(1)
-                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.BOOTS)
-    );
+                    .humanoidArmor(OccultismTiers.SILVER_ARMOR, ArmorType.BOOTS));
     public static final DeferredItem<Item> SILVER_HORSE_ARMOR = ITEMS.registerItem("silver_horse_armor",
-            Item::new, () -> new Properties().horseArmor(OccultismTiers.SILVER_ARMOR)
-    );
+            Item::new, () -> new Properties().horseArmor(OccultismTiers.SILVER_ARMOR));
     public static final DeferredItem<Item> SILVER_NAUTILUS_ARMOR = ITEMS.registerItem("silver_nautilus_armor",
-            Item::new, () -> new Properties().nautilusArmor(OccultismTiers.SILVER_ARMOR)
-    );
-    public static final DeferredItem<BoatItem> OTHERPLANKS_BOAT = ITEMS.registerItem("otherplanks_boat",
-            properties -> new BoatItem(OccultismEntities.OTHERPLANKS_BOAT_TYPE.get(), properties.stacksTo(1))
-    );
-    public static final DeferredItem<BoatItem> OTHERPLANKS_BOAT_CHEST = ITEMS.registerItem("otherplanks_chest_boat",
-            properties -> new BoatItem(OccultismEntities.OTHERPLANKS_BOAT_CHEST_TYPE.get(), properties.stacksTo(1))
-    );
+            Item::new, () -> new Properties().nautilusArmor(OccultismTiers.SILVER_ARMOR));
 
+    public static final DeferredItem<Item> INFUSED_SPEAR = ITEMS.registerItem("infused_spear",
+            FamiliarGenericItem::new, () -> new Item.Properties().spear(OccultismTiers.ATTUNED_TOOL,
+                            0.8F, 1.1F, 0.45F, 2.75F, 9.5F, 6.0F, 5.1F, 9.5F, 4.6F)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_SWORD = ITEMS.registerItem("infused_sword",
+            FamiliarGenericItem::new, () -> new Item.Properties().sword(OccultismTiers.ATTUNED_TOOL, 3.0F, -1.9F)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_SHOVEL = ITEMS.registerItem("infused_shovel",
+            properties -> new FamiliarShovelItem(OccultismTiers.ATTUNED_TOOL, 1.5F, -2.5F, properties
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1)));
+    public static final DeferredItem<Item> INFUSED_PICKAXE = ITEMS.registerItem("infused_pickaxe",
+            FamiliarGenericItem::new, () -> new Item.Properties().pickaxe(OccultismTiers.ATTUNED_TOOL, 1.0F, -2.3F)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_AXE = ITEMS.registerItem("infused_axe",
+            properties ->  new FamiliarAxeItem(OccultismTiers.ATTUNED_TOOL, 5.0F, -2.5F, properties
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1)));
+    public static final DeferredItem<Item> INFUSED_HOE = ITEMS.registerItem("infused_hoe",
+            properties -> new FamiliarHoeItem(OccultismTiers.ATTUNED_TOOL, -3.0F, 0.5F, properties
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1)));
+
+    public static final DeferredItem<Item> INFUSED_HELMET = ITEMS.registerItem("infused_helmet",
+            FamiliarGenericItem::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.ATTUNED_ARMOR, ArmorType.HELMET)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_CHESTPLATE = ITEMS.registerItem("infused_chestplate",
+            FamiliarGenericItem::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.ATTUNED_ARMOR, ArmorType.CHESTPLATE)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_LEGGINGS = ITEMS.registerItem("infused_leggings",
+            FamiliarGenericItem::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.ATTUNED_ARMOR, ArmorType.LEGGINGS)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_BOOTS = ITEMS.registerItem("infused_boots",
+            FamiliarGenericItem::new, () -> new Properties().stacksTo(1)
+                    .humanoidArmor(OccultismTiers.ATTUNED_ARMOR, ArmorType.BOOTS)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
+    public static final DeferredItem<Item> INFUSED_HORSE_ARMOR = ITEMS.registerItem("infused_horse_armor",
+            Item::new, () -> new Properties().horseArmor(OccultismTiers.ATTUNED_ARMOR));
+    public static final DeferredItem<Item> INFUSED_NAUTILUS_ARMOR = ITEMS.registerItem("infused_nautilus_armor",
+            Item::new, () -> new Properties().nautilusArmor(OccultismTiers.ATTUNED_ARMOR));
 
     public static boolean shouldSkipCreativeModTab(Item item) {
         if (item == PENTACLE_SUMMON.get()
@@ -939,9 +989,7 @@ public class OccultismItems {
                 || item == KNOWLEDGE_TABLET.get()
                 || item == WORMHOLE_TABLET.get()
                 || item == STORAGE_REMOTE.get()
-                || item == FAMILIAR_RING.get()
                 || item == VITALITY_COMPASS.get()
-                || item == INFUSED_PICKAXE.get()
                 || item == IESNIUM_BUTCHER_KNIFE.get()
                 || item == MAGIC_LAMP_EMPTY.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()

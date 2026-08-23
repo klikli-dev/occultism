@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Block;
 
 public class OccultismTags {
     public static final TagKey<Biome> ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION = makeBiomeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "allows_shub_niggurath_transformation"));
+    public static final TagKey<Biome> ALLOWS_WINGNIS_TRANSFORMATION = makeBiomeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "allows_wingnis_transformation"));
 
     public static TagKey<Item> makeItemTag(String id) {
         return makeItemTag(Identifier.parse(id));
@@ -324,5 +325,10 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SMALL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_small"));
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SPECIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_special"));
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_RIDEABLE = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_rideable"));
+
+        public static final TagKey<EntityType<?>> FRIENDS_AQUATIC = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_aquatic"));
+        public static final TagKey<EntityType<?>> FRIENDS_FOREST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_forest"));
+        public static final TagKey<EntityType<?>> FRIENDS_ABERRATIONS = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_aberrations"));
+        public static final TagKey<EntityType<?>> FRIENDS_NETHER = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_nether"));
     }
 }

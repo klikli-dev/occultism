@@ -30,7 +30,6 @@ import com.geckolib.animation.RawAnimation;
 import com.geckolib.animation.object.PlayState;
 import com.geckolib.animation.state.AnimationTest;
 import com.geckolib.util.GeckoLibUtil;
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -46,17 +45,14 @@ import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -69,7 +65,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
-    protected static final long SIN_INTERVAL = 20 * 60 * 33;
+    protected static final long SIN_INTERVAL = 20 * 60 * 5;
     private static final EntityDataAccessor<Long> SIN_TIME = SynchedEntityData.defineId(DevilFamiliarEntity.class, EntityDataSerializers.LONG);
     private final float heightOffset;
 
@@ -78,11 +74,6 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, Level level) {
         super(type, level);
         this.heightOffset = this.getRandom().nextFloat() * 5;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896);
     }
 
     @Override
@@ -131,7 +122,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         if (this.getOwner() == pPlayer) {
 
             if (itemstack.is(Items.GOLDEN_APPLE)) {
-                long time = this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
+                long time = this.hasIesniumUpgrade() ? -1 : this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
                 if (!this.hasBlacksmithUpgrade()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
                 } else if (time < 0) {
@@ -145,7 +136,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
                 return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
             if (itemstack.is(OccultismItems.PITAYA_GOLDEN)) {
-                long time = this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
+                long time = this.hasIesniumUpgrade() ? -1 : this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
                 if (!this.hasBlacksmithUpgrade()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
                 } else if (time < 0) {
@@ -164,11 +155,6 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     }
 
     @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
-    }
-
-    @Override
     public void aiStep() {
         super.aiStep();
         if (this.level().isClientSide() && this.swinging) {
@@ -181,13 +167,21 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         }
     }
 
-    public float getAnimationHeight(float partialTicks) {
-        return Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        Level level = wearer.level();
+        if (this.isEffectEnabled(wearer) && !level.isClientSide() && level.getGameTime() % 32 == 0) {
+            List<Monster> enemies = level.getEntitiesOfClass(Monster.class, wearer.getBoundingBox().inflate(9));
+            if (enemies.isEmpty())
+                return;
+
+            for (Monster e : enemies)
+                e.setRemainingFireTicks(4 * 20);
+        }
     }
 
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
+    public float getAnimationHeight(float partialTicks) {
+        return Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
     }
 
     @Override
@@ -254,7 +248,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
 
         protected void attack(List<LivingEntity> enemies) {
             for (Entity e : enemies) {
-                e.hurt(this.entity.damageSources().playerAttack((Player) this.entity.getFamiliarOwner()), 4);
+                this.entity.doHurtTarget(getServerLevel(this.entity), e);
                 e.setRemainingFireTicks(4 * 20);
             }
         }

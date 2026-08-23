@@ -182,7 +182,8 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.GOAT_OF_MERCY.get(), GoatRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
-        event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.DRIKWING_FAMILIAR.get(), DrikwingRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WINGNIS_FAMILIAR.get(), WingnisRenderer::new);
 
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_HUSK.get(), HuskRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_PARCHED.get(), ParchedRenderer::new);
@@ -265,30 +266,6 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
         event.register(OccultismContainers.TELEPORT_TABLET.get(), TeleportTabletScreen::new);
-    }
-
-    public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerMobEffect(new IClientMobEffectExtensions() {
-            @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x + 3, y + 3, 18, 18, ARGB.white(alpha));
-                return true;
-            }
-        }, OccultismEffects.THIRD_EYE.get());
-
-        event.registerMobEffect(new IClientMobEffectExtensions() {
-            @Override
-            public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, int blitOffset) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 7, 18, 18);
-                return true;
-            }
-
-            @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 3, 18, 18, ARGB.white(alpha));
-                return false;
-            }
-        }, OccultismEffects.DOUBLE_JUMP.get());
     }
 
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {

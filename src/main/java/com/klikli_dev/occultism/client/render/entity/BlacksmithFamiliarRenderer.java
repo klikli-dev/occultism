@@ -26,6 +26,8 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.BlacksmithFamiliarModel;
 import com.klikli_dev.occultism.client.render.entity.state.BlacksmithFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.BlacksmithFamiliarEntity;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -47,7 +49,6 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
 
     private static final Identifier TEXTURES = Identifier.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/blacksmith_familiar.png");
-
     //private static final ContextKey<Byte> BARS = new ContextKey<>(Identifier.fromNamespaceAndPath(Occultism.MODID, "blacksmith_bars"));
 
     private final ItemModelResolver itemModelResolver;
@@ -56,6 +57,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
         super(context, new BlacksmithFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BLACKSMITH)), 0.3f);
         this.itemModelResolver = context.getItemModelResolver();
         this.addLayer(new IngotsLayer(this, this.itemModelResolver));
+        this.addLayer(new AnvilLayer(this, this.itemModelResolver));
     }
 
     @Override
@@ -67,7 +69,9 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
         reusedState.hasMarioMoustache = entity.hasMarioMoustache();
         reusedState.hasEarring = entity.hasEarring();
         reusedState.isChristmas = FamiliarUtil.isChristmas();
-        reusedState.bars = entity.getBars();
+        reusedState.bars = entity.getBars() + entity.getIesniumBars();
+        reusedState.iesnium = entity.getIesniumBars();
+        reusedState.isIesnium = entity.hasIesniumUpgrade();
         //reusedState.setRenderData(BARS, entity.getBars());
     }
 
@@ -79,13 +83,6 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     @Override
     public Identifier getTextureLocation(BlacksmithFamiliarRenderState state) {
         return TEXTURES;
-    }
-
-    @Override
-    protected void setupRotations(BlacksmithFamiliarRenderState state, PoseStack poseStack, float bob, float scale) {
-        if (!state.isSitting) {
-            super.setupRotations(state, poseStack, bob, scale);
-        }
     }
 
     private static class IngotsLayer extends RenderLayer<BlacksmithFamiliarRenderState, BlacksmithFamiliarModel> {
@@ -107,8 +104,8 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
             float scale = 0.5f;
             pMatrixStack.scale(scale, scale, scale);
 
-            ItemStack ingotStack = new ItemStack(Items.IRON_INGOT);
             for (int i = 0; i < bars; i++) {
+                ItemStack ingotStack = i < state.iesnium ? new ItemStack(OccultismItems.IESNIUM_INGOT.get()) : new ItemStack(Items.IRON_INGOT);
                 pMatrixStack.pushPose();
                 pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - (double) i / 2 * 0.04, -0.15);
                 pMatrixStack.mulPose(new Quaternionf().rotateXYZ(-90 * ((float) Math.PI / 180F), 0, i * ((float) Math.PI / 180F)));
@@ -119,6 +116,39 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
 
                 pMatrixStack.popPose();
             }
+            pMatrixStack.popPose();
+        }
+    }
+
+    private static class AnvilLayer extends RenderLayer<BlacksmithFamiliarRenderState, BlacksmithFamiliarModel> {
+
+        private final ItemModelResolver itemModelResolver;
+
+        public AnvilLayer(RenderLayerParent<BlacksmithFamiliarRenderState, BlacksmithFamiliarModel> parent, ItemModelResolver itemModelResolver) {
+            super(parent);
+            this.itemModelResolver = itemModelResolver;
+        }
+
+        @Override
+        public void submit(PoseStack pMatrixStack, SubmitNodeCollector submitNodeCollector, int lightCoords, BlacksmithFamiliarRenderState state, float yRot, float xRot) {
+            if (!state.isIesnium) return;
+
+            pMatrixStack.pushPose();
+            float scale = 1.8f;
+            pMatrixStack.scale(scale, scale, scale);
+
+            ItemStack anvil = new ItemStack(OccultismBlocks.IESNIUM_ANVIL.asItem());
+
+            pMatrixStack.pushPose();
+            pMatrixStack.translate(0, 0.88, -0.07);
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ((float) Math.PI, (float) Math.PI/2, 0));
+
+            ItemStackRenderState stackState = new ItemStackRenderState();
+            this.itemModelResolver.updateForTopItem(stackState, anvil, ItemDisplayContext.GROUND, null, null, 0);
+            stackState.submit(pMatrixStack, submitNodeCollector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
+
+            pMatrixStack.popPose();
+
             pMatrixStack.popPose();
         }
     }

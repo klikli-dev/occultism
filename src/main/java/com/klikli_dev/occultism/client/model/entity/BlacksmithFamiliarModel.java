@@ -188,6 +188,9 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarRende
             this.rightArm.xRot = this.toRad(-10);
         }
 
+        this.anvil1.visible = !state.isIesnium;
+        this.anvil2.visible = !state.isIesnium;
+        this.anvil3.visible = !state.isIesnium;
         this.earring.visible = state.hasEarring;
         this.mouth1.visible = !state.hasMarioMoustache && !state.isChristmas;
         this.mouth2.visible = state.hasMarioMoustache && !state.isChristmas;

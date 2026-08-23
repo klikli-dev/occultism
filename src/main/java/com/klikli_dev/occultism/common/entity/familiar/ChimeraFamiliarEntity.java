@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtByTargetGoal;
@@ -98,10 +97,9 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes()
+        return FamiliarEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.MAX_HEALTH, 20)
                 .add(Attributes.JUMP_STRENGTH, 0.7)
                 ;
     }
@@ -133,7 +131,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide() && this.getRandom().nextDouble() < SHRINK_CHANCE)
+        if (!this.level().isClientSide() && !this.hasBlacksmithUpgrade() && this.getRandom().nextDouble() < SHRINK_CHANCE)
             this.setSize((byte) (this.getSize() - 1));
 
         this.attackTimer--;
@@ -172,11 +170,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 //    public boolean isControlledByLocalInstance() {
 //        return true;
 //    }
-
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
-    }
 
     @Override
     public void setSize(byte size) {
@@ -329,10 +322,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasHat();
     }
 
     @Override

@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.GreedyFamiliarModel;
 import com.klikli_dev.occultism.client.render.entity.state.GreedyFamiliarRenderState;
 import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -70,6 +71,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
         reusedState.isPartying = entity.isPartying();
         reusedState.isVehicle = entity.getVehicle() != null;
         reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.hasIesniumUpgrade = entity.hasIesniumUpgrade();
         reusedState.hasTargetBlock = entity.getTargetBlock().isPresent();
         reusedState.lidRot = entity.getLidRot(partialTick);
         reusedState.monsterRot = entity.getMonsterRot(partialTick);
@@ -138,7 +140,8 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -45 * ((float) Math.PI / 180F)));
 
                 ItemStackRenderState stackState = new ItemStackRenderState();
-                this.itemModelResolver.updateForTopItem(stackState, new ItemStack(Items.IRON_PICKAXE), ItemDisplayContext.GROUND, null, null, 0);
+                ItemStack pick = state.hasIesniumUpgrade ? OccultismItems.IESNIUM_PICKAXE.toStack() : new ItemStack(Items.IRON_PICKAXE);
+                this.itemModelResolver.updateForTopItem(stackState, pick, ItemDisplayContext.GROUND, null, null, 0);
                 stackState.submit(pMatrixStack, submitNodeCollector, lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
                 pMatrixStack.popPose();
             }

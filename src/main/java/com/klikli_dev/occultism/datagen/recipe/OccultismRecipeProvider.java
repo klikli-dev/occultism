@@ -1243,6 +1243,17 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherworld_ashes", has(OccultismTags.Items.OTHERWORLD_WOOD_DUST))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/otherwordly_tablet")));
 
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, OccultismItems.FAMILIAR_TABLET.get())
+                .pattern("bsb")
+                .pattern("btb")
+                .pattern("bgb")
+                .define('b', ItemTags.BUTTONS)
+                .define('s', Items.SUNFLOWER)
+                .define('t', OccultismItems.OTHERWORLDLY_TABLET)
+                .define('g', OccultismTags.Items.SPIRIT_ATTUNED_GEM)
+                .unlockedBy("has_otherworldy_tablet", TriggerInstance.hasItems(OccultismItems.OTHERWORLDLY_TABLET))
+                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/familiar_tablet")));
+
         ShapedRecipeBuilder.shaped(items, RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.SACRIFICIAL_BOWL.get())
                 .pattern("o o")
                 .pattern("ooo")
@@ -1282,12 +1293,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('g', OccultismItems.SPIRIT_ATTUNED_GEM.get())
                 .unlockedBy("has_spirit_attuned_gem", TriggerInstance.hasItems(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/spirit_attuned_crystal")));
-
-        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD.get())
-                .pattern("ggg")
-                .define('g', OccultismItems.SPIRIT_ATTUNED_GEM.get())
-                .unlockedBy("has_spirit_attuned_gem", TriggerInstance.hasItems(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
-                .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/spirit_attuned_pickaxe_head")));
 
         ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, OccultismBlocks.SPIRIT_CAMPFIRE.get())
                 .pattern(" S ")
