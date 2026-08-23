@@ -109,7 +109,7 @@ public class MinerRecipes {
         makeOreRecipe("white_diamond", 29, pRecipeOutput, registries, Miners.IRON);
         makeOreRecipe("zinc", 3134, pRecipeOutput, registries, Miners.BASIC);
 
-        makeItemRecipe(Items.GLOWSTONE, 5360, pRecipeOutput, registries, Miners.BASIC); //copy quartz weight
+        makeItemRecipe(Items.GLOWSTONE, 254, pRecipeOutput, registries, Miners.BASIC);
         makeItemRecipe(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem(), 1, pRecipeOutput, registries, Miners.NETHERITE); //min weight possible
         makeItemRecipe(OccultismItems.BEDROCK_SCRAP.asItem(), 1, pRecipeOutput, registries, Miners.ELDRITCH); //min weight possible
 
