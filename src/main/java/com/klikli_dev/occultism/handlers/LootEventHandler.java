@@ -23,11 +23,13 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -68,7 +70,7 @@ public class LootEventHandler {
             MobEffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED);
             if (greed == null)
                 return;
-            event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
+            event.setDroppedExperience((int) (event.getDroppedExperience() * (1 + 0.1*(greed.getAmplifier() + 1))));
         }
     }
 
@@ -108,9 +110,12 @@ public class LootEventHandler {
             return;
 
         if (event.getState().is(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
-            if (player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
-                    || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
-                    || CuriosUtil.hasStaff(player)) {
+            OtherworldBlockTier toolTier = OtherworldUtil.getToolLevel(
+                    player.getItemInHand(player.getUsedItemHand()));
+            OtherworldBlockTier staffTier = CuriosUtil.hasStaff(player) ?
+                    OtherworldBlockTier.TWO : OtherworldBlockTier.NONE;
+
+            if (OtherworldBlockTier.max(toolTier, staffTier) != OtherworldBlockTier.NONE) {
                 Level level = (Level) event.getLevel();
                 BlockPos pos = event.getPos();
                 ItemEntity itementity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(),
