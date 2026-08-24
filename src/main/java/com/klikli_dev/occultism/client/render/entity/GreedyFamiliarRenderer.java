@@ -151,9 +151,9 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 model.body.translateAndRotate(pMatrixStack);
                 model.leftArm.translateAndRotate(pMatrixStack);
 
-                pMatrixStack.translate(0.06, 0.2, -0.17);
-                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 45 * ((float) Math.PI / 180F), 0));
-                float size = 0.75f;
+                pMatrixStack.translate(0.06, 0.45, -0.17);
+                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 45 * ((float) Math.PI / 180F), (float) Math.PI));
+                float size = 0.65f;
                 pMatrixStack.scale(size, size, size);
 
                 ItemStackRenderState stackState = new ItemStackRenderState();

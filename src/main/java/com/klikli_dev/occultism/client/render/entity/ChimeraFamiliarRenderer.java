@@ -47,6 +47,17 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
     public void extractRenderState(ChimeraFamiliarEntity entity, ChimeraFamiliarRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.isSitting = entity.isSitting();
+        reusedState.isPartying = entity.isPartying();
+        reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.hasGoat = entity.hasGoat();
+        reusedState.hasBeard = entity.hasBeard();
+        reusedState.hasHat = entity.hasHat();
+        reusedState.hasRing = entity.hasRing();
+        reusedState.hasFlaps = entity.hasFlaps();
+        reusedState.scale = 0.5F + (float) entity.getSize() /100;
+        reusedState.attacker = entity.getAttacker();
+        reusedState.attackProgress = entity.getAttackProgress(partialTick);
+        reusedState.goatRot = entity.getNoseGoatRot(partialTick);
     }
 
     @Override
@@ -61,11 +72,6 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
             poseStack.translate(0, -0.14 * state.scale, 0);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
-    }
-
-    @Override
-    protected void scale(ChimeraFamiliarRenderState state, PoseStack poseStack) {
-        poseStack.scale(0.5f, 0.5f, 0.5f);
     }
 
     @Override

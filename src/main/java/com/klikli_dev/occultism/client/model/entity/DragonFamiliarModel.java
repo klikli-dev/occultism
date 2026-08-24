@@ -170,6 +170,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
         super.setupAnim(state);
         DragonFamiliarEntity entityIn = state.dragonEntity instanceof DragonFamiliarEntity d ? d : null;
         if (entityIn != null) {
+            showModels(entityIn);
             if (!entityIn.onGround()) {
                 float rot = 1 + Mth.sin(entityIn.tickCount % 40);
                 this.leftWing1.zRot = rot * this.toRads(50);
@@ -203,6 +204,26 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarRenderState> 
                 this.leftLeg1.xRot = this.toRads(45) + Mth.cos(state.walkAnimationPos * 0.7f + PI) * 1.4f * state.walkAnimationSpeed;
                 this.rightArm1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 1.4f * state.walkAnimationSpeed;
                 this.leftArm1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 1.4f * state.walkAnimationSpeed;
+            }
+
+            if (entityIn.swinging) {
+                float attackProgress = entityIn.getAttackProgress(state.ageInTicks);
+                this.tail1.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
+                this.tail2.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
+                this.tail3.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
+            } else {
+                this.tail1.yRot = 0;
+                this.tail2.yRot = 0;
+                this.tail3.yRot = 0;
+            }
+
+            float petTimer = entityIn.getPetTimer();
+            float petDuration = DragonFamiliarEntity.MAX_PET_TIMER / 2.0f;
+            if (petTimer < petDuration) {
+                this.tail1.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
+                this.tail2.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
+                this.tail3.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
+                this.jaw.zRot = -Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(10);
             }
         }
     }
