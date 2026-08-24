@@ -210,7 +210,12 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get())
                 .replace(false);
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
-                .add(OccultismBlocks.IESNIUM_BLOCK.get());
+                .add(OccultismBlocks.IESNIUM_ORE.get())
+                .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
+                .add(OccultismBlocks.IESNIUM_BLOCK.get())
+                .add(OccultismBlocks.IESNIUM_ANVIL.get())
+                .add(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.get()).add(OccultismBlocks.OTHERFLOWER_NATURAL.get()).replace(false);
         this.tag(BlockTags.FLOWER_POTS).add(OccultismBlocks.POTTED_OTHERFLOWER.get()).replace(false);
         this.tag(BlockTags.INFINIBURN_OVERWORLD).add(OccultismBlocks.TALLOW_BLOCK.get());
