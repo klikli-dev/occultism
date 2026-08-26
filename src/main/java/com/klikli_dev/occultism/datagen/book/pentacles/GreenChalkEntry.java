@@ -43,12 +43,14 @@ public class GreenChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_nature_paste"))
-        );
-
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_green_impure"))
+                .withText(this.context().pageText())
+        );
+        this.pageText("""
+                Check {0} entry.
+                """,
+                this.entryLink("Nature Paste", "crafting_rituals", "craft_nature_paste")
         );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()

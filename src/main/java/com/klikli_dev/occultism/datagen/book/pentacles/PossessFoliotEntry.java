@@ -55,8 +55,18 @@ public class PossessFoliotEntry extends EntryProvider {
                 - {7}
                 - {8}
                 - {9}
-                - {10}
-                """, this.entryLink("Possessed Endermite", "possession_rituals", "possess_endermite"), this.entryLink("Possessed Skeleton", "possession_rituals", "possess_skeleton"), this.entryLink("Possessed Witch", "possession_rituals", "possess_witch"), this.entryLink("Possessed Phantom", "possession_rituals", "possess_phantom"), this.entryLink("Unbound Parrot", "possession_rituals", "possess_unbound_parrot"), this.entryLink("Random Animal (Common, Water, Small)", "possession_rituals", "possess_random_animal"), this.entryLink("Parrot Familiar", "familiar_rituals", "familiar_parrot"), this.entryLink("Greedy Familiar", "familiar_rituals", "familiar_greedy"), this.entryLink("Deer Familiar", "familiar_rituals", "familiar_deer"), this.entryLink("Blacksmith Familiar", "familiar_rituals", "familiar_blacksmith"), this.entryLink("Beaver Familiar", "familiar_rituals", "familiar_beaver"));
+                """,
+                this.entryLink("Possessed Endermite", "possession_rituals", "possess_endermite"),
+                this.entryLink("Possessed Phantom", "possession_rituals", "possess_phantom"),
+                this.entryLink("Possessed Skeleton", "possession_rituals", "possess_skeleton"),
+                this.entryLink("Possessed Witch", "possession_rituals", "possess_witch"),
+                this.entryLink("Random Animal (Common, Water, Small)", "possession_rituals", "possess_random_animal"),
+                this.entryLink("Beaver Familiar", "familiar_rituals", "familiar_beaver"),
+                this.entryLink("Blacksmith Familiar", "familiar_rituals", "familiar_blacksmith"),
+                this.entryLink("Deer Familiar", "familiar_rituals", "familiar_deer"),
+                this.entryLink("Greedy Familiar", "familiar_rituals", "familiar_greedy"),
+                this.entryLink("Parrot Familiar", "familiar_rituals", "familiar_parrot")
+        );
 
     }
 

@@ -45,12 +45,14 @@ public class BlackChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_witherite_dust"))
-        );
-
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_black_impure"))
+                .withText(this.context().pageText())
+        );
+        this.pageText("""
+                Check {0} entry.
+                """,
+                this.entryLink("Witherite Dust", "crafting_rituals", "craft_witherite_dust")
         );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()

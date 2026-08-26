@@ -29,7 +29,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.layout().entry(returnToRituals).leftOf(overview, 2);
         var tablet = this.add(new TabletConfigFamiliarEntry(this).generate());
         tablet.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_RESURRECT_SPIRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
         this.layout().entry(tablet).below(overview, 2);
 
         var resurrection = this.add(new ResurrectFamiliarEntry(this).generate());

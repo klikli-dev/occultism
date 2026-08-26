@@ -53,7 +53,14 @@ public class CraftFoliotEntry extends EntryProvider {
                 - {4}
                 - {5}
                 - {6}
-                """, this.entryLink("Research Fragment Dust", "pentacles", "lime_chalk"), this.entryLink("Nature Paste", "pentacles", "green_chalk"), this.entryLink("Infused Lenses", "crafting_rituals", "craft_otherworld_goggles"), this.entryLink("Fragile Soul Gem", "crafting_rituals", "fragile_soul_gem"), this.entryLink("Vitality Compass", "crafting_rituals", "vitality_compass"), this.entryLink("Knowledge Tablet", "crafting_rituals", "knowledge_tablet"), this.entryLink("Foliot Miner", "crafting_rituals", "craft_foliot_miner"));
+                """,
+                this.entryLink("Research Fragment Dust", "crafting_rituals", "craft_research_dust"),
+                this.entryLink("Nature Paste", "crafting_rituals", "craft_nature_paste"),
+                this.entryLink("Infused Lenses", "crafting_rituals", "craft_otherworld_goggles"),
+                this.entryLink("Fragile Soul Gem", "crafting_rituals", "fragile_soul_gem"),
+                this.entryLink("Vitality Compass", "crafting_rituals", "vitality_compass"),
+                this.entryLink("Knowledge Tablet", "crafting_rituals", "knowledge_tablet"),
+                this.entryLink("Foliot Miner", "crafting_rituals", "craft_foliot_miner"));
 
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

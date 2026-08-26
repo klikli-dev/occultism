@@ -40,7 +40,7 @@ public class FamiliarWingnisEntry extends EntryProvider {
                 this.entryLink("Drikwing Familiar", "familiar_rituals", "familiar_drikwing"),
                 this.itemLink(Items.TOTEM_OF_UNDYING),
                 this.color("Nether Biome", ChatFormatting.DARK_PURPLE),
-                this.itemLink(OccultismItems.FLAMING_PASTE),
+                this.entryLink("Flaming Paste", "crafting_rituals", "craft_flaming_paste"),
                 this.color("Wingnis Familiar", ChatFormatting.DARK_PURPLE)
         );
 

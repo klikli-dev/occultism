@@ -46,12 +46,14 @@ public class LimeChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_research_fragment_dust"))
-        );
-
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_lime_impure"))
+                .withText(this.context().pageText())
+        );
+        this.pageText("""
+                Check {0} entry.
+                """,
+                this.entryLink("Research Fragment Dust", "crafting_rituals", "craft_research_dust")
         );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
