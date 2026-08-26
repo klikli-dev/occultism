@@ -162,7 +162,8 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
             for (int i = 0; i < 5; i++) {
                 Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
                         1.5 + (this.getRandom().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
-                this.level().addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
+                this.level().addParticle(this.hasIesniumUpgrade() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME,
+                        pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
             }
         }
     }
@@ -229,15 +230,18 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
 
         @Override
         public boolean canUse() {
-            return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof Player && !this.getNearbyEnemies().isEmpty();
+            return this.cooldown-- < 0
+                    && this.entity.getFamiliarOwner() instanceof Player owner
+                    && !this.getNearbyEnemies(owner).isEmpty()
+                    && this.entity.isEffectEnabled(owner);
         }
 
-        private List<LivingEntity> getNearbyEnemies() {
-            return FamiliarUtil.getOwnerEnemies(this.entity.getFamiliarOwner(), this.entity, this.range);
+        private List<LivingEntity> getNearbyEnemies(LivingEntity owner) {
+            return FamiliarUtil.getOwnerEnemies(owner, this.entity, this.range);
         }
 
         public void start() {
-            List<LivingEntity> enemies = this.getNearbyEnemies();
+            List<LivingEntity> enemies = this.getNearbyEnemies(this.entity.getFamiliarOwner());
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
                 OccultismAdvancements.FAMILIAR.get().trigger(this.entity.getFamiliarOwner(), Type.DEVIL_FIRE);
 

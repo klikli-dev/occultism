@@ -173,7 +173,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
-        this.setWeapon((byte) this.getRandom().nextInt(3));
+        this.setWeapon((byte) this.getRandom().nextInt(6));
         this.setHairy(this.getRandom().nextBoolean());
         this.setGlasses(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
@@ -286,15 +286,14 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     public ItemStack getWeaponItem() {
-        Item weapon = Items.IRON_SWORD;
-        switch (this.getWeapon()) {
-            case 1:
-                weapon = Items.IRON_AXE;
-                break;
-            case 2:
-                weapon = Items.IRON_HOE;
-                break;
-        }
+        Item weapon = switch (this.getWeapon()) {
+            case 1 -> Items.IRON_AXE;
+            case 2 -> Items.IRON_HOE;
+            case 3 -> Items.IRON_SHOVEL;
+            case 4 -> Items.IRON_SPEAR;
+            case 5 -> Items.IRON_PICKAXE;
+            default -> Items.IRON_SWORD;
+        };
         return new ItemStack(weapon);
     }
 
@@ -352,6 +351,16 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     public void killHeadless() {
         this.headlessDieTimer = 20;
+    }
+
+    public boolean reviveHeadlessRatman() {
+        if (this.isFullyRebuilt()) {
+            this.entityData.set(REBUILT, (byte) 0);
+            this.setHeadlessDead(false);
+            this.heal(this.getMaxHealth()/2);
+            return true;
+        }
+        return false;
     }
 
     @Override

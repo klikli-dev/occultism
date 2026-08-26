@@ -469,6 +469,8 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                     if (familiar.getLastHurtByMob() != null
                             && familiar.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, DURATION)))
                         gaveSupport = true;
+                    if (familiar instanceof HeadlessFamiliarEntity ratman && ratman.reviveHeadlessRatman())
+                        gaveSupport = true;
                     if (gaveSupport) {
                         Networking.sendToTracking(this.fairy,
                                 new MessageFairySupport(this.fairy.getId(), familiar.getId()));
@@ -520,7 +522,17 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                         AttributeInstance dmgInstance = this.fairy.getAttribute(Attributes.ATTACK_DAMAGE);
                         float dmg = dmgInstance == null ? 6 : (float) dmgInstance.getValue();
                         pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), dmg/3);
-                        pEnemy.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
+
+                        int effect = this.fairy.hasIesniumUpgrade() ? this.fairy.level().getRandom().nextInt(5) :
+                                this.fairy.hasBlacksmithUpgrade() ? this.fairy.level().getRandom().nextInt(3) : 0;
+                        switch (effect) {
+                            case 4 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 2));
+                            case 3 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.POISON, 40, 2));
+                            case 2 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 40, 0));
+                            case 1 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.GLOWING, 40, 0));
+                            default -> pEnemy.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
+                        }
+
                         List<LivingEntity> allies = this.fairy.level().getEntitiesOfClass(LivingEntity.class,
                                 this.fairy.getBoundingBox().inflate(7), e -> e != this.fairy && e instanceof IFamiliar
                                         && ((IFamiliar) e).getFamiliarOwner() == owner);

@@ -37,6 +37,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -68,6 +69,8 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.CommonHooks;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements ItemSteerable, PlayerRideableJumping {
@@ -76,6 +79,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     public static final byte LION_ATTACKER = 1;
     public static final byte GOAT_ATTACKER = 2;
     public static final byte SNAKE_ATTACKER = 3;
+    public static final byte PAW_ATTACKER = 4;
     private static final Identifier DAMAGE_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_damage_bonus");
     private static final Identifier SPEED_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "chimera_speed_bonus");
     private static final byte RIDING_SIZE = 80;
@@ -322,6 +326,14 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
+    public void actuallyHurt(ServerLevel serverLevel, DamageSource pSource, float pAmount) {
+        super.actuallyHurt(serverLevel, pSource, pAmount);
+        if (this.hasGoat() && pSource.getEntity() != null) {
+            GoatFamiliarEntity.ringBell(this);
+        }
+    }
+
+    @Override
     public boolean hasRareVariant() {
         return this.hasHat();
     }
@@ -426,8 +438,18 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     private byte[] possibleAttackers() {
-        return this.hasGoat() ? new byte[]{LION_ATTACKER, GOAT_ATTACKER, SNAKE_ATTACKER}
-                : new byte[]{LION_ATTACKER, SNAKE_ATTACKER};
+        List<Byte> list = new ArrayList<>();
+        list.add(LION_ATTACKER);
+        list.add(SNAKE_ATTACKER);
+        if (this.hasGoat())
+            list.add(GOAT_ATTACKER);
+        if (this.hasBlacksmithUpgrade())
+            list.add(PAW_ATTACKER);
+
+        byte[] attacks = new byte[list.size()];
+        for (int i = 0; i < list.size(); i++)
+            attacks[i] = list.get(i);
+        return attacks;
     }
 
     @Override
@@ -583,6 +605,20 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 target.hurt(this.chimera.damageSources().mobAttack(this.chimera), (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
             }
 
+            this.specialAttack(attacker, target);
+            if (this.chimera.hasIesniumUpgrade()) {
+                byte combo = this.randomAttacker();
+                if (combo != attacker)
+                    this.specialAttack(combo, target);
+            }
+        }
+
+        private byte randomAttacker() {
+            byte[] attackers = this.chimera.possibleAttackers();
+            return attackers[this.chimera.getRandom().nextInt(attackers.length)];
+        }
+
+        private void specialAttack(byte attacker, LivingEntity target) {
             switch (attacker) {
                 case LION_ATTACKER:
                     target.setRemainingFireTicks(4 * 20);
@@ -594,13 +630,10 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 case SNAKE_ATTACKER:
                     target.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
                     break;
+                case PAW_ATTACKER:
+                    target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 10, 6));
+                    break;
             }
         }
-
-        private byte randomAttacker() {
-            byte[] attackers = this.chimera.possibleAttackers();
-            return attackers[this.chimera.getRandom().nextInt(attackers.length)];
-        }
-
     }
 }

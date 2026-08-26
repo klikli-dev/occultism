@@ -28,8 +28,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -169,14 +172,18 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         @Override
         public boolean canUse() {
             this.nearby = this.nearbyBat();
-            return this.nearby != null;
+            return !this.bat.isSitting() && this.nearby != null && this.bat.isEffectEnabled(this.bat.getFamiliarOwner());
         }
 
         @Override
         public void start() {
             if (this.nearby != null) {
-                this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), 10);
+                float f = this.nearby.getMaxHealth();
+                this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), f);
                 OccultismAdvancements.FAMILIAR.get().trigger(this.bat.getFamiliarOwner(), Type.BAT_EAT);
+                LivingEntity owner = this.bat.getFamiliarOwner();
+                if (owner != null)
+                    owner.addEffect(new MobEffectInstance(MobEffects.SATURATION, (int) (f*f), 0, false, false));
             }
         }
 

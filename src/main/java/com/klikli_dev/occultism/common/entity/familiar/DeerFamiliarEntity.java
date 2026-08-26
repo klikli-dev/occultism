@@ -33,10 +33,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -154,6 +151,10 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         return list.isEmpty() ? null : list.getLast();
     }
 
+    public boolean attackEnabled() {
+        return this.hasBlacksmithUpgrade() && this.isEffectEnabled(this.getOwner());
+    }
+
     private static class DeerMeleeAttackGoal extends MeleeAttackGoal {
 
         DeerFamiliarEntity deer;
@@ -165,7 +166,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && this.deer.hasBlacksmithUpgrade();
+            return super.canUse() && this.deer.attackEnabled();
         }
 
         protected void checkAndPerformAttack(@NonNull LivingEntity target) {
@@ -176,8 +177,14 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
                 if (this.deer.hasIesniumUpgrade()) {
                     target.addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * 10), this.deer);
-                    target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 10), this.deer);
-                    target.setRemainingFireTicks(target.getRemainingFireTicks() + 20 * 2);
+                    Level level = this.deer.level();
+                    if (level.getRandom().nextFloat() < 0.04F) {
+                        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
+                        if (lightningBolt != null) {
+                            lightningBolt.snapTo(target.getX(), target.getY(), target.getZ());
+                            level.addFreshEntity(lightningBolt);
+                        }
+                    }
                 }
             }
         }

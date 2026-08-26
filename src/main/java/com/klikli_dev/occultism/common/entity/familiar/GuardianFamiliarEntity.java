@@ -180,7 +180,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
             int amp = effect.getValue(this);
             amp = Math.min(amp, data.getEffectAmplifier(this.getFamiliarEntity().getType(), effect.effect()));
             if (amp >= 0) {
-                amp = effect.effect() == MobEffects.RESISTANCE ? this.getLives()/2 : this.getLives() - 1;
+                amp = effect.effect() == MobEffects.RESISTANCE ? (this.getLives()-1)/2 : this.getLives() - 1;
                 effects.add(new MobEffectInstance(effect.effect(), 300, amp, false, false));
             }
         }

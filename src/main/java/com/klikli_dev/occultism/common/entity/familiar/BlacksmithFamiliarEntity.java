@@ -55,6 +55,7 @@ import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
@@ -142,7 +143,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         super.tick();
         if (this.hasBlacksmithUpgrade() && this.getOwner() instanceof Player player
                 && this.isEffectEnabled(player) && player.level() instanceof ServerLevel serverLevel
-                && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarUpgradeCost.getAsInt() == 0) {
+                && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
             repairEquipment(player, serverLevel);
         }
     }
@@ -151,7 +152,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     public void curioTick(LivingEntity wearer) {
         if (this.hasBlacksmithUpgrade() && wearer instanceof Player player
                 && this.isEffectEnabled(player) && player.level() instanceof ServerLevel serverLevel
-                && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarUpgradeCost.getAsInt() == 0) {
+                && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
             repairEquipment(player, serverLevel);
         }
     }
@@ -161,7 +162,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         for (int i = 0 ; i < player.getInventory().getContainerSize() ; i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.isDamaged()) {
-                stack.hurtAndBreak(-1, serverLevel, null, (item) -> {});
+                stack.setDamageValue(stack.getDamageValue() - 1);
                 if (onlyOne)
                     return;
             }
@@ -320,11 +321,11 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         }
 
         private IFamiliar findTarget() {
-            for (LivingEntity e : this.blacksmith.level().getEntitiesOfClass(LivingEntity.class,
-                    this.blacksmith.getBoundingBox().inflate(4), this::familiarPred)) {
-                return (IFamiliar) e;
-            }
-            return null;
+            List<LivingEntity> list = this.blacksmith.level().getEntitiesOfClass(LivingEntity.class,
+                    this.blacksmith.getBoundingBox().inflate(4), this::familiarPred);
+            if (list.size() > 1)
+                list.remove(this.blacksmith);
+            return list.isEmpty() ? null : (IFamiliar) list.getFirst();
         }
 
         private boolean familiarPred(Entity e) {

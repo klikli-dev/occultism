@@ -350,13 +350,16 @@ public class FamiliarEventHandler {
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
             return;
 
-        List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
-                OccultismEntities.HEADLESS_FAMILIAR.get());
+        HeadlessFamiliarEntity headlesses = FamiliarUtil.getNearbyFamiliar(player,
+                OccultismEntities.HEADLESS_FAMILIAR.get(), pred -> true);
 
-        if (!headlesses.isEmpty() && event.getEntity().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
+        if (headlesses == null)
+            return;
+
+        if (event.getEntity().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
             OccultismAdvancements.FAMILIAR.get().trigger(player, Type.HEADLESS_CTHULHU_HEAD);
 
-        headlesses.forEach(h -> h.setHeadType(event.getEntity().getType()));
+        headlesses.setHeadType(event.getEntity().getType());
     }
 
     private static void guardianUltimateSacrifice(LivingDeathEvent event) {

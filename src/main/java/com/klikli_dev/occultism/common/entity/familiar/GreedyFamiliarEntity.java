@@ -281,7 +281,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        if (playerIn.isShiftKeyDown() && this.getFamiliarOwner() == playerIn) {
+        if (playerIn.isShiftKeyDown() && stack.isEmpty() && this.getFamiliarOwner() == playerIn) {
             this.openScreen(playerIn);
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }

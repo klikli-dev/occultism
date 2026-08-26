@@ -75,7 +75,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     }
 
     public static Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
+        return FamiliarEntity.createAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
     @Override

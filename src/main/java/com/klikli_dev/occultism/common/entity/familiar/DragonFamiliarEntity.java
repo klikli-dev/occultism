@@ -205,7 +205,6 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             if (enemies.isEmpty())
                 return;
 
-
             Entity enemy = enemies.get(wearer.getRandom().nextInt(enemies.size()));
             thrownSword(wearer, wearer, enemy);
         }
@@ -257,6 +256,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
             OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.DRAGON_PET);
+            this.level().addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0, 0);
             return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return super.mobInteract(playerIn, hand);

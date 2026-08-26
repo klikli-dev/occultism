@@ -70,7 +70,7 @@ public class LootEventHandler {
             MobEffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED);
             if (greed == null)
                 return;
-            event.setDroppedExperience((int) (event.getDroppedExperience() * (1 + 0.1*(greed.getAmplifier() + 1))));
+            event.setDroppedExperience((event.getDroppedExperience() * (greed.getAmplifier() + 1)));
         }
     }
 
@@ -87,18 +87,23 @@ public class LootEventHandler {
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
-        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * stack.getCount())
-            repairEquipment(player);
+        int amount = stack.getCount();
+        double chance = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * amount;
+        if (chance > 1) {
+            amount = (int) (amount/Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get());
+            repairEquipment(player, 2 * amount);
+        } else if (player.getRandom().nextDouble() < chance)
+            repairEquipment(player, 2 * amount);
 
         event.setCanPickup(TriState.FALSE);
         entity.remove(RemovalReason.DISCARDED);
     }
 
-    private static void repairEquipment(Player player) {
+    private static void repairEquipment(Player player, int amount) {
         for (ItemStack stack : player.getInventory().getNonEquipmentItems()) {
             if (!stack.isDamaged())
                 continue;
-            stack.setDamageValue(stack.getDamageValue() - 2);
+            stack.setDamageValue(stack.getDamageValue() - amount);
             return;
         }
     }
