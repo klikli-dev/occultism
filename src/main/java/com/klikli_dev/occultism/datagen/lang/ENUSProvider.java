@@ -946,7 +946,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("effect.occultism.dragon_greed.description", "Increases the amount of experience dropped.");
         this.add("effect.occultism.mummy_dodge", "Dodge");
         this.add("effect.occultism.mummy_dodge.description", "Chance to dodge attacks.");
-        this.add("effect.occultism.bat_lifesteal", "Lifesteal");
+        this.add("effect.occultism.bat_lifesteal", "Life-Steal");
         this.add("effect.occultism.bat_lifesteal.description", "Restores health when defeating enemies.");
         this.add("effect.occultism.beaver_harvest", "Beaver Harvest");
         this.add("effect.occultism.beaver_harvest.description", "Increases log breaking speed.");
@@ -1394,24 +1394,24 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("key.occultism.backpack", "Open Satchel");
         this.add("key.occultism.ender_bag", "Open Ender Satchel");
         this.add("key.occultism.storage_remote", "Open Storage Accessor");
-        this.add("key.occultism.familiar.drikwing_familiar", "Toggle Ring Effect: Drikwing");
-        this.add("key.occultism.familiar.wingnis_familiar", "Toggle Ring Effect: Wingnis");
-        this.add("key.occultism.familiar.greedy_familiar", "Toggle Ring Effect: Greedy");
-        this.add("key.occultism.familiar.bat_familiar", "Toggle Ring Effect: Bat");
-        this.add("key.occultism.familiar.deer_familiar", "Toggle Ring Effect: Deer");
-        this.add("key.occultism.familiar.cthulhu_familiar", "Toggle Ring Effect: Cthulhu");
-        this.add("key.occultism.familiar.devil_familiar", "Toggle Ring Effect: Devil");
-        this.add("key.occultism.familiar.dragon_familiar", "Toggle Ring Effect: Dragon");
-        this.add("key.occultism.familiar.blacksmith_familiar", "Toggle Ring Effect: Blacksmith");
-        this.add("key.occultism.familiar.guardian_familiar", "Toggle Ring Effect: Guardian");
-        this.add("key.occultism.familiar.headless_familiar", "Toggle Ring Effect: Headless Ratman");
-        this.add("key.occultism.familiar.chimera_familiar", "Toggle Ring Effect: Chimera");
-        this.add("key.occultism.familiar.goat_familiar", "Toggle Ring Effect: Goat");
-        this.add("key.occultism.familiar.shub_niggurath_familiar", "Toggle Ring Effect: Shub Niggurath");
-        this.add("key.occultism.familiar.beholder_familiar", "Toggle Ring Effect: Beholder");
-        this.add("key.occultism.familiar.fairy_familiar", "Toggle Ring Effect: Fairy");
-        this.add("key.occultism.familiar.mummy_familiar", "Toggle Ring Effect: Mummy");
-        this.add("key.occultism.familiar.beaver_familiar", "Toggle Ring Effect: Beaver");
+        this.add("key.occultism.familiar.drikwing_familiar", "Toggle Abilities: Drikwing");
+        this.add("key.occultism.familiar.wingnis_familiar", "Toggle Abilities: Wingnis");
+        this.add("key.occultism.familiar.greedy_familiar", "Toggle Abilities: Greedy");
+        this.add("key.occultism.familiar.bat_familiar", "Toggle Abilities: Bat");
+        this.add("key.occultism.familiar.deer_familiar", "Toggle Abilities: Deer");
+        this.add("key.occultism.familiar.cthulhu_familiar", "Toggle Abilities: Cthulhu");
+        this.add("key.occultism.familiar.devil_familiar", "Toggle Abilities: Devil");
+        this.add("key.occultism.familiar.dragon_familiar", "Toggle Abilities: Dragon");
+        this.add("key.occultism.familiar.blacksmith_familiar", "Toggle Abilities: Blacksmith");
+        this.add("key.occultism.familiar.guardian_familiar", "Toggle Abilities: Guardian");
+        this.add("key.occultism.familiar.headless_familiar", "Toggle Abilities: Headless Ratman");
+        this.add("key.occultism.familiar.chimera_familiar", "Toggle Abilities: Chimera");
+        this.add("key.occultism.familiar.goat_familiar", "Toggle Abilities: Goat");
+        this.add("key.occultism.familiar.shub_niggurath_familiar", "Toggle Abilities: Shub Niggurath");
+        this.add("key.occultism.familiar.beholder_familiar", "Toggle Abilities: Beholder");
+        this.add("key.occultism.familiar.fairy_familiar", "Toggle Abilities: Fairy");
+        this.add("key.occultism.familiar.mummy_familiar", "Toggle Abilities: Mummy");
+        this.add("key.occultism.familiar.beaver_familiar", "Toggle Abilities: Beaver");
     }
 
     private void addJeiTranslations() {

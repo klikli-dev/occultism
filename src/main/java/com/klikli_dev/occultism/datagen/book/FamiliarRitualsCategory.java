@@ -27,19 +27,27 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
         this.layout().entry(returnToRituals).leftOf(overview, 2);
+        var tablet = this.add(new TabletConfigFamiliarEntry(this).generate());
+        tablet.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_RESURRECT_SPIRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
+        this.layout().entry(tablet).below(overview, 2);
 
         var resurrection = this.add(new ResurrectFamiliarEntry(this).generate());
         resurrection.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_RESURRECT_SPIRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
         this.layout().entry(resurrection).above(overview, 2);
         var resurrectAllay = this.add(new ResurrectAllayEntry(this).generate());
-        resurrectAllay.withParent(BookEntryParentModel.create(overview.getId()))
+        resurrectAllay.withParent(BookEntryParentModel.create(resurrection.getId()).withLineReversed(true))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_RESURRECT_SPIRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
-        this.layout().entry(resurrectAllay).below(overview, 2);
+        this.layout().entry(resurrectAllay).above(resurrection, 2).rightOf(1);
         var resurrectionGreat = this.add(new GreatResurrectionEntry(this).generate());
         resurrectionGreat.withParent(BookEntryParentModel.create(resurrection.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_RESURRECT_SPIRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
-        this.layout().entry(resurrectionGreat).above(resurrection, 2);
+        this.layout().entry(resurrectionGreat).above(resurrection, 3);
+        var resurrectMounts = this.add(new RaiseUndeadMountEntry(this).generate());
+        resurrectMounts.withParent(BookEntryParentModel.create(resurrection.getId()).withLineReversed(true))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_RESURRECT_SPIRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ResurrectSpiritEntry.ENTRY_ID)));
+        this.layout().entry(resurrectMounts).above(resurrection, 2).leftOf(1);
 
         var familiarBat = this.add(new FamiliarBatEntry(this).generate());
         familiarBat.withParent(BookEntryParentModel.create(overview.getId()))
@@ -56,11 +64,11 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var familiarBlacksmith = this.add(new FamiliarBlacksmithEntry(this).generate());
         familiarBlacksmith.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
-        this.layout().entry(familiarBlacksmith).rightOf(overview, 6).above(2);
+        this.layout().entry(familiarBlacksmith).rightOf(overview, 2).above(2);
         var familiarChimera = this.add(new FamiliarChimeraEntry(this).generate());
         familiarChimera.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
-        this.layout().entry(familiarChimera).rightOf(overview, 8).above(2);
+        this.layout().entry(familiarChimera).rightOf(overview, 9).above(2);
         var familiarCthulhu = this.add(new FamiliarCthulhuEntry(this).generate());
         familiarCthulhu.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
@@ -72,7 +80,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var familiarDevil = this.add(new FamiliarDevilEntry(this).generate());
         familiarDevil.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
-        this.layout().entry(familiarDevil).rightOf(overview, 10).below(2);
+        this.layout().entry(familiarDevil).rightOf(overview, 2).below(2);
         var familiarDragon = this.add(new FamiliarDragonEntry(this).generate());
         familiarDragon.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
@@ -88,7 +96,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var familiarGuardian = this.add(new FamiliarGuardianEntry(this).generate());
         familiarGuardian.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessAfritEntry.ENTRY_ID)));
-        this.layout().entry(familiarGuardian).rightOf(overview, 10).above(2);
+        this.layout().entry(familiarGuardian).rightOf(overview, 11).below(2);
         var familiarHeadlessRatman = this.add(new FamiliarHeadlessRatmanEntry(this).generate());
         familiarHeadlessRatman.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
@@ -97,14 +105,18 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         familiarMummy.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
         this.layout().entry(familiarMummy).rightOf(overview, 7).below(4);
-        var familiarOtherworldBird = this.add(new FamiliarOtherworldBirdEntry(this).generate());
-        familiarOtherworldBird.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
-        this.layout().entry(familiarOtherworldBird).rightOf(overview, 2).below(2);
         var familiarParrot = this.add(new FamiliarParrotEntry(this).generate());
         familiarParrot.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
-        this.layout().entry(familiarParrot).rightOf(overview, 2).above(2);
+        this.layout().entry(familiarParrot).rightOf(overview, 7).above(2);
+        var familiarDrikwing = this.add(new FamiliarDrikwingEntry(this).generate());
+        familiarDrikwing.withParent(BookEntryParentModel.create(familiarParrot.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
+        this.layout().entry(familiarDrikwing).above(familiarParrot, 2);
+        var familiarWingnis = this.add(new FamiliarWingnisEntry(this).generate());
+        familiarWingnis.withParent(BookEntryParentModel.create(familiarDrikwing.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
+        this.layout().entry(familiarWingnis).above(familiarDrikwing, 2);
         var familiarShubNiggurath = this.add(new FamiliarShubNiggurathEntry(this).generate());
         familiarShubNiggurath.withParent(BookEntryParentModel.create(familiarChimera.getId()));
         this.layout().entry(familiarShubNiggurath).above(familiarChimera, 2);
@@ -116,7 +128,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var iesniumGolem = this.add(new IesniumGolemEntry(this).generate());
         iesniumGolem.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_MARID, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessMaridEntry.ENTRY_ID)));
-        this.layout().entry(iesniumGolem).rightOf(overview, 11).above(4);
+        this.layout().entry(iesniumGolem).rightOf(overview, 11).above(2);
     }
 
     @Override

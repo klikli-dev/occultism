@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import net.minecraft.world.item.Items;
 
 public class FamiliarHeadlessRatmanEntry extends EntryProvider {
 
@@ -21,22 +22,76 @@ public class FamiliarHeadlessRatmanEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:headless_familiar")
-                .withScale(0.7f)
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Conditional Damage Buff[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(0.8f)
+                .withOffset(-0.3f));
+        this.pageText("You can't live in fear.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_headless")));
 
+        this.page("ability", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Ability");
+        this.pageText("""
+                        While enabled, The Headless Ratman Familiar steals the heads of nearby slain monsters.
+                         It then grants its master double damage against that type of creature.
+                        \\
+                        When upgraded by a Blacksmith Familiar, it applies weakness to nearby mobs of the same type as the head it stole.
+                        """
+        );
+
         this.page("description", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("The headless ratman familiar steals heads of mobs near the ratman when they are killed. It then provides a damage buff against that type of mob to their master. If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them [](item://minecraft:wheat), [](item://minecraft:stick), [](item://minecraft:hay_block) and a [](item://minecraft:carved_pumpkin).\n");
+        this.pageTitle("Lonely Rat");
+        this.pageText("""
+                        If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master.
+                         This can be done by providing:
+                         - 2x {0}
+                         - 1x {1}
+                         - 2x {2}
+                         - 1x {3}
+                        \\
+                        \\
+                        Once reconstructed, a Fairy Familiar can revive the rider.
+                        """,
+                this.itemLink(Items.WHEAT),
+                this.itemLink(Items.HAY_BLOCK),
+                this.itemLink(Items.STICK),
+                this.itemLink(Items.CARVED_PUMPKIN)
+        );
 
-        this.page("description2", () -> BookTextPageModel.create()
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageText("**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from. And the owner will not make the Enderman angry by looking into his eyes.\n");
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Upgraded:** {1}.
+                        \\
+                        \\
+                        **Iesnium:** Strength.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Pumpkin Head", "getting_started", "effects@pumpkin_head")
+        );
+
+        this.page("immunity", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Immunities");
+        this.pageText("""
+                        While active, it provides additional defenses for its owner, granting different immunities depending on its level.
+                        \\
+                        \\
+                        **Iesnium:** Weakness effect.
+                        """
+        );
     }
 
     @Override
@@ -46,7 +101,7 @@ public class FamiliarHeadlessRatmanEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Attack | Defense";
     }
 
     @Override

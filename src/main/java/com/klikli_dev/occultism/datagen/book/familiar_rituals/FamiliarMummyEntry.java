@@ -21,17 +21,43 @@ public class FamiliarMummyEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:mummy_familiar")
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Fights your enemies[#](), [#](ad03fc)Dodge Effect[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(1.2f)
+                .withOffset(-0.6f));
+        this.pageText("KAPOW! shff CAPOW! swish KAPOW! swish-ssff THWACK!");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_mummy")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("The Mummy familiar is a martial arts expert and fights to protect their master.\n\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it the familiar will deal even more damage and double the dodge chance.\n");
+        this.pageTitle("Ability");
+        this.pageText("The Mummy familiar is a martial arts expert and fights to protect their master.");
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Default:** {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Dodge", "getting_started", "effects@mummy_dodge")
+        );
+
+        this.page("curio", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Equipping");
+        this.pageText("""
+                        When captured in a Familiar Ring or any Infused Equipment it can still attack nearby enemies.
+                        """
+        );
     }
 
     @Override
@@ -41,7 +67,7 @@ public class FamiliarMummyEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Attack | Defense";
     }
 
     @Override

@@ -7,42 +7,41 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Items;
 
-public class FamiliarDragonEntry extends EntryProvider {
+public class FamiliarWingnisEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "familiar_dragon";
+    public static final String ENTRY_ID = "familiar_wingnis";
 
-    public FamiliarDragonEntry(CategoryProvider parent) {
+    public FamiliarWingnisEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
-                .withEntityId("occultism:dragon_familiar")
+                .withEntityId("occultism:wingnis")
                 .withText(this.context().pageText())
-                .withScale(0.7f)
-                .withOffset(-0.3f));
-        this.pageText("Loves Gold Nuggets... and Sticks.");
+                .withScale(1.2f)
+                .withOffset(-0.4f));
+        this.pageText("Definitely not a Phoenix.");
 
-        this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/familiar_dragon")));
-
-        this.page("ability", () -> BookTextPageModel.create()
+        this.page("ritual", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ability");
+        this.pageTitle("Transformation");
         this.pageText("""
-                        The Dragon Familiar will collect sticks from the ground and bring them to you.
-                        \\
-                        \\
-                        Greedy familiars can ride on dragon familiars, combining their powers.
-                        \\
-                        \\
-                        When upgraded by a Blacksmith Familiar, it will throw swords at nearby enemies.
-                        """
+                        The {0} is not summoned directly. First, summon a {1}, give it a {2} and bring it to a {3},
+                         then click the drikwing with {4}. Make sure it dies to fire so you can obtain the {5}.
+                        """,
+                this.color("Wingnis", ChatFormatting.DARK_PURPLE),
+                this.entryLink("Drikwing Familiar", "familiar_rituals", "familiar_drikwing"),
+                this.itemLink(Items.TOTEM_OF_UNDYING),
+                this.color("Nether Biome", ChatFormatting.DARK_PURPLE),
+                this.itemLink(OccultismItems.FLAMING_PASTE),
+                this.color("Wingnis Familiar", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("effects", () -> BookTextPageModel.create()
@@ -54,17 +53,14 @@ public class FamiliarDragonEntry extends EntryProvider {
                         You can configure them using the {0}.
                         \\
                         \\
-                        **Default:** {1}.
+                        **Default:** {1}, Jump Boost, Slow Falling and Glowing.
                         \\
                         \\
-                        **Iesnium:** Hero of the Village.
-                        \\
-                        \\
-                        You can give it {2} to increase its effects max level for 5 minutes.
+                        **Upgraded:** {2}.
                         """,
                 this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
-                this.entryLink("Dragon's Greed", "getting_started", "effects@dragon_greed"),
-                this.itemLink(Items.GOLD_NUGGET)
+                this.entryLink("Multi Jump", "getting_started", "effects@double_jump"),
+                this.entryLink("Fire Wings", "getting_started", "effects@fire_wing")
         );
 
         this.page("immunity", () -> BookTextPageModel.create()
@@ -75,28 +71,32 @@ public class FamiliarDragonEntry extends EntryProvider {
                         While active, it provides additional defenses for its owner, granting different immunities depending on its level.
                         \\
                         \\
-                        **Iesnium:** Bad/Raid/Trial Omen effects.
+                        **Default:** Fall damage (also cancels Farmland Trample) and Levitation effect.
                         """
         );
 
-        this.page("curio", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Equipping");
+        this.pageTitle("Ability");
         this.pageText("""
-                        When captured in a Familiar Ring or any Infused Equipment it will continue throwing swords at nearby monsters.
-                        """
+                        When an Iesnium Wingnis owner cheats death, whether through a {0} abilities,
+                         a {1}, or any similar methods, they will receive several benefits:
+                         Full Heal, Strength, Speed, Fire Resistance, Resistance, Regeneration, and Saturation.
+                        """,
+                this.entryLink("Guardian Familiar", "familiar_rituals", "familiar_guardian"),
+                this.itemLink(Items.TOTEM_OF_UNDYING)
         );
     }
 
     @Override
     protected String entryName() {
-        return "Dragon Familiar";
+        return "Drikwing Familiar";
     }
 
     @Override
     protected String entryDescription() {
-        return "Utility | Attack";
+        return "Movement | Defense";
     }
 
     @Override
@@ -106,7 +106,7 @@ public class FamiliarDragonEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(this.modLoc("textures/gui/book/familiar_dragon.png"));
+        return BookIconModel.create(this.modLoc("textures/gui/book/wingnis.png"));
     }
 
     @Override

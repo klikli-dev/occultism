@@ -8,36 +8,51 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.Items;
 
-public class FamiliarBeholderEntry extends EntryProvider {
+public class FamiliarDrikwingEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "familiar_beholder";
+    public static final String ENTRY_ID = "familiar_drikwing";
 
-    public FamiliarBeholderEntry(CategoryProvider parent) {
+    public FamiliarDrikwingEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
-                .withEntityId("occultism:beholder_familiar")
+                .withEntityId("occultism:drikwing")
                 .withText(this.context().pageText())
-                .withScale(1.5f)
-                .withOffset(-0.1f));
-        this.pageText("Large Aberration, Lawful Evil, CR 13.\\\n STR 16. DEX 14. CON 18. INT 17. WIS 15. CHA 17.");
+                .withScale(1.2f)
+                .withOffset(-0.4f));
+        this.pageText("Aka Otherworld Bird");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/familiar_beholder")));
+                .withRecipeId1(this.modLoc("ritual/familiar_drikwing")));
 
-        this.page("ability", () -> BookTextPageModel.create()
+        this.page("description", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ability");
+        this.pageTitle("Description");
         this.pageText("""
-                        While enabled, the Beholder Familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies.
+                        {0} are a subclass of {1} that are known to be amicable towards humans.
+                         They usually take the shape of a dark blue and purple parrot.
+                         Drikwing Familiar will provide their owner with limited flight abilities when nearby.
+                        """,
+                this.color("Drikwings", ChatFormatting.DARK_PURPLE),
+                this.color("Djinni", ChatFormatting.DARK_PURPLE)
+        );
+
+        this.page("description2", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        To obtain the parrot for the sacrifice, consider summoning them using either the {0}.
                         \\
-                         It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.
-                        """
+                        \\
+                        **Hint:** If you use mods that protect pets from death, use a hopper to start the ritual!
+                        """,
+                this.entryLink("Parrot Ritual", "familiar_rituals", "familiar_parrot")
         );
 
         this.page("effects", () -> BookTextPageModel.create()
@@ -49,10 +64,10 @@ public class FamiliarBeholderEntry extends EntryProvider {
                         You can configure them using the {0}.
                         \\
                         \\
-                        **Iesnium:** {1}.
+                        **Default:** {1}, Jump Boost and Slow Falling.
                         """,
                 this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
-                this.entryLink("Herald of Aberrations", "getting_started", "effects@herald_aberrations")
+                this.entryLink("Multi Jump", "getting_started", "effects@double_jump")
         );
 
         this.page("immunity", () -> BookTextPageModel.create()
@@ -63,31 +78,30 @@ public class FamiliarBeholderEntry extends EntryProvider {
                         While active, it provides additional defenses for its owner, granting different immunities depending on its level.
                         \\
                         \\
-                        **Upgraded:** Blindness effect.
-                        \\
-                        \\
-                        **Iesnium:** Darkness effect.
+                        **Upgraded:** Fall damage (and cancels Farmland Trample).
                         """
         );
 
-        this.page("curio", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Equipping");
+        this.pageTitle("Ability");
         this.pageText("""
-                        When captured in a Familiar Ring or any Infused Equipment it can still apply glow.
-                        """
+                        By default, you cannot use Multi Jump while gliding with an {0},
+                         but this restriction can be overcome by having a Drikiwing Familiar with the Iesnium Upgrade.
+                        """,
+                this.itemLink(Items.ELYTRA)
         );
     }
 
     @Override
     protected String entryName() {
-        return "Beholder Familiar";
+        return "Drikwing Familiar";
     }
 
     @Override
     protected String entryDescription() {
-        return "Attack | Defense | Influence";
+        return "Movement | Defense";
     }
 
     @Override
@@ -97,7 +111,7 @@ public class FamiliarBeholderEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(this.modLoc("textures/gui/book/familiar_beholder.png"));
+        return BookIconModel.create(this.modLoc("textures/gui/book/drikwing.png"));
     }
 
     @Override

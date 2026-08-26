@@ -21,8 +21,10 @@ public class FamiliarParrotEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("minecraft:parrot")
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Company[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(1.2f)
+                .withOffset(-0.4f));
+        this.pageText("It's a bird!");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_parrot")));
@@ -31,11 +33,11 @@ public class FamiliarParrotEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Description");
-        this.pageText("In this ritual a [#](ad03fc)Foliot[#]() is summoned **as a familiar**, the slaughter of a [#](ad03fc)Chicken[#]() and the offering of dyes are intended to entice the [#](ad03fc)Foliot[#]() to take the shape of a parrot.\\\nAs [#](ad03fc)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...\n");
+        this.pageText("In this ritual a [#](ad03fc)Foliot[#]() is summoned **as a familiar**, the slaughter of a [#](ad03fc)Chicken[#]() and the offering of dyes are intended to entice the [#](ad03fc)Foliot[#]() to take the shape of a parrot.\\\nAs [#](ad03fc)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions...\n");
 
         this.page("description2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("*This means, if a [#](ad03fc)Chicken[#]() is spawned, that's not a bug, just bad luck!*\n\\\n\\\n**Upgrade Behaviour**\\\nCannot be upgraded by the blacksmith familiar.\n");
+        this.pageText("*This means, if a [#](ad03fc)Chicken[#]() is spawned, that's not a bug, just bad luck!*");
     }
 
     @Override
@@ -45,7 +47,7 @@ public class FamiliarParrotEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Don't feed it cookies";
     }
 
     @Override

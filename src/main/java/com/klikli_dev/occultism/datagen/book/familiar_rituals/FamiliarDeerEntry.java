@@ -22,18 +22,54 @@ public class FamiliarDeerEntry extends EntryProvider {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:deer_familiar")
                 .withText(this.context().pageText())
-                .withScale(0.7f)
-                .withOffset(0.3f));
-        this.pageText("**Provides**: [#](ad03fc)Speed and Jump Boost, Step assist[#]()\n");
+                .withScale(0.8f)
+                .withOffset(-0.3f));
+        this.pageText("We're not the only deer in the forest.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_deer")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, will increase the step assist and it will attack nearby enemies with a hammer. Yep, a **hammer**.\n");
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Default:** Speed and {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Step Height", "getting_started", "effects@step_height")
+        );
+
+        this.page("immunity", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Immunities");
+        this.pageText("""
+                        While active, it provides additional defenses for its owner, granting different immunities depending on its level.
+                        \\
+                        \\
+                        **Upgraded:** Slowness effect.
+                        """
+        );
+
+        this.page("ability", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Ability");
+        this.pageText("""
+                        When upgraded by a Blacksmith Familiar, it will attack nearby enemies with a hammer.
+                        \\
+                         Yep, a **hammer**.
+                        \\
+                        \\
+                        If Deer Familiar has the Iesnium Upgrade, this attack will also inflict Wither
+                         and has a small chance to summon lightning.
+                        """
+        );
     }
 
     @Override
@@ -43,7 +79,7 @@ public class FamiliarDeerEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Movement | Attack";
     }
 
     @Override
