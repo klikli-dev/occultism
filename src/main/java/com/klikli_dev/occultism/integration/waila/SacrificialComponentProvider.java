@@ -6,7 +6,6 @@ import com.klikli_dev.occultism.client.misc.ClientPentacleManager;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -25,8 +24,7 @@ public class SacrificialComponentProvider implements IBlockComponentProvider {
         if(blockAccessor.getBlockEntity() instanceof GoldenSacrificialBowlBlockEntity goldenSacrificialBowlBlockEntity) {
             if(goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe()!=null && goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().value() instanceof RitualRecipe recipe && goldenSacrificialBowlBlockEntity.ritualActive) {
 
-                String ritualID = I18n.get("item.occultism.ritual_dummy." + goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().id().getPath().substring(7));
-                String ritualName = Component.translatable(ritualID).getString();
+                String ritualName = Component.translatable(recipe.getRitualDummy().getDescriptionId()).getString();
                 int i = ritualName.indexOf(":");
                 iTooltip.add(Component.translatable("occultism.waila.current_ritual", Component.literal(ritualName.substring(i+2)).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
                 if (!goldenSacrificialBowlBlockEntity.sacrificeFulfilled()) {

@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
@@ -50,8 +49,7 @@ public class GoldenSacrificialBowlHUD implements LayeredDraw.Layer {
             pose.pushPose();
 
             if (bowl.ritualActive) {
-                String ritualID = I18n.get("item.occultism.ritual_dummy." + bowl.getCurrentRitualRecipe().id().getPath().substring(7));
-                String ritualName = Component.translatable(ritualID).getString();
+                String ritualName = Component.translatable(bowl.getCurrentRitualRecipe().value().getRitualDummy().getDescriptionId()).getString();
                 int i = ritualName.indexOf(":");
                 pGuiGraphics.drawCenteredString(font, Component.translatable("occultism.waila.current_ritual",
                         Component.literal(ritualName.substring(i+2))), x, y,
