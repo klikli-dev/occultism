@@ -42,24 +42,49 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
         this.layout().entry(returnToRituals).leftOf(overview, 2);
 
-        var craftInfusedPickaxe = this.add(new InfusedPickaxeEntry(this).generate());
-        craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()))
+        var craftFragileSoulGem = this.add(new FragileSoulGemEntry(this).generate());
+        craftFragileSoulGem.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
+        this.layout().entry(craftFragileSoulGem).rightOf(overview, 2).above(2);
+        var craftSoulGem = this.add(new SoulGemEntry(this).generate());
+        craftSoulGem.withParent(BookEntryParentModel.create(craftFragileSoulGem.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftInfusedPickaxe).rightOf(overview, 2).above(4);
+        this.layout().entry(craftSoulGem).above(craftFragileSoulGem, 2);
+        var craftFamiliarRing = this.add(new FamiliarRingEntry(this).generate());
+        craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
+        this.layout().entry(craftFamiliarRing).rightOf(craftSoulGem, 2).above(2);
+        var craftTrinityGem = this.add(new TrinityGemEntry(this).generate());
+        craftTrinityGem.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactEldritchSpiritEntry.ENTRY_ID)));
+        this.layout().entry(craftTrinityGem).above(craftSoulGem, 2);
+        var craftFamiliarGlove = this.add(new FamiliarGloveEntry(this).generate());
+        craftFamiliarGlove.withParent(craftFamiliarRing).withParent(BookEntryParentModel.create(craftTrinityGem.getId()).withLineReversed(true))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
+        this.layout().entry(craftFamiliarGlove).rightOf(craftTrinityGem, 2).above(2);
+
+        var craftInfusedPickaxe = this.add(new InfusedToolsEntry(this).generate());
+        craftInfusedPickaxe.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
+        this.layout().entry(craftInfusedPickaxe).rightOf(craftSoulGem, 4);
+        var craftInfusedArmor = this.add(new InfusedArmorEntry(this).generate());
+        craftInfusedArmor.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
+        this.layout().entry(craftInfusedArmor).rightOf(craftSoulGem, 2).below(2);
         var craftOtherworldGoggles = this.add(new OtherworldGogglesEntry(this).generate());
         craftOtherworldGoggles.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
-        this.layout().entry(craftOtherworldGoggles).rightOf(overview, 4).above(2);
+        this.layout().entry(craftOtherworldGoggles).rightOf(overview, 6).above(2);
 
         //Dimensional Mining Entries
         var craftDimensionalMineshaft = this.add(new DimensionalMineshaftEntry(this).generate());
         craftDimensionalMineshaft.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftDimensionalMineshaft).above(craftInfusedPickaxe, 2);
+        this.layout().entry(craftDimensionalMineshaft).above(craftInfusedPickaxe, 2).rightOf(2);
         var craftFoliotMiner = this.add(new MinerFoliotEntry(this).generate());
-        craftFoliotMiner.withParent(BookEntryParentModel.create(craftDimensionalMineshaft.getId()).withLineReversed(true))
+        craftFoliotMiner.withParent(BookEntryParentModel.create(craftDimensionalMineshaft.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftFoliotMiner).rightOf(craftDimensionalMineshaft, 2).above(2);
+        this.layout().entry(craftFoliotMiner).above(craftDimensionalMineshaft, 2).leftOf(2);
         var craftDjinniMiner = this.add(new MinerDjinniEntry(this).generate());
         craftDjinniMiner.withParent(BookEntryParentModel.create(craftFoliotMiner.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
@@ -80,12 +105,12 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftDimensionalBattlefield = this.add(new DimensionalBattlefieldEntry(this).generate());
         craftDimensionalBattlefield.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
-        this.layout().entry(craftDimensionalBattlefield).rightOf(craftInfusedPickaxe, 2).above(2);
+        this.layout().entry(craftDimensionalBattlefield).rightOf(craftInfusedPickaxe, 4).above(2);
         //Dimensional Extractor
         var craftDimensionalExtractor = this.add(new DimensionalExtractorEntry(this).generate());
         craftDimensionalExtractor.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftDimensionalExtractor).rightOf(craftInfusedPickaxe, 4).above(2);
+        this.layout().entry(craftDimensionalExtractor).rightOf(craftInfusedPickaxe, 6).above(2);
 
         //Storage Entries
         //Start
@@ -154,27 +179,38 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
         this.layout().entry(artisanalRitualSatchel).below(apprenticeRitualSatchel, 2);
 
-        var craftFragileSoulGem = this.add(new FragileSoulGemEntry(this).generate());
-        craftFragileSoulGem.withParent(BookEntryParentModel.create(overview.getId()))
+        //Crafting Materials
+        //Dusts
+        var craftResearchDust = this.add(new ResearchDustEntry(this).generate());
+        craftResearchDust.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
-        this.layout().entry(craftFragileSoulGem).rightOf(overview, 18).above(4);
-        var craftSoulGem = this.add(new SoulGemEntry(this).generate());
-        craftSoulGem.withParent(BookEntryParentModel.create(craftFragileSoulGem.getId()))
+        this.layout().entry(craftResearchDust).rightOf(overview, 8).below(2);
+        var craftWithertiteDust = this.add(new WithertiteDustEntry(this).generate());
+        craftWithertiteDust.withParent(BookEntryParentModel.create(craftResearchDust.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
+        this.layout().entry(craftWithertiteDust).below(craftResearchDust, 2);
+        var craftDragonystDust = this.add(new DragonystDustEntry(this).generate());
+        craftDragonystDust.withParent(BookEntryParentModel.create(craftWithertiteDust.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_MARID, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftMaridEntry.ENTRY_ID)));
+        this.layout().entry(craftDragonystDust).below(craftWithertiteDust, 2);
+        //Pastes
+        var craftNaturePaste = this.add(new NaturePasteEntry(this).generate());
+        craftNaturePaste.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
+        this.layout().entry(craftNaturePaste).rightOf(overview, 10).below(2);
+        var craftGrayPaste = this.add(new GrayPasteEntry(this).generate());
+        craftGrayPaste.withParent(BookEntryParentModel.create(craftNaturePaste.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftSoulGem).above(craftFragileSoulGem, 2);
-        var craftFamiliarRing = this.add(new FamiliarRingEntry(this).generate());
-        craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftFamiliarRing).leftOf(craftSoulGem, 2);
-        var craftTrinityGem = this.add(new TrinityGemEntry(this).generate());
-        craftTrinityGem.withParent(BookEntryParentModel.create(craftSoulGem.getId()).withLineReversed(true))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactEldritchSpiritEntry.ENTRY_ID)));
-        this.layout().entry(craftTrinityGem).leftOf(craftSoulGem, 2).above(2);
+        this.layout().entry(craftGrayPaste).below(craftNaturePaste, 2);
+        var craftFlamingPaste = this.add(new FlamingPasteEntry(this).generate());
+        craftFlamingPaste.withParent(BookEntryParentModel.create(craftGrayPaste.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
+        this.layout().entry(craftFlamingPaste).below(craftGrayPaste, 2);
 
         var craftKnowledgeTablet = this.add(new KnowledgeTabletEntry(this).generate());
         craftKnowledgeTablet.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
-        this.layout().entry(craftKnowledgeTablet).rightOf(overview, 8).below(2);
+        this.layout().entry(craftKnowledgeTablet).rightOf(overview, 10).above(2);
         var craftVitalityCompass = this.add(new VitalityCompassEntry(this).generate());
         craftVitalityCompass.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
@@ -182,11 +218,15 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftEntityWormhole = this.add(new EntityWormholeEntry(this).generate());
         craftEntityWormhole.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftEntityWormhole).rightOf(craftInfusedPickaxe, 6).above(2);
+        this.layout().entry(craftEntityWormhole).rightOf(craftInfusedPickaxe, 8).above(2);
+        var craftWormholeTablet = this.add(new WormholeTabletEntry(this).generate());
+        craftWormholeTablet.withParent(BookEntryParentModel.create(craftEntityWormhole.getId()))
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
+        this.layout().entry(craftWormholeTablet).rightOf(craftEntityWormhole, 2);
         var craftSpiritGrindStone = this.add(new SpiritGrindstoneEntry(this).generate());
         craftSpiritGrindStone.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftSpiritGrindStone).rightOf(overview, 16).above(2);
+        this.layout().entry(craftSpiritGrindStone).rightOf(overview, 16).below(2);
 
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate());
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
@@ -195,19 +235,11 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftIesniumAnvil = this.add(new IesniumAnvilEntry(this).generate());
         craftIesniumAnvil.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_MARID, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftMaridEntry.ENTRY_ID)));
-        this.layout().entry(craftIesniumAnvil).rightOf(craftInfusedPickaxe, 12).below(2);
+        this.layout().entry(craftIesniumAnvil).rightOf(craftInfusedPickaxe, 10).below(2);
         var craftIesniumButcherKnife = this.add(new IesniumButcherKnifeEntry(this).generate());
         craftIesniumButcherKnife.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
         this.layout().entry(craftIesniumButcherKnife).rightOf(craftInfusedPickaxe, 8).below(2);
-        var craftWithertiteDust = this.add(new WithertiteDustEntry(this).generate());
-        craftWithertiteDust.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_AFRIT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftAfritEntry.ENTRY_ID)));
-        this.layout().entry(craftWithertiteDust).rightOf(craftInfusedPickaxe, 8).above(2);
-        var craftDragonystDust = this.add(new DragonystDustEntry(this).generate());
-        craftDragonystDust.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_MARID, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftMaridEntry.ENTRY_ID)));
-        this.layout().entry(craftDragonystDust).rightOf(craftInfusedPickaxe, 10).above(2);
         var trueSightStaff = this.add(new TrueSightStaffEntry(this).generate());
         trueSightStaff.withParent(craftOtherworldGoggles).withParent(craftInfusedPickaxe)
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_MARID, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftMaridEntry.ENTRY_ID)));
@@ -232,31 +264,20 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftBell = this.add(new BellEntry(this).generate());
         craftBell.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_WILD, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactWildSpiritEntry.ENTRY_ID)));
-        this.layout().entry(craftBell).leftOf(craftWildTrim, 8).below(2);
+        this.layout().entry(craftBell).leftOf(craftWildTrim, 4).above(2);
         var craftHorseArmor = this.add(new AnimalArmorEntry(this).generate());
         craftHorseArmor.withParent(BookEntryParentModel.create(craftWildTrim.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_WILD, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactWildSpiritEntry.ENTRY_ID)));
-        this.layout().entry(craftHorseArmor).leftOf(craftWildTrim, 10).below(2);
+        this.layout().entry(craftHorseArmor).leftOf(craftWildTrim, 6).above(2);
         var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate());
-        craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()))
+        craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()).withLineReversed(true))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactEldritchSpiritEntry.ENTRY_ID)));
-        this.layout().entry(craftEldritchChalice).above(craftIesniumSacrificialBowl, 2);
-
-
-        //Crafting Materials
-        var craftNaturePaste = this.add(new NaturePasteEntry(this).generate());
-        craftNaturePaste.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftFoliotEntry.ENTRY_ID)));
-        this.layout().entry(craftNaturePaste).rightOf(overview, 12).below(2);
-        var craftGrayPaste = this.add(new GrayPasteEntry(this).generate());
-        craftGrayPaste.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
-        this.layout().entry(craftGrayPaste).rightOf(craftNaturePaste, 2);
+        this.layout().entry(craftEldritchChalice).leftOf(craftIesniumSacrificialBowl, 2).above(2);
 
         var craftMasterChalks = this.add(new MasterChalksEntry(this).generate());
         craftMasterChalks.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_ELDRITCH, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactEldritchSpiritEntry.ENTRY_ID)));
-        this.layout().entry(craftMasterChalks).rightOf(overview, 16).below(2);
+        this.layout().entry(craftMasterChalks).rightOf(overview, 18).above(2);
         var repairRituals = this.add(new RepairEntry(this).generate());
         repairRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CRAFT_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, CraftDjinniEntry.ENTRY_ID)));
