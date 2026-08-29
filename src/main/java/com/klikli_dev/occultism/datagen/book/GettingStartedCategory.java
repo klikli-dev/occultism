@@ -31,6 +31,10 @@ public class GettingStartedCategory extends CategoryProvider {
         demonsDreamEntry.withParent(BookEntryParentModel.create(introEntry.getId()));
         this.layout().entry(demonsDreamEntry).below(introEntry, 2);
 
+        var effectsEntry = this.add(new PotionEffectsEntry(this).generate());
+        effectsEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
+        this.layout().entry(effectsEntry).below(demonsDreamEntry, 2).leftOf(2);
+
         var spiritFireEntry = this.add(new SpiritFireEntry(this).generate());
         spiritFireEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
         this.layout().entry(spiritFireEntry).rightOf(demonsDreamEntry, 4);

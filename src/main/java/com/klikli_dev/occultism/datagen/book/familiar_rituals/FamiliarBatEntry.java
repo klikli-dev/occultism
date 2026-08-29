@@ -57,7 +57,7 @@ public class FamiliarBatEntry extends EntryProvider {
                         **Iesnium:** {2}.
                         """,
                 this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
-                this.entryLink("Life-Steal", "getting_started", "effects@life_steal"),
+                this.entryLink("Life-Steal", "getting_started", "effects@bat_lifesteal"),
                 this.entryLink("Bat-Flight", "getting_started", "effects@bat_flight")
         );
     }

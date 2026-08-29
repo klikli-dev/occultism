@@ -56,7 +56,19 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - {7}
                 - {8}
                 - {9}
-                """, this.entryLink("Wither Skeleton Skull", "possession_rituals", "wither_skull"), this.entryLink("Horde Husk", "possession_rituals", "horde_desert"), this.entryLink("Horde Drowned", "possession_rituals", "horde_drowned"), this.entryLink("Horde Creeper", "possession_rituals", "horde_creeper"), this.entryLink("Horde Silverfish", "possession_rituals", "horde_silverfish"), this.entryLink("Trial Key", "possession_rituals", "possess_weak_breeze"), this.entryLink("Ominous Trial Key", "possession_rituals", "possess_breeze"), this.entryLink("Heavy Core", "possession_rituals", "possess_strong_breeze"), this.entryLink("Wild Illager Invasion", "possession_rituals", "horde_illager"), this.entryLink("Group of Random Animal", "possession_rituals", "wild_random_animal"));
+                """,
+                this.entryLink("Wither Skeleton Skull", "possession_rituals", "wither_skull"),
+                this.entryLink("Horde Creeper", "possession_rituals", "horde_creeper"),
+                this.entryLink("Horde Drowned", "possession_rituals", "horde_drowned"),
+                this.entryLink("Horde Husk or Parched", "possession_rituals", "horde_desert"),
+                this.entryLink("Horde Silverfish", "possession_rituals", "horde_silverfish"),
+                this.entryLink("Wild Illager Invasion", "possession_rituals", "horde_illager"),
+                this.entryLink("Trial Key", "possession_rituals", "possess_weak_breeze"),
+                this.entryLink("Ominous Trial Key", "possession_rituals", "possess_breeze"),
+                this.entryLink("Heavy Core", "possession_rituals", "possess_strong_breeze"),
+                this.entryLink("Group of Random Animal", "possession_rituals", "wild_random_animal")
+        );
+
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
@@ -69,7 +81,14 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - {3}
                 - {4}
                 - {5}
-                """, this.entryLink("Wild Armor Trim Smithing Template", "crafting_rituals", "craft_wild_trim"), this.entryLink("Budding Amethyst", "crafting_rituals", "craft_budding_amethyst"), this.entryLink("Reinforced Deepslate", "crafting_rituals", "craft_reinforced_deepslate"), this.entryLink("Bee Nest", "crafting_rituals", "bee_nest"), this.entryLink("Bell", "crafting_rituals", "bell"), this.entryLink("Horse Armors", "crafting_rituals", "animal_armor"));
+                """,
+                this.entryLink("Bee Nest", "crafting_rituals", "bee_nest"),
+                this.entryLink("Bell", "crafting_rituals", "bell"),
+                this.entryLink("Budding Amethyst", "crafting_rituals", "craft_budding_amethyst"),
+                this.entryLink("Horse and Nautilus Armors", "crafting_rituals", "animal_armor"),
+                this.entryLink("Reinforced Deepslate", "crafting_rituals", "craft_reinforced_deepslate"),
+                this.entryLink("Wild Armor Trim Smithing Template", "crafting_rituals", "craft_wild_trim")
+        );
     }
 
     @Override
