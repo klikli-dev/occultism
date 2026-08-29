@@ -3,11 +3,11 @@
   "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 120,
   "ingredients": [
-    "#c:rods/wooden",
-    "#c:rods/wooden",
-    "occultism:spirit_attuned_pickaxe_head",
-    "#c:ingots/silver",
-    "#c:ingots/silver"
+    "occultism:silver_pickaxe",
+    "occultism:soul_gem",
+    "#c:ingots/gold",
+    "occultism:spirit_attuned_gem",
+    "occultism:spirit_attuned_gem"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {
@@ -16,5 +16,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/craft_infused_pickaxe"
   },
-  "ritual_type": "occultism:craft_with_spirit_name"
+  "ritual_type": "occultism:upgrade"
 }

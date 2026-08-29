@@ -4,7 +4,7 @@
   "ingredients": [
     "occultism:chalk_white_impure",
     "#c:dusts/dragonyst",
-    "#c:dusts/amethyst",
+    "occultism:pitaya",
     "minecraft:chorus_fruit"
   ],
   "result": {

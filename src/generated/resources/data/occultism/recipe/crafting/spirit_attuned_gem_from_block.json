@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#c:storage_blocks/spirit_attuned"
+  ],
+  "result": {
+    "count": 9,
+    "id": "occultism:spirit_attuned_gem"
+  }
+}

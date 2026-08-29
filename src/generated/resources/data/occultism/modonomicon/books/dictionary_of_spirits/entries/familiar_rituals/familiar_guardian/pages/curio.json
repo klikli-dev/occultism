@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "curio",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.curio.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.curio.title"
+}

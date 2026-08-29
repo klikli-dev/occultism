@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/black_quartz",
   "result": {
     "type": "occultism:tag",
-    "count": 2,
+    "count": 3,
     "tag": "c:gems/black_quartz"
   }
 }

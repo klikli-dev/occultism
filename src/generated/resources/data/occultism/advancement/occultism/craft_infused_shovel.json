@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_infused_shovel": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_infused_shovel"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_infused_shovel.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_infused_shovel.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_infused_shovel"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

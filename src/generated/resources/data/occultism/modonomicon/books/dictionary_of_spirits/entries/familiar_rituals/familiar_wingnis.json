@@ -1,0 +1,33 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:familiar_rituals",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/craft_afrit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.name"
+        }
+      ]
+    }
+  },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_wingnis.description",
+  "icon": "occultism:textures/gui/book/wingnis.png",
+  "id": "occultism:familiar_rituals/familiar_wingnis",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_wingnis.name",
+  "parents": [
+    {
+      "entry": "occultism:familiar_rituals/familiar_drikwing"
+    }
+  ],
+  "sort_number": 23,
+  "x": -1,
+  "y": -6
+}

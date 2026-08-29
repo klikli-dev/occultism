@@ -24,10 +24,11 @@
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.name",
   "parents": [
     {
-      "entry": "occultism:familiar_rituals/overview"
+      "entry": "occultism:familiar_rituals/resurrection",
+      "line_reversed": true
     }
   ],
-  "sort_number": 3,
-  "x": -8,
-  "y": 2
+  "sort_number": 4,
+  "x": -7,
+  "y": -4
 }

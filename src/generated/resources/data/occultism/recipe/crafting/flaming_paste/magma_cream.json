@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "occultism:flaming_paste",
+    "#c:slime_balls"
+  ],
+  "result": {
+    "id": "minecraft:magma_cream"
+  }
+}

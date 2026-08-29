@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spotlight",
+  "item": "occultism:infused_pickaxe",
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_infused_tools.spotlight.text",
+  "title": ""
+}

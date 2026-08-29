@@ -5,5 +5,6 @@
   },
   "id": "recipe_impure",
   "recipe_id_1": "occultism:crafting/chalk_green_impure",
-  "sort_number": 3
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.recipe_impure.text"
 }

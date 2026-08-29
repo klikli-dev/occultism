@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:raw_materials/hellforged"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/hellforged"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": "#c:raw_materials/hellforged",
+  "result": {
+    "type": "occultism:tag",
+    "count": 2,
+    "tag": "c:dusts/hellforged"
+  }
+}

@@ -2,10 +2,9 @@
   "type": "occultism:spirit_trade",
   "ingredient": "#c:gems",
   "result": {
-    "type": "occultism:weighted_item",
-    "stack": {
-      "id": "minecraft:quartz"
-    },
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:gems/quartz",
     "weight": 2
   },
   "trader_id": "occultism:gambler"

@@ -6,7 +6,8 @@
   "entity_id": "occultism:headless_familiar",
   "entity_name": "",
   "id": "entity",
-  "scale": 0.7,
+  "offset": -0.3,
+  "scale": 0.8,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.entity.text"
 }

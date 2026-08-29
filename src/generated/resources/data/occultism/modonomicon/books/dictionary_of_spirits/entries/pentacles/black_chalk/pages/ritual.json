@@ -1,9 +1,0 @@
-{
-  "type": "occultism:ritual_recipe",
-  "condition": {
-    "type": "modonomicon:none"
-  },
-  "id": "ritual",
-  "recipe_id_1": "occultism:ritual/craft_witherite_dust",
-  "sort_number": 2
-}

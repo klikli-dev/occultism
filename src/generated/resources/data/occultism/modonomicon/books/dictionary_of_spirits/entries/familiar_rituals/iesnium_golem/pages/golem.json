@@ -6,6 +6,7 @@
   "entity_id": "occultism:iesnium_golem",
   "entity_name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.title",
   "id": "golem",
+  "offset": -1.0,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.text"
 }

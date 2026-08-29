@@ -1,0 +1,7 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": "occultism:otherstone_frame",
+  "result": {
+    "id": "occultism:ritual_catcher"
+  }
+}

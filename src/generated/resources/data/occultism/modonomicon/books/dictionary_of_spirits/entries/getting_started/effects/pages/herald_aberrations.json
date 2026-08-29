@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "herald_aberrations",
+  "images": [
+    "occultism:textures/mob_effect/herald_aberrations.png"
+  ],
+  "sort_number": 13,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.herald_aberrations.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.herald_aberrations.title"
+}

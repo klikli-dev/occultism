@@ -6,6 +6,12 @@
     ]
   },
   {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_effects",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_demons_dream"
+    ]
+  },
+  {
     "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_spirit_fire",
     "required_facts": [
       "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/getting_started_demons_dream"

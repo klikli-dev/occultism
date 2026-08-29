@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "effects",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.effects.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.effects.title"
+}

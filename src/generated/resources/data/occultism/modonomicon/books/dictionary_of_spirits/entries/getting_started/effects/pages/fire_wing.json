@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fire_wing",
+  "images": [
+    "occultism:textures/mob_effect/fire_wing.png"
+  ],
+  "sort_number": 9,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.fire_wing.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.fire_wing.title"
+}

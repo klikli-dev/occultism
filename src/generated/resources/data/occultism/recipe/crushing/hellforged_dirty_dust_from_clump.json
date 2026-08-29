@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:clumps/hellforged"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dirty_dusts/hellforged"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": "#c:clumps/hellforged",
+  "result": {
+    "type": "occultism:tag",
+    "count": 2,
+    "tag": "c:dirty_dusts/hellforged"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "pumpkin_head",
+  "images": [
+    "occultism:textures/mob_effect/pumpkin_head.png"
+  ],
+  "sort_number": 8,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.pumpkin_head.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.pumpkin_head.title"
+}

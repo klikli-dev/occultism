@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/lapis",
   "result": {
     "type": "occultism:tag",
-    "count": 9,
+    "count": 13,
     "tag": "c:dusts/lapis"
   }
 }

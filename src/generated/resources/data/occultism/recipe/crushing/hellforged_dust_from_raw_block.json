@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_hellforged"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/hellforged"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "crushing_time": 900,
+  "ingredient": "#c:storage_blocks/raw_hellforged",
+  "result": {
+    "type": "occultism:tag",
+    "count": 18,
+    "tag": "c:dusts/hellforged"
+  }
+}

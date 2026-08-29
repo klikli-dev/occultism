@@ -6,6 +6,8 @@
   "entity_id": "occultism:beaver_familiar",
   "entity_name": "",
   "id": "entity",
+  "offset": -0.2,
+  "scale": 0.8,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.entity.text"
 }
