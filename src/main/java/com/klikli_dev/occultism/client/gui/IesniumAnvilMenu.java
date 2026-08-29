@@ -176,10 +176,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             isAnyEnchantmentCompatible = true;
                             // +1 to enchantment level limit
                             if (ApothicEnchantingIntegration.isLoaded()) {
-                                if (resultEnchLvl > ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1) {
+                                int maxLvl = ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1;
+                                if (resultEnchLvl > maxLvl) {
                                     resultEnchLvl = Math.max(activeEnchLvl, currentEnchLvl);
                                     useApothicTempFix = true;
-                                }
+                                } else if (resultEnchLvl == maxLvl)
+                                    useApothicTempFix = true;
                             } else {
                                 if (resultEnchLvl > enchantment.getMaxLevel() + 1) {
                                     resultEnchLvl = Math.max(activeEnchLvl, currentEnchLvl);

@@ -70,7 +70,6 @@ import net.neoforged.neoforge.common.CommonHooks;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements ItemSteerable, PlayerRideableJumping {

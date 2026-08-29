@@ -64,6 +64,7 @@ public class OccultismServerConfig {
         public final BooleanValue unbreakableChalks;
         public final IntValue maxDistanceRTP;
         public final IntValue maxTryRTP;
+        public final IntValue wormholeTabletCooldown;
 
         public ItemSettings(Builder builder) {
             builder.comment("Item Settings").push("items");
@@ -128,6 +129,11 @@ public class OccultismServerConfig {
                                     "Maximum number of attempts to find a safe place for the RTP."
                             )
                             .defineInRange("maxTryRTP", 99, 0, Integer.MAX_VALUE);
+            this.wormholeTabletCooldown =
+                    builder.comment(
+                                    "Cooldown when using Wormhole Tablet, in seconds."
+                            )
+                            .defineInRange("wormholeTabletCooldown", 20, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }

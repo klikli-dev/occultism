@@ -2135,6 +2135,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
         this.addConfig("maxDistanceRTP", "Max Distance RTP");
         this.addConfig("maxTryRTP", "Max Attempts to RTP");
+        this.addConfig("wormholeTabletCooldown", "Wormhole Tablet Cooldown");
     }
 
     private void addConfig(String key, String name) {

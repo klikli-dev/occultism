@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.item.storage;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.tablet.TabletInventory;
 import com.klikli_dev.occultism.common.container.tablet.TeleportTabletContainer;
 import com.klikli_dev.occultism.network.Networking;
@@ -108,6 +109,7 @@ public class TeleportTabletItem extends Item {
                     }
 
                     player.teleport(transition);
+                    player.getCooldowns().addCooldown(stack, 20 * Occultism.SERVER_CONFIG.itemSettings.wormholeTabletCooldown.getAsInt());
                     level.broadcastEntityEvent(player, (byte) 46);
                     return InteractionResult.SUCCESS;
                 }
