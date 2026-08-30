@@ -56,9 +56,6 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.platform.InputConstants.Type;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyMapping.Category;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.Hud;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -262,30 +259,6 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
-    }
-
-    public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerMobEffect(new IClientMobEffectExtensions() {
-            @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Hud hud, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Hud.getMobEffectSprite(instance.getEffect()), x + 3, y + 3, 18, 18, ARGB.white(alpha));
-                return true;
-            }
-        }, OccultismEffects.THIRD_EYE.get());
-
-        event.registerMobEffect(new IClientMobEffectExtensions() {
-            @Override
-            public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, int blitOffset) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Hud.getMobEffectSprite(instance.getEffect()), x, y + 7, 18, 18);
-                return true;
-            }
-
-            @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Hud hud, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Hud.getMobEffectSprite(instance.getEffect()), x, y + 3, 18, 18, ARGB.white(alpha));
-                return false;
-            }
-        }, OccultismEffects.DOUBLE_JUMP.get());
     }
 
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {

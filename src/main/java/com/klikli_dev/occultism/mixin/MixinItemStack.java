@@ -19,7 +19,7 @@ public class MixinItemStack {
     @Inject(method = "getHoverName", at = @At("RETURN"), cancellable = true)
     public void bedrockItemName(CallbackInfoReturnable<Component> cir) {
         if (FMLEnvironment.getDist().isClient()) {
-            if (Minecraft.getInstance().screen instanceof AnvilScreen) {
+            if (Minecraft.getInstance().gui.screen() instanceof AnvilScreen) {
                 return;
             }
         }
