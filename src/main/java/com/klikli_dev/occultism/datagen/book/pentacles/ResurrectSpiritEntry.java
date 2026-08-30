@@ -49,9 +49,12 @@ public class ResurrectSpiritEntry extends EntryProvider {
                 - {0}
                 - {1}
                 - {2}
+                - {3}
                 """, this.entryLink("Resurrect Familiar", FamiliarRitualsCategory.CATEGORY_ID, ResurrectFamiliarEntry.ENTRY_ID),
                 this.entryLink("Purify Vex to Allay", "familiar_rituals", "resurrect_allay"),
-                this.entryLink("Resurrect Mobs", "familiar_rituals", "great_resurrection"));
+                this.entryLink("Resurrect Mobs", "familiar_rituals", "great_resurrection"),
+                this.entryLink("Raise Undead Mounts", "familiar_rituals", "raise_undead_mount")
+        );
 
     }
 

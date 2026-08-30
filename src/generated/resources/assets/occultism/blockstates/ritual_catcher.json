@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "occultism:block/ritual_catcher",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "occultism:block/ritual_catcher",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "occultism:block/ritual_catcher",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "occultism:block/ritual_catcher",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "occultism:block/ritual_catcher"
+    },
+    "facing=west": {
+      "model": "occultism:block/ritual_catcher",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

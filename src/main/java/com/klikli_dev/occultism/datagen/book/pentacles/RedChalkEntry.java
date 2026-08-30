@@ -46,18 +46,14 @@ public class RedChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("essence", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
+        this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
                 .withText(this.context().pageText()));
         this.pageText("""
                         To obtain the essence of an {0} for [](item://occultism:chalk_red) you need to
                          {1}.
                         """, this.color("Afrit", ChatFormatting.DARK_PURPLE),
                 this.entryLink("summon and kill an Unbound Afrit", "summoning_rituals", "afrit_essence"));
-
-        this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
-        );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_red"))

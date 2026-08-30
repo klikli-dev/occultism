@@ -27,6 +27,9 @@ public class IesniumAnvilMenu extends AnvilMenu {
     @Nullable
     private String itemName;
     private boolean freeRenaming;
+    // TODO: Fix the maximum level couldn't be exceeded by 1 in createResultInternal() when Apothic is present
+    // For now, this solution fixes the functionality, but it will render incorrectly the level when max+1
+    private ItemEnchantments apothicTempFix;
 
     public IesniumAnvilMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(containerId, playerInventory, access);
@@ -41,7 +44,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
     }
 
     @Override
-    protected void onTake(Player player, @NotNull ItemStack stack) {
+    protected void onTake(@NotNull Player player, @NotNull ItemStack stack) {
+        if (this.apothicTempFix != null) {
+            EnchantmentHelper.setEnchantments(stack, this.apothicTempFix);
+            this.apothicTempFix = null;
+        }
+
         ItemStack leftInput = this.inputSlots.getItem(0).copy();
         ItemStack rightInput = this.inputSlots.getItem(1).copy();
 
@@ -66,7 +74,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
             } else {
                 this.inputSlots.setItem(1, ItemStack.EMPTY);
             }
-        } else if (!this.freeRenaming) {
+        } else {
             this.inputSlots.setItem(1, ItemStack.EMPTY);
         }
 
@@ -143,6 +151,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                     ItemEnchantments rightEnchantments = EnchantmentHelper.getEnchantmentsForCrafting(rightInput);
                     boolean isAnyEnchantmentCompatible = false;
                     boolean isAnyEnchantmentNotCompatible = false;
+                    boolean useApothicTempFix = false;
 
                     for (Entry<Holder<Enchantment>> currentEnchantment : rightEnchantments.entrySet()) {
                         Holder<Enchantment> holder = currentEnchantment.getKey();
@@ -167,9 +176,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             isAnyEnchantmentCompatible = true;
                             // +1 to enchantment level limit
                             if (ApothicEnchantingIntegration.isLoaded()) {
-                                if (resultEnchLvl > ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1) {
+                                int maxLvl = ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1;
+                                if (resultEnchLvl > maxLvl) {
                                     resultEnchLvl = Math.max(activeEnchLvl, currentEnchLvl);
-                                }
+                                    useApothicTempFix = true;
+                                } else if (resultEnchLvl == maxLvl)
+                                    useApothicTempFix = true;
                             } else {
                                 if (resultEnchLvl > enchantment.getMaxLevel() + 1) {
                                     resultEnchLvl = Math.max(activeEnchLvl, currentEnchLvl);
@@ -194,6 +206,9 @@ public class IesniumAnvilMenu extends AnvilMenu {
                         this.setCost(0);
                         return;
                     }
+
+                    if (useApothicTempFix)
+                        this.apothicTempFix = leftEnchantments.toImmutable();
                 }
             }
 
@@ -221,7 +236,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
                 result = ItemStack.EMPTY;
             }
 
-            if (this.getCost() >= 100 && !this.player.getAbilities().instabuild) {
+            if (this.getCost() >= 100 && !this.player.getAbilities().instabuild && !ApothicEnchantingIntegration.isLoaded()) {
                 result = ItemStack.EMPTY;
             }
 

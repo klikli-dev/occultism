@@ -32,6 +32,8 @@ import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
+import com.klikli_dev.occultism.common.item.tool.NaturePasteItem;
+import com.klikli_dev.occultism.common.misc.FireballDispenseBehavior;
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
@@ -44,7 +46,13 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPage
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.neoforged.api.distmarker.Dist;
@@ -59,6 +67,7 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 
 
@@ -104,6 +113,7 @@ public class Occultism {
         OccultismRecipeResults.RECIPE_RESULT_TYPES.register(modEventBus);
         OccultismConditionCodecs.CONDITION_CODECS.register(modEventBus);
         OccultismRecipeDisplays.RECIPE_DISPLAYS.register(modEventBus);
+        OccultismFoods.CONSUME_EFFECT_TYPES.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
@@ -126,7 +136,6 @@ public class Occultism {
             NeoForge.EVENT_BUS.addListener(OccultismRecipeManagerClient::onRecipesReceived);
             NeoForge.EVENT_BUS.addListener(OccultismRecipeManagerClient::onClientLogout);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
-            modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRenderPipelines);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterConditionalItemModelProperties);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterRangeSelectItemModelProperties);
@@ -147,6 +156,28 @@ public class Occultism {
             DispenserBlock.registerBehavior(
                     OccultismItems.OTHERPLANKS_BOAT_CHEST.get(),
                     new BoatDispenseItemBehavior(OccultismEntities.OTHERPLANKS_BOAT_CHEST.get())
+            );
+            DispenserBlock.registerBehavior(OccultismItems.NATURE_PASTE, new OptionalDispenseItemBehavior() {
+                @Override
+                protected @NonNull ItemStack execute(@NonNull BlockSource source, @NonNull ItemStack dispensed) {
+                    this.setSuccess(true);
+                    ServerLevel level = source.level();
+                    BlockPos target = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+                    if (!NaturePasteItem.growCustom(dispensed, level, target)
+                            && !NaturePasteItem.applyBonemeal(dispensed, level, target, null)
+                            && !NaturePasteItem.growWaterPlant(dispensed, level, target, null)) {
+                        this.setSuccess(false);
+                    } else if (!level.isClientSide()) {
+                        dispensed.hurtAndBreak(1, level, (LivingEntity) null, (item) -> {});
+                        level.levelEvent(1505, target, 15);
+                    }
+
+                    return dispensed;
+                }
+            });
+            DispenserBlock.registerBehavior(
+                    OccultismItems.FLAMING_PASTE.get(),
+                    new FireballDispenseBehavior(OccultismItems.FLAMING_PASTE.get())
             );
         });
 
@@ -186,26 +217,6 @@ public class Occultism {
         event.put(OccultismEntities.GOAT_OF_MERCY_TYPE.get(), GoatOfMercyEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.createAttributes().build());
-        event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.createAttributes().build());
-        event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), GreedyFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), DeerFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.DEVIL_FAMILIAR_TYPE.get(), DevilFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.DRAGON_FAMILIAR_TYPE.get(), DragonFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get(), BlacksmithFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get(), GuardianFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get(), HeadlessFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.CHIMERA_FAMILIAR_TYPE.get(), ChimeraFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.GOAT_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.BEHOLDER_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.FAIRY_FAMILIAR_TYPE.get(), FairyFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.MUMMY_FAMILIAR_TYPE.get(), MummyFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.BEAVER_FAMILIAR_TYPE.get(), BeaverFamiliarEntity.createAttributes().build());
-        event.put(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get(), ShubNiggurathSpawnEntity.createAttributes().build());
-        event.put(OccultismEntities.IESNIUM_GOLEM_TYPE.get(), IesniumGolemEntity.createAttributes().build());
-
         event.put(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), WildHordeHuskEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_PARCHED_TYPE.get(), WildHordeParchedEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), WildHordeDrownedEntity.createAttributes().build());
@@ -225,6 +236,29 @@ public class Occultism {
         event.put(OccultismEntities.WILD_STRAY_TYPE.get(), WildStrayEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get(), WildCaveSpiderEntity.createAttributes().build());
 
+        // Familiars with default attributes
+        event.put(OccultismEntities.BEHOLDER_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.DEVIL_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get(), OtherworldBirdEntity.createAttributes().build());
+        event.put(OccultismEntities.GOAT_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.MUMMY_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get(), OtherworldBirdEntity.createAttributes().build());
+        // Familiars with custom attributes
+        event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.BEAVER_FAMILIAR_TYPE.get(), BeaverFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.CHIMERA_FAMILIAR_TYPE.get(), ChimeraFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.DRAGON_FAMILIAR_TYPE.get(), DragonFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.FAIRY_FAMILIAR_TYPE.get(), FairyFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get(), ShubNiggurathSpawnEntity.createAttributes().build());
+
+        event.put(OccultismEntities.IESNIUM_GOLEM_TYPE.get(), IesniumGolemEntity.createAttributes().build());
 
         event.put(OccultismEntities.DEMONIC_WIFE.get(), DemonicWife.createAttributes().build());
         event.put(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusband.createAttributes().build());

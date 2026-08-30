@@ -38,15 +38,6 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public class OccultismTiers {
-    public static final ToolMaterial SPIRIT_ATTUNED = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
-            ToolMaterial.STONE.durability(),
-            9.0F,
-            3.0F,
-            22,
-            Items.SPIRIT_ATTUNED_GEM_MATERIALS
-    );
-
     public static final ToolMaterial IESNIUM = new ToolMaterial(
             BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
             1561,
@@ -76,6 +67,28 @@ public class OccultismTiers {
             1.0F,
             20,
             Items.SILVER_INGOT
+    );
+
+    private static final ResourceKey<EquipmentAsset> ATTUNED_EQUIPMENT_ASSET = ResourceKey.create(
+            EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "attuned_crystal"));
+
+    public static final ArmorMaterial ATTUNED_ARMOR = new ArmorMaterial(
+            35,
+            makeDefense(3, 6, 8, 3, 13),
+            22,
+            SoundEvents.ARMOR_EQUIP_DIAMOND,
+            3.0F,
+            0.1F,
+            Items.SPIRIT_ATTUNED_GEM,
+            ATTUNED_EQUIPMENT_ASSET);
+
+    public static final ToolMaterial ATTUNED_TOOL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            588,
+            9.0F,
+            3.0F,
+            22,
+            Items.SPIRIT_ATTUNED_GEM
     );
 
     private static Map<ArmorType, Integer> makeDefense(int boots, int legs, int chest, int helm, int body) {

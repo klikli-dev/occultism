@@ -5,8 +5,8 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.bytes.Byte2ObjectMap;
+import it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -18,16 +18,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class WonderingTrades {
-    public static final int HINT = 0;
-    public static final int BOOK = 1;
-    public static final int PARAPHERNALIA = 2;
-    public static final int MATERIAL = 3;
-    public static final int INVENTORY = 4;
-    public static final int STORAGE = 5;
-    public static final int UTILITY = 6;
-    public static final int FAMILIAR = 7;
-    public static final int DYE = 8;
-    public static Int2ObjectMap<ItemListing[]> WONDERING_TRADES = new Int2ObjectOpenHashMap<>(Map.of(
+    public static final byte HINT = 0;
+    public static final byte BOOK = 1;
+    public static final byte PARAPHERNALIA = 2;
+    public static final byte MATERIAL = 3;
+    public static final byte INVENTORY = 4;
+    public static final byte STORAGE = 5;
+    public static final byte UTILITY = 6;
+    public static final byte INFUSED = 7;
+    public static final byte FAMILIAR = 8;
+    public static final byte DYE = 9;
+    public static Byte2ObjectMap<ItemListing[]> WONDERING_TRADES = new Byte2ObjectOpenHashMap<>(Map.of(
             HINT, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.WHEAT_SEEDS, 1),
                             new ItemStack(OccultismItems.DATURA.get()), 1, 1),
@@ -90,16 +91,26 @@ public class WonderingTrades {
                     new ItemTrade(new ItemStack(Items.BONE_BLOCK, 4),
                             new ItemStack(Items.SKELETON_SKULL), 4, 8),
                     new ItemTrade(new ItemStack(Items.COAL, 64),
-                            new ItemStack(Items.WITHER_SKELETON_SKULL), 2, 16)},
+                            new ItemStack(Items.WITHER_SKELETON_SKULL), 2, 16),
+                    new ItemTrade(new ItemStack(Items.POISONOUS_POTATO, 15),
+                            new ItemStack(Items.ZOMBIE_HEAD), 6, 16),
+                    new ItemTrade(new ItemStack(Items.TNT, 15),
+                            new ItemStack(Items.CREEPER_HEAD), 6, 16),
+                    new ItemTrade(new ItemStack(Items.GOLD_INGOT, 15),
+                            new ItemStack(Items.PIGLIN_HEAD), 6, 16)},
             MATERIAL, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.ROSE_BUSH, 1),
                             new ItemStack(OccultismBlocks.OTHERFLOWER, 15), 15, 15),
                     new ItemTrade(new ItemStack(Items.NETHER_WART, 7),
                             new ItemStack(Items.TORCHFLOWER), 7, 7),
+                    new ItemTrade(new ItemStack(Items.DRIED_GHAST, 1),
+                            new ItemStack(Items.GLOBE_BANNER_PATTERN), 1, 8),
                     new ItemTrade(new ItemStack(OccultismItems.DATURA.get(), 12),
                             new ItemStack(OccultismItems.NATURE_PASTE.get()), 1, 24),
                     new ItemTrade(new ItemStack(Items.TUFF, 4),
                             new ItemStack(OccultismItems.GRAY_PASTE.get()), 1, 24),
+                    new ItemTrade(new ItemStack(Items.MAGMA_BLOCK, 18),
+                            new ItemStack(OccultismItems.FLAMING_PASTE.get()), 1, 24),
                     new ItemTrade(new ItemStack(Items.EMERALD_BLOCK, 1),
                             new ItemStack(OccultismItems.RESEARCH_FRAGMENT_DUST.get()), 1, 32),
                     new ItemTrade(new ItemStack(Items.NETHER_STAR, 1),
@@ -146,7 +157,9 @@ public class WonderingTrades {
                     new ItemTrade(new ItemStack(OccultismItems.DEMONIC_MEAT.get(), 2),
                             new ItemStack(OccultismItems.STORAGE_REMOTE.get(), 1), 1, 27),
                     new ItemTrade(new ItemStack(Items.SCULK_CATALYST, 1),
-                            new ItemStack(OccultismItems.KNOWLEDGE_TABLET.get()), 1, 27)},
+                            new ItemStack(OccultismItems.KNOWLEDGE_TABLET.get()), 1, 27),
+                    new ItemTrade(new ItemStack(Items.ENDER_CHEST, 9),
+                            new ItemStack(OccultismItems.WORMHOLE_TABLET.get()), 1, 27)},
             STORAGE, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.QUARTZ, 27),
                             new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get()), 1, 27),
@@ -188,30 +201,62 @@ public class WonderingTrades {
                             new ItemStack(OccultismItems.OTHERWORLD_GOGGLES.get()), 1, 32),
                     new ItemTrade(new ItemStack(Items.END_CRYSTAL, 1),
                             new ItemStack(OccultismItems.VITALITY_COMPASS.get()), 1, 32),
-                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 2),
-                            new ItemStack(OccultismItems.INFUSED_PICKAXE.get()), 1, 32),
-                    new ItemTrade(new ItemStack(OccultismItems.DEMONIC_MEAT.get(), 5),
+                    new ItemTrade(new ItemStack(OccultismItems.MARID_ESSENCE.get(), 2),
                             new ItemStack(OccultismItems.IESNIUM_PICKAXE.get()), 1, 32),
+                    new ItemTrade(new ItemStack(OccultismItems.CRUELTY_ESSENCE.get(), 8),
+                            new ItemStack(OccultismItems.IESNIUM_BUTCHER_KNIFE.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.BEACON, 3),
+                            new ItemStack(OccultismItems.TRUE_SIGHT_STAFF.get()), 1, 32),
                     new ItemTrade(new ItemStack(OccultismItems.DEMONIC_MEAT.get(), 8),
                             new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()), 1, 32),
-                    new ItemTrade(new ItemStack(OccultismItems.DEMONIC_MEAT.get(), 4),
-                            new ItemStack(OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get()), 1, 32),
                     new ItemTrade(new ItemStack(OccultismItems.CRUELTY_ESSENCE.get(), 2),
-                            new ItemStack(OccultismBlocks.DIMENSIONAL_EXTRACTOR.get()), 1, 32),
+                            new ItemStack(OccultismBlocks.DIMENSIONAL_BATTLEFIELD.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.HOPPER, 4),
+                            new ItemStack(OccultismBlocks.DIMENSIONAL_EXTRACTOR.get()), 6, 32),
+                    new ItemTrade(new ItemStack(Items.HEAVY_CORE, 7),
+                            new ItemStack(OccultismBlocks.IESNIUM_ANVIL.get()), 1, 32),
                     new ItemTrade(new ItemStack(OccultismItems.CURSED_HONEY.get(), 8),
                             new ItemStack(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()), 1, 32),
                     new ItemTrade(new ItemStack(OccultismItems.DEMONIC_MEAT.get(), 9),
                             new ItemStack(OccultismItems.MINER_DJINNI_ORES.get()), 1, 32),
                     new ItemTrade(new ItemStack(OccultismItems.DEMONIC_MEAT.get(), 64),
                             new ItemStack(OccultismItems.MINER_AFRIT_DEEPS.get()), 1, 32),
+                    new ItemTrade(new ItemStack(OccultismItems.MARID_ESSENCE.get(), 11),
+                            new ItemStack(OccultismItems.MINER_MARID_MASTER.get()), 1, 32),
                     new ItemTrade(new ItemStack(OccultismItems.DRAGONYST_DUST.get(), 1),
                             new ItemStack(Items.ELYTRA), 1, 32),
                     new ItemTrade(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, 1),
                             new ItemStack(Items.TOTEM_OF_UNDYING), 1, 32),
-                    new ItemTrade(new ItemStack(OccultismItems.PITAYA_GOLDEN.get(), 1),
-                            new ItemStack(Items.TOTEM_OF_UNDYING), 1, 32),
-                    new ItemTrade(new ItemStack(Items.ENDER_EYE, 1),
-                            new ItemStack(Items.TURTLE_HELMET), 1, 32)},
+                    new ItemTrade(new ItemStack(OccultismItems.PITAYA_ENCHANTED.get(), 1),
+                            new ItemStack(Items.TOTEM_OF_UNDYING), 1, 32)},
+            INFUSED, new ItemListing[]{
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 5),
+                            new ItemStack(OccultismItems.INFUSED_HELMET.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 8),
+                            new ItemStack(OccultismItems.INFUSED_CHESTPLATE.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 7),
+                            new ItemStack(OccultismItems.INFUSED_LEGGINGS.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 4),
+                            new ItemStack(OccultismItems.INFUSED_BOOTS.get()), 1, 32),
+
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 1),
+                            new ItemStack(OccultismItems.INFUSED_SPEAR.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 2),
+                            new ItemStack(OccultismItems.INFUSED_SWORD.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 3),
+                            new ItemStack(OccultismItems.INFUSED_AXE.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 3),
+                            new ItemStack(OccultismItems.INFUSED_PICKAXE.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 1),
+                            new ItemStack(OccultismItems.INFUSED_SHOVEL.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 2),
+                            new ItemStack(OccultismItems.INFUSED_HOE.get()), 1, 32),
+
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 6),
+                            new ItemStack(OccultismItems.INFUSED_HORSE_ARMOR.get()), 1, 32),
+                    new ItemTrade(new ItemStack(Items.DIAMOND_BLOCK, 6),
+                            new ItemStack(OccultismItems.INFUSED_NAUTILUS_ARMOR.get()), 1, 32),
+            },
             FAMILIAR, new ItemListing[]{
                     new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
                             new ItemStack(OccultismItems.SPAWN_EGG_BAT_FAMILIAR.get()), 1, 24),
@@ -238,7 +283,11 @@ public class WonderingTrades {
                     new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
                             new ItemStack(OccultismItems.SPAWN_EGG_HEADLESS_FAMILIAR.get()), 1, 24),
                     new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
-                            new ItemStack(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR.get()), 1, 24)},
+                            new ItemStack(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR.get()), 1, 24),
+                    new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
+                            new ItemStack(OccultismItems.SPAWN_EGG_WINGNIS_FAMILIAR.get()), 1, 24),
+                    new ItemTrade(new ItemStack(OccultismBlocks.IESNIUM_BLOCK, 1),
+                            new ItemStack(OccultismItems.SPAWN_EGG_DRIKWING_FAMILIAR.get()), 1, 24)},
             DYE, new ItemListing[]{
                     new ItemTrade(new ItemStack(Items.DYE.white(), 64),
                             new ItemStack(OccultismBlocks.SPIRIT_GRINDSTONE.get()), 1, 1),
@@ -259,7 +308,7 @@ public class WonderingTrades {
                     new ItemTrade(new ItemStack(Items.DYE.yellow(), 64),
                             new ItemStack(Items.SPONGE), 1, 1),
                     new ItemTrade(new ItemStack(Items.DYE.lime(), 64),
-                            new ItemStack(Items.EMERALD_BLOCK), 1, 1),
+                            new ItemStack(Items.TURTLE_HELMET), 1, 1),
                     new ItemTrade(new ItemStack(Items.DYE.green(), 64),
                             new ItemStack(Items.SCULK_SHRIEKER), 1, 1),
                     new ItemTrade(new ItemStack(Items.DYE.cyan(), 64),

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "b": "#minecraft:buttons",
+    "g": "#c:gems/spirit_attuned",
+    "s": "minecraft:sunflower",
+    "t": "occultism:otherworldly_tablet"
+  },
+  "pattern": [
+    "bsb",
+    "btb",
+    "bgb"
+  ],
+  "result": {
+    "id": "occultism:familiar_tablet"
+  }
+}

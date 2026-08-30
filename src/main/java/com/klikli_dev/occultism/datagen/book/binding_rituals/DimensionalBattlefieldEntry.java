@@ -82,7 +82,7 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                           Some resources can be used: {0}, {1}, {2}, {3}.
                           \\
                           The higher the quality of the resource, the greater its value.
-                          A total value equal to the mob’s health is required to initiate the battle.
+                          A total value equal to the mob''s health is required to initiate the battle.
                         """,
                 this.itemLink(OccultismItems.DATURA_SEEDS),
                 this.itemLink(OccultismItems.DATURA),
@@ -125,6 +125,8 @@ public class DimensionalBattlefieldEntry extends EntryProvider {
                   \\
                   Sharpness speeds up the process, though not as effectively as Smite, Bane of
                   Arthropods, or Impaling when the mob is vulnerable to those enchantments.
+                  \\
+                  Fracture Soul is completely overhauled: the process receives a significant speed boost, and no Shattered Souls are generated.
                 """
         );
 

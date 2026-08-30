@@ -29,6 +29,8 @@ public final class OccultismGuiSprites {
     public static final GuiSprite STORAGE_CONTROLLER_TAB_CRAFTING_ACTIVE = sprite("storage_controller/tab/crafting_active", 24, 29);
     public static final GuiSprite STORAGE_CONTROLLER_TAB_CRAFTING_INACTIVE = sprite("storage_controller/tab/crafting_inactive", 24, 29);
 
+    public static final GuiSprite TELEPORT_TABLET_BACKGROUND = sprite("tablet/teleport/background", 320, 320);
+
     private OccultismGuiSprites() {
     }
 

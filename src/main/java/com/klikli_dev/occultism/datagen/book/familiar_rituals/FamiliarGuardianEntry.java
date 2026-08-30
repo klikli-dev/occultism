@@ -21,21 +21,60 @@ public class FamiliarGuardianEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:guardian_familiar{for_book:true}")
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Prevents player death while alive[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(0.9f)
+                .withOffset(-0.6f));
+        this.pageText("I'd rather die than lose my life.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_guardian")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("The guardian familiar sacrifices a limb everytime it's master is about to die and thus **prevents the death**. Once the guardian dies, the player is no longer protected. When summoned, the guardian spawns with a **random amount of limbs**, there is no guarantee that a complete guardian is summoned.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        The guardian familiar sacrifices a limb everytime it's master
+                         is about to die and thus **prevents the death**.
+                         Once the guardian dies, the player is no longer protected.
+                        \\
+                        \\
+                        When summoned, the guardian spawns with a **random amount of limbs**,
+                         there is no guarantee that a complete guardian is summoned.
+                        \\
+                        \\
+                        Regains one limb for each Blacksmith Familiar upgrade it receives.
+                        """
+        );
 
-        this.page("description2", () -> BookTextPageModel.create()
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageText("**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it regains a limb.\n");
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Upgraded:** Health Boost (level is equal to the number of limbs).
+                        \\
+                        \\
+                        **Iesnium:** Resistance (level is equal to half the number of limbs).
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet")
+        );
+
+        this.page("curio", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Equipping");
+        this.pageText("""
+                        When captured in a Familiar Ring or any Infused Equipment
+                         the death protection no longer costs limbs. Instead, the
+                         wearer receives a cooldown effect whose duration varies
+                         depending on the number of limbs and the Guardian's Familiar level.
+                        """
+        );
     }
 
     @Override
@@ -45,7 +84,7 @@ public class FamiliarGuardianEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Defense";
     }
 
     @Override

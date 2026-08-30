@@ -73,6 +73,15 @@ public final class OccultismGuiParts {
     public static final GuiPartKey DIMENSIONAL_MACHINE_PLAYER_INVENTORY_BACKGROUND = key("dimensional_machine/player_inventory_background");
     public static final GuiPartKey DIMENSIONAL_MACHINE_PROGRESS_BACKGROUND = key("dimensional_machine/progress_background");
     public static final GuiPartKey DIMENSIONAL_MACHINE_TITLE = key("dimensional_machine/title");
+    public static final GuiPartKey TABLET_BACKGROUND = key("tablet/background");
+    public static final GuiPartKey TABLET_PLAYER_SLOT = key("tablet/player_slot");
+    public static final GuiPartKey TABLET_SLOT = key("tablet/slot");
+    public static final GuiPartKey TABLET_PANEL = key("tablet/panel");
+    public static final GuiPartKey TABLET_TOP_BAR = key("tablet/top_bar");
+    public static final GuiPartKey TABLET_TITLE = key("tablet/title");
+    public static final GuiPartKey TABLET_SELECTION = key("tablet/selection");
+    public static final GuiPartKey TABLET_PLAYER_INVENTORY_BACKGROUND = key("tablet/player_inventory_background");
+    public static final GuiPartKey TABLET_CONFIRM_BUTTON = key("tablet/confirm_button");
 
     private OccultismGuiParts() {
     }

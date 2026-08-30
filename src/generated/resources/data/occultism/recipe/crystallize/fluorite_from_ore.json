@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/fluorite",
   "result": {
     "type": "occultism:tag",
-    "count": 4,
+    "count": 6,
     "tag": "c:gems/fluorite"
   }
 }

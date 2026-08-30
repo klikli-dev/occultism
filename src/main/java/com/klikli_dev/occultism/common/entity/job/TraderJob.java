@@ -141,9 +141,9 @@ public class TraderJob extends SpiritJob {
             this.conversionTimer = 0;
 
             if (!this.currentRecipe.isEmpty()) {
-                //play crushing sound
-                level.playSound(null, this.entity.blockPosition(), OccultismSounds.START_RITUAL.get(),
-                        SoundSource.NEUTRAL, 1f, 1 + 0.5f * this.entity.getRandom().nextFloat());
+                //play coin sound
+                level.playSound(null, this.entity.blockPosition(), OccultismSounds.COIN.get(),
+                        SoundSource.NEUTRAL, 10f, 1 + 0.05f * this.entity.getRandom().nextFloat());
                 this.possibleResults = this.currentRecipe.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
@@ -162,7 +162,7 @@ public class TraderJob extends SpiritJob {
                 //advance conversion
                 this.conversionTimer++;
 
-                //show particle effect while crushing
+                //show particle effect while trading
                 if (level.getGameTime() % 10 == 0) {
                     Vec3 pos = this.entity.position();
                     ((ServerLevel) level)
@@ -171,11 +171,11 @@ public class TraderJob extends SpiritJob {
                                     0.0);
                 }
 
-                //every two seconds, play another crushing sound
-                if (this.conversionTimer % 40 == 0) {
-                    level.playSound(null, this.entity.blockPosition(), OccultismSounds.POOF.get(),
-                            SoundSource.NEUTRAL, 1f,
-                            1 + 0.5f * this.entity.getRandom().nextFloat());
+                //every two seconds, play another coin sound
+                if (level.getGameTime() % 40 == 0) {
+                    level.playSound(null, this.entity.blockPosition(), OccultismSounds.COIN.get(),
+                            SoundSource.NEUTRAL, 10f,
+                            1 + 0.05f * this.entity.getRandom().nextFloat());
                 }
 
                 if (this.conversionTimer >= this.timeToConvert) {

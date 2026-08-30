@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -37,8 +36,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -88,7 +85,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     public static Builder createAttributes() {
-        return createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
+        return FamiliarEntity.createAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
     @Override
@@ -102,42 +99,27 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasHat();
     }
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (this.getOwner() == pPlayer) {
-
-            if (itemstack.is(Tags.Items.GEMS_LAPIS)) {
-                if (this.level().getGameTime() > this.lastPrismarineTime + PRISMARINE_INTERVAL) {
-                    if (this.hasBlacksmithUpgrade()) {
-                        this.lastPrismarineTime = this.level().getGameTime();
-                        itemstack.shrink(1);
-                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, RandomSource.create().nextInt(1, 5)));
-                    } else {
-                        this.lastPrismarineTime = this.level().getGameTime();
-                        itemstack.shrink(1);
-                        ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD));
-                    }
-                } else {
-                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"));
-                }
-                //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
-                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        if (this.getOwner() == pPlayer && itemstack.is(Tags.Items.GEMS_LAPIS)) {
+            if (this.level().getGameTime() > this.lastPrismarineTime + PRISMARINE_INTERVAL) {
+                int quant = this.hasIesniumUpgrade() ? RandomSource.create().nextInt(4, 12) :
+                        this.hasBlacksmithUpgrade() ? RandomSource.create().nextInt(1, 5) : 1;
+                this.lastPrismarineTime = this.level().getGameTime();
+                itemstack.shrink(1);
+                ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, quant));
+            } else {
+                pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"));
             }
-
+            //even if we don't give a prismarine we return success, otherwise we make the familiar change sitting position
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return super.mobInteract(pPlayer, pHand);
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     @Override
@@ -285,11 +267,6 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
-    }
-
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(MobEffects.WATER_BREATHING, 300, 0, false, false));
     }
 
     public boolean hasHat() {

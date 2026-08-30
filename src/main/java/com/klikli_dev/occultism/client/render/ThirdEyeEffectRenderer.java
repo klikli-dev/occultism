@@ -97,15 +97,16 @@ public class ThirdEyeEffectRenderer implements GuiLayer {
     }
 
     /**
-     * Uncovers the otherworld blocks within MAX_THIRD_EYE_DISTANCE of the player.
+     * Uncovers the otherworld blocks within custom distance of the player.
      *
      * @param player the player.
      * @param level  the level.
+     * @param distance max distance.
      */
-    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier tier) {
+    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier tier, int distance) {
         BlockPos origin = player.blockPosition();
-        BlockPos.betweenClosed(origin.offset(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
-                origin.offset(MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
+        BlockPos.betweenClosed(origin.offset(-distance, -distance, -distance),
+                origin.offset(distance, distance, distance)).forEach(pos -> {
             BlockState state = level.getBlockState(pos);
             if (state.getBlock() instanceof IOtherworldBlock block) {
                 if (block.getTier().getLevel() <= tier.getLevel()) {
@@ -116,6 +117,16 @@ public class ThirdEyeEffectRenderer implements GuiLayer {
                 }
             }
         });
+    }
+
+    /**
+     * Uncovers the otherworld blocks within MAX_THIRD_EYE_DISTANCE of the player.
+     *
+     * @param player the player.
+     * @param level  the level.
+     */
+    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier tier) {
+        uncoverBlocks(player, level, tier, MAX_THIRD_EYE_DISTANCE);
     }
 
     public void onThirdEyeTick(Post event) {
@@ -165,7 +176,8 @@ public class ThirdEyeEffectRenderer implements GuiLayer {
 
     public void onStaffTick(Post event) {
         if (CuriosUtil.hasStaff(event.getEntity())) {
-            this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
+            this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO,
+                    Occultism.CLIENT_CONFIG.visuals.trueSightStaffRange.getAsInt());
         } else {
             //only cover blocks if third eye is not active and still needs them visible.
             if (!this.gogglesActiveLastTick)

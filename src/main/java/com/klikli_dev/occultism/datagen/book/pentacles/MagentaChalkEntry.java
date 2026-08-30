@@ -8,7 +8,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -45,12 +44,14 @@ public class MagentaChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_dragonyst_dust"))
-        );
-
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_magenta_impure"))
+                .withText(this.context().pageText())
+        );
+        this.pageText("""
+                Check {0} entry.
+                """,
+                this.entryLink("Dragonyst Dust", "crafting_rituals", "craft_dragonyst_dust")
         );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()

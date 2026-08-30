@@ -49,7 +49,18 @@ public class ContactEldritchSpiritEntry extends EntryProvider {
                 - {3}
                 - {4}
                 - {5}
-                """, this.entryLink("Eldritch Ancient Miner", "crafting_rituals", "craft_ancient_miner"), this.entryLink("Storage Stabilizer Tier 5", "crafting_rituals", "stabilizer_tier5"), this.entryLink("Stabilized Storage", "crafting_rituals", "craft_stabilized_storage"), this.entryLink("Eldritch Chalice", "crafting_rituals", "craft_eldritch_chalice"), this.entryLink("Mastery Chalks", "crafting_rituals", "craft_master_chalks"), this.entryLink("Trinity Gem", "crafting_rituals", "trinity_gem"));
+                - {6}
+                - {7}
+                """,
+                this.entryLink("Eldritch Ancient Miner", "crafting_rituals", "craft_ancient_miner"),
+                this.entryLink("Eldritch Chalice", "crafting_rituals", "craft_eldritch_chalice"),
+                this.entryLink("Mastery Chalks", "crafting_rituals", "craft_master_chalks"),
+                this.entryLink("Unbreakable Items", "crafting_rituals", "unbreakable"),
+                this.entryLink("Trinity Gem", "crafting_rituals", "trinity_gem"),
+                this.entryLink("Familiar Glove", "crafting_rituals", "craft_familiar_glove"),
+                this.entryLink("Storage Stabilizer Tier 5", "crafting_rituals", "stabilizer_tier5"),
+                this.entryLink("Stabilized Storage", "crafting_rituals", "craft_stabilized_storage")
+        );
 
     }
 

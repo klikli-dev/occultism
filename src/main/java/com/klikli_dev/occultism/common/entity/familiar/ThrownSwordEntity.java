@@ -26,21 +26,31 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jspecify.annotations.NonNull;
 
 public class ThrownSwordEntity extends ThrowableItemProjectile {
 
     private static final int MAX_DURATION = 20 * 5;
 
     private int duration;
+    private float damage;
 
     public ThrownSwordEntity(EntityType<? extends ThrownSwordEntity> type, Level level) {
         super(type, level);
+        this.damage = 6F;
+    }
+
+    public void setDamage(float dmg) {
+        this.damage = dmg;
+        if (dmg > 10F)
+            this.setItem(new ItemStack(Items.DIAMOND_SWORD));
     }
 
     @Override
@@ -59,7 +69,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected Item getDefaultItem() {
+    protected @NonNull Item getDefaultItem() {
         return Items.IRON_SWORD;
     }
 
@@ -78,6 +88,11 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
+        if (pResult.getType() == HitResult.Type.ENTITY) {
+            EntityHitResult entityHitResult = (EntityHitResult) pResult;
+            if (entityHitResult.getEntity().invulnerableTime > 0)
+                return;
+        }
         this.remove(RemovalReason.DISCARDED);
     }
 
@@ -88,7 +103,8 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
             return;
 
         if (!this.level().isClientSide()) {
-            target.hurt(this.damageSources().thrown(this, this.getOwner()), 6);
+            target.hurt(this.damageSources().thrown(this, this.getOwner()), this.damage);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 

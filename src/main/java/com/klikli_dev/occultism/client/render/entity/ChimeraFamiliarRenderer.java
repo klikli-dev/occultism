@@ -58,6 +58,8 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
         reusedState.hasHat = entity.hasHat();
         reusedState.hasGoat = entity.hasGoat();
         reusedState.hasBeard = entity.hasBeard();
+        reusedState.hasBlacksmithUpgrade = entity.hasBlacksmithUpgrade();
+        reusedState.scale = 0.5F + (float) entity.getSize() / 100;
     }
 
     @Override
@@ -72,11 +74,6 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
             poseStack.translate(0, -0.14 * state.scale, 0);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
-    }
-
-    @Override
-    protected void scale(ChimeraFamiliarRenderState state, PoseStack poseStack) {
-        poseStack.scale(0.5f, 0.5f, 0.5f);
     }
 
     @Override

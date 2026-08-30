@@ -23,14 +23,18 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.registry.OccultismParticles;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -93,6 +97,10 @@ public class MagicLampItem extends Item {
                 level.addFreshEntity(entity);
                 ItemNBTUtil.setSpiritJob(itemStack, "");
                 ItemNBTUtil.setBoundSpiritName(itemStack, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN);
+                level.playSound(null, spawnPos, OccultismSounds.SPIRIT_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
+                ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD,
+                        spawnPos.getX() + 0.5, spawnPos.getY() + 0.1, spawnPos.getZ() + 0.5,
+                        15, 0.0, 0.1, 0.0, 0.01);
                 player.swing(context.getHand());
                 player.inventoryMenu.broadcastChanges();
             }
@@ -114,6 +122,10 @@ public class MagicLampItem extends Item {
         if (!(target instanceof SpiritEntity spirit && spirit.getJob().isPresent() && spirit.isOwnedBy(player)))
             return InteractionResult.FAIL;
 
+        target.level().playSound(null, target.getOnPos(), OccultismSounds.POOF.get(), SoundSource.NEUTRAL, 1, 1);
+        ((ServerLevel) target.level()).sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(),
+                target.getX(), target.getY() + target.getHitbox().getYsize()*0.8, target.getZ(),
+                15, 0.0, 0.0, 0.0, 0.01);
         var tagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
         target.saveWithoutId(tagOutput);
         var entityData = tagOutput.buildResult();

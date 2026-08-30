@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.datagen.recipe.builders;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedItemRecipeResult;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
+import com.klikli_dev.occultism.crafting.recipe.result.WeightedTagRecipeResult;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.AdvancementRewards.Builder;
@@ -48,6 +49,10 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
 
     public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStackTemplate output, int weight, String trader, Provider registries) {
         return new SpiritTradeRecipeBuilder(ingredient, WeightedRecipeResult.of(output, weight), trader, registries);
+    }
+
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, String trader, Provider registries) {
+        return new SpiritTradeRecipeBuilder(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), WeightedTagRecipeResult.of(output, 1, weight), trader, registries);
     }
 
     public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStack output, int weight, String trader, Provider registries) {

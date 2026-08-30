@@ -6,7 +6,7 @@
     "occultism:storage_stabilizer_tier0",
     "#c:storage_blocks/copper",
     "#c:dusts/blaze",
-    "occultism:spirit_attuned_gem"
+    "#c:gems/spirit_attuned"
   ],
   "pentacle_id": "occultism:craft_foliot",
   "result": {

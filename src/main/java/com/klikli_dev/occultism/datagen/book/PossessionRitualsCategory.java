@@ -3,8 +3,8 @@ package com.klikli_dev.occultism.datagen.book;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
+import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.datagen.book.possession_rituals.*;
 
@@ -130,19 +130,10 @@ public class PossessionRitualsCategory extends CategoryProvider {
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_BREEZE, possessBreeze));
         this.layout().entry(possessStrongBreeze).below(possessBreeze, 2);
 
-        var possessUnboundParrot = this.add(new PossessUnboundParrotEntry(this).generate());
-        possessUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
-        this.layout().entry(possessUnboundParrot).rightOf(overview, 13).below(2);
-        var possessUnboundOtherworldBird = this.add(new PossessUnboundOtherworldBirdEntry(this).generate());
-        possessUnboundOtherworldBird.withParent(BookEntryParentModel.create(possessUnboundParrot.getId()))
-                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_DJINNI, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessDjinniEntry.ENTRY_ID)));
-        this.layout().entry(possessUnboundOtherworldBird).below(possessUnboundParrot, 2);
-
         var possessRandomAnimal = this.add(new PossessRandomAnimalEntry(this).generate());
         possessRandomAnimal.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_POSSESS_FOLIOT, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, PossessFoliotEntry.ENTRY_ID)));
-        this.layout().entry(possessRandomAnimal).rightOf(overview, 15).below(2);
+        this.layout().entry(possessRandomAnimal).rightOf(overview, 13).below(2);
         var wildRandomAnimal = this.add(new WildRandomAnimalEntry(this).generate());
         wildRandomAnimal.withParent(BookEntryParentModel.create(possessRandomAnimal.getId()))
                 .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.PENTACLES_CONTACT_WILD, OccultismResearch.entryModel(PentaclesCategory.CATEGORY_ID, ContactWildSpiritEntry.ENTRY_ID)));

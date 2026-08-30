@@ -106,7 +106,7 @@ public class DemonicPartnerEntry extends EntryProvider {
         this.page("husband", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:demonic_husband")
                 .withEntityName(this.context().pageTitle())
-        );
+                .withOffset(-0.8f));
         this.pageTitle("Demonic Husband");
 
         this.page("ritual1", () -> BookRitualRecipePageModel.create()
@@ -116,7 +116,8 @@ public class DemonicPartnerEntry extends EntryProvider {
         this.page("wife", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:demonic_wife")
                 .withEntityName(this.context().pageTitle())
-        );
+                .withScale(1.3F)
+                .withOffset(-0.6f));
         this.pageTitle("Demonic Wife");
 
         this.page("ritual2", () -> BookRitualRecipePageModel.create()

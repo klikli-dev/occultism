@@ -25,13 +25,10 @@ package com.klikli_dev.occultism.common.ritual;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
-import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -93,10 +90,7 @@ public class SummonWildRitual extends SummonRitual {
                 }
             }
         }
-        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
-        ItemNBTUtil.setBoundSpiritName(flame,
-                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, ItemStack.EMPTY);
 
     }
 }

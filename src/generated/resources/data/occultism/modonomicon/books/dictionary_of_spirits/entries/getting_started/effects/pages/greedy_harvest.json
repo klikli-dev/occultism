@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "greedy_harvest",
+  "images": [
+    "occultism:textures/mob_effect/greedy_harvest.png"
+  ],
+  "sort_number": 7,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.greedy_harvest.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.greedy_harvest.title"
+}

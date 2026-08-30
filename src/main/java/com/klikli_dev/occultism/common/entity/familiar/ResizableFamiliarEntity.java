@@ -22,12 +22,16 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.klikli_dev.occultism.Occultism;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -37,7 +41,7 @@ public abstract class ResizableFamiliarEntity extends FamiliarEntity {
     protected static final byte MAX_SIZE = 100;
     private static final EntityDataAccessor<Byte> SIZE = SynchedEntityData.defineId(ResizableFamiliarEntity.class,
             EntityDataSerializers.BYTE);
-
+    private static final Identifier FAMILIAR_SCALE = Identifier.fromNamespaceAndPath(Occultism.MODID, "familiar_scale");
 
     public ResizableFamiliarEntity(EntityType<? extends ResizableFamiliarEntity> type, Level level) {
         super(type, level);
@@ -48,7 +52,11 @@ public abstract class ResizableFamiliarEntity extends FamiliarEntity {
     }
 
     public void setSize(byte size) {
-        this.entityData.set(SIZE, (byte) Mth.clamp(size, 0, MAX_SIZE));
+        int i = Mth.clamp(size, 0, MAX_SIZE);
+        this.entityData.set(SIZE, (byte) i);
+        this.getAttribute(Attributes.SCALE).removeModifier(FAMILIAR_SCALE);
+        this.getAttribute(Attributes.SCALE).addTransientModifier(
+                new AttributeModifier(FAMILIAR_SCALE, i*0.01F - 0.5F, AttributeModifier.Operation.ADD_VALUE));
     }
 
     @Override

@@ -192,11 +192,6 @@ public class OccultismEntities {
                     .sized(0.6F, 2.9F)
                     .clientTrackingRange(8)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "wild_hunt_wither_skeleton"))));
-    public static final Lazy<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD_TYPE =
-            Lazy.of(() -> Builder.of(OtherworldBirdEntity::new, MobCategory.CREATURE)
-                    .sized(0.5F, 0.9F)
-                    .clientTrackingRange(8)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_bird"))));
     public static final Lazy<EntityType<WildHordeHuskEntity>> WILD_HORDE_HUSK_TYPE =
             Lazy.of(() -> Builder.of(WildHordeHuskEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -381,6 +376,18 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "beaver_familiar"))));
 
+    public static final Lazy<EntityType<DrikwingEntity>> DRIKWING_FAMILIAR_TYPE =
+            Lazy.of(() -> Builder.of(DrikwingEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(8)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "drikwing_familiar"))));
+    public static final Lazy<EntityType<WingnisEntity>> WINGNIS_FAMILIAR_TYPE =
+            Lazy.of(() -> Builder.<WingnisEntity>of(WingnisEntity::new, MobCategory.CREATURE)
+                    .fireImmune()
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(8)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "wingnis_familiar"))));
+
     public static final Lazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             Lazy.of(() -> Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -464,8 +471,6 @@ public class OccultismEntities {
             ENTITIES.register("mercy_goat", GOAT_OF_MERCY_TYPE::get);
     public static final Supplier<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
-    public static final Supplier<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
-            ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
     public static final Supplier<EntityType<WildHordeHuskEntity>> WILD_HORDE_HUSK =
             ENTITIES.register("wild_horde_husk", WILD_HORDE_HUSK_TYPE::get);
     public static final Supplier<EntityType<WildHordeParchedEntity>> WILD_HORDE_PARCHED =
@@ -534,6 +539,10 @@ public class OccultismEntities {
             ENTITIES.register("mummy_familiar", MUMMY_FAMILIAR_TYPE::get);
     public static final Supplier<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR =
             ENTITIES.register("beaver_familiar", BEAVER_FAMILIAR_TYPE::get);
+    public static final Supplier<EntityType<DrikwingEntity>> DRIKWING_FAMILIAR =
+            ENTITIES.register("drikwing", DRIKWING_FAMILIAR_TYPE::get);
+    public static final Supplier<EntityType<WingnisEntity>> WINGNIS_FAMILIAR =
+            ENTITIES.register("wingnis", WINGNIS_FAMILIAR_TYPE::get);
     public static final Supplier<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
     public static final Supplier<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =

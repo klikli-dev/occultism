@@ -29,10 +29,10 @@
       "entry": "occultism:crafting_rituals/craft_otherworld_goggles"
     },
     {
-      "entry": "occultism:crafting_rituals/craft_infused_pickaxe"
+      "entry": "occultism:crafting_rituals/craft_infused_tools"
     }
   ],
-  "sort_number": 40,
-  "x": -4,
+  "sort_number": 47,
+  "x": -2,
   "y": -2
 }

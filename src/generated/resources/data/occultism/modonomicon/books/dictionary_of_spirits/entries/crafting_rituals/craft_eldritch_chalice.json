@@ -26,10 +26,11 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.name",
   "parents": [
     {
-      "entry": "occultism:crafting_rituals/craft_iesnium_sacrificial_bowl"
+      "entry": "occultism:crafting_rituals/craft_iesnium_sacrificial_bowl",
+      "line_reversed": true
     }
   ],
-  "sort_number": 47,
-  "x": 4,
+  "sort_number": 54,
+  "x": 6,
   "y": -8
 }

@@ -5,7 +5,7 @@
   "ingredients": [
     "occultism:otherworldly_tablet",
     "#c:dusts/research",
-    "occultism:spirit_attuned_gem",
+    "#c:gems/spirit_attuned",
     "#c:ender_pearls"
   ],
   "pentacle_id": "occultism:craft_foliot",

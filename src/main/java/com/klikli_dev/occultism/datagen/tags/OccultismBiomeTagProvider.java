@@ -16,6 +16,7 @@ public class OccultismBiomeTagProvider extends BiomeTagsProvider {
 
     @Override
     protected void addTags(Provider pProvider) {
-        this.tag(OccultismTags.ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION).addTag(BiomeTags.IS_FOREST);
+        this.tag(OccultismTags.ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION).addTag(BiomeTags.IS_FOREST).replace(false);
+        this.tag(OccultismTags.ALLOWS_WINGNIS_TRANSFORMATION).addTag(BiomeTags.IS_NETHER).replace(false);
     }
 }

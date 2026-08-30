@@ -121,10 +121,17 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
     }
 
     private void addCuriosTags(Provider provider) {
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt"))).add(this.key(OccultismItems.SATCHEL.get())).add(this.key(OccultismItems.ENDER_SATCHEL.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands"))).add(this.key(OccultismItems.STORAGE_REMOTE.get())).add(this.key(OccultismItems.TRUE_SIGHT_STAFF.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head"))).add(this.key(OccultismItems.OTHERWORLD_GOGGLES.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring"))).add(this.key(OccultismItems.FAMILIAR_RING.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt")))
+                .add(this.key(OccultismItems.SATCHEL.get()))
+                .add(this.key(OccultismItems.ENDER_SATCHEL.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands")))
+                .add(this.key(OccultismItems.STORAGE_REMOTE.get()))
+                .add(this.key(OccultismItems.TRUE_SIGHT_STAFF.get()))
+                .add(this.key(OccultismItems.FAMILIAR_GLOVE.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head")))
+                .add(this.key(OccultismItems.OTHERWORLD_GOGGLES.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring")))
+                .add(this.key(OccultismItems.FAMILIAR_RING.get()));
     }
 
     private void addOccultismTags(Provider provider) {
@@ -494,6 +501,7 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.copy(Blocks.STORAGE_BLOCKS_SILVER, OccultismTags.Items.STORAGE_BLOCK_SILVER);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
+        this.copy(Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         //noinspection unchecked
         this.tag(Tags.Items.STORAGE_BLOCKS).addTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_SILVER).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
         this.copy(Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);

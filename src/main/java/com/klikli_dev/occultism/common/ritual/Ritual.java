@@ -25,19 +25,19 @@ package com.klikli_dev.occultism.common.ritual;
 import com.google.common.base.Suppliers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
+import com.klikli_dev.occultism.common.blockentity.RitualCatcherBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionContext;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionFailureInformationVisitor;
-import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismParticles;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
@@ -60,11 +60,9 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public abstract class Ritual {
 
@@ -591,6 +589,50 @@ public abstract class Ritual {
     }
 
     /**
+     * Gets all ritual catcher in range of this ritual's golden bowl.
+     *
+     * @param level              the level.
+     * @param goldenBowlPosition the block position of the golden bowl.
+     * @return a list of ritual catcher.
+     */
+    public Map<RitualCatcherBlockEntity, Integer> getRitualCatcher(Level level, BlockPos goldenBowlPosition) {
+
+        var pentacle = this.recipe.getPentacle();
+        var offset = pentacle.getOffset();
+        var size = pentacle.getSize();
+
+        //get offsets for the top and bottom layer
+        var yBowlRangeTop = size.getY() - offset.getY() + 3;
+        var yBowlRangeBottom = offset.getY() + 3;
+
+        Map<RitualCatcherBlockEntity, Integer> result = new HashMap<>();
+        Iterable<BlockPos> blocksToCheck = BlockPos.betweenClosed(
+                goldenBowlPosition.offset(-SACRIFICIAL_BOWL_RANGE-2, -yBowlRangeBottom, -SACRIFICIAL_BOWL_RANGE-2),
+                goldenBowlPosition.offset(SACRIFICIAL_BOWL_RANGE+2, yBowlRangeTop, SACRIFICIAL_BOWL_RANGE+2));
+        for (BlockPos blockToCheck : blocksToCheck) {
+            BlockEntity blockEntity = level.getBlockEntity(blockToCheck);
+            if (blockEntity instanceof RitualCatcherBlockEntity) {
+                result.put((RitualCatcherBlockEntity) blockEntity,
+                        (int) Vec3.atCenterOf(blockToCheck).distanceToSqr(Vec3.atCenterOf(goldenBowlPosition)));
+            }
+        }
+
+        result = result.entrySet().stream()
+                .sorted(
+                        Map.Entry.<RitualCatcherBlockEntity, Integer>comparingByValue()
+                                .thenComparing(entry -> entry.getKey().getBlockPos().asLong())
+                )
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> a,
+                        LinkedHashMap::new
+                ));
+
+        return result;
+    }
+
+    /**
      * Checks if the given entity is a valid sacrifice.
      *
      * @param entity the entity to check against.
@@ -669,6 +711,52 @@ public abstract class Ritual {
             entity.setPickUpDelay(10);
             level.addFreshEntity(entity);
         }
+    }
+
+    /**
+     * Create flame of automation on near sacrificial bowl.
+     *
+     * @param level              the level.
+     * @param goldenBowlPosition the position of the golden bowl.
+     * @param blockEntity        the block entity controlling the ritual.
+     * @param castingPlayer      the player starting the ritual.
+     * @param stack              the result stack to drop.
+     */
+    public void dropResultAndFlame(Level level, BlockPos goldenBowlPosition,
+                                   @Nullable GoldenSacrificialBowlBlockEntity blockEntity,
+                                   @Nullable Player castingPlayer, ItemStack stack) {
+
+        Map<RitualCatcherBlockEntity, Integer> ritualCatcherList = this.getRitualCatcher(level, goldenBowlPosition);
+
+
+        if (!stack.isEmpty()) {
+            boolean drop = true;
+            for (RitualCatcherBlockEntity catcherBlock : ritualCatcherList.keySet()) {
+                if (catcherBlock.itemStackHandler.getResource(0).isEmpty()) {
+                    catcherBlock.itemStackHandler.set(0, ItemResource.of(stack), stack.getCount());
+                    drop = false;
+                    break;
+                }
+            }
+            if (drop)
+                this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, stack, true);
+        }
+
+        boolean auto = true;
+        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
+        ItemNBTUtil.setBoundSpiritName(flame,
+                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
+        for (RitualCatcherBlockEntity catcherBlock : ritualCatcherList.keySet()) {
+            try (var tx = Transaction.openRoot()) {
+                int inserted = catcherBlock.itemStackHandler.insert(0, ItemResource.of(flame), 1, tx);
+                if (inserted > 0) {
+                    tx.commit();
+                    auto = false;
+                }
+            }
+        }
+        if (auto)
+            this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 
 }

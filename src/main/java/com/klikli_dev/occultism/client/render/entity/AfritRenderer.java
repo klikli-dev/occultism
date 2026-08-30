@@ -28,6 +28,7 @@ import com.geckolib.renderer.layer.builtin.BlockAndItemGeoLayer;
 import com.geckolib.util.RenderUtil;
 import com.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
+import com.klikli_dev.occultism.client.render.entity.state.OccultismGeoLivingEntityRenderState;
 import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

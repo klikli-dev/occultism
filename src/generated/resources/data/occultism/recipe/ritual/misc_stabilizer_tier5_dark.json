@@ -11,8 +11,7 @@
     "#c:storage_blocks/netherite",
     "#c:obsidians/crying",
     "#c:storage_blocks/iesnium",
-    "occultism:spirit_attuned_crystal",
-    "occultism:spirit_attuned_crystal",
+    "#c:storage_blocks/spirit_attuned",
     "minecraft:enchanted_golden_apple",
     "#c:dusts/dragonyst"
   ],

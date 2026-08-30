@@ -1,6 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": "occultism:spirit_attuned_gem",
+  "activation_item": "#c:gems/spirit_attuned",
   "duration": 412,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.witch",

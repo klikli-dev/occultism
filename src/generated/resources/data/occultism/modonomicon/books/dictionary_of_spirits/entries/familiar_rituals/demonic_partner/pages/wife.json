@@ -6,6 +6,8 @@
   "entity_id": "occultism:demonic_wife",
   "entity_name": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.wife.title",
   "id": "wife",
+  "offset": -0.6,
+  "scale": 1.3,
   "sort_number": 8,
   "text": ""
 }

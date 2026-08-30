@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_wingnis.ritual.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_wingnis.ritual.title"
+}

@@ -25,10 +25,12 @@ package com.klikli_dev.occultism.client.gui;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
 import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
+import com.klikli_dev.occultism.client.gui.tablet.FamiliarTabletScreen;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 
 public class GuiHelper {
 
@@ -45,6 +47,10 @@ public class GuiHelper {
 
     public static void openBookOfCallingGui_internal(ItemMode itemMode, WorkAreaSize workAreaSize, InteractionHand hand) {
         Minecraft.getInstance().setScreenAndShow(new BookOfCallingGui(itemMode, workAreaSize, hand));
+    }
+
+    public static void openFamiliarTabletGui(Player player){
+        Minecraft.getInstance().setScreenAndShow(new FamiliarTabletScreen(player));
     }
     //endregion Static Methods
 }

@@ -143,7 +143,9 @@ public class FamiliarRingItem extends Item {
         // Test with: /give @p occultism:familiar_ring{familiarType:"occultism:greedy_familiar"}
         if (pStack.has(OccultismDataComponents.FAMILIAR_TYPE) && server != null) {
             try {
-                EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getOptional(pStack.get(OccultismDataComponents.FAMILIAR_TYPE)).orElse(null);
+                var familiarTypes = pStack.get(OccultismDataComponents.FAMILIAR_TYPE);
+                EntityType<?> type = familiarTypes != null && !familiarTypes.isEmpty() ?
+                        BuiltInRegistries.ENTITY_TYPE.getOptional(familiarTypes.get(0)).orElse(null) : null;
                 if (type != null) {
                     var level = ServerLifecycleHooks.getCurrentServer().getLevel(Level.OVERWORLD);
                     var entity = type.create(level, EntitySpawnReason.SPAWN_ITEM_USE);

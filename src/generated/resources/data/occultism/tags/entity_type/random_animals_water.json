@@ -12,7 +12,6 @@
     "minecraft:glow_squid",
     "minecraft:tadpole",
     "minecraft:turtle",
-    "minecraft:nautilus",
-    "minecraft:zombie_nautilus"
+    "minecraft:nautilus"
   ]
 }

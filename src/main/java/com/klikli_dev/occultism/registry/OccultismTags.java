@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Block;
 
 public class OccultismTags {
     public static final TagKey<Biome> ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION = makeBiomeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "allows_shub_niggurath_transformation"));
+    public static final TagKey<Biome> ALLOWS_WINGNIS_TRANSFORMATION = makeBiomeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "allows_wingnis_transformation"));
 
     public static TagKey<Item> makeItemTag(String id) {
         return makeItemTag(Identifier.parse(id));
@@ -114,6 +115,7 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_BLOCKS_SILVER = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/silver"));
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_IESNIUM = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_iesnium"));
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
+        public static final TagKey<Block> STORAGE_BLOCKS_SPIRIT_ATTUNED = makeBlockTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/spirit_attuned"));
 
         public static final TagKey<Block> OTHERWORLD_SAPLINGS = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
         public static final TagKey<Block> OTHERWORLD_SAPLINGS_NATURAL = makeBlockTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
@@ -130,8 +132,9 @@ public class OccultismTags {
         public static final TagKey<Item> START_SPIRIT_FIRE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "start_spiritfire"));
         public static final TagKey<Item> PENTACLE_MATERIALS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
         public static final TagKey<Item> SKULLS = makeItemTag(Identifier.fromNamespaceAndPath("c", "skulls"));
+        public static final TagKey<Item> SCUTESHELL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "scuteshell"));
         public static final TagKey<Item> OCCULTISM_CANDLES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "candles"));
-        public static final TagKey<Item> SCUTESHELL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "armored_items"));
+        public static final TagKey<Item> BATTLEFIELD_DENY_LIST = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "deny_list_dimensional_battlefield"));
 
         public static final TagKey<Item> DEMONIC_PARTNER_FOOD = makeItemTag(Identifier.fromNamespaceAndPath("occultism", "demonic_partner_food"));
 
@@ -144,6 +147,7 @@ public class OccultismTags {
         public static final TagKey<Item> STORAGE_BLOCK_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/silver"));
         public static final TagKey<Item> STORAGE_BLOCK_RAW_IESNIUM = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_iesnium"));
         public static final TagKey<Item> STORAGE_BLOCK_RAW_SILVER = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
+        public static final TagKey<Item> STORAGE_BLOCK_SPIRIT_ATTUNED = makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/spirit_attuned"));
 
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(Identifier.fromNamespaceAndPath("c", "mushroom_blocks"));
         public static final TagKey<Item> ENCHANTING_TABLES = makeItemTag(Identifier.fromNamespaceAndPath("c", "enchanting_tables"));
@@ -181,7 +185,7 @@ public class OccultismTags {
 
 
         // Ingots
-        public static final TagKey<Item> SPIRIT_ATTUNED_GEM_MATERIALS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_attuned_gem_materials"));
+        public static final TagKey<Item> SPIRIT_ATTUNED_GEM = makeItemTag(Identifier.fromNamespaceAndPath("c", "gems/spirit_attuned"));
         public static final TagKey<Item> IESNIUM_INGOT = makeItemTag(Identifier.fromNamespaceAndPath("c", "ingots/iesnium"));
         public static final TagKey<Item> SILVER_INGOT = makeItemTag(Identifier.fromNamespaceAndPath("c", "ingots/silver"));
 
@@ -195,6 +199,7 @@ public class OccultismTags {
         public static final TagKey<Item> DATURA = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "datura"));
 
         //Item Tags
+        public static final TagKey<Item> BYPASS_INTERACTION = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "bypass_interaction"));
         public static final TagKey<Item> TOOLS_KNIFE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/knife"));
         public static final TagKey<Item> TOOLS_KNIFE_IESNIUM = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "tools/knife/iesnium"));
 
@@ -278,6 +283,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> GOATS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "goats"));
         public static final TagKey<EntityType<?>> HOGLINS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "hoglins"));
         public static final TagKey<EntityType<?>> HORSES = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "horses"));
+        public static final TagKey<EntityType<?>> NAUTILUS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "nautilus"));
         public static final TagKey<EntityType<?>> LLAMAS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "llamas"));
         public static final TagKey<EntityType<?>> MULES = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "mules"));
         public static final TagKey<EntityType<?>> PANDAS = makeEntityTypeTag(Identifier.fromNamespaceAndPath("c", "pandas"));
@@ -320,5 +326,10 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SMALL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_small"));
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SPECIAL = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_special"));
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_RIDEABLE = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "random_animals_rideable"));
+
+        public static final TagKey<EntityType<?>> FRIENDS_AQUATIC = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_aquatic"));
+        public static final TagKey<EntityType<?>> FRIENDS_FOREST = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_forest"));
+        public static final TagKey<EntityType<?>> FRIENDS_ABERRATIONS = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_aberrations"));
+        public static final TagKey<EntityType<?>> FRIENDS_NETHER = makeEntityTypeTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "friends_nether"));
     }
 }

@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/fluorite",
   "result": {
     "type": "occultism:tag",
-    "count": 6,
+    "count": 9,
     "tag": "c:dusts/fluorite"
   }
 }

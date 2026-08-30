@@ -33,6 +33,7 @@ import com.geckolib.animation.state.AnimationTest;
 import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTrades.ItemListing;
 import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.core.BlockPos;
@@ -72,6 +73,7 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
     protected MerchantOffers otherOffers;
     @Nullable
     protected MerchantOffers commonOffers;
+    protected MerchantOffers debugOffers;
     protected WanderingTrader replacedTrader = null;
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -87,6 +89,9 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         } else {
             this.offers = this.commonOffers;
         }
+        if (itemstack.is(OccultismItems.DEBUG_WAND.get()))
+            this.offers = this.debugOffers;
+
         if (!itemstack.is(Items.VILLAGER_SPAWN_EGG) && this.isAlive() && !this.isTrading() && !this.isBaby()) {
             if (hand == InteractionHand.MAIN_HAND) {
                 player.awardStat(Stats.TALKED_TO_VILLAGER);
@@ -186,34 +191,18 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             if (this.offers == null) {
                 this.offers = new MerchantOffers();
                 this.updateTrades((ServerLevel) this.level());
-                if (this.commonOffers == null) {
-                    this.commonOffers = this.offers;
-                } else if (this.otherOffers == null) {
-                    this.otherOffers = this.offers;
-                }
+                this.commonOffers = this.offers;
             }
             if (this.otherOffers == null) {
                 this.otherOffers = new MerchantOffers();
                 this.updateOtherTrades();
             }
-
-            return this.offers;
-        }
-    }
-
-    public MerchantOffers getCommonOffers() {
-        if (this.level().isClientSide()) {
-            throw new IllegalStateException("Cannot load Villager offers on the client");
-        } else {
-            if (this.commonOffers == null) {
-                if (this.offers == null) {
-                    this.offers = new MerchantOffers();
-                    this.updateTrades((ServerLevel) this.level());
-                }
-                this.commonOffers = this.offers;
+            if (this.debugOffers == null) {
+                this.debugOffers = new MerchantOffers();
+                this.updateDebugTrades();
             }
 
-            return this.commonOffers;
+            return this.offers;
         }
     }
 
@@ -227,6 +216,19 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             }
 
             return this.otherOffers;
+        }
+    }
+
+    public MerchantOffers getDebugOffers() {
+        if (this.level().isClientSide()) {
+            throw new IllegalStateException("Cannot load Villager offers on the client");
+        } else {
+            if (this.debugOffers == null) {
+                this.debugOffers = new MerchantOffers();
+                this.updateDebugTrades();
+            }
+
+            return this.debugOffers;
         }
     }
 
@@ -255,10 +257,11 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         ItemListing[] list4 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY);
         ItemListing[] list5 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE);
         ItemListing[] list6 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY);
-        ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
-        ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
+        ItemListing[] list7 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INFUSED);
+        ItemListing[] list8 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR);
+        ItemListing[] list9 = WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE);
         if (list1 != null && list2 != null && list3 != null && list4 != null
-                && list5 != null && list6 != null && list7 != null && list8 != null) {
+                && list5 != null && list6 != null && list7 != null && list8 != null && list9 != null) {
             MerchantOffers merchantoffers = this.getOtherOffers();
             this.addOffersFromItemListings(merchantoffers, list1, 1);
             this.addOffersFromItemListings(merchantoffers, list2, this.random.nextIntBetweenInclusive(1, 3));
@@ -266,10 +269,13 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
             this.addOffersFromItemListings(merchantoffers, list4, 1);
             this.addOffersFromItemListings(merchantoffers, list5, this.random.nextIntBetweenInclusive(1, 3));
             this.addOffersFromItemListings(merchantoffers, list6, 1);
+            if (this.random.nextFloat() < 0.8F) {
+                this.addOffersFromItemListings(merchantoffers, list7, this.random.nextIntBetweenInclusive(1, 2));
+            }
             if (this.random.nextBoolean()) {
-                this.addOffersFromItemListings(merchantoffers, list7, 1);
-            } else if (this.random.nextBoolean()) {
                 this.addOffersFromItemListings(merchantoffers, list8, 1);
+            } else if (this.random.nextBoolean()) {
+                this.addOffersFromItemListings(merchantoffers, list9, 1);
             }
         }
     }
@@ -280,6 +286,29 @@ public class WonderingTraderEntity extends WanderingTrader implements GeoEntity 
         for (int i = 0; i < Math.min(count, list.size()); i++) {
             MerchantOffer offer = list.get(i).getOffer(this, this.random);
             if (offer != null) offers.add(offer);
+        }
+    }
+
+    protected void updateDebugTrades() {
+        MerchantOffers merchantoffers = this.getDebugOffers();
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.BOOK));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.PARAPHERNALIA));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.MATERIAL));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INVENTORY));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.STORAGE));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.UTILITY));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.INFUSED));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.FAMILIAR));
+        this.addAllOffersFromItemListings(merchantoffers, WonderingTrades.WONDERING_TRADES.get(WonderingTrades.DYE));
+    }
+
+    private void addAllOffersFromItemListings(MerchantOffers offers, ItemListing[] listings) {
+        if (listings != null) {
+            ArrayList<ItemListing> list = new ArrayList<>(Arrays.asList(listings));
+            for (ItemListing itemListing : list) {
+                MerchantOffer offer = itemListing.getOffer(this, this.random);
+                if (offer != null) offers.add(offer);
+            }
         }
     }
 

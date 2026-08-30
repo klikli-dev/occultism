@@ -118,7 +118,9 @@ public class PasteRepairItemRecipe extends CustomRecipe {
     }
 
     private boolean isRepairPaste(ItemStack stack) {
-        return stack.is(OccultismItems.NATURE_PASTE.get()) || stack.is(OccultismItems.GRAY_PASTE.get());
+        return stack.is(OccultismItems.NATURE_PASTE.get())
+                || stack.is(OccultismItems.GRAY_PASTE.get())
+                || stack.is(OccultismItems.FLAMING_PASTE.get());
     }
 
     private record PasteRepairInput(int firstSlot, ItemStack first, int secondSlot, ItemStack second) {

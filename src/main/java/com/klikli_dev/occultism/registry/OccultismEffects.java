@@ -50,6 +50,16 @@ public class OccultismEffects {
     public static final DeferredHolder<MobEffect, MobEffect> STEP_BLOCKED = EFFECTS.register("step_blocked", () -> new ModEffect(MobEffectCategory.HARMFUL, 3402751)
             .addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_blocked"), -1, Operation.ADD_MULTIPLIED_TOTAL));
 
+    public static final DeferredHolder<MobEffect, MobEffect> GREEDY_HARVEST = EFFECTS.register("greedy_harvest", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x38C22F));
+    public static final DeferredHolder<MobEffect, MobEffect> FAIRY_BLESS = EFFECTS.register("fairy_bless", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xE38CED));
+    public static final DeferredHolder<MobEffect, MobEffect> FIRE_WING = EFFECTS.register("fire_wing", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xFF9900));
+    public static final DeferredHolder<MobEffect, MobEffect> AQUATIC_LORD = EFFECTS.register("aquatic_lord", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x66E3DC));
+    public static final DeferredHolder<MobEffect, MobEffect> FOREST_WHISPERER = EFFECTS.register("forest_whisperer", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x574403));
+    public static final DeferredHolder<MobEffect, MobEffect> HERALD_ABERRATIONS = EFFECTS.register("herald_aberrations", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x4F1E87));
+    public static final DeferredHolder<MobEffect, MobEffect> NETHER_EMPEROR = EFFECTS.register("nether_emperor", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xBA3A20));
+    public static final DeferredHolder<MobEffect, MobEffect> BAT_FLIGHT = EFFECTS.register("bat_flight", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x444444)
+            .addAttributeModifier(net.neoforged.neoforge.common.NeoForgeMod.CREATIVE_FLIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "bat_flight"), 1, Operation.ADD_VALUE));
+
     public static class ModEffect extends MobEffect {
 
         private ModEffect(MobEffectCategory category, int color) {

@@ -43,16 +43,14 @@ import java.util.Optional;
 // Based on https://github.com/CyclopsMC/EvilCraft-Compat/blob/master-26/src/main/java/org/cyclops/evilcraftcompat/modcompat/jei/spiritfurnace/SpiritFurnaceRecipeJEI.java
 public class BattlefieldRecipeJEI {
 
-    private final ItemStack inputItem;
-    private final ItemStack spawnEgg;
+    private final List<ItemStack> inputItem;
     private final List<ItemStack> outputItems;
     private final List<ItemStack> soulItems;
     private final EntityType<?> entityType;
     private static List<BattlefieldRecipeJEI> cachedRecipes = null;
 
-    public BattlefieldRecipeJEI(ItemStack inputItem, ItemStack egg, List<ItemStack> outputItems, List<ItemStack> soulItems, EntityType<?> entityType) {
+    public BattlefieldRecipeJEI(List<ItemStack> inputItem, List<ItemStack> outputItems, List<ItemStack> soulItems, EntityType<?> entityType) {
         this.inputItem = inputItem;
-        this.spawnEgg = egg;
         this.outputItems = outputItems;
         this.soulItems = soulItems;
         this.entityType = entityType;
@@ -60,8 +58,7 @@ public class BattlefieldRecipeJEI {
 
     public static BattlefieldRecipeJEI create(EntityType<?> entityType, LivingEntity entity, ServerLevel level, List<ItemStack> soul) {
         return new BattlefieldRecipeJEI(
-                getGem(entityType, level),
-                getEgg(entityType),
+                getInput(entityType, level),
                 getMobDrops(entityType, entity, level),
                 getSoulStack(entity, soul),
                 entityType
@@ -71,6 +68,17 @@ public class BattlefieldRecipeJEI {
     public static void reloadCache() {
         cachedRecipes = null;
         generateServerRecipes();
+    }
+
+    public static List<ItemStack> getInput(EntityType<?> entityType, ServerLevel level) {
+        List<ItemStack> list = new ArrayList<>();
+        ItemStack egg = getEgg(entityType);
+        if (!egg.isEmpty())
+            list.add(egg);
+        ItemStack gem = getGem(entityType, level);
+        if (!gem.isEmpty())
+            list.add(gem);
+        return list;
     }
 
     public static ItemStack getGem(EntityType<?> entityType, ServerLevel level) {
@@ -127,14 +135,14 @@ public class BattlefieldRecipeJEI {
             for (LootPoolEntryContainer entryContainer : pool.entries) {
                 entryContainer.expand(context, entry -> entry.createItemStack(item -> {
                     item.setCount(1);
-                    if (!item.isEmpty()) {
+                    if (!item.isEmpty() && !item.is(OccultismTags.Items.BATTLEFIELD_DENY_LIST)) {
                         items.add(item.copy());
                     }
                 }, context));
             }
         }
         if (entity instanceof LivingEntity living &&  living.getExperienceReward(level, killerEntity) > 0)
-           items.add(new ItemStack(Items.EXPERIENCE_BOTTLE));
+            items.add(new ItemStack(Items.EXPERIENCE_BOTTLE));
 
         return items;
     }
@@ -148,12 +156,8 @@ public class BattlefieldRecipeJEI {
         return soulStacks;
     }
 
-    public ItemStack getInputItem() {
+    public List<ItemStack> getInputItem() {
         return inputItem;
-    }
-
-    public ItemStack getSpawnEgg() {
-        return spawnEgg;
     }
 
     public List<ItemStack> getOutputItems() {
@@ -173,8 +177,10 @@ public class BattlefieldRecipeJEI {
     }
 
     public static void encode(BattlefieldRecipeJEI recipe, RegistryFriendlyByteBuf output) {
-        ItemStack.OPTIONAL_STREAM_CODEC.encode(output, recipe.getInputItem());
-        ItemStack.OPTIONAL_STREAM_CODEC.encode(output, recipe.getSpawnEgg());
+        output.writeInt(recipe.inputItem.size());
+        for (ItemStack inputItem : recipe.getInputItem()) {
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(output, inputItem);
+        }
         output.writeInt(recipe.outputItems.size());
         for (ItemStack outputItem : recipe.getOutputItems()) {
             ItemStack.OPTIONAL_STREAM_CODEC.encode(output, outputItem);
@@ -187,8 +193,11 @@ public class BattlefieldRecipeJEI {
     }
 
     public static BattlefieldRecipeJEI decode(RegistryFriendlyByteBuf input) {
-        ItemStack inputItem = ItemStack.OPTIONAL_STREAM_CODEC.decode(input);
-        ItemStack spawnEgg = ItemStack.OPTIONAL_STREAM_CODEC.decode(input);
+        List<ItemStack> inputItems = new ArrayList<>();
+        int inputItemsCount = input.readInt();
+        for (int i = 0; i < inputItemsCount; ++i) {
+            inputItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
+        }
         List<ItemStack> outputItems = new ArrayList<>();
         int outputItemsCount = input.readInt();
         for (int i = 0; i < outputItemsCount; ++i) {
@@ -200,7 +209,7 @@ public class BattlefieldRecipeJEI {
             soulItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         EntityType<?> entityType = EntityType.STREAM_CODEC.decode(input);
-        return new BattlefieldRecipeJEI(inputItem, spawnEgg, outputItems, soulItems, entityType);
+        return new BattlefieldRecipeJEI(inputItems, outputItems, soulItems, entityType);
     }
 
     public static List<BattlefieldRecipeJEI> generateServerRecipes() {

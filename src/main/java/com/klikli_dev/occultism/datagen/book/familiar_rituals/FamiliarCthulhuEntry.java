@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import net.minecraft.world.item.Items;
 
 public class FamiliarCthulhuEntry extends EntryProvider {
 
@@ -22,18 +23,49 @@ public class FamiliarCthulhuEntry extends EntryProvider {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:cthulhu_familiar")
                 .withText(this.context().pageText())
-                .withScale(0.5f)
-                .withOffset(0.3f));
-        this.pageText("**Provides**: [#](ad03fc)Water Breathing[#](), [#](ad03fc)General Coolness[#]() and [#](ad03fc)Prismarine conversion[#]()\n");
+                .withScale(0.8f)
+                .withOffset(-0.3f));
+        this.pageText("Provides General Coolness");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_cthulhu")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("Give a [](item://minecraft:lapis_lazuli) to transform in a [](item://minecraft:prismarine_shard).\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it will act as a mobile light source.\\\nYou receive more prismarine per lapis.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        Give a {0} to transform in a {1}, the efficiency of this conversion depends on Cthulhu''s level.
+                        \\
+                        \\
+                        **Upgrade Behaviour**
+                        \\
+                         When upgraded by a Blacksmith Familiar, it will act as a mobile light source.
+                        """,
+                this.itemLink(Items.LAPIS_LAZULI),
+                this.itemLink(Items.PRISMARINE_SHARD)
+        );
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Default:** Water Breathing.
+                        \\
+                        \\
+                        **Upgraded:** Dolphin Grace.
+                        \\
+                        \\
+                        **Iesnium:** Conduit Power and {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Lord of the Aquatic Depths", "getting_started", "effects@aquatic_lord")
+        );
     }
 
     @Override
@@ -43,7 +75,7 @@ public class FamiliarCthulhuEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Utility | Conversion | Influence";
     }
 
     @Override

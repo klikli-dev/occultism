@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_wormhole_tablet": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_wormhole_tablet"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_wormhole_tablet.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_wormhole_tablet.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_wormhole_tablet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

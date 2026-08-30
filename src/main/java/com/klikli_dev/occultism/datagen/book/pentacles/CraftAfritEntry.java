@@ -54,7 +54,18 @@ public class CraftAfritEntry extends EntryProvider {
                 - {5}
                 - {6}
                 - {7}
-                """, this.entryLink("Dimensional Battlefield", "crafting_rituals", "dimensional_battlefield"), this.entryLink("Iesnium Ritual Bowl", "crafting_rituals", "craft_iesnium_sacrificial_bowl"), this.entryLink("Iesnium Butcher Knife", "crafting_rituals", "iesnium_butcher_knife"), this.entryLink("Storage Stabilizer Tier 3", "crafting_rituals", "craft_stabilizer_tier3"), this.entryLink("Afrit Deep Ore Miner", "crafting_rituals", "craft_afrit_miner"), this.entryLink("Artisanal Ritual Satchel", "crafting_rituals", "artisanal_ritual_satchel"), this.entryLink("Repair Items", "crafting_rituals", "repair"), this.entryLink("Whiterite Dust", "pentacles", "black_chalk"));
+                - {8}
+                """,
+                this.entryLink("Whiterite Dust", "crafting_rituals", "craft_witherite_dust"),
+                this.entryLink("Artisanal Ritual Satchel", "crafting_rituals", "artisanal_ritual_satchel"),
+                this.entryLink("Flaming Paste", "crafting_rituals", "craft_flaming_paste"),
+                this.entryLink("Iesnium Ritual Bowl", "crafting_rituals", "craft_iesnium_sacrificial_bowl"),
+                this.entryLink("Iesnium Butcher Knife", "crafting_rituals", "iesnium_butcher_knife"),
+                this.entryLink("Dimensional Battlefield", "crafting_rituals", "dimensional_battlefield"),
+                this.entryLink("Afrit Deep Ore Miner", "crafting_rituals", "craft_afrit_miner"),
+                this.entryLink("Storage Stabilizer Tier 3", "crafting_rituals", "craft_stabilizer_tier3"),
+                this.entryLink("Repair Items", "crafting_rituals", "repair")
+        );
 
     }
 

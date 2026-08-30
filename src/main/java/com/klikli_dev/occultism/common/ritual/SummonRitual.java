@@ -25,14 +25,13 @@ package com.klikli_dev.occultism.common.ritual;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -61,24 +60,19 @@ public class SummonRitual extends Ritual {
     }
 
     /**
-     * Consumes the activation item and copies over the NBT:
+     * Check if the result is a book of calling or just a placeholder.
      *
-     * @param activationItem the activation item.
-     * @return return the bound book of calling with the nbt from the activation item.
+     * @return return the book of calling or an empty stack.
      */
-    public ItemStack getBookOfCallingBound(RegistryAccess registryAccess, ItemStack activationItem) {
+    public ItemStack getBookOfCallingBound() {
         ItemStack result = this.recipe.getResult().copy();
-        if (result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()
-                || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
-                || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()
-                || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()
-                || result.getItem() == OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()) {
-            //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
-            //https://github.com/klikli-dev/occultism/issues/183
-
-            if (!activationItem.isComponentsPatchEmpty()) {
-                result.applyComponents(activationItem.getComponents());
-            }
+        if (result.getItem() instanceof BookOfCallingItem) {
+            //initially to fix https://github.com/klikli-dev/occultism/issues/183
+            //currently disabled because Minecraft 26.1 retained the texture and name of the book of binding
+            //there's no relevant component to keep, and it's confusing players
+            //if (!activationItem.isComponentsPatchEmpty()) {
+            //    result.applyComponents(activationItem.getComponents());
+            //}
             return result;
         } else {
             return ItemStack.EMPTY;
@@ -91,16 +85,17 @@ public class SummonRitual extends Ritual {
      * @param bookOfCalling the book of calling to link to the spirit and give to the player.
      * @param spirit        the spirit to link to the book.
      * @param player        the player to give the book to.
+     * @return ItemStack: configured book of calling. Empty if the player is nonnull (give directly to the player)
      */
-    public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, @Nullable Player player) {
+    public ItemStack finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, @Nullable Player player) {
         ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUUID());
         ItemNBTUtil.setBoundSpiritName(bookOfCalling, spirit.getName().getString());
 
-        if (player != null)
+        if (player != null) {
             ItemTransferUtil.giveItemToPlayer(player, bookOfCalling);
-        else {
-            this.dropResult(spirit.level(), spirit.blockPosition(), null, null, bookOfCalling, true);
+            return ItemStack.EMPTY;
         }
+        return bookOfCalling;
     }
 
     /**
@@ -136,7 +131,7 @@ public class SummonRitual extends Ritual {
 
         ItemStack copy = activationItem.copy();
         //prepare active book of calling
-        ItemStack result = this.getBookOfCallingBound(level.registryAccess(), activationItem);
+        ItemStack result = this.getBookOfCallingBound();
         activationItem.shrink(1); //remove original activation item.
 
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
@@ -158,13 +153,10 @@ public class SummonRitual extends Ritual {
 
                 //set up the book of calling
                 if (result != ItemStack.EMPTY && living instanceof SpiritEntity)
-                    this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
+                    result = this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
             }
         }
-        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
-        ItemNBTUtil.setBoundSpiritName(flame,
-                BuiltInRegistries.ITEM.getKey(this.recipe.getRitualDummy().getItem()).getPath().replace("ritual_dummy/", ""));
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 
     protected EntityType<?> getEntityToSummon(Level level) {

@@ -31,6 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
@@ -147,8 +148,8 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         }
 
         public boolean mayPlace(ItemStack stack) {
-            this.arena.mobHealth = 0;
-            return stack.has(DataComponents.ATTRIBUTE_MODIFIERS);
+            this.arena.mobHealth = this.arena.maxMobLife;
+            return stack.is(Tags.Items.TOOLS);
         }
     }
 
@@ -161,7 +162,7 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
         }
 
         public boolean mayPlace(ItemStack stack) {
-            this.arena.mobHealth = 0;
+            this.arena.mobHealth = this.arena.maxMobLife;
             return stack.has(DataComponents.ENTITY_DATA);
         }
     }

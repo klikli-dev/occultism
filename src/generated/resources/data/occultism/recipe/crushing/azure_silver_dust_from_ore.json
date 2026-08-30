@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/azure_silver",
   "result": {
     "type": "occultism:tag",
-    "count": 2,
+    "count": 3,
     "tag": "c:dusts/azure_silver"
   }
 }

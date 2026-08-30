@@ -25,14 +25,15 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
+import com.klikli_dev.occultism.common.item.familiar.FamiliarCurio;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
-import com.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -62,6 +63,7 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
@@ -75,6 +77,7 @@ public class PlayerEventHandler {
 
     private static final ItemAbility LIGHT_FIRE = ItemAbility.get("light_fire");
     private static final ItemAbility LIGHT_CAMPFIRE = ItemAbility.get("light_campfire");
+    private static final ItemAbility LIGHT_STARTER = ItemAbility.get("firestarter_light");
 
     //region Static Methods
     @SubscribeEvent
@@ -85,9 +88,11 @@ public class PlayerEventHandler {
     }
 
     private static void spiritFire(RightClickBlock event) {
-        boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
+        boolean isFlintAndSteel = event.getItemStack().is(Tags.Items.TOOLS_IGNITER);
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
-        boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE) || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE);
+        boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE)
+                || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE)
+                || event.getItemStack().canPerformAction(LIGHT_STARTER);
 
         if (isFlintAndSteel || isFireCharge || canLightFire) {
             //find if there is any datura
@@ -184,17 +189,17 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void onPlayerRightClickEntity(EntityInteract event) {
         ItemStack stack = event.getItemStack();
-        if (stack.getItem() instanceof SoulGemItem soulGemItem) {
+        if (stack.is(OccultismTags.Items.BYPASS_INTERACTION)) {
             //called from here to bypass sitting entity's sit command.
             if (event.getTarget() instanceof LivingEntity livingEntity
-                    && soulGemItem.interactLivingEntity(stack, event.getEntity(),
+                    && stack.getItem().interactLivingEntity(stack, event.getEntity(),
                     livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
             //force for multipart entities
             if (event.getTarget() instanceof PartEntity<?> partEntity
                     && partEntity.getParent() instanceof LivingEntity livingEntity
-                    && soulGemItem.interactLivingEntity(stack, event.getEntity(),
+                    && stack.getItem().interactLivingEntity(stack, event.getEntity(),
                     livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
@@ -205,13 +210,21 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void spiritIesniumDamage(LivingIncomingDamageEvent event) {
         var entity = event.getEntity();
-        if (entity.getType().builtInRegistryHolder().is(Entities.HEALED_BY_OTHERWORLD_FRUIT)
-                && event.getSource().getWeaponItem() != null
-                && event.getSource().getWeaponItem().is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)) {
-            event.setAmount(event.getAmount() * 3);
-            if (event.getEntity().getName().contains(Component.literal("EqisEdu"))) //You found an Easter Egg
-                event.setAmount(250918); //Instantly kill any spirit with this collaborator name
-            //Release date (YY/MM/DD) of a video sacrificing EqisEdu with powerful butcher knife for a ritual
+        var weapon = event.getSource().getWeaponItem();
+        if (entity.getType().builtInRegistryHolder().is(Entities.HEALED_BY_OTHERWORLD_FRUIT) && weapon != null) {
+            if (weapon.getItem() instanceof FamiliarCurio) {
+                if (ItemNBTUtil.getOccupied(weapon)) {
+                    event.setAmount(event.getAmount() * 1.5F);
+                } else {
+                    event.setAmount(event.getAmount() * 1.25F);
+                }
+            }
+            if (weapon.is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM)) {
+                event.setAmount(event.getAmount() * 3);
+                if (event.getEntity().getName().contains(Component.literal("EqisEdu"))) //You found an Easter Egg
+                    event.setAmount(250918); //Instantly kill any spirit with this collaborator name
+                //Release date (YY/MM/DD) of a video sacrificing EqisEdu with powerful butcher knife for a ritual
+            }
         }
     }
     //endregion Static Methods

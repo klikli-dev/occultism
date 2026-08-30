@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "occultism:flaming_paste",
+    "#c:rods/wooden"
+  ],
+  "result": {
+    "id": "minecraft:blaze_rod"
+  }
+}

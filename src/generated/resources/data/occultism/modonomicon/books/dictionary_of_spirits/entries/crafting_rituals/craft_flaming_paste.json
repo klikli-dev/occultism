@@ -1,0 +1,35 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:crafting_rituals",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/craft_afrit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.name"
+        }
+      ]
+    }
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_flaming_paste.description",
+  "icon": {
+    "id": "occultism:flaming_paste"
+  },
+  "id": "occultism:crafting_rituals/craft_flaming_paste",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_flaming_paste.name",
+  "parents": [
+    {
+      "entry": "occultism:crafting_rituals/craft_gray_paste"
+    }
+  ],
+  "sort_number": 38,
+  "x": 0,
+  "y": 6
+}

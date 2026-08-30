@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "advanced_anvil",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.advanced_anvil.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.advanced_anvil.title"
+}

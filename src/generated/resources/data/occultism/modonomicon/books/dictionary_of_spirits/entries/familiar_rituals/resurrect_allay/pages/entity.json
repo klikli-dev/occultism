@@ -6,6 +6,7 @@
   "entity_id": "minecraft:allay",
   "entity_name": "",
   "id": "entity",
+  "offset": -0.4,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.entity.text"
 }

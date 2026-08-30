@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_zombie_horse",
+  "recipe_id_1": "occultism:ritual/resurrect_zombie_horse",
+  "sort_number": 3
+}

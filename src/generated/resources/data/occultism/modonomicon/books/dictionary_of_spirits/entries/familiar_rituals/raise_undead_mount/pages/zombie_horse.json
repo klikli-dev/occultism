@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "minecraft:zombie_horse",
+  "entity_name": "",
+  "id": "zombie_horse",
+  "offset": -0.4,
+  "scale": 0.6,
+  "sort_number": 2,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.zombie_horse.text"
+}

@@ -37,13 +37,10 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Clearable;
@@ -58,7 +55,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueInput;
@@ -73,6 +70,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.Tags.EntityTypes;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
@@ -95,11 +93,12 @@ import java.util.function.Consumer;
 
 public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity implements MenuProvider, Clearable {
 
-    private static final int DEFAULT_MAX_TIME = 20 * 20 * 20;
     private static final int DEFAULT_MAX_LUCK = 16;
     private static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTMENT = ResourceKey.create(
             Registries.ENCHANTMENT, Identifier.parse("evilcraft:unusing"));
     private final float BUTCHER_HURT_CHANCE = (float) Occultism.SERVER_CONFIG.itemSettings.butcherHurtChance.getAsDouble();
+    private final float BUTCHER_LIFE_MULT = (float) Occultism.SERVER_CONFIG.itemSettings.butcherLifeMultiplier.getAsDouble();
+    private final float BUTCHER_FRAC_BONUS = (float) Occultism.SERVER_CONFIG.itemSettings.butcherFractureMultiplier.getAsDouble();
     public int mobHealth;
     public int maxMobLife;
     public int hitTimer;
@@ -121,12 +120,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         @Override
         protected void onContentsChanged(int slot, ItemStack previousContents) {
             DimensionalBattlefieldBlockEntity.this.setChanged();
+            DimensionalBattlefieldBlockEntity.this.markNetworkDirty();
         }
     };
     public ItemStacksResourceHandler inputWeaponHandler = new ItemStacksResourceHandler(1) {
         @Override
         public boolean isValid(int slot, ItemResource resource) {
-            return resource.toStack().has(DataComponents.ATTRIBUTE_MODIFIERS);
+            return resource.toStack().is(Tags.Items.TOOLS);
         }
 
         @Override
@@ -151,10 +151,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     public ResourceHandler<ItemResource> combinedHandler = new CombinedResourceHandler<>(this.inputHandler, this.bufferedOutputHandler);
     public ResourceHandler<ItemResource> jadeWrapper = RangedResourceHandler.of(this.combinedHandler, 0, 8);
     private Holder<Enchantment> UNUSING;
-    private Holder<Enchantment> SHARPNESS;
-    private Holder<Enchantment> SMITE;
-    private Holder<Enchantment> BANE_OF_ARTHROPODS;
-    private Holder<Enchantment> IMPALING;
+    private Holder<Enchantment> FRACTURE_SOUL;
     private boolean cachedEnchantment = false;
     private FakePlayer cachedFakePlayer;
     private ItemStack cachedSoul;
@@ -224,14 +221,15 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         super.saveNetwork(output);
     }
 
-    public void tick() {
-        Level level = this.level;
-        if (level == null)
-            return;
+    private void resetTime() {
+        this.mobHealth = 0;
+        this.wait = true;
+    }
 
-        if (level.isClientSide()) {
-            if (this.mobHealth > 0 && level.getGameTime() % 50 == 0) {
-                level.addParticle(
+    public void tick() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            if (this.hitTimer == 1 && this.level != null) {
+                this.level.addParticle(
                         ParticleTypes.ANGRY_VILLAGER,
                         this.getBlockPos().getX() + 0.5f,
                         this.getBlockPos().getY(),
@@ -242,7 +240,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
         }
 
-        if (level.hasNeighborSignal(this.getBlockPos()))
+        if (serverLevel.hasNeighborSignal(this.getBlockPos()))
             return;
 
         ItemStack soul = getStack(this.inputSoulHandler, 0);
@@ -250,8 +248,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         ItemStack fuel = getStack(this.inputFuelHandler, 0);
 
         if (soul.isEmpty() || weapon.isEmpty()) {
-            this.mobHealth = 0;
-            this.wait = true;
+            this.resetTime();
             return;
         }
 
@@ -260,8 +257,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (weapon.getDamageValue() >= weapon.getMaxDamage() - 6 &&
                 this.UNUSING != null && weapon.getEnchantmentLevel(this.UNUSING) > 0) {
-            this.mobHealth = 0;
-            this.wait = true;
+            this.resetTime();
             return;
         }
 
@@ -270,8 +266,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                 || this.cachedWeapon == null
                 || !ItemStack.isSameItemSameComponents(this.cachedSoul, soul)
                 || !this.cachedWeapon.is(weapon.getItem())) { //weapon damage in process, changing the components
-            this.setStoredLivingEntity(soul, (ServerLevel) level);
-            this.setMaxMobLife();
+            this.setStoredLivingEntity(soul, serverLevel);
+            this.setMaxMobLife(serverLevel);
             this.cachedSoul = soul.copy();
             this.cachedWeapon = weapon.copy();
         }
@@ -279,8 +275,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
 
         if (fuel.isEmpty() || fuelValue * fuel.getCount() < this.soulValue) {
-            this.mobHealth = 0;
-            this.wait = true;
+            this.resetTime();
             return;
         }
 
@@ -296,8 +291,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         this.hitTimer = this.maxHitTimer;
         this.mobHealth--;
 
-        if (level.getRandom().nextFloat() < this.BUTCHER_HURT_CHANCE) {
-            weapon.hurtAndBreak(1, (ServerLevel) level, null, item -> {
+        if (serverLevel.getRandom().nextFloat() < this.BUTCHER_HURT_CHANCE) {
+            weapon.hurtAndBreak(1, serverLevel, null, item -> {
             });
             this.inputWeaponHandler.set(0, ItemResource.of(weapon), weapon.getCount());
         }
@@ -326,10 +321,10 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     }
 
     public void defeat(ItemStack soul, int luck) {
-        if (this.level == null || this.level.isClientSide())
+        if (!(this.level instanceof ServerLevel serverLevel))
             return;
 
-        if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.FAIL_CHANCE, 0F))
+        if (serverLevel.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.FAIL_CHANCE, 0F))
             return;
 
         LivingEntity entity = this.storedLivingEntity;
@@ -341,7 +336,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             rolls = Math.max(1, (int) (rolls / 3F));
             EntityType<?> baseMob = possessedMob.basedMob();
             if (baseMob != null)
-                entity = (LivingEntity) baseMob.create(this.level, EntitySpawnReason.MOB_SUMMONED);
+                entity = (LivingEntity) baseMob.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
         }
         if (entity == null)
             return;
@@ -352,7 +347,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (RandomSource.create().nextIntBetweenInclusive(0, 99) < (luck * luck) % 100)
             rolls++;
 
-        if (this.level.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F) / luck) {
+        if (serverLevel.getRandom().nextFloat() < soul.getOrDefault(OccultismDataComponents.CONSUME_CHANCE, 0F) / luck) {
             soul.shrink(1);
             this.inputSoulHandler.set(0, ItemResource.of(soul), soul.getCount());
         }
@@ -360,7 +355,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         BlockPos pos = this.getBlockPos();
         entity.setPos(Vec3.atCenterOf(pos));
-        LootParams lootparams = this.setLootParams(entity, luck);
+        LootParams lootparams = this.setLootParams(entity, luck, serverLevel);
 
         if (this.storedLootTable != null) {
             NeoForge.EVENT_BUS.addListener(this.entityJoinLevelEventListener);
@@ -369,21 +364,22 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                     Collection<ItemEntity> dropsCollection = new ArrayList<>();
                     ObjectArrayList<ItemStack> loot = this.storedLootTable.getRandomItems(lootparams);
                     for (ItemStack itemStack : loot) {
-                        ItemEntity itemEntity = new ItemEntity(this.level, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+                        ItemEntity itemEntity = new ItemEntity(serverLevel, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                         dropsCollection.add(itemEntity);
                     }
                     LivingDropsEvent event = new LivingDropsEvent(entity, lootparams.contextMap().getOrThrow(LootContextParams.DAMAGE_SOURCE), dropsCollection, true);
                     NeoForge.EVENT_BUS.post(event);
                     if (!event.isCanceled())
                         for (ItemEntity item : event.getDrops())
-                            ItemTransferUtil.insertItemStacked(currentHandler, item.getItem(), false);
+                            if (!item.getItem().is(OccultismTags.Items.BATTLEFIELD_DENY_LIST))
+                                ItemTransferUtil.insertItemStacked(currentHandler, item.getItem(), false);
                 }
             } finally {
                 NeoForge.EVENT_BUS.unregister(this.entityJoinLevelEventListener);
             }
         }
 
-        this.xpStored += entity.getExperienceReward((ServerLevel) this.level, this.getFakePlayer());
+        this.xpStored += entity.getExperienceReward(serverLevel, this.getFakePlayer());
         if (this.xpStored > 9) {
             int bottles = (int) (this.xpStored / 10F);
             this.xpStored -= bottles * 10;
@@ -411,14 +407,14 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         return Math.max(signalI, signalO / 4);
     }
 
-    public void setStoredLivingEntity(ItemStack stack, ServerLevel level) {
+    public void setStoredLivingEntity(ItemStack stack, ServerLevel serverLevel) {
         this.storedLivingEntity = null;
-        if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA) && this.level != null) {
+        if (!stack.isEmpty() && stack.has(DataComponents.ENTITY_DATA)) {
             // Get entity type directly from TypedEntityData - the "id" field is stripped from the NBT
             // by TypedEntityData.of() since the type is already stored in the TypedEntityData itself
             var typedEntityData = Objects.requireNonNull(stack.get(DataComponents.ENTITY_DATA));
             EntityType<?> entityType = typedEntityData.type();
-            Entity tempEntity = entityType.create(this.level, EntitySpawnReason.MOB_SUMMONED);
+            Entity tempEntity = entityType.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
             if (tempEntity instanceof LivingEntity livingEntity) {
                 livingEntity.load(TagValueInput.create(ProblemReporter.DISCARDING, livingEntity.registryAccess(), typedEntityData.copyTagWithoutId()));
                 this.storedLivingEntity = livingEntity;
@@ -427,27 +423,25 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
         if (this.storedLivingEntity != null) {
             if (this.storedLivingEntity instanceof PossessedMob possessed && !stack.is(OccultismItems.TRINITY_GEM_ITEM)) {
                 EntityType<?> baseMob = possessed.basedMob();
-                if (baseMob != null && baseMob.create(level, EntitySpawnReason.MOB_SUMMONED) instanceof LivingEntity entity) {
+                if (baseMob != null && baseMob.create(serverLevel, EntitySpawnReason.MOB_SUMMONED) instanceof LivingEntity entity) {
                     this.storedLivingEntity = entity;
                 }
             }
             ResourceKey<LootTable> customLoot = ResourceKey.create(Registries.LOOT_TABLE,
                     Identifier.fromNamespaceAndPath(Occultism.MODID, "battlefield/"
                             + BuiltInRegistries.ENTITY_TYPE.getKey(this.storedLivingEntity.getType()).toString().replace(":","/")));
-            this.storedLootTable = level.getServer().reloadableRegistries().getLootTable(customLoot);
+            this.storedLootTable = serverLevel.getServer().reloadableRegistries().getLootTable(customLoot);
             if (this.storedLootTable == LootTable.EMPTY && this.storedLivingEntity.getLootTable().isPresent())
-                this.storedLootTable = level.getServer().reloadableRegistries().getLootTable(this.storedLivingEntity.getLootTable().get());
+                this.storedLootTable = serverLevel.getServer().reloadableRegistries().getLootTable(this.storedLivingEntity.getLootTable().get());
         } else {
             this.storedLootTable = null;
         }
     }
 
-    public LootParams setLootParams(LivingEntity entity, float luck) {
-        ServerLevel serverLevel = (ServerLevel) this.level;
+    public LootParams setLootParams(LivingEntity entity, float luck, ServerLevel serverLevel) {
         FakePlayer fakePlayer = this.getFakePlayer();
         ItemStack weapon = getStack(this.inputWeaponHandler, 0);
         fakePlayer.setItemInHand(InteractionHand.MAIN_HAND, weapon);
-        assert serverLevel != null;
         return new Builder(serverLevel)
                 .withParameter(LootContextParams.THIS_ENTITY, entity)
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.getBlockPos()))
@@ -460,32 +454,30 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                 .create(LootContextParamSets.ENTITY);
     }
 
-    public void setMaxMobLife() {
-        if (this.storedLivingEntity == null || this.level == null)
+    public void setMaxMobLife(ServerLevel serverLevel) {
+        if (this.storedLivingEntity == null)
             return;
 
         ItemStack soul = getStack(this.inputSoulHandler, 0);
         ItemStack weapon = getStack(this.inputWeaponHandler, 0);
         if (soul.isEmpty() || weapon.isEmpty())
             return;
-        int health = DEFAULT_MAX_TIME;
-        this.maxMobLife = health;
-        if (soul.has(DataComponents.ENTITY_DATA)) {
-            health = (int) this.storedLivingEntity.getMaxHealth();
-            CompoundTag entityData = Objects.requireNonNull(soul.get(DataComponents.ENTITY_DATA)).copyTagWithoutId();
-            if (entityData.contains("attributes")) {
-                ListTag attrs = entityData.getListOrEmpty("attributes");
-                for (int i = 0; i < attrs.size(); i++) {
-                    CompoundTag attr = attrs.getCompoundOrEmpty(i);
-                    if ("minecraft:generic.max_health".equals(attr.getStringOr("id", ""))) {
-                        health = (int) attr.getDoubleOr("base", 0.0);
-                    }
-                }
-            }
-            this.soulValue = soul.has(OccultismDataComponents.SOUL_VALUE) ? (int) (health * 0.5) : health;
-            health *= Occultism.SERVER_CONFIG.itemSettings.butcherLifeMultiplier.getAsInt();
+
+        //Setup soulValue and mob health
+        float health = this.storedLivingEntity.getMaxHealth();
+        this.soulValue = (int) (soul.has(OccultismDataComponents.SOUL_VALUE) ? (health * 0.5) : health);
+        health *= BUTCHER_LIFE_MULT;
+        if (weapon.isEnchanted()) { //Custom health modifier
+            int fsLVL = weapon.getEnchantmentLevel(this.FRACTURE_SOUL);
+            if (fsLVL > 0)
+                health *= Math.clamp(1-(fsLVL * BUTCHER_FRAC_BONUS), 0, 1);
+        }
+        Holder<EntityType<?>> entityTypeHolder = this.storedLivingEntity.typeHolder(); //Boss penality
+        if (entityTypeHolder.is(EntityTypes.BOSSES) && !soul.is(OccultismItems.TRINITY_GEM_ITEM)) {
+            health *= 3;
         }
 
+        //Setup attackSpeed
         double attackSpeed = 4.0;
         if (weapon.has(DataComponents.ATTRIBUTE_MODIFIERS)) {
             var mods = weapon.get(DataComponents.ATTRIBUTE_MODIFIERS);
@@ -496,6 +488,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                         attackSpeed += modifier.amount();
                 }
         }
+
+        //Setup attackDamage
         double attackDamage = 1.0;
         if (weapon.has(DataComponents.ATTRIBUTE_MODIFIERS)) {
             var mods = weapon.get(DataComponents.ATTRIBUTE_MODIFIERS);
@@ -506,25 +500,18 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                         attackDamage += modifier.amount();
                 }
         }
-        Holder<EntityType<?>> entityTypeHolder = this.storedLivingEntity.typeHolder();
-        if (weapon.isEnchanted()) {
-            attackDamage += weapon.getEnchantmentLevel(this.SHARPNESS);
-            if (entityTypeHolder.is(EntityTypeTags.SENSITIVE_TO_SMITE))
-                attackDamage += 2.5 * weapon.getEnchantmentLevel(this.SMITE);
-            if (entityTypeHolder.is(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS))
-                attackDamage += 2.5 * weapon.getEnchantmentLevel(this.BANE_OF_ARTHROPODS);
-            if (entityTypeHolder.is(EntityTypeTags.SENSITIVE_TO_IMPALING))
-                attackDamage += 2.5 * weapon.getEnchantmentLevel(this.IMPALING);
-        }
-        if (weapon.is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM) &&
-                (entityTypeHolder.is(Entities.HEALED_BY_OTHERWORLD_FRUIT)
-                        || entityTypeHolder.is(EntityTypes.BOSSES))) {
+        attackDamage = EnchantmentHelper.modifyDamage(serverLevel, weapon, this.storedLivingEntity,
+                this.storedLivingEntity.damageSources().generic(), (float) attackDamage);
+        if (weapon.is(OccultismTags.Items.TOOLS_KNIFE_IESNIUM) && //Custom vulnerability
+                (entityTypeHolder.is(Entities.HEALED_BY_OTHERWORLD_FRUIT) || entityTypeHolder.is(EntityTypes.BOSSES))) {
             attackDamage *= 3;
         }
+
+        //Final setups
         if (attackSpeed == 0 || attackDamage == 0)
             return;
         int life = Math.max((int) (health / attackDamage), 1);
-        int hitSpeed = (int) (40 / attackSpeed);
+        int hitSpeed = Math.max((int) (40 / attackSpeed), 1);
         this.maxMobLife = life;
         this.mobHealth = life;
         this.maxHitTimer = hitSpeed;
@@ -542,15 +529,13 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             return;
 
         if (entity instanceof ItemEntity item) {
-            ItemStack remainder = ItemTransferUtil.insertItemStacked(this.getCurrentHandler(), item.getItem(), false);
-            if (remainder.isEmpty()) {
+            ItemStack remainder = item.getItem().is(OccultismTags.Items.BATTLEFIELD_DENY_LIST) ?
+                    ItemStack.EMPTY :
+                    ItemTransferUtil.insertItemStacked(this.getCurrentHandler(), item.getItem(), false);
+            item.setItem(remainder);
+            if (remainder.isEmpty())
                 event.setCanceled(true);
-            } else {
-                item.setItem(remainder);
-            }
-        }
-
-        if (entity instanceof ExperienceOrb orb) {
+        } else if (entity instanceof ExperienceOrb orb) {
             this.xpStored += orb.getValue();
             event.setCanceled(true);
         }
@@ -567,10 +552,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
     private void setCachedEnchantment() {
         if (this.level != null) {
             this.UNUSING = this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(EVILCRAFT_UNUSING_ENCHANTMENT).orElse(null);
-            this.SHARPNESS = this.level.holderOrThrow(Enchantments.SHARPNESS);
-            this.SMITE = this.level.holderOrThrow(Enchantments.SMITE);
-            this.BANE_OF_ARTHROPODS = this.level.holderOrThrow(Enchantments.BANE_OF_ARTHROPODS);
-            this.IMPALING = this.level.holderOrThrow(Enchantments.IMPALING);
+            this.FRACTURE_SOUL = this.level.holderOrThrow(OccultismEnchantments.FRACTURE_SOUL);
             this.cachedEnchantment = true;
         }
     }

@@ -37,6 +37,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class UpgradeRitual extends Ritual {
 
     public UpgradeRitual(RitualRecipe recipe) {
@@ -50,7 +52,8 @@ public class UpgradeRitual extends Ritual {
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
-        ItemStack baseStack = blockEntity.consumedIngredients.getFirst().copy();
+        List<ItemStack> consumed = blockEntity.consumedIngredients;
+        ItemStack baseStack = consumed.isEmpty() ? ItemStack.EMPTY : blockEntity.consumedIngredients.getFirst().copy();
 
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
@@ -85,8 +88,7 @@ public class UpgradeRitual extends Ritual {
                     && type != OccultismDataComponents.OCCUPIED.get()
                     && type != OccultismDataComponents.FAMILIAR_TYPE.get()
                     && type != OccultismDataComponents.FAMILIAR_DATA.get()
-                    && type != OccultismDataComponents.OTHERWORLD_GOGGLES.get()
-                    && type != OccultismDataComponents.OTHERWORLD_TOOL_TIER.get()
+                    && type != OccultismDataComponents.UNBREAKABLE.get()
                     && type != OccultismDataComponents.STORED_XP.get()
                     && type != OccultismDataComponents.LINKED_PLAYER_NAME.get()
                     && type != OccultismDataComponents.LINKED_PLAYER_UUID.get()
@@ -98,8 +100,8 @@ public class UpgradeRitual extends Ritual {
         baseMap = baseStack.getComponents();
 
         result.applyComponents(baseMap);
-        if (copy.has(OccultismDataComponents.SPIRIT_NAME))
+        if (result.has(OccultismDataComponents.SPIRIT_NAME))
             ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }

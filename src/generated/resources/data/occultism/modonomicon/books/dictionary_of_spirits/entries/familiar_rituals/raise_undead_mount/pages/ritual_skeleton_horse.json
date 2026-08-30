@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_skeleton_horse",
+  "recipe_id_1": "occultism:ritual/resurrect_skeleton_horse",
+  "sort_number": 5
+}

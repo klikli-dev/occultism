@@ -1,0 +1,29 @@
+{
+  "layers": {
+    "horse_body": [
+      {
+        "texture": "occultism:attuned_crystal"
+      }
+    ],
+    "humanoid": [
+      {
+        "texture": "occultism:attuned_crystal"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "occultism:attuned_crystal"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "occultism:attuned_crystal"
+      }
+    ],
+    "nautilus_body": [
+      {
+        "texture": "occultism:attuned_crystal"
+      }
+    ]
+  }
+}

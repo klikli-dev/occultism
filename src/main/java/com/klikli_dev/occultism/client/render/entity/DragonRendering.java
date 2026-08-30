@@ -83,7 +83,7 @@ public class DragonRendering {
                     0));
             pMatrixStack.translate(0.23, 0.12, 0.0);
 
-            ItemStack sword = new ItemStack(Items.IRON_SWORD);
+            ItemStack sword = dragon.hasIesniumUpgrade() ? new ItemStack(Items.DIAMOND_SWORD) : new ItemStack(Items.IRON_SWORD);
             ItemStackRenderState stackState = new ItemStackRenderState();
             ItemModelResolver resolver = state.itemModelResolver;
             if (resolver != null) {

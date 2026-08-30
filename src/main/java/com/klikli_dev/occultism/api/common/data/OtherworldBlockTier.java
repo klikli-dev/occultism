@@ -26,11 +26,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum OtherworldBlockTier {
-    NONE(0),
-    ONE(1),
-    TWO(2);
+    NONE((byte) 0),
+    ONE((byte) 1),
+    TWO((byte) 2);
 
-    private static final Map<Integer, OtherworldBlockTier> lookup = new HashMap<Integer, OtherworldBlockTier>();
+    private static final Map<Byte, OtherworldBlockTier> lookup = new HashMap<Byte, OtherworldBlockTier>();
 
     static {
         for (OtherworldBlockTier tier : OtherworldBlockTier.values()) {
@@ -38,14 +38,14 @@ public enum OtherworldBlockTier {
         }
     }
 
-    private final int level;
+    private final byte level;
 
-    OtherworldBlockTier(int level) {
+    OtherworldBlockTier(byte level) {
         this.level = level;
     }
 
     //region Static Methods
-    public static OtherworldBlockTier get(int level) {
+    public static OtherworldBlockTier get(byte level) {
         return lookup.get(level);
     }
     //endregion Getter / Setter
@@ -57,7 +57,7 @@ public enum OtherworldBlockTier {
     }
 
     //region Getter / Setter
-    public int getLevel() {
+    public byte getLevel() {
         return this.level;
     }
     //endregion Static Methods

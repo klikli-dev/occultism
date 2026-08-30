@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_boots",
+  "recipe_id_1": "occultism:ritual/craft_infused_boots",
+  "sort_number": 4
+}

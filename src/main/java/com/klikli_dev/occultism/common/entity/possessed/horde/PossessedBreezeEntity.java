@@ -24,10 +24,13 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -43,6 +46,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.breeze.Breeze;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
@@ -69,49 +73,49 @@ public class PossessedBreezeEntity extends Breeze implements PossessedMob {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
+        if (reason == EntitySpawnReason.MOB_SUMMONED && level.getLevel().getGameRules().get(GameRules.SPAWN_MOBS)) {
+            for (int i = 0; i < 5; i++) {
+                WildSpiderEntity entity = OccultismEntities.WILD_SPIDER.get().create(this.level(), EntitySpawnReason.REINFORCEMENT);
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
-        for (int i = 0; i < 5; i++) {
-            WildSpiderEntity entity = OccultismEntities.WILD_SPIDER.get().create(this.level(), EntitySpawnReason.EVENT);
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                level.addFreshEntity(entity);
+                entity.setMaster(this);
+                this.minionsA.add(entity);
+            }
 
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            level.addFreshEntity(entity);
-            entity.setMaster(this);
-            this.minionsA.add(entity);
+            for (int i = 0; i < 5; i++) {
+                WildStrayEntity entity = OccultismEntities.WILD_STRAY.get().create(this.level(), EntitySpawnReason.REINFORCEMENT);
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                level.addFreshEntity(entity);
+                entity.setMaster(this);
+                this.minionsB.add(entity);
+            }
+
+            for (int i = 0; i < 5; i++) {
+                WildCaveSpiderEntity entity = OccultismEntities.WILD_CAVE_SPIDER.get().create(this.level(), EntitySpawnReason.REINFORCEMENT);
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                level.addFreshEntity(entity);
+                entity.setMaster(this);
+                this.minionsC.add(entity);
+            }
         }
-
-        for (int i = 0; i < 5; i++) {
-            WildStrayEntity entity = OccultismEntities.WILD_STRAY.get().create(this.level(), EntitySpawnReason.EVENT);
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
-
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            level.addFreshEntity(entity);
-            entity.setMaster(this);
-            this.minionsB.add(entity);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            WildCaveSpiderEntity entity = OccultismEntities.WILD_CAVE_SPIDER.get().create(this.level(), EntitySpawnReason.EVENT);
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
-
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            level.addFreshEntity(entity);
-            entity.setMaster(this);
-            this.minionsC.add(entity);
-        }
-
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 
@@ -143,6 +147,38 @@ public class PossessedBreezeEntity extends Breeze implements PossessedMob {
         }
 
         super.actuallyHurt(level, source, (float) (amount * (1 - (this.minionsA.size() + this.minionsB.size() + this.minionsC.size()) / 16.0)));
+    }
+
+    @Override
+    public void remove(Entity.RemovalReason reason) {
+        super.remove(reason);
+        if (this.level() instanceof ServerLevel) {
+            if (!this.minionsA.isEmpty()) {
+                this.minionsA.forEach(e -> {
+                    e.setMaster(null);
+                    this.discardMinion(e);
+                });
+            }
+            if (!this.minionsB.isEmpty()) {
+                this.minionsB.forEach(e -> {
+                    e.setMaster(null);
+                    this.discardMinion(e);
+                });
+            }
+            if (!this.minionsC.isEmpty()) {
+                this.minionsC.forEach(e -> {
+                    e.setMaster(null);
+                    this.discardMinion(e);
+                });
+            }
+        }
+    }
+
+    private void discardMinion(Entity e) {
+        ((ServerLevel) this.level()).sendParticles(ParticleTypes.EXPLOSION,
+                e.getX(),e.getY() + 0.5, e.getZ(), 3, 0.0, 0.0, 0.0, 0.0);
+        e.level().playSound(null, e.getOnPos(), OccultismSounds.POOF.get(), SoundSource.HOSTILE, 1, 3);
+        e.remove(RemovalReason.DISCARDED);
     }
 
     public void notifyMinionDeath(WildSpiderEntity minion) {

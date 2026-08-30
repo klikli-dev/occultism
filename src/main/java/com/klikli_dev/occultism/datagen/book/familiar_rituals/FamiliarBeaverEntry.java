@@ -21,17 +21,48 @@ public class FamiliarBeaverEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:beaver_familiar")
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Increased wood break speed[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(0.8f)
+                .withOffset(-0.2f));
+        this.pageText("A well-rounded beaver with experience in various fields, most notably at lumber mills, snack factories, and mattress stores.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_beaver")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("The Beaver familiar will chop down nearby trees when they grow from a sapling into a tree. It can only handle small trees.\n\\\n\\\n**Upgrade Behaviour**\\\nGives free snacks when right-clicked with an empty hand.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        While enabled, the Beaver Familiar will chop down nearby trees
+                         when they grow from a sapling into a tree. It can only handle small trees.
+                        \\
+                        \\
+                        **Upgrade Behaviour**
+                        \\
+                        Gives free snacks when shift-right-clicked with an empty hand.
+                        \\
+                        \\
+                        **Iesnium Behaviour**
+                        \\
+                        While enabled, allows its owner to attack Creakings directly without needing to destroy the Creaking Heart.
+                        """
+        );
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Default:** {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Beaver Harvest", "getting_started", "effects@beaver_harvest")
+        );
     }
 
     @Override
@@ -41,7 +72,7 @@ public class FamiliarBeaverEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Utility";
     }
 
     @Override

@@ -23,11 +23,13 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -68,7 +70,7 @@ public class LootEventHandler {
             MobEffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED);
             if (greed == null)
                 return;
-            event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
+            event.setDroppedExperience((event.getDroppedExperience() * (greed.getAmplifier() + 1)));
         }
     }
 
@@ -85,18 +87,23 @@ public class LootEventHandler {
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
-        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * stack.getCount())
-            repairEquipment(player);
+        int amount = stack.getCount();
+        double chance = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * amount;
+        if (chance > 1) {
+            amount = (int) (amount/Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get());
+            repairEquipment(player, 2 * amount);
+        } else if (player.getRandom().nextDouble() < chance)
+            repairEquipment(player, 2 * amount);
 
         event.setCanPickup(TriState.FALSE);
         entity.remove(RemovalReason.DISCARDED);
     }
 
-    private static void repairEquipment(Player player) {
+    private static void repairEquipment(Player player, int amount) {
         for (ItemStack stack : player.getInventory().getNonEquipmentItems()) {
             if (!stack.isDamaged())
                 continue;
-            stack.setDamageValue(stack.getDamageValue() - 2);
+            stack.setDamageValue(stack.getDamageValue() - amount);
             return;
         }
     }
@@ -108,9 +115,12 @@ public class LootEventHandler {
             return;
 
         if (event.getState().is(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
-            if (player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
-                    || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
-                    || CuriosUtil.hasStaff(player)) {
+            OtherworldBlockTier toolTier = OtherworldUtil.getToolLevel(
+                    player.getItemInHand(player.getUsedItemHand()));
+            OtherworldBlockTier staffTier = CuriosUtil.hasStaff(player) ?
+                    OtherworldBlockTier.TWO : OtherworldBlockTier.NONE;
+
+            if (OtherworldBlockTier.max(toolTier, staffTier) != OtherworldBlockTier.NONE) {
                 Level level = (Level) event.getLevel();
                 BlockPos pos = event.getPos();
                 ItemEntity itementity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(),

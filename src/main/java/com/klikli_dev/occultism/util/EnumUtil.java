@@ -39,7 +39,7 @@ public class EnumUtil {
         return Direction.values()[(currentValue.ordinal() + 1) % Direction.values().length];
     }
 
-    public static int getConfiguredColor(int i) {
+    public static int getConfiguredColor(byte i) {
         return switch (i) {
             case 1 -> Occultism.CLIENT_CONFIG.visuals.lightGrayChalkGlyphColor.get();
             case 2 -> Occultism.CLIENT_CONFIG.visuals.grayChalkGlyphColor.get();

@@ -50,6 +50,6 @@ public class RepairRitual extends Ritual {
 
         result.setDamageValue(0);
 
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
+        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }
