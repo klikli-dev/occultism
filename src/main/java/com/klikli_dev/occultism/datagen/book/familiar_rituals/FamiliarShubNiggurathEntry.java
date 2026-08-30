@@ -41,7 +41,7 @@ public class FamiliarShubNiggurathEntry extends EntryProvider {
                 this.itemLink(Items.GOLDEN_APPLE),
                 this.entryLink("Goat Familiar", "familiar_rituals", "familiar_chimera@goat"),
                 this.color("Forest Biome", ChatFormatting.DARK_PURPLE),
-                this.itemLink(Items.BLACK_DYE),
+                this.itemLink(Items.DYE.black()),
                 this.itemLink(Items.FLINT),
                 this.itemLink(Items.ENDER_EYE),
                 this.color("Shub Niggurath Familiar", ChatFormatting.DARK_PURPLE)

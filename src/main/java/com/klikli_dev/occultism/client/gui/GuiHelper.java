@@ -50,7 +50,7 @@ public class GuiHelper {
     }
 
     public static void openFamiliarTabletGui(Player player){
-        Minecraft.getInstance().setScreen(new FamiliarTabletScreen(player));
+        Minecraft.getInstance().setScreenAndShow(new FamiliarTabletScreen(player));
     }
     //endregion Static Methods
 }

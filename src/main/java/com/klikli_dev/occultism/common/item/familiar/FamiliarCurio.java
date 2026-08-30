@@ -162,7 +162,7 @@ public interface FamiliarCurio {
 
             var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
             familiar.getFamiliarEntity().saveAsPassenger(output);
-            EntityType.loadEntityRecursive(output.buildResult(), level, EntitySpawnReason.LOAD, e -> {
+            EntityType.loadEntityRecursive(output.buildResult(), level, new EntitySpawnRequest(EntitySpawnReason.LOAD, false), e -> {
                 e.setPos(player.getX(), player.getY(), player.getZ());
                 ((IFamiliar) e).setFamiliarOwner(player);
                 level.addFreshEntity(e);
@@ -211,7 +211,7 @@ public interface FamiliarCurio {
             }
 
             for (CompoundTag nbt : this.cachedNbt) {
-                var familiar = (IFamiliar) EntityType.loadEntityRecursive(nbt, level, EntitySpawnReason.LOAD, e -> e);
+                var familiar = (IFamiliar) EntityType.loadEntityRecursive(nbt, level, new EntitySpawnRequest(EntitySpawnReason.LOAD, false), e -> e);
                 if (familiar != null)
                     this.familiars.add(familiar);
             }

@@ -116,7 +116,7 @@ public class FamiliarScrollWidget extends AbstractScrollArea {
         int index = contentY / entryHeight;
         if (index >= 0 && index < entities.size()) {
             selectedEntity = entities.get(index);
-            if (Minecraft.getInstance().screen instanceof FamiliarTabletScreen tabletScreen) {
+            if (Minecraft.getInstance().gui.screen() instanceof FamiliarTabletScreen tabletScreen) {
                 tabletScreen.setSelectedFamiliar(selectedEntity);
             }
         }

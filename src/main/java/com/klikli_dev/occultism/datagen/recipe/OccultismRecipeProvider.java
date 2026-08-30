@@ -1248,7 +1248,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("bsb")
                 .pattern("btb")
                 .pattern("bgb")
-                .define('b', ItemTags.BUTTONS)
+                .define('b', ItemTags.WOODEN_BUTTONS)
                 .define('s', Items.SUNFLOWER)
                 .define('t', OccultismItems.OTHERWORLDLY_TABLET)
                 .define('g', OccultismTags.Items.SPIRIT_ATTUNED_GEM)
