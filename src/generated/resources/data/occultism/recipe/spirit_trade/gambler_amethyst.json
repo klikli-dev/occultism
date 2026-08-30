@@ -2,10 +2,9 @@
   "type": "occultism:spirit_trade",
   "ingredient": "#c:gems",
   "result": {
-    "type": "occultism:weighted_item",
-    "stack": {
-      "id": "minecraft:amethyst_shard"
-    },
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:gems/amethyst",
     "weight": 4
   },
   "trader_id": "occultism:gambler"

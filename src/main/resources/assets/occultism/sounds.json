@@ -34,5 +34,17 @@
       "occultism:poof"
     ],
     "subtitle": "occultism.subtitle.poof"
+  },
+  "coin": {
+    "sounds": [
+      "occultism:coin"
+    ],
+    "subtitle": "occultism.subtitle.coin"
+  },
+  "spirit_fire": {
+    "sounds": [
+      "occultism:spirit_fire"
+    ],
+    "subtitle": "occultism.subtitle.spirit_fire"
   }
 }

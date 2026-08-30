@@ -134,6 +134,18 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
         }
     }
 
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
+        BlockEntity blockentity = level.getBlockEntity(pos);
+        return (blockentity instanceof SacrificialBowlBlockEntity be) ?
+                be.itemStackHandler.getResource(0).toStack().isEmpty() ? 0 : 15
+                : 0;
+    }
 
     @Override
     @SuppressWarnings("deprecation")

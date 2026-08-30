@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "occultism:goat_familiar",
+  "entity_name": "",
+  "id": "goat",
+  "offset": -0.4,
+  "sort_number": 4,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.goat.text"
+}

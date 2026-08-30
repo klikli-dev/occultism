@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting_slab",
+  "recipe_id_1": "occultism:crafting/nature_paste/mossy_cobblestone_slab",
+  "recipe_id_2": "occultism:crafting/nature_paste/mossy_stone_brick_slab",
+  "sort_number": 4
+}

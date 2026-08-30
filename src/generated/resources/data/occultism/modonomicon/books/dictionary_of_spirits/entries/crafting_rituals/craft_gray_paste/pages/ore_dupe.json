@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ore_dupe",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_gray_paste.ore_dupe.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_gray_paste.ore_dupe.title"
+}

@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
+import com.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
@@ -54,6 +56,15 @@ public class OtherworldUtil {
                 && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
         return stack.getOrDefault(OccultismDataComponents.IS_INVENTORY_ITEM, false) ||
                 thirdEye ? item.getBlockDescriptionId() : item.getDescriptionId();
+    }
+
+    public static OtherworldBlockTier getToolLevel(ItemStack tool) {
+        OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
+        if (tool.getItem() instanceof IOtherworldTool otherTool)
+            toolTier = otherTool.getHarvestTier(tool);
+        if (tool.has(OccultismDataComponents.OTHERWORLD_TOOL_TIER))
+            toolTier = OtherworldBlockTier.get(tool.get(OccultismDataComponents.OTHERWORLD_TOOL_TIER));
+        return toolTier;
     }
     //endregion Static Methods
 }

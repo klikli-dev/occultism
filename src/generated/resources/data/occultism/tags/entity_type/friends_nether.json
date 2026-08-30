@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#minecraft:wither_friends",
+    "minecraft:piglin",
+    "minecraft:piglin_brute",
+    "minecraft:ghast",
+    "minecraft:blaze",
+    "occultism:possessed_ghast",
+    "occultism:possessed_blaze"
+  ]
+}

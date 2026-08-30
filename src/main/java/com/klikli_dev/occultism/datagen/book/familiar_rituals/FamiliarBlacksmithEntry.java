@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import net.minecraft.ChatFormatting;
 
 public class FamiliarBlacksmithEntry extends EntryProvider {
 
@@ -21,23 +22,98 @@ public class FamiliarBlacksmithEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:blacksmith_familiar")
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Repairs Equipment while Mining[#](), [#](ad03fc)Upgrades other familiars[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(1.1f)
+                .withOffset(-0.4f));
+        this.pageText("Strike while the iron is hot.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_blacksmith")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("Whenever the player picks up stone, there is a chance for the blacksmith familiar to repair their equipment a little bit.\n\\\n\\\n**Upgrade Behaviour**: \\\nCannot be upgraded, but upgrades other Familiars.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        While enabled, whenever the player picks up stone or cobblestone, there is a chance
+                         (33%% by default, server config) for the Blacksmith Familiar to repair their equipment a little bit.
+                        \\
+                        \\
+                        **Upgrade Behaviour**:
+                        \\
+                        Slowly repairs **one** equipment in the owner's inventory (each ~6 seconds, server config).
+                        \\
+                        \\
+                        **Iesnium Behaviour**:
+                        \\
+                        Slowly repairs **all** equipment in the owner's inventory (each ~6 seconds, server config).
+                        """
+        );
 
-        this.page("description2", () -> BookTextPageModel.create()
+        this.page("upgrading", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrading Familiars");
-        this.pageText("To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by [#](ad03fc)right-clicking[#]() it.\n\\\nWhen the blacksmith upgrades a familiar, a message appears in the action bar, an anvil sound is emitted, and a star appears at the end of the familiar's name.\n\\\nUpgraded familiars provide additional effects.\n");
+        this.pageText("""
+                        To upgrade familiars the blacksmith needs to be given iron ingots or blocks by {0} it
+                         (requires 18 ingots by default, server config).
+                        \\
+                        An iron ingot will appear on the blacksmith''s anvil for each upgrade he has enough materials to perform.
+                        \\
+                        Be patient after upgrading a familiar, as there is a cooldown before another one can be upgraded.
+                        """,
+                this.color("right-clicking", ChatFormatting.DARK_PURPLE)
+        );
+
+        this.page("upgraded", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Upgraded Familiars");
+        this.pageText("""
+                        When the blacksmith upgrades a familiar, a message appears in the chat,
+                         an anvil sound is emitted, and a star appears as **suffix** of the familiar's name.
+                        \\
+                        Upgraded familiars has better stats (+3 damage bonus and +20 max health)
+                         and provide additional benefits described in their entries.
+                        """,
+                this.color("right-clicking", ChatFormatting.DARK_PURPLE)
+        );
+
+        this.page("advanced_anvil", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Better Anvil");
+        this.pageText("""
+                        After upgrading a Blacksmith Familiar, you can give him an {0},
+                         allowing him to perform advanced upgrades on other **upgraded** familiars.
+                        \\
+                        \\
+                        References to Iesnium familiars refer to this final upgrade.
+                        """,
+                this.entryLink("Iesnium Anvil", "crafting_rituals", "craft_iesnium_anvil")
+        );
+
+        this.page("iesnium", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Iesnium Familiars");
+        this.pageText("""
+                        The Iesnium Upgrade works like a regular upgrade, but consumes Iesnium instead of iron.
+                         (requires 32 ingots by default, server config).
+                        \\
+                        Other differences include the name star appearing as **prefix** of the name
+                         and a higher stats bonus (+9 extra damage and +50 max health).
+                        """
+        );
+
+        this.page("curio", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Equipping");
+        this.pageText("""
+                        When captured in a Familiar Ring or any Infused Equipment it can still repair the user's equipment.
+                        """
+        );
     }
 
     @Override
@@ -47,7 +123,7 @@ public class FamiliarBlacksmithEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Support";
     }
 
     @Override

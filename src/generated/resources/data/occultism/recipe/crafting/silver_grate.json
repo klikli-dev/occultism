@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "o": "occultism:silver_block"
+    "o": "#c:storage_blocks/silver"
   },
   "pattern": [
     " o ",

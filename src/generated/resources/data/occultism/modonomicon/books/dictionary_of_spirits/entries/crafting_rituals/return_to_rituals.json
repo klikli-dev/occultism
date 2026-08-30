@@ -2,7 +2,7 @@
   "type": "modonomicon:category_link",
   "background": {
     "height": 26,
-    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gray",
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/circle_gray",
     "width": 26
   },
   "category": "occultism:crafting_rituals",

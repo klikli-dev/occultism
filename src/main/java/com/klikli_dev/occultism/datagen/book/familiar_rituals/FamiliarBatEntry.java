@@ -22,18 +22,44 @@ public class FamiliarBatEntry extends EntryProvider {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:bat_familiar")
                 .withText(this.context().pageText())
-                .withScale(0.7f)
-                .withOffset(0.3f));
-        this.pageText("**Provides**: [#](ad03fc)Night Vision[#]()\n");
+                .withScale(0.8f)
+                .withOffset(-0.2f));
+        this.pageText("This cute little bat definitely won't turn you into a vampire.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_bat")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, the bat familiar will give a life steal effect to it's master.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        While enabled, the Bat Familiar will hunt and devour ordinary bats,
+                         sharing part of its meal with its owner.
+                        """
+        );
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Default:** Night Vision.
+                        \\
+                        \\
+                        **Upgraded:** {1}.
+                        \\
+                        \\
+                        **Iesnium:** {2}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Life-Steal", "getting_started", "effects@bat_lifesteal"),
+                this.entryLink("Bat-Flight", "getting_started", "effects@bat_flight")
+        );
     }
 
     @Override
@@ -43,7 +69,7 @@ public class FamiliarBatEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Utility | Support | Movement";
     }
 
     @Override

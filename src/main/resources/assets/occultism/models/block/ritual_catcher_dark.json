@@ -1,0 +1,8 @@
+{
+  "parent": "occultism:block/stable_wormhole",
+  "textures": {
+    "0": "occultism:block/ritual_catcher_frame_dark",
+    "1": "occultism:block/ritual_catcher_center",
+    "particle": "occultism:block/ritual_catcher_frame_dark"
+  }
+}

@@ -51,7 +51,13 @@ public class CraftMaridEntry extends EntryProvider {
                 - {2}
                 - {3}
                 - {4}
-                """, this.entryLink("Storage Stabilizer Tier 4", "crafting_rituals", "craft_stabilizer_tier4"), this.entryLink("Marid Master Miner", "crafting_rituals", "craft_marid_miner"), this.entryLink("Iesnium Anvil", "crafting_rituals", "craft_iesnium_anvil"), this.entryLink("True Sight Staff", "crafting_rituals", "true_sight_staff"), this.entryLink("Dragonyst Dust", "pentacles", "magenta_chalk"));
+                """,
+                this.entryLink("Dragonyst Dust", "crafting_rituals", "craft_dragonyst_dust"),
+                this.entryLink("Iesnium Anvil", "crafting_rituals", "craft_iesnium_anvil"),
+                this.entryLink("True Sight Staff", "crafting_rituals", "true_sight_staff"),
+                this.entryLink("Marid Master Miner", "crafting_rituals", "craft_marid_miner"),
+                this.entryLink("Storage Stabilizer Tier 4", "crafting_rituals", "craft_stabilizer_tier4")
+        );
 
     }
 

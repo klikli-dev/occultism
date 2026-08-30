@@ -155,7 +155,7 @@ public class CrusherJob extends FilterableProcessingSpiritJob {
                 }
 
                 //every two seconds, play another crushing sound
-                if (this.crushingTimer % 40 == 0) {
+                if (level.getGameTime() % 40 == 0) {
                     level.playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
                             SoundSource.NEUTRAL, 1f,
                             1 + 0.5f * this.entity.getRandom().nextFloat());

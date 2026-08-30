@@ -85,6 +85,10 @@ public class ItemNBTUtil {
         return stack.get(OccultismDataComponents.SPIRIT_NAME);
     }
 
+    public static int getMaxFamiliar(ItemStack stack) {
+        return stack.getOrDefault(OccultismDataComponents.MAX_FAMILIARS, 0);
+    }
+
     public static int getItemMode(ItemStack stack) {
         if (!stack.has(OccultismDataComponents.ITEM_MODE))
             setItemMode(stack, 0);

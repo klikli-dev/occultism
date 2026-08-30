@@ -25,7 +25,7 @@ public class ReturnToRitualsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Click to change book current category.";
     }
 
     @Override

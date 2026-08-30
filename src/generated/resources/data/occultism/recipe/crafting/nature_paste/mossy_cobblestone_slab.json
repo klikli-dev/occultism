@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "occultism:nature_paste",
+    "minecraft:cobblestone_slab"
+  ],
+  "result": {
+    "id": "minecraft:mossy_cobblestone_slab"
+  }
+}

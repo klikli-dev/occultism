@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_axe",
+  "recipe_id_1": "occultism:ritual/craft_infused_axe",
+  "sort_number": 3
+}

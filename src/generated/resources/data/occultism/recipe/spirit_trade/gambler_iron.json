@@ -2,10 +2,9 @@
   "type": "occultism:spirit_trade",
   "ingredient": "#c:gems",
   "result": {
-    "type": "occultism:weighted_item",
-    "stack": {
-      "id": "minecraft:iron_nugget"
-    },
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:nuggets/iron",
     "weight": 16
   },
   "trader_id": "occultism:gambler"

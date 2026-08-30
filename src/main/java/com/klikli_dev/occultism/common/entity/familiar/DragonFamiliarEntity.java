@@ -22,12 +22,12 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity.FindItemGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -38,21 +38,27 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -78,14 +84,12 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity pEntity) {
-        return super.getPassengerRidingPosition(pEntity).subtract(0, 0.4, 0);
+        return super.getPassengerRidingPosition(pEntity).subtract(0, 0.6, 0);
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasFez())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasFez();
     }
 
     @Nullable
@@ -97,13 +101,12 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
-    }
-
     public boolean hasSword() {
         return this.hasBlacksmithUpgrade() && !this.swinging;
+    }
+
+    public int getGreedyTimer() {
+        return this.greedyTimer;
     }
 
     @Override
@@ -184,6 +187,48 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         }
     }
 
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        Level level = wearer.level();
+        if (this.isEffectEnabled(wearer) && this.hasBlacksmithUpgrade() && !level.isClientSide() && level.getGameTime() % 64 == 0) {
+            List<Monster> enemies = level.getEntitiesOfClass(Monster.class,
+                    wearer.getBoundingBox().inflate(50),
+                    enemy -> {
+                        Vec3 start = wearer.getEyePosition();
+                        Vec3 end = enemy.getEyePosition();
+                        BlockHitResult hit = level.clip(new ClipContext(
+                                start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, wearer));
+                        return hit.getType() == HitResult.Type.MISS && enemy.isAlive();
+                    }
+            );
+
+            if (enemies.isEmpty())
+                return;
+
+            Entity enemy = enemies.get(wearer.getRandom().nextInt(enemies.size()));
+            thrownSword(wearer, wearer, enemy);
+        }
+    }
+
+    public void thrownSword(Entity start, Entity owner, Entity enemy) {
+        AttributeInstance dmgInstance = this.getAttribute(Attributes.ATTACK_DAMAGE);
+        float dmg = dmgInstance == null ? 6 : (float) dmgInstance.getValue();
+        if (this.getGreedyTimer() > 0)
+            dmg += 2;
+        ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(), start.level());
+        sword.setDamage(dmg);
+        sword.setOwner(owner);
+        double x = start.getX();
+        double y = start.getEyeY();
+        double z = start.getZ();
+        double xDir = enemy.getX() - x;
+        double yDir = enemy.getY() + enemy.getBbHeight() - y;
+        double zDir = enemy.getZ() - z;
+        sword.setPos(x, y, z);
+        sword.shoot(xDir, yDir, zDir, 0.5f, 3f);
+        start.level().addFreshEntity(sword);
+    }
+
     public float getFlyingTimer(float partialTicks) {
         return Mth.lerp(partialTicks, this.flyingTimer0, this.flyingTimer);
     }
@@ -211,6 +256,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
             OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.DRAGON_PET);
+            this.level().addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0, 0);
             return !this.isEffectiveAi() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
         return super.mobInteract(playerIn, hand);
@@ -262,9 +308,20 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        int i = this.hasBlacksmithUpgrade() ? 1 : 0;
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED, 300,
-                this.greedyTimer > 0 ? 1 + i : i, false, false));
+        if (this.effectDefinitionList == null || this.effectDefinitionList.isEmpty()
+                || this.getOwner() == null)
+            return List.of();
+
+        FamiliarSettingsData data = this.getOwner().getData(OccultismDataStorage.FAMILIAR_SETTINGS.get());
+        List<MobEffectInstance> effects = new ArrayList<>(this.effectDefinitionList.size());
+        for (var effect : this.effectDefinitionList) {
+            int amp = effect.getValue(this);
+            amp = Math.min(amp, data.getEffectAmplifier(this.getFamiliarEntity().getType(), effect.effect()));
+            if (amp >= 0) {
+                effects.add(new MobEffectInstance(effect.effect(), 300, this.greedyTimer > 0 ? 1 + amp : amp, false, false));
+            }
+        }
+        return effects;
     }
 
     public float getEyeColorR(float partialTicks) {
@@ -281,13 +338,13 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     private static class ThrowSwordGoal extends AttackGoal {
 
-        public ThrowSwordGoal(FamiliarEntity entity, float range) {
+        public ThrowSwordGoal(DragonFamiliarEntity entity, float range) {
             super(entity, range);
         }
 
         @Override
         public boolean canUse() {
-            return super.canUse() && this.entity.hasBlacksmithUpgrade();
+            return super.canUse() && this.entity.hasBlacksmithUpgrade() && !this.entity.isSitting();
         }
 
         @Override
@@ -296,18 +353,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
                 return;
 
             Entity enemy = enemies.get(this.entity.getRandom().nextInt(enemies.size()));
-            ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(),
-                    this.entity.level());
-            sword.setOwner(this.entity.getFamiliarOwner());
-            double x = this.entity.getX();
-            double y = this.entity.getEyeY();
-            double z = this.entity.getZ();
-            double xDir = enemy.getX() - x;
-            double yDir = enemy.getY() + enemy.getBbHeight() - y;
-            double zDir = enemy.getZ() - z;
-            sword.setPos(x, y, z);
-            sword.shoot(xDir, yDir, zDir, 0.5f, 3f);
-            this.entity.level().addFreshEntity(sword);
+            if (this.entity instanceof DragonFamiliarEntity dragon)
+                dragon.thrownSword(dragon, dragon.getOwner(), enemy);
         }
 
     }

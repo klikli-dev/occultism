@@ -36,4 +36,6 @@ public class ChimeraFamiliarRenderState extends LivingEntityRenderState {
     public boolean hasHat;
     public boolean hasGoat;
     public boolean hasBeard;
+    public boolean hasBlacksmithUpgrade;
+    public float scale;
 }

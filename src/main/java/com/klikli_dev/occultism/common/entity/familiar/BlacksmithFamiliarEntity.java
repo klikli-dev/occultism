@@ -22,21 +22,22 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import net.minecraft.nbt.CompoundTag;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -50,9 +51,11 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.Tags.Items;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
 
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
@@ -60,6 +63,10 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     private static final EntityDataAccessor<Byte> BARS = SynchedEntityData.defineId(BlacksmithFamiliarEntity.class,
             EntityDataSerializers.BYTE);
     private int ironCount;
+    private static final ConfigValue<Integer> IESNIUM_COST = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarIesniumUpgradeCost;
+    private static final EntityDataAccessor<Byte> IESNIUM_BARS = SynchedEntityData.defineId(BlacksmithFamiliarEntity.class,
+            EntityDataSerializers.BYTE);
+    private int iesniumCount;
 
     public BlacksmithFamiliarEntity(EntityType<? extends BlacksmithFamiliarEntity> type, Level level) {
         super(type, level);
@@ -67,6 +74,10 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     private static int getMaxIron() {
         return UPGRADE_COST.get() * 10;
+    }
+
+    private static int getMaxIesnium() {
+        return IESNIUM_COST.get() * 10;
     }
 
     @Nullable
@@ -83,6 +94,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(0, new FamiliarPanicGoal(this, 1.25));
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new UpgradeGoal(this));
+        this.goalSelector.addGoal(2, new IesniumUpgradeGoal(this));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -100,20 +112,73 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             }
             return !this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }
+        if (this.hasIesniumUpgrade() && playerIn == this.getFamiliarOwner() && this.iesniumCount < getMaxIesnium()
+                && (stack.is(OccultismTags.Items.IESNIUM_INGOT) || stack.is(OccultismTags.Items.STORAGE_BLOCK_IESNIUM))) {
+            if (!this.level().isClientSide()) {
+                stack.shrink(1);
+                this.changeIesniumCount(stack.is(OccultismTags.Items.IESNIUM_INGOT) ? 1 : 9);
+            }
+            return !this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        }
+        if (this.hasBlacksmithUpgrade() && !this.hasIesniumUpgrade()
+                && playerIn == this.getFamiliarOwner()
+                && stack.is(OccultismBlocks.IESNIUM_ANVIL.asItem())) {
+            if (!this.level().isClientSide()) {
+                stack.shrink(1);
+                this.iesniumUpgrade();
+            }
+            return !this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+        }
+
         return super.mobInteract(playerIn, hand);
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasEarring())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean canIesniumUpgrade() {
+        return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.hasBlacksmithUpgrade() && this.getOwner() instanceof Player player
+                && this.isEffectEnabled(player) && player.level() instanceof ServerLevel serverLevel
+                && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
+            repairEquipment(player, serverLevel);
+        }
+    }
+
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        if (this.hasBlacksmithUpgrade() && wearer instanceof Player player
+                && this.isEffectEnabled(player) && player.level() instanceof ServerLevel serverLevel
+                && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
+            repairEquipment(player, serverLevel);
+        }
+    }
+
+    private void repairEquipment(Player player, ServerLevel serverLevel) {
+        boolean onlyOne = !this.hasIesniumUpgrade();
+        for (int i = 0 ; i < player.getInventory().getContainerSize() ; i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.isDamaged()) {
+                stack.setDamageValue(stack.getDamageValue() - 1);
+                if (onlyOne)
+                    return;
+            }
+        }
+    }
+
+    @Override
+    public boolean hasRareVariant() {
+        return this.hasEarring();
     }
 
     @Override
     protected void defineSynchedData(Builder builder) {
         super.defineSynchedData(builder);
         builder.define(BARS, (byte) 0);
+        builder.define(IESNIUM_BARS, (byte) 0);
     }
 
     public boolean hasEarring() {
@@ -153,38 +218,51 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         return this.entityData.get(BARS);
     }
 
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+    private void setIesniumCount(int count) {
+        this.iesniumCount = count;
+        this.entityData.set(IESNIUM_BARS, (byte) Math.min(10, (this.iesniumCount / IESNIUM_COST.get())));
     }
 
-    /*
-    Disabled due resurrection ritual
-    @Override
-    protected void dropEquipment() {
+    private void changeIesniumCount(int delta) {
+        this.setIesniumCount(this.iesniumCount + delta);
+    }
+
+    public byte getIesniumBars() {
+        return this.entityData.get(IESNIUM_BARS);
+    }
+
+    protected void dropMetal(@NonNull ServerLevel level) {
         int blockCount = this.ironCount / 9;
         int barCount = this.ironCount % 9;
-        this.spawnAtLocation(new ItemStack(Items.IRON_INGOT, barCount));
-        this.spawnAtLocation(new ItemStack(Items.IRON_BLOCK, blockCount));
+        this.spawnAtLocation(level, new ItemStack(net.minecraft.world.item.Items.IRON_INGOT, barCount));
+        this.spawnAtLocation(level, new ItemStack(net.minecraft.world.item.Items.IRON_BLOCK, blockCount));
+        int blockIesniumCount = this.iesniumCount / 9;
+        int barIesniumCount = this.iesniumCount % 9;
+        this.spawnAtLocation(level, new ItemStack(OccultismItems.IESNIUM_INGOT.get(), barIesniumCount));
+        this.spawnAtLocation(level, new ItemStack(OccultismBlocks.IESNIUM_BLOCK.get(), blockIesniumCount));
     }
-    */
+
+    @Override
+    protected void resetCustomFamiliarData() {
+        if (this.level() instanceof ServerLevel level)
+            this.dropMetal(level);
+        super.resetCustomFamiliarData();
+        this.setIronCount(0);
+        this.setIesniumCount(0);
+    }
 
     @Override
     public void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putInt("ironCount", this.ironCount);
-    }
-
-    @Override
-    protected void removeDataFromSoulShard(CompoundTag entityData) {
-        super.removeDataFromSoulShard(entityData);
-        entityData.remove("ironCount");
+        output.putInt("iesniumCount", this.iesniumCount);
     }
 
     @Override
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setIronCount(input.getIntOr("ironCount", 0));
+        this.setIesniumCount(input.getIntOr("iesniumCount", 0));
     }
 
     private static class UpgradeGoal extends Goal {
@@ -243,6 +321,75 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         }
 
         private IFamiliar findTarget() {
+            List<LivingEntity> list = this.blacksmith.level().getEntitiesOfClass(LivingEntity.class,
+                    this.blacksmith.getBoundingBox().inflate(4), this::familiarPred);
+            if (list.size() > 1)
+                list.remove(this.blacksmith);
+            return list.isEmpty() ? null : (IFamiliar) list.getFirst();
+        }
+
+        private boolean familiarPred(Entity e) {
+            if (!(e instanceof IFamiliar familiar))
+                return false;
+            LivingEntity owner = familiar.getFamiliarOwner();
+            return familiar.canBlacksmithUpgrade() && owner != null && owner == this.blacksmith.getFamiliarOwner();
+        }
+    }
+
+    private static class IesniumUpgradeGoal extends Goal {
+
+        private static final ConfigValue<Integer> MAX_COOLDOWN = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarUpgradeCooldown;
+
+        private final BlacksmithFamiliarEntity blacksmith;
+        private IFamiliar target;
+        private int cooldown = MAX_COOLDOWN.get();
+
+        public IesniumUpgradeGoal(BlacksmithFamiliarEntity blacksmith) {
+            this.blacksmith = blacksmith;
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            this.target = this.findTarget();
+            return this.blacksmith.hasIesniumUpgrade() && this.blacksmith.iesniumCount >= IESNIUM_COST.get() && this.target != null && this.cooldown-- < 0;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.target != null;
+        }
+
+        public void start() {
+            this.blacksmith.getNavigation().moveTo(this.target.getFamiliarEntity(), 0.7);
+        }
+
+        public void stop() {
+            this.blacksmith.getNavigation().stop();
+            this.cooldown = MAX_COOLDOWN.get();
+            this.target = null;
+        }
+
+        @Override
+        public void tick() {
+            if (this.target == null)
+                return;
+
+            if (!this.blacksmith.isPathFinding())
+                this.blacksmith.getNavigation().moveTo(this.target.getFamiliarEntity(), 0.7);
+
+            if (this.blacksmith.distanceToSqr(this.target.getFamiliarEntity()) < 3) {
+                if (this.target.canIesniumUpgrade()) {
+                    this.target.iesniumUpgrade();
+                    this.blacksmith.changeIesniumCount(-IESNIUM_COST.get());
+                    this.blacksmith.level().playSound(this.blacksmith, this.blacksmith.getOnPos(),
+                            SoundEvents.ANVIL_USE, SoundSource.NEUTRAL, 0.5F, 1F);
+                }
+                this.target = null;
+            }
+        }
+
+        private IFamiliar findTarget() {
             for (LivingEntity e : this.blacksmith.level().getEntitiesOfClass(LivingEntity.class,
                     this.blacksmith.getBoundingBox().inflate(4), this::familiarPred)) {
                 return (IFamiliar) e;
@@ -254,7 +401,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             if (!(e instanceof IFamiliar familiar))
                 return false;
             LivingEntity owner = familiar.getFamiliarOwner();
-            return familiar.canBlacksmithUpgrade() && owner != null && owner == this.blacksmith.getFamiliarOwner();
+            return familiar.canIesniumUpgrade() && owner != null && owner == this.blacksmith.getFamiliarOwner();
         }
     }
 }

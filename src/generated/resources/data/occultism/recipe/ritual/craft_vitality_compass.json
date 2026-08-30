@@ -4,9 +4,9 @@
   "duration": 60,
   "ingredients": [
     "#c:gems/amethyst",
-    "occultism:spirit_attuned_gem",
+    "#c:gems/spirit_attuned",
     "minecraft:compass",
-    "occultism:spirit_attuned_gem"
+    "#c:gems/spirit_attuned"
   ],
   "pentacle_id": "occultism:craft_foliot",
   "result": {

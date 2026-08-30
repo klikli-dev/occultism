@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -53,7 +52,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -69,10 +67,8 @@ public class BatFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasRibbon())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasRibbon();
     }
 
     @Override
@@ -138,19 +134,6 @@ public class BatFamiliarEntity extends FamiliarEntity {
         return !this.onGround();
     }
 
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0, false, true));
-        if (this.hasBlacksmithUpgrade())
-            effects.add(new MobEffectInstance(OccultismEffects.BAT_LIFESTEAL, 300, 0, false, true));
-        return effects;
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
-    }
-
     public boolean hasHair() {
         return this.hasVariant(0);
     }
@@ -187,14 +170,18 @@ public class BatFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             this.nearby = this.nearbyBat();
-            return this.nearby != null;
+            return !this.bat.isSitting() && this.nearby != null && this.bat.isEffectEnabled(this.bat.getFamiliarOwner());
         }
 
         @Override
         public void start() {
             if (this.nearby != null) {
-                this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), 10);
+                float f = this.nearby.getMaxHealth();
+                this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), f);
                 OccultismAdvancements.FAMILIAR.get().trigger(this.bat.getFamiliarOwner(), Type.BAT_EAT);
+                LivingEntity owner = this.bat.getFamiliarOwner();
+                if (owner != null)
+                    owner.addEffect(new MobEffectInstance(MobEffects.SATURATION, (int) (f*f), 0, false, false));
             }
         }
 

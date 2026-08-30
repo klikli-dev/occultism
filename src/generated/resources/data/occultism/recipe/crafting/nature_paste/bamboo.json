@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "occultism:nature_paste",
+    "#c:rods/wooden"
+  ],
+  "result": {
+    "id": "minecraft:bamboo"
+  }
+}

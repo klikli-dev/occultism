@@ -1,0 +1,39 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:crafting_rituals",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/contact_eldritch_spirit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name"
+        }
+      ]
+    }
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_glove.description",
+  "icon": {
+    "id": "occultism:familiar_glove"
+  },
+  "id": "occultism:crafting_rituals/craft_familiar_glove",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_glove.name",
+  "parents": [
+    {
+      "entry": "occultism:crafting_rituals/craft_familiar_ring"
+    },
+    {
+      "entry": "occultism:crafting_rituals/trinity_gem",
+      "line_reversed": true
+    }
+  ],
+  "sort_number": 6,
+  "x": -6,
+  "y": -8
+}

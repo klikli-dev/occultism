@@ -26,10 +26,10 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.name",
   "parents": [
     {
-      "entry": "occultism:crafting_rituals/craft_infused_pickaxe"
+      "entry": "occultism:crafting_rituals/craft_infused_tools"
     }
   ],
-  "sort_number": 33,
-  "x": -2,
+  "sort_number": 41,
+  "x": 4,
   "y": -6
 }

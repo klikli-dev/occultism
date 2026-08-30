@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting2",
+  "recipe_id_1": "occultism:crafting/flaming_paste/glowstone_dust",
+  "recipe_id_2": "occultism:crafting/flaming_paste/magma_cream",
+  "sort_number": 3
+}

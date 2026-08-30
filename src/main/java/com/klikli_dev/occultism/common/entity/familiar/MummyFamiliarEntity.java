@@ -22,23 +22,16 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.FairyFamiliarEntity.SetAttackTargetGoal;
-import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.resources.Identifier;
+import com.klikli_dev.occultism.util.FamiliarUtil;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -50,10 +43,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class MummyFamiliarEntity extends FamiliarEntity {
-
-    private static final Identifier DAMAGE_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "mummy_damage_bonus");
 
     private static final int MAX_FIGHT_TIMER = 5;
 
@@ -64,11 +56,6 @@ public class MummyFamiliarEntity extends FamiliarEntity {
         super(type, level);
         this.capowPos = this.capowOffset = this.capowOffset0 = Vec3.ZERO;
         this.fightPose = -1;
-    }
-
-    public static Builder createAttributes() {
-        return FamiliarEntity.createAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 9).add(Attributes.FOLLOW_RANGE, 30);
     }
 
     @Override
@@ -101,6 +88,26 @@ public class MummyFamiliarEntity extends FamiliarEntity {
         }
     }
 
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        Level level = wearer.level();
+        if (!(wearer instanceof Player player) || !(level instanceof ServerLevel serverLevel))
+            return;
+        if (this.isEffectEnabled(wearer) && level.getGameTime() % 10 == 0) {
+            List<LivingEntity> enemies = FamiliarUtil.getOwnerEnemies(wearer, wearer, 9);
+            if (enemies.isEmpty())
+                return;
+
+            AttributeInstance dmgInstance = this.getAttribute(Attributes.ATTACK_DAMAGE);
+            float dmg = dmgInstance == null ? 6 : (float) dmgInstance.getValue();
+            for (LivingEntity e : enemies) {
+                if (level.getRandom().nextBoolean()) {
+                    e.hurtServer(serverLevel, player.damageSources().playerAttack(player), dmg);
+                }
+            }
+        }
+    }
+
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
@@ -115,17 +122,6 @@ public class MummyFamiliarEntity extends FamiliarEntity {
         super.swing(pHand, pUpdateSelf);
         this.fightPose = 0;
         this.fightTimer = 0;
-    }
-
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return this.hasBlacksmithUpgrade() ? ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 1, false, false)) :
-                ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 0, false, false));
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     private double randNum(double size) {
@@ -145,20 +141,8 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void blacksmithUpgrade() {
-        super.blacksmithUpgrade();
-        AttributeModifier damage = new AttributeModifier(
-                DAMAGE_BONUS, 3, Operation.ADD_VALUE);
-        if (!this.getAttribute(Attributes.ATTACK_DAMAGE).hasModifier(DAMAGE_BONUS))
-            this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(damage);
-
-    }
-
-    @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasCrown())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasCrown();
     }
 
     public boolean hasCrown() {

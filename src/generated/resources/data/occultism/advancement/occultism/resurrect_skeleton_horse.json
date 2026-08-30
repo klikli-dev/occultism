@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "resurrect_skeleton_horse": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/resurrect_skeleton_horse"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.resurrect_skeleton_horse.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.resurrect_skeleton_horse.title"
+    }
+  },
+  "requirements": [
+    [
+      "resurrect_skeleton_horse"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

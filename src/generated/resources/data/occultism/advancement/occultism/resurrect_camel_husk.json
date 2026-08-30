@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "resurrect_camel_husk": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/resurrect_camel_husk"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.resurrect_camel_husk.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.resurrect_camel_husk.title"
+    }
+  },
+  "requirements": [
+    [
+      "resurrect_camel_husk"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -7,6 +7,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.Items;
 
 public class FamiliarShubNiggurathEntry extends EntryProvider {
 
@@ -20,20 +22,77 @@ public class FamiliarShubNiggurathEntry extends EntryProvider {
     protected void generatePages() {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:shub_niggurath_familiar")
-                .withText(this.context().pageText()));
-        this.pageText("**Provides**: [#](ad03fc)Spawns small versions of itself to fight for you.[#]()\n");
+                .withText(this.context().pageText())
+                .withScale(1.0f)
+                .withOffset(-0.4f));
+        this.pageText("The Black Goat of the Woods with a Thousand Young");
 
         this.page("ritual", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual");
-        this.pageText("The [#](ad03fc)Shub Niggurath[#]() is not summoned directly. First, summon a [Chimera Familiar](entry://familiar_rituals/familiar_chimera) and feed it a [](item://minecraft:golden_apple) to detach the [#](ad03fc)Goat[#](). Bring the goat to a [#](ad03fc)Forest Biome[#](). Then click the goat with [any Black Dye](item://minecraft:black_dye), [](item://minecraft:flint) and [](item://minecraft:ender_eye) to summon the [#](ad03fc)Shub Niggurath[#]().\n");
+        this.pageTitle("Transformation");
+        this.pageText("""
+                        The {0} is not summoned directly. First, summon a {1} and feed it a {2} to detach the {3}.
+                        \\
+                        Bring the goat to a {4}. Then click the goat with {5}, {6} and {7} to obtain the {8}.
+                        """,
+                this.color("Shub Niggurath", ChatFormatting.DARK_PURPLE),
+                this.entryLink("Chimera Familiar", "familiar_rituals", "familiar_chimera"),
+                this.itemLink(Items.GOLDEN_APPLE),
+                this.entryLink("Goat Familiar", "familiar_rituals", "familiar_chimera@goat"),
+                this.color("Forest Biome", ChatFormatting.DARK_PURPLE),
+                this.itemLink(Items.BLACK_DYE),
+                this.itemLink(Items.FLINT),
+                this.itemLink(Items.ENDER_EYE),
+                this.color("Shub Niggurath Familiar", ChatFormatting.DARK_PURPLE)
+        );
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it will get a warning bell. When you hit the familiar it will ring the bell and **attract enemies** in a large radius.\n");
+        this.pageTitle("Attack");
+        this.pageText("""
+                        Spawns small versions of itself to fight for you, if it isn't sitting.
+                        The cooldown of this ability depends on the Shub Niggurath Familiar level.
+                        \\
+                        \\
+                        **Default:** 10 seconds.
+                        \\
+                        \\
+                        **Upgraded:** 5 seconds.
+                        \\
+                        \\
+                        **Iesnium:** 1 second.
+                        """
+        );
+
+        this.page("bell", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Goat Bell");
+        this.pageText("""
+                        When **upgraded** by a Blacksmith Familiar, the Shub Niggurath Familiar will get a warning bell.
+                         When you hit the familiar it will ring the bell and attract enemies in a large radius.
+                        \\
+                        \\
+                         *If the goat used in the transformation already has a bell, it will be retained.*
+                        """
+        );
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Iesnium:** {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Whisperer of the Forest", "getting_started", "effects@forest_whisperer")
+        );
     }
 
     @Override
@@ -43,7 +102,7 @@ public class FamiliarShubNiggurathEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Attack | Support | Influence";
     }
 
     @Override

@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.api.common.data.ColorBlockState;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.EnumUtil;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.Tags.Items;
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +48,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class VoidGlyphBlock extends ChalkGlyphBlock {
-    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 3);
+    public static final EnumProperty<ColorBlockState> COLOR = EnumProperty.create("color", ColorBlockState.class);
     public static final BooleanProperty CYCLE = BooleanProperty.create("cycle");
 
     protected Supplier<Item> chalk;
@@ -66,7 +67,7 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
     }
 
     public int getColor(BlockState state) {
-        return EnumUtil.getConfiguredColor(state.getValue(COLOR));
+        return EnumUtil.getConfiguredColor((byte) state.getValue(COLOR).ordinal());
     }
 
     public Item getChalk() {
@@ -77,7 +78,7 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
         int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
-        int cor = RandomSource.create().nextIntBetweenInclusive(0, 3);
+        ColorBlockState cor = ColorBlockState.getRandomColorless(context.getLevel().getRandom());
         boolean cc = this.cycle;
         BlockState current = context.getLevel().getBlockState(pos);
         if (current.getBlock() == this) {
@@ -90,18 +91,12 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
             ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
                     player.getItemInHand(InteractionHand.OFF_HAND) :
                     player.getItemInHand(InteractionHand.MAIN_HAND);
-            if (stack.is(Items.DYES_WHITE)) {
-                cor = 0;
-                cc = false;
-            } else if (stack.is(Items.DYES_LIGHT_GRAY)) {
-                cor = 1;
-                cc = false;
-            } else if (stack.is(Items.DYES_GRAY)) {
-                cor = 2;
-                cc = false;
-            } else if (stack.is(Items.DYES_BLACK)) {
-                cor = 3;
-                cc = false;
+            if (stack.is(Items.DYES)) {
+                ColorBlockState temp = ColorBlockState.fromDye(stack);
+                if (ColorBlockState.isColorless(temp)) {
+                    cor = temp;
+                    cc = false;
+                }
             } else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {
                 cc = false;
             }
@@ -128,17 +123,10 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
                     level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
                 }
                 return InteractionResult.SUCCESS;
-            } else if (stack.is(Items.DYES_WHITE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 0).setValue(CYCLE, false));
-                return InteractionResult.SUCCESS;
-            } else if (stack.is(Items.DYES_LIGHT_GRAY)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 1).setValue(CYCLE, false));
-                return InteractionResult.SUCCESS;
-            } else if (stack.is(Items.DYES_GRAY)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 2).setValue(CYCLE, false));
-                return InteractionResult.SUCCESS;
-            } else if (stack.is(Items.DYES_BLACK)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 3).setValue(CYCLE, false));
+            } else if (stack.is(Items.DYES)) {
+                ColorBlockState temp = ColorBlockState.fromDye(stack);
+                if (ColorBlockState.isColorless(temp))
+                    level.setBlockAndUpdate(pos, state.setValue(COLOR, temp).setValue(CYCLE, false));
                 return InteractionResult.SUCCESS;
             }
         }
@@ -147,8 +135,7 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
 
     public void animateTick(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource rand) {
         if (state.getValue(CYCLE)) {
-            int nextColor = state.getValue(COLOR) == 3 ? 0 : state.getValue(COLOR) + 1;
-            level.setBlockAndUpdate(pos, state.setValue(COLOR, nextColor));
+            level.setBlockAndUpdate(pos, state.setValue(COLOR, state.getValue(COLOR).nextColorless()));
         }
     }
 

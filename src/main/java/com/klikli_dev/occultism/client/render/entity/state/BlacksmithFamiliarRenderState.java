@@ -32,4 +32,6 @@ public class BlacksmithFamiliarRenderState extends LivingEntityRenderState {
     public boolean hasEarring;
     public boolean isChristmas;
     public int bars;
+    public int iesnium;
+    public boolean isIesnium;
 }

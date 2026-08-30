@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/arcane_crystal",
   "result": {
     "type": "occultism:tag",
-    "count": 3,
+    "count": 4,
     "tag": "c:dusts/arcane_crystal"
   }
 }

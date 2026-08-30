@@ -6,6 +6,8 @@
   "entity_id": "occultism:mummy_familiar",
   "entity_name": "",
   "id": "entity",
+  "offset": -0.6,
+  "scale": 1.2,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.entity.text"
 }

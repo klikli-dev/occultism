@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "rituals",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.rituals.text",
+  "title": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.rituals.title"
+}

@@ -6,8 +6,8 @@
   "entity_id": "occultism:fairy_familiar",
   "entity_name": "",
   "id": "entity",
-  "offset": 0.3,
-  "scale": 0.8,
+  "offset": -0.3,
+  "scale": 0.9,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_fairy.entity.text"
 }

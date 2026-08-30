@@ -22,41 +22,33 @@
 
 package com.klikli_dev.occultism.common.block;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.EntityWormholeBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
+import com.klikli_dev.occultism.util.TeleportUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockPos.MutableBlockPos;
-import net.minecraft.core.GlobalPos;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.level.ServerPlayer.RespawnConfig;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.Portal;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
@@ -73,7 +65,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityBlock, Portal {
@@ -81,35 +72,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     public static final IntegerProperty EXIT_ROTATION_X = IntegerProperty.create("exit_rotation_x", 0, 5);
     public static final IntegerProperty EXIT_ROTATION_Y = IntegerProperty.create("exit_rotation_y", 0, 8);
     public static final MapCodec<EntityWormholeBlock> CODEC = simpleCodec(EntityWormholeBlock::new);
-    // Mirrors RespawnAnchorBlock nearby stand-up search ordering.
-    private static final int[][] SAFE_TELEPORT_OFFSETS = new int[][]{
-            {0, 0, 0},
-            {0, 0, -1},
-            {-1, 0, 0},
-            {0, 0, 1},
-            {1, 0, 0},
-            {-1, 0, -1},
-            {1, 0, -1},
-            {-1, 0, 1},
-            {1, 0, 1},
-            {0, -1, -1},
-            {-1, -1, 0},
-            {0, -1, 1},
-            {1, -1, 0},
-            {-1, -1, -1},
-            {1, -1, -1},
-            {-1, -1, 1},
-            {1, -1, 1},
-            {0, 1, -1},
-            {-1, 1, 0},
-            {0, 1, 1},
-            {1, 1, 0},
-            {-1, 1, -1},
-            {1, 1, -1},
-            {-1, 1, 1},
-            {1, 1, 1},
-            {0, 1, 0}
-    };
+
     public EntityWormholeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
@@ -190,6 +153,19 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     }
 
     @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
+        BlockEntity blockentity = level.getBlockEntity(pos);
+        return (blockentity instanceof EntityWormholeBlockEntity be) ?
+                be.itemStackHandler.getResource(0).toStack().isEmpty() ? 0 : 15
+                : 0;
+    }
+
+    @Override
     protected void entityInside(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
         if (!level.isClientSide() && entity.canUsePortal(false)
                 && (Shapes.joinIsNotEmpty(
@@ -205,88 +181,22 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
     @Override
     public TeleportTransition getPortalDestination(ServerLevel level, @NotNull Entity entity, @NotNull BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof EntityWormholeBlockEntity wormhole) {
-            ItemStack compass = getWormholeStack(wormhole);
-
-            ResourceKey<Level> resourcekey = null;
-            BlockPos targetPos = null;
-            Vec3 destination = null;
-            if (compass.has(DataComponents.LODESTONE_TRACKER)) {
-                var test = compass.get(DataComponents.LODESTONE_TRACKER);
-                if (test != null) {
-                    Optional<GlobalPos> globalPos = test.target();
-                    if (globalPos.isPresent()) {
-                        resourcekey = globalPos.get().dimension();
-                        targetPos = globalPos.get().pos().above();
-                    }
-                }
-            } else if (compass.is(Items.COMPASS)) {
-                resourcekey = level.dimension();
-                if (compass.has(DataComponents.CUSTOM_NAME)) {
-                    var name = compass.get(DataComponents.CUSTOM_NAME);
-                    if (name != null) {
-                        if (name.getString().equals("RTP")) {
-                            resourcekey = entity.level().dimension();
-                            targetPos = this.findSafeRTP(level, entity, Occultism.SERVER_CONFIG.itemSettings.maxTryRTP.getAsInt());
-                        }
-                        if (name.getString().equals("HOME")
-                                && entity instanceof ServerPlayer player) {
-                            RespawnConfig respawnConfig = player.getRespawnConfig();
-                            ResourceKey<Level> tempKey = RespawnConfig.getDimensionOrDefault(respawnConfig);
-                            ServerLevel tempLevel = level.getServer().getLevel(tempKey);
-                            BlockPos tempPos = respawnConfig != null ? respawnConfig.respawnData().pos() : null;
-                            if (tempLevel != null && tempPos != null) {
-                                BlockState blockstate = tempLevel.getBlockState(tempPos);
-                                Block block = blockstate.getBlock();
-                                if (block instanceof RespawnAnchorBlock && (blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0) && RespawnAnchorBlock.canSetSpawn(tempLevel, tempPos)) {
-                                    Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityTypes.PLAYER, tempLevel, tempPos);
-                                    if (optional.isPresent()) {
-                                        destination = optional.get();
-                                        resourcekey = tempKey;
-                                    }
-                                } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
-                                    float respawnAngle = respawnConfig.respawnData().yaw();
-                                    Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityTypes.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
-                                    if (optional.isPresent()) {
-                                        destination = optional.get();
-                                        resourcekey = tempKey;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else if (compass.is(Items.RECOVERY_COMPASS)
-                    && entity instanceof ServerPlayer serverPlayer
-                    && serverPlayer.getLastDeathLocation().isPresent()) {
-                resourcekey = serverPlayer.getLastDeathLocation().get().dimension();
-                targetPos = serverPlayer.getLastDeathLocation().get().pos();
-            } else if (compass.has(OccultismDataComponents.SPIRIT_ENTITY_UUID)) {
-                UUID spirit = ItemNBTUtil.getSpiritEntityUUID(compass);
-                if (spirit != null) {
-                    for (ServerLevel allLvl : level.getServer().getAllLevels()) {
-                        Entity targetEntity = allLvl.getEntity(spirit);
-                        if (targetEntity != null) {
-                            resourcekey = targetEntity.level().dimension();
-                            targetPos = targetEntity.blockPosition();
-                            break;
-                        }
-                    }
-                } else {
-                    return null;
-                }
-            }
+            TeleportUtil.TeleportDestination destination = TeleportUtil.findDestination(level, entity, getWormholeStack(wormhole));
+            ResourceKey<Level> resourcekey = destination.level();
+            BlockPos targetPos = destination.blockPos();
+            Vec3 position = destination.position();
 
             //Level setting
             ServerLevel serverlevel = resourcekey == null ? null : level.getServer().getLevel(resourcekey);
             if (serverlevel == null)
                 return null;
             //Resolve to a safe destination around the target block when needed
-            if (destination == null) {
+            if (position == null) {
                 if (targetPos == null)
                     targetPos = serverlevel.getRespawnData().pos();
-                destination = entity instanceof Projectile ? Vec3.atBottomCenterOf(targetPos) : this.findSafeTeleportPosition(entity, serverlevel, targetPos);
+                position = entity instanceof Projectile ? targetPos.getBottomCenter() : TeleportUtil.findSafeTeleportPosition(entity, serverlevel, targetPos);
             }
-            if (destination == null)
+            if (position == null)
                 return null;
 
             //State to get exit rotation
@@ -294,7 +204,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
             return new TeleportTransition(
                     serverlevel,
-                    destination,
+                    position,
                     entity.getDeltaMovement(),
                     state.getValue(EXIT_ROTATION_Y) == 0 ? entity.getYHeadRot() : this.getExitRotY(state),
                     state.getValue(EXIT_ROTATION_X) == 0 ? entity.getXRot() : this.getExitRotX(state),
@@ -326,57 +236,6 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             case 5 -> -90;
             default -> 0;
         };
-    }
-
-    @Nullable
-    private Vec3 findSafeTeleportPosition(Entity entity, ServerLevel level, BlockPos pos) {
-        // Matches vanilla respawn logic: prefer safe spots, then allow otherwise valid stand-up spaces.
-        Optional<Vec3> safePosition = this.findSafeTeleportPosition(entity.getType(), level, pos, true);
-        return safePosition.isPresent() ? safePosition.get() : this.findSafeTeleportPosition(entity.getType(), level, pos, false).orElse(null);
-    }
-
-    private Optional<Vec3> findSafeTeleportPosition(EntityType<?> type, ServerLevel level, BlockPos pos, boolean checkDangerous) {
-        MutableBlockPos candidatePos = pos.mutable();
-
-        for (int[] offset : SAFE_TELEPORT_OFFSETS) {
-            candidatePos.set(pos.getX() + offset[0], pos.getY() + offset[1], pos.getZ() + offset[2]);
-            Vec3 safePosition = DismountHelper.findSafeDismountLocation(type, level, candidatePos, checkDangerous);
-            if (safePosition != null) {
-                return Optional.of(safePosition);
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    private BlockPos findSafeRTP(Level level, Entity entity, int recursionLeft) {
-        if (recursionLeft <= 0)
-            return null;
-
-        BlockPos blockpos;
-        //Respect word border
-        int range = Math.min((int) level.getWorldBorder().getDistanceToBorder(entity), Occultism.SERVER_CONFIG.itemSettings.maxDistanceRTP.getAsInt());
-        //Random direction
-        blockpos = entity.blockPosition().offset(RandomSource.create().nextInt(-range, range), level.getMaxY(), RandomSource.create().nextInt(-range, range));
-        //Find floor
-        while (level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
-            blockpos = blockpos.below();
-        }
-        //Pass nether (or other dimension) roof
-        if (blockpos.getY() > 10 && level.getBlockState(blockpos.below()).is(Blocks.BEDROCK)) {
-            blockpos = blockpos.below(5);
-            while (!level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
-                blockpos = blockpos.below();
-            }
-            while (level.getBlockState(blockpos.below()).isAir() && blockpos.getY() > level.getMinY()) {
-                blockpos = blockpos.below();
-            }
-        }
-        //Return blockPos if safe, or repeat the process
-        return blockpos.getY() == level.getMinY()
-                || level.getBlockState(blockpos.below()).is(Blocks.WATER)
-                || level.getBlockState(blockpos.below()).is(Blocks.LAVA) ?
-                this.findSafeRTP(level, entity, recursionLeft - 1) : blockpos;
     }
 
     public void pullEntity(ServerLevel level, BlockPos pos, BlockState state) {

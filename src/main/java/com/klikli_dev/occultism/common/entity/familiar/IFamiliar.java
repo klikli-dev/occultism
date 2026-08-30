@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import com.klikli_dev.occultism.common.item.familiar.FamiliarGenericItem;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 /***
  * An interface representing a familiar entity. See {@link OtherworldBirdEntity}
  * for an example of an entity that implements this interface. Used by
- * {@link FamiliarRingItem}.
+ * {@link FamiliarGenericItem}.
  *
  */
 public interface IFamiliar {
@@ -73,14 +73,14 @@ public interface IFamiliar {
 
     /***
      * This method is called every tick when this familiar is captured in a
-     * {@link FamiliarRingItem}. <br>
+     * {@link FamiliarGenericItem}. <br>
      * <br>
      * BEWARE: Extra caution has to be taken when using instance variables from the
      * {@link IFamiliar#getEntity} in this method (such as {@link Entity#level}),
      * since their values are no longer updated when the familiar is inside the ring
      * and might be outdated. The same caution should be taken when implementing
      * {@link IFamiliar#getFamiliarEffects} or any other method that is called while
-     * the familiar is inside the {@link FamiliarRingItem}.
+     * the familiar is inside the {@link FamiliarGenericItem}.
      *
      * @param wearer The wearer of the curio
      */
@@ -101,6 +101,24 @@ public interface IFamiliar {
     }
 
     /***
+     * This method determines if the familiar is upgraded by the blacksmith familiar.
+     *
+     * @return True if the familiar can be upgraded, false otherwise.
+     */
+    default boolean hasBlacksmithUpgrade() {
+        return false;
+    }
+
+    /***
+     * This method determines if the familiar is upgraded by the blacksmith familiar.
+     *
+     * @return True if the familiar can be upgraded, false otherwise.
+     */
+    default boolean hasIesniumUpgrade() {
+        return false;
+    }
+
+    /***
      * This method determines if the familiar can be upgraded by the blacksmith familiar.
      *
      * @return True if the familiar can be upgraded, false otherwise.
@@ -110,9 +128,25 @@ public interface IFamiliar {
     }
 
     /***
+     * This method determines if the familiar can be upgraded by the iesnium blacksmith familiar.
+     *
+     * @return True if the familiar can be upgraded, false otherwise.
+     */
+    default boolean canIesniumUpgrade() {
+        return false;
+    }
+
+    /***
      * Upgrade the familiar by a blacksmith familiar.
      */
     default void blacksmithUpgrade() {
+
+    }
+
+    /***
+     * Upgrade the familiar by an iesnium blacksmith familiar.
+     */
+    default void iesniumUpgrade() {
 
     }
 }

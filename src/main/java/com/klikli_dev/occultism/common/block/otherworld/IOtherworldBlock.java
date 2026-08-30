@@ -23,10 +23,9 @@
 package com.klikli_dev.occultism.common.block.otherworld;
 
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
-import com.klikli_dev.occultism.api.common.item.IOtherworldTool;
-import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -49,17 +48,11 @@ public interface IOtherworldBlock {
     //endregion Getter / Setter
 
     default OtherworldBlockTier getPlayerHarvestTier(Player player, ItemStack tool) {
-        OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
+        OtherworldBlockTier toolTier = OtherworldUtil.getToolLevel(tool);
         OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE) ?
                 OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
         OtherworldBlockTier staffTier = CuriosUtil.hasStaff(player) ?
                 OtherworldBlockTier.TWO : OtherworldBlockTier.NONE;
-        if (tool.getItem() instanceof IOtherworldTool) {
-            toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);
-        }
-        if (tool.has(OccultismDataComponents.OTHERWORLD_TOOL_TIER)) {
-            toolTier = OtherworldBlockTier.get(tool.get(OccultismDataComponents.OTHERWORLD_TOOL_TIER));
-        }
         return OtherworldBlockTier.max(OtherworldBlockTier.max(toolTier, effectTier), staffTier);
     }
 

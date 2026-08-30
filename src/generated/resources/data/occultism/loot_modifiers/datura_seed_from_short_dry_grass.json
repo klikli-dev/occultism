@@ -1,0 +1,24 @@
+{
+  "type": "occultism:add_item",
+  "conditions": [
+    {
+      "chance": 0.02,
+      "condition": "minecraft:random_chance"
+    },
+    {
+      "block": "minecraft:short_dry_grass",
+      "condition": "minecraft:block_state_property"
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": "#c:tools/shear"
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "item": "occultism:datura_seeds"
+}

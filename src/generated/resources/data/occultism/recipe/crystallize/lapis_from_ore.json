@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/lapis",
   "result": {
     "type": "occultism:tag",
-    "count": 6,
+    "count": 9,
     "tag": "c:gems/lapis"
   }
 }

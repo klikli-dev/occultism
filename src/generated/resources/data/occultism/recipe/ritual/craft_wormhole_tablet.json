@@ -1,0 +1,26 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": "occultism:book_of_binding_bound_djinni",
+  "duration": 120,
+  "ingredients": [
+    "occultism:otherworldly_tablet",
+    [
+      "occultism:entity_wormhole",
+      "occultism:entity_wormhole_dark"
+    ],
+    "#c:gems/spirit_attuned",
+    "#c:dusts/obsidian",
+    "#c:ingots/silver",
+    "minecraft:ender_eye",
+    "#c:dusts/redstone",
+    "#c:dusts/amethyst"
+  ],
+  "pentacle_id": "occultism:craft_djinni",
+  "result": {
+    "id": "occultism:wormhole_tablet"
+  },
+  "ritual_dummy": {
+    "id": "occultism:ritual_dummy/craft_wormhole_tablet"
+  },
+  "ritual_type": "occultism:craft"
+}

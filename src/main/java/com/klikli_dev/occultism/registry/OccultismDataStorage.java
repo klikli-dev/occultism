@@ -18,7 +18,7 @@ public class OccultismDataStorage {
             "double_jump", () -> AttachmentType.builder(() -> 0).build());
 
     public static final Supplier<AttachmentType<FamiliarSettingsData>> FAMILIAR_SETTINGS = ATTACHMENT_TYPES.register(
-            "familiar_settings", () -> AttachmentType.builder(() -> new FamiliarSettingsData()).build());
+            "familiar_settings", () -> AttachmentType.serializable(FamiliarSettingsData::new).build());
 
     public static void onPlayerClone(final Clone event) {
         //only handle respawn after death -> not portal transfers

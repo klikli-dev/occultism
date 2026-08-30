@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.datagen.tags;
+﻿package com.klikli_dev.occultism.datagen.tags;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismBlocks;

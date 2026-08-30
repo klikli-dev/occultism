@@ -30,6 +30,7 @@ public class GreedyFamiliarRenderState extends LivingEntityRenderState {
     public boolean isPartying;
     public boolean isVehicle;
     public boolean hasBlacksmithUpgrade;
+    public boolean hasIesniumUpgrade;
     public boolean hasTargetBlock;
     public float lidRot;
     public float monsterRot;

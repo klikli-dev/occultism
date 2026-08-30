@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fairy_bless",
+  "images": [
+    "occultism:textures/mob_effect/fairy_bless.png"
+  ],
+  "sort_number": 11,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.fairy_bless.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.fairy_bless.title"
+}

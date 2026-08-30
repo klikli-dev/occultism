@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/iridium",
   "result": {
     "type": "occultism:tag",
-    "count": 2,
+    "count": 3,
     "tag": "c:dusts/iridium"
   }
 }

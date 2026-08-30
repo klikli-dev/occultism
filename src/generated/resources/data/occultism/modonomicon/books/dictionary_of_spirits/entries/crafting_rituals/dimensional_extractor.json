@@ -26,10 +26,10 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_extractor.name",
   "parents": [
     {
-      "entry": "occultism:crafting_rituals/craft_infused_pickaxe"
+      "entry": "occultism:crafting_rituals/craft_infused_tools"
     }
   ],
-  "sort_number": 11,
-  "x": -4,
+  "sort_number": 17,
+  "x": 2,
   "y": -6
 }

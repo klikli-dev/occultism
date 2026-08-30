@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -37,6 +38,31 @@ public class GrayPasteEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_gray_paste"))
         );
         //no text
+
+        this.page("paste", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Gray Paste");
+        this.pageText("""
+                This strange amorphous paste is mainly used to improve the foundation of your pentacles.
+                 But its secondary use can be very useful, some dusts react with portion of this matter
+                 and return to their original shape as before being crushed.
+                """
+        );
+
+        this.page("ore_dupe", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Growing ores");
+        this.pageText("""
+                The property of interacting with dusts can be combined with the powers of the {0},
+                 holding the [](item://occultism:gray_paste) in the off-hand will allow you to interact with
+                 some minerals, making them grow and extracting extra resources from them.
+                """,
+                this.entryLink("Nature Paste", "crafting_rituals", "craft_nature_paste")
+        );
     }
 
     @Override

@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "forest_whisperer",
+  "images": [
+    "occultism:textures/mob_effect/forest_whisperer.png"
+  ],
+  "sort_number": 15,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.forest_whisperer.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.forest_whisperer.title"
+}

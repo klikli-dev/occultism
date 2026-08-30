@@ -1,6 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": "occultism:spirit_attuned_gem",
+  "activation_item": "#c:gems/spirit_attuned",
   "duration": 48,
   "entity_tag_to_summon": "occultism:random_animals_small",
   "ingredients": [
