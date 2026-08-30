@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "nether_emperor",
+  "images": [
+    "occultism:textures/mob_effect/nether_emperor.png"
+  ],
+  "sort_number": 12,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.nether_emperor.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.nether_emperor.title"
+}

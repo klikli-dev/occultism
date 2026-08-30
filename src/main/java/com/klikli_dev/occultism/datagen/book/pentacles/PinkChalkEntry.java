@@ -45,17 +45,14 @@ public class PinkChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("meat", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.DEMONIC_MEAT.get()))
-                .withText(this.context().pageText()));
+        this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_pink_impure"))
+                .withText(this.context().pageText())
+        );
         this.pageText("""
                 To obtain the [](item://occultism:demonic_meat) for [](item://occultism:chalk_pink) you need to
                  {0}
                 """, this.entryLink("summon and kill a Possessed Zombified Piglin", "possession_rituals", "possess_zombified_piglin"));
-
-        this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_pink_impure"))
-        );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_pink"))

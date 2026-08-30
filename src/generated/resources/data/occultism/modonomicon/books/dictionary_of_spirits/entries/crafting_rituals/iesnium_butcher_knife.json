@@ -26,10 +26,10 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.iesnium_butcher_knife.name",
   "parents": [
     {
-      "entry": "occultism:crafting_rituals/craft_infused_pickaxe"
+      "entry": "occultism:crafting_rituals/craft_infused_tools"
     }
   ],
-  "sort_number": 37,
-  "x": 0,
+  "sort_number": 46,
+  "x": 4,
   "y": -2
 }

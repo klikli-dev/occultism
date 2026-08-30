@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:familiar_rituals",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/pentacles/resurrect_spirit",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.name"
+        }
+      ]
+    }
+  },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.description",
+  "icon": "occultism:textures/gui/book/zombie_horse.png",
+  "id": "occultism:familiar_rituals/raise_undead_mount",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.name",
+  "parents": [
+    {
+      "entry": "occultism:familiar_rituals/resurrection",
+      "line_reversed": true
+    }
+  ],
+  "sort_number": 6,
+  "x": -9,
+  "y": -4
+}

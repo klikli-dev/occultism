@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/diamond"
+      }
+    }
+  ],
+  "type": "occultism:spirit_fire",
+  "ingredient": "#c:storage_blocks/diamond",
+  "result": {
+    "id": "occultism:spirit_attuned_block"
+  }
+}

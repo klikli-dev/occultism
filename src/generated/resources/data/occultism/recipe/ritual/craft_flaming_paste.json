@@ -1,0 +1,23 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": "occultism:book_of_binding_bound_afrit",
+  "duration": 180,
+  "ingredients": [
+    "occultism:afrit_essence",
+    "#c:buckets/lava",
+    "#c:rods/blaze",
+    "#c:tools/igniter",
+    "minecraft:magma_cream",
+    "minecraft:fire_charge",
+    "occultism:demonic_meat",
+    "#c:clumps/resin"
+  ],
+  "pentacle_id": "occultism:craft_afrit",
+  "result": {
+    "id": "occultism:flaming_paste"
+  },
+  "ritual_dummy": {
+    "id": "occultism:ritual_dummy/craft_flaming_paste"
+  },
+  "ritual_type": "occultism:craft"
+}

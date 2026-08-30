@@ -110,6 +110,7 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismItems.DATURA.get());
         this.registerIngredientInfo(registration, OccultismItems.SPAWN_EGG_GOAT_FAMILIAR.get());
         this.registerIngredientInfo(registration, OccultismItems.SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR.get());
+        this.registerIngredientInfo(registration, OccultismItems.SPAWN_EGG_WINGNIS_FAMILIAR.get());
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

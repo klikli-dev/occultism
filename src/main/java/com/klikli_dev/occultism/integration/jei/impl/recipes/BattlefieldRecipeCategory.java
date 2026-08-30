@@ -15,6 +15,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.neoforged.neoforge.common.Tags;
 import org.jspecify.annotations.Nullable;
 
 // Based on https://github.com/CyclopsMC/EvilCraft-Compat/blob/master-26/src/main/java/org/cyclops/evilcraftcompat/modcompat/jei/spiritfurnace/SpiritFurnaceRecipeCategory.java
@@ -61,9 +63,9 @@ public class BattlefieldRecipeCategory implements IRecipeCategory<BattlefieldRec
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BattlefieldRecipeJEI recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 8, 4)
-                .add(recipe.getSpawnEgg());
+                .add(new SlotDisplay.TagSlotDisplay(Tags.Items.TOOLS));
         builder.addSlot(RecipeIngredientRole.INPUT, 28, 4)
-                .add(recipe.getInputItem());
+                .addItemStacks(recipe.getInputItem());
         builder.addSlot(RecipeIngredientRole.INPUT, 48, 4)
                 .addItemStacks(recipe.getSoulItems());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 100, 4)

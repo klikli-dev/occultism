@@ -37,7 +37,7 @@ public class StepHeightEffect extends MobEffect {
 
     public StepHeightEffect() {
         super(MobEffectCategory.BENEFICIAL, 3402751);
-        this.addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, Operation.ADD_VALUE);
+        this.addAttributeModifier(Attributes.STEP_HEIGHT, Identifier.fromNamespaceAndPath(Occultism.MODID, "step_height"), 0.27, Operation.ADD_VALUE);
     }
 
     @Override

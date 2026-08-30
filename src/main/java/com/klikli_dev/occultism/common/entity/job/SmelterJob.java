@@ -211,7 +211,7 @@ public class SmelterJob extends FilterableProcessingSpiritJob {
         }
 
         //every two seconds, play another smelting sound
-        if (this.smeltingTimer % 40 == 0) {
+        if (level.getGameTime() % 40 == 0) {
             level.playSound(null, this.entity.blockPosition(), SoundEvents.FIRE_AMBIENT,
                     SoundSource.NEUTRAL, 1f,
                     1 + 0.5f * this.entity.getRandom().nextFloat());

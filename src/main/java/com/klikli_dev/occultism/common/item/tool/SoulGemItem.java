@@ -23,12 +23,15 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
@@ -42,6 +45,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.TypedEntityData;
@@ -111,7 +115,10 @@ public class SoulGemItem extends Item {
                     level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1f,
                             1 + 0.5f * player.getRandom().nextFloat());
                 }
-
+                level.playSound(null, spawnPos, OccultismSounds.SPIRIT_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
+                ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD,
+                        spawnPos.getX() + 0.5, spawnPos.getY() + 0.1, spawnPos.getZ() + 0.5,
+                        15, 0.0, 0.1, 0.0, 0.01);
                 player.inventoryMenu.broadcastChanges();
             }
             return InteractionResult.SUCCESS;
@@ -160,6 +167,10 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
         }
 
+        target.level().playSound(null, target.getOnPos(), OccultismSounds.POOF.get(), SoundSource.NEUTRAL, 1, 1);
+        ((ServerLevel) target.level()).sendParticles(stack.getRarity() == Rarity.EPIC ? ParticleTypes.SCULK_SOUL : ParticleTypes.SOUL,
+                target.getX(), target.getY() + target.getHitbox().getYsize()*0.8, target.getZ(),
+                15, 0.0, 0.0, 0.0, 0.01);
         var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
         target.saveWithoutId(output);
         var entityData = output.buildResult();

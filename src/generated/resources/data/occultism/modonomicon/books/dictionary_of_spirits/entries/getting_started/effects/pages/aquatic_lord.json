@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "aquatic_lord",
+  "images": [
+    "occultism:textures/mob_effect/aquatic_lord.png"
+  ],
+  "sort_number": 14,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.aquatic_lord.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.aquatic_lord.title"
+}

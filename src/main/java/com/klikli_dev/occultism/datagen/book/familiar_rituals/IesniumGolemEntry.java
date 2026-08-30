@@ -27,7 +27,7 @@ public class IesniumGolemEntry extends EntryProvider {
                 .withEntityId("occultism:iesnium_golem")
                 .withEntityName(this.context().pageTitle())
                 .withText(this.context().pageText())
-        );
+                .withOffset(-1.0f));
         this.pageTitle("Iesnium Golem");
         this.pageText("**Provides:** {0}",
                 this.color("Immortal area protector", ChatFormatting.DARK_PURPLE));

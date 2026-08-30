@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "description",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_infused_armor.description.text",
+  "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_infused_armor.description.title"
+}

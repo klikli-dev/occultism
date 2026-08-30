@@ -40,7 +40,7 @@ public class SummonWithChanceOfChickenRitual extends SummonRitual {
 
     @Override
     public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, @Nullable Player castingPlayer) {
-        return level.getRandom().nextInt(3) == 0 ? entityType.create(level, EntitySpawnReason.MOB_SUMMONED) : EntityType.CHICKEN.create(level, EntitySpawnReason.MOB_SUMMONED);
+        return level.getRandom().nextInt(8) == 0 ? entityType.create(level, EntitySpawnReason.MOB_SUMMONED) : EntityType.CHICKEN.create(level, EntitySpawnReason.MOB_SUMMONED);
     }
 
 }

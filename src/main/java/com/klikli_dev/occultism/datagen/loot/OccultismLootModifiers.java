@@ -15,6 +15,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.predicates.*;
@@ -33,6 +34,17 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         EntityEquipmentPredicate.Builder builder = EntityEquipmentPredicate.Builder.equipment();
         builder.mainhand(itemPredicate);
         return builder.build();
+    }
+
+    private AddItemModifier seed(Block block) {
+        var itemRegistry = this.registries.lookupOrThrow(Registries.ITEM);
+        return new AddItemModifier(new LootItemCondition[]{
+                LootItemRandomChanceCondition.randomChance(0.02f).build(),
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).build(),
+                InvertedLootItemCondition.invert(
+                        MatchTool.toolMatches(Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
+                ).build()
+        }, OccultismItems.DATURA_SEEDS.get(), 1);
     }
 
     private AddItemModifier tallow(String entityType, int count) {
@@ -73,23 +85,14 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        var itemRegistry = this.registries.lookupOrThrow(Registries.ITEM);
-
-        this.add("datura_seed_from_grass", new AddItemModifier(new LootItemCondition[]{
-                LootItemRandomChanceCondition.randomChance(0.02f).build(),
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
-                InvertedLootItemCondition.invert(
-                        MatchTool.toolMatches(Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
-                ).build()
-        }, OccultismItems.DATURA_SEEDS.get(), 1));
-
-        this.add("datura_seed_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
-                LootItemRandomChanceCondition.randomChance(0.02f).build(),
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
-                InvertedLootItemCondition.invert(
-                        MatchTool.toolMatches(Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
-                ).build()
-        }, OccultismItems.DATURA_SEEDS.get(), 1));
+        this.add("datura_seed_from_short_grass", this.seed(Blocks.SHORT_GRASS));
+        this.add("datura_seed_from_tall_grass", this.seed(Blocks.TALL_GRASS));
+        this.add("datura_seed_from_short_dry_grass", this.seed(Blocks.SHORT_DRY_GRASS));
+        this.add("datura_seed_from_tall_dry_grass", this.seed(Blocks.TALL_DRY_GRASS));
+        this.add("datura_seed_from_fern", this.seed(Blocks.FERN));
+        this.add("datura_seed_from_large_fern", this.seed(Blocks.LARGE_FERN));
+        this.add("datura_seed_from_bush", this.seed(Blocks.BUSH));
+        this.add("datura_seed_from_firefly_bush", this.seed(Blocks.FIREFLY_BUSH));
 
         this.add("tallow_from_cows", this.tallow("cows", 4));
         this.add("tallow_from_donkeys", this.tallow("donkeys", 3));

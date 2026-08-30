@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "resurrect_zombie_nautilus": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/resurrect_zombie_nautilus"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.resurrect_zombie_nautilus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.resurrect_zombie_nautilus.title"
+    }
+  },
+  "requirements": [
+    [
+      "resurrect_zombie_nautilus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

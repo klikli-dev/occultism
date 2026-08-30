@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "occultism:nature_paste",
+    "minecraft:clay_ball"
+  ],
+  "result": {
+    "id": "minecraft:slime_ball"
+  }
+}

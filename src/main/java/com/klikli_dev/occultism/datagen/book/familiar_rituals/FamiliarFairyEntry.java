@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import net.minecraft.world.item.Items;
 
 public class FamiliarFairyEntry extends EntryProvider {
 
@@ -22,18 +23,78 @@ public class FamiliarFairyEntry extends EntryProvider {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:fairy_familiar")
                 .withText(this.context().pageText())
-                .withScale(0.8f)
-                .withOffset(0.3f));
-        this.pageText("**Provides**: [#](ad03fc)Assists Familiars[#](), [#](ad03fc)Prevents Familiar Deaths[#](), [#](ad03fc)Drains Enemy Life Force[#]()\n");
+                .withScale(0.9f)
+                .withOffset(-0.3f));
+        this.pageText("A little magic, a lot of glitter.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_fairy")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("The Fairy familiar **keeps other familiars from dying** (with cooldown), helps out other familiars with **beneficial effects** and **drains the life force of enemies** to assist their master.\n\\\n\\\n**Upgrade Behaviour**\\\nAllow getting Dragon's Breath when right-clicked with a glass bottle.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        The Fairy familiar **keeps other familiars from dying** (with cooldown),
+                         helps out other familiars with **beneficial effects** as needed
+                         (speed, resistance, fire resistance, water breathing, slow falling).
+                        \\
+                        \\
+                        When upgraded by a Blacksmith Familiar, you can give a {0} to transform in a {1}.
+                        """,
+                this.itemLink(Items.GLASS_BOTTLE),
+                this.itemLink(Items.DRAGON_BREATH)
+        );
+
+        this.page("attacks", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Attacks");
+        this.pageText("""
+                        Whenever the Fairy attacks, the enemies life force is drained and transferred to nearby familiars.
+                        an additional effect will be applied to the target. Possibilities depend on the familiar level.
+                        \\
+                        **Default:**
+                         - Slowness
+                        \\
+                        \\
+                        **Upgraded:**
+                         - Glowing
+                         - Levitation
+                        \\
+                        \\
+                        **Iesnium:**
+                         - Poison
+                         - Wither
+                        """
+        );
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Upgraded:** Regeneration.
+                        \\
+                        \\
+                        **Iesnium:** {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Fairy Blessing", "getting_started", "effects@fairy_bless")
+        );
+
+        this.page("curio", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Equipping");
+        this.pageText("""
+                        When captured in a Familiar Ring or any Infused Equipment it will heal other nearby familiars owned by the wearer.
+                        """
+        );
     }
 
     @Override
@@ -43,7 +104,7 @@ public class FamiliarFairyEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Support | Attack | Conversion";
     }
 
     @Override

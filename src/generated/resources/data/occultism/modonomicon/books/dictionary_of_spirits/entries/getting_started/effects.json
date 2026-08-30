@@ -1,0 +1,35 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "occultism:getting_started",
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/getting_started_effects",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.getting_started.effects.name"
+        }
+      ]
+    }
+  },
+  "description": "book.occultism.dictionary_of_spirits.getting_started.effects.description",
+  "icon": {
+    "id": "minecraft:brewing_stand"
+  },
+  "id": "occultism:getting_started/effects",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.effects.name",
+  "parents": [
+    {
+      "entry": "occultism:getting_started/demons_dream"
+    }
+  ],
+  "sort_number": 2,
+  "x": -13,
+  "y": 4
+}

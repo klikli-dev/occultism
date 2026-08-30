@@ -5,9 +5,11 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MixinLivingEntity",
     "MixinServerGamePacketListenerImpl"
   ],
   "client": [
+    "MixinItemStack"
   ],
   "server": [
   ],

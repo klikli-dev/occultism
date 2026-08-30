@@ -30,6 +30,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
@@ -86,6 +87,9 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
     public ModelPart rightBackLeg3;
     public ModelPart rightLeg2;
     public ModelPart rightLeg3;
+    public ModelPart bell1;
+    public ModelPart bell2;
+    public ModelPart bell3;
 
     public ChimeraFamiliarModel(ModelPart part) {
         super(part);
@@ -137,6 +141,9 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
         this.rightBackLeg3 = this.rightBackLeg2.getChild("rightBackLeg3");
         this.rightLeg2 = this.rightLeg1.getChild("rightLeg2");
         this.rightLeg3 = this.rightLeg2.getChild("rightLeg3");
+        this.bell1 = this.goatNeck.getChild("bell1");
+        this.bell2 = this.bell1.getChild("bell2");
+        this.bell3 = this.bell2.getChild("bell3");
     }
 
 
@@ -148,16 +155,16 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
         PartDefinition leftBackLeg1 = body.addOrReplaceChild("leftBackLeg1", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, false), PartPose.offsetAndRotation(2.3F, -0.1F, 3.9F, -0.23457224414434488F, 0.0F, 0.0F));
         PartDefinition snake1 = body.addOrReplaceChild("snake1", CubeListBuilder.create().texOffs(45, 4).addBox(-1.0F, -4.0F, -1.0F, 2.0F, 4.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 4.5F, -0.6646214111173737F, 0.0F, 0.0F));
         PartDefinition leftLeg1 = body.addOrReplaceChild("leftLeg1", CubeListBuilder.create().texOffs(46, 11).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 4.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, -0.2F, -3.0F, 0.4300491170387584F, 0.0F, 0.0F));
-        PartDefinition goatNeck = body.addOrReplaceChild("goatNeck", CubeListBuilder.create().texOffs(0, 15).addBox(-4.0F, -2.0F, -1.0F, 4.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(-1.5F, -1.0F, 0.0F, 0.03909537541112055F, -0.23457224414434488F, 0.8990190684075072F));
+        PartDefinition goatNeck = body.addOrReplaceChild("goatNeck", CubeListBuilder.create().texOffs(37, 20).addBox(-4.0F, -2.0F, -1.0F, 4.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(-1.5F, -1.0F, 0.0F, 0.03909537541112055F, -0.23457224414434488F, 0.8990190684075072F));
         PartDefinition rightBackLeg1 = body.addOrReplaceChild("rightBackLeg1", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, true), PartPose.offsetAndRotation(-2.3F, -0.1F, 3.9F, -0.23457224414434488F, 0.0F, 0.0F));
         PartDefinition rightLeg1 = body.addOrReplaceChild("rightLeg1", CubeListBuilder.create().texOffs(46, 11).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 4.0F, 2.0F, true), PartPose.offsetAndRotation(-2.0F, -0.2F, -3.0F, 0.4300491170387584F, 0.0F, 0.0F));
         PartDefinition mouth = head.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(35, 0).addBox(-1.5F, -1.0F, -3.0F, 3.0F, 2.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, -1.2F, -3.3F, 0.4300491170387584F, 0.0F, 0.0F));
         PartDefinition leftEye = head.addOrReplaceChild("leftEye", CubeListBuilder.create().texOffs(44, 0).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(1.7F, -2.4F, -3.9F, 0.0F, 0.0F, -0.4363323129985824F));
         PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(56, 0).addBox(0.0F, -2.0F, -1.5F, 2.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(2.0F, -2.9F, -2.0F, -0.11728612207217244F, -0.11728612207217244F, -0.35185837453889574F));
-        PartDefinition mane1 = head.addOrReplaceChild("mane1", CubeListBuilder.create().texOffs(3, 28).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 0.5F, -3.0F, 0.6108652381980153F, 0.0F, 0.0F));
-        PartDefinition mane2 = head.addOrReplaceChild("mane2", CubeListBuilder.create().texOffs(3, 28).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, false), PartPose.offsetAndRotation(-2.0F, -1.0F, -2.9F, 0.6981317007977318F, 0.0F, 1.5707963267948966F));
-        PartDefinition mane3 = head.addOrReplaceChild("mane3", CubeListBuilder.create().texOffs(3, 28).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, true), PartPose.offsetAndRotation(2.0F, -1.0F, -2.9F, 0.6108652381980153F, 0.0F, -1.5707963267948966F));
-        PartDefinition mane4 = head.addOrReplaceChild("mane4", CubeListBuilder.create().texOffs(3, 28).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -3.0F, 0.6108652381980153F, 0.0F, 3.141592653589793F));
+        PartDefinition mane1 = head.addOrReplaceChild("mane1", CubeListBuilder.create().texOffs(9, 23).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 0.5F, -3.0F, 0.6108652381980153F, 0.0F, 0.0F));
+        PartDefinition mane2 = head.addOrReplaceChild("mane2", CubeListBuilder.create().texOffs(9, 23).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, false), PartPose.offsetAndRotation(-2.0F, -1.0F, -2.9F, 0.6981317007977318F, 0.0F, 1.5707963267948966F));
+        PartDefinition mane3 = head.addOrReplaceChild("mane3", CubeListBuilder.create().texOffs(9, 23).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, true), PartPose.offsetAndRotation(2.0F, -1.0F, -2.9F, 0.6108652381980153F, 0.0F, -1.5707963267948966F));
+        PartDefinition mane4 = head.addOrReplaceChild("mane4", CubeListBuilder.create().texOffs(9, 23).addBox(-3.5F, 0.0F, 0.0F, 7.0F, 4.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -3.0F, 0.6108652381980153F, 0.0F, 3.141592653589793F));
         PartDefinition mane7 = head.addOrReplaceChild("mane7", CubeListBuilder.create().texOffs(17, 27).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 5.0F, 0.0F, false), PartPose.offsetAndRotation(2.0F, -1.0F, -1.0F, 0.6981317007977318F, 0.0F, -1.5707963267948966F));
         PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(56, 0).addBox(0.0F, -2.0F, -1.5F, 2.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(-2.0F, -2.9F, -2.0F, -0.11728612207217244F, -0.11728612207217244F, -1.1644836982359053F));
         PartDefinition rightEye = head.addOrReplaceChild("rightEye", CubeListBuilder.create().texOffs(44, 0).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, true), PartPose.offsetAndRotation(-1.7F, -2.4F, -3.9F, 0.0F, 0.0F, 0.4363323129985824F));
@@ -191,51 +198,53 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
         PartDefinition rightBackLeg3 = rightBackLeg2.addOrReplaceChild("rightBackLeg3", CubeListBuilder.create().texOffs(20, 0).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 1.0F, true), PartPose.offsetAndRotation(0.01F, 2.2F, 0.5F, -1.2119566751954398F, 0.0F, 0.0F));
         PartDefinition rightLeg2 = rightLeg1.addOrReplaceChild("rightLeg2", CubeListBuilder.create().texOffs(54, 13).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 4.0F, 2.0F, true), PartPose.offsetAndRotation(0.01F, 3.4F, 0.5F, -0.7428121536172364F, 0.0F, 0.0F));
         PartDefinition rightLeg3 = rightLeg2.addOrReplaceChild("rightLeg3", CubeListBuilder.create().texOffs(27, 14).addBox(-1.0F, 0.0F, -3.0F, 2.0F, 1.0F, 3.0F, true), PartPose.offsetAndRotation(0.01F, 3.2F, 0.8F, 0.3127630032889644F, 0.0F, 0.0F));
+
+        PartDefinition bell1 = goatNeck.addOrReplaceChild("bell1", CubeListBuilder.create().texOffs(0, 15).addBox(-1.5F, 0.0F, -0.5F, 3.0F, 4.0F, 1.0F, false), PartPose.offsetAndRotation(-1.6F, -2.1F, 0F, 0F, 1.7119566751954398F, 0.0F));
+        PartDefinition bell2 = bell1.addOrReplaceChild("bell2", CubeListBuilder.create().texOffs(0, 21).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 4.0F, -0.1F, 0.3127630032889644F, 0.0F, 0.0F));
+        PartDefinition bell3 = bell2.addOrReplaceChild("bell3", CubeListBuilder.create().texOffs(0, 25).addBox(-1.5F, 0.0F, -1.5F, 3.0F, 1.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 2.0F, 0.0F, 0, 0, 0));
+        //PartDefinition bell1 = goatNeck.addOrReplaceChild("bell1", CubeListBuilder.create().texOffs(0, 15).addBox(-1.5F, 0.0F, -0.5F, 3.0F, 4.0F, 1.0F, false), PartPose.offsetAndRotation(0.01F, -1.6F, -2.1F, 0.1563815016444822F, 0.0F, 0.0F));
+        //PartDefinition bell2 = bell1.addOrReplaceChild("bell2", CubeListBuilder.create().texOffs(0, 21).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 4.0F, -0.1F, 0.6646214111173737F, 0.0F, 0.0F));
+        //PartDefinition bell3 = bell2.addOrReplaceChild("bell3", CubeListBuilder.create().texOffs(0, 25).addBox(-1.5F, 0.0F, -1.5F, 3.0F, 1.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 2.0F, 0.0F, 0, 0, 0));
         return LayerDefinition.create(mesh, 64, 32);
     }
 
     @Override
     public void setupAnim(ChimeraFamiliarRenderState state) {
         super.setupAnim(state);
-        // TODO: needs custom RenderState
-        // boolean isSnakeAttacking = pEntity.getAttackProgress(0) > 0
-        //         && pEntity.getAttacker() == ChimeraFamiliarEntity.SNAKE_ATTACKER;
-
-        // this.showModels(pEntity);
+        this.prepareMobModel(state);
+        this.showModels(state);
 
         this.snake2.yRot = 0;
         this.snake3.yRot = 0;
         this.leftLeg3.xRot = 0.31f;
         this.rightLeg3.xRot = 0.31f;
         this.body.xRot = 0;
-        // TODO: needs custom RenderState - isSnakeAttacking depends on pEntity
-        // if (!isSnakeAttacking) {
-        this.snake1.xRot = -0.66f;
-        this.snake2.xRot = 0.47f;
-        this.snake3.xRot = 0.47f;
-        this.snake4.xRot = 0.59f;
-        // }
+        if (!(state.attackProgress > 0 && state.attacker == ChimeraFamiliarEntity.SNAKE_ATTACKER)) {
+            this.snake1.xRot = -0.66f;
+            this.snake2.xRot = 0.47f;
+            this.snake3.xRot = 0.47f;
+            this.snake4.xRot = 0.59f;
+        }
         this.goatHead.zRot = -0.94f;
         this.leftLeg1.yRot = 0;
         this.rightLeg1.yRot = 0;
 
-        // TODO: needs custom RenderState
-        // this.head.yRot = this.toRads(netHeadYaw) * 0.7f;
-        // this.head.xRot = this.toRads(headPitch) * 0.7f;
-        // this.snake4.yRot = this.toRads(netHeadYaw) * 0.3f;
-        // this.snake4.zRot = -this.toRads(netHeadYaw) * 0.3f;
+        this.head.yRot = this.toRads(state.yRot) * 0.7f;
+        this.head.xRot = this.toRads(state.xRot) * 0.7f;
+        this.snake4.yRot = this.toRads(state.yRot) * 0.3f;
+        this.snake4.zRot = -this.toRads(state.yRot) * 0.3f;
 
-        // this.snake1.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
-        // this.snake2.zRot = Mth.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + this.toRads(0);
-        // this.snake3.zRot = Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount + this.toRads(0);
-        // this.snake4.zRot = -Mth.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount;
+        this.snake1.zRot = Mth.cos(state.walkAnimationPos * 0.3f) * 0.1f * state.walkAnimationSpeed + this.toRads(0);
+        this.snake2.zRot = Mth.cos(state.walkAnimationPos * 0.3f) * 0.1f * state.walkAnimationSpeed + this.toRads(0);
+        this.snake3.zRot = Mth.cos(state.walkAnimationPos * 0.3f) * 0.25f * state.walkAnimationSpeed + this.toRads(0);
+        this.snake4.zRot = -Mth.cos(state.walkAnimationPos * 0.3f) * 0.25f * state.walkAnimationSpeed;
 
-        // this.snake5.xRot = Mth.cos(pAgeInTicks * 0.1f) * this.toRads(15) + this.toRads(15);
+        this.snake5.xRot = Mth.cos(state.ageInTicks * 0.1f) * this.toRads(15) + this.toRads(15);
 
-        // this.rightBackLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.23f;
-        // this.leftBackLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
-        // this.rightLeg1.xRot = Mth.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
-        // this.leftLeg1.xRot = Mth.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
+        this.rightBackLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.8f * state.walkAnimationSpeed - 0.23f;
+        this.leftBackLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 0.8f * state.walkAnimationSpeed - 0.23f;
+        this.rightLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f + PI) * 0.8f * state.walkAnimationSpeed + 0.43f;
+        this.leftLeg1.xRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.8f * state.walkAnimationSpeed + 0.43f;
 
         if (state.isSitting) {
             this.leftLeg1.xRot = -this.toRads(15);
@@ -258,22 +267,43 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarRenderState
             this.snake3.xRot = this.toRads(50);
             this.snake4.xRot = this.toRads(60);
             this.snake5.xRot = this.toRads(7);
+        } else if (state.isPartying) {
+            this.head.xRot = Mth.cos(state.ageInTicks * 0.4f) * this.toRads(30);
+            this.goatHead.zRot = -Mth.cos(state.ageInTicks * 0.4f) * this.toRads(15) - 0.94f;
+            this.goatHead.yRot = -0.20f;
+            this.snake4.xRot = Mth.cos(state.ageInTicks * 0.4f) * this.toRads(30) + 0.59f;
         }
-        // if (pEntity.isPartying()) { ... }
+
+        this.bell2.zRot = Mth.cos(state.walkAnimationPos * 0.7f) * 0.5f * state.walkAnimationSpeed;
     }
 
-    // TODO: prepareMobModel removed - data needs to come from a custom RenderState
-    // prepareMobModel set goatMouth.zRot, goatNeck.zRot, snake1/2/3/4.xRot based on entity attack data
+        public void prepareMobModel(ChimeraFamiliarRenderState state) {
+        this.goatMouth.zRot = state.goatRot - 0.2f;
 
-    private void showModels(ChimeraFamiliarEntity entityIn) {
-        boolean hasFlaps = entityIn.hasFlaps();
+        float attackProgress = state.attackProgress;
+        if (attackProgress > 0) {
+            switch (state.attacker) {
+                case ChimeraFamiliarEntity.GOAT_ATTACKER:
+                    this.goatNeck.zRot = -Mth.sin(attackProgress * PI * 2) * this.toRads(30) + 0.9f;
+                    break;
+                case ChimeraFamiliarEntity.SNAKE_ATTACKER:
+                    this.snake1.xRot = Mth.sin(attackProgress * PI) * this.toRads(25) - 0.66f;
+                    this.snake2.xRot = Mth.sin(attackProgress * PI) * this.toRads(25) + 0.47f;
+                    this.snake3.xRot = Mth.sin(attackProgress * PI) * this.toRads(25) + 0.47f;
+                    this.snake4.xRot = -Mth.sin(attackProgress * PI) * this.toRads(30) + 0.59f;
+                    break;
+            }
+        }
+    }
 
-        this.snakeFlap1.visible = hasFlaps;
-        this.snakeFlap2.visible = hasFlaps;
-        this.goatRing.visible = entityIn.hasRing();
-        this.snakeHat1.visible = entityIn.hasHat();
-        this.goatNeck.visible = entityIn.hasGoat();
-        this.goatBeard.visible = entityIn.hasBeard();
+    private void showModels(ChimeraFamiliarRenderState state) {
+        this.snakeFlap1.visible = state.hasFlaps;
+        this.snakeFlap2.visible = state.hasFlaps;
+        this.snakeHat1.visible = state.hasHat;
+        this.goatRing.visible = state.hasRing;
+        this.goatNeck.visible = state.hasGoat;
+        this.goatBeard.visible = state.hasBeard;
+        this.bell1.visible = state.hasGoat && state.hasBlacksmithUpgrade;
     }
 
     private float toRads(float deg) {

@@ -242,10 +242,6 @@ dependencies {
     //enable once available for 1.20
     //localRuntime "com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal"
 
-    //Apothic Enchanting
-//    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
-
-
     // Apotheosis
     compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
     // Enable when needed for integration testing

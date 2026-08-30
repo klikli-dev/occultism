@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting1",
+  "recipe_id_1": "occultism:crafting/flaming_paste/blaze_rod",
+  "recipe_id_2": "occultism:crafting/flaming_paste/fire_charge",
+  "sort_number": 2
+}

@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContain
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
+import com.klikli_dev.occultism.common.container.tablet.TeleportTabletContainer;
 import com.klikli_dev.occultism.common.entity.IFilterConfigurable;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -109,4 +110,7 @@ public class OccultismContainers {
 
     public static final Supplier<MenuType<RitualSatchelT2Container>> RITUAL_SATCHEL_T2 =
             CONTAINERS.register("ritual_satchel_t2", () -> IMenuTypeExtension.create(RitualSatchelT2Container::createClientContainer));
+
+    public static final Supplier<MenuType<TeleportTabletContainer>> TELEPORT_TABLET =
+            CONTAINERS.register("teleport_tablet", () -> IMenuTypeExtension.create(TeleportTabletContainer::createClientContainer));
 }

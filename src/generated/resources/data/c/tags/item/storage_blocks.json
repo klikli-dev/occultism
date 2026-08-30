@@ -3,6 +3,7 @@
     "#c:storage_blocks/iesnium",
     "#c:storage_blocks/silver",
     "#c:storage_blocks/raw_iesnium",
-    "#c:storage_blocks/raw_silver"
+    "#c:storage_blocks/raw_silver",
+    "#c:storage_blocks/spirit_attuned"
   ]
 }

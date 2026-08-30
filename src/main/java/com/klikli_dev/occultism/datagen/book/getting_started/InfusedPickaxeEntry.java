@@ -39,7 +39,7 @@ public class InfusedPickaxeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crafting");
-        this.pageText("After preparing the raw materials, the pickaxe needs to be infused with a spirit.\n\\\n\\\nFollow the instructions at [Craft Infuse Pickaxe](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_infused_pickaxe)\n");
+        this.pageText("After preparing the raw materials, the pickaxe needs to be infused with a spirit.\n\\\n\\\nFollow the instructions at [Craft Infuse Pickaxe](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_infused_tools)\n");
     }
 
     @Override

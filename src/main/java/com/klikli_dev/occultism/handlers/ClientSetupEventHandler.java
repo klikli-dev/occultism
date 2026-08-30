@@ -34,14 +34,13 @@ import com.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
+import com.klikli_dev.occultism.client.gui.tablet.TeleportTabletScreen;
 import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.OccultismRenderType;
-import com.klikli_dev.occultism.client.render.blockentity.EntityWormholeRenderer;
-import com.klikli_dev.occultism.client.render.blockentity.GoldenSacrificialBowlRenderer;
-import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
-import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
+import com.klikli_dev.occultism.client.render.TeleportTabletHUD;
+import com.klikli_dev.occultism.client.render.blockentity.*;
 import com.klikli_dev.occultism.client.render.entity.*;
 import com.klikli_dev.occultism.client.render.entity.DragonRendering.ThrownSwordRenderer;
 import com.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
@@ -50,15 +49,14 @@ import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusbandRenderer;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWifeRenderer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
-import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismContainers;
+import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.platform.InputConstants.Type;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyMapping.Category;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.object.boat.BoatModel;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
@@ -66,8 +64,6 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.ARGB;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
@@ -79,13 +75,10 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterLayerDef
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.event.ScreenEvent.MouseButtonPressed.Pre;
-import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
-import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -183,7 +176,8 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.GOAT_OF_MERCY.get(), GoatRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
-        event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.DRIKWING_FAMILIAR.get(), DrikwingRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WINGNIS_FAMILIAR.get(), WingnisRenderer::new);
 
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_HUSK.get(), HuskRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HORDE_PARCHED.get(), ParchedRenderer::new);
@@ -241,10 +235,11 @@ public class ClientSetupEventHandler {
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), GoldenSacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.RITUAL_CATCHER.get(), RitualCatcherRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
         // Use vanilla sign renderers for custom sign types
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), StandingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
-        BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
 
         PageRenderers.onClientSetup(event);
 
@@ -264,30 +259,7 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
-    }
-
-    public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerMobEffect(new IClientMobEffectExtensions() {
-            @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x + 3, y + 3, 18, 18, ARGB.white(alpha));
-                return true;
-            }
-        }, OccultismEffects.THIRD_EYE.get());
-
-        event.registerMobEffect(new IClientMobEffectExtensions() {
-            @Override
-            public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull AbstractContainerScreen<?> screen, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, int blitOffset) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 7, 18, 18);
-                return true;
-            }
-
-            @Override
-            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float z, float alpha) {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(instance.getEffect()), x, y + 3, 18, 18, ARGB.white(alpha));
-                return false;
-            }
-        }, OccultismEffects.DOUBLE_JUMP.get());
+        event.register(OccultismContainers.TELEPORT_TABLET.get(), TeleportTabletScreen::new);
     }
 
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
@@ -309,5 +281,6 @@ public class ClientSetupEventHandler {
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         event.registerAboveAll(Identifier.fromNamespaceAndPath(Occultism.MODID, "third_eye"), Occultism.THIRD_EYE_EFFECT_RENDERER);
         event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
+        event.registerAbove(VanillaGuiLayers.HOTBAR, Identifier.fromNamespaceAndPath("occultism", "teleport_tablet_hud"), TeleportTabletHUD.get());
     }
 }

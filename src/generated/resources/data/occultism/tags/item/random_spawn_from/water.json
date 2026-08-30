@@ -12,7 +12,6 @@
     "minecraft:glow_squid_spawn_egg",
     "minecraft:tadpole_spawn_egg",
     "minecraft:turtle_spawn_egg",
-    "minecraft:nautilus_spawn_egg",
-    "minecraft:zombie_nautilus_spawn_egg"
+    "minecraft:nautilus_spawn_egg"
   ]
 }

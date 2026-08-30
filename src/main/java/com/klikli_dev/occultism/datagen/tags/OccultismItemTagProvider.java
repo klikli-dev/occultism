@@ -118,10 +118,21 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
     }
 
     private void addCuriosTags(Provider provider) {
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt"))).add(OccultismItems.SATCHEL.get()).add(OccultismItems.ENDER_SATCHEL.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).add(OccultismItems.TRUE_SIGHT_STAFF.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt")))
+                .add(OccultismItems.SATCHEL.get())
+                .add(OccultismItems.ENDER_SATCHEL.get())
+                .replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands")))
+                .add(OccultismItems.STORAGE_REMOTE.get())
+                .add(OccultismItems.TRUE_SIGHT_STAFF.get())
+                .add(OccultismItems.FAMILIAR_GLOVE.get())
+                .replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head")))
+                .add(OccultismItems.OTHERWORLD_GOGGLES.get())
+                .replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring")))
+                .add(OccultismItems.FAMILIAR_RING.get())
+                .replace(false);
     }
 
     private void addOccultismTags(Provider provider) {
@@ -133,11 +144,8 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.WITHER_SKELETON_SKULL)
                 .replace(false);
 
-        this.tag(OccultismTags.Items.SCUTESHELL)
-                .add(Items.ARMADILLO_SCUTE)
-                .add(Items.TURTLE_SCUTE)
-                .add(Items.SHULKER_SHELL)
-                .add(Items.NAUTILUS_SHELL)
+        this.tag(OccultismTags.Items.BATTLEFIELD_DENY_LIST)
+                .add(OccultismItems.SOUL_SHATTERED_ITEM.get())
                 .replace(false);
 
         this.copy(Blocks.PENTACLE_MATERIALS, OccultismTags.Items.PENTACLE_MATERIALS);
@@ -238,6 +246,15 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
+        this.tag(OccultismTags.Items.BYPASS_INTERACTION)
+                .add(OccultismItems.MAGIC_LAMP_EMPTY.get())
+                .add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get())
+                .add(OccultismItems.SOUL_GEM_ITEM.get())
+                .add(OccultismItems.TRINITY_GEM_ITEM.get())
+                .add(OccultismItems.NATURE_PASTE.get())
+                .add(OccultismItems.GRAY_PASTE.get())
+                .add(OccultismItems.FLAMING_PASTE.get())
+                .replace(false);
 
         this.tag(OccultismTags.Items.START_SPIRIT_FIRE)
                 .add(OccultismItems.DATURA.get())
@@ -284,6 +301,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .addTag(OccultismTags.Items.TOOLS_CHALK)
                 .addTag(OccultismTags.Items.TOOLS_KNIFE)
                 .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem())
+                .add(OccultismItems.FLAMING_PASTE.asItem())
                 .add(OccultismItems.GRAY_PASTE.asItem())
                 .add(OccultismItems.NATURE_PASTE.asItem());
         this.tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
@@ -338,38 +356,51 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
 
         this.tag(ItemTags.SHOVELS)
                 .add(OccultismItems.SILVER_SHOVEL.get())
+                .add(OccultismItems.INFUSED_SHOVEL.get())
                 .replace(false);
 
         this.tag(ItemTags.AXES)
                 .add(OccultismItems.SILVER_AXE.get())
+                .add(OccultismItems.INFUSED_AXE.get())
                 .replace(false);
 
         this.tag(ItemTags.HOES)
                 .add(OccultismItems.SILVER_HOE.get())
+                .add(OccultismItems.INFUSED_HOE.get())
                 .replace(false);
 
         this.tag(ItemTags.SPEARS)
                 .add(OccultismItems.SILVER_SPEAR.get())
+                .add(OccultismItems.INFUSED_SPEAR.get())
                 .replace(false);
 
         this.tag(ItemTags.SWORDS)
                 .add(OccultismItems.SILVER_SWORD.get())
+                .add(OccultismItems.INFUSED_SWORD.get())
                 .replace(false);
 
         this.tag(ItemTags.HEAD_ARMOR)
                 .add(OccultismItems.SILVER_HELMET.get())
+                .add(OccultismItems.INFUSED_HELMET.get())
                 .replace(false);
 
         this.tag(ItemTags.CHEST_ARMOR)
                 .add(OccultismItems.SILVER_CHESTPLATE.get())
+                .add(OccultismItems.INFUSED_CHESTPLATE.get())
                 .replace(false);
 
         this.tag(ItemTags.LEG_ARMOR)
                 .add(OccultismItems.SILVER_LEGGINGS.get())
+                .add(OccultismItems.INFUSED_LEGGINGS.get())
                 .replace(false);
 
         this.tag(ItemTags.FOOT_ARMOR)
                 .add(OccultismItems.SILVER_BOOTS.get())
+                .add(OccultismItems.INFUSED_BOOTS.get())
+                .replace(false);
+
+        this.tag(ItemTags.CREEPER_IGNITERS)
+                .add(OccultismItems.FLAMING_PASTE.get())
                 .replace(false);
 
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
@@ -400,14 +431,28 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.SILVER_AXE.get())
                 .add(OccultismItems.SILVER_SPEAR.get())
                 .add(OccultismItems.SILVER_SWORD.get())
+                .add(OccultismItems.INFUSED_AXE.get())
+                .add(OccultismItems.INFUSED_SPEAR.get())
+                .add(OccultismItems.INFUSED_SWORD.get())
                 .replace(false);
 
         this.tag(Tags.Items.ARMORS_HORSE)
                 .add(OccultismItems.SILVER_HORSE_ARMOR.get())
+                .add(OccultismItems.INFUSED_HORSE_ARMOR.get())
                 .replace(false);
 
         this.tag(Tags.Items.ARMORS_NAUTILUS)
                 .add(OccultismItems.SILVER_NAUTILUS_ARMOR.get())
+                .add(OccultismItems.INFUSED_NAUTILUS_ARMOR.get())
+                .replace(false);
+
+
+        this.tag(Tags.Items.TOOLS_IGNITER)
+                .add(OccultismItems.FLAMING_PASTE.get())
+                .replace(false);
+
+        this.tag(Tags.Items.BUCKETS_LAVA)
+                .add(OccultismItems.FLAMING_PASTE.get())
                 .replace(false);
 
         this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
@@ -445,11 +490,15 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.addRandomEggs(provider);
 
         // Ingots
+        this.tag(OccultismTags.Items.SPIRIT_ATTUNED_GEM).add(OccultismItems.SPIRIT_ATTUNED_GEM.get()).replace(false);
         this.tag(OccultismTags.Items.IESNIUM_INGOT).add(OccultismItems.IESNIUM_INGOT.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_INGOT).add(OccultismItems.SILVER_INGOT.get()).replace(false);
         //noinspection unchecked
         this.tag(Tags.Items.INGOTS).addTags(OccultismTags.Items.IESNIUM_INGOT, OccultismTags.Items.SILVER_INGOT).replace(false);
-        this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(OccultismItems.SILVER_INGOT.get()).add(OccultismItems.IESNIUM_INGOT.get());
+        this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
+                .add(OccultismItems.SILVER_INGOT.get())
+                .add(OccultismItems.IESNIUM_INGOT.get())
+                .add(OccultismItems.SPIRIT_ATTUNED_GEM.get());
 
         // Nuggets
         this.tag(OccultismTags.Items.IESNIUM_NUGGET).add(OccultismItems.IESNIUM_NUGGET.get()).replace(false);
@@ -481,6 +530,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.PITAYA.get())
                 .add(OccultismItems.PITAYA_GOLDEN.get())
                 .add(OccultismItems.PITAYA_ENCHANTED.get())
+                .add(OccultismItems.NATURE_PASTE.get())
+                .add(OccultismItems.GRAY_PASTE.get())
+                .add(OccultismItems.FLAMING_PASTE.get())
                 .replace(false);
         this.tag(ItemTags.MEAT)
                 .add(OccultismItems.DEMONIC_MEAT.get())
@@ -523,9 +575,10 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.copy(Blocks.STORAGE_BLOCKS_SILVER, OccultismTags.Items.STORAGE_BLOCK_SILVER);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM);
         this.copy(Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
+        this.copy(Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         //noinspection unchecked
         this.tag(Tags.Items.STORAGE_BLOCKS).addTags(OccultismTags.Items.STORAGE_BLOCK_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_SILVER,
-                OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).replace(false);
+                OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         this.copy(Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
         this.copy(Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);
@@ -859,16 +912,12 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.CAMEL_SPAWN_EGG)
                 .add(Items.DONKEY_SPAWN_EGG)
                 .add(Items.HORSE_SPAWN_EGG)
-                .add(Items.SKELETON_HORSE_SPAWN_EGG)
-                .add(Items.ZOMBIE_HORSE_SPAWN_EGG)
                 .add(Items.LLAMA_SPAWN_EGG)
                 .add(Items.TRADER_LLAMA_SPAWN_EGG)
                 .add(Items.MULE_SPAWN_EGG)
                 .add(Items.STRIDER_SPAWN_EGG)
                 .add(Items.HAPPY_GHAST_SPAWN_EGG)
-                .add(Items.NAUTILUS_SPAWN_EGG)
-                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG)
-                .add(Items.CAMEL_HUSK_SPAWN_EGG);
+                .add(Items.NAUTILUS_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_SMALL)
                 .add(Items.ALLAY_SPAWN_EGG)
                 .add(Items.BAT_SPAWN_EGG)
@@ -900,8 +949,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(Items.GLOW_SQUID_SPAWN_EGG)
                 .add(Items.TADPOLE_SPAWN_EGG)
                 .add(Items.TURTLE_SPAWN_EGG)
-                .add(Items.NAUTILUS_SPAWN_EGG)
-                .add(Items.ZOMBIE_NAUTILUS_SPAWN_EGG);
+                .add(Items.NAUTILUS_SPAWN_EGG);
         this.tag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER)
                 .add(Items.VILLAGER_SPAWN_EGG)
                 .add(Items.WANDERING_TRADER_SPAWN_EGG)

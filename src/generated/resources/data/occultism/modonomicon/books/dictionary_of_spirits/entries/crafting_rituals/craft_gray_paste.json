@@ -26,10 +26,10 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_gray_paste.name",
   "parents": [
     {
-      "entry": "occultism:crafting_rituals/overview"
+      "entry": "occultism:crafting_rituals/craft_nature_paste"
     }
   ],
-  "sort_number": 49,
-  "x": 4,
-  "y": 2
+  "sort_number": 37,
+  "x": 0,
+  "y": 4
 }

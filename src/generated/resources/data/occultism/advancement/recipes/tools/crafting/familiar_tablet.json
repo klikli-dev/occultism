@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherworldy_tablet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:otherworldly_tablet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/familiar_tablet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherworldy_tablet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/familiar_tablet"
+    ]
+  }
+}

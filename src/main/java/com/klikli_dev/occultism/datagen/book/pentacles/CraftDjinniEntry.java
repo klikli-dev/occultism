@@ -53,7 +53,19 @@ public class CraftDjinniEntry extends EntryProvider {
                 - {4}
                 - {5}
                 - {6}
-                """, this.entryLink("Infused Pickaxe", "crafting_rituals", "craft_infused_pickaxe"), this.entryLink("Soul Gem", "crafting_rituals", "craft_soul_gem"), this.entryLink("Familiar Ring", "crafting_rituals", "craft_familiar_ring"), this.entryLink("Entity Wormhole", "crafting_rituals", "entity_wormhole"), this.entryLink("Dimensional Extractor", "crafting_rituals", "dimensional_extractor"), this.entryLink("Dimensional Mineshaft", "crafting_rituals", "craft_dimensional_mineshaft"), this.entryLink("Djinni Ore Miner", "crafting_rituals", "craft_djinni_miner"));
+                - {7}
+                - {8}
+                """,
+                this.entryLink("Soul Gem", "crafting_rituals", "craft_soul_gem"),
+                this.entryLink("Infused Tools", "crafting_rituals", "craft_infused_tools"),
+                this.entryLink("Infused Armor", "crafting_rituals", "craft_infused_armor"),
+                this.entryLink("Familiar Ring", "crafting_rituals", "craft_familiar_ring"),
+                this.entryLink("Entity Wormhole", "crafting_rituals", "entity_wormhole"),
+                this.entryLink("Wormhole Tablet", "crafting_rituals", "wormhole_tablet"),
+                this.entryLink("Dimensional Extractor", "crafting_rituals", "dimensional_extractor"),
+                this.entryLink("Dimensional Mineshaft", "crafting_rituals", "craft_dimensional_mineshaft"),
+                this.entryLink("Djinni Ore Miner", "crafting_rituals", "craft_djinni_miner")
+        );
 
         this.page("uses2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -68,7 +80,15 @@ public class CraftDjinniEntry extends EntryProvider {
                 - {4}
                 - {5}
                 - {6}
-                """, this.entryLink("Ender Satchel", "crafting_rituals", "ender_satchel"), this.entryLink("Dimensional Matrix", "crafting_rituals", "craft_dimensional_matrix"), this.entryLink("Storage Accessor", "crafting_rituals", "craft_storage_remote"), this.entryLink("Storage Stabilizer Tier 2", "crafting_rituals", "craft_stabilizer_tier2"), this.entryLink("Spirit Grindstone", "crafting_rituals", "spirit_grindstone"), this.entryLink("Repair Chalks", "crafting_rituals", "repair"), this.entryLink("Gray Paste", "pentacles", "gray_chalk"));
+                """,
+                this.entryLink("Gray Paste", "crafting_rituals", "craft_gray_paste"),
+                this.entryLink("Ender Satchel", "crafting_rituals", "ender_satchel"),
+                this.entryLink("Dimensional Matrix", "crafting_rituals", "craft_dimensional_matrix"),
+                this.entryLink("Storage Accessor", "crafting_rituals", "craft_storage_remote"),
+                this.entryLink("Storage Stabilizer Tier 2", "crafting_rituals", "craft_stabilizer_tier2"),
+                this.entryLink("Spirit Grindstone", "crafting_rituals", "spirit_grindstone"),
+                this.entryLink("Repair Chalks", "crafting_rituals", "repair")
+        );
 
     }
 

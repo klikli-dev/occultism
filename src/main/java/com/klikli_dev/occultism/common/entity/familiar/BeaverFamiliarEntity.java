@@ -22,12 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity.FollowOwnerWaterGoal;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity.MoveController;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
@@ -36,10 +34,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
@@ -79,7 +75,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     }
 
     public static Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
+        return FamiliarEntity.createAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
     @Override
@@ -96,10 +92,8 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasBigTail())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasBigTail();
     }
 
     @Override
@@ -132,7 +126,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getOwner() == pPlayer) {
 
-            if (!pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
+            if (pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
                 if (!this.hasBlacksmithUpgrade()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"));
                 } else if (this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL) {
@@ -173,18 +167,8 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         this.setVariant(2, b);
     }
 
-    @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.BEAVER_HARVEST, 300, 0, false, false));
-    }
-
     public void setTreeTarget(BlockPos pos) {
         this.treeTarget = pos;
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     private static class ChopTreeGoal extends Goal {

@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "minecraft:camel_husk",
+  "entity_name": "",
+  "id": "camel_husk",
+  "offset": -0.5,
+  "scale": 0.8,
+  "sort_number": 6,
+  "text": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.camel_husk.text"
+}

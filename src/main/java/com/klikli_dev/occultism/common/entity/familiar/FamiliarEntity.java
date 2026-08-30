@@ -23,6 +23,12 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
+import com.klikli_dev.occultism.common.data.FamiliarEffects;
+import com.klikli_dev.occultism.common.item.familiar.FamiliarCurio;
+import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.core.BlockPos;
@@ -33,6 +39,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ProblemReporter;
@@ -42,6 +49,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -63,19 +72,24 @@ import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar {
 
+    final List<FamiliarEffects.FamiliarEffectDefinition> effectDefinitionList = FamiliarEffects.effectMap().get(this.getType());
     private static final float MAX_BOOST_DISTANCE = 8;
-
+    private static final Identifier DAMAGE_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "upgraded_damage_bonus");
+    private static final Identifier DAMAGE_BONUS_IESNIUM = Identifier.fromNamespaceAndPath(Occultism.MODID, "iesnium_damage_bonus");
+    private static final Identifier HEALTH_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "upgraded_health_bonus");
+    private static final Identifier HEALTH_BONUS_IESNIUM = Identifier.fromNamespaceAndPath(Occultism.MODID, "iesnium_health_bonus");
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(FamiliarEntity.class,
             EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> BLACKSMITH_UPGRADE = SynchedEntityData.defineId(FamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IESNIUM_UPGRADE = SynchedEntityData.defineId(FamiliarEntity.class,
             EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> VARIANTS = SynchedEntityData.defineId(FamiliarEntity.class,
             EntityDataSerializers.BYTE);
@@ -90,18 +104,34 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30)
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 30)
                 .add(Attributes.ARMOR, 15.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 10.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.ATTACK_DAMAGE, 6);
+                .add(Attributes.ATTACK_DAMAGE, 6)
+                .add(Attributes.FOLLOW_RANGE, 30);
+    }
+
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
+        if (this.effectDefinitionList == null || this.effectDefinitionList.isEmpty()
+                || this.getOwner() == null)
+            return List.of();
+
+        FamiliarSettingsData data = this.getOwner().getData(OccultismDataStorage.FAMILIAR_SETTINGS.get());
+        List<MobEffectInstance> effects = new ArrayList<>(this.effectDefinitionList.size());
+        for (var effect : this.effectDefinitionList) {
+            int amp = effect.getValue(this);
+            amp = Math.min(amp, data.getEffectAmplifier(this.getFamiliarEntity().getType(), effect.effect()));
+            if (amp >= 0) {
+                effects.add(new MobEffectInstance(effect.effect(), 300, amp, false, false));
+            }
+        }
+        return effects;
     }
 
     @Override
     protected void dropFromLootTable(ServerLevel level, DamageSource pDamageSource, boolean pAttackedRecently) {
-        if (this.getFamiliarEntity() instanceof GuardianFamiliarEntity || this.getFamiliarEntity() instanceof HeadlessFamiliarEntity)
-            return;
-
         super.dropFromLootTable(level, pDamageSource, pAttackedRecently);
 
         var owner = this.getFamiliarOwner();
@@ -112,6 +142,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
         this.resetFallDistance();
         this.removeAllEffects();
+        this.resetCustomFamiliarData();
 
         var entityData = new CompoundTag();
         var id = this.getEncodeId();
@@ -120,7 +151,6 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         var valueOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
         this.saveWithoutId(valueOutput);
         entityData.merge(valueOutput.buildResult());
-        this.removeDataFromSoulShard(entityData);
 
         shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(this.getType(), entityData));
 
@@ -143,7 +173,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         this.partying = partying;
     }
 
-    protected void removeDataFromSoulShard(CompoundTag entityData) {
+    protected void resetCustomFamiliarData() {
     }
 
     public boolean isPartying() {
@@ -155,25 +185,74 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         super.defineSynchedData(builder);
         builder.define(SITTING, false);
         builder.define(BLACKSMITH_UPGRADE, false);
+        builder.define(IESNIUM_UPGRADE, false);
         builder.define(OWNER_UNIQUE_ID, Optional.empty());
         builder.define(VARIANTS, (byte) 0);
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
+    }
+
+    public boolean canIesniumUpgrade() {
+        return this.hasBlacksmithUpgrade() && !this.hasIesniumUpgrade();
     }
 
     public boolean hasBlacksmithUpgrade() {
         return this.entityData.get(BLACKSMITH_UPGRADE);
     }
 
+    public boolean hasIesniumUpgrade() {
+        return this.entityData.get(IESNIUM_UPGRADE);
+    }
+
     private void setBlacksmithUpgrade(boolean b) {
         this.entityData.set(BLACKSMITH_UPGRADE, b);
+    }
+
+    private void setIesniumUpgrade(boolean b) {
+        this.entityData.set(IESNIUM_UPGRADE, b);
     }
 
     @Override
     public void blacksmithUpgrade() {
         if (this.getOwner() instanceof Player player)
             player.sendSystemMessage(Component.translatable(String.format("message.%s.familiar.upgraded", Occultism.MODID), this.getName()));
-        if (!this.hasBlacksmithUpgrade())
+        if (!this.hasBlacksmithUpgrade() && this.hasCustomName())
             this.setCustomName(Component.empty().append(this.getName()).append(" ⛤"));
+
+        AttributeModifier damage = new AttributeModifier(DAMAGE_BONUS, 3, AttributeModifier.Operation.ADD_VALUE);
+        AttributeInstance instanceDmg = this.getAttribute(Attributes.ATTACK_DAMAGE);
+        if (instanceDmg != null && !instanceDmg.hasModifier(DAMAGE_BONUS))
+            instanceDmg.addPermanentModifier(damage);
+
+        AttributeModifier health = new AttributeModifier(HEALTH_BONUS, 20, AttributeModifier.Operation.ADD_VALUE);
+        AttributeInstance instanceHp = this.getAttribute(Attributes.MAX_HEALTH);
+        if (instanceHp != null && !instanceHp.hasModifier(HEALTH_BONUS))
+            instanceHp.addPermanentModifier(health);
+
         this.setBlacksmithUpgrade(true);
+    }
+
+    @Override
+    public void iesniumUpgrade() {
+        if (this.getOwner() instanceof Player player)
+            player.sendSystemMessage(Component.translatable(String.format("message.%s.familiar.iesnium_upgraded", Occultism.MODID), this.getName()));
+        if (!this.hasIesniumUpgrade() && this.hasCustomName())
+            this.setCustomName(Component.empty().append("⛤ ").append(this.getName()));
+
+        AttributeModifier damage = new AttributeModifier(DAMAGE_BONUS_IESNIUM, 9, AttributeModifier.Operation.ADD_VALUE);
+        AttributeInstance instanceDmg = this.getAttribute(Attributes.ATTACK_DAMAGE);
+        if (instanceDmg != null && !instanceDmg.hasModifier(DAMAGE_BONUS_IESNIUM))
+            instanceDmg.addPermanentModifier(damage);
+
+        AttributeModifier health = new AttributeModifier(HEALTH_BONUS_IESNIUM, 50, AttributeModifier.Operation.ADD_VALUE);
+        AttributeInstance instanceHp = this.getAttribute(Attributes.MAX_HEALTH);
+        if (instanceHp != null && !instanceHp.hasModifier(HEALTH_BONUS_IESNIUM))
+            instanceHp.addPermanentModifier(health);
+
+        this.setIesniumUpgrade(true);
     }
 
     @Override
@@ -184,6 +263,9 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     @Override
     public void aiStep() {
         this.updateSwingTime();
+
+        if (this.level().getGameTime() % 1024 == 0)
+            this.heal(1F);
 
         if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.blockPosition(), 3.5)
                 || !this.level().getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
@@ -207,14 +289,30 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+        if (this.getOwner() == null)
+            this.setFamiliarOwner(playerIn);
+
         if (hand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
         ItemStack stack = playerIn.getItemInHand(hand);
-        if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
+        if (stack.getItem() instanceof FamiliarCurio) {
             return stack.interactLivingEntity(playerIn, this, hand);
-        } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get() || this.getFamiliarOwner() == null) {
-            this.setOwnerId(playerIn.getUUID());
+        } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
+            if (playerIn.isShiftKeyDown() && !this.level().isClientSide()) {
+                if (this.hasBlacksmithUpgrade()) {
+                    if (this.hasIesniumUpgrade()) {
+                        this.setBlacksmithUpgrade(false);
+                        this.setIesniumUpgrade(false);
+                    } else {
+                        this.iesniumUpgrade();
+                    }
+                } else {
+                    this.blacksmithUpgrade();
+                }
+            } else {
+                this.setFamiliarOwner(playerIn);
+            }
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         } else if (stack.isEmpty() && !this.level().isClientSide() && this.getFamiliarOwner() == playerIn) {
             this.setSitting(!this.isSitting());
@@ -230,6 +328,8 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
+        if (hasRareVariant())
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         this.setOwnerId(owner.getUUID());
     }
 
@@ -242,7 +342,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     @Override
-    public Entity getFamiliarEntity() {
+    public @NonNull Entity getFamiliarEntity() {
         return this;
     }
 
@@ -259,6 +359,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         if (ownerRef != null) this.setOwnerId(ownerRef.getUUID());
         this.setSitting(input.getBooleanOr("isSitting", false));
         this.setBlacksmithUpgrade(input.getBooleanOr("hasBlacksmithUpgrade", false));
+        this.setIesniumUpgrade(input.getBooleanOr("hasIesniumUpgrade", false));
         this.entityData.set(VARIANTS, input.getByteOr("variants", (byte) 0));
     }
 
@@ -269,6 +370,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         output.putBoolean("isSitting", this.isSitting());
         output.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
+        output.putBoolean("hasIesniumUpgrade", this.hasIesniumUpgrade());
         output.putByte("variants", this.entityData.get(VARIANTS));
     }
 
@@ -294,6 +396,10 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     protected boolean hasVariant(int offset) {
         return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
+    }
+
+    public boolean hasRareVariant() {
+        return false;
     }
 
     public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {

@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.MovementUtil;
@@ -39,18 +40,26 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.InputEvent.Key;
 import net.neoforged.neoforge.client.event.InputEvent.MouseButton;
 import net.neoforged.neoforge.client.event.ScreenEvent.KeyPressed.Post;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent.AtPosition;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -67,7 +76,7 @@ public class ClientPlayerEventHandler {
         if (event.getLevel().isClientSide() &&
                 Occultism.CLIENT_CONFIG.misc.disableSpiritFireSuccessSound.get() &&
                 event.getSound() != null &&
-                event.getSound().value() == OccultismSounds.START_RITUAL.get() &&
+                event.getSound().value() == OccultismSounds.SPIRIT_FIRE.get() &&
                 event.getLevel().getBlockState(BlockPos.containing(event.getPosition())).getBlock() == OccultismBlocks.SPIRIT_FIRE.get()) {
             event.setCanceled(true);
         }
@@ -170,6 +179,38 @@ public class ClientPlayerEventHandler {
         if (event.getKeyCode() == ClientSetupEventHandler.KEY_STORAGE_REMOTE.getKey().getValue()
                 && (minecraft.screen instanceof StorageRemoteGui || minecraft.screen instanceof StorageControllerGui)) {
             minecraft.player.closeContainer();
+            event.setCanceled(true);
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void onScrollTablet(InputEvent.MouseScrollingEvent event){
+        Player player = Minecraft.getInstance().player;
+        if (player != null && player.isShiftKeyDown()) {
+            InteractionHand hand = InteractionHand.MAIN_HAND;
+            ItemStack stack = player.getItemInHand(hand);
+            if (!stack.is(OccultismItems.WORMHOLE_TABLET)) {
+                hand = InteractionHand.OFF_HAND;
+                stack = player.getItemInHand(hand);
+            }
+            if (!stack.is(OccultismItems.WORMHOLE_TABLET) || !stack.has(DataComponents.CONTAINER))
+                return;
+
+            ItemContainerContents contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
+            if (contents == ItemContainerContents.EMPTY)
+                return;
+
+            NonNullList<ItemStack> items = NonNullList.create();
+            for (int i = 0; i < contents.getSlots(); i++) {
+                if (!contents.getStackInSlot(i).isEmpty())
+                    items.add(contents.getStackInSlot(i).copy());
+            }
+            int i = event.getScrollDeltaY() > 0 ? 1 : -1;
+            Collections.rotate(items, i);
+            ItemContainerContents rotated = ItemContainerContents.fromItems(items);
+
+            Networking.sendToServer(new MessageSetContents(rotated, hand));
             event.setCanceled(true);
         }
     }

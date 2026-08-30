@@ -29,6 +29,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredRegister.DataComponents;
 
+import java.util.List;
 import java.util.UUID;
 
 public class OccultismDataComponents {
@@ -90,9 +91,14 @@ public class OccultismDataComponents {
             .networkSynchronized(CustomData.STREAM_CODEC)
             .cacheEncoding()
     );
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Identifier>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
-            .persistent(Identifier.CODEC)
-            .networkSynchronized(Identifier.STREAM_CODEC)
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<Identifier>>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
+            .persistent(Identifier.CODEC.listOf())
+            .networkSynchronized(Identifier.STREAM_CODEC.apply(ByteBufCodecs.list()))
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_FAMILIARS = DATA_COMPONENTS.registerComponentType("max_familiars", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
             .cacheEncoding()
     );
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DIVINATION_DISTANCE = DATA_COMPONENTS.registerComponentType("divination_distance", builder -> builder
@@ -195,9 +201,9 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.BOOL)
             .cacheEncoding()
     );
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OTHERWORLD_TOOL_TIER = DATA_COMPONENTS.registerComponentType("otherworld_tool_tier", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Byte>> OTHERWORLD_TOOL_TIER = DATA_COMPONENTS.registerComponentType("otherworld_tool_tier", builder -> builder
+            .persistent(Codec.BYTE)
+            .networkSynchronized(ByteBufCodecs.BYTE)
             .cacheEncoding()
     );
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP = DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder
@@ -238,6 +244,11 @@ public class OccultismDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> CONSUME_CHANCE = DATA_COMPONENTS.registerComponentType("consume_chance", builder -> builder
             .persistent(Codec.FLOAT)
             .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> UNBREAKABLE = DATA_COMPONENTS.registerComponentType("unbreakable", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
             .cacheEncoding()
     );
     private static final StreamCodec<RegistryFriendlyByteBuf, CustomData> STORAGE_CONTROLLER_CONTENTS_STREAM_CODEC = new StreamCodec<>() {

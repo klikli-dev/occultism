@@ -26,11 +26,10 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name",
   "parents": [
     {
-      "entry": "occultism:crafting_rituals/craft_dimensional_mineshaft",
-      "line_reversed": true
+      "entry": "occultism:crafting_rituals/craft_dimensional_mineshaft"
     }
   ],
-  "sort_number": 5,
-  "x": -6,
+  "sort_number": 11,
+  "x": -4,
   "y": -8
 }

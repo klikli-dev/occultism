@@ -52,6 +52,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
@@ -90,20 +91,21 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
-        int maxGuardians = 3 + level.getRandom().nextInt(6);
+        if (reason == EntitySpawnReason.MOB_SUMMONED && level.getLevel().getGameRules().get(GameRules.SPAWN_MOBS)) {
+            int maxGuardians = difficultyIn.getDifficulty().getId() + level.getRandom().nextInt(6);
 
-        for (int i = 0; i < maxGuardians; i++) {
-            Guardian entity = EntityType.GUARDIAN.create(level.getLevel(), EntitySpawnReason.MOB_SUMMONED);
+            for (int i = 0; i < maxGuardians; i++) {
+                Guardian entity = EntityType.GUARDIAN.create(level.getLevel(), EntitySpawnReason.REINFORCEMENT);
 
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            level.addFreshEntity(entity);
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.snapTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                level.addFreshEntity(entity);
+            }
         }
-
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 

@@ -22,10 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageFairySupport;
-import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
@@ -49,6 +47,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -69,8 +68,11 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
@@ -90,7 +92,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createAttributes().add(Attributes.FLYING_SPEED, 0.4).add(Attributes.MAX_HEALTH, 18);
+        return FamiliarEntity.createAttributes().add(Attributes.FLYING_SPEED, 0.4);
     }
 
     @Override
@@ -100,10 +102,8 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasFlower())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasFlower();
     }
 
     @Override
@@ -208,11 +208,6 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         return super.mobInteract(pPlayer, pHand);
     }
 
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
-    }
-
     public float getSupportAnim(float partialTicks) {
         if (this.supportAnim == 0)
             return 0;
@@ -289,14 +284,22 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return Collections.emptyList();
-    }
-
-    @Override
     public void curioTick(LivingEntity wearer) {
-        if (this.saveCooldown > 0)
-            this.saveCooldown--;
+        if (this.isEffectEnabled(wearer)) {
+            if (wearer.level() instanceof ServerLevel serverLevel && serverLevel.getGameTime() % 100 == 0) {
+                List<LivingEntity> allies = serverLevel.getEntitiesOfClass(LivingEntity.class,
+                        wearer.getBoundingBox().inflate(7), e -> e instanceof IFamiliar
+                                && ((IFamiliar) e).getFamiliarOwner() == wearer);
+                int healing = this.hasIesniumUpgrade() ? 12 : this.hasBlacksmithUpgrade() ? 7 : 3;
+                for (LivingEntity ally : allies) {
+                    if (serverLevel.getRandom().nextFloat() < 0.333F) {
+                        ally.heal(healing);
+                        (serverLevel).sendParticles(ParticleTypes.HEART, ally.getX(),
+                                ally.getY() + ally.getBbHeight(), ally.getZ(), 1, 0, 0, 0, 1);
+                    }
+                }
+            }
+        }
     }
 
     public boolean hasTeeth() {
@@ -466,6 +469,8 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                     if (familiar.getLastHurtByMob() != null
                             && familiar.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, DURATION)))
                         gaveSupport = true;
+                    if (familiar instanceof HeadlessFamiliarEntity ratman && ratman.reviveHeadlessRatman())
+                        gaveSupport = true;
                     if (gaveSupport) {
                         Networking.sendToTracking(this.fairy,
                                 new MessageFairySupport(this.fairy.getId(), familiar.getId()));
@@ -514,14 +519,26 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                     this.attackTimer = 10;
                     LivingEntity owner = this.fairy.getFamiliarOwner();
                     if (owner != null) {
-                        pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), 3);
-                        pEnemy.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
+                        AttributeInstance dmgInstance = this.fairy.getAttribute(Attributes.ATTACK_DAMAGE);
+                        float dmg = dmgInstance == null ? 6 : (float) dmgInstance.getValue();
+                        pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), dmg/3);
+
+                        int effect = this.fairy.hasIesniumUpgrade() ? this.fairy.level().getRandom().nextInt(5) :
+                                this.fairy.hasBlacksmithUpgrade() ? this.fairy.level().getRandom().nextInt(3) : 0;
+                        switch (effect) {
+                            case 4 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 2));
+                            case 3 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.POISON, 40, 2));
+                            case 2 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 40, 0));
+                            case 1 -> pEnemy.addEffect(new MobEffectInstance(MobEffects.GLOWING, 40, 0));
+                            default -> pEnemy.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
+                        }
+
                         List<LivingEntity> allies = this.fairy.level().getEntitiesOfClass(LivingEntity.class,
                                 this.fairy.getBoundingBox().inflate(7), e -> e != this.fairy && e instanceof IFamiliar
                                         && ((IFamiliar) e).getFamiliarOwner() == owner);
-                        allies.add(owner);
+                        int healing = this.fairy.hasIesniumUpgrade() ? 12 : this.fairy.hasBlacksmithUpgrade() ? 7 : 3;
                         for (LivingEntity ally : allies) {
-                            ally.heal(3);
+                            ally.heal(healing);
                             ((ServerLevel) this.fairy.level()).sendParticles(ParticleTypes.HEART, ally.getX(),
                                     ally.getY() + ally.getBbHeight(), ally.getZ(), 1, 0, 0, 0, 1);
                         }

@@ -22,36 +22,29 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.Type;
-import com.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity.AttackGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.resources.Identifier;
+import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
-
-    private static final Identifier SPEED_BONUS = Identifier.fromNamespaceAndPath(Occultism.MODID, "deer_speed_bonus");
 
     private static final byte START_EATING = 10;
 
@@ -67,23 +60,16 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 8, 1));
+        this.goalSelector.addGoal(3, new DeerMeleeAttackGoal(this, 1.1, true));
         this.goalSelector.addGoal(4, new EatBlockGoal(this));
-        this.goalSelector.addGoal(5, new AttackGoal(this, 5) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && DeerFamiliarEntity.this.hasBlacksmithUpgrade();
-            }
-        });
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasRedNose())
-            OccultismAdvancements.FAMILIAR.get().trigger(owner, Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasRareVariant() {
+        return this.hasRedNose();
     }
 
     @Override
@@ -99,17 +85,6 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                 this.neckRotTimer = Math.min(this.neckRotTimer + 1, 10);
             else
                 this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
-        }
-
-        if (!this.level().isClientSide()) {
-            Entity owner = this.getFamiliarOwner();
-            if (owner != null && this.distanceToSqr(owner) > 50) {
-                if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) == null)
-                    this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
-                            new AttributeModifier(SPEED_BONUS, 0.15, Operation.ADD_VALUE));
-            } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) != null) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_BONUS);
-            }
         }
     }
 
@@ -130,19 +105,6 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public Iterable<MobEffectInstance> getFamiliarEffects() {
-        List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(MobEffects.JUMP_BOOST, 300, 0, false, false));
-        effects.add(new MobEffectInstance(MobEffects.SPEED, 300, 0, false, false));
-        if (DeerFamiliarEntity.this.hasBlacksmithUpgrade()) {
-            effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 1, false, false));
-        } else {
-            effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 0, false, false));
-        }
-        return effects;
-    }
-
-    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, EntitySpawnReason reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
@@ -153,11 +115,6 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.setRedNose(input.getBooleanOr("hasRedNose", false));
-    }
-
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
     }
 
     public boolean hasRedNose() {
@@ -183,5 +140,53 @@ public class DeerFamiliarEntity extends FamiliarEntity {
             this.startEating();
         else
             super.handleEntityEvent(id);
+    }
+
+    @Override
+    public @Nullable LivingEntity getTarget() {
+        List<LivingEntity> list = FamiliarUtil.getOwnerEnemies(this.getFamiliarOwner(), this, 49);
+        LivingEntity ent = this.getLastHurtByMob();
+        if (ent != null && ent.isAlive())
+            list.add(this.getLastHurtByMob());
+        return list.isEmpty() ? null : list.getLast();
+    }
+
+    public boolean attackEnabled() {
+        return this.hasBlacksmithUpgrade() && this.isEffectEnabled(this.getOwner());
+    }
+
+    private static class DeerMeleeAttackGoal extends MeleeAttackGoal {
+
+        DeerFamiliarEntity deer;
+
+        public DeerMeleeAttackGoal(DeerFamiliarEntity deer, double speedModifier, boolean followingTargetEvenIfNotSeen) {
+            super(deer, speedModifier, followingTargetEvenIfNotSeen);
+            this.deer = deer;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.deer.attackEnabled();
+        }
+
+        protected void checkAndPerformAttack(@NonNull LivingEntity target) {
+            if (this.canPerformAttack(target)) {
+                this.resetAttackCooldown();
+                this.mob.swing(InteractionHand.MAIN_HAND);
+                this.mob.doHurtTarget(getServerLevel(this.mob), target);
+
+                if (this.deer.hasIesniumUpgrade()) {
+                    target.addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * 10), this.deer);
+                    Level level = this.deer.level();
+                    if (level.getRandom().nextFloat() < 0.04F) {
+                        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
+                        if (lightningBolt != null) {
+                            lightningBolt.snapTo(target.getX(), target.getY(), target.getZ());
+                            level.addFreshEntity(lightningBolt);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

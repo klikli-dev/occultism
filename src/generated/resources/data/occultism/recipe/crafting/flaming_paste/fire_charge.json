@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "occultism:flaming_paste",
+    "#c:gunpowders"
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:fire_charge"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "ritual_camel_husk",
+  "recipe_id_1": "occultism:ritual/resurrect_camel_husk",
+  "sort_number": 7
+}

@@ -24,11 +24,10 @@ package com.klikli_dev.occultism.util;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import com.klikli_dev.occultism.common.item.familiar.FamiliarCurio;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
+import net.neoforged.neoforge.common.Tags;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
@@ -45,6 +44,11 @@ public class FamiliarUtil {
 
         LivingEntity revenge = owner.getLastHurtByMob();
         LivingEntity target = owner.getLastHurtMob();
+        if (target instanceof IFamiliar ally && ally.getFamiliarOwner() == owner)
+            target = null;
+        if (target instanceof TamableAnimal ally && ally.getOwner() == owner)
+            target = null;
+
         List<LivingEntity> enemies = new ArrayList<>();
         if (isClose(revenge, familiar, range))
             enemies.add(revenge);
@@ -118,11 +122,31 @@ public class FamiliarUtil {
         for (ICurioStacksHandler curios : handler.getCurios().values()) {
             var stacks = curios.getStacks();
             for (int i = 0; i < stacks.getSlots(); i++) {
-                IFamiliar familiar = FamiliarRingItem.getFamiliar(stacks.getStackInSlot(i), owner.level());
-                if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
-                    T fam = (T) familiar.getFamiliarEntity();
-                    if (pred.test(fam)) {
-                        familiars.add(fam);
+                List<IFamiliar> familiarList = FamiliarCurio.getFamiliar(stacks.getStackInSlot(i), owner.level());
+                if (familiarList != null) {
+                    for (IFamiliar familiar : familiarList) {
+                        if (familiar.getFamiliarEntity().getType() == type) {
+                            T fam = (T) familiar.getFamiliarEntity();
+                            if (pred.test(fam)) {
+                                familiars.add(fam);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if ((owner.getItemBySlot(slot).is(Tags.Items.TOOLS) && slot.getType().equals(EquipmentSlot.Type.HAND))
+                    || slot.isArmor()) {
+                List<IFamiliar> familiarList = FamiliarCurio.getFamiliar(owner.getItemBySlot(slot), owner.level());
+                if (familiarList != null) {
+                    for (IFamiliar familiar : familiarList) {
+                        if (familiar.getFamiliarEntity().getType() == type) {
+                            T fam = (T) familiar.getFamiliarEntity();
+                            if (pred.test(fam)) {
+                                familiars.add(fam);
+                            }
+                        }
                     }
                 }
             }

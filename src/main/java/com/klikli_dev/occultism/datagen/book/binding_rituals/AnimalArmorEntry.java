@@ -28,11 +28,11 @@ public class AnimalArmorEntry extends EntryProvider {
                         Like forging the wild armor trim, upgrading a [](item://minecraft:leather_horse_armor)
                          is a service provided by {0} and not bound any spirit to the final object.
                          You sacrifice the items and the {0} uses his power to forge that item for you.
-                         Use the respective materials to obtain [](item://minecraft:copper_horse_armor),
-                         [](item://minecraft:iron_horse_armor), [](item://minecraft:golden_horse_armor)
-                         or [](item://minecraft:diamond_horse_armor).
+                         Use the respective materials to obtain copper, iron, golden, diamond,
+                          silver or infused {1}.
                         """,
-                this.color("Wild Spirits", ChatFormatting.DARK_PURPLE)
+                this.color("Wild Spirits", ChatFormatting.DARK_PURPLE),
+                this.color("Horse Armor", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("ritual_copper", () -> BookRitualRecipePageModel.create()
@@ -49,6 +49,9 @@ public class AnimalArmorEntry extends EntryProvider {
         );
         this.page("ritual_silver", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/misc_silver_horse_armor"))
+        );
+        this.page("ritual_infused", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_infused_horse_armor"))
         );
         //no text
 
@@ -76,6 +79,9 @@ public class AnimalArmorEntry extends EntryProvider {
         );
         this.page("ritual_silver_nautilus", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/misc_silver_nautilus_armor"))
+        );
+        this.page("ritual_infused_nautilus", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_infused_nautilus_armor"))
         );
         //no text
     }

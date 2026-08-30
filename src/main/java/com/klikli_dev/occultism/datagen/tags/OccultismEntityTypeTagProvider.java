@@ -134,7 +134,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.MUMMY_FAMILIAR_TYPE.get())
-                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get())
                 .add(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get())
                 .replace(false);
@@ -190,8 +191,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.GLOW_SQUID)
                 .add(EntityType.TADPOLE)
                 .add(EntityType.TURTLE)
-                .add(EntityType.NAUTILUS)
-                .add(EntityType.ZOMBIE_NAUTILUS);
+                .add(EntityType.NAUTILUS);
 
         this.tag(Entities.RANDOM_ANIMALS_SMALL)
                 .add(EntityType.ALLAY)
@@ -218,16 +218,39 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.CAMEL)
                 .add(EntityType.DONKEY)
                 .add(EntityType.HORSE)
-                .add(EntityType.SKELETON_HORSE)
-                .add(EntityType.ZOMBIE_HORSE)
                 .add(EntityType.LLAMA)
                 .add(EntityType.TRADER_LLAMA)
                 .add(EntityType.MULE)
                 .add(EntityType.STRIDER)
                 .add(EntityType.HAPPY_GHAST)
-                .add(EntityType.NAUTILUS)
-                .add(EntityType.ZOMBIE_NAUTILUS)
-                .add(EntityType.CAMEL_HUSK);
+                .add(EntityType.NAUTILUS);
+
+        this.tag(Entities.FRIENDS_AQUATIC)
+                .addTag(EntityTypeTags.AQUATIC);
+
+        this.tag(Entities.FRIENDS_FOREST)
+                .addTag(Entities.CREEPER)
+                .addTag(Entities.WITCH)
+                .addTag(EntityTypeTags.ILLAGER_FRIENDS)
+                .addTag(EntityTypeTags.ARTHROPOD);
+
+        this.tag(Entities.FRIENDS_ABERRATIONS)
+                .addTag(Entities.WARDEN)
+                .addTag(Entities.ENDERMEN)
+                .add(EntityType.CREAKING)
+                .add(EntityType.SHULKER)
+                .add(EntityType.VEX)
+                .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SHULKER_TYPE.get());
+
+        this.tag(Entities.FRIENDS_NETHER)
+                .addTag(EntityTypeTags.WITHER_FRIENDS)
+                .add(EntityType.PIGLIN)
+                .add(EntityType.PIGLIN_BRUTE)
+                .add(EntityType.GHAST)
+                .add(EntityType.BLAZE)
+                .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BLAZE_TYPE.get());
     }
 
     private void addCommonTags() {
@@ -246,7 +269,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(Entities.FISH).add(EntityType.COD).add(EntityType.SALMON).add(EntityType.TROPICAL_FISH).add(EntityType.PUFFERFISH).replace(false);
         this.tag(Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).add(OccultismEntities.GOAT_FAMILIAR_TYPE.get()).replace(false);
         this.tag(Entities.HOGLINS).add(EntityType.HOGLIN).add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get()).replace(false);
-        this.tag(Entities.HORSES).add(EntityType.HORSE).replace(false);
+        this.tag(Entities.HORSES).add(EntityType.HORSE).add(EntityType.MULE).add(EntityType.DONKEY).replace(false);
+        this.tag(Entities.NAUTILUS).add(EntityType.NAUTILUS).replace(false);
         this.tag(Entities.LLAMAS).add(EntityType.LLAMA).add(EntityType.TRADER_LLAMA).replace(false);
         this.tag(Entities.MULES).add(EntityType.MULE).replace(false);
         this.tag(Entities.PANDAS).add(EntityType.PANDA).replace(false);
@@ -290,6 +314,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get());
+        this.tag(EntityTypeTags.BEEHIVE_INHABITORS)
+                .add(OccultismEntities.POSSESSED_BEE_TYPE.get());
         this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
                 .add(OccultismEntities.BEAVER_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get())
@@ -318,7 +344,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())
                 .add(OccultismEntities.IESNIUM_GOLEM_TYPE.get())
-                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
                 .add(OccultismEntities.POSSESSED_SHULKER_TYPE.get())
                 .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get());
@@ -338,7 +365,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.MUMMY_FAMILIAR_TYPE.get())
-                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.WINGNIS_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.POSSESSED_BEE_TYPE.get());
         this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)

@@ -6,8 +6,8 @@
     "occultism:storage_stabilizer_tier1",
     "#c:storage_blocks/silver",
     "minecraft:ghast_tear",
-    "occultism:spirit_attuned_gem",
-    "occultism:spirit_attuned_gem"
+    "#c:gems/spirit_attuned",
+    "#c:gems/spirit_attuned"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {

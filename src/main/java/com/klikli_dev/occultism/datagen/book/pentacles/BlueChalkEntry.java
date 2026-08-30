@@ -46,18 +46,14 @@ public class BlueChalkEntry extends EntryProvider {
                 """
         );
 
-        this.page("essence", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.MARID_ESSENCE.get()))
+        this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_blue_impure"))
                 .withText(this.context().pageText()));
         this.pageText("""
                         To obtain the essence of a {0} for [](item://occultism:chalk_blue) you need to
                          {1}.
                         """, this.color("Marid", ChatFormatting.DARK_PURPLE),
                 this.entryLink("summon and kill an Unbound Marid", "summoning_rituals", "marid_essence"));
-
-        this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_blue_impure"))
-        );
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_blue"))

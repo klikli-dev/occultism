@@ -75,7 +75,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFa
         if (state.isPartying)
             poseStack.translate(0, -0.25, 0);
         else if (state.isSitting)
-            poseStack.translate(0, -0.3, 0);
+            poseStack.translate(0, -0.3*s, 0);
         super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.popPose();
     }

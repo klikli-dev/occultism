@@ -2,10 +2,9 @@
   "type": "occultism:spirit_trade",
   "ingredient": "#c:gems",
   "result": {
-    "type": "occultism:weighted_item",
-    "stack": {
-      "id": "occultism:silver_nugget"
-    },
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:nuggets/silver",
     "weight": 8
   },
   "trader_id": "occultism:gambler"

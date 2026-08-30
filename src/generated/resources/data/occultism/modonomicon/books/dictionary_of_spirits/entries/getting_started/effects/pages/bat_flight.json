@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "bat_flight",
+  "images": [
+    "occultism:textures/mob_effect/bat_flight.png"
+  ],
+  "sort_number": 10,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.bat_flight.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.bat_flight.title"
+}

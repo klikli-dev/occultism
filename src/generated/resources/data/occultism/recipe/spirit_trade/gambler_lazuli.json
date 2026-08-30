@@ -2,10 +2,9 @@
   "type": "occultism:spirit_trade",
   "ingredient": "#c:gems",
   "result": {
-    "type": "occultism:weighted_item",
-    "stack": {
-      "id": "minecraft:lapis_lazuli"
-    },
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:gems/lapis",
     "weight": 2
   },
   "trader_id": "occultism:gambler"

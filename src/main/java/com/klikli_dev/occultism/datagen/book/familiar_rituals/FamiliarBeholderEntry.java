@@ -22,18 +22,62 @@ public class FamiliarBeholderEntry extends EntryProvider {
         this.page("entity", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:beholder_familiar")
                 .withText(this.context().pageText())
-                .withScale(0.7f)
-                .withOffset(0.3f));
-        this.pageText("**Provides**: [#](ad03fc)Highlights enemies[#](), [#](ad03fc)Shoots **FREAKING LAZORS**[#]()\n");
+                .withScale(1.5f)
+                .withOffset(-0.1f));
+        this.pageText("Large Aberration, Lawful Evil, CR 13.\\\n STR 16. DEX 14. CON 18. INT 17. WIS 15. CHA 17.");
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/familiar_beholder")));
 
-        this.page("description", () -> BookTextPageModel.create()
+        this.page("ability", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Description");
-        this.pageText("The Beholder familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies. It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.\n\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it give it's master immunity to blindness, and after highlighting a Warden, the immunity extends to darkness.\n");
+        this.pageTitle("Ability");
+        this.pageText("""
+                        While enabled, the Beholder Familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies.
+                        \\
+                         It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.
+                        """
+        );
+
+        this.page("effects", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Effects");
+        this.pageText("""
+                        Different effects can be applied depending on the familiar''s level.
+                        You can configure them using the {0}.
+                        \\
+                        \\
+                        **Iesnium:** {1}.
+                        """,
+                this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
+                this.entryLink("Herald of Aberrations", "getting_started", "effects@herald_aberrations")
+        );
+
+        this.page("immunity", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Immunities");
+        this.pageText("""
+                        While active, it provides additional defenses for its owner, granting different immunities depending on its level.
+                        \\
+                        \\
+                        **Upgraded:** Blindness effect.
+                        \\
+                        \\
+                        **Iesnium:** Darkness effect.
+                        """
+        );
+
+        this.page("curio", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Equipping");
+        this.pageText("""
+                        When captured in a Familiar Ring or any Infused Equipment it can still apply glow.
+                        """
+        );
     }
 
     @Override
@@ -43,7 +87,7 @@ public class FamiliarBeholderEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "";
+        return "Attack | Defense | Influence";
     }
 
     @Override

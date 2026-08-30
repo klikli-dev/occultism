@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "occultism:nature_paste",
+    "minecraft:stone_brick_wall"
+  ],
+  "result": {
+    "id": "minecraft:mossy_stone_brick_wall"
+  }
+}

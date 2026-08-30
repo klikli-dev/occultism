@@ -58,11 +58,13 @@ public class OccultismServerConfig {
         public final BooleanValue minerFortune;
         public final BooleanValue minerSilk;
         public final DoubleValue butcherHurtChance;
-        public final IntValue butcherLifeMultiplier;
+        public final DoubleValue butcherLifeMultiplier;
+        public final DoubleValue butcherFractureMultiplier;
         public final DoubleValue shatteredSoulChance;
         public final BooleanValue unbreakableChalks;
         public final IntValue maxDistanceRTP;
         public final IntValue maxTryRTP;
+        public final IntValue wormholeTabletCooldown;
 
         public ItemSettings(Builder builder) {
             builder.comment("Item Settings").push("items");
@@ -101,7 +103,12 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "Entity life multiplier when calculating processing time in the dimensional battlefield."
                             )
-                            .defineInRange("butcherLifeMultiplier", 20, 1, Integer.MAX_VALUE);
+                            .defineInRange("butcherLifeMultiplier", 20F, 0, Integer.MAX_VALUE);
+            this.butcherFractureMultiplier =
+                    builder.comment(
+                                    "Percentage of time reduced per Fracture Soul enchantment level when calculating the Dimensional Battlefield process."
+                            )
+                            .defineInRange("butcherFractureMultiplier", 0.04F, 0.0F, 1.0F);
             this.shatteredSoulChance =
                     builder.comment(
                                     "Chance per level of the Fracture Soul enchantment to drop a Shattered Soul."
@@ -122,6 +129,11 @@ public class OccultismServerConfig {
                                     "Maximum number of attempts to find a safe place for the RTP."
                             )
                             .defineInRange("maxTryRTP", 99, 0, Integer.MAX_VALUE);
+            this.wormholeTabletCooldown =
+                    builder.comment(
+                                    "Cooldown when using Wormhole Tablet, in seconds."
+                            )
+                            .defineInRange("wormholeTabletCooldown", 20, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }
@@ -301,28 +313,33 @@ public class OccultismServerConfig {
     }
 
     public static class FamiliarSettings {
-        public final IntValue drikwingFamiliarSlowFallingSeconds;
         public final DoubleValue blacksmithFamiliarRepairChance;
         public final IntValue blacksmithFamiliarUpgradeCost;
+        public final IntValue blacksmithFamiliarIesniumUpgradeCost;
         public final IntValue blacksmithFamiliarUpgradeCooldown;
+        public final IntValue blacksmithFamiliarPassiveRepairDelay;
         public final IntValue greedySearchRange;
         public final IntValue greedyVerticalSearchRange;
 
         public FamiliarSettings(Builder builder) {
             builder.comment("Familiar Settings").push("familiar");
 
-            this.drikwingFamiliarSlowFallingSeconds = builder.comment(
-                            "The duration of slow falling effect given by Drikwing Familiar in seconds.")
-                    .defineInRange("drikwingFamiliarSlowFallingSeconds", 15, 0, Integer.MAX_VALUE);
             this.blacksmithFamiliarRepairChance = builder.comment(
                             "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
                     .defineInRange("blacksmithFamiliarRepairChance", 0.33, 0.0, Double.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCost = builder.comment(
                             "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
                     .defineInRange("blacksmithFamiliarUpgradeCost", 18, 1, Integer.MAX_VALUE);
+            this.blacksmithFamiliarIesniumUpgradeCost = builder.comment(
+                            "The amount of iesnium required for an upgraded blacksmith familiar to iesnium upgrade another familiar.")
+                    .defineInRange("blacksmithFamiliarIesniumUpgradeCost", 32, 1, Integer.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCooldown = builder.comment(
                             "The cooldown for a blacksmith familiar to upgrade another familiar.")
                     .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
+            this.blacksmithFamiliarPassiveRepairDelay = builder.comment(
+                            "The cooldown for an upgraded blacksmith familiar to passively repair equipment in the owner's inventory.")
+                    .defineInRange("blacksmithFamiliarPassiveRepairDelay", 128, 0, Integer.MAX_VALUE);
+
 
             this.greedySearchRange = builder.comment(
                             "The horizontal value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")

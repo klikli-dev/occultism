@@ -83,59 +83,48 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .unlockedBy("has_stone", hasTag(Tags.Items.STONES, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherrock")));
 
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(OccultismItems.SPIRIT_ATTUNED_GEM.get(), 1), 8,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, OccultismTags.Items.SPIRIT_ATTUNED_GEM, 8,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_spirit")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.DIAMOND, 1), 1,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.GEMS_DIAMOND, 1,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_diamond")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.EMERALD, 1), 1,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.GEMS_EMERALD, 1,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_emerald")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.QUARTZ, 1), 2,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.GEMS_QUARTZ, 2,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_quartz")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.LAPIS_LAZULI, 1), 2,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.GEMS_LAPIS, 2,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_lazuli")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.PRISMARINE_CRYSTALS, 1), 4,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.GEMS_PRISMARINE, 4,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_prismarine")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.AMETHYST_SHARD, 1), 4,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.GEMS_AMETHYST, 4,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_amethyst")));
 
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.IRON_NUGGET, 1), 16,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.NUGGETS_IRON, 16,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_iron")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(Items.GOLD_NUGGET, 1), 8,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, Tags.Items.NUGGETS_GOLD, 8,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_gold")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(OccultismItems.SILVER_NUGGET.get(), 1), 8,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, OccultismTags.Items.SILVER_NUGGET, 8,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_silver")));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(ingredientOf(Tags.Items.GEMS, registries),
-                        new ItemStackTemplate(OccultismItems.IESNIUM_NUGGET.get(), 1), 1,
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Tags.Items.GEMS, OccultismTags.Items.IESNIUM_NUGGET, 1,
                         "occultism:gambler", registries)
                 .unlockedBy("has_gems", hasTag(Tags.Items.GEMS, registries))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/gambler_iesnium")));
@@ -364,6 +353,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         crushingMetalRecipe("vibranium", pRecipeOutput, registries);
         crushingMetalRecipe("crimson_iron", pRecipeOutput, registries);
         crushingMetalRecipe("azure_silver", pRecipeOutput, registries);
+        crushingMetalRecipe("hellforged", pRecipeOutput, registries);
         crushingMetalRecipe("graphite", pRecipeOutput, registries);
         crushingMetalRecipe("cobalt", pRecipeOutput, registries);
         crushingMetalRecipe("titanium", pRecipeOutput, registries);
@@ -603,15 +593,15 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
     }
 
     private static void fullGemRecipe(String gemName, Integer amount, RecipeOutput recipeOutput, Provider registries) {
-        crushingOreRecipe(gemName, (int) (amount * 1.5), recipeOutput, registries);
-        crystallizeOreRecipe(gemName, amount, recipeOutput, registries);
+        crushingOreRecipe(gemName, (int) (amount * 2.25), recipeOutput, registries);
+        crystallizeOreRecipe(gemName, (int) (amount * 1.5), recipeOutput, registries);
         crushingGemRecipe(gemName, recipeOutput, registries);
         crystallizeDustRecipe(gemName, recipeOutput, registries);
     }
 
     private static void crushingMetalRecipe(String metalName, RecipeOutput recipeOutput, Provider registries) {
         crushingIngotRecipe(metalName, recipeOutput, registries);
-        crushingOreRecipe(metalName, 2, recipeOutput, registries);
+        crushingOreRecipe(metalName, 3, recipeOutput, registries);
 
         CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 200, registries)
                 .unlockedBy("has_raw_" + metalName, hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "raw_materials/" + metalName)), registries))
@@ -619,7 +609,7 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .setAllowEmpty(false)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_raw")));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 1600, registries)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "dusts/" + metalName)), 900, registries)
                 .unlockedBy("has_raw_" + metalName + "_block", hasTag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), registries))
                 .setResultAmount(18)
                 .setAllowEmpty(false)

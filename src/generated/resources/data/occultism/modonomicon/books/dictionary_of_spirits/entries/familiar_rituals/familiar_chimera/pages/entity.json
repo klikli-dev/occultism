@@ -6,8 +6,8 @@
   "entity_id": "occultism:chimera_familiar",
   "entity_name": "",
   "id": "entity",
-  "offset": 0.3,
-  "scale": 0.7,
+  "offset": -0.6,
+  "scale": 1.5,
   "sort_number": 0,
   "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.entity.text"
 }

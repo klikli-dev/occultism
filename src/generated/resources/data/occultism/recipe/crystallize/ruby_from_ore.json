@@ -19,7 +19,7 @@
   "ingredient": "#c:ores/ruby",
   "result": {
     "type": "occultism:tag",
-    "count": 2,
+    "count": 3,
     "tag": "c:gems/ruby"
   }
 }

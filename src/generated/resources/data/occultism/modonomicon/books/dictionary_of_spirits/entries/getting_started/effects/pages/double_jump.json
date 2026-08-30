@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "double_jump",
+  "images": [
+    "occultism:textures/mob_effect/double_jump.png"
+  ],
+  "sort_number": 5,
+  "text": "book.occultism.dictionary_of_spirits.getting_started.effects.double_jump.text",
+  "title": "book.occultism.dictionary_of_spirits.getting_started.effects.double_jump.title"
+}
