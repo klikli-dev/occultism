@@ -354,7 +354,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         ResourceHandler<ItemResource> currentHandler = this.getCurrentHandler();
         BlockPos pos = this.getBlockPos();
-        entity.setPos(pos.getCenter());
+        entity.setPos(Vec3.atCenterOf(pos));
         LootParams lootparams = this.setLootParams(entity, luck, serverLevel);
 
         if (this.storedLootTable != null) {

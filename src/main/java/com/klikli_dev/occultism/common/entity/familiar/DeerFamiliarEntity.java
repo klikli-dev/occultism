@@ -179,7 +179,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                     target.addEffect(new MobEffectInstance(MobEffects.WITHER, 20 * 10), this.deer);
                     Level level = this.deer.level();
                     if (level.getRandom().nextFloat() < 0.04F) {
-                        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
+                        LightningBolt lightningBolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
                         if (lightningBolt != null) {
                             lightningBolt.snapTo(target.getX(), target.getY(), target.getZ());
                             level.addFreshEntity(lightningBolt);

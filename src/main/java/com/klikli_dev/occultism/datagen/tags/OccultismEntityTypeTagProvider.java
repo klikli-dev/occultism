@@ -1,4 +1,4 @@
-﻿package com.klikli_dev.occultism.datagen.tags;
+package com.klikli_dev.occultism.datagen.tags;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEntities;
@@ -137,7 +137,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(this.key(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.MUMMY_FAMILIAR_TYPE.get()))
-                .add(this.key(OccultismEntities.OTHERWORLD_BIRD_TYPE.get()))
+                .add(this.key(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get()))
                 .add(this.key(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get()))
                 ;
@@ -321,7 +321,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(this.key(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get()))
                 .add(this.key(OccultismEntities.POSSESSED_GHAST_TYPE.get()))
                 .add(this.key(OccultismEntities.IESNIUM_GOLEM_TYPE.get()))
-                .add(this.key(OccultismEntities.OTHERWORLD_BIRD_TYPE.get()))
+                .add(this.key(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.POSSESSED_PHANTOM_TYPE.get()))
                 .add(this.key(OccultismEntities.POSSESSED_SHULKER_TYPE.get()))
                 .add(this.key(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get()));
@@ -341,7 +341,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(this.key(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.MUMMY_FAMILIAR_TYPE.get()))
-                .add(this.key(OccultismEntities.OTHERWORLD_BIRD_TYPE.get()))
+                .add(this.key(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get()))
                 .add(this.key(OccultismEntities.POSSESSED_BEE_TYPE.get()));
         this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)

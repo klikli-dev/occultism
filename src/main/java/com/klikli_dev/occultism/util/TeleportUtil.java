@@ -90,14 +90,14 @@ public class TeleportUtil {
                             BlockState blockstate = tempLevel.getBlockState(tempPos);
                             Block block = blockstate.getBlock();
                             if (block instanceof RespawnAnchorBlock && (blockstate.getValue(RespawnAnchorBlock.CHARGE) > 0) && RespawnAnchorBlock.canSetSpawn(tempLevel, tempPos)) {
-                                Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos);
+                                Optional<Vec3> optional = RespawnAnchorBlock.findStandUpPosition(EntityTypes.PLAYER, tempLevel, tempPos);
                                 if (optional.isPresent()) {
                                     destination = optional.get();
                                     resourcekey = tempKey;
                                 }
                             } else if (block instanceof BedBlock && tempLevel.environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tempPos).canSetSpawn(tempLevel)) {
                                 float respawnAngle = respawnConfig.respawnData().yaw();
-                                Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityType.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
+                                Optional<Vec3> optional = BedBlock.findStandUpPosition(EntityTypes.PLAYER, tempLevel, tempPos, blockstate.getValue(BedBlock.FACING), respawnAngle);
                                 if (optional.isPresent()) {
                                     destination = optional.get();
                                     resourcekey = tempKey;

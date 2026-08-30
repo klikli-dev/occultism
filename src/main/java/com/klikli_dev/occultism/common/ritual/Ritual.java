@@ -613,7 +613,7 @@ public abstract class Ritual {
             BlockEntity blockEntity = level.getBlockEntity(blockToCheck);
             if (blockEntity instanceof RitualCatcherBlockEntity) {
                 result.put((RitualCatcherBlockEntity) blockEntity,
-                        (int) blockToCheck.getCenter().distanceToSqr(goldenBowlPosition.getCenter()));
+                        (int) Vec3.atCenterOf(blockToCheck).distanceToSqr(Vec3.atCenterOf(goldenBowlPosition)));
             }
         }
 

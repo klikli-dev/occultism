@@ -76,7 +76,7 @@ public class PossessedEvokerEntity extends Evoker implements PossessedMob {
             }
 
             for (int i = 0; i < 5; i++) {
-                Pillager entity = EntityType.PILLAGER.create(this.level(), EntitySpawnReason.REINFORCEMENT);
+                Pillager entity = EntityTypes.PILLAGER.create(this.level(), EntitySpawnReason.REINFORCEMENT);
                 EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
                 double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
@@ -88,7 +88,7 @@ public class PossessedEvokerEntity extends Evoker implements PossessedMob {
             }
 
             for (int i = 0; i < 1; i++) {
-                Illusioner entity = EntityType.ILLUSIONER.create(this.level(), EntitySpawnReason.REINFORCEMENT);
+                Illusioner entity = EntityTypes.ILLUSIONER.create(this.level(), EntitySpawnReason.REINFORCEMENT);
                 EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
                 double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
@@ -100,7 +100,7 @@ public class PossessedEvokerEntity extends Evoker implements PossessedMob {
             }
 
             for (int i = 0; i < 1; i++) {
-                Ravager entity = EntityType.RAVAGER.create(this.level(), EntitySpawnReason.REINFORCEMENT);
+                Ravager entity = EntityTypes.RAVAGER.create(this.level(), EntitySpawnReason.REINFORCEMENT);
                 EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
                 double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));

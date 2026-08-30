@@ -194,7 +194,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             if (position == null) {
                 if (targetPos == null)
                     targetPos = serverlevel.getRespawnData().pos();
-                position = entity instanceof Projectile ? targetPos.getBottomCenter() : TeleportUtil.findSafeTeleportPosition(entity, serverlevel, targetPos);
+                position = entity instanceof Projectile ? Vec3.atBottomCenterOf(targetPos) : TeleportUtil.findSafeTeleportPosition(entity, serverlevel, targetPos);
             }
             if (position == null)
                 return null;
