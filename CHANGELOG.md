@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.252.0] - 2026-09-03
+### :sparkles: New Features
+- [`11d1c25`](https://github.com/klikli-dev/occultism/commit/11d1c2505a51e72c0179d0df974325ac8ada559e) - Infused Tools & Iesnium Familiars (Forward-Port [#1690](https://github.com/klikli-dev/occultism/pull/1690)) *(PR [#1694](https://github.com/klikli-dev/occultism/pull/1694) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.251.1] - 2026-08-21
 ### :bug: Bug Fixes
 - [`733a292`](https://github.com/klikli-dev/occultism/commit/733a2925b2684abd998184caa27ccb71a468052d) - [#1677](https://github.com/klikli-dev/occultism/pull/1677) *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2834,3 +2839,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.250.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.249.0...release/v26.2-1.250.0
 [release/v26.2-1.251.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.250.0...release/v26.2-1.251.0
 [release/v26.2-1.251.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.251.0...release/v26.2-1.251.1
+[release/v26.2-1.252.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.251.1...release/v26.2-1.252.0
