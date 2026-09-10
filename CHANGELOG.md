@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.253.1] - 2026-09-10
+### :bug: Bug Fixes
+- [`f7c0a56`](https://github.com/klikli-dev/occultism/commit/f7c0a56d2d07e3660e898bf600f473e04809bc82) - Three fixes *(PR [#1697](https://github.com/klikli-dev/occultism/pull/1697) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v26.2-1.253.0] - 2026-09-10
 ### :sparkles: New Features
 - [`f337a26`](https://github.com/klikli-dev/occultism/commit/f337a2607a1d842982d809233402cfe439a0566c) - Update Ukrainian (uk_ua.json) *(PR [#1696](https://github.com/klikli-dev/occultism/pull/1696) by [@Tenwoc](https://github.com/Tenwoc))*
@@ -2846,3 +2851,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.251.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.251.0...release/v26.2-1.251.1
 [release/v26.2-1.252.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.251.1...release/v26.2-1.252.0
 [release/v26.2-1.253.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.252.0...release/v26.2-1.253.0
+[release/v26.2-1.253.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.0...release/v26.2-1.253.1
