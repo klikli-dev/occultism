@@ -259,6 +259,7 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
         event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
+        event.register(OccultismContainers.TELEPORT_TABLET.get(), TeleportTabletScreen::new);
     }
 
     public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
