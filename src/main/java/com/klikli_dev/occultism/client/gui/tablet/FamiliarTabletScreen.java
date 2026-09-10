@@ -32,6 +32,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,6 +56,7 @@ public class FamiliarTabletScreen extends Screen implements GuiHost, LayoutScree
     private boolean closingHandled;
     private final FamiliarSettingsData settingsData;
     private EntityType<?> selectedFamiliar;
+    private LivingEntity selectedEntity;
     private final Level level;
     private int selectedEffect;
     private Holder<MobEffect> selectedHolder;
@@ -129,7 +131,7 @@ public class FamiliarTabletScreen extends Screen implements GuiHost, LayoutScree
                 ctx.node().y() - this.topPos(),
                 ctx.node().widthOrThrow(),
                 ctx.node().heightOrThrow(),
-                () -> this.selectedFamiliar == null ? null : (LivingEntity) this.selectedFamiliar.create(this.level, EntitySpawnReason.LOAD),
+                () -> this.selectedEntity == null ? null : this.selectedEntity,
                 this.entityPreviewMouseOffsetX(),
                 this.entityPreviewMouseOffsetY()
         )));
@@ -308,8 +310,17 @@ public class FamiliarTabletScreen extends Screen implements GuiHost, LayoutScree
     }
 
     public void setSelectedFamiliar(EntityType<?> entityType) {
-        if (FAMILIAR_LIST.contains(entityType))
+        if (FAMILIAR_LIST.contains(entityType)) {
+            if (this.selectedFamiliar == entityType)
+                return;
             this.selectedFamiliar = entityType;
+            if (this.selectedFamiliar.create(this.level, EntitySpawnReason.LOAD) instanceof LivingEntity living) {
+                if (this.selectedEntity != null)
+                    this.selectedEntity.remove(Entity.RemovalReason.DISCARDED);
+                this.selectedEntity = living;
+                this.selectedEntity.setId(1);
+            }
+        }
         this.selectedEffect = 0;
         this.selectedHolder = availableMobEffects().isEmpty() ? null : availableMobEffects().getFirst();
         if (this.effectSelectionWidget != null)
