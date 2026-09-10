@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.251.0] - 2026-09-10
+### :wrench: Chores
+- [`3c37563`](https://github.com/klikli-dev/occultism/commit/3c3756352d904ff00f4f1ba43c7ce155f47a78db) - [ImgBot] Optimize images *(PR [#1693](https://github.com/klikli-dev/occultism/pull/1693) by [@imgbot[bot]](https://github.com/apps/imgbot))*
+
+
 ## [release/v26.1.2-1.250.0] - 2026-09-10
 ### :sparkles: New Features
 - [`fc030bf`](https://github.com/klikli-dev/occultism/commit/fc030bf008b7f50295d0940b3befc730d704899f) - Update Ukrainian (uk_ua.json) *(PR [#1696](https://github.com/klikli-dev/occultism/pull/1696) by [@Tenwoc](https://github.com/Tenwoc))*
@@ -2820,3 +2825,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.248.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.248.0...release/v26.1.2-1.248.1
 [release/v26.1.2-1.249.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.248.1...release/v26.1.2-1.249.0
 [release/v26.1.2-1.250.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.249.0...release/v26.1.2-1.250.0
+[release/v26.1.2-1.251.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.250.0...release/v26.1.2-1.251.0
