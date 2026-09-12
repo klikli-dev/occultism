@@ -11,7 +11,9 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Regression tests for the transactional snapshot/rollback behavior of {@link MapItemResourceHandler}.
@@ -264,6 +266,30 @@ public class MapItemResourceHandlerGameTests {
         helper.succeed();
     }
 
+    /**
+     * onRootCommit callbacks may open new transactions (see SnapshotJournal#onRootCommit). If onContentsChanged
+     * triggers a transactional change, that change must be reported through onContentsChanged as well, otherwise
+     * e.g. setChanged() is never called for it and the change cannot be persisted.
+     */
+    public static void commitNotificationsCoverChangesTriggeredByNotifications(GameTestHelper helper) {
+        var auditResource = ItemResource.of(new ItemStack(Items.GOLD_INGOT));
+        var handler = new AuditingHandler(auditResource);
+
+        try (var tx = Transaction.openRoot()) {
+            handler.insert(ItemResource.of(new ItemStack(Items.STONE)), 8, tx);
+            tx.commit();
+        }
+
+        helper.assertTrue(handler.get(auditResource) == 1,
+                "The change made from onContentsChanged was not applied");
+        helper.assertTrue(handler.notifications.containsKey(auditResource),
+                "The change made from onContentsChanged was never reported to onContentsChanged");
+        helper.assertTrue(handler.notifications.containsKey(ItemResource.of(new ItemStack(Items.STONE))),
+                "The originally committed change was not reported to onContentsChanged");
+        assertJournalDrained(helper, handler, "after the recursive commit notifications");
+        helper.succeed();
+    }
+
     private static void assertJournalDrained(GameTestHelper helper, InstrumentedHandler handler, String when) {
         helper.assertTrue(handler.undoLogSize() == 0,
                 "Undo journal still holds " + handler.undoLogSize() + " entries " + when);
@@ -278,6 +304,28 @@ public class MapItemResourceHandlerGameTests {
 
         int activeSnapshotCount() {
             return this.activeSnapshotCount;
+        }
+    }
+
+    private static class AuditingHandler extends InstrumentedHandler {
+        private final Map<ItemResource, Integer> notifications = new HashMap<>();
+        private final ItemResource auditResource;
+        private boolean auditTriggered = false;
+
+        AuditingHandler(ItemResource auditResource) {
+            this.auditResource = auditResource;
+        }
+
+        @Override
+        protected void onContentsChanged(ItemResource resource) {
+            this.notifications.merge(resource, 1, Integer::sum);
+            if (!this.auditTriggered) {
+                this.auditTriggered = true;
+                try (var tx = Transaction.openRoot()) {
+                    this.insert(this.auditResource, 1, tx);
+                    tx.commit();
+                }
+            }
         }
     }
 }

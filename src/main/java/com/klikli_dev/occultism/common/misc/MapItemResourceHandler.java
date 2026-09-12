@@ -625,8 +625,8 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
                 changedResources.add(changedResource);
             }
         }
-        changedResources.forEach(this::onContentsChanged);
         this.undoLog.clear();
+        changedResources.forEach(this::onContentsChanged);
     }
 
     protected void recordUndo(Runnable action) {
