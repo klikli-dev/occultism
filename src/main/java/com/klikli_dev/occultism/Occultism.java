@@ -41,6 +41,7 @@ import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.config.OccultismStartupConfig;
 import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManager;
 import com.klikli_dev.occultism.crafting.recipe.OccultismRecipeManagerClient;
+import com.klikli_dev.occultism.gametest.GameTestRegistry;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.handlers.ColorEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconPageTypeRegistry;
@@ -115,6 +116,7 @@ public class Occultism {
         OccultismConditionCodecs.CONDITION_CODECS.register(modEventBus);
         OccultismRecipeDisplays.RECIPE_DISPLAYS.register(modEventBus);
         OccultismFoods.CONSUME_EFFECT_TYPES.register(modEventBus);
+        GameTestRegistry.TEST_FUNCTIONS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
@@ -123,6 +125,7 @@ public class Occultism {
         //register event buses
         modEventBus.addListener(OccultismRegistries::onRegisterRegistries);
         modEventBus.addListener(EventPriority.HIGHEST, OccultismCapabilities::onRegisterCapabilities);
+        modEventBus.addListener(GameTestRegistry::onRegisterGameTests);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
