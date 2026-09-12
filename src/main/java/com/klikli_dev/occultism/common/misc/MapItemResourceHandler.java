@@ -9,7 +9,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
@@ -25,10 +24,13 @@ import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements ResourceHandler<ItemResource>, IMapItemResourceHandler {
@@ -67,6 +69,8 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
     protected int maxItemTypes;
     protected long totalItemCount;
     protected long maxTotalItemCount;
+    protected final List<Undo> undoLog = new ArrayList<>();
+    protected int activeSnapshotCount;
 
     public MapItemResourceHandler() {
         this(-1, -1);
@@ -235,6 +239,7 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
         this.maxItemTypes = nbt.getIntOr("maxSlots", -1);
         this.totalItemCount = nbt.getLongOr("totalItemCount", 0L);
         this.maxTotalItemCount = nbt.getLongOr("maxTotalItemCount", -1L);
+        this.undoLog.clear();
         this.itemToVariantsCache.clear();
     }
 
@@ -319,12 +324,12 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
 
         this.updateSnapshots(transaction);
         if (existing <= 0) {
-            this.resourceToCountMap.put(resource, inserted);
+            this.setCount(resource, inserted);
             this.addToSlots(resource);
         } else {
-            this.resourceToCountMap.put(resource, existing + inserted);
+            this.setCount(resource, existing + inserted);
         }
-        this.totalItemCount += inserted;
+        this.setTotalItemCount(this.totalItemCount + inserted);
         return inserted;
     }
 
@@ -367,14 +372,14 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
 
         this.updateSnapshots(transaction);
         if (existing <= extracted) {
-            this.resourceToCountMap.removeInt(resource);
-            this.totalItemCount -= existing;
+            this.setCount(resource, 0);
+            this.setTotalItemCount(this.totalItemCount - existing);
             this.removeFromSlots(resource);
             return existing;
         }
 
-        this.resourceToCountMap.put(resource, existing - extracted);
-        this.totalItemCount -= extracted;
+        this.setCount(resource, existing - extracted);
+        this.setTotalItemCount(this.totalItemCount - extracted);
         return extracted;
     }
 
@@ -517,21 +522,51 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
         int index;
         if (!this.emptySlots.isEmpty()) {
             index = this.emptySlots.removeInt(this.emptySlots.size() - 1);
+            int reusedSlot = index;
+            this.recordUndo(() -> this.emptySlots.add(reusedSlot));
         } else {
+            int previousNextSlotIndex = this.nextSlotIndex;
+            this.recordUndo(() -> this.nextSlotIndex = previousNextSlotIndex);
             index = this.nextSlotIndex++;
         }
 
-        this.resourceToSlot.put(resource, index);
-        this.slotToResource.put(index, resource);
+        int slot = index;
+        int previousSlot = this.resourceToSlot.getInt(resource);
+        if (previousSlot >= 0) {
+            this.recordUndo(() -> this.resourceToSlot.put(resource, previousSlot));
+        } else {
+            this.recordUndo(() -> this.resourceToSlot.removeInt(resource));
+        }
+        this.resourceToSlot.put(resource, slot);
+
+        ItemResource previousResource = this.slotToResource.get(slot);
+        if (previousResource != null) {
+            this.recordUndo(() -> this.slotToResource.put(slot, previousResource));
+        } else {
+            this.recordUndo(() -> this.slotToResource.remove(slot));
+        }
+        this.slotToResource.put(slot, resource);
+
         if (this.itemToVariantsCache.containsKey(resource.getItem())) {
             this.itemToVariantsCache.put(resource.getItem(), resource);
         }
     }
 
     protected void removeFromSlots(ItemResource resource) {
-        int index = this.resourceToSlot.removeInt(resource);
+        int index = this.resourceToSlot.getInt(resource);
         if (index != -1) {
+            this.recordUndo(() -> this.resourceToSlot.put(resource, index));
+            this.resourceToSlot.removeInt(resource);
+
+            ItemResource previousResource = this.slotToResource.get(index);
+            if (previousResource != null) {
+                this.recordUndo(() -> this.slotToResource.put(index, previousResource));
+            } else {
+                this.recordUndo(() -> this.slotToResource.remove(index));
+            }
             this.slotToResource.remove(index);
+
+            this.recordUndo(() -> this.emptySlots.rem(index));
             this.emptySlots.add(index);
         }
 
@@ -563,44 +598,81 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
 
     @Override
     protected Snapshot createSnapshot() {
-        return new Snapshot(
-                new Object2IntOpenHashMap<>(this.resourceToCountMap),
-                new Object2IntOpenHashMap<>(this.resourceToSlot),
-                new HashMap<>(this.slotToResource),
-                new IntArrayList(this.emptySlots),
-                this.nextSlotIndex,
-                this.totalItemCount,
-                HashMultimap.create(this.itemToVariantsCache)
-        );
+        this.activeSnapshotCount++;
+        return new Snapshot(this.undoLog.size());
+    }
+
+    @Override
+    protected void releaseSnapshot(Snapshot snapshot) {
+        this.activeSnapshotCount--;
     }
 
     @Override
     protected void revertToSnapshot(Snapshot snapshot) {
-        this.resourceToCountMap = new Object2IntOpenHashMap<>(snapshot.resourceToCountMap());
-        this.resourceToCountMap.defaultReturnValue(0);
-        this.resourceToSlot = new Object2IntOpenHashMap<>(snapshot.resourceToSlot());
-        this.resourceToSlot.defaultReturnValue(-1);
-        this.slotToResource = new HashMap<>(snapshot.slotToResource());
-        this.emptySlots = new IntArrayList(snapshot.emptySlots());
-        this.nextSlotIndex = snapshot.nextSlotIndex();
-        this.totalItemCount = snapshot.totalItemCount();
-        this.itemToVariantsCache = HashMultimap.create(snapshot.itemToVariantsCache());
+        for (int i = this.undoLog.size() - 1; i >= snapshot.undoMark(); i--) {
+            this.undoLog.get(i).action().run();
+        }
+        this.undoLog.subList(snapshot.undoMark(), this.undoLog.size()).clear();
+        this.itemToVariantsCache.clear();
     }
 
     @Override
     protected void onRootCommit(Snapshot originalState) {
-        originalState.resourceToCountMap().keySet().forEach(this::onContentsChanged);
-        this.resourceToCountMap.keySet().forEach(this::onContentsChanged);
+        Set<ItemResource> changedResources = new HashSet<>();
+        for (int i = originalState.undoMark(); i < this.undoLog.size(); i++) {
+            ItemResource changedResource = this.undoLog.get(i).changedResource();
+            if (changedResource != null) {
+                changedResources.add(changedResource);
+            }
+        }
+        this.undoLog.clear();
+        changedResources.forEach(this::onContentsChanged);
     }
 
-    protected record Snapshot(
-            Object2IntMap<ItemResource> resourceToCountMap,
-            Object2IntMap<ItemResource> resourceToSlot,
-            Map<Integer, ItemResource> slotToResource,
-            IntArrayList emptySlots,
-            int nextSlotIndex,
-            long totalItemCount,
-            Multimap<Item, ItemResource> itemToVariantsCache
-    ) {
+    protected void recordUndo(Runnable action) {
+        this.recordUndo(null, action);
+    }
+
+    protected void recordUndo(ItemResource changedResource, Runnable action) {
+        if (this.activeSnapshotCount == 0) {
+            return;
+        }
+
+        this.undoLog.add(new Undo(changedResource, action));
+    }
+
+    protected void setCount(ItemResource resource, int count) {
+        int previous = this.resourceToCountMap.getInt(resource);
+        if (previous == count) {
+            return;
+        }
+
+        if (previous == 0) {
+            this.recordUndo(resource, () -> this.resourceToCountMap.removeInt(resource));
+        } else {
+            this.recordUndo(resource, () -> this.resourceToCountMap.put(resource, previous));
+        }
+
+        if (count == 0) {
+            this.resourceToCountMap.removeInt(resource);
+        } else {
+            this.resourceToCountMap.put(resource, count);
+        }
+    }
+
+    protected void setTotalItemCount(long totalItemCount) {
+        long previous = this.totalItemCount;
+        if (previous == totalItemCount) {
+            return;
+        }
+
+        this.recordUndo(() -> this.totalItemCount = previous);
+        this.totalItemCount = totalItemCount;
+    }
+
+    protected record Snapshot(int undoMark) {
+    }
+
+    protected record Undo(ItemResource changedResource, Runnable action) {
     }
 }
