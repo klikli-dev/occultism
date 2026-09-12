@@ -155,4 +155,129 @@ public class MapItemResourceHandlerGameTests {
                 "Total item count does not reflect the committed changes");
         helper.succeed();
     }
+
+    /**
+     * Rolling back an insert that reused a freed slot must restore the exact slot assignments and the empty slot
+     * list, so later inserts land in the same slots they would have occupied without the aborted transaction.
+     */
+    public static void abortedSlotReuseRestoresSlotAssignments(GameTestHelper helper) {
+        var handler = new MapItemResourceHandler();
+        var a = ItemResource.of(new ItemStack(Items.STONE));
+        var b = ItemResource.of(new ItemStack(Items.DIRT));
+        var c = ItemResource.of(new ItemStack(Items.COBBLESTONE));
+        var d = ItemResource.of(new ItemStack(Items.GOLD_INGOT));
+        var e = ItemResource.of(new ItemStack(Items.IRON_INGOT));
+        var f = ItemResource.of(new ItemStack(Items.DIAMOND));
+
+        try (var tx = Transaction.openRoot()) {
+            handler.insert(a, 4, tx);
+            handler.insert(b, 4, tx);
+            handler.insert(c, 4, tx);
+            tx.commit();
+        }
+
+        try (var tx = Transaction.openRoot()) {
+            helper.assertTrue(handler.extract(b, Integer.MAX_VALUE, tx) == 4,
+                    "Expected to fully extract the middle resource");
+            tx.commit();
+        }
+
+        helper.assertTrue(handler.getSlots() == 4, "Expected slots 0-3 after three inserts");
+        helper.assertTrue(handler.getResource(1).isEmpty(), "Slot 1 should be free after the committed extraction");
+
+        try (var tx = Transaction.openRoot()) {
+            handler.insert(d, 7, tx);
+        }
+
+        helper.assertTrue(handler.get(d) == 0, "Aborted insert was not rolled back");
+        helper.assertTrue(handler.getResource(1).isEmpty(),
+                "The slot reused by the aborted insert was not freed again");
+
+        try (var tx = Transaction.openRoot()) {
+            handler.insert(e, 9, tx);
+            tx.commit();
+        }
+
+        helper.assertTrue(handler.getResource(1).equals(e),
+                "Expected the freed slot to be reused by the next insert, but slot 1 holds " + handler.getResource(1));
+
+        try (var tx = Transaction.openRoot()) {
+            handler.extract(a, Integer.MAX_VALUE, tx);
+        }
+
+        helper.assertTrue(handler.get(a) == 4, "Aborted drain changed the count");
+
+        try (var tx = Transaction.openRoot()) {
+            handler.insert(f, 1, tx);
+            tx.commit();
+        }
+
+        helper.assertTrue(handler.getResource(0).equals(a),
+                "Slot 0 must still hold the drained resource after the aborted drain, but holds " + handler.getResource(0));
+        helper.assertTrue(handler.getResource(3).equals(f),
+                "Expected the new resource in the next free slot 3, but slot 3 holds " + handler.getResource(3));
+        helper.succeed();
+    }
+
+    /**
+     * The undo journal must not accumulate entries across closed transactions, and the active snapshot count must
+     * return to zero. Leaked entries would grow memory indefinitely and corrupt future rollbacks.
+     */
+    public static void undoJournalDrainsAfterClosedTransactions(GameTestHelper helper) {
+        var handler = new InstrumentedHandler();
+        var resources = testResources();
+
+        for (int round = 0; round < 4; round++) {
+            for (var resource : resources) {
+                try (var tx = Transaction.openRoot()) {
+                    handler.insert(resource, STACK_SIZE, tx);
+                    tx.commit();
+                }
+                assertJournalDrained(helper, handler, "after a committed insert");
+
+                try (var tx = Transaction.openRoot()) {
+                    handler.extract(resource, Integer.MAX_VALUE, tx);
+                }
+                assertJournalDrained(helper, handler, "after an aborted drain");
+
+                try (var tx = Transaction.openRoot()) {
+                    handler.insert(resource, 2, tx);
+                    try (var nested = Transaction.open(tx)) {
+                        handler.extract(resource, 1, nested);
+                        nested.commit();
+                    }
+                    tx.commit();
+                }
+                assertJournalDrained(helper, handler, "after a committed nested transaction");
+
+                try (var tx = Transaction.openRoot()) {
+                    handler.insert(resource, 5, tx);
+                    try (var nested = Transaction.open(tx)) {
+                        handler.extract(resource, 1, nested);
+                        nested.commit();
+                    }
+                }
+                assertJournalDrained(helper, handler, "after an aborted root with committed nested transaction");
+            }
+        }
+
+        helper.succeed();
+    }
+
+    private static void assertJournalDrained(GameTestHelper helper, InstrumentedHandler handler, String when) {
+        helper.assertTrue(handler.undoLogSize() == 0,
+                "Undo journal still holds " + handler.undoLogSize() + " entries " + when);
+        helper.assertTrue(handler.activeSnapshotCount() == 0,
+                "Active snapshot count is " + handler.activeSnapshotCount() + " instead of 0 " + when);
+    }
+
+    private static class InstrumentedHandler extends MapItemResourceHandler {
+        int undoLogSize() {
+            return this.undoLog.size();
+        }
+
+        int activeSnapshotCount() {
+            return this.activeSnapshotCount;
+        }
+    }
 }
