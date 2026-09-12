@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.252.0] - 2026-09-12
+### :zap: Performance Improvements
+- [`5f5183a`](https://github.com/klikli-dev/occultism/commit/5f5183a06341b67860bd2f454bc65b26f2c73a51) - use an undo journal instead of full snapshots in MapItemResourceHandler *(PR [#1699](https://github.com/klikli-dev/occultism/pull/1699) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1698](https://github.com/klikli-dev/occultism/issues/1698) opened by [@indygwyn](https://github.com/indygwyn)*
+
+
 ## [release/v26.1.2-1.251.0] - 2026-09-10
 ### :wrench: Chores
 - [`3c37563`](https://github.com/klikli-dev/occultism/commit/3c3756352d904ff00f4f1ba43c7ce155f47a78db) - [ImgBot] Optimize images *(PR [#1693](https://github.com/klikli-dev/occultism/pull/1693) by [@imgbot[bot]](https://github.com/apps/imgbot))*
@@ -2826,3 +2832,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.249.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.248.1...release/v26.1.2-1.249.0
 [release/v26.1.2-1.250.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.249.0...release/v26.1.2-1.250.0
 [release/v26.1.2-1.251.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.250.0...release/v26.1.2-1.251.0
+[release/v26.1.2-1.252.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.251.0...release/v26.1.2-1.252.0
