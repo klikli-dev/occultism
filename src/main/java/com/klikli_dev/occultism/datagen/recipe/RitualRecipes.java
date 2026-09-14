@@ -782,7 +782,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, ItemTags.SOUL_FIRE_BASE_BLOCKS),
                         ofTag(registries, OccultismTags.Items.MAGMA),
                         ofTag(registries, ItemTags.SOUL_FIRE_BASE_BLOCKS),
-                        ofTag(registries, OccultismTags.Items.MAGMA),
+                        ofTag(registries, ItemTags.SOUL_FIRE_BASE_BLOCKS),
                         ofTag(registries, Tags.Items.NETHERRACKS),
                         Ingredient.of(Items.LAVA_BUCKET),
                         ofTag(registries, Tags.Items.GEMS_DIAMOND))
@@ -956,8 +956,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.GEMS_DIAMOND),
                         ofTag(registries, Tags.Items.GEMS_DIAMOND),
                         ofTag(registries, Tags.Items.GEMS_DIAMOND),
-                        Ingredient.of(Items.GOLDEN_APPLE),
-                        Ingredient.of(Items.GOLDEN_APPLE))
+                        Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE, OccultismItems.PITAYA_ENCHANTED),
+                        ofTag(registries, Tags.Items.FLOWERS),
+                        Ingredient.of(Items.GHAST_TEAR),
+                        Ingredient.of(Items.CHISELED_STONE_BRICKS))
                 .unlockedBy("has_bound_afrit", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get())
                 .entityToSacrifice(Entities.HUMANS)
@@ -975,8 +977,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.GOLDEN_CARROT),
                         Ingredient.of(Items.SPIDER_EYE),
                         ofTag(registries, Tags.Items.DUSTS_GLOWSTONE),
-                        Ingredient.of(Items.LAVA_BUCKET),
-                        Ingredient.of(Items.TORCH)
+                        Ingredient.of(Items.GLOW_BERRIES),
+                        Ingredient.of(Items.TORCH),
+                        ofTag(registries, ItemTags.CANDLES),
+                        Ingredient.of(Items.JACK_O_LANTERN),
+                        Ingredient.of(Items.SHROOMLIGHT)
                 )
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .entityToSummon(OccultismEntities.BAT_FAMILIAR_TYPE.get())
@@ -1008,7 +1013,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         BASE_TIME * FAMILIAR_MULT * DJINNI_TIER,
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_DJINNI, registries,
-                        ofTag(registries, ItemTags.FISHES),
+                        Ingredient.of(Items.WATER_BUCKET),
                         ofTag(registries, ItemTags.FISHES),
                         ofTag(registries, ItemTags.FISHES),
                         ofTag(registries, ItemTags.FISHES),
@@ -1029,18 +1034,17 @@ public abstract class RitualRecipes extends RecipeProvider {
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_DJINNI, registries,
                         ofTag(registries, Tags.Items.LEATHERS),
-                        ofTag(registries, Tags.Items.STRINGS),
                         ofTag(registries, Tags.Items.FEATHERS),
                         ofTag(registries, ItemTags.WOOL),
-                        ofTag(registries, Tags.Items.BONES),
+                        Ingredient.of(Items.RABBIT),
                         Ingredient.of(Items.MUTTON),
                         Ingredient.of(Items.PORKCHOP),
                         Ingredient.of(Items.BEEF),
                         Ingredient.of(Items.CHICKEN))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .entityToSummon(OccultismEntities.CHIMERA_FAMILIAR_TYPE.get())
-                .entityToSacrifice(Entities.SHEEP)
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.sheep")
+                .entityToSacrifice(Entities.HORSES)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.horses")
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_chimera")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DEVIL_FAMILIAR.get(), "item.occultism.ritual_dummy.familiar_devil"),
@@ -1048,11 +1052,14 @@ public abstract class RitualRecipes extends RecipeProvider {
                         BASE_TIME * FAMILIAR_MULT * DJINNI_TIER,
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_DJINNI, registries,
+                        Ingredient.of(Items.LAVA_BUCKET),
+                        ofTag(registries, Tags.Items.RODS_BLAZE),
+                        ofTag(registries, Tags.Items.CROPS_NETHER_WART),
+                        ofTag(registries, Tags.Items.GEMS_QUARTZ),
+                        ofTag(registries, Tags.Items.STORAGE_BLOCKS_BONE_MEAL),
                         ofTag(registries, OccultismTags.Items.MAGMA),
-                        ofTag(registries, Tags.Items.BONES),
-                        ofTag(registries, OccultismTags.Items.MAGMA),
-                        ofTag(registries, Tags.Items.BONES),
-                        Ingredient.of(Items.LAVA_BUCKET))
+                        ofTag(registries, Tags.Items.NETHERRACKS),
+                        ofTag(registries, ItemTags.SOUL_FIRE_BASE_BLOCKS))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .entityToSummon(OccultismEntities.DEVIL_FAMILIAR_TYPE.get())
                 .entityToSacrifice(Entities.HORSES)
@@ -1084,9 +1091,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_DJINNI, registries,
                         Ingredient.of(Items.GOLDEN_APPLE),
-                        Ingredient.of(Items.GOLDEN_APPLE),
+                        Ingredient.of(Items.FERMENTED_SPIDER_EYE),
                         Ingredient.of(Items.GHAST_TEAR),
-                        ofTag(registries, Tags.Items.GUNPOWDERS),
+                        ofTag(registries, Tags.Items.RODS_WOODEN),
+                        ofTag(registries, Tags.Items.DUSTS_GLOWSTONE),
                         ofTag(registries, Tags.Items.GUNPOWDERS),
                         ofTag(registries, Tags.Items.GUNPOWDERS),
                         ofTag(registries, Tags.Items.BUCKETS_MILK))
@@ -1106,7 +1114,9 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Blocks.HAY_BLOCK),
                         ofTag(registries, Tags.Items.RODS_WOODEN),
                         ofTag(registries, Tags.Items.RODS_WOODEN),
-                        Ingredient.of(Blocks.CARVED_PUMPKIN))
+                        Ingredient.of(Blocks.CARVED_PUMPKIN),
+                        ofTag(registries, Tags.Items.INGOTS_IRON),
+                        ofTag(registries, ItemTags.DIRT))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .entityToSummon(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get())
                 .entityToSacrifice(Entities.SNOW_GOLEM)
@@ -1137,11 +1147,14 @@ public abstract class RitualRecipes extends RecipeProvider {
                         BASE_TIME * FAMILIAR_MULT * DJINNI_TIER,
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_DJINNI, registries,
-                        ofTag(registries, Tags.Items.FEATHERS),
-                        ofTag(registries, Tags.Items.FEATHERS),
                         ofTag(registries, Tags.Items.EGGS),
+                        ofTag(registries, Tags.Items.FEATHERS),
+                        Ingredient.of(Items.PISTON),
+                        ofTag(registries, Tags.Items.FEATHERS),
+                        ofTag(registries, Tags.Items.GUNPOWDERS),
+                        ofTag(registries, Tags.Items.GEMS_AMETHYST),
                         ofTag(registries, ItemTags.LEAVES),
-                        ofTag(registries, Tags.Items.STRINGS))
+                        Ingredient.of(Items.PHANTOM_MEMBRANE))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .entityToSummon(OccultismEntities.DRIKWING_FAMILIAR_TYPE.get())
                 .entityToSacrifice(Entities.PARROTS)
@@ -1155,6 +1168,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         BASE_TIME * FAMILIAR_MULT * FOLIOT_TIER,
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_FOLIOT, registries,
+                        ofTag(registries, ItemTags.LOGS),
+                        ofTag(registries, ItemTags.LOGS),
                         ofTag(registries, ItemTags.LOGS),
                         ofTag(registries, ItemTags.LOGS),
                         ofTag(registries, ItemTags.LOGS),
@@ -1175,8 +1190,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.IRON_AXE),
                         Ingredient.of(Items.ANVIL),
                         ofTag(registries, Tags.Items.STONES),
-                        ofTag(registries, Tags.Items.STONES),
-                        ofTag(registries, Tags.Items.STONES),
                         ofTag(registries, Tags.Items.STONES))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get())
@@ -1193,8 +1206,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.RODS_WOODEN),
                         ofTag(registries, Tags.Items.RODS_WOODEN),
                         ofTag(registries, Tags.Items.RODS_WOODEN),
-                        ofTag(registries, Tags.Items.STRINGS),
-                        ofTag(registries, Tags.Items.STRINGS))
+                        Ingredient.of(Items.SWEET_BERRIES, Items.APPLE),
+                        Ingredient.of(Items.SWEET_BERRIES, Items.APPLE))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(OccultismEntities.DEER_FAMILIAR_TYPE.get())
                 .entityToSacrifice(Entities.COWS)
@@ -1207,9 +1220,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                         RITUAL_FAMILIAR,
                         PENTACLE_POSSESS_FOLIOT, registries,
                         ofTag(registries, Tags.Items.CHESTS),
-                        ofTag(registries, Tags.Items.STORAGE_BLOCKS_IRON),
-                        Ingredient.of(Items.DISPENSER),
-                        Ingredient.of(Items.HOPPER))
+                        ofTag(registries, Tags.Items.INGOTS_IRON),
+                        ofTag(registries, Tags.Items.GEMS),
+                        ofTag(registries, Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Items.HOPPER),
+                        Ingredient.of(Items.LEATHER_LEGGINGS))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(OccultismEntities.GREEDY_FAMILIAR_TYPE.get())
                 .entityToSacrifice(EntityTypeTags.ZOMBIES)
@@ -1226,7 +1241,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, Tags.Items.DYES_YELLOW),
                         ofTag(registries, Tags.Items.DYES_RED),
                         ofTag(registries, Tags.Items.DYES_BLUE),
-                        ofTag(registries, Tags.Items.STRINGS))
+                        ofTag(registries, Tags.Items.SEEDS))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(EntityType.PARROT)
                 .entityToSacrifice(Entities.CHICKEN)
@@ -1579,7 +1594,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         new ItemStackTemplate(OccultismItems.WORMHOLE_TABLET.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_WORMHOLE_TABLET.get()),
                         BASE_TIME * INFUSE_MULT * DJINNI_TIER,
-                        RITUAL_CRAFT,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
                         PENTACLE_CRAFT_DJINNI, registries,
                         Ingredient.of(OccultismItems.OTHERWORLDLY_TABLET.get()),
                         Ingredient.of(OccultismBlocks.ENTITY_WORMHOLE.get(), OccultismBlocks.ENTITY_WORMHOLE_DARK.get()),
@@ -1773,10 +1788,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         BASE_TIME * INFUSE_MULT * FOLIOT_TIER,
                         RITUAL_CRAFT,
                         PENTACLE_CRAFT_FOLIOT, registries,
-                        ofTag(registries, Tags.Items.GEMS_AMETHYST),
                         ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
+                        ofTag(registries, Tags.Items.GEMS_AMETHYST),
                         Ingredient.of(Items.COMPASS),
-                        ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM))
+                        ofTag(registries, Tags.Items.GEMS_AMETHYST))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_vitality_compass")));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
@@ -1996,8 +2011,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_FOLIOT, registries,
                         Ingredient.of(OccultismItems.MAGIC_LAMP_EMPTY.get()),
                         Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()),
-                        ofTag(registries, Tags.Items.INGOTS_IRON),
-                        ofTag(registries, Tags.Items.GRAVELS))
+                        ofTag(registries, Tags.Items.INGOTS_COPPER),
+                        ofTag(registries, ItemTags.COALS))
                 .unlockedBy("has_bound_foliot", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_foliot_unspecialized")));
 
@@ -2009,9 +2024,9 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_DJINNI, registries,
                         Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()),
                         Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()),
+                        ofTag(registries, Tags.Items.STORAGE_BLOCKS_IRON),
                         ofTag(registries, Tags.Items.INGOTS_GOLD),
-                        ofTag(registries, Tags.Items.GEMS_LAPIS),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
+                        ofTag(registries, Tags.Items.GEMS_LAPIS))
                 .unlockedBy("has_bound_djinni", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_djinni_ores")));
 
@@ -2038,7 +2053,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_MARID, registries,
                         Ingredient.of(OccultismItems.MINER_AFRIT_DEEPS.get()),
                         Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                         Ingredient.of(Items.NETHERITE_PICKAXE),
                         Ingredient.of(Items.DRAGON_BREATH),
                         Ingredient.of(Items.TOTEM_OF_UNDYING),
@@ -2767,6 +2781,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_SILVER),
                         ofTag(registries, OccultismTags.Items.STORAGE_BLOCK_IESNIUM))
                 .unlockedBy("has_bound_marid", has(registries, OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.evoker")
+                .entityToSacrifice(OccultismTags.Entities.EVOKER)
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_familiar_glove")));
         RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.SPIRIT_ATTUNED_GEM),
                         new ItemStackTemplate(OccultismItems.BEDROCK_GEM_CLUSTER.get()),
