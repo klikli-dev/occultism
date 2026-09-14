@@ -83,7 +83,7 @@ public class OccultismFoods {
             .build();
 
     public static final Lazy<FoodProperties> PITAYA = Lazy.of(
-            () -> new Builder().nutrition(6).saturationModifier(3.6F).build());
+            () -> new Builder().nutrition(6).saturationModifier(3.0F).build());
     public static final Consumable PITAYA_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 30 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 15 * 20, 1), 0.05f))
@@ -97,14 +97,14 @@ public class OccultismFoods {
             .build();
 
     public static final Lazy<FoodProperties> PITAYA_GOLDEN = Lazy.of(
-            () -> new Builder().nutrition(6).saturationModifier(14.4F).alwaysEdible().build());
+            () -> new Builder().nutrition(6).saturationModifier(9.0F).alwaysEdible().build());
     public static final Consumable PITAYA_GOLDEN_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 10 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 60 * 20, 4), 1f))
             .build();
 
     public static final Lazy<FoodProperties> PITAYA_ENCHANTED = Lazy.of(
-            () -> new Builder().nutrition(6).saturationModifier(14.4F).alwaysEdible().build());
+            () -> new Builder().nutrition(6).saturationModifier(13.0F).alwaysEdible().build());
     public static final Consumable PITAYA_ENCHANTED_CONSUMABLE = Consumable.builder()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(OccultismEffects.THIRD_EYE, 3 * 20, 0), 1f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 3 * 60 * 20, 4), 1f))
@@ -115,7 +115,7 @@ public class OccultismFoods {
             .build();
 
     public static final Lazy<FoodProperties> BEAVER_NUGGET = Lazy.of(
-            () -> new Builder().nutrition(8).saturationModifier(0.8F).build());
+            () -> new Builder().nutrition(8).saturationModifier(0.2F).build());
 
     public static final Consumable BEAVER_NUGGET_CONSUMABLE = Consumables.DEFAULT_FOOD;
 
