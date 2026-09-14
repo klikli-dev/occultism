@@ -273,7 +273,7 @@ public class FamiliarEventHandler {
         if (!(target.level() instanceof ServerLevel serverLevel))
             return;
 
-        float x = 0.1F * sourceEntity.getEffect(OccultismEffects.FAIRY_BLESS).getAmplifier();
+        float x = 0.1F * (1 + sourceEntity.getEffect(OccultismEffects.FAIRY_BLESS).getAmplifier());
         float dmg = event.getAmount();
         event.setAmount(dmg * Math.clamp(1-x, 0, 1));
         target.hurtServer(serverLevel, sourceEntity.damageSources().magic(), dmg * x);
