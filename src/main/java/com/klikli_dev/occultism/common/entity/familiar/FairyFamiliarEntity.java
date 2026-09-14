@@ -297,7 +297,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     @Override
     public void curioTick(LivingEntity wearer) {
-        if (this.isEffectEnabled(wearer)) {
+        if (this.isAbilityEnabled(wearer)) {
             if (wearer.level() instanceof ServerLevel serverLevel && serverLevel.getGameTime() % 100 == 0) {
                 List<LivingEntity> allies = serverLevel.getEntitiesOfClass(LivingEntity.class,
                         wearer.getBoundingBox().inflate(7), e -> e instanceof IFamiliar

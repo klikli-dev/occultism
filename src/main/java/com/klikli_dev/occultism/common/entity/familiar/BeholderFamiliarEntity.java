@@ -76,7 +76,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     @Override
     public void curioTick(LivingEntity wearer) {
-        if (this.isEffectEnabled(wearer) && this.getRandom().nextDouble() >= 0.98)
+        if (this.isAbilityEnabled(wearer) && this.getRandom().nextDouble() >= 0.98)
             this.tickGlow(wearer);
     }
 
@@ -164,7 +164,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     private void tickGlow(LivingEntity owner) {
-        if (!this.isEffectEnabled(owner) || this.isSitting())
+        if (!this.isAbilityEnabled(owner) || this.isSitting())
             return;
 
         List<LivingEntity> nearby = owner.level().getEntitiesOfClass(LivingEntity.class,
@@ -345,7 +345,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
             LivingEntity owner = this.entity.getFamiliarOwner();
 
-            if (!foods.isEmpty() && this.entity.isEffectEnabled(owner)) {
+            if (!foods.isEmpty() && this.entity.isAbilityEnabled(owner)) {
                 Entity food = foods.get(this.entity.getRandom().nextInt(foods.size()));
                 food.remove(RemovalReason.DISCARDED);
                 this.entity.swing(InteractionHand.MAIN_HAND);

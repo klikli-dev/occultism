@@ -142,7 +142,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
         if (this.hasBlacksmithUpgrade() && this.getOwner() instanceof Player player
-                && this.isEffectEnabled(player) && player.level() instanceof ServerLevel serverLevel
+                && this.isAbilityEnabled(player) && player.level() instanceof ServerLevel serverLevel
                 && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
             repairEquipment(player, serverLevel);
         }
@@ -151,7 +151,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     public void curioTick(LivingEntity wearer) {
         if (this.hasBlacksmithUpgrade() && wearer instanceof Player player
-                && this.isEffectEnabled(player) && player.level() instanceof ServerLevel serverLevel
+                && this.isAbilityEnabled(player) && player.level() instanceof ServerLevel serverLevel
                 && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
             repairEquipment(player, serverLevel);
         }

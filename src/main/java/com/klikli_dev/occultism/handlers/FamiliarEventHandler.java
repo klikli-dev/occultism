@@ -67,7 +67,7 @@ public class FamiliarEventHandler {
         LevelAccessor world = event.getLevel();
         BlockPos pos = event.getPos();
         List<BeaverFamiliarEntity> beavers = event.getLevel().getEntitiesOfClass(BeaverFamiliarEntity.class,
-                new AABB(pos).inflate(30), b -> !b.isSitting() && b.isEffectEnabled(b.getFamiliarOwner()));
+                new AABB(pos).inflate(30), b -> !b.isSitting() && b.isAbilityEnabled(b.getFamiliarOwner()));
 
         if (!beavers.isEmpty()) {
             BeaverFamiliarEntity beaver = beavers.get(world.getRandom().nextInt(beavers.size()));

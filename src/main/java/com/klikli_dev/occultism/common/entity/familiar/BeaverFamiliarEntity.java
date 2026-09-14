@@ -183,7 +183,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            return !this.beaver.isSitting() && this.beaver.isEffectEnabled(this.beaver.getFamiliarOwner()) && this.beaver.treeTarget != null
+            return !this.beaver.isSitting() && this.beaver.isAbilityEnabled(this.beaver.getFamiliarOwner()) && this.beaver.treeTarget != null
                     && this.beaver.level().getBlockState(this.beaver.treeTarget).is(BlockTags.LOGS);
         }
 

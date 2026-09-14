@@ -173,7 +173,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     @Override
     public void curioTick(LivingEntity wearer) {
         Level level = wearer.level();
-        if (this.isEffectEnabled(wearer) && !level.isClientSide() && level.getGameTime() % 32 == 0) {
+        if (this.isAbilityEnabled(wearer) && !level.isClientSide() && level.getGameTime() % 32 == 0) {
             List<Monster> enemies = level.getEntitiesOfClass(Monster.class, wearer.getBoundingBox().inflate(9));
             if (enemies.isEmpty())
                 return;
@@ -235,7 +235,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
             return this.cooldown-- < 0
                     && this.entity.getFamiliarOwner() instanceof Player owner
                     && !this.getNearbyEnemies(owner).isEmpty()
-                    && this.entity.isEffectEnabled(owner);
+                    && this.entity.isAbilityEnabled(owner);
         }
 
         private List<LivingEntity> getNearbyEnemies(LivingEntity owner) {
