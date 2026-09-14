@@ -76,11 +76,13 @@ import java.util.UUID;
 
 public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
-    protected static final int BREATH_INTERVAL = 20 * 3;
+    protected static final int LEATHER_INTERVAL = 20 * 10;
+    protected static final int BREATH_INTERVAL = 20 * 30;
     private static final EntityDataAccessor<Integer> MAGIC_TARGET = SynchedEntityData.defineId(FairyFamiliarEntity.class,
             EntityDataSerializers.INT);
     private static final float ANIMATION_HEIGHT_SPEED = 0.2f;
     private static final double DEFAULT_ATTACK_REACH = Math.sqrt(2.04F) - 0.6F;
+    protected long lastLeatherTime;
     protected long lastBreathTime;
     private int saveCooldown = 0;
     private int supportAnim;
@@ -189,7 +191,16 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (this.getOwner() == pPlayer) {
-
+            if (itemstack.is(Items.ROTTEN_FLESH)) {
+                if (this.level().getGameTime() > this.lastLeatherTime + LEATHER_INTERVAL) {
+                    this.lastLeatherTime = this.level().getGameTime();
+                    itemstack.shrink(1);
+                    ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.LEATHER));
+                } else if (pPlayer.level().isClientSide()) {
+                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.fairy.leather_on_cooldown"));
+                }
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+            }
             if (itemstack.is(Items.GLASS_BOTTLE)) {
                 if (!this.hasBlacksmithUpgrade()) {
                     if (pPlayer.level().isClientSide())
