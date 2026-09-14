@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
+import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
@@ -46,8 +47,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -65,9 +68,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.XpOrbTargetingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 
 import java.util.List;
 import java.util.Optional;
@@ -225,6 +230,37 @@ public class PlayerEventHandler {
                     event.setAmount(250918); //Instantly kill any spirit with this collaborator name
                 //Release date (YY/MM/DD) of a video sacrificing EqisEdu with powerful butcher knife for a ritual
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void xpMagnetic(XpOrbTargetingEvent event) {
+        commonXpMagnetic(event.getFollowingPlayer(), event.getXpOrb());
+    }
+
+    @SubscribeEvent
+    public static void xpMagnetic(PlayerXpEvent.PickupXp event) {
+        if (commonXpMagnetic(event.getEntity(), event.getOrb()))
+            event.setCanceled(true);
+    }
+
+    public static boolean commonXpMagnetic(Player player, ExperienceOrb orb) {
+        if (player == null || player.level().isClientSide())
+            return false;
+        ItemStack tablet = CuriosUtil.getXpTablet(player);
+        if (tablet.isEmpty())
+            return false;
+        int xpProgress = orb.getValue();
+        int storeXP = ItemNBTUtil.getStoredXP(tablet);
+        if (storeXP + xpProgress >= 0) {
+            storeXP += xpProgress;
+            ItemNBTUtil.setStoredXP(tablet, storeXP);
+            orb.discard();
+            return true;
+        } else {
+            ItemNBTUtil.setStoredXP(tablet, Integer.MAX_VALUE);
+            orb.setValue(storeXP + xpProgress - Integer.MAX_VALUE);
+            return false;
         }
     }
     //endregion Static Methods

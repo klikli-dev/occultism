@@ -127,6 +127,9 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
                 .add(OccultismItems.TRUE_SIGHT_STAFF.get())
                 .add(OccultismItems.FAMILIAR_GLOVE.get())
                 .replace(false);
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "charm")))
+                .add(OccultismItems.KNOWLEDGE_TABLET.get())
+                .replace(false);
         this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head")))
                 .add(OccultismItems.OTHERWORLD_GOGGLES.get())
                 .replace(false);
@@ -588,7 +591,7 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get(), Items.BOOK).replace(false);
 
         // Fruits
-        this.tag(OccultismTags.Items.FRUITS).add(Items.APPLE).replace(false);
+        this.tag(OccultismTags.Items.FRUITS).add(Items.APPLE).add(OccultismItems.PITAYA.get()).replace(false);
 
         // Gems
         this.tag(Tags.Items.GEMS).add(OccultismItems.SPIRIT_ATTUNED_GEM.get()).replace(false);
