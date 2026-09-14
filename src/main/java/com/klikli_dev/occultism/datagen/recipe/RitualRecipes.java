@@ -40,6 +40,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final Identifier RITUAL_SUMMON_WILD = OccultismRituals.SUMMON_WILD.getId();
     private static final Identifier RITUAL_SUMMON_JOB = OccultismRituals.SUMMON_SPIRIT_WITH_JOB.getId();
     private static final Identifier RITUAL_FAMILIAR = OccultismRituals.FAMILIAR.getId();
+    private static final Identifier RITUAL_TAMED = OccultismRituals.SUMMON_TAMED.getId();
     private static final Identifier RITUAL_CRAFT_WITH_SPIRIT_NAME = OccultismRituals.CRAFT_WITH_SPIRIT_NAME.getId();
     private static final Identifier RITUAL_CRAFT = OccultismRituals.CRAFT.getId();
     private static final Identifier RITUAL_CRAFT_MINER_SPIRIT = OccultismRituals.CRAFT_MINER_SPIRIT.getId();
@@ -248,7 +249,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND.get(), "item.occultism.ritual_dummy.summon_demonic_husband"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get()),
                         BASE_TIME * SUMMON_MULT * DJINNI_TIER,
-                        RITUAL_FAMILIAR,
+                        RITUAL_TAMED,
                         PENTACLE_SUMMON_DJINNI, registries,
                         ofTag(registries, Tags.Items.INGOTS_GOLD),
                         ofTag(registries, Tags.Items.GEMS_EMERALD),
@@ -265,7 +266,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DEMONIC_WIFE.get(), "item.occultism.ritual_dummy.summon_demonic_wife"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get()),
                         BASE_TIME * SUMMON_MULT * DJINNI_TIER,
-                        RITUAL_FAMILIAR,
+                        RITUAL_TAMED,
                         PENTACLE_SUMMON_DJINNI, registries,
                         ofTag(registries, Tags.Items.INGOTS_GOLD),
                         ofTag(registries, Tags.Items.GEMS_DIAMOND),

@@ -32,5 +32,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/summon_demonic_wife"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_tamed"
 }
