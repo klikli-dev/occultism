@@ -4,7 +4,10 @@
   "key": {
     "b": "#minecraft:buttons",
     "g": "#c:gems/spirit_attuned",
-    "s": "minecraft:sunflower",
+    "s": [
+      "minecraft:golden_dandelion",
+      "minecraft:sunflower"
+    ],
     "t": "occultism:otherworldly_tablet"
   },
   "pattern": [

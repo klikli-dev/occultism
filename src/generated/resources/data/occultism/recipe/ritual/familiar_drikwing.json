@@ -8,11 +8,14 @@
   },
   "entity_to_summon": "occultism:drikwing",
   "ingredients": [
-    "#c:feathers",
-    "#c:feathers",
     "#c:eggs",
+    "#c:feathers",
+    "minecraft:piston",
+    "#c:feathers",
+    "#c:gunpowders",
+    "#c:gems/amethyst",
     "#minecraft:leaves",
-    "#c:strings"
+    "minecraft:phantom_membrane"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
@@ -31,5 +34,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_drikwing"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

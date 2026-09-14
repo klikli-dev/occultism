@@ -11,8 +11,11 @@
     "minecraft:golden_carrot",
     "minecraft:spider_eye",
     "#c:dusts/glowstone",
-    "minecraft:lava_bucket",
-    "minecraft:torch"
+    "minecraft:glow_berries",
+    "minecraft:torch",
+    "#minecraft:candles",
+    "minecraft:jack_o_lantern",
+    "minecraft:shroomlight"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
@@ -31,5 +34,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_bat"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

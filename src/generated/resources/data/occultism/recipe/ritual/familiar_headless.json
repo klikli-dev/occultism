@@ -13,7 +13,9 @@
     "minecraft:hay_block",
     "#c:rods/wooden",
     "#c:rods/wooden",
-    "minecraft:carved_pumpkin"
+    "minecraft:carved_pumpkin",
+    "#c:ingots/iron",
+    "#minecraft:dirt"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
@@ -32,5 +34,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_headless"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

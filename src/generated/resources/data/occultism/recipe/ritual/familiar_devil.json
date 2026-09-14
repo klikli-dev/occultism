@@ -8,11 +8,14 @@
   },
   "entity_to_summon": "occultism:devil_familiar",
   "ingredients": [
+    "minecraft:lava_bucket",
+    "#c:rods/blaze",
+    "#c:crops/nether_wart",
+    "#c:gems/quartz",
+    "#c:storage_blocks/bone_meal",
     "#c:magma",
-    "#c:bones",
-    "#c:magma",
-    "#c:bones",
-    "minecraft:lava_bucket"
+    "#c:netherracks",
+    "#minecraft:soul_fire_base_blocks"
   ],
   "pentacle_id": "occultism:possess_djinni",
   "result": {
@@ -31,5 +34,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_devil"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }
