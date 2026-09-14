@@ -29,19 +29,24 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class UnbreakableRitual extends Ritual {
 
@@ -50,6 +55,20 @@ public class UnbreakableRitual extends Ritual {
 
     public UnbreakableRitual(RitualRecipe recipe) {
         super(recipe);
+    }
+
+    @Override
+    public boolean isValid(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
+                           @Nullable Player castingPlayer, ItemStack activationItem,
+                           List<Ingredient> remainingAdditionalIngredients) {
+
+        if (!activationItem.isDamageableItem()) {
+            if (castingPlayer != null)
+                castingPlayer.sendSystemMessage(Component.translatable("ritual.occultism.misc_unbreakable.true"));
+            return false;
+        }
+
+        return super.isValid(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem, remainingAdditionalIngredients);
     }
 
     @Override
@@ -65,6 +84,10 @@ public class UnbreakableRitual extends Ritual {
         result.setDamageValue(0);
 
         result.set(DataComponents.UNBREAKABLE, Unit.INSTANCE);
+        if (result.has(DataComponents.MAX_DAMAGE))
+            result.remove(DataComponents.MAX_DAMAGE);
+        if (result.has(DataComponents.DAMAGE))
+            result.remove(DataComponents.DAMAGE);
         if (result.isEnchanted()) {
             EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(Enchantments.UNBREAKING)));
             EnchantmentHelper.updateEnchantments(result, p_330066_ -> p_330066_.removeIf(p_344368_ -> p_344368_.is(Enchantments.MENDING)));
