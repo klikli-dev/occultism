@@ -31,9 +31,11 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.TypedEntityData;
+import net.minecraft.world.level.storage.TagValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -314,5 +316,37 @@ public class ItemNBTUtil {
             return null;
 
         return stack.get(OccultismDataComponents.LINKED_PLAYER_NAME);
+    }
+
+    public static TagValueOutput getReducedTagValueOutput() {
+        var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+        output.discard("Pos");
+        output.discard("Motion");
+        output.discard("Rotation");
+        output.discard("fall_distance");
+        output.discard("Fire");
+        output.discard("Air");
+        output.discard("OnGround");
+        output.discard("Invulnerable");
+        output.discard("PortalCooldown");
+        output.discard("Glowing");
+        output.discard("HasVisualFire");
+        output.discard("Passengers");
+        output.discard("AbsorptionAmount");
+        output.discard("Brain");
+        output.discard("DeathTime");
+        output.discard("FallFlying");
+        output.discard("Health");
+        output.discard("HurtByTimestamp");
+        output.discard("HurtTime");
+        output.discard("active_effects");
+        output.discard("current_explosion_impact_pos");
+        output.discard("current_impulse_context_reset_grace_time");
+        output.discard("last_hurt_by_mob");
+        output.discard("last_hurt_by_player");
+        output.discard("last_hurt_by_player_memory_time");
+        output.discard("sleeping_pos");
+        output.discard("ticks_since_last_hurt_by_mob");
+        return output;
     }
 }

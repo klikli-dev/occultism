@@ -29,11 +29,11 @@ import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.TriState;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -47,7 +47,6 @@ import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
@@ -191,14 +190,12 @@ public class LootEventHandler {
                 var shard = new ItemStack(OccultismItems.SOUL_SHATTERED_ITEM.get());
                 var health = killed.getHealth();
                 killed.setHealth(killed.getMaxHealth()); //simulate a healthy mob to avoid death on respawn
-                killed.resetFallDistance();
-                killed.removeAllEffects();
                 var entityData = new CompoundTag();
                 var id = killed.getEncodeId();
                 if (id != null)
                     entityData.putString("id", id);
                 // 26.1: saveWithoutId now takes ValueOutput instead of CompoundTag
-                var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                var output = ItemNBTUtil.getReducedTagValueOutput();
                 killed.saveWithoutId(output);
                 entityData = output.buildResult();
                 shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(killed.getType(), entityData));
