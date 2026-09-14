@@ -79,33 +79,57 @@ public class LootEventHandler {
         ItemEntity entity = event.getItemEntity();
         ItemStack stack = entity.getItem();
 
+        if ((event.canPickup().isDefault() && event.getItemEntity().hasPickUpDelay())
+                || event.canPickup().isFalse())
+            return;
         if (!(stack.is(Tags.Items.COBBLESTONES) || stack.is(Tags.Items.STONES)))
             return;
 
         Player player = event.getPlayer();
 
-        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get())
+                || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
         int amount = stack.getCount();
-        double chance = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get() * amount;
+        double repairChance = Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get();
+        double chance = repairChance * amount;
         if (chance > 1) {
-            amount = (int) (amount/Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarRepairChance.get());
-            repairEquipment(player, 2 * amount);
-        } else if (player.getRandom().nextDouble() < chance)
-            repairEquipment(player, 2 * amount);
-
-        event.setCanPickup(TriState.FALSE);
-        entity.remove(RemovalReason.DISCARDED);
+            if (repairEquipment(player, 2 * (int) (amount*repairChance)) > 0) {
+                event.setCanPickup(TriState.FALSE);
+                entity.remove(RemovalReason.DISCARDED);
+            }
+        } else if (player.getRandom().nextDouble() < chance) {
+            if (repairEquipment(player, 2 * amount) > 0) {
+                event.setCanPickup(TriState.FALSE);
+                entity.remove(RemovalReason.DISCARDED);
+            }
+        } else {
+            for (ItemStack test : player.getInventory().getNonEquipmentItems()) {
+                if (!test.isDamaged())
+                    continue;
+                event.setCanPickup(TriState.FALSE);
+                entity.remove(RemovalReason.DISCARDED);
+                break;
+            }
+        }
     }
 
-    private static void repairEquipment(Player player, int amount) {
+    private static int repairEquipment(Player player, int amount) {
+        int repaired = 0;
         for (ItemStack stack : player.getInventory().getNonEquipmentItems()) {
             if (!stack.isDamaged())
                 continue;
-            stack.setDamageValue(stack.getDamageValue() - amount);
-            return;
+
+            int damage = stack.getDamageValue();
+            int repair = Math.min(damage, amount);
+            stack.setDamageValue(damage - repair);
+            amount -= repair;
+            repaired += damage;
+            if (amount <= 0)
+                break;
         }
+        return repaired;
     }
 
     @SubscribeEvent
