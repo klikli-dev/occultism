@@ -128,11 +128,12 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
             if (pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"));
+                    if (pPlayer.level().isClientSide())
+                        pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"));
                 } else if (this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL) {
                     this.lastSnackTime = this.level().getGameTime();
                     ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
-                } else {
+                } else if (pPlayer.level().isClientSide()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"));
                 }
                 //even if we don't give a snack we return success, otherwise we make the familiar change sitting position
