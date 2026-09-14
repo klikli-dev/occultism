@@ -198,7 +198,8 @@ public class OccultismFoods {
         public boolean apply(Level level, ItemStack itemStack, LivingEntity livingEntity) {
             if (amount > 0){
                 EquipmentSlot slot = livingEntity.getUsedItemHand().asEquipmentSlot();
-                itemStack.shrink(-1); //Unconsume the item
+                if (!livingEntity.hasInfiniteMaterials())
+                    itemStack.shrink(-1); //Unconsume the item
                 itemStack.hurtAndBreak(amount, livingEntity, slot);
                 return true;
             }
