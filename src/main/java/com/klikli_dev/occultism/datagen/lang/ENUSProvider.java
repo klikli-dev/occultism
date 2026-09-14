@@ -1102,6 +1102,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.debug.started", "Ritual started.");
         this.add("ritual.occultism.debug.finished", "Ritual completed successfully.");
         this.add("ritual.occultism.debug.interrupted", "Ritual interrupted.");
+
+        this.add("ritual.occultism.misc_unbreakable.true", "This item is already unbreakable.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -1776,6 +1778,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
         this.add("dialog.occultism.beaver.snack_on_cooldown", "Hey now, don't be greedy!");
         this.add("dialog.occultism.beaver.no_upgrade", "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!");
+        this.add("dialog.occultism.fairy.leather_on_cooldown", "Hey listen, wait!");
         this.add("dialog.occultism.fairy.breath_on_cooldown", "Hey listen, wait!");
         this.add("dialog.occultism.fairy.no_upgrade", "A Blacksmith Familiar needs to upgrade the Fairy before breathing like a dragon!");
         this.add("dialog.occultism.devil.sin_on_cooldown", "Another will be available after: %s ticks!");
