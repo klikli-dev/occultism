@@ -385,10 +385,12 @@ public class FamiliarEventHandler {
         player.removeAllEffects();
         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
+        player.invulnerableTime = 30;
         if (!guardian.isAddedToLevel()) {
             int i = guardian.hasBlacksmithUpgrade() ? 6 : 7;
+            int t = guardian.hasIesniumUpgrade() ? 10 : 20;
             i -= guardian.getLives();
-            player.addEffect(new MobEffectInstance(OccultismEffects.OCCULT_UNDYING_COOLDOWN, i * 60 * 20, 0, true, true));
+            player.addEffect(new MobEffectInstance(OccultismEffects.OCCULT_UNDYING_COOLDOWN, i * 60 * t, 0, true, true));
         }
     }
 
