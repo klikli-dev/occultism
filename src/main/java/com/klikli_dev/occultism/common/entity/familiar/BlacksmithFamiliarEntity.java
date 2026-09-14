@@ -142,6 +142,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
         if (this.hasBlacksmithUpgrade() && this.getOwner() instanceof Player player
+                && this.distanceToSqr(player) < 64
                 && this.isAbilityEnabled(player) && player.level() instanceof ServerLevel serverLevel
                 && serverLevel.getGameTime() % Occultism.SERVER_CONFIG.familiar.blacksmithFamiliarPassiveRepairDelay.getAsInt() == 0) {
             repairEquipment(player, serverLevel);
