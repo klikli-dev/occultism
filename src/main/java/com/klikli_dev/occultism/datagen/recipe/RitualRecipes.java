@@ -39,7 +39,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final Identifier RITUAL_SUMMON = OccultismRituals.SUMMON.getId();
     private static final Identifier RITUAL_SUMMON_WILD = OccultismRituals.SUMMON_WILD.getId();
     private static final Identifier RITUAL_SUMMON_JOB = OccultismRituals.SUMMON_SPIRIT_WITH_JOB.getId();
-    private static final Identifier RITUAL_FAMILIAR = OccultismRituals.SUMMON_TAMED.getId();
+    private static final Identifier RITUAL_FAMILIAR = OccultismRituals.FAMILIAR.getId();
     private static final Identifier RITUAL_CRAFT_WITH_SPIRIT_NAME = OccultismRituals.CRAFT_WITH_SPIRIT_NAME.getId();
     private static final Identifier RITUAL_CRAFT = OccultismRituals.CRAFT.getId();
     private static final Identifier RITUAL_CRAFT_MINER_SPIRIT = OccultismRituals.CRAFT_MINER_SPIRIT.getId();
