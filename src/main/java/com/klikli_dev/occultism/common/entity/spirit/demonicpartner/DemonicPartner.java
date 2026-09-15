@@ -212,7 +212,7 @@ public class DemonicPartner extends TamableAnimal {
                     this.lastHeartTime = this.level().getGameTime();
                     itemstack.shrink(1);
                     ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
-                } else {
+                } else if (pPlayer.level().isClientSide()) {
                     pPlayer.sendOverlayMessage(Component.translatable("dialog.occultism.partner.heart_on_cooldown", time));
                 }
                 return InteractionResult.SUCCESS;

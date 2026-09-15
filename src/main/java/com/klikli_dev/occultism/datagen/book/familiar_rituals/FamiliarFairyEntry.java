@@ -40,8 +40,11 @@ public class FamiliarFairyEntry extends EntryProvider {
                          (speed, resistance, fire resistance, water breathing, slow falling).
                         \\
                         \\
-                        When upgraded by a Blacksmith Familiar, you can give a {0} to transform in a {1}.
+                        The healing abilities allow the Fairy to turn {0} into {1}.
+                        When upgraded by a Blacksmith Familiar, you can give a {2} to transform in a {3}.
                         """,
+                this.itemLink(Items.ROTTEN_FLESH),
+                this.itemLink(Items.LEATHER),
                 this.itemLink(Items.GLASS_BOTTLE),
                 this.itemLink(Items.DRAGON_BREATH)
         );

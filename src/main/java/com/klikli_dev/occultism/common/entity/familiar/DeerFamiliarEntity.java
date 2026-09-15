@@ -152,7 +152,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean attackEnabled() {
-        return this.hasBlacksmithUpgrade() && this.isEffectEnabled(this.getOwner());
+        return this.hasBlacksmithUpgrade() && this.isAbilityEnabled(this.getOwner());
     }
 
     private static class DeerMeleeAttackGoal extends MeleeAttackGoal {

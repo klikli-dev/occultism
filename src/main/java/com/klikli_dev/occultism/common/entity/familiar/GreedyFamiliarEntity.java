@@ -191,7 +191,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity implements IFilterConfi
         if (!(wearer instanceof Player))
             return;
 
-        if (this.isEffectEnabled(wearer))
+        if (this.isAbilityEnabled(wearer))
             for (ItemEntity e : wearer.level().getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
                 ItemStack stack = e.getItem();
 

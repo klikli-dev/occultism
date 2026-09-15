@@ -29,13 +29,13 @@ public class PlacedFeatures {
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         PlacementUtils.register(context, ORE_SILVER, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_SILVER),
-                commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200))));
+                commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-8), VerticalAnchor.absolute(92))));
 
         PlacementUtils.register(context, ORE_SILVER_DEEPSLATE, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_SILVER_DEEPSLATE),
-                commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50))));
+                commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-56), VerticalAnchor.absolute(8))));
 
         PlacementUtils.register(context, ORE_IESNIUM, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_IESNIUM),
-                commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(128))));
+                commonOrePlacement(3, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(128))));
 
         PlacementUtils.register(context, TREE_OTHERWORLD, configuredFeatures.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD),
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get()));

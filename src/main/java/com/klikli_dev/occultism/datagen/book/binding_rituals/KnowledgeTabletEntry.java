@@ -29,6 +29,10 @@ public class KnowledgeTabletEntry extends EntryProvider {
         this.pageText("""
                         Knowledge Tablet is an item infused by a {0}. The spirit can hold a enormous
                          quantity of experience points. Keeping safe and allowing giving XP to other players.
+                        \\
+                        \\
+                        When equipped in the Charm slot, it functions like an XP magnet. \\
+                        **NOTE:** Experience collected this way is stored directly in this item.
                         """,
                 this.color("Foliot", ChatFormatting.DARK_PURPLE)
         );
@@ -47,7 +51,7 @@ public class KnowledgeTabletEntry extends EntryProvider {
                         {0} will storage all of your experience points. \\
                         {1} receive all stored points. \\
                         \\
-                        NOTE: Sometimes, with big values, you can lost a small quantity of point due numerical approximations.
+                        **NOTE:** Sometimes, with big values, you can lost a small quantity of point due numerical approximations.
                         """,
                 this.color("Right-Click", ChatFormatting.GREEN),
                 this.color("Shift-Right-Click", ChatFormatting.GREEN)

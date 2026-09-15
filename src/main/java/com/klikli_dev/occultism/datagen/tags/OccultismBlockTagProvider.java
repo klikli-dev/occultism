@@ -203,10 +203,19 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(this.key(OccultismBlocks.SILVER_CHAIN_BLOCK.get()))
                 .add(this.key(OccultismBlocks.SILVER_DOOR.get()))
                 .add(this.key(OccultismBlocks.SILVER_TRAPDOOR.get()))
-                .add(this.key(OccultismBlocks.SILVER_BULB.get()));
+                .add(this.key(OccultismBlocks.SILVER_BULB.get()))
+                .add(this.key(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get()));
+        this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(this.key(OccultismBlocks.IESNIUM_ORE.get()))
+                .add(this.key(OccultismBlocks.RAW_IESNIUM_BLOCK.get()))
+                .add(this.key(OccultismBlocks.IESNIUM_BLOCK.get()))
+                .add(this.key(OccultismBlocks.IESNIUM_ANVIL.get()))
+                .add(this.key(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()))
+                .add(this.key(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get()));
         this.tag(BlockTags.SMALL_FLOWERS).add(this.key(OccultismBlocks.OTHERFLOWER.get())).add(this.key(OccultismBlocks.OTHERFLOWER_NATURAL.get()));
         this.tag(BlockTags.FLOWER_POTS).add(this.key(OccultismBlocks.POTTED_OTHERFLOWER.get()));
         this.tag(BlockTags.INFINIBURN_OVERWORLD).add(this.key(OccultismBlocks.TALLOW_BLOCK.get()));
+        this.tag(BlockTags.ENCHANTMENT_POWER_PROVIDER).addTag(OccultismTags.Blocks.OCCULTISM_CANDLES);
         this.tag(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).addTag(OccultismTags.Blocks.CHALK_GLYPHS);
         this.tag(BlockTags.BEACON_BASE_BLOCKS)
                 .add(this.key(OccultismBlocks.SILVER_BLOCK.get()))

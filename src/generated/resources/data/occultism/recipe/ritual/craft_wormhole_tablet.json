@@ -22,5 +22,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/craft_wormhole_tablet"
   },
-  "ritual_type": "occultism:craft"
+  "ritual_type": "occultism:craft_with_spirit_name"
 }

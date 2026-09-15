@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.storage.EnderSatchelItem;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.klikli_dev.occultism.common.item.tool.KnowledgeTabletItem;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -208,6 +209,41 @@ public class CuriosUtil {
         return -1;
     }
 
+    public static ItemStack getXpTablet(Player player) {
+        ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
+        if (curiosHandler == null)
+            return ItemStack.EMPTY;
+
+        for (String identifier : curiosHandler.getCurios().keySet()) {
+            ItemStack stack = getXpTabletItemFromSlot(curiosHandler, identifier);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    protected static ItemStack getXpTabletItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+        if (curiosHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+        if (slotHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        IDynamicStackHandler stackHandler = slotHandler.getStacks();
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if (stack.getItem() instanceof KnowledgeTabletItem) {
+                return stack;
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
 
     public static class SelectedCurio {
         public ItemStack itemStack;

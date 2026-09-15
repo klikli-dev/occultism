@@ -8,7 +8,7 @@
   },
   "entity_to_summon": "occultism:cthulhu_familiar",
   "ingredients": [
-    "#minecraft:fishes",
+    "minecraft:water_bucket",
     "#minecraft:fishes",
     "#minecraft:fishes",
     "#minecraft:fishes",
@@ -34,5 +34,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_cthulhu"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

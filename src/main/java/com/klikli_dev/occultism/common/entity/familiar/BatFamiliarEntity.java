@@ -170,7 +170,7 @@ public class BatFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             this.nearby = this.nearbyBat();
-            return !this.bat.isSitting() && this.nearby != null && this.bat.isEffectEnabled(this.bat.getFamiliarOwner());
+            return !this.bat.isSitting() && this.nearby != null && this.bat.isAbilityEnabled(this.bat.getFamiliarOwner());
         }
 
         @Override

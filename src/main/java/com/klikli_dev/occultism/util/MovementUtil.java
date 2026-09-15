@@ -60,8 +60,8 @@ public class MovementUtil {
         }
 
         //If player is gliding and has no "wing" will still only glide, no double jump
-        boolean wing = player.hasEffect(OccultismEffects.FIRE_WING)
-                || FamiliarUtil.hasFamiliar(player, OccultismEntities.DRIKWING_FAMILIAR.get(), OtherworldBirdEntity::hasIesniumUpgrade);
+        boolean wing = player.isFallFlying() && (player.hasEffect(OccultismEffects.FIRE_WING)
+                || FamiliarUtil.hasFamiliar(player, OccultismEntities.DRIKWING_FAMILIAR.get(), OtherworldBirdEntity::hasIesniumUpgrade));
         return !player.isFallFlying() || wing;
     }
 

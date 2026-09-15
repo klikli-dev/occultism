@@ -128,6 +128,8 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
                 .add(this.key(OccultismItems.STORAGE_REMOTE.get()))
                 .add(this.key(OccultismItems.TRUE_SIGHT_STAFF.get()))
                 .add(this.key(OccultismItems.FAMILIAR_GLOVE.get()));
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "charm")))
+                .add(this.key(OccultismItems.KNOWLEDGE_TABLET.get()));
         this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head")))
                 .add(this.key(OccultismItems.OTHERWORLD_GOGGLES.get()));
         this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring")))
@@ -513,7 +515,7 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.tag(OccultismTags.Items.BOOKS).add(this.key(OccultismItems.DICTIONARY_OF_SPIRITS.get()), this.key(Items.BOOK));
 
         // Fruits
-        this.tag(OccultismTags.Items.FRUITS).add(this.key(Items.APPLE));
+        this.tag(OccultismTags.Items.FRUITS).add(this.key(Items.APPLE)).add(this.key(OccultismItems.PITAYA.get()));
 
         // Gems
         this.tag(Tags.Items.GEMS).add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()));

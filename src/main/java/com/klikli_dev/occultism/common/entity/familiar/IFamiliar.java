@@ -94,7 +94,7 @@ public interface IFamiliar {
      *
      * @return True of the familiar effect is enabled, false otherwise.
      */
-    default boolean isEffectEnabled(LivingEntity owner) {
+    default boolean isAbilityEnabled(LivingEntity owner) {
         if (owner == null)
             return false;
         return owner.getData(OccultismDataStorage.FAMILIAR_SETTINGS.get()).isFamiliarEnabled(this.getFamiliarEntity().getType());

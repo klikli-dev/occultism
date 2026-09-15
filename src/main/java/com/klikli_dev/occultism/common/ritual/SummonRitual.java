@@ -27,11 +27,11 @@ import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -202,14 +202,11 @@ public class SummonRitual extends Ritual {
         if (setTamed && livingEntity instanceof FamiliarEntity familiar && castingPlayer != null) {
             familiar.setFamiliarOwner(castingPlayer);
         }
-        if (level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())
-                || level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.CELESTIAL_CHALICE.get())) {
-            livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,
-                    level.getRandom().nextInt(360), 0);
-        } else {
-            livingEntity.snapTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5,
-                    level.getRandom().nextInt(360), 0);
-        }
+        double dy = level.getBlockState(goldenBowlPosition).getShape(level, goldenBowlPosition).max(Direction.Axis.Y);
+        livingEntity.snapTo(goldenBowlPosition.getX() + 0.5,
+                goldenBowlPosition.getY() + dy,
+                goldenBowlPosition.getZ() + 0.5,
+                level.getRandom().nextInt(360), 0);
         if (!spiritName.isEmpty())
             livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob) {

@@ -185,7 +185,8 @@ public abstract class OtherworldBirdEntity extends Parrot implements IFamiliar {
                         this.hasBlacksmithUpgrade() ? FEATHER_COOLDOWN_UPGRADED : FEATHER_COOLDOWN;
                 this.setAge(-cooldown);
             } else {
-                playerIn.sendSystemMessage(Component.translatable("dialog.occultism.otherworldbird.feather_on_cooldown_" + this.getRandom().nextInt(3)));
+                if (playerIn.level().isClientSide())
+                    playerIn.sendSystemMessage(Component.translatable("dialog.occultism.otherworldbird.feather_on_cooldown_" + this.getRandom().nextInt(3)));
             }
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
         }

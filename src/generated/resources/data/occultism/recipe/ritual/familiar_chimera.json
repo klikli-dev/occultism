@@ -3,16 +3,15 @@
   "activation_item": "occultism:book_of_binding_bound_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.sheep",
-    "tag": "c:sheep"
+    "display_name": "ritual.occultism.sacrifice.horses",
+    "tag": "c:horses"
   },
   "entity_to_summon": "occultism:chimera_familiar",
   "ingredients": [
     "#c:leathers",
-    "#c:strings",
     "#c:feathers",
     "#minecraft:wool",
-    "#c:bones",
+    "minecraft:rabbit",
     "minecraft:mutton",
     "minecraft:porkchop",
     "minecraft:beef",
@@ -35,5 +34,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_chimera"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

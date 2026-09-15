@@ -73,7 +73,7 @@ public class OccultismTiers {
             EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(Occultism.MODID, "attuned_crystal"));
 
     public static final ArmorMaterial ATTUNED_ARMOR = new ArmorMaterial(
-            35,
+            24,
             makeDefense(3, 6, 8, 3, 13),
             22,
             SoundEvents.ARMOR_EQUIP_DIAMOND,

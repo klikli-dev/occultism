@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -78,8 +79,6 @@ public class ResurrectFamiliarRitual extends SummonRitual {
             var entityData = typedEntityData.copyTagWithoutId();
             EntityType<?> entityType = typedEntityData.type();
 
-            BlockPos spawnPos = goldenBowlPosition;
-
             //remove position from tag to allow the entity to spawn where it should be
             entityData.remove("Pos");
 
@@ -89,7 +88,11 @@ public class ResurrectFamiliarRitual extends SummonRitual {
 
             Entity entity = entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
             entity.load(TagValueInput.create(ProblemReporter.DISCARDING, entity.registryAccess(), entityData));
-            entity.snapTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
+            double dy = level.getBlockState(goldenBowlPosition).getShape(level, goldenBowlPosition).max(Direction.Axis.Y);
+            entity.snapTo(goldenBowlPosition.getX() + 0.5,
+                    goldenBowlPosition.getY() + dy,
+                    goldenBowlPosition.getZ() + 0.5,
+                    level.getRandom().nextInt(360), 0);
             entity.setDeltaMovement(Vec3.ZERO);
             level.addFreshEntity(entity);
 

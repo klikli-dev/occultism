@@ -228,7 +228,7 @@ public class FamiliarRingItem extends Item {
                     familiar.getFamiliarEntity().setLevel(level);
                 if (familiar.getFamiliarOwner() != entity)
                     return;
-                if (!level.isClientSide() && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
+                if (!level.isClientSide() && entity.tickCount % 20 == 0 && familiar.isAbilityEnabled(entity))
                     for (MobEffectInstance effect : familiar.getFamiliarEffects())
                         familiar.getFamiliarOwner().addEffect(effect);
                 familiar.curioTick(entity);
@@ -318,7 +318,7 @@ public class FamiliarRingItem extends Item {
 
             var familiar = getFamiliar(pStack, level);
             if (familiar != null) {
-                return familiar.isEffectEnabled(Minecraft.getInstance().player);
+                return familiar.isAbilityEnabled(Minecraft.getInstance().player);
             }
             return false;
         }

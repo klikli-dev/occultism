@@ -22,26 +22,7 @@
 
 package com.klikli_dev.occultism.common.ritual;
 
-import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
-import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismSounds;
-import com.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.Nullable;
 
 public class FamiliarRitual extends SummonRitual {
 
@@ -49,43 +30,6 @@ public class FamiliarRitual extends SummonRitual {
         super(recipe, true);
     }
 
-    @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
-        //manually call content of Ritual.finish(), because we cannot access it via super
-        level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
-                0.7f);
-
-        if (castingPlayer != null) {
-            castingPlayer.sendSystemMessage(Component.translatable(this.getFinishedMessage(castingPlayer)));
-            OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
-        }
-
-
-        String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
-        activationItem.shrink(1); //remove original activation item.
-
-        ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
-                goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
-
-        EntityType<?> entityType = this.recipe.getEntityToSummon();
-        if (entityType != null) {
-            Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
-            if (entity instanceof FamiliarEntity familiar) {
-                EventHooks.finalizeMobSpawn(familiar, (ServerLevelAccessor) level, ((ServerLevel) level).getCurrentDifficultyAt(goldenBowlPosition), EntitySpawnReason.MOB_SUMMONED, null);
-
-                this.applyEntityNbt(familiar);
-
-                familiar.snapTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        level.getRandom().nextInt(360), 0);
-                familiar.setCustomName(Component.literal(entityName));
-                if (castingPlayer != null)
-                    familiar.setFamiliarOwner(castingPlayer);
-
-                //notify players nearby and spawn
-                this.spawnEntity(familiar, level);
-            }
-        }
-        this.dropResultAndFlame(level, goldenBowlPosition, blockEntity, castingPlayer, ItemStack.EMPTY);
-    }
+    //The summon ritual already deals well with familiars.
+    //Maintaining this class for legacy purposes and for possible future uses.
 }

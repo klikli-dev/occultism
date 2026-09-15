@@ -25,6 +25,7 @@ import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
@@ -79,12 +80,11 @@ public class MessageSetRecipeByID implements IMessage {
         StorageUtil.clearOpenCraftingMatrix(player, false);
         CraftingContainer craftMatrix = container.getCraftMatrix();
         NonNullList<Ingredient> ingredients = this.getIngredientsForRecipe(recipe);
-        if (ingredients.stream().allMatch(Ingredient::isEmpty)) {
-            return;
-        }
 
         for (int slot = 0; slot < 9; slot++) {
             Ingredient ingredient = ingredients.get(slot);
+            if (ingredient.getValues().contains(OccultismItems.JEI_DUMMY_NONE))
+                continue;
             ItemStack extractedStack = StorageUtil.extractItem(PlayerInventoryWrapper.of(player).getMainSlots(), ingredient,
                     1, true);
 
@@ -121,7 +121,7 @@ public class MessageSetRecipeByID implements IMessage {
     }
 
     private NonNullList<Ingredient> getIngredientsForRecipe(Recipe<?> recipe) {
-        NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.of());
+        NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.of(OccultismItems.JEI_DUMMY_NONE));
         if (!(recipe instanceof CraftingRecipe craftingRecipe)) {
             return ingredientsMatrixGrid;
         }

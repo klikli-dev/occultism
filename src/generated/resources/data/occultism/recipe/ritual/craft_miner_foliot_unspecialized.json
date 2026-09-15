@@ -5,8 +5,8 @@
   "ingredients": [
     "occultism:magic_lamp_empty",
     "occultism:iesnium_pickaxe",
-    "#c:ingots/iron",
-    "#c:gravels"
+    "#c:ingots/copper",
+    "#minecraft:coals"
   ],
   "pentacle_id": "occultism:craft_foliot",
   "result": {
