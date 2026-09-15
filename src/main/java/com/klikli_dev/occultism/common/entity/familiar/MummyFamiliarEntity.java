@@ -93,7 +93,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
         Level level = wearer.level();
         if (!(wearer instanceof Player player) || !(level instanceof ServerLevel serverLevel))
             return;
-        if (this.isEffectEnabled(wearer) && level.getGameTime() % 10 == 0) {
+        if (this.isAbilityEnabled(wearer) && level.getGameTime() % 10 == 0) {
             List<LivingEntity> enemies = FamiliarUtil.getOwnerEnemies(wearer, wearer, 9);
             if (enemies.isEmpty())
                 return;

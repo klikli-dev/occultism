@@ -5,9 +5,9 @@
   "ingredients": [
     "occultism:miner_foliot_unspecialized",
     "occultism:iesnium_pickaxe",
+    "#c:storage_blocks/iron",
     "#c:ingots/gold",
-    "#c:gems/lapis",
-    "occultism:spirit_attuned_crystal"
+    "#c:gems/lapis"
   ],
   "pentacle_id": "occultism:craft_djinni",
   "result": {

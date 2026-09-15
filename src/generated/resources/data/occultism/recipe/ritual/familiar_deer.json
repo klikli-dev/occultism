@@ -11,8 +11,14 @@
     "#c:rods/wooden",
     "#c:rods/wooden",
     "#c:rods/wooden",
-    "#c:strings",
-    "#c:strings"
+    [
+      "minecraft:sweet_berries",
+      "minecraft:apple"
+    ],
+    [
+      "minecraft:sweet_berries",
+      "minecraft:apple"
+    ]
   ],
   "pentacle_id": "occultism:possess_foliot",
   "result": {
@@ -31,5 +37,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_deer"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

@@ -113,7 +113,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                 this.lastPrismarineTime = this.level().getGameTime();
                 itemstack.shrink(1);
                 ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, quant));
-            } else {
+            } else if (pPlayer.level().isClientSide()) {
                 pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"));
             }
             //even if we don't give a prismarine we return success, otherwise we make the familiar change sitting position

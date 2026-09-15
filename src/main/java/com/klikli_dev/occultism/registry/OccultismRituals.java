@@ -51,7 +51,7 @@ public class OccultismRituals {
                     () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
     public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED =
             RITUAL_FACTORIES.register("summon_with_chance_of_chicken_tamed",
-                    () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
+                    () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, true)));
     public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_SPIRIT_WITH_JOB =
             RITUAL_FACTORIES.register("summon_spirit_with_job",
                     () -> new RitualFactory(SummonSpiritWithJobRitual::new));

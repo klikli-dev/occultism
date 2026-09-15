@@ -56,7 +56,7 @@ public class FamiliarGreedyEntry extends EntryProvider {
                         You can configure them using the {0}.
                         \\
                         \\
-                        **Iesnium:** {1}.
+                        **Upgraded:** {1}.
                         """,
                 this.entryLink("Familiar Tablet", "familiar_rituals", "tablet"),
                 this.entryLink("Greedy Harvest", "getting_started", "effects@greedy_harvest")

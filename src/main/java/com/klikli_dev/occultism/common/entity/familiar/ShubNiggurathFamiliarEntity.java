@@ -92,7 +92,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void curioTick(LivingEntity wearer) {
-        if (this.isEffectEnabled(wearer)) {
+        if (this.isAbilityEnabled(wearer)) {
             int time = this.hasIesniumUpgrade() ? MIN_SPAWN_TIMER :
                     this.hasBlacksmithUpgrade() ? SPAWN_TIMER : MAX_SPAWN_TIMER;
             if (wearer.level() instanceof ServerLevel serverLevel && serverLevel.getGameTime() % time == 0) {

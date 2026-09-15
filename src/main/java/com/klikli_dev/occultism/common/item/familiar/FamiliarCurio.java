@@ -186,7 +186,7 @@ public interface FamiliarCurio {
                 if (familiar.getFamiliarOwner() != entity)
                     continue;
 
-                if (!level.isClientSide() && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity)) {
+                if (!level.isClientSide() && entity.tickCount % 20 == 0) {
                     for (MobEffectInstance effect : familiar.getFamiliarEffects())
                         entity.addEffect(effect);
                 }
@@ -309,7 +309,7 @@ public interface FamiliarCurio {
             List<IFamiliar> familiarList = getFamiliar(pStack, level);
             if (familiarList != null)
                 for (IFamiliar familiar : familiarList)
-                    if (familiar != null && familiar.isEffectEnabled(Minecraft.getInstance().player))
+                    if (familiar != null && familiar.isAbilityEnabled(Minecraft.getInstance().player))
                         return true;
             return false;
         }

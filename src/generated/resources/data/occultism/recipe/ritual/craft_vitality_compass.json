@@ -3,10 +3,10 @@
   "activation_item": "occultism:book_of_binding_bound_foliot",
   "duration": 60,
   "ingredients": [
-    "#c:gems/amethyst",
     "#c:gems/spirit_attuned",
+    "#c:gems/amethyst",
     "minecraft:compass",
-    "#c:gems/spirit_attuned"
+    "#c:gems/amethyst"
   ],
   "pentacle_id": "occultism:craft_foliot",
   "result": {

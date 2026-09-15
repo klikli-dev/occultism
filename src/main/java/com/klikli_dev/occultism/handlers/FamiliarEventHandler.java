@@ -67,7 +67,7 @@ public class FamiliarEventHandler {
         LevelAccessor world = event.getLevel();
         BlockPos pos = event.getPos();
         List<BeaverFamiliarEntity> beavers = event.getLevel().getEntitiesOfClass(BeaverFamiliarEntity.class,
-                new AABB(pos).inflate(30), b -> !b.isSitting() && b.isEffectEnabled(b.getFamiliarOwner()));
+                new AABB(pos).inflate(30), b -> !b.isSitting() && b.isAbilityEnabled(b.getFamiliarOwner()));
 
         if (!beavers.isEmpty()) {
             BeaverFamiliarEntity beaver = beavers.get(world.getRandom().nextInt(beavers.size()));
@@ -273,7 +273,7 @@ public class FamiliarEventHandler {
         if (!(target.level() instanceof ServerLevel serverLevel))
             return;
 
-        float x = 0.1F * sourceEntity.getEffect(OccultismEffects.FAIRY_BLESS).getAmplifier();
+        float x = 0.1F * (1 + sourceEntity.getEffect(OccultismEffects.FAIRY_BLESS).getAmplifier());
         float dmg = event.getAmount();
         event.setAmount(dmg * Math.clamp(1-x, 0, 1));
         target.hurtServer(serverLevel, sourceEntity.damageSources().magic(), dmg * x);
@@ -385,10 +385,12 @@ public class FamiliarEventHandler {
         player.removeAllEffects();
         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
+        player.invulnerableTime = 30;
         if (!guardian.isAddedToLevel()) {
             int i = guardian.hasBlacksmithUpgrade() ? 6 : 7;
+            int t = guardian.hasIesniumUpgrade() ? 10 : 20;
             i -= guardian.getLives();
-            player.addEffect(new MobEffectInstance(OccultismEffects.OCCULT_UNDYING_COOLDOWN, i * 60 * 20, 0, true, true));
+            player.addEffect(new MobEffectInstance(OccultismEffects.OCCULT_UNDYING_COOLDOWN, i * 60 * t, 0, true, true));
         }
     }
 

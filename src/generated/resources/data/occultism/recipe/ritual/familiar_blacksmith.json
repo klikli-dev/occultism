@@ -12,8 +12,6 @@
     "minecraft:iron_axe",
     "minecraft:anvil",
     "#c:stones",
-    "#c:stones",
-    "#c:stones",
     "#c:stones"
   ],
   "pentacle_id": "occultism:possess_foliot",
@@ -33,5 +31,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_blacksmith"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

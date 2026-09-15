@@ -190,7 +190,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public void curioTick(LivingEntity wearer) {
         Level level = wearer.level();
-        if (this.isEffectEnabled(wearer) && this.hasBlacksmithUpgrade() && !level.isClientSide() && level.getGameTime() % 64 == 0) {
+        if (this.isAbilityEnabled(wearer) && this.hasBlacksmithUpgrade() && !level.isClientSide() && level.getGameTime() % 64 == 0) {
             List<Monster> enemies = level.getEntitiesOfClass(Monster.class,
                     wearer.getBoundingBox().inflate(50),
                     enemy -> {

@@ -101,7 +101,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFa
 
             GoatFamiliarModel model = this.getParentModel();
             // Render with a dark translucent overlay to indicate "black" goat variant
-            RenderLayer.renderColoredCutoutModel(model, BLACK_TEXTURE, pMatrixStack, submitNodeCollector, lightCoords, state, 0x7F000000, 0);
+            RenderLayer.renderColoredCutoutModel(model, BLACK_TEXTURE, pMatrixStack, submitNodeCollector, lightCoords, state, 0x7F555555, 0);
         }
     }
 }

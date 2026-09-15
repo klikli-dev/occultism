@@ -10,6 +10,8 @@
     "#minecraft:logs",
     "#minecraft:logs",
     "#minecraft:logs",
+    "#minecraft:logs",
+    "#minecraft:logs",
     "#minecraft:logs"
   ],
   "pentacle_id": "occultism:possess_foliot",
@@ -29,5 +31,5 @@
   "ritual_dummy": {
     "id": "occultism:ritual_dummy/familiar_beaver"
   },
-  "ritual_type": "occultism:summon_tamed"
+  "ritual_type": "occultism:familiar"
 }

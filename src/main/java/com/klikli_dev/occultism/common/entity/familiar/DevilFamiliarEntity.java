@@ -124,12 +124,13 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
             if (itemstack.is(Items.GOLDEN_APPLE)) {
                 long time = this.hasIesniumUpgrade() ? -1 : this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
+                    if (pPlayer.level().isClientSide())
+                        pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
                 } else if (time < 0) {
                     this.setSinTime(this.level().getGameTime());
                     itemstack.shrink(1);
                     ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE));
-                } else {
+                } else if (pPlayer.level().isClientSide()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time));
                 }
                 //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
@@ -138,12 +139,13 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
             if (itemstack.is(OccultismItems.PITAYA_GOLDEN)) {
                 long time = this.hasIesniumUpgrade() ? -1 : this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
                 if (!this.hasBlacksmithUpgrade()) {
-                    pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
+                    if (pPlayer.level().isClientSide())
+                        pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.no_upgrade"));
                 } else if (time < 0) {
                     this.setSinTime(this.level().getGameTime());
                     itemstack.shrink(1);
                     ItemTransferUtil.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.PITAYA_ENCHANTED.get()));
-                } else {
+                } else if (pPlayer.level().isClientSide()) {
                     pPlayer.sendSystemMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time));
                 }
                 //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
@@ -171,7 +173,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     @Override
     public void curioTick(LivingEntity wearer) {
         Level level = wearer.level();
-        if (this.isEffectEnabled(wearer) && !level.isClientSide() && level.getGameTime() % 32 == 0) {
+        if (this.isAbilityEnabled(wearer) && !level.isClientSide() && level.getGameTime() % 32 == 0) {
             List<Monster> enemies = level.getEntitiesOfClass(Monster.class, wearer.getBoundingBox().inflate(9));
             if (enemies.isEmpty())
                 return;
@@ -233,7 +235,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
             return this.cooldown-- < 0
                     && this.entity.getFamiliarOwner() instanceof Player owner
                     && !this.getNearbyEnemies(owner).isEmpty()
-                    && this.entity.isEffectEnabled(owner);
+                    && this.entity.isAbilityEnabled(owner);
         }
 
         private List<LivingEntity> getNearbyEnemies(LivingEntity owner) {
