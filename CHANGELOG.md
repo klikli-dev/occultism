@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.255.0] - 2026-09-15
+### :sparkles: New Features
+- [`f5ccf51`](https://github.com/klikli-dev/occultism/commit/f5ccf513d8252bd0bbf70575181db21d87375c98) - port Familiar Improvements and Balance ([#1700](https://github.com/klikli-dev/occultism/pull/1700)) to 26.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.254.0] - 2026-09-12
 ### :zap: Performance Improvements
 - [`98fef5b`](https://github.com/klikli-dev/occultism/commit/98fef5b3971f24fd3ec79b5450fd72929127b113) - use an undo journal instead of full snapshots in MapItemResourceHandler *(PR [#1699](https://github.com/klikli-dev/occultism/pull/1699) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2859,3 +2864,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.253.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.252.0...release/v26.2-1.253.0
 [release/v26.2-1.253.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.0...release/v26.2-1.253.1
 [release/v26.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.1...release/v26.2-1.254.0
+[release/v26.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.254.0...release/v26.2-1.255.0
