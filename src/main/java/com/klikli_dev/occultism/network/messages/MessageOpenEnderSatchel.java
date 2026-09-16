@@ -70,7 +70,7 @@ public class MessageOpenEnderSatchel implements IMessage {
         //if not found, try to get from player inventory
         if (!(backpackStack.getItem() instanceof EnderSatchelItem)) {
             selectedSlot = CuriosUtil.getFirstEnderSatchelSlot(player);
-            backpackStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
+            backpackStack = selectedSlot >= 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof EnderSatchelItem enderSatchelItem) {
