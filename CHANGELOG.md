@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.254.0] - 2026-09-17
+### :sparkles: New Features
+- [`e2ce4bc`](https://github.com/klikli-dev/occultism/commit/e2ce4bc6204082b07c2bb2d8b0f71f79c6ac310c) - Update Ukrainian localization *(PR [#1701](https://github.com/klikli-dev/occultism/pull/1701) by [@Tenwoc](https://github.com/Tenwoc))*
+
+### :bug: Bug Fixes
+- [`85e26b5`](https://github.com/klikli-dev/occultism/commit/85e26b540858e4406fa0b92fdd31061af35a04c7) - find satchels and the storage remote in the first inventory slot *(PR [#1703](https://github.com/klikli-dev/occultism/pull/1703) by [@Klaas058](https://github.com/Klaas058))*
+  - :arrow_lower_right: *fixes issue [#1702](https://github.com/klikli-dev/occultism/issues/1702) opened by [@Klaas058](https://github.com/Klaas058)*
+
+
 ## [release/v26.1.2-1.253.0] - 2026-09-15
 ### :sparkles: New Features
 - [`6b2de4c`](https://github.com/klikli-dev/occultism/commit/6b2de4cc933f5c1c8fe88efaa7ba2676dd7a0518) - Familiar Improvements and Balance *(PR [#1700](https://github.com/klikli-dev/occultism/pull/1700) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2839,3 +2848,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.251.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.250.0...release/v26.1.2-1.251.0
 [release/v26.1.2-1.252.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.251.0...release/v26.1.2-1.252.0
 [release/v26.1.2-1.253.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.252.0...release/v26.1.2-1.253.0
+[release/v26.1.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.253.0...release/v26.1.2-1.254.0
