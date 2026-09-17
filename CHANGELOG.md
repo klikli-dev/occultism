@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.2-1.256.0] - 2026-09-17
+### :sparkles: New Features
+- [`2bd4454`](https://github.com/klikli-dev/occultism/commit/2bd4454ef05860da1e47de5701a113e060bcf67e) - merge Ukrainian localization (uk_ua.json) from 26.1.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`1e16c4f`](https://github.com/klikli-dev/occultism/commit/1e16c4feb801279507a172737c4b4bb501cae967) - find satchels and the storage remote in the first inventory slot *(PR [#1703](https://github.com/klikli-dev/occultism/pull/1703) by [@Klaas058](https://github.com/Klaas058))*
+  - :arrow_lower_right: *fixes issue [#1702](https://github.com/klikli-dev/occultism/issues/1702) opened by [@Klaas058](https://github.com/Klaas058)*
+
+
 ## [release/v26.2-1.255.0] - 2026-09-15
 ### :sparkles: New Features
 - [`f5ccf51`](https://github.com/klikli-dev/occultism/commit/f5ccf513d8252bd0bbf70575181db21d87375c98) - port Familiar Improvements and Balance ([#1700](https://github.com/klikli-dev/occultism/pull/1700)) to 26.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2865,3 +2874,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.253.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.0...release/v26.2-1.253.1
 [release/v26.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.1...release/v26.2-1.254.0
 [release/v26.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.254.0...release/v26.2-1.255.0
+[release/v26.2-1.256.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.255.0...release/v26.2-1.256.0
