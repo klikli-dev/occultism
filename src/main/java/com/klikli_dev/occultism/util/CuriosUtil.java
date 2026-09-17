@@ -116,7 +116,7 @@ public class CuriosUtil {
         //if not found, try to get from player inventory
         if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
+            storageRemoteStack = selectedSlot >= 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a storage remote, proceed
         if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
