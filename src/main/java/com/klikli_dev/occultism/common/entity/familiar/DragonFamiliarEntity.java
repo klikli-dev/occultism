@@ -34,6 +34,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -102,7 +103,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean hasSword() {
-        return this.hasBlacksmithUpgrade() && !this.swinging;
+        return this.hasBlacksmithUpgrade() && !this.isSwinging();
     }
 
     public int getGreedyTimer() {
@@ -136,9 +137,9 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void swing(InteractionHand handIn, boolean updateSelf) {
-        super.swing(handIn, updateSelf);
-        this.swingTime = -20 + 6;
+    public boolean swing(InteractionHand hand, SwingAnimation animation, boolean sendToSwingingEntity) {
+        //Extend the swing by 14 ticks to match the sword throw animation, like the old swingTime = -20 + 6 hack
+        return super.swing(hand, new SwingAnimation(animation.type(), animation.duration() + 14), sendToSwingingEntity);
     }
 
     @Override

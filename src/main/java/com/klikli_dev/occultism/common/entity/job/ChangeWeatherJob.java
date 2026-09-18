@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -77,8 +78,8 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         super.update();
 
         this.currentChangeTicks++;
-        if (!this.entity.swinging) {
-            this.entity.swing(InteractionHand.MAIN_HAND);
+        if (!this.entity.isSwinging()) {
+            this.entity.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
         }
         if (this.entity.level().getGameTime() % 2 == 0) {
             ((ServerLevel) this.entity.level())

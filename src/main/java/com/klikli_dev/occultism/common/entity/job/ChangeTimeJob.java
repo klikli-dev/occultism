@@ -32,6 +32,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.player.Player;
@@ -79,8 +80,8 @@ public abstract class ChangeTimeJob extends SpiritJob {
         super.update();
 
         this.currentChangeTicks++;
-        if (!this.entity.swinging) {
-            this.entity.swing(InteractionHand.MAIN_HAND);
+        if (!this.entity.isSwinging()) {
+            this.entity.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
         }
 
         if (this.entity.level().getGameTime() % 2 == 0) {

@@ -36,6 +36,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
@@ -109,7 +110,7 @@ public class SoulGemItem extends Item {
                 entity.setYRot(yaw);
                 level.addFreshEntity(entity);
 
-                player.swing(context.getHand());
+                player.swing(context.getHand(), SwingAnimation.DEFAULT, true);
 
                 if (itemStack.getItem().equals(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get())) {
                     player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -179,7 +180,7 @@ public class SoulGemItem extends Item {
         //serialize entity - TypedEntityData stores the type directly, so we don't need the "id" in the NBT
         stack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(target.getType(), entityData));
         //show player swing anim
-        player.swing(hand);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         target.remove(RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();

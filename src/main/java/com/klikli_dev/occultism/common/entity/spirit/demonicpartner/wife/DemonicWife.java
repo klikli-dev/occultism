@@ -37,10 +37,6 @@ public class DemonicWife extends DemonicPartner implements GeoEntity {
         super(pEntityType, pLevel);
     }
 
-    @Override
-    public int getCurrentSwingDuration() {
-        return 11; //to match our attack animation speed + 1 tick
-    }
 
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
@@ -50,7 +46,7 @@ public class DemonicWife extends DemonicPartner implements GeoEntity {
 
     private <T extends GeoAnimatable> PlayState animPredicate(AnimationTest<T> tAnimationState) {
 
-        if (this.swinging) {
+        if (this.isSwinging()) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
         }
 

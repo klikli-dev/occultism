@@ -102,10 +102,6 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
         return super.getDefaultDimensions(pPose);
     }
 
-    @Override
-    public int getCurrentSwingDuration() {
-        return 11; //to match our attack animation speed + 1 tick
-    }
 
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
@@ -115,7 +111,7 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
 
     private <T extends GeoAnimatable> PlayState animPredicate(AnimationTest<T> tAnimationState) {
 
-        if (this.swinging) {
+        if (this.isSwinging()) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenLoop("attack"));
         }
 

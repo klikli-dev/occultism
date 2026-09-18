@@ -35,6 +35,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -231,9 +232,10 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    public void swing(InteractionHand pHand) {
-        super.swing(pHand);
+    public boolean swing(InteractionHand pHand, SwingAnimation animation, boolean sendToSwingingEntity) {
+        var result = super.swing(pHand, animation, sendToSwingingEntity);
         this.eatTimer = 0;
+        return result;
     }
 
     // Client method
@@ -348,7 +350,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             if (!foods.isEmpty() && this.entity.isAbilityEnabled(owner)) {
                 Entity food = foods.get(this.entity.getRandom().nextInt(foods.size()));
                 food.remove(RemovalReason.DISCARDED);
-                this.entity.swing(InteractionHand.MAIN_HAND);
+                this.entity.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
                 this.entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, EAT_EFFECT_DURATION, 0, false, false));
                 this.entity.addEffect(new MobEffectInstance(MobEffects.SPEED, EAT_EFFECT_DURATION, 0, false, false));
 

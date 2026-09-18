@@ -44,6 +44,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -159,7 +160,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.level().isClientSide() && this.swinging) {
+        if (this.level().isClientSide() && this.isSwinging()) {
             Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(0.6);
             for (int i = 0; i < 5; i++) {
                 Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
@@ -193,14 +194,10 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         controllerRegistrar.add(mainController);
     }
 
-    @Override
-    public int getCurrentSwingDuration() {
-        return 11; //to match our attack animation speed + 1 tick
-    }
 
     private PlayState animPredicate(AnimationTest<DevilFamiliarEntity> tAnimationState) {
 
-        if (this.swinging) {
+        if (this.isSwinging()) {
             return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
         }
 
@@ -248,7 +245,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
                 OccultismAdvancements.FAMILIAR.get().trigger(this.entity.getFamiliarOwner(), Type.DEVIL_FIRE);
 
             this.attack(enemies);
-            this.entity.swing(InteractionHand.MAIN_HAND);
+            this.entity.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             this.cooldown = MAX_COOLDOWN;
         }
 

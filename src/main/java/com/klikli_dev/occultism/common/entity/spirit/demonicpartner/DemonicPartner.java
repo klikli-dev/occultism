@@ -172,7 +172,7 @@ public class DemonicPartner extends TamableAnimal {
         super.aiStep();
         this.updateSwingTime();
 
-        if (this.level().isClientSide() && this.swinging) {
+        if (this.level().isClientSide() && this.isSwinging()) {
             Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(0.6);
             for (int i = 0; i < 5; i++) {
                 Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,

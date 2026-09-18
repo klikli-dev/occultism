@@ -9,6 +9,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -48,7 +49,7 @@ public class HarvestCropBehaviour<E extends SpiritEntity> extends ExtendedBehavi
             return;
         if (NearestCropSensor.isGrowthCrop(entity.level(), cropPos)) {
             BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(cropPos));
-            entity.swing(InteractionHand.MAIN_HAND, true);
+            entity.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             for (int x = -2; x <= 2; x++) {
                 for (int z = -2; z <= 2; z++) {
                     BlockState state = entity.level().getBlockState(cropPos.offset(x, 0, z));

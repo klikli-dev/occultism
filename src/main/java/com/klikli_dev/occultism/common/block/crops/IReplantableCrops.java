@@ -26,6 +26,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -66,7 +67,7 @@ public interface IReplantableCrops {
                     Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
                 }
 
-                player.swing(hand);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 player.causeFoodExhaustion(EXHAUSTION_PER_HARVEST);
 
                 return InteractionResult.SUCCESS;

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -53,7 +54,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
         if (NearestTreeSensor.isLog(entity.level(), treePos)) {
             BrainUtil.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             this.breakingTime++;
-            entity.swing(InteractionHand.MAIN_HAND, true);
+            entity.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);
             if (this.breakingTime % 20 == 0) {
                 entity.playSound(SoundEvents.WOOD_HIT, 1, 1);

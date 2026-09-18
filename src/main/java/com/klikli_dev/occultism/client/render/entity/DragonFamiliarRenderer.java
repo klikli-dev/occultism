@@ -70,7 +70,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
         reusedState.itemModelResolver = this.itemModelResolver;
         reusedState.isSitting = entity.isSitting();
         reusedState.isPartying = entity.isPartying();
-        reusedState.swinging = entity.swinging;
+        reusedState.swinging = entity.isSwinging();
         reusedState.hasEars = entity.hasEars();
         reusedState.hasArms = entity.hasArms();
         reusedState.hasFez = entity.hasFez();

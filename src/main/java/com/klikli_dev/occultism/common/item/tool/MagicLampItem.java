@@ -37,6 +37,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.Entity.RemovalReason;
@@ -101,7 +102,7 @@ public class MagicLampItem extends Item {
                 ((ServerLevel) level).sendParticles(ParticleTypes.CLOUD,
                         spawnPos.getX() + 0.5, spawnPos.getY() + 0.1, spawnPos.getZ() + 0.5,
                         15, 0.0, 0.1, 0.0, 0.01);
-                player.swing(context.getHand());
+                player.swing(context.getHand(), SwingAnimation.DEFAULT, true);
                 player.inventoryMenu.broadcastChanges();
             }
             return InteractionResult.SUCCESS;
@@ -132,7 +133,7 @@ public class MagicLampItem extends Item {
         stack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(target.getType(), entityData));
         ItemNBTUtil.setBoundSpiritName(stack, target.getName().getString());
         ItemNBTUtil.setSpiritJob(stack, spirit.getJobID());
-        player.swing(hand);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         target.remove(RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();

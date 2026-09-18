@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -118,10 +119,11 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void swing(InteractionHand pHand, boolean pUpdateSelf) {
-        super.swing(pHand, pUpdateSelf);
+    public boolean swing(InteractionHand pHand, SwingAnimation animation, boolean sendToSwingingEntity) {
+        var result = super.swing(pHand, animation, sendToSwingingEntity);
         this.fightPose = 0;
         this.fightTimer = 0;
+        return result;
     }
 
     private double randNum(double size) {

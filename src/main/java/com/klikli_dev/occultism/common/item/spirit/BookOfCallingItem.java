@@ -42,6 +42,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter.ScopedCollector;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.Entity.RemovalReason;
@@ -226,7 +227,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     player.sendOverlayMessage(
                             Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"));
-                    player.swing(hand);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                     player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
                     player.inventoryMenu.broadcastChanges();
                     return InteractionResult.SUCCESS;
@@ -251,7 +252,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                                             Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit_entity",
                                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                                                     TextUtil.formatDemonName(targetSpirit.getName().getString())));
-                                    player.swing(hand);
+                                    player.swing(hand, SwingAnimation.DEFAULT, true);
                                     player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
                                     player.inventoryMenu.broadcastChanges();
                                     return InteractionResult.SUCCESS;
@@ -303,7 +304,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
         ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
         //show player swing anim
-        player.swing(hand);
+        player.swing(hand, SwingAnimation.DEFAULT, true);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         targetSpirit.remove(RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();

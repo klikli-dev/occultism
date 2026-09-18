@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -172,7 +173,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         protected void checkAndPerformAttack(@NonNull LivingEntity target) {
             if (this.canPerformAttack(target)) {
                 this.resetAttackCooldown();
-                this.mob.swing(InteractionHand.MAIN_HAND);
+                this.mob.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
                 this.mob.doHurtTarget(getServerLevel(this.mob), target);
 
                 if (this.deer.hasIesniumUpgrade()) {

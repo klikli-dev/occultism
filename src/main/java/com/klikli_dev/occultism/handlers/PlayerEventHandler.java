@@ -43,6 +43,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Entity.RemovalReason;
@@ -136,7 +137,7 @@ public class PlayerEventHandler {
                 }
                 //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
-                event.getEntity().swing(InteractionHand.MAIN_HAND);
+                event.getEntity().swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             }
         }
     }
@@ -188,7 +189,7 @@ public class PlayerEventHandler {
         //finally, cancel original event to prevent real action and show use animation
         event.setCancellationResult(InteractionResult.FAIL);
         event.setCanceled(true);
-        event.getEntity().swing(InteractionHand.MAIN_HAND);
+        event.getEntity().swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
     }
 
     @SubscribeEvent

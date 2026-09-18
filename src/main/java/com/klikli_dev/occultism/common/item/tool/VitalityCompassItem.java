@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -52,7 +53,7 @@ public class VitalityCompassItem extends Item {
             ItemNBTUtil.setSpiritEntityUUID(stack, target.getUUID());
             ItemNBTUtil.setBoundSpiritName(stack, target.getName().getString());
             player.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.target_linked", target.getName()));
-            player.swing(hand);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
             player.inventoryMenu.broadcastChanges();
         }
