@@ -118,7 +118,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         // Rotate item around Y axis using system time
         long systemTime = System.currentTimeMillis();
         float angle = (systemTime / 16) % 360;
-        poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+        poseStack.rotate(Axis.YP.rotationDegrees(angle));
 
         // Scale
         float scale = getScale(stack) * 0.5f;
@@ -129,7 +129,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
         poseStack.popPose();
 
-        poseStack.mulPose(facing.getRotation());
+        poseStack.rotate(facing.getRotation());
 
         poseStack.popPose();
     }

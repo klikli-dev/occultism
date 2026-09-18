@@ -61,7 +61,7 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
         ps.translate(0, s.animationHeight, 0);
         if (s.hasMagicTarget) {
             ps.translate(s.magicPosX, s.magicPosY, s.magicPosZ);
-            ps.mulPose(new Quaternionf().rotateXYZ(0, -s.magicRadiusAngleY * ((float) Math.PI / 180F), 0));
+            ps.rotate(new Quaternionf().rotateXYZ(0, -s.magicRadiusAngleY * ((float) Math.PI / 180F), 0));
             this.shadowStrength = 0;
         } else this.shadowStrength = 1;
         super.submit(s, ps, c, cam);

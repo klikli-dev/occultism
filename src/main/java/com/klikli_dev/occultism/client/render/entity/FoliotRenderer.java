@@ -100,7 +100,7 @@ public class FoliotRenderer extends OccultismGeoLivingEntityRenderer<FoliotEntit
                     poseStack.translate(0.06, -0.6, 0);
                 }
                 poseStack.scale(0.4F, 0.4F, 0.4F);
-                poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                poseStack.rotate(Axis.XN.rotationDegrees(90));
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();
             }

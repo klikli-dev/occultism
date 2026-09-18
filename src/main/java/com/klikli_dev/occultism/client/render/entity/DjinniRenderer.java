@@ -88,15 +88,15 @@ public class DjinniRenderer extends OccultismGeoLivingEntityRenderer<DjinniEntit
                 if (Objects.equals(renderState.jobID, OccultismSpiritJobs.TRADE_GAMBLER.getId().toString())) {
                     poseStack.translate(0, -0.25, 0.11);
                     poseStack.scale(0.5F, 0.5F, 0.5F);
-                    poseStack.mulPose(Axis.XN.rotationDegrees(25));
+                    poseStack.rotate(Axis.XN.rotationDegrees(25));
                 } else if (Objects.equals(renderState.jobID, OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
                     poseStack.translate(-0.05, -0.24, 0);
                     poseStack.scale(0.4F, 0.4F, 0.4F);
-                    poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                    poseStack.rotate(Axis.XN.rotationDegrees(90));
                 } else {
                     poseStack.scale(0.5F, 0.5F, 0.5F);
                     poseStack.translate(0, -0.4, 0);
-                    poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                    poseStack.rotate(Axis.XN.rotationDegrees(90));
                 }
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();

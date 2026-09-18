@@ -137,7 +137,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 model.rightArm.translateAndRotate(pMatrixStack);
 
                 pMatrixStack.translate(-0.06, 0.2, -0.1);
-                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -45 * ((float) Math.PI / 180F)));
+                pMatrixStack.rotate(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -45 * ((float) Math.PI / 180F)));
 
                 ItemStackRenderState stackState = new ItemStackRenderState();
                 ItemStack pick = state.hasIesniumUpgrade ? OccultismItems.IESNIUM_PICKAXE.toStack() : new ItemStack(Items.IRON_PICKAXE);
@@ -152,7 +152,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 model.leftArm.translateAndRotate(pMatrixStack);
 
                 pMatrixStack.translate(0.06, 0.45, -0.17);
-                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 45 * ((float) Math.PI / 180F), (float) Math.PI));
+                pMatrixStack.rotate(new Quaternionf().rotateXYZ(0, 45 * ((float) Math.PI / 180F), (float) Math.PI));
                 float size = 0.65f;
                 pMatrixStack.scale(size, size, size);
 

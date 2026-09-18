@@ -117,7 +117,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
             matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);
 
-            matrixStackIn.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
+            matrixStackIn.rotate(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
             matrixStackIn.translate(Mth.sin(textTimer / 2) * 0.5, 0, 0);
             float size = (1 - textTimer / DragonFamiliarEntity.MAX_PET_TIMER) * 0.025f;
             matrixStackIn.scale(-size, -size, size);

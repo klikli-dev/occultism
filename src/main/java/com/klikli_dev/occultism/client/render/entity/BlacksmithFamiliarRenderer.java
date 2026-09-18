@@ -108,7 +108,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
                 ItemStack ingotStack = i < state.iesnium ? new ItemStack(OccultismItems.IESNIUM_INGOT.get()) : new ItemStack(Items.IRON_INGOT);
                 pMatrixStack.pushPose();
                 pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - (double) i / 2 * 0.04, -0.15);
-                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(-90 * ((float) Math.PI / 180F), 0, i * ((float) Math.PI / 180F)));
+                pMatrixStack.rotate(new Quaternionf().rotateXYZ(-90 * ((float) Math.PI / 180F), 0, i * ((float) Math.PI / 180F)));
 
                 ItemStackRenderState stackState = new ItemStackRenderState();
                 this.itemModelResolver.updateForTopItem(stackState, ingotStack, ItemDisplayContext.GROUND, null, null, 0);
@@ -141,7 +141,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
 
             pMatrixStack.pushPose();
             pMatrixStack.translate(0, 0.88, -0.07);
-            pMatrixStack.mulPose(new Quaternionf().rotateXYZ((float) Math.PI, (float) Math.PI/2, 0));
+            pMatrixStack.rotate(new Quaternionf().rotateXYZ((float) Math.PI, (float) Math.PI/2, 0));
 
             ItemStackRenderState stackState = new ItemStackRenderState();
             this.itemModelResolver.updateForTopItem(stackState, anvil, ItemDisplayContext.GROUND, null, null, 0);

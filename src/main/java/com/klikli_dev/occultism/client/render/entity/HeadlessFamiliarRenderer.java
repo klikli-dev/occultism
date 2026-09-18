@@ -148,14 +148,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             if (state.rebuiltRightLeg) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternionf().rotateXYZ(0, 130 * ((float) Math.PI / 180F), 0));
+                matrix.rotate(new Quaternionf().rotateXYZ(0, 130 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
                 this.renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords, state);
                 matrix.popPose();
             }
             if (state.rebuiltLeftLeg) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternionf().rotateXYZ(0, 50 * ((float) Math.PI / 180F), 0));
+                matrix.rotate(new Quaternionf().rotateXYZ(0, 50 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
                 this.renderItem(new ItemStack(Items.WHEAT), matrix, collector, lightCoords, state);
                 matrix.popPose();
@@ -164,7 +164,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.pushPose();
                 float size = 1.2f;
                 matrix.scale(size, size, size);
-                matrix.mulPose(new Quaternionf().rotateXYZ(0, 0, 0));
+                matrix.rotate(new Quaternionf().rotateXYZ(0, 0, 0));
                 matrix.translate(0, -0.45, -0.05);
                 this.renderItem(new ItemStack(Items.HAY_BLOCK), matrix, collector, lightCoords, state);
                 matrix.translate(0, -0.25, 0);
@@ -173,14 +173,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             }
             if (state.rebuiltRightArm) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternionf().rotateXYZ(0, (180 + (partying ? Mth.sin(ageInTicks / 3) * 20 : 0)) * ((float) Math.PI / 180F), 0));
+                matrix.rotate(new Quaternionf().rotateXYZ(0, (180 + (partying ? Mth.sin(ageInTicks / 3) * 20 : 0)) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, 0.05);
                 this.renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords, state);
                 matrix.popPose();
             }
             if (state.rebuiltLeftArm) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? Mth.sin(ageInTicks / 3) * 20 : 0) * ((float) Math.PI / 180F), 0));
+                matrix.rotate(new Quaternionf().rotateXYZ(0, (partying ? Mth.sin(ageInTicks / 3) * 20 : 0) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, -0.05);
                 this.renderItem(new ItemStack(Items.STICK), matrix, collector, lightCoords, state);
                 matrix.popPose();
@@ -189,7 +189,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.pushPose();
                 matrix.scale(-1, -1, 1);
                 matrix.translate(0, 0.7, -0.06);
-                matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? ageInTicks * 8 : -netHeadYaw) * ((float) Math.PI / 180F), 0));
+                matrix.rotate(new Quaternionf().rotateXYZ(0, (partying ? ageInTicks * 8 : -netHeadYaw) * ((float) Math.PI / 180F), 0));
                 this.renderItem(new ItemStack(Items.CARVED_PUMPKIN), matrix, collector, lightCoords, state);
                 matrix.popPose();
             }
@@ -232,7 +232,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             model.rightArm.translateAndRotate(poseStack);
 
             poseStack.translate(-0.05f, 0.16, -0.08);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -50 * ((float) Math.PI / 180F)));
+            poseStack.rotate(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -50 * ((float) Math.PI / 180F)));
 
             ItemStackRenderState stackState = new ItemStackRenderState();
             this.itemModelResolver.updateForTopItem(stackState, weaponItem, ItemDisplayContext.GROUND, null, null, 0);
@@ -406,7 +406,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             float size = 0.5f;
             poseStack.scale(size, size, size);
             poseStack.translate(0.15, 0.5, -0.12);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(90 * ((float) Math.PI / 180F), 0, 0));
+            poseStack.rotate(new Quaternionf().rotateXYZ(90 * ((float) Math.PI / 180F), 0, 0));
 
             collector.submitCustomGeometry(poseStack, RenderTypes.entityCutout(texture), (pose, buffer) -> {
                 // Dispatch to per-model render method
@@ -450,7 +450,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             poseStack.pushPose();
             poseStack.scale(1.5f, 1.5f, 1.5f);
             poseStack.translate(0, 0.35, 0.07);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(10 * ((float) Math.PI / 180F), 0, 0));
+            poseStack.rotate(new Quaternionf().rotateXYZ(10 * ((float) Math.PI / 180F), 0, 0));
             this.model.head.render(poseStack, buffer, packedLight, packedOverlay);
             poseStack.popPose();
             // Reset visibility

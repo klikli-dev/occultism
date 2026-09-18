@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.MovementUtil;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -64,8 +65,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-
 @EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {
     //region Static Methods
@@ -89,7 +88,7 @@ public class ClientPlayerEventHandler {
         checkEnderBagKey();
         checkStorageRemoteKey();
         checkFamiliarSettingsKeys();
-        if (event.getAction() == GLFW_PRESS && minecraft.options.keyJump.isDown()) {
+        if (event.getAction() == InputConstants.PRESS && minecraft.options.keyJump.isDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 Networking.sendToServer(new MessageDoubleJump());
             }

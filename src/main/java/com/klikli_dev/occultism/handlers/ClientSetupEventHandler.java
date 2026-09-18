@@ -53,6 +53,7 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.InputConstants.Type;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyMapping.Category;
@@ -79,7 +80,6 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,9 +95,9 @@ public class ClientSetupEventHandler {
     // Register a custom key category for this mod
     private static final Category OCCULTISM_KEY_CATEGORY = Category.register(Identifier.fromNamespaceAndPath(Occultism.MODID, "category"));
 
-    public static final KeyMapping KEY_BACKPACK = new KeyMapping("key.occultism.backpack", Type.KEYSYM, GLFW.GLFW_KEY_B, OCCULTISM_KEY_CATEGORY);
-    public static final KeyMapping KEY_ENDER_BAG = new KeyMapping("key.occultism.ender_bag", Type.KEYSYM, GLFW.GLFW_KEY_V, OCCULTISM_KEY_CATEGORY);
-    public static final KeyMapping KEY_STORAGE_REMOTE = new KeyMapping("key.occultism.storage_remote", Type.KEYSYM, GLFW.GLFW_KEY_N, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_BACKPACK = new KeyMapping("key.occultism.backpack", Type.KEYBOARD, InputConstants.KEY_B, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_ENDER_BAG = new KeyMapping("key.occultism.ender_bag", Type.KEYBOARD, InputConstants.KEY_V, OCCULTISM_KEY_CATEGORY);
+    public static final KeyMapping KEY_STORAGE_REMOTE = new KeyMapping("key.occultism.storage_remote", Type.KEYBOARD, InputConstants.KEY_N, OCCULTISM_KEY_CATEGORY);
 
     public static Map<EntityType<?>, KeyMapping> keysFamiliars;
 
@@ -215,7 +215,7 @@ public class ClientSetupEventHandler {
 
         keysFamiliars = new HashMap<>();
         for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars()) {
-            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), Type.KEYSYM, -1, OCCULTISM_KEY_CATEGORY);
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), Type.KEYBOARD, -1, OCCULTISM_KEY_CATEGORY);
             keysFamiliars.put(familiar, kb);
             event.register(kb);
         }

@@ -23,20 +23,29 @@
 package com.klikli_dev.occultism.client.render;
 
 import com.klikli_dev.occultism.Occultism;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.minecraft.client.renderer.RenderPipelines;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.renderpearl.api.pipeline.BlendFunction;
+import com.mojang.renderpearl.api.pipeline.ColorTargetState;
+import com.mojang.renderpearl.api.pipeline.PrimitiveTopology;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import net.minecraft.client.renderer.BindGroupLayouts;
 import net.minecraft.client.renderer.rendertype.LayeringTransform;
-import net.minecraft.client.renderer.rendertype.OutputTarget;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 
-import java.util.Optional;
-
 public class OccultismRenderType {
-    public static final RenderPipeline OVERLAY_LINES_NO_DEPTH_PIPELINE = RenderPipelines.DEBUG_FILLED_BOX.toBuilder()
+    public static final RenderPipeline OVERLAY_LINES_NO_DEPTH_PIPELINE = RenderPipeline.builder()
             .withLocation(Identifier.fromNamespaceAndPath(Occultism.MODID, "overlay_frame_no_depth"))
-            .withDepthStencilState(Optional.empty())
+            .withVertexShader("core/position_color")
+            .withFragmentShader("core/position_color")
+            .withBindGroupLayout(BindGroupLayouts.GLOBALS)
+            .withBindGroupLayout(BindGroupLayouts.PROJECTION)
+            .withBindGroupLayout(BindGroupLayouts.DYNAMIC_TRANSFORMS)
+            .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
+            .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withCull(false)
             .build();
 
     private static final RenderType OVERLAY_FRAME_NO_DEPTH = RenderType.create(
@@ -44,7 +53,6 @@ public class OccultismRenderType {
             RenderSetup.builder(OVERLAY_LINES_NO_DEPTH_PIPELINE)
                     .sortOnUpload()
                     .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
-                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup()
     );
 

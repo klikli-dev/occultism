@@ -61,7 +61,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         // rotate item slowly around y axis
         long systemTime = System.currentTimeMillis();
         float angle = (systemTime / 16) % 360;
-        renderPassInfo.poseStack().mulPose(Axis.YP.rotationDegrees(angle));
+        renderPassInfo.poseStack().rotate(Axis.YP.rotationDegrees(angle));
     }
 
     @Override

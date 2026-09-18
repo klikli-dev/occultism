@@ -90,7 +90,7 @@ public class DrikwingRenderer extends MobRenderer<DrikwingEntity, DrikwingRender
             poseStack.pushPose();
 
             poseStack.translate(0.0F, 1.18F, 0.0F);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(28 * ((float) Math.PI / 180F),  0, (float) Math.PI));
+            poseStack.rotate(new Quaternionf().rotateXYZ(28 * ((float) Math.PI / 180F),  0, (float) Math.PI));
             poseStack.scale(0.5F, 0.5F, 0.5F);
             ItemStackRenderState stackState = new ItemStackRenderState();
             this.itemModelResolver.updateForTopItem(stackState, Items.TOTEM_OF_UNDYING.getDefaultInstance(), ItemDisplayContext.GROUND, null, null, 0);

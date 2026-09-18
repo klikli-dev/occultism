@@ -75,7 +75,7 @@ public class MaridRenderer extends OccultismGeoLivingEntityRenderer<MaridEntity>
                 poseStack.pushPose();
                 poseStack.translate(0, -0.4, 0);
                 poseStack.scale(0.7F, 0.7F, 0.7F);
-                poseStack.mulPose(Axis.XN.rotationDegrees(90));
+                poseStack.rotate(Axis.XN.rotationDegrees(90));
                 super.submitItemStackRender(poseStack, bone, stackState, displayContext, renderState, renderTasks, packedLight);
                 poseStack.popPose();
             }

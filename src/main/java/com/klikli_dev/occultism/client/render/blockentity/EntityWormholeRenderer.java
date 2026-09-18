@@ -113,10 +113,10 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
         poseStack.translate(xOffset, yOffset, zOffset);
 
         float angle = facing.getAxis() == Direction.Axis.X ? 90 : 0;
-        poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+        poseStack.rotate(Axis.YP.rotationDegrees(angle));
 
         float angle2 = facing.getAxis() == Direction.Axis.Y ? 90 : 0;
-        poseStack.mulPose(Axis.XP.rotationDegrees(angle2));
+        poseStack.rotate(Axis.XP.rotationDegrees(angle2));
 
         poseStack.scale(0.1F, 0.1F, 0.1F);
 
@@ -124,10 +124,10 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
             Vec3 vec3;
             if (facing.getAxis() == Direction.Axis.Y) {
                 vec3 = Vec3.directionFromRotation(0, (angleY + 180) * 0.002F);
-                poseStack.mulPose(Axis.ZP.rotationDegrees((angleY + 180)));
+                poseStack.rotate(Axis.ZP.rotationDegrees((angleY + 180)));
             } else {
                 vec3 = Vec3.directionFromRotation(0, angleY * 0.002F);
-                poseStack.mulPose(Axis.ZN.rotationDegrees(angleY));
+                poseStack.rotate(Axis.ZN.rotationDegrees(angleY));
             }
             float nuggetOffset = facing.getAxis() == Direction.Axis.Y ?
                     facing.getAxisDirection() == AxisDirection.POSITIVE ? -0.3F : 0.3F :
@@ -144,7 +144,7 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
                     facing.getAxisDirection() == AxisDirection.POSITIVE ? 0.7F : -0.7F;
             poseStack.translate(0, 0, blockOffset);
             renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-            poseStack.mulPose(Axis.ZP.rotationDegrees(45));
+            poseStack.rotate(Axis.ZP.rotationDegrees(45));
             renderState.blockRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.translate(0, 0, -blockOffset);
             poseStack.scale(4F, 4F, 4F);
@@ -152,12 +152,12 @@ public class EntityWormholeRenderer implements BlockEntityRenderer<EntityWormhol
 
         long systemTime = System.currentTimeMillis();
         float angle3 = (systemTime / 16) % 360;
-        poseStack.mulPose(Axis.ZP.rotationDegrees(angle3));
+        poseStack.rotate(Axis.ZP.rotationDegrees(angle3));
         poseStack.scale(7F, 7F, 7F);
         renderState.portalRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
         poseStack.popPose();
-        poseStack.mulPose(facing.getRotation());
+        poseStack.rotate(facing.getRotation());
         poseStack.popPose();
     }
 }

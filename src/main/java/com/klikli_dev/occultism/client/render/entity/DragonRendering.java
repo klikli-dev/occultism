@@ -43,7 +43,7 @@ public class DragonRendering {
             model.jaw.translateAndRotate(pMatrixStack);
 
             pMatrixStack.translate(-0.08, -0.07, -0.15);
-            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, -45 * ((float) Math.PI / 180F)));
+            pMatrixStack.rotate(new Quaternionf().rotateXYZ(0, 0, -45 * ((float) Math.PI / 180F)));
 
             // Render stick item via ItemModelResolver stored in render state
             ItemModelResolver resolver = state.itemModelResolver;
@@ -77,7 +77,7 @@ public class DragonRendering {
             model.tail3.translateAndRotate(pMatrixStack);
             pMatrixStack.translate(0, 0.24, 0.32);
             pMatrixStack.translate(0, -0.23, -0.12);
-            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(
+            pMatrixStack.rotate(new Quaternionf().rotateXYZ(
                     (Mth.sin(ageInTicks / 20) * 20 + 130) * ((float) Math.PI / 180F),
                     (90 + Mth.cos(ageInTicks / 20) * 20) * ((float) Math.PI / 180F),
                     0));
@@ -104,7 +104,7 @@ public class DragonRendering {
         public void submit(ThrownItemRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
             float ageInTicks = state.ageInTicks;
             poseStack.pushPose();
-            poseStack.mulPose(new Quaternionf().rotateXYZ(0, 0, ageInTicks * 20 * ((float) Math.PI / 180F)));
+            poseStack.rotate(new Quaternionf().rotateXYZ(0, 0, ageInTicks * 20 * ((float) Math.PI / 180F)));
             super.submit(state, poseStack, submitNodeCollector, camera);
             poseStack.popPose();
         }

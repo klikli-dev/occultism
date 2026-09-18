@@ -91,16 +91,16 @@ public class RitualCatcherRenderer implements BlockEntityRenderer<RitualCatcherB
         poseStack.translate(xOffset, yOffset, zOffset);
 
         float angle = facing.getAxis() == Direction.Axis.X ? 90 : 0;
-        poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+        poseStack.rotate(Axis.YP.rotationDegrees(angle));
 
         float angle2 = facing.getAxis() == Direction.Axis.Y ? 90 : 0;
-        poseStack.mulPose(Axis.XP.rotationDegrees(angle2));
+        poseStack.rotate(Axis.XP.rotationDegrees(angle2));
 
         poseStack.scale(0.5F, 0.5F, 0.5F);
         renderState.itemStackRenderState.submit(poseStack, submitCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
         poseStack.popPose();
-        poseStack.mulPose(facing.getRotation());
+        poseStack.rotate(facing.getRotation());
         poseStack.popPose();
     }
 }

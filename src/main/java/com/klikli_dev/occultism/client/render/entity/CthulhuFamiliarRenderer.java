@@ -88,7 +88,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
         if (state.isPartying) {
             state.bodyRot = -180;
             poseStack.translate(0, 1.55, 0);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(state.ageInTicks * 3 * ((float) Math.PI / 180F), 0, 0));
+            poseStack.rotate(new Quaternionf().rotateXYZ(state.ageInTicks * 3 * ((float) Math.PI / 180F), 0, 0));
             poseStack.translate(0, 0.5, 0);
         } else {
             double offsetY = state.isSitting ? -0.35 : state.animationHeight * 0.08;
@@ -121,7 +121,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
             matrixStack.pushPose();
             matrixStack.scale(1.25f, -1.25f, 1.25f);
             matrixStack.translate(0, -0.75, -0.35);
-            matrixStack.mulPose(new Quaternionf().rotateXYZ(-65 * ((float) Math.PI / 180F), 0, 0));
+            matrixStack.rotate(new Quaternionf().rotateXYZ(-65 * ((float) Math.PI / 180F), 0, 0));
 
             ItemStack poppyStack = new ItemStack(Items.POPPY);
             ItemStackRenderState stackState = new ItemStackRenderState();

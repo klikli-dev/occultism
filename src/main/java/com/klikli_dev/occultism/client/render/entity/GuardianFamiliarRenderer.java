@@ -154,14 +154,14 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             poseStack.pushPose();
             model.body.translateAndRotate(poseStack);
             poseStack.translate(-0.15, -0.25, -0.25);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(0, -60 * ((float) Math.PI / 180F), 0));
+            poseStack.rotate(new Quaternionf().rotateXYZ(0, -60 * ((float) Math.PI / 180F), 0));
             this.renderItem(new ItemStack(Items.STONE_SWORD), poseStack, submitNodeCollector, lightCoords);
             poseStack.popPose();
 
             poseStack.pushPose();
             model.body.translateAndRotate(poseStack);
             poseStack.translate(-0.15, 0.1, 0.37);
-            poseStack.mulPose(new Quaternionf().rotateXYZ(0, 60 * ((float) Math.PI / 180F), -110 * ((float) Math.PI / 180F)));
+            poseStack.rotate(new Quaternionf().rotateXYZ(0, 60 * ((float) Math.PI / 180F), -110 * ((float) Math.PI / 180F)));
             this.renderItem(new ItemStack(Items.STONE_AXE), poseStack, submitNodeCollector, lightCoords);
             poseStack.popPose();
 
@@ -170,7 +170,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 model.body.translateAndRotate(poseStack);
                 model.leftArm1.translateAndRotate(poseStack);
                 poseStack.translate(0.21, 0.2, 0);
-                poseStack.mulPose(new Quaternionf().rotateXYZ(0, 0, 210 * ((float) Math.PI / 180F)));
+                poseStack.rotate(new Quaternionf().rotateXYZ(0, 0, 210 * ((float) Math.PI / 180F)));
                 this.renderItem(new ItemStack(Items.STONE_PICKAXE), poseStack, submitNodeCollector, lightCoords);
                 poseStack.popPose();
             }
