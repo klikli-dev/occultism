@@ -4,18 +4,13 @@ import com.klikli_dev.occultism.common.advancement.FamiliarTrigger.TriggerInstan
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.advancements.triggers.Criterion;
-import net.minecraft.advancements.triggers.BeeNestDestroyedTrigger;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
-import net.minecraft.advancements.predicates.ItemPredicate.Builder;
-import net.minecraft.advancements.predicates.MinMaxBounds.Ints;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
@@ -57,27 +52,16 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<TriggerInstance> {
         }
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player,
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player,
                                   Optional<Type> type) implements SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
-                                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+                                LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
                                 StringRepresentable.fromEnum(Type::values).optionalFieldOf("type")
                                         .forGetter(TriggerInstance::type)
                         )
                         .apply(instance, TriggerInstance::new)
         );
-
-        public static Criterion<BeeNestDestroyedTrigger.TriggerInstance> destroyedBeeNest(
-                Block pBlock, Builder pItem, Ints pNumBees
-        ) {
-            return CriteriaTriggers.BEE_NEST_DESTROYED
-                    .createCriterion(
-                            new BeeNestDestroyedTrigger.TriggerInstance(
-                                    Optional.empty(), Optional.of(pBlock.builtInRegistryHolder()), Optional.of(pItem.build()), pNumBees
-                            )
-                    );
-        }
 
         public boolean matches(Type type) {
             return this.type.isPresent() && this.type.get() == type;

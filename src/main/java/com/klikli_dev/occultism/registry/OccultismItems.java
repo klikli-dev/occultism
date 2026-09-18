@@ -912,17 +912,17 @@ public class OccultismItems {
             FamiliarGenericItem::new, () -> new Item.Properties().sword(OccultismTiers.ATTUNED_TOOL, 3.0F, -1.9F)
                     .component(OccultismDataComponents.MAX_FAMILIARS, 1));
     public static final DeferredItem<Item> INFUSED_SHOVEL = ITEMS.registerItem("infused_shovel",
-            properties -> new FamiliarShovelItem(OccultismTiers.ATTUNED_TOOL, 1.5F, -2.5F, properties
-                    .component(OccultismDataComponents.MAX_FAMILIARS, 1)));
+            FamiliarShovelItem::new, () -> new Item.Properties().shovel(OccultismTiers.ATTUNED_TOOL, 1.5F, -2.5F)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
     public static final DeferredItem<Item> INFUSED_PICKAXE = ITEMS.registerItem("infused_pickaxe",
             FamiliarGenericItem::new, () -> new Item.Properties().pickaxe(OccultismTiers.ATTUNED_TOOL, 1.0F, -2.3F)
                     .component(OccultismDataComponents.MAX_FAMILIARS, 1));
     public static final DeferredItem<Item> INFUSED_AXE = ITEMS.registerItem("infused_axe",
-            properties ->  new FamiliarAxeItem(OccultismTiers.ATTUNED_TOOL, 5.0F, -2.5F, properties
-                    .component(OccultismDataComponents.MAX_FAMILIARS, 1)));
+            FamiliarAxeItem::new, () -> new Item.Properties().axe(OccultismTiers.ATTUNED_TOOL, 5.0F, -2.5F)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
     public static final DeferredItem<Item> INFUSED_HOE = ITEMS.registerItem("infused_hoe",
-            properties -> new FamiliarHoeItem(OccultismTiers.ATTUNED_TOOL, -3.0F, 0.5F, properties
-                    .component(OccultismDataComponents.MAX_FAMILIARS, 1)));
+            FamiliarHoeItem::new, () -> new Item.Properties().hoe(OccultismTiers.ATTUNED_TOOL, -3.0F, 0.5F)
+                    .component(OccultismDataComponents.MAX_FAMILIARS, 1));
 
     public static final DeferredItem<Item> INFUSED_HELMET = ITEMS.registerItem("infused_helmet",
             FamiliarGenericItem::new, () -> new Properties().stacksTo(1)

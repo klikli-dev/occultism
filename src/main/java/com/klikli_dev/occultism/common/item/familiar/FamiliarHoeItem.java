@@ -34,6 +34,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.neoforged.api.distmarker.Dist;
@@ -43,10 +44,10 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class FamiliarHoeItem extends HoeItem implements FamiliarCurio, IOtherworldTool {
+public class FamiliarHoeItem extends Item implements FamiliarCurio, IOtherworldTool {
 
-    public FamiliarHoeItem(ToolMaterial material, float attackDamageBaseline, float attackSpeedBaseline, Item.Properties properties) {
-        super(material, attackDamageBaseline, attackSpeedBaseline, properties);
+    public FamiliarHoeItem(Item.Properties properties) {
+        super(properties);
     }
 
     @Override

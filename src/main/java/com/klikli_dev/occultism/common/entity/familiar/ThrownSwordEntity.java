@@ -90,7 +90,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         super.onHit(pResult);
         if (pResult.getType() == HitResult.Type.ENTITY) {
             EntityHitResult entityHitResult = (EntityHitResult) pResult;
-            if (entityHitResult.getEntity().invulnerableTime > 0)
+            if (entityHitResult.getEntity().isTemporarilyInvulnerable())
                 return;
         }
         this.remove(RemovalReason.DISCARDED);

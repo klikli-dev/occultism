@@ -214,7 +214,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
                     BlockPos pos = positions.pop();
 
                     harvesting.add(pos);
-                    for (BlockPos p : BlockPos.withinManhattan(pos, 1, 1, 1)) {
+                    for (BlockPos p : BlockPos.withinManhattan(pos, 1)) {
                         if (!harvesting.contains(p) && this.beaver.level().getBlockState(p).is(BlockTags.LOGS)) {
                             positions.add(p.immutable());
                             harvesting.add(pos);
