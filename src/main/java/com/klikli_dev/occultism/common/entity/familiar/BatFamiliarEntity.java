@@ -90,7 +90,7 @@ public class BatFamiliarEntity extends FamiliarEntity {
             @Override
             public boolean isStableDestination(BlockPos pos) {
                 BlockState state = this.level.getBlockState(pos);
-                return state.isAir() || !state.blocksMotion();
+                return state.isAir() || !state.entityCanStandOn(this.level, pos, this.mob);
             }
         };
         return navigation;

@@ -25,19 +25,19 @@ package com.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
-import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Enderman;
 import net.minecraft.world.level.Level;
 
-public class PossessedEndermanEntity extends EnderMan implements PossessedMob {
+public class PossessedEndermanEntity extends Enderman implements PossessedMob {
 
-    public PossessedEndermanEntity(EntityType<? extends EnderMan> type,
+    public PossessedEndermanEntity(EntityType<? extends Enderman> type,
                                    Level worldIn) {
         super(type, worldIn);
     }
 
     //region Static Methods
     public static Builder createAttributes() {
-        return EnderMan.createAttributes();
+        return Enderman.createAttributes();
     }
 
     //endregion Static Methods

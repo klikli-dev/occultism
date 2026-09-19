@@ -151,7 +151,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
             // Render kapow sprite as alpha-blended model
             submitNodeCollector.submitModel(model, Unit.INSTANCE, poseStack, model.renderType(KAPOW_TEXTURE), lightCoords,
-                    OverlayTexture.NO_OVERLAY, ((int) (alpha * 255) << 24) | 0x00FFFFFF, null, 0, null);
+                    OverlayTexture.NO_OVERLAY, ((int) (alpha * 255) << 24) | 0x00FFFFFF, null, 0);
 
             poseStack.pushPose();
             poseStack.scale(0.07f, 0.07f, 0.07f);

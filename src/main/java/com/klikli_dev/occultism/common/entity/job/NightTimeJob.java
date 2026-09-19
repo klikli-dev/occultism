@@ -42,7 +42,7 @@ public class NightTimeJob extends ChangeTimeJob {
     protected long getNewTime() {
         var server = this.entity.level().getServer();
         var clockHolder = server.registryAccess().lookupOrThrow(Registries.WORLD_CLOCK).getOrThrow(WorldClocks.OVERWORLD);
-        long currentTime = server.clockManager().getTotalTicks(clockHolder);
+        long currentTime = server.clockManager().getInstance(clockHolder).totalTicks();
         return this.getNearestDayTime(currentTime, TIME_NIGHTFALL);
     }
 

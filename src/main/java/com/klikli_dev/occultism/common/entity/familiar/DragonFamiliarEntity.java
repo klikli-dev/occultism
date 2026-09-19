@@ -148,7 +148,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     public float getAttackProgress(float partialTicks) {
-        return Mth.lerp((this.swingTime + (20 - 6) + partialTicks) / 20, 0, 1);
+        return this.getSwingAnimation(partialTicks);
     }
 
     public int getPetTimer() {

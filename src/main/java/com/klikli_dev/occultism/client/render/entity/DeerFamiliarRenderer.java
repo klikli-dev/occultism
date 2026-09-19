@@ -33,7 +33,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
         state.isEating = entity.isEating();
         state.neckRot = entity.getNeckRot(partialTick);
         state.isFast = entity.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.4;
-        state.attackAnim = entity.getAttackAnim(partialTick);
+        state.attackAnim = entity.getSwingAnimation(partialTick);
     }
 
     @Override

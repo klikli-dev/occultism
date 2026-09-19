@@ -262,8 +262,6 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     public void aiStep() {
-        this.updateSwingTime();
-
         if (this.level().getGameTime() % 1024 == 0)
             this.heal(1F);
 

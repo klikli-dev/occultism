@@ -121,7 +121,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         var server = this.entity.level().getServer();
         var clockHolder = server.registryAccess().lookupOrThrow(Registries.WORLD_CLOCK).getOrThrow(WorldClocks.OVERWORLD);
         var clockManager = server.clockManager();
-        var currentTime = clockManager.getTotalTicks(clockHolder);
+        var currentTime = clockManager.getInstance(clockHolder).totalTicks();
 
         var remainingTime = this.newTime - currentTime;
         var remainingTicks = Math.max(this.requiredChangeTicks.get() - this.currentChangeTicks, 1);

@@ -99,7 +99,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         reusedState.yHeadRot = entity.yHeadRot;
         reusedState.limbSwing = entity.walkAnimation.position();
         reusedState.limbSwingAmount = entity.walkAnimation.speed(partialTick);
-        reusedState.attackTime = entity.getAttackAnim(partialTick);
+        reusedState.attackTime = entity.getSwingAnimation(partialTick);
     }
 
     @Override
