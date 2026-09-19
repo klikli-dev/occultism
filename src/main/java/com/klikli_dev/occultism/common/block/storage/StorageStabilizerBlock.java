@@ -90,7 +90,7 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state,
+    public void playerDestroy(ServerLevel worldIn, ServerPlayer player, BlockPos pos, BlockState state,
                               @Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, state, te, stack);
     }
