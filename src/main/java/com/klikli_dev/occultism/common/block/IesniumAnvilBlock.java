@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.client.gui.IesniumAnvilMenu;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -38,7 +37,6 @@ import javax.annotation.Nullable;
 
 public class IesniumAnvilBlock extends FallingBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    public static final MapCodec<IesniumAnvilBlock> CODEC = simpleCodec(IesniumAnvilBlock::new);
     private static final VoxelShape BASE = Block.box(2.0, 0.0, 2.0, 14.0, 4.0, 14.0);
     private static final VoxelShape X_LEG1 = Block.box(3.0, 4.0, 4.0, 13.0, 5.0, 12.0);
     private static final VoxelShape X_LEG2 = Block.box(4.0, 5.0, 6.0, 12.0, 10.0, 10.0);
@@ -55,11 +53,6 @@ public class IesniumAnvilBlock extends FallingBlock {
     public IesniumAnvilBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    public MapCodec<IesniumAnvilBlock> codec() {
-        return CODEC;
     }
 
     @Override

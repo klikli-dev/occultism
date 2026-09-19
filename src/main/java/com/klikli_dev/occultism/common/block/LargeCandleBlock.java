@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.common.block;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismParticles;
-import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -69,7 +68,6 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
     public static final IntegerProperty FLAME = IntegerProperty.create("flame", 0, 5);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final MapCodec<LargeCandleBlock> CODEC = simpleCodec(LargeCandleBlock::new);
     public static final ToIntFunction<BlockState> LIGHT_EMISSION = p_152848_ -> p_152848_.getValue(LIT) ? 15 : 0;
 
     private static final Int2ObjectMap<List<Vec3>> PARTICLE_OFFSETS = Util.make(
@@ -108,11 +106,6 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
                         .setValue(FLAME, 0)
                         .setValue(WATERLOGGED, Boolean.valueOf(false))
         );
-    }
-
-    @Override
-    public MapCodec<LargeCandleBlock> codec() {
-        return CODEC;
     }
 
     @Override

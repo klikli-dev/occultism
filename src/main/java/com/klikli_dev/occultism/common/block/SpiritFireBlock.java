@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.EnumUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -62,7 +61,6 @@ import java.util.function.Supplier;
 public class SpiritFireBlock extends BaseFireBlock {
     public static final EnumProperty<ColorBlockState> COLOR = EnumProperty.create("color", ColorBlockState.class);
 
-    public static final MapCodec<SpiritFireBlock> CODEC = simpleCodec(SpiritFireBlock::new);
     protected Supplier<Integer> color;
 
     public SpiritFireBlock(Properties properties) {
@@ -90,11 +88,6 @@ public class SpiritFireBlock extends BaseFireBlock {
                         ((int) (r1 + (r2 - r1) * w) << 16) +
                         ((int) (g1 + (g2 - g1) * w) << 8) +
                         ((int) (b1 + (b2 - b1) * w) << 0);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseFireBlock> codec() {
-        return CODEC;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

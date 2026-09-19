@@ -85,9 +85,8 @@ public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOt
         super.createBlockStateDefinition(builder);
     }
 
-    @Override
-    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-        return itemAbility == ItemAbilities.AXE_STRIP ? this.strippedState.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)) : null;
-    }
+    //TODO 26.3: Block.getToolModifiedState and ItemAbilities.AXE_STRIP were removed, stripping is now driven by
+    //the item's BLOCK_TRANSFORMER component (vanilla axe map). Reintroduce custom stripping via a BlockTransformer
+    //datapack entry if needed.
 
 }

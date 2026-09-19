@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.common.item.tool.GuideBookItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -58,19 +57,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class SacrificialBowlBlock extends DirectionalBlock implements EntityBlock {
 
-    public static final MapCodec<SacrificialBowlBlock> CODEC = simpleCodec(SacrificialBowlBlock::new);
-
     private static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(10, 10, 6f, 8, 2f);
 
     public SacrificialBowlBlock(Properties properties) {
         super(properties);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
-    }
-
-    @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 
     @Override

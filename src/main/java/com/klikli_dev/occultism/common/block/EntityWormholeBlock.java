@@ -29,7 +29,6 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
 import com.klikli_dev.occultism.util.TeleportUtil;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -71,7 +70,6 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
     public static final IntegerProperty EXIT_ROTATION_X = IntegerProperty.create("exit_rotation_x", 0, 5);
     public static final IntegerProperty EXIT_ROTATION_Y = IntegerProperty.create("exit_rotation_y", 0, 8);
-    public static final MapCodec<EntityWormholeBlock> CODEC = simpleCodec(EntityWormholeBlock::new);
 
     public EntityWormholeBlock(Properties properties) {
         super(properties);

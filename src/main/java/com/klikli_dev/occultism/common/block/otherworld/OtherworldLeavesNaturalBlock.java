@@ -24,38 +24,29 @@ package com.klikli_dev.occultism.common.block.otherworld;
 
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.ParticleUtils;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.UntintedParticleLeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 
 import javax.annotation.Nullable;
 
-public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherworldBlock {
-
-    public static final MapCodec<OtherworldLeavesNaturalBlock> CODEC = simpleCodec(OtherworldLeavesNaturalBlock::new);
+public class OtherworldLeavesNaturalBlock extends UntintedParticleLeavesBlock implements IOtherworldBlock {
 
     public static final int COLOR = 0x760ea2;
 
     public OtherworldLeavesNaturalBlock(Properties properties) {
-        super(0.01F, properties);
+        super(0.01F, ParticleTypes.CHERRY_LEAVES, AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
-    }
-
-    @Override
-    public MapCodec<? extends LeavesBlock> codec() {
-        return CODEC;
     }
 
     @Override
@@ -74,7 +65,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     }
 
     @Override
-    public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state,
+    public void playerDestroy(ServerLevel worldIn, ServerPlayer player, BlockPos pos, BlockState state,
                               @Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
@@ -83,11 +74,6 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     @Override
     protected ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state, boolean includeData) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
-    }
-
-    @Override
-    protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
-        ParticleUtils.spawnParticleBelow(level, pos, random, ParticleTypes.CHERRY_LEAVES);
     }
 
     @Override

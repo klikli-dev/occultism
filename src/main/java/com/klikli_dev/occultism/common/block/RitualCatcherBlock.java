@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.common.block;
 import com.klikli_dev.occultism.common.blockentity.RitualCatcherBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.ItemTransferUtil;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -52,18 +51,11 @@ import javax.annotation.Nullable;
 
 public class RitualCatcherBlock extends OtherstoneFrameBlock implements EntityBlock {
 
-    public static final MapCodec<RitualCatcherBlock> CODEC = simpleCodec(RitualCatcherBlock::new);
-
 
     public RitualCatcherBlock(Properties properties) {
         super(properties);
 
         this.registerDefaultState(this.stateDefinition.any());
-    }
-
-    @Override
-    protected MapCodec<? extends OtherstoneFrameBlock> codec() {
-        return CODEC;
     }
 
     @Override

@@ -22,14 +22,9 @@
 
 package com.klikli_dev.occultism.common.block.otherworld;
 
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class OtherworldStrippableBlock extends RotatedPillarBlock {
@@ -41,9 +36,7 @@ public class OtherworldStrippableBlock extends RotatedPillarBlock {
         this.strippedState = stateSupplier;
     }
 
-    @Override
-    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-        return itemAbility == ItemAbilities.AXE_STRIP ? this.strippedState.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)) : null;
-    }
-
+    //TODO 26.3: Block.getToolModifiedState and ItemAbilities.AXE_STRIP were removed, stripping is now driven by
+    //the item's BLOCK_TRANSFORMER component (vanilla axe map). Reintroduce custom stripping via a BlockTransformer
+    //datapack entry if needed.
 }
