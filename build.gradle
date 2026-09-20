@@ -27,6 +27,9 @@ sourceSets {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
             exclude '**/emi/**/*.java'
+            //TODO 26.3: re-enable once curios ships a 26.3 build (latest 16.0.0+26.2).
+            //All curios access is routed through integration/curios, the impl is a drop-in.
+            exclude '**/integration/curios/impl/**/*.java'
 //            exclude '**/waila/**/*.java'
 //            exclude '**/jei/impl/**/*.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
@@ -196,8 +199,8 @@ dependencies {
     //curios
     //TODO 26.3: curios has no 26.3 build yet (latest 16.0.0+26.2). Compile against the 26.2 api jar
     //and re-enable the localRuntime dependency once a 26.3 curios release is available.
-    //Curios-dependent sources (util/CuriosUtil, util/FamiliarUtil, familiar items, capabilities) cannot be
-    //excluded because they are referenced across the whole codebase.
+    //All curios access is routed through integration/curios with a dummy fallback, only
+    //integration/curios/impl is excluded from the source set until then.
     compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+26.2:api") {transitive=false}
 //    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}") {transitive=false}
 
