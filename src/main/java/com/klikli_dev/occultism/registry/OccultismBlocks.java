@@ -37,6 +37,7 @@ import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.util.OtherWoodType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
@@ -49,6 +50,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
@@ -94,7 +96,7 @@ public class OccultismBlocks {
 
     public static final Supplier<Block.Properties> GLYPH_PROPERTIES = () -> Block.Properties.of()
             .sound(SoundType.WOOL)
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .replaceable()
             .noCollision()
             .noLootTable()
@@ -203,7 +205,7 @@ public class OccultismBlocks {
             () -> Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
     public static final DeferredBlock<ButtonBlock> OTHERSTONE_BUTTON = register("otherstone_button",
             (p) -> new ButtonBlock(BlockSetType.STONE, 30, p),
-            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.POPPED));
     public static final DeferredBlock<WallBlock> OTHERSTONE_WALL = register("otherstone_wall",
             WallBlock::new,
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
@@ -265,7 +267,7 @@ public class OccultismBlocks {
             () -> Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE));
     public static final DeferredBlock<ButtonBlock> OTHERROCK_BUTTON = register("otherrock_button",
             (p) -> new ButtonBlock(BlockSetType.STONE, 30, p),
-            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.POPPED));
     public static final DeferredBlock<WallBlock> OTHERROCK_WALL = register("otherrock_wall",
             WallBlock::new,
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
@@ -334,19 +336,19 @@ public class OccultismBlocks {
                             .strength(0.0f).randomTicks().noCollision()
                             .overrideDescription("block.minecraft.oak_sapling"), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
-            register("otherworld_leaves", (p) -> new UntintedParticleLeavesBlock(0.01F, ParticleTypes.CHERRY_LEAVES, p),
+            register("otherworld_leaves", (p) -> new UntintedParticleLeavesBlock(0.01F, ParticleTypes.CHERRY_LEAVES, AmbientLeavesBlockSoundPlayer.noAmbientSound(), p),
                     () -> Block.Properties.of()
-                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
+                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.POPPED)
                             .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
-                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos, extra) -> false)
                             .isRedstoneConductor((state, level, pos) -> false)
                     , true, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", OtherworldLeavesNaturalBlock::new,
                     () -> Block.Properties.of()
-                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
+                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.POPPED)
                             .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
-                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos, extra) -> false)
                             .isRedstoneConductor((state, level, pos) -> false)
                             .overrideDescription("block.minecraft.oak_leaves"), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG_NATURAL =
@@ -406,7 +408,7 @@ public class OccultismBlocks {
             () -> Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE));
     public static final DeferredBlock<ButtonBlock> OTHERPLANKS_BUTTON = register("otherplanks_button",
             (p) -> new ButtonBlock(BlockSetType.OAK, 30, p),
-            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.DESTROY));
+            () -> Properties.of().noCollision().strength(0.5F).pushReaction(PushReaction.POPPED));
     public static final DeferredBlock<Block> OTHERPLANKS_SIGN = register("otherplanks_sign",
             (p) -> new OtherStandingSignBlock(OtherWoodType.OTHERPLANKS, p),
             () -> Properties.ofFullCopy(Blocks.OAK_SIGN), false, LootTableType.CUSTOM);
@@ -791,14 +793,14 @@ public class OccultismBlocks {
                     () -> Properties.of()
                             .sound(SoundType.GLASS)
                             .strength(5, 1200)
-                            .pushReaction(PushReaction.BLOCK)
+                            .pushReaction(PushReaction.IMMOVEABLE)
             );
     public static final DeferredBlock<IesniumAnvilBlock> IESNIUM_ANVIL =
             register("iesnium_anvil", IesniumAnvilBlock::new,
                     () -> Properties.of()
                             .sound(SoundType.ANVIL)
                             .strength(5, 1200)
-                            .pushReaction(PushReaction.BLOCK)
+                            .pushReaction(PushReaction.IMMOVEABLE)
                     , Rarity.RARE);
 
     //Crops

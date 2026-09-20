@@ -211,7 +211,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .ifPresent(mob -> builder.addSlot(RecipeIngredientRole.OUTPUT,
                                     this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
                             .add(new TagSlotDisplay(
-                                    OccultismTags.makeItemTag("occultism:drop_from/" + mob))));
+                                    BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:drop_from/" + mob)))));
         }
         if (recipe.value().getEntityTagToSummon() != null) {
             var mob = recipe.value().getEntityTagToSummon().location().toString()
@@ -221,7 +221,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .replace("c:", "")
                     .replace(":", "_");
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .add(new TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+                    .add(new TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob))));
         }
 
         //draw ritual dummy item in upper left corner

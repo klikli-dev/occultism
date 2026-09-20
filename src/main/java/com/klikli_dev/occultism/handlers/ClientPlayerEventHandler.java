@@ -159,7 +159,7 @@ public class ClientPlayerEventHandler {
         if (minecraft.player == null)
             return;
 
-        if (event.getKeyCode() == ClientSetupEventHandler.KEY_ENDER_BAG.getKey().getValue()
+        if (event.getKey() == ClientSetupEventHandler.KEY_ENDER_BAG.getKey().getValue()
                 && screen instanceof AbstractContainerScreen<?> containerScreen
                 && containerScreen.getMenu() instanceof ChestMenu
                 && screen.getTitle().getString().contains(Component.translatable("block.minecraft.ender_chest").getString())) {
@@ -169,13 +169,13 @@ public class ClientPlayerEventHandler {
             event.setCanceled(true);
         }
 
-        if (event.getKeyCode() == ClientSetupEventHandler.KEY_BACKPACK.getKey().getValue()
+        if (event.getKey() == ClientSetupEventHandler.KEY_BACKPACK.getKey().getValue()
                 && minecraft.gui.screen() instanceof SatchelScreen) {
             minecraft.player.closeContainer();
             event.setCanceled(true);
         }
 
-        if (event.getKeyCode() == ClientSetupEventHandler.KEY_STORAGE_REMOTE.getKey().getValue()
+        if (event.getKey() == ClientSetupEventHandler.KEY_STORAGE_REMOTE.getKey().getValue()
                 && (minecraft.gui.screen() instanceof StorageRemoteGui || minecraft.gui.screen() instanceof StorageControllerGui)) {
             minecraft.player.closeContainer();
             event.setCanceled(true);

@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.util;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -118,7 +119,7 @@ public final class ItemTransferUtil {
         }
 
         if (!stack.isEmpty()) {
-            player.getInventory().placeItemBackInInventory(stack);
+            player.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
         }
     }
 

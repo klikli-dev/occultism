@@ -44,12 +44,12 @@ public class NaturePasteItem extends DamageInCraftingItem {
 
     public static boolean applyBonemeal(ItemStack naturePaste, Level level, BlockPos blockPos, @Nullable Player player) {
         BlockState blockstate = level.getBlockState(blockPos);
-        var event = EventHooks.fireBonemealEvent(player, level, blockPos, blockstate, naturePaste);
+        var event = EventHooks.fireBonemealEvent(player, level, blockPos, blockstate, BonemealSource.INTERACTION, naturePaste);
         if (event.isCanceled()) return event.isSuccessful();
-        if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock && bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate)) {
+        if (blockstate.getBlock() instanceof BonemealableBlock bonemealableblock && bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate, BonemealSource.INTERACTION)) {
             if (level instanceof ServerLevel) {
-                if (bonemealableblock.isBonemealSuccess(level, level.getRandom(), blockPos, blockstate)) {
-                    bonemealableblock.performBonemeal((ServerLevel) level, level.getRandom(), blockPos, blockstate);
+                if (bonemealableblock.isBonemealSuccess(level, level.getRandom(), blockPos, blockstate, BonemealSource.INTERACTION)) {
+                    bonemealableblock.performBonemeal((ServerLevel) level, level.getRandom(), blockPos, blockstate, BonemealSource.INTERACTION);
                 }
             }
             return true;
@@ -99,7 +99,7 @@ public class NaturePasteItem extends DamageInCraftingItem {
                         if (blockState1.is(Blocks.WATER) && level.getFluidState(blockpos).getAmount() == 8) {
                             level.setBlock(blockpos, blockstate, 3);
                         } else if (blockState1.is(Blocks.SEAGRASS) && randomsource.nextInt(10) == 0) {
-                            ((BonemealableBlock) Blocks.SEAGRASS).performBonemeal((ServerLevel) level, randomsource, blockpos, blockState1);
+                            ((BonemealableBlock) Blocks.SEAGRASS).performBonemeal((ServerLevel) level, randomsource, blockpos, blockState1, BonemealSource.INTERACTION);
                         }
                     }
                 }

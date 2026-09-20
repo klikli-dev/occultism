@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -63,7 +64,7 @@ public class BattlefieldRecipeCategory implements IRecipeCategory<BattlefieldRec
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BattlefieldRecipeJEI recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 8, 4)
-                .add(new SlotDisplay.TagSlotDisplay(Tags.Items.TOOLS));
+                .add(new SlotDisplay.TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.TOOLS)));
         builder.addSlot(RecipeIngredientRole.INPUT, 28, 4)
                 .addItemStacks(recipe.getInputItem());
         builder.addSlot(RecipeIngredientRole.INPUT, 48, 4)

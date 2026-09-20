@@ -70,7 +70,7 @@ public class CommandRitual extends Ritual {
         var name = Component.literal("@");
         try {
             CommandSourceStack commandsourcestack = new CommandSourceStack(
-                    CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level, LevelBasedPermissionSet.GAMEMASTER, name.getString(), name, minecraftserver, castingPlayer);
+                    CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level, LevelBasedPermissionSet.GAMEMASTER, minecraftserver, castingPlayer);
             minecraftserver.getCommands().performPrefixedCommand(commandsourcestack, command);
         } catch (Throwable throwable) {
             CrashReport crashreport = CrashReport.forThrowable(throwable, "Executing command block");

@@ -466,7 +466,7 @@ public class OccultismItems {
             properties -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(), Direction.UP,
                     properties.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> OTHERPLANKS_SIGN = ITEMS.registerItem("otherplanks_sign",
-            properties -> new SignItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), properties.stacksTo(16).useBlockDescriptionPrefix()));
+            properties -> new StandingAndWallBlockItem(OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), Direction.DOWN, properties.stacksTo(16).useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> OTHERPLANKS_HANGING_SIGN = ITEMS.registerItem("otherplanks_hanging_sign",
             properties -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), properties.stacksTo(16).useBlockDescriptionPrefix()));
     //Spawn Eggs
@@ -879,13 +879,13 @@ public class OccultismItems {
     public static final DeferredItem<Item> SILVER_SWORD = ITEMS.registerItem("silver_sword",
             Item::new, () -> new Item.Properties().sword(OccultismTiers.SILVER_TOOL, 3.0F, -2.4F));
     public static final DeferredItem<Item> SILVER_SHOVEL = ITEMS.registerItem("silver_shovel",
-            properties -> new ShovelItem(OccultismTiers.SILVER_TOOL, 1.5F, -3.0F, properties));
+            Item::new, () -> new Item.Properties().shovel(OccultismTiers.SILVER_TOOL, 1.5F, -3.0F));
     public static final DeferredItem<Item> SILVER_PICKAXE = ITEMS.registerItem("silver_pickaxe",
             Item::new, () -> new Item.Properties().pickaxe(OccultismTiers.SILVER_TOOL, 1.0F, -2.8F));
     public static final DeferredItem<Item> SILVER_AXE = ITEMS.registerItem("silver_axe",
-            properties ->  new AxeItem(OccultismTiers.SILVER_TOOL, 7.5F, -3.1F, properties));
+            Item::new, () -> new Item.Properties().axe(OccultismTiers.SILVER_TOOL, 7.5F, -3.1F));
     public static final DeferredItem<Item> SILVER_HOE = ITEMS.registerItem("silver_hoe",
-            properties -> new HoeItem(OccultismTiers.SILVER_TOOL, -1.0F, -1.0F, properties));
+            Item::new, () -> new Item.Properties().hoe(OccultismTiers.SILVER_TOOL, -1.0F, -1.0F));
 
     public static final DeferredItem<Item> SILVER_HELMET = ITEMS.registerItem("silver_helmet",
             Item::new, () -> new Properties().stacksTo(1)

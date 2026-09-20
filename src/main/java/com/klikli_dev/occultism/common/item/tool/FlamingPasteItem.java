@@ -116,7 +116,7 @@ public class FlamingPasteItem extends DamageInCraftingItem implements Projectile
         BlockPos relativePos = pos.relative(context.getClickedFace());
         if (blockstate2 == null && player != null) {
             if (state.getBlock() instanceof TntBlock tnt) {
-                if (tnt.onCaughtFire(state, level, pos, context.getHitResult().getDirection(), player)) {
+                if (TntBlock.prime(level, pos, player, itemStack)) {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
                     itemStack.hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
                     player.awardStat(Stats.ITEM_USED.get(this));

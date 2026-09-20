@@ -274,7 +274,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         .replace("minecraft:entities/", "")
                         .replace("c:entities/", "")
                         .replace(":entities/", "_"))
-                .map(mob -> new TagSlotDisplay(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
+                .map(mob -> new TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:drop_from/" + mob))));
     }
 
     private Optional<SlotDisplay> getRandomEntityDropsDisplay() {
@@ -285,7 +285,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         .replace("minecraft:", "")
                         .replace("c:", "")
                         .replace(":", "_"))
-                .map(mob -> new TagSlotDisplay(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+                .map(mob -> new TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob))));
     }
 
     private Optional<Component> getSummonText() {

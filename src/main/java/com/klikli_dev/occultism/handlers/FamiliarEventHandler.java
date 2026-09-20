@@ -125,7 +125,7 @@ public class FamiliarEventHandler {
     }
 
     @SubscribeEvent
-    public static void headlessEndermanEvent(EnderManAngerEvent event) {
+    public static void headlessEndermanEvent(EndermanAngerEvent event) {
         if (event.getPlayer().hasEffect(OccultismEffects.PUMPKIN_HEAD))
             event.setCanceled(true);
     }
@@ -385,7 +385,7 @@ public class FamiliarEventHandler {
         player.removeAllEffects();
         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
-        player.invulnerableTime = 30;
+        player.setInvulnerableTime(30);
         if (!guardian.isAddedToLevel()) {
             int i = guardian.hasBlacksmithUpgrade() ? 6 : 7;
             int t = guardian.hasIesniumUpgrade() ? 10 : 20;

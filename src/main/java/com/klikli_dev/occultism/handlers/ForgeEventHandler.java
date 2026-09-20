@@ -31,13 +31,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionBrewing.Builder;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 
 
@@ -45,37 +43,6 @@ import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 public class ForgeEventHandler {
 
     //region Static Methods
-    @SubscribeEvent
-    public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
-        Builder builder = event.getBuilder();
-
-        builder.addMix(Potions.AWKWARD, OccultismItems.OTHERWORLD_ESSENCE.asItem(), OccultismPotions.THIRD_EYE_POTION);
-        builder.addMix(OccultismPotions.THIRD_EYE_POTION, Items.REDSTONE, OccultismPotions.LONG_THIRD_EYE_POTION);
-
-        builder.addMix(Potions.NIGHT_VISION, OccultismItems.DATURA.asItem(), OccultismPotions.THIRD_EYE_POTION);
-        builder.addMix(Potions.LONG_NIGHT_VISION, OccultismItems.DATURA.asItem(), OccultismPotions.LONG_THIRD_EYE_POTION);
-
-        builder.addMix(Potions.MUNDANE, OccultismItems.PITAYA.asItem(), Potions.LUCK);
-        builder.addMix(Potions.THICK, OccultismItems.PITAYA.asItem(), OccultismPotions.THIRD_EYE_POTION);
-        builder.addMix(Potions.AWKWARD, OccultismItems.PITAYA.asItem(), Potions.WATER_BREATHING);
-        builder.addMix(Potions.SLOWNESS, OccultismItems.PITAYA.asItem(), Potions.SWIFTNESS);
-        builder.addMix(Potions.LONG_SLOWNESS, OccultismItems.PITAYA.asItem(), Potions.LONG_SWIFTNESS);
-        builder.addMix(Potions.STRONG_SLOWNESS, OccultismItems.PITAYA.asItem(), Potions.STRONG_SWIFTNESS);
-        builder.addMix(Potions.POISON, OccultismItems.PITAYA.asItem(), Potions.REGENERATION);
-        builder.addMix(Potions.LONG_POISON, OccultismItems.PITAYA.asItem(), Potions.LONG_REGENERATION);
-        builder.addMix(Potions.STRONG_POISON, OccultismItems.PITAYA.asItem(), Potions.STRONG_REGENERATION);
-        builder.addMix(Potions.HARMING, OccultismItems.PITAYA.asItem(), Potions.HEALING);
-        builder.addMix(Potions.STRONG_HARMING, OccultismItems.PITAYA.asItem(), Potions.STRONG_HEALING);
-        builder.addMix(Potions.WEAKNESS, OccultismItems.PITAYA.asItem(), Potions.STRENGTH);
-        builder.addMix(Potions.LONG_WEAKNESS, OccultismItems.PITAYA.asItem(), Potions.LONG_STRENGTH);
-        builder.addMix(Potions.WIND_CHARGED, OccultismItems.PITAYA.asItem(), Potions.SLOW_FALLING);
-        builder.addMix(Potions.WEAVING, OccultismItems.PITAYA.asItem(), Potions.FIRE_RESISTANCE);
-        builder.addMix(Potions.OOZING, OccultismItems.PITAYA.asItem(), Potions.LEAPING);
-        builder.addMix(Potions.INFESTED, OccultismItems.PITAYA.asItem(), Potions.INVISIBILITY);
-
-        builder.addMix(Potions.AWKWARD, OccultismItems.PITAYA_GOLDEN.asItem(), Potions.NIGHT_VISION);
-    }
-
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
         OccultismCommands.register(event.getDispatcher());
