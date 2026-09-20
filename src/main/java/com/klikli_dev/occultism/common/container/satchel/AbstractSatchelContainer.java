@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.container.satchel;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.integration.curios.CuriosUtil;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

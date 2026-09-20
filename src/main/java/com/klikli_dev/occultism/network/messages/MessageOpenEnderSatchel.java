@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.common.item.storage.EnderSatchelItem;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.integration.curios.CuriosUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;

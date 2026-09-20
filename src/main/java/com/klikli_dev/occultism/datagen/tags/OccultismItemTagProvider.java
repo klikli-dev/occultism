@@ -23,7 +23,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import org.jspecify.annotations.NonNull;
-import top.theillusivec4.curios.api.CuriosResources;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -121,18 +120,18 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
     }
 
     private void addCuriosTags(Provider provider) {
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "belt")))
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("curios", "belt")))
                 .add(this.key(OccultismItems.SATCHEL.get()))
                 .add(this.key(OccultismItems.ENDER_SATCHEL.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "hands")))
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("curios", "hands")))
                 .add(this.key(OccultismItems.STORAGE_REMOTE.get()))
                 .add(this.key(OccultismItems.TRUE_SIGHT_STAFF.get()))
                 .add(this.key(OccultismItems.FAMILIAR_GLOVE.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "charm")))
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("curios", "charm")))
                 .add(this.key(OccultismItems.KNOWLEDGE_TABLET.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "head")))
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("curios", "head")))
                 .add(this.key(OccultismItems.OTHERWORLD_GOGGLES.get()));
-        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath(CuriosResources.MOD_ID, "ring")))
+        this.tag(OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("curios", "ring")))
                 .add(this.key(OccultismItems.FAMILIAR_RING.get()));
     }
 

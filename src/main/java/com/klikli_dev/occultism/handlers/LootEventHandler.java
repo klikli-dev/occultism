@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
-import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.integration.curios.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.OtherworldUtil;

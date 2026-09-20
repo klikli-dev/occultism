@@ -32,7 +32,7 @@ import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowin
 import com.klikli_dev.occultism.client.render.entity.state.OccultismGeoLivingEntityRenderState;
 import com.klikli_dev.occultism.common.entity.spirit.wonderingtrader.WonderingTraderEntity;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.integration.curios.CuriosUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;

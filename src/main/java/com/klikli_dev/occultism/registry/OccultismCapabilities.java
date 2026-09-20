@@ -23,8 +23,8 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.klikli_dev.occultism.common.item.familiar.FamiliarCurio;
 import com.klikli_dev.occultism.common.misc.LavaResourceHandler;
+import com.klikli_dev.occultism.integration.curios.CuriosIntegration;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.Item;
@@ -32,30 +32,12 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
-import top.theillusivec4.curios.api.CuriosCapability;
 
 public class OccultismCapabilities {
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
 
-        event.registerItem(
-                CuriosCapability.ITEM, // capability to register for
-                (itemStack, context) -> {
-                    return new FamiliarCurio.Curio(itemStack);
-                },
-                // items to register for
-                OccultismItems.FAMILIAR_RING.get(),
-                OccultismItems.FAMILIAR_GLOVE.get(),
-                OccultismItems.INFUSED_HELMET.get(),
-                OccultismItems.INFUSED_CHESTPLATE.get(),
-                OccultismItems.INFUSED_LEGGINGS.get(),
-                OccultismItems.INFUSED_BOOTS.get(),
-                OccultismItems.INFUSED_SPEAR.get(),
-                OccultismItems.INFUSED_SWORD.get(),
-                OccultismItems.INFUSED_SHOVEL.get(),
-                OccultismItems.INFUSED_PICKAXE.get(),
-                OccultismItems.INFUSED_AXE.get(),
-                OccultismItems.INFUSED_HOE.get());
+        CuriosIntegration.get().registerItemCapabilities(event);
 
         event.registerItem(
                 Capabilities.Fluid.ITEM,

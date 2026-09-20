@@ -25,11 +25,11 @@ package com.klikli_dev.occultism.util;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.common.item.familiar.FamiliarCurio;
+import com.klikli_dev.occultism.integration.curios.CuriosIntegration;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.Tags;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -115,21 +115,14 @@ public class FamiliarUtil {
                                                                                  Predicate<T> pred) {
         List<T> familiars = new ArrayList<>();
 
-        var handler = CuriosApi.getCuriosInventory(owner).orElse(null);
-        if (handler == null)
-            return familiars;
-
-        for (ICurioStacksHandler curios : handler.getCurios().values()) {
-            var stacks = curios.getStacks();
-            for (int i = 0; i < stacks.getSlots(); i++) {
-                List<IFamiliar> familiarList = FamiliarCurio.getFamiliar(stacks.getStackInSlot(i), owner.level());
-                if (familiarList != null) {
-                    for (IFamiliar familiar : familiarList) {
-                        if (familiar.getFamiliarEntity().getType() == type) {
-                            T fam = (T) familiar.getFamiliarEntity();
-                            if (pred.test(fam)) {
-                                familiars.add(fam);
-                            }
+        for (ItemStack stack : CuriosIntegration.get().getEquippedCurioStacks(owner)) {
+            List<IFamiliar> familiarList = FamiliarCurio.getFamiliar(stack, owner.level());
+            if (familiarList != null) {
+                for (IFamiliar familiar : familiarList) {
+                    if (familiar.getFamiliarEntity().getType() == type) {
+                        T fam = (T) familiar.getFamiliarEntity();
+                        if (pred.test(fam)) {
+                            familiars.add(fam);
                         }
                     }
                 }

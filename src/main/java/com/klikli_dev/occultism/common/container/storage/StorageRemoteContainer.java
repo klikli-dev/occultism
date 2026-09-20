@@ -31,7 +31,7 @@ import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageUpdateLinkedMachines;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
-import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.integration.curios.CuriosUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;

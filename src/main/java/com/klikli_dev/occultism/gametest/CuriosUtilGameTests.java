@@ -5,7 +5,7 @@
 package com.klikli_dev.occultism.gametest;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.integration.curios.CuriosUtil;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
