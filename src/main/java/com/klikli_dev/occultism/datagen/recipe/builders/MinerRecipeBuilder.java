@@ -35,13 +35,13 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private final Ingredient ingredient;
     private final WeightedRecipeResult result;
-    private final Provider registries;
+    private final RecipeOutput registries;
     @Nullable
     private String group;
     private boolean allowEmpty;
     private boolean addResultItemExistsCondition;
 
-    public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result, Provider registries) {
+    public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result, RecipeOutput registries) {
         this.ingredient = ingredient;
         this.result = result;
         this.allowEmpty = false;
@@ -49,32 +49,32 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ItemLike output, int weight, Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ItemLike output, int weight, RecipeOutput registries) {
         return new MinerRecipeBuilder(ingredient, WeightedItemRecipeResult.of(new ItemStackTemplate(output.asItem()), weight), registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(ItemLike ingredient, ItemLike output, int weight, Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(ItemLike ingredient, ItemLike output, int weight, RecipeOutput registries) {
         return minerRecipe(Ingredient.of(ingredient), output, weight, registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, ItemLike output, int weight, Provider registries) {
-        return minerRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, registries);
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, ItemLike output, int weight, RecipeOutput registries) {
+        return minerRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), output, weight, registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, RecipeOutput registries) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, 1, weight), registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, int count, Provider registries) {
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, int count, RecipeOutput registries) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, count, weight), registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, Provider registries) {
-        return minerRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, registries);
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, RecipeOutput registries) {
+        return minerRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), output, weight, registries);
     }
 
-    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, int count, Provider registries) {
-        return minerRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, count, registries);
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, int count, RecipeOutput registries) {
+        return minerRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), output, weight, count, registries);
     }
 
 
@@ -115,7 +115,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     public void save(RecipeOutput pRecipeOutput, ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeOutput.lookup(Registries.RECIPE).getOrThrow(pId)))
                 .rewards(Builder.recipe(pId))
                 .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

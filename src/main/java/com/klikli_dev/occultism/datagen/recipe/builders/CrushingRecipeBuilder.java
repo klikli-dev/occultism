@@ -41,7 +41,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     private final RecipeSerializer<CrushingRecipe> serializer;
     private final Ingredient ingredient;
     private final int crushingTime;
-    private final Provider registries;
+    private final RecipeOutput registries;
     private RecipeResult result;
     @Nullable
     private String group;
@@ -50,7 +50,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     private int maxTier;
     private boolean allowEmpty;
 
-    public CrushingRecipeBuilder(Ingredient ingredient, RecipeResult result, int crushingTime, Provider registries) {
+    public CrushingRecipeBuilder(Ingredient ingredient, RecipeResult result, int crushingTime, RecipeOutput registries) {
         this.serializer = OccultismRecipes.CRUSHING.get();
         this.ingredient = ingredient;
         this.allowEmpty = false;
@@ -61,24 +61,24 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, ItemLike result, int crushingTime, Provider registries) {
-        return crushingRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), result, crushingTime, registries);
+    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, ItemLike result, int crushingTime, RecipeOutput registries) {
+        return crushingRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), result, crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, ItemLike result, int crushingTime, Provider registries) {
+    public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, ItemLike result, int crushingTime, RecipeOutput registries) {
         return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new ItemStackTemplate(result.asItem())), crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Item item, TagKey<Item> result, int crushingTime, Provider registries) {
+    public static CrushingRecipeBuilder crushingRecipe(Item item, TagKey<Item> result, int crushingTime, RecipeOutput registries) {
         return new CrushingRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Item item, ItemLike result, int crushingTime, Provider registries) {
+    public static CrushingRecipeBuilder crushingRecipe(Item item, ItemLike result, int crushingTime, RecipeOutput registries) {
         return new CrushingRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStackTemplate(result.asItem())), crushingTime, registries);
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crushingTime, Provider registries) {
-        return new CrushingRecipeBuilder(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), TagRecipeResult.of(result), crushingTime, registries);
+    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crushingTime, RecipeOutput registries) {
+        return new CrushingRecipeBuilder(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), TagRecipeResult.of(result), crushingTime, registries);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeOutput.lookup(Registries.RECIPE).getOrThrow(pId)))
                 .rewards(Builder.recipe(pId))
                 .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

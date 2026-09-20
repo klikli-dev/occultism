@@ -34,33 +34,33 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
     private final WeightedRecipeResult output;
     //private final ItemStack output;
     private final String trader;
-    private final Provider registries;
+    private final RecipeOutput registries;
 
-    public SpiritTradeRecipeBuilder(@Nullable Ingredient ingredient, WeightedRecipeResult output, String trader, Provider registries) {
+    public SpiritTradeRecipeBuilder(@Nullable Ingredient ingredient, WeightedRecipeResult output, String trader, RecipeOutput registries) {
         this.ingredient = ingredient;
         this.output = output;
         this.trader = trader;
         this.registries = registries;
     }
 
-    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStack output, int weight, String trader, Provider registries) {
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStack output, int weight, String trader, RecipeOutput registries) {
         return new SpiritTradeRecipeBuilder(ingredient, WeightedItemRecipeResult.of(output, weight), trader, registries);
     }
 
-    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStackTemplate output, int weight, String trader, Provider registries) {
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStackTemplate output, int weight, String trader, RecipeOutput registries) {
         return new SpiritTradeRecipeBuilder(ingredient, WeightedRecipeResult.of(output, weight), trader, registries);
     }
 
-    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, String trader, Provider registries) {
-        return new SpiritTradeRecipeBuilder(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), WeightedTagRecipeResult.of(output, 1, weight), trader, registries);
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, String trader, RecipeOutput registries) {
+        return new SpiritTradeRecipeBuilder(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), WeightedTagRecipeResult.of(output, 1, weight), trader, registries);
     }
 
-    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStack output, int weight, String trader, Provider registries) {
-        return spiritTradeRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, trader, registries);
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStack output, int weight, String trader, RecipeOutput registries) {
+        return spiritTradeRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), output, weight, trader, registries);
     }
 
-    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStackTemplate output, int weight, String trader, Provider registries) {
-        return spiritTradeRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output, weight, trader, registries);
+    public static SpiritTradeRecipeBuilder spiritTradeRecipe(TagKey<Item> ingredient, ItemStackTemplate output, int weight, String trader, RecipeOutput registries) {
+        return spiritTradeRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), output, weight, trader, registries);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
         this.ensureValid(pId);
         var advancementId = pId.identifier().withPrefix("recipes/spirit_trade/");
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeOutput.lookup(Registries.RECIPE).getOrThrow(pId)))
                 .rewards(Builder.recipe(pId))
                 .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

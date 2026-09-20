@@ -20,7 +20,7 @@ import net.minecraft.world.item.Items;
 // This class is now a utility class - no constructor needed
 public class MinerRecipes {
 
-    public static void minerRecipes(RecipeOutput pRecipeOutput, Provider registries) {
+    public static void minerRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
         // Using miner tags to limit ores based on tool tier
         makeOreRecipe("alexandrite", 25, pRecipeOutput, registries, Miners.IRON);
         makeOreRecipe("allthemodium", 10, pRecipeOutput, registries, Miners.NETHERITE); //weight = netherite*emerald/diamond
@@ -123,13 +123,13 @@ public class MinerRecipes {
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "miners/debug/otherrock")));
     }
 
-    public static void makeOreRecipe(String type, int weight, RecipeOutput consumer, Provider registries, TagKey<Item> tag) {
+    public static void makeOreRecipe(String type, int weight, RecipeOutput consumer, RecipeOutput registries, TagKey<Item> tag) {
         MinerRecipeBuilder.minerRecipe(tag, OccultismTags.makeItemTag(Identifier.fromNamespaceAndPath("c", "ores/" + type)), weight, registries)
             .unlockedBy("has_miner", TriggerInstance.hasItems(OccultismItems.MAGIC_LAMP_EMPTY.get()))
             .save(consumer, ResourceKey.create(Registries.RECIPE, Identifier.parse(tag.location() + "/" + type)));
     }
 
-    public static void makeItemRecipe(Item type, int weight, RecipeOutput consumer, Provider registries, TagKey<Item> tag) {
+    public static void makeItemRecipe(Item type, int weight, RecipeOutput consumer, RecipeOutput registries, TagKey<Item> tag) {
         MinerRecipeBuilder.minerRecipe(tag, type, weight, registries)
                 .unlockedBy("has_miner", TriggerInstance.hasItems(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .save(consumer, ResourceKey.create(Registries.RECIPE, Identifier.parse(tag.location() + "/" + getItemName(type))));

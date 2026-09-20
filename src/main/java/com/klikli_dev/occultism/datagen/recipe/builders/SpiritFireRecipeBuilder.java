@@ -50,8 +50,8 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
         return new SpiritFireRecipeBuilder(ingredient, ItemStackTemplate.fromNonEmptyStack(output));
     }
 
-    public static SpiritFireRecipeBuilder spiritFireRecipe(TagKey<Item> ingredient, ItemStack output, Provider registries) {
-        return spiritFireRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), output);
+    public static SpiritFireRecipeBuilder spiritFireRecipe(TagKey<Item> ingredient, ItemStack output, RecipeOutput registries) {
+        return spiritFireRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), output);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class SpiritFireRecipeBuilder implements RecipeBuilder {
     public void save(RecipeOutput pRecipeOutput, ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeOutput.lookup(Registries.RECIPE).getOrThrow(pId)))
                 .rewards(Builder.recipe(pId))
                 .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

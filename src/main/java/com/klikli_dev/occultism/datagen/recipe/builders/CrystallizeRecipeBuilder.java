@@ -41,7 +41,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     private final RecipeSerializer<CrystallizeRecipe> serializer;
     private final Ingredient ingredient;
     private final int crystallizeTime;
-    private final Provider registries;
+    private final RecipeOutput registries;
     private RecipeResult result;
     @Nullable
     private String group;
@@ -50,7 +50,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     private int maxTier;
     private boolean allowEmpty;
 
-    public CrystallizeRecipeBuilder(Ingredient ingredient, RecipeResult result, int crystallizeTime, Provider registries) {
+    public CrystallizeRecipeBuilder(Ingredient ingredient, RecipeResult result, int crystallizeTime, RecipeOutput registries) {
         this.serializer = OccultismRecipes.CRYSTALLIZE.get();
         this.ingredient = ingredient;
         this.allowEmpty = false;
@@ -61,24 +61,24 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, ItemLike result, int crystallizeTime, Provider registries) {
-        return crystallizeRecipe(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), result, crystallizeTime, registries);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, ItemLike result, int crystallizeTime, RecipeOutput registries) {
+        return crystallizeRecipe(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), result, crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(Ingredient ingredient, ItemLike result, int crystallizeTime, Provider registries) {
+    public static CrystallizeRecipeBuilder crystallizeRecipe(Ingredient ingredient, ItemLike result, int crystallizeTime, RecipeOutput registries) {
         return new CrystallizeRecipeBuilder(ingredient, RecipeResult.of(new ItemStackTemplate(result.asItem())), crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, TagKey<Item> result, int crystallizeTime, Provider registries) {
+    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, TagKey<Item> result, int crystallizeTime, RecipeOutput registries) {
         return new CrystallizeRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, ItemLike result, int crystallizeTime, Provider registries) {
+    public static CrystallizeRecipeBuilder crystallizeRecipe(Item item, ItemLike result, int crystallizeTime, RecipeOutput registries) {
         return new CrystallizeRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStackTemplate(result.asItem())), crystallizeTime, registries);
     }
 
-    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crystallizeTime, Provider registries) {
-        return new CrystallizeRecipeBuilder(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ingredient)), TagRecipeResult.of(result), crystallizeTime, registries);
+    public static CrystallizeRecipeBuilder crystallizeRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crystallizeTime, RecipeOutput registries) {
+        return new CrystallizeRecipeBuilder(Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(ingredient)), TagRecipeResult.of(result), crystallizeTime, registries);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class CrystallizeRecipeBuilder implements RecipeBuilder {
     public void save(@NotNull RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeOutput.lookup(Registries.RECIPE).getOrThrow(pId)))
                 .rewards(Builder.recipe(pId))
                 .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

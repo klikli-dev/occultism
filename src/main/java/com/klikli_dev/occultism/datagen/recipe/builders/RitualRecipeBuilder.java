@@ -40,7 +40,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     private final int duration;
     private final NonNullList<Ingredient> ingredients;
     private final Identifier pentacleId;
-    private final Provider registries;
+    private final RecipeOutput registries;
 
     @Nullable
     private Identifier spiritJobType;
@@ -65,7 +65,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     @Nullable
     private ICondition condition;
 
-    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, Provider registries) {
+    public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, RecipeOutput registries) {
         this.activationIngredient = activationIngredient;
         this.output = output;
         this.ritualDummy = ritualDummy;
@@ -76,13 +76,13 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         this.registries = registries;
     }
 
-    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, Provider registries, Ingredient... ingredients) {
+    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, int duration, Identifier ritualType, Identifier pentacleId, RecipeOutput registries, Ingredient... ingredients) {
         NonNullList<Ingredient> ingredientsList = NonNullList.create();
         Collections.addAll(ingredientsList, ingredients);
         return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, duration, ritualType, pentacleId, registries);
     }
 
-    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, float duration, Identifier ritualType, Identifier pentacleId, Provider registries, Ingredient... ingredients) {
+    public static RitualRecipeBuilder ritualRecipeBuilder(Ingredient activationIngredient, ItemStackTemplate output, ItemStackTemplate ritualDummy, float duration, Identifier ritualType, Identifier pentacleId, RecipeOutput registries, Ingredient... ingredients) {
         NonNullList<Ingredient> ingredientsList = NonNullList.create();
         Collections.addAll(ingredientsList, ingredients);
         return new RitualRecipeBuilder(activationIngredient, ingredientsList, output, ritualDummy, (int) duration, ritualType, pentacleId, registries);
@@ -109,7 +109,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     public void save(RecipeOutput pRecipeOutput, @NotNull ResourceKey<Recipe<?>> pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeOutput.lookup(Registries.RECIPE).getOrThrow(pId)))
                 .rewards(Builder.recipe(pId))
                 .requirements(Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

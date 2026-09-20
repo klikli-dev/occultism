@@ -5,17 +5,19 @@ import com.klikli_dev.occultism.datagen.recipe.builders.RitualRecipeBuilder;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.OccultismTags.Entities;
 import com.klikli_dev.occultism.registry.OccultismTags.Items.Miners;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.predicates.ItemPredicate.Builder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -88,34 +90,24 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final float WILD_TIER = 2.75F;
     private static final float GREAT_TIER = 5.5F;
 
-    public RitualRecipes(Provider registries, RecipeOutput output) {
-        super(registries, output);
-    }
-
-    // Need a static create method that returns an instance for recipe generation
-    public static RitualRecipes create(Provider registries, RecipeOutput output) {
-        return new RitualRecipes(registries, output) {
-            @Override
-            protected void buildRecipes() {
-                // Will be called - but recipes are generated via static method
-            }
-        };
+    public RitualRecipes(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
+        super(recipeOutput, advancementOutput);
     }
 
     // Helper method for has() with registries and TagKey
-    protected static Criterion<TriggerInstance> has(Provider registries, TagKey<Item> tag) {
-        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+    protected static Criterion<TriggerInstance> has(RecipeOutput registries, TagKey<Item> tag) {
+        HolderGetter<Item> items = registries.lookup(Registries.ITEM);
         return TriggerInstance.hasItems(Builder.item().of(items, tag).build());
     }
 
     // Overloaded has() for ItemLike - uses registries parameter even though not strictly needed
-    protected static Criterion<TriggerInstance> has(Provider registries, ItemLike item) {
+    protected static Criterion<TriggerInstance> has(RecipeOutput registries, ItemLike item) {
         return TriggerInstance.hasItems(item);
     }
 
     // Helper method to create Ingredient from TagKey
-    protected static Ingredient ofTag(Provider registries, TagKey<Item> tag) {
-        return Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(tag));
+    protected static Ingredient ofTag(RecipeOutput registries, TagKey<Item> tag) {
+        return Ingredient.of(registries.lookup(Registries.ITEM).getOrThrow(tag));
     }
 
     // Helper method to create Ingredient from ItemLike
@@ -147,7 +139,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         return makeJeiDummy(Identifier.fromNamespaceAndPath("occultism", "jei_dummy/none"));
     }
 
-    public static void ritualRecipes(RecipeOutput recipeOutput, Provider registries) {
+    public static void ritualRecipes(RecipeOutput recipeOutput, RecipeOutput registries) {
         summonRituals(recipeOutput, registries);
         possessRituals(recipeOutput, registries);
         familiarRituals(recipeOutput, registries);
@@ -161,7 +153,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         upgradeRituals(recipeOutput, registries);
     }
 
-    private static void summonRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void summonRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         //Half if time or weather job
         //Afrit
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
@@ -442,7 +434,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 //                .condition(
 //                        new OrCondition(
 //                                List.of(
-//                                        new IsInDimensionTypeCondition(registries.lookupOrThrow(Registries.DIMENSION_TYPE).getOrThrow(BuiltinDimensionTypes.NETHER)),
+//                                        new IsInDimensionTypeCondition(registries.lookup(Registries.DIMENSION_TYPE).getOrThrow(BuiltinDimensionTypes.NETHER)),
 //                                        new IsInBiomeWithTagCondition(BiomeTags.HAS_NETHER_FORTRESS)
 //                                )
 //                        ))
@@ -655,7 +647,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_unbound_marid")));
     }
 
-    private static void possessRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void possessRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         //Afrit
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN.get(), "item.occultism.ritual_dummy.possess_elder_guardian"),
@@ -946,7 +938,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_iesnium_golem")));
     }
 
-    private static void familiarRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void familiarRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         //Afrit
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_GUARDIAN_FAMILIAR.get(), "item.occultism.ritual_dummy.familiar_guardian"),
@@ -1251,7 +1243,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_parrot")));
     }
 
-    private static void craftingRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void craftingRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         //Afrit
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         new ItemStackTemplate(OccultismItems.RITUAL_SATCHEL_T2.get()),
@@ -1856,7 +1848,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_true_sight_staff")));
     }
 
-    private static void stabilizerRecipes(RecipeOutput recipeOutput, Provider registries) {
+    private static void stabilizerRecipes(RecipeOutput recipeOutput, RecipeOutput registries) {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStackTemplate(OccultismBlocks.STORAGE_STABILIZER_TIER1.get().asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1.get()),
@@ -2004,7 +1996,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_stabilizer_tier5_dark")));
     }
 
-    private static void minerRecipes(RecipeOutput recipeOutput, Provider registries) {
+    private static void minerRecipes(RecipeOutput recipeOutput, RecipeOutput registries) {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStackTemplate(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED.get()),
@@ -2083,7 +2075,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_miner_ancient_eldritch")));
     }
 
-    private static void resurrectRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void resurrectRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
                         makeLoreSpawnEgg(OccultismItems.RESURRECT_ICON.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get()),
@@ -2186,7 +2178,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_mob")));
     }
 
-    private static void repairRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void repairRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         RitualRecipeBuilder.ritualRecipeBuilder(ofTag(registries, OccultismTags.Items.TOOLS_CHALK),
                         makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_chalks"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS.get()),
@@ -2241,7 +2233,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/repair_miners")));
     }
 
-    private static void contactRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void contactRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SKELETON_SKULL),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON.get(), "item.occultism.ritual_dummy.wild_hunt"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_HUNT.get()),
@@ -2826,7 +2818,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_unbreakable")));
     }
 
-    private static void randomRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void randomRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         //Individual
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_common"),
@@ -3043,7 +3035,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_special")));
     }
 
-    private static void upgradeRituals(RecipeOutput recipeOutput, Provider registries) {
+    private static void upgradeRituals(RecipeOutput recipeOutput, RecipeOutput registries) {
         //Individual
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         new ItemStackTemplate(OccultismItems.RITUAL_SATCHEL_T2.get()),

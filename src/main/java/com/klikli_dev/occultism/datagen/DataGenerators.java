@@ -36,22 +36,24 @@ import com.klikli_dev.occultism.datagen.model.OccultismModelProvider;
 import com.klikli_dev.occultism.datagen.recipe.OccultismRecipeProvider;
 import com.klikli_dev.occultism.datagen.tags.*;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
-import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.MultiRegistryBootstrap;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.data.loot.LootTableProvider.SubProviderEntry;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.RecipeProvider.Runner;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent.Client;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber()
 public class DataGenerators {
@@ -59,55 +61,49 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(Client event) {
         DataGenerator generator = event.getGenerator();
+        var lookup = event.getReloadableLookupProvider();
 
-        //Used for enchantment
-        DatapackBuiltinEntriesProvider datapackProvider =
-                new DatapackBuiltinEntriesProvider(
-                        generator.getPackOutput(),
-                        event.getLookupProvider(),
-                        OccultismRegistries.BUILDER,
-                        Set.of(Occultism.MODID)
-                );
-        generator.addProvider(true, datapackProvider);
-        CompletableFuture<Provider> lookup = datapackProvider.getRegistryProvider();
+        // Register world registry objects (biomes, features, enchantments) and datapack entries
+        event.createWorldRegistryObjects(OccultismRegistries.WORLD_BUILDER);
+        event.createReloadableRegistryObjects(OccultismRegistries.RELOADABLE_BUILDER);
 
-        generator.addProvider(true,
-                new OccultismLootTableProvider(generator.getPackOutput(), Set.of(), List.of(
-                        new SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
-                        new SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
-                ), event.getLookupProvider()));
+        // Register advancements and recipes via reloadable registry objects
+        event.createReloadableRegistryObjects(
+                new RegistrySetBuilder()
+                        .add(Registries.ADVANCEMENT, new AdvancementProvider(List.of(
+                                OccultismAdvancementSubProvider::new
+                        )))
+                        .add(Registries.LOOT_TABLE, new OccultismLootTableProvider(Set.of(), List.of(
+                                new LootTableProvider.SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
+                                new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
+                        )))
+                        .add(new MultiRegistryBootstrap() {
+                            @Override
+                            public Set<ResourceKey<? extends Registry<?>>> requestedRegistries() {
+                                return Set.of(Registries.RECIPE, Registries.ADVANCEMENT);
+                            }
+
+                            @Override
+                            public void run(MultiRegistryBootstrap.BootstrapGetter registries) {
+                                new OccultismRecipeProvider(registries.get(Registries.RECIPE), registries.get(Registries.ADVANCEMENT)).run();
+                            }
+                        }),
+                Set.of(Occultism.MODID)
+        );
+
         generator.addProvider(true, new PentacleProvider(generator));
-        generator.addProvider(true,
-                new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), List.of(
-                        new OccultismAdvancementSubProvider()
-                )));
 
-
-        OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider());
+        OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), lookup);
         generator.addProvider(true, forgeBlockProvider);
-        generator.addProvider(true, new OccultismEntityTypeTagProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(true, new OccultismItemTagProvider(generator.getPackOutput(), event.getLookupProvider(), forgeBlockProvider.contentsGetter()));
-        generator.addProvider(true, new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new OccultismEntityTypeTagProvider(generator.getPackOutput(), lookup));
+        generator.addProvider(true, new OccultismItemTagProvider(generator.getPackOutput(), lookup, forgeBlockProvider.contentsGetter()));
+        generator.addProvider(true, new OccultismBiomeTagProvider(generator.getPackOutput(), lookup));
         generator.addProvider(true, new OccultismEnchantmentTagProvider(generator.getPackOutput(), lookup));
         generator.addProvider(true, new OccultismModelProvider(generator.getPackOutput()));
-        generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), lookup));
 
         var langCache = new LanguageProviderCache("en_us");
         var researchCache = new ResearchCache();
-
-        // Generate recipes using RecipeProvider.Runner - the standard way in 26.1
-        // RecipeProvider.Runner is an abstract runner that must be subclassed to provide the concrete provider.
-        generator.addProvider(true, new Runner(generator.getPackOutput(), event.getLookupProvider()) {
-            @Override
-            protected RecipeProvider createRecipeProvider(Provider registries, RecipeOutput output) {
-                return OccultismRecipeProvider.create(registries, output);
-            }
-
-            @Override
-            public String getName() {
-                return "Occultism Recipe Provider Runner";
-            }
-        });
 
         generator.addProvider(true, NeoBookProvider.of(event, langCache, researchCache,
                 new OccultismBookProvider()

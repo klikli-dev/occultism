@@ -9,10 +9,12 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.predicates.ItemPredicate.Builder;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockItemTags;
@@ -28,15 +30,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
 public class OccultismRecipeProvider extends RecipeProvider {
-    public OccultismRecipeProvider(Provider registries, RecipeOutput output) {
-        super(registries, output);
+    public OccultismRecipeProvider(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
+        super(recipeOutput, advancementOutput);
     }
 
-    public static OccultismRecipeProvider create(Provider registries, RecipeOutput output) {
-        return new OccultismRecipeProvider(registries, output);
+    public void run() {
+        this.buildRecipes();
     }
 
-    private static void smeltingRecipes(RecipeOutput pRecipeOutput, Provider registries) {
+    private static void smeltingRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
         autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLESTONE.asItem(), OccultismBlocks.OTHERSTONE.asItem(), 0.5f, pRecipeOutput, registries);
         autoSmeltingRecipe(OccultismBlocks.OTHERSTONE.asItem(), OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, pRecipeOutput, registries);
         autoSmeltingRecipe(OccultismBlocks.POLISHED_OTHERSTONE.asItem(), OccultismItems.BURNT_OTHERSTONE.asItem(), 0.15f, pRecipeOutput, registries);
@@ -48,25 +50,25 @@ public class OccultismRecipeProvider extends RecipeProvider {
         autoSmeltingRecipe(OccultismBlocks.OTHERROCK_BRICKS.asItem(), OccultismBlocks.CRACKED_OTHERROCK_BRICKS.asItem(), 0.3f, pRecipeOutput, registries);
     }
 
-    protected static void autoSmeltingRecipe(Item input, Item output, Float exp, RecipeOutput pRecipeOutput, Provider registries) {
+    protected static void autoSmeltingRecipe(Item input, Item output, Float exp, RecipeOutput pRecipeOutput, RecipeOutput registries) {
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(input), RecipeCategory.MISC, CookingBookCategory.BLOCKS, output, exp, 200)
                 .unlockedBy("has_" + input.toString().replace("occultism:", ""), TriggerInstance.hasItems(input))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "smelting/" + output.toString().replace("occultism:", ""))));
     }
 
-    private static void oresCookingRecipes(RecipeOutput pRecipeOutput, Provider registries) {
+    private static void oresCookingRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
         doubleCookingRecipe(OccultismTags.Items.SILVER_ORE, OccultismItems.SILVER_INGOT.get(), pRecipeOutput, registries);
         doubleCookingRecipe(OccultismTags.Items.RAW_SILVER, OccultismItems.SILVER_INGOT.get(), pRecipeOutput, registries);
         doubleCookingRecipe(OccultismTags.Items.IESNIUM_ORE, OccultismItems.IESNIUM_INGOT.get(), pRecipeOutput, registries);
         doubleCookingRecipe(OccultismTags.Items.RAW_IESNIUM, OccultismItems.IESNIUM_INGOT.get(), pRecipeOutput, registries);
     }
 
-    protected static void doubleCookingRecipe(TagKey<Item> tagInput, Item output, RecipeOutput recipeOutput, Provider registries) {
+    protected static void doubleCookingRecipe(TagKey<Item> tagInput, Item output, RecipeOutput recipeOutput, RecipeOutput registries) {
         String outputString = output.toString().replace("minecraft:", "").replace("occultism:", "");
         String simpleInputString = tagInput.toString().contains("c:ores") ? "ore" : "raw";
         String condtionString = "has_" + tagInput.toString().substring(26).replace("materials/", "").replace("/", "_").replace("]", "");
-        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+        HolderGetter<Item> items = registries.lookup(Registries.ITEM);
         var tagHolder = items.getOrThrow(tagInput);
 
         SimpleCookingRecipeBuilder
@@ -80,8 +82,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .save(recipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "blasting/" + outputString + "_from_" + simpleInputString)));
     }
 
-    private static void spiritFireRecipes(RecipeOutput pRecipeOutput, Provider registries) {
-        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+    private static void spiritFireRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
+        HolderGetter<Item> items = registries.lookup(Registries.ITEM);
 
         spiritfireTransmute(OccultismItems.CHALK_WHITE_IMPURE.asItem(), OccultismItems.CHALK_WHITE.asItem(), pRecipeOutput, registries);
         spiritfireTransmute(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.asItem(), OccultismItems.CHALK_LIGHT_GRAY.asItem(), pRecipeOutput, registries);
@@ -115,21 +117,21 @@ public class OccultismRecipeProvider extends RecipeProvider {
         spiritfireTransmute(OccultismItems.OTHERROCK_FRAME.get(), OccultismBlocks.RITUAL_CATCHER_DARK.asItem(), pRecipeOutput, registries);
     }
 
-    protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, Provider registries) {
-        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+    protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput, RecipeOutput registries) {
+        HolderGetter<Item> items = registries.lookup(Registries.ITEM);
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(items.getOrThrow(input)), new ItemStackTemplate(output))
                 .unlockedBy("has_tag_item", TriggerInstance.hasItems(Builder.item().of(items, input).build()))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:", ""))));
     }
 
-    protected static void spiritfireTransmute(Item input, Item output, RecipeOutput pRecipeOutput, Provider registries) {
+    protected static void spiritfireTransmute(Item input, Item output, RecipeOutput pRecipeOutput, RecipeOutput registries) {
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStackTemplate(output))
                 .unlockedBy("has_" + input.toString().replace("minecraft:", "").replace("occultism:", ""), TriggerInstance.hasItems(input))
                 .save(pRecipeOutput, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:", ""))));
     }
 
-    private void stonecutterRecipes(RecipeOutput pRecipeOutput, Provider registries) {
-        HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
+    private void stonecutterRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
+        HolderGetter<Item> items = registries.lookup(Registries.ITEM);
 
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_SLAB, OccultismBlocks.OTHERSTONE, 2, items);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_STAIRS, OccultismBlocks.OTHERSTONE, items);
@@ -279,29 +281,29 @@ public class OccultismRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes() {
-        HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
-        this.ritualRecipes(this.output, this.registries);
-        this.miningRecipes(this.output, this.registries);
-        this.spiritJobRecipes(this.output, this.registries);
+        HolderGetter<Item> items = this.output.lookup(Registries.ITEM);
+        this.ritualRecipes(this.output, this.output);
+        this.miningRecipes(this.output, this.output);
+        this.spiritJobRecipes(this.output, this.output);
         this.craftingRecipes(this.output, items);
         this.woodRecipes(this.output, items);
-        smeltingRecipes(this.output, this.registries);
-        oresCookingRecipes(this.output, this.registries);
-        spiritFireRecipes(this.output, this.registries);
-        stonecutterRecipes(this.output, this.registries);
+        smeltingRecipes(this.output, this.output);
+        oresCookingRecipes(this.output, this.output);
+        spiritFireRecipes(this.output, this.output);
+        stonecutterRecipes(this.output, this.output);
         otherflowerRecipes(this.output, items);
         pasteRecipes(this.output, items);
     }
 
-    private void ritualRecipes(RecipeOutput recipeOutput, Provider registries) {
+    private void ritualRecipes(RecipeOutput recipeOutput, RecipeOutput registries) {
         RitualRecipes.ritualRecipes(recipeOutput, registries);
     }
 
-    private void miningRecipes(RecipeOutput pRecipeOutput, Provider registries) {
+    private void miningRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
         MinerRecipes.minerRecipes(pRecipeOutput, registries);
     }
 
-    private void spiritJobRecipes(RecipeOutput pRecipeOutput, Provider registries) {
+    private void spiritJobRecipes(RecipeOutput pRecipeOutput, RecipeOutput registries) {
         SpiritJobRecipes.spiritJobRecipes(pRecipeOutput, registries);
     }
 
