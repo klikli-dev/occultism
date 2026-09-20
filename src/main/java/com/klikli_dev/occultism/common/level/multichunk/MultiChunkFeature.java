@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.level.multichunk;
 
 import com.klikli_dev.occultism.util.Math3DUtil;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.util.RandomSource;
@@ -32,18 +32,28 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
+public class MultiChunkFeature implements Feature {
 
-    public final IMultiChunkSubFeature subFeature;
+    public static final MapCodec<MultiChunkFeature> CODEC = MultiChunkFeatureConfig.CODEC.fieldOf("config").xmap(
+            config -> new MultiChunkFeature(null, config),
+            feature -> feature.config
+    );
 
-    public MultiChunkFeature(Codec<MultiChunkFeatureConfig> codec, IMultiChunkSubFeature subFeature) {
-        super(codec);
+    private final IMultiChunkSubFeature subFeature;
+    private final MultiChunkFeatureConfig config;
+
+    public MultiChunkFeature(IMultiChunkSubFeature subFeature, MultiChunkFeatureConfig config) {
         this.subFeature = subFeature;
+        this.config = config;
+    }
+
+    @Override
+    public MapCodec<MultiChunkFeature> codec() {
+        return CODEC;
     }
 
     public static long getLargeFeatureWithSaltSeed(long pLevelSeed, int pRegionX, int pRegionZ, int pSalt) {
@@ -51,25 +61,24 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
     }
 
     protected List<BlockPos> getRootPositions(WorldGenLevel reader, ChunkGenerator generator, RandomSource random,
-                                              ChunkPos generatingChunk,
-                                              MultiChunkFeatureConfig config) {
+                                              ChunkPos generatingChunk) {
         ArrayList<BlockPos> result = new ArrayList<>(1);
-        for (int i = -config.maxChunksToRoot / 2; i < config.maxChunksToRoot / 2; i++) {
-            for (int j = -config.maxChunksToRoot / 2; j < config.maxChunksToRoot / 2; j++) {
+        for (int i = -this.config.maxChunksToRoot / 2; i < this.config.maxChunksToRoot / 2; i++) {
+            for (int j = -this.config.maxChunksToRoot / 2; j < this.config.maxChunksToRoot / 2; j++) {
 
                 ChunkPos currentChunk = new ChunkPos(generatingChunk.x() + i, generatingChunk.z() + j);
 
                 //Seed random for this chunk, this way we get the same result no matter how often this is called.
-                var seed = getLargeFeatureWithSaltSeed(reader.getSeed(), currentChunk.x(), currentChunk.z(), config.featureSeedSalt);
+                var seed = getLargeFeatureWithSaltSeed(reader.getSeed(), currentChunk.x(), currentChunk.z(), this.config.featureSeedSalt);
                 random.setSeed(seed);
 
-                if (random.nextInt(config.chanceToGenerate) == 0) {
+                if (random.nextInt(this.config.chanceToGenerate) == 0) {
                     //this chunk contains a root, so we generate a random
                     result.add(currentChunk.getWorldPosition().offset(
                             random.nextInt(15),
                             Math.min(generator.getGenDepth(),
-                                    config.minGenerationHeight + random.nextInt(
-                                            Math.max(0, config.maxGenerationHeight - config.minGenerationHeight))),
+                                    this.config.minGenerationHeight + random.nextInt(
+                                            Math.max(0, this.config.maxGenerationHeight - this.config.minGenerationHeight))),
                             random.nextInt(15))
                     );
                 }
@@ -79,18 +88,20 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<MultiChunkFeatureConfig> context) {
-        BlockPos pos = context.origin();
+    public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
+        if (this.subFeature == null) {
+            return false;
+        }
 
-        if (context.level().getChunkSource() instanceof ServerChunkCache chunkSource) {
-            ChunkPos generatingChunk = ChunkPos.containing(pos);
+        if (level.getChunkSource() instanceof ServerChunkCache chunkSource) {
+            ChunkPos generatingChunk = ChunkPos.containing(origin);
 
             //we create our own random here so that subsequent features are not affected by our custom seed gen.
             //we also hand that to our sub feature so that that also doesn't modify the seed of the world random.
-            var random = new XoroshiroRandomSource(context.random().nextLong());
+            var localRandom = new XoroshiroRandomSource(random.nextLong());
 
             List<BlockPos> rootPositions =
-                    this.getRootPositions(context.level(), context.chunkGenerator(), random, generatingChunk, context.config());
+                    this.getRootPositions(level, chunkGenerator, localRandom, generatingChunk);
 
             //If no root position was found in range, we exit
             if (rootPositions.isEmpty()) {
@@ -98,8 +109,8 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
             }
             boolean generatedAny = false;
             for (BlockPos rootPosition : rootPositions) {
-                if (this.subFeature.place(context.level(), context.chunkGenerator(), random, rootPosition,
-                        Math3DUtil.bounds(generatingChunk, context.chunkGenerator().getGenDepth()), context.config()))
+                if (this.subFeature.place(level, chunkGenerator, localRandom, rootPosition,
+                        Math3DUtil.bounds(generatingChunk, chunkGenerator.getGenDepth()), this.config))
                     generatedAny = true;
             }
             return generatedAny;

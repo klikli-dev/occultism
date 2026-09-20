@@ -23,14 +23,13 @@
 package com.klikli_dev.occultism.common.block.otherworld;
 
 import com.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.TreeGrower;
 
-import java.util.Optional;
-
 public class OtherworldSaplingBlock extends SaplingBlock {
 
-    public static final TreeGrower TREE_GROWER = new TreeGrower("otherworld", Optional.empty(), Optional.of(ConfiguredFeatures.TREE_OTHERWORLD), Optional.empty());
+    public static final TreeGrower TREE_GROWER = new TreeGrower("otherworld", WeightedList.of(ConfiguredFeatures.TREE_OTHERWORLD), WeightedList.of(), WeightedList.of(), ConfiguredFeatures.TREE_OTHERWORLD);
 
     public OtherworldSaplingBlock(Properties properties) {
         super(TREE_GROWER, properties);

@@ -25,10 +25,9 @@ package com.klikli_dev.occultism.common.level.multichunk;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public class MultiChunkFeatureConfig implements FeatureConfiguration {
+public class MultiChunkFeatureConfig {
 
     public static final Codec<MultiChunkFeatureConfig> CODEC = RecordCodecBuilder.create((kind1) -> {
         //CODEC = codec

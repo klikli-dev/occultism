@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -38,11 +39,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOtherworldBlock {
 
-    public static final TreeGrower TREE_GROWER = new TreeGrower("otherworld_natural", Optional.empty(), Optional.of(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL), Optional.empty());
+    public static final TreeGrower TREE_GROWER = new TreeGrower("otherworld_natural", WeightedList.of(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL), WeightedList.of(), WeightedList.of(), ConfiguredFeatures.TREE_OTHERWORLD_NATURAL);
 
 
     public OtherworldSaplingNaturalBlock(Properties properties) {

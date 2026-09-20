@@ -23,29 +23,18 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature;
-import com.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
-import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
-import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class OccultismFeatures {
 
-    public static final DeferredRegister<Feature<?>> FEATURES =
-            DeferredRegister.create(BuiltInRegistries.FEATURE, Occultism.MODID);
-
-    public static final Supplier<MultiChunkFeature> UNDERGROUND_GROVE_FEATURE =
-            FEATURES.register("underground_grove",
-                    () -> new MultiChunkFeature(
-                            MultiChunkFeatureConfig.CODEC,
-                            new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 40, 20)));
-
+    public static final DeferredRegister<Feature> FEATURES =
+            DeferredRegister.create(Registries.FEATURE, Occultism.MODID);
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier1, PlacementModifier modifier2) {
         return List.of(modifier1, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());

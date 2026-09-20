@@ -27,23 +27,23 @@ public class PlacedFeatures {
     public static final ResourceKey<PlacedFeature> GROVE_UNDERGROUND = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Occultism.MODID, "grove_underground"));
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-        PlacementUtils.register(context, ORE_SILVER, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_SILVER),
+        var features = context.lookup(Registries.FEATURE);
+        PlacementUtils.register(context, ORE_SILVER, features.getOrThrow(ConfiguredFeatures.ORE_SILVER),
                 commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-8), VerticalAnchor.absolute(92))));
 
-        PlacementUtils.register(context, ORE_SILVER_DEEPSLATE, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_SILVER_DEEPSLATE),
+        PlacementUtils.register(context, ORE_SILVER_DEEPSLATE, features.getOrThrow(ConfiguredFeatures.ORE_SILVER_DEEPSLATE),
                 commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-56), VerticalAnchor.absolute(8))));
 
-        PlacementUtils.register(context, ORE_IESNIUM, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_IESNIUM),
+        PlacementUtils.register(context, ORE_IESNIUM, features.getOrThrow(ConfiguredFeatures.ORE_IESNIUM),
                 commonOrePlacement(3, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(128))));
 
-        PlacementUtils.register(context, TREE_OTHERWORLD, configuredFeatures.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD),
+        PlacementUtils.register(context, TREE_OTHERWORLD, features.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD),
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get()));
 
-        PlacementUtils.register(context, TREE_OTHERWORLD_NATURAL, configuredFeatures.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL),
+        PlacementUtils.register(context, TREE_OTHERWORLD_NATURAL, features.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL),
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()));
 
-        PlacementUtils.register(context, GROVE_UNDERGROUND, configuredFeatures.getOrThrow(ConfiguredFeatures.GROVE_UNDERGROUND),
+        PlacementUtils.register(context, GROVE_UNDERGROUND, features.getOrThrow(ConfiguredFeatures.GROVE_UNDERGROUND),
                 List.of());
     }
 
