@@ -41,7 +41,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         var itemRegistry = this.registries.lookupOrThrow(Registries.ITEM);
         return new AddItemModifier(new LootItemCondition[]{
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
-                LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).build(),
+                MatchBlock.blockMatches(this.registries.lookupOrThrow(Registries.BLOCK), block).build(),
                 InvertedLootItemCondition.invert(
                         MatchTool.toolMatches(Builder.item().of(itemRegistry, Tags.Items.TOOLS_SHEAR))
                 ).build()

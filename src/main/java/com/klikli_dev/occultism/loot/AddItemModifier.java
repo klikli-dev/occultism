@@ -27,14 +27,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.AllOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class AddItemModifier extends LootModifier {
@@ -51,10 +54,27 @@ public class AddItemModifier extends LootModifier {
     private final Item addedItem;
     private final int count;
 
-    public AddItemModifier(LootItemCondition[] conditionsIn, int priority, Item addedItemIn, int count) {
-        super(conditionsIn, priority);
+    public AddItemModifier(Optional<Holder<LootItemCondition>> condition, int priority, Item addedItemIn, int count) {
+        super(condition, priority);
         this.addedItem = addedItemIn;
         this.count = count;
+    }
+
+    private static Optional<Holder<LootItemCondition>> combineConditions(LootItemCondition[] conditionsIn) {
+        if (conditionsIn.length == 0)
+            return Optional.empty();
+        if (conditionsIn.length == 1)
+            return Optional.of(Holder.direct(conditionsIn[0]));
+        LootItemCondition.Builder[] builders = new LootItemCondition.Builder[conditionsIn.length];
+        for (int i = 0; i < conditionsIn.length; i++) {
+            LootItemCondition condition = conditionsIn[i];
+            builders[i] = () -> condition;
+        }
+        return Optional.of(Holder.direct(AllOfCondition.allOf(builders).build()));
+    }
+
+    public AddItemModifier(LootItemCondition[] conditionsIn, int priority, Item addedItemIn, int count) {
+        this(combineConditions(conditionsIn), priority, addedItemIn, count);
     }
 
     public AddItemModifier(LootItemCondition[] conditionsIn, Item addedItemIn, int count) {
