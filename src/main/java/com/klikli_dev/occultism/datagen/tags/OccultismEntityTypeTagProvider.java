@@ -231,6 +231,36 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityTypeIds.NAUTILUS)
                 .add(EntityTypeIds.ZOMBIE_NAUTILUS)
                 .add(EntityTypeIds.CAMEL_HUSK);
+
+        this.tag(Entities.FRIENDS_AQUATIC)
+                .addTag(EntityTypeTags.AQUATIC);
+
+        this.tag(Entities.FRIENDS_FOREST)
+                .addTag(Entities.CREEPER)
+                .addTag(Entities.WITCH)
+                .addTag(EntityTypeTags.ILLAGER_FRIENDS)
+                .addTag(EntityTypeTags.ARTHROPOD);
+
+        this.tag(Entities.FRIENDS_ABERRATIONS)
+                .addTag(Entities.WARDEN)
+                .addTag(Entities.ENDERMEN)
+                .add(EntityTypeIds.CREAKING)
+                .add(EntityTypeIds.SHULKER)
+                .add(EntityTypeIds.VEX)
+                .add(this.key(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get()))
+                .add(this.key(OccultismEntities.POSSESSED_SHULKER_TYPE.get()));
+
+        this.tag(Entities.FRIENDS_NETHER)
+                .addTag(EntityTypeTags.WITHER_FRIENDS)
+                .add(EntityTypeIds.PIGLIN)
+                .add(EntityTypeIds.PIGLIN_BRUTE)
+                .add(EntityTypeIds.GHAST)
+                .add(EntityTypeIds.BLAZE)
+                .add(this.key(OccultismEntities.POSSESSED_GHAST_TYPE.get()))
+                .add(this.key(OccultismEntities.POSSESSED_BLAZE_TYPE.get()));
+
+        this.tag(Entities.NAUTILUS)
+                .add(EntityTypeIds.NAUTILUS);
     }
 
     private void addCommonTags() {
@@ -282,6 +312,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(EntityTypeTags.AQUATIC)
                 .add(this.key(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get()))
                 .add(this.key(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get()));
+        this.tag(EntityTypeTags.BEEHIVE_INHABITORS)
+                .add(this.key(OccultismEntities.POSSESSED_BEE_TYPE.get()));
         this.tag(EntityTypeTags.ARTHROPOD)
                 .add(this.key(OccultismEntities.POSSESSED_BEE_TYPE.get()))
                 .add(this.key(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get()))

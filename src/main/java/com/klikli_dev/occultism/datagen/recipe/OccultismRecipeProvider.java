@@ -2,7 +2,6 @@ package com.klikli_dev.occultism.datagen.recipe;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
-import com.klikli_dev.occultism.crafting.recipe.PasteRepairItemRecipe;
 import com.klikli_dev.occultism.datagen.recipe.builders.SpiritFireRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -476,8 +475,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     private void craftingRecipes(RecipeOutput pRecipeOutput, HolderGetter<Item> items) {
-        SpecialRecipeBuilder.special(PasteRepairItemRecipe::new).save(pRecipeOutput,
-                ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("minecraft", "repair_item")));
+        //Note: the minecraft:repair_item override (PasteRepairItemRecipe) lives as a static file in
+        //src/main/resources/data/minecraft/recipe/repair_item.json because namespaced datagen output cannot emit it.
         SpecialRecipeBuilder.special(BoundBookOfBindingRecipe::new).save(pRecipeOutput,
                 ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID, "crafting/bound_book_of_binding")));
 

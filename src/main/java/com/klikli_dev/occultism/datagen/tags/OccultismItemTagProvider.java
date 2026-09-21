@@ -170,6 +170,18 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
                 .add(this.key(OccultismItems.BOOK_OF_BINDING_AFRIT.get()))
                 .add(this.key(OccultismItems.BOOK_OF_BINDING_MARID.get()));
 
+        this.tag(OccultismTags.Items.BATTLEFIELD_DENY_LIST)
+                .add(this.key(OccultismItems.SOUL_SHATTERED_ITEM.get()));
+
+        this.tag(OccultismTags.Items.BYPASS_INTERACTION)
+                .add(this.key(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .add(this.key(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get()))
+                .add(this.key(OccultismItems.SOUL_GEM_ITEM.get()))
+                .add(this.key(OccultismItems.TRINITY_GEM_ITEM.get()))
+                .add(this.key(OccultismItems.NATURE_PASTE.get()))
+                .add(this.key(OccultismItems.GRAY_PASTE.get()))
+                .add(this.key(OccultismItems.FLAMING_PASTE.get()));
+
         this.tag(OccultismTags.Items.BOOKS_FOR_EMPTY)
                 .add(this.key(Items.WRITABLE_BOOK))
                 .add(this.key(Items.WRITTEN_BOOK))
@@ -377,6 +389,9 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
                 .add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
                 .add(this.key(OccultismItems.SILVER_INGOT.get()))
                 .add(this.key(OccultismItems.IESNIUM_INGOT.get()));
+
+        this.tag(ItemTags.CREEPER_IGNITERS)
+                .add(this.key(OccultismItems.FLAMING_PASTE.get()));
     }
 
     private void addCommonTags(Provider provider) {
@@ -406,6 +421,12 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.copy(Tags.Blocks.CHAINS, Tags.Items.CHAINS);
         this.copy(BlockTags.DOORS, BlockItemTags.DOORS.item());
         this.copy(BlockTags.TRAPDOORS, BlockItemTags.TRAPDOORS.item());
+
+        this.tag(Tags.Items.TOOLS_IGNITER)
+                .add(this.key(OccultismItems.FLAMING_PASTE.get()));
+
+        this.tag(Tags.Items.BUCKETS_LAVA)
+                .add(this.key(OccultismItems.FLAMING_PASTE.get()));
 
         // Ore Blocks
         this.copy(Blocks.IESNIUM_ORE, OccultismTags.Items.IESNIUM_ORE);
@@ -517,6 +538,8 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.tag(OccultismTags.Items.FRUITS).add(this.key(Items.APPLE)).add(this.key(OccultismItems.PITAYA.get()));
 
         // Gems
+        this.tag(OccultismTags.Items.SPIRIT_ATTUNED_GEM)
+                .add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()));
         this.tag(Tags.Items.GEMS).add(this.key(OccultismItems.SPIRIT_ATTUNED_GEM.get()));
 
         // Magma
