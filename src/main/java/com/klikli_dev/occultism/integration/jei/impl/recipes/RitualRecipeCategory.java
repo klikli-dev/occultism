@@ -208,10 +208,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                             .replace("minecraft:entities/", "")
                             .replace("c:entities/", "")
                             .replace(":entities/", "_"))
-                    .ifPresent(mob -> builder.addSlot(RecipeIngredientRole.OUTPUT,
+                    //Not every summoned entity has a drops tag, skip the slot instead of failing the recipe.
+                    .flatMap(mob -> BuiltInRegistries.ITEM.get(OccultismTags.makeItemTag("occultism:drop_from/" + mob)))
+                    .ifPresent(drops -> builder.addSlot(RecipeIngredientRole.OUTPUT,
                                     this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                            .add(new TagSlotDisplay(
-                                    BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:drop_from/" + mob)))));
+                            .add(new TagSlotDisplay(drops)));
         }
         if (recipe.value().getEntityTagToSummon() != null) {
             var mob = recipe.value().getEntityTagToSummon().location().toString()
@@ -220,8 +221,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .replace("minecraft:", "")
                     .replace("c:", "")
                     .replace(":", "_");
-            builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .add(new TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob))));
+            BuiltInRegistries.ITEM.get(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob))
+                    .ifPresent(drops -> builder.addSlot(RecipeIngredientRole.OUTPUT,
+                                    this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
+                            .add(new TagSlotDisplay(drops)));
         }
 
         //draw ritual dummy item in upper left corner
