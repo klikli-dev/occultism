@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#c:wardens",
+    "#c:endermen",
+    "minecraft:creaking",
+    "minecraft:shulker",
+    "minecraft:vex",
+    "occultism:possessed_weak_shulker",
+    "occultism:possessed_shulker"
+  ]
+}
