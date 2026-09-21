@@ -4,6 +4,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.256.0] - 2026-09-21
+### :sparkles: New Features
+- [`2d5f5f7`](https://github.com/klikli-dev/occultism/commit/2d5f5f768360f7e6047befb27bc9cf683f324307) - add curios integration with impl/dummy split *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`fbd0cdc`](https://github.com/klikli-dev/occultism/commit/fbd0cdcb665c357f719d775a600b966b5eea3bfe) - adapt input and render pipeline APIs for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`45669e7`](https://github.com/klikli-dev/occultism/commit/45669e70392eb6b3226682b51a01d6d5d43cdf14) - adapt entity swing API for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`aa47b39`](https://github.com/klikli-dev/occultism/commit/aa47b39b6c1448b3c7a10a78302e4b9402c45056) - adapt tool items, advancements triggers, and invulnerability checks for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2c44057`](https://github.com/klikli-dev/occultism/commit/2c44057a4277e59bcac9f02d66eae43e1c628765) - adapt playerDestroy signatures for 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7045518`](https://github.com/klikli-dev/occultism/commit/70455185743cca2ad7d9c055794c44c70a2d2b14) - adapt blocks for removed codec, stripping, and leaves APIs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`285e642`](https://github.com/klikli-dev/occultism/commit/285e64210547f68fa84f6014812672b8be1eb06d) - continue 26.3 entity and block API port *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`8f7c50f`](https://github.com/klikli-dev/occultism/commit/8f7c50fb857bc0e5f7234dde54d03cb251a0717f) - port loot datagen and loot modifiers to 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f8cbaa1`](https://github.com/klikli-dev/occultism/commit/f8cbaa1a7c83023ac04bfeb117f6460d4bfc46d9) - port worldgen features to 26.3 feature interface *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`450f06d`](https://github.com/klikli-dev/occultism/commit/450f06dbe924439dc99e39989601171511c4fcd3) - port items, blocks, events, JEI and advancements to 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`86e83e5`](https://github.com/klikli-dev/occultism/commit/86e83e5c2d626fec1574818cada9d351b4f92531) - port recipe datagen to 26.3 bootstrap contexts *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`07eebc5`](https://github.com/klikli-dev/occultism/commit/07eebc53a025cf2a6a80690cd432f295f642075b) - stop dereferencing loot predicate holders during block datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1cdd22c`](https://github.com/klikli-dev/occultism/commit/1cdd22c7fe7e8028e634a71734667f1d06513efe) - repair 26.3 datagen registry wiring and lookups *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`880ea3d`](https://github.com/klikli-dev/occultism/commit/880ea3d60ac2585e4a74bf34357c1f9b441acba9) - port feature type registration, trim palettes and curios metadata to 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5f4a6c7`](https://github.com/klikli-dev/occultism/commit/5f4a6c7784924a5a6b7f054e4841d632eb7141f1) - restore tag providers dropped in port and static repair recipe override *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ce67b64`](https://github.com/klikli-dev/occultism/commit/ce67b64fcde69c6871d8eeacf277590758f410f4) - lenient recipe display tags and 26.3 trim palette layout *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c819740`](https://github.com/klikli-dev/occultism/commit/c819740fd6dab8d76345034acc2ff8c6c41f96cd) - decouple familiar items from hard curios references for curios-less runtime *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6794782`](https://github.com/klikli-dev/occultism/commit/6794782c3ce405eda337765421de3841c583be24) - skip JEI ritual drop slots leniently when tags are missing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3fe2c57`](https://github.com/klikli-dev/occultism/commit/3fe2c57a6815c7a2d7e59aa2c50d14da462709b1) - restore axe stripping via data map, grove sub-features and config parity *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3fa551c`](https://github.com/klikli-dev/occultism/commit/3fa551c5d568d06b0fefc13607eb566deb0f7b1d) - migrate furnace fuels and compostables from data maps to 26.3 components *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`631457c`](https://github.com/klikli-dev/occultism/commit/631457c6a4a76523998ad419b7e550bd4ab7a143) - use published theurgy 1.118.0 instead of unpublished local 1.118.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :recycle: Refactors
+- [`387cbc5`](https://github.com/klikli-dev/occultism/commit/387cbc54abf2cf99e2ce39ad9635c3abce863b17) - route all curios access through curios integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`fce5b84`](https://github.com/klikli-dev/occultism/commit/fce5b844b1e88bfa053caf342fdf3908478b0f33) - update dependencies to 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5fe12a3`](https://github.com/klikli-dev/occultism/commit/5fe12a389815488364f2532a4a2c088f824da229) - exclude curios impl from source set until 26.3 build ships *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6f6ecfb`](https://github.com/klikli-dev/occultism/commit/6f6ecfb5f5ae9b661752450b44d65902981caaa4) - refresh generated data for 26.3 formats and loot predicates *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5a79c03`](https://github.com/klikli-dev/occultism/commit/5a79c03de2d7a19e242e22deff690850c6021fab) - regenerate restored friends, deny list and common tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`d41ae3f`](https://github.com/klikli-dev/occultism/commit/d41ae3f0415e1fbbdabd7a81c0e99a45119c8e34) - refresh grove flower chance after config fix *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.2-1.255.0] - 2026-09-15
 ### :sparkles: New Features
 - [`f5ccf51`](https://github.com/klikli-dev/occultism/commit/f5ccf513d8252bd0bbf70575181db21d87375c98) - port Familiar Improvements and Balance ([#1700](https://github.com/klikli-dev/occultism/pull/1700)) to 26.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2865,3 +2902,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.253.1]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.0...release/v26.2-1.253.1
 [release/v26.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.1...release/v26.2-1.254.0
 [release/v26.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.254.0...release/v26.2-1.255.0
+[release/v26.3-1.256.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-0.0.0...release/v26.3-1.256.0
