@@ -55,10 +55,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.function.Consumer;
 
@@ -69,8 +68,11 @@ public class FamiliarRingItem extends Item {
     }
 
     private static Curio getCurio(ItemStack stack) {
-        ICurio icurio = stack.getCapability(CuriosCapability.ITEM);
-        if (icurio != null && icurio instanceof Curio curio) {
+        //Curios may be missing (no compatible release); never touch its classes then.
+        if (!ModList.get().isLoaded("curios"))
+            return null;
+        Object capability = stack.getCapability(CuriosCapability.ITEM);
+        if (capability instanceof Curio curio) {
             return curio;
         }
         return null;
@@ -112,7 +114,8 @@ public class FamiliarRingItem extends Item {
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target,
                                                   InteractionHand hand) {
         if (!playerIn.level().isClientSide() && target instanceof IFamiliar familiar) {
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level(), familiar)) {
+            Curio curio = getCurio(stack);
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && curio != null && curio.captureFamiliar(playerIn.level(), familiar)) {
                 OccultismAdvancements.FAMILIAR.get().trigger(playerIn, Type.CAPTURE);
                 stack.set(OccultismDataComponents.OCCUPIED, true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getFamiliarEntity().getDisplayName().getString());
@@ -127,7 +130,8 @@ public class FamiliarRingItem extends Item {
     public InteractionResult useOn(UseOnContext pContext) {
 
         ItemStack stack = pContext.getPlayer().getItemInHand(pContext.getHand());
-        if (!pContext.getPlayer().level().isClientSide() && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
+        Curio curio = getCurio(stack);
+        if (!pContext.getPlayer().level().isClientSide() && curio != null && curio.releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
             stack.set(OccultismDataComponents.OCCUPIED, false);
             return InteractionResult.SUCCESS;
         }
@@ -167,7 +171,10 @@ public class FamiliarRingItem extends Item {
         }
     }
 
-    public static class Curio implements ICurio {
+    /**
+     * Curios-free holder for the familiar bound to a ring stack, see {@link FamiliarCurio.Curio}.
+     */
+    public static class Curio {
         private final ItemStack stack;
         private IFamiliar familiar;
         private CompoundTag cachedNbt;
@@ -218,9 +225,7 @@ public class FamiliarRingItem extends Item {
             return this.stack;
         }
 
-        @Override
-        public void curioTick(SlotContext slotContext) {
-            LivingEntity entity = slotContext.entity();
+        public void curioTick(LivingEntity entity) {
             Level level = entity.level();
             IFamiliar familiar = this.getFamiliar(level);
             if (familiar != null) {

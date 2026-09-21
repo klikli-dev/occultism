@@ -20,7 +20,9 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
@@ -278,7 +280,7 @@ public class CuriosIntegrationImpl implements CuriosIntegration {
         event.registerItem(
                 CuriosCapability.ITEM, // capability to register for
                 (itemStack, context) -> {
-                    return new FamiliarCurio.Curio(itemStack);
+                    return new FamiliarCurioAdapter(itemStack);
                 },
                 // items to register for
                 OccultismItems.FAMILIAR_RING.get(),
@@ -293,5 +295,19 @@ public class CuriosIntegrationImpl implements CuriosIntegration {
                 OccultismItems.INFUSED_PICKAXE.get(),
                 OccultismItems.INFUSED_AXE.get(),
                 OccultismItems.INFUSED_HOE.get());
+    }
+
+    /**
+     * Adapts the curios-free {@link FamiliarCurio.Curio} holder to the Curios API.
+     */
+    public static class FamiliarCurioAdapter extends FamiliarCurio.Curio implements ICurio {
+        public FamiliarCurioAdapter(ItemStack stack) {
+            super(stack);
+        }
+
+        @Override
+        public void curioTick(SlotContext slotContext) {
+            this.curioTick(slotContext.entity());
+        }
     }
 }

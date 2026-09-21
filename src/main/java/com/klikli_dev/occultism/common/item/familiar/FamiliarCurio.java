@@ -33,10 +33,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import net.neoforged.fml.ModList;
 import org.jspecify.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +43,11 @@ import java.util.function.Consumer;
 
 public interface FamiliarCurio {
     static Curio getCurio(ItemStack stack) {
-        ICurio icurio = stack.getCapability(CuriosCapability.ITEM);
-        if (icurio instanceof Curio curio) {
+        //Curios may be missing (no compatible release); never touch its classes then.
+        if (!ModList.get().isLoaded("curios"))
+            return null;
+        Object capability = stack.getCapability(CuriosCapability.ITEM);
+        if (capability instanceof Curio curio) {
             return curio;
         }
         return null;
@@ -94,7 +96,7 @@ public interface FamiliarCurio {
         if (slot != null && (slot.isArmor() || equippedTool(itemStack, slot))
                     && owner instanceof LivingEntity living
                     && FamiliarCurio.getCurio(itemStack) instanceof Curio curio)
-            curio.curioTick(new SlotContext(slot.name(), living, slot.getIndex(), false, true));
+            curio.curioTick(living);
     }
 
     private boolean equippedTool(ItemStack itemStack, EquipmentSlot slot) {
@@ -134,7 +136,14 @@ public interface FamiliarCurio {
         return InteractionResult.CONSUME;
     }
 
-    class Curio implements ICurio {
+    /**
+     * Curios-free holder for the familiars bound to an item stack.
+     *
+     * <p>Kept free of Curios API types so item classes can load and reflect
+     * without Curios installed. The Curios capability adapter lives in the
+     * version-gated integration impl and subclasses this holder.</p>
+     */
+    public class Curio {
         private final ItemStack stack;
         private final List<IFamiliar> familiars = new ArrayList<>();
         private final List<CompoundTag> cachedNbt = new ArrayList<>();
@@ -174,9 +183,7 @@ public interface FamiliarCurio {
             return true;
         }
 
-        @Override
-        public void curioTick(SlotContext slotContext) {
-            LivingEntity entity = slotContext.entity();
+        public void curioTick(LivingEntity entity) {
             Level level = entity.level();
 
             for (IFamiliar familiar : this.getFamiliars(level)) {
