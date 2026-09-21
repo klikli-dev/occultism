@@ -4,7 +4,7 @@
     "ceiling_light_chance": 0.1,
     "chance_to_generate": 300,
     "feature_seed_salt": 14653667,
-    "flower_chance": 0.3,
+    "flower_chance": 0.2,
     "grass_chance": 0.3,
     "max_chunks_to_root": 9,
     "max_generation_height": 48,
