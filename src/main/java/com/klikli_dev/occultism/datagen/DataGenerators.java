@@ -48,6 +48,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootPredicates;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent.Client;
@@ -61,15 +62,14 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(Client event) {
         DataGenerator generator = event.getGenerator();
-        var lookup = event.getReloadableLookupProvider();
 
         // Register world registry objects (biomes, features, enchantments) and datapack entries
         event.createWorldRegistryObjects(OccultismRegistries.WORLD_BUILDER);
-        event.createReloadableRegistryObjects(OccultismRegistries.RELOADABLE_BUILDER);
 
-        // Register advancements and recipes via reloadable registry objects
+        // Register all reloadable registries (advancements, recipes, loot tables) in one call
         event.createReloadableRegistryObjects(
                 new RegistrySetBuilder()
+                        .add(Registries.PREDICATE, LootPredicates::bootstrap)
                         .add(Registries.ADVANCEMENT, new AdvancementProvider(List.of(
                                 OccultismAdvancementSubProvider::new
                         )))
@@ -90,6 +90,10 @@ public class DataGenerators {
                         }),
                 Set.of(Occultism.MODID)
         );
+
+        //Fetch the lookup only after registering world and reloadable entries, otherwise
+        //it resolves to the vanilla registries and datapack references (e.g. enchantments) fail validation.
+        var lookup = event.getReloadableLookupProvider();
 
         generator.addProvider(true, new PentacleProvider(generator));
 

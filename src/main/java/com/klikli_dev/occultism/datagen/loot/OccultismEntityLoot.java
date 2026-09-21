@@ -41,6 +41,16 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
     }
 
     @Override
+    public void run() {
+        //Vanilla run() requires a loot table for every known entity type, including vanilla
+        //entities this provider does not cover (and rejects our occultism:battlefield tables
+        //registered under custom keys for vanilla types). Emit exactly the tables registered
+        //in generate(), restoring the pre-26.3 behavior.
+        this.generate();
+        this.map.forEach((type, tables) -> tables.forEach(this.output::accept));
+    }
+
+    @Override
     public void generate() {
         this.battlefieldLoot(EntityTypes.WITHER, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ContextIntProviders.exactly(1))

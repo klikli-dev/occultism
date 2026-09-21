@@ -420,6 +420,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER, this.key(OccultismBlocks.SILVER_BLOCK.get()));
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM, this.key(OccultismBlocks.RAW_IESNIUM_BLOCK.get()));
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER, this.key(OccultismBlocks.RAW_SILVER_BLOCK.get()));
+        this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, this.key(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get()));
         this.tag(OccultismTags.Blocks.MUSHROOM_BLOCKS).add(this.key(Blocks.MUSHROOM_STEM)).add(this.key(Blocks.RED_MUSHROOM_BLOCK)).add(this.key(Blocks.BROWN_MUSHROOM_BLOCK));
         this.tag(OccultismTags.Blocks.ENCHANTING_TABLES).add(this.key(Blocks.ENCHANTING_TABLE));
         this.tag(OccultismTags.Blocks.IRON_BARS).add(this.key(Blocks.IRON_BARS));

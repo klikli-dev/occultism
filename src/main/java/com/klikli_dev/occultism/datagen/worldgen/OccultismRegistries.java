@@ -12,9 +12,9 @@ public class OccultismRegistries {
             .add(Registries.FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap)
             .add(Registries.BIOME, OccultismRegistries::bootstrapBiomes)
-            .add(Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap);
-
-    public static final RegistrySetBuilder RELOADABLE_BUILDER = (new RegistrySetBuilder())
+            .add(Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap)
+            //Enchantments are part of the world (non-reloadable) layer in 26.3,
+            //they must be bootstrapped here so tags and other providers can resolve them.
             .add(Registries.ENCHANTMENT, OccultismEnchantments::bootstrap);
 
     public static void bootstrapBiomes(BootstrapContext<Biome> context) {

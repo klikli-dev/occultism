@@ -504,7 +504,7 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.copy(Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
         this.copy(Blocks.STORAGE_BLOCKS_SPIRIT_ATTUNED, OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         //noinspection unchecked
-        this.tag(Tags.Items.STORAGE_BLOCKS).addTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_SILVER).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER);
+        this.tag(Tags.Items.STORAGE_BLOCKS).addTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_SILVER).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM).addTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).addTag(OccultismTags.Items.STORAGE_BLOCK_SPIRIT_ATTUNED);
         this.copy(Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
         this.copy(Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);
