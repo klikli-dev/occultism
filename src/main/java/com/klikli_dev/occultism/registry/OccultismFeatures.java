@@ -33,9 +33,8 @@ import java.util.List;
 
 public class OccultismFeatures {
 
-    public static final DeferredRegister<Feature> FEATURES =
-            DeferredRegister.create(Registries.FEATURE, Occultism.MODID);
-
+    //Note: Registries.FEATURE now holds configured feature instances (see datagen ConfiguredFeatures),
+    //only the feature *types* (codecs) are registered here.
     public static final DeferredRegister<com.mojang.serialization.MapCodec<? extends Feature>> FEATURE_TYPES =
             DeferredRegister.create(Registries.FEATURE_TYPE, Occultism.MODID);
 

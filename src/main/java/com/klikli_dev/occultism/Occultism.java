@@ -104,7 +104,6 @@ public class Occultism {
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
-        OccultismFeatures.FEATURES.register(modEventBus);
         OccultismFeatures.FEATURE_TYPES.register(modEventBus);
         OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
         OccultismSensors.SENSORS.register(modEventBus);

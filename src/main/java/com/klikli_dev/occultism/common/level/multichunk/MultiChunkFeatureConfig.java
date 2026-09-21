@@ -88,7 +88,7 @@ public class MultiChunkFeatureConfig {
         this.minGenerationHeight = minGenerationHeight;
         this.maxGenerationHeight = maxGenerationHeight;
         this.grassChance = grassChance;
-        this.flowerChance = grassChance;
+        this.flowerChance = flowerChance;
         this.treeChance = treeChance;
         this.vineChance = vineChance;
         this.ceilingLightChance = ceilingLightChance;

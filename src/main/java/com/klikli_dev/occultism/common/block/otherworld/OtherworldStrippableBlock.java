@@ -36,7 +36,6 @@ public class OtherworldStrippableBlock extends RotatedPillarBlock {
         this.strippedState = stateSupplier;
     }
 
-    //TODO 26.3: Block.getToolModifiedState and ItemAbilities.AXE_STRIP were removed, stripping is now driven by
-    //the item's BLOCK_TRANSFORMER component (vanilla axe map). Reintroduce custom stripping via a BlockTransformer
-    //datapack entry if needed.
+    //Note: axe stripping is handled by the neoforge:strippables block data map
+    //(see data/neoforge/data_maps/block/strippables.json), common properties such as the axis are copied automatically.
 }

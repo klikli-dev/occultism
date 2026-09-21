@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.level.multichunk;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class MultiChunkFeature implements Feature {
 
@@ -54,6 +56,11 @@ public class MultiChunkFeature implements Feature {
     @Override
     public MapCodec<MultiChunkFeature> codec() {
         return CODEC;
+    }
+
+    @Override
+    public Stream<Holder<Feature>> getSubFeatures() {
+        return this.config.otherworldTreeFeature.value().getFeatures();
     }
 
     public static long getLargeFeatureWithSaltSeed(long pLevelSeed, int pRegionX, int pRegionZ, int pSalt) {

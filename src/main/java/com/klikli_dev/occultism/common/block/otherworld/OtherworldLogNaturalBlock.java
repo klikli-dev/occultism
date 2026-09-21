@@ -36,8 +36,6 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -85,8 +83,7 @@ public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOt
         super.createBlockStateDefinition(builder);
     }
 
-    //TODO 26.3: Block.getToolModifiedState and ItemAbilities.AXE_STRIP were removed, stripping is now driven by
-    //the item's BLOCK_TRANSFORMER component (vanilla axe map). Reintroduce custom stripping via a BlockTransformer
-    //datapack entry if needed.
+    //Note: axe stripping is handled by the neoforge:strippables block data map
+    //(see data/neoforge/data_maps/block/strippables.json), common properties such as the axis are copied automatically.
 
 }
