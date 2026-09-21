@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.core.registries.BuiltInRegistries;
+import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -35,6 +35,13 @@ public class OccultismFeatures {
 
     public static final DeferredRegister<Feature> FEATURES =
             DeferredRegister.create(Registries.FEATURE, Occultism.MODID);
+
+    public static final DeferredRegister<com.mojang.serialization.MapCodec<? extends Feature>> FEATURE_TYPES =
+            DeferredRegister.create(Registries.FEATURE_TYPE, Occultism.MODID);
+
+    static {
+        FEATURE_TYPES.register("underground_grove", () -> MultiChunkFeature.CODEC);
+    }
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier1, PlacementModifier modifier2) {
         return List.of(modifier1, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());

@@ -58,11 +58,11 @@ type = "optional"
 versionRange = "[${theurgy_version},)"
 side = "BOTH"
 
-[[dependencies.${ mod_id }]]
-modId = "curios"
-type = "required"
-versionRange = "[${curios_version},)"
-side = "BOTH"
+#[[dependencies.${ mod_id }]]
+#modId = "curios"
+#type = "required"
+#versionRange = "[${curios_version},)"
+#side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "geckolib"
