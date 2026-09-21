@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/anglesite"
+        "recipes": "occultism:miners/iron/anglesite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

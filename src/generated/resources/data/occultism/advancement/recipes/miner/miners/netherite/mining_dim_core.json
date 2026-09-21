@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/netherite/mining_dim_core"
+        "recipes": "occultism:miners/netherite/mining_dim_core"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

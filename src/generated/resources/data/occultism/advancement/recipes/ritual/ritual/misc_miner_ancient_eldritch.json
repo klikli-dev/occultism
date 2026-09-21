@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/misc_miner_ancient_eldritch"
+        "recipes": "occultism:ritual/misc_miner_ancient_eldritch"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

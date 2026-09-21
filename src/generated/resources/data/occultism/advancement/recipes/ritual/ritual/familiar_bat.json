@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_bat"
+        "recipes": "occultism:ritual/familiar_bat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:ore",
+  "discard_chance_on_air_exposure": 0.0,
+  "size": 3,
+  "targets": [
+    {
+      "state": "occultism:iesnium_ore_natural",
+      "target": {
+        "predicate_type": "minecraft:tag_match",
+        "tag": "minecraft:base_stone_nether"
+      }
+    }
+  ]
+}

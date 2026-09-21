@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/chalk_white_impure2"
+        "recipes": "occultism:crafting/chalk_white_impure2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

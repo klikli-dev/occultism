@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherglass"
+        "recipes": "occultism:crafting/otherglass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

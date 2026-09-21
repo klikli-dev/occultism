@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_trade/gambler_lazuli"
+        "recipes": "occultism:spirit_trade/gambler_lazuli"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/otherworld_essence"
+        "recipes": "occultism:spirit_fire/otherworld_essence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

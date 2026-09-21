@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/budding_amethyst"
+        "recipes": "occultism:crystallize/budding_amethyst"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

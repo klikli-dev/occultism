@@ -3,14 +3,12 @@
   "criteria": {
     "chalk_yellow": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "items": "occultism:chalk_yellow"
-            }
+        "location": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "occultism:chalk_yellow"
           }
-        ]
+        }
       },
       "trigger": "minecraft:any_block_use"
     }

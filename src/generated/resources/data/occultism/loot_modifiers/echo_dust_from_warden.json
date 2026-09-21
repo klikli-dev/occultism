@@ -1,29 +1,32 @@
 {
   "type": "occultism:add_item",
-  "conditions": [
-    {
-      "condition": "minecraft:entity_properties",
-      "entity": "attacker",
-      "predicate": {
-        "minecraft:equipment": {
-          "mainhand": {
-            "items": "#occultism:tools/knife/iesnium"
+  "condition": {
+    "type": "minecraft:all_of",
+    "terms": [
+      {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:equipment": {
+            "mainhand": {
+              "items": "#occultism:tools/knife/iesnium"
+            }
           }
         }
+      },
+      {
+        "type": "minecraft:random_chance",
+        "chance": 1.0
+      },
+      {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:warden"
+        }
       }
-    },
-    {
-      "chance": 1.0,
-      "condition": "minecraft:random_chance"
-    },
-    {
-      "condition": "minecraft:entity_properties",
-      "entity": "this",
-      "predicate": {
-        "minecraft:entity_type": "minecraft:warden"
-      }
-    }
-  ],
+    ]
+  },
   "count": 1,
   "item": "occultism:echo_dust"
 }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/lead"
+        "recipes": "occultism:miners/basic/lead"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

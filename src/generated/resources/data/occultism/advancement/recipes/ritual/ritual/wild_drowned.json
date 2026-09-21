@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/wild_drowned"
+        "recipes": "occultism:ritual/wild_drowned"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

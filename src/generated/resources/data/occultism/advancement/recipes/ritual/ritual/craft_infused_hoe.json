@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_infused_hoe"
+        "recipes": "occultism:ritual/craft_infused_hoe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

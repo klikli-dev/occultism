@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_infused_lenses"
+        "recipes": "occultism:ritual/craft_infused_lenses"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

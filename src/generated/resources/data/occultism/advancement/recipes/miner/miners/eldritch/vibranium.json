@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/eldritch/vibranium"
+        "recipes": "occultism:miners/eldritch/vibranium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

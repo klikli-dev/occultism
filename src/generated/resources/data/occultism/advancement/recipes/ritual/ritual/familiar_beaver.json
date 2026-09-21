@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_beaver"
+        "recipes": "occultism:ritual/familiar_beaver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

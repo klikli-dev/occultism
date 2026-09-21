@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/diamond/netherite_scrap"
+        "recipes": "occultism:miners/diamond/netherite_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

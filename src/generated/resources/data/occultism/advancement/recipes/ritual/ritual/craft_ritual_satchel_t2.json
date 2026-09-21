@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_ritual_satchel_t2"
+        "recipes": "occultism:ritual/craft_ritual_satchel_t2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

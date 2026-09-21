@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/repair_armors"
+        "recipes": "occultism:ritual/repair_armors"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

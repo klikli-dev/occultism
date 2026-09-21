@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/annealed_copper_dust_from_ingot"
+        "recipes": "occultism:crushing/annealed_copper_dust_from_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

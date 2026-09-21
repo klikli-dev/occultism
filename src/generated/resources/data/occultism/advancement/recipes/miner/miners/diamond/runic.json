@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/diamond/runic"
+        "recipes": "occultism:miners/diamond/runic"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/resurrect_mob"
+        "recipes": "occultism:ritual/resurrect_mob"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

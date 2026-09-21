@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/sapphire"
+        "recipes": "occultism:miners/basic/sapphire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

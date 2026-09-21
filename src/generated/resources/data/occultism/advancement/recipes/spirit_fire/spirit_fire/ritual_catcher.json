@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/ritual_catcher"
+        "recipes": "occultism:spirit_fire/ritual_catcher"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/wind_charge_from_rod"
+        "recipes": "occultism:crushing/wind_charge_from_rod"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

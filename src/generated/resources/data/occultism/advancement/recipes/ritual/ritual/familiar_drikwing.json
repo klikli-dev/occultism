@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_drikwing"
+        "recipes": "occultism:ritual/familiar_drikwing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

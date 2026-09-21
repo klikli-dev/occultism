@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_djinni_manage_machine"
+        "recipes": "occultism:ritual/summon_djinni_manage_machine"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

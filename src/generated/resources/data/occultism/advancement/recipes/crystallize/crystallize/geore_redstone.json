@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_redstone"
+        "recipes": "occultism:crystallize/geore_redstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

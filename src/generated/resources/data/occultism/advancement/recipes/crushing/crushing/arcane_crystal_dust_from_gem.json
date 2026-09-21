@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/arcane_crystal_dust_from_gem"
+        "recipes": "occultism:crushing/arcane_crystal_dust_from_gem"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

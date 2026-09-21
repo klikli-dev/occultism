@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/possess_weak_shulker"
+        "recipes": "occultism:ritual/possess_weak_shulker"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

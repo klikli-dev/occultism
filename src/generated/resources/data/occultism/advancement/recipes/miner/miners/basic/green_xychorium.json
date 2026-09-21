@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/green_xychorium"
+        "recipes": "occultism:miners/basic/green_xychorium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

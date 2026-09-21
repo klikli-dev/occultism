@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/crimson_iron"
+        "recipes": "occultism:miners/iron/crimson_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

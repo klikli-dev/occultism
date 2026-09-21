@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_monazite"
+        "recipes": "occultism:crystallize/geore_monazite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

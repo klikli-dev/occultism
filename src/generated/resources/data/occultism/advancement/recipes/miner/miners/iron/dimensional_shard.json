@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/dimensional_shard"
+        "recipes": "occultism:miners/iron/dimensional_shard"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

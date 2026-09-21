@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_afrit_thunder_weather"
+        "recipes": "occultism:ritual/summon_afrit_thunder_weather"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/storage_controller"
+        "recipes": "occultism:crafting/storage_controller"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

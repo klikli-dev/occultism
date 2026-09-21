@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/draconium"
+        "recipes": "occultism:miners/basic/draconium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

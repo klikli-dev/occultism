@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/iridium"
+        "recipes": "occultism:miners/iron/iridium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

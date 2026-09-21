@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/tanzanite"
+        "recipes": "occultism:miners/iron/tanzanite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

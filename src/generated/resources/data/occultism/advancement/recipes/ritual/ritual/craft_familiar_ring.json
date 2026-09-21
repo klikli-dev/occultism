@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_familiar_ring"
+        "recipes": "occultism:ritual/craft_familiar_ring"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

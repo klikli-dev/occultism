@@ -8,15 +8,13 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "occultism:otherglass_natural",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "uncovered": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "occultism:otherglass_natural",
+                "state": {
+                  "uncovered": "true"
                 }
-              ],
+              },
               "name": "occultism:otherglass_natural"
             },
             {
@@ -26,7 +24,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:blocks/otherglass_natural"

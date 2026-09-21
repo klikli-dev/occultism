@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_item"
+        "recipes": "occultism:crushing/coal_dust_from_item"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_infused_axe"
+        "recipes": "occultism:ritual/craft_infused_axe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

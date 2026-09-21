@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/platinum"
+        "recipes": "occultism:miners/iron/platinum"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

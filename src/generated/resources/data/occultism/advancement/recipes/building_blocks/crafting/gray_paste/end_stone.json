@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/gray_paste/end_stone"
+        "recipes": "occultism:crafting/gray_paste/end_stone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

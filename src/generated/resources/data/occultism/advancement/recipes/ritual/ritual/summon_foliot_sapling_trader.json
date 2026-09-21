@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_foliot_sapling_trader"
+        "recipes": "occultism:ritual/summon_foliot_sapling_trader"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

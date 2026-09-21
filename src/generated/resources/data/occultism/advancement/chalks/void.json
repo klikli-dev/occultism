@@ -3,14 +3,12 @@
   "criteria": {
     "chalk_void": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "items": "occultism:chalk_void"
-            }
+        "location": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "occultism:chalk_void"
           }
-        ]
+        }
       },
       "trigger": "minecraft:any_block_use"
     }

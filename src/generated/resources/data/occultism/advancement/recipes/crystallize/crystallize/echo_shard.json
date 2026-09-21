@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/echo_shard"
+        "recipes": "occultism:crystallize/echo_shard"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

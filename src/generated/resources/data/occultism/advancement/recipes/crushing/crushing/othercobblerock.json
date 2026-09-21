@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/othercobblerock"
+        "recipes": "occultism:crushing/othercobblerock"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

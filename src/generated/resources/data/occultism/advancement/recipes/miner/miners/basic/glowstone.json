@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/glowstone"
+        "recipes": "occultism:miners/basic/glowstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

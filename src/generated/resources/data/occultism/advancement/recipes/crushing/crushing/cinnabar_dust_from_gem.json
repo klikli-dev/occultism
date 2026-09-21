@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/cinnabar_dust_from_gem"
+        "recipes": "occultism:crushing/cinnabar_dust_from_gem"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

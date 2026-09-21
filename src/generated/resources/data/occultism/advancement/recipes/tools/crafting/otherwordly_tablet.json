@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherwordly_tablet"
+        "recipes": "occultism:crafting/otherwordly_tablet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

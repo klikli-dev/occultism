@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_gold"
+        "recipes": "occultism:crystallize/geore_gold"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

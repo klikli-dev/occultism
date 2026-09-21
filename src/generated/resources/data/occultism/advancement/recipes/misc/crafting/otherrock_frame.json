@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherrock_frame"
+        "recipes": "occultism:crafting/otherrock_frame"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

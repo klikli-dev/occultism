@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_chain"
+        "recipes": "occultism:crafting/silver_chain"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/misc_bedrock_gem_cluster"
+        "recipes": "occultism:ritual/misc_bedrock_gem_cluster"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

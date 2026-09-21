@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_cthulhu"
+        "recipes": "occultism:ritual/familiar_cthulhu"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

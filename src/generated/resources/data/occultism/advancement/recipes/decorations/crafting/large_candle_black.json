@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/large_candle_black"
+        "recipes": "occultism:crafting/large_candle_black"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

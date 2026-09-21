@@ -1,16 +1,14 @@
 {
   "type": "minecraft:entity",
-  "functions": [
-    {
-      "count": {
-        "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 0.0
-      },
-      "enchantment": "minecraft:looting",
-      "function": "minecraft:enchanted_count_increase"
-    }
-  ],
+  "modifier": {
+    "type": "minecraft:enchanted_count_increase",
+    "count": {
+      "type": "minecraft:uniform",
+      "max": 2.0,
+      "min": 0.0
+    },
+    "enchantment": "minecraft:looting"
+  },
   "pools": [
     {
       "entries": [
@@ -31,16 +29,14 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:water"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:set_potion",
+            "id": "minecraft:water"
+          },
           "name": "minecraft:potion"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:entities/possessed_witch"

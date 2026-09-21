@@ -3,14 +3,12 @@
   "criteria": {
     "chalk_black": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "items": "occultism:chalk_black"
-            }
+        "location": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "occultism:chalk_black"
           }
-        ]
+        }
       },
       "trigger": "minecraft:any_block_use"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/emerald"
+        "recipes": "occultism:miners/iron/emerald"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:stonecutting/chiseled_otherstone_bricks_from_otherstone"
+        "recipes": "occultism:stonecutting/chiseled_otherstone_bricks_from_otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

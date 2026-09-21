@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/citrine"
+        "recipes": "occultism:miners/iron/citrine"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

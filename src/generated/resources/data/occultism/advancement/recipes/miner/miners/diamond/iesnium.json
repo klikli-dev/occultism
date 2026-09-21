@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/diamond/iesnium"
+        "recipes": "occultism:miners/diamond/iesnium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

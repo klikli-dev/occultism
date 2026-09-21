@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:smelting/cracked_otherstone_bricks"
+        "recipes": "occultism:smelting/cracked_otherstone_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

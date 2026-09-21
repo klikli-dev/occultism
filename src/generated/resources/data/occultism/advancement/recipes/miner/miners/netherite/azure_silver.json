@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/netherite/azure_silver"
+        "recipes": "occultism:miners/netherite/azure_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/otherstone"
+        "recipes": "occultism:crystallize/otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

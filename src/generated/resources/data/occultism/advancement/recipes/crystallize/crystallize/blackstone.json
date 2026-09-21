@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/blackstone"
+        "recipes": "occultism:crystallize/blackstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

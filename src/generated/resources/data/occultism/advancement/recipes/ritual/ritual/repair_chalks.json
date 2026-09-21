@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/repair_chalks"
+        "recipes": "occultism:ritual/repair_chalks"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

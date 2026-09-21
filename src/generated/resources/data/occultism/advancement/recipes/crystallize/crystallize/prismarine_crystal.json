@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/prismarine_crystal"
+        "recipes": "occultism:crystallize/prismarine_crystal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

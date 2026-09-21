@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/nickel"
+        "recipes": "occultism:miners/basic/nickel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

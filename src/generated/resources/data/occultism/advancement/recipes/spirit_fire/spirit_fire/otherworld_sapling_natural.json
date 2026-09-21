@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/otherworld_sapling_natural"
+        "recipes": "occultism:spirit_fire/otherworld_sapling_natural"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

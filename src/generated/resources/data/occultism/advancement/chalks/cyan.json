@@ -3,14 +3,12 @@
   "criteria": {
     "chalk_cyan": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "items": "occultism:chalk_cyan"
-            }
+        "location": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "occultism:chalk_cyan"
           }
-        ]
+        }
       },
       "trigger": "minecraft:any_block_use"
     }

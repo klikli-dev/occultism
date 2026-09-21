@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/brilliant"
+        "recipes": "occultism:miners/basic/brilliant"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

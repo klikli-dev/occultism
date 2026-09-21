@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_ruby"
+        "recipes": "occultism:crystallize/geore_ruby"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

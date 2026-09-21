@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/fluorite"
+        "recipes": "occultism:miners/basic/fluorite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

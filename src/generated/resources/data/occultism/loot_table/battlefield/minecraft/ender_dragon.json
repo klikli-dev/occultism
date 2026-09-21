@@ -13,22 +13,20 @@
           "name": "minecraft:dragon_egg"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
-      "conditions": [
-        {
-          "chance": 0.001,
-          "condition": "minecraft:random_chance"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:random_chance",
+        "chance": 0.001
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:elytra"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:battlefield/minecraft/ender_dragon"

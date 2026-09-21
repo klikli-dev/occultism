@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/book_of_binding_empty"
+        "recipes": "occultism:spirit_fire/book_of_binding_empty"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/misc_stabilized_storage"
+        "recipes": "occultism:ritual/misc_stabilized_storage"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

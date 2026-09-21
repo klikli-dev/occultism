@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/netherite_dust"
+        "recipes": "occultism:crafting/netherite_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

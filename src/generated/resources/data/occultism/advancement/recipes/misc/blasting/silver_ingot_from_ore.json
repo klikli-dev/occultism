@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:blasting/silver_ingot_from_ore"
+        "recipes": "occultism:blasting/silver_ingot_from_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

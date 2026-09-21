@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/taboo_book"
+        "recipes": "occultism:spirit_fire/taboo_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

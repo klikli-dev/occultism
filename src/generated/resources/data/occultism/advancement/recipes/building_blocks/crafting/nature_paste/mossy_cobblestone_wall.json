@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/nature_paste/mossy_cobblestone_wall"
+        "recipes": "occultism:crafting/nature_paste/mossy_cobblestone_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

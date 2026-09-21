@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/ender_pearl_dust_from_tag"
+        "recipes": "occultism:crushing/ender_pearl_dust_from_tag"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

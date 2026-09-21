@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/misc_wild_trim"
+        "recipes": "occultism:ritual/misc_wild_trim"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

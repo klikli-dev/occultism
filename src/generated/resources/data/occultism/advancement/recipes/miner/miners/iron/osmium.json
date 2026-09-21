@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/osmium"
+        "recipes": "occultism:miners/iron/osmium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

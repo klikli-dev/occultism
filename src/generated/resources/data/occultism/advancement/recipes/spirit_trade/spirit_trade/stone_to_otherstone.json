@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_trade/stone_to_otherstone"
+        "recipes": "occultism:spirit_trade/stone_to_otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

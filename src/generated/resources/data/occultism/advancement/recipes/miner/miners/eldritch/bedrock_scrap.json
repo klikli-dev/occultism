@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/eldritch/bedrock_scrap"
+        "recipes": "occultism:miners/eldritch/bedrock_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

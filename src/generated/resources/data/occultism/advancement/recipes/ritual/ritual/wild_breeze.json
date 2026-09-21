@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/wild_breeze"
+        "recipes": "occultism:ritual/wild_breeze"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/chalk_lime_impure"
+        "recipes": "occultism:crafting/chalk_lime_impure"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -8,7 +8,7 @@
           "name": "minecraft:trial_key"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -17,17 +17,15 @@
           "name": "minecraft:ominous_bottle"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.5
-          },
-          "function": "minecraft:set_count"
+      "modifier": {
+        "type": "minecraft:set_count",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 2,
+          "min": 0
         }
-      ],
-      "rolls": 1.0
+      },
+      "rolls": 1
     },
     {
       "entries": [
@@ -44,7 +42,7 @@
           "name": "minecraft:scrape_pottery_sherd"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -62,7 +60,7 @@
           "name": "minecraft:music_disc_creator_music_box"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:entities/possessed_weak_breeze"

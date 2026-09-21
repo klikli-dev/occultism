@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/wild_random_animal_special"
+        "recipes": "occultism:ritual/wild_random_animal_special"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

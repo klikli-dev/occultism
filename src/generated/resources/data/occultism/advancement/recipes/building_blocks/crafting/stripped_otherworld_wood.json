@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/stripped_otherworld_wood"
+        "recipes": "occultism:crafting/stripped_otherworld_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

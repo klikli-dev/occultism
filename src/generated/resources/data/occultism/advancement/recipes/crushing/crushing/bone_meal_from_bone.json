@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/bone_meal_from_bone"
+        "recipes": "occultism:crushing/bone_meal_from_bone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/antimony"
+        "recipes": "occultism:miners/basic/antimony"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

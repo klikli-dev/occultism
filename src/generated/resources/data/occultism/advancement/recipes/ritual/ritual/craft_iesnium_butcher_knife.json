@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_iesnium_butcher_knife"
+        "recipes": "occultism:ritual/craft_iesnium_butcher_knife"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

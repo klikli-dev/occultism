@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/lapis_from_dust"
+        "recipes": "occultism:crystallize/lapis_from_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -5,21 +5,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchanted_count_increase",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 1.0,
+              "min": 0.0
+            },
+            "enchantment": "minecraft:looting"
+          },
           "name": "occultism:cruelty_essence"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:entities/mercy_goat"

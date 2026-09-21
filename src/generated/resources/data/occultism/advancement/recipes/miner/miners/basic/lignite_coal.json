@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/lignite_coal"
+        "recipes": "occultism:miners/basic/lignite_coal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

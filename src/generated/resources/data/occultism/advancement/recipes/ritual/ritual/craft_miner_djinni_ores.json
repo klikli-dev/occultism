@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_miner_djinni_ores"
+        "recipes": "occultism:ritual/craft_miner_djinni_ores"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

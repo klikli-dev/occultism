@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_miner_marid_master"
+        "recipes": "occultism:ritual/craft_miner_marid_master"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

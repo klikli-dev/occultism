@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/arcane_crystal"
+        "recipes": "occultism:miners/iron/arcane_crystal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

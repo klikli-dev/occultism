@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/uranium"
+        "recipes": "occultism:miners/basic/uranium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

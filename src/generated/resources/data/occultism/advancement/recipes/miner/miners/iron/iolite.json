@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/iolite"
+        "recipes": "occultism:miners/iron/iolite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

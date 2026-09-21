@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherrock_bricks_stairs"
+        "recipes": "occultism:crafting/otherrock_bricks_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

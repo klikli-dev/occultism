@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/tallow_block"
+        "recipes": "occultism:crafting/tallow_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

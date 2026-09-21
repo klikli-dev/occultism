@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_demonic_husband"
+        "recipes": "occultism:ritual/summon_demonic_husband"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

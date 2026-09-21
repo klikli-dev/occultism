@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/demons_dream_essence_from_fruit_or_seed"
+        "recipes": "occultism:crafting/demons_dream_essence_from_fruit_or_seed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/misc_trinity_gem"
+        "recipes": "occultism:ritual/misc_trinity_gem"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

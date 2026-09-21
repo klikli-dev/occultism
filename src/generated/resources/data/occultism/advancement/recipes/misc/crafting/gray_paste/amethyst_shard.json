@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/gray_paste/amethyst_shard"
+        "recipes": "occultism:crafting/gray_paste/amethyst_shard"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

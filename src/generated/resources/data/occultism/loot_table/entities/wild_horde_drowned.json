@@ -23,7 +23,7 @@
           "weight": 3
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -56,7 +56,7 @@
           "name": "minecraft:plenty_pottery_sherd"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -79,17 +79,19 @@
           "name": "minecraft:prismarine_crystals"
         }
       ],
-      "functions": [
-        {
-          "count": 1.0,
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
-        }
-      ],
+      "modifier": {
+        "type": "minecraft:enchanted_count_increase",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 1.0,
+          "min": 1.0
+        },
+        "enchantment": "minecraft:looting"
+      },
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     }
   ],

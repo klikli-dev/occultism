@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/spirit_campfire"
+        "recipes": "occultism:crafting/spirit_campfire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

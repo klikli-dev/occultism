@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/gray_paste/otherstone"
+        "recipes": "occultism:crafting/gray_paste/otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

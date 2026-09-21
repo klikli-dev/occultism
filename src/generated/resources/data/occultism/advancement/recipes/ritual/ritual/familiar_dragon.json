@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_dragon"
+        "recipes": "occultism:ritual/familiar_dragon"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

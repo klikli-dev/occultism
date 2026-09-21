@@ -8,26 +8,26 @@
           "name": "minecraft:blaze_rod"
         }
       ],
-      "functions": [
+      "modifier": [
         {
+          "type": "minecraft:set_count",
           "count": {
             "type": "minecraft:uniform",
-            "max": 6.0,
-            "min": 2.0
-          },
-          "function": "minecraft:set_count"
+            "max": 6,
+            "min": 2
+          }
         },
         {
+          "type": "minecraft:enchanted_count_increase",
           "count": {
             "type": "minecraft:uniform",
             "max": 2.0,
             "min": 0.0
           },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+          "enchantment": "minecraft:looting"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -36,17 +36,15 @@
           "name": "minecraft:blaze_powder"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 13.0,
-            "min": 0.0
-          },
-          "function": "minecraft:set_count"
+      "modifier": {
+        "type": "minecraft:set_count",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 13,
+          "min": 0
         }
-      ],
-      "rolls": 1.0
+      },
+      "rolls": 1
     },
     {
       "entries": [
@@ -96,18 +94,16 @@
           "weight": 5
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 3.0,
-            "min": 1.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
-        }
-      ],
-      "rolls": 1.0
+      "modifier": {
+        "type": "minecraft:enchanted_count_increase",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 3.0,
+          "min": 1.0
+        },
+        "enchantment": "minecraft:looting"
+      },
+      "rolls": 1
     },
     {
       "entries": [
@@ -144,18 +140,16 @@
           "name": "minecraft:warped_wart_block"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
-        }
-      ],
-      "rolls": 1.0
+      "modifier": {
+        "type": "minecraft:enchanted_count_increase",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 1.0,
+          "min": 0.0
+        },
+        "enchantment": "minecraft:looting"
+      },
+      "rolls": 1
     },
     {
       "entries": [
@@ -198,18 +192,16 @@
           "name": "minecraft:gilded_blackstone"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
-        }
-      ],
-      "rolls": 1.0
+      "modifier": {
+        "type": "minecraft:enchanted_count_increase",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 1.0,
+          "min": 0.0
+        },
+        "enchantment": "minecraft:looting"
+      },
+      "rolls": 1
     },
     {
       "entries": [
@@ -219,16 +211,14 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 6,
+              "min": 1
             }
-          ],
+          },
           "name": "minecraft:glowstone_dust",
           "weight": 25
         },
@@ -247,18 +237,16 @@
           "name": "minecraft:shroomlight"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": 0.0
-          },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
-        }
-      ],
-      "rolls": 1.0
+      "modifier": {
+        "type": "minecraft:enchanted_count_increase",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 1.0,
+          "min": 0.0
+        },
+        "enchantment": "minecraft:looting"
+      },
+      "rolls": 1
     },
     {
       "entries": [
@@ -281,14 +269,16 @@
           "name": "minecraft:ancient_debris"
         }
       ],
-      "functions": [
-        {
-          "count": 1.0,
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
-        }
-      ],
-      "rolls": 1.0
+      "modifier": {
+        "type": "minecraft:enchanted_count_increase",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 1.0,
+          "min": 1.0
+        },
+        "enchantment": "minecraft:looting"
+      },
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:entities/possessed_blaze"

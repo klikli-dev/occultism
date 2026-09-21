@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/book_of_calling_djinni_manage_machine"
+        "recipes": "occultism:crafting/book_of_calling_djinni_manage_machine"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

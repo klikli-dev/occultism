@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_stabilizer_tier4_dark"
+        "recipes": "occultism:ritual/craft_stabilizer_tier4_dark"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

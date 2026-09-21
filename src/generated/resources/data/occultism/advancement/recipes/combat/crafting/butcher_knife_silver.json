@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/butcher_knife_silver"
+        "recipes": "occultism:crafting/butcher_knife_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherflower_to_white_dye"
+        "recipes": "occultism:crafting/otherflower_to_white_dye"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

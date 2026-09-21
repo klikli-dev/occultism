@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/obsidian"
+        "recipes": "occultism:crystallize/obsidian"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:stonecutting/othercobblestone_stairs_from_othercobblestone"
+        "recipes": "occultism:stonecutting/othercobblestone_stairs_from_othercobblestone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

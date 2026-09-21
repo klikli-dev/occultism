@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_infused_chestplate"
+        "recipes": "occultism:ritual/craft_infused_chestplate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/lapis"
+        "recipes": "occultism:miners/basic/lapis"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

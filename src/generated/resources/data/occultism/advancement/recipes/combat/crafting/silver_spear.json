@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_spear"
+        "recipes": "occultism:crafting/silver_spear"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

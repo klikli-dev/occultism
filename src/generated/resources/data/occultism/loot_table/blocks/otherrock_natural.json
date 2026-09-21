@@ -8,15 +8,13 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "occultism:otherrock_natural",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "uncovered": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "occultism:otherrock_natural",
+                "state": {
+                  "uncovered": "true"
                 }
-              ],
+              },
               "name": "occultism:otherrock"
             },
             {
@@ -26,7 +24,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:blocks/otherrock_natural"

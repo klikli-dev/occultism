@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:blasting/copper_ingot_from_dust"
+        "recipes": "occultism:blasting/copper_ingot_from_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

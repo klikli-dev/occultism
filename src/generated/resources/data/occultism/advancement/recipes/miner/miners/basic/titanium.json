@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/titanium"
+        "recipes": "occultism:miners/basic/titanium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

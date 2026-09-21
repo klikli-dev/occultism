@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/resurrect_allay"
+        "recipes": "occultism:ritual/resurrect_allay"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

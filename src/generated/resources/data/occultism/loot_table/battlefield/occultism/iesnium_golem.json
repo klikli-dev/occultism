@@ -2,19 +2,17 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "conditions": [
-        {
-          "chance": 0.33333,
-          "condition": "minecraft:random_chance"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:random_chance",
+        "chance": 0.33333
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "occultism:iesnium_nugget"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:battlefield/occultism/iesnium_golem"

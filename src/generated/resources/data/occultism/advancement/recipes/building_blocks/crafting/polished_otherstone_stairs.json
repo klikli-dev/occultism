@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/polished_otherstone_stairs"
+        "recipes": "occultism:crafting/polished_otherstone_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_entity_wormhole_dark"
+        "recipes": "occultism:ritual/craft_entity_wormhole_dark"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

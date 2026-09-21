@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_dimensional_extractor"
+        "recipes": "occultism:ritual/craft_dimensional_extractor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

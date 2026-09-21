@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/cut_silver_stairs"
+        "recipes": "occultism:crafting/cut_silver_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

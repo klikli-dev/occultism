@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_true_sight_staff"
+        "recipes": "occultism:ritual/craft_true_sight_staff"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

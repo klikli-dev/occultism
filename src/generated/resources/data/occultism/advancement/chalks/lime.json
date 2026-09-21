@@ -3,14 +3,12 @@
   "criteria": {
     "chalk_lime": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "items": "occultism:chalk_lime"
-            }
+        "location": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "occultism:chalk_lime"
           }
-        ]
+        }
       },
       "trigger": "minecraft:any_block_use"
     }

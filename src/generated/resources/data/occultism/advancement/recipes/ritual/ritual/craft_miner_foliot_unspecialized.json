@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_miner_foliot_unspecialized"
+        "recipes": "occultism:ritual/craft_miner_foliot_unspecialized"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

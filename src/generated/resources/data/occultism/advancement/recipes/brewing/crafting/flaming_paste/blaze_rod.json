@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/flaming_paste/blaze_rod"
+        "recipes": "occultism:crafting/flaming_paste/blaze_rod"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

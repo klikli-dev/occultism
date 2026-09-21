@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_djinni_day_time"
+        "recipes": "occultism:ritual/summon_djinni_day_time"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

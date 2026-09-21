@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/dictionary_of_spirits"
+        "recipes": "occultism:crafting/dictionary_of_spirits"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

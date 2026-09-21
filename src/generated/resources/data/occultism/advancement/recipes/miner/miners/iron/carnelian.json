@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/carnelian"
+        "recipes": "occultism:miners/iron/carnelian"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

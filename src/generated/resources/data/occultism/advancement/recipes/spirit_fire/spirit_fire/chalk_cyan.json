@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/chalk_cyan"
+        "recipes": "occultism:spirit_fire/chalk_cyan"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

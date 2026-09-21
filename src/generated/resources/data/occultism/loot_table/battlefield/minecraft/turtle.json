@@ -2,19 +2,17 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "conditions": [
-        {
-          "chance": 0.1,
-          "condition": "minecraft:random_chance"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:random_chance",
+        "chance": 0.1
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:turtle_scute"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:battlefield/minecraft/turtle"

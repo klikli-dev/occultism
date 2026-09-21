@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/cut_silver"
+        "recipes": "occultism:crafting/cut_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

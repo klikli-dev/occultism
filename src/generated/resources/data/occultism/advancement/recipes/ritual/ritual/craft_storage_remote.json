@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_storage_remote"
+        "recipes": "occultism:ritual/craft_storage_remote"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

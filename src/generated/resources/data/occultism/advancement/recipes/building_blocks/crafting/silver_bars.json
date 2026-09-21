@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_bars"
+        "recipes": "occultism:crafting/silver_bars"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

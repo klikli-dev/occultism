@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/lens_frame_alt"
+        "recipes": "occultism:crafting/lens_frame_alt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

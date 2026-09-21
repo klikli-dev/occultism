@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_dark_iesnium_sacrificial_bowl"
+        "recipes": "occultism:ritual/craft_dark_iesnium_sacrificial_bowl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

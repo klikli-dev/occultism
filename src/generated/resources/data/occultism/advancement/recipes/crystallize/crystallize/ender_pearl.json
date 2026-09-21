@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/ender_pearl"
+        "recipes": "occultism:crystallize/ender_pearl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

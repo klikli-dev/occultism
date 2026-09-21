@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:stonecutting/chiseled_silver_from_cut_silver"
+        "recipes": "occultism:stonecutting/chiseled_silver_from_cut_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

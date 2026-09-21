@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:smelting/polished_otherstone"
+        "recipes": "occultism:smelting/polished_otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

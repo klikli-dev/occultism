@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/monazite"
+        "recipes": "occultism:miners/basic/monazite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

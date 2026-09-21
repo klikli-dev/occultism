@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/kyanite"
+        "recipes": "occultism:miners/iron/kyanite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

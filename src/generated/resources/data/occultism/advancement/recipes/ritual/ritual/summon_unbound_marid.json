@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_unbound_marid"
+        "recipes": "occultism:ritual/summon_unbound_marid"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/calcite_dust"
+        "recipes": "occultism:crushing/calcite_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

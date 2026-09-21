@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_foliot_smelter"
+        "recipes": "occultism:ritual/summon_foliot_smelter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

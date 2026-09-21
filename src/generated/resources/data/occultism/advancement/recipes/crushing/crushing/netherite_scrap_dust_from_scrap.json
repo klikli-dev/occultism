@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/netherite_scrap_dust_from_scrap"
+        "recipes": "occultism:crushing/netherite_scrap_dust_from_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

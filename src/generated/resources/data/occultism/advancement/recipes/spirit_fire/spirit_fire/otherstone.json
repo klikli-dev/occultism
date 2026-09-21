@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/otherstone"
+        "recipes": "occultism:spirit_fire/otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

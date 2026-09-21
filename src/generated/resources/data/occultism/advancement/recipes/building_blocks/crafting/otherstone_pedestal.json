@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherstone_pedestal"
+        "recipes": "occultism:crafting/otherstone_pedestal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

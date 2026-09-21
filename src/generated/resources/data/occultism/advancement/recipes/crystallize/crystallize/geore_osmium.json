@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_osmium"
+        "recipes": "occultism:crystallize/geore_osmium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

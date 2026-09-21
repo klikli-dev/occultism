@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/sapphire_dust_from_ore"
+        "recipes": "occultism:crushing/sapphire_dust_from_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

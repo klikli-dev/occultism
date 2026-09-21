@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/blackstone_dust"
+        "recipes": "occultism:crushing/blackstone_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

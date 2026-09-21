@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/black_quartz_from_dust"
+        "recipes": "occultism:crystallize/black_quartz_from_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

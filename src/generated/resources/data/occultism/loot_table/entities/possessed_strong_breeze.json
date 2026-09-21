@@ -8,7 +8,7 @@
           "name": "minecraft:heavy_core"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -36,7 +36,7 @@
           "name": "minecraft:music_disc_creator"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:entities/possessed_strong_breeze"

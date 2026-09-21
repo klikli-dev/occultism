@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/book_of_calling_foliot_transport_items"
+        "recipes": "occultism:crafting/book_of_calling_foliot_transport_items"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

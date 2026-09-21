@@ -19,7 +19,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/topaz_dust_from_gem"
+        "recipes": "occultism:crushing/topaz_dust_from_gem"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

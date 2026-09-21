@@ -2,53 +2,49 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "conditions": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "minecraft:type_specific/cube_mob": {
-              "size": {
-                "min": 2
-              }
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:type_specific/cube_mob": {
+            "size": {
+              "min": 2
             }
           }
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:magma_cream"
         }
       ],
-      "functions": [
+      "modifier": [
         {
+          "type": "minecraft:set_count",
           "count": {
             "type": "minecraft:uniform",
-            "max": 1.0,
-            "min": -2.0
-          },
-          "function": "minecraft:set_count"
+            "max": 1,
+            "min": -2
+          }
         },
         {
+          "type": "minecraft:enchanted_count_increase",
           "count": {
             "type": "minecraft:uniform",
             "max": 1.0,
             "min": 0.0
           },
-          "enchantment": "minecraft:looting",
-          "function": "minecraft:enchanted_count_increase"
+          "enchantment": "minecraft:looting"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
-      "conditions": [
-        {
-          "chance": 0.03,
-          "condition": "minecraft:random_chance"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:random_chance",
+        "chance": 0.03
+      },
       "entries": [
         {
           "type": "minecraft:item",
@@ -63,7 +59,7 @@
           "name": "minecraft:pearlescent_froglight"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:battlefield/minecraft/magma_cube"

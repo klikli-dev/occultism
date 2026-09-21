@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/turquoise"
+        "recipes": "occultism:miners/iron/turquoise"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

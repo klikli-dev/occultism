@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_infused_boots"
+        "recipes": "occultism:ritual/craft_infused_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

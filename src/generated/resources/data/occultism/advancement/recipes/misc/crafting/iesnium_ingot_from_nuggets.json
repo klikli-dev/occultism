@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/iesnium_ingot_from_nuggets"
+        "recipes": "occultism:crafting/iesnium_ingot_from_nuggets"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

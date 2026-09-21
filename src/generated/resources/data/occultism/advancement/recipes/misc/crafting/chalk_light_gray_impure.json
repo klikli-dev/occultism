@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/chalk_light_gray_impure"
+        "recipes": "occultism:crafting/chalk_light_gray_impure"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/replica"
+        "recipes": "occultism:miners/iron/replica"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

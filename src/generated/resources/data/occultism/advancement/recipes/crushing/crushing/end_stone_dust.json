@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/end_stone_dust"
+        "recipes": "occultism:crushing/end_stone_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

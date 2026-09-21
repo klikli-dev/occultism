@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/purified_ink"
+        "recipes": "occultism:spirit_fire/purified_ink"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

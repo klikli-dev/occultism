@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_nugget"
+        "recipes": "occultism:crafting/silver_nugget"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

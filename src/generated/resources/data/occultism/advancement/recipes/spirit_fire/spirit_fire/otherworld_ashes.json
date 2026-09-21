@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/otherworld_ashes"
+        "recipes": "occultism:spirit_fire/otherworld_ashes"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

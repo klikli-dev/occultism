@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherplanks_fence_gate"
+        "recipes": "occultism:crafting/otherplanks_fence_gate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

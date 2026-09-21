@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_sapphire"
+        "recipes": "occultism:crystallize/geore_sapphire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

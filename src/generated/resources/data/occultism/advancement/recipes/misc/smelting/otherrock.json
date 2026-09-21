@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:smelting/otherrock"
+        "recipes": "occultism:smelting/otherrock"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

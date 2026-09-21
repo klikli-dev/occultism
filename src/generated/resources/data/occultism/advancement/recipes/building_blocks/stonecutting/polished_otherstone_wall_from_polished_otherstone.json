@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:stonecutting/polished_otherstone_wall_from_polished_otherstone"
+        "recipes": "occultism:stonecutting/polished_otherstone_wall_from_polished_otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

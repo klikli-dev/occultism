@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/tin"
+        "recipes": "occultism:miners/basic/tin"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

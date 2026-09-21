@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_black_quartz"
+        "recipes": "occultism:crystallize/geore_black_quartz"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

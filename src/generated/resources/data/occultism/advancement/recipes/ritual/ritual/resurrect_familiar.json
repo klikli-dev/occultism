@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/resurrect_familiar"
+        "recipes": "occultism:ritual/resurrect_familiar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

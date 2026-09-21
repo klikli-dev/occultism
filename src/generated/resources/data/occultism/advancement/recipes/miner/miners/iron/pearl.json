@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/pearl"
+        "recipes": "occultism:miners/iron/pearl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

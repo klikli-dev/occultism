@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherstone_slab"
+        "recipes": "occultism:crafting/otherstone_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:stonecutting/othercobblerock_wall_from_othercobblerock"
+        "recipes": "occultism:stonecutting/othercobblerock_wall_from_othercobblerock"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/benitoite"
+        "recipes": "occultism:miners/iron/benitoite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_trapdoor"
+        "recipes": "occultism:crafting/silver_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

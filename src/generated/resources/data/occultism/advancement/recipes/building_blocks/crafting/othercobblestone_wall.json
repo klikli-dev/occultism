@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/othercobblestone_wall"
+        "recipes": "occultism:crafting/othercobblestone_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

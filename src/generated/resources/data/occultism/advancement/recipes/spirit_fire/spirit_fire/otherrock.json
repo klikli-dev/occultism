@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/otherrock"
+        "recipes": "occultism:spirit_fire/otherrock"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

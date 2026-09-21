@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/flaming_paste/magma_cream"
+        "recipes": "occultism:crafting/flaming_paste/magma_cream"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

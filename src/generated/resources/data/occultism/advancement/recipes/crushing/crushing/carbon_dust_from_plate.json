@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/carbon_dust_from_plate"
+        "recipes": "occultism:crushing/carbon_dust_from_plate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/misc_unbreakable"
+        "recipes": "occultism:ritual/misc_unbreakable"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/familiar_tablet"
+        "recipes": "occultism:crafting/familiar_tablet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

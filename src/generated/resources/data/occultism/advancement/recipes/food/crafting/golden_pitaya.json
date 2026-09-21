@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/golden_pitaya"
+        "recipes": "occultism:crafting/golden_pitaya"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

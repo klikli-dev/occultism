@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/resurrect_camel_husk"
+        "recipes": "occultism:ritual/resurrect_camel_husk"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

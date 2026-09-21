@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/dark_golden_sacrificial_bowl"
+        "recipes": "occultism:crafting/dark_golden_sacrificial_bowl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

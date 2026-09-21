@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/netherite/mithril"
+        "recipes": "occultism:miners/netherite/mithril"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/redstone"
+        "recipes": "occultism:miners/iron/redstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

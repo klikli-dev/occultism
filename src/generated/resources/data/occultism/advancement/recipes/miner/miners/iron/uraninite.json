@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/uraninite"
+        "recipes": "occultism:miners/iron/uraninite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

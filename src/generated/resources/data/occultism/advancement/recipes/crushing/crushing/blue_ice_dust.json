@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/blue_ice_dust"
+        "recipes": "occultism:crushing/blue_ice_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

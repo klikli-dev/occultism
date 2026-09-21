@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:stonecutting/cut_silver_from_storage_blocks_silver"
+        "recipes": "occultism:stonecutting/cut_silver_from_storage_blocks_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

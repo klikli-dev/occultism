@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/soulium"
+        "recipes": "occultism:miners/basic/soulium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

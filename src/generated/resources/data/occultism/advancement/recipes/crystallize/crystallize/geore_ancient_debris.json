@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_ancient_debris"
+        "recipes": "occultism:crystallize/geore_ancient_debris"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -19,7 +19,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/titanium_dust_from_ingot"
+        "recipes": "occultism:crushing/titanium_dust_from_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

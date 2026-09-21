@@ -1,25 +1,28 @@
 {
   "type": "occultism:add_item",
-  "conditions": [
-    {
-      "condition": "minecraft:entity_properties",
-      "entity": "attacker",
-      "predicate": {
-        "minecraft:equipment": {
-          "mainhand": {
-            "items": "#occultism:tools/knife"
+  "condition": {
+    "type": "minecraft:all_of",
+    "terms": [
+      {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:equipment": {
+            "mainhand": {
+              "items": "#occultism:tools/knife"
+            }
           }
         }
+      },
+      {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "#c:pigs"
+        }
       }
-    },
-    {
-      "condition": "minecraft:entity_properties",
-      "entity": "this",
-      "predicate": {
-        "minecraft:entity_type": "#c:pigs"
-      }
-    }
-  ],
+    ]
+  },
   "count": 2,
   "item": "occultism:tallow"
 }

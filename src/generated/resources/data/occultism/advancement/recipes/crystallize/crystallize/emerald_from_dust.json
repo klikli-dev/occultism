@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/emerald_from_dust"
+        "recipes": "occultism:crystallize/emerald_from_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

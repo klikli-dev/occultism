@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_grate"
+        "recipes": "occultism:crafting/silver_grate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

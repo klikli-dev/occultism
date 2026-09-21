@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_infused_pickaxe"
+        "recipes": "occultism:ritual/craft_infused_pickaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

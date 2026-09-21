@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_trade/gambler_silver"
+        "recipes": "occultism:spirit_trade/gambler_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

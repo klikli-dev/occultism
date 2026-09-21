@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_parrot"
+        "recipes": "occultism:ritual/familiar_parrot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

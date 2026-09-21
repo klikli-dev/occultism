@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/moldavite"
+        "recipes": "occultism:miners/iron/moldavite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

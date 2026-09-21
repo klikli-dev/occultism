@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/dark_gem"
+        "recipes": "occultism:miners/basic/dark_gem"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

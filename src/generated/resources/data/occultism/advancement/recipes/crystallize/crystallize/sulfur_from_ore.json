@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/sulfur_from_ore"
+        "recipes": "occultism:crystallize/sulfur_from_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

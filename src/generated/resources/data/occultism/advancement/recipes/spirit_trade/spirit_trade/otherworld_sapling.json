@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_trade/otherworld_sapling"
+        "recipes": "occultism:spirit_trade/otherworld_sapling"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

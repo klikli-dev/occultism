@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/cinnabar"
+        "recipes": "occultism:miners/iron/cinnabar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

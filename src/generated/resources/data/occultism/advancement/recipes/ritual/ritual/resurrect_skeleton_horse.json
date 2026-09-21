@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/resurrect_skeleton_horse"
+        "recipes": "occultism:ritual/resurrect_skeleton_horse"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/chiseled_silver"
+        "recipes": "occultism:crafting/chiseled_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

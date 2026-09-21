@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_shovel"
+        "recipes": "occultism:crafting/silver_shovel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

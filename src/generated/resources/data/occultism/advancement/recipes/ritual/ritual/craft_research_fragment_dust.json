@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_research_fragment_dust"
+        "recipes": "occultism:ritual/craft_research_fragment_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

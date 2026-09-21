@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/sulfur"
+        "recipes": "occultism:miners/iron/sulfur"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/brush"
+        "recipes": "occultism:crafting/brush"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

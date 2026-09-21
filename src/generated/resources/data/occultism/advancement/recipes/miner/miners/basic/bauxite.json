@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/bauxite"
+        "recipes": "occultism:miners/basic/bauxite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

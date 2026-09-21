@@ -8,7 +8,7 @@
           "name": "minecraft:totem_of_undying"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -25,7 +25,7 @@
           "name": "minecraft:sentry_armor_trim_smithing_template"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -34,17 +34,15 @@
           "name": "minecraft:ominous_bottle"
         }
       ],
-      "functions": [
-        {
-          "count": {
-            "type": "minecraft:uniform",
-            "max": 2.0,
-            "min": 0.5
-          },
-          "function": "minecraft:set_count"
+      "modifier": {
+        "type": "minecraft:set_count",
+        "count": {
+          "type": "minecraft:uniform",
+          "max": 2,
+          "min": 0
         }
-      ],
-      "rolls": 1.0
+      },
+      "rolls": 1
     }
   ],
   "random_sequence": "occultism:entities/possessed_evoker"

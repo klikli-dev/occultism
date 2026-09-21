@@ -19,7 +19,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/topaz_dust_from_ore"
+        "recipes": "occultism:crushing/topaz_dust_from_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

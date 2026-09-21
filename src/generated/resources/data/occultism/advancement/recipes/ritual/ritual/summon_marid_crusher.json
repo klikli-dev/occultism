@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_marid_crusher"
+        "recipes": "occultism:ritual/summon_marid_crusher"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

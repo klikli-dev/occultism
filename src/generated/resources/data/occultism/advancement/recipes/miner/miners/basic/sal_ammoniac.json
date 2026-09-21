@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/sal_ammoniac"
+        "recipes": "occultism:miners/basic/sal_ammoniac"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

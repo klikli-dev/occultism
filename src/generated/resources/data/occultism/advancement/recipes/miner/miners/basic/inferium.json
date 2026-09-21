@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/inferium"
+        "recipes": "occultism:miners/basic/inferium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

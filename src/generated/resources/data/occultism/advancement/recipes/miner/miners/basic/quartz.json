@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/quartz"
+        "recipes": "occultism:miners/basic/quartz"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

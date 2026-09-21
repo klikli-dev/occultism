@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/packed_ice"
+        "recipes": "occultism:crystallize/packed_ice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

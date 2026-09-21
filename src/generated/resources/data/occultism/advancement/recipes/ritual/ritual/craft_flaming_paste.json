@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_flaming_paste"
+        "recipes": "occultism:ritual/craft_flaming_paste"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_ingot_from_nuggets"
+        "recipes": "occultism:crafting/silver_ingot_from_nuggets"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

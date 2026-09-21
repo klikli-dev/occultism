@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/familiar_guardian"
+        "recipes": "occultism:ritual/familiar_guardian"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

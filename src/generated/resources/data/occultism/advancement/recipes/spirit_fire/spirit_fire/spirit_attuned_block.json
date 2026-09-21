@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/spirit_attuned_block"
+        "recipes": "occultism:spirit_fire/spirit_attuned_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

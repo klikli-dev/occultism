@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_ender_satchel"
+        "recipes": "occultism:ritual/craft_ender_satchel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherplanks"
+        "recipes": "occultism:crafting/otherplanks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

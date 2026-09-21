@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/wild_husk"
+        "recipes": "occultism:ritual/wild_husk"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

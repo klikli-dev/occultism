@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_wormhole_tablet"
+        "recipes": "occultism:ritual/craft_wormhole_tablet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

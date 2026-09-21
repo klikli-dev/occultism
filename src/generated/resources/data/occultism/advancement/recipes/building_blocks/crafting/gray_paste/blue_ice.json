@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/gray_paste/blue_ice"
+        "recipes": "occultism:crafting/gray_paste/blue_ice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

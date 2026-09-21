@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/iron/prosperity"
+        "recipes": "occultism:miners/iron/prosperity"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

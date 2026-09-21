@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/netherite/allthemodium"
+        "recipes": "occultism:miners/netherite/allthemodium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

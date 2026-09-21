@@ -3,14 +3,12 @@
   "criteria": {
     "chalk_magenta": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "items": "occultism:chalk_magenta"
-            }
+        "location": {
+          "type": "minecraft:match_tool",
+          "predicate": {
+            "items": "occultism:chalk_magenta"
           }
-        ]
+        }
       },
       "trigger": "minecraft:any_block_use"
     }

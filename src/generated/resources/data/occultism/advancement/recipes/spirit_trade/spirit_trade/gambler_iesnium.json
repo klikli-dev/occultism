@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_trade/gambler_iesnium"
+        "recipes": "occultism:spirit_trade/gambler_iesnium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

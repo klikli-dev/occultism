@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_vibranium"
+        "recipes": "occultism:crystallize/geore_vibranium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

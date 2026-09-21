@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/diamond/stellarite"
+        "recipes": "occultism:miners/diamond/stellarite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

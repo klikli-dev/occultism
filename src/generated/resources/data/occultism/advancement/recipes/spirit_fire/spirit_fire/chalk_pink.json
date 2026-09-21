@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/chalk_pink"
+        "recipes": "occultism:spirit_fire/chalk_pink"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

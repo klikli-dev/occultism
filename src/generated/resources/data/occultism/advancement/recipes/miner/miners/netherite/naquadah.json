@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/netherite/naquadah"
+        "recipes": "occultism:miners/netherite/naquadah"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

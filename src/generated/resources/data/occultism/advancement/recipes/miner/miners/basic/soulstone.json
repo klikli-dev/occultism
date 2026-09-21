@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/soulstone"
+        "recipes": "occultism:miners/basic/soulstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

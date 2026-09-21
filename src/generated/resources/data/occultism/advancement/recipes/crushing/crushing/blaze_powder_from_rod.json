@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/blaze_powder_from_rod"
+        "recipes": "occultism:crushing/blaze_powder_from_rod"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

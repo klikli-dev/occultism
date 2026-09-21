@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/resurrect_zombie_nautilus"
+        "recipes": "occultism:ritual/resurrect_zombie_nautilus"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

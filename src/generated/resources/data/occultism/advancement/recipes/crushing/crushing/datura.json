@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/datura"
+        "recipes": "occultism:crushing/datura"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

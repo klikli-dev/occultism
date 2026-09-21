@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/book_of_binding_foliot_from_empty"
+        "recipes": "occultism:crafting/book_of_binding_foliot_from_empty"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

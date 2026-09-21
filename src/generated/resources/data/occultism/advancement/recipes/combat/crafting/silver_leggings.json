@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/silver_leggings"
+        "recipes": "occultism:crafting/silver_leggings"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

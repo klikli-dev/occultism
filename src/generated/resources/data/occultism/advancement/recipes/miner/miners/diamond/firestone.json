@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/diamond/firestone"
+        "recipes": "occultism:miners/diamond/firestone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

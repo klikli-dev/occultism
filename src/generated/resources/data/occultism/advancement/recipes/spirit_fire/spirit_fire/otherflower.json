@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/otherflower"
+        "recipes": "occultism:spirit_fire/otherflower"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

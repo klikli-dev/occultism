@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/spirit_attuned_crystal"
+        "recipes": "occultism:crafting/spirit_attuned_crystal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/coal"
+        "recipes": "occultism:crystallize/coal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miners/basic/cthonic_gold"
+        "recipes": "occultism:miners/basic/cthonic_gold"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:smelting/burnt_otherstone"
+        "recipes": "occultism:smelting/burnt_otherstone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crystallize/geore_uranium"
+        "recipes": "occultism:crystallize/geore_uranium"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
