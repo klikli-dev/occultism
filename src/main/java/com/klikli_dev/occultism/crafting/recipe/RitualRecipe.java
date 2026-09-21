@@ -274,7 +274,10 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         .replace("minecraft:entities/", "")
                         .replace("c:entities/", "")
                         .replace(":entities/", "_"))
-                .map(mob -> new TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:drop_from/" + mob))));
+                //Not every summoned entity has a drops tag (e.g. familiars drop nothing),
+                //so resolve leniently instead of throwing during recipe load.
+                .map(mob -> OccultismTags.makeItemTag("occultism:drop_from/" + mob))
+                .flatMap(tag -> BuiltInRegistries.ITEM.get(tag).map(TagSlotDisplay::new));
     }
 
     private Optional<SlotDisplay> getRandomEntityDropsDisplay() {
@@ -285,7 +288,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         .replace("minecraft:", "")
                         .replace("c:", "")
                         .replace(":", "_"))
-                .map(mob -> new TagSlotDisplay(BuiltInRegistries.ITEM.getOrThrow(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob))));
+                .map(mob -> OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob))
+                .flatMap(tag -> BuiltInRegistries.ITEM.get(tag).map(TagSlotDisplay::new));
     }
 
     private Optional<Component> getSummonText() {
