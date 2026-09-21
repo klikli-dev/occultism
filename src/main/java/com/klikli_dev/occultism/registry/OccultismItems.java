@@ -50,12 +50,18 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.component.Compostable;
+import net.minecraft.world.item.component.CookingFuel;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 
 public class OccultismItems {
 
@@ -301,10 +307,12 @@ public class OccultismItems {
     //Crops and food
     public static final DeferredItem<BlockItem> DATURA_SEEDS = ITEMS.registerItem("datura_seeds",
             properties -> new BlockItem(OccultismBlocks.DATURA.get(), properties.useBlockDescriptionPrefix()
-                    .component(OccultismDataComponents.SOUL_VALUE, 1)));
+                    .component(OccultismDataComponents.SOUL_VALUE, 1)
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW))));
     public static final DeferredItem<Item> DATURA = ITEMS.registerItem("datura",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.DATURA.get(), OccultismFoods.DATURA_CONSUMABLE)
-                    .component(OccultismDataComponents.SOUL_VALUE, 2));
+                    .component(OccultismDataComponents.SOUL_VALUE, 2)
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)));
     public static final DeferredItem<Item> DEMONS_DREAM_ESSENCE = ITEMS.registerItem("demons_dream_essence",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get(), OccultismFoods.DEMONS_DREAM_ESSENCE_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 20));
@@ -313,7 +321,8 @@ public class OccultismItems {
                     .component(OccultismDataComponents.SOUL_VALUE, 32).component(OccultismDataComponents.LUCK_VALUE, 2));
     public static final DeferredItem<Item> PITAYA = ITEMS.registerItem("pitaya",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.PITAYA.get(), OccultismFoods.PITAYA_CONSUMABLE)
-                    .component(OccultismDataComponents.SOUL_VALUE, 8));
+                    .component(OccultismDataComponents.SOUL_VALUE, 8)
+                    .component(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)));
     public static final DeferredItem<Item> PITAYA_GOLDEN = ITEMS.registerItem("golden_pitaya",
             SpiritHealingItem::new, () -> new Properties().food(OccultismFoods.PITAYA_GOLDEN.get(), OccultismFoods.PITAYA_GOLDEN_CONSUMABLE)
                     .component(OccultismDataComponents.SOUL_VALUE, 24).component(OccultismDataComponents.LUCK_VALUE, 2));
@@ -415,7 +424,9 @@ public class OccultismItems {
                     .food(OccultismFoods.GRAY_PASTE.get(), OccultismFoods.GRAY_PASTE_CONSUMABLE));
     public static final DeferredItem<Item> FLAMING_PASTE = ITEMS.registerItem("flaming_paste",
             FlamingPasteItem::new, () -> new Properties().durability(256).rarity(Rarity.UNCOMMON).fireResistant()
-                    .food(OccultismFoods.FLAMING_PASTE.get(), OccultismFoods.FLAMING_PASTE_CONSUMABLE));
+                    .food(OccultismFoods.FLAMING_PASTE.get(), OccultismFoods.FLAMING_PASTE_CONSUMABLE)
+                    .component(DataComponents.COOKING_FUEL,
+                            new CookingFuel(new ResolvableInt.Constant(200), new ResolvableFloat.Constant(1.0f))));
     //Components
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.registerItem("purified_ink",
             Item::new, Properties::new);
@@ -442,7 +453,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.registerItem("mining_dim_core",
             DamageInCraftingItem::new, () -> new Properties().rarity(Rarity.RARE).durability(Integer.MAX_VALUE).fireResistant()
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")
-                    .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1));
+                    .component(OccultismDataComponents.MINER_OPERATION_LIMIT, 1)
+                    .component(DataComponents.COOKING_FUEL,
+                            new CookingFuel(new ResolvableInt.Constant(200), new ResolvableFloat.Constant(1.0f))));
     public static final DeferredItem<Item> BEDROCK_SCRAP = ITEMS.registerItem("bedrock_scrap",
             Item::new, () -> new Properties().rarity(Rarity.EPIC).fireResistant());
     public static final DeferredItem<Item> BEDROCK_GEM_CLUSTER = ITEMS.registerItem("bedrock_gem_cluster",
@@ -998,5 +1011,24 @@ public class OccultismItems {
                 || item == MINER_MARID_MASTER.get()
                 || item == MINER_ANCIENT_ELDRITCH.get()
                 || item == MINER_DEBUG_UNSPECIALIZED.get();
+    }
+
+    /**
+     * Attaches data components to auto-generated block items, which cannot carry custom
+     * properties at registration time. Hand-registered items declare components inline.
+     */
+    public static void onModifyDefaultComponents(ModifyDefaultComponentsEvent event) {
+        event.modify(OccultismBlocks.OTHERWORLD_LEAVES.get(), (builder, context, item) ->
+                builder.set(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW)));
+        event.modify(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), (builder, context, item) ->
+                builder.set(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW)));
+        event.modify(OccultismBlocks.OTHERWORLD_SAPLING.get(), (builder, context, item) ->
+                builder.set(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW)));
+        event.modify(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), (builder, context, item) ->
+                builder.set(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_LOW)));
+        event.modify(OccultismBlocks.OTHERFLOWER.get(), (builder, context, item) ->
+                builder.set(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)));
+        event.modify(OccultismBlocks.OTHERFLOWER_NATURAL.get(), (builder, context, item) ->
+                builder.set(DataComponents.COMPOSTABLE, new Compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)));
     }
 }

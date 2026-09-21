@@ -124,6 +124,7 @@ public class Occultism {
         //register event buses
         modEventBus.addListener(OccultismRegistries::onRegisterRegistries);
         modEventBus.addListener(EventPriority.HIGHEST, OccultismCapabilities::onRegisterCapabilities);
+        modEventBus.addListener(OccultismItems::onModifyDefaultComponents);
         modEventBus.addListener(GameTestRegistry::onRegisterGameTests);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
