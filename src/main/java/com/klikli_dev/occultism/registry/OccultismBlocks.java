@@ -412,13 +412,17 @@ public class OccultismBlocks {
             () -> Properties.ofFullCopy(Blocks.OAK_SIGN), false, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERPLANKS_WALL_SIGN = register("otherplanks_wall_sign",
             (p) -> new OtherWallSignBlock(OtherWoodType.OTHERPLANKS, p),
-            () -> Properties.ofFullCopy(Blocks.OAK_WALL_SIGN), false, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)
+                    .overrideLootTable(OTHERPLANKS_SIGN.get().getLootTable())
+                    .overrideDescription(OTHERPLANKS_SIGN.get().getDescriptionId()), false, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherHangingSignBlock> OTHERPLANKS_HANGING_SIGN = register("otherplanks_hanging_sign",
             (p) -> new OtherHangingSignBlock(p, OtherWoodType.OTHERPLANKS),
             () -> Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN), false, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherWallHangingSignBlock> OTHERPLANKS_WALL_HANGING_SIGN = register("otherplanks_wall_hanging_sign",
             (p) -> new OtherWallHangingSignBlock(p, OtherWoodType.OTHERPLANKS),
-            () -> Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), false, LootTableType.CUSTOM);
+            () -> Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)
+                    .overrideLootTable(OTHERPLANKS_HANGING_SIGN.get().getLootTable())
+                    .overrideDescription(OTHERPLANKS_HANGING_SIGN.get().getDescriptionId()), false, LootTableType.CUSTOM);
     public static final DeferredBlock<ShelfBlock> OTHERPLANKS_SHELF = register("otherplanks_shelf",
             ShelfBlock::new,
             () -> Properties.ofFullCopy(Blocks.OAK_SHELF));

@@ -181,9 +181,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.OTHERPLANKS_SLAB.get(), block -> this.createSlabItemTable(OccultismBlocks.OTHERPLANKS_SLAB.get()));
         this.add(OccultismBlocks.OTHERPLANKS_DOOR.get(), block -> this.createDoorTable(OccultismBlocks.OTHERPLANKS_DOOR.get()));
         this.add(OccultismBlocks.OTHERPLANKS_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
-        this.add(OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
         this.add(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
-        this.add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), item -> this.createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
         this.add(OccultismBlocks.POTTED_OTHERFLOWER.get(), this.createPotFlowerItemTable(OccultismBlocks.OTHERFLOWER.get()));
         this.add(OccultismBlocks.OTHERSTONE.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLESTONE.asItem()));
         this.add(OccultismBlocks.OTHERROCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, OccultismBlocks.OTHERCOBBLEROCK.asItem()));
