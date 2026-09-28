@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.255.0] - 2026-09-28
+### :bug: Bug Fixes
+- [`7c0581c`](https://github.com/klikli-dev/occultism/commit/7c0581cb0a5aaee9611cd8081a3a2c51dd43a84a) - give the Otherplanks wall signs their own loot table and name ([#1704](https://github.com/klikli-dev/occultism/pull/1704)) *(PR [#1705](https://github.com/klikli-dev/occultism/pull/1705) by [@Klaas058](https://github.com/Klaas058))*
+  - :arrow_lower_right: *fixes issue [#1704](https://github.com/klikli-dev/occultism/issues/1704) opened by [@Klaas058](https://github.com/Klaas058)*
+- [`65d5262`](https://github.com/klikli-dev/occultism/commit/65d526222e97fe009cf5ad252bc058371df06770) - preserve mob armor and hand items when capturing entities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.254.0] - 2026-09-17
 ### :sparkles: New Features
 - [`e2ce4bc`](https://github.com/klikli-dev/occultism/commit/e2ce4bc6204082b07c2bb2d8b0f71f79c6ac310c) - Update Ukrainian localization *(PR [#1701](https://github.com/klikli-dev/occultism/pull/1701) by [@Tenwoc](https://github.com/Tenwoc))*
@@ -2849,3 +2856,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.252.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.251.0...release/v26.1.2-1.252.0
 [release/v26.1.2-1.253.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.252.0...release/v26.1.2-1.253.0
 [release/v26.1.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.253.0...release/v26.1.2-1.254.0
+[release/v26.1.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.254.0...release/v26.1.2-1.255.0
