@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
@@ -318,8 +319,8 @@ public class ItemNBTUtil {
         return stack.get(OccultismDataComponents.LINKED_PLAYER_NAME);
     }
 
-    public static TagValueOutput getReducedTagValueOutput() {
-        var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+    public static TagValueOutput getReducedTagValueOutput(HolderLookup.Provider registries) {
+        var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, registries);
         output.discard("Pos");
         output.discard("Motion");
         output.discard("Rotation");

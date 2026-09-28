@@ -116,7 +116,7 @@ public class SummonRitual extends Ritual {
      */
     public void applyEntityNbt(Entity entity) {
         if (this.recipe.getEntityNbt() != null) {
-            var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+            var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, entity.registryAccess());
             entity.saveWithoutId(output);
             var tag = output.buildResult();
             tag.merge(this.recipe.getEntityNbt());

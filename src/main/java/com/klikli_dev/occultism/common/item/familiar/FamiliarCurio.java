@@ -160,7 +160,7 @@ public interface FamiliarCurio {
             if (familiar == null || familiar.getFamiliarEntity().isAddedToLevel())
                 return false;
 
-            var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+            var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
             familiar.getFamiliarEntity().saveAsPassenger(output);
             EntityType.loadEntityRecursive(output.buildResult(), level, EntitySpawnReason.LOAD, e -> {
                 e.setPos(player.getX(), player.getY(), player.getZ());
@@ -222,7 +222,7 @@ public interface FamiliarCurio {
         private void addFamiliar(Level level, IFamiliar familiar, HolderLookup.Provider provider) {
             this.getFamiliars(level);
             this.familiars.add(familiar);
-            var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+            var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
 
             if (familiar.getFamiliarEntity().saveAsPassenger(output))
                 this.cachedNbt.add(output.buildResult());
@@ -255,7 +255,7 @@ public interface FamiliarCurio {
 
             if (!this.familiars.isEmpty()) {
                 for (IFamiliar familiar : this.familiars) {
-                    var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+                    var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, provider);
                     if (familiar.getFamiliarEntity().saveAsPassenger(output))
                         list.add(output.buildResult());
                 }
