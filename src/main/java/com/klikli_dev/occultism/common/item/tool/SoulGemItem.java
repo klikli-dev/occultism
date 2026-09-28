@@ -173,7 +173,7 @@ public class SoulGemItem extends Item {
         ((ServerLevel) target.level()).sendParticles(stack.getRarity() == Rarity.EPIC ? ParticleTypes.SCULK_SOUL : ParticleTypes.SOUL,
                 target.getX(), target.getY() + target.getHitbox().getYsize()*0.8, target.getZ(),
                 15, 0.0, 0.0, 0.0, 0.01);
-        var output = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+        var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, target.registryAccess());
         target.saveWithoutId(output);
         var entityData = output.buildResult();
 

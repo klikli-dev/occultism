@@ -127,7 +127,7 @@ public class MagicLampItem extends Item {
         ((ServerLevel) target.level()).sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(),
                 target.getX(), target.getY() + target.getHitbox().getYsize()*0.8, target.getZ(),
                 15, 0.0, 0.0, 0.0, 0.01);
-        var tagOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+        var tagOutput = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, target.registryAccess());
         target.saveWithoutId(tagOutput);
         var entityData = tagOutput.buildResult();
         stack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(target.getType(), entityData));

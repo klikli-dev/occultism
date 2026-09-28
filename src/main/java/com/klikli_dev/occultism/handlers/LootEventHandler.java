@@ -195,7 +195,7 @@ public class LootEventHandler {
                 if (id != null)
                     entityData.putString("id", id);
                 // 26.1: saveWithoutId now takes ValueOutput instead of CompoundTag
-                var output = ItemNBTUtil.getReducedTagValueOutput();
+                var output = ItemNBTUtil.getReducedTagValueOutput(killed.registryAccess());
                 killed.saveWithoutId(output);
                 entityData = output.buildResult();
                 shard.set(DataComponents.ENTITY_DATA, TypedEntityData.of(killed.getType(), entityData));
