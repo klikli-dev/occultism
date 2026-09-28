@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.257.0] - 2026-09-28
+### :bug: Bug Fixes
+- [`5e666a7`](https://github.com/klikli-dev/occultism/commit/5e666a7e33d2449de0a65db4c592c3261bc6b83f) - give the Otherplanks wall signs their own loot table and name ([#1704](https://github.com/klikli-dev/occultism/pull/1704)) *(PR [#1705](https://github.com/klikli-dev/occultism/pull/1705) by [@Klaas058](https://github.com/Klaas058))*
+  - :arrow_lower_right: *fixes issue [#1704](https://github.com/klikli-dev/occultism/issues/1704) opened by [@Klaas058](https://github.com/Klaas058)*
+- [`ff6d9ae`](https://github.com/klikli-dev/occultism/commit/ff6d9aeaca6bce74d6d5b3af3df63a87f739fbe2) - preserve mob armor and hand items when capturing entities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.256.0] - 2026-09-21
 ### :sparkles: New Features
 - [`2d5f5f7`](https://github.com/klikli-dev/occultism/commit/2d5f5f768360f7e6047befb27bc9cf683f324307) - add curios integration with impl/dummy split *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2903,3 +2910,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.253.1...release/v26.2-1.254.0
 [release/v26.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.2-1.254.0...release/v26.2-1.255.0
 [release/v26.3-1.256.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-0.0.0...release/v26.3-1.256.0
+[release/v26.3-1.257.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.256.0...release/v26.3-1.257.0
