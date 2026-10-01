@@ -26,7 +26,7 @@ public class StabilizedStorageEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                         Forging the [](item://occultism:storage_controller_stabilized) is one service provide by {0},
-                         this block will helps occult masters twist space, placing the stabilizers in the same
+                         this block will help occult masters twist space, placing the stabilizers in the same
                          position as the actuator in some extra-planar dimension invisible even to the best eyes.\\
                          By default this item receives two bonus stabilizer tier 5\\
                          Other external stabilizers do not affect this block.\\
