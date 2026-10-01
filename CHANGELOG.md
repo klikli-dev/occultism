@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.255.1] - 2026-10-01
+### :bug: Bug Fixes
+- [`df100e3`](https://github.com/klikli-dev/occultism/commit/df100e3b46f701c1c8ce51e84328193b2897e61f) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.255.0] - 2026-09-28
 ### :bug: Bug Fixes
 - [`7c0581c`](https://github.com/klikli-dev/occultism/commit/7c0581cb0a5aaee9611cd8081a3a2c51dd43a84a) - give the Otherplanks wall signs their own loot table and name ([#1704](https://github.com/klikli-dev/occultism/pull/1704)) *(PR [#1705](https://github.com/klikli-dev/occultism/pull/1705) by [@Klaas058](https://github.com/Klaas058))*
@@ -2857,3 +2862,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.253.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.252.0...release/v26.1.2-1.253.0
 [release/v26.1.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.253.0...release/v26.1.2-1.254.0
 [release/v26.1.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.254.0...release/v26.1.2-1.255.0
+[release/v26.1.2-1.255.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.255.0...release/v26.1.2-1.255.1
