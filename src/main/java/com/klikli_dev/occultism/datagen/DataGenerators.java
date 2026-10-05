@@ -27,6 +27,7 @@ import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider;
 import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
 import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.datagen.compat.hephaestus.HephaestusRecipeProvider;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
@@ -108,6 +109,8 @@ public class DataGenerators {
                 return "Occultism Recipe Provider Runner";
             }
         });
+
+        generator.addProvider(true, new HephaestusRecipeProvider.Runner(generator.getPackOutput(), event.getLookupProvider()));
 
         generator.addProvider(true, NeoBookProvider.of(event, langCache, researchCache,
                 new OccultismBookProvider()
