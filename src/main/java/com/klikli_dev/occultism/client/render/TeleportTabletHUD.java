@@ -38,7 +38,7 @@ public class TeleportTabletHUD  implements GuiLayer {
         ItemContainerContents contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
 
         if (contents != ItemContainerContents.EMPTY) {
-            ItemStack compass = contents.getStackInSlot(0);
+            ItemStack compass = contents.copyOne();
             if (!compass.isEmpty())
                 pGuiGraphics.centeredText(mc.font, compass.getDisplayName(),
                         pGuiGraphics.guiWidth() / 2,

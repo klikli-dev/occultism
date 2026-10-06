@@ -201,10 +201,7 @@ public class ClientPlayerEventHandler {
                 return;
 
             NonNullList<ItemStack> items = NonNullList.create();
-            for (int i = 0; i < contents.getSlots(); i++) {
-                if (!contents.getStackInSlot(i).isEmpty())
-                    items.add(contents.getStackInSlot(i).copy());
-            }
+            contents.nonEmptyItemCopyStream().forEach(items::add);
             int i = event.getScrollDeltaY() > 0 ? 1 : -1;
             Collections.rotate(items, i);
             ItemContainerContents rotated = ItemContainerContents.fromItems(items);

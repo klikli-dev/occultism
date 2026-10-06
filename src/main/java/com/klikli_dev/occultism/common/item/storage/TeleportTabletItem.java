@@ -87,7 +87,7 @@ public class TeleportTabletItem extends Item {
                     if (contents  == ItemContainerContents.EMPTY)
                         return InteractionResult.FAIL;
 
-                    ItemStack compass = contents.getStackInSlot(0);
+                    ItemStack compass = contents.copyOne();
                     TeleportTransition transition = this.getDestination((ServerLevel) level, player, compass);
                     if (transition == null)
                         return InteractionResult.FAIL;
@@ -95,8 +95,7 @@ public class TeleportTabletItem extends Item {
                     if (compass.getOrDefault(DataComponents.CUSTOM_NAME, "") != "BACK") {
                         boolean checking = true;
                         NonNullList<ItemStack> items = NonNullList.create();
-                        for (int i = 0 ; i < contents.getSlots() ; i++) {
-                            ItemStack back = contents.getStackInSlot(i);
+                        for (ItemStack back : contents.itemCopies().toList()) {
                             if (checking && back.getOrDefault(DataComponents.CUSTOM_NAME, Component.empty()).getString().equals("BACK")) {
                                 LodestoneTracker target = new LodestoneTracker(Optional.of(GlobalPos.of(level.dimension(), player.blockPosition())), true);
                                 back.set(DataComponents.LODESTONE_TRACKER, target);

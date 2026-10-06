@@ -88,7 +88,7 @@ public class Occultism {
 
     public Occultism(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
-        modContainer.registerConfig(Type.SERVER, SERVER_CONFIG.spec);
+        modContainer.registerConfig(Type.SYNCED, SERVER_CONFIG.spec);
         modContainer.registerConfig(Type.CLIENT, CLIENT_CONFIG.spec);
         modContainer.registerConfig(Type.STARTUP, STARTUP_CONFIG.spec);
 

@@ -840,7 +840,7 @@ public class OccultismItemModelSubProvider {
 
     public void generateOccultismTrimmableItem(Item armor, Identifier slotTrimPrefix, ItemModelGenerators itemModels) {
         ItemModel.Unbaked armorModel = ItemModelUtils.plainModel(this.createFlatItemModel(armor, itemModels));
-        itemModels.itemModelOutput.accept(armor, new TrimmedArmorModel.Unbaked(armorModel, slotTrimPrefix));
+        itemModels.itemModelOutput.accept(armor, new TrimmedArmorModel.Unbaked(armorModel, slotTrimPrefix, Optional.empty()));
     }
 
 }
