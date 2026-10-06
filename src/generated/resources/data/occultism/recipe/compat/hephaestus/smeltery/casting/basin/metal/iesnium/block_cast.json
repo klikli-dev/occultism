@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "hephaestus"
+    },
+    {
+      "type": "neoforge:registered",
+      "registry": "minecraft:fluid",
+      "value": "hephaestus:molten_iesnium"
+    }
+  ],
+  "type": "hephaestus:casting_basin",
+  "cooling_time": 200,
+  "fluid": {
+    "amount": 810,
+    "id": "hephaestus:molten_iesnium"
+  },
+  "result": {
+    "id": "occultism:iesnium_block"
+  }
+}
