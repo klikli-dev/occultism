@@ -27,6 +27,7 @@ import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider;
 import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
 import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.datagen.compat.hephaestus.HephaestusRecipeProvider;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
@@ -105,6 +106,7 @@ public class DataGenerators {
         generator.addProvider(true, new OccultismEnchantmentTagProvider(generator.getPackOutput(), lookup));
         generator.addProvider(true, new OccultismModelProvider(generator.getPackOutput()));
         generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), lookup));
+        generator.addProvider(true, new HephaestusRecipeProvider.Runner(generator.getPackOutput(), lookup));
 
         var langCache = new LanguageProviderCache("en_us");
         var researchCache = new ResearchCache();
