@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.256.0] - 2026-10-06
+### :sparkles: New Features
+- [`2eaefc2`](https://github.com/klikli-dev/occultism/commit/2eaefc2ab69ec42cd521d4e7bc25ddd33d9b1555) - add Hephaestus Forge compat for occultism *(PR [#1707](https://github.com/klikli-dev/occultism/pull/1707) by [@titammodswa](https://github.com/titammodswa))*
+
+
 ## [release/v26.1.2-1.255.1] - 2026-10-01
 ### :bug: Bug Fixes
 - [`df100e3`](https://github.com/klikli-dev/occultism/commit/df100e3b46f701c1c8ce51e84328193b2897e61f) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2863,3 +2868,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.254.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.253.0...release/v26.1.2-1.254.0
 [release/v26.1.2-1.255.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.254.0...release/v26.1.2-1.255.0
 [release/v26.1.2-1.255.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.255.0...release/v26.1.2-1.255.1
+[release/v26.1.2-1.256.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.255.1...release/v26.1.2-1.256.0
