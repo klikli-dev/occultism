@@ -27,6 +27,10 @@ sourceSets {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
             exclude '**/emi/**/*.java'
+            //TODO: re-enable once curios ships a build compatible with the latest neo (17.0.0-beta.2+26.3
+            //predates the ModConfig type rework and breaks at runtime).
+            //All curios access is routed through integration/curios, the impl is a drop-in.
+            exclude '**/integration/curios/impl/**/*.java'
 //            exclude '**/waila/**/*.java'
 //            exclude '**/jei/impl/**/*.java'
 //            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
@@ -195,8 +199,13 @@ dependencies {
     localRuntime ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
 
     //curios
+    //TODO: curios 17.0.0-beta.2+26.3 predates the neo ModConfig rework and is not runtime compatible
+    //with the latest neo. Compile against the api jar and re-enable the localRuntime dependency
+    //once a compatible curios release is available.
+    //All curios access is routed through integration/curios with a dummy fallback, only
+    //integration/curios/impl is excluded from the source set until then.
     compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}:api") {transitive=false}
-    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}") {transitive=false}
+//    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_major_version}") {transitive=false}
 
     //geckolib
     implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}

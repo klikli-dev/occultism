@@ -33,6 +33,10 @@ import java.util.function.Predicate;
 
 /**
  * Real Curios integration.
+ *
+ * <p>Excluded from the source set until Curios ships a build compatible with the
+ * current NeoForge version (see build.gradle). Re-enable the source set and the
+ * runtime dependency once available.</p>
  */
 public class CuriosIntegrationImpl implements CuriosIntegration {
     @Override
