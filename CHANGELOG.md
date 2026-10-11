@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.259.0] - 2026-10-11
+### :sparkles: New Features
+- [`6758444`](https://github.com/klikli-dev/occultism/commit/6758444aa1146844438afa865b382415f2a3e664) - update to stable neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.258.1] - 2026-10-11
 ### :bug: Bug Fixes
 - [`c38e822`](https://github.com/klikli-dev/occultism/commit/c38e822d9ca3978782ae5bd50985a1a7fcfe7df4) - enchanted golden dragon's dream fruit book entry *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2937,3 +2942,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.257.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.257.0...release/v26.3-1.257.1
 [release/v26.3-1.258.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.257.1...release/v26.3-1.258.0
 [release/v26.3-1.258.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.258.0...release/v26.3-1.258.1
+[release/v26.3-1.259.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.258.1...release/v26.3-1.259.0
