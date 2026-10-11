@@ -31,11 +31,11 @@ public class PitayaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Golden pitaya provides enhanced hunger and saturation restoration.\n");
 
-        this.page("enchanted", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
+
+        this.page("enchanted", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.PITAYA_ENCHANTED.get()))
                 .withText(this.context().pageText()));
-        this.pageTitle("Enchanted Golden Pitaya");
-        this.pageText("Craft golden pitaya with enchanted golden apples to create enchanted golden pitaya, the highest-tier food in the mod. Provides absorption and regeneration effects.\n");
+        this.pageText("Give a {0} to a Devil Familiar that has been upgraded by a Blacksmith Familiar to receive {1}.\n", this.itemLink(OccultismItems.PITAYA_GOLDEN.get()), this.itemLink(OccultismItems.PITAYA_ENCHANTED.get()));
     }
 
     @Override
