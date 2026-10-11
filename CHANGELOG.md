@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.224.5] - 2026-10-11
+### :bug: Bug Fixes
+- [`4877cde`](https://github.com/klikli-dev/occultism/commit/4877cdefd243089c9cf8d2935fe0a465d1e91b5a) - [#1660](https://github.com/klikli-dev/occultism/pull/1660) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.224.4] - 2026-08-27
 ### :bug: Bug Fixes
 - [`69e523f`](https://github.com/klikli-dev/occultism/commit/69e523fafbd25e3adea2252bd2791d579d7ee2f7) - ritual names in HUDs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2508,3 +2513,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.224.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.1...release/v1.21.1-1.224.2
 [release/v1.21.1-1.224.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.2...release/v1.21.1-1.224.3
 [release/v1.21.1-1.224.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.3...release/v1.21.1-1.224.4
+[release/v1.21.1-1.224.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.4...release/v1.21.1-1.224.5
