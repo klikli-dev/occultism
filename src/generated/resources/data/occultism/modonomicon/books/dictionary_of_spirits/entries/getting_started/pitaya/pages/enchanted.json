@@ -1,11 +1,11 @@
 {
-  "type": "modonomicon:text",
+  "type": "modonomicon:spotlight",
   "condition": {
     "type": "modonomicon:none"
   },
   "id": "enchanted",
-  "show_title_separator": true,
+  "item": "occultism:enchanted_golden_pitaya",
   "sort_number": 2,
   "text": "book.occultism.dictionary_of_spirits.getting_started.pitaya.enchanted.text",
-  "title": "book.occultism.dictionary_of_spirits.getting_started.pitaya.enchanted.title"
+  "title": ""
 }
