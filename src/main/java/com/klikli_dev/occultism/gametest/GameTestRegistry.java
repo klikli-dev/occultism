@@ -71,6 +71,6 @@ public class GameTestRegistry {
             int setupTicks
     ) {
         var testData = new TestData<>(environment, structure, maxTicks, setupTicks, true);
-        event.registerTest(test.getId(), new FunctionGameTestInstance(test.getKey(), testData));
+        event.registerTest(test.getId(), new FunctionGameTestInstance(test.key(), testData));
     }
 }

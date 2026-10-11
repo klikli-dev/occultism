@@ -385,9 +385,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             @Override
             public void handleMouseMoved(double mouseX, double mouseY) {
                 if (mouseX > 4 && mouseX < 16 && mouseY > RitualRecipeCategory.this.background.getHeight() - 16 && mouseY < RitualRecipeCategory.this.background.getHeight() - 4) {
-                    builder.addDrawable(RitualRecipeCategory.this.goldenEye, 2, RitualRecipeCategory.this.background.getHeight() - 18);
+                    builder.addDrawableWidget(RitualRecipeCategory.this.goldenEye).setPosition(2, RitualRecipeCategory.this.background.getHeight() - 18);
                 } else {
-                    builder.addDrawable(RitualRecipeCategory.this.eye, 2, RitualRecipeCategory.this.background.getHeight() - 18);
+                    builder.addDrawableWidget(RitualRecipeCategory.this.eye).setPosition(2, RitualRecipeCategory.this.background.getHeight() - 18);
                 }
             }
         });

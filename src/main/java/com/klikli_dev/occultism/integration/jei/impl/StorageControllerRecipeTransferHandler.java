@@ -34,9 +34,11 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.transfer.IRecipeTransferContext;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import mezz.jei.api.recipe.transfer.RecipeTransferResult;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
@@ -124,7 +126,19 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         return RecipeTypes.CRAFTING;
     }
 
+    @SuppressWarnings("removal")
+    @Override
     public IRecipeTransferError transferRecipe(T container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
+        return this.transferRecipeInternal(container, recipe, recipeSlots, player, doTransfer, null);
+    }
+
+    @Override
+    public IRecipeTransferError transferRecipe(IRecipeTransferContext<RecipeHolder<CraftingRecipe>, T> context, boolean doTransfer) {
+        return this.transferRecipeInternal(context.getContainer(), context.getRecipe(), context.getRecipeSlots(), context.getPlayer(), doTransfer, context);
+    }
+
+    private IRecipeTransferError transferRecipeInternal(T container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player, boolean doTransfer,
+                                                        IRecipeTransferContext<RecipeHolder<CraftingRecipe>, T> context) {
 
         if (recipe.id() == null) {
             return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.missing_id"));
@@ -185,6 +199,9 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     Networking.sendToServer(new MessageSetRecipeByID(recipe.id().identifier()));
                 } else {
                     Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
+                }
+                if (context != null) {
+                    context.completeRecipeTransfer(RecipeTransferResult.SUCCESS);
                 }
             }
             if (!missing.isEmpty()) {

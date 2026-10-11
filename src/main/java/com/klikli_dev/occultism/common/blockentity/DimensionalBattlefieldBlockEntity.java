@@ -484,7 +484,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             if (mods != null)
                 for (var entry : mods.modifiers()) {
                     var modifier = entry.modifier();
-                    if (entry.attribute().is(Objects.requireNonNull(Attributes.ATTACK_SPEED.getKey())))
+                    if (entry.attribute().is(Objects.requireNonNull(Attributes.ATTACK_SPEED.key())))
                         attackSpeed += modifier.amount();
                 }
         }
@@ -496,7 +496,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
             if (mods != null)
                 for (var entry : mods.modifiers()) {
                     var modifier = entry.modifier();
-                    if (entry.attribute().is(Objects.requireNonNull(Attributes.ATTACK_DAMAGE.getKey())))
+                    if (entry.attribute().is(Objects.requireNonNull(Attributes.ATTACK_DAMAGE.key())))
                         attackDamage += modifier.amount();
                 }
         }
