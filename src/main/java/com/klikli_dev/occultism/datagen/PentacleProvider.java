@@ -74,7 +74,7 @@ public class PentacleProvider implements DataProvider {
                         "__W_W_W__",
                         "___WWW___",
                         "_________"),
-                new MappingBuilder().bowl().whiteChalk().candle().ground().build());
+                new MappingBuilder().bowl().whiteChalk().candle().singleGrayGround().build(), true);
         this.addPentacle("summon_djinni",
                 this.createPattern(
                         "_____________",
@@ -417,10 +417,18 @@ public class PentacleProvider implements DataProvider {
     }
 
     private void addPentacle(String name, List<String> pattern, Map<Character, JsonElement> mappings) {
-        this.addPentacle(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, name), pattern, mappings);
+        this.addPentacle(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, name), pattern, mappings, false);
+    }
+
+    private void addPentacle(String name, List<String> pattern, Map<Character, JsonElement> mappings, boolean singleGround) {
+        this.addPentacle(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, name), pattern, mappings, singleGround);
     }
 
     private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
+        this.addPentacle(rl, pattern, mappings, false);
+    }
+
+    private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings, boolean singleGround) {
         JsonObject json = new JsonObject();
 
         json.addProperty("type", "modonomicon:dense");
@@ -435,8 +443,9 @@ public class PentacleProvider implements DataProvider {
         for (int i = 0; i < pattern.size(); i++) {
             var row = "";
             for (int j = 0; j < pattern.get(i).length(); j++) {
-                //create a checkerbord, alternatively adding "*" and "+" to the row
-                if ((i + j) % 2 == 0)
+                //unless a single (non-checkered) ground is requested,
+                //create a checkerboard, alternatively adding "*" and "+" to the row
+                if (singleGround || (i + j) % 2 == 0)
                     row += "*";
                 else
                     row += "+";
@@ -608,6 +617,15 @@ public class PentacleProvider implements DataProvider {
 
         private MappingBuilder ground() {
             return this.display('*', OccultismBlocks.OTHERSTONE).display('+', OccultismBlocks.OTHERROCK);
+        }
+
+        /**
+         * Replaces the checkered ground with a single non-checkered ground layer
+         * using gray concrete, which provides good contrast for (white) chalk glyphs.
+         */
+        private MappingBuilder singleGrayGround() {
+            this.mappings.remove('+');
+            return this.display('*', () -> Blocks.GRAY_CONCRETE);
         }
 
 
