@@ -23,6 +23,9 @@
     "id": "occultism:eldritch_chalice"
   },
   "id": "occultism:crafting_rituals/craft_eldritch_chalice",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.name",
   "parents": [
     {

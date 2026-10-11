@@ -23,6 +23,9 @@
     "id": "occultism:chalk_yellow"
   },
   "id": "occultism:getting_started/chalks",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.chalks.name",
   "parents": [
     {

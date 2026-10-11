@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.description",
   "icon": "occultism:textures/gui/book/infusion.png",
   "id": "occultism:crafting_rituals/overview",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.name",
   "sort_number": 0,
   "x": -10,

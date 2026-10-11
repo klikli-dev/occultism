@@ -23,6 +23,9 @@
     "id": "occultism:pentacle_misc"
   },
   "id": "occultism:pentacles/resurrect_spirit",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.name",
   "parents": [
     {

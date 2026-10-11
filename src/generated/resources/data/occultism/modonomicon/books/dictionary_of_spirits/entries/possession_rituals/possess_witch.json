@@ -23,6 +23,9 @@
     "id": "minecraft:experience_bottle"
   },
   "id": "occultism:possession_rituals/possess_witch",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_witch.name",
   "parents": [
     {

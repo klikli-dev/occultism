@@ -23,6 +23,9 @@
     "id": "occultism:brush"
   },
   "id": "occultism:summoning_rituals/summon_cleaner",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.name",
   "parents": [
     {

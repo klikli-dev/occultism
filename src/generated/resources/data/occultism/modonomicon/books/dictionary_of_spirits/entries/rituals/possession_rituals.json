@@ -22,6 +22,9 @@
   "description": "book.occultism.dictionary_of_spirits.rituals.possession_rituals.description",
   "icon": "occultism:textures/gui/book/possession.png",
   "id": "occultism:rituals/possession_rituals",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.possession_rituals.name",
   "parents": [
     {

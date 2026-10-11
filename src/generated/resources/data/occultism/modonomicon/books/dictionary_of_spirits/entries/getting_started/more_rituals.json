@@ -22,6 +22,9 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.more_rituals.description",
   "icon": "occultism:textures/gui/book/robe.png",
   "id": "occultism:getting_started/more_rituals",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.more_rituals.name",
   "parents": [
     {

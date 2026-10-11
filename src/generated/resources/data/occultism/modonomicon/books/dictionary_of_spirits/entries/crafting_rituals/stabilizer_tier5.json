@@ -23,6 +23,9 @@
     "id": "occultism:storage_stabilizer_tier5"
   },
   "id": "occultism:crafting_rituals/stabilizer_tier5",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.stabilizer_tier5.name",
   "parents": [
     {

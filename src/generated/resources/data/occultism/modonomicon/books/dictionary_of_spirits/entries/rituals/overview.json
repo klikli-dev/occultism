@@ -12,6 +12,9 @@
   "description": "book.occultism.dictionary_of_spirits.rituals.overview.description",
   "icon": "occultism:textures/gui/book/robe.png",
   "id": "occultism:rituals/overview",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.overview.name",
   "sort_number": 0,
   "x": -1,

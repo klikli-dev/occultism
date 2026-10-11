@@ -23,6 +23,9 @@
     "id": "occultism:iron_dust"
   },
   "id": "occultism:summoning_rituals/summon_crusher_t2",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t2.name",
   "parents": [
     {

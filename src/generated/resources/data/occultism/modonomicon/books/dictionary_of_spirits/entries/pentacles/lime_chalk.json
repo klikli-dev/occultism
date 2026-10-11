@@ -23,6 +23,9 @@
     "id": "occultism:chalk_lime"
   },
   "id": "occultism:pentacles/lime_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.lime_chalk.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "occultism:research_fragment_dust"
   },
   "id": "occultism:crafting_rituals/craft_research_dust",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_research_dust.name",
   "parents": [
     {

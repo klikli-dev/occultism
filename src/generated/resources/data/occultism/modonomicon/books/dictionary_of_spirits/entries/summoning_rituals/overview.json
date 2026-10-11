@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.overview.description",
   "icon": "occultism:textures/gui/book/summoning.png",
   "id": "occultism:summoning_rituals/overview",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.overview.name",
   "sort_number": 0,
   "x": -7,

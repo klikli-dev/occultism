@@ -22,6 +22,9 @@
   "description": "book.occultism.dictionary_of_spirits.rituals.familiar_rituals.description",
   "icon": "occultism:textures/gui/book/familiar.png",
   "id": "occultism:rituals/familiar_rituals",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.familiar_rituals.name",
   "parents": [
     {

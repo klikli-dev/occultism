@@ -70,6 +70,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(this.key(OccultismBlocks.STORAGE_STABILIZER_TIER3.get()))
                 .add(this.key(OccultismBlocks.STORAGE_STABILIZER_TIER4.get()))
                 .add(this.key(OccultismBlocks.STORAGE_STABILIZER_TIER5.get()))
+                .add(this.key(OccultismBlocks.RITUAL_CATCHER.get()))
                 .add(this.key(OccultismBlocks.STABLE_WORMHOLE.get()))
                 .add(this.key(OccultismBlocks.ENTITY_WORMHOLE.get()))
                 .add(this.key(OccultismBlocks.STORAGE_CONTROLLER_DARK.get()))
@@ -80,6 +81,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(this.key(OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get()))
                 .add(this.key(OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get()))
                 .add(this.key(OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get()))
+                .add(this.key(OccultismBlocks.RITUAL_CATCHER_DARK.get()))
                 .add(this.key(OccultismBlocks.STABLE_WORMHOLE_DARK.get()))
                 .add(this.key(OccultismBlocks.ENTITY_WORMHOLE_DARK.get()))
                 .add(this.key(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
@@ -103,6 +105,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(this.key(OccultismBlocks.SILVER_BULB.get()))
                 .add(this.key(OccultismBlocks.IESNIUM_BLOCK.get()))
                 .add(this.key(OccultismBlocks.RAW_IESNIUM_BLOCK.get()))
+                .add(this.key(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get()))
                 .add(this.key(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
                 .add(this.key(OccultismBlocks.SPIRIT_LANTERN.get()))
                 .add(this.key(OccultismBlocks.OTHERCOBBLESTONE.get()))
@@ -219,7 +222,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).addTag(OccultismTags.Blocks.CHALK_GLYPHS);
         this.tag(BlockTags.BEACON_BASE_BLOCKS)
                 .add(this.key(OccultismBlocks.SILVER_BLOCK.get()))
-                .add(this.key(OccultismBlocks.IESNIUM_BLOCK.get()));
+                .add(this.key(OccultismBlocks.IESNIUM_BLOCK.get()))
+                .add(this.key(OccultismBlocks.SPIRIT_ATTUNED_BLOCK.get()));
     }
 
     @Override

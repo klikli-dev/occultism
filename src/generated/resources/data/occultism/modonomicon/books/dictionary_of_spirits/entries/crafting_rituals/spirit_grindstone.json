@@ -23,6 +23,9 @@
     "id": "occultism:spirit_grindstone"
   },
   "id": "occultism:crafting_rituals/spirit_grindstone",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.spirit_grindstone.name",
   "parents": [
     {

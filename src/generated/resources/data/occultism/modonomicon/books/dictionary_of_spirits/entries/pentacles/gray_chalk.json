@@ -23,6 +23,9 @@
     "id": "occultism:chalk_gray"
   },
   "id": "occultism:pentacles/gray_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.name",
   "parents": [
     {

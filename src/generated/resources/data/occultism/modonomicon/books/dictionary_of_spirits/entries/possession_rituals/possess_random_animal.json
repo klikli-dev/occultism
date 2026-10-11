@@ -23,6 +23,9 @@
     "id": "occultism:mysterious_egg_icon"
   },
   "id": "occultism:possession_rituals/possess_random_animal",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.name",
   "parents": [
     {

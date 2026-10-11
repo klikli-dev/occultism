@@ -23,6 +23,9 @@
     "id": "occultism:chalk_red"
   },
   "id": "occultism:pentacles/red_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.red_chalk.name",
   "parents": [
     {

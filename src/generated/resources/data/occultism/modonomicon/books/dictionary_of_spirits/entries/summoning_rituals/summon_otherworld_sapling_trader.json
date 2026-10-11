@@ -23,6 +23,9 @@
     "id": "occultism:otherworld_sapling"
   },
   "id": "occultism:summoning_rituals/summon_otherworld_sapling_trader",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.name",
   "parents": [
     {

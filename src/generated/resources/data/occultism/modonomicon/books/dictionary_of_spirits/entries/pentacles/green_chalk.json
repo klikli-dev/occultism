@@ -23,6 +23,9 @@
     "id": "occultism:chalk_green"
   },
   "id": "occultism:pentacles/green_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.green_chalk.name",
   "parents": [
     {

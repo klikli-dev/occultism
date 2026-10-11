@@ -23,6 +23,9 @@
     "id": "occultism:dimensional_extractor"
   },
   "id": "occultism:crafting_rituals/dimensional_extractor",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.dimensional_extractor.name",
   "parents": [
     {

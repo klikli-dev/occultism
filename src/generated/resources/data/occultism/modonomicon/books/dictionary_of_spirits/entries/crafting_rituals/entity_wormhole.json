@@ -23,6 +23,9 @@
     "id": "occultism:entity_wormhole"
   },
   "id": "occultism:crafting_rituals/entity_wormhole",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.name",
   "parents": [
     {

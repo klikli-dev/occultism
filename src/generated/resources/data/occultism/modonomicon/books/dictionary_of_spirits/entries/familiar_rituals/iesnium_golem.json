@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description",
   "icon": "occultism:textures/gui/book/iesnium_golem.png",
   "id": "occultism:familiar_rituals/iesnium_golem",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.name",
   "parents": [
     {

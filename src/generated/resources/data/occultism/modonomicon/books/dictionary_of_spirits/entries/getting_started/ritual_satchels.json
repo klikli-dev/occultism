@@ -23,6 +23,9 @@
     "id": "occultism:ritual_satchel_t1"
   },
   "id": "occultism:getting_started/ritual_satchels",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.name",
   "parents": [
     {

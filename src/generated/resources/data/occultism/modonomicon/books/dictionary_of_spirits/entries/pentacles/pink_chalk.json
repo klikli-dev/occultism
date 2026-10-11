@@ -23,6 +23,9 @@
     "id": "occultism:chalk_pink"
   },
   "id": "occultism:pentacles/pink_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.name",
   "parents": [
     {

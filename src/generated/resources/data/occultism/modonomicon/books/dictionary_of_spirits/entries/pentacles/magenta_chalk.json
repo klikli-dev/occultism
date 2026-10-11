@@ -23,6 +23,9 @@
     "id": "occultism:chalk_magenta"
   },
   "id": "occultism:pentacles/magenta_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.magenta_chalk.name",
   "parents": [
     {

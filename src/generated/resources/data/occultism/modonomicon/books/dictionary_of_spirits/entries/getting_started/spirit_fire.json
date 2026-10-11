@@ -23,6 +23,9 @@
     "id": "occultism:spirit_fire"
   },
   "id": "occultism:getting_started/spirit_fire",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.name",
   "parents": [
     {

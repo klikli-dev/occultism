@@ -40,6 +40,9 @@
     "id": "occultism:pentacle_summon"
   },
   "id": "occultism:pentacles/summon_unbound_afrit",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.name",
   "parents": [
     {

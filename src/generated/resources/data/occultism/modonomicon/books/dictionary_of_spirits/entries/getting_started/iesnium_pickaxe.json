@@ -23,6 +23,9 @@
     "id": "occultism:iesnium_pickaxe"
   },
   "id": "occultism:getting_started/iesnium_pickaxe",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.name",
   "parents": [
     {

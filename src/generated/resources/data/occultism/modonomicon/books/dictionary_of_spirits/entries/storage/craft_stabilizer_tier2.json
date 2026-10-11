@@ -23,6 +23,9 @@
     "id": "occultism:storage_stabilizer_tier2"
   },
   "id": "occultism:storage/craft_stabilizer_tier2",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.storage.craft_stabilizer_tier2.name",
   "parents": [
     {

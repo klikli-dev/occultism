@@ -23,6 +23,9 @@
     "id": "minecraft:chest"
   },
   "id": "occultism:crafting_rituals/craft_storage_system",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.name",
   "parents": [
     {

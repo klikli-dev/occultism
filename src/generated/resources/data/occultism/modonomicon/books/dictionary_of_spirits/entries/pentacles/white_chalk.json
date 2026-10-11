@@ -23,6 +23,9 @@
     "id": "occultism:chalk_white"
   },
   "id": "occultism:pentacles/white_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.white_chalk.name",
   "parents": [
     {

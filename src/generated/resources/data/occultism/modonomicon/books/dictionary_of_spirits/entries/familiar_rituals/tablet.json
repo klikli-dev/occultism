@@ -23,6 +23,9 @@
     "id": "occultism:familiar_tablet"
   },
   "id": "occultism:familiar_rituals/tablet",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.tablet.name",
   "parents": [
     {

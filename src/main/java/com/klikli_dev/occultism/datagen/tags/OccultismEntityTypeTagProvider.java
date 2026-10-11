@@ -279,7 +279,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(Entities.FISH).add(EntityTypeIds.COD).add(EntityTypeIds.SALMON).add(EntityTypeIds.TROPICAL_FISH).add(EntityTypeIds.PUFFERFISH);
         this.tag(Entities.GOATS).add(EntityTypeIds.GOAT).add(this.key(OccultismEntities.GOAT_OF_MERCY_TYPE.get())).add(this.key(OccultismEntities.GOAT_FAMILIAR_TYPE.get()));
         this.tag(Entities.HOGLINS).add(EntityTypeIds.HOGLIN).add(this.key(OccultismEntities.POSSESSED_HOGLIN_TYPE.get()));
-        this.tag(Entities.HORSES).add(EntityTypeIds.HORSE);
+        this.tag(Entities.HORSES).add(EntityTypeIds.HORSE).add(EntityTypeIds.MULE).add(EntityTypeIds.DONKEY);
         this.tag(Entities.LLAMAS).add(EntityTypeIds.LLAMA).add(EntityTypeIds.TRADER_LLAMA);
         this.tag(Entities.MULES).add(EntityTypeIds.MULE);
         this.tag(Entities.PANDAS).add(EntityTypeIds.PANDA);
