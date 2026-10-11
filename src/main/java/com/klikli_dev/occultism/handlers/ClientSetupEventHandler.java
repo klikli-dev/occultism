@@ -215,7 +215,10 @@ public class ClientSetupEventHandler {
 
         keysFamiliars = new HashMap<>();
         for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars()) {
-            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), Type.KEYBOARD, -1, OCCULTISM_KEY_CATEGORY);
+            // NB: never hardcode -1 as the default here. -1 was InputConstants.UNKNOWN on older versions,
+            // but since 26.3 UNKNOWN is 0 and KeyMapping.setAll() indexes the SDL keyboard state buffer
+            // without a bounds check, so any out-of-range value crashes the game on world join.
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), Type.KEYBOARD, InputConstants.UNKNOWN.getValue(), OCCULTISM_KEY_CATEGORY);
             keysFamiliars.put(familiar, kb);
             event.register(kb);
         }
@@ -223,6 +226,17 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        // options.txt from older versions (and 1.258.x) may still hold the pre-26.3 unknown value -1
+        // for these keys. Vanilla re-applies stored values without validation after registration,
+        // and -1 crashes KeyMapping.setAll(), so reset any out-of-range bindings back to unbound.
+        // This runs before the main menu, i.e. before setAll() can ever observe the stale values.
+        if (keysFamiliars != null) {
+            for (KeyMapping kb : keysFamiliars.values()) {
+                if (kb.getKey().getValue() < 0)
+                    kb.setKey(InputConstants.UNKNOWN);
+            }
+        }
+
         TooltipHandler.registerNamespaceToListenTo(Occultism.MODID);
         OccultismGuiStyles.register();
 
