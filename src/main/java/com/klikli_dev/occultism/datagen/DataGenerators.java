@@ -28,69 +28,58 @@ import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
 import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.compat.hephaestus.HephaestusRecipeProvider;
+import com.klikli_dev.occultism.datagen.compat.hephaestus.HephaestusRecipeProvider.Runner;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
-import com.klikli_dev.occultism.datagen.loot.OccultismLootTableProvider;
 import com.klikli_dev.occultism.datagen.model.OccultismModelProvider;
 import com.klikli_dev.occultism.datagen.recipe.OccultismRecipeProvider;
 import com.klikli_dev.occultism.datagen.tags.*;
+import com.klikli_dev.occultism.datagen.worldgen.BiomeModifiers;
+import com.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.core.registries.MultiRegistryBootstrap;
+import com.klikli_dev.occultism.datagen.worldgen.PlacedFeatures;
+import com.klikli_dev.occultism.registry.OccultismEnchantments;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.data.loot.LootTableProvider.SubProviderEntry;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.LootPredicates;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent.Client;
-
-import java.util.List;
-import java.util.Set;
+import net.neoforged.neoforge.data.event.GatherDataRegistryEntriesEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 
 @EventBusSubscriber()
 public class DataGenerators {
 
     @SubscribeEvent
+    public static void gatherDataRegistryEntries(GatherDataRegistryEntriesEvent event) {
+        // World (non-reloadable) layer - layer routing is handled internally, all calls are chainable.
+        // Entries mirror OccultismRegistries.WORLD_BUILDER.
+        event.add(Registries.FEATURE, ConfiguredFeatures::bootstrap)
+                .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap)
+                .add(Registries.BIOME, OccultismRegistries::bootstrapBiomes)
+                .add(Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap)
+                .add(Registries.ENCHANTMENT, OccultismEnchantments::bootstrap);
+
+        // Reloadable layer - note: vanilla bootstraps such as LootPredicates are already
+        // registered globally by NeoForge, re-adding them causes duplicate registration errors.
+        event.advancement(OccultismAdvancementSubProvider::new);
+
+        event.lootTable(
+                new SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
+                new SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
+        );
+
+        event.recipe(OccultismRecipeProvider::new);
+    }
+
+    @SubscribeEvent
     public static void gatherData(Client event) {
         DataGenerator generator = event.getGenerator();
 
-        // Register world registry objects (biomes, features, enchantments) and datapack entries
-        event.createWorldRegistryObjects(OccultismRegistries.WORLD_BUILDER);
-
-        // Register all reloadable registries (advancements, recipes, loot tables) in one call
-        event.createReloadableRegistryObjects(
-                new RegistrySetBuilder()
-                        .add(Registries.PREDICATE, LootPredicates::bootstrap)
-                        .add(Registries.ADVANCEMENT, new AdvancementProvider(List.of(
-                                OccultismAdvancementSubProvider::new
-                        )))
-                        .add(Registries.LOOT_TABLE, new OccultismLootTableProvider(Set.of(), List.of(
-                                new LootTableProvider.SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
-                                new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
-                        )))
-                        .add(new MultiRegistryBootstrap() {
-                            @Override
-                            public Set<ResourceKey<? extends Registry<?>>> requestedRegistries() {
-                                return Set.of(Registries.RECIPE, Registries.ADVANCEMENT);
-                            }
-
-                            @Override
-                            public void run(MultiRegistryBootstrap.BootstrapGetter registries) {
-                                new OccultismRecipeProvider(registries.get(Registries.RECIPE), registries.get(Registries.ADVANCEMENT)).run();
-                            }
-                        }),
-                Set.of(Occultism.MODID)
-        );
 
         //Fetch the lookup only after registering world and reloadable entries, otherwise
         //it resolves to the vanilla registries and datapack references (e.g. enchantments) fail validation.
@@ -106,7 +95,7 @@ public class DataGenerators {
         generator.addProvider(true, new OccultismEnchantmentTagProvider(generator.getPackOutput(), lookup));
         generator.addProvider(true, new OccultismModelProvider(generator.getPackOutput()));
         generator.addProvider(true, new OccultismLootModifiers(generator.getPackOutput(), lookup));
-        generator.addProvider(true, new HephaestusRecipeProvider.Runner(generator.getPackOutput(), lookup));
+        generator.addProvider(true, new Runner(generator.getPackOutput(), lookup));
 
         var langCache = new LanguageProviderCache("en_us");
         var researchCache = new ResearchCache();

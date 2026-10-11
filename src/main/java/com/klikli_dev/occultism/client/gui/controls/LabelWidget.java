@@ -64,7 +64,7 @@ public class LabelWidget extends AbstractWidget {
         this.centered = centered;
         this.width = width;
         this.margin = margin;
-        this.packedFGColor = color;
+        this.labelTextColor = color;
         //active false prevents click intercepts and other unwanted interactions
         this.active = false;
     }
@@ -78,7 +78,7 @@ public class LabelWidget extends AbstractWidget {
             if (this.centered && this.width <= 0 && this.lines.size() > 0)
                 this.width = fontrenderer.width(this.lines.get(0));
 
-            int color = this.getFGColor();
+            int color = this.getLabelTextColor();
             for (int i = 0; i < this.lines.size(); i++) {
                 int top = this.getY() + i * (fontrenderer.lineHeight + this.margin);
                 if (this.centered) {
