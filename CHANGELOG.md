@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.258.1] - 2026-10-11
+### :bug: Bug Fixes
+- [`c38e822`](https://github.com/klikli-dev/occultism/commit/c38e822d9ca3978782ae5bd50985a1a7fcfe7df4) - enchanted golden dragon's dream fruit book entry *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`944310c`](https://github.com/klikli-dev/occultism/commit/944310c23ca15d61d59aefb205f449a4e30faf51) - missing tags on 26.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`81e5477`](https://github.com/klikli-dev/occultism/commit/81e5477a6b38c49451ca553f8413ea93a51c1c1f) - update deprecated APIs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.258.0] - 2026-10-06
 ### :sparkles: New Features
 - [`30a4da2`](https://github.com/klikli-dev/occultism/commit/30a4da2f314ce713e6cd5d76b54a27b999b729bb) - add Hephaestus Forge compat for occultism *(PR [#1707](https://github.com/klikli-dev/occultism/pull/1707) by [@titammodswa](https://github.com/titammodswa))*
@@ -2927,3 +2936,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.257.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.256.0...release/v26.3-1.257.0
 [release/v26.3-1.257.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.257.0...release/v26.3-1.257.1
 [release/v26.3-1.258.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.257.1...release/v26.3-1.258.0
+[release/v26.3-1.258.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.258.0...release/v26.3-1.258.1
