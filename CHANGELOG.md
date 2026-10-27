@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.260.0] - 2026-10-27
+### :sparkles: New Features
+- [`75058ba`](https://github.com/klikli-dev/occultism/commit/75058ba4bc0f467903352c1632a8e31076fce7c2) - Updated PT_BR localization *(commit by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+### :bug: Bug Fixes
+- [`a419dc0`](https://github.com/klikli-dev/occultism/commit/a419dc0436f6d41d6ac047e377f480fd65f473e7) - satchel dupe when the satchel stack is moved while its menu is open *(PR [#1718](https://github.com/klikli-dev/occultism/pull/1718) by [@GnomoMuitoLoco](https://github.com/GnomoMuitoLoco))*
+  - :arrow_lower_right: *fixes issue [#1717](https://github.com/klikli-dev/occultism/issues/1717) opened by [@GnomoMuitoLoco](https://github.com/GnomoMuitoLoco)*
+
+
 ## [release/v26.3-1.259.1] - 2026-10-11
 ### :bug: Bug Fixes
 - [`73c8225`](https://github.com/klikli-dev/occultism/commit/73c8225556b85a12b3ddb116dfb066770672e2ce) - invalid default value for keys *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2949,3 +2958,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.258.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.258.0...release/v26.3-1.258.1
 [release/v26.3-1.259.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.258.1...release/v26.3-1.259.0
 [release/v26.3-1.259.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.259.0...release/v26.3-1.259.1
+[release/v26.3-1.260.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.259.1...release/v26.3-1.260.0
