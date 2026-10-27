@@ -114,6 +114,7 @@ repositories {
         url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
+            includeGroup "net.mezzdev.config"
             includeGroup "com.almostreliable.mods"
         }
     }
