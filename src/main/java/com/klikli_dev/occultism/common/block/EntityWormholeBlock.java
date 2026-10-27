@@ -194,7 +194,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
     @Override
     protected void entityInside(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-        if (!level.isClientSide && entity.canUsePortal(false)
+        if (!level.isClientSide && !entity.isSpectator() && entity.canUsePortal(false)
                 && (Shapes.joinIsNotEmpty(
                 Shapes.create(entity.getBoundingBox().move(-pos.getX(), -pos.getY(), -pos.getZ())),
                 state.getShape(level, pos), BooleanOp.AND)
@@ -207,6 +207,9 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
 
     @Override
     public DimensionTransition getPortalDestination(ServerLevel level, @NotNull Entity entity, @NotNull BlockPos pos) {
+        // Spectators must neither use the wormhole nor be a teleport target.
+        if (entity.isSpectator())
+            return null;
         if (level.getBlockEntity(pos) instanceof EntityWormholeBlockEntity wormhole) {
             ItemStack compass = wormhole.itemStackHandler.getStackInSlot(0);
 
@@ -266,7 +269,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
                 if (spirit != null) {
                     for (ServerLevel allLvl : level.getServer().getAllLevels()) {
                         Entity targetEntity = allLvl.getEntity(spirit);
-                        if (targetEntity != null) {
+                        if (targetEntity != null && !targetEntity.isSpectator()) {
                             resourcekey = targetEntity.level().dimension();
                             targetPos = targetEntity.blockPosition();
                             break;
@@ -387,7 +390,7 @@ public class EntityWormholeBlock extends OtherstoneFrameBlock implements EntityB
             if (spirit != null) {
                 for (ServerLevel allLvl : Objects.requireNonNull(level.getServer()).getAllLevels()) {
                     Entity targetEntity = allLvl.getEntity(spirit);
-                    if (targetEntity != null && targetEntity.canUsePortal(false)) {
+                    if (targetEntity != null && !targetEntity.isSpectator() && targetEntity.canUsePortal(false)) {
                         DimensionTransition transition = new DimensionTransition(
                                 level,
                                 pos.getBottomCenter(),
