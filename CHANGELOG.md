@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.257.1] - 2026-10-27
+### :bug: Bug Fixes
+- [`6b2ff7a`](https://github.com/klikli-dev/occultism/commit/6b2ff7a90e0eaffcf50a18349e513fa7746244b5) - entity wormhole pulling / teleporting spectators *(PR [#1719](https://github.com/klikli-dev/occultism/pull/1719) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5314d84`](https://github.com/klikli-dev/occultism/commit/5314d849524a380e40403b303980a7dd2b3e11cd) - janitor picks up everything when filter is empty *(PR [#1720](https://github.com/klikli-dev/occultism/pull/1720) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.257.0] - 2026-10-27
 ### :sparkles: New Features
 - [`2373141`](https://github.com/klikli-dev/occultism/commit/2373141325d6bcfabf1a03b28eb647e19ab745ee) - Updated PT_BR localization *(commit by [@PrincessStellar](https://github.com/PrincessStellar))*
@@ -2888,3 +2894,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.256.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.255.1...release/v26.1.2-1.256.0
 [release/v26.1.2-1.256.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.256.0...release/v26.1.2-1.256.1
 [release/v26.1.2-1.257.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.256.1...release/v26.1.2-1.257.0
+[release/v26.1.2-1.257.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.0...release/v26.1.2-1.257.1
