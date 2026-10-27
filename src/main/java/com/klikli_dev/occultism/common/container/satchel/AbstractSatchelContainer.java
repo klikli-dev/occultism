@@ -28,6 +28,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -61,10 +62,49 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
     @Override
     public void broadcastChanges() {
-        if (this.satchelInventory instanceof SatchelInventory) {
-            ((SatchelInventory) this.satchelInventory).writeItemStack();
-        }
+        this.writeSatchel();
         super.broadcastChanges();
+    }
+
+    @Override
+    public void clicked(int slotId, int button, ContainerInput input, Player player) {
+        super.clicked(slotId, button, input, player);
+        // Write right away instead of waiting for the next broadcastChanges(): if the satchel stack is
+        // copied or moved later in the same tick (e.g. by an inventory handler of another mod), the
+        // copy must already contain the current contents.
+        this.writeSatchel();
+    }
+
+    @Override
+    public void removed(Player player) {
+        this.writeSatchel();
+        super.removed(player);
+    }
+
+    /**
+     * Writes the menu contents into the satchel stack, but only while that stack is still the one
+     * this menu was opened with. Writing into a stack that was moved/replaced would leave the moved
+     * copy with the old contents while the items taken out of the menu are kept (duplication).
+     */
+    protected void writeSatchel() {
+        if (this.satchelInventory instanceof SatchelInventory inventory && this.isSameSatchel(this.playerInventory.player)) {
+            inventory.writeItemStack();
+        }
+    }
+
+    /**
+     * Server side the menu works on the actual satchel stack (see {@link SatchelInventory#getItemStack()}),
+     * so the slot it was opened from must still hold that exact object, not just an item of the same type.
+     * Client side (plain container) this check does not apply.
+     */
+    protected boolean isSameSatchel(Player player) {
+        if (!(this.satchelInventory instanceof SatchelInventory inventory))
+            return true;
+        ItemStack satchel = inventory.getItemStack();
+        if (this.selectedSlot == -1)
+            return player.getOffhandItem() == satchel || CuriosUtil.getBackpack(player) == satchel;
+        return this.selectedSlot >= 0 && this.selectedSlot < player.getInventory().getContainerSize()
+                && player.getInventory().getItem(this.selectedSlot) == satchel;
     }
 
     @Override
@@ -105,6 +145,8 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        if (!this.isSameSatchel(player))
+            return false;
         if (this.selectedSlot == -1) {
             return CuriosUtil.getBackpack(player).getItem() == this.satchelStack.getItem();
         }
