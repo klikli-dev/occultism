@@ -118,7 +118,7 @@ public class TeleportUtil {
             if (spirit != null) {
                 for (ServerLevel allLvl : level.getServer().getAllLevels()) {
                     Entity targetEntity = allLvl.getEntity(spirit);
-                    if (targetEntity != null) {
+                    if (targetEntity != null && !targetEntity.isSpectator()) {
                         resourcekey = targetEntity.level().dimension();
                         targetPos = targetEntity.blockPosition();
                         break;
