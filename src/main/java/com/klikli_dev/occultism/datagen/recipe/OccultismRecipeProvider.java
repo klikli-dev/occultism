@@ -5,11 +5,14 @@ import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.datagen.recipe.builders.SpiritFireRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismPotions;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.predicates.ItemPredicate.Builder;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -22,11 +25,15 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
+
+import java.util.List;
 
 public class OccultismRecipeProvider extends RecipeProvider {
     public OccultismRecipeProvider(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
@@ -292,6 +299,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         stonecutterRecipes(this.output, this.output);
         otherflowerRecipes(this.output, items);
         pasteRecipes(this.output, items);
+        brewingRecipes(this.output);
     }
 
     private void ritualRecipes(RecipeOutput recipeOutput, RecipeOutput registries) {
@@ -1442,5 +1450,44 @@ public class OccultismRecipeProvider extends RecipeProvider {
     // Helper method to create Ingredient from TagKey
     protected static Ingredient ofTag(HolderGetter<Item> items, TagKey<Item> tag) {
         return Ingredient.of(items.getOrThrow(tag));
+    }
+
+    private static void brewingRecipes(RecipeOutput recipeOutput) {
+        brewingMix(recipeOutput, Potions.AWKWARD, OccultismItems.OTHERWORLD_ESSENCE.get(), OccultismPotions.THIRD_EYE_POTION);
+        brewingMix(recipeOutput, OccultismPotions.THIRD_EYE_POTION, Items.REDSTONE, OccultismPotions.LONG_THIRD_EYE_POTION);
+        brewingMix(recipeOutput, Potions.NIGHT_VISION, OccultismItems.DATURA.get(), OccultismPotions.THIRD_EYE_POTION);
+        brewingMix(recipeOutput, Potions.LONG_NIGHT_VISION, OccultismItems.DATURA.get(), OccultismPotions.LONG_THIRD_EYE_POTION);
+
+        brewingMix(recipeOutput, Potions.MUNDANE, OccultismItems.PITAYA.get(), Potions.LUCK);
+        brewingMix(recipeOutput, Potions.THICK, OccultismItems.PITAYA.get(), OccultismPotions.THIRD_EYE_POTION);
+        brewingMix(recipeOutput, Potions.AWKWARD, OccultismItems.PITAYA.get(), Potions.WATER_BREATHING);
+        brewingMix(recipeOutput, Potions.SLOWNESS, OccultismItems.PITAYA.get(), Potions.SWIFTNESS);
+        brewingMix(recipeOutput, Potions.LONG_SLOWNESS, OccultismItems.PITAYA.get(), Potions.LONG_SWIFTNESS);
+        brewingMix(recipeOutput, Potions.STRONG_SLOWNESS, OccultismItems.PITAYA.get(), Potions.STRONG_SWIFTNESS);
+        brewingMix(recipeOutput, Potions.POISON, OccultismItems.PITAYA.get(), Potions.REGENERATION);
+        brewingMix(recipeOutput, Potions.LONG_POISON, OccultismItems.PITAYA.get(), Potions.LONG_REGENERATION);
+        brewingMix(recipeOutput, Potions.STRONG_POISON, OccultismItems.PITAYA.get(), Potions.STRONG_REGENERATION);
+        brewingMix(recipeOutput, Potions.HARMING, OccultismItems.PITAYA.get(), Potions.HEALING);
+        brewingMix(recipeOutput, Potions.STRONG_HARMING, OccultismItems.PITAYA.get(), Potions.STRONG_HEALING);
+        brewingMix(recipeOutput, Potions.WEAKNESS, OccultismItems.PITAYA.get(), Potions.STRENGTH);
+        brewingMix(recipeOutput, Potions.LONG_WEAKNESS, OccultismItems.PITAYA.get(), Potions.LONG_STRENGTH);
+        brewingMix(recipeOutput, Potions.WIND_CHARGED, OccultismItems.PITAYA.get(), Potions.SLOW_FALLING);
+        brewingMix(recipeOutput, Potions.WEAVING, OccultismItems.PITAYA.get(), Potions.FIRE_RESISTANCE);
+        brewingMix(recipeOutput, Potions.OOZING, OccultismItems.PITAYA.get(), Potions.LEAPING);
+        brewingMix(recipeOutput, Potions.INFESTED, OccultismItems.PITAYA.get(), Potions.INVISIBILITY);
+
+        brewingMix(recipeOutput, Potions.AWKWARD, OccultismItems.PITAYA_GOLDEN.get(), Potions.NIGHT_VISION);
+    }
+
+    private static void brewingMix(RecipeOutput recipeOutput, Holder<Potion> input, Item reagent, Holder<Potion> output) {
+        String inputName = input.unwrapKey().map(key -> key.identifier().getPath()).orElseThrow();
+        String reagentName = BuiltInRegistries.ITEM.getKey(reagent).getPath();
+        //event-based mixes applied to every potion container, so generate one recipe per container
+        for (Item container : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION)) {
+            String containerName = BuiltInRegistries.ITEM.getKey(container).getPath();
+            BrewingRecipeBuilder.brewingMix(container, input, reagent, output).save(recipeOutput,
+                    ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Occultism.MODID,
+                            "brewing/" + containerName + "_" + inputName + "_" + reagentName)));
+        }
     }
 }

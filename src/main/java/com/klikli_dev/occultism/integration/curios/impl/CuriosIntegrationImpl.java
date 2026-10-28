@@ -12,7 +12,6 @@ import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.item.tool.KnowledgeTabletItem;
 import com.klikli_dev.occultism.integration.curios.CuriosIntegration;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,11 +31,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Real Curios integration.
+ * Real Curios integration for curios slots.
  *
- * <p>Excluded from the source set until Curios ships a build compatible with the
- * current NeoForge version (see build.gradle). Re-enable the source set and the
- * runtime dependency once available.</p>
+ * <p>Vanilla equipment slots (head slot for goggles, offhand for the true
+ * sight staff) are handled separately in {@link CuriosUtil}, so this class
+ * only checks curios slots.</p>
  */
 public class CuriosIntegrationImpl implements CuriosIntegration {
     @Override
@@ -46,10 +45,7 @@ public class CuriosIntegrationImpl implements CuriosIntegration {
 
     @Override
     public boolean hasGoggles(Player player) {
-        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (OtherworldGogglesItem.isGogglesItem(helmet))
-            return true;
-
+        // Vanilla slots are handled by CuriosUtil, here we only check curios slots.
         ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
         if (curiosHandler == null)
             return false;
@@ -61,9 +57,7 @@ public class CuriosIntegrationImpl implements CuriosIntegration {
 
     @Override
     public boolean hasStaff(Player player) {
-        if (player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF))
-            return true;
-
+        // Vanilla slots are handled by CuriosUtil, here we only check curios slots.
         ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
         if (curiosHandler == null)
             return false;

@@ -4,24 +4,45 @@
 
 package com.klikli_dev.occultism.integration.curios;
 
+import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.integration.curios.CuriosIntegration.SelectedCurio;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 /**
  * Static facade over {@link CuriosIntegration}.
  *
- * <p>Kept so existing call sites only need an import change. All Curios access
- * is routed through the integration, which falls back to a dummy
- * implementation when Curios is missing or has no build for this version.</p>
+ * <p>Kept so existing call sites only need an import change. Vanilla equipment
+ * slots are checked here, directly, so they keep working when Curios is
+ * missing or has no build for this version. All Curios access is routed
+ * through the integration, which falls back to a dummy implementation in that
+ * case.</p>
  */
 public class CuriosUtil {
+    /**
+     * Checks vanilla equipment slots (head slot) for goggles.
+     * Works independently of the curios integration.
+     */
+    public static boolean hasVanillaGoggles(Player player) {
+        return OtherworldGogglesItem.isGogglesItem(player.getItemBySlot(EquipmentSlot.HEAD));
+    }
+
+    /**
+     * Checks vanilla equipment slots (offhand) for the true sight staff.
+     * Works independently of the curios integration.
+     */
+    public static boolean hasVanillaStaff(Player player) {
+        return player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF);
+    }
+
     public static boolean hasGoggles(Player player) {
-        return CuriosIntegration.get().hasGoggles(player);
+        return hasVanillaGoggles(player) || CuriosIntegration.get().hasGoggles(player);
     }
 
     public static boolean hasStaff(Player player) {
-        return CuriosIntegration.get().hasStaff(player);
+        return hasVanillaStaff(player) || CuriosIntegration.get().hasStaff(player);
     }
 
     public static ItemStack getBackpack(Player player) {
