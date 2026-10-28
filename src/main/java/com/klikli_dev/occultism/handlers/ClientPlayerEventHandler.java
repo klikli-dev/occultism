@@ -41,7 +41,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -60,7 +59,6 @@ import net.neoforged.neoforge.client.event.InputEvent.MouseButton;
 import net.neoforged.neoforge.client.event.ScreenEvent.KeyPressed.Post;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent.AtPosition;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -185,8 +183,9 @@ public class ClientPlayerEventHandler {
 
     @SubscribeEvent
     public static void onScrollTablet(InputEvent.MouseScrollingEvent event){
-        Player player = Minecraft.getInstance().player;
-        if (player != null && player.isShiftKeyDown()) {
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player != null && minecraft.gui.screen() == null && player.isShiftKeyDown()) {
             InteractionHand hand = InteractionHand.MAIN_HAND;
             ItemStack stack = player.getItemInHand(hand);
             if (!stack.is(OccultismItems.WORMHOLE_TABLET)) {
@@ -196,17 +195,12 @@ public class ClientPlayerEventHandler {
             if (!stack.is(OccultismItems.WORMHOLE_TABLET) || !stack.has(DataComponents.CONTAINER))
                 return;
 
-            ItemContainerContents contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-            if (contents == ItemContainerContents.EMPTY)
+            ItemContainerContents contents = stack.get(DataComponents.CONTAINER);
+            if (contents == null || contents == ItemContainerContents.EMPTY)
                 return;
 
-            NonNullList<ItemStack> items = NonNullList.create();
-            contents.nonEmptyItemCopyStream().forEach(items::add);
-            int i = event.getScrollDeltaY() > 0 ? 1 : -1;
-            Collections.rotate(items, i);
-            ItemContainerContents rotated = ItemContainerContents.fromItems(items);
-
-            Networking.sendToServer(new MessageSetContents(rotated, hand));
+            //only tell the server in which direction to rotate, it owns the actual contents
+            Networking.sendToServer(new MessageRotateWormholeTablet(event.getScrollDeltaY() > 0, hand));
             event.setCanceled(true);
         }
     }
