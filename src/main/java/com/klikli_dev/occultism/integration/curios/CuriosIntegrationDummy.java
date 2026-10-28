@@ -4,6 +4,9 @@
 
 package com.klikli_dev.occultism.integration.curios;
 
+import com.klikli_dev.occultism.common.item.storage.EnderSatchelItem;
+import com.klikli_dev.occultism.common.item.storage.SatchelItem;
+import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,12 +37,28 @@ public class CuriosIntegrationDummy implements CuriosIntegration {
 
     @Override
     public int getFirstBackpackSlot(Player player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            if (player.getInventory().getItem(slot).getItem() instanceof SatchelItem)
+                return slot;
+        }
         return -1;
     }
 
     @Override
     public SelectedCurio getStorageRemote(Player player) {
-        return null;
+        int selectedSlot = player.getInventory().getSelectedSlot();
+        ItemStack storageRemoteStack = player.getInventory().getSelectedItem();
+        //if that is not a storage remote, look it up in the player inventory
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
+            selectedSlot = this.getFirstStorageRemoteSlot(player);
+            storageRemoteStack = selectedSlot >= 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
+        }
+        //now, if we have a storage remote, proceed
+        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
+            return new SelectedCurio(storageRemoteStack, selectedSlot);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -49,6 +68,10 @@ public class CuriosIntegrationDummy implements CuriosIntegration {
 
     @Override
     public int getFirstStorageRemoteSlot(Player player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            if (player.getInventory().getItem(slot).getItem() instanceof StorageRemoteItem)
+                return slot;
+        }
         return -1;
     }
 
@@ -59,6 +82,10 @@ public class CuriosIntegrationDummy implements CuriosIntegration {
 
     @Override
     public int getFirstEnderSatchelSlot(Player player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            if (player.getInventory().getItem(slot).getItem() instanceof EnderSatchelItem)
+                return slot;
+        }
         return -1;
     }
 
