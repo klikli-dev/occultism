@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.258.0] - 2026-10-28
+### :sparkles: New Features
+- [`4a53560`](https://github.com/klikli-dev/occultism/commit/4a53560736c45f329f15a194a54d2b3f71f92fae) - I'M ALWAYS COME BACK \\ Russian translation *(PR [#1714](https://github.com/klikli-dev/occultism/pull/1714) by [@AlgorithmLX](https://github.com/AlgorithmLX))*
+
+
 ## [release/v26.1.2-1.257.2] - 2026-10-28
 ### :bug: Bug Fixes
 - [`507cca5`](https://github.com/klikli-dev/occultism/commit/507cca55a1b542772ced5f7b995600c7236a4896) - improve teleport tablet compass selection *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2901,3 +2906,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.257.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.256.1...release/v26.1.2-1.257.0
 [release/v26.1.2-1.257.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.0...release/v26.1.2-1.257.1
 [release/v26.1.2-1.257.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.1...release/v26.1.2-1.257.2
+[release/v26.1.2-1.258.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.2...release/v26.1.2-1.258.0
