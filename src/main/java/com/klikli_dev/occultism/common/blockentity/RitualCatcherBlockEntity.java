@@ -111,6 +111,7 @@ public class RitualCatcherBlockEntity extends NetworkedBlockEntity implements Cl
 
         for (int i = 0; i < this.itemStackHandler.size(); ++i) {
             var resource = this.itemStackHandler.getResource(i);
+            var amount = this.itemStackHandler.getAmountAsInt(i);
             if(resource.is(OccultismBlocks.STORAGE_CONTROLLER.get()) ||
                     resource.is(OccultismBlocks.STORAGE_CONTROLLER_DARK.get()) ||
                     resource.is(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get()) ||
@@ -118,7 +119,9 @@ public class RitualCatcherBlockEntity extends NetworkedBlockEntity implements Cl
             ) {
                 var stack = resource.toStack(); //creates a copy, safe to modify
                 stack.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(), CustomData.EMPTY);
-                this.itemStackHandler.set(i, ItemResource.of(stack), this.itemStackHandler.getAmountAsInt(i));
+                copy.set(i, ItemResource.of(stack), amount);
+            } else {
+                copy.set(i, resource, amount);
             }
         }
 
