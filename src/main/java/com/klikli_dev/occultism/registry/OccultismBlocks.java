@@ -437,7 +437,7 @@ public class OccultismBlocks {
             () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE), true, LootTableType.CUSTOM);
     public static final DeferredBlock<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
             register("iesnium_ore_natural", IesniumOreNaturalBlock::new,
-                    () -> Block.Properties.ofFullCopy(Blocks.NETHERRACK)
+                    () -> Block.Properties.ofFullCopy(Blocks.IRON_ORE)
                             .overrideDescription("block.minecraft.netherrack"),
                     true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> RAW_SILVER_BLOCK = register("raw_silver_block", Block::new,
