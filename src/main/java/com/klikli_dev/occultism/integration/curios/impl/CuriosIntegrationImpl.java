@@ -31,11 +31,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Real Curios integration.
+ * Real Curios integration for curios slots.
  *
- * <p>Excluded from the source set until Curios ships a build compatible with the
- * current NeoForge version (see build.gradle). Re-enable the source set and the
- * runtime dependency once available.</p>
+ * <p>Vanilla equipment slots (head slot for goggles, offhand for the true
+ * sight staff) are handled separately in {@link CuriosUtil}, so this class
+ * only checks curios slots.</p>
  */
 public class CuriosIntegrationImpl implements CuriosIntegration {
     @Override
