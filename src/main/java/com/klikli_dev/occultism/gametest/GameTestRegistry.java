@@ -59,6 +59,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> IESNIUM_DROPS_STAFF =
             TEST_FUNCTIONS.register("iesnium_drops_staff", () -> OtherworldBlockGameTests::iesniumDropsUncoveredWithStaff);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> IESNIUM_DROPS_OCCUPIED_INFUSED_PICK =
+            TEST_FUNCTIONS.register("iesnium_drops_occupied_infused_pick", () -> OtherworldBlockGameTests::iesniumDropsUncoveredWithOccupiedInfusedPick);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> IESNIUM_DROPS_UNOCCUPIED_INFUSED_PICK =
+            TEST_FUNCTIONS.register("iesnium_drops_unoccupied_infused_pick", () -> OtherworldBlockGameTests::iesniumDropsCoveredWithUnoccupiedInfusedPick);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FAMILIAR_RING_CAPTURES_FAMILIAR =
             TEST_FUNCTIONS.register("familiar_ring_captures_familiar", () -> FamiliarRingGameTests::ringCapturesFamiliar);
 
@@ -83,6 +89,8 @@ public class GameTestRegistry {
         registerTest(event, OTHERWORLD_BLOCK_DROPS_UNCOVERED, otherworldEnvironment, structure, 40, 0);
         registerTest(event, OTHERWORLD_BLOCK_DROPS_STAFF, otherworldEnvironment, structure, 40, 0);
         registerTest(event, IESNIUM_DROPS_STAFF, otherworldEnvironment, structure, 40, 0);
+        registerTest(event, IESNIUM_DROPS_OCCUPIED_INFUSED_PICK, otherworldEnvironment, structure, 40, 0);
+        registerTest(event, IESNIUM_DROPS_UNOCCUPIED_INFUSED_PICK, otherworldEnvironment, structure, 40, 0);
 
         var familiarEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "familiar_ring"));
         registerTest(event, FAMILIAR_RING_CAPTURES_FAMILIAR, familiarEnvironment, structure, 40, 0);

@@ -5,6 +5,7 @@
 package com.klikli_dev.occultism.gametest;
 
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.BlockPos;
@@ -75,6 +76,36 @@ public class OtherworldBlockGameTests {
         });
         helper.runAfterDelay(10, () -> {
             helper.assertItemEntityCountIs(OccultismItems.RAW_IESNIUM.get(), TEST_POS, 3.0, 1);
+            helper.succeed();
+        });
+    }
+
+    public static void iesniumDropsUncoveredWithOccupiedInfusedPick(GameTestHelper helper) {
+        helper.setBlock(TEST_POS, OccultismBlocks.IESNIUM_ORE_NATURAL.get());
+        helper.runAfterDelay(2, () -> {
+            var player = MockPlayerHelper.makeConnectedMockServerPlayer(helper, GameType.SURVIVAL);
+            var pick = new ItemStack(OccultismItems.INFUSED_PICKAXE.get());
+            pick.set(OccultismDataComponents.OCCUPIED, true);
+            player.setItemInHand(InteractionHand.MAIN_HAND, pick);
+            player.gameMode.destroyBlock(helper.absolutePos(TEST_POS));
+            helper.assertTrue(helper.getBlockState(TEST_POS).isAir(), "iesnium ore natural should be broken");
+        });
+        helper.runAfterDelay(10, () -> {
+            helper.assertItemEntityCountIs(OccultismItems.RAW_IESNIUM.get(), TEST_POS, 3.0, 1);
+            helper.succeed();
+        });
+    }
+
+    public static void iesniumDropsCoveredWithUnoccupiedInfusedPick(GameTestHelper helper) {
+        helper.setBlock(TEST_POS, OccultismBlocks.IESNIUM_ORE_NATURAL.get());
+        helper.runAfterDelay(2, () -> {
+            var player = MockPlayerHelper.makeConnectedMockServerPlayer(helper, GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(OccultismItems.INFUSED_PICKAXE.get()));
+            player.gameMode.destroyBlock(helper.absolutePos(TEST_POS));
+            helper.assertTrue(helper.getBlockState(TEST_POS).isAir(), "iesnium ore natural should be broken");
+        });
+        helper.runAfterDelay(10, () -> {
+            helper.assertItemEntityCountIs(Blocks.NETHERRACK.asItem(), TEST_POS, 3.0, 1);
             helper.succeed();
         });
     }
