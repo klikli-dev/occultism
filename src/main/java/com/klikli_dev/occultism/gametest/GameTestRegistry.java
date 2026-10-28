@@ -47,9 +47,22 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CURIOS_UTIL_STORAGE_REMOTE_FIRST_SLOT =
             TEST_FUNCTIONS.register("curios_util_storage_remote_first_slot", () -> CuriosUtilGameTests::storageRemoteInFirstInventorySlotIsFound);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OTHERWORLD_BLOCK_DROPS_COVERED =
+            TEST_FUNCTIONS.register("otherworld_block_drops_covered", () -> OtherworldBlockGameTests::naturalBlockDropsCoveredWithoutSight);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OTHERWORLD_BLOCK_DROPS_UNCOVERED =
+            TEST_FUNCTIONS.register("otherworld_block_drops_uncovered", () -> OtherworldBlockGameTests::naturalBlockDropsUncoveredWithThirdEye);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OTHERWORLD_BLOCK_DROPS_STAFF =
+            TEST_FUNCTIONS.register("otherworld_block_drops_staff", () -> OtherworldBlockGameTests::naturalBlockDropsUncoveredWithStaff);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> IESNIUM_DROPS_STAFF =
+            TEST_FUNCTIONS.register("iesnium_drops_staff", () -> OtherworldBlockGameTests::iesniumDropsUncoveredWithStaff);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler"));
         var curiosEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "curios_util"));
+        var otherworldEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_blocks"));
         var structure = Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler_test");
 
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_ABORTED_PROBES, environment, structure, 40, 0);
@@ -60,6 +73,10 @@ public class GameTestRegistry {
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_UNDO_JOURNAL_DRAINS, environment, structure, 40, 0);
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_RECURSIVE_COMMIT_NOTIFICATION, environment, structure, 40, 0);
         registerTest(event, CURIOS_UTIL_STORAGE_REMOTE_FIRST_SLOT, curiosEnvironment, structure, 40, 0);
+        registerTest(event, OTHERWORLD_BLOCK_DROPS_COVERED, otherworldEnvironment, structure, 40, 0);
+        registerTest(event, OTHERWORLD_BLOCK_DROPS_UNCOVERED, otherworldEnvironment, structure, 40, 0);
+        registerTest(event, OTHERWORLD_BLOCK_DROPS_STAFF, otherworldEnvironment, structure, 40, 0);
+        registerTest(event, IESNIUM_DROPS_STAFF, otherworldEnvironment, structure, 40, 0);
     }
 
     private static void registerTest(
