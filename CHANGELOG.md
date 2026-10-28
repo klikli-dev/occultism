@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.257.2] - 2026-10-28
+### :bug: Bug Fixes
+- [`507cca5`](https://github.com/klikli-dev/occultism/commit/507cca55a1b542772ced5f7b995600c7236a4896) - improve teleport tablet compass selection *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.257.1] - 2026-10-27
 ### :bug: Bug Fixes
 - [`6b2ff7a`](https://github.com/klikli-dev/occultism/commit/6b2ff7a90e0eaffcf50a18349e513fa7746244b5) - entity wormhole pulling / teleporting spectators *(PR [#1719](https://github.com/klikli-dev/occultism/pull/1719) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2895,3 +2900,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.256.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.256.0...release/v26.1.2-1.256.1
 [release/v26.1.2-1.257.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.256.1...release/v26.1.2-1.257.0
 [release/v26.1.2-1.257.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.0...release/v26.1.2-1.257.1
+[release/v26.1.2-1.257.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.1...release/v26.1.2-1.257.2
