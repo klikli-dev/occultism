@@ -44,8 +44,16 @@ public interface CuriosIntegration {
 
     boolean isLoaded();
 
+    /**
+     * Checks curios slots for goggles. Vanilla equipment slots are checked
+     * separately in {@link CuriosUtil}, so this only covers curios.
+     */
     boolean hasGoggles(Player player);
 
+    /**
+     * Checks curios slots for the true sight staff. Vanilla equipment slots
+     * are checked separately in {@link CuriosUtil}, so this only covers curios.
+     */
     boolean hasStaff(Player player);
 
     ItemStack getBackpack(Player player);

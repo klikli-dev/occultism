@@ -12,7 +12,6 @@ import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.item.tool.KnowledgeTabletItem;
 import com.klikli_dev.occultism.integration.curios.CuriosIntegration;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -46,10 +45,7 @@ public class CuriosIntegrationImpl implements CuriosIntegration {
 
     @Override
     public boolean hasGoggles(Player player) {
-        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (OtherworldGogglesItem.isGogglesItem(helmet))
-            return true;
-
+        // Vanilla slots are handled by CuriosUtil, here we only check curios slots.
         ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
         if (curiosHandler == null)
             return false;
@@ -61,9 +57,7 @@ public class CuriosIntegrationImpl implements CuriosIntegration {
 
     @Override
     public boolean hasStaff(Player player) {
-        if (player.getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF))
-            return true;
-
+        // Vanilla slots are handled by CuriosUtil, here we only check curios slots.
         ICuriosItemHandler curiosHandler = CuriosApi.getCuriosInventory(player).orElse(null);
         if (curiosHandler == null)
             return false;
