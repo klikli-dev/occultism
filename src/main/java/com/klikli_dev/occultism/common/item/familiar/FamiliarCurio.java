@@ -44,13 +44,17 @@ import java.util.function.Consumer;
 public interface FamiliarCurio {
     static Curio getCurio(ItemStack stack) {
         //Curios may be missing (no compatible release); never touch its classes then.
-        if (!ModList.get().isLoaded("curios"))
-            return null;
-        Object capability = stack.getCapability(CuriosCapability.ITEM);
-        if (capability instanceof Curio curio) {
-            return curio;
+        if (ModList.get().isLoaded("curios")) {
+            Object capability = stack.getCapability(CuriosCapability.ITEM);
+            if (capability instanceof Curio curio) {
+                return curio;
+            }
         }
-        return null;
+        // Fall back to the curios-free holder so capture/release (as well as
+        // inventory ticks, tooltips and foil) keep working while curios is not
+        // available. State round-trips through the stack's data components,
+        // so a fresh holder per call is fine.
+        return stack.getItem() instanceof FamiliarCurio ? new Curio(stack) : null;
     }
 
     static List<IFamiliar> getFamiliar(ItemStack stack, Level level) {

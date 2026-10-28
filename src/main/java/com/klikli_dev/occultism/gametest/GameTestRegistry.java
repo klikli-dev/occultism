@@ -59,6 +59,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> IESNIUM_DROPS_STAFF =
             TEST_FUNCTIONS.register("iesnium_drops_staff", () -> OtherworldBlockGameTests::iesniumDropsUncoveredWithStaff);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FAMILIAR_RING_CAPTURES_FAMILIAR =
+            TEST_FUNCTIONS.register("familiar_ring_captures_familiar", () -> FamiliarRingGameTests::ringCapturesFamiliar);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FAMILIAR_RING_RELEASES_FAMILIAR =
+            TEST_FUNCTIONS.register("familiar_ring_releases_familiar", () -> FamiliarRingGameTests::ringReleasesFamiliar);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler"));
         var curiosEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "curios_util"));
@@ -77,6 +83,10 @@ public class GameTestRegistry {
         registerTest(event, OTHERWORLD_BLOCK_DROPS_UNCOVERED, otherworldEnvironment, structure, 40, 0);
         registerTest(event, OTHERWORLD_BLOCK_DROPS_STAFF, otherworldEnvironment, structure, 40, 0);
         registerTest(event, IESNIUM_DROPS_STAFF, otherworldEnvironment, structure, 40, 0);
+
+        var familiarEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "familiar_ring"));
+        registerTest(event, FAMILIAR_RING_CAPTURES_FAMILIAR, familiarEnvironment, structure, 40, 0);
+        registerTest(event, FAMILIAR_RING_RELEASES_FAMILIAR, familiarEnvironment, structure, 40, 0);
     }
 
     private static void registerTest(
