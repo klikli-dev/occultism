@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.description",
   "icon": "occultism:textures/gui/book/familiar_beaver.png",
   "id": "occultism:familiar_rituals/familiar_beaver",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.name",
   "parents": [
     {

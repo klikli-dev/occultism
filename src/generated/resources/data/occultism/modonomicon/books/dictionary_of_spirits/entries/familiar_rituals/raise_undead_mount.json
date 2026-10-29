@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.description",
   "icon": "occultism:textures/gui/book/zombie_horse.png",
   "id": "occultism:familiar_rituals/raise_undead_mount",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.raise_undead_mount.name",
   "parents": [
     {

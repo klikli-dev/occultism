@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description",
   "icon": "occultism:textures/gui/book/familiar_deer.png",
   "id": "occultism:familiar_rituals/familiar_deer",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.name",
   "parents": [
     {

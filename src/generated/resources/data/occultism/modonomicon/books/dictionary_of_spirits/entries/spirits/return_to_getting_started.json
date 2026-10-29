@@ -14,6 +14,9 @@
     "id": "occultism:dictionary_of_spirits_icon"
   },
   "id": "occultism:spirits/return_to_getting_started",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.return_to_getting_started.name",
   "parents": [
     {

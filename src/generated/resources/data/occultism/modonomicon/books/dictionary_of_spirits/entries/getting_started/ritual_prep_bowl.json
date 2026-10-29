@@ -23,6 +23,9 @@
     "id": "occultism:golden_sacrificial_bowl"
   },
   "id": "occultism:getting_started/ritual_prep_bowl",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.name",
   "parents": [
     {

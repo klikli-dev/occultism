@@ -23,6 +23,9 @@
     "id": "minecraft:totem_of_undying"
   },
   "id": "occultism:possession_rituals/horde_illager",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_illager.name",
   "parents": [
     {

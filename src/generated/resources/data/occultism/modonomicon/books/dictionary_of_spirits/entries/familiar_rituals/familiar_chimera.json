@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.description",
   "icon": "occultism:textures/gui/book/familiar_chimera.png",
   "id": "occultism:familiar_rituals/familiar_chimera",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_chimera.name",
   "parents": [
     {

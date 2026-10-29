@@ -23,6 +23,9 @@
     "id": "minecraft:wheat"
   },
   "id": "occultism:summoning_rituals/weather_magic",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.name",
   "parents": [
     {

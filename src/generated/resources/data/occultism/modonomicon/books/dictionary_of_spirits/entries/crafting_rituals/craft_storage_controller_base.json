@@ -23,6 +23,9 @@
     "id": "occultism:storage_controller_base"
   },
   "id": "occultism:crafting_rituals/craft_storage_controller_base",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.name",
   "parents": [
     {

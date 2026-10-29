@@ -23,6 +23,9 @@
     "id": "minecraft:netherite_upgrade_smithing_template"
   },
   "id": "occultism:possession_rituals/possess_hoglin",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_hoglin.name",
   "parents": [
     {

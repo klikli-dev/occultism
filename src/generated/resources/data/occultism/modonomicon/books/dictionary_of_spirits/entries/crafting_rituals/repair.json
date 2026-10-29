@@ -23,6 +23,9 @@
     "id": "occultism:repair_icon"
   },
   "id": "occultism:crafting_rituals/repair",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.name",
   "parents": [
     {

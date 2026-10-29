@@ -23,6 +23,9 @@
     "id": "occultism:miner_ancient_eldritch"
   },
   "id": "occultism:crafting_rituals/craft_ancient_miner",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_ancient_miner.name",
   "parents": [
     {

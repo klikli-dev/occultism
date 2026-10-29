@@ -40,6 +40,9 @@
     "id": "occultism:pentacle_craft"
   },
   "id": "occultism:pentacles/craft_djinni",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name",
   "parents": [
     {

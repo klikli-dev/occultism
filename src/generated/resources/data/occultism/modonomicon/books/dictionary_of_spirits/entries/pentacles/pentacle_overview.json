@@ -12,6 +12,9 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.description",
   "icon": "occultism:textures/gui/book/pentacle.png",
   "id": "occultism:pentacles/pentacle_overview",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.pentacle_overview.name",
   "sort_number": 0,
   "x": -11,

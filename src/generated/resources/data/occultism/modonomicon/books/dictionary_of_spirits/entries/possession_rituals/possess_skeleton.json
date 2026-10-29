@@ -23,6 +23,9 @@
     "id": "minecraft:skeleton_skull"
   },
   "id": "occultism:possession_rituals/possess_skeleton",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.name",
   "parents": [
     {

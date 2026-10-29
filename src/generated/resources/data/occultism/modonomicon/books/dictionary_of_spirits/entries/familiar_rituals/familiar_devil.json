@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.description",
   "icon": "occultism:textures/gui/book/familiar_devil.png",
   "id": "occultism:familiar_rituals/familiar_devil",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_devil.name",
   "parents": [
     {

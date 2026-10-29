@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.description",
   "icon": "occultism:textures/gui/book/demonic_partner.png",
   "id": "occultism:familiar_rituals/demonic_partner",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.name",
   "parents": [
     {

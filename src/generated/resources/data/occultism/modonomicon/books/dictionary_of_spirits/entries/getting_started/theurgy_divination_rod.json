@@ -7,31 +7,16 @@
   },
   "category": "occultism:getting_started",
   "condition": {
-    "type": "modonomicon:and",
-    "children": [
-      {
-        "type": "modonomicon:research_node_unlocked",
-        "node_id": "occultism:research/entry_viewed/getting_started/divination_rod",
-        "tooltip": {
-          "translate": "tooltip.modonomicon.condition.entry_unlocked",
-          "with": [
-            {
-              "translate": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.name"
-            }
-          ]
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:research/entry_viewed/getting_started/divination_rod",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.name"
         }
-      },
-      {
-        "type": "modonomicon:mod_loaded",
-        "mod_id": "theurgy",
-        "tooltip": {
-          "translate": "tooltip.modonomicon.condition.mod_loaded",
-          "with": [
-            "theurgy"
-          ]
-        }
-      }
-    ]
+      ]
+    }
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.description",
   "hide_while_locked": true,
@@ -39,6 +24,19 @@
     "id": "minecraft:stick"
   },
   "id": "occultism:getting_started/theurgy_divination_rod",
+  "load_condition": {
+    "type": "modonomicon:mod_loaded",
+    "mod_id": "theurgy",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.mod_loaded",
+      "with": [
+        "theurgy"
+      ]
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.name",
   "parents": [
     {

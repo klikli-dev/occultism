@@ -22,6 +22,9 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.return_to_rituals.description",
   "icon": "occultism:textures/gui/book/robe.png",
   "id": "occultism:summoning_rituals/return_to_rituals",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.return_to_rituals.name",
   "parents": [
     {

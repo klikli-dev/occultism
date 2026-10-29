@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description",
   "icon": "occultism:textures/gui/book/familiar_mummy.png",
   "id": "occultism:familiar_rituals/familiar_mummy",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.name",
   "parents": [
     {

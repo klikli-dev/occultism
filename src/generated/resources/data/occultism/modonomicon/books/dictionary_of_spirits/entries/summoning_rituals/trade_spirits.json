@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.description",
   "icon": "occultism:textures/gui/book/cash.png",
   "id": "occultism:summoning_rituals/trade_spirits",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.name",
   "parents": [
     {

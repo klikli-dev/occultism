@@ -23,6 +23,9 @@
     "id": "minecraft:bell"
   },
   "id": "occultism:crafting_rituals/bell",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.bell.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "occultism:marid_essence"
   },
   "id": "occultism:summoning_rituals/marid_essence",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.name",
   "parents": [
     {

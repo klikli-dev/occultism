@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_cthulhu.description",
   "icon": "occultism:textures/gui/book/familiar_cthulhu.png",
   "id": "occultism:familiar_rituals/familiar_cthulhu",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_cthulhu.name",
   "parents": [
     {

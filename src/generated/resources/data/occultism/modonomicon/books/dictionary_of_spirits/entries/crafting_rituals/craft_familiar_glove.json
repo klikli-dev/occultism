@@ -23,6 +23,9 @@
     "id": "occultism:familiar_glove"
   },
   "id": "occultism:crafting_rituals/craft_familiar_glove",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_glove.name",
   "parents": [
     {

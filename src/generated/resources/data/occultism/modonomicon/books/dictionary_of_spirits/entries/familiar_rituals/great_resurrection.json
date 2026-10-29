@@ -23,6 +23,9 @@
     "id": "occultism:soul_shattered"
   },
   "id": "occultism:familiar_rituals/great_resurrection",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.name",
   "parents": [
     {

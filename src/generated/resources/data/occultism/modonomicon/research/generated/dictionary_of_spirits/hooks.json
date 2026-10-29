@@ -130,5 +130,11 @@
     "id": "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller_hook",
     "trigger_target": "occultism:storage/storage_controller",
     "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_system_automation",
+    "id": "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_system_automation_hook",
+    "trigger_target": "occultism:storage/storage_system_automation",
+    "trigger_type": "modonomicon:entry_viewed_once"
   }
 ]
