@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.262.0] - 2026-10-29
+### :sparkles: New Features
+- [`efa11e8`](https://github.com/klikli-dev/occultism/commit/efa11e86f3ac41536f2b7623d5edf1c223183dfd) - modonomicon load conditions *(PR [#1722](https://github.com/klikli-dev/occultism/pull/1722) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.261.1] - 2026-10-28
 ### :bug: Bug Fixes
 - [`df0f7f7`](https://github.com/klikli-dev/occultism/commit/df0f7f79e373fa93359bb5d9bf732db22d6e5536) - prevent tablet duplication when the tablet stack is moved *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2987,3 +2992,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.260.2]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.260.1...release/v26.3-1.260.2
 [release/v26.3-1.261.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.260.2...release/v26.3-1.261.0
 [release/v26.3-1.261.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.261.0...release/v26.3-1.261.1
+[release/v26.3-1.262.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.261.1...release/v26.3-1.262.0
