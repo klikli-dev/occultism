@@ -230,6 +230,12 @@
     ]
   },
   {
+    "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_storage_system_automation_theurgy",
+    "required_facts": [
+      "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_system_automation"
+    ]
+  },
+  {
     "id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_summon_manage_machine",
     "required_facts": [
       "occultism:generated/dictionary_of_spirits/facts/entry_viewed_once/storage_storage_controller"

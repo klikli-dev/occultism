@@ -4,7 +4,6 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
 import com.klikli_dev.occultism.datagen.OccultismResearch;
 import com.klikli_dev.occultism.datagen.book.getting_started.*;
@@ -54,12 +53,8 @@ public class GettingStartedCategory extends CategoryProvider {
         var theurgyDivinationRodEntry = this.add(new TheurgyDivinationRodsEntry(this).generate());
         theurgyDivinationRodEntry
                 .withParent(BookEntryParentModel.create(divinationRodEntry.getId()))
-                .withCondition(
-                        BookAndConditionModel.create().withChildren(
-                                this.condition().researchNodeEntryViewedOnce(OccultismResearch.GETTING_STARTED_DIVINATION_ROD, divinationRodEntry),
-                                BookModLoadedConditionModel.create().withModId("theurgy")
-                        )
-                )
+                .withCondition(this.condition().researchNodeEntryViewedOnce(OccultismResearch.GETTING_STARTED_DIVINATION_ROD, divinationRodEntry))
+                .withLoadCondition(BookModLoadedConditionModel.create().withModId("theurgy"))
                 .hideWhileLocked(true);
         this.layout().entry(theurgyDivinationRodEntry).above(divinationRodEntry, 2);
 
