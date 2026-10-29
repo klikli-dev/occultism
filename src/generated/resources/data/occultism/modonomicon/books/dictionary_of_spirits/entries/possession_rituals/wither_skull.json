@@ -23,6 +23,9 @@
     "id": "minecraft:wither_skeleton_skull"
   },
   "id": "occultism:possession_rituals/wither_skull",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.name",
   "parents": [
     {

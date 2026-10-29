@@ -23,6 +23,9 @@
     "id": "occultism:iesnium_sacrificial_bowl"
   },
   "id": "occultism:crafting_rituals/craft_iesnium_sacrificial_bowl",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.name",
   "parents": [
     {

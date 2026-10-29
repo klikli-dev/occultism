@@ -23,6 +23,9 @@
     "id": "occultism:chalk_yellow"
   },
   "id": "occultism:pentacles/yellow_chalk",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.yellow_chalk.name",
   "parents": [
     {

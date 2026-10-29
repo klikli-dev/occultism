@@ -23,6 +23,9 @@
     "id": "minecraft:wild_armor_trim_smithing_template"
   },
   "id": "occultism:crafting_rituals/craft_wild_trim",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.name",
   "parents": [
     {

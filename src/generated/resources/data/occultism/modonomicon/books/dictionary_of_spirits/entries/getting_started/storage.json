@@ -24,6 +24,9 @@
     "id": "occultism:storage_controller"
   },
   "id": "occultism:getting_started/storage",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.storage.name",
   "parents": [
     {

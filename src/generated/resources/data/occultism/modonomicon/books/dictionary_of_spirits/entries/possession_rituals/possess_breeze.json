@@ -23,6 +23,9 @@
     "id": "minecraft:ominous_trial_key"
   },
   "id": "occultism:possession_rituals/possess_breeze",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_breeze.name",
   "parents": [
     {

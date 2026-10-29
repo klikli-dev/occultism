@@ -23,6 +23,9 @@
     "id": "occultism:flaming_paste"
   },
   "id": "occultism:crafting_rituals/craft_flaming_paste",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_flaming_paste.name",
   "parents": [
     {

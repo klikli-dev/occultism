@@ -23,6 +23,9 @@
     "id": "minecraft:lever"
   },
   "id": "occultism:storage/summon_manage_machine",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.storage.summon_manage_machine.name",
   "parents": [
     {

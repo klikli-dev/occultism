@@ -23,6 +23,9 @@
     "id": "minecraft:flint_and_steel"
   },
   "id": "occultism:rituals/item_use",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.item_use.name",
   "parents": [
     {

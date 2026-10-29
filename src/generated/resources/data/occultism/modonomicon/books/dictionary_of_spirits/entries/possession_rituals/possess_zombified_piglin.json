@@ -23,6 +23,9 @@
     "id": "occultism:demonic_meat"
   },
   "id": "occultism:possession_rituals/possess_zombified_piglin",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_zombified_piglin.name",
   "parents": [
     {

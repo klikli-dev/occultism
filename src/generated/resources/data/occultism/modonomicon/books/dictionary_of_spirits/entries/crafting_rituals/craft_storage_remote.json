@@ -23,6 +23,9 @@
     "id": "occultism:storage_remote"
   },
   "id": "occultism:crafting_rituals/craft_storage_remote",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_remote.name",
   "parents": [
     {

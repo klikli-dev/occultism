@@ -23,6 +23,9 @@
     "id": "minecraft:skeleton_skull"
   },
   "id": "occultism:pentacles/paraphernalia",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.name",
   "parents": [
     {

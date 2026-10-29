@@ -23,6 +23,9 @@
     "id": "minecraft:ender_pearl"
   },
   "id": "occultism:possession_rituals/possess_enderman",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.name",
   "parents": [
     {

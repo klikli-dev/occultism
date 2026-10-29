@@ -23,6 +23,9 @@
     "id": "minecraft:iron_axe"
   },
   "id": "occultism:summoning_rituals/summon_lumberjack",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.name",
   "parents": [
     {

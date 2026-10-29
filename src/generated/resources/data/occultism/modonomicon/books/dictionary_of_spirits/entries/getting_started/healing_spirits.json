@@ -23,6 +23,9 @@
     "id": "minecraft:splash_potion"
   },
   "id": "occultism:getting_started/healing_spirits",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.name",
   "parents": [
     {

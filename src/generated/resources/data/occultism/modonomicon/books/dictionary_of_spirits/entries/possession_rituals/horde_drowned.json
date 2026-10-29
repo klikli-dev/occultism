@@ -23,6 +23,9 @@
     "id": "minecraft:sniffer_egg"
   },
   "id": "occultism:possession_rituals/horde_drowned",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_drowned.name",
   "parents": [
     {

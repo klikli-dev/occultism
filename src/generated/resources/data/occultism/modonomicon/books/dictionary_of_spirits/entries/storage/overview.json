@@ -23,6 +23,9 @@
     "id": "minecraft:chest"
   },
   "id": "occultism:storage/overview",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.storage.overview.name",
   "sort_number": 0,
   "x": -4,

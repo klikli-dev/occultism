@@ -12,6 +12,9 @@
   "description": "book.occultism.dictionary_of_spirits.spirits.overview.description",
   "icon": "occultism:textures/gui/book/spirits.png",
   "id": "occultism:spirits/overview",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.overview.name",
   "sort_number": 0,
   "x": -8,

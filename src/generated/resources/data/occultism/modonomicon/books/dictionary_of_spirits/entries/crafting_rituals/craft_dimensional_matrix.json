@@ -23,6 +23,9 @@
     "id": "occultism:dimensional_matrix"
   },
   "id": "occultism:crafting_rituals/craft_dimensional_matrix",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "occultism:infused_chestplate"
   },
   "id": "occultism:crafting_rituals/craft_infused_armor",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_infused_armor.name",
   "parents": [
     {

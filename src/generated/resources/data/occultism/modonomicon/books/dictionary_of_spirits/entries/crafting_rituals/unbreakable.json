@@ -23,6 +23,9 @@
     "id": "occultism:bedrock_gem_cluster"
   },
   "id": "occultism:crafting_rituals/unbreakable",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.unbreakable.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "minecraft:heavy_core"
   },
   "id": "occultism:possession_rituals/possess_strong_breeze",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_strong_breeze.name",
   "parents": [
     {

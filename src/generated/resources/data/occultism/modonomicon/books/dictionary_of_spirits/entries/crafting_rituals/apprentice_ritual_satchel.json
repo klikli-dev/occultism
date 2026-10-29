@@ -23,6 +23,9 @@
     "id": "occultism:ritual_satchel_t1"
   },
   "id": "occultism:crafting_rituals/apprentice_ritual_satchel",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.name",
   "parents": [
     {

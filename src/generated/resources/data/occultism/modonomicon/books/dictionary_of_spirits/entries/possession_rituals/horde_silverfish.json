@@ -23,6 +23,9 @@
     "id": "minecraft:music_disc_relic"
   },
   "id": "occultism:possession_rituals/horde_silverfish",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_silverfish.name",
   "parents": [
     {

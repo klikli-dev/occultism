@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.description",
   "icon": "occultism:textures/gui/book/unbound_spirits.png",
   "id": "occultism:spirits/unbound_spirits",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.name",
   "parents": [
     {

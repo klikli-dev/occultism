@@ -57,7 +57,7 @@ public class StorageCategory extends CategoryProvider {
 
         var storageSystemAutomationTheurgy = this.add(new AutomationTheurgyEntry(this).generate());
         storageSystemAutomationTheurgy.withParent(BookEntryParentModel.create(storageSystemAutomation.getId()));
-        storageSystemAutomationTheurgy.withCondition(BookModLoadedConditionModel.create().withModId("theurgy"));
+        storageSystemAutomationTheurgy.withLoadCondition(BookModLoadedConditionModel.create().withModId("theurgy"));
         this.layout().entry(storageSystemAutomationTheurgy).above(storageSystemAutomation, 2);
 
         var summonManageMachine = this.add(new ManageMachineEntry(this).generate());

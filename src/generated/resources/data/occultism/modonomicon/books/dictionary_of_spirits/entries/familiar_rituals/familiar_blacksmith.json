@@ -21,6 +21,9 @@
   "description": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.description",
   "icon": "occultism:textures/gui/book/familiar_blacksmith.png",
   "id": "occultism:familiar_rituals/familiar_blacksmith",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_blacksmith.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "occultism:pentacle_possess"
   },
   "id": "occultism:pentacles/possess_afrit",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.possess_afrit.name",
   "parents": [
     {

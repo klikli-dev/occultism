@@ -23,6 +23,9 @@
     "id": "minecraft:phantom_membrane"
   },
   "id": "occultism:possession_rituals/possess_phantom",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_phantom.name",
   "parents": [
     {

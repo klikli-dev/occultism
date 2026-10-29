@@ -7,6 +7,23 @@
   },
   "category": "occultism:storage",
   "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "occultism:generated/dictionary_of_spirits/nodes/entry_viewed_once/storage_storage_system_automation_theurgy",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.name"
+        }
+      ]
+    }
+  },
+  "description": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.description",
+  "icon": {
+    "id": "theurgy:list_filter"
+  },
+  "id": "occultism:storage/storage_system_automation_theurgy",
+  "load_condition": {
     "type": "modonomicon:mod_loaded",
     "mod_id": "theurgy",
     "tooltip": {
@@ -16,11 +33,9 @@
       ]
     }
   },
-  "description": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.description",
-  "icon": {
-    "id": "theurgy:list_filter"
+  "marker_condition": {
+    "type": "modonomicon:none"
   },
-  "id": "occultism:storage/storage_system_automation_theurgy",
   "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation_theurgy.name",
   "parents": [
     {

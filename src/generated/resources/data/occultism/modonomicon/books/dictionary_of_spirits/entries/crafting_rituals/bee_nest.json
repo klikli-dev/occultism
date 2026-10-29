@@ -23,6 +23,9 @@
     "id": "minecraft:bee_nest"
   },
   "id": "occultism:crafting_rituals/bee_nest",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.bee_nest.name",
   "parents": [
     {

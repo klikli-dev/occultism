@@ -23,6 +23,9 @@
     "id": "occultism:list_filter"
   },
   "id": "occultism:summoning_rituals/transporter_filters",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.transporter_filters.name",
   "parents": [
     {

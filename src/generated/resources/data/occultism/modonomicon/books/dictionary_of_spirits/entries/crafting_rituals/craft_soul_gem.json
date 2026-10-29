@@ -23,6 +23,9 @@
     "id": "occultism:soul_gem"
   },
   "id": "occultism:crafting_rituals/craft_soul_gem",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_soul_gem.name",
   "parents": [
     {

@@ -23,6 +23,9 @@
     "id": "occultism:cruelty_essence"
   },
   "id": "occultism:possession_rituals/possess_goat",
+  "marker_condition": {
+    "type": "modonomicon:none"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_goat.name",
   "parents": [
     {
