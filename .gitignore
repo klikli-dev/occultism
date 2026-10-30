@@ -27,7 +27,7 @@ forge*changelog.txt
 
 logs/
 
-src/generated/resources/.cache/
+.cache/
 
 # local flatDir maven repo
 lib/
