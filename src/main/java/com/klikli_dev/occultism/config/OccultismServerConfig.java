@@ -35,6 +35,7 @@ public class OccultismServerConfig {
 
     public final RitualSettings rituals;
     public final ItemSettings itemSettings;
+    public final WorldGenSettings worldGen;
     public final ModConfigSpec spec;
 
     private OccultismServerConfig() {
@@ -44,6 +45,7 @@ public class OccultismServerConfig {
         this.familiar = new FamiliarSettings(builder);
         this.rituals = new RitualSettings(builder);
         this.itemSettings = new ItemSettings(builder);
+        this.worldGen = new WorldGenSettings(builder);
         this.spec = builder.build();
     }
 
@@ -348,6 +350,38 @@ public class OccultismServerConfig {
             this.greedyVerticalSearchRange = builder.comment(
                             "The vertical value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
                     .defineInRange("greedyVerticalSearchRange", 16, 0, Integer.MAX_VALUE);
+
+            builder.pop();
+        }
+    }
+
+    public static class WorldGenSettings {
+        public final BooleanValue enableSilverOre;
+        public final BooleanValue enableDeepslateSilverOre;
+        public final BooleanValue enableIesniumOre;
+        public final BooleanValue enableUndergroundGrove;
+        public final BooleanValue enableOtherworldTrees;
+
+        public WorldGenSettings(Builder builder) {
+            builder.comment("World Generation Settings",
+                    "These settings only affect chunks generated after they are changed, already generated terrain is not modified.").push("worldgen");
+
+            this.enableSilverOre =
+                    builder.comment("Generate silver ore in stone in the overworld.")
+                            .define("enableSilverOre", true);
+            this.enableDeepslateSilverOre =
+                    builder.comment("Generate silver ore in deepslate in the overworld.")
+                            .define("enableDeepslateSilverOre", true);
+            this.enableIesniumOre =
+                    builder.comment("Generate iesnium ore in the nether.",
+                                    "Iesnium is required for progression, only disable this if it can be obtained otherwise.")
+                            .define("enableIesniumOre", true);
+            this.enableUndergroundGrove =
+                    builder.comment("Generate underground otherworld groves in the overworld.")
+                            .define("enableUndergroundGrove", true);
+            this.enableOtherworldTrees =
+                    builder.comment("Generate otherworld trees on the surface of the overworld.")
+                            .define("enableOtherworldTrees", true);
 
             builder.pop();
         }

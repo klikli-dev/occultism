@@ -2,6 +2,10 @@
   "feature": "occultism:ore_silver_deepslate",
   "placement": [
     {
+      "type": "occultism:config_enabled",
+      "setting": "deepslate_silver_ore"
+    },
+    {
       "type": "minecraft:count",
       "count": 10
     },

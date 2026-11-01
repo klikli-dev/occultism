@@ -2139,6 +2139,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("maxDistanceRTP", "Max Distance RTP");
         this.addConfig("maxTryRTP", "Max Attempts to RTP");
         this.addConfig("wormholeTabletCooldown", "Wormhole Tablet Cooldown");
+
+        this.addConfig("worldgen", "World Generation Settings");
+        this.addConfig("enableSilverOre", "Generate Silver Ore");
+        this.addConfig("enableDeepslateSilverOre", "Generate Deepslate Silver Ore");
+        this.addConfig("enableIesniumOre", "Generate Iesnium Ore");
+        this.addConfig("enableUndergroundGrove", "Generate Underground Groves");
+        this.addConfig("enableOtherworldTrees", "Generate Otherworld Trees");
     }
 
     private void addConfig(String key, String name) {
