@@ -275,7 +275,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
 
-        if (fuel.isEmpty() || fuelValue * fuel.getCount() < this.soulValue) {
+        if (fuel.isEmpty() || fuel.getCount() < getRequiredFuel(this.soulValue, fuelValue)) {
             this.resetTime();
             return;
         }
@@ -300,7 +300,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         if (this.mobHealth <= 0) {
             int luck = fuel.getOrDefault(OccultismDataComponents.LUCK_VALUE, 1);
-            fuel.shrink(1 + (this.soulValue / Math.max(fuelValue, 1)));
+            fuel.shrink(getRequiredFuel(this.soulValue, fuelValue));
             this.inputFuelHandler.set(0, ItemResource.of(fuel), fuel.getCount());
 
             this.defeat(soul, luck);
@@ -455,6 +455,14 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                 .create(LootContextParamSets.ENTITY);
     }
 
+    public static int getSoulValue(ItemStack soul, float maxHealth) {
+        return (int) (soul.has(OccultismDataComponents.SOUL_VALUE) ? (maxHealth * 0.5) : maxHealth);
+    }
+
+    public static int getRequiredFuel(int soulValue, int fuelValue) {
+        return Math.ceilDiv(soulValue, Math.max(fuelValue, 1));
+    }
+
     public void setMaxMobLife(ServerLevel serverLevel) {
         if (this.storedLivingEntity == null)
             return;
@@ -466,7 +474,7 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
         //Setup soulValue and mob health
         float health = this.storedLivingEntity.getMaxHealth();
-        this.soulValue = (int) (soul.has(OccultismDataComponents.SOUL_VALUE) ? (health * 0.5) : health);
+        this.soulValue = getSoulValue(soul, health);
         health *= BUTCHER_LIFE_MULT;
         if (weapon.isEnchanted()) { //Custom health modifier
             int fsLVL = weapon.getEnchantmentLevel(this.FRACTURE_SOUL);
