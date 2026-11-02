@@ -236,6 +236,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         Right-Click a preview block to place it out of the satchel.
                         Right-Click elsewhere to place a sacrificial bowl out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
+                        Dyes in the satchel color rainbow and void chalk to match the preview.
                         An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );
@@ -247,6 +248,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         Shift-Right-Click to open the satchel and add ritual ingredients.
                         Right-Click a Golden Bowl to remove the ritual circle and collect the ingredients.
                         Right-Click elsewhere to place a sacrificial bowl out of the satchel.
+                        Dyes in the satchel color rainbow and void chalk to match the preview.
                         An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );
