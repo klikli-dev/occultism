@@ -30,7 +30,7 @@ public class OtherstoneBlocksEntry extends EntryProvider {
         this.pageTitle("Otherstone Blocks");
         this.pageText("The otherstone block set includes:\n" +
                 "- Otherstone\n" +
-                "- Polished Otherstone\n" +
+                "- Smooth Otherstone\n" +
                 "- Otherstone Bricks\n" +
                 "- Chiseled Otherstone Bricks\n" +
                 "- Cracked Otherstone Bricks\n" +
@@ -47,7 +47,7 @@ public class OtherstoneBlocksEntry extends EntryProvider {
         this.pageTitle("Otherrock Blocks");
         this.pageText("The otherrock block set includes:\n" +
                 "- Otherrock\n" +
-                "- Polished Otherrock\n" +
+                "- Smooth Otherrock\n" +
                 "- Otherrock Bricks\n" +
                 "- Chiseled Otherrock Bricks\n" +
                 "- Cracked Otherrock Bricks\n" +
