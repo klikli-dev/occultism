@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.registry.OccultismTags.Items;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.Tags;
 
 public class RitualSatchelSlot extends Slot {
     public RitualSatchelSlot(Container inventoryIn, int index, int xPosition, int yPosition) {
@@ -38,7 +39,7 @@ public class RitualSatchelSlot extends Slot {
         if (stack.is(OccultismItems.RITUAL_SATCHEL_T1) || stack.is(OccultismItems.RITUAL_SATCHEL_T2))
             return false; //technically not necessary because they are not in pentacle materials, but just to make sure no datapack messes it up by accident.
 
-        if (!stack.is(Items.PENTACLE_MATERIALS) && !stack.is(Items.TOOLS_BRUSH) && !stack.is(Items.SACRIFICIAL_BOWLS))
+        if (!stack.is(Items.PENTACLE_MATERIALS) && !stack.is(Items.TOOLS_BRUSH) && !stack.is(Items.SACRIFICIAL_BOWLS) && !stack.is(Tags.Items.DYES))
             return false;
 
         return super.mayPlace(stack);

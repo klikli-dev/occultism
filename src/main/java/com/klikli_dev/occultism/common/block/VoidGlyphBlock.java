@@ -106,6 +106,10 @@ public class VoidGlyphBlock extends ChalkGlyphBlock {
                         context.getHorizontalDirection().getOpposite());
     }
 
+    public BlockState getStateForPlacement(BlockPlaceContext context, ColorBlockState color) {
+        return this.getStateForPlacement(context).setValue(COLOR, color).setValue(CYCLE, false);
+    }
+
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(COLOR, CYCLE);
         super.createBlockStateDefinition(builder);
