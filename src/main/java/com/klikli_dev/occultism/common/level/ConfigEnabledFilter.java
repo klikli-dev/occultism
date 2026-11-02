@@ -40,6 +40,10 @@ public class ConfigEnabledFilter extends PlacementFilter {
         return new ConfigEnabledFilter(setting);
     }
 
+    public Setting getSetting() {
+        return this.setting;
+    }
+
     @Override
     protected boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos) {
         //the server config is loaded before chunks generate, but guard against it being unavailable (e.g. during datagen)
