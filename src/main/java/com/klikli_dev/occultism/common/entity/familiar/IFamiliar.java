@@ -56,6 +56,13 @@ public interface IFamiliar {
     void setFamiliarOwner(LivingEntity owner);
 
     /***
+     * Checks whether this familiar has an owner stored, even if the owner is currently offline.
+     *
+     * @return True if an owner is stored for this familiar, false otherwise.
+     */
+    boolean hasFamiliarOwner();
+
+    /***
      * Gets the actual familiar as an entity.
      *
      * @return The familiar.
