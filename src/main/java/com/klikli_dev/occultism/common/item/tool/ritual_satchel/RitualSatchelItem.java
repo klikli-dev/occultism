@@ -97,6 +97,7 @@ public abstract class RitualSatchelItem extends Item {
             var isGlyph = false;
 
             BlockState blockStateToPlace = null;
+            BlockState dyedGlyphState = null;
             if (stack.getItem() instanceof BlockItem blockItem) {
                 var block = blockItem.getBlock();
                 var blockPlaceContext = blockItem.updatePlacementContext(new BlockPlaceContext(context));
@@ -113,6 +114,7 @@ public abstract class RitualSatchelItem extends Item {
                         blockStateToPlace = rainbowBlock.getStateForPlacement(placeContext, previewColor);
                     else if (chalkBlock instanceof VoidGlyphBlock voidBlock)
                         blockStateToPlace = voidBlock.getStateForPlacement(placeContext, previewColor);
+                    dyedGlyphState = blockStateToPlace;
                 }
                 isGlyph = true;
             }
@@ -133,7 +135,10 @@ public abstract class RitualSatchelItem extends Item {
                     continue;
                 }
                 // Simulate item use
-                stack.useOn(new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult()));
+                var useContext = dyedGlyphState != null
+                        ? new ChalkItem.ForcedStateUseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult(), dyedGlyphState)
+                        : new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult());
+                stack.useOn(useContext);
                 inventory.setItem(i, stack); // Force an update of the container if the item was used up or stack size reduced.
                 inventory.writeItemStack();
                 return PlacementResult.SUCCESS;
