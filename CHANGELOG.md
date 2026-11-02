@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.264.0] - 2026-11-02
+### :boom: BREAKING CHANGES
+- due to [`8cb940d`](https://github.com/klikli-dev/occultism/commit/8cb940d21e4d4180c7d44952d6fb8c35893a3de4) - rename polished otherstone/otherrock ids to smooth *(commit by [@klikli-dev](https://github.com/klikli-dev))*:
+
+  rename polished otherstone/otherrock ids to smooth
+
+
+### :recycle: Refactors
+- [`8743c27`](https://github.com/klikli-dev/occultism/commit/8743c278f962c1706a393e5a121e0132e661a699) - rename English Polished Otherstone/Otherrock to Smooth *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`8cb940d`](https://github.com/klikli-dev/occultism/commit/8cb940d21e4d4180c7d44952d6fb8c35893a3de4) - rename polished otherstone/otherrock ids to smooth *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.263.2] - 2026-11-02
 ### :bug: Bug Fixes
 - [`ebe88b2`](https://github.com/klikli-dev/occultism/commit/ebe88b2f01c630c4463fa602386283a57365161d) - prevent underground groves from generating below water *(PR [#1022](https://github.com/klikli-dev/occultism/pull/1022) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3030,3 +3042,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.263.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.262.0...release/v26.3-1.263.0
 [release/v26.3-1.263.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.263.0...release/v26.3-1.263.1
 [release/v26.3-1.263.2]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.263.1...release/v26.3-1.263.2
+[release/v26.3-1.264.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.263.2...release/v26.3-1.264.0
