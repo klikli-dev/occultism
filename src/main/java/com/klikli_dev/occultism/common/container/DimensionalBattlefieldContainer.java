@@ -66,7 +66,10 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return player.distanceToSqr(this.otherworldButcher.getBlockPos().getX() + 0.5D,
+        return !this.otherworldButcher.isRemoved()
+                && this.otherworldButcher.getLevel() != null
+                && this.otherworldButcher.getLevel().getBlockEntity(this.otherworldButcher.getBlockPos()) == this.otherworldButcher
+                && player.distanceToSqr(this.otherworldButcher.getBlockPos().getX() + 0.5D,
                 this.otherworldButcher.getBlockPos().getY() + 0.5D,
                 this.otherworldButcher.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
@@ -79,8 +82,8 @@ public class DimensionalBattlefieldContainer extends AbstractContainerMenu {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index < this.outputHandler.size()) {
-                //+1 because we have the input handler slot after the output hander slots
-                if (!this.moveItemStackTo(itemstack1, this.outputHandler.size() + 1, this.slots.size(), true)) {
+                //+3 because we have the three input handler slots after the output hander slots
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.size() + 3, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
