@@ -158,7 +158,6 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
         Deque<BlockPos> toVisit = new ArrayDeque<>();
         Set<BlockPos> visited = new HashSet<>();
         toVisit.add(pos);
-        visited.add(pos);
 
         int maxFelledBlocks = Occultism.SERVER_CONFIG.lumberjack.maxFelledBlocks.getAsInt();
 
