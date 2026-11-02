@@ -25,8 +25,6 @@ package com.klikli_dev.occultism.common.item.storage;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.tablet.TabletInventory;
 import com.klikli_dev.occultism.common.container.tablet.TeleportTabletContainer;
-import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.network.messages.MessageSetContents;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TeleportUtil;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -55,6 +53,7 @@ import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -82,37 +81,37 @@ public class TeleportTabletItem extends Item {
                             buffer.writeVarInt(selectedSlot);
                         });
             } else { //Teleport logic
-                if (stack.has(DataComponents.CONTAINER)) {
-                    ItemContainerContents contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-                    if (contents  == ItemContainerContents.EMPTY)
-                        return InteractionResult.FAIL;
+                ItemContainerContents contents = stack.get(DataComponents.CONTAINER);
+                if (contents == null || contents.getSlots() == 0)
+                    return InteractionResult.FAIL;
 
-                    ItemStack compass = contents.getStackInSlot(0);
-                    TeleportTransition transition = this.getDestination((ServerLevel) level, player, compass);
-                    if (transition == null)
-                        return InteractionResult.FAIL;
+                ItemStack compass = contents.getStackInSlot(0);
+                TeleportTransition transition = this.getDestination((ServerLevel) level, player, compass);
+                if (transition == null)
+                    return InteractionResult.FAIL;
 
-                    if (compass.getOrDefault(DataComponents.CUSTOM_NAME, "") != "BACK") {
-                        boolean checking = true;
-                        NonNullList<ItemStack> items = NonNullList.create();
-                        for (int i = 0 ; i < contents.getSlots() ; i++) {
-                            ItemStack back = contents.getStackInSlot(i);
-                            if (checking && back.getOrDefault(DataComponents.CUSTOM_NAME, Component.empty()).getString().equals("BACK")) {
-                                LodestoneTracker target = new LodestoneTracker(Optional.of(GlobalPos.of(level.dimension(), player.blockPosition())), true);
-                                back.set(DataComponents.LODESTONE_TRACKER, target);
-                                checking = false;
-                            }
-                            items.add(back);
-                        }
-                        if (!checking)
-                            Networking.sendToServer(new MessageSetContents(ItemContainerContents.fromItems(items), hand));
+                //save the current position in a compass named BACK before teleporting away.
+                //this is done server side on the actual stack, no client input is involved.
+                boolean updated = false;
+                NonNullList<ItemStack> items = NonNullList.create();
+                for (int i = 0 ; i < contents.getSlots() ; i++) {
+                    ItemStack back = contents.getStackInSlot(i);
+                    if (!updated && back.getOrDefault(DataComponents.CUSTOM_NAME, Component.empty()).getString().equals("BACK")) {
+                        LodestoneTracker target = new LodestoneTracker(Optional.of(GlobalPos.of(level.dimension(), player.blockPosition())), true);
+                        back.set(DataComponents.LODESTONE_TRACKER, target);
+                        updated = true;
                     }
-
-                    player.teleport(transition);
-                    player.getCooldowns().addCooldown(stack, 20 * Occultism.SERVER_CONFIG.itemSettings.wormholeTabletCooldown.getAsInt());
-                    level.broadcastEntityEvent(player, (byte) 46);
-                    return InteractionResult.SUCCESS;
+                    items.add(back);
                 }
+                if (updated) {
+                    stack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(items));
+                    player.inventoryMenu.broadcastChanges();
+                }
+
+                player.teleport(transition);
+                player.getCooldowns().addCooldown(stack, 20 * Occultism.SERVER_CONFIG.itemSettings.wormholeTabletCooldown.getAsInt());
+                level.broadcastEntityEvent(player, (byte) 46);
+                return InteractionResult.SUCCESS;
             }
         }
 
@@ -125,6 +124,26 @@ public class TeleportTabletItem extends Item {
 
         pTooltipAdder.accept(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
+    }
+
+
+    /**
+     * Rotates the (non-empty) compasses stored in the given contents by the given offset, compacting them to the
+     * front as the tablet UI expects. If there is nothing to rotate the input instance is returned unchanged.
+     */
+    public static ItemContainerContents rotateContents(ItemContainerContents contents, int direction) {
+        NonNullList<ItemStack> items = NonNullList.create();
+        for (int i = 0; i < contents.getSlots(); i++) {
+            ItemStack item = contents.getStackInSlot(i);
+            if (!item.isEmpty())
+                items.add(item);
+        }
+
+        if (items.size() < 2)
+            return contents;
+
+        Collections.rotate(items, direction);
+        return ItemContainerContents.fromItems(items);
     }
 
 
