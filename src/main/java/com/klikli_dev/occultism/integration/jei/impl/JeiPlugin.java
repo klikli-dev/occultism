@@ -28,6 +28,8 @@ import com.klikli_dev.occultism.common.container.storage.StorageControllerContai
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
 import com.klikli_dev.occultism.integration.jei.impl.recipes.*;
+import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.network.messages.MessageSyncBattlefieldRecipes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
@@ -50,6 +52,7 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 
@@ -185,6 +188,10 @@ public class JeiPlugin implements IModPlugin {
         @SubscribeEvent
         public static void onDatapackSync(OnDatapackSyncEvent event) {
             BattlefieldRecipeJEI.reloadCache();
+            List<BattlefieldRecipeJEI> battlefieldRecipes = BattlefieldRecipeJEI.generateServerRecipes();
+            event.getRelevantPlayers()
+                    .filter(player -> player.connection.getConnectionType().isNeoForge())
+                    .forEach(player -> Networking.sendTo(player, new MessageSyncBattlefieldRecipes(battlefieldRecipes)));
             event.sendRecipes(
                     OccultismRecipes.SPIRIT_FIRE_TYPE.get(),
                     OccultismRecipes.CRUSHING_TYPE.get(),
@@ -201,7 +208,13 @@ public class JeiPlugin implements IModPlugin {
         @SubscribeEvent
         public static void onRecipesReceived(RecipesReceivedEvent event) {
             syncedRecipes = event.getRecipeMap();
-            battlefieldRecipeJEI = BattlefieldRecipeJEI.getCachedRecipes();
+            battlefieldRecipeJEI = BattlefieldRecipeJEI.getClientRecipes();
+        }
+
+        @SubscribeEvent
+        public static void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+            battlefieldRecipeJEI = new ArrayList<>();
+            BattlefieldRecipeJEI.setClientRecipes(new ArrayList<>());
         }
     }
 }

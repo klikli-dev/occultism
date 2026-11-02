@@ -67,6 +67,7 @@ public class Networking {
         registrar.playToClient(MessageHeadlessDie.TYPE, MessageHeadlessDie.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageSelectBlock.TYPE, MessageSelectBlock.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageSetJumps.TYPE, MessageSetJumps.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageSyncBattlefieldRecipes.TYPE, MessageSyncBattlefieldRecipes.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageSyncFamiliarSettings.TYPE, MessageSyncFamiliarSettings.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageUpdateLinkedMachines.TYPE, MessageUpdateLinkedMachines.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageUpdateMouseHeldItem.TYPE, MessageUpdateMouseHeldItem.STREAM_CODEC, MessageHandler::handle);

@@ -47,6 +47,7 @@ public class BattlefieldRecipeJEI {
     private final List<ItemStack> soulItems;
     private final EntityType<?> entityType;
     private static List<BattlefieldRecipeJEI> cachedRecipes = null;
+    private static List<BattlefieldRecipeJEI> clientRecipes = new ArrayList<>();
 
     public BattlefieldRecipeJEI(List<ItemStack> inputItem, List<ItemStack> outputItems, List<ItemStack> soulItems, EntityType<?> entityType) {
         this.inputItem = inputItem;
@@ -173,6 +174,14 @@ public class BattlefieldRecipeJEI {
 
     public static List<BattlefieldRecipeJEI> getCachedRecipes() {
         return cachedRecipes;
+    }
+
+    public static List<BattlefieldRecipeJEI> getClientRecipes() {
+        return clientRecipes;
+    }
+
+    public static void setClientRecipes(List<BattlefieldRecipeJEI> recipes) {
+        clientRecipes = recipes;
     }
 
     public static void encode(BattlefieldRecipeJEI recipe, RegistryFriendlyByteBuf output) {
