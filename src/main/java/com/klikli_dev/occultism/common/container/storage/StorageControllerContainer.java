@@ -85,16 +85,31 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        if (this.storageController == null)
+    public boolean isStorageControllerAccessible(Player player) {
+        if (this.storageController == null || this.storageController.isRemoved())
             return false;
 
         Level level = this.storageController.getLevel();
+        if (level == null)
+            return false;
+
         BlockPos controllerPosition = this.storageController.getBlockPos();
 
-        //close container if block is destroyed
+        //controller is not accessible if block is destroyed
         if (level.getBlockEntity(controllerPosition) != this.storageController)
             return false;
+
+        //prevent player from interacting with the container if the controller is not in range
+        return player.distanceToSqr(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
+                controllerPosition.getZ() + 0.5D) <= 64.0D;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        if (!this.isStorageControllerAccessible(player))
+            return false;
+
+        Level level = this.storageController.getLevel();
 
         //send stack updates on a slow tick while interacting
         if (!level.isClientSide() && level.getGameTime() % 40 == 0) {
@@ -103,9 +118,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
 
-        //prevent player from interacting with the container if the controller is not in range
-        return player.distanceToSqr(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
-                controllerPosition.getZ() + 0.5D) <= 64.0D;
+        return true;
     }
 
 }

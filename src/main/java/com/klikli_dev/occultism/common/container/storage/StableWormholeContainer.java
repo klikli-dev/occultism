@@ -107,11 +107,14 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
 
     @Override
-    public boolean stillValid(Player player) {
-        if (this.storageController == null || this.stableWormhole == null)
+    public boolean isStorageControllerAccessible(Player player) {
+        if (this.storageController == null || this.stableWormhole == null || this.stableWormhole.isRemoved())
             return false;
 
         Level level = this.stableWormhole.getLevel();
+        if (level == null)
+            return false;
+
         BlockPos wormholePosition = this.stableWormhole.getBlockPos();
 
         //close container if wormhole block is destroyed
@@ -122,6 +125,18 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         if (BlockEntityUtil.get(level, this.stableWormhole.getLinkedStorageControllerPosition()) != this.storageController)
             return false;
 
+        //prevent player from interacting with the container if the wormhole is not in range
+        return player.distanceToSqr(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
+                wormholePosition.getZ() + 0.5D) <= 64.0D;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        if (!this.isStorageControllerAccessible(player))
+            return false;
+
+        Level level = this.stableWormhole.getLevel();
+
         //send stack updates on a slow tick while interacting
         if (!level.isClientSide() && level.getGameTime() % 40 == 0) {
             Networking.sendTo((ServerPlayer) player, this.storageController.getMessageUpdateStacks());
@@ -129,9 +144,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
 
-        //prevent player from interacting with the container if the controller is not in range
-        return player.distanceToSqr(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
-                wormholePosition.getZ() + 0.5D) <= 64.0D;
+        return true;
     }
 
 }
