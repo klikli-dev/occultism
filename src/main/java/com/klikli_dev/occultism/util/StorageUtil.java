@@ -33,6 +33,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
@@ -59,13 +60,30 @@ import java.util.function.Predicate;
 public class StorageUtil {
 
     /**
+     * Returns the storage controller container the player currently has open, but only if it is still accessible.
+     * Packet handlers must use this instead of checking player.containerMenu directly, because the open container may
+     * refer to a storage controller that was broken or moved since the menu was opened.
+     *
+     * @param player the player to get the container for.
+     * @return the valid container, or null if no storage controller container is open or it is no longer accessible.
+     */
+    public static IStorageControllerContainer getValidStorageControllerContainer(Player player) {
+        if (player.containerMenu instanceof IStorageControllerContainer container
+                && container.isStorageControllerAccessible(player)) {
+            return container;
+        }
+        return null;
+    }
+
+    /**
      * Clears the crafting matrix of the open container, if that container implements IStorageControllerContainer
      *
      * @param player          the player to clear the crafting matrix for.
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenCraftingMatrix(ServerPlayer player, boolean sendStackUpdate) {
-        if (player.containerMenu instanceof IStorageControllerContainer container) {
+        IStorageControllerContainer container = getValidStorageControllerContainer(player);
+        if (container != null) {
             CraftingContainer craftMatrix = container.getCraftMatrix();
             IStorageController storageController = container.getStorageController();
 
@@ -112,7 +130,8 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenOrderSlot(ServerPlayer player, boolean sendStackUpdate) {
-        if (player.containerMenu instanceof IStorageControllerContainer container) {
+        IStorageControllerContainer container = getValidStorageControllerContainer(player);
+        if (container != null) {
             SimpleContainer orderSlot = container.getOrderSlot();
             IStorageController storageController = container.getStorageController();
 
