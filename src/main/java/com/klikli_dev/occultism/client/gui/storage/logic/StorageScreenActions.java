@@ -34,7 +34,11 @@ public class StorageScreenActions {
     }
 
     public void takeStack(ItemStack stack, int mouseButton, Runnable markInteraction) {
-        Networking.sendToServer(new MessageTakeItem(stack, mouseButton, Minecraft.getInstance().hasShiftDown(),
+        this.takeStack(stack, -1, mouseButton, markInteraction);
+    }
+
+    public void takeStack(ItemStack stack, int slot, int mouseButton, Runnable markInteraction) {
+        Networking.sendToServer(new MessageTakeItem(stack, slot, mouseButton, Minecraft.getInstance().hasShiftDown(),
                 Minecraft.getInstance().hasControlDown()));
         markInteraction.run();
     }

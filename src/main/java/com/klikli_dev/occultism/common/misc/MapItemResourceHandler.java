@@ -50,15 +50,18 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
             Codec.INT.fieldOf("maxSlots").forGetter(handler -> handler.maxItemTypes),
             Codec.LONG.fieldOf("totalItemCount").forGetter(handler -> handler.totalItemCount),
             Codec.LONG.fieldOf("maxTotalItemCount").forGetter(handler -> handler.maxTotalItemCount)
-    ).apply(instance, (keyToCountMap, keyToSlot, emptySlots, nextSlot, maxSlots, totalItemCount, maxTotalItemCount) -> new MapItemResourceHandler(
-            toResourceCountMap(keyToCountMap),
-            toResourceSlotMap(keyToSlot),
-            toIntArrayList(emptySlots),
-            nextSlot,
-            maxSlots,
-            totalItemCount,
-            maxTotalItemCount
-    )));
+    ).apply(instance, (keyToCountMap, keyToSlot, emptySlots, nextSlot, maxSlots, totalItemCount, maxTotalItemCount) -> {
+        Map<ItemStackKey, ItemResource> canonicalResources = new HashMap<>();
+        return new MapItemResourceHandler(
+                toResourceCountMap(keyToCountMap, canonicalResources),
+                toResourceSlotMap(keyToSlot, canonicalResources),
+                toIntArrayList(emptySlots),
+                nextSlot,
+                maxSlots,
+                totalItemCount,
+                maxTotalItemCount
+        );
+    }));
 
     protected Object2IntOpenHashMap<ItemResource> resourceToCountMap;
     protected Multimap<Item, ItemResource> itemToVariantsCache = HashMultimap.create();
@@ -93,17 +96,21 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
         this.maxTotalItemCount = maxTotalItemCount;
     }
 
-    protected static Object2IntOpenHashMap<ItemResource> toResourceCountMap(Map<ItemStackKey, Integer> map) {
+    protected static ItemResource canonicalResource(Map<ItemStackKey, ItemResource> canonicalResources, ItemStackKey key) {
+        return canonicalResources.computeIfAbsent(key, k -> ItemResource.of(k.stack()));
+    }
+
+    protected static Object2IntOpenHashMap<ItemResource> toResourceCountMap(Map<ItemStackKey, Integer> map, Map<ItemStackKey, ItemResource> canonicalResources) {
         Object2IntOpenHashMap<ItemResource> result = new Object2IntOpenHashMap<>();
         result.defaultReturnValue(0);
-        map.forEach((key, value) -> result.put(ItemResource.of(key.stack()), value));
+        map.forEach((key, value) -> result.put(canonicalResource(canonicalResources, key), value));
         return result;
     }
 
-    protected static Object2IntOpenHashMap<ItemResource> toResourceSlotMap(Map<ItemStackKey, Integer> map) {
+    protected static Object2IntOpenHashMap<ItemResource> toResourceSlotMap(Map<ItemStackKey, Integer> map, Map<ItemStackKey, ItemResource> canonicalResources) {
         Object2IntOpenHashMap<ItemResource> result = new Object2IntOpenHashMap<>();
         result.defaultReturnValue(-1);
-        map.forEach((key, value) -> result.put(ItemResource.of(key.stack()), value));
+        map.forEach((key, value) -> result.put(canonicalResource(canonicalResources, key), value));
         return result;
     }
 
@@ -127,6 +134,14 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
 
     public Object2IntOpenHashMap<ItemResource> resourceToCountMap() {
         return this.resourceToCountMap;
+    }
+
+    public Object2IntOpenHashMap<ItemResource> resourceToSlot() {
+        return this.resourceToSlot;
+    }
+
+    public Map<Integer, ItemResource> slotToResource() {
+        return this.slotToResource;
     }
 
     public long totalItemCount() {
@@ -175,6 +190,10 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
                 CompoundTag entryTag = new CompoundTag();
                 entryTag.put("itemStackkey", ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), resource.toStack()).getOrThrow());
                 entryTag.putInt("int", value);
+                int slot = this.resourceToSlot.getInt(resource);
+                if (slot != -1) {
+                    entryTag.putInt("slot", slot);
+                }
                 keyToCountList.add(entryTag);
             } catch (Exception e) {
                 Occultism.LOGGER.error("Failed to serialize ItemResource: {}", resource, e);
@@ -204,26 +223,21 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
     }
 
     public void deserializeNBT(@NotNull Provider provider, CompoundTag nbt) {
-        ListTag keyToCountList = nbt.getListOrEmpty("keyToCountMap");
-        this.resourceToCountMap = new Object2IntOpenHashMap<>();
-        this.resourceToCountMap.defaultReturnValue(0);
-        keyToCountList.forEach(tag -> {
-            CompoundTag entryTag = (CompoundTag) tag;
-            var stack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), entryTag.getCompoundOrEmpty("itemStackkey")).result().orElse(ItemStack.EMPTY);
-            if (stack.isEmpty()) {
-                return;
-            }
-
-            this.resourceToCountMap.put(ItemResource.of(stack), entryTag.getIntOr("int", 0));
-        });
+        this.emptySlots = new IntArrayList(Arrays.stream(nbt.getIntArray("emptySlots").orElse(new int[0])).toArray());
+        this.nextSlotIndex = nbt.getIntOr("nextSlot", 0);
+        this.maxItemTypes = nbt.getIntOr("maxSlots", -1);
+        this.totalItemCount = nbt.getLongOr("totalItemCount", 0L);
+        this.maxTotalItemCount = nbt.getLongOr("maxTotalItemCount", -1L);
 
         ListTag keyToSlotList = nbt.getListOrEmpty("keyToSlot");
         this.resourceToSlot = new Object2IntOpenHashMap<>();
         this.resourceToSlot.defaultReturnValue(-1);
         this.slotToResource = new HashMap<>();
+        Map<CompoundTag, ItemResource> rawTagToResource = new HashMap<>();
         keyToSlotList.forEach(tag -> {
             CompoundTag entryTag = (CompoundTag) tag;
-            var stack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), entryTag.getCompoundOrEmpty("itemStackkey")).result().orElse(ItemStack.EMPTY);
+            CompoundTag rawKey = entryTag.getCompoundOrEmpty("itemStackkey");
+            var stack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), rawKey).result().orElse(ItemStack.EMPTY);
             if (stack.isEmpty()) {
                 return;
             }
@@ -232,16 +246,53 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
             int slot = entryTag.getIntOr("int", 0);
             this.resourceToSlot.put(resource, slot);
             this.slotToResource.put(slot, resource);
+            rawTagToResource.put(rawKey, resource);
         });
 
-        this.emptySlots = new IntArrayList(Arrays.stream(nbt.getIntArray("emptySlots").orElse(new int[0])).toArray());
-        this.nextSlotIndex = nbt.getIntOr("nextSlot", 0);
-        this.maxItemTypes = nbt.getIntOr("maxSlots", -1);
-        this.totalItemCount = nbt.getLongOr("totalItemCount", 0L);
-        this.maxTotalItemCount = nbt.getLongOr("maxTotalItemCount", -1L);
+        ListTag keyToCountList = nbt.getListOrEmpty("keyToCountMap");
+        this.resourceToCountMap = new Object2IntOpenHashMap<>();
+        this.resourceToCountMap.defaultReturnValue(0);
+        keyToCountList.forEach(tag -> {
+            CompoundTag entryTag = (CompoundTag) tag;
+            CompoundTag rawKey = entryTag.getCompoundOrEmpty("itemStackkey");
+            int slot = entryTag.getIntOr("slot", -1);
+
+            ItemResource resource;
+            if (slot != -1 && this.slotToResource.containsKey(slot)) {
+                resource = this.slotToResource.get(slot);
+            } else if (rawTagToResource.containsKey(rawKey)) {
+                resource = rawTagToResource.get(rawKey);
+            } else {
+                var stack = ItemStack.OPTIONAL_CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), rawKey).result().orElse(ItemStack.EMPTY);
+                if (stack.isEmpty()) {
+                    return;
+                }
+
+                resource = ItemResource.of(stack);
+                int existingSlot = this.resourceToSlot.getInt(resource);
+                if (existingSlot != -1) {
+                    resource = this.slotToResource.get(existingSlot);
+                }
+            }
+
+            if (slot != -1 && !this.slotToResource.containsKey(slot) && !this.resourceToSlot.containsKey(resource)) {
+                this.resourceToSlot.put(resource, slot);
+                this.slotToResource.put(slot, resource);
+                this.emptySlots.rem(slot);
+            }
+
+            this.resourceToCountMap.put(resource, entryTag.getIntOr("int", 0));
+        });
+
+        this.resourceToCountMap.keySet().stream()
+                .filter(resource -> this.resourceToSlot.getInt(resource) == -1)
+                .toList()
+                .forEach(this::addToSlots);
+
         this.undoLog.clear();
         this.itemToVariantsCache.clear();
     }
+
 
     @Override
     public int size() {
@@ -342,11 +393,11 @@ public class MapItemResourceHandler extends SnapshotJournal<Snapshot> implements
         }
 
         ItemResource current = this.getResource(index);
-        if (current.isEmpty() || !current.equals(resource)) {
+        if (current.isEmpty() || (current != resource && !current.equals(resource))) {
             return 0;
         }
 
-        return this.extractInternal(resource, amount, transaction);
+        return this.extractInternal(current, amount, transaction);
     }
 
     @Override

@@ -54,6 +54,8 @@ import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup.Provider;
@@ -330,12 +332,48 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public MessageUpdateStacks getMessageUpdateStacks() {
         if (this.cachedMessageUpdateStacks == null) {
-            List<ItemStack> stacks = this.getStacks();
-            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.maxItemTypes, this.usedItemTypes,
+            List<ItemStack> stacks = new ArrayList<>(this.itemStackHandler.resourceToCountMap().size());
+            IntList slots = new IntArrayList(this.itemStackHandler.resourceToCountMap().size());
+            for (var entry : this.itemStackHandler.resourceToCountMap().object2IntEntrySet()) {
+                stacks.add(entry.getKey().toStack(entry.getIntValue()));
+                slots.add(this.itemStackHandler.resourceToSlot().getInt(entry.getKey()));
+            }
+
+            this.usedItemTypes = this.itemStackHandler.resourceToCountMap().size();
+            this.usedTotalItemCount = this.itemStackHandler.totalItemCount();
+            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, slots, this.maxItemTypes, this.usedItemTypes,
                     this.maxTotalItemCount, this.usedTotalItemCount, this.level.registryAccess());
         }
         return this.cachedMessageUpdateStacks;
     }
+
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        if (slot < 0 || slot >= this.itemStackHandler.getSlots()) {
+            return ItemStack.EMPTY;
+        }
+
+        return this.itemStackHandler.getStackInSlot(slot);
+    }
+
+    @Override
+    public int getAvailableAmountInSlot(int slot) {
+        if (slot < 0 || slot >= this.itemStackHandler.getSlots()) {
+            return 0;
+        }
+
+        return Math.toIntExact(this.itemStackHandler.getAmountAsLong(slot));
+    }
+
+    @Override
+    public ItemStack getItemStackInSlot(int slot, int requestedSize, boolean simulate) {
+        if (slot < 0 || slot >= this.itemStackHandler.getSlots() || requestedSize <= 0) {
+            return ItemStack.EMPTY;
+        }
+
+        return this.itemStackHandler.extractItem(slot, requestedSize, simulate);
+    }
+
 
     @Override
     public int getMaxItemTypes() {

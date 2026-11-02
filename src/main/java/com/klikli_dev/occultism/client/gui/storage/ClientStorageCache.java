@@ -22,14 +22,18 @@
 
 package com.klikli_dev.occultism.client.gui.storage;
 
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClientStorageCache {
     private List<ItemStack> stacks = new ArrayList<>();
+    private final Map<ItemStack, Integer> stackToSlot = new IdentityHashMap<>();
 
     public List<ItemStack> stacks() {
         return this.stacks;
@@ -37,6 +41,19 @@ public class ClientStorageCache {
 
     public void update(List<ItemStack> stacks) {
         this.stacks = stacks;
+        this.stackToSlot.clear();
+    }
+
+    public void update(List<ItemStack> stacks, IntList slots) {
+        this.stacks = stacks;
+        this.stackToSlot.clear();
+        for (int i = 0; i < stacks.size(); i++) {
+            this.stackToSlot.put(stacks.get(i), slots.getInt(i));
+        }
+    }
+
+    public int getSlot(ItemStack stack) {
+        return this.stackToSlot.getOrDefault(stack, -1);
     }
 
     public List<ItemStack> getByIngredient(Ingredient ingredient) {

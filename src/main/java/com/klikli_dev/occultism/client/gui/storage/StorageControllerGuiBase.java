@@ -58,6 +58,7 @@ import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -256,6 +257,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
+    public void setStacks(List<ItemStack> stacks, IntList slots) {
+        this.clientStorageCache.update(stacks, slots);
+        this.resetDisplayCaches();
+    }
+
+    @Override
     public ClientStorageCache getClientStorageCache() {
         return this.clientStorageCache;
     }
@@ -377,7 +384,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
-                this.actions.takeStack(this.stackUnderMouse, mouseButton,
+                this.actions.takeStack(this.stackUnderMouse, this.clientStorageCache.getSlot(this.stackUnderMouse), mouseButton,
                         () -> this.state.markInteraction(System.currentTimeMillis()));
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
