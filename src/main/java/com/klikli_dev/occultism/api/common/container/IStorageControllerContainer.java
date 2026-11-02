@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 
 public interface IStorageControllerContainer {
@@ -61,4 +62,13 @@ public interface IStorageControllerContainer {
     ClientStorageCache getClientStorageCache();
 
     void setClientStorageCache(ClientStorageCache cache);
+
+    /**
+     * Side-effect free check whether the storage controller behind this container is still accessible by the player.
+     * Unlike {@link net.minecraft.world.inventory.AbstractContainerMenu#stillValid(Player)} this does not send any updates.
+     *
+     * @param player the player accessing the container.
+     * @return true if the storage controller exists, is not removed and is in range of the player.
+     */
+    boolean isStorageControllerAccessible(Player player);
 }
