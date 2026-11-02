@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import io.netty.handler.codec.DecoderException;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -42,6 +43,11 @@ import java.util.Optional;
 
 // Based on https://github.com/CyclopsMC/EvilCraft-Compat/blob/master-26/src/main/java/org/cyclops/evilcraftcompat/modcompat/jei/spiritfurnace/SpiritFurnaceRecipeJEI.java
 public class BattlefieldRecipeJEI {
+
+    /**
+     * Minimum number of bytes a single encoded recipe occupies: three int counts plus at least one byte for the entity type.
+     */
+    public static final int MIN_ENCODED_SIZE = 13;
 
     private final List<ItemStack> inputItem;
     private final List<ItemStack> outputItems;
@@ -211,22 +217,30 @@ public class BattlefieldRecipeJEI {
 
     public static BattlefieldRecipeJEI decode(RegistryFriendlyByteBuf input) {
         List<ItemStack> inputItems = new ArrayList<>();
-        int inputItemsCount = input.readInt();
+        int inputItemsCount = readCount(input);
         for (int i = 0; i < inputItemsCount; ++i) {
             inputItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         List<ItemStack> outputItems = new ArrayList<>();
-        int outputItemsCount = input.readInt();
+        int outputItemsCount = readCount(input);
         for (int i = 0; i < outputItemsCount; ++i) {
             outputItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         List<ItemStack> soulItems = new ArrayList<>();
-        int soulItemsCount = input.readInt();
+        int soulItemsCount = readCount(input);
         for (int i = 0; i < soulItemsCount; ++i) {
             soulItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         EntityType<?> entityType = EntityType.STREAM_CODEC.decode(input);
         return new BattlefieldRecipeJEI(inputItems, outputItems, soulItems, entityType);
+    }
+
+    private static int readCount(RegistryFriendlyByteBuf input) {
+        int count = input.readInt();
+        if (count < 0) {
+            throw new DecoderException("Invalid battlefield recipe item count: " + count);
+        }
+        return count;
     }
 
     public static List<BattlefieldRecipeJEI> generateServerRecipes() {

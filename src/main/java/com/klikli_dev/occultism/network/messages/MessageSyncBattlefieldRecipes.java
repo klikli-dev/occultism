@@ -7,6 +7,7 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.integration.jei.impl.recipes.BattlefieldRecipeJEI;
 import com.klikli_dev.occultism.network.IMessage;
+import io.netty.handler.codec.DecoderException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -53,6 +54,9 @@ public class MessageSyncBattlefieldRecipes implements IMessage {
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
         int count = buf.readInt();
+        if (count < 0 || count > buf.readableBytes() / BattlefieldRecipeJEI.MIN_ENCODED_SIZE) {
+            throw new DecoderException("Invalid battlefield recipe count: " + count);
+        }
         this.recipes = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             this.recipes.add(BattlefieldRecipeJEI.decode(buf));
