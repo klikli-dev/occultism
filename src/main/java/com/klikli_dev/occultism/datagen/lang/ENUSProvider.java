@@ -234,6 +234,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         A basic ritual satchel that can place ritual circles block by block.
                         Right-Click a preview block to place it out of the satchel.
+                        Right-Click elsewhere to place a sacrificial bowl out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
                         An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
@@ -245,6 +246,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         Right-Click any preview block to place all preview blocks out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
                         Right-Click a Golden Bowl to remove the ritual circle and collect the ingredients.
+                        Right-Click elsewhere to place a sacrificial bowl out of the satchel.
                         An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );

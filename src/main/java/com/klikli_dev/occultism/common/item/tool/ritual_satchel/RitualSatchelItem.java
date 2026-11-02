@@ -130,6 +130,35 @@ public abstract class RitualSatchelItem extends Item {
     }
 
     /**
+     * Places the first sacrificial bowl found in the satchel at the clicked position (outside of a previewed pentacle).
+     */
+    protected boolean tryPlaceSacrificialBowl(UseOnContext context) {
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            var stack = inventory.getItem(i);
+            if (!stack.is(OccultismTags.Items.SACRIFICIAL_BOWLS) || !(stack.getItem() instanceof BlockItem blockItem))
+                continue;
+
+            var bowlContext = new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult());
+            if (blockItem.place(new BlockPlaceContext(bowlContext)).consumesAction()) {
+                inventory.setItem(i, stack);
+                inventory.writeItemStack();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean hasSacrificialBowl(UseOnContext context) {
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            if (inventory.getItem(i).is(OccultismTags.Items.SACRIFICIAL_BOWLS))
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * This identifies the pentacle preview and sends it to the server, where the child classes can handle it.
      */
     protected InteractionResult useOnClientSide(UseOnContext context) {
@@ -143,6 +172,9 @@ public abstract class RitualSatchelItem extends Item {
 
         //First, verify if we have a valid preview in the world
         if (preview == null || !preview.isAnchored()) {
+            if (this.hasSacrificialBowl(context))
+                return InteractionResult.SUCCESS;
+
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }
@@ -154,6 +186,9 @@ public abstract class RitualSatchelItem extends Item {
         if (targetMatcher.isEmpty() ||
                 targetMatcher.get().stateMatcher().type() == StateMatcherTypeRegistry.ANY ||
                 targetMatcher.get().stateMatcher().type() == StateMatcherTypeRegistry.DISPLAY) {
+            if (this.hasSacrificialBowl(context))
+                return InteractionResult.SUCCESS;
+
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }
