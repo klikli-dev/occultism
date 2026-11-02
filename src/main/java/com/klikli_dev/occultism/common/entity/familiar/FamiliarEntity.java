@@ -287,7 +287,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
-        if (this.getOwner() == null)
+        if (!this.hasFamiliarOwner())
             this.setFamiliarOwner(playerIn);
 
         if (hand != InteractionHand.MAIN_HAND)
@@ -329,6 +329,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         if (hasRareVariant())
             OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         this.setOwnerId(owner.getUUID());
+    }
+
+    @Override
+    public boolean hasFamiliarOwner() {
+        return this.getOwnerId() != null;
     }
 
     public UUID getOwnerId() {
