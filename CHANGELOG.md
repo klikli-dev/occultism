@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.260.1] - 2026-11-02
+### :bug: Bug Fixes
+- [`a04a75f`](https://github.com/klikli-dev/occultism/commit/a04a75f732f5b32d64929d405b95c9a554213813) - marid uv *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.260.0] - 2026-11-02
 ### :sparkles: New Features
 - [`ba0d82b`](https://github.com/klikli-dev/occultism/commit/ba0d82bc5a4fcbe718cc5e20fc3dc61ff534b4bf) - allow ritual satchels to hold and place sacrificial bowls *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2938,3 +2943,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.258.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.257.2...release/v26.1.2-1.258.0
 [release/v26.1.2-1.259.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.258.0...release/v26.1.2-1.259.0
 [release/v26.1.2-1.260.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.259.0...release/v26.1.2-1.260.0
+[release/v26.1.2-1.260.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.0...release/v26.1.2-1.260.1
