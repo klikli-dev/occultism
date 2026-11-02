@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "occultism:block/smooth_otherrock",
+    "side": "occultism:block/smooth_otherrock",
+    "top": "occultism:block/smooth_otherrock"
+  }
+}

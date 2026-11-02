@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": "occultism:smooth_otherrock"
+  },
+  "pattern": [
+    "ooo",
+    "ooo"
+  ],
+  "result": {
+    "count": 6,
+    "id": "occultism:smooth_otherrock_wall"
+  }
+}

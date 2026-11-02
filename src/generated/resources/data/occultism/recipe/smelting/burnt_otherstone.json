@@ -3,7 +3,7 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.15,
-  "ingredient": "occultism:polished_otherstone",
+  "ingredient": "occultism:smooth_otherstone",
   "result": {
     "id": "occultism:burnt_otherstone"
   }

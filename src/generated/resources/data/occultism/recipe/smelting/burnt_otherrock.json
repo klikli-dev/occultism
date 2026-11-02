@@ -3,7 +3,7 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.15,
-  "ingredient": "occultism:polished_otherrock",
+  "ingredient": "occultism:smooth_otherrock",
   "result": {
     "id": "occultism:burnt_otherrock"
   }

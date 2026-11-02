@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_polished_otherrock": {
+    "has_smooth_otherrock": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:polished_otherrock"
+            "items": "occultism:smooth_otherrock"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_polished_otherrock"
+      "has_smooth_otherrock"
     ]
   ],
   "rewards": {

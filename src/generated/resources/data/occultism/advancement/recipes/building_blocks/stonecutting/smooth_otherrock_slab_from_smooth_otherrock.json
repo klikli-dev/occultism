@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_smooth_otherrock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:smooth_otherrock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "occultism:stonecutting/smooth_otherrock_slab_from_smooth_otherrock"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_smooth_otherrock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:stonecutting/smooth_otherrock_slab_from_smooth_otherrock"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "occultism:smooth_otherrock",
+  "result": {
+    "count": 2,
+    "id": "occultism:smooth_otherrock_slab"
+  }
+}

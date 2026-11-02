@@ -174,14 +174,14 @@ public class OccultismBlocks {
     public static final DeferredBlock<SlabBlock> OTHERCOBBLESTONE_SLAB = register("othercobblestone_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()), true, LootTableType.CUSTOM);
-    public static final DeferredBlock<Block> POLISHED_OTHERSTONE = register("polished_otherstone", Block::new,
+    public static final DeferredBlock<Block> SMOOTH_OTHERSTONE = register("smooth_otherstone", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()));
-    public static final DeferredBlock<StairBlock> POLISHED_OTHERSTONE_STAIRS = register("polished_otherstone_stairs",
-            (p) -> new StairBlock(OccultismBlocks.POLISHED_OTHERSTONE.get().defaultBlockState(), p),
+    public static final DeferredBlock<StairBlock> SMOOTH_OTHERSTONE_STAIRS = register("smooth_otherstone_stairs",
+            (p) -> new StairBlock(OccultismBlocks.SMOOTH_OTHERSTONE.get().defaultBlockState(), p),
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
-    public static final DeferredBlock<SlabBlock> POLISHED_OTHERSTONE_SLAB = register("polished_otherstone_slab",
+    public static final DeferredBlock<SlabBlock> SMOOTH_OTHERSTONE_SLAB = register("smooth_otherstone_slab",
             SlabBlock::new,
-            () -> Block.Properties.ofFullCopy(POLISHED_OTHERSTONE.get()), true, LootTableType.CUSTOM);
+            () -> Block.Properties.ofFullCopy(SMOOTH_OTHERSTONE.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERSTONE_BRICKS = register("otherstone_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERSTONE.get()));
     public static final DeferredBlock<StairBlock> OTHERSTONE_BRICKS_STAIRS = register("otherstone_bricks_stairs",
@@ -214,7 +214,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<WallBlock> OTHERCOBBLESTONE_WALL = register("othercobblestone_wall",
             WallBlock::new,
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
-    public static final DeferredBlock<WallBlock> POLISHED_OTHERSTONE_WALL = register("polished_otherstone_wall",
+    public static final DeferredBlock<WallBlock> SMOOTH_OTHERSTONE_WALL = register("smooth_otherstone_wall",
             WallBlock::new,
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<WallBlock> OTHERSTONE_BRICKS_WALL = register("otherstone_bricks_wall",
@@ -236,14 +236,14 @@ public class OccultismBlocks {
     public static final DeferredBlock<SlabBlock> OTHERCOBBLEROCK_SLAB = register("othercobblerock_slab",
             SlabBlock::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()), true, LootTableType.CUSTOM);
-    public static final DeferredBlock<Block> POLISHED_OTHERROCK = register("polished_otherrock", Block::new,
+    public static final DeferredBlock<Block> SMOOTH_OTHERROCK = register("smooth_otherrock", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
-    public static final DeferredBlock<StairBlock> POLISHED_OTHERROCK_STAIRS = register("polished_otherrock_stairs",
-            (p) -> new StairBlock(OccultismBlocks.POLISHED_OTHERROCK.get().defaultBlockState(), p),
+    public static final DeferredBlock<StairBlock> SMOOTH_OTHERROCK_STAIRS = register("smooth_otherrock_stairs",
+            (p) -> new StairBlock(OccultismBlocks.SMOOTH_OTHERROCK.get().defaultBlockState(), p),
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
-    public static final DeferredBlock<SlabBlock> POLISHED_OTHERROCK_SLAB = register("polished_otherrock_slab",
+    public static final DeferredBlock<SlabBlock> SMOOTH_OTHERROCK_SLAB = register("smooth_otherrock_slab",
             SlabBlock::new,
-            () -> Block.Properties.ofFullCopy(POLISHED_OTHERROCK.get()), true, LootTableType.CUSTOM);
+            () -> Block.Properties.ofFullCopy(SMOOTH_OTHERROCK.get()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERROCK_BRICKS = register("otherrock_bricks", Block::new,
             () -> Block.Properties.ofFullCopy(OTHERROCK.get()));
     public static final DeferredBlock<StairBlock> OTHERROCK_BRICKS_STAIRS = register("otherrock_bricks_stairs",
@@ -274,7 +274,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<WallBlock> OTHERCOBBLEROCK_WALL = register("othercobblerock_wall",
             WallBlock::new,
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
-    public static final DeferredBlock<WallBlock> POLISHED_OTHERROCK_WALL = register("polished_otherrock_wall",
+    public static final DeferredBlock<WallBlock> SMOOTH_OTHERROCK_WALL = register("smooth_otherrock_wall",
             WallBlock::new,
             () -> Properties.of().strength(1.5f).requiresCorrectToolForDrops());
     public static final DeferredBlock<WallBlock> OTHERROCK_BRICKS_WALL = register("otherrock_bricks_wall",

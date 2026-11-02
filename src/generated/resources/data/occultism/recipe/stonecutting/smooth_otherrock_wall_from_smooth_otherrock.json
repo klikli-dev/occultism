@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "occultism:smooth_otherrock",
+  "result": {
+    "id": "occultism:smooth_otherrock_wall"
+  }
+}

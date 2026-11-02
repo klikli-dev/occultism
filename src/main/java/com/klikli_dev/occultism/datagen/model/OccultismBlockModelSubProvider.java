@@ -78,8 +78,8 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.OTHERROCK_BRICKS.get(),
                         OccultismBlocks.OTHERCOBBLESTONE.get(),
                         OccultismBlocks.OTHERCOBBLEROCK.get(),
-                        OccultismBlocks.POLISHED_OTHERSTONE.get(),
-                        OccultismBlocks.POLISHED_OTHERROCK.get(),
+                        OccultismBlocks.SMOOTH_OTHERSTONE.get(),
+                        OccultismBlocks.SMOOTH_OTHERROCK.get(),
                         OccultismBlocks.OTHERPLANKS.get(),
                         OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
                         OccultismBlocks.SILVER_ORE.get(),
@@ -126,14 +126,14 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.OTHERSTONE_SLAB.get(),
                         OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get(),
                         OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(),
-                        OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get(),
-                        OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(),
+                        OccultismBlocks.SMOOTH_OTHERSTONE_STAIRS.get(),
+                        OccultismBlocks.SMOOTH_OTHERSTONE_SLAB.get(),
                         OccultismBlocks.OTHERROCK_STAIRS.get(),
                         OccultismBlocks.OTHERROCK_SLAB.get(),
                         OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get(),
                         OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(),
-                        OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get(),
-                        OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(),
+                        OccultismBlocks.SMOOTH_OTHERROCK_STAIRS.get(),
+                        OccultismBlocks.SMOOTH_OTHERROCK_SLAB.get(),
                         OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get(),
                         OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(),
                         OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(),
@@ -151,11 +151,11 @@ public class OccultismBlockModelSubProvider {
                         OccultismBlocks.OTHERROCK_BUTTON.get(),
                         OccultismBlocks.OTHERSTONE_WALL.get(),
                         OccultismBlocks.OTHERCOBBLESTONE_WALL.get(),
-                        OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(),
+                        OccultismBlocks.SMOOTH_OTHERSTONE_WALL.get(),
                         OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(),
                         OccultismBlocks.OTHERROCK_WALL.get(),
                         OccultismBlocks.OTHERCOBBLEROCK_WALL.get(),
-                        OccultismBlocks.POLISHED_OTHERROCK_WALL.get(),
+                        OccultismBlocks.SMOOTH_OTHERROCK_WALL.get(),
                         OccultismBlocks.OTHERROCK_BRICKS_WALL.get()
                 ),
                 Stream.of(
@@ -259,8 +259,8 @@ public class OccultismBlockModelSubProvider {
                 OccultismBlocks.OTHERROCK_BRICKS.get(),
                 OccultismBlocks.OTHERCOBBLESTONE.get(),
                 OccultismBlocks.OTHERCOBBLEROCK.get(),
-                OccultismBlocks.POLISHED_OTHERSTONE.get(),
-                OccultismBlocks.POLISHED_OTHERROCK.get(),
+                OccultismBlocks.SMOOTH_OTHERSTONE.get(),
+                OccultismBlocks.SMOOTH_OTHERROCK.get(),
                 OccultismBlocks.OTHERPLANKS.get(),
                 OccultismBlocks.SILVER_BLOCK.get(),
                 OccultismBlocks.SILVER_CHISELED_BLOCK.get(),
@@ -424,14 +424,14 @@ public class OccultismBlockModelSubProvider {
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERSTONE_SLAB.get(), OccultismBlocks.OTHERSTONE.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get(), OccultismBlocks.OTHERSTONE_BRICKS.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(), OccultismBlocks.OTHERSTONE_BRICKS.get());
-        this.registerStairs(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get(), OccultismBlocks.POLISHED_OTHERSTONE.get());
-        this.registerSlab(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(), OccultismBlocks.POLISHED_OTHERSTONE.get());
+        this.registerStairs(blockModels, itemModels, OccultismBlocks.SMOOTH_OTHERSTONE_STAIRS.get(), OccultismBlocks.SMOOTH_OTHERSTONE.get());
+        this.registerSlab(blockModels, itemModels, OccultismBlocks.SMOOTH_OTHERSTONE_SLAB.get(), OccultismBlocks.SMOOTH_OTHERSTONE.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERROCK_STAIRS.get(), OccultismBlocks.OTHERROCK.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERROCK_SLAB.get(), OccultismBlocks.OTHERROCK.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get(), OccultismBlocks.OTHERROCK_BRICKS.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(), OccultismBlocks.OTHERROCK_BRICKS.get());
-        this.registerStairs(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get(), OccultismBlocks.POLISHED_OTHERROCK.get());
-        this.registerSlab(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(), OccultismBlocks.POLISHED_OTHERROCK.get());
+        this.registerStairs(blockModels, itemModels, OccultismBlocks.SMOOTH_OTHERROCK_STAIRS.get(), OccultismBlocks.SMOOTH_OTHERROCK.get());
+        this.registerSlab(blockModels, itemModels, OccultismBlocks.SMOOTH_OTHERROCK_SLAB.get(), OccultismBlocks.SMOOTH_OTHERROCK.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get(), OccultismBlocks.OTHERCOBBLESTONE.get());
         this.registerSlab(blockModels, itemModels, OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(), OccultismBlocks.OTHERCOBBLESTONE.get());
         this.registerStairs(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
@@ -480,11 +480,11 @@ public class OccultismBlockModelSubProvider {
         this.registerButton(blockModels, itemModels, OccultismBlocks.OTHERROCK_BUTTON.get(), OccultismBlocks.OTHERROCK.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERSTONE_WALL.get(), OccultismBlocks.OTHERSTONE.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERCOBBLESTONE_WALL.get(), OccultismBlocks.OTHERCOBBLESTONE.get());
-        this.registerWall(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(), OccultismBlocks.POLISHED_OTHERSTONE.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.SMOOTH_OTHERSTONE_WALL.get(), OccultismBlocks.SMOOTH_OTHERSTONE.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(), OccultismBlocks.OTHERSTONE_BRICKS.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERROCK_WALL.get(), OccultismBlocks.OTHERROCK.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERCOBBLEROCK_WALL.get(), OccultismBlocks.OTHERCOBBLEROCK.get());
-        this.registerWall(blockModels, itemModels, OccultismBlocks.POLISHED_OTHERROCK_WALL.get(), OccultismBlocks.POLISHED_OTHERROCK.get());
+        this.registerWall(blockModels, itemModels, OccultismBlocks.SMOOTH_OTHERROCK_WALL.get(), OccultismBlocks.SMOOTH_OTHERROCK.get());
         this.registerWall(blockModels, itemModels, OccultismBlocks.OTHERROCK_BRICKS_WALL.get(), OccultismBlocks.OTHERROCK_BRICKS.get());
 
         this.registerDoor(blockModels, itemModels, OccultismBlocks.SILVER_DOOR.get());

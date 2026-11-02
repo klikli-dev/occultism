@@ -344,7 +344,7 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.tag(ItemTags.WALLS)
                 .add(this.key(OccultismBlocks.OTHERSTONE_WALL.asItem()))
                 .add(this.key(OccultismBlocks.OTHERCOBBLESTONE_WALL.asItem()))
-                .add(this.key(OccultismBlocks.POLISHED_OTHERSTONE_WALL.asItem()))
+                .add(this.key(OccultismBlocks.SMOOTH_OTHERSTONE_WALL.asItem()))
                 .add(this.key(OccultismBlocks.OTHERSTONE_BRICKS_WALL.asItem()));
         this.tag(BlockItemTags.STONE_BUTTONS.item()).add(this.key(OccultismBlocks.OTHERSTONE_BUTTON.asItem()));
 
