@@ -96,7 +96,8 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         //filter potential stumps
         List<BlockPos> potentialStumps = blocksInWorkArea
-                .filter(pos -> isLog(level, pos)
+                .filter(pos -> level.hasChunkAt(pos)
+                        && isLog(level, pos)
                         && isTreeSoil(level, pos.below())
                         && !nonTreeLogs.contains(pos)
                         && !unreachableTrees.contains(pos)

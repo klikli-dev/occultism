@@ -2103,6 +2103,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("greedySearchRange", "Greedy horizontal search range");
         this.addConfig("greedyVerticalSearchRange", "Greedy vertical search range");
 
+        this.addConfig("lumberjack", "Lumberjack Settings");
+        this.addConfig("maxFelledBlocks", "Max felled blocks per tree");
+        this.addConfig("maxFellHorizontalDistance", "Max horizontal fell distance");
+
         this.addConfig("rituals", "Rituals Settings");
         this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");
         this.addConfig("enableRainWeatherRitual", "Enable the ritual to cause rain weather conditions.");
