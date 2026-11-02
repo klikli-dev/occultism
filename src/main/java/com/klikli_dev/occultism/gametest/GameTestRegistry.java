@@ -71,10 +71,23 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FAMILIAR_RING_RELEASES_FAMILIAR =
             TEST_FUNCTIONS.register("familiar_ring_releases_familiar", () -> FamiliarRingGameTests::ringReleasesFamiliar);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> UNDERGROUND_GROVE_BELOW_OCEAN_FLOOR =
+            TEST_FUNCTIONS.register("underground_grove_below_ocean_floor", () -> UndergroundGroveGameTests::groveDirectlyBelowOceanFloorIsRejected);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> UNDERGROUND_GROVE_MIN_GROUND_THICKNESS =
+            TEST_FUNCTIONS.register("underground_grove_min_ground_thickness", () -> UndergroundGroveGameTests::groveBelowOceanRespectsMinimumGroundThickness);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> UNDERGROUND_GROVE_AT_COAST =
+            TEST_FUNCTIONS.register("underground_grove_at_coast", () -> UndergroundGroveGameTests::groveAtCoastIsRejected);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> UNDERGROUND_GROVE_BELOW_LAND =
+            TEST_FUNCTIONS.register("underground_grove_below_land", () -> UndergroundGroveGameTests::groveBelowLandIsAllowed);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler"));
         var curiosEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "curios_util"));
         var otherworldEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_blocks"));
+        var groveEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "underground_grove"));
         var structure = Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler_test");
 
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_ABORTED_PROBES, environment, structure, 40, 0);
@@ -95,6 +108,11 @@ public class GameTestRegistry {
         var familiarEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "familiar_ring"));
         registerTest(event, FAMILIAR_RING_CAPTURES_FAMILIAR, familiarEnvironment, structure, 40, 0);
         registerTest(event, FAMILIAR_RING_RELEASES_FAMILIAR, familiarEnvironment, structure, 40, 0);
+
+        registerTest(event, UNDERGROUND_GROVE_BELOW_OCEAN_FLOOR, groveEnvironment, structure, 40, 0);
+        registerTest(event, UNDERGROUND_GROVE_MIN_GROUND_THICKNESS, groveEnvironment, structure, 40, 0);
+        registerTest(event, UNDERGROUND_GROVE_AT_COAST, groveEnvironment, structure, 40, 0);
+        registerTest(event, UNDERGROUND_GROVE_BELOW_LAND, groveEnvironment, structure, 40, 0);
     }
 
     private static void registerTest(
