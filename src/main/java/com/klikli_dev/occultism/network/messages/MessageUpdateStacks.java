@@ -27,6 +27,8 @@ import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.klikli_dev.occultism.network.IMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -56,6 +58,7 @@ public class MessageUpdateStacks implements IMessage {
     private static final int DEFAULT_BUFFER_SIZE = 2 * 1024;
 
     private List<ItemStack> stacks;
+    private IntList slots;
     private int maxItemTypes;
     private int usedItemTypes;
     private long maxTotalItemCount;
@@ -67,7 +70,12 @@ public class MessageUpdateStacks implements IMessage {
     }
 
     public MessageUpdateStacks(List<ItemStack> stacks, int maxItemTypes, int usedItemTypes, long maxTotalItemCount, long usedTotalItemCount, RegistryAccess registryAccess) {
+        this(stacks, unknownSlots(stacks.size()), maxItemTypes, usedItemTypes, maxTotalItemCount, usedTotalItemCount, registryAccess);
+    }
+
+    public MessageUpdateStacks(List<ItemStack> stacks, IntList slots, int maxItemTypes, int usedItemTypes, long maxTotalItemCount, long usedTotalItemCount, RegistryAccess registryAccess) {
         this.stacks = stacks;
+        this.slots = slots;
         this.maxItemTypes = maxItemTypes;
         this.usedItemTypes = usedItemTypes;
         this.maxTotalItemCount = maxTotalItemCount;
@@ -75,11 +83,19 @@ public class MessageUpdateStacks implements IMessage {
         this.compress(registryAccess);
     }
 
+    private static IntList unknownSlots(int size) {
+        IntList result = new IntArrayList(size);
+        for (int i = 0; i < size; i++) {
+            result.add(-1);
+        }
+        return result;
+    }
+
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
         this.uncompress(player.registryAccess());
         if (minecraft.gui.screen() instanceof IStorageControllerGui gui) {
-            gui.setStacks(this.stacks);
+            gui.setStacks(this.stacks, this.slots);
             gui.setUsedStorageSize(this.usedItemTypes, this.usedTotalItemCount);
             gui.setMaxStorageSize(this.maxItemTypes, this.maxTotalItemCount);
             gui.markDirty();
@@ -125,15 +141,21 @@ public class MessageUpdateStacks implements IMessage {
                 int count = decompressor.inflate(buf);
                 uncompressed.writeBytes(buf, 0, count);
             } catch (Exception _) {
+                break;
             }
         }
 
         int stacksSize = uncompressed.readInt();
         this.stacks = new ArrayList<>(stacksSize);
+        this.slots = new IntArrayList(stacksSize);
         for (int i = 0; i < stacksSize; i++) {
             ItemStack stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(uncompressed);
-            stack.setCount(uncompressed.readInt());
+            int count = uncompressed.readInt();
+            if (!stack.isEmpty()) {
+                stack.setCount(count);
+            }
             this.stacks.add(stack);
+            this.slots.add(uncompressed.readVarInt());
         }
     }
 
@@ -146,9 +168,11 @@ public class MessageUpdateStacks implements IMessage {
         var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess, ConnectionType.NEOFORGE).apply(new FriendlyByteBuf(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size())));
         uncompressed.writeInt(this.stacks.size());
 
-        for (ItemStack stack : this.stacks) {
+        for (int i = 0; i < this.stacks.size(); i++) {
+            ItemStack stack = this.stacks.get(i);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(uncompressed, stack);
             uncompressed.writeInt(stack.getCount());
+            uncompressed.writeVarInt(this.slots.getInt(i));
         }
 
         compressor.setInput(uncompressed.array(), 0, uncompressed.readableBytes());

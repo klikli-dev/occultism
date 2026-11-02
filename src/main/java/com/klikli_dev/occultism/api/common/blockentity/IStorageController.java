@@ -152,6 +152,36 @@ public interface IStorageController {
     int getAvailableAmount(IItemStackComparator comparator);
 
     /**
+     * Gets the stack currently stored in the given slot without extracting anything.
+     *
+     * @param slot the slot to read.
+     * @return the stack in the slot, or an empty stack.
+     */
+    default ItemStack getStackInSlot(int slot) {
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * @param slot the slot to check.
+     * @return the amount currently stored in the given slot.
+     */
+    default int getAvailableAmountInSlot(int slot) {
+        return 0;
+    }
+
+    /**
+     * Extracts up to the requested amount directly from the given slot.
+     *
+     * @param slot          the slot to extract from.
+     * @param requestedSize the stack size to extract.
+     * @param simulate      true for simulation.
+     * @return the extracted stack, or an empty stack.
+     */
+    default ItemStack getItemStackInSlot(int slot, int requestedSize, boolean simulate) {
+        return ItemStack.EMPTY;
+    }
+
+    /**
      * Called when the contents of the storage controller change.
      */
     void onContentsChanged();

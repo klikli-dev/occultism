@@ -44,6 +44,33 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MAP_ITEM_RESOURCE_HANDLER_RECURSIVE_COMMIT_NOTIFICATION =
             TEST_FUNCTIONS.register("map_item_resource_handler_recursive_commit_notification", () -> MapItemResourceHandlerGameTests::commitNotificationsCoverChangesTriggeredByNotifications);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MAP_ITEM_RESOURCE_HANDLER_LEGACY_SHARES_INSTANCES =
+            TEST_FUNCTIONS.register("map_item_resource_handler_legacy_shares_instances", () -> MapItemResourceHandlerNbtGameTests::legacyFormatSharesResourceInstances);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MAP_ITEM_RESOURCE_HANDLER_LEGACY_KEEPS_VARIANTS =
+            TEST_FUNCTIONS.register("map_item_resource_handler_legacy_keeps_variants", () -> MapItemResourceHandlerNbtGameTests::legacyFormatKeepsVariantsSeparate);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MAP_ITEM_RESOURCE_HANDLER_LEGACY_UPGRADES =
+            TEST_FUNCTIONS.register("map_item_resource_handler_legacy_upgrades", () -> MapItemResourceHandlerNbtGameTests::legacySaveUpgradesToCurrentFormat);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MAP_ITEM_RESOURCE_HANDLER_NBT_ROUND_TRIP =
+            TEST_FUNCTIONS.register("map_item_resource_handler_nbt_round_trip", () -> MapItemResourceHandlerNbtGameTests::roundTripPreservesSlotsAndCounts);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> STORAGE_CONTROLLER_SLOT_EXTRACTION_VARIANT =
+            TEST_FUNCTIONS.register("storage_controller_slot_extraction_variant", () -> StorageControllerGameTests::slotExtractionReturnsExactVariant);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> STORAGE_CONTROLLER_SLOT_EXTRACTION_EMPTY =
+            TEST_FUNCTIONS.register("storage_controller_slot_extraction_empty", () -> StorageControllerGameTests::emptySlotExtractionDoesNotBorrowOtherVariant);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> STORAGE_CONTROLLER_SERIALIZED_SLOTS =
+            TEST_FUNCTIONS.register("storage_controller_serialized_slots", () -> StorageControllerGameTests::serializedContentsKeepSlotsForExtraction);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MESSAGE_UPDATE_STACKS_ROUND_TRIP =
+            TEST_FUNCTIONS.register("message_update_stacks_round_trip", () -> MessageUpdateStacksGameTests::roundTripPreservesCountsAndSlots);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> MESSAGE_UPDATE_STACKS_NO_SLOTS =
+            TEST_FUNCTIONS.register("message_update_stacks_no_slots", () -> MessageUpdateStacksGameTests::roundTripWithoutSlotsUsesUnknownMarker);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CURIOS_UTIL_STORAGE_REMOTE_FIRST_SLOT =
             TEST_FUNCTIONS.register("curios_util_storage_remote_first_slot", () -> CuriosUtilGameTests::storageRemoteInFirstInventorySlotIsFound);
 
@@ -97,6 +124,15 @@ public class GameTestRegistry {
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_SLOT_REUSE_ROLLBACK, environment, structure, 40, 0);
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_UNDO_JOURNAL_DRAINS, environment, structure, 40, 0);
         registerTest(event, MAP_ITEM_RESOURCE_HANDLER_RECURSIVE_COMMIT_NOTIFICATION, environment, structure, 40, 0);
+        registerTest(event, MAP_ITEM_RESOURCE_HANDLER_LEGACY_SHARES_INSTANCES, environment, structure, 40, 0);
+        registerTest(event, MAP_ITEM_RESOURCE_HANDLER_LEGACY_KEEPS_VARIANTS, environment, structure, 40, 0);
+        registerTest(event, MAP_ITEM_RESOURCE_HANDLER_LEGACY_UPGRADES, environment, structure, 40, 0);
+        registerTest(event, MAP_ITEM_RESOURCE_HANDLER_NBT_ROUND_TRIP, environment, structure, 40, 0);
+        registerTest(event, STORAGE_CONTROLLER_SLOT_EXTRACTION_VARIANT, environment, structure, 40, 0);
+        registerTest(event, STORAGE_CONTROLLER_SLOT_EXTRACTION_EMPTY, environment, structure, 40, 0);
+        registerTest(event, STORAGE_CONTROLLER_SERIALIZED_SLOTS, environment, structure, 40, 0);
+        registerTest(event, MESSAGE_UPDATE_STACKS_ROUND_TRIP, environment, structure, 40, 0);
+        registerTest(event, MESSAGE_UPDATE_STACKS_NO_SLOTS, environment, structure, 40, 0);
         registerTest(event, CURIOS_UTIL_STORAGE_REMOTE_FIRST_SLOT, curiosEnvironment, structure, 40, 0);
         registerTest(event, OTHERWORLD_BLOCK_DROPS_COVERED, otherworldEnvironment, structure, 40, 0);
         registerTest(event, OTHERWORLD_BLOCK_DROPS_UNCOVERED, otherworldEnvironment, structure, 40, 0);
