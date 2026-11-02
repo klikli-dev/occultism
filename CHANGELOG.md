@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.263.0] - 2026-11-02
+### :sparkles: New Features
+- [`96afe21`](https://github.com/klikli-dev/occultism/commit/96afe21a808b4a8c0bbc62c85794691fd66f0992) - allow ritual satchels to hold and place sacrificial bowls *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e32124a`](https://github.com/klikli-dev/occultism/commit/e32124a01008015ef4073e0266c4808ff9717fda) - ritual satchel places rainbow and void chalk in preview colors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`250c092`](https://github.com/klikli-dev/occultism/commit/250c09272bd90539e49ea5a98d3398442e062169) - stop third eye otherworld blocks flipping state every tick *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`95a669d`](https://github.com/klikli-dev/occultism/commit/95a669d7395afa450d098bc60764a3462008cbf9) - prevent claiming familiars of offline owners *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`51450a8`](https://github.com/klikli-dev/occultism/commit/51450a8de366f1e773e545c237706402eda1636f) - cap lumberjack tree felling and clear break progress *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`31b3925`](https://github.com/klikli-dev/occultism/commit/31b392537287bdbd421ff8b951f9064f626a8a64) - insert flame of automation into only one ritual catcher *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`853a532`](https://github.com/klikli-dev/occultism/commit/853a5323720071bdf58a4c860b06e4cb428b75f9) - validate storage menus before handling storage packets *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5c04d1c`](https://github.com/klikli-dev/occultism/commit/5c04d1c999d56295dabdd8ad1518437d6772d016) - prevent dimensional mineshaft/battlefield item duplication *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`d76f726`](https://github.com/klikli-dev/occultism/commit/d76f726b841159bbbe0a9f5439f4bf5da045e86b) - sync battlefield JEI recipes to remote clients *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`87c1fce`](https://github.com/klikli-dev/occultism/commit/87c1fcec646c3036609a8a2401ccf805300cac85) - correct dimensional battlefield fuel cost and JEI fuel amounts *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f2e46ea`](https://github.com/klikli-dev/occultism/commit/f2e46ea3fe26d71452bc02b589263c18ab0d3758) - place satchel-selected chalk color for rainbow and void glyphs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`209f0b5`](https://github.com/klikli-dev/occultism/commit/209f0b550e20712a74808bbb7543607164218057) - include starting stump when collecting lumberjack replant positions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c650c4b`](https://github.com/klikli-dev/occultism/commit/c650c4b32529cfab0d4123d3278e11b0da80534c) - bound battlefield recipe sync count when decoding *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`afd7efa`](https://github.com/klikli-dev/occultism/commit/afd7efa6e4d1c2e1fe0e5f7ca8ae8b27217bf33e) - ignore datagen cache and mark generated files as auto-generated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a339a9f`](https://github.com/klikli-dev/occultism/commit/a339a9f1851036f900e3b8afc802cd74c811061d) - **ci**: update GitHub Actions to latest versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a15f91b`](https://github.com/klikli-dev/occultism/commit/a15f91b1654b7f615fa7854bfb01ead51228ef6d) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.262.0] - 2026-10-29
 ### :sparkles: New Features
 - [`efa11e8`](https://github.com/klikli-dev/occultism/commit/efa11e86f3ac41536f2b7623d5edf1c223183dfd) - modonomicon load conditions *(PR [#1722](https://github.com/klikli-dev/occultism/pull/1722) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2993,3 +3017,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.261.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.260.2...release/v26.3-1.261.0
 [release/v26.3-1.261.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.261.0...release/v26.3-1.261.1
 [release/v26.3-1.262.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.261.1...release/v26.3-1.262.0
+[release/v26.3-1.263.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.262.0...release/v26.3-1.263.0
