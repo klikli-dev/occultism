@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.260.4] - 2026-11-02
+### :bug: Bug Fixes
+- [`d55ad86`](https://github.com/klikli-dev/occultism/commit/d55ad86059706fa1ebc36c2c426a663131465c16) - use slot-addressed storage extraction and canonicalize ItemResource keys *(PR [#1632](https://github.com/klikli-dev/occultism/pull/1632) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.260.3] - 2026-11-02
 ### :recycle: Refactors
 - [`fded639`](https://github.com/klikli-dev/occultism/commit/fded6390d3157c91dcc04fc13d912bdc42e6ea6d) - rename English Polished Otherstone/Otherrock to Smooth *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2956,3 +2961,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.260.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.0...release/v26.1.2-1.260.1
 [release/v26.1.2-1.260.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.1...release/v26.1.2-1.260.2
 [release/v26.1.2-1.260.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.2...release/v26.1.2-1.260.3
+[release/v26.1.2-1.260.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.3...release/v26.1.2-1.260.4
