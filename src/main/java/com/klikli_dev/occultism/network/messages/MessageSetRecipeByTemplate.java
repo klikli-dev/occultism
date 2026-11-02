@@ -71,7 +71,8 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        if (!(player.containerMenu instanceof IStorageControllerContainer container)) {
+        IStorageControllerContainer container = StorageUtil.getValidStorageControllerContainer(player);
+        if (container == null) {
             return;
         }
         IStorageController storageController = container.getStorageController();

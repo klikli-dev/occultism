@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.util.StorageUtil;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -59,8 +60,9 @@ public class MessageSortItems implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        if (player.containerMenu instanceof IStorageControllerContainer) {
-            if (!((IStorageControllerContainer) player.containerMenu).isContainerItem()) {
+        IStorageControllerContainer container = StorageUtil.getValidStorageControllerContainer(player);
+        if (container != null) {
+            if (!container.isContainerItem()) {
 
                 //ensure players cannot load arbitrary chunks
                 if (!player.level().hasChunkAt(this.entityPosition))
