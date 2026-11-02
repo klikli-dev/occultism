@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.225.0] - 2026-11-02
+### :sparkles: New Features
+- [`91de0d2`](https://github.com/klikli-dev/occultism/commit/91de0d2a46e05ce315cc5afd292d266d4f46e7ab) - Backport reworked Russian translation (PR [#1714](https://github.com/klikli-dev/occultism/pull/1714)) to 1.21.1 *(PR [#1730](https://github.com/klikli-dev/occultism/pull/1730) by [@LeonusDH](https://github.com/LeonusDH))*
+
+### :wrench: Chores
+- [`007bb75`](https://github.com/klikli-dev/occultism/commit/007bb7507be4806d4d6fdf7bd2f3cc254fa4fed0) - ignore datagen cache and mark generated files as auto-generated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5010981`](https://github.com/klikli-dev/occultism/commit/501098159449d90cbd0b78a53a38fddc2c330354) - **ci**: update GitHub Actions to latest versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.224.6] - 2026-10-27
 ### :bug: Bug Fixes
 - [`9c5508c`](https://github.com/klikli-dev/occultism/commit/9c5508c35f1884e254cf0ecbbdec9fe1379d3a56) - entity wormhole pulling / teleporting spectators *(PR [#1719](https://github.com/klikli-dev/occultism/pull/1719) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2520,3 +2529,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.224.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.3...release/v1.21.1-1.224.4
 [release/v1.21.1-1.224.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.4...release/v1.21.1-1.224.5
 [release/v1.21.1-1.224.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.5...release/v1.21.1-1.224.6
+[release/v1.21.1-1.225.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.6...release/v1.21.1-1.225.0
