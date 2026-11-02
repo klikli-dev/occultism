@@ -174,7 +174,8 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
 
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        StorageUtil.dropInventoryItems(this);
+        StorageUtil.dropInventoryItems(this.level, pos, this.combinedHandler);
+        this.clearContent();
         super.preRemoveSideEffects(pos, state);
     }
 
