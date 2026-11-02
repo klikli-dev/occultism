@@ -752,6 +752,7 @@ public abstract class Ritual {
                 if (inserted > 0) {
                     tx.commit();
                     auto = false;
+                    break;
                 }
             }
         }
