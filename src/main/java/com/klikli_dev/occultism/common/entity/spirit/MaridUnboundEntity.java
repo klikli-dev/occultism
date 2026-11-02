@@ -39,6 +39,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,20 +86,21 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
-        int maxGuardians = 3 + level.getRandom().nextInt(6);
+        if (reason == MobSpawnType.MOB_SUMMONED && level.getLevel().getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+            int maxGuardians = difficultyIn.getDifficulty().getId() + level.getRandom().nextInt(6);
 
-        for (int i = 0; i < maxGuardians; i++) {
-            Guardian entity = EntityType.GUARDIAN.create(level.getLevel());
+            for (int i = 0; i < maxGuardians; i++) {
+                Guardian entity = EntityType.GUARDIAN.create(level.getLevel());
 
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            level.addFreshEntity(entity);
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                level.addFreshEntity(entity);
+            }
         }
-
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 

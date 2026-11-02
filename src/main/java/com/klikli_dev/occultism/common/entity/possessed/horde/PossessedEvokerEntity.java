@@ -32,6 +32,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
@@ -55,56 +56,56 @@ public class PossessedEvokerEntity extends Evoker implements PossessedMob {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
+        if (reason == MobSpawnType.MOB_SUMMONED && level.getLevel().getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+            for (int i = 0; i < 2; i++) {
+                Vindicator entity = EntityType.VINDICATOR.create(this.level());
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
-        for (int i = 0; i < 2; i++) {
-            Vindicator entity = EntityType.VINDICATOR.create(this.level());
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                level.addFreshEntity(entity);
+            }
 
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            level.addFreshEntity(entity);
+            for (int i = 0; i < 5; i++) {
+                Pillager entity = EntityType.PILLAGER.create(this.level());
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                level.addFreshEntity(entity);
+            }
+
+            for (int i = 0; i < 1; i++) {
+                Illusioner entity = EntityType.ILLUSIONER.create(this.level());
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                level.addFreshEntity(entity);
+            }
+
+            for (int i = 0; i < 1; i++) {
+                Ravager entity = EntityType.RAVAGER.create(this.level());
+                EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
+
+                double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
+                        level.getRandom().nextInt(360), 0);
+                entity.setCustomName(Component.literal(TextUtil.generateName()));
+                entity.setHealth(10);
+                level.addFreshEntity(entity);
+            }
         }
-
-        for (int i = 0; i < 5; i++) {
-            Pillager entity = EntityType.PILLAGER.create(this.level());
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
-
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            level.addFreshEntity(entity);
-        }
-
-        for (int i = 0; i < 1; i++) {
-            Illusioner entity = EntityType.ILLUSIONER.create(this.level());
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
-
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            level.addFreshEntity(entity);
-        }
-
-        for (int i = 0; i < 1; i++) {
-            Ravager entity = EntityType.RAVAGER.create(this.level());
-            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
-
-            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            entity.setCustomName(Component.literal(TextUtil.generateName()));
-            entity.setHealth(10);
-            level.addFreshEntity(entity);
-        }
-
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 
