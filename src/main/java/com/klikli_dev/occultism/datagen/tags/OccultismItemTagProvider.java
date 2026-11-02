@@ -152,6 +152,14 @@ public class OccultismItemTagProvider extends TagsProvider<Item> {
         this.copy(Blocks.PENTACLE_MATERIALS, OccultismTags.Items.PENTACLE_MATERIALS);
         this.tag(OccultismTags.Items.PENTACLE_MATERIALS)
                 .addOptionalTag(OccultismTags.Items.TOOLS_CHALK);
+        this.tag(OccultismTags.Items.SACRIFICIAL_BOWLS)
+                .add(this.key(OccultismBlocks.SACRIFICIAL_BOWL.get().asItem()))
+                .add(this.key(OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get().asItem()))
+                .add(this.key(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get().asItem()))
+                .add(this.key(OccultismBlocks.DARK_SACRIFICIAL_BOWL.get().asItem()))
+                .add(this.key(OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get().asItem()))
+                .add(this.key(OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get().asItem()));
+
 
         this.tag(OccultismTags.Items.DEMONIC_PARTNER_FOOD)
                 .addTag(ItemTags.MEAT);

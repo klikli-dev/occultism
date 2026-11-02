@@ -131,6 +131,7 @@ public class OccultismTags {
     public static class Items {
         public static final TagKey<Item> START_SPIRIT_FIRE = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "start_spiritfire"));
         public static final TagKey<Item> PENTACLE_MATERIALS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
+        public static final TagKey<Item> SACRIFICIAL_BOWLS = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "sacrificial_bowls"));
         public static final TagKey<Item> SKULLS = makeItemTag(Identifier.fromNamespaceAndPath("c", "skulls"));
         public static final TagKey<Item> SCUTESHELL = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "scuteshell"));
         public static final TagKey<Item> OCCULTISM_CANDLES = makeItemTag(Identifier.fromNamespaceAndPath(Occultism.MODID, "candles"));
