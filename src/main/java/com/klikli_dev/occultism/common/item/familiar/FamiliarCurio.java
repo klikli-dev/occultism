@@ -104,7 +104,7 @@ public interface FamiliarCurio {
     default InteractionResult familiarInteractLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
         if (!playerIn.level().isClientSide() && target instanceof IFamiliar familiar) {
             Curio curio = FamiliarCurio.getCurio(stack);
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && curio != null
+            if ((familiar.getFamiliarOwner() == playerIn || !familiar.hasFamiliarOwner()) && curio != null
                     && curio.getFamiliars(playerIn.level()).size() < ItemNBTUtil.getMaxFamiliar(stack)
                     && curio.captureFamiliar(playerIn.level(), familiar)) {
                 target.level().playSound(null, target.getOnPos(), OccultismSounds.POOF.get(), SoundSource.NEUTRAL, 1, 1);
