@@ -4,7 +4,10 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.klikli_dev.modonomicon.registry.StateMatcherTypeRegistry;
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.api.common.data.ColorBlockState;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.common.block.RainbowGlyphBlock;
+import com.klikli_dev.occultism.common.block.VoidGlyphBlock;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.common.item.tool.ChalkItem;
@@ -37,6 +40,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -86,6 +90,8 @@ public abstract class RitualSatchelItem extends Item {
         if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_AT_POSITION_NOT_AIR;
 
+        var previewColor = getPreviewGlyphColor(context.getLevel(), targetMatcher);
+
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             var stack = inventory.getItem(i);
             var isGlyph = false;
@@ -100,7 +106,14 @@ public abstract class RitualSatchelItem extends Item {
                 blockStateToPlace = block.getStateForPlacement(blockPlaceContext);
             } else if (stack.getItem() instanceof ChalkItem chalkItem) {
                 var chalkBlock = chalkItem.getGlyphBlock();
-                blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
+                var placeContext = new BlockPlaceContext(context);
+                blockStateToPlace = chalkBlock.getStateForPlacement(placeContext);
+                if (previewColor != null && containsDye(inventory, previewColor)) {
+                    if (chalkBlock instanceof RainbowGlyphBlock rainbowBlock)
+                        blockStateToPlace = rainbowBlock.getStateForPlacement(placeContext, previewColor);
+                    else if (chalkBlock instanceof VoidGlyphBlock voidBlock)
+                        blockStateToPlace = voidBlock.getStateForPlacement(placeContext, previewColor);
+                }
                 isGlyph = true;
             }
 
@@ -127,6 +140,25 @@ public abstract class RitualSatchelItem extends Item {
             }
         }
         return PlacementResult.ERROR_NO_MATCHING_BLOCK_FOUND;
+    }
+
+    /**
+     * Returns the color of the chalk glyph displayed by the preview matcher, or null if it is not a chalk glyph.
+     */
+    private static ColorBlockState getPreviewGlyphColor(Level level, SimulateResult targetMatcher) {
+        var displayedState = targetMatcher.stateMatcher().getDisplayedState(level.getGameTime());
+        if (displayedState.getBlock() instanceof ChalkGlyphBlock glyphBlock)
+            return ColorBlockState.fromChalk(glyphBlock.getChalk());
+        return null;
+    }
+
+    private static boolean containsDye(Container inventory, ColorBlockState color) {
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            var stack = inventory.getItem(i);
+            if (stack.is(Tags.Items.DYES) && ColorBlockState.fromDye(stack) == color)
+                return true;
+        }
+        return false;
     }
 
     /**

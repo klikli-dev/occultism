@@ -33,6 +33,7 @@ public class RitualSatchelsEntry extends EntryProvider {
                 The Apprentice Satchel places pentacle blocks one by one.\\
                 The improved Artisanal Satchel places all pentacle blocks in a single action.\\
                 Satchels can also hold sacrificial bowls, which are placed when right-clicking outside a highlighted pentacle.
+                Satchels can also hold dyes, which color rainbow and void chalk to match the preview.
                 """
         );
 
