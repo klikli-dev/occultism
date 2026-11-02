@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -61,7 +62,7 @@ public class BattlefieldRecipeJEI {
         return new BattlefieldRecipeJEI(
                 getInput(entityType, level),
                 getMobDrops(entityType, entity, level),
-                getSoulStack(entity, soul),
+                getSoulStack(entity, getGem(entityType, level), soul),
                 entityType
         );
     }
@@ -148,13 +149,21 @@ public class BattlefieldRecipeJEI {
         return items;
     }
 
-    public static List<ItemStack> getSoulStack(LivingEntity entity, List<ItemStack> soulItems) {
-        List<ItemStack> soulStacks = soulItems.stream().map(ItemStack::copy).toList();
-        for (ItemStack stack : soulStacks) {
-            int soulValue = stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
-            stack.setCount(1 + ((int) entity.getMaxHealth() / Math.max(soulValue, 1)));
+    public static List<ItemStack> getSoulStack(LivingEntity entity, ItemStack soulSlot, List<ItemStack> fuelItems) {
+        List<ItemStack> fuelStacks = new ArrayList<>();
+        if (soulSlot.isEmpty())
+            return fuelStacks;
+        int soulValue = DimensionalBattlefieldBlockEntity.getSoulValue(soulSlot, entity.getMaxHealth());
+        for (ItemStack fuel : fuelItems) {
+            int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
+            int count = DimensionalBattlefieldBlockEntity.getRequiredFuel(soulValue, fuelValue);
+            if (count < 1 || count > fuel.getMaxStackSize())
+                continue;
+            ItemStack stack = fuel.copy();
+            stack.setCount(count);
+            fuelStacks.add(stack);
         }
-        return soulStacks;
+        return fuelStacks;
     }
 
     public List<ItemStack> getInputItem() {
@@ -240,7 +249,7 @@ public class BattlefieldRecipeJEI {
                 Entity entity = entityType.create(level, EntitySpawnReason.SPAWN_ITEM_USE);
                 if (entity instanceof LivingEntity livingEntity) {
                     BattlefieldRecipeJEI recipeJEI = BattlefieldRecipeJEI.create(entityType, livingEntity, level, soul);
-                    if (!recipeJEI.getOutputItems().isEmpty())
+                    if (!recipeJEI.getOutputItems().isEmpty() && !recipeJEI.getSoulItems().isEmpty())
                         recipes.add(recipeJEI);
                 }
             } catch (Throwable e) {
