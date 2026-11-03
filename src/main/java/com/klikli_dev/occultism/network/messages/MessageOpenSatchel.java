@@ -71,7 +71,7 @@ public class MessageOpenSatchel implements IMessage {
                         return new StorageSatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
                                 finalSelectedSlot);
-                    }, backpackStack.getDisplayName()), buffer -> {
+                    }, backpackStack.getHoverName()), buffer -> {
                         buffer.writeVarInt(finalSelectedSlot);
                     });
         }

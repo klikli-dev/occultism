@@ -67,7 +67,7 @@ public abstract class RitualSatchelItem extends Item {
         player.openMenu(
                 new SimpleMenuProvider((id, playerInventory, unused) -> {
                     return this.containerFactory().apply(id, playerInventory, this.getInventory(player, stack), selectedSlot);
-                }, stack.getDisplayName()), buffer -> {
+                }, stack.getHoverName()), buffer -> {
                     buffer.writeVarInt(selectedSlot);
                 });
     }
