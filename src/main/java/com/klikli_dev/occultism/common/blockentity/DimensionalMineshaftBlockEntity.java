@@ -364,6 +364,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             input.shrink(1);
         }
         this.inputHandler.set(0, ItemResource.of(input), input.getCount());
+        //set() does not notify, so explicitly update (and neighbour comparators) as durability changed
+        this.setChanged();
     }
 
     public int getRedstoneSignal() {
