@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.261.0] - 2026-11-03
+### :sparkles: New Features
+- [`85e6597`](https://github.com/klikli-dev/occultism/commit/85e6597f212e0724dd8ea3b771c7e279ef6db13c) - Use the stack's hover name as the satchel menu title *(PR [#1734](https://github.com/klikli-dev/occultism/pull/1734) by [@GnomoMuitoLoco](https://github.com/GnomoMuitoLoco))*
+  - :arrow_lower_right: *addresses issue [#1733](https://github.com/klikli-dev/occultism/issues/1733) opened by [@GnomoMuitoLoco](https://github.com/GnomoMuitoLoco)*
+
+### :bug: Bug Fixes
+- [`b95d97a`](https://github.com/klikli-dev/occultism/commit/b95d97a0995336ea97de6dcdc60d1fd48f3996a1) - update comparator output when miner durability changes *(PR [#1735](https://github.com/klikli-dev/occultism/pull/1735) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.260.4] - 2026-11-02
 ### :bug: Bug Fixes
 - [`d55ad86`](https://github.com/klikli-dev/occultism/commit/d55ad86059706fa1ebc36c2c426a663131465c16) - use slot-addressed storage extraction and canonicalize ItemResource keys *(PR [#1632](https://github.com/klikli-dev/occultism/pull/1632) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2962,3 +2971,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.260.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.1...release/v26.1.2-1.260.2
 [release/v26.1.2-1.260.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.2...release/v26.1.2-1.260.3
 [release/v26.1.2-1.260.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.3...release/v26.1.2-1.260.4
+[release/v26.1.2-1.261.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.4...release/v26.1.2-1.261.0
