@@ -60,7 +60,7 @@ public class SatchelItem extends Item {
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new StorageSatchelContainer(id, playerInventory,
                                 this.getInventory(serverPlayer, stack), selectedSlot);
-                    }, stack.getDisplayName()), buffer -> {
+                    }, stack.getHoverName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
                     });
         }
