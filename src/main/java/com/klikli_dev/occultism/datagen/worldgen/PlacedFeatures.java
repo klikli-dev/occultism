@@ -26,6 +26,13 @@ public class PlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> TREE_OTHERWORLD_NATURAL = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Occultism.MODID, "tree_otherworld_natural"));
 
+    /**
+     * Otherworld trees placed by the underground grove decorator.
+     * Kept separate from {@link #TREE_OTHERWORLD_NATURAL} so the surface tree toggle does not remove grove trees,
+     * groves are controlled by their own toggle on {@link #GROVE_UNDERGROUND}.
+     */
+    public static final ResourceKey<PlacedFeature> GROVE_TREE_OTHERWORLD_NATURAL = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Occultism.MODID, "grove_tree_otherworld_natural"));
+
     public static final ResourceKey<PlacedFeature> GROVE_UNDERGROUND = ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Occultism.MODID, "grove_underground"));
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
@@ -45,6 +52,9 @@ public class PlacedFeatures {
 
         PlacementUtils.register(context, TREE_OTHERWORLD_NATURAL, configuredFeatures.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL),
                 ConfigEnabledFilter.of(Setting.OTHERWORLD_TREES),
+                PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()));
+
+        PlacementUtils.register(context, GROVE_TREE_OTHERWORLD_NATURAL, configuredFeatures.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL),
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()));
 
         PlacementUtils.register(context, GROVE_UNDERGROUND, configuredFeatures.getOrThrow(ConfiguredFeatures.GROVE_UNDERGROUND),

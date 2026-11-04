@@ -53,6 +53,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> WORLDGEN_CONFIG_FILTER_RESPECTS_SETTINGS =
             TEST_FUNCTIONS.register("worldgen_config_filter_respects_settings", () -> WorldGenConfigGameTests::configFilterRespectsSettings);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> WORLDGEN_GROVE_TREES_IGNORE_SURFACE_TREE_SETTING =
+            TEST_FUNCTIONS.register("worldgen_grove_trees_ignore_surface_tree_setting", () -> WorldGenConfigGameTests::groveTreesIgnoreSurfaceTreeSetting);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler"));
         var curiosEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "curios_util"));
@@ -69,6 +72,7 @@ public class GameTestRegistry {
         registerTest(event, CURIOS_UTIL_STORAGE_REMOTE_FIRST_SLOT, curiosEnvironment, structure, 40, 0);
         registerTest(event, WORLDGEN_PLACED_FEATURES_GATED_BY_CONFIG, worldGenEnvironment, structure, 40, 0);
         registerTest(event, WORLDGEN_CONFIG_FILTER_RESPECTS_SETTINGS, worldGenEnvironment, structure, 40, 0);
+        registerTest(event, WORLDGEN_GROVE_TREES_IGNORE_SURFACE_TREE_SETTING, worldGenEnvironment, structure, 40, 0);
     }
 
     private static void registerTest(

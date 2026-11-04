@@ -7,6 +7,8 @@ package com.klikli_dev.occultism.gametest;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.level.ConfigEnabledFilter;
 import com.klikli_dev.occultism.common.level.ConfigEnabledFilter.Setting;
+import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
+import com.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
 import com.klikli_dev.occultism.datagen.worldgen.PlacedFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -88,6 +90,25 @@ public class WorldGenConfigGameTests {
         } finally {
             originalValues.forEach((setting, original) -> setting.getValue(Occultism.SERVER_CONFIG.worldGen).set(original));
         }
+
+        helper.succeed();
+    }
+
+    /**
+     * Underground groves have their own toggle, so the surface tree toggle must not remove the trees inside them.
+     */
+    public static void groveTreesIgnoreSurfaceTreeSetting(GameTestHelper helper) {
+        var registryAccess = helper.getLevel().registryAccess();
+        var grove = registryAccess.lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(ConfiguredFeatures.GROVE_UNDERGROUND).value();
+
+        helper.assertTrue(grove.config() instanceof MultiChunkFeatureConfig,
+                "Underground grove must use a MultiChunkFeatureConfig, but has " + grove.config());
+        var groveTree = ((MultiChunkFeatureConfig) grove.config()).otherworldTreeFeature;
+
+        helper.assertTrue(groveTree.is(PlacedFeatures.GROVE_TREE_OTHERWORLD_NATURAL),
+                "Underground grove must place " + PlacedFeatures.GROVE_TREE_OTHERWORLD_NATURAL.identifier() + ", but places " + groveTree);
+        helper.assertTrue(groveTree.value().placement().stream().noneMatch(ConfigEnabledFilter.class::isInstance),
+                "Grove trees must not be gated by a config filter, but have " + groveTree.value().placement());
 
         helper.succeed();
     }
