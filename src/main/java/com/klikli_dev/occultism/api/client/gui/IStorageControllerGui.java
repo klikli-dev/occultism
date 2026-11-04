@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.api.client.gui;
 
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -31,6 +32,8 @@ import java.util.List;
 public interface IStorageControllerGui {
     //region Getter / Setter
     void setStacks(List<ItemStack> stacks);
+
+    void setStacks(List<ItemStack> stacks, IntList slots);
 
     ClientStorageCache getClientStorageCache();
 

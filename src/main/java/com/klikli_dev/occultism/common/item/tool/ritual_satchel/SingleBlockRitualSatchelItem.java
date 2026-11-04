@@ -48,12 +48,12 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());
         if (targetPentacle == null || targetPentacle.timeWhenAdded() < context.getLevel().getGameTime() - 5) {
             //no or outdated info
-            return InteractionResult.FAIL;
+            return this.tryPlaceSacrificialBowl(context) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
 
         if (!targetPentacle.target().equals(context.getClickedPos())) {
             //silent fail -> the player clicked at two blocks in quick succession, the second block did not send anything to the server as it is not a chalk block, so we ignore. Client side already sent an error message for that second click!
-            return InteractionResult.FAIL;
+            return this.tryPlaceSacrificialBowl(context) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
 
         var multiblock = ModonomiconAPI.get().getMultiblock(targetPentacle.multiblock());
@@ -62,7 +62,7 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
         var targetMatcher = simulation.getSecond().stream().filter(p -> p.worldPosition().equals(context.getClickedPos())).findFirst();
         if (targetMatcher.isEmpty()) {
             //should not happen, player clicked a non-preview block
-            return InteractionResult.FAIL;
+            return this.tryPlaceSacrificialBowl(context) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
         }
 
         return switch (this.tryPlaceBlockForMatcher(context, targetMatcher.get())) {

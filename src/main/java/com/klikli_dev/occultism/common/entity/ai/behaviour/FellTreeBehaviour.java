@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.BrainUtil;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -16,7 +17,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -30,6 +30,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
 
     protected int breakingTime;
     protected int previousBreakProgress;
+    protected BlockPos breakProgressPos;
 
     public FellTreeBehaviour() {
         super(MEMORY_REQUIREMENTS, 200);
@@ -62,6 +63,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
             if (i != this.previousBreakProgress) {
                 entity.level().destroyBlockProgress(entity.getId(), treePos, i);
                 this.previousBreakProgress = i;
+                this.breakProgressPos = treePos;
             }
             if (this.breakingTime == 160) {
                 entity.playSound(SoundEvents.WOOD_BREAK, 1, 1);
@@ -92,6 +94,17 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
 
     protected void stop(E entity) {
         BrainUtil.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+        if (this.breakProgressPos != null) {
+            entity.level().destroyBlockProgress(entity.getId(), this.breakProgressPos, -1);
+            this.breakProgressPos = null;
+        }
+    }
+
+    private static boolean isWithinFellArea(BlockPos origin, BlockPos pos) {
+        int dx = pos.getX() - origin.getX();
+        int dz = pos.getZ() - origin.getZ();
+        int maxDistance = Occultism.SERVER_CONFIG.lumberjack.maxFellHorizontalDistance.getAsInt();
+        return dx * dx + dz * dz <= maxDistance * maxDistance;
     }
 
     private void fellTree(E entity, BlockPos treePos) {
@@ -100,11 +113,17 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
         Queue<BlockPos> blocks = new ArrayDeque<>();
         Set<BlockPos> visited = new HashSet<>();
         blocks.add(base);
+        int felled = 0;
+        int maxFelledBlocks = Occultism.SERVER_CONFIG.lumberjack.maxFelledBlocks.getAsInt();
 
-        while (!blocks.isEmpty()) {
+        while (!blocks.isEmpty() && felled < maxFelledBlocks) {
 
             BlockPos pos = blocks.remove();
             if (!visited.add(pos)) {
+                continue;
+            }
+
+            if (!level.hasChunkAt(pos) || !isWithinFellArea(treePos, pos)) {
                 continue;
             }
 
@@ -129,18 +148,30 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
             }
 
             level.destroyBlock(pos, true);
+            felled++;
         }
 
     }
 
-    private void addAllStump(BlockPos pos, BlockGetter level, List<BlockPos> list) {
-        for (Direction facing : Plane.HORIZONTAL) {
-            BlockPos posR = pos.relative(facing);
-            if (!list.contains(posR)
-                    && level.getBlockState(posR).is(BlockTags.LOGS)
-                    && level.getBlockState(posR.below()).is(BlockTags.DIRT)) {
-                list.add(posR);
-                this.addAllStump(posR, level, list);
+    private void addAllStump(BlockPos pos, Level level, List<BlockPos> list) {
+        Deque<BlockPos> toVisit = new ArrayDeque<>();
+        Set<BlockPos> visited = new HashSet<>();
+        toVisit.add(pos);
+
+        int maxFelledBlocks = Occultism.SERVER_CONFIG.lumberjack.maxFelledBlocks.getAsInt();
+
+        while (!toVisit.isEmpty() && list.size() < maxFelledBlocks) {
+            BlockPos current = toVisit.remove();
+            for (Direction facing : Plane.HORIZONTAL) {
+                BlockPos posR = current.relative(facing);
+                if (visited.add(posR)
+                        && level.hasChunkAt(posR)
+                        && isWithinFellArea(pos, posR)
+                        && level.getBlockState(posR).is(BlockTags.LOGS)
+                        && level.getBlockState(posR.below()).is(BlockTags.DIRT)) {
+                    list.add(posR);
+                    toVisit.add(posR);
+                }
             }
         }
     }

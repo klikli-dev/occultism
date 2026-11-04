@@ -155,6 +155,13 @@ public class OccultismItemTagProvider extends IntrinsicHolderTagsProvider<Item> 
         this.tag(OccultismTags.Items.PENTACLE_MATERIALS)
                 .addOptionalTag(OccultismTags.Items.TOOLS_CHALK)
                 .replace(false);
+        this.tag(OccultismTags.Items.SACRIFICIAL_BOWLS)
+                .add(OccultismBlocks.SACRIFICIAL_BOWL.asItem())
+                .add(OccultismBlocks.COPPER_SACRIFICIAL_BOWL.asItem())
+                .add(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.asItem())
+                .add(OccultismBlocks.DARK_SACRIFICIAL_BOWL.asItem())
+                .add(OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.asItem())
+                .add(OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.asItem());
 
 
         this.tag(OccultismTags.Items.DEMONIC_PARTNER_FOOD)

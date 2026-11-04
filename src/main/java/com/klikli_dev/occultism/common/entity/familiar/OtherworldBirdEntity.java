@@ -149,7 +149,7 @@ public abstract class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
     @Override
     public @NonNull InteractionResult mobInteract(Player playerIn, @NonNull InteractionHand hand) {
-        if (this.getOwner() == null)
+        if (!this.hasFamiliarOwner())
             this.setFamiliarOwner(playerIn);
 
         ItemStack stack = playerIn.getItemInHand(hand);
@@ -204,6 +204,11 @@ public abstract class OtherworldBirdEntity extends Parrot implements IFamiliar {
     @Override
     public LivingEntity getFamiliarOwner() {
         return this.getOwner();
+    }
+
+    @Override
+    public boolean hasFamiliarOwner() {
+        return this.getOwnerReference() != null;
     }
 
     @Override

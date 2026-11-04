@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.InputUtil;
+import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -56,8 +57,9 @@ public class MessageInsertMouseHeldItem implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        if (player.containerMenu instanceof IStorageControllerContainer) {
-            IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
+        IStorageControllerContainer container = StorageUtil.getValidStorageControllerContainer(player);
+        if (container != null) {
+            IStorageController storageController = container
                     .getStorageController();
 
             ItemStack result = ItemStack.EMPTY;

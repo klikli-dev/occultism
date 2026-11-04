@@ -30,6 +30,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -39,6 +40,8 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
@@ -89,8 +92,8 @@ public class ChalkItem extends Item {
                 BlockPos placeAt = isReplacing ? pos : pos.above();
 
                 boolean isSameChalkType = level.getBlockState(placeAt).getBlock() == this.glyphBlock;
-                level.setBlockAndUpdate(placeAt,
-                        Objects.requireNonNull(this.glyphBlock.getStateForPlacement(new BlockPlaceContext(context))));
+                BlockState state = context instanceof ForcedStateUseOnContext forced ? forced.getState() : this.glyphBlock.getStateForPlacement(new BlockPlaceContext(context));
+                level.setBlockAndUpdate(placeAt, Objects.requireNonNull(state));
 
                 if (player != null) {
                     level.playSound(null, pos, OccultismSounds.CHALK.get(), SoundSource.PLAYERS, 0.5f,
@@ -103,6 +106,22 @@ public class ChalkItem extends Item {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /**
+     * Use context that places the given state instead of the one the glyph block would pick itself.
+     */
+    public static class ForcedStateUseOnContext extends UseOnContext {
+        private final BlockState state;
+
+        public ForcedStateUseOnContext(Level level, Player player, InteractionHand hand, ItemStack stack, BlockHitResult hitResult, BlockState state) {
+            super(level, player, hand, stack, hitResult);
+            this.state = state;
+        }
+
+        public BlockState getState() {
+            return this.state;
+        }
     }
 
     @Override

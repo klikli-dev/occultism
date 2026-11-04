@@ -234,7 +234,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         A basic ritual satchel that can place ritual circles block by block.
                         Right-Click a preview block to place it out of the satchel.
+                        Right-Click elsewhere to place a sacrificial bowl out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
+                        Dyes in the satchel color rainbow and void chalk to match the preview.
                         An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );
@@ -245,6 +247,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         Right-Click any preview block to place all preview blocks out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
                         Right-Click a Golden Bowl to remove the ritual circle and collect the ingredients.
+                        Right-Click elsewhere to place a sacrificial bowl out of the satchel.
+                        Dyes in the satchel color rainbow and void chalk to match the preview.
                         An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );
@@ -580,10 +584,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_STAIRS, "Othercobblestone Stairs");
         this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_SLAB, "Othercobblestone Slab");
         this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_WALL, "Othercobblestone Wall");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE, "Polished Otherstone");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS, "Polished Otherstone Stairs");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_SLAB, "Polished Otherstone Slab");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_WALL, "Polished Otherstone Wall");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE, "Smooth Otherstone");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS, "Smooth Otherstone Stairs");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_SLAB, "Smooth Otherstone Slab");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_WALL, "Smooth Otherstone Wall");
         this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS, "Otherstone Bricks");
         this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, "Otherstone Bricks Stairs");
         this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_SLAB, "Otherstone Bricks Slab");
@@ -602,10 +606,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.OTHERCOBBLEROCK_STAIRS, "Othercobblerock Stairs");
         this.addBlock(OccultismBlocks.OTHERCOBBLEROCK_SLAB, "Othercobblerock Slab");
         this.addBlock(OccultismBlocks.OTHERCOBBLEROCK_WALL, "Othercobblerock Wall");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK, "Polished Otherrock");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_STAIRS, "Polished Otherrock Stairs");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_SLAB, "Polished Otherrock Slab");
-        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_WALL, "Polished Otherrock Wall");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK, "Smooth Otherrock");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_STAIRS, "Smooth Otherrock Stairs");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_SLAB, "Smooth Otherrock Slab");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_WALL, "Smooth Otherrock Wall");
         this.addBlock(OccultismBlocks.OTHERROCK_BRICKS, "Otherrock Bricks");
         this.addBlock(OccultismBlocks.OTHERROCK_BRICKS_STAIRS, "Otherrock Bricks Stairs");
         this.addBlock(OccultismBlocks.OTHERROCK_BRICKS_SLAB, "Otherrock Bricks Slab");
@@ -2102,6 +2106,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("blacksmithFamiliarPassiveRepairDelay", "Blacksmith repair cooldown");
         this.addConfig("greedySearchRange", "Greedy horizontal search range");
         this.addConfig("greedyVerticalSearchRange", "Greedy vertical search range");
+
+        this.addConfig("lumberjack", "Lumberjack Settings");
+        this.addConfig("maxFelledBlocks", "Max felled blocks per tree");
+        this.addConfig("maxFellHorizontalDistance", "Max horizontal fell distance");
 
         this.addConfig("rituals", "Rituals Settings");
         this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");

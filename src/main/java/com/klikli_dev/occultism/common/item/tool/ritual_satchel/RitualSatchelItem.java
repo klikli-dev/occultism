@@ -4,7 +4,10 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.klikli_dev.modonomicon.registry.StateMatcherTypeRegistry;
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.api.common.data.ColorBlockState;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.common.block.RainbowGlyphBlock;
+import com.klikli_dev.occultism.common.block.VoidGlyphBlock;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.common.item.tool.ChalkItem;
@@ -37,6 +40,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -63,7 +67,7 @@ public abstract class RitualSatchelItem extends Item {
         player.openMenu(
                 new SimpleMenuProvider((id, playerInventory, unused) -> {
                     return this.containerFactory().apply(id, playerInventory, this.getInventory(player, stack), selectedSlot);
-                }, stack.getDisplayName()), buffer -> {
+                }, stack.getHoverName()), buffer -> {
                     buffer.writeVarInt(selectedSlot);
                 });
     }
@@ -86,11 +90,14 @@ public abstract class RitualSatchelItem extends Item {
         if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_AT_POSITION_NOT_AIR;
 
+        var previewColor = getPreviewGlyphColor(context.getLevel(), targetMatcher);
+
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             var stack = inventory.getItem(i);
             var isGlyph = false;
 
             BlockState blockStateToPlace = null;
+            BlockState dyedGlyphState = null;
             if (stack.getItem() instanceof BlockItem blockItem) {
                 var block = blockItem.getBlock();
                 var blockPlaceContext = blockItem.updatePlacementContext(new BlockPlaceContext(context));
@@ -100,7 +107,15 @@ public abstract class RitualSatchelItem extends Item {
                 blockStateToPlace = block.getStateForPlacement(blockPlaceContext);
             } else if (stack.getItem() instanceof ChalkItem chalkItem) {
                 var chalkBlock = chalkItem.getGlyphBlock();
-                blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
+                var placeContext = new BlockPlaceContext(context);
+                blockStateToPlace = chalkBlock.getStateForPlacement(placeContext);
+                if (previewColor != null && containsDye(inventory, previewColor)) {
+                    if (chalkBlock instanceof RainbowGlyphBlock rainbowBlock)
+                        blockStateToPlace = rainbowBlock.getStateForPlacement(placeContext, previewColor);
+                    else if (chalkBlock instanceof VoidGlyphBlock voidBlock)
+                        blockStateToPlace = voidBlock.getStateForPlacement(placeContext, previewColor);
+                    dyedGlyphState = blockStateToPlace;
+                }
                 isGlyph = true;
             }
 
@@ -120,13 +135,64 @@ public abstract class RitualSatchelItem extends Item {
                     continue;
                 }
                 // Simulate item use
-                stack.useOn(new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult()));
+                var useContext = dyedGlyphState != null
+                        ? new ChalkItem.ForcedStateUseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult(), dyedGlyphState)
+                        : new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult());
+                stack.useOn(useContext);
                 inventory.setItem(i, stack); // Force an update of the container if the item was used up or stack size reduced.
                 inventory.writeItemStack();
                 return PlacementResult.SUCCESS;
             }
         }
         return PlacementResult.ERROR_NO_MATCHING_BLOCK_FOUND;
+    }
+
+    /**
+     * Returns the color of the chalk glyph displayed by the preview matcher, or null if it is not a chalk glyph.
+     */
+    private static ColorBlockState getPreviewGlyphColor(Level level, SimulateResult targetMatcher) {
+        var displayedState = targetMatcher.stateMatcher().getDisplayedState(level.getGameTime());
+        if (displayedState.getBlock() instanceof ChalkGlyphBlock glyphBlock)
+            return ColorBlockState.fromChalk(glyphBlock.getChalk());
+        return null;
+    }
+
+    private static boolean containsDye(Container inventory, ColorBlockState color) {
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            var stack = inventory.getItem(i);
+            if (stack.is(Tags.Items.DYES) && ColorBlockState.fromDye(stack) == color)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Places the first sacrificial bowl found in the satchel at the clicked position (outside of a previewed pentacle).
+     */
+    protected boolean tryPlaceSacrificialBowl(UseOnContext context) {
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            var stack = inventory.getItem(i);
+            if (!stack.is(OccultismTags.Items.SACRIFICIAL_BOWLS) || !(stack.getItem() instanceof BlockItem blockItem))
+                continue;
+
+            var bowlContext = new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult());
+            if (blockItem.place(new BlockPlaceContext(bowlContext)).consumesAction()) {
+                inventory.setItem(i, stack);
+                inventory.writeItemStack();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean hasSacrificialBowl(UseOnContext context) {
+        var inventory = new SatchelInventory(context.getItemInHand(), RitualSatchelContainer.SATCHEL_SIZE);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            if (inventory.getItem(i).is(OccultismTags.Items.SACRIFICIAL_BOWLS))
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -143,6 +209,9 @@ public abstract class RitualSatchelItem extends Item {
 
         //First, verify if we have a valid preview in the world
         if (preview == null || !preview.isAnchored()) {
+            if (this.hasSacrificialBowl(context))
+                return InteractionResult.SUCCESS;
+
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }
@@ -154,6 +223,9 @@ public abstract class RitualSatchelItem extends Item {
         if (targetMatcher.isEmpty() ||
                 targetMatcher.get().stateMatcher().type() == StateMatcherTypeRegistry.ANY ||
                 targetMatcher.get().stateMatcher().type() == StateMatcherTypeRegistry.DISPLAY) {
+            if (this.hasSacrificialBowl(context))
+                return InteractionResult.SUCCESS;
+
             player.sendSystemMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED).withStyle(ChatFormatting.YELLOW));
             return InteractionResult.PASS;
         }

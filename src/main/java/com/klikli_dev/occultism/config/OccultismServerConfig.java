@@ -32,6 +32,7 @@ public class OccultismServerConfig {
     public final StorageSettings storage;
     public final SpiritJobSettings spiritJobs;
     public final FamiliarSettings familiar;
+    public final LumberjackSettings lumberjack;
 
     public final RitualSettings rituals;
     public final ItemSettings itemSettings;
@@ -43,6 +44,7 @@ public class OccultismServerConfig {
         this.storage = new StorageSettings(builder);
         this.spiritJobs = new SpiritJobSettings(builder);
         this.familiar = new FamiliarSettings(builder);
+        this.lumberjack = new LumberjackSettings(builder);
         this.rituals = new RitualSettings(builder);
         this.itemSettings = new ItemSettings(builder);
         this.worldGen = new WorldGenSettings(builder);
@@ -51,6 +53,24 @@ public class OccultismServerConfig {
 
     public static OccultismServerConfig get() {
         return instance;
+    }
+
+    public static class LumberjackSettings {
+        public final IntValue maxFelledBlocks;
+        public final IntValue maxFellHorizontalDistance;
+
+        public LumberjackSettings(Builder builder) {
+            builder.comment("Lumberjack Settings").push("lumberjack");
+
+            this.maxFelledBlocks = builder.comment(
+                            "The maximum number of blocks a lumberjack spirit fells per tree.")
+                    .defineInRange("maxFelledBlocks", 512, 1, 4096);
+            this.maxFellHorizontalDistance = builder.comment(
+                            "The maximum horizontal distance (in blocks) from the tree's base a lumberjack spirit fells logs.")
+                    .defineInRange("maxFellHorizontalDistance", 24, 1, 128);
+
+            builder.pop();
+        }
     }
 
     public static class ItemSettings {

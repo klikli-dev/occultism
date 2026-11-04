@@ -1,10 +1,12 @@
 package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.blockentity.DimensionalBattlefieldBlockEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import io.netty.handler.codec.DecoderException;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -42,11 +44,17 @@ import java.util.Optional;
 // Based on https://github.com/CyclopsMC/EvilCraft-Compat/blob/master-26/src/main/java/org/cyclops/evilcraftcompat/modcompat/jei/spiritfurnace/SpiritFurnaceRecipeJEI.java
 public class BattlefieldRecipeJEI {
 
+    /**
+     * Minimum number of bytes a single encoded recipe occupies: three int counts plus at least one byte for the entity type.
+     */
+    public static final int MIN_ENCODED_SIZE = 13;
+
     private final List<ItemStack> inputItem;
     private final List<ItemStack> outputItems;
     private final List<ItemStack> soulItems;
     private final EntityType<?> entityType;
     private static List<BattlefieldRecipeJEI> cachedRecipes = null;
+    private static List<BattlefieldRecipeJEI> clientRecipes = new ArrayList<>();
 
     public BattlefieldRecipeJEI(List<ItemStack> inputItem, List<ItemStack> outputItems, List<ItemStack> soulItems, EntityType<?> entityType) {
         this.inputItem = inputItem;
@@ -59,7 +67,7 @@ public class BattlefieldRecipeJEI {
         return new BattlefieldRecipeJEI(
                 getInput(entityType, level),
                 getMobDrops(entityType, entity, level),
-                getSoulStack(entity, soul),
+                getSoulStack(entity, getGem(entityType, level), soul),
                 entityType
         );
     }
@@ -146,13 +154,21 @@ public class BattlefieldRecipeJEI {
         return items;
     }
 
-    public static List<ItemStack> getSoulStack(LivingEntity entity, List<ItemStack> soulItems) {
-        List<ItemStack> soulStacks = soulItems.stream().map(ItemStack::copy).toList();
-        for (ItemStack stack : soulStacks) {
-            int soulValue = stack.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
-            stack.setCount(1 + ((int) entity.getMaxHealth() / Math.max(soulValue, 1)));
+    public static List<ItemStack> getSoulStack(LivingEntity entity, ItemStack soulSlot, List<ItemStack> fuelItems) {
+        List<ItemStack> fuelStacks = new ArrayList<>();
+        if (soulSlot.isEmpty())
+            return fuelStacks;
+        int soulValue = DimensionalBattlefieldBlockEntity.getSoulValue(soulSlot, entity.getMaxHealth());
+        for (ItemStack fuel : fuelItems) {
+            int fuelValue = fuel.getOrDefault(OccultismDataComponents.SOUL_VALUE, 0);
+            int count = DimensionalBattlefieldBlockEntity.getRequiredFuel(soulValue, fuelValue);
+            if (count < 1 || count > fuel.getMaxStackSize())
+                continue;
+            ItemStack stack = fuel.copy();
+            stack.setCount(count);
+            fuelStacks.add(stack);
         }
-        return soulStacks;
+        return fuelStacks;
     }
 
     public List<ItemStack> getInputItem() {
@@ -175,6 +191,14 @@ public class BattlefieldRecipeJEI {
         return cachedRecipes;
     }
 
+    public static List<BattlefieldRecipeJEI> getClientRecipes() {
+        return clientRecipes;
+    }
+
+    public static void setClientRecipes(List<BattlefieldRecipeJEI> recipes) {
+        clientRecipes = recipes;
+    }
+
     public static void encode(BattlefieldRecipeJEI recipe, RegistryFriendlyByteBuf output) {
         output.writeInt(recipe.inputItem.size());
         for (ItemStack inputItem : recipe.getInputItem()) {
@@ -193,22 +217,30 @@ public class BattlefieldRecipeJEI {
 
     public static BattlefieldRecipeJEI decode(RegistryFriendlyByteBuf input) {
         List<ItemStack> inputItems = new ArrayList<>();
-        int inputItemsCount = input.readInt();
+        int inputItemsCount = readCount(input);
         for (int i = 0; i < inputItemsCount; ++i) {
             inputItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         List<ItemStack> outputItems = new ArrayList<>();
-        int outputItemsCount = input.readInt();
+        int outputItemsCount = readCount(input);
         for (int i = 0; i < outputItemsCount; ++i) {
             outputItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         List<ItemStack> soulItems = new ArrayList<>();
-        int soulItemsCount = input.readInt();
+        int soulItemsCount = readCount(input);
         for (int i = 0; i < soulItemsCount; ++i) {
             soulItems.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(input));
         }
         EntityType<?> entityType = EntityType.STREAM_CODEC.decode(input);
         return new BattlefieldRecipeJEI(inputItems, outputItems, soulItems, entityType);
+    }
+
+    private static int readCount(RegistryFriendlyByteBuf input) {
+        int count = input.readInt();
+        if (count < 0) {
+            throw new DecoderException("Invalid battlefield recipe item count: " + count);
+        }
+        return count;
     }
 
     public static List<BattlefieldRecipeJEI> generateServerRecipes() {
@@ -230,7 +262,7 @@ public class BattlefieldRecipeJEI {
                 Entity entity = entityType.create(level, EntitySpawnReason.SPAWN_ITEM_USE);
                 if (entity instanceof LivingEntity livingEntity) {
                     BattlefieldRecipeJEI recipeJEI = BattlefieldRecipeJEI.create(entityType, livingEntity, level, soul);
-                    if (!recipeJEI.getOutputItems().isEmpty())
+                    if (!recipeJEI.getOutputItems().isEmpty() && !recipeJEI.getSoulItems().isEmpty())
                         recipes.add(recipeJEI);
                 }
             } catch (Throwable e) {

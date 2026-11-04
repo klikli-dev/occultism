@@ -28,13 +28,17 @@ import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
@@ -43,6 +47,11 @@ import java.util.List;
 import java.util.Set;
 
 public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
+
+    /**
+     * The minimum amount of solid blocks required between the top of the cave and the floor of a body of water above it.
+     */
+    public static final int MIN_SOLID_BLOCKS_BELOW_WATER = 8;
 
     public static Set<BlockPos> sphericalCaves = new HashSet<>();
     protected ICaveDecorator caveDecorator;
@@ -67,9 +76,6 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         if (reader.canSeeSkyFromBelowWater(rootPosition))
             return false;
 
-        //Store a list of spherical caves for easy access during development, or future command access.
-        sphericalCaves.add(rootPosition);
-
         ChunkPos rootChunk = ChunkPos.containing(rootPosition);
 
         //Seed with root chunk position
@@ -79,6 +85,14 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
+
+        //never generate below oceans, rivers, lakes etc. where the cave would break through the floor and flood.
+        if (this.isBelowWater(reader, generator, rootPosition, radius))
+            return false;
+
+        //Store a list of spherical caves for easy access during development, or future command access.
+        sphericalCaves.add(rootPosition);
+
         spheres.add(this.generateSphere(reader, rand, rootPosition, radius, bounds));
         for (Sphere sphere : spheres) {
             this.closeOutSphere(reader, sphere.center, sphere.radius + 3, bounds);
@@ -87,6 +101,52 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         }
         spheres.clear();
         return true;
+    }
+
+    /**
+     * Checks if the cave would generate below (or too close to) a body of water, such as the ocean floor.
+     * Uses the noise-based heightmaps of the chunk generator, so the result is deterministic and independent of
+     * which chunks are currently loaded. This is important, because every chunk the cave spans must come to the same
+     * conclusion, otherwise we would end up with partial caves.
+     *
+     * @param reader       the level.
+     * @param generator    the chunk generator.
+     * @param rootPosition the center of the cave.
+     * @param radius       the radius of the cave.
+     * @return true if the cave touches a water-covered area and does not have enough solid ground above it.
+     */
+    protected boolean isBelowWater(WorldGenLevel reader, ChunkGenerator generator, BlockPos rootPosition, int radius) {
+        if (!(reader.getChunkSource() instanceof ServerChunkCache chunkSource))
+            return false;
+
+        return isBelowWater(reader, generator, chunkSource.randomState(), rootPosition, radius);
+    }
+
+    /**
+     * See {@link #isBelowWater(WorldGenLevel, ChunkGenerator, BlockPos, int)}.
+     */
+    public static boolean isBelowWater(LevelHeightAccessor heightAccessor, ChunkGenerator generator, RandomState randomState,
+                                       BlockPos rootPosition, int radius) {
+        //matches the extents used by closeOutSphere, which is the largest area we modify.
+        int outerRadius = radius + 3;
+        int caveTop = rootPosition.getY() + outerRadius / 2 + 2;
+        int requiredFloorY = caveTop + MIN_SOLID_BLOCKS_BELOW_WATER;
+
+        for (int dx = -outerRadius; dx <= outerRadius; dx += outerRadius) {
+            for (int dz = -outerRadius; dz <= outerRadius; dz += outerRadius) {
+                int x = rootPosition.getX() + dx;
+                int z = rootPosition.getZ() + dz;
+
+                //surface including fluids
+                int surface = generator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, heightAccessor, randomState);
+                //surface excluding fluids
+                int floor = generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, heightAccessor, randomState);
+
+                if (surface > floor && floor <= requiredFloorY)
+                    return true;
+            }
+        }
+        return false;
     }
 
     protected Sphere generateSphere(WorldGenLevel level, RandomSource rand, BlockPos position, int radius, AABB bounds) {

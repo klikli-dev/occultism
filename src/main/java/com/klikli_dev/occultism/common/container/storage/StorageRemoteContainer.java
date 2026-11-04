@@ -41,6 +41,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,6 +121,13 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
+    public boolean isStorageControllerAccessible(Player player) {
+        IStorageController storageController = this.getStorageController();
+        return storageController instanceof BlockEntity blockEntity && !blockEntity.isRemoved()
+                && this.getStorageRemote() != ItemStack.EMPTY;
+    }
+
+    @Override
     public boolean stillValid(Player entityPlayer) {
         IStorageController storageController = this.getStorageController();
 
@@ -133,7 +141,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         }
 
         //close container if storage controller block is destroyed ( -> if it is null here, this check is a bit different from the wormhole, because getStorageController() already handles that)
-        return storageController != null && this.getStorageRemote() != ItemStack.EMPTY;
+        return this.isStorageControllerAccessible(entityPlayer);
     }
 
     @Override

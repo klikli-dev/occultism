@@ -32,6 +32,8 @@ public class RitualSatchelsEntry extends EntryProvider {
                 More importantly, they can automatically place the right items for a pentacle, removing the need to manually place chalks, candles, crystals, skulls and other items needed for rituals.\\\\
                 The Apprentice Satchel places pentacle blocks one by one.\\
                 The improved Artisanal Satchel places all pentacle blocks in a single action.\\
+                Satchels can also hold sacrificial bowls, which are placed when right-clicking outside a highlighted pentacle.
+                Satchels can also hold dyes, which color rainbow and void chalk to match the preview.
                 """
         );
 

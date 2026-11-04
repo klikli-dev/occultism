@@ -56,7 +56,10 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return player.distanceToSqr(this.otherworldMiner.getBlockPos().getX() + 0.5D,
+        return !this.otherworldMiner.isRemoved()
+                && this.otherworldMiner.getLevel() != null
+                && this.otherworldMiner.getLevel().getBlockEntity(this.otherworldMiner.getBlockPos()) == this.otherworldMiner
+                && player.distanceToSqr(this.otherworldMiner.getBlockPos().getX() + 0.5D,
                 this.otherworldMiner.getBlockPos().getY() + 0.5D,
                 this.otherworldMiner.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
@@ -80,8 +83,8 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
             }
-            //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.moveItemStackTo(itemstack1, 0, this.outputHandler.size() + 1, false)) {
+            //only the input handler slot accepts player items, output slots must never be merged into
+            else if (!this.moveItemStackTo(itemstack1, this.outputHandler.size(), this.outputHandler.size() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
