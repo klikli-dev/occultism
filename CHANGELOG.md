@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.266.0] - 2026-11-04
+### :sparkles: New Features
+- [`80091ea`](https://github.com/klikli-dev/occultism/commit/80091ea8b2105ea7bc56cbd02ce3f789206c17c6) - add server config toggles for each worldgen feature *(PR [#1723](https://github.com/klikli-dev/occultism/pull/1723) by [@JoelCranston](https://github.com/JoelCranston))*
+
+
 ## [release/v26.3-1.265.0] - 2026-11-03
 ### :sparkles: New Features
 - [`92a9b74`](https://github.com/klikli-dev/occultism/commit/92a9b746c5a9361de3972cb39d7f6280cecbc2ae) - Use the stack's hover name as the satchel menu title *(PR [#1734](https://github.com/klikli-dev/occultism/pull/1734) by [@GnomoMuitoLoco](https://github.com/GnomoMuitoLoco))*
@@ -3059,3 +3064,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.264.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.263.2...release/v26.3-1.264.0
 [release/v26.3-1.264.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.264.0...release/v26.3-1.264.1
 [release/v26.3-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.264.1...release/v26.3-1.265.0
+[release/v26.3-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.265.0...release/v26.3-1.266.0
