@@ -1,4 +1,9 @@
 {
   "feature": "occultism:grove_underground",
-  "placement": []
+  "placement": [
+    {
+      "type": "occultism:config_enabled",
+      "setting": "underground_grove"
+    }
+  ]
 }

@@ -98,6 +98,15 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FAMILIAR_RING_RELEASES_FAMILIAR =
             TEST_FUNCTIONS.register("familiar_ring_releases_familiar", () -> FamiliarRingGameTests::ringReleasesFamiliar);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> WORLDGEN_PLACED_FEATURES_GATED_BY_CONFIG =
+            TEST_FUNCTIONS.register("worldgen_placed_features_gated_by_config", () -> WorldGenConfigGameTests::placedFeaturesAreGatedByConfig);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> WORLDGEN_CONFIG_FILTER_RESPECTS_SETTINGS =
+            TEST_FUNCTIONS.register("worldgen_config_filter_respects_settings", () -> WorldGenConfigGameTests::configFilterRespectsSettings);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> WORLDGEN_GROVE_TREES_IGNORE_SURFACE_TREE_SETTING =
+            TEST_FUNCTIONS.register("worldgen_grove_trees_ignore_surface_tree_setting", () -> WorldGenConfigGameTests::groveTreesIgnoreSurfaceTreeSetting);
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> UNDERGROUND_GROVE_BELOW_OCEAN_FLOOR =
             TEST_FUNCTIONS.register("underground_grove_below_ocean_floor", () -> UndergroundGroveGameTests::groveDirectlyBelowOceanFloorIsRejected);
 
@@ -114,6 +123,8 @@ public class GameTestRegistry {
         var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler"));
         var curiosEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "curios_util"));
         var otherworldEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "otherworld_blocks"));
+        var worldGenEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "worldgen_config"));
+
         var groveEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "underground_grove"));
         var structure = Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler_test");
 
@@ -144,6 +155,10 @@ public class GameTestRegistry {
         var familiarEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "familiar_ring"));
         registerTest(event, FAMILIAR_RING_CAPTURES_FAMILIAR, familiarEnvironment, structure, 40, 0);
         registerTest(event, FAMILIAR_RING_RELEASES_FAMILIAR, familiarEnvironment, structure, 40, 0);
+
+        registerTest(event, WORLDGEN_PLACED_FEATURES_GATED_BY_CONFIG, worldGenEnvironment, structure, 40, 0);
+        registerTest(event, WORLDGEN_CONFIG_FILTER_RESPECTS_SETTINGS, worldGenEnvironment, structure, 40, 0);
+        registerTest(event, WORLDGEN_GROVE_TREES_IGNORE_SURFACE_TREE_SETTING, worldGenEnvironment, structure, 40, 0);
 
         registerTest(event, UNDERGROUND_GROVE_BELOW_OCEAN_FLOOR, groveEnvironment, structure, 40, 0);
         registerTest(event, UNDERGROUND_GROVE_MIN_GROUND_THICKNESS, groveEnvironment, structure, 40, 0);

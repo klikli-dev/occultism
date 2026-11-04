@@ -2,6 +2,10 @@
   "feature": "occultism:ore_iesnium",
   "placement": [
     {
+      "type": "occultism:config_enabled",
+      "setting": "iesnium_ore"
+    },
+    {
       "type": "minecraft:count",
       "count": 3
     },

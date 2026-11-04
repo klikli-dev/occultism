@@ -2,6 +2,10 @@
   "feature": "occultism:ore_silver",
   "placement": [
     {
+      "type": "occultism:config_enabled",
+      "setting": "silver_ore"
+    },
+    {
       "type": "minecraft:count",
       "count": 7
     },

@@ -1,0 +1,12 @@
+{
+  "feature": "occultism:tree_otherworld_natural",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "occultism:otherworld_sapling_natural"
+      }
+    }
+  ]
+}

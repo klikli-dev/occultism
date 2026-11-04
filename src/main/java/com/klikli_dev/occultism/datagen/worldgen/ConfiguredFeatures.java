@@ -67,7 +67,7 @@ public class ConfiguredFeatures {
                         belowTrunkProvider)
                         .ignoreVines().build());
 
-        var placedTreeOtherworldNatural = placedFeatures.getOrThrow(PlacedFeatures.TREE_OTHERWORLD_NATURAL);
+        var placedGroveTree = placedFeatures.getOrThrow(PlacedFeatures.GROVE_TREE_OTHERWORLD_NATURAL);
         context.register(GROVE_UNDERGROUND, new MultiChunkFeature(
                 new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 40, 20),
                 new MultiChunkFeatureConfig(
@@ -81,7 +81,7 @@ public class ConfiguredFeatures {
                         0.1f,
                         0.3f,
                         0.1f,
-                        placedTreeOtherworldNatural)));
+                        placedGroveTree)));
 
 
     }

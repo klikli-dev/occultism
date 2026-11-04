@@ -23,13 +23,16 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.level.ConfigEnabledFilter;
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class OccultismFeatures {
 
@@ -41,6 +44,12 @@ public class OccultismFeatures {
     static {
         FEATURE_TYPES.register("underground_grove", () -> MultiChunkFeature.CODEC);
     }
+
+    public static final DeferredRegister<MapCodec<? extends PlacementModifier>> PLACEMENT_MODIFIER_TYPES =
+            DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, Occultism.MODID);
+
+    public static final Supplier<MapCodec<ConfigEnabledFilter>> CONFIG_ENABLED_FILTER =
+            PLACEMENT_MODIFIER_TYPES.register("config_enabled", () -> ConfigEnabledFilter.CODEC);
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier1, PlacementModifier modifier2) {
         return List.of(modifier1, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());

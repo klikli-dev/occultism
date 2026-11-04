@@ -58,6 +58,10 @@ public class MultiChunkFeature implements Feature {
         return CODEC;
     }
 
+    public MultiChunkFeatureConfig getConfig() {
+        return this.config;
+    }
+
     @Override
     public Stream<Holder<Feature>> getSubFeatures() {
         return this.config.otherworldTreeFeature.value().getFeatures();

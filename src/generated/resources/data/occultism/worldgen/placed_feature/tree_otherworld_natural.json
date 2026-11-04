@@ -2,6 +2,10 @@
   "feature": "occultism:tree_otherworld_natural",
   "placement": [
     {
+      "type": "occultism:config_enabled",
+      "setting": "otherworld_trees"
+    },
+    {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
