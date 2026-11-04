@@ -59,7 +59,7 @@ public class ConfiguredFeatures {
                         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                         new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
-        var placedTreeOtherworldNatural = placedFeatures.getOrThrow(PlacedFeatures.TREE_OTHERWORLD_NATURAL);
+        var placedGroveTree = placedFeatures.getOrThrow(PlacedFeatures.GROVE_TREE_OTHERWORLD_NATURAL);
         FeatureUtils.register(context, GROVE_UNDERGROUND, OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
                 new MultiChunkFeatureConfig(
                         9,
@@ -72,7 +72,7 @@ public class ConfiguredFeatures {
                         0.1f,
                         0.3f,
                         0.1f,
-                        placedTreeOtherworldNatural));
+                        placedGroveTree));
 
 
     }

@@ -23,11 +23,13 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.level.ConfigEnabledFilter;
 import com.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature;
 import com.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -45,6 +47,12 @@ public class OccultismFeatures {
                     () -> new MultiChunkFeature(
                             MultiChunkFeatureConfig.CODEC,
                             new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 40, 20)));
+
+    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIER_TYPES =
+            DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, Occultism.MODID);
+
+    public static final Supplier<PlacementModifierType<ConfigEnabledFilter>> CONFIG_ENABLED_FILTER =
+            PLACEMENT_MODIFIER_TYPES.register("config_enabled", () -> () -> ConfigEnabledFilter.CODEC);
 
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier1, PlacementModifier modifier2) {
