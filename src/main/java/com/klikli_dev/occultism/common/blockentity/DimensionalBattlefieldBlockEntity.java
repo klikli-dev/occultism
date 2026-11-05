@@ -450,7 +450,6 @@ public class DimensionalBattlefieldBlockEntity extends NetworkedBlockEntity impl
                 .withOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER, fakePlayer)
                 .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, fakePlayer)
                 .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, fakePlayer)
-                .withOptionalParameter(LootContextParams.TOOL, weapon)
                 .withLuck(luck)
                 .create(LootContextParamSets.ENTITY);
     }
