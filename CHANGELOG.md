@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.226.0] - 2026-11-05
+### :sparkles: New Features
+- [`0782520`](https://github.com/klikli-dev/occultism/commit/07825209e384d2baaa96692ee9fd34da8290e96d) - Improve French translation *(PR [#1736](https://github.com/klikli-dev/occultism/pull/1736) by [@programgames](https://github.com/programgames))*
+
+### :bug: Bug Fixes
+- [`2270231`](https://github.com/klikli-dev/occultism/commit/227023116889efde68fd1be02ef7b8fa549dcc61) - horde minions only spawn on summon, respect doMobSpawning and die with master *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.225.0] - 2026-11-02
 ### :sparkles: New Features
 - [`91de0d2`](https://github.com/klikli-dev/occultism/commit/91de0d2a46e05ce315cc5afd292d266d4f46e7ab) - Backport reworked Russian translation (PR [#1714](https://github.com/klikli-dev/occultism/pull/1714)) to 1.21.1 *(PR [#1730](https://github.com/klikli-dev/occultism/pull/1730) by [@LeonusDH](https://github.com/LeonusDH))*
@@ -2530,3 +2538,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.224.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.4...release/v1.21.1-1.224.5
 [release/v1.21.1-1.224.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.5...release/v1.21.1-1.224.6
 [release/v1.21.1-1.225.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.224.6...release/v1.21.1-1.225.0
+[release/v1.21.1-1.226.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.225.0...release/v1.21.1-1.226.0
