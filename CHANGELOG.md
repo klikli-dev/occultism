@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.266.1] - 2026-11-05
+### :bug: Bug Fixes
+- [`308e8cc`](https://github.com/klikli-dev/occultism/commit/308e8cca822776ca845f3c6c35d83883f2caf767) - remove tool parameter not allowed in entity loot param set in dimensional battlefield *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.266.0] - 2026-11-04
 ### :sparkles: New Features
 - [`80091ea`](https://github.com/klikli-dev/occultism/commit/80091ea8b2105ea7bc56cbd02ce3f789206c17c6) - add server config toggles for each worldgen feature *(PR [#1723](https://github.com/klikli-dev/occultism/pull/1723) by [@JoelCranston](https://github.com/JoelCranston))*
@@ -3065,3 +3070,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.264.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.264.0...release/v26.3-1.264.1
 [release/v26.3-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.264.1...release/v26.3-1.265.0
 [release/v26.3-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.265.0...release/v26.3-1.266.0
+[release/v26.3-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.0...release/v26.3-1.266.1
