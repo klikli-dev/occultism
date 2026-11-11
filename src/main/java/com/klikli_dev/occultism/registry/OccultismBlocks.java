@@ -444,7 +444,7 @@ public class OccultismBlocks {
             () -> Block.Properties.ofFullCopy(Blocks.IRON_BLOCK));
     public static final DeferredBlock<Block> SILVER_CHISELED_BLOCK = register("chiseled_silver", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.CHISELED_COPPER));
-    public static final DeferredBlock<Block> SILVER_GRATE_BLOCK = register("silver_grate", Block::new,
+    public static final DeferredBlock<Block> SILVER_GRATE_BLOCK = register("silver_grate", WaterloggedTransparentBlock::new,
             () -> Block.Properties.ofFullCopy(Blocks.COPPER_GRATE));
     public static final DeferredBlock<Block> SILVER_CUT_BLOCK = register("cut_silver", Block::new,
             () -> Block.Properties.ofFullCopy(Blocks.CUT_COPPER));
