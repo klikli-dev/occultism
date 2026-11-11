@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.267.0] - 2026-11-11
+### :sparkles: New Features
+- [`3356ddd`](https://github.com/klikli-dev/occultism/commit/3356ddd033a04b4ffc0076d28aaa3924c960bdd2) - PT_BR Localizations *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`4ccd18f`](https://github.com/klikli-dev/occultism/commit/4ccd18fa3e20554ae733c597c45c849df29d0b12) - allow silver grate to be waterlogged *(PR [#1738](https://github.com/klikli-dev/occultism/pull/1738) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`1e445d2`](https://github.com/klikli-dev/occultism/commit/1e445d2c719a0048522cef62d2b7f774208b99b5) - update readme *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.266.1] - 2026-11-05
 ### :bug: Bug Fixes
 - [`308e8cc`](https://github.com/klikli-dev/occultism/commit/308e8cca822776ca845f3c6c35d83883f2caf767) - remove tool parameter not allowed in entity loot param set in dimensional battlefield *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3071,3 +3082,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.264.1...release/v26.3-1.265.0
 [release/v26.3-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.265.0...release/v26.3-1.266.0
 [release/v26.3-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.0...release/v26.3-1.266.1
+[release/v26.3-1.267.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.1...release/v26.3-1.267.0
