@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.263.0] - 2026-11-11
+### :sparkles: New Features
+- [`29e2237`](https://github.com/klikli-dev/occultism/commit/29e2237afbd1c03914dfe8f3bad502524b7111c2) - PT_BR Localizations *(commit by [@PrincessStellar](https://github.com/PrincessStellar))*
+
+### :bug: Bug Fixes
+- [`d5cef50`](https://github.com/klikli-dev/occultism/commit/d5cef50fa1f12b7d2539b640149882cc2c320dc8) - allow silver grate to be waterlogged *(PR [#1738](https://github.com/klikli-dev/occultism/pull/1738) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`1f16b04`](https://github.com/klikli-dev/occultism/commit/1f16b04c1a9345718647b324ee0360a5cd0ac1f9) - update readme *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.262.0] - 2026-11-04
 ### :sparkles: New Features
 - [`a1c75de`](https://github.com/klikli-dev/occultism/commit/a1c75debbab7e44febe09ef7fd7233fa413b7b8e) - add server config toggles for each worldgen feature *(PR [#1723](https://github.com/klikli-dev/occultism/pull/1723) by [@JoelCranston](https://github.com/JoelCranston))*
@@ -2978,3 +2989,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.260.4]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.3...release/v26.1.2-1.260.4
 [release/v26.1.2-1.261.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.4...release/v26.1.2-1.261.0
 [release/v26.1.2-1.262.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.261.0...release/v26.1.2-1.262.0
+[release/v26.1.2-1.263.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.262.0...release/v26.1.2-1.263.0
