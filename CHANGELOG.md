@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.267.1] - 2026-11-12
+### :bug: Bug Fixes
+- [`6a6e01e`](https://github.com/klikli-dev/occultism/commit/6a6e01e3bb1c1f626ca0cc850911b9257a9c14a4) - update magic particles lib to 1.9.1 to fix crash with Fabulous graphics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.267.0] - 2026-11-11
 ### :sparkles: New Features
 - [`3356ddd`](https://github.com/klikli-dev/occultism/commit/3356ddd033a04b4ffc0076d28aaa3924c960bdd2) - PT_BR Localizations *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3083,3 +3088,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.265.0...release/v26.3-1.266.0
 [release/v26.3-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.0...release/v26.3-1.266.1
 [release/v26.3-1.267.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.1...release/v26.3-1.267.0
+[release/v26.3-1.267.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.267.0...release/v26.3-1.267.1
