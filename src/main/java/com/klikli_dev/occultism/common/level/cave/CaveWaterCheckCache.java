@@ -31,15 +31,15 @@ final class CaveWaterCheckCache {
             return calculate(heightAccessor, generator, randomState, rootPosition, radius);
         }
         return INSTANCE.get(randomState, generator, rootPosition.asLong(), radius,
-                heightAccessor.getMinY(), heightAccessor.getHeight(),
+                heightAccessor.getMinY(), heightAccessor.getHeight(), heightAccessor.getMaxY(),
                 () -> calculate(heightAccessor, generator, randomState, rootPosition, radius));
     }
 
-    boolean get(Object randomState, Object generator, long root, int radius, int minY, int height,
+    boolean get(Object randomState, Object generator, long root, int radius, int minY, int height, int maxY,
                 BooleanSupplier calculation) {
         Cache<Key, Boolean> cache = this.worlds.asMap().computeIfAbsent(randomState,
                 ignored -> CacheBuilder.newBuilder().maximumSize(this.maximumSize).build());
-        Key key = new Key(generator, root, radius, minY, height);
+        Key key = new Key(generator, root, radius, minY, height, maxY);
         return cache.asMap().computeIfAbsent(key, ignored -> calculation.getAsBoolean());
     }
 
@@ -63,11 +63,12 @@ final class CaveWaterCheckCache {
         return false;
     }
 
-    private record Key(Object generator, long root, int radius, int minY, int height) {
+    private record Key(Object generator, long root, int radius, int minY, int height, int maxY) {
         @Override
         public boolean equals(Object object) {
             return object instanceof Key other && this.generator == other.generator && this.root == other.root
-                    && this.radius == other.radius && this.minY == other.minY && this.height == other.height;
+                    && this.radius == other.radius && this.minY == other.minY && this.height == other.height
+                    && this.maxY == other.maxY;
         }
 
         @Override
@@ -76,7 +77,8 @@ final class CaveWaterCheckCache {
             hash = 31 * hash + Long.hashCode(this.root);
             hash = 31 * hash + this.radius;
             hash = 31 * hash + this.minY;
-            return 31 * hash + this.height;
+            hash = 31 * hash + this.height;
+            return 31 * hash + this.maxY;
         }
     }
 }

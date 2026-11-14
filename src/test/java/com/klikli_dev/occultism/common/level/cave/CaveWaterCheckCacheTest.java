@@ -25,11 +25,11 @@ class CaveWaterCheckCacheTest {
         var generator = new Object();
         var calls = new AtomicInteger();
         for (int i = 0; i < 9; i++) {
-            assertFalse(cache.get(state, generator, 42, 10, -64, 384, () -> {
+            assertFalse(cache.get(state, generator, 42, 10, -64, 384, 319, () -> {
                 calls.incrementAndGet();
                 return false;
             }));
-            assertTrue(cache.get(state, generator, -42, 10, -64, 384, () -> {
+            assertTrue(cache.get(state, generator, -42, 10, -64, 384, 319, () -> {
                 calls.incrementAndGet();
                 return true;
             }));
@@ -42,13 +42,22 @@ class CaveWaterCheckCacheTest {
         var cache = new CaveWaterCheckCache(16);
         var state = new EqualObject();
         var generator = new EqualObject();
-        assertTrue(cache.get(state, generator, 42, 10, -64, 384, () -> true));
-        assertFalse(cache.get(new EqualObject(), generator, 42, 10, -64, 384, () -> false));
-        assertFalse(cache.get(state, new EqualObject(), 42, 10, -64, 384, () -> false));
-        assertFalse(cache.get(state, generator, 43, 10, -64, 384, () -> false));
-        assertFalse(cache.get(state, generator, 42, 11, -64, 384, () -> false));
-        assertFalse(cache.get(state, generator, 42, 10, 0, 384, () -> false));
-        assertFalse(cache.get(state, generator, 42, 10, -64, 256, () -> false));
+        assertTrue(cache.get(state, generator, 42, 10, -64, 384, 319, () -> true));
+        assertFalse(cache.get(new EqualObject(), generator, 42, 10, -64, 384, 319, () -> false));
+        assertFalse(cache.get(state, new EqualObject(), 42, 10, -64, 384, 319, () -> false));
+        assertFalse(cache.get(state, generator, 43, 10, -64, 384, 319, () -> false));
+        assertFalse(cache.get(state, generator, 42, 11, -64, 384, 319, () -> false));
+        assertFalse(cache.get(state, generator, 42, 10, 0, 384, 319, () -> false));
+        assertFalse(cache.get(state, generator, 42, 10, -64, 256, 191, () -> false));
+    }
+
+    @Test
+    void separatesAnOverriddenUpperLimitFromNominalHeight() {
+        var cache = new CaveWaterCheckCache(16);
+        var state = new Object();
+        var generator = new Object();
+        assertTrue(cache.get(state, generator, 42, 10, -64, 384, 319, () -> true));
+        assertFalse(cache.get(state, generator, 42, 10, -64, 384, -49, () -> false));
     }
 
     @Test
@@ -66,7 +75,7 @@ class CaveWaterCheckCacheTest {
                 results.add(pool.submit(() -> {
                     ready.countDown();
                     assertTrue(start.await(10, TimeUnit.SECONDS));
-                    return cache.get(state, generator, 42, 10, -64, 384, () -> {
+                    return cache.get(state, generator, 42, 10, -64, 384, 319, () -> {
                         calls.incrementAndGet();
                         return true;
                     });
@@ -92,8 +101,8 @@ class CaveWaterCheckCacheTest {
         var generator = new Object();
         var failure = new IllegalStateException("height lookup failed");
         assertSame(failure, assertThrows(IllegalStateException.class,
-                () -> cache.get(state, generator, 42, 10, -64, 384, () -> { throw failure; })));
-        assertTrue(cache.get(state, generator, 42, 10, -64, 384, () -> true));
+                () -> cache.get(state, generator, 42, 10, -64, 384, 319, () -> { throw failure; })));
+        assertTrue(cache.get(state, generator, 42, 10, -64, 384, 319, () -> true));
     }
 
     @Test
@@ -103,7 +112,7 @@ class CaveWaterCheckCacheTest {
         var generator = new Object();
         var calls = new AtomicInteger();
         for (long root : new long[]{1, 2, 1}) {
-            assertTrue(cache.get(state, generator, root, 10, -64, 384, () -> {
+            assertTrue(cache.get(state, generator, root, 10, -64, 384, 319, () -> {
                 calls.incrementAndGet();
                 return true;
             }));
