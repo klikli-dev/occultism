@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 voidsip
 // SPDX-License-Identifier: MIT
 package com.klikli_dev.occultism.common.level.cave;
 
