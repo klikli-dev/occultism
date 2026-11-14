@@ -185,6 +185,9 @@ repositories {
 }
 
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.14.1'
+    testImplementation 'com.google.guava:guava:33.5.0-jre'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     //Jei
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
@@ -265,6 +268,10 @@ dependencies {
     //Iris
 //    implementation "curse.maven:irisshaders-455508:7867946"
 //    implementation "curse.maven:sodium-394468:8111040"
+}
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
