@@ -691,7 +691,7 @@
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.effects.title": "Ефекти",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.entity.text": "Я краще помру, ніж втрачу своє життя.",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_guardian.name": "Хоронитель-фамільяр",
-  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.ability.text": "Коли увімкнений, Безголова щуролюдина-фамільяр крастиме голови вбитих поруч монстрів.\n Після цього він посилює атаки свого хазяїна проти цього типу істот.\n\\\nПісля покращення ковалем-фамільяром він накладатиме Слабкість на мобів того ж типу, що й голова, яку він вкрав.\n",
+  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.ability.text": "Коли увімкнений, Безголовий щурротник-фамільяр крастиме голови вбитих поруч монстрів.\n Після цього він посилює атаки свого хазяїна проти цього типу істот.\n\\\nПісля покращення ковалем-фамільяром він накладатиме Слабкість на мобів того ж типу, що й голова, яку він вкрав.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.ability.title": "Здібність",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description": "Атака | Захист",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.text": "Якщо здоров'я щурротника падає **нижче 50%**, він гине, але може бути перебудований хазяїном.\n Це можна здіснити, надавши:\n - 2× [](item://minecraft:wheat)\n - 1× [](item://minecraft:hay_block)\n - 2× [](item://minecraft:stick)\n - 1× [](item://minecraft:carved_pumpkin)\n\\\n\\\nПісля перебудування фея може оживити вершника.\n",
