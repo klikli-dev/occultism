@@ -9,7 +9,9 @@ import com.geckolib.renderer.base.GeoRenderer;
 import com.geckolib.renderer.layer.builtin.AutoGlowingGeoLayer;
 import com.geckolib.util.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
@@ -27,6 +29,11 @@ public class ConditionalGlowingGeoLayer<T extends GeoAnimatable, O, R extends Ge
         if (Minecraft.getInstance().getResourceManager().getResource(emissiveTexture).isEmpty())
             return null;
 
-        return super.getRenderType(renderState);
+        if (renderState instanceof EntityRenderState entityRenderState && entityRenderState.isInvisible)
+            return super.getRenderType(renderState);
+
+        // GeckoLib's Windows emissive render type lacks OIT pipelines, which crashes with Improved Transparency.
+        // RenderTypes.eyes is the OIT-capable equivalent GeckoLib uses on other platforms.
+        return RenderTypes.eyes(emissiveTexture);
     }
 }
