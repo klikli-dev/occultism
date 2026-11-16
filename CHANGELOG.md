@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.268.1] - 2026-11-16
+### :bug: Bug Fixes
+- [`b8059a0`](https://github.com/klikli-dev/occultism/commit/b8059a03561ec223781faedbe931e638761efebd) - use OIT-capable render type for geckolib glow layer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0a37e9e`](https://github.com/klikli-dev/occultism/commit/0a37e9eb2d482fd7610bcfeb287a7b5eb9f91f00) - add OIT pipelines to overlay frame render type *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.268.0] - 2026-11-16
 ### :sparkles: New Features
 - [`af62a7a`](https://github.com/klikli-dev/occultism/commit/af62a7a71a5712b535c12ddd37826936af999576) - Update Ukrainian localization *(PR [#1744](https://github.com/klikli-dev/occultism/pull/1744) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3098,3 +3104,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.267.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.1...release/v26.3-1.267.0
 [release/v26.3-1.267.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.267.0...release/v26.3-1.267.1
 [release/v26.3-1.268.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.267.1...release/v26.3-1.268.0
+[release/v26.3-1.268.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.268.0...release/v26.3-1.268.1
