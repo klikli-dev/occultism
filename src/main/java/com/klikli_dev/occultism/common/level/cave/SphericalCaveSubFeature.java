@@ -37,7 +37,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.phys.AABB;
 
@@ -127,26 +126,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
      */
     public static boolean isBelowWater(LevelHeightAccessor heightAccessor, ChunkGenerator generator, RandomState randomState,
                                        BlockPos rootPosition, int radius) {
-        //matches the extents used by closeOutSphere, which is the largest area we modify.
-        int outerRadius = radius + 3;
-        int caveTop = rootPosition.getY() + outerRadius / 2 + 2;
-        int requiredFloorY = caveTop + MIN_SOLID_BLOCKS_BELOW_WATER;
-
-        for (int dx = -outerRadius; dx <= outerRadius; dx += outerRadius) {
-            for (int dz = -outerRadius; dz <= outerRadius; dz += outerRadius) {
-                int x = rootPosition.getX() + dx;
-                int z = rootPosition.getZ() + dz;
-
-                //surface including fluids
-                int surface = generator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, heightAccessor, randomState);
-                //surface excluding fluids
-                int floor = generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, heightAccessor, randomState);
-
-                if (surface > floor && floor <= requiredFloorY)
-                    return true;
-            }
-        }
-        return false;
+        return CaveWaterCheckCache.isBelowWater(heightAccessor, generator, randomState, rootPosition, radius);
     }
 
     protected Sphere generateSphere(WorldGenLevel level, RandomSource rand, BlockPos position, int radius, AABB bounds) {
