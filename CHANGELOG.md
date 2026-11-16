@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.268.0] - 2026-11-16
+### :sparkles: New Features
+- [`af62a7a`](https://github.com/klikli-dev/occultism/commit/af62a7a71a5712b535c12ddd37826936af999576) - Update Ukrainian localization *(PR [#1744](https://github.com/klikli-dev/occultism/pull/1744) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :zap: Performance Improvements
+- [`ad1fa2e`](https://github.com/klikli-dev/occultism/commit/ad1fa2ee91148ff6a8b17e64df08d0687f3fb894) - reuse cave water checks across neighbouring chunks *(PR [#1743](https://github.com/klikli-dev/occultism/pull/1743) by [@voidsipp](https://github.com/voidsipp))*
+
+
 ## [release/v26.3-1.267.1] - 2026-11-12
 ### :bug: Bug Fixes
 - [`6a6e01e`](https://github.com/klikli-dev/occultism/commit/6a6e01e3bb1c1f626ca0cc850911b9257a9c14a4) - update magic particles lib to 1.9.1 to fix crash with Fabulous graphics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3089,3 +3097,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.0...release/v26.3-1.266.1
 [release/v26.3-1.267.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.266.1...release/v26.3-1.267.0
 [release/v26.3-1.267.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.267.0...release/v26.3-1.267.1
+[release/v26.3-1.268.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.267.1...release/v26.3-1.268.0
