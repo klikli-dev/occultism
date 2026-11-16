@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.264.0] - 2026-11-16
+### :sparkles: New Features
+- [`78f8f41`](https://github.com/klikli-dev/occultism/commit/78f8f4101c8cdb39fe4e5a103beed118558ded3d) - Update Ukrainian localization *(PR [#1744](https://github.com/klikli-dev/occultism/pull/1744) by [@Tenwoc](https://github.com/Tenwoc))*
+
+### :zap: Performance Improvements
+- [`b1e6aaf`](https://github.com/klikli-dev/occultism/commit/b1e6aaf44755c302330fe4f865c821ae5e4ff72a) - reuse cave water checks across neighbouring chunks *(PR [#1743](https://github.com/klikli-dev/occultism/pull/1743) by [@voidsipp](https://github.com/voidsipp))*
+
+
 ## [release/v26.1.2-1.263.0] - 2026-11-11
 ### :sparkles: New Features
 - [`29e2237`](https://github.com/klikli-dev/occultism/commit/29e2237afbd1c03914dfe8f3bad502524b7111c2) - PT_BR Localizations *(commit by [@PrincessStellar](https://github.com/PrincessStellar))*
@@ -2990,3 +2998,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.261.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.260.4...release/v26.1.2-1.261.0
 [release/v26.1.2-1.262.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.261.0...release/v26.1.2-1.262.0
 [release/v26.1.2-1.263.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.262.0...release/v26.1.2-1.263.0
+[release/v26.1.2-1.264.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.263.0...release/v26.1.2-1.264.0
