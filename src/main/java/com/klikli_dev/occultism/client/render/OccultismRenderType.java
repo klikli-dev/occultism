@@ -29,6 +29,7 @@ import com.mojang.renderpearl.api.pipeline.ColorTargetState;
 import com.mojang.renderpearl.api.pipeline.PrimitiveTopology;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import net.minecraft.client.renderer.BindGroupLayouts;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.rendertype.LayeringTransform;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -51,6 +52,7 @@ public class OccultismRenderType {
     private static final RenderType OVERLAY_FRAME_NO_DEPTH = RenderType.create(
             "occultism_overlay_frame_no_depth",
             RenderSetup.builder(OVERLAY_LINES_NO_DEPTH_PIPELINE)
+                    .setOitPipelines(RenderPipelines.OIT_DEBUG_QUADS)
                     .sortOnUpload()
                     .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
                     .createRenderSetup()
