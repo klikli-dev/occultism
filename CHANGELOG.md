@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.265.0] - 2026-11-16
+### :sparkles: New Features
+- [`48d3790`](https://github.com/klikli-dev/occultism/commit/48d37908373a321b0a825600691360f0e7541ad6) - support dragging JEI ghost ingredients into filters *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.264.0] - 2026-11-16
 ### :sparkles: New Features
 - [`78f8f41`](https://github.com/klikli-dev/occultism/commit/78f8f4101c8cdb39fe4e5a103beed118558ded3d) - Update Ukrainian localization *(PR [#1744](https://github.com/klikli-dev/occultism/pull/1744) by [@Tenwoc](https://github.com/Tenwoc))*
@@ -2999,3 +3004,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.262.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.261.0...release/v26.1.2-1.262.0
 [release/v26.1.2-1.263.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.262.0...release/v26.1.2-1.263.0
 [release/v26.1.2-1.264.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.263.0...release/v26.1.2-1.264.0
+[release/v26.1.2-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.264.0...release/v26.1.2-1.265.0
