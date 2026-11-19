@@ -2048,6 +2048,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
         this.addConfig("pentagramInBowlInfoCount", "Max pentacles names per page");
         this.addConfig("pentagramInBowlInfoTicks", "Ticks to change current pentacles");
+        this.addConfig("recipeViewerDefaultSpiritName", "Default Spirit Name in Recipe Viewers");
 
         this.addConfig("storage", "Storage Settings");
         this.addConfig("stabilizerTier1AdditionalMaxItemTypes", "Stabilizer Tier 1 Additional Max Item Types");

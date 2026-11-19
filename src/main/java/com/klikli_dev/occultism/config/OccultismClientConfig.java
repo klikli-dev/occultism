@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.config;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.Builder;
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 public class OccultismClientConfig {
@@ -190,6 +191,7 @@ public class OccultismClientConfig {
         public final BooleanValue disableSpiritFireSuccessSound;
         public final IntValue pentagramInBowlInfoCount;
         public final IntValue pentagramInBowlInfoTicks;
+        public final ConfigValue<String> recipeViewerDefaultSpiritName;
 
         public MiscSettings(Builder builder) {
             builder.comment("Misc Settings").push("misc");
@@ -213,6 +215,11 @@ public class OccultismClientConfig {
             this.pentagramInBowlInfoTicks = builder.comment(
                     "How many ticks between each page for the pentagram information on a bowl"
             ).defineInRange("pentagramInBowlInfoTicks", 40, 1, Integer.MAX_VALUE);
+            this.recipeViewerDefaultSpiritName = builder.comment(
+                    "If set, books of binding and items that inherit their spirit name from them are shown with this spirit name in recipe viewers such as JEI.",
+                    "Set this to the name of your (renamed) Dictionary of Spirits so that e.g. AE2 patterns encoded from JEI ritual recipes match your actual items.",
+                    "Leave empty to keep the default behaviour of random spirit names."
+            ).define("recipeViewerDefaultSpiritName", "");
             builder.pop();
         }
     }
