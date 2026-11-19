@@ -95,6 +95,24 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> UNDERGROUND_GROVE_BELOW_LAND =
             TEST_FUNCTIONS.register("underground_grove_below_land", () -> UndergroundGroveGameTests::groveBelowLandIsAllowed);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAVE_WATER_CHECK_CACHE_NEIGHBOURING_CHUNKS =
+            TEST_FUNCTIONS.register("cave_water_check_cache_neighbouring_chunks", () -> CaveWaterCheckCacheGameTests::neighbouringChunksReuseWaterAndDryDecisions);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAVE_WATER_CHECK_CACHE_SEPARATES_KEYS =
+            TEST_FUNCTIONS.register("cave_water_check_cache_separates_keys", () -> CaveWaterCheckCacheGameTests::separatesNoiseStateGeneratorRootRadiusAndHeightBounds);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAVE_WATER_CHECK_CACHE_OVERRIDDEN_UPPER_LIMIT =
+            TEST_FUNCTIONS.register("cave_water_check_cache_overridden_upper_limit", () -> CaveWaterCheckCacheGameTests::separatesAnOverriddenUpperLimitFromNominalHeight);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAVE_WATER_CHECK_CACHE_CONCURRENT =
+            TEST_FUNCTIONS.register("cave_water_check_cache_concurrent", () -> CaveWaterCheckCacheGameTests::concurrentChunkWorkersCalculateOneRootOnlyOnce);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAVE_WATER_CHECK_CACHE_FAILED_CALCULATION =
+            TEST_FUNCTIONS.register("cave_water_check_cache_failed_calculation", () -> CaveWaterCheckCacheGameTests::failedCalculationIsNotCachedOrWrapped);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CAVE_WATER_CHECK_CACHE_EVICTION =
+            TEST_FUNCTIONS.register("cave_water_check_cache_eviction", () -> CaveWaterCheckCacheGameTests::evictedRootsAreRecomputedWithoutChangingTheResult);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "map_item_resource_handler"));
         var curiosEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "curios_util"));
@@ -128,6 +146,14 @@ public class GameTestRegistry {
         registerTest(event, UNDERGROUND_GROVE_MIN_GROUND_THICKNESS, groveEnvironment, structure, 40, 0);
         registerTest(event, UNDERGROUND_GROVE_AT_COAST, groveEnvironment, structure, 40, 0);
         registerTest(event, UNDERGROUND_GROVE_BELOW_LAND, groveEnvironment, structure, 40, 0);
+
+        var caveWaterCheckCacheEnvironment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Occultism.MODID, "cave_water_check_cache"));
+        registerTest(event, CAVE_WATER_CHECK_CACHE_NEIGHBOURING_CHUNKS, caveWaterCheckCacheEnvironment, structure, 40, 0);
+        registerTest(event, CAVE_WATER_CHECK_CACHE_SEPARATES_KEYS, caveWaterCheckCacheEnvironment, structure, 40, 0);
+        registerTest(event, CAVE_WATER_CHECK_CACHE_OVERRIDDEN_UPPER_LIMIT, caveWaterCheckCacheEnvironment, structure, 40, 0);
+        registerTest(event, CAVE_WATER_CHECK_CACHE_CONCURRENT, caveWaterCheckCacheEnvironment, structure, 40, 0);
+        registerTest(event, CAVE_WATER_CHECK_CACHE_FAILED_CALCULATION, caveWaterCheckCacheEnvironment, structure, 40, 0);
+        registerTest(event, CAVE_WATER_CHECK_CACHE_EVICTION, caveWaterCheckCacheEnvironment, structure, 40, 0);
     }
 
     private static void registerTest(
