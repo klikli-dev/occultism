@@ -3276,6 +3276,7 @@
   "occultism.configuration.possibleSpiritNames": "Possible Spirit Names",
   "occultism.configuration.purpleChalkGlyphColor": "Purple Chalk Glyph Color",
   "occultism.configuration.rainTimeToCast": "Time to cast: Rain",
+  "occultism.configuration.recipeViewerDefaultSpiritName": "Default Spirit Name in Recipe Viewers",
   "occultism.configuration.redChalkGlyphColor": "Red Chalk Glyph Color",
   "occultism.configuration.ritualDurationMultiplier": "Multiplier to adjust the duration of all rituals.",
   "occultism.configuration.rituals": "Rituals Settings",
