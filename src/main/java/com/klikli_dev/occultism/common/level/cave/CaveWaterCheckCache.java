@@ -14,13 +14,13 @@ import net.minecraft.world.level.levelgen.RandomState;
 import java.util.function.BooleanSupplier;
 
 /** Reuses a deterministic water check when neighbouring chunks visit the same cave root. */
-final class CaveWaterCheckCache {
+public final class CaveWaterCheckCache {
     // Per random state, not per thread or per loaded chunk. Eviction only repeats the original calculation.
     private static final CaveWaterCheckCache INSTANCE = new CaveWaterCheckCache(4096);
     private final Cache<Object, Cache<Key, Boolean>> worlds = CacheBuilder.newBuilder().weakKeys().build();
     private final int maximumSize;
 
-    CaveWaterCheckCache(int maximumSize) {
+    public CaveWaterCheckCache(int maximumSize) {
         this.maximumSize = maximumSize;
     }
 
@@ -35,8 +35,8 @@ final class CaveWaterCheckCache {
                 () -> calculate(heightAccessor, generator, randomState, rootPosition, radius));
     }
 
-    boolean get(Object randomState, Object generator, long root, int radius, int minY, int height, int maxY,
-                BooleanSupplier calculation) {
+    public boolean get(Object randomState, Object generator, long root, int radius, int minY, int height, int maxY,
+                       BooleanSupplier calculation) {
         Cache<Key, Boolean> cache = this.worlds.asMap().computeIfAbsent(randomState,
                 ignored -> CacheBuilder.newBuilder().maximumSize(this.maximumSize).build());
         Key key = new Key(generator, root, radius, minY, height, maxY);
