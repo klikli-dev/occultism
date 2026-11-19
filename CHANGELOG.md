@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.266.0] - 2026-11-19
+### :sparkles: New Features
+- [`61f6f7b`](https://github.com/klikli-dev/occultism/commit/61f6f7bff211012a25083c2ab49e35d4f31ffb0e) - default spirit name for JEI ritual recipes *(PR [#1748](https://github.com/klikli-dev/occultism/pull/1748) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1742](https://github.com/klikli-dev/occultism/issues/1742) opened by [@MuhammedAKG](https://github.com/MuhammedAKG)*
+
+### :white_check_mark: Tests
+- [`303857a`](https://github.com/klikli-dev/occultism/commit/303857a0394e4a3fb862ecfe5e5496d2833857aa) - convert unit tests to gametests *(PR [#1745](https://github.com/klikli-dev/occultism/pull/1745) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6c0ef6b`](https://github.com/klikli-dev/occultism/commit/6c0ef6b5162fdf4c99311a94184866e686878bf1) - **deps**: bump neoforge to 26.1.2.126 and jei to 29.53.0.115 *(PR [#1747](https://github.com/klikli-dev/occultism/pull/1747) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.265.0] - 2026-11-16
 ### :sparkles: New Features
 - [`48d3790`](https://github.com/klikli-dev/occultism/commit/48d37908373a321b0a825600691360f0e7541ad6) - support dragging JEI ghost ingredients into filters *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3005,3 +3017,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.263.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.262.0...release/v26.1.2-1.263.0
 [release/v26.1.2-1.264.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.263.0...release/v26.1.2-1.264.0
 [release/v26.1.2-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.264.0...release/v26.1.2-1.265.0
+[release/v26.1.2-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.265.0...release/v26.1.2-1.266.0
