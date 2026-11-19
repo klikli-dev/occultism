@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.270.0] - 2026-11-19
+### :sparkles: New Features
+- [`21aea82`](https://github.com/klikli-dev/occultism/commit/21aea827c0f7d68b1bfbc10c997ba8541d20a3ee) - default spirit name for JEI ritual recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :white_check_mark: Tests
+- [`b01b668`](https://github.com/klikli-dev/occultism/commit/b01b668320a38f8c33000fa3c2a1dbbf7dcd5e18) - convert unit tests to gametests *(PR [#1746](https://github.com/klikli-dev/occultism/pull/1746) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.269.0] - 2026-11-16
 ### :sparkles: New Features
 - [`9c8a096`](https://github.com/klikli-dev/occultism/commit/9c8a096eb177c9903491519268d86de8b862b06d) - support dragging JEI ghost ingredients into filters *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3111,3 +3119,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.268.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.267.1...release/v26.3-1.268.0
 [release/v26.3-1.268.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.268.0...release/v26.3-1.268.1
 [release/v26.3-1.269.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.268.1...release/v26.3-1.269.0
+[release/v26.3-1.270.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.269.0...release/v26.3-1.270.0
