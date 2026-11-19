@@ -25,12 +25,14 @@ package com.klikli_dev.occultism.integration.jei.impl.recipes;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.client.render.MultiblockPreviewRenderer;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
@@ -59,6 +61,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.SlotDisplay.TagSlotDisplay;
 
@@ -67,6 +70,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<RitualRecipe>> {
+
+    private static final Identifier CRAFT_WITH_SPIRIT_NAME = Identifier.fromNamespaceAndPath(Occultism.MODID, "craft_with_spirit_name");
+    private static final Identifier CRAFT_MINER_SPIRIT = Identifier.fromNamespaceAndPath(Occultism.MODID, "craft_miner_spirit");
+    private static final Identifier UPGRADE = Identifier.fromNamespaceAndPath(Occultism.MODID, "upgrade");
 
     private final IDrawable background;
     private final IDrawable arrow;
@@ -141,9 +148,16 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RitualRecipe> recipe, IFocusGroup focuses) {
         this.recipeOutputOffsetX = 75;
 
+        String defaultSpiritName = Occultism.CLIENT_CONFIG.misc.recipeViewerDefaultSpiritName.get();
+        boolean useDefaultSpiritName = !defaultSpiritName.isBlank();
+
         //draw activation item on top of bowl
-        builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
-                .add(recipe.value().getActivationItem());
+        var activationSlot = builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5);
+        if (useDefaultSpiritName && this.containsBookOfBinding(recipe.value().getActivationItem())) {
+            activationSlot.addItemStacks(this.withSpiritName(recipe.value().getActivationItem(), defaultSpiritName));
+        } else {
+            activationSlot.add(recipe.value().getActivationItem());
+        }
 
         int sacrificialCircleRadius = 30;
         int sacricialBowlPaddingVertical = 20;
@@ -183,9 +197,14 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
         for (int i = 0; i < recipe.value().getIngredients().size(); i++) {
             Vec3i pos = sacrificialBowlPosition.get(i);
+            Ingredient ingredient = recipe.value().getIngredients().get(i);
 
-            builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
-                    .add(recipe.value().getIngredients().get(i));
+            var slot = builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5);
+            if (useDefaultSpiritName && this.containsBookOfBinding(ingredient)) {
+                slot.addItemStacks(this.withSpiritName(ingredient, defaultSpiritName));
+            } else {
+                slot.add(ingredient);
+            }
         }
 
         //ingredients: 0: recipe output, 1: ritual dummy item
@@ -193,8 +212,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         //draw recipe output on the left
         if (!recipe.value().getResult().isEmpty() && recipe.value().getResult().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
+            ItemStack result = recipe.value().getResult();
+            if (useDefaultSpiritName && this.inheritsSpiritName(recipe.value(), result)) {
+                result = result.copy();
+                ItemNBTUtil.setBoundSpiritName(result, defaultSpiritName);
+            }
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .add(recipe.value().getResult());
+                    .add(result);
         } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
@@ -266,6 +290,39 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             builder.addSlot(RecipeIngredientRole.INPUT, itemToUseX, itemToUseY)
                     .add(recipe.value().getItemToUse());
         }
+    }
+
+    /**
+     * Checks if the given ingredient contains a bound book of binding, which carries a spirit name.
+     */
+    private boolean containsBookOfBinding(Ingredient ingredient) {
+        return ingredient.items().anyMatch(holder -> holder.value() instanceof BookOfBindingBoundItem);
+    }
+
+    /**
+     * Converts the ingredient into item stacks, applying the given spirit name to all bound books of binding.
+     */
+    private List<ItemStack> withSpiritName(Ingredient ingredient, String spiritName) {
+        return ingredient.items().map(holder -> {
+            ItemStack stack = new ItemStack(holder);
+            if (stack.getItem() instanceof BookOfBindingBoundItem)
+                ItemNBTUtil.setBoundSpiritName(stack, spiritName);
+            return stack;
+        }).toList();
+    }
+
+    /**
+     * Checks if the result of the ritual inherits the spirit name of the book of binding used as activation item.
+     */
+    private boolean inheritsSpiritName(RitualRecipe recipe, ItemStack result) {
+        if (!this.containsBookOfBinding(recipe.getActivationItem()))
+            return false;
+
+        Identifier ritualType = recipe.getRitualType();
+        if (CRAFT_WITH_SPIRIT_NAME.equals(ritualType) || CRAFT_MINER_SPIRIT.equals(ritualType))
+            return true;
+
+        return UPGRADE.equals(ritualType) && result.has(OccultismDataComponents.SPIRIT_NAME);
     }
 
     @Override
