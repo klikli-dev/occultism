@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.266.1] - 2026-11-21
+### :bug: Bug Fixes
+- [`26e4f5b`](https://github.com/klikli-dev/occultism/commit/26e4f5b2aed0c6ffad1b41ff2326c238e1ace6c3) - apply default JEI spirit name to ritual inputs that inherit spirit names *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.266.0] - 2026-11-19
 ### :sparkles: New Features
 - [`61f6f7b`](https://github.com/klikli-dev/occultism/commit/61f6f7bff211012a25083c2ab49e35d4f31ffb0e) - default spirit name for JEI ritual recipes *(PR [#1748](https://github.com/klikli-dev/occultism/pull/1748) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3018,3 +3023,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.264.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.263.0...release/v26.1.2-1.264.0
 [release/v26.1.2-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.264.0...release/v26.1.2-1.265.0
 [release/v26.1.2-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.265.0...release/v26.1.2-1.266.0
+[release/v26.1.2-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.266.0...release/v26.1.2-1.266.1
