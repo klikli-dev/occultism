@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.270.2] - 2026-11-21
+### :bug: Bug Fixes
+- [`3f5ba5f`](https://github.com/klikli-dev/occultism/commit/3f5ba5f0a1714b31c33071e6495109337d400e4e) - apply default JEI spirit name to ritual inputs that inherit spirit names *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b25447b`](https://github.com/klikli-dev/occultism/commit/b25447b456dc0d5ec63a91d6951e9e867677b7d9) - **jei**: skip exploration map loot functions in battlefield display *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`9de94ba`](https://github.com/klikli-dev/occultism/commit/9de94ba80d8abaf4f5ebbc13423d6b8721de364a) - **jei**: only rebuild battlefield recipe cache on datapack reload *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`647e8cc`](https://github.com/klikli-dev/occultism/commit/647e8ccf8616dfca8d3243d38ccaaf0cb8a6f4bf) - **jei**: adapt battlefield loot handling to 26.3 loot entry API *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b3a29e4`](https://github.com/klikli-dev/occultism/commit/b3a29e495c90842d3633bad32306a96925f1884c) - **deps**: bump jei to 31.18.0.118 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.270.0] - 2026-11-19
 ### :sparkles: New Features
 - [`21aea82`](https://github.com/klikli-dev/occultism/commit/21aea827c0f7d68b1bfbc10c997ba8541d20a3ee) - default spirit name for JEI ritual recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3120,3 +3131,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.268.1]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.268.0...release/v26.3-1.268.1
 [release/v26.3-1.269.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.268.1...release/v26.3-1.269.0
 [release/v26.3-1.270.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.269.0...release/v26.3-1.270.0
+[release/v26.3-1.270.2]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.270.0...release/v26.3-1.270.2
