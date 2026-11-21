@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.266.2] - 2026-11-21
+### :bug: Bug Fixes
+- [`369beaf`](https://github.com/klikli-dev/occultism/commit/369beaf56883d5ef78d774b844f0b6f680fd60c4) - **jei**: skip exploration map loot functions in battlefield display *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`9ffb8b1`](https://github.com/klikli-dev/occultism/commit/9ffb8b16b3076bb2ecd639120e34db09d56a9c44) - **jei**: only rebuild battlefield recipe cache on datapack reload *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.266.1] - 2026-11-21
 ### :bug: Bug Fixes
 - [`26e4f5b`](https://github.com/klikli-dev/occultism/commit/26e4f5b2aed0c6ffad1b41ff2326c238e1ace6c3) - apply default JEI spirit name to ritual inputs that inherit spirit names *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3024,3 +3030,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.265.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.264.0...release/v26.1.2-1.265.0
 [release/v26.1.2-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.265.0...release/v26.1.2-1.266.0
 [release/v26.1.2-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.266.0...release/v26.1.2-1.266.1
+[release/v26.1.2-1.266.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.266.1...release/v26.1.2-1.266.2
