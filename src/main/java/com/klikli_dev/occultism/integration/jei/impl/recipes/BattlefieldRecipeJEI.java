@@ -32,8 +32,6 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctions;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
@@ -177,14 +175,15 @@ public class BattlefieldRecipeJEI {
      * Exploration maps search for world structures, which is far too expensive to do while building the JEI display.
      */
     private static boolean hasExplorationMap(LootItem lootItem) {
-        return lootItem.functions.stream().anyMatch(ExplorationMapFunction.class::isInstance);
+        return lootItem.modifier.map(function -> function.value() instanceof ExplorationMapFunction).orElse(false);
     }
 
     private static ItemStack createLootItemStack(LootItem lootItem, LootContext context) {
-        List<LootItemFunction> functions = lootItem.functions.stream()
-                .filter(function -> !(function instanceof ExplorationMapFunction))
-                .toList();
-        return LootItemFunctions.compose(functions).apply(new ItemStack(lootItem.item), context);
+        ItemStack stack = new ItemStack(lootItem.item);
+        return lootItem.modifier
+                .filter(function -> !(function.value() instanceof ExplorationMapFunction))
+                .map(function -> function.value().apply(stack, context))
+                .orElse(stack);
     }
 
     public static List<ItemStack> getSoulStack(LivingEntity entity, ItemStack soulSlot, List<ItemStack> fuelItems) {
