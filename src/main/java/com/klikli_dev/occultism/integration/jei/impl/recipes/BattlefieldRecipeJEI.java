@@ -78,8 +78,12 @@ public class BattlefieldRecipeJEI {
     }
 
     public static void reloadCache() {
-        cachedRecipes = null;
+        clearCache();
         generateServerRecipes();
+    }
+
+    public static void clearCache() {
+        cachedRecipes = null;
     }
 
     public static List<ItemStack> getInput(EntityType<?> entityType, ServerLevel level) {

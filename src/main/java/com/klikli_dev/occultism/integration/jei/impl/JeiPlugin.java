@@ -55,6 +55,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,7 +188,9 @@ public class JeiPlugin implements IModPlugin {
     public static class ServerRecipeSync {
         @SubscribeEvent
         public static void onDatapackSync(OnDatapackSyncEvent event) {
-            BattlefieldRecipeJEI.reloadCache();
+            if (event.getPlayer() == null) {
+                BattlefieldRecipeJEI.reloadCache();
+            }
             List<BattlefieldRecipeJEI> battlefieldRecipes = BattlefieldRecipeJEI.generateServerRecipes();
             event.getRelevantPlayers()
                     .filter(player -> player.connection.getConnectionType().isNeoForge())
@@ -200,6 +203,11 @@ public class JeiPlugin implements IModPlugin {
                     OccultismRecipes.MINER_TYPE.get(),
                     OccultismRecipes.RITUAL_TYPE.get()
             );
+        }
+
+        @SubscribeEvent
+        public static void onServerStopped(ServerStoppedEvent event) {
+            BattlefieldRecipeJEI.clearCache();
         }
     }
 
