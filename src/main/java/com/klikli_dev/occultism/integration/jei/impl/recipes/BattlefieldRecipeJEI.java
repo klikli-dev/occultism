@@ -29,7 +29,11 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctions;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
@@ -141,18 +145,42 @@ public class BattlefieldRecipeJEI {
         LootContext context = new LootContext.Builder(lootParams).create(Optional.empty());
         for (LootPool pool : lootTable.pools) {
             for (LootPoolEntryContainer entryContainer : pool.entries) {
-                entryContainer.expand(context, entry -> entry.createItemStack(item -> {
-                    item.setCount(1);
-                    if (!item.isEmpty() && !item.is(OccultismTags.Items.BATTLEFIELD_DENY_LIST)) {
-                        items.add(item.copy());
+                try {
+                    if (entryContainer instanceof LootItem lootItem && hasExplorationMap(lootItem)) {
+                        lootItem.expand(context, entry -> addDrop(items, createLootItemStack(lootItem, context)));
+                    } else {
+                        entryContainer.expand(context, entry -> entry.createItemStack(item -> addDrop(items, item), context));
                     }
-                }, context));
+                } catch (RuntimeException e) {
+                    Occultism.LOGGER.debug("Failed to evaluate loot entry for battlefield recipe display of {}", entityType, e);
+                }
             }
         }
         if (entity instanceof LivingEntity living &&  living.getExperienceReward(level, killerEntity) > 0)
             items.add(new ItemStack(Items.EXPERIENCE_BOTTLE));
 
         return items;
+    }
+
+    private static void addDrop(List<ItemStack> items, ItemStack item) {
+        item.setCount(1);
+        if (!item.isEmpty() && !item.is(OccultismTags.Items.BATTLEFIELD_DENY_LIST)) {
+            items.add(item.copy());
+        }
+    }
+
+    /**
+     * Exploration maps search for world structures, which is far too expensive to do while building the JEI display.
+     */
+    private static boolean hasExplorationMap(LootItem lootItem) {
+        return lootItem.functions.stream().anyMatch(ExplorationMapFunction.class::isInstance);
+    }
+
+    private static ItemStack createLootItemStack(LootItem lootItem, LootContext context) {
+        List<LootItemFunction> functions = lootItem.functions.stream()
+                .filter(function -> !(function instanceof ExplorationMapFunction))
+                .toList();
+        return LootItemFunctions.compose(functions).apply(new ItemStack(lootItem.item), context);
     }
 
     public static List<ItemStack> getSoulStack(LivingEntity entity, ItemStack soulSlot, List<ItemStack> fuelItems) {
