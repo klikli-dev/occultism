@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.3-1.270.3] - 2026-11-23
+### :bug: Bug Fixes
+- [`552fa13`](https://github.com/klikli-dev/occultism/commit/552fa1313fb55c6906b568e02ea8dc6ec411efbf) - only sync network data in networked block entity update tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.3-1.270.2] - 2026-11-21
 ### :bug: Bug Fixes
 - [`3f5ba5f`](https://github.com/klikli-dev/occultism/commit/3f5ba5f0a1714b31c33071e6495109337d400e4e) - apply default JEI spirit name to ritual inputs that inherit spirit names *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3132,3 +3137,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.3-1.269.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.268.1...release/v26.3-1.269.0
 [release/v26.3-1.270.0]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.269.0...release/v26.3-1.270.0
 [release/v26.3-1.270.2]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.270.0...release/v26.3-1.270.2
+[release/v26.3-1.270.3]: https://github.com/klikli-dev/occultism/compare/release/v26.3-1.270.2...release/v26.3-1.270.3
