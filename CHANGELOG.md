@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.266.3] - 2026-11-23
+### :bug: Bug Fixes
+- [`31b1265`](https://github.com/klikli-dev/occultism/commit/31b12652aa122fb795c84664700aa8df84c72bdf) - only sync network data in networked block entity update tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.2-1.266.2] - 2026-11-21
 ### :bug: Bug Fixes
 - [`369beaf`](https://github.com/klikli-dev/occultism/commit/369beaf56883d5ef78d774b844f0b6f680fd60c4) - **jei**: skip exploration map loot functions in battlefield display *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -3031,3 +3036,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1.2-1.266.0]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.265.0...release/v26.1.2-1.266.0
 [release/v26.1.2-1.266.1]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.266.0...release/v26.1.2-1.266.1
 [release/v26.1.2-1.266.2]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.266.1...release/v26.1.2-1.266.2
+[release/v26.1.2-1.266.3]: https://github.com/klikli-dev/occultism/compare/release/v26.1.2-1.266.2...release/v26.1.2-1.266.3
